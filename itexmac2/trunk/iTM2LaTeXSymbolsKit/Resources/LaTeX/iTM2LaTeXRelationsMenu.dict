@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\leq </string>
+		<string>\geq </string>
+		<string>\equiv </string>
+		<string>\models </string>
+		<string>\prec </string>
+		<string>\succ </string>
+		<string>\sim </string>
+		<string>\perp </string>
+		<string>\preceq </string>
+		<string>\succeq </string>
+		<string>\simeq </string>
+		<string>\mid </string>
+		<string>\ll </string>
+		<string>\gg </string>
+		<string>\asymp </string>
+		<string>\parallel </string>
+		<string>\subset </string>
+		<string>\supset </string>
+		<string>\approx </string>
+		<string>\bowtie </string>
+		<string>\subseteq </string>
+		<string>\supseteq </string>
+		<string>\cong </string>
+		<string>\propto </string>
+		<string>\sqsubseteq </string>
+		<string>\sqsupseteq </string>
+		<string>\doteq </string>
+		<string>\frown </string>
+		<string>\vdash </string>
+		<string>\dashv </string>
+		<string>\neq </string>
+		<string>\smile </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

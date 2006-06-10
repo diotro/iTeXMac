@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TEXMFOUTPUT.unused</key>
+	<string></string>
+	<key>TEXINPUTS.unused</key>
+	<string></string>
+	<key>TEXFORMATS.unused</key>
+	<string></string>
+	<key>TFMFONTS.unused</key>
+	<string></string>
+	<key>TEXPOOL.unused</key>
+	<string></string>
+	<key>TEXMFMAIN.unused</key>
+	<string></string>
+	<key>TEXEDIT</key>
+	<string>iTeXMac2 edit -line %d -file "%s"</string>
+	<key>TEX.unused</key>
+	<string></string>
+	<key>TROFF.unused</key>
+	<string></string>
+	<key>BIBINPUTS.unused</key>
+	<string></string>
+	<key>BSTINPUTS.unused</key>
+	<string></string>
+	<key>MPINPUTS.unused</key>
+	<string></string>
+	<key>MFINPUTS.unused</key>
+	<string></string>
+	<key>MPSUPPORT.unused</key>
+	<string></string>
+	<key>MPXCOMMAND.unused</key>
+	<string></string>
+	<key>MPEDIT</key>
+	<string>iTeXMac2 edit -line %d -file "%s"</string>
+</dict>
+</plist>

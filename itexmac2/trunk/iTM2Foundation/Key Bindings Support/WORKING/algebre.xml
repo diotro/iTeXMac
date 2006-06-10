@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LIST>
+	<action KEY="A">applications lin{\'e}aires</ACTION>
+	<ACTION KEY="F">de dimensions finies</ACTION>
+	<ACTION KEY="G">g{\'e}n{\'e}ratrice</ACTION>
+	<ACTION KEY="V">espaces vectoriels</ACTION>
+	<ACTION KEY="W">espaces vectoriels euclidiens</ACTION>
+	<ACTION KEY="a">application lin{\'e}aire</ACTION>
+	<ACTION KEY="c">coefficient</ACTION>
+	<ACTION KEY="d">d{\'e}terminant</ACTION>
+	<ACTION KEY="e">endorphisme</ACTION>
+	<ACTION KEY="f">de dimension finie</ACTION>
+	<ACTION KEY="g">g{\'e}n{\'e}rateur</ACTION>
+	<ACTION KEY="h">homomorphisme</ACTION>
+	<ACTION KEY="i">isomorphisme</ACTION>
+	<ACTION KEY="k">noyau</ACTION>
+	<ACTION KEY="m">morphisme</ACTION>
+	<ACTION KEY="n">nilpotent</ACTION>
+	<ACTION KEY="p">polyn{\^o}me</ACTION>
+	<ACTION KEY="s">suppl{\'e}mentaire</ACTION>
+	<ACTION KEY="v">espace vectoriel</ACTION>
+	<ACTION KEY="w">espace vectoriel euclidien</ACTION>
+	<ACTION KEY="~V">sous-espaces vectoriels </ACTION>
+	<ACTION KEY="~a">alg{\`e}bre</ACTION>
+	<ACTION KEY="~c">caract{\'e}ristique</ACTION>
+	<ACTION KEY="~d">diagonalisable</ACTION>
+	<ACTION KEY="~g">sous-groupe</ACTION>
+	<ACTION KEY="~v">sous-espace vectoriel</ACTION>
+</LIST>

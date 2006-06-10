@@ -1,0 +1,29 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                editVariant = id; 
+                newVariant = id; 
+                popUpStyle = id; 
+                popUpVariant = id; 
+                removeVariant = id; 
+            }; 
+            CLASS = iTM2TextStyleEditor; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {sampleTextView = NSTextView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {
+                defaultColor = id; 
+                modeEdited = id; 
+                popUpToggleAttributesMode = id; 
+                toggleCursorIsWhite = id; 
+            }; 
+            CLASS = iTM2TextStyleTextView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSTextView; 
+        }
+    ); 
+    IBVersion = 1; 
+}

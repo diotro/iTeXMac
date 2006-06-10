@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array/>
+	<key>CFBundleExecutable</key>
+	<string>External PDF Inspector</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string>comp.text.tex.iTeXMac2.External_PDF_Inspector</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string></string>
+	<key>CFBundleSignature</key>
+	<string>i™ac</string>
+	<key>CFBundleVersion</key>
+	<string>1.0.0d1</string>
+	<key>iTM2ExternalDocumentClass</key>
+	<string>iTM2PDFDocument</string>
+	<key>iTM2ExternalInspectorCommand</key>
+	<string>command</string>
+	<key>iTM2ExternalInspectorVariant</key>
+	<string>Preview</string>
+</dict>
+</plist>

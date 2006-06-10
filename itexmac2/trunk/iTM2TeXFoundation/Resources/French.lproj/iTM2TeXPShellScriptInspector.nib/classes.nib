@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                OK = id; 
+                cancel = id; 
+                editLabel = id; 
+                editShell = id; 
+                insertSpecialEnvironmentVariable = id; 
+            }; 
+            CLASS = iTM2TeXPShellScriptInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {textView = NSTextView; }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

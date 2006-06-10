@@ -1,0 +1,145 @@
+#!/bin/bash
+# this is iTM2_Command_Compile for iTeXMac2 1.4
+# © 2004 jlaurens@users.sourceforge.net
+iTM2_Compile_version="1.0"
+iTM2_COMPILE_USAGE="This is iTeXMac2 compile switcher version $iTM2_Compile_version
+© 2005 jlaurens@users.sourceforge.net
+Usage: `basename "$0"` options input where options are
+       -h, --help: print this message and return.
+       -m master, --master master: master is the name of the main input file.
+	   -s extension, --switch extension
+       -q, --quiet: runs silently.
+Branch to the iTM2_Compile_XXX where XXX is the file extension of the given master document or when absent the switch extension.
+At least a TWSMaster shell environment variable must contain the master file name if not given through the command line."
+iTM2_Compile_RunSilently="${iTM2_RunSilently}"
+while [ $# -gt 0 ]
+do
+	case $1 in
+		-h|--help)
+			"${iTM2_CMD_Notify}" echo "$iTM2_COMPILE_USAGE"
+			exit
+		;;
+		-m|--master)
+                        shift 1
+                        if [ $# -gt 0 ]
+                        then
+							iTM2_Compile_Master="$1"
+                        else
+							"${iTM2_CMD_Notify}" echo "Missing a master document"
+							"${iTM2_CMD_Notify}" echo "$iTM2_COMPILE_USAGE"
+							exit 1
+                        fi
+		;;
+		-s|--switch)
+                        shift 1
+                        if [ $# -gt 0 ]
+                        then
+							iTM2_Compile_Swicth="$1"
+                        else
+							"${iTM2_CMD_Notify}" echo "Missing a switcher document"
+							"${iTM2_CMD_Notify}" echo "$iTM2_COMPILE_USAGE"
+							exit 2
+                        fi
+		;;
+		-q|--quiet)
+			iTM2_Compile_RunSilently="YES"
+		;;
+		*)
+            "${iTM2_CMD_Notify}" echo "Unknown option..."
+			"${iTM2_CMD_Notify}" echo "$iTM2_COMPILE_USAGE"
+			exit 3
+	esac
+	shift 1
+done
+if [ ${#iTM2_Compile_Master} -eq 0 ]
+then
+    iTM2_Compile_Master="${TWSMaster}"
+fi
+iTM2_Old_Master="${TWSMaster}"
+TWSMaster="${iTM2_Compile_Master}"
+if [ "${iTM2_Compile_RunSilently:-1}" -eq 0 ]
+then
+        "${iTM2_CMD_Notify}" echo "Welcome to iTeXMac2 compile switcher `basename "$0"` version $iTM2_Compile_version
+This is the built in shell script to compile
+© 2005 jlaurens@users.sourceforge.net
+compiling $iTM2_Compile_Master ($iTM2_Compile_Master)"
+fi
+pushd "`dirname "${iTM2_Compile_Master}"`"
+iTM2_Compile_INPUT_Directory="${PWD}"
+popd
+iTM2_Compile_INPUT="`basename "${iTM2_Compile_Master}"`"
+iTM2_Compile_Extension="${iTM2_Compile_INPUT##*.}"
+if [ "${iTM2_Compile_Extension}" == "${iTM2_Compile_INPUT}" ]
+then
+	iTM2_Compile_Extension="${iTM2_Compile_Swicth}"
+	if [ ${#iTM2_Compile_Extension} -eq 0 ]
+	then
+		"${iTM2_CMD_Notify}" error  "Missing a master file name with an extension, or an extension switcher...
+Did you give your project a master file?
+$iTM2_COMPILE_USAGE"
+		exit 5
+	fi
+fi
+iTM2_Compile_Engine="iTM2_Compile_${iTM2_Compile_Extension}"
+iTM2_Compile_Wrapped="${!iTM2_Compile_Engine}"
+# the iTM2_Compile_Engine now contains the name of the environment variable that knows the command to launch
+iTM2_Compile_EnginePath="`which "${iTM2_Compile_Wrapped}"`"
+# the iTM2_Compile_EnginePath now contains the full path of the command to launch, or something weird if there is no command
+if [ ! -x "${iTM2_Compile_EnginePath}" ]
+then
+	"${iTM2_CMD_Notify}" echo "pwd is `pwd`"
+	"${iTM2_CMD_Notify}" echo "PATH is ${PATH}"
+	"${iTM2_CMD_Notify}" echo "Looking for ${iTM2_Compile_Wrapped}"
+	oldIFS="$IFS"
+	IFS=":"
+	# there were an error concerning a missing 'x' flag
+	for COMPONENT in ${PATH}
+	do
+		if [ ${#COMPONENT} -gt 0 ]
+		then
+			iTM2_Compile_EnginePath="${COMPONENT}/${iTM2_Compile_Wrapped}"
+"${iTM2_CMD_Notify}" echo "Testing ${iTM2_Compile_EnginePath}"
+			if [ -x "${iTM2_Compile_EnginePath}" ] && ! [ -d "${iTM2_Compile_EnginePath}" ]
+			then
+				break
+			elif [ -e "${iTM2_Compile_EnginePath}" ]
+			then
+				"${iTM2_CMD_Notify}" error "${iTM2_Compile_EnginePath} should really be executable, report BUG!"
+				exit 1
+			else
+				iTM2_Compile_EnginePath=""
+			fi
+		fi
+	done
+	IFS="$oldIFS"
+fi
+if [ ${#iTM2_Compile_EnginePath} -gt 0 ]
+then
+        if [ "${iTM2_Compile_RunSilently:-1}" -eq 0 ]
+        then
+			"${iTM2_CMD_Notify}" echo "switching to ${iTM2_Compile_EnginePath}"
+        fi
+        "${iTM2_Compile_EnginePath}"
+else
+		"${iTM2_CMD_Notify}" error "Could not manage the extension ${iTM2_Compile_Extension}, no switcher found."
+		"${iTM2_CMD_Notify}" error "Go to the project settings panel, select advanced settings and the compile tab view."
+		"${iTM2_CMD_Notify}" error "Select the ${iTM2_Compile_Extension} file extension and choose an appropriate action."
+		"${iTM2_CMD_Notify}" error "For exotic extension (not listed), define your own iTM2_Compile_${iTM2_Compile_Extension} command."
+		oldIFS="$IFS"
+		IFS=":"
+		for COMPONENT in ${PATH}
+		do
+			if [ ${#COMPONENT} -gt 0 ]
+			then
+				"${iTM2_CMD_Notify}" echo "Available files at ${COMPONENT} are"
+				ls -1 "${COMPONENT}"
+			fi
+		done
+		exit 1
+fi
+TWSMaster="${iTM2_Old_Master}"
+if [ "${iTM2_Compile_RunSilently:-1}" -eq 0 ]
+then
+        "${iTM2_CMD_Notify}" echo "The built in compile switcher ends with `basename "$0"` complete"
+fi
+exit 0

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\mathfrak{__(SEL)__}</string>
+		<string>noop:</string>
+		<string>\mathfrak{a}</string>
+		<string>\mathfrak{b}</string>
+		<string>\mathfrak{c}</string>
+		<string>\mathfrak{d}</string>
+		<string>\mathfrak{e}</string>
+		<string>\mathfrak{f}</string>
+		<string>\mathfrak{g}</string>
+		<string>\mathfrak{h}</string>
+		<string>\mathfrak{i}</string>
+		<string>\mathfrak{j}</string>
+		<string>\mathfrak{k}</string>
+		<string>\mathfrak{l}</string>
+		<string>\mathfrak{m}</string>
+		<string>\mathfrak{n}</string>
+		<string>\mathfrak{o}</string>
+		<string>\mathfrak{p}</string>
+		<string>\mathfrak{q}</string>
+		<string>\mathfrak{r}</string>
+		<string>\mathfrak{s}</string>
+		<string>\mathfrak{t}</string>
+		<string>\mathfrak{u}</string>
+		<string>\mathfrak{v}</string>
+		<string>\mathfrak{w}</string>
+		<string>\mathfrak{x}</string>
+		<string>\mathfrak{y}</string>
+		<string>\mathfrak{z}</string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

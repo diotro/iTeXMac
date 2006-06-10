@@ -1,0 +1,13 @@
+{
+    IBClasses = (
+        {CLASS = iTM2MixedButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {
+            ACTIONS = {showHTMLHelp = id; }; 
+            CLASS = iTM2TeXMFController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {FAQsButton = id; docButton = id; }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,1694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>iTM2ConTeXtKit.framework</ProjName>
+
+<!--                                                     -->
+<!--    iTM2ConTeXtKit.framework/../InfoPlist.strings    -->
+<!--                                                     -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/InfoPlist.strings</Filepath>
+
+<TextItem>
+<Description> Localized versions of Info.plist keys </Description>
+<Position>CFBundleName</Position>
+<TranslationSet>
+
+	<base loc="en"          >iTM2PDFKit</base>
+	<tran loc="fr" origin="">iTeXMac2 PDF Kit</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>NSHumanReadableCopyright</Position>
+<TranslationSet>
+
+	<base loc="en"          >© __MyCompanyName__, 2005</base>
+	<tran loc="fr" origin="">© Laurens&apos;Tribune, 2006</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                     -->
+<!--    iTM2ConTeXtKit.framework/../Inspector.strings    -->
+<!--                                                     -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/Inspector.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXt Mode</Position>
+<TranslationSet>
+
+	<base loc="en"          >ConTeXt</base>
+	<tran loc="fr" origin="">ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>iTM2ConTeXtParserAttributes</Position>
+<TranslationSet>
+
+	<base loc="en"          >ConTeXt Syntax Attributes</base>
+	<tran loc="fr" origin="">Attributs de syntaxe ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>iTM2XtdConTeXtParserAttributes</Position>
+<TranslationSet>
+
+	<base loc="en"          >Advanced ConTeXt Syntax Attributes</base>
+	<tran loc="fr" origin="">Attributs avancés de syntaxe ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                   -->
+<!--    iTM2ConTeXtKit.framework/../Toolbar.strings    -->
+<!--                                                   -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/Toolbar.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>?Label</Position>
+<TranslationSet>
+
+	<base loc="en"                                         ></base>
+	<tran loc="fr" origin="Default Names List matched text"></tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>?PaletteLabel</Position>
+<TranslationSet>
+
+	<base loc="en"                                         ></base>
+	<tran loc="fr" origin="Default Names List matched text"></tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>?ToolTip</Position>
+<TranslationSet>
+
+	<base loc="en"                                         ></base>
+	<tran loc="fr" origin="Default Names List matched text"></tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtAtGardenLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Garden</base>
+	<tran loc="fr" origin="">Garden</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtAtGardenPaletteLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Context Garden</base>
+	<tran loc="fr" origin="">Context Garden</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtAtGardenToolTip</Position>
+<TranslationSet>
+
+	<base loc="en"          >Connect to the Context Garden Garden</base>
+	<tran loc="fr" origin="">Se connecter au Context Garden</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtAtPragmaADELabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >WEB</base>
+	<tran loc="fr" origin="">WEB</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtAtPragmaADEPaletteLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Connect to ConTeXt</base>
+	<tran loc="fr" origin="">Connection à ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtAtPragmaADEToolTip</Position>
+<TranslationSet>
+
+	<base loc="en"          >Connect to the ConTeXt main web site</base>
+	<tran loc="fr" origin="">Se connecter au site principal ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtLabelLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Label</base>
+	<tran loc="fr" origin="">Étiquette</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtLabelPaletteLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Label</base>
+	<tran loc="fr" origin="">Étiquette</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtLabelToolTip</Position>
+<TranslationSet>
+
+	<base loc="en"          >Label</base>
+	<tran loc="fr" origin="">Étiquette</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtManualsLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Manuals</base>
+	<tran loc="fr" origin="">Manuels</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtManualsPaletteLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Manuals</base>
+	<tran loc="fr" origin="">Manuels</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtManualsToolTip</Position>
+<TranslationSet>
+
+	<base loc="en"          >See ConTeXt manuals</base>
+	<tran loc="fr" origin="">Voir les manuels ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtSectionLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Section</base>
+	<tran loc="fr" origin="">Section</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtSectionPaletteLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Section</base>
+	<tran loc="fr" origin="">Section</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ConTeXtSectionToolTip</Position>
+<TranslationSet>
+
+	<base loc="en"          >Section</base>
+	<tran loc="fr" origin="">Section</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                    -->
+<!--    iTM2ConTeXtKit.framework/../iTM2ConTeXtInspector.nib.strings    -->
+<!--                                                                    -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/iTM2ConTeXtInspector.nib.strings</Filepath>
+
+<TextItem>
+<Description> iTM2ConTeXtWindow (Window) : &lt;title:Window&gt; (oid:5) </Description>
+<Position>5</Position>
+<TranslationSet>
+
+	<base loc="en"          >Window</base>
+	<tran loc="fr" origin="">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:81) </Description>
+<Position>81</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item2&gt; (oid:83) </Description>
+<Position>83</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item2</base>
+	<tran loc="fr" origin="Default Names List matched text">Item2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item3&gt; (oid:84) </Description>
+<Position>84</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item3</base>
+	<tran loc="fr" origin="Default Names List matched text">Item3</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:86) </Description>
+<Position>86</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item3&gt; (oid:87) </Description>
+<Position>87</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item3</base>
+	<tran loc="fr" origin="Default Names List matched text">Item3</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item2&gt; (oid:89) </Description>
+<Position>89</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item2</base>
+	<tran loc="fr" origin="Default Names List matched text">Item2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:91) </Description>
+<Position>91</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item3&gt; (oid:92) </Description>
+<Position>92</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item3</base>
+	<tran loc="fr" origin="Default Names List matched text">Item3</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item2&gt; (oid:93) </Description>
+<Position>93</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item2</base>
+	<tran loc="fr" origin="Default Names List matched text">Item2</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                    -->
+<!--    iTM2ConTeXtKit.framework/../iTM2ConTeXtLabelMenu.nib.strings    -->
+<!--                                                                    -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/iTM2ConTeXtLabelMenu.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Menu&gt; (oid:102) </Description>
+<Position>102</Position>
+<TranslationSet>
+
+	<base loc="en"          >Menu</base>
+	<tran loc="fr" origin="">Menu</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Label&gt; (oid:103) </Description>
+<Position>103</Position>
+<TranslationSet>
+
+	<base loc="en"          >Label</base>
+	<tran loc="fr" origin="">Étiquette</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Go To&gt; (oid:126) </Description>
+<Position>126</Position>
+<TranslationSet>
+
+	<base loc="en"          >Go To</base>
+	<tran loc="fr" origin="">Aller à</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Reference&gt; (oid:139) </Description>
+<Position>139</Position>
+<TranslationSet>
+
+	<base loc="en"          >Reference</base>
+	<tran loc="fr" origin="">Références</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Equation Ref.&gt; (oid:141) </Description>
+<Position>141</Position>
+<TranslationSet>
+
+	<base loc="en"          >Equation Ref.</base>
+	<tran loc="fr" origin="">Référence d&apos;équation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Known Ref.&gt; (oid:143) </Description>
+<Position>143</Position>
+<TranslationSet>
+
+	<base loc="en"          >Known Ref.</base>
+	<tran loc="fr" origin="">Référence connue</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Reference&gt; (oid:154) </Description>
+<Position>154</Position>
+<TranslationSet>
+
+	<base loc="en"          >Reference</base>
+	<tran loc="fr" origin="">Référence</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Labels &amp; References&gt; (oid:172) </Description>
+<Position>172</Position>
+<TranslationSet>
+
+	<base loc="en"          >Labels &amp; References</base>
+	<tran loc="fr" origin="">Étiquettes et Références</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Insert&gt; (oid:173) </Description>
+<Position>173</Position>
+<TranslationSet>
+
+	<base loc="en"          >Insert</base>
+	<tran loc="fr" origin="">Insertion</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Label&gt; (oid:175) </Description>
+<Position>175</Position>
+<TranslationSet>
+
+	<base loc="en"          >Label</base>
+	<tran loc="fr" origin="">Étiquette</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                              -->
+<!--    iTM2ConTeXtKit.framework/../iTM2ConTeXtManuals.strings    -->
+<!--                                                              -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/iTM2ConTeXtManuals.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>10-10-95</Position>
+<TranslationSet>
+
+	<base loc="en"          >Elektronisch papier, de voortzetting van een traditie</base>
+	<tran loc="fr" origin="">Elektronisch papier, de voortzetting van een traditie</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>aleph</Position>
+<TranslationSet>
+
+	<base loc="en"          >Aleph</base>
+	<tran loc="fr" origin="">Aleph</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>calculat</Position>
+<TranslationSet>
+
+	<base loc="en"          >calculator</base>
+	<tran loc="fr" origin="">calculatrice</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>columns</Position>
+<TranslationSet>
+
+	<base loc="en"          >Extreme</base>
+	<tran loc="fr" origin="">Extreme</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>cont-enp</Position>
+<TranslationSet>
+
+	<base loc="en"          >The Manual</base>
+	<tran loc="fr" origin="">Le Manuel</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>cont-nlp</Position>
+<TranslationSet>
+
+	<base loc="en"          >The Manual</base>
+	<tran loc="fr" origin="">Le Manuel</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>cweb-scr</Position>
+<TranslationSet>
+
+	<base loc="en"          >cweb</base>
+	<tran loc="fr" origin="">cweb</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>details</Position>
+<TranslationSet>
+
+	<base loc="en"          >It&apos;s in the details</base>
+	<tran loc="fr" origin="">C&apos;est dans les détails</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ex-ample</Position>
+<TranslationSet>
+
+	<base loc="en"          >Example Interface</base>
+	<tran loc="fr" origin="">Exemple d&apos;Interface</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ex-files</Position>
+<TranslationSet>
+
+	<base loc="en"          >ex-files</base>
+	<tran loc="fr" origin="">ex-files</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ex-gui</Position>
+<TranslationSet>
+
+	<base loc="en"          >Example GUI</base>
+	<tran loc="fr" origin="">Exemple d&apos;IUG</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>ex-imple</Position>
+<TranslationSet>
+
+	<base loc="en"          >Eximple Toolkit</base>
+	<tran loc="fr" origin="">Kit d&apos;outils Eximple</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>example</Position>
+<TranslationSet>
+
+	<base loc="en"          >XML</base>
+	<tran loc="fr" origin="">XML</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>fifteen</Position>
+<TranslationSet>
+
+	<base loc="en"          >Dante XV</base>
+	<tran loc="fr" origin="">Dante XV</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>fontspecial-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >Font Sampler</base>
+	<tran loc="fr" origin="">Échantillonneur de police</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>gw-s</Position>
+<TranslationSet>
+
+	<base loc="en"          >the Dutch constitution</base>
+	<tran loc="fr" origin="">La constitution néerlandaise</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>johan</Position>
+<TranslationSet>
+
+	<base loc="en"          >Johan drawing</base>
+	<tran loc="fr" origin="">Dessin de Johan</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0000</Position>
+<TranslationSet>
+
+	<base loc="en"          >introduction</base>
+	<tran loc="fr" origin="">introduction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0001</Position>
+<TranslationSet>
+
+	<base loc="en"          >hiding parts of section titles</base>
+	<tran loc="fr" origin="">Cacher des parties de titres de section</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0002</Position>
+<TranslationSet>
+
+	<base loc="en"          >page ranges</base>
+	<tran loc="fr" origin="">étendue de pages</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0003</Position>
+<TranslationSet>
+
+	<base loc="en"          >pasting digits together</base>
+	<tran loc="fr" origin="">Coller des chiffres ensemble</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0004</Position>
+<TranslationSet>
+
+	<base loc="en"          >manipulating the foreground</base>
+	<tran loc="fr" origin="">manipuler le premier plan</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0005</Position>
+<TranslationSet>
+
+	<base loc="en"          >mixed normal and bold math</base>
+	<tran loc="fr" origin="">mélanger normal et gras en math</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0006</Position>
+<TranslationSet>
+
+	<base loc="en"          >a few dangerous features</base>
+	<tran loc="fr" origin="">quelques dispositifs dangereux</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0007</Position>
+<TranslationSet>
+
+	<base loc="en"          >faking text and more</base>
+	<tran loc="fr" origin="">trucage de texte et plus</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0008</Position>
+<TranslationSet>
+
+	<base loc="en"          >dealing with XML</base>
+	<tran loc="fr" origin="">traiter avec XML</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0009</Position>
+<TranslationSet>
+
+	<base loc="en"          >using platform fonts</base>
+	<tran loc="fr" origin="">employer des polices de plateforme</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mag-0010</Position>
+<TranslationSet>
+
+	<base loc="en"          >good looking shapes</base>
+	<tran loc="fr" origin="">formes agréables à regarder</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>maps</Position>
+<TranslationSet>
+
+	<base loc="en"          >ntg-maps</base>
+	<tran loc="fr" origin="">ntg-maps</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mchart</Position>
+<TranslationSet>
+
+	<base loc="en"          >Charts</base>
+	<tran loc="fr" origin="">Diagrammes</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mchinese</Position>
+<TranslationSet>
+
+	<base loc="en"          >Chinese</base>
+	<tran loc="fr" origin="">Chinois</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mediashow</Position>
+<TranslationSet>
+
+	<base loc="en"          >mediashow</base>
+	<tran loc="fr" origin="">présentation media</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>metafun-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaFun</base>
+	<tran loc="fr" origin="">MetaFun</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mfonts</Position>
+<TranslationSet>
+
+	<base loc="en"          >Fonts</base>
+	<tran loc="fr" origin="">Polices</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>minstall</Position>
+<TranslationSet>
+
+	<base loc="en"          >Installation</base>
+	<tran loc="fr" origin="">Installation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mlabels</Position>
+<TranslationSet>
+
+	<base loc="en"          >Labels</base>
+	<tran loc="fr" origin="">Étiquette</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mmakempy</Position>
+<TranslationSet>
+
+	<base loc="en"          >METAPOST outlines</base>
+	<tran loc="fr" origin="">Contours METAPOST</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mmlprime</Position>
+<TranslationSet>
+
+	<base loc="en"          >MathML</base>
+	<tran loc="fr" origin="">MathML</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mmodes</Position>
+<TranslationSet>
+
+	<base loc="en"          >Modes</base>
+	<tran loc="fr" origin="">Modes</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mp-cb-en</Position>
+<TranslationSet>
+
+	<base loc="en"          >CONTEXT, an excursion</base>
+	<tran loc="fr" origin="">ConTeXt, une excursion (english)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mp-cb-nl</Position>
+<TranslationSet>
+
+	<base loc="en"          >CONTEXT, een rondleiding</base>
+	<tran loc="fr" origin="">ConTeXt, une excursion (néerlandais)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mp-ch-de</Position>
+<TranslationSet>
+
+	<base loc="en"          >Chemistry</base>
+	<tran loc="fr" origin="">Chimie</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mp-ch-en</Position>
+<TranslationSet>
+
+	<base loc="en"          >Chemistry</base>
+	<tran loc="fr" origin="">Chimie</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mp-ch-nl</Position>
+<TranslationSet>
+
+	<base loc="en"          >Chemistry</base>
+	<tran loc="fr" origin="">Chimie</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mpattern</Position>
+<TranslationSet>
+
+	<base loc="en"          >Hyphenation Patterns</base>
+	<tran loc="fr" origin="">Motifs de césure</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mpstopdf</Position>
+<TranslationSet>
+
+	<base loc="en"          >Weaving PS into PDF</base>
+	<tran loc="fr" origin="">Imbriquer PS dans PDF</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mreadme</Position>
+<TranslationSet>
+
+	<base loc="en"          >Read Me</base>
+	<tran loc="fr" origin="">Lisez Moi</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mscite-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >SciTE in CONTEXT</base>
+	<tran loc="fr" origin="">SciTE en ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>msplit</Position>
+<TranslationSet>
+
+	<base loc="en"          >Color separation</base>
+	<tran loc="fr" origin="">Sélection des couleurs</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mtexexec</Position>
+<TranslationSet>
+
+	<base loc="en"          >TEXEXEC</base>
+	<tran loc="fr" origin="">TeXExec</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mtexfont</Position>
+<TranslationSet>
+
+	<base loc="en"          >Fonts</base>
+	<tran loc="fr" origin="">Polices</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mtexmfstart</Position>
+<TranslationSet>
+
+	<base loc="en"          >texmfstart &amp; ...tools</base>
+	<tran loc="fr" origin="">texmfstart et autres outils</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mtexsync-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >texsync</base>
+	<tran loc="fr" origin="">texsync</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mtexutil</Position>
+<TranslationSet>
+
+	<base loc="en"          >TEXUTIL</base>
+	<tran loc="fr" origin="">TeXUtil</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mtexwork</Position>
+<TranslationSet>
+
+	<base loc="en"          >TEXWORK</base>
+	<tran loc="fr" origin="">TeXWork</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>mwidget-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >Widgets</base>
+	<tran loc="fr" origin="">Widgets</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>pdfboxes</Position>
+<TranslationSet>
+
+	<base loc="en"          >Puzzling graphics in METAPOST</base>
+	<tran loc="fr" origin="">Graphiques surprenants en METAPOST</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>pdfclock</Position>
+<TranslationSet>
+
+	<base loc="en"          >clock</base>
+	<tran loc="fr" origin="">horloge</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>pre-2001</Position>
+<TranslationSet>
+
+	<base loc="en"          >HZ optimization in PDFTEX</base>
+	<tran loc="fr" origin="">Optimisation HZ en PDFTEX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>pre-mml</Position>
+<TranslationSet>
+
+	<base loc="en"          >MathML</base>
+	<tran loc="fr" origin="">MathML</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>rgb-cmyk</Position>
+<TranslationSet>
+
+	<base loc="en"          >RGB-CMYK</base>
+	<tran loc="fr" origin="">RGB-CMYK</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>roadmap</Position>
+<TranslationSet>
+
+	<base loc="en"          >RoadMap</base>
+	<tran loc="fr" origin="">Feuille de route</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>setup-cz</Position>
+<TranslationSet>
+
+	<base loc="en"          >Quick References</base>
+	<tran loc="fr" origin="">Références Rapides</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>setup-de</Position>
+<TranslationSet>
+
+	<base loc="en"          >Quick References</base>
+	<tran loc="fr" origin="">Références Rapides</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>setup-en</Position>
+<TranslationSet>
+
+	<base loc="en"          >Quick References</base>
+	<tran loc="fr" origin="">Références Rapides</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>setup-it</Position>
+<TranslationSet>
+
+	<base loc="en"          >Quick References</base>
+	<tran loc="fr" origin="">Références Rapides</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>setup-nl</Position>
+<TranslationSet>
+
+	<base loc="en"          >Quick References</base>
+	<tran loc="fr" origin="">Références Rapides</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>setup-ro</Position>
+<TranslationSet>
+
+	<base loc="en"          >Quick References</base>
+	<tran loc="fr" origin="">Références Rapides</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>showConTeXtManualsPrefs</Position>
+<TranslationSet>
+
+	<base loc="en"          >ConTeXt Manuals Preferences</base>
+	<tran loc="fr" origin="">Préférences des Manuels ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>spell-96</Position>
+<TranslationSet>
+
+	<base loc="en"          >spell-nl</base>
+	<tran loc="fr" origin="">spell-nl</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>style</Position>
+<TranslationSet>
+
+	<base loc="en"          >Typographic Programming</base>
+	<tran loc="fr" origin="">Programmation Typographique</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>tfmetrics</Position>
+<TranslationSet>
+
+	<base loc="en"          >Equal Font Metrics</base>
+	<tran loc="fr" origin="">Métriques De Police Égales</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>travel00</Position>
+<TranslationSet>
+
+	<base loc="en"          >travel</base>
+	<tran loc="fr" origin="">voyage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xchemml-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >ChemML support</base>
+	<tran loc="fr" origin="">Support de ChemML</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xcorresp</Position>
+<TranslationSet>
+
+	<base loc="en"          >Correspondence</base>
+	<tran loc="fr" origin="">Correspondance</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xfigures-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >Figure Databases</base>
+	<tran loc="fr" origin="">Figure Bases de données</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xmanipulate</Position>
+<TranslationSet>
+
+	<base loc="en"          >Preprocessing and Manipulating</base>
+	<tran loc="fr" origin="">Prétraitement et Manipulation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xmathml-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >MathML support</base>
+	<tran loc="fr" origin="">Support de MathML</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xmlfoe</Position>
+<TranslationSet>
+
+	<base loc="en"          >foXet</base>
+	<tran loc="fr" origin="">foXet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xphysml-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >PhysML support</base>
+	<tran loc="fr" origin="">Support de PhysML</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xsteps-p</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stepcharts</base>
+	<tran loc="fr" origin="">Stepcharts</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>xxmldir</Position>
+<TranslationSet>
+
+	<base loc="en"          >xmldir</base>
+	<tran loc="fr" origin="">xmldir</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                    -->
+<!--    iTM2ConTeXtKit.framework/../iTM2ConTeXtPrefsPane.nib.strings    -->
+<!--                                                                    -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/iTM2ConTeXtPrefsPane.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Manuals&gt; (oid:542) </Description>
+<Position>542</Position>
+<TranslationSet>
+
+	<base loc="en"          >Manuals</base>
+	<tran loc="fr" origin="">Manuels</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (PRIVATE) : &lt;title:PRIVATE&gt; (oid:6) </Description>
+<Position>6</Position>
+<TranslationSet>
+
+	<base loc="en"          >PRIVATE</base>
+	<tran loc="fr" origin="">PRIVATE</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Drag any manual you want to appear in the toolbar manuals menu.!#x000a;You can drag file icons from the finder, even file urls from your favorite web browser.&gt; (oid:740) </Description>
+<Position>740</Position>
+<TranslationSet>
+
+	<base loc="en"          >Drag any manual you want to appear in the toolbar manuals menu.\nYou can drag file icons from the finder, even file urls from your favorite web browser.</base>
+	<tran loc="fr" origin="">Glisser le manuel que vous voulez voir apparaître dans la barre d&apos;outils.\nVous pouvez glisser des icônes du Finder, même des urls de votre navigateur préféré.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPanel (Panel) : &lt;title:Panel&gt; (oid:747) </Description>
+<Position>747</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Panel</base>
+	<tran loc="fr" origin="Default Names List matched text">Panel</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Downloading:) : &lt;title:Downloading:&gt; (oid:749) </Description>
+<Position>749</Position>
+<TranslationSet>
+
+	<base loc="en"          >Downloading:</base>
+	<tran loc="fr" origin="">Téléchargement :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Cancel) : &lt;title:Cancel&gt; (oid:751) </Description>
+<Position>751.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cancel</base>
+	<tran loc="fr" origin="">Annuler</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Drag manuals (icons or URL&apos;s) from the finder or the internet. Delete to remove.) : &lt;title:Drag manuals (icons or URL&apos;s) from the finder or the internet.!#x000a;Delete to remove.&gt; (oid:758) </Description>
+<Position>758</Position>
+<TranslationSet>
+
+	<base loc="en"          >Drag manuals (icons or URL&apos;s) from the finder or the internet.\nDelete to remove.</base>
+	<tran loc="fr" origin="">Glisser des manuels (icones ou URLs) du Finder ou d&apos;Internet.\nSupprimer pour enlever.</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                -->
+<!--    iTM2ConTeXtKit.framework/../iTM2ConTeXtPrefsPane.strings    -->
+<!--                                                                -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/iTM2ConTeXtPrefsPane.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>NSPrefPaneIconLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >ConTeXt</base>
+	<tran loc="fr" origin="">ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                      -->
+<!--    iTM2ConTeXtKit.framework/../iTM2ConTeXtSectionMenu.nib.strings    -->
+<!--                                                                      -->
+<File>
+<Filepath>iTM2ConTeXtKit.framework/Versions/A/Resources/English.lproj/iTM2ConTeXtSectionMenu.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Sub Section&gt; (oid:105) </Description>
+<Position>105</Position>
+<TranslationSet>
+
+	<base loc="en"          >Sub Section</base>
+	<tran loc="fr" origin="">Section secondaire</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Sub Sub Section&gt; (oid:106) </Description>
+<Position>106</Position>
+<TranslationSet>
+
+	<base loc="en"          >Sub Sub Section</base>
+	<tran loc="fr" origin="">Section secondaire secondaire</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Sub Subject&gt; (oid:107) </Description>
+<Position>107</Position>
+<TranslationSet>
+
+	<base loc="en"          >Sub Subject</base>
+	<tran loc="fr" origin="">Sujet secondaire</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Sub Sub Subject&gt; (oid:108) </Description>
+<Position>108</Position>
+<TranslationSet>
+
+	<base loc="en"          >Sub Sub Subject</base>
+	<tran loc="fr" origin="">Sujet secondaire secondaire</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Chapter&gt; (oid:109) </Description>
+<Position>109</Position>
+<TranslationSet>
+
+	<base loc="en"          >Chapter</base>
+	<tran loc="fr" origin="">Chapitre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Part&gt; (oid:110) </Description>
+<Position>110</Position>
+<TranslationSet>
+
+	<base loc="en"          >Part</base>
+	<tran loc="fr" origin="">Partie</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Go To&gt; (oid:122) </Description>
+<Position>122</Position>
+<TranslationSet>
+
+	<base loc="en"          >Go To</base>
+	<tran loc="fr" origin="">Aller à</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Sections&gt; (oid:173) </Description>
+<Position>173</Position>
+<TranslationSet>
+
+	<base loc="en"          >Sections</base>
+	<tran loc="fr" origin="">Sections</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Insert (Unnumbered):&gt; (oid:176) </Description>
+<Position>176</Position>
+<TranslationSet>
+
+	<base loc="en"          >Insert (Unnumbered):</base>
+	<tran loc="fr" origin="">Insérer (sans numéro) :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Title&gt; (oid:177) </Description>
+<Position>177</Position>
+<TranslationSet>
+
+	<base loc="en"          >Title</base>
+	<tran loc="fr" origin="">Titre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Subject&gt; (oid:179) </Description>
+<Position>179</Position>
+<TranslationSet>
+
+	<base loc="en"          >Subject</base>
+	<tran loc="fr" origin="">Sujet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Menu&gt; (oid:95) </Description>
+<Position>95</Position>
+<TranslationSet>
+
+	<base loc="en"          >Menu</base>
+	<tran loc="fr" origin="">Menu</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Insert (Numbered):&gt; (oid:96) </Description>
+<Position>96</Position>
+<TranslationSet>
+
+	<base loc="en"          >Insert (Numbered):</base>
+	<tran loc="fr" origin="">Insérer (avec numéro):</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Section&gt; (oid:97) </Description>
+<Position>97</Position>
+<TranslationSet>
+
+	<base loc="en"          >Section</base>
+	<tran loc="fr" origin="">Section</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

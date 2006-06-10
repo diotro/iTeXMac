@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>iTM2DistributionDomainGhostScriptBinaries.gwTeX</key>
+	<string>/usr/local/bin</string>
+	<key>iTM2DistributionDomainTeXMFBinaries.gwTeX</key>
+	<string>/usr/local/teTeX/bin/powerpc-apple-darwin-current</string>
+	<key>iTM2DistributionDomainTeXMF.gwTeX</key>
+	<string>/usr/local/teTeX/share/texmf</string>
+	<key>iTM2DistributionDomainGhostScriptBinaries.gwTeX(Intel)</key>
+	<string>/usr/local/bin</string>
+	<key>iTM2DistributionDomainTeXMFBinaries.gwTeX(Intel)</key>
+	<string>/usr/local/teTeX/bin/i386-apple-darwin-current</string>
+	<key>iTM2DistributionDomainTeXMF.gwTeX(Intel)</key>
+	<string>/usr/local/teTeX/share/texmf</string>
+	<key>iTM2DistributionDomainGhostScriptBinaries.fink</key>
+	<string>/sw/bin</string>
+	<key>iTM2DistributionDomainTeXMFBinaries.fink</key>
+	<string>/sw/bin</string>
+	<key>iTM2DistributionDomainTeXMF.fink</key>
+	<string>/sw/share/texmf</string>
+	<key>iTM2DistributionDomainGhostScriptBinaries.TeX Live</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainTeXMFBinaries.TeX Live</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainTeXMF.TeX Live</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainGhostScriptBinaries.TeX Live CD</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainTeXMFBinaries.TeX Live CD</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainTeXMF.TeX Live CD</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainGhostScriptBinaries.built-in</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainTeXMFBinaries.built-in</key>
+	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainTeXMF.built-in</key>
+	<string>Not Yet Implemented</string>
+</dict>
+</plist>

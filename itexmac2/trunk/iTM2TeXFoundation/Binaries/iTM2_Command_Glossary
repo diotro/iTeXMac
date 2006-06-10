@@ -1,0 +1,188 @@
+#!/bin/sh -f
+# this is iTM2_Glossary for iTeXMac2
+# © 2005 jlaurens@users.sourceforge.net
+iTM2_Glossary_Version="1.0"
+iTM2_GLOSSARY_USAGE="Welcome to `basename "$0"` version ${iTM2_Glossary_Version}
+This is iTeXMac2 built in script to make the index with MakeGlossary
+© 2004 jlaurens@users.sourceforge.net
+Usage: `basename "$0"` options input where options are
+       -h, --help: print this message and return.
+       -c, --compressIntermediateBlanks: By default, blanks in the index key are retained.
+       -g, --germanOrdering: in accord with rules set forth in DIN 5007.
+           see makeindex manual for problems with German TeX commands like \"a, \"o...
+       -l, --letterOrdering: blanks don't count.
+       -o name, --output name: a number or one of any, odd, even.
+       -p, --startingPageNumber: a number or one of any, odd, even.
+       -q, --quiet: runs silently.
+       -r, --noImplicitPageRange: disable implicit page range formation.
+       -s, --style styleFile: Employ styleFile as the style file.
+       -t, --log logFile: Employ logFile as the log file.
+       -L: not available.
+       -T: not available.
+       -e command, --engine command: replace `basename "$0"` by command.
+           all other options are ignored.
+           example: `basename "$0"` --engine \"makeindex --quiet\"
+       The options given override some environment variables."
+iTM2_Glossary_Engine=""
+IFS='
+'
+iTM2_VAR="${TWSMaster:=""}"
+iTM2_Glossary_RunSilently="${iTM2_RunSilently}"
+while [ $# -gt 0 ]
+do
+	case $1 in
+		-h|--help)
+			"$iTM2_CMD_Notify" comment "$iTM2_GLOSSARY_USAGE"
+		;;
+		-e|--engine)
+			shift 1
+			if [ $# -gt 0 ]
+			then
+				iTM2_Glossary_Engine="$1"
+				"$iTM2_CMD_Notify" comment "engine: $iTM2_Glossary_Engine"
+			else
+				"$iTM2_CMD_Notify" comment "$iTM2_GLOSSARY_USAGE"
+			fi
+		;;
+		-q|--quiet)
+			iTM2_Glossary_RunSilently="YES"
+		;;
+		-c|--compressIntermediateBlanks)
+			iTM2_Glossary_CompressBlanks="YES"
+		;;
+		-g|--germanOrdering)
+			iTM2_Glossary_GermanOrdering="YES"
+		;;
+		-l|--letterOrdering)
+			iTM2_Glossary_LetterOrdering="YES"
+		;;
+		-p|--startingPageNumber)
+			iTM2_Glossary_IsSeparate="YES"
+                        shift 1
+                        case $1 in
+                                any|even|odd)
+                                        iTM2_Glossary_SeparateMode="$1"
+                                ;;
+                                *)
+                                        iTM2_Glossary_SeparateStart="$1"
+                        esac
+		;;
+		-r|--noImplicitPageRange)
+			iTM2_Glossary_NoImplicitPageRange="YES"
+		;;
+		-s|--style)
+			iTM2_Glossary_UseStyle="YES"
+                        shift 1
+			iTM2_Glossary_Style="$1"
+		;;
+		-t|--log)
+			iTM2_Glossary_UseLog="YES"
+                        shift 1
+			iTM2_Glossary_Log="$1"
+		;;
+		-o|--output)
+			iTM2_Glossary_UseOutput="YES"
+                        shift 1
+			iTM2_Glossary_Output="$1"
+		;;
+		*)
+			if [ ${#iTM2_Glossary_Targets} -gt 0 ]
+			then
+				iTM2_Glossary_Targets="$iTM2_Glossary_Targets$IFS"
+			fi
+			if [ -d ${1} ]
+			then
+				iTM2_Glossary_Targets="$iTM2_Glossary_Targets`ls -1 -R $1`"
+			else
+				iTM2_Glossary_Targets="$iTM2_Glossary_Targets$1"
+			fi
+	esac
+	shift 1
+done
+if [ "${iTM2_Glossary_RunSilently:-1}" -eq 0 ]
+then
+        "$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version $iTM2_Glossary_Version
+This is iTeXMac2 built in script to make the glossary with MakeIndex or another engine
+© 2005 jlaurens@users.sourceforge.net"
+fi
+if [ ${#iTM2_Glossary_Engine} == 0 ]
+then
+	iTM2_Glossary_Engine="makeindex"
+	if [ "${iTM2_Glossary_RunSilently:-0}" -gt 0 ]
+	then
+		iTM2_Glossary_Engine="${iTM2_Glossary_Engine} -q"	
+	fi
+	if [ "${iTM2_Glossary_CompressBlanks:-0}" -gt 0 ]
+	then
+		iTM2_Glossary_Engine="${iTM2_Glossary_Engine} -c"	
+	fi
+	if [ "${iTM2_Glossary_GermanOrdering:-0}" -gt 0 ]
+	then
+		iTM2_Glossary_Engine="${iTM2_Glossary_Engine} -g"	
+	fi
+	if [ "${iTM2_Glossary_LetterOrdering:-0}" -gt 0 ]
+	then
+		iTM2_Glossary_Engine="${iTM2_Glossary_Engine} -l"	
+	fi
+	if [ "${iTM2_Glossary_NoImplicitPageRange:-0}" -gt 0 ]
+	then
+		iTM2_Glossary_Engine="${iTM2_Glossary_Engine} -r"	
+	fi
+fi
+if [ ${#iTM2_Glossary_Targets} == 0 ]
+then
+	if [ ${#TWSMaster} == 0 ]
+	then
+		iTM2_Glossary_Targets="`ls -1 -R *`$IFS"
+	elif [ "${iTM2_Glossary_All:-0}" -gt 0 ]
+	then
+		iTM2_Glossary_Targets="`dirname ${TWSMaster}|ls -1 -R`$IFS"
+	else
+		iTM2_Glossary_Targets="${TWSMaster%.*}.idx"
+	fi
+fi
+iTM2_Glossary_Current=""
+for iTM2_Glossary_Var in ${iTM2_Glossary_Targets}; do
+	if [ ${iTM2_Glossary_Var##*.} == "idx" ]
+	then
+		if [ ${#iTM2_Glossary_Current} -gt 0 ]
+		then
+			iTM2_Glossary_Var="${iTM2_Glossary_Current}/${iTM2_Glossary_Var}"
+		fi
+                "$iTM2_CMD_Notify" comment "Making the glossary of: ${iTM2_Glossary_Var}"
+		if [ -e "${iTM2_Glossary_Var}" ]
+		then
+            "$iTM2_CMD_Notify" start comment
+			if [ "${iTM2_Glossary_Var%.*}.tex" -nt "${iTM2_Glossary_Var}" ]
+			then
+				"$iTM2_CMD_Notify" echo "The LaTeX source file ${iTM2_Glossary_Var%.*}.tex is newer than ${iTM2_Glossary_Var}.
+LaTeX glossary ${iTM2_Glossary_Var%.*}.idx not updated: Please compile first."
+			elif [ "${iTM2_Glossary_Var}" -nt "${iTM2_Glossary_Var%.*}.glo" ]
+			then
+				iTM2_GloCommand="${iTM2_Glossary_Engine} ${iTM2_Glossary_Var%.*}"
+				"$iTM2_CMD_Notify" echo "${iTM2_GloCommand}"
+				eval "${iTM2_GloCommand}"
+#touch "${iTM2_Glossary_Var%.*}.idx"
+				"$iTM2_CMD_Notify" echo "LaTeX glossary ${iTM2_Glossary_Var%.*}.glo updated";
+			else
+				"$iTM2_CMD_Notify" echo "LaTeX glossary ${iTM2_Glossary_Var%.*}.glo is already up to date";
+			fi
+            "$iTM2_CMD_Notify" stop comment
+		fi
+	else
+		iTM2_Glossary_Var1="`dirname ${iTM2_Glossary_Var}`/`basename ${iTM2_Glossary_Var} ":"`"
+		if [ "${iTM2_Glossary_Var}" == "${iTM2_Glossary_Var1}:" ]
+		then
+#			echo "this is a directory"
+			iTM2_Glossary_Current="${iTM2_Glossary_Var1}"
+#			echo "$iTM2_Glossary_Current"
+		fi
+	fi
+done
+if [ "${iTM2_Glossary_RunSilently:-1}" -eq 0 ]
+then
+        "$iTM2_CMD_Notify" comment "`basename "$0"` complete"
+fi
+exit
+
+# makeindex -s mydoc.ist -t mydoc.glg -o mydoc.gls mydoc.glo, makeglos.pl mydoc

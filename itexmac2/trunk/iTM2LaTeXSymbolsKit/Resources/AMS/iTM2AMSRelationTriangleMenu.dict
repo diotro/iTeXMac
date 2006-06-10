@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\leqslant </string>
+		<string>\geqslant </string>
+		<string>\nleqslant </string>
+		<string>\ngeqslant </string>
+		<string>\lneqq </string>
+		<string>\gneqq </string>
+		<string>\leqq </string>
+		<string>\geqq </string>
+		<string>\nleqq </string>
+		<string>\ngeqq </string>
+		<string>\lvertneqq </string>
+		<string>\gvertneqq </string>
+		<string>\nless </string>
+		<string>\ngtr </string>
+		<string>\nleq </string>
+		<string>\ngeq </string>
+		<string>\lneq </string>
+		<string>\gneq </string>
+		<string>\lessgtr </string>
+		<string>\gtrless </string>
+		<string>\lesseqgtr </string>
+		<string>\gtreqless </string>
+		<string>\lesseqqgtr </string>
+		<string>\gtreqqless </string>
+		<string>\vartriangleleft </string>
+		<string>\vartriangleright </string>
+		<string>\ntriangleleft </string>
+		<string>\ntriangleright </string>
+		<string>\eqslantless </string>
+		<string>\eqslantgtr </string>
+		<string>\trianglelefteq </string>
+		<string>\trianglerighteq </string>
+		<string>\ntrianglelefteq </string>
+		<string>\ntrianglerighteq  </string>
+		<string>\lll </string>
+		<string>\ggg </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>6</integer>
+</dict>
+</plist>

@@ -1,0 +1,370 @@
+#!/bin/sh -f
+# this is iTM2_dvips wrapper
+# © 2005 jlaurens@users.sourceforge.net
+iTM2_dvips_Engine_Version=1.0
+iTM2DVIPSMEngineUsage()
+{
+iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_dvips_Engine_Version}
+This is iTeXMac2 built in script to wrap the dvips engine
+(`which "$0"`)
+© 2005 jlaurens@users.sourceforge.net
+Usage: `basename "$0"` with environment variables
+	TWSMaster: the main input file
+	iTM2_dvips_multiple_copies: 1 or 0,
+	iTM2_dvips_num_copies: NUM (1 is default),
+	iTM2_dvips_collated_copies: 1 or 0,
+	iTM2_dvips_duplicate_page_body: 1 or 0,
+	iTM2_dvips_even_TeX_pages: 1 or 0,
+	iTM2_dvips_odd_TeX_pages: 1 or 0,
+	iTM2_dvips_physical_pages: 1 or 0,
+	iTM2_dvips_first_page: NUM (default 1),
+	iTM2_dvips_last_page: NUM (default 100000),
+	iTM2_dvips_USE_max_num_pages: 1 or 0,
+	iTM2_dvips_max_num_pages: NUM (default 1),
+	iTM2_dvips_USE_offset: 1 or 0,
+	iTM2_dvips_x_offset: float (default 0.0),
+	iTM2_dvips_x_offset_unit: \"bp\", \"pt\", \"in\", \"cm\",
+	iTM2_dvips_y_offset:  float (default 0.0),
+	iTM2_dvips_y_offset_unit: \"bp\", \"pt\", \"in\", \"cm\",
+	iTM2_dvips_USE_magnification: 1 or 0,
+	iTM2_dvips_both_magnifications: 1 or 0,
+	iTM2_dvips_x_magnification:  float (default 1000.0),
+	iTM2_dvips_y_magnification:  float (default 1000.0),
+	iTM2_dvips_USE_resolution: 1 or 0,
+	iTM2_dvips_both_resolutions: 1 or 0,
+	iTM2_dvips_x_resolution: NUM (default 600),
+	iTM2_dvips_y_resolution: NUM (default 600),
+	iTM2_dvips_USE_paper: 1 or 0,
+	iTM2_dvips_paper: \"a3\", \"a4\", \"a5\", \"letter\", \"ledger\", \"legal\", \"tabloid\",
+	iTM2_dvips_landscape: 1 or 0,
+	iTM2_dvips_custom_paper: 1 or 0,
+	iTM2_dvips_paper_width: FLOAT,
+	iTM2_dvips_paper_width_unit: \"bp\", \"pt\", \"in\", \"cm\",
+	iTM2_dvips_paper_height: FLOAT,
+	iTM2_dvips_paper_height_unit: \"bp\", \"pt\", \"in\", \"cm\",
+	iTM2_dvips_generate_epsf: 1, 0 or -1,
+	iTM2_dvips_print_crop_mark: 1, 0 or -1,
+	iTM2_dvips_USE_header: 1 or 0,
+	iTM2_dvips_header: \"\",
+	iTM2_dvips_remove_included_comments: 1, 0 or -1,
+	iTM2_dvips_no_structured_comments: 1, 0 or -1,
+	iTM2_dvips_download_only_needed_characters: 1, 0 or -1,
+	iTM2_dvips_USE_metafont_mode: 1 or 0,
+	iTM2_dvips_metafont_mode: MODE,
+	iTM2_dvips_no_automatic_font_generation: 1, 0 or -1,
+	iTM2_dvips_USE_psmap_files: 1 or 0,
+	iTM2_dvips_psmap_files: PSMAPFILE,
+	iTM2_dvips_download_non_resident_fonts: 1, 0 or -1,
+	iTM2_dvips_compress_bitmap_fonts: 1, 0 or -1,
+	iTM2_dvips_shift_non_printing_characters: 1, 0 or -1,
+	iTM2_dvips_USE_printer: 1 or 0,
+	iTM2_dvips_printer: \"\",
+	iTM2_dvips_no_virtual_memory_saving: 1, 0 or -1,
+	iTM2_dvips_pass_html: 1, 0 or -1,
+	iTM2_dvips_debug: 1 or 0,
+	iTM2_dvips_debug_level: NUM (default -1),
+	iTM2_dvips_conserve_memory: 1, 0 or -1,
+	iTM2_dvips_separate_sections: 1, 0 or -1,
+	iTM2_dvips_section_num_pages: NUM (default 10),
+	iTM2_dvips_USE_output: 1 or 0,
+	iTM2_dvips_output: NAME,
+	iTM2_dvips_USE_more_arguments: 1 or 0,
+	iTM2_dvips_more_arguments: \"\""
+echo "$iTM2_USAGE"
+exit 0
+}
+"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_dvips_Engine_Version}
+This is iTeXMac2 built in script to wrap the dvips engine
+© 2005 jlaurens@users.sourceforge.net"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" start comment
+	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	for iTM2VAR in ${!iTM2_dvips_*}
+	do
+		"$iTM2_CMD_Notify" echo "${iTM2VAR} is: ${!iTM2VAR}"
+	done
+	"$iTM2_CMD_Notify" stop comment
+fi
+iTM2_dvips_Engine="dvips"
+iTM2_dvips_EnginePath="`which "${iTM2_dvips_Engine}"`"
+if ! [ -x "${iTM2_dvips_EnginePath}" ]
+then
+	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_dvips_Engine}."
+	iTM2DVIPDFMEngineUsage
+fi
+if ! [ -r "${TWSMaster}" ]
+then
+    TWSMaster="${TWSMaster}.dvi"
+    if ! [ -r "${TWSMaster}" ]
+    then
+        "$iTM2_CMD_Notify" error "No readable file at ${TWSMaster}."
+        iTM2DVIPSMEngineUsage
+    fi
+fi
+"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
+pushd "$(dirname "${TWSMaster}")"
+INPUT_DIRECTORY="${PWD}"
+popd
+INPUT="$(basename "${TWSMaster}")"
+iTM2_dvips_Arguments=""
+#output
+if [ "${iTM2_dvips_USE_output:-0}" != "0" ] && [ ${#iTM2_dvips_output} -gt 0 ]
+then
+	OUTPUT="${iTM2_dvips_output}"
+else
+    OUTPUT="${INPUT}"
+fi
+#if OUTPUT has a dvi extension, remove it
+EXTENSION="${OUTPUT##*.}"
+if [ "$(echo ${EXTENSION}|tr '[A-Z]' '[a-z]')" == "dvi" ]
+then
+    OUTPUT="${OUTPUT%.*}"
+fi
+#copies
+if [ "${iTM2_dvips_multiple_copies:-0}" != "0" ] && [ ${iTM2_dvips_num_copies} -gt 0 ]
+then
+	if [ "${iTM2_dvips_collated_copies:-0}" != "0" ]
+	then
+		if [ "${iTM2_dvips_duplicate_page_body:-0}" != "0" ]
+		then
+			iTM2_TEMP="-b"
+		else
+			iTM2_TEMP="-C"
+		fi
+	else
+		iTM2_TEMP="-c"
+	fi
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} ${iTM2_TEMP} ${iTM2_dvips_num_copies}"
+fi
+#pages
+if [ "${iTM2_dvips_even_TeX_pages:-0}" != "0" ]
+then
+	if [ "${iTM2_dvips_odd_TeX_pages}" != "1" ]
+	then
+		iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -B"
+	fi
+elif [ "${iTM2_dvips_odd_TeX_pages:-0}" != "0" ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -A"
+else
+	if [ "${iTM2_dvips_odd_TeX_pages:-0}" != "0" ]
+	then
+		iTM2_TEMP="="
+	fi
+	if [ ${iTM2_dvips_first_page} -gt 0 ]
+	then
+		iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -p ${iTM2_TEMP}${iTM2_dvips_first_page}"
+	fi
+	if [ ${iTM2_dvips_last_page} -gt 0 ]
+	then
+		iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -l ${iTM2_TEMP}${iTM2_dvips_last_page}"
+	fi
+fi
+#iTM2_dvips_USE_page_ranges";
+#iTM2_dvips_page_ranges";//-pp
+#iTM2_dvips_USE_max_num_pages";
+if [ ${iTM2_dvips_max_num_pages} -gt 0 ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -n ${iTM2_dvips_max_num_pages}"
+fi
+#page setup
+if [ "${iTM2_dvips_USE_offset:-0}" != "0" ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -O ${iTM2_dvips_x_offset:-0}${iTM2_dvips_x_offset_unit:-in},${iTM2_dvips_y_offset:-0}${iTM2_dvips_y_offset_unit:-in}"
+fi
+if [ "${iTM2_dvips_USE_magnification:-0}" != "0" ]
+then
+	if [ "${iTM2_dvips_both_magnifications:-0}" != "0" ]
+	then
+		iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -x ${iTM2_dvips_x_magnification:-1000} -y ${iTM2_dvips_x_magnification:-1000}"
+	else
+		iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -x ${iTM2_dvips_x_magnification:-1000} -y ${iTM2_dvips_y_magnification:-1000}"
+	fi
+fi
+if [ "${iTM2_dvips_USE_resolution:-0}" != "0" ]
+then
+	if [ "${iTM2_dvips_both_resolutions:-0}" != "0" ]
+	then
+		iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -D ${iTM2_dvips_x_resolution:-600}"
+	else
+		iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -X ${iTM2_dvips_x_resolution:-600} -Y ${iTM2_dvips_y_resolution:-600}"
+	fi
+fi
+if [ "${iTM2_dvips_USE_paper:-0}" != "0" ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -t ${iTM2_dvips_paper:-a4}"
+elif [ "${iTM2_dvips_custom_paper:-0}" != "0" ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -T ${iTM2_dvips_paper_width:-21}${iTM2_dvips_paper_width_unit:-cm},${iTM2_dvips_paper_height:-29.7}${iTM2_dvips_paper_height_unit:-cm}"
+fi
+if [ "${iTM2_dvips_landscape:-0}" != "0" ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -t"
+fi
+#postscript
+#if OUTPUT dos not has a ps or an eps extension, add it
+REQUIRED_EXTENSION="ps"
+case ${iTM2_dvips_generate_epsf} in
+	-1)
+	   iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -E0"
+	;;
+	1)
+	   iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -E"
+        REQUIRED_EXTENSION="eps"
+	;;
+esac
+EXTENSION="${OUTPUT##*.}"
+if [ "$(echo ${EXTENSION}|tr '[A-Z]' '[a-z]')" != "${REQUIRED_EXTENSION}" ]
+then
+    OUTPUT="${OUTPUT%.*}.${REQUIRED_EXTENSION}"
+fi
+iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -o ${OUTPUT}"
+case ${iTM2_dvips_print_crop_mark} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -k0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -k"
+	;;
+esac
+if [ "${iTM2_dvips_USE_header:-0}" != "0" ] && [ ${#iTM2_dvips_header} -gt 0 ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -h \"${iTM2_dvips_header}\""
+fi
+case ${iTM2_dvips_remove_included_comments} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -K0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -K"
+	;;
+esac
+case ${iTM2_dvips_no_structured_comments} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -N0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -N"
+	;;
+esac
+#fonts
+case ${iTM2_dvips_download_only_needed_characters} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -j0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -j"
+	;;
+esac
+if [ "${iTM2_dvips_USE_metafont_mode:-0}" != "0" ] && [ ${#iTM2_dvips_metafont_mode} -gt 0 ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -mode \"${iTM2_dvips_metafont_mode}\""
+fi
+case ${iTM2_dvips_no_automatic_font_generation} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -M0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -M"
+	;;
+esac
+if [ "${iTM2_dvips_USE_psmap_files:-0}" != "0" ]
+then
+	for iTM2_TEMP in ${iTM2_dvips_psmap_files}
+	do
+		if [ ${#iTM2_TEMP} -gt 0 ]
+		then
+			iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -u \"${iTM2_TEMP}\""
+		fi
+	done
+fi
+case ${iTM2_dvips_download_non_resident_fonts} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -V0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -V"
+	;;
+esac
+case ${iTM2_dvips_compress_bitmap_fonts} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -Z0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -Z"
+	;;
+esac
+if [ ${iTM2_dvips_maximum_drift:-0} -gt 0 ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -e ${iTM2_dvips_maximum_drift}"
+fi
+case ${iTM2_dvips_compress_bitmap_fonts} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -G0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -G"
+	;;
+esac
+#other
+if [ "${iTM2_dvips_USE_printer:-0}" != "0" ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -P ${iTM2_dvips_printer}"
+fi
+case ${iTM2_dvips_no_virtual_memory_saving} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -U0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -U"
+	;;
+esac
+#iTM2_dvips_manual_feed;//-m, -m0
+case ${iTM2_dvips_pass_html} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -z0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -z"
+	;;
+esac
+if [ "${iTM2_dvips_debug:-0}" != "0" ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -d ${iTM2_dvips_debug_level:-1}"
+fi
+case ${iTM2_dvips_conserve_memory} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -a0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -a"
+	;;
+esac
+case ${iTM2_dvips_separate_sections} in
+	-1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -i0"
+	;;
+	1)
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -i"
+	;;
+esac
+if [ ${#iTM2_dvips_section_num_pages} -gt 0 ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -S ${iTM2_dvips_section_num_pages}"
+fi
+if [ "${iTM2_dvips_USE_more_arguments:-0}" != "0" ] && [ ${#iTM2_dvips_more_arguments} -gt 0 ]
+then
+	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} ${iTM2_dvips_more_arguments}"
+fi
+pushd "${INPUT_DIRECTORY}"
+"$iTM2_CMD_Notify" comment "Performing  ${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} \"${INPUT}\""
+${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} "${INPUT}"
+popd
+echo "master is: ${INPUT_DIRECTORY}/${OUTPUT%.*}"
+iTM2_Command_Compile --master "${INPUT_DIRECTORY}/${OUTPUT%.*}" --switch ps
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" comment "$0 complete."
+fi
+exit 0

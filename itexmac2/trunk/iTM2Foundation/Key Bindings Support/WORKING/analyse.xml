@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LIST>
+    <ACTION KEY="$" SELECTOR="insertDollar:" />
+    <ACTION KEY="$0">continue</ACTION>
+    <ACTION KEY="$1">d{\'e}rivable</ACTION>
+    <ACTION KEY="(" SELECTOR="insertOpenParenthesis:" />
+    <ACTION KEY="A">point d'accumulation</ACTION>
+    <ACTION KEY="C">convergent</ACTION>
+    <ACTION KEY="E">s{\'e}ries enti{\`e}res</ACTION>
+    <ACTION KEY="F">s{\'e}ries de Fourier</ACTION>
+    <ACTION KEY="K">Bolzano Weirstra${\ss{}}$</ACTION>
+    <ACTION KEY="L">d{\'e}veloppements limit{\'e}s</ACTION>
+    <ACTION KEY="N">espaces vectoriels norm{\'e}s</ACTION>
+    <ACTION KEY="P">s{\'e}ries {\`a} termes positifs</ACTION>
+    <ACTION KEY="R">rayons de convergence</ACTION>
+    <ACTION KEY="S">sous-suite</ACTION>
+    <ACTION KEY="[" SELECTOR="insertOpenBracket:" />
+    <ACTION KEY="\" SELECTOR="insertBackslash:" />
+    <ACTION KEY="^" SELECTOR="insertHat:" />
+    <ACTION KEY="^0">continuit{\'e}</ACTION>
+    <ACTION KEY="^1">d{\'e}riv{\'e}</ACTION>
+    <ACTION KEY="^A">absolument</ACTION>
+    <ACTION KEY="^N">normalement</ACTION>
+    <ACTION KEY="^S">simplement</ACTION>
+    <ACTION KEY="^U">uniform{\'e}ment</ACTION>
+    <ACTION KEY="^a">absolue</ACTION>
+    <ACTION KEY="^d">diff{\'e}omorphisme</ACTION>
+    <ACTION KEY="^i">int{\'e}grale d{\'e}pendant d'un param{\`e}tre</ACTION>
+    <ACTION KEY="^l">lipschitzienne</ACTION>
+    <ACTION KEY="^n">normale</ACTION>
+    <ACTION KEY="^s">simple</ACTION>
+    <ACTION KEY="^u">uniforme</ACTION>
+    <ACTION KEY="_" SELECTOR="insertUnderscore:" />
+    <ACTION KEY="a">valeur d'adh{\'e}rence</ACTION>
+    <ACTION KEY="c">converge</ACTION>
+    <ACTION KEY="d">divergente</ACTION>
+    <ACTION KEY="e">s(\'e}rie enti{\`e}re</ACTION>
+    <ACTION KEY="f">s{\'e}rie de Fourier</ACTION>
+    <ACTION KEY="h">hom{\'e}omorphisme</ACTION>
+    <ACTION KEY="i">int{\'e}grale</ACTION>
+    <ACTION KEY="k">compact</ACTION>
+    <ACTION KEY="l">d{\'e}veloppement limit{\'e}</ACTION>
+    <ACTION KEY="n">espace vectoriel norm{\'e}</ACTION>
+    <ACTION KEY="p">s{\'e}rie {\`a} termes positifs</ACTION>
+    <ACTION KEY="r">rayon de convergence</ACTION>
+    <ACTION KEY="s">crit{\`e}re sp{\'e}cial des s{\'e}ries alt{\'e}rn{\'e}es</ACTION>
+    <ACTION KEY="t">th{\'e}or{\`e}me de convergence domin{\'e}e</ACTION>
+    <ACTION KEY="v">voisinage</ACTION>
+    <ACTION KEY="w">Bolzano Weierstra${\ss{}}$</ACTION>
+    <ACTION KEY="{" SELECTOR="insertOpenBrace:" />
+    <ACTION KEY="~C">convergente</ACTION>
+    <ACTION KEY="~D">diff{\'e}rentielle</ACTION>
+    <ACTION KEY="~c">convergence</ACTION>
+    <ACTION KEY="~d">diff{\'e}rentiable</ACTION>
+    <ACTION KEY="~i">int{\'e}grable</ACTION>
+</LIST>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\agemO</string>
+		<string>\thorn</string>
+		<string>\Thorn</string>
+		<string>\cent</string>
+		<string>\permil</string>
+		<string>\dh</string>
+		<string>\Dh</string>
+		<string>\DH</string>
+		<string>\openo</string>
+		<string>\inve</string>
+		<string>\AC</string>
+		<string>\HF</string>
+		<string>\VHF</string>
+		<string>\leftturn</string>
+		<string>\rightturn</string>
+		<string>\pentagon</string>
+		<string>\hexagon</string>
+		<string>\varhexagon</string>
+		<string>\octagon</string>
+		<string>\Bowtie</string>
+		<string>\wasylozenge</string>
+		<string>\diameter</string>
+		<string>\invdiameter</string>
+		<string>\varangle</string>
+		<string>\wasytherefore</string>
+		<string>\hexstar</string>
+		<string>\varhexstar</string>
+		<string>\davidsstar</string>
+		<string>\photon</string>
+		<string>\gluon</string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>5</integer>
+</dict>
+</plist>

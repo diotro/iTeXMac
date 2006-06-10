@@ -1,0 +1,37 @@
+{
+    IBClasses = (
+        {
+            CLASS = iTM2ConTeXtResultFormatter; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSFormatter; 
+        }, 
+        {
+            ACTIONS = {
+                ConTeXtAtPragmaADE = id; 
+                OK = id; 
+                TXCPassOn = id; 
+                cancel = id; 
+                fast = id; 
+                final = id; 
+                mode = id; 
+                once = id; 
+                outputFormat = id; 
+                passOn = id; 
+                result = id; 
+                showHelp = id; 
+                silent = id; 
+                switchInteraction = id; 
+                useMode = id; 
+                usePassOn = id; 
+                useResult = id; 
+                useTXCPassOn = id; 
+                useXeTeX = id; 
+                verbose = id; 
+            }; 
+            CLASS = iTM2EngineTeXexec; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

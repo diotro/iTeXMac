@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>?Label</key>
+	<string></string>
+	<key>?PaletteLabel</key>
+	<string></string>
+	<key>?ToolTip</key>
+	<string></string>
+	<key>typesetCurrentProjectLabel</key>
+	<string>Typeset</string>
+	<key>typesetCurrentProjectPaletteLabel</key>
+	<string>Typeset</string>
+	<key>typesetCurrentProjectToolTip</key>
+	<string>Typeset</string>
+	<key>showCurrentProjectSettingsLabel</key>
+	<string>Settings</string>
+	<key>showCurrentProjectSettingsPaletteLabel</key>
+	<string>Project Settings</string>
+	<key>showCurrentProjectSettingsToolTip</key>
+	<string>Project Settings</string>
+	<key>showCurrentProjectFilesLabel</key>
+	<string>Files</string>
+	<key>showCurrentProjectFilesPaletteLabel</key>
+	<string>Project Files</string>
+	<key>showCurrentProjectFilesToolTip</key>
+	<string>Project Files</string>
+	<key>showCurrentProjectTerminalLabel</key>
+	<string>Terminal</string>
+	<key>showCurrentProjectTerminalPaletteLabel</key>
+	<string>Project Terminal</string>
+	<key>showCurrentProjectTerminalToolTip</key>
+	<string>Project Terminal</string>
+	<key>bookmarkLabel</key>
+	<string>bookmark</string>
+	<key>bookmarkPaletteLabel</key>
+	<string>bookmark</string>
+	<key>bookmarkToolTip</key>
+	<string>bookmark</string>
+</dict>
+</plist>
+
+

@@ -1,0 +1,14 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = iTM2StatusTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {
+            ACTIONS = {firstPanelOK = id; toggleDontShowTips = id; }; 
+            CLASS = iTMOwner; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {firstPanel = NSWindow; infoTextView = NSTextView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

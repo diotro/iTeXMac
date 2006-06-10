@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                OK = id; 
+                auxNameEdited = id; 
+                cancel = id; 
+                minXReferencesEdited = id; 
+                toggleRunSilently = id; 
+                toggleUseAuxName = id; 
+            }; 
+            CLASS = iTM2TeXPBibliographyInspector; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

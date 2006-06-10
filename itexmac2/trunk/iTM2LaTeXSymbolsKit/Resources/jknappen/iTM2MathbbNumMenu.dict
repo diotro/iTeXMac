@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\mathbb{0}</string>
+		<string>\mathbb{1}</string>
+		<string>\mathbb{2}</string>
+		<string>\mathbb{3}</string>
+		<string>\mathbb{4}</string>
+		<string>\mathbb{5}</string>
+		<string>\mathbb{6}</string>
+		<string>\mathbb{7}</string>
+		<string>\mathbb{8}</string>
+		<string>\mathbb{9}</string>
+		<string>\mathbb{\Langle}</string>
+		<string>\mathbb{\Rangle}</string>
+		<string>\mathbb{\Lbrack}</string>
+		<string>\mathbb{\Rbrack}</string>
+		<string>\mathbb{\Lparen}</string>
+		<string>\mathbb{\Rparen}</string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

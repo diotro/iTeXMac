@@ -1,0 +1,6 @@
+<!ELEMENT ITEM (KEY,(ACTION|(ACTION,(STRING|STRINGARRAY)))?,TOOLTIP?)><!-- primitive item -->
+<!ELEMENT KEY (#PCDATA)><!-- key -->
+<!ELEMENT ACTION (#PCDATA)><!-- optional action -->
+<!ELEMENT STRING (#PCDATA)><!-- string argument, default value a void string -->
+<!ELEMENT STRINGARRAY (STRING*)><!-- string list argument -->
+<!ELEMENT TOOLTIP (#PCDATA)><!-- optional tooltip -->

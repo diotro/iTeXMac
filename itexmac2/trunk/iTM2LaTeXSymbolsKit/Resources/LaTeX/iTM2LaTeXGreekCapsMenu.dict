@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+                <string>\mathrm{A}</string>
+                <string>\mathrm{B}</string>
+                <string>\Gamma </string>
+                <string>\Delta </string>
+                <string>\mathrm{E}</string>
+                <string>\mathrm{Z}</string>
+                <string>\mathrm{H}</string>
+                <string>\Theta </string>
+                <string>\mathrm{I}</string>
+                <string>\mathrm{K}</string>
+                <string>\Lambda </string>
+                <string>\mathrm{M}</string>
+                <string>\mathrm{N}</string>
+                <string>\Xi </string>
+                <string>\mathrm{O}</string>
+                <string>\Pi </string>
+                <string>\mathrm{P}</string>
+                <string>\Sigma </string>
+                <string>\Upsilon </string>
+                <string>\mathrm{T}</string>
+                <string>\mathrm{Y}</string>
+                <string>\Phi </string>
+                <string>\mathrm{X}</string>
+                <string>\Psi </string>
+                <string>\Omega </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>5</integer>
+</dict>
+</plist>
