@@ -1,0 +1,13 @@
+<!ELEMENT ITEM (NAME?, DESC?, LIST?)><!-- primitive item -->
+<!ELEMENT NAME (#PCDATA)><!-- primitive item -->
+<!ELEMENT DESC (#PCDATA)><!-- optional description -->
+<!ELEMENT LIST (ITEM, (SEP?, ITEM)*)><!-- primitive list -->
+<!ELEMENT SEP EMPTY><!-- separator -->
+<!ATTLIST ITEM KEY ID #REQUIRED>
+<!ATTLIST ITEM CONT CDATA #IMPLIED><!-- context -->
+<!ATTLIST ITEM CAT CDATA #IMPLIED><!-- category -->
+<!ATTLIST ITEM DOM CDATA #IMPLIED><!-- domain -->
+<!ATTLIST LIST KEY ID #IMPLIED>
+<!ATTLIST LIST CONT CDATA #IMPLIED><!-- context -->
+<!ATTLIST LIST CAT CDATA #IMPLIED><!-- category -->
+<!ATTLIST LIST DOM CDATA #IMPLIED><!-- domain -->

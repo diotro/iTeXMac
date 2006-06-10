@@ -1,0 +1,25 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                EOLChosen = id; 
+                fileNameEdited = id; 
+                help = id; 
+                importDocument = id; 
+                mainFileChosen = id; 
+                newDocument = id; 
+                projectPathEdited = id; 
+                relativeToEdited = id; 
+                removeDocument = id; 
+                stringEncodingChosen = id; 
+            }; 
+            CLASS = iTM2ProjectDocumentsInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {documentsView = id; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = iTM2TeXPFilesWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
+    ); 
+    IBVersion = 1; 
+}

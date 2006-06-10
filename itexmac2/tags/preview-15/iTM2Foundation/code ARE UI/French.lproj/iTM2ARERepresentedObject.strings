@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>(?!re)</key>
+	<string>(?!__(INS)__re__(INS)__)__(TAB)__</string>
+	<key>(?:re)</key>
+	<string>(?:__(INS)__re__(INS)__)__(TAB)__</string>
+	<key>(?=re)</key>
+	<string>(?=__(INS)__re__(INS)__)__(TAB)__</string>
+	<key>(re)</key>
+	<string>(__(INS)__re__(INS)__)__(TAB)__</string>
+	<key>Back Reference</key>
+	<string>\__(INS)__n__(INS)__</string>
+	<key>Whole match</key>
+	<string>\0</string>
+	<key>[.abc.]</key>
+	<string>[.__(INS)__abc__(INS)__.]__(TAB)__</string>
+	<key>[=x=]</key>
+	<string>[=__(INS)__x__(INS)__=]__(TAB)__</string>
+	<key>[[:abc:]]</key>
+	<string>[:__(INS)__abc__(INS)__:]__(TAB)__</string>
+	<key>[]</key>
+	<string>[__(INS)__]__(TAB)__</string>
+	<key>[^]</key>
+	<string>[^__(INS)__]__(TAB)__</string>
+	<key>[a-z]</key>
+	<string>[__(INS)__a-z__(INS)__]__(TAB)__</string>
+	<key>\Uxxxxxxxx</key>
+	<string>\U__(INS)__xxxxxxxx__(INS)__</string>
+	<key>\oo</key>
+	<string>\__(INS)__oo__(INS)__</string>
+	<key>\ooo</key>
+	<string>\__(INS)__ooo__(INS)__</string>
+	<key>\uxxxx</key>
+	<string>\u__(INS)__xxxx__(INS)__</string>
+	<key>\xhhh</key>
+	<string>\x__(INS)__hhh__(INS)__</string>
+	<key>{i,j}</key>
+	<string>{__(INS)__i,j__(INS)__}__(TAB)__</string>
+	<key>{i,j}?</key>
+	<string>{__(INS)__i,j__(INS)__}?__(TAB)__</string>
+	<key>{i,}</key>
+	<string>{__(INS)__i__(INS)__,}__(TAB)__</string>
+	<key>{i,}?</key>
+	<string>{__(INS)__i__(INS)__,}?__(TAB)__</string>
+	<key>{i}</key>
+	<string>{__(INS)__i__(INS)__}__(TAB)__</string>
+	<key>{i}?</key>
+	<string>{__(INS)__i__(INS)__}?__(TAB)__</string>
+</dict>
+</plist>

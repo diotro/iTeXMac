@@ -1,0 +1,14 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = iTM2LaTeXEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
+        {
+            CLASS = iTM2LaTeXInspector; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = iTM2LaTeXWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
+        {CLASS = iTMLineField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }
+    ); 
+    IBVersion = 1; 
+}

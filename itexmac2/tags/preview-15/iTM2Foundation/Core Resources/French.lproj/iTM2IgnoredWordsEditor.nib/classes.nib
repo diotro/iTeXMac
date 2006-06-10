@@ -1,0 +1,27 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                cancel = id; 
+                check = id; 
+                modeNameEdited = id; 
+                new = id; 
+                numberOfIgnoredWordsEdited = id; 
+                ok = id; 
+                projectNameEdited = id; 
+            }; 
+            CLASS = iTM2IgnoredWordsEditor; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {tableView = NSTableView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            CLASS = iTM2IgnoredWordsTableView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSTableView; 
+        }, 
+        {CLASS = iTM2IgnoredWordsWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
+    ); 
+    IBVersion = 1; 
+}

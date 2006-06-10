@@ -1,0 +1,38 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = iTM2MinusButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = iTM2PlusButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = iTM2TextStyleTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {
+            ACTIONS = {
+                defaultColor = id; 
+                modeEdited = id; 
+                popUpToggleAttributesMode = id; 
+                toggleCursorIsWhite = id; 
+            }; 
+            CLASS = iTM2TextStyleTextView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSTextView; 
+        }, 
+        {
+            ACTIONS = {
+                addSet = id; 
+                addSetCancel = id; 
+                addSetNameEdited = id; 
+                addSetOk = id; 
+                addSetTitleEdited = id; 
+                addSymbol = id; 
+                removeSet = id; 
+                revertToFactoryColor = id; 
+                setChosen = id; 
+                toggleBackgroundColor = id; 
+            }; 
+            CLASS = iTM2TextXtdSyntaxParserAttributesInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {addSetPanel = NSPanel; tableView = NSTableView; }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

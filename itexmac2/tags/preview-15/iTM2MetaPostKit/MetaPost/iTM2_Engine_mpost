@@ -1,0 +1,231 @@
+#!/bin/sh
+# this is iTM2_Engine_MetaPost for iTeXMac2 2.0
+# © 2004 jlaurens@users.sourceforge.net
+# This is a MetaPost 0.641 (Web2C 7.5.3) wrapper
+#echo "iTM2: STARTING $0"
+printenv iTM2_MP_TeX_parse_first_line
+printenv iTM2_MP_TeX_format
+iTM2_MP_Engine_Version=1.0
+iTM2MPEngineUsage()
+{
+iTM2_USAGE="Welcome to `basename "$0"` version $iTM2_MP_Engine_Version
+This is iTeXMac2 built in script to wrap the tex engine
+(`which "$0"`)
+© 2004 jlaurens@users.sourceforge.net
+Usage: `basename "$0"` with environment variables
+	TWSMaster: the main input file
+	iTM2_USE_output_directory: 1 or 0 (common)
+	iTM2_output_directory: the common output directory
+	iTM2_MP_ini: 1 or 0, be initex, for dumping formats
+	iTM2_MP_USE_output_directory: 1 or 0
+	iTM2_MP_output_directory:
+	iTM2_MP_mem: = FMTNAME, use the value instead of program name or a %& line
+	iTM2_MP_parse_first_line: 1 or 0, parse of the first line of the input file
+	iTM2_MP_USE_progname: 1 or 0,
+	iTM2_MP_progname: = STRING, set program (and fmt) name to STRING
+	iTM2_MP_USE_jobname: 1 or 0,
+	iTM2_MP_jobname: = STRING, set the job name to STRING
+	iTM2_MP_USE_translate_file: 1 or 0,
+	iTM2_MP_translate_file := TCXNAME, use the TCX file TCXNAME
+	iTM2_MP_PARSE_translate_file: 1 or 0,
+	iTM2_MP_recorder: 1 or 0, enable filename recorder
+	iTM2_MP_file_line_error: 1 or 0, print file:line:error style messages
+	iTM2_MP_halt_on_error: 1 or 0,
+	iTM2_MP_interaction: batchmode/nonstopmode/scrollmode/errorstopmode, set interaction mode
+	iTM2_MP_MoreArgument: more arguments
+	iTM2_MP_TeX_parse_first_line: 1 or 0, parse the first line of verbatimtex environments
+	iTM2_MP_TeX_format: plain, tex, or latex used to typeset verbatimtex environments
+	iTM2_MP_convert_to_pdf: 1 or 0, 1 as default to feed iTeXMac2 with something it can understand
+	iTM2_MP_pdf_converter: 0, 1, 2 for MPS2PDF, MPtoPDF or EPStoPDF"
+echo "$iTM2_USAGE"
+exit 0
+}
+"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version $iTM2_MP_Engine_Version
+This is iTeXMac2 built in script to wrap the mpost engine
+© 2005 jlaurens@users.sourceforge.net"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" start comment
+	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	for iTM2VAR in ${!iTM2_MP_*}
+	do
+		"$iTM2_CMD_Notify" echo "${iTM2VAR} is: ${!iTM2VAR}"
+	done
+	"$iTM2_CMD_Notify" stop comment
+fi
+iTM2_MP_Engine="mpost"
+iTM2_MP_EnginePath="`which "${iTM2_MP_Engine}"`"
+if ! [ -x "${iTM2_MP_EnginePath}" ]
+then
+	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_MP_Engine}."
+	iTM2MPEngineUsage
+fi
+"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
+pushd "$(dirname "${TWSMaster}")"
+INPUT_DIRECTORY="${PWD}"
+INPUT="$(basename "${TWSMaster}")"
+EXTENSION="${INPUT##*.}"
+BASE_INPUT="${INPUT%.*}"
+if ! [ -r "${INPUT}" ]
+then
+    INPUT="${BASE_INPUT}.mp"
+    if ! [ -r "${INPUT}" ]
+    then
+        "$iTM2_CMD_Notify" error "No readable file at ${INPUT}."
+		iTM2MPEngineUsage
+    fi
+fi
+iTM2_MP_Arguments=""
+if [ "${iTM2_MP_ini:-0}" != "0" ]
+then
+	iTM2_MP_Arguments="-ini"
+fi
+if [ "${iTM2_MP_USE_progname:-0}" != "0" ] && [ ${#iTM2_MP_progname} -ne 0 ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -progname ${iTM2_MP_progname}"
+fi
+if [ "${iTM2_MP_USE_jobname:-0}" != "0" ] && [ ${#iTM2_MP_jobname} -ne 0 ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -jobname ${iTM2_MP_jobname}"
+fi
+if [ "${iTM2_MP_USE_output_directory:-0}" != "0" ] && [ ${#iTM2_MP_output_directory} -ne 0 ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -output-directory \"${iTM2_MP_output_directory}\""
+elif [ "${iTM2_USE_output_directory:-0}" != "0" ] && [ ${#iTM2_output_directory} -ne 0 ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -output-directory \"${iTM2_output_directory}\""
+fi
+if [ "${iTM2_MP_parse_first_line:-0}" != "0" ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -parse-first-line"
+	if [ "${iTM2_MP_USE_translate_file:-0}" != "0" ] && [ ${#iTM2_MP_translate_file} -gt 0 ]
+	then
+		if [ "${iTM2_MP_PARSE_translate_file:-0}" != "0" ]
+		then
+			iTM2_MP_Arguments="${iTM2_MP_Arguments} -default-translate-file"
+		else
+			iTM2_MP_Arguments="${iTM2_MP_Arguments} -translate-file"
+		fi
+		iTM2_MP_Arguments="${iTM2_MP_Arguments} \"${iTM2_MP_translate_file}\""
+	fi
+else
+	if [ ${#iTM2_MP_fmt} -gt 0 ]
+	then
+		iTM2_MP_Format_Argument="&${iTM2_MP_fmt}"
+	fi
+	if [ "${iTM2_MP_USE_translate_file:-0}" != "0" ] && [ ${#iTM2_MP_translate_file} -gt 0 ]
+	then
+		iTM2_MP_Arguments="${iTM2_MP_Arguments} -translate-file \"${iTM2_MP_translate_file}\""
+	fi
+fi
+if [ "${iTM2_MP_recorder:-0}" != "0" ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -recorder"
+fi
+if [ "${iTM2_MP_file_line_error:-0}" != "0" ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -file-line-error"
+fi
+if [ "${iTM2_MP_halt_on_error:-0}" != "0" ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -halt-on-error"
+fi
+if [ "${iTM2_MP_kpathsea_debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" comment "-kpathsea-debug no yet supported"
+fi
+if [ ${#iTM2_MP_interaction} -gt 0 ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} -interaction ${iTM2_MP_interaction}"
+fi
+if [ "${iTM2_MP_USE_MoreArgument:-0}" != "0" ] && [ ${#iTM2_MP_MoreArgument} -ne 0 ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} ${iTM2_MP_MoreArgument}"
+fi
+if [ "${iTM2_MP_TeX_parse_first_line:-0}" != "1" ]
+then
+	if [ ${#iTM2_MP_TeX_format} -ne 0 ]
+	then
+		iTM2_MP_Arguments="${iTM2_MP_Arguments} -tex=${iTM2_MP_TeX_format}"
+	else
+		# no information available, guessing?
+		echo "$iTM2_project_mode"|grep -i -q ".*latex.*"
+		if [ $? -eq 0 ]
+		then
+			iTM2_MP_Arguments="${iTM2_MP_Arguments} -tex=latex"
+		else
+			iTM2_MP_Arguments="${iTM2_MP_Arguments} -tex=tex"
+		fi
+	fi
+fi
+if [ ${#iTM2_MP_Format_Argument} -ne 0 ]
+then
+	iTM2_MP_Arguments="${iTM2_MP_Arguments} ${iTM2_MP_Format_Argument}"
+fi
+pushd "${INPUT_DIRECTORY}"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" comment "Performing  ${iTM2_MP_EnginePath} ${iTM2_MP_Arguments} ${INPUT}"
+fi
+${iTM2_MP_EnginePath} ${iTM2_MP_Arguments} "${INPUT}"
+if [ "${iTM2_MP_convert_to_pdf:-1}" != "0" ]
+then
+	BASENAME="${TWSMaster%.*}"
+	echo ${BASENAME}
+	FILES=`find . -regex "./${BASENAME}\.[0-9]*$" -print`
+	echo "List of files: ${FILES}"
+	if [ "${iTM2_MP_pdf_converter}" == "1" ]
+	then
+		echo "Converting to PDF using mptopdf filter"
+		for FILE in ${FILES}
+		do
+			if [ "${TWSMaster}" -nt "${FILE}" ]
+			then
+				echo "Ignoring ${FILE} (older than master document)"
+			else
+				echo "converting ${FILE}"
+				mptopdf ${FILE}
+			fi
+		done
+	elif [ "${iTM2_MP_pdf_converter}" == "2" ]
+	then
+		echo "Converting to PDF using epstopdf filter"
+		for FILE in ${FILES}
+		do
+			if [ "${TWSMaster}" -nt "${FILE}" ]
+			then
+				echo "Ignoring ${FILE} (older than master document)"
+			else
+	#			gs -sDEVICE=epswrite -sOutputFile=${FILE}.eps -dBATCH  -dSAFER -dNOPAUSE -q ${FILE}
+				echo "converting ${FILE}"
+				epstopdf -outfile=`echo "${FILE}" | sed -e /${BASENAME}./s//${BASENAME}-/g`.pdf ${FILE}
+				rm ${FILE}
+			fi
+		done
+	else
+		echo "Converting to PDF using mps2pdf filter"
+		for FILE in ${FILES}
+		do
+			if [ "${TWSMaster}" -nt "${FILE}" ]
+			then
+				echo "Ignoring ${FILE} (older than master document)"
+			else
+				echo "converting ${FILE}"
+				iTM2_Engine_MPS2PDF --input ${FILE}
+				FILE=${FILE}.pdf
+				NEWFILE=`echo "${FILE}" | sed -e /${BASENAME}./s//${BASENAME}-/g`
+				if [ "${NEWFILE}" != "${FILE}" ]
+				then
+					mv "${FILE}" "${NEWFILE}"
+				fi
+			fi
+		done
+	fi
+fi
+popd
+"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${INPUT_DIRECTORY}/${INPUT}" -project "${TWSProjectDirectory}/${TWSProjectName}"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" comment "$0 complete."
+fi
+exit 0

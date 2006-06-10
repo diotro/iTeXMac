@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE TOPIC SYSTEM "DTDs/MAIN.DTD">
+<TOPIC DOMAIN="domain1" CATEGORY="categor é">
+        <TITLE>titre included</TITLE>
+        <SHORT>included</SHORT>
+        <SUMMARY>Sommaire included</SUMMARY>
+        <DESCRIPTION>
+            <TASK>task included</TASK>
+        </DESCRIPTION>
+    </TOPIC>

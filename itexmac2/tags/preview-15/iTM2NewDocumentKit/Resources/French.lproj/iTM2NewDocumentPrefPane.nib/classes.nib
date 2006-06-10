@@ -1,0 +1,50 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                takeNewDocumentAuthorNameFromCombo = id; 
+                takeNewDocumentOrganizationNameFromCombo = id; 
+            }; 
+            CLASS = NSUserDefaultsController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSController; 
+        }, 
+        {
+            CLASS = iTM2NewDocumentPrefPane; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPreferencePane; 
+        }, 
+        {CLASS = "java.lang.Object"; LANGUAGE = Java; }, 
+        {
+            ACTIONS = {
+                cancel = id; 
+                editTemplateDescription = id; 
+                editTemplateFolderPath = id; 
+                next = id; 
+                showHelp = id; 
+            }; 
+            CLASS = x; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {templateImageView = NSImageView; }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

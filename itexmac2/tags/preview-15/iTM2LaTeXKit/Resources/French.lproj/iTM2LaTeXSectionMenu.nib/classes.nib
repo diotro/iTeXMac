@@ -1,0 +1,20 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                gotoLaTeXSection = id; 
+                insertLaTeXChapter = id; 
+                insertLaTeXParagraph = id; 
+                insertLaTeXPart = id; 
+                insertLaTeXSection = id; 
+                insertLaTeXSubParagraph = id; 
+                insertLaTeXSubSection = id; 
+                insertLaTeXSubSubSection = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

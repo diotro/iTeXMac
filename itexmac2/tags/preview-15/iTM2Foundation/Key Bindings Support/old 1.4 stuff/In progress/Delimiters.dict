@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>0</key>
+	<dict>
+		<key>(</key>
+		<string>\left(&lt;#SEL#&gt;\right)</string>
+		<key>[</key>
+		<string>\left[&lt;#SEL#&gt;\right]</string>
+		<key>^|</key>
+		<string>\left\|&lt;#SEL#&gt;\right\|</string>
+		<key>complete</key>
+		<true/>
+		<key>toolTip</key>
+		<string>LaTeX delimiters delimiteur: (, [, {, [, ], |, \|.</string>
+		<key>{</key>
+		<string>\left\{&lt;#SEL#&gt;\right\}</string>
+		<key>|</key>
+		<string>\left|&lt;#SEL#&gt;\right|</string>
+		<key>]</key>
+		<string>\left]&lt;#SEL#&gt;\right[</string>
+	</dict>
+	<key>1</key>
+	<dict>
+		<key>(</key>
+		<string>(&lt;#SEL#&gt;)</string>
+		<key>[</key>
+		<string>[&lt;#SEL#&gt;]</string>
+		<key>^|</key>
+		<string>\|&lt;#SEL#&gt;\|</string>
+		<key>complete</key>
+		<true/>
+		<key>toolTip</key>
+		<string>Size 1 delimiteur: (, [, {, [, ], |, \|.</string>
+		<key>{</key>
+		<string>\{&lt;#SEL#&gt;\}</string>
+		<key>|</key>
+		<string>|&lt;#SEL#&gt;|</string>
+		<key>]</key>
+		<string>]&lt;#SEL#&gt;[</string>
+	</dict>
+	<key>2</key>
+	<dict>
+		<key>(</key>
+		<string>\bigl(&lt;#SEL#&gt;\bigr)</string>
+		<key>[</key>
+		<string>\bigl[&lt;#SEL#&gt;\bigr]</string>
+		<key>^|</key>
+		<string>\bigl\|&lt;#SEL#&gt;\bigr\|</string>
+		<key>complete</key>
+		<true/>
+		<key>toolTip</key>
+		<string>Size 2 delimiteur: (, [, {, [, ], |, \|.</string>
+		<key>{</key>
+		<string>\bigl\{&lt;#SEL#&gt;\bigr\}</string>
+		<key>|</key>
+		<string>\bigl|&lt;#SEL#&gt;\bigr|</string>
+		<key>]</key>
+		<string>\bigl]&lt;#SEL#&gt;\bigr[</string>
+	</dict>
+	<key>3</key>
+	<dict>
+		<key>(</key>
+		<string>\Bigl(&lt;#SEL#&gt;\Bigr)</string>
+		<key>[</key>
+		<string>\Bigl[&lt;#SEL#&gt;\Bigr]</string>
+		<key>^|</key>
+		<string>\Bigl\|&lt;#SEL#&gt;\Bigr\|</string>
+		<key>complete</key>
+		<true/>
+		<key>toolTip</key>
+		<string>Size 3 delimiteur: (, [, {, [, ], |, \|.</string>
+		<key>{</key>
+		<string>\Bigl\{&lt;#SEL#&gt;\Bigr\}</string>
+		<key>|</key>
+		<string>\Bigl|&lt;#SEL#&gt;\Bigr|</string>
+		<key>]</key>
+		<string>\Bigl]&lt;#SEL#&gt;\Bigr[</string>
+	</dict>
+	<key>4</key>
+	<dict>
+		<key>(</key>
+		<string>\biggl(&lt;#SEL#&gt;\biggr)</string>
+		<key>[</key>
+		<string>\biggl[&lt;#SEL#&gt;\biggr]</string>
+		<key>^|</key>
+		<string>\biggl\|&lt;#SEL#&gt;\biggr\|</string>
+		<key>complete</key>
+		<true/>
+		<key>toolTip</key>
+		<string>Size 4 delimiteur: (, [, {, [, ], |, \|.</string>
+		<key>{</key>
+		<string>\biggl\{&lt;#SEL#&gt;\biggr\}</string>
+		<key>|</key>
+		<string>\biggl|&lt;#SEL#&gt;\biggr|</string>
+		<key>]</key>
+		<string>\biggl]&lt;#SEL#&gt;\biggr[</string>
+	</dict>
+	<key>5</key>
+	<dict>
+		<key>(</key>
+		<string>\Biggl(&lt;#SEL#&gt;\Biggr)</string>
+		<key>[</key>
+		<string>\Biggl[&lt;#SEL#&gt;\Biggr]</string>
+		<key>^|</key>
+		<string>\Biggl\|&lt;#SEL#&gt;\Biggr\|</string>
+		<key>complete</key>
+		<true/>
+		<key>toolTip</key>
+		<string>Size 5 delimiteur: (, [, {, [, ], |, \|.</string>
+		<key>{</key>
+		<string>\Biggl\{&lt;#SEL#&gt;\Biggr\}</string>
+		<key>|</key>
+		<string>\Biggl|&lt;#SEL#&gt;\Biggr|</string>
+		<key>]</key>
+		<string>\Biggl]&lt;#SEL#&gt;\Biggr[</string>
+	</dict>
+	<key>complete</key>
+	<true/>
+	<key>toolTip</key>
+	<string>size: 0, 1, 2, 3, 4, 5 + delimiteur: (, [, {, [, ], |, \|</string>
+</dict>
+</plist>

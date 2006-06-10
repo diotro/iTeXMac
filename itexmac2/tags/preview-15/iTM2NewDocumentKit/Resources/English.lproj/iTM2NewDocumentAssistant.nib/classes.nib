@@ -1,0 +1,44 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {
+                takeNewDocumentAuthorNameFromCombo = id; 
+                takeNewDocumentOrganizationNameFromCombo = id; 
+            }; 
+            CLASS = NSUserDefaultsController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSController; 
+        }, 
+        {
+            ACTIONS = {
+                cancel = id; 
+                editTemplateDescription = id; 
+                editTemplateFolderPath = id; 
+                next = id; 
+                showHelp = id; 
+                takeCreationModeFromTag = id; 
+                takeProjectFromSelectedItem = id; 
+                toggleWrapper = id; 
+            }; 
+            CLASS = iTM2NewDocumentAssistant; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                createField = NSTextField; 
+                createProgressIndicator = NSProgressIndicator; 
+                createSheet = NSWindow; 
+                savePanelAccessoryView = NSView; 
+                templateImageView = NSImageView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = "java.lang.Object"; LANGUAGE = Java; }
+    ); 
+    IBVersion = 1; 
+}

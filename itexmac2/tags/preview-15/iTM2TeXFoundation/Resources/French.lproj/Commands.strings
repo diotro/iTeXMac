@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Compile</key>
+	<string>Composer</string>
+	<key>Compile.keyEquivalent</key>
+	<string>c</string>
+	<key>Compile.modifierMask</key>
+	<string>@~</string>
+	<key>Stop</key>
+	<string>Arrêter</string>
+	<key>Stop.keyEquivalent</key>
+	<string>.</string>
+	<key>Stop.modifierMask</key>
+	<string>@~</string>
+	<key>Typeset</key>
+	<string>Composer (avancé)</string>
+	<key>Typeset.keyEquivalent</key>
+	<string>t</string>
+	<key>Typeset.modifierMask</key>
+	<string>@~</string>
+	<key>Continuous</key>
+	<string>Composition continue</string>
+	<key>Continuous.keyEquivalent</key>
+	<string></string>
+	<key>Continuous.modifierMask</key>
+	<string></string>
+	<key>Bibliography</key>
+	<string>Bibliographie</string>
+	<key>Bibliography.keyEquivalent</key>
+	<string></string>
+	<key>Bibliography.modifierMask</key>
+	<string></string>
+	<key>Index</key>
+	<string>Index</string>
+	<key>Index.keyEquivalent</key>
+	<string></string>
+	<key>Index.modifierMask</key>
+	<string></string>
+	<key>Glossary</key>
+	<string>Glossaire</string>
+	<key>Glossary.keyEquivalent</key>
+	<string></string>
+	<key>Glossary.modifierMask</key>
+	<string></string>
+	<key>Clean</key>
+	<string>Supprimer les fichiers auxiliaires</string>
+	<key>Clean.keyEquivalent</key>
+	<string></string>
+	<key>Clean.modifierMask</key>
+	<string></string>
+	<key>Special</key>
+	<string>Special</string>
+	<key>Special.keyEquivalent</key>
+	<string></string>
+	<key>Special.modifierMask</key>
+	<string></string>
+</dict>
+</plist>

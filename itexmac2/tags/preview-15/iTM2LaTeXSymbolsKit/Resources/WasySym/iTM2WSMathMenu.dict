@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\rhd</string>
+		<string>\unlhd</string>
+		<string>\unrhd</string>
+		<string>\LHD</string>
+		<string>\RHD</string>
+		<string>\apprle</string>
+		<string>\apprge</string>
+		<string>\sqsubset</string>
+		<string>\sqsupset</string>
+		<string>\Box</string>
+		<string>\Diamond</string>
+		<string>\iiint</string>
+		<string>\varint</string>
+		<string>\iint</string>
+		<string>\iiint</string>
+		<string>\Join</string>
+		<string>\varoint</string>
+		<string>\oiint</string>
+		<string>\logof</string>
+		<string>\ocircle</string>
+		<string>\invneg</string>
+		<string>\wasypropto</string>
+		<string>\leadsto</string>
+		<string>\mho</string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

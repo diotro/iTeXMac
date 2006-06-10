@@ -1,0 +1,17 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                DviPSOptionsEdited = id; 
+                OK = id; 
+                TeXOptionsEdited = id; 
+                toggleUseDviPSOptions = id; 
+                toggleUseTeXOptions = id; 
+            }; 
+            CLASS = iTM2EngineMPS2PDF; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleName</key>
+	<string>iTeXMac2</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© Laurens'Tribune, 2006</string>
+	<key>TeX Document</key>
+	<string>Document TeX</string>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSHumanReadableCopyright</key>
+	<string>© Laurens'Tribune, 2005</string>
+	<key>CFBundleName</key>
+	<string>iTeXMac2</string>
+	<key>(La)TeX configuration</key>
+	<string>Configuration (La)TeX</string>
+	<key>Definitions (La)TeX </key>
+	<string>Définitions (La)TeX</string>
+	<key>BibTeX auxiliary file</key>
+	<string>Fichier auxiliaire BibTeX</string>
+	<key>BibTeX bibliography</key>
+	<string>Bibliographie BibTeX</string>
+	<key>BibTeX bibliography style</key>
+	<string>Style de bibliographie BibTeX</string>
+	<key>BibTeX log</key>
+	<string>log BibTeX</string>
+	<key>BibTeX resource</key>
+	<string>Ressource BibTeX</string>
+	<key>BibTeX sorting order</key>
+	<string>Classement BibTeX</string>
+	<key>ConTeXt resource</key>
+	<string>Ressource ConTeXt</string>
+	<key>Configuration file</key>
+	<string>Fichier de configuration</string>
+	<key>LaTeX auxiliary file</key>
+	<string>Fichier auxiliaire LaTeX</string>
+	<key>LaTeX class</key>
+	<string>Classe LaTeX</string>
+	<key>LaTeX class options</key>
+	<string>Options de classe LaTeX</string>
+	<key>LaTeX font definition</key>
+	<string>Définition de fonte LaTeX</string>
+	<key>LaTeX installation</key>
+	<string>Installation LaTeX</string>
+	<key>LaTeX koma-script resource</key>
+	<string>Ressource koma-script LaTeX</string>
+	<key>LaTeX language resource</key>
+	<string>Ressource de langue LaTeX</string>
+	<key>LaTeX list of figures</key>
+	<string>Liste des figures LaTeX</string>
+	<key>LaTeX list of table</key>
+	<string>Liste des tableaux LaTeX</string>
+	<key>LaTeX log file (or other)</key>
+	<string>Fichier log LaTeX (ou autre)</string>
+	<key>LaTeX minitoc resource</key>
+	<string>Ressource minitoc LaTeX</string>
+	<key>LaTeX ntheorem resource</key>
+	<string>Ressource ntheorem LaTeX</string>
+	<key>LaTeX package</key>
+	<string>Paquet LaTeX</string>
+	<key>LaTeX package source</key>
+	<string>Source de paquet LaTeX</string>
+	<key>LaTeX resource</key>
+	<string>Ressource LaTeX</string>
+	<key>LaTeX revtex resource</key>
+	<string>Ressource revtex de LaTeX</string>
+	<key>LaTeX source</key>
+	<string>Source LaTeX</string>
+	<key>LaTeX table of contents</key>
+	<string>Table des matières LaTeX</string>
+	<key>LaTeX titlesec resource</key>
+	<string>Ressource titlesec de LaTeX</string>
+	<key>MakeIndex input</key>
+	<string>Entrée de MakeIndex</string>
+	<key>MakeIndex log</key>
+	<string>Fichier log de MakeIndex</string>
+	<key>MakeIndex output</key>
+	<string>Sortie de MakeIndex</string>
+	<key>MakeIndex style</key>
+	<string>Style de MakeIndex</string>
+	<key>MetaFont format</key>
+	<string>Format MetaFont</string>
+	<key>MetaFont source</key>
+	<string>Source MetaFont</string>
+	<key>MetaPost Document</key>
+	<string>Document MetaPost</string>
+	<key>MetaPost Macro File</key>
+	<string>Fichier de macros MetaPost</string>
+	<key>MetaPost Special Document</key>
+	<string>Document spécial MetaPost</string>
+	<key>MetaPost resource</key>
+	<string>Ressource MetaPost</string>
+	<key>MetaPost resource for ConTeXt</key>
+	<string>Ressource MetaPost pour ConTeXt</string>
+	<key>Omega font resource</key>
+	<string>Ressource de fonte pour Omega</string>
+	<key>Omega resource</key>
+	<string>Ressource Omega</string>
+	<key>Omega virtual font resource</key>
+	<string>Ressource de fonte virtuelle pour Omega</string>
+	<key>PSTricks resource file</key>
+	<string>Ressources PSTricks</string>
+	<key>TeX Contextual Menu Plug-In</key>
+	<string>Extension du menu contextuel TeX</string>
+	<key>TeX Document</key>
+	<string>Document TeX</string>
+	<key>TeX Project Document</key>
+	<string>Project TeX</string>
+	<key>TeX Project Wrapper</key>
+	<string>Paquet TeX</string>
+	<key>TeX dvips resource</key>
+	<string>Ressource dvips pour TeX</string>
+	<key>TeX font encoding</key>
+	<string>Encodage de caractères TeX</string>
+	<key>TeX font map</key>
+	<string>Carte de fonte TeX</string>
+	<key>TeX font metrics</key>
+	<string>Métriques de fontes TeX</string>
+	<key>TeX font resource</key>
+	<string>Ressource de fonte TeX</string>
+	<key>TeX font translation table</key>
+	<string>Table de traduction de fonte TeX</string>
+	<key>TeX format</key>
+	<string>Format TeX</string>
+	<key>TeX resource</key>
+	<string>Ressource TeX</string>
+	<key>TeX virtual font</key>
+	<string>Fonte virtuelle TeX</string>
+	<key>TeX4ht font resource</key>
+	<string>Ressource de fonte pour TeX4ht</string>
+	<key>TeX4ht resource</key>
+	<string>Ressource pour TeX4ht</string>
+	<key>TeXUtil Document</key>
+	<string>Document TeXUtil</string>
+	<key>Web2c configuration file</key>
+	<string>Fichier de configuration Web2c</string>
+	<key>Wildcard Document</key>
+	<string>Document Joker</string>
+	<key>XeTeX output</key>
+	<string>Sortie XeTeX</string>
+	<key>iTeXMac2 Plug-In</key>
+	<string>Extension pour iTeXMac2</string>
+	<key>iTeXMac2 Style</key>
+	<string>Style de syntaxe iTeXMac2</string>
+	<key>iTeXMac2 Style Symbols</key>
+	<string>Symboles de syntaxe iTeXMac2</string>
+	<key>iTeXMac2 Style Variant</key>
+	<string>Variante de style de syntaxe iTeXMac2</string>
+</dict>
+</plist>
+</dict>
+</plist>

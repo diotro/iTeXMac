@@ -1,0 +1,20 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                OK = id; 
+                cancel = id; 
+                chooseEngine = id; 
+                chooseOptions = id; 
+                chooseScript = id; 
+                defaultEngine = id; 
+                editOptions = id; 
+                editScript = id; 
+            }; 
+            CLASS = iTM2TeXPCompileInspector; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
