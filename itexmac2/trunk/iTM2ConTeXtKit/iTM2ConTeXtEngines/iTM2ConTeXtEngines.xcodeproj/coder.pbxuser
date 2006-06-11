@@ -201,10 +201,10 @@
 	DC52042E088B1FD300DE6E7F /* Source Control */ = {
 		isa = PBXSourceControlManager;
 		fallbackIsa = XCSourceControlManager;
-		isSCMEnabled = 0;
+		isSCMEnabled = 1;
 		scmConfiguration = {
 		};
-		scmType = "";
+		scmType = scm.subversion;
 	};
 	DC52042F088B1FD300DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
