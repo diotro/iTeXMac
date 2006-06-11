@@ -155,13 +155,13 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171650552;
-			PBXWorkspaceStateSaveDate = 171650552;
+			PBXPerProjectTemplateStateSaveDate = 171676860;
+			PBXWorkspaceStateSaveDate = 171676860;
 		};
 		perUserProjectItems = {
-			DC1F89850A3B2DFA00AD9F23 /* PBXTextBookmark */ = DC1F89850A3B2DFA00AD9F23 /* PBXTextBookmark */;
-			DC1F89860A3B2DFA00AD9F23 /* PBXTextBookmark */ = DC1F89860A3B2DFA00AD9F23 /* PBXTextBookmark */;
-			DC1F89870A3B2DFA00AD9F23 /* PBXTextBookmark */ = DC1F89870A3B2DFA00AD9F23 /* PBXTextBookmark */;
+			DC1F89850A3B2DFA00AD9F23 = DC1F89850A3B2DFA00AD9F23 /* PBXTextBookmark */;
+			DC1F89860A3B2DFA00AD9F23 = DC1F89860A3B2DFA00AD9F23 /* PBXTextBookmark */;
+			DC1F89870A3B2DFA00AD9F23 = DC1F89870A3B2DFA00AD9F23 /* PBXTextBookmark */;
 			DCDF56C10A39BADD0099E562 = DCDF56C10A39BADD0099E562 /* PBXTextBookmark */;
 			DCDF59130A3A2E7F0099E562 = DCDF59130A3A2E7F0099E562 /* PBXTextBookmark */;
 			DCDF59190A3A2E7F0099E562 = DCDF59190A3A2E7F0099E562 /* PBXTextBookmark */;
@@ -532,11 +532,6 @@
 		name = iTM2MacroKit.m;
 		path = "/Users/coder/Documents/iTeXMac2/iTM2-Source-Tree/iTM2Foundation/0 - Core/iTM2MacroKit.m";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1924, 31025}}";
-			sepNavSelRange = "{64547, 0}";
-			sepNavVisRect = "{{0, 30366}, {1145, 639}}";
-		};
 	};
 	DCDF56C10A39BADD0099E562 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -585,11 +580,6 @@
 		name = iTM2PDFKit.m;
 		path = "/Users/coder/Documents/iTeXMac2/iTM2-Source-Tree/iTM2PDFKit/iTM2PDFKit.m";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1372, 10863}}";
-			sepNavSelRange = "{18147, 156}";
-			sepNavVisRect = "{{0, 8500}, {1145, 639}}";
-		};
 	};
 	DCDF59190A3A2E7F0099E562 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
