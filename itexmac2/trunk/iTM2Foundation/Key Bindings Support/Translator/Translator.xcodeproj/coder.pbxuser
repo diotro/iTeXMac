@@ -17,7 +17,7 @@
 					20,
 					243,
 					20,
-					48.1626,
+					48,
 					43,
 					43,
 					20,
@@ -34,10 +34,6 @@
 			};
 			PBXPerProjectTemplateStateSaveDate = 171676877;
 			PBXWorkspaceStateSaveDate = 171676877;
-		};
-		perUserProjectItems = {
-			DC98677B09EADB9700FF4BD3 = DC98677B09EADB9700FF4BD3 /* PBXBookmark */;
-			DC986C0309F04A1100FF4BD3 = DC986C0309F04A1100FF4BD3 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC98677E09EADBB000FF4BD3 /* Source Control */;
 		userBuildSettings = {
@@ -80,30 +76,17 @@
 		sourceDirectories = (
 		);
 	};
-	DC98677B09EADB9700FF4BD3 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 08FB7796FE84155DC02AAC07 /* Translator.m */;
-	};
 	DC98677E09EADBB000FF4BD3 /* Source Control */ = {
 		isa = PBXSourceControlManager;
 		fallbackIsa = XCSourceControlManager;
 		isSCMEnabled = 1;
 		scmConfiguration = {
+			SubversionToolPath = /usr/local/bin/svn;
 		};
 		scmType = scm.subversion;
 	};
 	DC98677F09EADBB000FF4BD3 /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
-	};
-	DC986C0309F04A1100FF4BD3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 08FB7796FE84155DC02AAC07 /* Translator.m */;
-		name = "Translator.m: 83";
-		rLen = 0;
-		rLoc = 2512;
-		rType = 0;
-		vrLen = 1385;
-		vrLoc = 1870;
 	};
 }
