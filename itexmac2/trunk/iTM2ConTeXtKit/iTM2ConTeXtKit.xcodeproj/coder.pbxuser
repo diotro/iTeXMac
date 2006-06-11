@@ -163,8 +163,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171650597;
-			PBXWorkspaceStateSaveDate = 171650597;
+			PBXPerProjectTemplateStateSaveDate = 171676847;
+			PBXWorkspaceStateSaveDate = 171676847;
 		};
 		perUserProjectItems = {
 			DC99E87B0A25F55700F50752 = DC99E87B0A25F55700F50752 /* PBXTextBookmark */;
@@ -211,10 +211,10 @@
 	DC52042C088B1FD300DE6E7F /* Source Control */ = {
 		isa = PBXSourceControlManager;
 		fallbackIsa = XCSourceControlManager;
-		isSCMEnabled = 0;
+		isSCMEnabled = 1;
 		scmConfiguration = {
 		};
-		scmType = "";
+		scmType = scm.subversion;
 	};
 	DC52042D088B1FD300DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
