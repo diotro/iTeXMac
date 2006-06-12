@@ -2,6 +2,8 @@
 //  iTM2EDITORKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens@users.sourceforge.net on Sun Jun 24 2001.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //

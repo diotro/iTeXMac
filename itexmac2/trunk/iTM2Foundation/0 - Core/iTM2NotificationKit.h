@@ -2,6 +2,8 @@
 //  iTM2NotificationKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Dec 03 2001.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

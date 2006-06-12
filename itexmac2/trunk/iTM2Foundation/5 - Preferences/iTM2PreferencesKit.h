@@ -2,6 +2,8 @@
 //  iTM2PrefsController.h
 //  iTeXMac
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Mar 04 2002.
 //  Copyright (c) 2001 Laurens'Tribune. All rights reserved.
 //

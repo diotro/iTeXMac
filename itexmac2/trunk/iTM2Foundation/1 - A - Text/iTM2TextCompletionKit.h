@@ -2,6 +2,8 @@
 //  iTM2TextCompletionKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Apr 12 20:12:28 GMT 2006.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

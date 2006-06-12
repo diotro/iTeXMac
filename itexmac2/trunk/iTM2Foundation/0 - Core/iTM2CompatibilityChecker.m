@@ -2,6 +2,8 @@
 //  iTM2CompatibilityChecker.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Feb  3 22:06:26 GMT 2005.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //

@@ -2,6 +2,8 @@
 //  iTM2Implementation.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon May 10 22:45:25 GMT 2004.
 //  Copyright © 2004 Laurens'Tribune. All rights reserved.
 //

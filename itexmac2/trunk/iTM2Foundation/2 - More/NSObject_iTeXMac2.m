@@ -2,6 +2,8 @@
 //  NSObject_iTeXMac2.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri May 31 2002.
 //  Copyright (c) 2001 Laurens'Tribune. All rights reserved.
 //

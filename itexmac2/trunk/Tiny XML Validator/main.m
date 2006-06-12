@@ -2,6 +2,8 @@
 //  main.m
 //  Tiny XML Validator
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by Coder on 19/04/06.
 //  Copyright __MyCompanyName__ 2006 . All rights reserved.
 //

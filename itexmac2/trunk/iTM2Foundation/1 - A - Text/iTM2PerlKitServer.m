@@ -2,6 +2,8 @@
 //  iTM2PerlKitServer.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Feb 21 2002.
 //  Copyright © 2006 Laurens'Tribune. All rights reserved.
 //
@@ -25,35 +27,6 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2PerlKitServer.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
-
-@implementation iTM2MainInstaller(iTM2PerlKitServer)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PerlKitServer_CompleteInstallation
-+ (void) iTM2PerlKitServer_CompleteInstallation;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 01/15/2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSConnection *theConnection;
-	id root = [NSMutableDictionary dictionary];
-	[root setObject:[NSApplication sharedApplication] forKey:@"NSApp"];
-	[root setObject:[NSApplication sharedApplication] forKey:@"NSClassServer"];
-	theConnection = [NSConnection defaultConnection];
-	[theConnection setRootObject:root];
-//	if([theConnection registerName:[NSBundle uniqueApplicationIdentifier]])
-	if([theConnection registerName:@"iTeXMac2"])
-	{
-		iTM2_LOG(@"The DO connection is available with identifier: <%@>", [NSBundle uniqueApplicationIdentifier]);
-	}
-	else
-	{
-		iTM2_LOG(@"****  ERROR: The DO connection is NOT available...");
-	}
-//iTM2_END;
-}
-@end
 
 @implementation iTM2Application(iTM2PerlKitServer)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  testSelector

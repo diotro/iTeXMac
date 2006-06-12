@@ -2,6 +2,8 @@
 //  iTM2TeXDistributionKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Nov 22 07:56:02 GMT 2004.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //

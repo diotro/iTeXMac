@@ -221,6 +221,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -265,8 +267,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>3</integer>
-									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -290,7 +290,7 @@
 							<real>277</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>119 111 690 397 0 0 1280 832 </string>
+						<string>151 120 690 397 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -327,7 +327,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {391, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>119 111 690 397 0 0 1280 832 </string>
+								<string>151 120 690 397 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -335,8 +335,6 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -349,7 +347,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {391, 351}}</string>
 								<key>RubberWindowFrame</key>
-								<string>119 111 690 397 0 0 1280 832 </string>
+								<string>151 120 690 397 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -373,9 +371,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC71497209FECDC7004A5A6A</string>
+				<string>DC4287410A3C89A600823093</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC71497309FECDC7004A5A6A</string>
+				<string>DC4287420A3C89A600823093</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -509,16 +507,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC71497D09FECDC7004A5A6A</string>
-		<string>DC71497E09FECDC7004A5A6A</string>
-		<string>DC38CA5F09F4EEF900E37811</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC71497B09FECDC7004A5A6A</string>
-		<string>DC38CA3409F4E9B800E37811</string>
-		<string>/Users/coder/iTeXMac/iTeXMac2/Developer/iTM2Foundation/DTDs/iTM2MakeMacrosSummary/iTM2MakeMacrosSummary.xcodeproj</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/DTDs/iTM2MakeMacrosSummary/iTM2MakeMacrosSummary.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>119 111 690 397 0 0 1280 832 </string>
+	<string>151 120 690 397 0 0 1440 878 </string>
 	<key>WindowTools</key>
 	<array>
 		<dict>

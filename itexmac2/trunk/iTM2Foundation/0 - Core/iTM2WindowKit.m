@@ -2,6 +2,8 @@
 //  iTM2WindowKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Jul 12 2001.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

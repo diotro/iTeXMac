@@ -2,6 +2,8 @@
 //  iTM2ResponderKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Nov 27 2001.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

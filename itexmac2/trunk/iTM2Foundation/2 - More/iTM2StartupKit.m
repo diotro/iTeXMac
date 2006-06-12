@@ -2,6 +2,8 @@
 //  iTM2StartupKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by dirk on Tue Jan 23 2001.
 //  Modified by jlaurens AT users DOT sourceforge DOT net on Tue Jun 26 2001.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.

@@ -2,6 +2,8 @@
 //  NSTextStorage_iTeXMac2.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon May 27 2002.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //

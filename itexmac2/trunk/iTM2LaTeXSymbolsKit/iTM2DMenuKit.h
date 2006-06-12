@@ -2,6 +2,8 @@
 //  iTM2DMenuKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Sep 03 2003.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

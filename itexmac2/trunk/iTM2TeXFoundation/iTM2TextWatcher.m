@@ -2,6 +2,8 @@
 //  iTM2TextWatcher.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Dec 20 2001.
 //  Copyright © 2001-2005 Laurens'Tribune. All rights reserved.
 //

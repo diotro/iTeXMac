@@ -2,6 +2,8 @@
 //  iTM2ProjectDocumentKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Jan  4 07:48:24 GMT 2005.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //

@@ -2,6 +2,8 @@
 //  iTM2_Server_main.m 
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sat Jan 15 15:36:51 GMT 2005.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //

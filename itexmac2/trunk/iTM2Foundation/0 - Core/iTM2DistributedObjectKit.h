@@ -1,11 +1,11 @@
 /*
-//  iTM2CursorKit.h
+//  iTM2DistributedObjectKit.h
 //  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
-//  Created by jlaurens AT users DOT sourceforge DOT net on Thu Jan 23 2003.
-//  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
+//  Created by jlaurens AT users DOT sourceforge DOT net on Mon Jun 12 19:38:42 GMT 2006.
+//  Copyright ©  2001 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -19,21 +19,21 @@
 //  improve efficiency in both code execution and code reading or writing should be addressed
 //  to the actual developper team.
 //
-//  Version history: (format "- date:contribution(contributor)") 
-//  To Do List: (format "- proposition(percentage actually done)")
+//  Version history: (format "- date:contribution (contributor) ")  
+//  To Do List: (format "- proposition (percentage actually done) ") 
 */
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSCursor(iTeXMac2)
+#import <Cocoa/Cocoa.h>
 
-@interface NSCursor(iTeXMac2)
-+ (NSCursor *) fingerCursor;
-+ (NSCursor *) handCursor;
-+ (NSCursor *) zoomInCursor;
-+ (NSCursor *) zoomOutCursor;
-+ (NSCursor *) crossHairCursor;
-+ (NSCursor *) horizontalResizeCursor;
-+ (NSCursor *) verticalResizeCursor;
-+ (NSCursor *) whiteIBeamCursor;
+@interface NSConnection(iTM2DistributedObjectKit)
+
+/*! 
+    @method     iTeXMac2ConnectionIdentifier
+    @abstract   The iTeXMac2 conection identifier.
+    @discussion Description Forthcoming.
+    @param      None.
+    @result     the output
+*/
++ (NSString *) iTeXMac2ConnectionIdentifier;
+
 @end
-
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSCursor(iTeXMac2)

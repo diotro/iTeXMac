@@ -2,6 +2,8 @@
 //  iTM2PStoPDFWrapperKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Sep 11 2001.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //

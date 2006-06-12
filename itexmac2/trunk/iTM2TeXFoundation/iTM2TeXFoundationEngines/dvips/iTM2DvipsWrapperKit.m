@@ -2,6 +2,8 @@
 //  iTM2DvipsWrapperKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Jan 18 10:34:50 GMT 2005.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //

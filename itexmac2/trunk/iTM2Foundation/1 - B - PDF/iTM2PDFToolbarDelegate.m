@@ -2,6 +2,8 @@
 //  iTM2PDFToolbarDelegate.m
 //  iTeXMac
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Jan 06 2002.
 //  Copyright © 2001 Laurens'Tribune. All rights reserved.
 //

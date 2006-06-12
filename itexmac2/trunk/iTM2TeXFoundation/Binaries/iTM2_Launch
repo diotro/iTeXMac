@@ -179,7 +179,6 @@ echo "iTM2WrappedCommand is: $iTM2WrappedCommand"
 		then
 				"${iTM2_CMD_Notify}" comment "running ${iTM2Command} (${iTM2WrappedCommand})"
 		fi
-date "+MIDDLE - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 		"${iTM2CommandPath}"
 		status=$?
 	else

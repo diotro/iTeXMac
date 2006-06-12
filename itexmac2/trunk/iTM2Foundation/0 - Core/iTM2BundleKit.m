@@ -2,6 +2,8 @@
 //  iTM2BundleKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Apr 28 2002.
 //  Copyright © 2003 Laurens'Tribune. All rights reserved.
 //

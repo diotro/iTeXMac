@@ -2,6 +2,8 @@
 //  iTM2MacroKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Feb 21 2002.
 //  Copyright © 2006 Laurens'Tribune. All rights reserved.
 //

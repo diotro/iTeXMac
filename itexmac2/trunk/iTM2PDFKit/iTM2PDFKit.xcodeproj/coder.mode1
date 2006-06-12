@@ -185,88 +185,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC2A2B200A3559FC005A3C78</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2PDFKit.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC2A2C090A36071B005A3C78</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2PDFKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC1F896C0A3B2DF400AD9F23</string>
-						<key>history</key>
-						<array>
-							<string>DC88FC6B0A38D44200294872</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1134, 704}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>38 87 1134 745 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC2A2B210A3559FC005A3C78</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2PDFKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC2A2C0C0A36071B005A3C78</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2PDFKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC1F896D0A3B2DF400AD9F23</string>
-						<key>history</key>
-						<array>
-							<string>DC88FC6C0A38D44200294872</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1134, 704}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>15 83 1134 745 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -347,8 +266,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>3</integer>
-									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -400,12 +317,12 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC1F89690A3B2DF400AD9F23</string>
+										<string>DC428E9A0A3D9B0400823093</string>
 										<key>history</key>
 										<array>
 											<string>DC264C470986353C00109CD2</string>
 											<string>DC98674D09EADAD800FF4BD3</string>
-											<string>DC88FC6A0A38D44200294872</string>
+											<string>DC1F8D9D0A3B9BDA00AD9F23</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -470,9 +387,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC1F896A0A3B2DF400AD9F23</string>
+				<string>DC4287480A3C89A600823093</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC1F896B0A3B2DF400AD9F23</string>
+				<string>DC4287490A3C89A600823093</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -606,9 +523,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC2A2B210A3559FC005A3C78</string>
-		<string>DC2A2B200A3559FC005A3C78</string>
-		<string>/Users/coder/Documents/iTeXMac2/iTM2-Source-Tree/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>126 170 1085 453 0 0 1440 878 </string>

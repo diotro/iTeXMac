@@ -135,13 +135,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171650612;
-			PBXWorkspaceStateSaveDate = 171650612;
+			PBXPerProjectTemplateStateSaveDate = 171739527;
+			PBXWorkspaceStateSaveDate = 171739527;
 		};
 		perUserProjectItems = {
-			DC1F89C50A3B2E3700AD9F23 /* PBXTextBookmark */ = DC1F89C50A3B2E3700AD9F23 /* PBXTextBookmark */;
-			DC8AD56C0A3ABE4E006C28A5 = DC8AD56C0A3ABE4E006C28A5 /* PBXTextBookmark */;
-			DCD3A8A90A39A5A700B5EE0C = DCD3A8A90A39A5A700B5EE0C /* PBXTextBookmark */;
+			DC428E810A3CA80900823093 /* PBXBookmark */ = DC428E810A3CA80900823093 /* PBXBookmark */;
+			DC428E940A3D9B0100823093 /* PBXTextBookmark */ = DC428E940A3D9B0100823093 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -152,16 +151,6 @@
 		executables = (
 			DC520334088B1F3A00DE6E7F /* iTeXMac2 */,
 		);
-	};
-	DC1F89C50A3B2E3700AD9F23 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCD3A8AA0A39A5A700B5EE0C /* NSThread.h */;
-		name = "+ (NSThread *)currentThread;";
-		rLen = 29;
-		rLoc = 508;
-		rType = 0;
-		vrLen = 819;
-		vrLoc = 77;
 	};
 	DC24D4660952F5F200647943 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
@@ -177,6 +166,20 @@
 		uiCtxt = {
 			sepNavWindowFrame = "{{38, 22}, {1220, 784}}";
 		};
+	};
+	DC428E810A3CA80900823093 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+	};
+	DC428E940A3D9B0100823093 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 7";
+		rLen = 0;
+		rLoc = 80;
+		rType = 0;
+		vrLen = 928;
+		vrLoc = 0;
 	};
 	DC520334088B1F3A00DE6E7F /* iTeXMac2 */ = {
 		isa = PBXExecutable;
@@ -211,7 +214,7 @@
 	DC520343088B1F5B00DE6E7F /* Source Control */ = {
 		isa = PBXSourceControlManager;
 		fallbackIsa = XCSourceControlManager;
-		isSCMEnabled = 0;
+		isSCMEnabled = 1;
 		scmConfiguration = {
 			SubversionToolPath = /usr/local/bin/svn;
 		};
@@ -274,23 +277,6 @@
 	DC81D83008840CF60086F2EB /* All */ = {
 		activeExec = 0;
 	};
-	DC8AD56C0A3ABE4E006C28A5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC8AD56D0A3ABE4E006C28A5 /* NSThread.h */;
-		name = "+ (NSThread *)currentThread;";
-		rLen = 29;
-		rLoc = 508;
-		rType = 0;
-		vrLen = 819;
-		vrLoc = 77;
-	};
-	DC8AD56D0A3ABE4E006C28A5 /* NSThread.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = NSThread.h;
-		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSThread.h;
-		sourceTree = "<absolute>";
-	};
 	DCAF9B1E09D8137900AFD95F /* French */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1103, 2983}}";
@@ -317,9 +303,9 @@
 	};
 	DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1332, 7087}}";
-			sepNavSelRange = "{2477, 0}";
-			sepNavVisRect = "{{0, 1013}, {1095, 617}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1332, 6307}}";
+			sepNavSelRange = "{80, 0}";
+			sepNavVisRect = "{{0, 0}, {1095, 617}}";
 			sepNavWindowFrame = "{{91, 86}, {1134, 746}}";
 		};
 	};
@@ -337,28 +323,6 @@
 			sepNavSelRange = "{3089, 0}";
 			sepNavVisRect = "{{0, 2641}, {1181, 655}}";
 			sepNavWindowFrame = "{{38, 22}, {1220, 784}}";
-		};
-	};
-	DCD3A8A90A39A5A700B5EE0C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCD3A8AA0A39A5A700B5EE0C /* NSThread.h */;
-		name = "+ (NSThread *)currentThread;";
-		rLen = 29;
-		rLoc = 508;
-		rType = 0;
-		vrLen = 820;
-		vrLoc = 77;
-	};
-	DCD3A8AA0A39A5A700B5EE0C /* NSThread.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = NSThread.h;
-		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSThread.h;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1145, 986}}";
-			sepNavSelRange = "{508, 29}";
-			sepNavVisRect = "{{0, 68}, {1145, 639}}";
 		};
 	};
 	DCD3D305088EA6AC009ED7E0 /* -[NSException raise] */ = {

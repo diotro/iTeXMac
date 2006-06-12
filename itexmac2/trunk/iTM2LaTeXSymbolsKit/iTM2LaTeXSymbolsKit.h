@@ -2,6 +2,8 @@
 //  iTM2LaTeXSymbolsKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Jun 24 2002.
 //  Copyright (c) 2001 Laurens'Tribune. All rights reserved.
 //

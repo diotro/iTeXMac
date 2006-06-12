@@ -1,6 +1,8 @@
 // iTM2ARegularExpression.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Jan 09 2003.
 //  From source code of Mike Ferris's MOKit at http://mokit.sourcefoge.net
 //  Copyright © 2003 Laurens'Tribune. All rights reserved.

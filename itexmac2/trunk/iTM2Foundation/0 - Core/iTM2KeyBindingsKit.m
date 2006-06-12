@@ -2,6 +2,8 @@
 //  iTM2KeyBindingsManager.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Oct 6 11 2003.
 //  Copyright © 2003 Laurens'Tribune. All rights reserved.
 //

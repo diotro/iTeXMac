@@ -185,40 +185,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC9FA8A80A3331E4008D22DF</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2PDFSYNCKit.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC9FA8A90A3331E4008D22DF</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2PDFSYNCKit.m</string>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1234, 691}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>38 74 1234 732 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -299,8 +266,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>3</integer>
-									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -405,9 +370,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC9FA97B0A3353CF008D22DF</string>
+				<string>DC42874E0A3C89A700823093</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC9FA97C0A3353CF008D22DF</string>
+				<string>DC42874F0A3C89A700823093</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -541,11 +506,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC9DC6EA094844F00079E1B3</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC9FA8D00A3332E6008D22DF</string>
-		<string>DC9FA8A80A3331E4008D22DF</string>
-		<string>/Users/coder/Documents/iTeXMac2/Developer/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>208 109 878 713 0 0 1440 878 </string>

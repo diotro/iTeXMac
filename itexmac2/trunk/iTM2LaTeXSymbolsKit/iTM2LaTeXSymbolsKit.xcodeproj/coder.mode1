@@ -316,10 +316,10 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC1F899D0A3B2E0D00AD9F23</string>
+										<string>DC428E990A3D9B0400823093</string>
 										<key>history</key>
 										<array>
-											<string>DC9FA96D0A3353CD008D22DF</string>
+											<string>DC1F8DAA0A3B9BDF00AD9F23</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -377,9 +377,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC1F899E0A3B2E0D00AD9F23</string>
+				<string>DC42873F0A3C89A600823093</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC1F899F0A3B2E0D00AD9F23</string>
+				<string>DC4287400A3C89A600823093</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -513,7 +513,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>/Users/coder/Documents/iTeXMac2/iTM2-Source-Tree/iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit.xcodeproj</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>72 107 1046 592 0 0 1440 878 </string>

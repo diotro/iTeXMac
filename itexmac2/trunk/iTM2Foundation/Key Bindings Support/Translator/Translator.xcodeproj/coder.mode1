@@ -369,9 +369,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC1F8A820A3B97B000AD9F23</string>
+				<string>DC4287650A3C89A700823093</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC1F8A830A3B97B000AD9F23</string>
+				<string>DC4287660A3C89A700823093</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -505,7 +505,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC1F8A7E0A3B95A400AD9F23</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/Key Bindings Support/Translator/Translator.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

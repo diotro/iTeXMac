@@ -2,6 +2,8 @@
 //  iTM2StartupDocument.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by Coder on 03/03/05.
 //  Copyright __MyCompanyName__ 2005 . All rights reserved.
 //

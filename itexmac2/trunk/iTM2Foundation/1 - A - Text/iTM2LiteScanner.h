@@ -2,6 +2,8 @@
 //  iTM2LiteScanner.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Dec 05 2001.
 //  Copyright ©  2001 Laurens'Tribune. All rights reserved.
 //

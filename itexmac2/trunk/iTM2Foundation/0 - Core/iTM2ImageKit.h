@@ -2,6 +2,8 @@
 //  iTM2ImageKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue May 10 11:15:35 GMT 2005.
 //  Copyright © 2001-2005 Laurens'Tribune. All rights reserved.
 //

@@ -2,6 +2,8 @@
 //  iTM2EventObserver.m
 //  list menu controller tutorial
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sat Jun 16 2001.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

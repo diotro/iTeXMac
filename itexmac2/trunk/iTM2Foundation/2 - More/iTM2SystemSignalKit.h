@@ -2,6 +2,8 @@
 //  iTM2SystemSignalKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Jun 13 2002.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //

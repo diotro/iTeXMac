@@ -2,6 +2,8 @@
 //  iTM2ProjectSpellKit.m
 //  iTeXMac2 1.4
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Sep 15 21:07:40 GMT 2004.
 //  Copyright © 2004 Laurens'Tribune. All rights reserved.
 //

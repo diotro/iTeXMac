@@ -89,59 +89,32 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171676864;
-			PBXWorkspaceStateSaveDate = 171676864;
+			PBXPerProjectTemplateStateSaveDate = 171739540;
+			PBXWorkspaceStateSaveDate = 171739540;
 		};
 		perUserProjectItems = {
-			DC1F89690A3B2DF400AD9F23 = DC1F89690A3B2DF400AD9F23 /* PBXTextBookmark */;
-			DC1F896C0A3B2DF400AD9F23 = DC1F896C0A3B2DF400AD9F23 /* PBXTextBookmark */;
-			DC1F896D0A3B2DF400AD9F23 = DC1F896D0A3B2DF400AD9F23 /* PBXTextBookmark */;
-			DC264C470986353C00109CD2 = DC264C470986353C00109CD2 /* PBXTextBookmark */;
-			DC264C490986353C00109CD2 = DC264C490986353C00109CD2 /* PBXTextBookmark */;
-			DC2A2C060A36071B005A3C78 = DC2A2C060A36071B005A3C78 /* PBXTextBookmark */;
-			DC2A2C0B0A36071B005A3C78 = DC2A2C0B0A36071B005A3C78 /* PBXTextBookmark */;
-			DC2A2C0D0A36071B005A3C78 = DC2A2C0D0A36071B005A3C78 /* PBXTextBookmark */;
-			DC88FC6A0A38D44200294872 = DC88FC6A0A38D44200294872 /* PBXTextBookmark */;
-			DC88FC6B0A38D44200294872 = DC88FC6B0A38D44200294872 /* PBXTextBookmark */;
-			DC88FC6C0A38D44200294872 = DC88FC6C0A38D44200294872 /* PBXTextBookmark */;
-			DC98674D09EADAD800FF4BD3 = DC98674D09EADAD800FF4BD3 /* PBXBookmark */;
-			DC98675009EADAD800FF4BD3 = DC98675009EADAD800FF4BD3 /* PBXBookmark */;
-			DCC544C90937B2780050770C = DCC544C90937B2780050770C /* PBXBookmark */;
-			DCEAE51209D2083500903594 = DCEAE51209D2083500903594 /* PBXTextBookmark */;
+			DC1F8D9D0A3B9BDA00AD9F23 /* PBXTextBookmark */ = DC1F8D9D0A3B9BDA00AD9F23 /* PBXTextBookmark */;
+			DC264C470986353C00109CD2 /* PBXTextBookmark */ = DC264C470986353C00109CD2 /* PBXTextBookmark */;
+			DC264C490986353C00109CD2 /* PBXTextBookmark */ = DC264C490986353C00109CD2 /* PBXTextBookmark */;
+			DC428E9A0A3D9B0400823093 /* PBXTextBookmark */ = DC428E9A0A3D9B0400823093 /* PBXTextBookmark */;
+			DC98674D09EADAD800FF4BD3 /* PBXBookmark */ = DC98674D09EADAD800FF4BD3 /* PBXBookmark */;
+			DC98675009EADAD800FF4BD3 /* PBXBookmark */ = DC98675009EADAD800FF4BD3 /* PBXBookmark */;
+			DCC544C90937B2780050770C /* PBXBookmark */ = DCC544C90937B2780050770C /* PBXBookmark */;
+			DCEAE51209D2083500903594 /* PBXTextBookmark */ = DCEAE51209D2083500903594 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520430088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
 		};
 	};
-	DC1F89690A3B2DF400AD9F23 /* PBXTextBookmark */ = {
+	DC1F8D9D0A3B9BDA00AD9F23 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
 		name = iTM2Window;
 		rLen = 10;
-		rLoc = 2519;
+		rLoc = 2553;
 		rType = 0;
 		vrLen = 349;
 		vrLoc = 2235;
-	};
-	DC1F896C0A3B2DF400AD9F23 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 76";
-		rLen = 806;
-		rLoc = 2791;
-		rType = 0;
-		vrLen = 1269;
-		vrLoc = 2565;
-	};
-	DC1F896D0A3B2DF400AD9F23 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
-		name = iTM2Window;
-		rLen = 10;
-		rLoc = 2519;
-		rType = 0;
-		vrLen = 1644;
-		vrLoc = 1530;
 	};
 	DC264C470986353C00109CD2 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -163,47 +136,17 @@
 		vrLen = 296;
 		vrLoc = 0;
 	};
-	DC2A2C060A36071B005A3C78 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
-		name = iTM2Window;
-		rLen = 10;
-		rLoc = 2519;
-		rType = 0;
-		vrLen = 349;
-		vrLoc = 2235;
-	};
-	DC2A2C0B0A36071B005A3C78 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 76";
-		rLen = 806;
-		rLoc = 2791;
-		rType = 0;
-		vrLen = 1269;
-		vrLoc = 2565;
-	};
-	DC2A2C0D0A36071B005A3C78 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
-		name = iTM2Window;
-		rLen = 10;
-		rLoc = 2519;
-		rType = 0;
-		vrLen = 1644;
-		vrLoc = 1530;
-	};
 	DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1404, 4471}}";
-			sepNavSelRange = "{2519, 10}";
-			sepNavVisRect = "{{0, 603}, {1095, 672}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1404, 4505}}";
+			sepNavSelRange = "{2553, 10}";
+			sepNavVisRect = "{{0, 857}, {633, 163}}";
 			sepNavWindowFrame = "{{15, 27}, {1134, 801}}";
 		};
 	};
 	DC2CA6700855D08300128F14 /* iTM2PDFKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1372, 8636}}";
+			sepNavIntBoundsRect = "{{0, 0}, {2636, 112642}}";
 			sepNavSelRange = "{2791, 806}";
 			sepNavVisRect = "{{0, 1136}, {1095, 672}}";
 			sepNavWindowFrame = "{{38, 31}, {1134, 801}}";
@@ -240,6 +183,16 @@
 			sepNavWindowFrame = "{{107, 60}, {1151, 683}}";
 		};
 	};
+	DC428E9A0A3D9B0400823093 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
+		name = iTM2Window;
+		rLen = 10;
+		rLoc = 2553;
+		rType = 0;
+		vrLen = 424;
+		vrLoc = 2146;
+	};
 	DC52039F088B1FAF00DE6E7F /* iTeXMac2 */ = {
 		isa = PBXExecutable;
 		activeArgIndex = 2147483647;
@@ -269,10 +222,10 @@
 	DC520430088B1FD300DE6E7F /* Source Control */ = {
 		isa = PBXSourceControlManager;
 		fallbackIsa = XCSourceControlManager;
-		isSCMEnabled = 0;
+		isSCMEnabled = 1;
 		scmConfiguration = {
 		};
-		scmType = "";
+		scmType = scm.subversion;
 	};
 	DC520431088B1FD300DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
@@ -286,36 +239,6 @@
 		executables = (
 			DC52039F088B1FAF00DE6E7F /* iTeXMac2 */,
 		);
-	};
-	DC88FC6A0A38D44200294872 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
-		name = iTM2Window;
-		rLen = 10;
-		rLoc = 2519;
-		rType = 0;
-		vrLen = 349;
-		vrLoc = 2235;
-	};
-	DC88FC6B0A38D44200294872 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 76";
-		rLen = 806;
-		rLoc = 2791;
-		rType = 0;
-		vrLen = 1269;
-		vrLoc = 2565;
-	};
-	DC88FC6C0A38D44200294872 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
-		name = iTM2Window;
-		rLen = 10;
-		rLoc = 2519;
-		rType = 0;
-		vrLen = 1644;
-		vrLoc = 1530;
 	};
 	DC98674D09EADAD800FF4BD3 /* PBXBookmark */ = {
 		isa = PBXBookmark;
@@ -376,7 +299,7 @@
 		fRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */;
 		name = iTM2Window;
 		rLen = 10;
-		rLoc = 2519;
+		rLoc = 2553;
 		rType = 0;
 		vrLen = 286;
 		vrLoc = 2298;

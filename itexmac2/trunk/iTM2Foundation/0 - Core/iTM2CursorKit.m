@@ -2,6 +2,8 @@
 //  iTM2CursorKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Jan 23 2003.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC082DD60A2398FA000A7237</string>
+						<string>DC428E9D0A3D9B0500823093</string>
 						<key>history</key>
 						<array>
-							<string>DC7149E109FF4B3E004A5A6A</string>
+							<string>DC1F8A930A3B99C200AD9F23</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -310,8 +310,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>3</integer>
-									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -416,9 +414,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC082DD40A2398FA000A7237</string>
+				<string>DC4287550A3C89A700823093</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC082DD50A2398FA000A7237</string>
+				<string>DC4287560A3C89A700823093</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -552,11 +550,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC082DDD0A2398FA000A7237</string>
+		<string>DC42875E0A3C89A700823093</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DC7145C209F63A7B004A5A6A</string>
 		<string>1C0AD2B3069F1EA900FABCE6</string>
-		<string>/Users/coder/Documents/iTeXMac2/Developer/Tiny XML Validator/Tiny XML Validator.xcodeproj</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/Tiny XML Validator/Tiny XML Validator.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>47 307 909 544 0 0 1440 878 </string>
@@ -678,8 +676,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {291, 160}}</string>
-											<string>{{291, 0}, {403, 160}}</string>
+											<string>{{0, 0}, {263, 154}}</string>
+											<string>{{263, 0}, {431, 154}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -694,8 +692,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 160}}</string>
-											<string>{{0, 160}, {694, 221}}</string>
+											<string>{{0, 0}, {694, 154}}</string>
+											<string>{{0, 154}, {694, 227}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -742,14 +740,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC082DD70A2398FA000A7237</string>
+				<string>DC4287580A3C89A700823093</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC082DD80A2398FA000A7237</string>
-				<string>DC082DD90A2398FA000A7237</string>
-				<string>DC082DDA0A2398FA000A7237</string>
-				<string>DC082DDB0A2398FA000A7237</string>
-				<string>DC082DDC0A2398FA000A7237</string>
-				<string>DC082DDD0A2398FA000A7237</string>
+				<string>DC4287590A3C89A700823093</string>
+				<string>DC42875A0A3C89A700823093</string>
+				<string>DC42875B0A3C89A700823093</string>
+				<string>DC42875C0A3C89A700823093</string>
+				<string>DC42875D0A3C89A700823093</string>
+				<string>DC42875E0A3C89A700823093</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -1008,9 +1006,9 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C0AD2B3069F1EA900FABCE6</string>
-				<string>DC082DDE0A2398FA000A7237</string>
+				<string>DC42875F0A3C89A700823093</string>
 				<string>1CD0528B0623707200166675</string>
-				<string>DC082DDF0A2398FA000A7237</string>
+				<string>DC4287600A3C89A700823093</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.run</string>

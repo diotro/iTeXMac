@@ -2,6 +2,8 @@
 //  iTM2TeXStringKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sat Jun 16 2001.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //

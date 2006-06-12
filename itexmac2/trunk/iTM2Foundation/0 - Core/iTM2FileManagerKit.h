@@ -2,6 +2,8 @@
 //  iTM2FileManagerKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun June 01 2003.
 //  Copyright © 2003 Laurens'Tribune. All rights reserved.
 //

@@ -2,6 +2,8 @@
 //  iTM2ValidationKit.m
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Sep 09 2001.
 //  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
 //

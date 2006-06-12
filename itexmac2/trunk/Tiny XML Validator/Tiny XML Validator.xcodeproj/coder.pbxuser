@@ -68,12 +68,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171676874;
-			PBXWorkspaceStateSaveDate = 171676874;
+			PBXPerProjectTemplateStateSaveDate = 171739545;
+			PBXWorkspaceStateSaveDate = 171739545;
 		};
 		perUserProjectItems = {
-			DC082DD60A2398FA000A7237 = DC082DD60A2398FA000A7237 /* PBXTextBookmark */;
-			DC7149E109FF4B3E004A5A6A = DC7149E109FF4B3E004A5A6A /* PBXTextBookmark */;
+			DC1F8A930A3B99C200AD9F23 /* PBXTextBookmark */ = DC1F8A930A3B99C200AD9F23 /* PBXTextBookmark */;
+			DC428E9D0A3D9B0500823093 /* PBXTextBookmark */ = DC428E9D0A3D9B0500823093 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC71457E09F63748004A5A6A /* Source Control */;
 		userBuildSettings = {
@@ -90,7 +90,7 @@
 	2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1103, 703}}";
-			sepNavSelRange = "{231, 0}";
+			sepNavSelRange = "{265, 0}";
 			sepNavVisRect = "{{0, 0}, {1103, 703}}";
 			sepNavWindowFrame = "{{32, -5}, {1142, 832}}";
 		};
@@ -101,14 +101,24 @@
 			DC71457209F63729004A5A6A /* Tiny XML Validator */,
 		);
 	};
-	DC082DD60A2398FA000A7237 /* PBXTextBookmark */ = {
+	DC1F8A930A3B99C200AD9F23 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */;
 		name = "MyDocument.h: textView";
 		rLen = 0;
-		rLoc = 231;
+		rLoc = 265;
 		rType = 0;
 		vrLen = 239;
+		vrLoc = 0;
+	};
+	DC428E9D0A3D9B0500823093 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */;
+		name = "MyDocument.h: textView";
+		rLen = 0;
+		rLoc = 265;
+		rType = 0;
+		vrLen = 273;
 		vrLoc = 0;
 	};
 	DC71457209F63729004A5A6A /* Tiny XML Validator */ = {
@@ -140,23 +150,13 @@
 	DC71457E09F63748004A5A6A /* Source Control */ = {
 		isa = PBXSourceControlManager;
 		fallbackIsa = XCSourceControlManager;
-		isSCMEnabled = 0;
+		isSCMEnabled = 1;
 		scmConfiguration = {
 		};
-		scmType = "";
+		scmType = scm.subversion;
 	};
 	DC71457F09F63748004A5A6A /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
-	};
-	DC7149E109FF4B3E004A5A6A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */;
-		name = "MyDocument.h: textView";
-		rLen = 0;
-		rLoc = 231;
-		rType = 0;
-		vrLen = 239;
-		vrLoc = 0;
 	};
 }

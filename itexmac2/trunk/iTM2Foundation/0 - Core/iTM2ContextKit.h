@@ -2,6 +2,8 @@
 //  iTM2ContextKit.h
 //  iTeXMac2
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Mar 26 2002.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //

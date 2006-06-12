@@ -2,6 +2,8 @@
 //  iTM2TeXFoundationErrors.h
 //  iteXMac
 //
+//  @version Subversion: $Id$ 
+//
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Jun 27 2001.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //
