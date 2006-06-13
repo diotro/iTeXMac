@@ -1,5 +1,4 @@
 /*
-//  iTM2PrefsController.h
 //  iTeXMac
 //
 //  @version Subversion: $Id$ 

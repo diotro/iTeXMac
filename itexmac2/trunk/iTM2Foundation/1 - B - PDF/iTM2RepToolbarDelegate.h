@@ -1,5 +1,4 @@
 /*
-//  iTM2RepToolbarDelegate.h
 //  iTeXMac
 //
 //  @version Subversion: $Id$ 

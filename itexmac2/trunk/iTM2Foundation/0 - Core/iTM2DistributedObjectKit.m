@@ -1,6 +1,4 @@
 /*
-//  iTM2DistributedObjectKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
@@ -24,6 +22,8 @@
 */
 
 #import "iTM2DistributedObjectKit.h"
+#import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2InstallationKit.h>
 
 @implementation NSConnection(iTM2DistributedObjectKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTeXMac2ConnectionIdentifier
@@ -35,15 +35,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	static NSString * identifier = nil;
-	if(identifer)
-	{
 //iTM2_END;
-		return identifier;
-	}
-	identifier = [[NSBundle uniqueApplicationIdentifier] copy];
-//iTM2_END;
-	return identifier;
+	return [NSBundle uniqueApplicationIdentifier];
 }
 @end
 
@@ -57,7 +50,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSConnection *theConnection;
+	NSConnection *theConnection = nil;
 	id root = [NSMutableDictionary dictionary];
 	[root setObject:[NSApplication sharedApplication] forKey:@"NSApp"];
 	[root setObject:[NSApplication sharedApplication] forKey:@"NSClassServer"];
@@ -66,7 +59,7 @@ To Do List:
 	NSString * identifier = [NSConnection iTeXMac2ConnectionIdentifier];
 	if([theConnection registerName:identifier])
 	{
-		iTM2_LOG(@"The DO connection is available with identifier: <%@>", [NSBundle uniqueApplicationIdentifier]);
+		iTM2_LOG(@"The DO connection is available with identifier: <%@>", identifier);
 	}
 	else
 	{

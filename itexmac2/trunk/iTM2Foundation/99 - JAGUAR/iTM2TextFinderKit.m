@@ -1,6 +1,4 @@
 /*
-//  iTM2TextFinderKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

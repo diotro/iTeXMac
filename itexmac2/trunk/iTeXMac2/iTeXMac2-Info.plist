@@ -1583,7 +1583,7 @@
 	<key>CFBundleSignature</key>
 	<string>iTM2</string>
 	<key>CFBundleVersion</key>
-	<string>2.0 preview 14</string>
+	<string>2.0 preview build __(REVISION)__)</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>NSAppleScriptEnabled</key>

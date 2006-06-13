@@ -1,6 +1,4 @@
 /*
-//  iTM2DVIPDFMWrapperKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

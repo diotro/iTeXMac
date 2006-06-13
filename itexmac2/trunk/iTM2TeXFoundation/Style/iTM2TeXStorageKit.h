@@ -1,6 +1,4 @@
 /*
-//  iTM2TeXStorageKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

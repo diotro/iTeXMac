@@ -1,6 +1,4 @@
 /*
-//  iTM2JAGUARSupportKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

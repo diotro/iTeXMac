@@ -1,5 +1,4 @@
 /*
-//  iTM2ViewKit.h
 //  TBR Tutorial
 //
 //  @version Subversion: $Id$ 

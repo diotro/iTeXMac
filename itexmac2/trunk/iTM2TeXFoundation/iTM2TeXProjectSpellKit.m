@@ -1,5 +1,4 @@
 /*
-//  iTM2TeXProjectSpellKit.m
 //  iTeXMac2 1.4
 //
 //  @version Subversion: $Id$ 

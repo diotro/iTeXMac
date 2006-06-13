@@ -750,8 +750,8 @@ To Do List:
 }
 #endif
 #pragma mark -
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertBackslash:
-- (void) insertBackslash: (id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
+- (void) insertControl: (id) sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -762,7 +762,7 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
-    if(!R.location || ![S isBackslashAtIndex: R.location-1 escaped: &escaped] || escaped)
+    if(!R.location || ![S isControlAtIndex: R.location-1 escaped: &escaped] || escaped)
     {
         [self insertText: @"\\"];
     }

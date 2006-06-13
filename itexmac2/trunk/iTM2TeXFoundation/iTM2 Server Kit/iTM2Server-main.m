@@ -1,6 +1,5 @@
 /*
 //  iTM2_Server_main.m 
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

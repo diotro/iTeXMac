@@ -1,6 +1,5 @@
 /*
 //  NSObject_iTeXMac2.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

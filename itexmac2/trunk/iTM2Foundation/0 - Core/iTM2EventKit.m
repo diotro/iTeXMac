@@ -1,5 +1,4 @@
 /*
-//  iTM2EventObserver.m
 //  list menu controller tutorial
 //
 //  @version Subversion: $Id$ 

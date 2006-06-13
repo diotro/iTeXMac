@@ -1,6 +1,4 @@
 /*
-//  iTM2MenuKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

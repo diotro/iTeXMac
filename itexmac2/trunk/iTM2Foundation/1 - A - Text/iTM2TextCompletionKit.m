@@ -1,6 +1,4 @@
 /*
-//  iTM2TextCompletionKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

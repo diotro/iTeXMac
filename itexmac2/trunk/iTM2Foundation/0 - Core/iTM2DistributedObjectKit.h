@@ -1,6 +1,4 @@
 /*
-//  iTM2DistributedObjectKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
@@ -22,8 +20,6 @@
 //  Version history: (format "- date:contribution (contributor) ")  
 //  To Do List: (format "- proposition (percentage actually done) ") 
 */
-
-#import <Cocoa/Cocoa.h>
 
 @interface NSConnection(iTM2DistributedObjectKit)
 

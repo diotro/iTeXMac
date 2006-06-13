@@ -1,6 +1,4 @@
 /*
-//  iTM2TextWatcher.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

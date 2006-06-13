@@ -1,6 +1,4 @@
 /*
-//  iTM2TeXProjectFrontendKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
@@ -2665,7 +2663,7 @@ To Do List:
 //iTM2_START;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(newProjectPanelControllerClass) replacement:@selector(swizzled_newProjectPanelControllerClass) forClass:[NSDocument class]])
+	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(newProjectPanelControllerClass) replacement:@selector(swizzled_newProjectPanelControllerClass) forClass:[iTM2ProjectDocument class]])
 	{
 		iTM2_LOG(@"WARNING: No swizzled newProjectPanelControllerClass...");
 	}

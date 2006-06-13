@@ -1,6 +1,4 @@
 /*
-//  iTM2TeXStringKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
@@ -124,7 +122,7 @@ To Do List:
 //iTM2_END;
 	return @"}";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= escapedBackslashAtIndex:escaped:
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isControlAtIndex:escaped:
 - (BOOL) isControlAtIndex: (unsigned) index escaped: (BOOL *) aFlagPtr;
 /*" Returns YES if there is a '\' at index index. For example "\\ " is a 3 length string.
 For index = 0, 1 and 2, the aFlagPtr* is NO, YES, NO.

@@ -1,5 +1,4 @@
 // iTM2ARegularExpression.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

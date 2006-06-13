@@ -1,6 +1,4 @@
 /*
-//  iTM2PerlKitServer.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

@@ -1,6 +1,4 @@
 /*
-//  iTM2RuntimeBrowser.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

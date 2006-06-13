@@ -1,5 +1,4 @@
 /*
-//  iTM2PDFSYNCKit.h
 //  iteXMac
 //
 //  @version Subversion: $Id$ 

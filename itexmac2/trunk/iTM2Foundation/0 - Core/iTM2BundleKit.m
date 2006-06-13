@@ -1,6 +1,4 @@
 /*
-//  iTM2BundleKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

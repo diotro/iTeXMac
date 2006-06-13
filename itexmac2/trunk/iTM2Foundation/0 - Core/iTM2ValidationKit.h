@@ -1,6 +1,4 @@
 /*
-//  iTM2ValidationKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

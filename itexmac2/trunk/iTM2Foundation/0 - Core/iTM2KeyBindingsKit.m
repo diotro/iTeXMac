@@ -1,6 +1,4 @@
 /*
-//  iTM2KeyBindingsManager.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
@@ -2010,6 +2008,7 @@ To Do List: Nothing at first glance.
 //if([[self string] length]>0) NSLog(@"My last character code is:%i, %#x", [[self string] characterAtIndex:[[self string] length]-1], [[self string] characterAtIndex:[[self string] length]-1]);
     return;
 }
+#if 0
 #warning DEBUGGGG
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
 - (void)keyDown:(NSEvent *)theEvent;
@@ -2024,6 +2023,7 @@ To Do List:
 //iTM2_END;
     return;
 }
+#endif
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSResponder(iTM2KeyStrokeKit)

@@ -1,5 +1,4 @@
 /*
-//  iTM2ObjectServer.m
 //  list menu controller tutorial
 //
 //  @version Subversion: $Id$ 

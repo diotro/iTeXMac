@@ -1,6 +1,4 @@
 /*
-//  iTM2TeXProjectFrontendKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

@@ -1,6 +1,4 @@
 /*
-//  iTM2ButtonKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

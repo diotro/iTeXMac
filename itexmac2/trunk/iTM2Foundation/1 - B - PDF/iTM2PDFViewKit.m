@@ -1,5 +1,4 @@
 /*
-//  iTM2PDFView.m
 //  TBR Tutorial
 //
 //  @version Subversion: $Id$ 

@@ -1,6 +1,4 @@
 /*
-//  iTM2ResponderKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

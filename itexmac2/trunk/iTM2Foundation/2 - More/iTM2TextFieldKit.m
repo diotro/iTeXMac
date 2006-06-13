@@ -1,6 +1,4 @@
 /*
-//  iTM2TextFieldKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

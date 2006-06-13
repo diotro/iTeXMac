@@ -4293,6 +4293,43 @@ To Do List:
 }
 @end
 
+@interface PDFView_iTM2PDFKit: PDFView
+@end
+
+@implementation PDFView_iTM2PDFKit
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++ (void) load;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 30 13:39:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+//iTM2_START;
+	[self poseAsClass:[PDFView class]];
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
+- (void)keyDown:(NSEvent *)theEvent
+/*"Bypass the inherited Preview behaviour.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![[self keyBindingsManager] client:self performKeyEquivalent:theEvent])
+	{
+		[super keyDown:theEvent];
+	}
+//iTM2_END;
+	return;
+}
+@end
+
 @implementation PDFView(iTM2SyncKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= zoomToFit:
 - (void) zoomToFit: (id) sender;

@@ -1,6 +1,4 @@
 /*
-//  iTM2AppleScriptLauncher.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

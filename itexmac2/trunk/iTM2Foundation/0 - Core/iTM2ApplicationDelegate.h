@@ -1,6 +1,4 @@
 /*
-//  iTM2ApplicationDelegate.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

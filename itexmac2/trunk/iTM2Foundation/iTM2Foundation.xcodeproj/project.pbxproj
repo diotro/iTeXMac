@@ -169,7 +169,7 @@
 		DC25E5290991FB3700545F27 /* regfree.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B940854654B003F5F79 /* regfree.c */; };
 		DC25E52B0991FB9C00545F27 /* iTM2ARegexpHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B860854654B003F5F79 /* iTM2ARegexpHelpers.m */; };
 		DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */; };
-		DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */; };
+		DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */; };
 		DC691837088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */; };
 		DC691850088C6E9A00F00114 /* iTM2StartupKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */; settings = {ATTRIBUTES = (Public, ); }; };

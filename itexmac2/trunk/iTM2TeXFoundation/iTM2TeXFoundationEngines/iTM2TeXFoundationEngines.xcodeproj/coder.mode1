@@ -266,6 +266,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>3</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -370,9 +372,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC42874E0A3C89A700823093</string>
+				<string>DC4EF1BB0A3E3D8300E264F0</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC42874F0A3C89A700823093</string>
+				<string>DC4EF1BC0A3E3D8300E264F0</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -507,6 +509,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>208 109 878 713 0 0 1440 878 </string>
@@ -728,21 +731,19 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2PDFSYNCKit.m</string>
+										<string>iTM2AREFinderInspectorKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{0, 0}, {962, 453}}</string>
+										<string>{{0, 0}, {962, 361}}</string>
 										<key>RubberWindowFrame</key>
 										<string>283 98 962 729 0 0 1440 878 </string>
 									</dict>
@@ -753,9 +754,11 @@
 								</dict>
 							</array>
 							<key>Proportion</key>
-							<string>453pt</string>
+							<string>361pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -766,14 +769,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 458}, {962, 230}}</string>
+								<string>{{0, 366}, {962, 322}}</string>
 								<key>RubberWindowFrame</key>
 								<string>283 98 962 729 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
 							<key>Proportion</key>
-							<string>230pt</string>
+							<string>322pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -791,8 +794,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC9FA8B70A3331E4008D22DF</string>
-				<string>DC9FA8B80A3331E4008D22DF</string>
+				<string>DC4EF1BD0A3E3D8300E264F0</string>
+				<string>DC4EF1BE0A3E3D8300E264F0</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>

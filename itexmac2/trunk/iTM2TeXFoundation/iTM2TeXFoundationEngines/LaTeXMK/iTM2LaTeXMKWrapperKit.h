@@ -1,6 +1,4 @@
 /*
-//  iTM2LaTeXMKWrapperKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

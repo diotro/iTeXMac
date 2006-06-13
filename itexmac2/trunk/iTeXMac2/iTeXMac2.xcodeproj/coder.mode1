@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC428E940A3D9B0100823093</string>
+						<string>DCEC1C930A3E3E08001AD65E</string>
 						<key>history</key>
 						<array>
-							<string>DC428E810A3CA80900823093</string>
+							<string>DC4EF1D50A3E3D8400E264F0</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -302,14 +302,13 @@
 								<string>2A37F4AAFDCFA73011CA2CEA</string>
 								<string>DCB93A5107D6FFC1005E5B38</string>
 								<string>DC28D63D0855B69A00D4CA66</string>
-								<string>DC8AD5270A3ABC6E006C28A5</string>
+								<string>19C28FB0FE9D524F11CA2CBB</string>
+								<string>DC4F6A33085A2E33004868B8</string>
 								<string>1C37FBAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>7</integer>
-									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -414,9 +413,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC42872E0A3C89A500823093</string>
+				<string>DCEC1C910A3E3E08001AD65E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC42872F0A3C89A500823093</string>
+				<string>DCEC1C920A3E3E08001AD65E</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -551,7 +550,6 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>DC428E920A3D9B0100823093</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -598,7 +596,7 @@
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 249}, {1023, 210}}</string>
+								<string>{{0, 136}, {1023, 323}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -636,7 +634,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC69174E088BFB5600F00114</string>
-				<string>DC8AD5540A3ABDAB006C28A5</string>
+				<string>DC4EF1580A3E2DE200E264F0</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

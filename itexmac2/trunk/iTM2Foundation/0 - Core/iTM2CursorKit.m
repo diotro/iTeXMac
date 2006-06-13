@@ -1,6 +1,4 @@
 /*
-//  iTM2CursorKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

@@ -233,8 +233,8 @@
 	DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1204, 5389}}";
-			sepNavSelRange = "{7168, 0}";
-			sepNavVisRect = "{{0, 1078}, {1145, 639}}";
+			sepNavSelRange = "{4160, 6}";
+			sepNavVisRect = "{{0, 1627}, {1145, 639}}";
 			sepNavWindowFrame = "{{84, 42}, {1184, 768}}";
 		};
 	};

@@ -1,6 +1,4 @@
  /*
-//  iTM2TeXFoundationErrors.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

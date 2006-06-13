@@ -1,6 +1,4 @@
 /*
-//  iTM2PStoPDFWrapperKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

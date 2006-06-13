@@ -1,6 +1,4 @@
 /*
-//  iTM2TeXDocumentKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
@@ -333,8 +331,8 @@ To Do List: Nothing at first glance.
 //    [self completeInsertion];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertBackslash:
-- (void) insertBackslash: (id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
+- (void) insertControl: (id) sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002

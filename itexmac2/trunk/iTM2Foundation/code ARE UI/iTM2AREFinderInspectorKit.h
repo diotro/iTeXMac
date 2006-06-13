@@ -1,5 +1,4 @@
 // iTM2AREFinderInspector.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

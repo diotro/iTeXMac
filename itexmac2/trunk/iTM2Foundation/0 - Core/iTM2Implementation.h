@@ -1,6 +1,4 @@
 /*
-//  iTM2Implementation.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

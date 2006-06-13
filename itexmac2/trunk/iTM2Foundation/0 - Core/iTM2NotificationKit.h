@@ -1,6 +1,4 @@
 /*
-//  iTM2NotificationKit.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

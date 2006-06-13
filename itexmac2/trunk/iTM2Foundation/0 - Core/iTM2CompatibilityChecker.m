@@ -1,6 +1,4 @@
 /*
-//  iTM2CompatibilityChecker.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

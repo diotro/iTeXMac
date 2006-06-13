@@ -1,6 +1,4 @@
 /*
-//  iTM2TeXDocumentToolbar.h
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //

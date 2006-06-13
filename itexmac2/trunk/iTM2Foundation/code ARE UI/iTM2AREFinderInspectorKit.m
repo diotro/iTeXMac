@@ -1,5 +1,4 @@
 // iTM2AREFinderInspector.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
@@ -687,13 +686,13 @@ To Do List: ...
     [self prepareMainTextView];
 
     NSMutableArray * replacement = [NSMutableArray array];
-    NSCharacterSet * noBackslashSet = [[NSCharacterSet characterSetWithCharactersInString:@"\\"] invertedSet];
+    NSCharacterSet * noControlSet = [[NSCharacterSet characterSetWithCharactersInString:@"\\"] invertedSet];
     NSCharacterSet * voidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@""];
     NSString * replaceString = [replaceTextView string];
     iTM2LiteScanner * S = [iTM2LiteScanner scannerWithString:replaceString];
     int start = 0, top = [replaceString length];
     huahine:
-    [S setCharactersToBeSkipped:noBackslashSet];
+    [S setCharactersToBeSkipped:noControlSet];
     if([S scanString:@"\\" intoString:nil])
     {
         int anchor = [S scanLocation] - 1;// anchor points to the \ char, which can be the one immediately following the string to add

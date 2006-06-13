@@ -1,5 +1,4 @@
 /*
-//  iTM2PDFToolbarDelegate.m
 //  iTeXMac
 //
 //  @version Subversion: $Id$ 

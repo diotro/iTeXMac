@@ -1,6 +1,4 @@
 /*
-//  iTM2SystemSignalKit.m
-//  iTeXMac2
 //
 //  @version Subversion: $Id$ 
 //
