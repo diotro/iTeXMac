@@ -250,7 +250,8 @@ To Do List:
 	id newRecentDocument = [document newRecentDocument];
     if(newRecentDocument)
 	{
-        [super noteNewRecentDocument:newRecentDocument];
+		// the document wants to appear in the recent docs list
+        [self noteNewRecentDocumentURL:[newRecentDocument fileURL]];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"document ADDED IN THE RECENT DOCS LIST: %@", document);
@@ -258,10 +259,6 @@ To Do List:
 			NSLog(@"[newRecentDocument fileName]:%@", [newRecentDocument fileName]);
 			NSLog(@"[self recentDocumentURLs]:%@", [self recentDocumentURLs]);
 		}
-	}
-	else if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"document NOT ADDED IN THE RECENT DOCS LIST: %@ (%@)", document, [document fileName]);
 	}
 //iTM2_END;
     return;

@@ -106,12 +106,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171877783;
-			PBXWorkspaceStateSaveDate = 171877783;
+			PBXPerProjectTemplateStateSaveDate = 171896075;
+			PBXWorkspaceStateSaveDate = 171896075;
 		};
 		perUserProjectItems = {
 			DC00B2FC09D213F0007D6AD9 = DC00B2FC09D213F0007D6AD9 /* PBXTextBookmark */;
-			DC428E970A3D9B0100823093 = DC428E970A3D9B0100823093 /* PBXBookmark */;
 			DC43E3FB09344FCC003C3C86 = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
 			DC4EF1C10A3E3D8300E264F0 = DC4EF1C10A3E3D8300E264F0 /* PBXBookmark */;
 			DC99E7A80A2456E600F50752 = DC99E7A80A2456E600F50752 /* PBXTextBookmark */;
@@ -127,6 +126,7 @@
 			DCC5426909373DE00050770C = DCC5426909373DE00050770C /* PBXTextBookmark */;
 			DCC544BB0937AA500050770C = DCC544BB0937AA500050770C /* PBXTextBookmark */;
 			DCC544BC0937AA500050770C = DCC544BC0937AA500050770C /* PBXTextBookmark */;
+			DCEC25C30A3EECEE001AD65E = DCEC25C30A3EECEE001AD65E /* PBXBookmark */;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -145,10 +145,6 @@
 	};
 	DC2CA78D0855D4F500128F14 /* All */ = {
 		activeExec = 0;
-	};
-	DC428E970A3D9B0100823093 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC99E7930A2456C800F50752 /* ConTeXtAtPragmaADEToolbarImage.tif */;
 	};
 	DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -416,5 +412,9 @@
 		modificationTime = 0;
 		state = 1;
 		symbolName = "-[NSException raise]";
+	};
+	DCEC25C30A3EECEE001AD65E /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DC99E7930A2456C800F50752 /* ConTeXtAtPragmaADEToolbarImage.tif */;
 	};
 }

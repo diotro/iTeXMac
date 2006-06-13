@@ -2405,6 +2405,7 @@ tahiti:
 					}
 				}
 	//iTM2_END;
+				[SDC noteNewRecentDocument:doc];
 				return doc;
 			}
 		}
@@ -2428,6 +2429,7 @@ tahiti:
 			{
 				[SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:nil options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
 			}
+			[SDC noteNewRecentDocumentURL:fileURL];
 			return nil;
 		}
 		if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outError])
@@ -7421,6 +7423,60 @@ To Do List:
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= noteNewRecentDocumentURL:
+- (void)noteNewRecentDocumentURL:(NSURL *)absoluteURL;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([absoluteURL isFileURL])
+	{
+		NSString * path = [absoluteURL path];
+		NSString * enclosing = [path enclosingWrapperFileName];
+		if([enclosing length])
+		{
+			NSArray * enclosed = [enclosing enclosedProjectFileNames];
+			if([enclosed count] == 1)
+			{
+				path = [enclosed lastObject];
+				absoluteURL = [NSURL fileURLWithPath:enclosing];
+			}
+			else if([SWS isProjectPackageAtPath:path])
+			{
+				// there are many different projects inside the wrapper but we are asked for one in particular
+				absoluteURL = [NSURL fileURLWithPath:path];
+			}
+			else
+			{
+				// there are many project inside the wrapper, which one should I use?
+				iTM2ProjectDocument * PD = [SPC projectForFileName:path];
+				if(PD)
+				{
+					// due to the previous test, absoluteURL and the project file URL must be different
+					// no infinite loop
+					path = [PD fileName];
+					if([path belongsToExternalProjectsDirectory])
+					{
+						[super noteNewRecentDocumentURL:absoluteURL];// inherited behaviour
+						return;
+					}
+					else
+					{
+						absoluteURL = [PD fileURL];// we replace the file by its project
+						[self noteNewRecentDocumentURL:absoluteURL];
+						return;
+					}
+				}
+			}
+		}
+	}
+	[super noteNewRecentDocumentURL:absoluteURL];
+//iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addDocument:
 - (void)addDocument:(NSDocument *)document;
