@@ -154,8 +154,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171840710;
-			PBXWorkspaceStateSaveDate = 171840710;
+			PBXPerProjectTemplateStateSaveDate = 171877790;
+			PBXWorkspaceStateSaveDate = 171877790;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
@@ -181,7 +181,7 @@
 		functionName = "-diagnostic";
 		hitCount = 1;
 		lineNumber = 1047;
-		modificationTime = 171845473.578466;
+		modificationTime = 171879239.316757;
 		state = 1;
 	};
 	DC2A2BA90A35BCB0005A3C78 /* iTM2NewDocumentKit.m:1214 */ = {
@@ -194,7 +194,7 @@
 		functionName = "-nextSavePanelDidEnd:returnCode:contextInfo:";
 		hitCount = 1;
 		lineNumber = 1214;
-		modificationTime = 171845473.579039;
+		modificationTime = 171879239.316796;
 		state = 1;
 	};
 	DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */ = {
@@ -226,7 +226,7 @@
 		functionName = "-nextSavePanelDidEnd:returnCode:contextInfo:";
 		hitCount = 1;
 		lineNumber = 1214;
-		modificationTime = 171845473.578942;
+		modificationTime = 171879239.316792;
 		state = 1;
 	};
 	DC71A0F50A2EF4D300AE0073 /* iTM2NewDocumentKit.m:1200 */ = {
@@ -239,7 +239,7 @@
 		functionName = "-nextSavePanelDidEnd:returnCode:contextInfo:";
 		hitCount = 1;
 		lineNumber = 1200;
-		modificationTime = 171845473.579527;
+		modificationTime = 171879239.316828;
 		state = 1;
 	};
 	DC81AD7F088718FA00943C99 /* iTeXMac2 */ = {
@@ -258,7 +258,7 @@
 		functionName = "-getProjectFromPanelForFileNameRef:display:error:";
 		hitCount = 1;
 		lineNumber = 6436;
-		modificationTime = 171845473.578522;
+		modificationTime = 171879239.316769;
 		state = 2;
 	};
 	DC9363390A3393FF00219529 /* iTM2ProjectDocumentKit.m:3853 */ = {
@@ -271,7 +271,7 @@
 		functionName = "-importDocument:";
 		hitCount = 1;
 		lineNumber = 3853;
-		modificationTime = 171845473.578675;
+		modificationTime = 171879239.31678;
 		state = 1;
 	};
 	DC93633D0A33940100219529 /* iTM2ProjectDocumentKit.m:3904 */ = {
@@ -284,7 +284,7 @@
 		functionName = "-openPanelDidImportDocument:returnCode:contextInfo:";
 		hitCount = 1;
 		lineNumber = 3904;
-		modificationTime = 171845473.578717;
+		modificationTime = 171879239.316784;
 		state = 1;
 	};
 	DC9363410A33940600219529 /* iTM2ProjectDocumentKit.m:4025 */ = {
@@ -297,7 +297,7 @@
 		functionName = "-copyProjectDocumentSheetDidDismiss:returnCode:copiables:";
 		hitCount = 1;
 		lineNumber = 4025;
-		modificationTime = 171845473.57833;
+		modificationTime = 171879239.316752;
 		state = 1;
 	};
 	DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */ = {
@@ -335,7 +335,7 @@
 		functionName = "+isAbsolutePath";
 		hitCount = 1;
 		lineNumber = 1847;
-		modificationTime = 171845473.577971;
+		modificationTime = 171879239.316739;
 		state = 1;
 	};
 	DC99EDF10A29BF3A00F50752 /* iTM2ProjectDocumentKit.m */ = {
@@ -355,7 +355,7 @@
 		functionName = "-validateTakeCreationModeFromTag:";
 		hitCount = 1;
 		lineNumber = 2344;
-		modificationTime = 171845473.579231;
+		modificationTime = 171879239.316814;
 		state = 1;
 	};
 	DC99EEDE0A2A079300F50752 /* iTM2ProjectDocumentKit.m:4801 */ = {
@@ -368,7 +368,7 @@
 		functionName = "-availableProjectsForPath:";
 		hitCount = 1;
 		lineNumber = 4801;
-		modificationTime = 171845473.578176;
+		modificationTime = 171879239.316748;
 		state = 2;
 	};
 	DC99EF620A2A163900F50752 /* iTM2NewDocumentKit.m:2404 */ = {
@@ -381,7 +381,7 @@
 		functionName = "-validateTakeProjectFromSelectedItem:";
 		hitCount = 1;
 		lineNumber = 2404;
-		modificationTime = 171845473.578615;
+		modificationTime = 171879239.316775;
 		state = 2;
 	};
 	DC99EFC30A2B041A00F50752 /* iTM2NewDocumentKit.m:1212 */ = {
@@ -394,7 +394,7 @@
 		functionName = "-nextSavePanelDidEnd:returnCode:contextInfo:";
 		hitCount = 1;
 		lineNumber = 1212;
-		modificationTime = 171845473.579271;
+		modificationTime = 171879239.31682;
 		state = 1;
 	};
 	DC99EFE20A2B08E700F50752 /* iTM2NewDocumentKit.m:1202 */ = {
@@ -407,7 +407,7 @@
 		functionName = "-nextSavePanelDidEnd:returnCode:contextInfo:";
 		hitCount = 1;
 		lineNumber = 1202;
-		modificationTime = 171845473.579389;
+		modificationTime = 171879239.316824;
 		state = 1;
 	};
 	DC99F0040A2B108400F50752 /* iTM2NewDocumentKit.m:1213 */ = {
@@ -420,7 +420,7 @@
 		functionName = "-nextSavePanelDidEnd:returnCode:contextInfo:";
 		hitCount = 1;
 		lineNumber = 1213;
-		modificationTime = 171845473.578876;
+		modificationTime = 171879239.316788;
 		state = 1;
 	};
 	DC9E4F310858A8A300A86BED /* All */ = {
@@ -436,7 +436,7 @@
 		functionName = "-sortChildrenAccordingToPrettyNameValue";
 		hitCount = 1;
 		lineNumber = 2726;
-		modificationTime = 171843045.43734;
+		modificationTime = 171879154.758707;
 		state = 1;
 	};
 	DCDE975E08EC808300A7C892 /* iTeXMac2 */ = {
@@ -494,7 +494,7 @@
 		functionName = "-validateCreationMode";
 		hitCount = 1;
 		lineNumber = 2253;
-		modificationTime = 171845473.57913;
+		modificationTime = 171879239.3168;
 		state = 1;
 	};
 	DCDF58560A3A1FF80099E562 /* iTM2NewDocumentKit.m:2310 */ = {
@@ -507,7 +507,7 @@
 		functionName = "-setCreationMode:";
 		hitCount = 1;
 		lineNumber = 2310;
-		modificationTime = 171845473.579177;
+		modificationTime = 171879239.316804;
 		state = 1;
 	};
 	DCE8742609352CC500037138 /* -[NSException raise] */ = {

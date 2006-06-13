@@ -779,6 +779,7 @@ To Do List:
 	SELs = [NSMutableArray array];
 	while(name = [E nextObject])
 		[SELs addObject:[NSValue valueWithPointer:NSSelectorFromString(name)]];
+//iTM2_END;
 	return [NSArray arrayWithArray:SELs];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classSelectorsOfClass:withSuffix:signature:inherited:

@@ -135,9 +135,11 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 //iTM2_START;
 	[SUD setObject:@"LaTeX" forKey:iTM2TeXProjectDefaultBaseNameKey];
 //iTM2_START;
+	iTM2_RELEASE_POOL;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputFileExtension
@@ -2663,7 +2665,7 @@ To Do List:
 //iTM2_START;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(newProjectPanelControllerClass) replacement:@selector(swizzled_newProjectPanelControllerClass) forClass:[iTM2ProjectDocument class]])
+	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(newProjectPanelControllerClass) replacement:@selector(swizzled_newProjectPanelControllerClass) forClass:[iTM2ProjectController class]])
 	{
 		iTM2_LOG(@"WARNING: No swizzled newProjectPanelControllerClass...");
 	}

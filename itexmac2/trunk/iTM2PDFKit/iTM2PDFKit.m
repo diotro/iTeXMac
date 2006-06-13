@@ -440,10 +440,11 @@ To Do List:
 		unsigned int commonPrefixLength = [[self commonPrefixWithString: fileName options: 0] length];
 		NSString * left  = [[self substringWithRange: NSMakeRange(commonPrefixLength, [self length] - commonPrefixLength)] stringByDeletingPathExtension];
 		NSString * right = [[fileName substringWithRange: NSMakeRange(commonPrefixLength, [fileName length] - commonPrefixLength)] stringByDeletingPathExtension];
-		NSRange leftR  = [left  rangeOfCharacterFromSet: [[NSCharacterSet decimalDigitCharacterSet] invertedSet] options: NSBackwardsSearch];
+		NSCharacterSet * nonDecimalDigitsCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+		NSRange leftR  = [left  rangeOfCharacterFromSet: nonDecimalDigitsCharacterSet options: NSBackwardsSearch];
 		if(leftR.location  != NSNotFound)
 			return [left compare: right];
-		NSRange rightR = [right rangeOfCharacterFromSet: [[NSCharacterSet decimalDigitCharacterSet] invertedSet] options: NSBackwardsSearch];
+		NSRange rightR = [right rangeOfCharacterFromSet: nonDecimalDigitsCharacterSet options: NSBackwardsSearch];
 		if(rightR.location != NSNotFound)
 			return [left compare: right];
 		int leftInteger  = [left  intValue];

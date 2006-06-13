@@ -619,7 +619,7 @@
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
@@ -655,6 +655,7 @@
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
 				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
 			};
 			name = Default;
 		};

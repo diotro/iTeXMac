@@ -1781,7 +1781,7 @@ To Do List:
 		return NO;
 	}
 #warning EXC_BAD_ACCESS here
-iTM2_LOG(@"Item is: %@ (%@)", item, [item pathValue]);
+//iTM2_LOG(@"Item is: %@ (%@)", item, [item pathValue]);
 	NSString * base = [item pathValue];
 	NSBundle * B = [NSBundle bundleWithPath:base];
 	NSString * path;

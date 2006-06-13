@@ -196,6 +196,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -373,9 +375,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC4EF06E0A3E1DF100E264F0</string>
+				<string>DCEC24580A3EAAFA001AD65E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC4EF06F0A3E1DF100E264F0</string>
+				<string>DCEC24590A3EAAFA001AD65E</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>

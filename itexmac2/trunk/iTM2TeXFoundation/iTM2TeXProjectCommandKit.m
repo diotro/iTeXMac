@@ -2261,6 +2261,7 @@ To Do List:
 		[self fixTeXMenu];
 	}
 //iTM2_LOG(@"_iTM2TeXPBuiltInCommandNames are: %@", _iTM2TeXPBuiltInCommandNames);
+//iTM2_END;
     return _iTM2TeXPBuiltInCommandNames;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedBuiltInCommandNames

@@ -185,7 +185,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>DCEC24970A3EAD87001AD65E</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>iTM2RuntimeBrowser.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCEC24980A3EAD87001AD65E</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>iTM2RuntimeBrowser.m</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCEC24990A3EAD87001AD65E</string>
+						<key>history</key>
+						<array>
+							<string>DCEC24410A3EA795001AD65E</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1086, 571}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>216 153 1086 612 0 0 1440 878 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -196,6 +237,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -372,9 +415,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC4EF1BB0A3E3D8300E264F0</string>
+				<string>DCEC24950A3EAD86001AD65E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC4EF1BC0A3E3D8300E264F0</string>
+				<string>DCEC24960A3EAD86001AD65E</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -509,6 +552,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
+		<string>DCEC24970A3EAD87001AD65E</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
@@ -736,14 +780,14 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2AREFinderInspectorKit.m</string>
+										<string>iTM2TeXDistributionKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{0, 0}, {962, 361}}</string>
+										<string>{{0, 0}, {962, 202}}</string>
 										<key>RubberWindowFrame</key>
 										<string>283 98 962 729 0 0 1440 878 </string>
 									</dict>
@@ -754,7 +798,7 @@
 								</dict>
 							</array>
 							<key>Proportion</key>
-							<string>361pt</string>
+							<string>202pt</string>
 						</dict>
 						<dict>
 							<key>BecomeActive</key>
@@ -769,14 +813,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 366}, {962, 322}}</string>
+								<string>{{0, 207}, {962, 481}}</string>
 								<key>RubberWindowFrame</key>
 								<string>283 98 962 729 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
 							<key>Proportion</key>
-							<string>322pt</string>
+							<string>481pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -794,8 +838,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC4EF1BD0A3E3D8300E264F0</string>
-				<string>DC4EF1BE0A3E3D8300E264F0</string>
+				<string>DCEC249B0A3EAD87001AD65E</string>
+				<string>DCEC249C0A3EAD87001AD65E</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>

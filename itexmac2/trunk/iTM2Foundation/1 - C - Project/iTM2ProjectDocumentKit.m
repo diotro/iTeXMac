@@ -147,7 +147,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"fileURL is %@",fileURL);
+//iTM2_LOG(@"fileURL is %@",fileURL);
 	if(outError)
 	{
 		*outError = nil;
@@ -366,7 +366,7 @@ To Do List:
 	while(key = [E nextObject])
 	{
 		path = [self absoluteFileNameForKey:key];
-iTM2_LOG(@"key: %@, path: %@", key, path);
+//iTM2_LOG(@"key: %@, path: %@", key, path);
 		if(![path belongsToExternalProjectsDirectory])// actually this never occurs due to the def of absoluteFileNameForKey (06/02/06)
 		{
 			NSMutableDictionary * subtree = tree;
@@ -389,7 +389,7 @@ iTM2_LOG(@"key: %@, path: %@", key, path);
 			}
 		}
 	}
-iTM2_LOG(@"tree is: %@", tree);
+//iTM2_LOG(@"tree is: %@", tree);
 	NSMutableArray * commonComponents = [NSMutableArray array];
 	while([tree count] == 1)
 	{
@@ -397,8 +397,8 @@ iTM2_LOG(@"tree is: %@", tree);
 		[commonComponents addObject:key];
 		tree = [tree objectForKey:key];
 	}
-iTM2_LOG(@"commonComponents is: %@", commonComponents);
-iTM2_LOG(@"[self fileName] is: %@", [self fileName]);
+//iTM2_LOG(@"commonComponents is: %@", commonComponents);
+//iTM2_LOG(@"[self fileName] is: %@", [self fileName]);
 	NSString * ancestor = [NSString pathWithComponents:commonComponents];
 	if([ancestor length]<2)
 	{
