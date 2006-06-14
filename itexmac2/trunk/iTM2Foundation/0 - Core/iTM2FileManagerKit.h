@@ -229,7 +229,7 @@ enum
 
 @end
 
-@interface NSString(iTM2Alias)
+@interface NSString(iTM2AliasKit)
 
 /*!
 	@method		dataAliasRelativeTo:error:
@@ -240,14 +240,5 @@ enum
 	@result		a data object containing a dereferenced AliasHandle. 
 */
 - (NSData*) dataAliasRelativeTo: (NSString *) base error: (NSError **) error;
-
-/*!
-	@method		isEqualToFileName:
-	@abstract	Abstract frothcoming.
-	@discussion Compares the lower case versions of both the receiver and the argument..
-	@param		A file name.
-	@result		yorn. 
-*/
-- (BOOL)isEqualToFileName:(NSString *)otherFileName;
 
 @end

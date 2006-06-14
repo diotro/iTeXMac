@@ -54,6 +54,10 @@ extern NSString * const iTM2TWSFrontendComponent;
 
 extern NSString * const iTM2ProjectDefaultKey;
 
+extern NSString * const iTM2NewDocumentEnclosedInWrapperKey;
+extern NSString * const iTM2NewProjectCreationModeKey;
+
+
 /*!
     @const      iTM2ProjectPathExtension
     @abstract   .project
@@ -341,6 +345,15 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void) saveAllSubdocumentsWithDelegate: (id) delegate didSaveAllSelector: (SEL) action contextInfo: (void *) contextInfo;
 
 /*! 
+    @method     keysDidChange
+    @abstract   Abstract forthcoming.
+    @discussion Discussion forthcoming.
+    @param      None
+    @result     None
+*/
+- (void)keysDidChange;
+
+/*! 
     @method     nextAvailableKey
     @abstract   The next available key.
     @discussion A key is given only once. If it is removed, it won't be attributed another time.
@@ -388,6 +401,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     an NSString
 */
 - (NSString *) relativeFileNameForKey: (NSString *) key;
+- (NSArray *)relativeFileNamesForKeys:(NSArray *)keys;
 
 /*! 
     @method     absoluteFileNameForKey:
@@ -398,6 +412,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     an NSString
 */
 - (NSString *) absoluteFileNameForKey: (NSString *) key;
+- (NSArray *)absoluteFileNamesForKeys:(NSArray *)keys;
 
 /*! 
     @method     setFileName:forKey:makeRelative:

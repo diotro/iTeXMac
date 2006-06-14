@@ -185,40 +185,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DCEC24970A3EAD87001AD65E</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2RuntimeBrowser.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DCEC24980A3EAD87001AD65E</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2RuntimeBrowser.m</string>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1086, 571}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>216 153 1086 612 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -405,9 +372,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCEC24950A3EAD86001AD65E</string>
+				<string>DC2D34D30A40A15C00FD25C4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCEC24960A3EAD86001AD65E</string>
+				<string>DC2D34D40A40A15C00FD25C4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -542,8 +509,6 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
-		<string>DCEC24970A3EAD87001AD65E</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>208 109 878 713 0 0 1440 878 </string>

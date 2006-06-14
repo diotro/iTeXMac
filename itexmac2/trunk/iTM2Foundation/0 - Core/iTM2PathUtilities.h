@@ -29,6 +29,34 @@
 - (NSString *) shortestStringByAbbreviatingWithTildeInPath;
 - (NSString *) stringByDeletingAllPathExtensions;
 - (NSString *) stringByNormalizingPath;// removes void components, references to . and resolves .. as far as can do
+
+/*!
+	@method		enclosingDirectoryForFileNames:
+	@abstract	The enclosing doirectory for the given file names.
+	@discussion Discussion forthcoming.
+	@param		an array of file names.
+	@result		The common path, at least the root directory. 
+*/
++ (NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
+
+/*!
+	@method		isEqualToFileName:
+	@abstract	Abstract forthcoming.
+	@discussion Compares the lower case versions of both the receiver and the argument..
+	@param		A file name.
+	@result		yorn. 
+*/
+- (BOOL)isEqualToFileName:(NSString *)otherFileName;
+
+/*!
+	@method		isContainedInDirectory:
+	@abstract	Abstract forthcoming.
+	@discussion Compares the lower case versions of both the receiver and the argument..
+	@param		A file name.
+	@result		yorn. 
+*/
+- (BOOL)isContainedInDirectory:(NSString *)fileName;
+
 @end
 
 /*! 

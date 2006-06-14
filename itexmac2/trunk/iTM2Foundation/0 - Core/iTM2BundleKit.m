@@ -43,6 +43,9 @@ NSString * const iTM2FoundationBundleIdentifier = @"comp.text.tex.iTM2Foundation
 NSString * const iTM2TeXFoundationBundleIdentifier = @"comp.text.tex.iTM2TeXFoundation";
 
 NSString * const iTM2BundleDidLoadNotification = @"iTM2BundleDidLoad";
+
+NSString * const iTM2BundleContentsComponent = @"Contents";
+
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 @interface NSBundle_iTeXMac2: NSBundle

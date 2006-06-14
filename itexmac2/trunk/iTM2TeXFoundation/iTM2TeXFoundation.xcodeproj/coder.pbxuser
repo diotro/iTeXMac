@@ -143,8 +143,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 171896085;
-			PBXWorkspaceStateSaveDate = 171896085;
+			PBXPerProjectTemplateStateSaveDate = 172008832;
+			PBXWorkspaceStateSaveDate = 172008832;
 		};
 		perUserProjectItems = {
 			DC35E600091A3A4800BF5635 = DC35E600091A3A4800BF5635 /* PBXBookmark */;
@@ -159,12 +159,10 @@
 			DC4AF45209124A9B0057E325 = DC4AF45209124A9B0057E325 /* PBXBookmark */;
 			DC4AF45809124A9B0057E325 = DC4AF45809124A9B0057E325 /* PBXBookmark */;
 			DC4AF4B5091269590057E325 = DC4AF4B5091269590057E325 /* PBXBookmark */;
-			DC4EF1BA0A3E3D7E00E264F0 = DC4EF1BA0A3E3D7E00E264F0 /* PBXTextBookmark */;
 			DC568DD609142E9400AB5747 = DC568DD609142E9400AB5747 /* PBXTextBookmark */;
 			DC568DD809142E9400AB5747 = DC568DD809142E9400AB5747 /* PBXTextBookmark */;
 			DCC5438809375D6E0050770C = DCC5438809375D6E0050770C /* PBXTextBookmark */;
 			DCC5439009375D6E0050770C = DCC5439009375D6E0050770C /* PBXTextBookmark */;
-			DCEC25D80A3EECF4001AD65E = DCEC25D80A3EECF4001AD65E /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -262,7 +260,7 @@
 		functionName = "-displayPageForLine:column:source:withHint:orderFront:force:";
 		hitCount = 1;
 		lineNumber = 1625;
-		modificationTime = 171895989.196273;
+		modificationTime = 171940623.755931;
 		state = 2;
 	};
 	DC2CA78D0855D4F500128F14 /* All */ = {
@@ -337,16 +335,6 @@
 	DC4AF4B5091269590057E325 /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */;
-	};
-	DC4EF1BA0A3E3D7E00E264F0 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */;
-		name = "iTM2TeXDocumentKit.m: insertOpenBracket:";
-		rLen = 176;
-		rLoc = 16011;
-		rType = 0;
-		vrLen = 1039;
-		vrLoc = 15570;
 	};
 	DC5203AC088B1FB000DE6E7F /* iTeXMac2 */ = {
 		isa = PBXExecutable;
@@ -903,18 +891,8 @@
 		functionName = "-takeMainFileFromRepresentedObject:";
 		hitCount = 1;
 		lineNumber = 294;
-		modificationTime = 171895989.19648;
+		modificationTime = 171940623.756785;
 		state = 1;
-	};
-	DCEC25D80A3EECF4001AD65E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */;
-		name = "iTM2TeXDocumentKit.m: 453";
-		rLen = 176;
-		rLoc = 16011;
-		rType = 0;
-		vrLen = 1072;
-		vrLoc = 15534;
 	};
 	DCF2E57D095240C600EE54E2 /* iTeXMac2 Server */ = {
 		activeExec = 0;

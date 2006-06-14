@@ -1238,7 +1238,6 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectDocumentKit
 
 NSString * const iTM2TeXProjectDocumentIsMasterFileKey = @"iTM2TeXProjectDocumentIsMaster";
-NSString * const iTM2TeXProjectPreferWrapperKey = @"iTM2TeXProjectPreferWrapper";
 
 extern NSString * const iTM2TeXWrapperPathExtension;
 
@@ -1456,7 +1455,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	metaSETTER([NSNumber numberWithInt: tag]);
-	[SUD setInteger:tag forKey:@"iTM2NewProjectCreationMode"];
+	[SUD setInteger:tag forKey:iTM2NewProjectCreationModeKey];
 //iTM2_END;
     return;
 }
@@ -1539,11 +1538,11 @@ To Do List:
 	[super windowWillLoad];
 	[self setBaseProjectName:[SUD stringForKey:iTM2TeXProjectDefaultBaseNameKey]];
 	[self setDocumentIsMaster:[SUD boolForKey:iTM2TeXProjectDocumentIsMasterFileKey]];
-	[self setPreferWrapper:[SUD boolForKey:iTM2TeXProjectPreferWrapperKey]];
+	[self setPreferWrapper:[SUD boolForKey:iTM2NewDocumentEnclosedInWrapperKey]];
 	NSString * fileName = [self fileName];
 	NSDictionary * availableProjects = [SPC availableProjectsForPath:fileName];
 	[self setAvailableProjects:availableProjects];
-	int creationMode = [SUD integerForKey:@"iTM2NewProjectCreationMode"];
+	int creationMode = [SUD integerForKey:iTM2NewProjectCreationModeKey];
 	NSString * wrapperName = [fileName enclosingWrapperFileName];
 	if([wrapperName length])
 	{
@@ -1620,7 +1619,7 @@ To Do List:
 	if(![self belongsToAWrapper])
 	{
 		[SUD setBool:[self documentIsMaster] forKey:iTM2TeXProjectDocumentIsMasterFileKey];
-		[SUD setBool:[self preferWrapper] forKey:iTM2TeXProjectPreferWrapperKey];
+		[SUD setBool:[self preferWrapper] forKey:iTM2NewDocumentEnclosedInWrapperKey];
 		[SUD setObject:[self oldProjectName] forKey:@"iTM2NewProjectLastChoice"];
 	}
 	[NSApp stopModalWithCode:[self creationMode]];
@@ -1801,8 +1800,8 @@ To Do List:
 //iTM2_END;
     return [oldProjectName length]>0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePreferWrapper:
-- (IBAction) togglePreferWrapper:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleWrapper:
+- (IBAction) toggleWrapper:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1816,8 +1815,8 @@ To Do List:
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePreferWrapper:
-- (BOOL) validateTogglePreferWrapper:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleWrapper:
+- (BOOL) validateToggleWrapper:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

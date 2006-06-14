@@ -299,6 +299,88 @@ To Do List:
     while(newLength<length);
     return self;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enclosingDirectoryForFileNames:
++ (NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableDictionary * tree = [NSMutableDictionary dictionary];// this will contain the partial file hierarchy of the project files
+	// Getting the directory where all the files are stored
+	NSEnumerator * E = [fileNames objectEnumerator];
+	NSString * path = nil;
+	while(path = [E nextObject])
+	{
+		NSMutableDictionary * subtree = tree;
+		path = [path stringByDeletingLastPathComponent];
+		NSArray * pathComponents = [path pathComponents];
+		NSEnumerator * e = [pathComponents objectEnumerator];
+		while(path = [e nextObject])
+		{
+			NSMutableDictionary * md = [subtree objectForKey:path];
+			if([md count]>1)
+			{
+				// no need to go further
+				break;
+			}
+			else if(!md)
+			{
+				[subtree setObject:[NSMutableDictionary dictionary] forKey:path];
+				md = [subtree objectForKey:path];
+			}
+			subtree = md;
+		}
+	}
+	NSMutableArray * commonComponents = [NSMutableArray array];
+	while([tree count] == 1)
+	{
+		NSString * key = [[tree allKeys] lastObject];
+		[commonComponents addObject:key];
+		tree = [tree objectForKey:key];
+	}
+//iTM2_END;
+	return [NSString pathWithComponents:commonComponents];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileName:
+- (BOOL)isEqualToFileName:(NSString *)otherFileName;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [otherFileName respondsToSelector:@selector(lowercaseString)]
+		&& [[self lowercaseString] isEqual:[otherFileName lowercaseString]];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContainedInDirectory:
+- (BOOL)isContainedInDirectory:(NSString *)dirName;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * myComponents = [self pathComponents];
+	NSEnumerator * myE = [myComponents objectEnumerator];
+	NSArray * itsComponents = [dirName pathComponents];
+	NSEnumerator * itsE = [itsComponents objectEnumerator];
+	NSString * component = nil;
+	while(component = [itsE nextObject])
+	{
+		if(![component isEqualToFileName:[myE nextObject]])
+		{
+			return NO;
+		}
+	}
+//iTM2_END;
+	return YES;
+}
 @end
 
 NSString * const iTM2PATHDomainX11BinariesKey = @"iTM2PATHX11Binaries";

@@ -1578,20 +1578,7 @@ jail:
 }
 @end
 
-@implementation NSString(iTM2ALias)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileName:
-- (BOOL)isEqualToFileName:(NSString *)otherFileName;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 06/01/03
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return [otherFileName respondsToSelector:@selector(lowercaseString)]
-		&& [[self lowercaseString] isEqual:[otherFileName lowercaseString]];
-}
+@implementation NSString(iTM2FileManagerKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataAliasRelativeTo:error:
 - (NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)error;
 /*"Description forthcoming.

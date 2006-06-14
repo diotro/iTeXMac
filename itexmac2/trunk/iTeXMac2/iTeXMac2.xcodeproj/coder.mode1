@@ -264,18 +264,16 @@
 								<string>19C28FB0FE9D524F11CA2CBB</string>
 								<string>DC4F6A33085A2E33004868B8</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>DCEC1C630A3E3E05001AD65E</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
 									<integer>47</integer>
-									<integer>46</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 362}, {310, 551}}</string>
+							<string>{{0, 0}, {310, 551}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -375,9 +373,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCEC1C910A3E3E08001AD65E</string>
+				<string>DC2D34C10A40A15B00FD25C4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCEC1C920A3E3E08001AD65E</string>
+				<string>DC2D34C20A40A15B00FD25C4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -511,14 +509,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCEC20830A3EA54E001AD65E</string>
-		<string>DCEC20840A3EA54E001AD65E</string>
-		<string>DCEC207F0A3EA540001AD65E</string>
-		<string>DC69174E088BFB5600F00114</string>
-		<string>DCEC24860A3EACE1001AD65E</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>DC691935088C8CD600F00114</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -709,14 +699,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCEC20790A3EA540001AD65E</string>
+				<string>DC66595D0A3F60DA00076617</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCEC207A0A3EA540001AD65E</string>
-				<string>DCEC207B0A3EA540001AD65E</string>
-				<string>DCEC207C0A3EA540001AD65E</string>
-				<string>DCEC207D0A3EA540001AD65E</string>
-				<string>DCEC207E0A3EA540001AD65E</string>
-				<string>DCEC207F0A3EA540001AD65E</string>
+				<string>DC66595E0A3F60DA00076617</string>
+				<string>DC66595F0A3F60DA00076617</string>
+				<string>DC6659600A3F60DA00076617</string>
+				<string>DC6659610A3F60DA00076617</string>
+				<string>DC6659620A3F60DA00076617</string>
+				<string>DC6659630A3F60DA00076617</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -725,7 +715,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -1093,6 +1083,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBottomSmartGroupGIDs</key>
@@ -1193,8 +1185,8 @@
 			<true/>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCEC24860A3EACE1001AD65E</string>
-				<string>DCEC24870A3EACE1001AD65E</string>
+				<string>DC6827F30A3F9BBA00B04D3E</string>
+				<string>DC6827F40A3F9BBA00B04D3E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
 				<string>1CA1AED706398EBD00589147</string>
 			</array>
@@ -1203,9 +1195,9 @@
 			<key>WindowString</key>
 			<string>373 242 939 392 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
-			<string>DCEC24860A3EACE1001AD65E</string>
+			<string>DC6827F30A3F9BBA00B04D3E</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

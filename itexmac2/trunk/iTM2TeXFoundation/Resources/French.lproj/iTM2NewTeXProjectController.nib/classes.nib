@@ -19,7 +19,7 @@
                 takeProjectFromSelectedItem = id; 
                 toggleDocumentIsMaster = id; 
                 toggleExportOutput = id; 
-                togglePreferWrapper = id; 
+                toggleWrapper = id; 
             }; 
             CLASS = iTM2NewTeXProjectController; 
             LANGUAGE = ObjC; 

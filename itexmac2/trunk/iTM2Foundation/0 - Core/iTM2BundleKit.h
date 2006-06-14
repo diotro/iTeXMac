@@ -32,6 +32,8 @@ extern NSString * const iTeXMac2BundleIdentifier;
 
 extern NSString * const iTM2BundleDidLoadNotification;
 
+extern NSString * const iTM2BundleContentsComponent;
+
 #define foundationBUNDLE ([NSBundle iTM2FoundationBundle])
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSBundle(iTeXMac2)
 

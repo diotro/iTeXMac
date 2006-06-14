@@ -306,7 +306,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ConTeXtAtPragmaADEToolbarImage.tif</string>
+								<string></string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -314,11 +314,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ConTeXtAtPragmaADEToolbarImage.tif</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>DCEC25C30A3EECEE001AD65E</string>
+										<string></string>
 										<key>history</key>
 										<array>
 											<string>DCC541840935A0E50050770C</string>
@@ -328,7 +324,6 @@
 											<string>DC99E7A90A2456E600F50752</string>
 											<string>DC99E7AA0A2456E600F50752</string>
 											<string>DC99E7AB0A2456E600F50752</string>
-											<string>DC4EF1C10A3E3D8300E264F0</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -337,9 +332,9 @@
 											<string>DCC544BC0937AA500050770C</string>
 											<string>DC99E7AD0A2456E600F50752</string>
 											<string>DC99E7AE0A2456E600F50752</string>
-											<string>DC99E7AF0A2456E600F50752</string>
 											<string>DC99E7B00A2456E600F50752</string>
 											<string>DC99E7B10A2456E600F50752</string>
+											<string>DC6659720A3F60DE00076617</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -397,9 +392,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCEC25C40A3EECEE001AD65E</string>
+				<string>DC2D34C50A40A15B00FD25C4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCEC25C50A3EECEE001AD65E</string>
+				<string>DC2D34C60A40A15B00FD25C4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
