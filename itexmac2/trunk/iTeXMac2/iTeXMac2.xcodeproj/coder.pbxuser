@@ -149,17 +149,19 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172188366;
-			PBXWorkspaceStateSaveDate = 172188366;
+			PBXPerProjectTemplateStateSaveDate = 172191844;
+			PBXWorkspaceStateSaveDate = 172191844;
 		};
 		perUserProjectItems = {
-			DCDC9C2E0A4364A7007F99F6 /* PBXTextBookmark */ = DCDC9C2E0A4364A7007F99F6 /* PBXTextBookmark */;
-			DCDC9C360A4364E4007F99F6 /* PBXTextBookmark */ = DCDC9C360A4364E4007F99F6 /* PBXTextBookmark */;
-			DCDC9C430A4364F7007F99F6 /* PBXTextBookmark */ = DCDC9C430A4364F7007F99F6 /* PBXTextBookmark */;
-			DCDC9C450A4364F7007F99F6 /* PBXTextBookmark */ = DCDC9C450A4364F7007F99F6 /* PBXTextBookmark */;
-			DCDC9C460A4364F7007F99F6 /* PBXTextBookmark */ = DCDC9C460A4364F7007F99F6 /* PBXTextBookmark */;
-			DCDC9C480A4364F7007F99F6 /* PBXTextBookmark */ = DCDC9C480A4364F7007F99F6 /* PBXTextBookmark */;
-			DCDC9C4A0A436508007F99F6 /* PBXTextBookmark */ = DCDC9C4A0A436508007F99F6 /* PBXTextBookmark */;
+			DCD7CE020A4370760096B1A9 /* PBXTextBookmark */ = DCD7CE020A4370760096B1A9 /* PBXTextBookmark */;
+			DCD7CE0D0A4371E60096B1A9 /* PBXTextBookmark */ = DCD7CE0D0A4371E60096B1A9 /* PBXTextBookmark */;
+			DCDC9C2E0A4364A7007F99F6 = DCDC9C2E0A4364A7007F99F6 /* PBXTextBookmark */;
+			DCDC9C360A4364E4007F99F6 = DCDC9C360A4364E4007F99F6 /* PBXTextBookmark */;
+			DCDC9C430A4364F7007F99F6 = DCDC9C430A4364F7007F99F6 /* PBXTextBookmark */;
+			DCDC9C450A4364F7007F99F6 = DCDC9C450A4364F7007F99F6 /* PBXTextBookmark */;
+			DCDC9C460A4364F7007F99F6 = DCDC9C460A4364F7007F99F6 /* PBXTextBookmark */;
+			DCDC9C480A4364F7007F99F6 = DCDC9C480A4364F7007F99F6 /* PBXTextBookmark */;
+			DCDC9C4A0A436508007F99F6 = DCDC9C4A0A436508007F99F6 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -312,7 +314,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1300, 6324}}";
 			sepNavSelRange = "{281, 0}";
-			sepNavVisRect = "{{0, 111}, {1095, 617}}";
+			sepNavVisRect = "{{0, 102}, {1095, 617}}";
 			sepNavWindowFrame = "{{91, 86}, {1134, 746}}";
 		};
 	};
@@ -339,9 +341,29 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 1;
-		modificationTime = 172188936.078968;
+		modificationTime = 172192223.592963;
 		state = 1;
 		symbolName = "-[NSException raise]";
+	};
+	DCD7CE020A4370760096B1A9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 13";
+		rLen = 0;
+		rLoc = 281;
+		rType = 0;
+		vrLen = 1081;
+		vrLoc = 120;
+	};
+	DCD7CE0D0A4371E60096B1A9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 13";
+		rLen = 0;
+		rLoc = 281;
+		rType = 0;
+		vrLen = 1081;
+		vrLoc = 120;
 	};
 	DCDC9C2E0A4364A7007F99F6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -373,6 +395,7 @@
 	};
 	DCDC9C440A4364F7007F99F6 /* iTM2InstallationKit.h */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = file;
 		name = iTM2InstallationKit.h;
 		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/../build/iTM2Foundation.framework/Headers/iTM2InstallationKit.h;
 		sourceTree = "<absolute>";
@@ -397,6 +420,7 @@
 	};
 	DCDC9C470A4364F7007F99F6 /* iTM2InstallationKit.h */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = file;
 		name = iTM2InstallationKit.h;
 		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/../build/iTM2Foundation.framework/Headers/iTM2InstallationKit.h;
 		sourceTree = "<absolute>";
@@ -428,7 +452,7 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 1;
-		modificationTime = 172188936.113605;
+		modificationTime = 172192223.626654;
 		state = 1;
 		symbolName = _NSAutoreleaseNoPool;
 	};
@@ -439,7 +463,7 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 1;
-		modificationTime = 172188936.174239;
+		modificationTime = 172192223.688294;
 		state = 1;
 		symbolName = "-[NSDocumentController noteNewRecentDocumentURL:]";
 	};

@@ -2293,8 +2293,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	int creationMode = [self creationMode];
+	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
+	NSString * mandatoryDirectory = nil;
 	if(creationMode == iTM2ToggleForbiddenProjectMode)
 	{
+		if(mandatoryProject)
+		{
+			mandatoryDirectory = [mandatoryProject fileName];
+			mandatoryDirectory = [mandatoryDirectory stringByDeletingLastPathComponent];
+			mandatoryDirectory = [mandatoryDirectory stringByStandardizingPath];
+			[sender setDirectory:mandatoryDirectory];
+		}
 		return NO;
 	}
 	if(![filename length])
@@ -2302,8 +2311,6 @@ To Do List:
 		return NO;
 	}
 	BOOL result = NO;
-	NSString * mandatoryDirectory = nil;
-	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
 	if(mandatoryProject)
 	{
 		mandatoryDirectory = [mandatoryProject fileName];
@@ -2311,8 +2318,12 @@ To Do List:
 		mandatoryDirectory = [mandatoryDirectory stringByStandardizingPath];
 		if([filename isContainedInDirectory:mandatoryDirectory])
 		{
-			result = YES;
-			mandatoryDirectory = nil;
+			return YES;
+		}
+		else
+		{
+			[sender setDirectory:mandatoryDirectory];
+			return NO;
 		}
 	}
 	else
@@ -2617,6 +2628,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![[self panelDirectory] length])
+	{
+		return;
+	}
 	int creationMode = [self creationMode];
 	if((creationMode == iTM2ToggleOldProjectMode) && [self selectedTemplateCanInsertInOldProject])
 	{
