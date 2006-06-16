@@ -78,7 +78,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	Discussion forthcoming.
     @result		yorn.
 */
-+ (BOOL) isI386;
++(BOOL)isI386;
 
 /*!
     @method 	iTM2FoundationBundle
@@ -86,7 +86,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	The TeX Kit framework is the one containing the iTM2ContextInfo.
     @result	A bundle with identifier "comp.text.tex.iTeXmac.foundation".
 */
-+ (NSBundle *) iTM2FoundationBundle;
++(NSBundle *)iTM2FoundationBundle;
 
 /*!
     @method 	iTeXMac2Bundle
@@ -94,7 +94,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	Description Forthcoming.
     @result	A bundle with identifier "comp.text.tex.iTeXMac2".
 */
-+ (NSBundle *) iTeXMac2Bundle;
++(NSBundle *)iTeXMac2Bundle;
 
 /*!
     @method 	searchPathsForSupportInDomains:withName:application's given name.
@@ -106,7 +106,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @param	domainMask is concerning one of the user, local or network domains, but NOT the system nor the built in one...
     @result	an array of the paths
 */
-+ (NSArray *) searchPathsForSupportInDomains: (NSSearchPathDomainMask) domainMask withName: (NSString *) appName;
++(NSArray *)searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
 
 /*!
     @method 	pathForSupportDirectory:inDomain:withName:create:
@@ -123,7 +123,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @param		create is a flag, if set to YES, the directory will be created.
     @result		a full path, possibly empty if it does not exist or could not be created while create is YES.
 */
-+ (NSString *) pathForSupportDirectory: (NSString *) subpath inDomain: (NSSearchPathDomainMask) domainMask withName: (NSString *) appName create: (BOOL) create;
++(NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName create:(BOOL)create;
 
 /*!
     @method 	pathForSupportDirectory:inDomain:withName:create:
@@ -139,7 +139,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @param		create is a flag.
     @result		a full path or @"" if the requested path does not exist or could not be created while create is YES.
 */
-- (NSString *) pathForSupportDirectory: (NSString *) subpath inDomain: (NSSearchPathDomainMask) domainMask create: (BOOL) create;
+-(NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
 
 /*!
     @method 	plugInPathExtension
@@ -148,7 +148,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@param		None
 	@result		a String
 */
-+ (NSString *) plugInPathExtension;
++(NSString *)plugInPathExtension;
 
 /*!
     @method 	loadPlugIns
@@ -164,7 +164,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@param		None
 	@result		None.orderFront
 */
-+ (void) loadPlugIns;
++(void)loadPlugIns;
 
 /*!
     @method 	availablePlugInPathsOfType:
@@ -176,7 +176,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@param		type is file extension
 	@result		an array of fulle paths
 */
-+ (NSArray *) availablePlugInPathsOfType: (NSString *) aType;
++(NSArray *)availablePlugInPathsOfType:(NSString *)aType;
 
 /*!
     @method 	availablePlugInPathsOfType:
@@ -186,7 +186,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@param		type is file extension
 	@result		an array of fulle paths
 */
-- (NSArray *) availablePlugInPathsOfType: (NSString *) aType;
+-(NSArray *)availablePlugInPathsOfType:(NSString *)aType;
 
 /*!
     @method 	availablePlugInPathsAtPath:ofType:
@@ -195,7 +195,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@param		path is the full path name of a directory
 	@result		an array of full paths
 */
-+ (NSArray *) availablePlugInPathsAtPath: (NSString *) path ofType: (NSString *) aType;
++(NSArray *)availablePlugInPathsAtPath:(NSString *)path ofType:(NSString *)aType;
 
 /*!
     @method 	bundleName
@@ -203,7 +203,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	Description forthcoming.
     @result	The main bundle name from the info dictionary.
 */
-- (NSString *) bundleName;
+-(NSString *)bundleName;
 
 /*!
     @method 	defaultWritableFolderPath
@@ -211,7 +211,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	Description forthcoming.
     @result	A default writable folder path.
 */
-+ (NSString *) defaultWritableFolderPath;
++(NSString *)defaultWritableFolderPath;
 
 /*!
 	@method			uniqueApplicationIdentifier
@@ -221,7 +221,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (NSString *) uniqueApplicationIdentifier;
++(NSString *)uniqueApplicationIdentifier;
 
 /*!
     @method 	bundleIsWrapper
@@ -231,7 +231,7 @@ extern NSString * const iTM2BundleContentsComponent;
 				Convenience method to distribute and install a lot of plugins all at once.
     @result		YorN.
 */
-- (BOOL) bundleIsWrapper;
+-(BOOL)bundleIsWrapper;
 
 /*!
     @method 	bundleHFSTypeCode
@@ -239,7 +239,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	Description forthcoming.
     @result		an OSType unsigned integer.
 */
-- (OSType) bundleHFSTypeCode;
+-(OSType)bundleHFSTypeCode;
 
 /*!
     @method 	bundleHFSCreatorCode
@@ -247,7 +247,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	Description forthcoming.
     @result		an OSType unsigned integer.
 */
-- (OSType) bundleHFSCreatorCode;
+-(OSType)bundleHFSCreatorCode;
 
 /*!
 	@method			temporaryDirectory
@@ -258,7 +258,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (NSString *) temporaryDirectory;
++(NSString *)temporaryDirectory;
 
 /*!
 	@method			temporaryBinaryDirectory
@@ -268,8 +268,8 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (NSString *) temporaryBinaryDirectory;
-+ (BOOL) createSymbolicLinkWithExecutableContent: (NSString *) executable error: (NSError **) errorRef;
++(NSString *)temporaryBinaryDirectory;
++(BOOL)createSymbolicLinkWithExecutableContent:(NSString *)executable error:(NSError **)errorRef;
 
 /*!
 	@method			temporaryUniqueDirectory
@@ -279,7 +279,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (NSString *) temporaryUniqueDirectory;
++(NSString *)temporaryUniqueDirectory;
 
 /*!
     @method 	bundleForResourceAtPath:
@@ -289,7 +289,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @param		type is the type of the resource.
     @result		An array.
 */
-+ (NSBundle *) bundleForResourceAtPath: (NSString *) aPath;
++(NSBundle *)bundleForResourceAtPath:(NSString *)aPath;
 
 /*!
     @method 	allPathsForResource:ofType:
@@ -312,8 +312,8 @@ extern NSString * const iTM2BundleContentsComponent;
     @param		type is the type of the resource.
     @result		An array.
 */
-- (NSArray *) allPathsForResource: (NSString *) component ofType: (NSString *) type;
-- (NSArray *) allPathsForResource: (NSString *) component ofType: (NSString *) type inDirectory: (NSString *) subpath;
+-(NSArray *)allPathsForResource:(NSString *)component ofType:(NSString *)type;
+-(NSArray *)allPathsForResource:(NSString *)component ofType:(NSString *)type inDirectory:(NSString *)subpath;
 
 /*!
 	@method			pathsForResource:ofType:inDirectory:domains:
@@ -327,7 +327,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSArray *) pathsForResource: (NSString *) name ofType: (NSString *) type inDirectory: (NSString *) subpath domains: (NSSearchPathDomainMask) domainMask;
+-(NSArray *)pathsForResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath domains:(NSSearchPathDomainMask)domainMask;
 
 /*!
 	@method			pathsForBuiltInResource:ofType:inDirectory:
@@ -343,7 +343,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSArray *) pathsForBuiltInResource: (NSString *) name ofType: (NSString *) type inDirectory: (NSString *) subpath;
+-(NSArray *)pathsForBuiltInResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
 
 /*!
 	@method			supportPathsForResource:ofType:inDirectory:domain:
@@ -360,8 +360,8 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSArray *) pathsForSupportResource: (NSString *) name ofType: (NSString *) type inDirectory: (NSString *) subpath domains: (NSSearchPathDomainMask) domainMask;
-- (NSArray *) pathsForSupportResource: (NSString *) name ofType: (NSString *) type inDirectory: (NSString *) subpath;
+-(NSArray *)pathsForSupportResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath domains:(NSSearchPathDomainMask)domainMask;
+-(NSArray *)pathsForSupportResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
 
 /*!
     @method 	allBundlesAtPath:
@@ -369,7 +369,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	A bundle must have a non void infoDictionary.
     @result		An array.
 */
-+ (NSArray *) allBundlesAtPath: (NSString *) path;
++(NSArray *)allBundlesAtPath:(NSString *)path;
 
 /*!
     @method 	supportBundlesInDomain:
@@ -377,7 +377,7 @@ extern NSString * const iTM2BundleContentsComponent;
     @discussion	A bundle must have a non void infoDictionary.
     @result		An array.
 */
-- (NSArray *) supportBundlesInDomain:(NSSearchPathDomainMask) domainMask;
+-(NSArray *)supportBundlesInDomain:(NSSearchPathDomainMask) domainMask;
 
 /*!
     @method 	embeddedBundles
@@ -388,7 +388,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@param		None
 	@result		None
 */
-- (NSArray *) embeddedBundles;
+-(NSArray *)embeddedBundles;
 
 /*!
     @method 	bundleForClass:localizedStringForKey:value:table:
@@ -402,7 +402,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@param		table is the table name
 	@result		A localized string
 */
-+ (NSString *) bundleForClass:(Class)aClass localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
++(NSString *)bundleForClass:(Class)aClass localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
 
 @end
 
@@ -422,8 +422,8 @@ extern NSString * const iTM2BundleContentsComponent;
 				TO DO: change the way myBUNDLE is used...
     @result		a bundle.
 */
-+ (NSBundle *) classBundle;
-- (NSBundle *) classBundle;
++(NSBundle *)classBundle;
+-(NSBundle *)classBundle;
 
 @end
 
@@ -439,7 +439,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (BOOL) loadNibNamed: (NSString *) aNibName owner: (id) owner;
++(BOOL)loadNibNamed:(NSString *)aNibName owner:(id)owner;
 
 @end
 

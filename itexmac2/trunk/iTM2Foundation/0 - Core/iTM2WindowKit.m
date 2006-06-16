@@ -43,7 +43,7 @@ This is a class wide manager: you must subclass NSWindow each time you want a di
 #ifndef HUNTING
 @implementation NSWindow(iTM2WindowKit) 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameIdentifier
-- (NSString *) frameIdentifier;
+-(NSString *)frameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -61,7 +61,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameAutosaveIdentifierForMode:
-- (NSString *) frameAutosaveIdentifierForMode: (iTM2WindowFrameAutosaveMode) aMode;
+-(NSString *)frameAutosaveIdentifierForMode:(iTM2WindowFrameAutosaveMode)aMode;
 /*"DF
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -86,7 +86,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameAutosaveModeKey
-- (NSString *) frameAutosaveModeKey;
+-(NSString *)frameAutosaveModeKey;
 /*"Subclasses must declare a default value for all the modes.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -97,7 +97,7 @@ To Do List:
     return [NSString stringWithFormat:@"%@ %@", [self frameIdentifier], iTM2AutosaveModeKeySuffix];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionShouldBeObserved
-- (BOOL) positionShouldBeObserved;
+-(BOOL)positionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -113,7 +113,7 @@ To Do List:
 				|| [WC windowPositionShouldBeObserved];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compareUsingLevel:
-- (NSComparisonResult) compareUsingLevel: (id) rhs;
+-(NSComparisonResult)compareUsingLevel:(id)rhs;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -131,7 +131,7 @@ To Do List:
     return NSOrderedSame;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowsMenuItemTitle
-- (NSString *) windowsMenuItemTitle;
+-(NSString *)windowsMenuItemTitle;
 /*"Gives a default value, useful for window observer?
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -160,7 +160,7 @@ NSString * const iTM2DocumentEditedStatusNotification = @"iTM2DocumentEditedStat
 
 @implementation NSWindow_iTM2WindowKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -175,7 +175,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setDocumentEdited:
-- (void) setDocumentEdited: (BOOL) flag;
+-(void)setDocumentEdited:(BOOL)flag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -189,7 +189,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveFrameUsingName:
-- (void) saveFrameUsingName: (NSString *) name;
+-(void)saveFrameUsingName:(NSString *)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -213,7 +213,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setFrameUsingName:force:
-- (BOOL) setFrameUsingName: (NSString *) name force: (BOOL) force;
+-(BOOL)setFrameUsingName:(NSString *)name force:(BOOL)force;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -237,7 +237,7 @@ To Do List:
 	return [super setFrameUsingName:name force:force];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setFrameUsingName:
-- (BOOL) setFrameUsingName: (NSString *) name;
+-(BOOL)setFrameUsingName:(NSString *)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -268,7 +268,7 @@ To Do List:
 	return [super setFrameUsingName:name];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeFrameUsingName:
-- (void) removeFrameUsingName: (NSString *) name;
+-(void)removeFrameUsingName:(NSString *)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -284,7 +284,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameAutosaveName
-- (NSString *) frameAutosaveName;
+-(NSString *)frameAutosaveName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -297,7 +297,7 @@ To Do List:
 		[self frameAutosaveIdentifierForMode:[self contextIntegerForKey:[self frameAutosaveModeKey]]];
 }
 #if __iTM2_DEVELOPMENT__
-- (void) makeKeyAndOrderFront: (id) sender;
+-(void)makeKeyAndOrderFront:(id)sender;
 {iTM2_DIAGNOSTIC;
 	[super makeKeyAndOrderFront:sender];
 }
@@ -307,7 +307,7 @@ To Do List:
 @implementation NSWindowController(iTM2WindowKit_)
 // the default windowFrameIdentifier is implemented in iTM2DocumentKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL) windowPositionShouldBeObserved;
+-(BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -319,7 +319,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
-- (NSString *) windowsMenuItemTitleForDocumentDisplayName: (NSString *) displayName;
+-(NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -337,7 +337,7 @@ To Do List:
 
 @implementation iTM2WindowsObserver
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Lazy initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -366,7 +366,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rememberCurrentWindowPosition:
-+ (void) rememberCurrentWindowPosition: (NSNotification *) aNotification;
++(void)rememberCurrentWindowPosition:(NSNotification *)aNotification;
 /*"Subclasses should not need to override this method. Registers in the registration domain of the user defaults database the frame of aNotification object. The key used is the class frameIdentifier of this object.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: Fri May 21 07:52:07 GMT 2004
@@ -385,7 +385,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forgetCurrentWindowPosition:
-+ (void) forgetCurrentWindowPosition: (NSNotification *) aNotification;
++(void)forgetCurrentWindowPosition:(NSNotification *)aNotification;
 /*"Subclasses should not need to override this method. The key used is the class frameIdentifier of this object but the registered frame is a zero rect.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -408,13 +408,13 @@ To Do List:
 #if 0
 #warning DEBUGGGGGGGGGGGGGGGGGGGG
 @interface NSMenu(PRIVATE1)
-- (void) showItemWithKeyEquivalentForEvent: (NSEvent *) anEvent;
+-(void)showItemWithKeyEquivalentForEvent:(NSEvent *)anEvent;
 @end
 @interface NSMenu_MOI: NSMenu
 @end
 @implementation NSMenu_MOI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -433,7 +433,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performKeyEquivalent:
-- (BOOL) performKeyEquivalent: (NSEvent *) anEvent;
+-(BOOL)performKeyEquivalent:(NSEvent *)anEvent;
 /*"DF.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -453,7 +453,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showItemWithKeyEquivalentForEvent:
-- (void) showItemWithKeyEquivalentForEvent: (NSEvent *) anEvent;
+-(void)showItemWithKeyEquivalentForEvent:(NSEvent *)anEvent;
 /*"DF.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -495,7 +495,7 @@ To Do List:
 
 @implementation iTM2Window
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void) setImplementation: (id) argument;
+-(void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004

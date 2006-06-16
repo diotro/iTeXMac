@@ -12,7 +12,7 @@
 
 @implementation MyDocument
 
-- (id)init
+-(id)init
 {
     self = [super init];
     if (self) {
@@ -25,21 +25,21 @@
     return self;
 }
 
-- (void)dealloc
+-(void)dealloc
 {
 	[error release];
     [super dealloc];
     return;
 }
 
-- (NSString *)windowNibName
+-(NSString *)windowNibName
 {
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"MyDocument";
 }
 
-- (void)windowControllerDidLoadNib:(NSWindowController *) aController
+-(void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
@@ -49,7 +49,7 @@
 	}
 }
 
-- (NSData *)dataRepresentationOfType:(NSString *)aType
+-(NSData *)dataRepresentationOfType:(NSString *)aType
 {
     // Insert code here to write your document from the given data.  You can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
     
@@ -58,7 +58,7 @@
     return nil;
 }
 
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+-(BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 {
 	[error release];
 	NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:absoluteURL options:0 error:&error] autorelease];

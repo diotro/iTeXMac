@@ -369,9 +369,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC4287650A3C89A700823093</string>
+				<string>DCF34E360A435AD8005375E6</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC4287660A3C89A700823093</string>
+				<string>DCF34E370A435AD8005375E6</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -505,6 +505,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/Key Bindings Support/Translator/Translator.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -730,7 +731,7 @@
 										<key>Frame</key>
 										<string>{{0, 0}, {913, 150}}</string>
 										<key>RubberWindowFrame</key>
-										<string>36 396 913 408 0 0 1280 832 </string>
+										<string>52 439 913 408 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXNavigatorGroup</string>
@@ -742,6 +743,8 @@
 							<string>150pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -754,7 +757,7 @@
 								<key>Frame</key>
 								<string>{{0, 155}, {913, 212}}</string>
 								<key>RubberWindowFrame</key>
-								<string>36 396 913 408 0 0 1280 832 </string>
+								<string>52 439 913 408 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
@@ -777,13 +780,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC986C0409F04A1100FF4BD3</string>
-				<string>DC986C0509F04A1100FF4BD3</string>
+				<string>DCF34E3B0A435BA8005375E6</string>
+				<string>DCF34E3C0A435BA8005375E6</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>
 			<key>WindowString</key>
-			<string>36 396 913 408 0 0 1280 832 </string>
+			<string>52 439 913 408 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>

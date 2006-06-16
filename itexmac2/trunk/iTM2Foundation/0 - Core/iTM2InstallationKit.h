@@ -45,7 +45,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@param		None
 	@result		None
 */
-+ (void) completeInstallation;
++(void)completeInstallation;
 
 @end
 
@@ -84,7 +84,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (void) registerMileStone: (NSString *) comment forKey: (NSString *) key;
++(void)registerMileStone:(NSString *)comment forKey:(NSString *)key;
 
 /*!
 	@method			putMileStoneForKey:
@@ -95,7 +95,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (void) putMileStoneForKey: (NSString *) key;
++(void)putMileStoneForKey:(NSString *)key;
 
 /*!
 	@method			verifyRegisteredMileStones
@@ -106,7 +106,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (void) verifyRegisteredMileStones;
++(void)verifyRegisteredMileStones;
 
 @end
 
@@ -126,7 +126,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (void) completeInstallation;
++(void)completeInstallation;
 
 /*!
 	@method			finishLaunching
@@ -145,7 +145,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void) finishLaunching;
+-(void)finishLaunching;
 
 @end
 
@@ -168,7 +168,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@param		the target of the argument.
 	@result		None.
 */
-+ (void) fixInstallationOf: (id) target;
++(void)fixInstallationOf:(id)target;
 
 /*!
 	@method		fixAllInstallations
@@ -177,7 +177,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@param		the target of the argument.
 	@result		None.
 */
-+ (void) fixAllInstallations;
++(void)fixAllInstallations;
 
 /*!
 	@method		fixInstallation
@@ -187,8 +187,8 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@param		None.
 	@result		None.
 */
-+ (void) fixInstallation;
-- (void) fixInstallation;
++(void)fixInstallation;
+-(void)fixInstallation;
 
 /*!
 	@method		completeInstallationOf:
@@ -199,7 +199,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@param		the target of the argument.
 	@result		None.
 */
-+ (void) completeInstallationOf: (id) target;
++(void)completeInstallationOf:(id)target;
 
 /*!
 	@method		completeAllInstallations
@@ -208,7 +208,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@param		the target of the argument.
 	@result		None.
 */
-+ (void) completeAllInstallations;
++(void)completeAllInstallations;
 
 /*!
 	@method		completeInstallation
@@ -218,8 +218,8 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 	@param		None.
 	@result		None.
 */
-+ (void) completeInstallation;
-- (void) completeInstallation;
++(void)completeInstallation;
+-(void)completeInstallation;
 
 @end
 

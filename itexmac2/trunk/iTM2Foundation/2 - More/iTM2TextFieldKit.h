@@ -39,7 +39,7 @@ extern NSString * const iTM2LastColumnKey;
     @param		irrelevant sender
     @result		None
 */
-- (IBAction) lineFieldAction: (id) sender;
+-(IBAction)lineFieldAction:(id)sender;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TextFieldKit
 
@@ -51,9 +51,9 @@ extern NSString * const iTM2LastColumnKey;
 @private
     NSString * _NavigationFormat;
 }
-- (NSString *) navigationFormat;
-- (NSString *) lazyNavigationFormat;
-- (void) setNavigationFormat: (NSString *) aFormat;
+-(NSString *)navigationFormat;
+-(NSString *)lazyNavigationFormat;
+-(void)setNavigationFormat:(NSString *)aFormat;
 @end
 
 @interface iTM2NavigationFormatter : iTM2LineFormatter
@@ -63,9 +63,9 @@ extern NSString * const iTM2LastColumnKey;
 @end
 
 @interface NSFormatter(iTM2TextField)
-- (NSString *) stringForNilObjectValue;
-- (void) setStringForNilObjectValue: (NSString *) aString;
-- (NSAttributedString *) attributedStringForNilObjectValueWithDefaultAttributes: (NSDictionary *) attrs;
+-(NSString *)stringForNilObjectValue;
+-(void)setStringForNilObjectValue:(NSString *)aString;
+-(NSAttributedString *)attributedStringForNilObjectValueWithDefaultAttributes:(NSDictionary *)attrs;
 @end
 
 @interface iTM2StringFormatter : NSFormatter
@@ -76,7 +76,7 @@ extern NSString * const iTM2LastColumnKey;
 @end
 
 @interface iTM2LineResponder: iTM2AutoInstallResponder
-- (IBAction) gotoLineField: (id) sender;
+-(IBAction)gotoLineField:(id)sender;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TextFieldKit

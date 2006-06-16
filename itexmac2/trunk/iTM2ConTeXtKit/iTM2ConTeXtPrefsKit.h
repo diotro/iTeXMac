@@ -32,7 +32,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (IBAction) showConTeXtPrefs: (id) sender;
+-(IBAction)showConTeXtPrefs:(id)sender;
 /*!
 	@method			showConTeXtManualsPrefs:
 	@abstract		Abstract forthcoming.
@@ -41,7 +41,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (IBAction) showConTeXtManualsPrefs: (id) sender;
+-(IBAction)showConTeXtManualsPrefs:(id)sender;
 @end
 
 @interface iTM2ConTeXtManualsFormatter: iTM2StringFormatter

@@ -25,13 +25,13 @@
 /*"Description forthcoming."*/
 @implementation iTM2EventObserver
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isAlternateKeyDown
-+ (BOOL) isAlternateKeyDown;
++(BOOL)isAlternateKeyDown;
 /*"Description forthcoming."*/
 {iTM2_DIAGNOSTIC;
     return [self isKeyDown:34];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isAlternateKeyDown
-+ (BOOL) isKeyDown: (char) keyNumber;
++(BOOL)isKeyDown:(char)keyNumber;
 /*"Description forthcoming."*/
 {iTM2_DIAGNOSTIC;
     long q = keyNumber/32;
@@ -66,7 +66,7 @@ NSString * const iTM2FlagsDidChangeNotification = @"iTM2FlagsDidChangeNotificati
 
 @implementation NSApplication(iTM2EventKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -81,7 +81,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2FlagsChangedResponderDidFinishLaunching
-- (void) iTM2FlagsChangedResponderDidFinishLaunching;
+-(void)iTM2FlagsChangedResponderDidFinishLaunching;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -98,7 +98,7 @@ To Do List:
 
 @implementation iTM2FlagsChangedResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= flagsChanged:
-- (void) flagsChanged: (NSEvent *) theEvent
+-(void)flagsChanged:(NSEvent *)theEvent
 /*"If there is no key window, the receiver posts a iTM2FlagsChangedNotification with no object nor user info."
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -113,7 +113,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -136,7 +136,7 @@ To Do List:
 
 @implementation NSWindow_iTeXMac2_FlagsChanged
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void) load;
++(void)load;
 /*"The receiver posts a iTM2FlagsChangedNotification with no object nor user info."
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -151,7 +151,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= flagsChanged:
-- (void) flagsChanged: (NSEvent *) theEvent
+-(void)flagsChanged:(NSEvent *)theEvent
 /*"The receiver posts a iTM2FlagsChangedNotification with itself as object but no user info.
 Beware, some objects will probably receive twice such a notification.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -166,7 +166,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

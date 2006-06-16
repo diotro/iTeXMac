@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 -(NSMenu *)findMenu;
 @end
 @implementation NSApplication(OgreKit)
-- (void)ogreKitWillHackFindMenu:(id)textFinder
+-(void)ogreKitWillHackFindMenu:(id)textFinder
 {
 	NSMenuItem * mi = [[self mainMenu] deepItemWithAction:@selector(OgreFindMenuItemAction:)];
 	if(mi)
@@ -37,11 +37,11 @@ int main(int argc, char *argv[])
 	[textFinder setShouldHackFindMenu:NO];
 	return;
 }
-- (void)ogreKitShouldUseStylesInFindPanel:(id)textFinder
+-(void)ogreKitShouldUseStylesInFindPanel:(id)textFinder
 {
 	[textFinder setUseStylesInFindPanel:NO];
 }
-- (void) OgreKit_DidFinishLaunching;
+-(void)OgreKit_DidFinishLaunching;
 {
 	if([[OgreTextFinder alloc] init])// beware of the bug
 	{
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 @end
 
 @implementation OgreTextFinder(OgreKit)
-- (NSMenu *)findMenu;
+-(NSMenu *)findMenu;
 {
 	return findMenu;
 }

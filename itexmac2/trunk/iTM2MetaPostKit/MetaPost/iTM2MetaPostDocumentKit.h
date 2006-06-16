@@ -28,9 +28,9 @@ extern NSString * const iTM2MetaPostInspectorType;
 extern NSString * const iTM2MetaPostInspectorMode;
 
 @interface iTM2MetaPostDocument: iTM2TextDocument
-- (id) PDFKitDocumentForFileName: (NSString *) argument;
-- (void) addPDFDocumentFileName: (NSString *) argument;
-- (void) removePDFDocumentFileName: (NSString *) argument;
+-(id)PDFKitDocumentForFileName:(NSString *)argument;
+-(void)addPDFDocumentFileName:(NSString *)argument;
+-(void)removePDFDocumentFileName:(NSString *)argument;
 @end
 
 @interface iTM2MetaPostInspector: iTM2TextInspector
@@ -56,11 +56,11 @@ extern NSString * const iTM2MetaPostInspectorMode;
     IBOutlet NSSegmentedControl *_toolbarBackForwardView;
 //    IBOutlet NSPopUpButton *_toolbarDisplayBoxView;
 }
-- (id) currentOutputFigure;
-- (NSArray *) outputFigureNumbers;
-- (void) setOutputFigureNumbers: (id) argument;
-- (void) setCurrentOutputFigure: (id) argument;
-- (id) currentPDFKitDocument;
+-(id)currentOutputFigure;
+-(NSArray *)outputFigureNumbers;
+-(void)setOutputFigureNumbers:(id)argument;
+-(void)setCurrentOutputFigure:(id)argument;
+-(id)currentPDFKitDocument;
 @end
 
 @interface iTM2MetaPostWindow: iTM2TextWindow
@@ -76,6 +76,6 @@ extern NSString * const iTM2MetaPostInspectorMode;
 @end
 
 @interface NSTextView(iTM2MetaPostKit)
-- (void) highlightAndScrollMetaPostFigureToVisible: (int) figure;
+-(void)highlightAndScrollMetaPostFigureToVisible:(int)figure;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2MetaPostWrapperKit

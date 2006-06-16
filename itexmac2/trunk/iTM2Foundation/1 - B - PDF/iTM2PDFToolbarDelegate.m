@@ -46,12 +46,12 @@ NSString * const iTM2ToolbarForwardButtonItemIdentifier = @"doGoForward:";
 NSString * const iTM2ToolbarHistorySetItemIdentifier = @"History";
 
 @interface iTM2PDFToolbarDelegate(PRIVATE)
-- (void) focusedPageNumberDidChangeNotified: (NSNotification *) aNotification;
+-(void)focusedPageNumberDidChangeNotified:(NSNotification *)aNotification;
 @end
 
 @implementation iTM2PDFToolbarDelegate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id) init;
+-(id)init;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -82,7 +82,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming."*/
 {
 //NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
@@ -96,7 +96,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusedPageNumberDidChangeNotified:
-- (void) focusedPageNumberDidChangeNotified: (NSNotification *) aNotification;
+-(void)focusedPageNumberDidChangeNotified:(NSNotification *)aNotification;
 /*"Description forthcoming. Just to update the field
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -115,7 +115,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logicalPageNumberDidChangeNotified
-- (void) logicalPageNumberDidChangeNotified: (NSNotification *) aNotification;
+-(void)logicalPageNumberDidChangeNotified:(NSNotification *)aNotification;
 /*"Sends a #{focusedPageNumberDidChangeNotified} to the receiver, then updates the history menus.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -195,7 +195,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= toolbarDefaultItemIdentifiers:
-- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar*) aToolbar;
+-(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -218,7 +218,7 @@ To Do List:
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= toolbarAllowedItemIdentifiers:
-- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar*) aToolbar;
+-(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -252,7 +252,7 @@ To Do List:
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:
-- (NSToolbarItem *) toolbar: (NSToolbar *) aToolbar itemForItemIdentifier: (NSString *) anItemIdentifier willBeInsertedIntoToolbar: (BOOL) aFlag;
+-(NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -338,7 +338,7 @@ To Do List:
     return [result autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= historySet
-- (NSView *) historySet;
+-(NSView *)historySet;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -356,7 +356,7 @@ To Do List:
     return [result autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  navigationFieldForPalette
-- (NSTextField *) navigationFieldForPalette;
+-(NSTextField *)navigationFieldForPalette;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -369,7 +369,7 @@ To Do List:
     return [textField autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  navigationFieldForToolbar
-- (NSTextField *) navigationFieldForToolbar;
+-(NSTextField *)navigationFieldForToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -395,7 +395,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NAVIGATION_SET
 #define NAVIGATION_SET(navigationSet, navigationField)\
-- (NSView *) navigationSet;\
+-(NSView *)navigationSet;\
 {\
     NSView * F = [self navigationField];\
     if(F != nil)\
@@ -419,7 +419,7 @@ NAVIGATION_SET(navigationSetForToolbar, navigationFieldForToolbar);
 NAVIGATION_SET(navigationSetForPalette, navigationFieldForPalette);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SET
 #define SET(getter, one, two, three)\
-- (NSView *) getter;\
+-(NSView *)getter;\
 {\
     NSView * result = [[NSView alloc] initWithFrame:NSMakeRect(0,0,96,32)];\
     NSButton * button = [self one];\
@@ -436,7 +436,7 @@ SET(nextSet, buttonNext, buttonNextNext, buttonLast);
 SET(previousSet, buttonFirst, buttonPreviousPrevious, buttonPrevious);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  MIXEDSET
 #define MIXEDSET(getter, one, two, three)\
-- (NSView *) getter;\
+-(NSView *)getter;\
 {\
     NSButton * button = [self one];\
     id result = [[iTM2FlagsChangedView alloc] initWithFrame:[button frame]];\
@@ -455,7 +455,7 @@ MIXEDSET(previousMixedSet, buttonPrevious, buttonPreviousPrevious, buttonFirst);
 MIXEDSET(nextMixedSet, buttonNext, buttonNextNext, buttonLast);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  BUTTON
 #define BUTTON(getter, action);\
-- (NSButton *) getter;\
+-(NSButton *)getter;\
 {\
     id button = [NSButton getter];\
     [button setAction:@selector(action)];\
@@ -471,7 +471,7 @@ BUTTON(buttonNext, doGoToNextPage:);
 BUTTON(buttonNextNext, doGoToNextNextPage:);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NAVBUTTON
 #define NAVBUTTON(getter, action, menu);\
-- (NSButton *) getter;\
+-(NSButton *)getter;\
 {\
     iTM2ButtonMixed * button = (iTM2ButtonMixed *)[NSButton getter];\
     [button setMixedEnabled:YES];\
@@ -483,7 +483,7 @@ BUTTON(buttonNextNext, doGoToNextNextPage:);
 NAVBUTTON(buttonBack, doGoBack:, backMenu);
 NAVBUTTON(buttonForward, doGoForward:, forwardMenu);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= navigationField
-- (NSTextField *) navigationField;
+-(NSTextField *)navigationField;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -512,7 +512,7 @@ To Do List:
     return _NavigationField;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setNavigationField:
-- (void) setNavigationField: (NSTextField *) aTextField;
+-(void)setNavigationField:(NSTextField *)aTextField;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -529,7 +529,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= MENUGETTERSETTER
 #define MENUGETTERSETTER(source, getter, setter)\
-- (id) getter;\
+-(id)getter;\
 {\
     if(!source)\
     {\
@@ -539,7 +539,7 @@ To Do List:
     }\
     return source;\
 }\
-- (void) setter: (NSMenu *) argument;\
+-(void)setter:(NSMenu *)argument;\
 {\
     if(![source isEqual:argument])\
     {\

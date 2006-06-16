@@ -142,13 +142,13 @@ void* iTeXMac2CMPlugInFactory(CFAllocatorRef allocator,CFUUIDRef typeID )
 		iTM2_INIT_POOL;
 		NSString * proposal;
 		NSString * key;
-		NSBundle * B = [NSBundle bundleWithIdentifier: iTeXMac2CMPlugInBundleIdentifier];
+		NSBundle * B = [NSBundle bundleWithIdentifier:iTeXMac2CMPlugInBundleIdentifier];
 		// initialize the titles.
 		key = @"Convert \"%@\" to a TeX Wrapper";
 		proposal = NSLocalizedStringFromTableInBundle(key, iTeXMac2CMPlugInTable, B, "");
 		if(![proposal length]
-			|| ([[proposal componentsSeparatedByString: @"%"] count] != 2)
-				|| !([proposal rangeOfString: @"%@"].length))
+			|| ([[proposal componentsSeparatedByString:@"%"] count] != 2)
+				|| !([proposal rangeOfString:@"%@"].length))
 		{// not completely safe but sufficient
 			proposal = key;
 			NSLog(@"*** ERROR: iTeXMac2 CM PlugIn Localization BUG, bad translation for key: %@", key);
@@ -158,8 +158,8 @@ void* iTeXMac2CMPlugInFactory(CFAllocatorRef allocator,CFUUIDRef typeID )
 		key = @"Convert %i Folders to TeX Directories";
 		proposal = NSLocalizedStringFromTableInBundle(key, iTeXMac2CMPlugInTable, B, "");
 		if(![proposal length]
-			|| ([[proposal componentsSeparatedByString: @"%"] count] != 2)
-				|| !([proposal rangeOfString: @"%i"].length))
+			|| ([[proposal componentsSeparatedByString:@"%"] count] != 2)
+				|| !([proposal rangeOfString:@"%i"].length))
 		{// not completely safe but sufficient
 			proposal = key;
 			NSLog(@"*** ERROR: iTeXMac2 CM PlugIn Localization BUG, bad translation for key: %@", key);
@@ -169,8 +169,8 @@ void* iTeXMac2CMPlugInFactory(CFAllocatorRef allocator,CFUUIDRef typeID )
 		key = @"Convert \"%@\" to a Folder";
 		proposal = NSLocalizedStringFromTableInBundle(key, iTeXMac2CMPlugInTable, B, "");
 		if(![proposal length]
-			|| ([[proposal componentsSeparatedByString: @"%"] count] != 2)
-				|| !([proposal rangeOfString: @"%@"].length))
+			|| ([[proposal componentsSeparatedByString:@"%"] count] != 2)
+				|| !([proposal rangeOfString:@"%@"].length))
 		{// not completely safe but sufficient
 			proposal = key;
 			NSLog(@"*** ERROR: iTeXMac2 CM PlugIn Localization BUG, bad translation for key: %@", key);
@@ -180,8 +180,8 @@ void* iTeXMac2CMPlugInFactory(CFAllocatorRef allocator,CFUUIDRef typeID )
 		key = @"Convert %i TeX Directories to Folders";
 		proposal = NSLocalizedStringFromTableInBundle(key, iTeXMac2CMPlugInTable, B, "");
 		if(![proposal length]
-			|| ([[proposal componentsSeparatedByString: @"%"] count] != 2)
-				|| !([proposal rangeOfString: @"%i"].length))
+			|| ([[proposal componentsSeparatedByString:@"%"] count] != 2)
+				|| !([proposal rangeOfString:@"%i"].length))
 		{// not completely safe but sufficient
 			proposal = key;
 			NSLog(@"*** ERROR: iTeXMac2 CM PlugIn Localization BUG, bad translation for key: %@", key);
@@ -191,9 +191,9 @@ void* iTeXMac2CMPlugInFactory(CFAllocatorRef allocator,CFUUIDRef typeID )
 		key = @"Gather %1$i Documents in \"%2$@\"";
 		proposal = NSLocalizedStringFromTableInBundle(key, iTeXMac2CMPlugInTable, B, "");
 		if(![proposal length]
-			|| ([[proposal componentsSeparatedByString: @"%"] count] != 3)
-				|| !([proposal rangeOfString: @"%1$i"].length)
-					|| !([proposal rangeOfString: @"%2$@"].length))
+			|| ([[proposal componentsSeparatedByString:@"%"] count] != 3)
+				|| !([proposal rangeOfString:@"%1$i"].length)
+					|| !([proposal rangeOfString:@"%2$@"].length))
 		{// not completely safe but sufficient
 			proposal = key;
 			NSLog(@"*** ERROR: iTeXMac2 CM PlugIn Localization BUG, bad translation for key: %@", key);
@@ -203,8 +203,8 @@ void* iTeXMac2CMPlugInFactory(CFAllocatorRef allocator,CFUUIDRef typeID )
 		key = @"New TeX Directory for %i Documents";
 		proposal = NSLocalizedStringFromTableInBundle(key, iTeXMac2CMPlugInTable, B, "");
 		if(![proposal length]
-			|| ([[proposal componentsSeparatedByString: @"%"] count] != 2)
-				|| !([proposal rangeOfString: @"%i"].length))
+			|| ([[proposal componentsSeparatedByString:@"%"] count] != 2)
+				|| !([proposal rangeOfString:@"%i"].length))
 		{// not completely safe but sufficient
 			proposal = key;
 			NSLog(@"*** ERROR: iTeXMac2 CM PlugIn Localization BUG, bad translation for key: %@", key);
@@ -214,8 +214,8 @@ void* iTeXMac2CMPlugInFactory(CFAllocatorRef allocator,CFUUIDRef typeID )
 		key = @"Export \"%@\" As \"%@\"";
 		proposal = NSLocalizedStringFromTableInBundle(key, iTeXMac2CMPlugInTable, B, "");
 		if(![proposal length]
-			|| ([[proposal componentsSeparatedByString: @"%"] count] != 3)
-				|| !([proposal rangeOfString: @"%@"].length))
+			|| ([[proposal componentsSeparatedByString:@"%"] count] != 3)
+				|| !([proposal rangeOfString:@"%@"].length))
 		{// not completely safe but sufficient
 			proposal = key;
 			NSLog(@"*** ERROR: iTeXMac2 CM PlugIn Localization BUG, bad translation for key: %@", key);
@@ -266,7 +266,7 @@ static OSStatus iTeXMac2AddCommandToAEDescList(NSString *	commandName,
 	OSStatus thereIsAnError = noErr;
 	unsigned int length = [commandName length];
 	unichar * characters = (unichar *)NewPtr(sizeof(unichar)*length);
-	[commandName getCharacters: characters range: NSMakeRange(0, length)];
+	[commandName getCharacters:characters range:NSMakeRange(0, length)];
 	if (!characters)
 		return noErr;
 
@@ -317,13 +317,13 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 		return error;
 	iTM2_INIT_POOL;
 	[wrappers release];
-	wrappers = [[NSMutableArray alloc] initWithCapacity: theCount+1];
+	wrappers = [[NSMutableArray alloc] initWithCapacity:theCount+1];
 	[projects release];
-	projects = [[NSMutableArray alloc] initWithCapacity: theCount+1];
+	projects = [[NSMutableArray alloc] initWithCapacity:theCount+1];
 	[folders release];
-	folders = [[NSMutableArray alloc] initWithCapacity: theCount+1];// eligible to wrappers!
+	folders = [[NSMutableArray alloc] initWithCapacity:theCount+1];// eligible to wrappers!
 	[others release];
-	others = [[NSMutableArray alloc] initWithCapacity: theCount+1];
+	others = [[NSMutableArray alloc] initWithCapacity:theCount+1];
 	long index = theCount;
 	while(index)
 	{
@@ -364,26 +364,26 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 						else
 						{
 							NSString * P = [NSString stringWithUTF8String: (char *) path];
-							if([[P pathExtension] isEqual: @"texd"])
-								[wrappers addObject: P];
-							else if([[P pathExtension] isEqual: @"texp"])
-								[projects addObject: P];
+							if([[P pathExtension] isEqual:@"texd"])
+								[wrappers addObject:P];
+							else if([[P pathExtension] isEqual:@"texp"])
+								[projects addObject:P];
 							else
 							{
 								NSFileManager * DFM = [NSFileManager defaultManager];
 								BOOL isDirectory;
-								if([DFM fileExistsAtPath: P isDirectory: &isDirectory] && isDirectory)
+								if([DFM fileExistsAtPath:P isDirectory: &isDirectory] && isDirectory)
 								{
 									NSMutableArray * mra = [NSMutableArray array];
-									NSEnumerator * E = [[DFM directoryContentsAtPath: P] objectEnumerator];
+									NSEnumerator * E = [[DFM directoryContentsAtPath:P] objectEnumerator];
 									NSString * p;
 									while(p = [E nextObject])
-										if([[p pathExtension] isEqual: @"texp"])
-											[mra addObject: p];
-									[(([mra count] == 1)? folders: others) addObject: P];
+										if([[p pathExtension] isEqual:@"texp"])
+											[mra addObject:p];
+									[(([mra count] == 1)? folders:others) addObject:P];
 								}
 								else
-									[others addObject: P];
+									[others addObject:P];
 							}
 						}
 					}
@@ -408,13 +408,13 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 		if([wrappers count]>1)
 		{
 			commandID = gConvertToFoldersCommandID;
-			title = [NSString stringWithFormat: gConvertToFoldersTitleFormat, [wrappers count]];
+			title = [NSString stringWithFormat:gConvertToFoldersTitleFormat, [wrappers count]];
 		}
 		else
 		{
 			commandID = gConvertToFolderCommandID;
 			title = [NSString stringWithFormat: gConvertToFolderTitleFormat,
-				[[NSFileManager defaultManager] displayNameAtPath: [wrappers objectAtIndex: 0]]];
+				[[NSFileManager defaultManager] displayNameAtPath:[wrappers objectAtIndex:0]]];
 			
 		}
 		iTeXMac2AddCommandToAEDescList(title, commandID, ioCommandListRef);
@@ -427,13 +427,13 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 		if([folders count]>1)
 		{
 			commandID = gConvertToWrappersCommandID;
-			title = [NSString stringWithFormat: gConvertToWrappersTitleFormat, [folders count]];
+			title = [NSString stringWithFormat:gConvertToWrappersTitleFormat, [folders count]];
 		}
 		else
 		{
 			commandID = gConvertToWrapperCommandID;
 			title = [NSString stringWithFormat: gConvertToWrapperTitleFormat,
-				[[NSFileManager defaultManager] displayNameAtPath: [folders objectAtIndex: 0]]];
+				[[NSFileManager defaultManager] displayNameAtPath:[folders objectAtIndex:0]]];
 			
 		}
 		iTeXMac2AddCommandToAEDescList(title, commandID, ioCommandListRef);
@@ -629,17 +629,17 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 				BOOL notAll = NO;
 				while(src = [E nextObject])
 				{
-					NSString * dest = [src stringByAppendingPathExtension: @"texd"];
-					if([DFM fileExistsAtPath: dest])
+					NSString * dest = [src stringByAppendingPathExtension:@"texd"];
+					if([DFM fileExistsAtPath:dest])
 					{
 						notAll = YES;
 						NSLog(@"INFO: iTeXMac2 CM PlugIn, File already existing at %@", dest);
 					}
-					else if([DFM movePath: src toPath: dest handler: nil])
+					else if([DFM movePath:src toPath:dest handler:nil])
 					{
 						NSLog(@"INFO: iTeXMac2 CM PlugIn\n%@ moved to %@", src, dest);
-						[[NSWorkspace sharedWorkspace] noteFileSystemChanged: src];
-						[[NSWorkspace sharedWorkspace] noteFileSystemChanged: dest];
+						[[NSWorkspace sharedWorkspace] noteFileSystemChanged:src];
+						[[NSWorkspace sharedWorkspace] noteFileSystemChanged:dest];
 					}
 					else
 					{
@@ -649,8 +649,8 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 				if(notAll)
 				{
 					NSRunCriticalAlertPanel(
-						NSLocalizedStringFromTableInBundle(@"Problem", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier: iTeXMac2CMPlugInBundleIdentifier], ""),
-						NSLocalizedStringFromTableInBundle(@"Could not convert all the files", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier: iTeXMac2CMPlugInBundleIdentifier], ""),
+						NSLocalizedStringFromTableInBundle(@"Problem", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier:iTeXMac2CMPlugInBundleIdentifier], ""),
+						NSLocalizedStringFromTableInBundle(@"Could not convert all the files", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier:iTeXMac2CMPlugInBundleIdentifier], ""),
 						nil, nil, nil, nil);
 				}
 				break;
@@ -666,16 +666,16 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 				while(src = [E nextObject])
 				{
 					NSString * dest = [src stringByDeletingPathExtension];
-					if([DFM fileExistsAtPath: dest])
+					if([DFM fileExistsAtPath:dest])
 					{
 						notAll = YES;
 						NSLog(@"INFO: iTeXMac2 CM PlugIn, File already existing at %@", dest);
 					}
-					else if([DFM movePath: src toPath: dest handler: nil])	
+					else if([DFM movePath:src toPath:dest handler:nil])	
 					{
 						NSLog(@"INFO: iTeXMac2 CM PlugIn\n%@ moved to %@", src, dest);
-						[[NSWorkspace sharedWorkspace] noteFileSystemChanged: src];
-						[[NSWorkspace sharedWorkspace] noteFileSystemChanged: dest];
+						[[NSWorkspace sharedWorkspace] noteFileSystemChanged:src];
+						[[NSWorkspace sharedWorkspace] noteFileSystemChanged:dest];
 					}
 					else	
 					{
@@ -685,8 +685,8 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 				if(notAll)
 				{// leaking:
 					NSRunCriticalAlertPanel(
-						NSLocalizedStringFromTableInBundle(@"Problem", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier: iTeXMac2CMPlugInBundleIdentifier], ""),
-						NSLocalizedStringFromTableInBundle(@"Could not convert all the files", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier: iTeXMac2CMPlugInBundleIdentifier], ""),
+						NSLocalizedStringFromTableInBundle(@"Problem", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier:iTeXMac2CMPlugInBundleIdentifier], ""),
+						NSLocalizedStringFromTableInBundle(@"Could not convert all the files", iTeXMac2CMPlugInTable, [NSBundle bundleWithIdentifier:iTeXMac2CMPlugInBundleIdentifier], ""),
 						nil, nil, nil, nil);
 				}
 				break;

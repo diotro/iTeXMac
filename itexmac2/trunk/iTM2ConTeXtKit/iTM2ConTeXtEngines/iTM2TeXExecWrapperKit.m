@@ -27,44 +27,44 @@
 #import <iTM2ConTeXtKit/iTM2ConTeXtKit.h>
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
--(void)ACTION: (id) sender;{[self takeModelValue: [NSNumber numberWithBool: ![[self modelValueForKey: KEY] boolValue]] forKey: KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE: (id) sender;{[sender setState: ([[self modelValueForKey: KEY] boolValue]? NSOnState: NSOffState)];return YES;}
+-(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:KEY] boolValue]] forKey:KEY];[self validateWindowContent];return;}\
+-(BOOL)VALIDATE:(id)sender;{[sender setState:([[self modelValueForKey:KEY] boolValue]? NSOnState:NSOffState)];return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
--(void)ACTION:  (id)  sender;{[self takeModelValue: [NSNumber numberWithFloat: [sender floatValue]] forKey: KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE: (id) sender;{[sender setFloatValue: [[self modelValueForKey: KEY] floatValue]];\
-return [[self modelValueForKey: USE_KEY] boolValue];}
-//return ![self modelValueForKey: USE_KEY] || [[self modelValueForKey: USE_KEY] boolValue];}
+-(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithFloat:[sender floatValue]] forKey:KEY];[self validateWindowContent];return;}\
+-(BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self modelValueForKey:KEY] floatValue]];\
+return [[self modelValueForKey:USE_KEY] boolValue];}
+//return ![self modelValueForKey:USE_KEY] || [[self modelValueForKey:USE_KEY] boolValue];}
 #define IEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
--(void)ACTION:  (id)  sender;{[self takeModelValue: [NSNumber numberWithInt: [sender intValue]] forKey: KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE: (id) sender;{[sender setIntValue: [[self modelValueForKey: KEY] intValue]];\
-return [[self modelValueForKey: USE_KEY] boolValue];}
+-(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithInt:[sender intValue]] forKey:KEY];[self validateWindowContent];return;}\
+-(BOOL)VALIDATE:(id)sender;{[sender setIntValue:[[self modelValueForKey:KEY] intValue]];\
+return [[self modelValueForKey:USE_KEY] boolValue];}
 #define SEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
--(void)ACTION:  (id)  sender;{[self takeModelValue: [sender stringValue] forKey: KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE: (id) sender;{[sender setStringValue: [self modelValueForKey: KEY]];\
-return [[self modelValueForKey: USE_KEY] boolValue];}
+-(void)ACTION:(id)sender;{[self takeModelValue:[sender stringValue] forKey:KEY];[self validateWindowContent];return;}\
+-(BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self modelValueForKey:KEY]];\
+return [[self modelValueForKey:USE_KEY] boolValue];}
 #define UNIT(ACTION, VALIDATE, KEY)\
-- (void) ACTION:  (id)  sender;\
+-(void)ACTION:(id)sender;\
 {\
 	switch([[sender selectedItem] tag])\
 	{\
-		case 0: [self takeModelValue: @"bp" forKey: KEY]; [self validateWindowContent]; return;\
-		case 1: [self takeModelValue: @"pt" forKey: KEY]; [self validateWindowContent]; return;\
-		case 2: [self takeModelValue: @"in" forKey: KEY]; [self validateWindowContent]; return;\
-		default: [self takeModelValue: @"cm" forKey: KEY]; [self validateWindowContent]; return;\
+		case 0: [self takeModelValue:@"bp" forKey:KEY]; [self validateWindowContent]; return;\
+		case 1: [self takeModelValue:@"pt" forKey:KEY]; [self validateWindowContent]; return;\
+		case 2: [self takeModelValue:@"in" forKey:KEY]; [self validateWindowContent]; return;\
+		default: [self takeModelValue:@"cm" forKey:KEY]; [self validateWindowContent]; return;\
 	}\
     return;\
 }\
-- (BOOL) VALIDATE:  (id)  sender;\
+-(BOOL)VALIDATE:(id)sender;\
 {\
-	NSString * unit = [self modelValueForKey: KEY];\
-	if([unit isEqual: @"bp"])\
-		[sender selectItemWithTag: 0];\
-	else if([unit isEqual: @"pt"])\
-		[sender selectItemWithTag: 1];\
-	else if([unit isEqual: @"in"])\
-		[sender selectItemWithTag: 2];\
+	NSString * unit = [self modelValueForKey:KEY];\
+	if([unit isEqual:@"bp"])\
+		[sender selectItemWithTag:0];\
+	else if([unit isEqual:@"pt"])\
+		[sender selectItemWithTag:1];\
+	else if([unit isEqual:@"in"])\
+		[sender selectItemWithTag:2];\
 	else\
-		[sender selectItemWithTag: 3];\
+		[sender selectItemWithTag:3];\
 	return YES;\
 }
 
@@ -257,7 +257,7 @@ NSString * const iTM2TeXExecXMLFilter = @"iTM2_TeXExec_xmlfilter";
 
 @implementation iTM2EngineTeXExec
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+ (NSString *) engineMode;
++(NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -268,7 +268,7 @@ To Do List:
     return @"iTM2_Engine_texexec";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+ (NSArray *) inputFileExtensions;
++(NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -276,10 +276,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObjects: @"tex", @"xml", nil];
+    return [NSArray arrayWithObjects:@"tex", @"xml", nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+ (NSDictionary *) defaultShellEnvironment;
++(NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -288,75 +288,75 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithBool: NO], iTM2TeXExecOnce,
-				[NSNumber numberWithBool: NO], iTM2TeXExecAlone,
-				[NSNumber numberWithBool: NO], iTM2TeXExecFast,
-				[NSNumber numberWithBool: NO], iTM2TeXExecFinal,
-				[NSNumber numberWithInt: 0], iTM2TeXExecRuns,
-				[NSNumber numberWithBool: NO], iTM2TeXExecArrange,
-				[NSNumber numberWithBool: NO], iTM2TeXExecAutoMPRun,
-				[NSNumber numberWithBool: NO], iTM2TeXExecNoMP,
-				[NSNumber numberWithBool: NO], iTM2TeXExecNoMPRun,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseMPFormat,
+				[NSNumber numberWithBool:NO], iTM2TeXExecOnce,
+				[NSNumber numberWithBool:NO], iTM2TeXExecAlone,
+				[NSNumber numberWithBool:NO], iTM2TeXExecFast,
+				[NSNumber numberWithBool:NO], iTM2TeXExecFinal,
+				[NSNumber numberWithInt:0], iTM2TeXExecRuns,
+				[NSNumber numberWithBool:NO], iTM2TeXExecArrange,
+				[NSNumber numberWithBool:NO], iTM2TeXExecAutoMPRun,
+				[NSNumber numberWithBool:NO], iTM2TeXExecNoMP,
+				[NSNumber numberWithBool:NO], iTM2TeXExecNoMPRun,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseMPFormat,
 				@"", iTM2TeXExecMPFormat,
-				[NSNumber numberWithBool: NO], iTM2TeXExecMpTeX,
-				[NSNumber numberWithBool: NO], iTM2TeXExecMpxTeX,
-				[NSNumber numberWithBool: NO], iTM2TeXExecBatch,
-				[NSNumber numberWithBool: NO], iTM2TeXExecNonStop,
-				[NSNumber numberWithBool: NO], iTM2TeXExecCenterPage,
-				[NSNumber numberWithBool: NO], iTM2TeXExecColor,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseFigures,
+				[NSNumber numberWithBool:NO], iTM2TeXExecMpTeX,
+				[NSNumber numberWithBool:NO], iTM2TeXExecMpxTeX,
+				[NSNumber numberWithBool:NO], iTM2TeXExecBatch,
+				[NSNumber numberWithBool:NO], iTM2TeXExecNonStop,
+				[NSNumber numberWithBool:NO], iTM2TeXExecCenterPage,
+				[NSNumber numberWithBool:NO], iTM2TeXExecColor,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseFigures,
 				@"a", iTM2TeXExecFigures,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseInterface,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseInterface,
 				@"en", iTM2TeXExecInterface,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseLanguage,
-				[NSNumber numberWithBool: NO], iTM2TeXExecLanguage,
-				[NSNumber numberWithBool: NO], iTM2TeXExecListing,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseMode,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseLanguage,
+				[NSNumber numberWithBool:NO], iTM2TeXExecLanguage,
+				[NSNumber numberWithBool:NO], iTM2TeXExecListing,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseMode,
 				@"", iTM2TeXExecMode,
-				[NSNumber numberWithBool: NO], iTM2TeXExecModule,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseInput,
+				[NSNumber numberWithBool:NO], iTM2TeXExecModule,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseInput,
 				@"", iTM2TeXExecInput,
 				@"pdftex", iTM2TeXExecOutput,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUsePages,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUsePages,
 				@"", iTM2TeXExecPages,
 				@"", iTM2TeXExecPaper,
 				@"", iTM2TeXExecPrint,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseInput,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseInput,
 				@"", iTM2TeXExecInput,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseResult,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseResult,
 				@"", iTM2TeXExecResult,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseSuffix,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseSuffix,
 				@"", iTM2TeXExecSuffix,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUsePath,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUsePath,
 				@"", iTM2TeXExecPath,
-				[NSNumber numberWithBool: NO], iTM2TeXExecScreenSaver,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseSetFile,
+				[NSNumber numberWithBool:NO], iTM2TeXExecScreenSaver,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseSetFile,
 				@"", iTM2TeXExecSetFile,
-				[NSNumber numberWithBool: NO], iTM2TeXExecMake,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseFormat,
+				[NSNumber numberWithBool:NO], iTM2TeXExecMake,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseFormat,
 				@"", iTM2TeXExecFormat,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUsePassOn,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUsePassOn,
 				@"", iTM2TeXExecPassOn,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseTXCPassOn,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseTXCPassOn,
 				@"", iTM2TeXExecTXCPassOn,
 				@"", iTM2TeXExecTeX,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseTeXTree,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseTeXTree,
 				@"", iTM2TeXExecTeXTree,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseTeXRoot,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseTeXRoot,
 				@"", iTM2TeXExecTeXRoot,
-				[NSNumber numberWithBool: NO], iTM2TeXExecTeXUtil,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseUseModule,
+				[NSNumber numberWithBool:NO], iTM2TeXExecTeXUtil,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseUseModule,
 				@"", iTM2TeXExecUseModule,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseEnvironment,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseEnvironment,
 				@"", iTM2TeXExecEnvironment,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseXMLFilter,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseXMLFilter,
 				@"", iTM2TeXExecXMLFilter,
-				[NSNumber numberWithBool: NO], iTM2TeXExecVerbose,
-				[NSNumber numberWithBool: NO], iTM2TeXExecSilent,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseResult,
+				[NSNumber numberWithBool:NO], iTM2TeXExecVerbose,
+				[NSNumber numberWithBool:NO], iTM2TeXExecSilent,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseResult,
 				@"", iTM2TeXExecResult,
-				[NSNumber numberWithBool: NO], iTM2TeXExecUseXeTeX,
+				[NSNumber numberWithBool:NO], iTM2TeXExecUseXeTeX,
 					nil];
 }
 TOGGLE(alone, validateAlone, iTM2TeXExecAlone);
@@ -422,7 +422,7 @@ SEDIT(TXCPassOn, validateTXCPassOn, iTM2TeXExecTXCPassOn, iTM2TeXExecUseTXCPassO
 TOGGLE(useResult, validateUseResult, iTM2TeXExecUseResult);
 //SEDIT(result, validateResult, iTM2TeXExecResult, iTM2TeXExecUseResult);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  result:
--(void) result: (id)  sender;
+-(void)result:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -430,13 +430,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeModelValue: [sender stringValue] forKey: iTM2TeXExecResult];
+	[self takeModelValue:[sender stringValue] forKey:iTM2TeXExecResult];
 	[self validateWindowContent];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateResult:
--(BOOL) validateResult: (id) sender;
+-(BOOL)validateResult:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -446,29 +446,29 @@ To Do List:
 //iTM2_START;
 	NSString * extension = @"pdf";
 	iTM2TeXProjectDocument * myTPD = [self document];
-	NSString * FN = [[myTPD relativeFileNameForKey: [myTPD masterFileKey]] stringByDeletingPathExtension];
-	NSString * mode = [self modelValueForKey: iTM2TeXExecMode];
-	if([[self modelValueForKey: iTM2TeXExecUseMode] boolValue] && [mode length])
+	NSString * FN = [[myTPD relativeFileNameForKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
+	NSString * mode = [self modelValueForKey:iTM2TeXExecMode];
+	if([[self modelValueForKey:iTM2TeXExecUseMode] boolValue] && [mode length])
 	{
 		// if the result has a length, it is a custom output and I should use it
 		// if not, 
 		
 		[[sender formatter] setStringForNilObjectValue:
-			[[NSString stringWithFormat: @"%@(%@)", FN, mode] stringByAppendingPathExtension: extension]];
+			[[NSString stringWithFormat:@"%@(%@)", FN, mode] stringByAppendingPathExtension:extension]];
 	}
 	else
 	{
 		// this is the default output
 		[[sender formatter] setStringForNilObjectValue:
-			[FN stringByAppendingPathExtension: extension]];
+			[FN stringByAppendingPathExtension:extension]];
 	}
-	[sender setStringValue: ([[self modelValueForKey: iTM2TeXExecUseResult] boolValue]? [self modelValueForKey: iTM2TeXExecResult]: @"")];
+	[sender setStringValue: ([[self modelValueForKey:iTM2TeXExecUseResult] boolValue]? [self modelValueForKey:iTM2TeXExecResult]:@"")];
 //iTM2_END;
-	return [[self modelValueForKey: iTM2TeXExecUseResult] boolValue];
+	return [[self modelValueForKey:iTM2TeXExecUseResult] boolValue];
 }
 TOGGLE(useMode, validateUseMode, iTM2TeXExecUseMode);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mode:
--(void) mode: (id)  sender;
+-(void)mode:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -478,16 +478,16 @@ To Do List:
 //iTM2_START;
 	NSString * string = [sender stringValue];
 	NSMutableString * MS = [[string mutableCopy] autorelease];
-	[MS replaceOccurrencesOfString: @" " withString: @"," options: 0 range: NSMakeRange(0, [MS length])];
-	[MS replaceOccurrencesOfString: @",," withString: @"," options: 0 range: NSMakeRange(0, [MS length])];
+	[MS replaceOccurrencesOfString:@" " withString:@"," options:0 range:NSMakeRange(0, [MS length])];
+	[MS replaceOccurrencesOfString:@",," withString:@"," options:0 range:NSMakeRange(0, [MS length])];
 	string = [[MS copy] autorelease];
-	[self takeModelValue: string forKey: iTM2TeXExecMode];
+	[self takeModelValue:string forKey:iTM2TeXExecMode];
 	[self validateWindowContent];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMode:
--(BOOL) validateMode: (id) sender;
+-(BOOL)validateMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -495,12 +495,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setStringValue: [self modelValueForKey: iTM2TeXExecMode]];
+	[sender setStringValue:[self modelValueForKey:iTM2TeXExecMode]];
 //iTM2_END;
-	return ![self modelValueForKey: iTM2TeXExecUseMode] || [[self modelValueForKey: iTM2TeXExecUseMode] boolValue];
+	return ![self modelValueForKey:iTM2TeXExecUseMode] || [[self modelValueForKey:iTM2TeXExecUseMode] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent:
-- (BOOL) validateWindowContent;
+-(BOOL)validateWindowContent;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -508,24 +508,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![[self implementation] metaValueForKey: @"iTM2 unknown output"])
+	if(![[self implementation] metaValueForKey:@"iTM2 unknown output"])
 	{
-		[[self implementation] takeMetaValue: @"" forKey: @"iTM2 unknown output"];
-		NSString * output = [self modelValueForKey: iTM2TeXExecOutput];
-		if(![[NSArray arrayWithObjects: @"", @"dvips", @"pdftex", nil] containsObject: output])
+		[[self implementation] takeMetaValue:@"" forKey:@"iTM2 unknown output"];
+		NSString * output = [self modelValueForKey:iTM2TeXExecOutput];
+		if(![[NSArray arrayWithObjects:@"", @"dvips", @"pdftex", nil] containsObject:output])
 		{
-			[self takeModelValue: output forKey: iTM2TeXExecUnknownOutput];
+			[self takeModelValue:output forKey:iTM2TeXExecUnknownOutput];
 		}
-		if([[self modelValueForKey: iTM2TeXExecBatch] boolValue])
+		if([[self modelValueForKey:iTM2TeXExecBatch] boolValue])
 		{
-			[self takeModelValue: [NSNumber numberWithBool: NO] forKey: iTM2TeXExecNonStop];
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2TeXExecNonStop];
 		}
 	}
 //iTM2_END;
 	return [super validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useXeTeX:
--(void)useXeTeX: (id) sender;
+-(void)useXeTeX:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -533,13 +533,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeModelValue: [NSNumber numberWithBool: ![[self modelValueForKey: iTM2TeXExecUseXeTeX] boolValue]] forKey: iTM2TeXExecUseXeTeX];
+	[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:iTM2TeXExecUseXeTeX] boolValue]] forKey:iTM2TeXExecUseXeTeX];
 	[self validateWindowContent];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateUseXeTeX:
--(BOOL)validateUseXeTeX: (id) sender;
+-(BOOL)validateUseXeTeX:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -547,21 +547,21 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self modelValueForKey: iTM2TeXExecOutput] isEqual: [self modelValueForKey: iTM2TeXExecUnknownOutput]])
+	if([[self modelValueForKey:iTM2TeXExecOutput] isEqual:[self modelValueForKey:iTM2TeXExecUnknownOutput]])
 	{
-		[sender setState: NSMixedState];
+		[sender setState:NSMixedState];
 //iTM2_END;
 		return NO;
 	}
 	else
 	{
-		[sender setState: ([[self modelValueForKey: iTM2TeXExecUseXeTeX] boolValue]? NSOnState: NSOffState)];
+		[sender setState: ([[self modelValueForKey:iTM2TeXExecUseXeTeX] boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
 		return YES;
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchInteraction:
-- (IBAction) switchInteraction: (id) sender;
+-(IBAction)switchInteraction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -572,22 +572,22 @@ To Do List:
     switch([[sender selectedCell] tag])
     {
         case 0:
-			[self takeModelValue: [NSNumber numberWithBool: YES] forKey: iTM2TeXExecBatch];
-			[self takeModelValue: [NSNumber numberWithBool: NO] forKey: iTM2TeXExecNonStop];
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2TeXExecBatch];
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2TeXExecNonStop];
 		break;// batchmode
         case 1:
-			[self takeModelValue: [NSNumber numberWithBool: NO] forKey: iTM2TeXExecBatch];
-			[self takeModelValue: [NSNumber numberWithBool: YES] forKey: iTM2TeXExecNonStop];
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2TeXExecBatch];
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2TeXExecNonStop];
 		break;// nonstopmode
         default:
-			[self takeModelValue: [NSNumber numberWithBool: NO] forKey: iTM2TeXExecBatch];
-			[self takeModelValue: [NSNumber numberWithBool: NO] forKey: iTM2TeXExecNonStop];
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2TeXExecBatch];
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2TeXExecNonStop];
 		break;// errorstopmode
     }
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
-- (BOOL) validateSwitchInteraction: (id) sender;
+-(BOOL)validateSwitchInteraction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -595,25 +595,25 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self modelValueForKey: iTM2TeXExecBatch] boolValue])
+	if([[self modelValueForKey:iTM2TeXExecBatch] boolValue])
 	{
 		// @"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode"
-		[sender selectCellWithTag: 0];
+		[sender selectCellWithTag:0];
 	}
-	else if([[self modelValueForKey: iTM2TeXExecNonStop] boolValue])
+	else if([[self modelValueForKey:iTM2TeXExecNonStop] boolValue])
 	{
 		// @"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode"
-		[sender selectCellWithTag: 1];
+		[sender selectCellWithTag:1];
 	}
 	else
 	{
 		// @"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode"
-		[sender selectCellWithTag: 3];
+		[sender selectCellWithTag:3];
 	}
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputFormat:
-- (IBAction) outputFormat: (id) sender;
+-(IBAction)outputFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -621,16 +621,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self modelValueForKey: iTM2TeXExecUseXeTeX] boolValue])
+	if([[self modelValueForKey:iTM2TeXExecUseXeTeX] boolValue])
 	{
 		switch([[sender selectedItem] tag])
 		{
 			case 0:// dvi
 			case 1:// xdv
-				[self takeModelValue: @"" forKey: iTM2TeXExecOutput];	
+				[self takeModelValue:@"" forKey:iTM2TeXExecOutput];	
 				break;
 			default:
-				[self takeModelValue: @"pdftex" forKey: iTM2TeXExecOutput];	
+				[self takeModelValue:@"pdftex" forKey:iTM2TeXExecOutput];	
 				break;
 		}
 	}
@@ -640,16 +640,16 @@ To Do List:
 		{
 			case 0:// dvi
 			case 1:// xdv
-				[self takeModelValue: @"" forKey: iTM2TeXExecOutput];	
+				[self takeModelValue:@"" forKey:iTM2TeXExecOutput];	
 				break;
 			case 2:// ps
-				[self takeModelValue: @"dvips" forKey: iTM2TeXExecOutput];	
+				[self takeModelValue:@"dvips" forKey:iTM2TeXExecOutput];	
 				break;
 			case -1:// unknown
 				break;
 			case 3:// pdf
 			default:
-				[self takeModelValue: @"pdftex" forKey: iTM2TeXExecOutput];	
+				[self takeModelValue:@"pdftex" forKey:iTM2TeXExecOutput];	
 				break;
 		}
 	}
@@ -658,7 +658,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOutputFormat:
-- (BOOL) validateOutputFormat: (id) sender;
+-(BOOL)validateOutputFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -666,48 +666,48 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL useXeTeX = [[self modelValueForKey: iTM2TeXExecUseXeTeX] boolValue];
-	if([sender isKindOfClass: [NSPopUpButton class]])
+	BOOL useXeTeX = [[self modelValueForKey:iTM2TeXExecUseXeTeX] boolValue];
+	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
-		NSString * output = [self modelValueForKey: iTM2TeXExecOutput];
-		if([output isEqual: @""])
+		NSString * output = [self modelValueForKey:iTM2TeXExecOutput];
+		if([output isEqual:@""])
 		{
-			[sender selectItemWithTag: (useXeTeX? 1: 0)];
+			[sender selectItemWithTag: (useXeTeX? 1:0)];
 		}
-		else if([output isEqual: @"dvips"])
+		else if([output isEqual:@"dvips"])
 		{
-			[sender selectItemWithTag: 2];
+			[sender selectItemWithTag:2];
 		}
-		else if([output isEqual: @"pdftex"])
+		else if([output isEqual:@"pdftex"])
 		{
-			[sender selectItemWithTag: 3];
+			[sender selectItemWithTag:3];
 		}
 		else
 		{
-			[self takeModelValue: output forKey: iTM2TeXExecUnknownOutput];
-			id <NSMenuItem> MI = [sender itemAtIndex: [sender indexOfItemWithTag: -1]];
+			[self takeModelValue:output forKey:iTM2TeXExecUnknownOutput];
+			id <NSMenuItem> MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]];
 			if(!MI)
 			{
-				[sender addItemWithTitle: output];
+				[sender addItemWithTitle:output];
 				MI = [sender lastItem];
 				[MI setTag: -1];
 			}
 			else
-				[MI setTitle: output];
+				[MI setTitle:output];
 			[sender selectItemWithTag: -1];
 		}
-		NSString * unknownOutput = [self modelValueForKey: iTM2TeXExecUnknownOutput];
+		NSString * unknownOutput = [self modelValueForKey:iTM2TeXExecUnknownOutput];
 		if([unknownOutput length])
 		{
-			id <NSMenuItem> MI = [sender itemAtIndex: [sender indexOfItemWithTag: -1]];
+			id <NSMenuItem> MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]];
 			if(!MI)
 			{
-				[sender addItemWithTitle: unknownOutput];
+				[sender addItemWithTitle:unknownOutput];
 				MI = [sender lastItem];
 				[MI setTag: -1];
 			}
 			else
-				[MI setTitle: unknownOutput];
+				[MI setTitle:unknownOutput];
 		}
 		return YES;
 	}
@@ -721,7 +721,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtPragmaADE:
-- (IBAction) ConTeXtPragmaADE: (id) sender;
+-(IBAction)ConTeXtPragmaADE:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -729,7 +729,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[SWS openURL: [iTM2ConTeXtInspector ConTeXtPragmaADEURL]];
+	[SWS openURL:[iTM2ConTeXtInspector ConTeXtPragmaADEURL]];
 //iTM2_END;
 	return;
 }
@@ -737,7 +737,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(dvipdfm)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXExecCompleteInstallation
-+ (void) iTM2TeXExecCompleteInstallation;
++(void)iTM2TeXExecCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -753,7 +753,7 @@ To Do List:
 
 @implementation iTM2ConTeXtResultFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedStringForObjectValue:withDefaultAttributes:
-- (NSAttributedString *) attributedStringForObjectValue: (id) obj withDefaultAttributes: (NSDictionary *) attrs;
+-(NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002
@@ -761,9 +761,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self stringForObjectValue: obj] length])
-		return [super attributedStringForObjectValue: obj withDefaultAttributes: attrs];
-	return [self attributedStringForNilObjectValueWithDefaultAttributes: attrs];
+	if([[self stringForObjectValue:obj] length])
+		return [super attributedStringForObjectValue:obj withDefaultAttributes:attrs];
+	return [self attributedStringForNilObjectValueWithDefaultAttributes:attrs];
 }
 @end
 

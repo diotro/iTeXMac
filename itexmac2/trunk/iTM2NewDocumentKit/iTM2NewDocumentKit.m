@@ -62,56 +62,57 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 */
 
 @interface iTM2NewDocumentAssistant(PRIVATE)
-+ (id) _MutableDictionaryFromArray: (id) array;
-+ (id) _ArrayFromDictionary: (id) dictionary;
-+ (void) loadTemplates;
-+ (void) _loadTemplatesAtPath: (NSString *) path inTree: (iTM2NewDocumentTreeNode *) tree;
-+ (id) newDocumentDataSource;
-- (id) outlineView;
-- (id) selectedTemplate;
-- (id) createSheet;
-- (id) createField;
-- (id) createProgressIndicator;
-- (NSString *) convertedString:(NSString *) fileName withDictionary:(NSDictionary *) filter;
-- (IBAction)next: (id) sender;
-- (NSString *) panelDirectory;
-- (void) setPanelDirectory:(id)object;
-- (id) mandatoryProject;
-- (void) setMandatoryProject: (id) object;
-- (NSString *) oldProjectName;
-- (void) setOldProjectName: (id) argument;
-- (IBAction) orderFrontPanelIfRelevant: (id) object;
-- (id) savePanelAccessoryView;
-- (void)validateCreationMode;
-- (int) creationMode;
-- (void) setCreationMode: (int) tag;
-- (iTM2ProjectDocument *) projectTarget;
-- (BOOL) selectedTemplateCanBeStandalone;
-- (BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
-- (BOOL)selectedTemplateCanCreateNewProject;
-- (BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
-- (BOOL)selectedTemplateCanInsertInOldProject;
-- (BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
-- (NSString *) standaloneFileName;
-- (id)availableProjects;
-- (void)setAvailableProjects:(id) argument;
-- (BOOL) preferWrapper;
-- (void) setPreferWrapper:(BOOL) yorn;
-- (BOOL)createInNewWrapperNewDocumentWithName:(NSString *) fileName;
-- (BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
-- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
-- (BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
-- (BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
++(id)_MutableDictionaryFromArray:(id)array;
++(id)_ArrayFromDictionary:(id)dictionary;
++(void)loadTemplates;
++(void)_loadTemplatesAtPath:(NSString *)path inTree:(iTM2NewDocumentTreeNode *)tree;
++(id)newDocumentDataSource;
+-(id)outlineView;
+-(id)selectedTemplate;
+-(id)createSheet;
+-(id)createField;
+-(id)createProgressIndicator;
+-(NSString *)convertedString:(NSString *) fileName withDictionary:(NSDictionary *) filter;
+-(IBAction)next:(id)sender;
+-(NSString *)panelDirectory;
+-(void)setPanelDirectory:(id)object;
+-(id)mandatoryProject;
+-(void)setMandatoryProject:(id)object;
+-(NSString *)oldProjectName;
+-(void)setOldProjectName:(id)argument;
+-(IBAction)orderFrontPanelIfRelevant:(id)object;
+-(id)savePanelAccessoryView;
+-(void)validateCreationMode;
+-(int)creationMode;
+-(void)setCreationMode:(int)tag;
+-(iTM2ProjectDocument *)projectTarget;
+-(BOOL)selectedTemplateCanBeStandalone;
+-(BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
+-(BOOL)selectedTemplateCanCreateNewProject;
+-(BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
+-(BOOL)selectedTemplateCanInsertInOldProject;
+-(BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
+-(NSString *)standaloneFileName;
+-(id)availableProjects;
+-(void)setAvailableProjects:(id) argument;
+-(BOOL)preferWrapper;
+-(void)setPreferWrapper:(BOOL) yorn;
+-(BOOL)createNewWrapperWithName:(NSString *) fileName;
+-(BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
+-(BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
+-(BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
+-(BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
+-(BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
 @end
 
 @interface iTM2SharedResponder(NewDocumentKit)
-- (void) newDocumentFromRunningAssistantPanelForProject: (id) project;
+-(void)newDocumentFromRunningAssistantPanelForProject:(id)project;
 @end
 
 @implementation iTM2SharedResponder(NewDocumentKit)
 static iTM2NewDocumentAssistant * _iTM2NewDocumentAssistant = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newDocumentFromRunningAssistantPanel:
-- (IBAction) newDocumentFromRunningAssistantPanel: (id) sender;
+-(IBAction)newDocumentFromRunningAssistantPanel:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -124,7 +125,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newDocumentFromRunningAssistantPanelForProject:
-- (void) newDocumentFromRunningAssistantPanelForProject: (id) project;
+-(void)newDocumentFromRunningAssistantPanelForProject:(id)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -147,7 +148,7 @@ To Do List:
 @implementation iTM2NewDocumentAssistant
 static id _iTM2NewDocumentsTree = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataSourceWindowDidLoad
-- (void) dataSourceWindowDidLoad;
+-(void)dataSourceWindowDidLoad;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -183,7 +184,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newDocumentDataSource
-+ (id) newDocumentDataSource;
++(id)newDocumentDataSource;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -195,7 +196,7 @@ To Do List:
     return _iTM2NewDocumentsTree;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadTemplates
-+ (void) loadTemplates;
++(void)loadTemplates;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -231,7 +232,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _loadTemplatesAtPath:inTree:
-+ (void) _loadTemplatesAtPath: (NSString *) path inTree: (iTM2NewDocumentTreeNode *) tree;
++(void)_loadTemplatesAtPath:(NSString *)path inTree:(iTM2NewDocumentTreeNode *)tree;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -346,7 +347,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved:
-- (BOOL) windowPositionShouldBeObserved: (NSWindow *) window;
+-(BOOL)windowPositionShouldBeObserved:(NSWindow *)window;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -358,7 +359,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mandatoryProject
-- (id) mandatoryProject;
+-(id)mandatoryProject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -374,7 +375,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMandatoryProject:
-- (void) setMandatoryProject: (id) object;
+-(void)setMandatoryProject:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -386,7 +387,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= panelDirectory
-- (NSString *) panelDirectory;
+-(NSString *)panelDirectory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -398,7 +399,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setPanelDirectory:
-- (void) setPanelDirectory:(id)object;
+-(void)setPanelDirectory:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -412,7 +413,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= oldProjectName
-- (NSString *) oldProjectName;
+-(NSString *)oldProjectName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -429,7 +430,7 @@ To Do List:
 	return [[self mandatoryProject] fileName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setOldProjectName:
-- (void) setOldProjectName: (id) argument;
+-(void)setOldProjectName:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -441,7 +442,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= templateImageView
-- (id) templateImageView;
+-(id)templateImageView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -453,7 +454,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTemplateImageView:
-- (void) setTemplateImageView: (id) object;
+-(void)setTemplateImageView:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -465,7 +466,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createSheet
-- (id) createSheet;
+-(id)createSheet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -477,7 +478,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateSheet:
-- (void) setCreateSheet: (id) object;
+-(void)setCreateSheet:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -489,7 +490,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createField
-- (id) createField;
+-(id)createField;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -501,7 +502,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateField:
-- (void) setCreateField: (id) object;
+-(void)setCreateField:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -513,7 +514,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createProgressIndicator
-- (id) createProgressIndicator;
+-(id)createProgressIndicator;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -525,7 +526,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateProgressIndicator:
-- (void) setCreateProgressIndicator: (id) object;
+-(void)setCreateProgressIndicator:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -537,7 +538,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= orderFrontPanelIfRelevant:
-- (IBAction) orderFrontPanelIfRelevant: (id) object;
+-(IBAction)orderFrontPanelIfRelevant:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -558,7 +559,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  OLV
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= outlineView
-- (id) outlineView;
+-(id)outlineView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -602,7 +603,7 @@ To Do List:
     return OLV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _outlineViewDoubleAction:
-- (IBAction) _outlineViewDoubleAction: (id) sender;
+-(IBAction)_outlineViewDoubleAction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -618,7 +619,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplate
-- (id) selectedTemplate;
+-(id)selectedTemplate;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -633,7 +634,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DELEGATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:shouldSelectItem:
-- (BOOL) outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item
+-(BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -652,7 +653,7 @@ To Do List:
     return ![[outlineView dataSource] outlineView:outlineView isItemExpandable:item];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineViewSelectionDidChange:
-- (void) outlineViewSelectionDidChange: (NSNotification *) notification;
+-(void)outlineViewSelectionDidChange:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -665,7 +666,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:willDisplayCell:forTableColumn:item:
-- (void) outlineView: (NSOutlineView *) outlineView willDisplayCell: (id) cell forTableColumn: (NSTableColumn *) tableColumn item: (id) item;
+-(void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -717,7 +718,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:willDisplayCell:shouldEditTableColumn:item:
-- (BOOL) outlineView: (NSOutlineView *) outlineView shouldEditTableColumn: (NSTableColumn *) tableColumn item: (id) item;
+-(BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -730,7 +731,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DATA SOURCE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:child:ofItem:
-- (id) outlineView: (NSOutlineView *) outlineView child: (int) index ofItem: (id) item;
+-(id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -742,7 +743,7 @@ To Do List:
     return [(item?:_iTM2NewDocumentsTree) objectInChildrenAtIndex:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:isItemExpandable:
-- (BOOL) outlineView: (NSOutlineView *) outlineView isItemExpandable: (id) item;
+-(BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -754,7 +755,7 @@ To Do List:
     return [(item?:_iTM2NewDocumentsTree) countOfChildren]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:numberOfChildrenOfItem:
-- (int) outlineView: (NSOutlineView *) outlineView numberOfChildrenOfItem: (id) item;
+-(int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -766,7 +767,7 @@ To Do List:
     return [(item?:_iTM2NewDocumentsTree) countOfChildren];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:objectValueForTableColumn:byItem:
-- (id) outlineView: (NSOutlineView *) outlineView objectValueForTableColumn: (NSTableColumn *) tableColumn byItem: (id) item;
+-(id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -779,14 +780,14 @@ To Do List:
 }
 /*
 // optional
-- (void)outlineView:(NSOutlineView *)outlineView setPathValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
-- (id)outlineView:(NSOutlineView *)outlineView itemForPersistentObject:(id)object;
-- (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item;
+-(void)outlineView:(NSOutlineView *)outlineView setPathValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
+-(id)outlineView:(NSOutlineView *)outlineView itemForPersistentObject:(id)object;
+-(id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item;
 */
 #pragma mark =-=-=-=-=- D & D
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:writeItems:toPasteboard:
-- (BOOL) outlineView: (NSOutlineView *) olv writeItems: (NSArray *) items toPasteboard: (NSPasteboard *) pboard;
+-(BOOL)outlineView:(NSOutlineView *)olv writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard;
     // This method is called after it has been determined that a drag should begin, but before the drag has been started.  To refuse the drag, return NO.  To start a drag, return YES and place the drag data onto the pasteboard (data, owner, etc...).  The drag image and other drag related information will be set up and provided by the outline view once this call returns with YES.  The items array is the list of items that will be participating in the drag.
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -800,7 +801,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:validateDrop:proposedItem:proposedChildIndex:
-- (NSDragOperation) outlineView: (NSOutlineView*) olv validateDrop: (id <NSDraggingInfo>) info proposedItem: (id) item proposedChildIndex: (int) index;
+-(NSDragOperation)outlineView:(NSOutlineView*)olv validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(int)index;
     // This method is used by NSOutlineView to determine a valid drop target.  Based on the mouse position, the outline view will suggest a proposed drop location.  This method must return a value that indicates which dragging operation the data source will perform.  The data source may "re-target" a drop if desired by calling setDropItem:dropChildIndex: and returning something other than NSDragOperationNone.  One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -898,7 +899,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:acceptDrop:item:childIndex:
-- (BOOL) outlineView: (NSOutlineView*) olv acceptDrop: (id <NSDraggingInfo>) info item: (id) item childIndex: (int) index;
+-(BOOL)outlineView:(NSOutlineView*)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index;
     // This method is called when the mouse is released over an outline view that previously decided to allow a drop via the validateDrop method.  The data source should incorporate the data from the dragging pasteboard at this time.
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -957,7 +958,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  savePanelDidEnd:returnCode:contents:
-- (void) savePanelDidEnd: (NSSavePanel *) panel returnCode: (int) returnCode contents: (NSString *) contents;
+-(void)savePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode contents:(NSString *)contents;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -984,7 +985,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _delayed_outlineView:acceptDrop:item:childIndex:
-- (BOOL) _delayed_outlineView: (NSOutlineView*) olv acceptDrop: (id <NSDraggingInfo>) info item: (id) item childIndex: (int) index;
+-(BOOL)_delayed_outlineView:(NSOutlineView*)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1025,7 +1026,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  savePanelDidEnd:returnCode:filename:
-- (void) savePanelDidEnd: (NSSavePanel *) panel returnCode: (int) returnCode filename: (NSString *) filename;
+-(void)savePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode filename:(NSString *)filename;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1048,7 +1049,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=- UI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancel:
-- (IBAction) cancel:(id)sender;
+-(IBAction)cancel:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1064,7 +1065,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  next:
-- (IBAction) next:(id)sender;
+-(IBAction)next:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1118,7 +1119,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateNext:
-- (BOOL) validateNext: (id) sender;
+-(BOOL)validateNext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1130,7 +1131,7 @@ To Do List:
     return [[self outlineView] numberOfSelectedRows] == 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  startProgressIndicationForName:
-- (void)startProgressIndicationForName:(NSString *) targetName;
+-(void)startProgressIndicationForName:(NSString *) targetName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1151,7 +1152,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  filterForProjectName:
-- (NSDictionary *)filterForProjectName:(NSString *)projectName;
+-(NSDictionary *)filterForProjectName:(NSString *)projectName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1173,7 +1174,7 @@ To Do List:
     return filter;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stopProgressIndication
-- (void)stopProgressIndication;
+-(void)stopProgressIndication;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1188,7 +1189,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nextSavePanelDidEnd:returnCode:contextInfo:
-- (void) nextSavePanelDidEnd: (NSSavePanel *) panel returnCode: (int) returnCode contextInfo: (void*) irrelevant;
+-(void)nextSavePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode contextInfo:(void*)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1201,9 +1202,10 @@ To Do List:
 	if(returnCode == NSOKButton)
 	{
 		NSString * fileName = [panel filename];
-		[self createInMandatoryProjectNewDocumentWithName:[panel filename]]
-		|| [self createInNewWrapperNewDocumentWithName:fileName]// create a new wrapper if relevant
-		|| [self createInNewProjectNewDocumentWithName:fileName]// create a new project if relevant
+		[self createInMandatoryProjectNewDocumentWithName:fileName]
+		|| [self createNewWrapperAndProjectWithName:fileName]// create a new wrapper and the new included project, if relevant
+		|| [self createNewWrapperWithName:fileName]// create a new wrapper assuming that the included project will come for free
+		|| [self createInNewProjectNewDocumentWithName:fileName]// create a new project if relevant, but no wrapper
 		|| [self createInOldProjectNewDocumentWithName:fileName]// just insert the main file in the project if relevant
 		|| [self createNewStandaloneDocumentWithName:fileName];// just create the standalone document if relevant
 	}
@@ -1214,8 +1216,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewWrapperNewDocumentWithName:
-- (BOOL)createInNewWrapperNewDocumentWithName:(NSString *) fileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithName:
+-(BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1232,6 +1234,12 @@ To Do List:
 		return NO;
 	}
 	id item = [self selectedTemplate];
+	NSString * sourceName = [item pathValue];
+	NSArray * enclosedProjects = [sourceName enclosedProjectFileNames];
+	if([enclosedProjects count]!=0)
+	{
+		return NO;
+	}
 	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory"];
 	// No extension for fileName, the extension will be borrowed from the project
 	fileName = [fileName stringByDeletingPathExtension];
@@ -1240,11 +1248,10 @@ To Do List:
 	
 	NSDictionary * filter = [self filterForProjectName:projectName];
 
-	NSString * sourceName = [item pathValue];
 	// we copy the whole directory at sourceName, possibly add a project, clean extra folders, change the names
 	if([DFM fileExistsAtPath:targetName])
 	{
-		iTM2_LOG(@"There is already a project at %@...", targetName);
+		iTM2_LOG(@"There is already a wrapper at %@...", targetName);
 	}
 	else if(![DFM copyPath:sourceName toPath:targetName handler:nil])
 	{
@@ -1270,78 +1277,208 @@ To Do List:
 					iTM2_LOG(@"........... ERROR: Could not recycle the \"Contents\" directory...");
 				}
 			}
-			// Modify the project file, assuming there is only one such file... NO;
-			// finding the contained projects
-			NSArray * enclosedProjects = [targetName enclosedProjectFileNames];
+			// changing the name of all the files included in the newly created directory according to the filter above
+			NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:targetName];
 			NSString * path = nil;
+			NSString * convertedPath = nil;
+			while(path = [DE nextObject])
+			{
+				convertedPath = [self convertedString:path withDictionary:filter];
+				if(![convertedPath isEqualToFileName:path])
+				{
+					path = [targetName stringByAppendingPathComponent:path];
+					path = [path stringByStandardizingPath];
+					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
+					convertedPath = [convertedPath stringByStandardizingPath];
+					if(![DFM movePath:path toPath:convertedPath handler:NULL])
+					{
+						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", path, convertedPath);
+					}
+				}
+			}
+			// creating one at the top level or just below
+			NSString * standaloneFileName = [self standaloneFileName];
+			standaloneFileName = [standaloneFileName stringByAbbreviatingWithDotsRelativeToDirectory:sourceName];
+			standaloneFileName = [self convertedString:standaloneFileName withDictionary:filter];
+			standaloneFileName = [targetName stringByAppendingPathComponent:standaloneFileName];
+			standaloneFileName = [standaloneFileName stringByStandardizingPath];
+			
+			iTM2TeXProjectDocument * PD = [SPC getProjectFromPanelForFileNameRef:&standaloneFileName display:NO error:nil];
+			NSString * key = [PD newKeyForFileName:standaloneFileName];
+			[PD setMasterFileKey:key];
+			
+			NSURL * url = [NSURL fileURLWithPath:standaloneFileName];
+			NSDictionary * context = [NSDocument contextDictionaryFromFile:standaloneFileName];
+			NSNumber * N = [context objectForKey:iTM2StringEncodingOpenKey];
+			unsigned int encoding = [N intValue];
+			NSString * S = nil;
+			if(encoding)
+			{
+				if(!(S = [NSString stringWithContentsOfURL:url encoding:encoding error:nil]))
+				{
+					S = [NSString stringWithContentsOfURL:url usedEncoding:&encoding error:nil];
+				}
+			}
+			else
+			{
+				S = [NSString stringWithContentsOfURL:url usedEncoding:&encoding error:nil];
+			}
+			S = [self convertedString:S withDictionary:filter];
+			NSData * D = [S dataUsingEncoding:encoding allowLossyConversion:YES];
+			[D writeToURL:url options:NSAtomicWrite error:nil];
+			[PD makeWindowControllers];
+			[PD showWindows];
+			[PD openSubdocumentWithContentsOfURL:url context:context display:YES error:nil];
+			[PD saveDocument:self];
+//iTM2_END;
+			return YES;
+		}
+		else
+		{
+			iTM2_LOG(@"*** ERROR: Missing directory at %@", targetName);
+		}
+	}
+	else
+	{
+		iTM2_LOG(@"*** ERROR: Missing file at %@", targetName);
+	}
+//iTM2_END;
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperWithName:
+-(BOOL)createNewWrapperWithName:(NSString *)fileName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Nov  8 09:18:47 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([self creationMode] != iTM2ToggleNewProjectMode)
+	{
+		return NO;
+	}
+	if(![self preferWrapper])
+	{
+		return NO;
+	}
+	id item = [self selectedTemplate];
+	NSString * sourceName = [item pathValue];
+	NSArray * enclosedProjects = [sourceName enclosedProjectFileNames];
+	if([enclosedProjects count]==0)
+	{
+		return NO;
+	}
+	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory"];
+	// No extension for fileName, the extension will be borrowed from the project
+	fileName = [fileName stringByDeletingPathExtension];
+	NSString * targetName = [fileName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+	NSString * projectName = [fileName lastPathComponent];
+	
+	NSDictionary * filter = [self filterForProjectName:projectName];
+
+	// we copy the whole directory at sourceName, possibly add a project, clean extra folders, change the names
+	if([DFM fileExistsAtPath:targetName])
+	{
+		iTM2_LOG(@"There is already a wrapper at %@...", targetName);
+	}
+	else if(![DFM copyPath:sourceName toPath:targetName handler:nil])
+	{
+		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
+	}
+	BOOL isDirectory;
+	if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
+	{
+		if(isDirectory)
+		{
+			// remove any "Contents" directory;
+			NSString * deeper = [targetName stringByAppendingPathComponent:iTM2BundleContentsComponent];
+			if([DFM fileExistsAtPath:deeper isDirectory:nil])
+			{
+				int tag;
+				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetName destination:nil
+					files:[NSArray arrayWithObject:iTM2BundleContentsComponent] tag:&tag])
+				{
+					iTM2_LOG(@"Recycling the \"Contents\" of directory %@...", targetName);
+				}
+				else
+				{
+					iTM2_LOG(@"........... ERROR: Could not recycle the \"Contents\" directory...");
+				}
+			}
+			// changing the name of all the files included in the newly created directory according to the filter above
+			NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:targetName];
+			NSString * path = nil;
+			NSString * convertedPath = nil;
+			while(path = [DE nextObject])
+			{
+				convertedPath = [self convertedString:path withDictionary:filter];
+				if(![convertedPath isEqual:path])
+				{
+					path = [targetName stringByAppendingPathComponent:path];
+					path = [path stringByStandardizingPath];
+					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
+					convertedPath = [convertedPath stringByStandardizingPath];
+					if(![DFM movePath:path toPath:convertedPath handler:NULL])
+					{
+						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", path, convertedPath);
+					}
+				}
+			}
+			// Modify the project file, to sync with the possibly podified file names
+			NSArray * enclosedProjects = [targetName enclosedProjectFileNames];
+			iTM2TeXProjectDocument * PD = nil;
 			NSEnumerator * E = [enclosedProjects objectEnumerator];
 			while(path = [E nextObject])
 			{
-				path = [targetName stringByAppendingPathComponent:path];
 				path = [path stringByStandardizingPath];
-				NSString * convertedPath = [self convertedString:path withDictionary:filter];
-				if(![convertedPath isEqual:path])
-				{
-					if(![DFM movePath:path toPath:convertedPath handler:NULL])
-					{
-						iTM2_LOG(@"..........  ERROR: Could not change the project file name.");
-						convertedPath = path;
-					}
-				}
-//iTM2_LOG(@"convertedPath is: %@", convertedPath);
+//iTM2_LOG(@"path is: %@", path);
 				// path is no longer used
 				// open the project document
-				NSURL * url = [NSURL fileURLWithPath:convertedPath];
-				iTM2ProjectDocument * PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
+				NSURL * url = [NSURL fileURLWithPath:path];
+				PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 				// filter out the declared files
-				NSEnumerator * e = [[PD allKeys] objectEnumerator];
+				NSMutableDictionary * keyedFileNames = [PD keyedFileNames];
+				NSEnumerator * e = [keyedFileNames keyEnumerator];
 				NSString * key = nil;
 				while(key = [e nextObject])
 				{
 //iTM2_LOG(@"key is: %@", key);
 					id document = [PD subdocumentForKey:key];
 //iTM2_LOG(@"document is: %@", document);
-					if([document isKindOfClass:[iTM2TextDocument class]])
+					if(document)
 					{
-						NSTextStorage * TS = [document textStorage];
-						[TS beginEditing];
-						NSString * old = [TS string];
-						NSString * new = [self convertedString:old withDictionary:filter];
-						[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
-						[TS beginEditing];
 						// then change the file name:
 						NSString * originalPath = [document fileName];
 						NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
-						if([document isKindOfClass:[iTM2TeXDocument class]])
-						{
-							convertedPath = [self convertedString:convertedPath
-								withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]];
-//iTM2_LOG(@"convertedPath is: %@", convertedPath);
-						}
 						if(![convertedPath isEqual:originalPath])
 						{
-							if([DFM movePath:originalPath toPath:convertedPath handler:NULL])
-							{
-								[PD setFileName:convertedPath forKey:key makeRelative:YES];
-								[document setFileName:convertedPath];
-							}
-							else
-							{
-								iTM2_LOG(@"..........  ERROR: Could not change the project document file name -1.");
-							}
+							[PD setFileName:convertedPath forKey:key makeRelative:YES];
+							[document setFileName:convertedPath];
 						}
-						[document saveDocument:self];
-						[[document undoManager] removeAllActions];
+						if([document isKindOfClass:[iTM2TextDocument class]])
+						{
+							NSTextStorage * TS = [document textStorage];
+							[TS beginEditing];
+							NSString * old = [TS string];
+							NSString * new = [self convertedString:old withDictionary:filter];
+							[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
+							[TS endEditing];
+							[document saveDocument:self];
+							[[document undoManager] removeAllActions];
 //iTM2_LOG(@"Open document saved");
+						}
 					}
-					else if(!document)
+					else
 					{
 						NSString * originalPath = [PD absoluteFileNameForKey:key];
-//iTM2_LOG(@"originalPath is: %@", originalPath);
 						NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
-//iTM2_LOG(@"convertedPath is: %@", convertedPath);
-						NSURL * url = [NSURL fileURLWithPath:originalPath];
+						NSURL * url = [NSURL fileURLWithPath:convertedPath];
+						if(![convertedPath isEqualToFileName:originalPath])
+						{
+							[PD setFileName:convertedPath forKey:key makeRelative:YES];// do this before...
+						}
 						document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 //iTM2_LOG(@"document is: %@", document);
 						if([document isKindOfClass:[iTM2TextDocument class]])
@@ -1352,49 +1489,9 @@ To Do List:
 							[TS beginEditing];
 							[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
 							[TS endEditing];
-							if([document isKindOfClass:[iTM2TeXDocument class]])
-							{
-								convertedPath = [[convertedPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:
-										[self convertedString:[convertedPath lastPathComponent]
-												withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]]];
-							}
 						}
-						if(![convertedPath isEqual:originalPath])
-						{
-							if(document)
-							{
-								// originalPath must exist
-								// convertedPath must not exist
-								#warning Links mngt?
-								if([DFM fileExistsAtPath:originalPath])// links?
-								{
-									if([DFM fileExistsAtPath:convertedPath])
-									{
-										iTM2_LOG(@"..........  ERROR: Already existing file at\n%@");
-									}
-									else
-									{
-										if([DFM movePath:originalPath toPath:convertedPath handler:NULL])
-										{
-											[PD setFileName:convertedPath forKey:key makeRelative:YES];
-											[document setFileName:convertedPath];
-										}
-										else
-										{
-											iTM2_LOG(@"..........  ERROR: Could not move\n%@ to\n%@", originalPath, convertedPath);
-										}
-									}
-								}
-								else
-								{
-									iTM2_LOG(@"..........  WARNING: Missing file at\n%@", originalPath);// should not go there because the doc is already existing!
-								}
-							}
-							else
-							{
-								[PD setFileName:convertedPath forKey:key makeRelative:YES];
-							}
-						}
+//iTM2_LOG(@"originalPath is: %@", originalPath);
+//iTM2_LOG(@"convertedPath is: %@", convertedPath);
 						[document saveDocument:self];
 						[document close];
 //iTM2_LOG(@"Document saved and closed");
@@ -1432,7 +1529,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithName:
-- (BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
+-(BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1506,7 +1603,6 @@ To Do List:
 				NSEnumerator * E = [enclosedProjects objectEnumerator];
 				while(path = [E nextObject])
 				{
-					path = [targetName stringByAppendingPathComponent:path];
 					path = [path stringByStandardizingPath];
 					NSString * convertedPath = [self convertedString:path withDictionary:filter];
 					if(![convertedPath isEqual:path])
@@ -1666,7 +1762,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithName:
-- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
+-(BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1754,6 +1850,7 @@ To Do List:
 				[document saveDocument:self];
 				[[document undoManager] removeAllActions];
 			}
+			[mandatoryProject saveDocument:self];
 		}
 		else
 		{
@@ -1768,7 +1865,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInOldProjectNewDocumentWithName:
-- (BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
+-(BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1780,10 +1877,19 @@ To Do List:
 	{
 		return NO;
 	}
+	NSString * sourceName = [self standaloneFileName];
 	NSString * oldProjectName = [self oldProjectName];
+	if([SWS isWrapperPackageAtPath:oldProjectName])
+	{
+		NSArray * enclosed = [oldProjectName enclosedProjectFileNames];
+		if(![enclosed count] && ![SWS isProjectPackageAtPath:oldProjectName])
+		{
+			return NO;
+		}
+	}
 	NSURL * url = [NSURL fileURLWithPath:oldProjectName];
 	NSError * localError = nil;
-	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:url display:NO error:&localError];
 	if(localError)
 	{
 		[SDC presentError:localError];
@@ -1796,8 +1902,6 @@ To Do List:
 		forKey:@"iTM2NewDocumentDirectory"];
 	NSString * newCore = [targetName lastPathComponent];
 	newCore = [newCore stringByDeletingPathExtension];
-
-	NSString * sourceName = [self standaloneFileName];	
 
 	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
 
@@ -1880,7 +1984,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewStandaloneDocumentWithName:
-- (BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
+-(BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1907,11 +2011,19 @@ To Do List:
 		{
 			if(isDirectory)
 			{
-				[SPC setProject:nil forFileName:targetName];
-				NSURL * url = [NSURL fileURLWithPath:targetName];
-				id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
-				[document saveDocument:self];
-				[[document undoManager] removeAllActions];
+				if([SWS isProjectPackageAtPath:targetName]
+					|| [SWS isWrapperPackageAtPath:targetName])
+				{
+					[SPC setProject:nil forFileName:targetName];
+					NSURL * url = [NSURL fileURLWithPath:targetName];
+					id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
+					[document saveDocument:self];
+					[[document undoManager] removeAllActions];
+				}
+				else
+				{
+					return NO;// only packages or wrappers...
+				}
 			}
 			else
 			{
@@ -1922,7 +2034,7 @@ To Do List:
 				{
 					[SDC presentError:localError];
 				}
-				[SPC setProject:projectDocument forFileName:targetName];//
+				[SPC setProject:projectDocument forFileName:targetName];// targetName is no longer linked to an old project
 				NSURL * url = [NSURL fileURLWithPath:targetName];
 				id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
 				if([document isKindOfClass:[iTM2TextDocument class]])
@@ -1935,6 +2047,9 @@ To Do List:
 				}
 				[document saveDocument:self];
 				[[document undoManager] removeAllActions];
+				[projectDocument makeWindowControllers];
+				[projectDocument showWindows];
+				[projectDocument saveDocument:self];
 			}
 		}
 		else
@@ -1974,7 +2089,7 @@ To Do List:
     return [[MS copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTemplateDescription:
-- (IBAction) editTemplateDescription: (id) sender;
+-(IBAction)editTemplateDescription:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1987,7 +2102,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTemplateDescription:
-- (BOOL) validateEditTemplateDescription: (id) sender;
+-(BOOL)validateEditTemplateDescription:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2070,7 +2185,7 @@ xonrupt:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTemplateFolderPath:
-- (IBAction) editTemplateFolderPath: (id) sender;
+-(IBAction)editTemplateFolderPath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2083,7 +2198,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTemplateFolderPath:
-- (BOOL) validateEditTemplateFolderPath: (id) sender;
+-(BOOL)validateEditTemplateFolderPath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2099,7 +2214,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=- SAVE PANEL DELEGATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:shouldShowFilename:
-- (BOOL) panel: (id) sender shouldShowFilename: (NSString *) filename;
+-(BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2110,69 +2225,8 @@ To Do List:
 //iTM2_END;
     return [filename length] && ![SWS isTeXProjectPackageAtPath:filename] && ![SWS isProjectPackageAtPath:filename];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:isValidFilename:
-- (BOOL) panel: (id) sender isValidFilename: (NSString *) filename;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Nov  8 09:18:47 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![filename length])
-	{
-		return NO;
-	}
-	BOOL result = NO;
-	NSString * mandatoryDirectory = nil;
-	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
-	if(mandatoryProject)
-	{
-		mandatoryDirectory = [mandatoryProject fileName];
-		mandatoryDirectory = [mandatoryDirectory stringByDeletingLastPathComponent];
-		mandatoryDirectory = [mandatoryDirectory stringByStandardizingPath];
-		if([filename isContainedInDirectory:mandatoryDirectory])
-		{
-			result = YES;
-			mandatoryDirectory = nil;
-			break;
-		}
-	}
-	else
-	{
-		switch([self creationMode])
-		{
-			case iTM2ToggleStandaloneMode: result = [self selectedTemplateCanBeStandalone]; break;
-			case iTM2ToggleOldProjectMode: result = [self selectedTemplateCanInsertInOldProject]; break;
-			default: result = [self selectedTemplateCanCreateNewProject]; break;
-		}
-	}
-	if(result)
-	{
-		return YES;
-	}
-	NSString * enclosing = [filename enclosingWrapperFileName];
-	if([enclosing length]>1)
-	{
-		mandatoryDirectory = [enclosing stringByDeletingLastPathComponent];
-	}
-	else
-	{
-		enclosing = [filename enclosingProjectFileName];
-		if([enclosing length]>1)
-		{
-			mandatoryDirectory = [enclosing stringByDeletingLastPathComponent];
-		}
-	}
-	if(mandatoryDirectory)
-	{
-		[sender setDirectory:mandatoryDirectory];
-	}
-//iTM2_END;
-    return NO;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:directoryDidChange:
-- (void)panel:(id)sender directoryDidChange:(NSString *)path;
+-(void)panel:(id)sender directoryDidChange:(NSString *)path;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2180,14 +2234,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setPanelDirectory:path];
+	[self setPanelDirectory:path];// will make some setups too
 	[sender validateContent];
 //iTM2_END;
     return;
 }
-//- (void)panelSelectionDidChange:(id)sender;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:userEnteredFilename:confirmed:
-- (NSString *) panel: (id) sender userEnteredFilename: (NSString *) filename confirmed: (BOOL) okFlag;
+-(NSString *)panel:(id)sender userEnteredFilename:(NSString *)filename confirmed:(BOOL)okFlag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2230,20 +2283,80 @@ To Do List:
 //iTM2_END;
     return filename;
 }
-	
-#if 0
-- (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename;
-- (NSComparisonResult)panel:(id)sender compareFilename:(NSString *)name1 with:(NSString *)name2 caseSensitive:(BOOL)caseSensitive;
-- (void)panel:(id)sender willExpand:(BOOL)expanding;
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
-- (void)panel:(id)sender directoryDidChange:(NSString *)path;
-- (void)panelSelectionDidChange:(id)sender;
-#endif
-#endif
-
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:isValidFilename:
+-(BOOL)panel:(id)sender isValidFilename:(NSString *)filename;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Nov  8 09:18:47 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	int creationMode = [self creationMode];
+	if(creationMode == iTM2ToggleForbiddenProjectMode)
+	{
+		return NO;
+	}
+	if(![filename length])
+	{
+		return NO;
+	}
+	BOOL result = NO;
+	NSString * mandatoryDirectory = nil;
+	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
+	if(mandatoryProject)
+	{
+		mandatoryDirectory = [mandatoryProject fileName];
+		mandatoryDirectory = [mandatoryDirectory stringByDeletingLastPathComponent];
+		mandatoryDirectory = [mandatoryDirectory stringByStandardizingPath];
+		if([filename isContainedInDirectory:mandatoryDirectory])
+		{
+			result = YES;
+			mandatoryDirectory = nil;
+		}
+	}
+	else
+	{//
+		switch([self creationMode])
+		{
+			case iTM2ToggleStandaloneMode: result = [self selectedTemplateCanBeStandalone]; break;
+			case iTM2ToggleOldProjectMode: result = [self selectedTemplateCanInsertInOldProject]; break;
+			default:
+			{
+				NSString * targetName = [filename stringByDeletingPathExtension];
+				targetName = [targetName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+				result = [self selectedTemplateCanCreateNewProject] && ![DFM fileExistsAtPath:targetName];
+				break;
+			}
+		}
+	}
+	if(result)
+	{
+		return YES;
+	}
+	NSString * enclosing = [filename enclosingWrapperFileName];
+	if([enclosing length]>1)
+	{
+		mandatoryDirectory = [enclosing stringByDeletingLastPathComponent];
+	}
+	else
+	{
+		enclosing = [filename enclosingProjectFileName];
+		if([enclosing length]>1)
+		{
+			mandatoryDirectory = [enclosing stringByDeletingLastPathComponent];
+		}
+	}
+	if(mandatoryDirectory)
+	{
+		[sender setDirectory:mandatoryDirectory];
+	}
+//iTM2_END;
+    return NO;
+}
 #pragma mark =-=-=-=-=- ACCESSORY VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  savePanelAccessoryView
-- (id) savePanelAccessoryView;
+-(id)savePanelAccessoryView;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2255,7 +2368,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSavePanelAccessoryView:
-- (void) setSavePanelAccessoryView: (id) argument;
+-(void)setSavePanelAccessoryView:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2268,7 +2381,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectTarget
-- (iTM2ProjectDocument *) projectTarget;
+-(iTM2ProjectDocument *)projectTarget;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2280,7 +2393,7 @@ To Do List:
     return [[self standaloneFileName] length]? [self mandatoryProject]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:(id)item inOldProjectForDirectory
-- (BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
+-(BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2288,6 +2401,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![DFM isWritableFileAtPath:directory])
+	{
+//iTM2_END;
+		return NO;
+	}
 	if([directory belongsToExternalProjectsDirectory])
 	{
 		return NO;// nothing can be added in the external projects directory
@@ -2297,35 +2415,59 @@ To Do List:
 	{
 		return NO;// nothing can be inserted inside a .texp project directory
 	}
+	NSString * standalone = [item standaloneFileNameValue];
+	if(![standalone length])
+	{
+		return NO;
+	}
+	if([SWS isWrapperPackageAtPath:standalone])
+	{
+		return NO;
+	}
 	NSString * mandatory = [[self mandatoryProject] fileName];
 	if([mandatory length])
 	{
+		if([SWS isProjectPackageAtPath:standalone])
+		{
+			return NO;
+		}
 		mandatory = [mandatory stringByDeletingLastPathComponent];
 		NSString * relative = [directory stringByAbbreviatingWithDotsRelativeToDirectory:mandatory];
 		if([relative hasPrefix:@".."])
 		{
 			return NO;
 		}
+		return YES;
 	}
-	NSString * standalone = [item standaloneFileNameValue];
-	if([SWS isWrapperPackageAtPath:standalone])
-	{
-		return NO;
-	}
-	else if([SWS isProjectPackageAtPath:standalone])
+	if([SWS isProjectPackageAtPath:standalone])
 	{
 		NSString * enclosing = [directory enclosingWrapperFileName];
+		NSArray * enclosed = nil;
 		if([enclosing length])
 		{
-			NSArray * enclosed = [enclosing enclosedProjectFileNames];
+			enclosed = [enclosing enclosedProjectFileNames];
 			return [enclosed count] == 0;
 		}
+		NSDictionary * available = [SPC availableProjectsForPath:directory];
+		NSEnumerator * E = [available keyEnumerator];
+		while(enclosing = [E nextObject])
+		{
+			if([SWS isWrapperPackageAtPath:enclosing])
+			{
+				enclosed = [enclosing enclosedProjectFileNames];
+				if([enclosed count] == 0)
+				{
+					return YES;
+				}
+			}
+		}
+		return NO;
 	}
 //iTM2_END;
-	return [standalone length] > 0;
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanInsertInOldProject
-- (BOOL)selectedTemplateCanInsertInOldProject;
+-(BOOL)selectedTemplateCanInsertInOldProject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2337,7 +2479,7 @@ To Do List:
 	return [self canInsertItem:[self selectedTemplate] inOldProjectForDirectory:[self panelDirectory]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canCreateNewProjectForDirectory:
-- (BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
+-(BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2345,6 +2487,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![DFM isWritableFileAtPath:directory])
+	{
+//iTM2_END;
+		return NO;
+	}
 	if([self mandatoryProject])
 	{
 //iTM2_END;
@@ -2361,26 +2508,22 @@ To Do List:
 //iTM2_END;
 		return NO;// nothing can be inserted inside a .texp project directory
 	}
-	// can create if there is a project in the template
-	// and if we are not in a wrapper
+	// and if the directory is not in a wrapper
 	enclosing = [directory enclosingWrapperFileName];
-	NSArray * enclosed = [enclosing enclosedProjectFileNames];
-	NSNumber * N = [item containsAProjectValue];
-	if(N)
+	if([enclosing length])
 	{
+		NSArray * enclosed = [enclosing enclosedProjectFileNames];
+		if([enclosed count])
+		{
 //iTM2_END;
-		return [enclosed count] == 0 && [N boolValue];
+			return NO;// nothing can be inserted inside a .texd wrapper directory
+		}
 	}
-	enclosing = [item pathValue];
-	enclosing = [enclosing stringByDeletingLastPathComponent];
-	NSArray * templateEnclosed = [enclosing enclosedProjectFileNames];
-	BOOL templateContainsAProject = [templateEnclosed count] > 0;
-	[item setContainsAProjectValue:[NSNumber numberWithBool:templateContainsAProject]];
 //iTM2_END;
-	return [enclosed count] == 0 && templateContainsAProject;
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanCreateNewProject
-- (BOOL)selectedTemplateCanCreateNewProject;
+-(BOOL)selectedTemplateCanCreateNewProject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2392,7 +2535,7 @@ To Do List:
 	return [self item:[self selectedTemplate] canCreateNewProjectForDirectory:[self panelDirectory]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canBeStandaloneForDirectory:
-- (BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
+-(BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2400,6 +2543,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![DFM isWritableFileAtPath:directory])
+	{
+//iTM2_END;
+		return NO;
+	}
 	if([self mandatoryProject])
 	{
 //iTM2_END;
@@ -2423,21 +2571,20 @@ To Do List:
 	// 1 the template has a standalone file name
 	// 2 the current panel directory is not included in a wrapper
 	// except when the wrapper no longer has a project
-	NSString * path = [item standaloneFileNameValue];
-	if([path length])
+	NSString * standalone = [item standaloneFileNameValue];
+	if([SWS isProjectPackageAtPath:standalone])
 	{
-		if([SWS isProjectPackageAtPath:path])
-		{
-			NSArray * enclosed = [enclosing enclosedProjectFileNames];
-			return [enclosed count] == 0;
-		}
-		return YES;
+		return NO;
+	}
+	if([SWS isWrapperPackageAtPath:standalone])
+	{
+		return NO;
 	}
 //iTM2_END;
-    return NO;
+    return [standalone length]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanBeStandalone
-- (BOOL) selectedTemplateCanBeStandalone;
+-(BOOL)selectedTemplateCanBeStandalone;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2449,7 +2596,7 @@ To Do List:
 	return [self item:[self selectedTemplate] canBeStandaloneForDirectory:[self panelDirectory]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  standaloneFileName
-- (NSString *) standaloneFileName;
+-(NSString *)standaloneFileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2462,7 +2609,7 @@ To Do List:
 	return [item standaloneFileNameValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCreationMode
-- (void) validateCreationMode;
+-(void)validateCreationMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2471,43 +2618,37 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	int creationMode = [self creationMode];
-more:
-	if(creationMode == iTM2ToggleOldProjectMode)
+	if((creationMode == iTM2ToggleOldProjectMode) && [self selectedTemplateCanInsertInOldProject])
 	{
-		if([self selectedTemplateCanInsertInOldProject])
-		{
-			return;
-		}
-		creationMode = iTM2ToggleNewProjectMode;
+		return;
 	}
-	if(creationMode == iTM2ToggleNewProjectMode)
+	else if((creationMode == iTM2ToggleNewProjectMode) && [self selectedTemplateCanCreateNewProject])
 	{
-		if([self selectedTemplateCanCreateNewProject])
-		{
-			return;
-		}
+		return;
+	}
+	else if((creationMode == iTM2ToggleStandaloneMode) && [self selectedTemplateCanBeStandalone])
+	{
+		return;
+	}
+	creationMode = iTM2ToggleForbiddenProjectMode;
+	if([self selectedTemplateCanBeStandalone])
+	{
 		creationMode = iTM2ToggleStandaloneMode;
 	}
-	if(creationMode == iTM2ToggleStandaloneMode)
+	else if([self selectedTemplateCanCreateNewProject])
 	{
-		if([self selectedTemplateCanBeStandalone])
-		{
-			return;
-		}
-		else
-		{
-			[self setCreationMode:-1];
-			return;
-		}
+		creationMode = iTM2ToggleNewProjectMode;
 	}
-	creationMode = iTM2ToggleOldProjectMode;
+	else if([self selectedTemplateCanInsertInOldProject])
+	{
+		creationMode = iTM2ToggleOldProjectMode;
+	}
 	[self setCreationMode:creationMode];
-	goto more;
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  creationMode
-- (int) creationMode;
+-(int)creationMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2515,11 +2656,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSNumber * result = metaGETTER;
 //iTM2_END;
-    return [metaGETTER intValue];
+    return result?[result intValue]:[SUD integerForKey:iTM2NewProjectCreationModeKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCreationMode:
-- (void) setCreationMode: (int) tag;
+-(void)setCreationMode:(int)tag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2536,7 +2678,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeCreationModeFromTag:
-- (IBAction) takeCreationModeFromTag: (id) sender;
+-(IBAction)takeCreationModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2552,7 +2694,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeCreationModeFromTag:
-- (BOOL) validateTakeCreationModeFromTag: (id) sender;
+-(BOOL)validateTakeCreationModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2560,7 +2702,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL selected = [sender tag] == [self creationMode];
+	int creationMode = [self creationMode];
+	if(creationMode == iTM2ToggleForbiddenProjectMode)
+	{
+		[sender setState:NSOffState];
+		return NO;
+	}
+	BOOL selected = [sender tag] == creationMode;
 	[sender setState:(selected? NSOnState:NSOffState)];
 #if 1
 	BOOL result = YES;
@@ -2583,7 +2731,7 @@ To Do List:
 #endif
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeProjectFromSelectedItem:
-- (IBAction) takeProjectFromSelectedItem: (id) sender;
+-(IBAction)takeProjectFromSelectedItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2610,7 +2758,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeProjectFromSelectedItem:
-- (BOOL) validateTakeProjectFromSelectedItem: (id) sender;
+-(BOOL)validateTakeProjectFromSelectedItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2619,9 +2767,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * oldProjectName = [self oldProjectName];
-	NSDictionary * availableProjects = [self availableProjects];
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
+		NSDictionary * availableProjects = [self availableProjects];
 		[sender removeAllItems];
 		NSString * path;
 		NSEnumerator * E = [availableProjects keyEnumerator];
@@ -2662,11 +2810,37 @@ To Do List:
 		}
 		return NO;
 	}
+	else if([sender isKindOfClass:[NSMenuItem class]])
+	{
+		NSString * standalone = [self standaloneFileName];
+		if(![standalone length])
+		{
+			return NO;
+		}
+		if([SWS isWrapperPackageAtPath:standalone])
+		{
+			return NO;
+		}
+		if([SWS isProjectPackageAtPath:standalone])
+		{
+			NSString * project = [sender representedObject];
+			if([SWS isWrapperPackageAtPath:project])
+			{
+				NSArray * enclosed = [project enclosedProjectFileNames];
+				if(![enclosed count])
+				{
+					return YES;
+				}
+			}
+			return NO;
+		}
+		return YES;
+	}
+    return NO;
 //iTM2_END;
-    return [oldProjectName length]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  preferWrapper
-- (BOOL) preferWrapper;
+-(BOOL)preferWrapper;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2678,7 +2852,7 @@ To Do List:
     return [metaGETTER boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPreferWrapper:
-- (void) setPreferWrapper: (BOOL) yorn;
+-(void)setPreferWrapper:(BOOL)yorn;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2692,7 +2866,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleWrapper:
-- (IBAction) toggleWrapper: (id) sender;
+-(IBAction)toggleWrapper:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2707,7 +2881,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleWrapper:
-- (BOOL) validateToggleWrapper: (id) sender;
+-(BOOL)validateToggleWrapper:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2721,7 +2895,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DATA SOURCE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableProjects
-- (id)availableProjects;
+-(id)availableProjects;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2751,7 +2925,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAvailableProjects:
-- (void)setAvailableProjects:(id) argument;
+-(void)setAvailableProjects:(id) argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2764,7 +2938,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfItemsInComboBox:
-- (int)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
+-(int)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2776,7 +2950,7 @@ To Do List:
     return [[self availableProjects] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:objectValueForItemAtIndex:
-- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index;
+-(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2789,7 +2963,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:indexOfItemWithStringValue:
-- (unsigned int)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string;
+-(unsigned int)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2801,7 +2975,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:completedString:
-- (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string;
+-(NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2817,7 +2991,7 @@ To Do List:
 
 @implementation NSUserDefaultsController(NewDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeNewDocumentAuthorNameFromCombo:
-- (IBAction) takeNewDocumentAuthorNameFromCombo: (id) sender;
+-(IBAction)takeNewDocumentAuthorNameFromCombo:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2842,7 +3016,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeNewDocumentOrganizationNameFromCombo:
-- (IBAction) takeNewDocumentOrganizationNameFromCombo: (id) sender;
+-(IBAction)takeNewDocumentOrganizationNameFromCombo:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2870,7 +3044,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(NewDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2885,7 +3059,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2NewDocumentKitCompleteInstallation
-+ (void) iTM2NewDocumentKitCompleteInstallation;
++(void)iTM2NewDocumentKitCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2908,7 +3082,7 @@ To Do List:
 
 @implementation iTM2NewDocumentPrefPane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prefPaneIdentifier
-- (NSString *) prefPaneIdentifier;
+-(NSString *)prefPaneIdentifier;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005

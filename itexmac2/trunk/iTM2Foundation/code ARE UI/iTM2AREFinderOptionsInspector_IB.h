@@ -36,7 +36,7 @@
 @discussion This validates the changes.
 @param sender is the OK button.
 */
-- (IBAction) OK: (id) sender;
+-(IBAction)OK:(id)sender;
 
 /*!
 @method cancel:
@@ -44,7 +44,7 @@
 @discussion This discards the changes.
 @param sender is the Cancel button.
 */
-- (IBAction) cancel: (id) sender;
+-(IBAction)cancel:(id)sender;
 
 /*!
 @method toggleExpanded:
@@ -52,7 +52,7 @@
 @discussion Description Forthcoming.
 @param sender is a matrix of radio buttons.
 */
-- (IBAction) toggleExpanded: (id) sender;
+-(IBAction)toggleExpanded:(id)sender;
 
 /*!
 @method toggleIgnoreSubexpressions:
@@ -60,7 +60,7 @@
 @discussion Description Forthcoming.
 @param sender is a matrix of radio buttons.
 */
-- (IBAction) toggleIgnoreSubexpressions: (id) sender;
+-(IBAction)toggleIgnoreSubexpressions:(id)sender;
 
 /*!
 @method toggleNewlineAnchor:
@@ -68,7 +68,7 @@
 @discussion Description Forthcoming.
 @param sender is a matrix of radio buttons.
 */
-- (IBAction) toggleNewlineAnchor: (id) sender;
+-(IBAction)toggleNewlineAnchor:(id)sender;
 
 /*!
 @method toggleNewlineSensitive:
@@ -76,7 +76,7 @@
 @discussion Description Forthcoming.
 @param sender is a matrix of radio buttons.
 */
-- (IBAction) toggleNewlineSensitive: (id) sender;
+-(IBAction)toggleNewlineSensitive:(id)sender;
 
 /*!
 @method toggleNewlineStop:
@@ -84,7 +84,7 @@
 @discussion Description Forthcoming.
 @param sender is a matrix of radio buttons.
 */
-- (IBAction) toggleNewlineStop: (id) sender;
+-(IBAction)toggleNewlineStop:(id)sender;
 
 /*!
 @method toggleQuote:
@@ -92,7 +92,7 @@
 @discussion Description Forthcoming.
 @param sender is a matrix of radio buttons.
 */
-- (IBAction) toggleQuote: (id) sender;
+-(IBAction)toggleQuote:(id)sender;
 
 /*!
 @method toggleType:
@@ -100,6 +100,6 @@
 @discussion Description Forthcoming.
 @param sender is a matrix of radio buttons.
 */
-- (IBAction) toggleType: (id) sender;
+-(IBAction)toggleType:(id)sender;
 
 @end

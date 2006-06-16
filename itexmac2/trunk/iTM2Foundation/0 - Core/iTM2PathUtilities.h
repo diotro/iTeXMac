@@ -22,13 +22,13 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
 /*"Description forthcoming."*/
 @interface NSString(iTM2PathUtilities)
-- (BOOL) isFinderAliasTraverseLink: (BOOL) aFlag isDirectory: (BOOL *) isDirectory;
-- (NSString *) stringByResolvingFinderAliasesInPath;
-- (NSString *) stringByResolvingSymlinksAndFinderAliasesInPath;
-- (NSString *) stringByAbbreviatingWithDotsRelativeToDirectory: (NSString *) aPath;
-- (NSString *) shortestStringByAbbreviatingWithTildeInPath;
-- (NSString *) stringByDeletingAllPathExtensions;
-- (NSString *) stringByNormalizingPath;// removes void components, references to . and resolves .. as far as can do
+-(BOOL)isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
+-(NSString *)stringByResolvingFinderAliasesInPath;
+-(NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
+-(NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
+-(NSString *)shortestStringByAbbreviatingWithTildeInPath;
+-(NSString *)stringByDeletingAllPathExtensions;
+-(NSString *)stringByNormalizingPath;// removes void components, references to . and resolves .. as far as can do
 
 /*!
 	@method		enclosingDirectoryForFileNames:
@@ -37,7 +37,7 @@
 	@param		an array of file names.
 	@result		The common path, at least the root directory. 
 */
-+ (NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
++(NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
 
 /*!
 	@method		isEqualToFileName:
@@ -46,7 +46,7 @@
 	@param		A file name.
 	@result		yorn. 
 */
-- (BOOL)isEqualToFileName:(NSString *)otherFileName;
+-(BOOL)isEqualToFileName:(NSString *)otherFileName;
 
 /*!
 	@method		isContainedInDirectory:
@@ -55,7 +55,7 @@
 	@param		A file name.
 	@result		yorn. 
 */
-- (BOOL)isContainedInDirectory:(NSString *)fileName;
+-(BOOL)isContainedInDirectory:(NSString *)fileName;
 
 @end
 

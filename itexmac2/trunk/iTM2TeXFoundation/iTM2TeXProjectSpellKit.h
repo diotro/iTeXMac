@@ -28,8 +28,8 @@ extern NSString * const TWSSpellingFileKey;
 
 @interface iTM2SpellContextController(TeXProjectSpellKit)
 
-- (id) project;
-- (void) setProject: (id) project;
+-(id)project;
+-(void)setProject:(id)project;
 
 /*!
     @method		writeToDirectory:
@@ -44,7 +44,7 @@ extern NSString * const TWSSpellingFileKey;
     @result		A flag indicating in an obvious manner the success or failure of the operation.
                 If the slightest problem is encountered, the result is NO. So don't be too exigent.
 */
-- (BOOL) writeToDirectory: (NSString *) directoryName;
+-(BOOL)writeToDirectory:(NSString *)directoryName;
 
 /*!
     @method		readFromDirectory:
@@ -57,7 +57,7 @@ extern NSString * const TWSSpellingFileKey;
     @result		A flag indicating in an obvious manner the success or failure of the operation.
                 If the slightest problem is encountered, the result is NO. So don't be too exigent.
 */
-- (BOOL) readFromDirectory: (NSString *) directoryName;
+-(BOOL)readFromDirectory:(NSString *)directoryName;
 
 @end
 
@@ -72,7 +72,7 @@ extern NSString * const TWSSpellingFileKey;
     @param      key is a key
     @result     a spelling mode.
 */
-- (NSString *) spellingModeForFileKey: (NSString *) fileKey;
+-(NSString *)spellingModeForFileKey:(NSString *)fileKey;
 
 /*! 
     @method     setSpellingMode:forFileKey:
@@ -82,7 +82,7 @@ extern NSString * const TWSSpellingFileKey;
     @param      key is a key
     @result     None.
 */
-- (void) setSpellingMode: (NSString *) spellingMode forFileKey: (NSString *) fileKey;
+-(void)setSpellingMode:(NSString *)spellingMode forFileKey:(NSString *)fileKey;
 
 @end
 

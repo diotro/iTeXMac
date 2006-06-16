@@ -28,9 +28,9 @@ extern NSString * const iTM2ConTeXtManualsTable;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ConTeXtInspector
 
 @interface iTM2ConTeXtInspector: iTM2TeXInspector
-+ (NSURL *) ConTeXtPragmaADEURL;
-+ (NSURL *) ConTeXtGardenPageURLWithRef: (NSString *) ref;
-+ (NSURL *) ConTeXtGardenMainPageURL;
++(NSURL *)ConTeXtPragmaADEURL;
++(NSURL *)ConTeXtGardenPageURLWithRef:(NSString *)ref;
++(NSURL *)ConTeXtGardenMainPageURL;
 @end
 
 @interface iTM2ConTeXtEditor: iTM2TeXEditor
@@ -66,8 +66,8 @@ typedef enum _iTM2ConTeXtInputMode
 @end
 
 @interface NSTextStorage(iTM2ConTeXt)
-- (NSMenu *) ConTeXtSectionMenu;
-- (void) getConTeXtLabelMenu: (NSMenu **)labelMenuRef refMenu: (NSMenu **)refMenuRef;
+-(NSMenu *)ConTeXtSectionMenu;
+-(void)getConTeXtLabelMenu:(NSMenu **)labelMenuRef refMenu:(NSMenu **)refMenuRef;
 @end
 
 @interface iTM2XtdConTeXtParser: iTM2XtdTeXParser
@@ -132,11 +132,11 @@ extern NSString * const iTM2ToolbarConTeXtLabelItemIdentifier;
 extern NSString * const iTM2ToolbarConTeXtSectionItemIdentifier;
 
 @interface NSToolbarItem(iTM2ConTeXt)
-+ (NSToolbarItem *) ConTeXtSectionToolbarItem;
-+ (NSToolbarItem *) ConTeXtLabelToolbarItem;
-+ (NSToolbarItem *) ConTeXtAtGardenToolbarItem;
-+ (NSToolbarItem *) ConTeXtAtPragmaADEToolbarItem;
-+ (NSToolbarItem *) ConTeXtManualsToolbarItem;
++(NSToolbarItem *)ConTeXtSectionToolbarItem;
++(NSToolbarItem *)ConTeXtLabelToolbarItem;
++(NSToolbarItem *)ConTeXtAtGardenToolbarItem;
++(NSToolbarItem *)ConTeXtAtPragmaADEToolbarItem;
++(NSToolbarItem *)ConTeXtManualsToolbarItem;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ConTeXtKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

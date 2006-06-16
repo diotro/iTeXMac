@@ -35,7 +35,7 @@
 @abstract Validates the user interface items.
 @discussion See the NSControl iTeXMac2 category.
 */
-- (BOOL) validateUserInterfaceItems;
+-(BOOL)validateUserInterfaceItems;
 
 /*!
 @method validateToggleExpanded:
@@ -43,7 +43,7 @@
 @discussion See the NSControl iTeXMac2 category.
 @param: sender is the widget to be validated.
 */
-- (BOOL) validateToggleExpanded: (id) sender;
+-(BOOL)validateToggleExpanded:(id)sender;
 
 /*!
 @method validateToggleIgnoreSubexpressions:
@@ -51,7 +51,7 @@
 @discussion See the NSControl iTeXMac2 category.
 @param: sender is the widget to be validated.
 */
-- (BOOL) validateToggleIgnoreSubexpressions: (id) sender;
+-(BOOL)validateToggleIgnoreSubexpressions:(id)sender;
 
 /*!
 @method validateToggleNewlineAnchor:
@@ -59,7 +59,7 @@
 @discussion See the NSControl iTeXMac2 category.
 @param: sender is the widget to be validated.
 */
-- (BOOL) validateToggleNewlineAnchor: (id) sender;
+-(BOOL)validateToggleNewlineAnchor:(id)sender;
 
 /*!
 @method validateToggleNewlineStop:
@@ -67,7 +67,7 @@
 @discussion See the NSControl iTeXMac2 category.
 @param: sender is the widget to be validated.
 */
-- (BOOL) validateToggleNewlineStop: (id) sender;
+-(BOOL)validateToggleNewlineStop:(id)sender;
 
 /*!
 @method validateToggleQuote:
@@ -75,7 +75,7 @@
 @discussion See the NSControl iTeXMac2 category.
 @param: sender is the widget to be validated.
 */
-- (BOOL) validateToggleQuote: (id) sender;
+-(BOOL)validateToggleQuote:(id)sender;
 
 /*!
 @method validateToggleNewlineSensitive:
@@ -83,7 +83,7 @@
 @discussion See the NSControl iTeXMac2 category.
 @param: sender is the widget to be validated.
 */
-- (BOOL) validateToggleNewlineSensitive: (id) sender;
+-(BOOL)validateToggleNewlineSensitive:(id)sender;
 
 /*!
 @method validateToggleType:
@@ -91,6 +91,6 @@
 @discussion See the NSControl iTeXMac2 category.
 @param: sender is the widget to be validated.
 */
-- (BOOL) validateToggleType: (id) sender;
+-(BOOL)validateToggleType:(id)sender;
 
 @end

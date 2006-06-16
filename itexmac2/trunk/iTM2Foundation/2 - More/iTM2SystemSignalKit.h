@@ -39,6 +39,6 @@ extern NSString * const iTM2SystemSignalSIGUSR2Notification;
     @param      None.
     @result     A notification center.
 */
-+ (NSNotificationCenter *) defaultCenter;
++(NSNotificationCenter *)defaultCenter;
 
 @end

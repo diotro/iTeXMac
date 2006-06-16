@@ -48,31 +48,31 @@ NSString * const iTM2AREOptionsKey = @"Options";
 NSString * const iTM2AREToolTipKey = @"ToolTip";
 
 @interface iTM2AREFinderInspector(PRIVATE)
-- (void) setWindowController: (NSWindowController *) argument;
-- (int) menu: (NSMenu *) M insertTemplatesMenuItemsAtPath: (NSString *) path atIndex: (int) index;
-- (void) setRegularExpression: (iTM2ARegularExpression *) argument;
-- (void) check: (id) sender;
-- (BOOL) validateUserInterfaceItems;
-- (void) prepareMainTextView;
-- (void) reset;
-- (void) cleanTemporaryAttributes;
-- (void) tagRanges: (NSArray *) ranges highLight: (BOOL) yorn mark: (BOOL) flag;
-- (BOOL) highlightAndScrollToVisibleRangesAtIndex: (int) index;
-- (int) _replaceAllWithReplacement: (NSMutableArray *) replacement;
-- (int) _replaceMarkedWithReplacement: (NSMutableArray *) replacement;
-- (int) _replaceMatchAtIndex: (int) index withReplacement: (NSMutableArray *) replacement selectWhenDone: (BOOL) yorn;
-- (void) showNext: (id) sender;
+-(void)setWindowController:(NSWindowController *)argument;
+-(int)menu:(NSMenu *)M insertTemplatesMenuItemsAtPath:(NSString *)path atIndex:(int)index;
+-(void)setRegularExpression:(iTM2ARegularExpression *)argument;
+-(void)check:(id)sender;
+-(BOOL)validateUserInterfaceItems;
+-(void)prepareMainTextView;
+-(void)reset;
+-(void)cleanTemporaryAttributes;
+-(void)tagRanges:(NSArray *)ranges highLight:(BOOL)yorn mark:(BOOL)flag;
+-(BOOL)highlightAndScrollToVisibleRangesAtIndex:(int)index;
+-(int)_replaceAllWithReplacement:(NSMutableArray *)replacement;
+-(int)_replaceMarkedWithReplacement:(NSMutableArray *)replacement;
+-(int)_replaceMatchAtIndex:(int)index withReplacement:(NSMutableArray *)replacement selectWhenDone:(BOOL)yorn;
+-(void)showNext:(id)sender;
 @end
 
 @interface NSColor(ARE_PRIVATE)
-+ (NSColor *) regularExpressionColor;
-+ (NSColor *) selectedRegularExpressionColor;
++(NSColor *)regularExpressionColor;
++(NSColor *)selectedRegularExpressionColor;
 @end
 
 @implementation iTM2AREFinderInspector
 static id _iTM2AREFinderInspector = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedInspector
-+ (id) sharedInspector;
++(id)sharedInspector;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -83,7 +83,7 @@ To Do List: ...
     return _iTM2AREFinderInspector? _iTM2AREFinderInspector: (_iTM2AREFinderInspector = [[self alloc] init]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -100,7 +100,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id) init;
+-(id)init;
 /*"One shot designated initializer.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -132,7 +132,7 @@ To Do List: ...
     return [self retain];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -152,7 +152,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allRanges
-- (NSArray *) allRanges;
+-(NSArray *)allRanges;
 /*"Lazy intializer.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -163,7 +163,7 @@ To Do List: ...
     return _AllRanges;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceAllRanges:
-- (void) replaceAllRanges: (NSArray *) argument;
+-(void)replaceAllRanges:(NSArray *)argument;
 /*"The argument is retained such that everything else is retained, the windowController, its content view and all the subviews.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -185,7 +185,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAllRanges:
-- (void) setAllRanges: (NSArray *) argument;
+-(void)setAllRanges:(NSArray *)argument;
 /*"The argument is retained such that everything else is retained, the windowController, its content view and all the subviews.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -204,7 +204,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowController
-- (id) windowController;
+-(id)windowController;
 /*"Lazy intializer.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -220,7 +220,7 @@ To Do List: ...
     return _WC;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setWindowController:
-- (void) setWindowController: (NSWindowController *) argument;
+-(void)setWindowController:(NSWindowController *)argument;
 /*"The argument is retained such that everything else is retained, the windowController, its content view and all the subviews.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -239,7 +239,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  regularExpression
-- (iTM2ARegularExpression *) regularExpression;
+-(iTM2ARegularExpression *)regularExpression;
 /*"Lazy intializer.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -252,7 +252,7 @@ To Do List: ...
     return _RE;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setRegularExpression:
-- (void) setRegularExpression: (iTM2ARegularExpression *) argument;
+-(void)setRegularExpression:(iTM2ARegularExpression *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -272,7 +272,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  show
-- (void) show;
+-(void)show;
 /*"The argument is retained such that everything else is retained, the windowController, its content view and all the subviews.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -286,7 +286,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateUserInterfaceItems
-- (BOOL) validateUserInterfaceItems;
+-(BOOL)validateUserInterfaceItems;
 /*"The argument is retained such that everything else is retained, the windowController, its content view and all the subviews.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -308,7 +308,7 @@ To Do List: ...
     return flag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setWindow:
-- (void) setWindow: (NSWindow *) argument;
+-(void)setWindow:(NSWindow *)argument;
 /*"The argument is retained such that everything else is retained, the windowController, its content view and all the subviews.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -326,7 +326,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerDidLoadNib:
-- (void) windowControllerDidLoadNib: (NSWindowController *) WC;
+-(void)windowControllerDidLoadNib:(NSWindowController *)WC;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -345,7 +345,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textViewDidChangeSelection:
-- (void) textViewDidChangeSelection: (NSNotification *) notification;
+-(void)textViewDidChangeSelection:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -357,7 +357,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textDidChange:
-- (void) textDidChange: (NSNotification *) notification;
+-(void)textDidChange:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -373,7 +373,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidProcessEditingNotified:
-- (void) textStorageDidProcessEditingNotified: (NSNotification *) notification;
+-(void)textStorageDidProcessEditingNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -386,7 +386,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidBecomeMainNotified:
-- (void) windowDidBecomeMainNotified: (NSNotification *) notification;
+-(void)windowDidBecomeMainNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -398,7 +398,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidResignMainNotified:
-- (void) windowDidResignMainNotified: (NSNotification *) notification;
+-(void)windowDidResignMainNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -411,7 +411,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillClose:
-- (void) windowWillClose: (NSNotification *) notification;
+-(void)windowWillClose:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -429,7 +429,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillResize:toSize:
-- (NSSize) windowWillResize: (NSWindow *) sender toSize: (NSSize) frameSize;
+-(NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -441,7 +441,7 @@ To Do List: ...
     return frameSize;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  check:
-- (void) check: (id) sender;
+-(void)check:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 09 2003
@@ -458,7 +458,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCheck:
-- (BOOL) validateCheck: (id) sender;
+-(BOOL)validateCheck:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -469,7 +469,7 @@ To Do List: ...
     return ([[findTextView string] length] && (!_RE || ![_RE compilationStatus]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  find:
-- (void) find: (id) sender;
+-(void)find:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -481,7 +481,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  progressInfoNotified:
-- (void) progressInfoNotified: (NSNotification *) notification;
+-(void)progressInfoNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -494,7 +494,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  listenToProgressInfoFromObject:
-- (void) listenToProgressInfoFromObject: (id) sender;
+-(void)listenToProgressInfoFromObject:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -520,7 +520,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dontListenToProgressInfo
-- (void) dontListenToProgressInfo;
+-(void)dontListenToProgressInfo;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -538,7 +538,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findDelayed:
-- (void) findDelayed: (id) irrelevant;
+-(void)findDelayed:(id)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -660,7 +660,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFind:
-- (BOOL) validateFind: (id) sender;
+-(BOOL)validateFind:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -671,7 +671,7 @@ To Do List: ...
     return ([[_MainTextView string] length] && [[findTextView string] length]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replace:
-- (void) replace: (id) sender;
+-(void)replace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -774,7 +774,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _replaceAllWithReplacement:
-- (int) _replaceAllWithReplacement: (NSMutableArray *) replacement;
+-(int)_replaceAllWithReplacement:(NSMutableArray *)replacement;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -798,7 +798,7 @@ To Do List: ...
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _replaceMarkedWithReplacement:
-- (int) _replaceMarkedWithReplacement: (NSMutableArray *) replacement;
+-(int)_replaceMarkedWithReplacement:(NSMutableArray *)replacement;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -833,7 +833,7 @@ To Do List: ...
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _replaceMatchAtIndex:withReplacement:selectWhenDone:
-- (int) _replaceMatchAtIndex: (int) index withReplacement: (NSMutableArray *) replacement selectWhenDone: (BOOL) yorn;
+-(int)_replaceMatchAtIndex:(int)index withReplacement:(NSMutableArray *)replacement selectWhenDone:(BOOL)yorn;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -979,7 +979,7 @@ To Do List: ...
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateReplace:
-- (BOOL) validateReplace: (id) sender;
+-(BOOL)validateReplace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1002,7 +1002,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showEdited:
-- (void) showEdited: (id) sender;
+-(void)showEdited:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1020,7 +1020,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowEdited:
-- (BOOL) validateShowEdited: (id) sender;
+-(BOOL)validateShowEdited:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1052,7 +1052,7 @@ To Do List: ...
     return (CNT>1);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showNext:
-- (void) showNext: (id) sender;
+-(void)showNext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1068,7 +1068,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowNext:
-- (BOOL) validateShowNext: (id) sender;
+-(BOOL)validateShowNext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1079,7 +1079,7 @@ To Do List: ...
     return ([[self allRanges] count]>1);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showNextMarked:
-- (void) showNextMarked: (id) sender;
+-(void)showNextMarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1116,7 +1116,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowNextMarked:
-- (BOOL) validateShowNextMarked: (id) sender;
+-(BOOL)validateShowNextMarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1127,7 +1127,7 @@ To Do List: ...
     return ([_MarkIndexes count]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showNextUnmarked:
-- (void) showNextUnmarked: (id) sender;
+-(void)showNextUnmarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1167,7 +1167,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowNextUnmarked:
-- (BOOL) validateShowNextUnmarked: (id) sender;
+-(BOOL)validateShowNextUnmarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1178,7 +1178,7 @@ To Do List: ...
     return ([_MarkIndexes count]<[[self allRanges] count]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showPrevious:
-- (void) showPrevious: (id) sender;
+-(void)showPrevious:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1197,7 +1197,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowPrevious:
-- (BOOL) validateShowPrevious: (id) sender;
+-(BOOL)validateShowPrevious:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1208,7 +1208,7 @@ To Do List: ...
     return ([[self allRanges] count]>1);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showPreviousMarked:
-- (void) showPreviousMarked: (id) sender;
+-(void)showPreviousMarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1245,7 +1245,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowPreviousMarked:
-- (BOOL) validateShowPreviousMarked: (id) sender;
+-(BOOL)validateShowPreviousMarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1256,7 +1256,7 @@ To Do List: ...
     return ([_MarkIndexes count]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showPreviousUnmarked:
-- (void) showPreviousUnmarked: (id) sender;
+-(void)showPreviousUnmarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1293,7 +1293,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowPreviousUnmarked:
-- (BOOL) validateShowPreviousUnmarked: (id) sender;
+-(BOOL)validateShowPreviousUnmarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1304,7 +1304,7 @@ To Do List: ...
     return ([_MarkIndexes count]<[[self allRanges] count]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIgnoreCase:
-- (void) toggleIgnoreCase: (id) sender;
+-(void)toggleIgnoreCase:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1317,7 +1317,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleIgnoreCase:
-- (BOOL) validateToggleIgnoreCase: (id) sender;
+-(BOOL)validateToggleIgnoreCase:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1329,7 +1329,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFindMode:
-- (void) toggleFindMode: (id) sender;
+-(void)toggleFindMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1342,7 +1342,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFindMode:
-- (BOOL) validateToggleFindMode: (id) sender;
+-(BOOL)validateToggleFindMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1354,7 +1354,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFindRange:
-- (void) toggleFindRange: (id) sender;
+-(void)toggleFindRange:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1367,7 +1367,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFindRange:
-- (BOOL) validateToggleFindRange: (id) sender;
+-(BOOL)validateToggleFindRange:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1379,7 +1379,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleMarked:
-- (void) toggleMarked: (id) sender;
+-(void)toggleMarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1425,7 +1425,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleMarked:
-- (BOOL) validateToggleMarked: (id) sender;
+-(BOOL)validateToggleMarked:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1446,7 +1446,7 @@ To Do List: ...
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleReplaceMode:
-- (void) toggleReplaceMode: (id) sender;
+-(void)toggleReplaceMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1459,7 +1459,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleReplaceMode:
-- (BOOL) validateToggleReplaceMode: (id) sender;
+-(BOOL)validateToggleReplaceMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1471,7 +1471,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  RE2TeXFind:
-- (void) RE2TeXFind: (id) sender;
+-(void)RE2TeXFind:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1493,7 +1493,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateRE2TeXFind:
-- (BOOL) validateRE2TeXFind: (id) sender;
+-(BOOL)validateRE2TeXFind:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1504,7 +1504,7 @@ To Do List: ...
     return [findTextView selectedRange].length;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  RE2TeXReplace:
-- (void) RE2TeXReplace: (id) sender;
+-(void)RE2TeXReplace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1526,7 +1526,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateRE2TeXReplace:
-- (BOOL) validateRE2TeXReplace: (id) sender;
+-(BOOL)validateRE2TeXReplace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1537,7 +1537,7 @@ To Do List: ...
     return [replaceTextView selectedRange].length;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeX2REFind:
-- (void) TeX2REFind: (id) sender;
+-(void)TeX2REFind:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1559,7 +1559,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTeX2REFind:
-- (BOOL) validateTeX2REFind: (id) sender;
+-(BOOL)validateTeX2REFind:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1570,7 +1570,7 @@ To Do List: ...
     return [findTextView selectedRange].length;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeX2REReplace:
-- (void) TeX2REReplace: (id) sender;
+-(void)TeX2REReplace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1592,7 +1592,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTeX2REReplace:
-- (BOOL) validateTeX2REReplace: (id) sender;
+-(BOOL)validateTeX2REReplace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1603,7 +1603,7 @@ To Do List: ...
     return [replaceTextView selectedRange].length;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showHelp:
-- (void) showHelp: (id) sender;
+-(void)showHelp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1624,7 +1624,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowHelp:
-- (BOOL) validateShowHelp: (id) sender;
+-(BOOL)validateShowHelp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1636,7 +1636,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  templatePopUp:
-- (void) templatePopUp: (id) sender;
+-(void)templatePopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1647,7 +1647,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTemplatePopUp:
-- (BOOL) validateTemplatePopUp: (id) sender;
+-(BOOL)validateTemplatePopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1682,7 +1682,7 @@ To Do List: ...
         path = [myBUNDLE pathForResource:nil ofType:nil inDirectory:iTM2AREFolderName];
 #warning DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD ERROR ERROR
 #warning DOES IT WORK?
-//iTM2_Log(@"path: %@");
+//iTM2_LOG(@"path: %@");
         if([self menu:MM insertTemplatesMenuItemsAtPath:path atIndex:0])
             [MI setSubmenu:MM];
         else
@@ -1718,7 +1718,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menu:insertTemplatesMenuItemsAtPath:atIndex:
-- (int) menu: (NSMenu *) M insertTemplatesMenuItemsAtPath: (NSString *) path atIndex: (int) index;
+-(int)menu:(NSMenu *)M insertTemplatesMenuItemsAtPath:(NSString *)path atIndex:(int)index;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1764,7 +1764,7 @@ To Do List: ...
     return index;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useRepresentedObjectAsTemplatePath:
-- (void) useRepresentedObjectAsTemplatePath: (id) sender;
+-(void)useRepresentedObjectAsTemplatePath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1819,7 +1819,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveAsTemplate:
-- (void) saveAsTemplate: (id) sender;
+-(void)saveAsTemplate:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1851,7 +1851,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  savePanelDidEnd:returnCode:
-- (void) savePanelDidEnd: (NSSavePanel *) SP returnCode: (int) returnCode contextInfo: (NSString *) defaultOpenDirectory;
+-(void)savePanelDidEnd:(NSSavePanel *)SP returnCode:(int)returnCode contextInfo:(NSString *)defaultOpenDirectory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1935,7 +1935,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-- (BOOL) validateMenuItem: (id) sender;
+-(BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1946,7 +1946,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showOptions:
-- (void) showOptions: (id) sender;
+-(void)showOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1968,7 +1968,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanTemporaryAttributes
-- (void) cleanTemporaryAttributes;
+-(void)cleanTemporaryAttributes;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1987,7 +1987,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareMainTextView
-- (void) prepareMainTextView;
+-(void)prepareMainTextView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - 1.3: 03/10/2002
@@ -2022,7 +2022,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  reset
-- (void) reset;
+-(void)reset;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - 1.3: 03/10/2002
@@ -2035,7 +2035,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tagAllRanges:
-- (void) tagAllRanges: (NSArray *) allRanges;
+-(void)tagAllRanges:(NSArray *)allRanges;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -2059,7 +2059,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleFoundRangesAtIndex:
-- (BOOL) highlightAndScrollToVisibleRangesAtIndex: (int) index;
+-(BOOL)highlightAndScrollToVisibleRangesAtIndex:(int)index;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -2099,7 +2099,7 @@ To Do List: ...
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tagRanges:highLight:mark:
-- (void) tagRanges: (NSArray *) ranges highLight: (BOOL) yorn mark: (BOOL) flag;
+-(void)tagRanges:(NSArray *)ranges highLight:(BOOL)yorn mark:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -2192,7 +2192,7 @@ To Do List: ...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSWindow(ARE)
 /*"Description forthcoming."*/
 @implementation NSWindow(iTM2_ARE)
-- (void) showAREFindPanel: (id) sender;
+-(void)showAREFindPanel:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -2207,7 +2207,7 @@ To Do List:
 
 @implementation NSColor(ARE_PRIVATE)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  regularExpressionColor:
-+ (NSColor *) regularExpressionColor;
++(NSColor *)regularExpressionColor;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -2217,7 +2217,7 @@ To Do List:
     return [NSColor colorWithCalibratedRed:0.85 green:0.85 blue:0.94 alpha:1.0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedRegularExpressionColor:
-+ (NSColor *) selectedRegularExpressionColor;
++(NSColor *)selectedRegularExpressionColor;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -2236,7 +2236,7 @@ To Do List:
 
 @implementation iTM2AREFinderOptionsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOptions:
-- (id) initWithOptions: (int) flags;
+-(id)initWithOptions:(int)flags;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2252,7 +2252,7 @@ To Do List: ...
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  optionsByRunningModalConfigurationSheetForWindow:
-- (int) optionsByRunningModalConfigurationSheetForWindow: (NSWindow *) aWindow;
+-(int)optionsByRunningModalConfigurationSheetForWindow:(NSWindow *)aWindow;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2280,7 +2280,7 @@ To Do List: ...
 
 @implementation iTM2AREFinderOptionsInspector(PRIVATE)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateUserInterfaceItems
-- (BOOL) validateUserInterfaceItems;
+-(BOOL)validateUserInterfaceItems;
 /*"The argument is retained such that everything else is retained, the windowController, its content view and all the subviews.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -2296,7 +2296,7 @@ To Do List: ...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleNewlineStop:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleQuote:
 #define MAKEVALIDATETOGGLE(validateToggleOption, mask)\
-- (BOOL) validateToggleOption: (id) sender;\
+-(BOOL)validateToggleOption:(id)sender;\
 {\
     [sender setState:(_NewOptions & mask? NSOnState:NSOffState)];\
     return YES;\
@@ -2307,7 +2307,7 @@ MAKEVALIDATETOGGLE(validateToggleNewlineAnchor, iTM2AREInversePartialNewlineSens
 MAKEVALIDATETOGGLE(validateToggleNewlineStop, iTM2AREPartialNewlineSensitiveMask);
 MAKEVALIDATETOGGLE(validateToggleQuote, iTM2AREQuoteMask);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleNewlineSensitive:
-- (BOOL) validateToggleNewlineSensitive: (id) sender;
+-(BOOL)validateToggleNewlineSensitive:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2323,7 +2323,7 @@ To Do List: ...
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleType:
-- (BOOL) validateToggleType: (id) sender;
+-(BOOL)validateToggleType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2339,7 +2339,7 @@ To Do List: ...
 
 @implementation iTM2AREFinderOptionsInspector(IB)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  OK:
-- (IBAction) OK: (id) sender;
+-(IBAction)OK:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2352,7 +2352,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancel:
-- (IBAction) cancel: (id) sender;
+-(IBAction)cancel:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2369,7 +2369,7 @@ To Do List: ...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleNewlineStop:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleQuote:
 #define MAKETOGGLE(toggleOption, mask)\
-- (IBAction) toggleOption: (id) sender;\
+-(IBAction)toggleOption:(id)sender;\
 {\
     _NewOptions ^= mask;\
     [self validateUserInterfaceItems];\
@@ -2381,7 +2381,7 @@ MAKETOGGLE(toggleNewlineAnchor, iTM2AREInversePartialNewlineSensitiveMask);
 MAKETOGGLE(toggleNewlineStop, iTM2AREPartialNewlineSensitiveMask);
 MAKETOGGLE(toggleQuote, iTM2AREQuoteMask);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleNewlineSensitive:
-- (IBAction) toggleNewlineSensitive: (id) sender;
+-(IBAction)toggleNewlineSensitive:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2403,7 +2403,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleType:
-- (IBAction) toggleType: (id) sender;
+-(IBAction)toggleType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 01/30/2003
@@ -2435,12 +2435,12 @@ To Do List: ...
 #import <iTM2Foundation/iTM2NotificationKit.h>
 
 @interface NSMenu(iTM2AREPullDownButton)
-- (void) _REAddItemsFromArray: (NSArray *) RA action: (SEL) action target: (id) T;
+-(void)_REAddItemsFromArray:(NSArray *)RA action:(SEL)action target:(id)T;
 @end
 
 @implementation iTM2AREPullDownButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromNib:
-- (void) awakeFromNib;
+-(void)awakeFromNib;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2453,7 +2453,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUpMenu;
-- (void) setUpMenu;
+-(void)setUpMenu;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2471,7 +2471,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resourceName
-- (NSString *) resourceName;
+-(NSString *)resourceName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2482,7 +2482,7 @@ To Do List: ...
     return NSStringFromClass([self class]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertRepresentedObject:
-- (void) insertRepresentedObject: (id) sender;
+-(void)insertRepresentedObject:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2543,7 +2543,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-- (BOOL) validateMenuItem: (id) sender;
+-(BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2559,7 +2559,7 @@ To Do List: ...
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAction:
-- (void) setAction: (SEL) aSelector;
+-(void)setAction:(SEL)aSelector;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2571,7 +2571,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTarget:
-- (void) setTarget: (id) argument;
+-(void)setTarget:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2591,7 +2591,7 @@ To Do List: ...
 
 @implementation iTM2AREReferencePullDownButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUpMenu;
-- (void) setUpMenu;
+-(void)setUpMenu;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2640,7 +2640,7 @@ To Do List: ...
 
 @implementation NSMenu(iTM2AREPullDownButton)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _REAddItemsFromArray:target:
-- (void) _REAddItemsFromArray: (NSArray *) RA action: (SEL) action target: (id) T;
+-(void)_REAddItemsFromArray:(NSArray *)RA action:(SEL)action target:(id)T;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002

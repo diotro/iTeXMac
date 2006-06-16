@@ -52,7 +52,7 @@ NSString * const iTM2InspectorTable = @"Inspector";
 
 @implementation NSDocument(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -70,7 +70,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -81,7 +81,7 @@ To Do List:
     return iTM2VoidInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyInspectorType
-+ (NSString *) prettyInspectorType;
++(NSString *)prettyInspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -92,7 +92,7 @@ To Do List:
     return NSLocalizedStringFromTableInBundle([self inspectorType], iTM2InspectorTable, [self classBundle], "pretty inspector type");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  originalFileName
-- (NSString *) originalFileName;
+-(NSString *)originalFileName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -103,7 +103,7 @@ To Do List:
     return [self fileName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartClose
-- (void) smartClose;
+-(void)smartClose;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -117,7 +117,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentWillClose
-- (void) documentWillClose;
+-(void)documentWillClose;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -148,7 +148,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidClose
-- (void) documentDidClose;
+-(void)documentDidClose;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -179,7 +179,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  document:shouldSmartClose:a0213:
-- (void) document:(NSDocument *) doc shouldSmartClose:(BOOL) shouldClose a0213:(void *) irrelevant;
+-(void)document:(NSDocument *) doc shouldSmartClose:(BOOL) shouldClose a0213:(void *) irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004perform
@@ -197,7 +197,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cannotCloseWithNoFileImage
-- (BOOL) cannotCloseWithNoFileImage;
+-(BOOL)cannotCloseWithNoFileImage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -209,7 +209,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
-- (void)swizzled_canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
+-(void)swizzled_canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
     // If the document is not dirty, this method will immediately call the callback with YES.  If the document is dirty, an alert will be presented giving the user a chance to save, not save or cancel.  If the user chooses to save, this method will save the document.  If the save completes successfully, this method will call the callback with YES.  If the save is cancelled or otherwise unsuccessful, this method will call the callback with NO.  This method is called by shouldCloseWindowController:sometimes.  It is also called by NSDocumentController's -closeAllDocuments.  You should call it before you call -close if you are closing the document and want to give the user a chance save any edits.
     // shouldCloseSelector should have the following signature:
     // - (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo
@@ -240,7 +240,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_document:forwardShouldClose:toInvocation:
-- (void) iTM2_document:(NSDocument *) doc forwardShouldClose:(BOOL) shouldClose toInvocation:(id) invocation;
+-(void)iTM2_document:(NSDocument *) doc forwardShouldClose:(BOOL) shouldClose toInvocation:(id) invocation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004perform
@@ -274,7 +274,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _noFileSheetDidDismiss:returnCode:invocation:
-- (void) _noFileSheetDidDismiss:(NSWindow *) unused returnCode:(int) returnCode invocation:(NSInvocation *) invocation;
+-(void)_noFileSheetDidDismiss:(NSWindow *) unused returnCode:(int) returnCode invocation:(NSInvocation *) invocation;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -291,7 +291,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelTypeForFileType:
-- (NSString *) modelTypeForFileType:(NSString *) fileType;
+-(NSString *)modelTypeForFileType:(NSString *) fileType;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -303,7 +303,7 @@ To Do List:
     return fileType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelType
-- (NSString *) modelType;
+-(NSString *)modelType;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -315,7 +315,7 @@ To Do List:
     return [self modelTypeForFileType:[self fileType]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  frontWindow
-- (id) frontWindow;
+-(id)frontWindow;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -337,7 +337,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-   UPDATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= needsToUpdate
-- (BOOL) needsToUpdate;
+-(BOOL)needsToUpdate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -355,7 +355,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= recordFileModificationDateFromURL:
-- (void) recordFileModificationDateFromURL:(NSURL *) fileURL;
+-(void)recordFileModificationDateFromURL:(NSURL *) fileURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -366,7 +366,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lastFileModificationDate
-- (NSDate *) lastFileModificationDate;
+-(NSDate *)lastFileModificationDate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -377,7 +377,7 @@ To Do List:
     return [NSDate distantFuture];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
-- (void) updateIfNeeded;
+-(void)updateIfNeeded;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -389,7 +389,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-   CONTEXT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id) currentContextManager;
+-(id)currentContextManager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -401,7 +401,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
-- (void) takeContextValue:(id) object forKey:(NSString *) aKey;
+-(void)takeContextValue:(id) object forKey:(NSString *) aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002
@@ -418,7 +418,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextDictionaryFromFile:
-+ (id) contextDictionaryFromFile:(NSString *) fullDocumentPath;
++(id)contextDictionaryFromFile:(NSString *) fullDocumentPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -446,7 +446,7 @@ To Do List:
 	return [[MD copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= printInfoCompleteReadFromURL:ofType:error:
-- (BOOL) printInfoCompleteReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
+-(BOOL)printInfoCompleteReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -479,7 +479,7 @@ To Do List:
     return YES;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  preparePrintInfoCompleteWriteToURL:ofType:error:
-- (BOOL) preparePrintInfoCompleteWriteToURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)error;
+-(BOOL)preparePrintInfoCompleteWriteToURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)error;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -499,7 +499,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openInspectorsCompleteSaveContext:
-- (void) openInspectorsCompleteSaveContext:(id) irrelevant;
+-(void)openInspectorsCompleteSaveContext:(id) irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -534,7 +534,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext:
-- (void) saveContext:(id) sender;
+-(void)saveContext:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -561,7 +561,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= readContextFromURL:ofType:error:
-- (BOOL) readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError **)outError;
+-(BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError **)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -593,7 +593,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= writeContextToURL:ofType:error:
-- (BOOL) writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError;
+-(BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -626,10 +626,10 @@ To Do List:
 @end
 
 @interface iTM2Document(PRIVATE)
-- (void) document:(id) document didSave:(BOOL) flag inspectorContextInfo:(NSDictionary *) contextInfo;
+-(void)document:(id) document didSave:(BOOL) flag inspectorContextInfo:(NSDictionary *) contextInfo;
 @end
 @interface NSObject(PRIVATE)
-- (NSString *) contextDictionaryPath;
+-(NSString *)contextDictionaryPath;
 @end
 @interface iTM2ExternalInspectorServer:iTM2ObjectServer
 @end
@@ -642,7 +642,7 @@ static NSMutableDictionary * _iTM2SetResourceSelectors = nil;
 static NSMutableArray * _iTM2LoadExtendedAttributesSelectors = nil;
 static NSMutableArray * _iTM2GetExtendedAttributesSelectors = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version History: Originally created by RK, huge corrections by JL.
 To do list:
@@ -666,7 +666,7 @@ To do list:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id) init;
+-(id)init;
 /*"Designated intializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -690,7 +690,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -710,7 +710,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  userDefaultsDidChange:
-- (void) userDefaultsDidChange:(NSNotification *) notification;
+-(void)userDefaultsDidChange:(NSNotification *) notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -722,7 +722,7 @@ To Do List:
 }
 NSString * const iTM2DKDirectoryNameKey = @"directoryName";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileURL:
-- (void) setFileURL:(NSURL *) url;
+-(void)setFileURL:(NSURL *) url;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (08/29/2001):
 - 1.3:03/10/2002
@@ -744,7 +744,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  directoryName
-- (NSString *) directoryName;
+-(NSString *)directoryName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (08/29/2001):
 - 1.3:03/10/2002
@@ -761,7 +761,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fileAttributes
-- (NSDictionary *) fileAttributes;
+-(NSDictionary *)fileAttributes;
 /*"Description forthcoming."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -769,7 +769,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=  MODEL OBJECT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
-- (id) implementation;
+-(id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -780,7 +780,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void) setImplementation:(id) argument;
+-(void)setImplementation:(id) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -796,7 +796,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isDocumentEdited
-- (BOOL) isDocumentEdited;
+-(BOOL)isDocumentEdited;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed 05 mar 03
@@ -816,7 +816,7 @@ To Do List:
 NSString * const iTM2PrivateContextInfoPrefix = @"_iTM2:";
 #pragma mark =-=-=-=-=-=-=-=  USER INTERFACE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorAddedWithMode:
-- (id) inspectorAddedWithMode:(NSString *) mode;
+-(id)inspectorAddedWithMode:(NSString *) mode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -828,7 +828,7 @@ To Do List:
 	return [self inspectorAddedWithMode:mode error:nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorAddedWithMode:error:
-- (id) inspectorAddedWithMode:(NSString *) mode error:(NSError**)outError;
+-(id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -881,7 +881,7 @@ To Do List:
             }
 			else
 			{
-				iTM2_REPORTERROR(1, ([NSString stringWithFormat:@"Unknown inspector type:\n%@\nfor mode:\n%@\nfor variants:\n%@", type, mode,variants]), nil);
+				iTM2_LOG([NSString stringWithFormat:@"Unknown inspector type:\n%@\nfor mode:\n%@\nfor variants:\n%@", type, mode,variants]);
 			}
         }
     }
@@ -919,7 +919,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceInspectorMode:variant:
-- (void) replaceInspectorMode:(NSString *) mode variant:(NSString *) variant;
+-(void)replaceInspectorMode:(NSString *) mode variant:(NSString *) variant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan  4 09:17:42 GMT 2005
@@ -994,7 +994,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addWindowController:
-- (void) addWindowController:(NSWindowController *) WC;
+-(void)addWindowController:(NSWindowController *) WC;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1069,7 +1069,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didAddWindowController:
-- (void) didAddWindowController:(id) WC;
+-(void)didAddWindowController:(id) WC;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1081,7 +1081,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeWindowController:
-- (void) removeWindowController:(NSWindowController *) windowController;
+-(void)removeWindowController:(NSWindowController *) windowController;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1100,7 +1100,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willRemoveWindowController:
-- (void) willRemoveWindowController:(id) WC;
+-(void)willRemoveWindowController:(id) WC;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1111,7 +1111,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeWindowControllers
-- (void) makeWindowControllers;
+-(void)makeWindowControllers;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1184,7 +1184,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeDefaultInspector
-- (void) makeDefaultInspector;
+-(void)makeDefaultInspector;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1261,7 +1261,7 @@ here:
 }
 #pragma mark =-=-=-=-=-=-=-=  I/O
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadFileWrapperRepresentation:ofType:
-- (BOOL) loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type;
+-(BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type;
 /*"This prevents the inherited methods to automatically load the data.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1272,7 +1272,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+-(BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1340,7 +1340,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteReadFromURL:ofType:error:
-- (BOOL) dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)error;
+-(BOOL)dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1356,7 +1356,7 @@ To Do List:
     return [self loadDataRepresentation:[NSData dataWithContentsOfURL:absoluteURL options:0 error:error] ofType:typeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resourcesCompleteReadFromURL:ofType:error:
-- (BOOL) resourcesCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+-(BOOL)resourcesCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1500,7 +1500,7 @@ To Do List:
     return YES;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadIDResourceTemplate:
-- (void) loadIDResourceTemplate:(id) resourceContent;
+-(void)loadIDResourceTemplate:(id) resourceContent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1512,7 +1512,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didReadFromURL:ofType:error:
-- (void) didReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+-(void)didReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1551,7 +1551,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _0213_DidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (void) _0213_DidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType) saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError**)error;
+-(void)_0213_DidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType) saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError**)error;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1563,7 +1563,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
+-(BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
 //- (BOOL) writeToFile:(NSString *) fullDocumentPath ofType:(NSString *) typeName originalFile:(NSString *) fullOriginalDocumentPath saveOperation:(NSSaveOperationType) saveOperation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -1753,7 +1753,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
-- (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+-(BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1814,7 +1814,7 @@ To Do List:
     return result || superResult;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteWriteToURL:ofType:error:
-- (BOOL) dataCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) error;
+-(BOOL)dataCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1832,7 +1832,7 @@ To Do List:
     return [(D? D:[NSData data]) writeToURL:absoluteURL options:NSAtomicWrite error:error];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resourcesCompleteWriteToURL:ofType:error:
-- (BOOL) resourcesCompleteWriteToURL:(NSURL *) absoluteURL ofType:(NSString *) typeName error:(NSError**)error;
+-(BOOL)resourcesCompleteWriteToURL:(NSURL *) absoluteURL ofType:(NSString *) typeName error:(NSError**)error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1966,7 +1966,7 @@ else NSLog(@"No spec");
     return YES;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getIDResourceTemplate:
-- (void) getIDResourceTemplate:(id *) resourceContentPtr;
+-(void)getIDResourceTemplate:(id *) resourceContentPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1978,7 +1978,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willSave
-- (void) willSave;
+-(void)willSave;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1991,7 +1991,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didSave
-- (void) didSave;
+-(void)didSave;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2018,7 +2018,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
-- (NSData *) dataRepresentationOfType:(NSString *) type;
+-(NSData *)dataRepresentationOfType:(NSString *) type;
 /*"Returns YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1:05/04/2002
@@ -2029,7 +2029,7 @@ To Do List:
     return [IMPLEMENTATION dataRepresentationOfType:type];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
-- (BOOL) loadDataRepresentation:(NSData *) data ofType:(NSString *) type;
+-(BOOL)loadDataRepresentation:(NSData *) data ofType:(NSString *) type;
 /*"Returns YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1:05/04/2002
@@ -2041,7 +2041,7 @@ To Do List:
     return [IMPLEMENTATION loadDataRepresentation:data ofType:type];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataRepresentation
-- (NSData *) dataRepresentation;
+-(NSData *)dataRepresentation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2052,7 +2052,7 @@ To Do List:
     return [self dataRepresentationOfType:[self modelType]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setDataRepresentation:
-- (void) setDataRepresentation:(NSData *) data;
+-(void)setDataRepresentation:(NSData *) data;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2064,7 +2064,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileAttributesToWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
+-(NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
 /*"From Developer/Documentation/Cocoa/TasksAndConcepts/ProgrammingTopics/Documents/Tasks/SavingHFSTypeCodes.html.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3:09/11/2003
@@ -2102,7 +2102,7 @@ To Do List:
     return newAttributes;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keepBackupFile
-- (BOOL) keepBackupFile;
+-(BOOL)keepBackupFile;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2113,7 +2113,7 @@ To Do List:
     return [self contextBoolForKey:@"iTM2KeepBackup"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:error:
-- (BOOL) writeToDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
+-(BOOL)writeToDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed 05 mar 03
@@ -2129,7 +2129,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromDirectoryWrapper:error:
-- (BOOL) readFromDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
+-(BOOL)readFromDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed 05 mar 03
@@ -2148,7 +2148,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= hasBeenModifiedExternally
-- (BOOL) hasBeenModifiedExternally;
+-(BOOL)hasBeenModifiedExternally;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2168,7 +2168,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-   CONTEXT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionary
-- (id) contextDictionary;
+-(id)contextDictionary;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2185,7 +2185,7 @@ To Do List:
     return CD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextDictionary:
-- (void) setContextDictionary:(id) dictionary;
+-(void)setContextDictionary:(id) dictionary;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2199,7 +2199,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-   UPDATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= recordFileModificationDateFromURL:
-- (void) recordFileModificationDateFromURL:(NSURL *)absoluteURL;
+-(void)recordFileModificationDateFromURL:(NSURL *)absoluteURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -2217,7 +2217,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lastFileModificationDate
-- (NSDate *) lastFileModificationDate;
+-(NSDate *)lastFileModificationDate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -2228,7 +2228,7 @@ To Do List:
     return metaGETTER?:[super lastFileModificationDate];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
-- (void) updateIfNeeded;
+-(void)updateIfNeeded;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -2251,13 +2251,13 @@ To Do List:
 #import <objc/objc-class.h>
 
 @interface iTM2WindowControllerServer:iTM2ObjectServer
-+ (void) WCCompleteInstallation;
-+ (BOOL) registerPlugInAtPath:(NSString *) path;
++(void)WCCompleteInstallation;
++(BOOL)registerPlugInAtPath:(NSString *) path;
 @end
 @implementation iTM2WindowControllerServer
 static NSMutableDictionary * _iTM2WindowControllerServerDictionary = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2278,7 +2278,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mutableDictionary
-+ (NSMutableDictionary *) mutableDictionary;
++(NSMutableDictionary *)mutableDictionary;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2289,7 +2289,7 @@ To Do List:
     return _iTM2WindowControllerServerDictionary;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bundleDidLoadNotified:
-+ (void) bundleDidLoadNotified:(NSNotification *) notification;
++(void)bundleDidLoadNotified:(NSNotification *) notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2302,7 +2302,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  WCCompleteInstallation
-+ (void) WCCompleteInstallation;
++(void)WCCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2377,7 +2377,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerPlugInAtPath:
-+ (BOOL) registerPlugInAtPath:(NSString *) path;
++(BOOL)registerPlugInAtPath:(NSString *) path;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2434,7 +2434,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(iTM2DocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowLoadingCompleteInstallation
-+ (void) windowLoadingCompleteInstallation;
++(void)windowLoadingCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2459,7 +2459,7 @@ To Do List:
 
 @implementation NSWindowController(iTM2DocumenKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerServer
-+ (id) windowControllerServer;
++(id)windowControllerServer;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2471,7 +2471,7 @@ To Do List:
     return [iTM2WindowControllerServer class];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isInstanceUnique
-+ (BOOL) isInstanceUnique;
++(BOOL)isInstanceUnique;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2482,7 +2482,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowNibName
-+ (NSString *) windowNibName;
++(NSString *)windowNibName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2493,7 +2493,7 @@ To Do List:
     return NSStringFromClass(self);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2504,7 +2504,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyInspectorType
-+ (NSString *) prettyInspectorType;
++(NSString *)prettyInspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2517,7 +2517,7 @@ To Do List:
     return [NSBundle bundleForClass:self localizedStringForKey:key value:key table:iTM2InspectorTable];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+ (NSString *) inspectorMode;
++(NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2528,7 +2528,7 @@ To Do List:
     return iTM2DefaultInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyInspectorMode
-+ (NSString *) prettyInspectorMode;
++(NSString *)prettyInspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2543,7 +2543,7 @@ To Do List:
     return [NSBundle bundleForClass:self localizedStringForKey:key value:key table:iTM2InspectorTable];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
-+ (NSString *) inspectorVariant;
++(NSString *)inspectorVariant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2554,7 +2554,7 @@ To Do List:
     return iTM2DefaultInspectorVariant;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyInspectorVariant
-+ (NSString *) prettyInspectorVariant;
++(NSString *)prettyInspectorVariant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2567,7 +2567,7 @@ To Do List:
     return [NSBundle bundleForClass:self localizedStringForKey:key value:key table:iTM2InspectorTable];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allInspectorVariantsForType:
-+ (NSArray *) allInspectorVariantsForType:(NSString *) type;
++(NSArray *)allInspectorVariantsForType:(NSString *) type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2578,7 +2578,7 @@ To Do List:
     return [type isEqual:[self inspectorType]]? [NSArray arrayWithObject:[self inspectorVariant]]:[NSArray array];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorClassForType:mode:variant:
-+ (Class) inspectorClassForType:(NSString *) type mode:(NSString *) mode variant:(NSString *) variant;
++(Class)inspectorClassForType:(NSString *) type mode:(NSString *) mode variant:(NSString *) variant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2597,7 +2597,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorModesForType:
-+ (NSArray *) inspectorModesForType:(NSString *) type;
++(NSArray *)inspectorModesForType:(NSString *) type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2610,7 +2610,7 @@ To Do List:
     return [[[self windowControllerServer] keyEnumeratorForType:type] allObjects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorClassesEnumeratorForType:mode:
-+ (NSEnumerator *) inspectorClassesEnumeratorForType:(NSString *) type mode:(NSString *) mode;
++(NSEnumerator *)inspectorClassesEnumeratorForType:(NSString *) type mode:(NSString *) mode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2621,7 +2621,7 @@ To Do List:
     return [[[self windowControllerServer] objectForType:type key:mode] objectEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
-- (NSString *) inspectorVariant;
+-(NSString *)inspectorVariant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2632,7 +2632,7 @@ To Do List:
     return iTM2DefaultInspectorVariant;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setInspectorVariant:
-- (void) setInspectorVariant:(NSString *) argument;
+-(void)setInspectorVariant:(NSString *) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2643,7 +2643,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyInspectorVariant
-- (NSString *) prettyInspectorVariant;
+-(NSString *)prettyInspectorVariant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2654,7 +2654,7 @@ To Do List:
     return NSLocalizedStringFromTableInBundle([self inspectorVariant], iTM2InspectorTable, [self classBundle], "pretty inspector variant");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeDocument
-- (void) synchronizeDocument;
+-(void)synchronizeDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2667,7 +2667,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument
-- (void) synchronizeWithDocument;
+-(void)synchronizeWithDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2681,7 +2681,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isInspectorEdited
-- (BOOL) isInspectorEdited;
+-(BOOL)isInspectorEdited;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2692,7 +2692,7 @@ To Do List:
     return [[IMPLEMENTATION metaValueForKey:@"isInspectorEdited"] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setInspectorEdited:
-- (void) setInspectorEdited:(BOOL) flag;
+-(void)setInspectorEdited:(BOOL) flag;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2704,7 +2704,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateChangeCount:
-- (void) updateChangeCount:(NSDocumentChangeType) change;
+-(void)updateChangeCount:(NSDocumentChangeType) change;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2732,7 +2732,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzled_windowWillLoad
-- (void) iTM2_swizzled_windowWillLoad;
+-(void)iTM2_swizzled_windowWillLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2766,7 +2766,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzled_windowDidLoad
-- (void) iTM2_swizzled_windowDidLoad;
+-(void)iTM2_swizzled_windowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2800,7 +2800,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowFrameIdentifier
-- (NSString *) windowFrameIdentifier;
+-(NSString *)windowFrameIdentifier;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2816,7 +2816,7 @@ To Do List:
 @end
 @implementation iTM2VoidInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2830,7 +2830,7 @@ To Do List:
 
 @implementation iTM2Inspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithWindow:
-- (id) initWithWindow:(NSWindow *) window;
+-(id)initWithWindow:(NSWindow *) window;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2846,7 +2846,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
-- (id) initWithCoder:(NSCoder *) aDecoder;
+-(id)initWithCoder:(NSCoder *) aDecoder;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2861,7 +2861,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
-- (void) initImplementation;
+-(void)initImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2875,7 +2875,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2895,7 +2895,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
-- (id) implementation;
+-(id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2906,7 +2906,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void) setImplementation:(id) argument;
+-(void)setImplementation:(id) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2922,7 +2922,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowNibPath;
-- (NSString *) windowNibPath;  
+-(NSString *)windowNibPath;  
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2950,7 +2950,7 @@ To Do List:
     return path;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
-- (void) windowDidLoad;
+-(void)windowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2982,7 +2982,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
-- (NSString *) inspectorVariant;
+-(NSString *)inspectorVariant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2993,7 +2993,7 @@ To Do List:
     return metaGETTER?:[super inspectorVariant];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setInspectorVariant:
-- (void) setInspectorVariant:(NSString *) argument;
+-(void)setInspectorVariant:(NSString *) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3005,7 +3005,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent:
-- (BOOL) validateWindowContent:(id) sender;
+-(BOOL)validateWindowContent:(id) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3018,7 +3018,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CANCEL management
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backupModel
-- (void) backupModel;
+-(void)backupModel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -3039,7 +3039,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  restoreModel
-- (void) restoreModel;
+-(void)restoreModel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -3060,7 +3060,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModelBackup:(id) backup forKey:
-- (void) takeModelBackup:(id) backup forKey:(NSString *) key;
+-(void)takeModelBackup:(id) backup forKey:(NSString *) key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -3073,7 +3073,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelBackupForKey:
-- (id) modelBackupForKey:(NSString *) key;
+-(id)modelBackupForKey:(NSString *) key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -3091,7 +3091,7 @@ To Do List:
 @end
 @implementation iTM2InspectorResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleInspector:
-- (IBAction) toggleInspector:(id) sender;
+-(IBAction)toggleInspector:(id) sender;
 /*"Description forthcoming. validationt catcher
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Feb  3 09:56:38 GMT 2004
@@ -3104,7 +3104,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleInspector:
-- (BOOL) validateToggleInspector:(id) sender;
+-(BOOL)validateToggleInspector:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Feb  3 09:56:38 GMT 2004
@@ -3138,7 +3138,7 @@ To Do List:
 
 @implementation iTM2InspectorMenu
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithTitle:
-- (id) initWithTitle:(NSString *) title;
+-(id)initWithTitle:(NSString *) title;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3157,7 +3157,7 @@ To Do List:
 	return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3171,7 +3171,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidChangeMainStatusNotified:
-- (void) windowDidChangeMainStatusNotified:(NSNotification *) notification;
+-(void)windowDidChangeMainStatusNotified:(NSNotification *) notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3184,7 +3184,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  update
-- (void) update;
+-(void)update;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3304,7 +3304,7 @@ while(mi = [E nextObject])
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleInspector:
-- (IBAction) toggleInspector:(NSMenuItem *) sender;
+-(IBAction)toggleInspector:(NSMenuItem *) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3335,7 +3335,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleInspector:
-- (BOOL) validateToggleInspector:(id) sender;
+-(BOOL)validateToggleInspector:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Feb  3 09:56:38 GMT 2004
@@ -3353,7 +3353,7 @@ To Do List:
     return ![D isDocumentEdited];// beware:the undo stack is not managed if you change the inspector while the document is edited
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleExternalInspector:
-- (IBAction) toggleExternalInspector:(NSMenuItem *) sender;
+-(IBAction)toggleExternalInspector:(NSMenuItem *) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3370,7 +3370,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleExternalInspector:
-- (BOOL) validateToggleExternalInspector:(id) sender;
+-(BOOL)validateToggleExternalInspector:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Feb  3 09:56:38 GMT 2004
@@ -3392,14 +3392,14 @@ NSString * const iTM2UDSmartUndoKey = @"iTM2UDSmartUndo";
 NSString * const iTM2UDLevelsOfUndoKey = @"iTM2UDLevelsOfUndo";
 
 @interface iTM2UndoManager(PRIVATE)
-- (void) undoPastSaveSheetDidEnd:(NSWindow *) unused returnCode:(int) returnCode irrelevantInfo:(void *) irrelevant;
+-(void)undoPastSaveSheetDidEnd:(NSWindow *) unused returnCode:(int) returnCode irrelevantInfo:(void *) irrelevant;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2UndoManager
 /*"Description forthcoming."*/
 @implementation iTM2UndoManager
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (12/18/2001).
 To do list:
@@ -3417,7 +3417,7 @@ To do list:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  undo
-- (void) undo;
+-(void)undo;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3455,7 +3455,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _undoPastSaveSheetDidDismiss:returnCode:irrelevantInfo:
-- (void) _undoPastSaveSheetDidDismiss:(NSWindow *) unused returnCode:(int) returnCode irrelevantInfo:(void *) irrelevant;
+-(void)_undoPastSaveSheetDidDismiss:(NSWindow *) unused returnCode:(int) returnCode irrelevantInfo:(void *) irrelevant;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3469,7 +3469,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderHelperFront
-- (void) orderHelperFront;
+-(void)orderHelperFront;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3488,7 +3488,7 @@ NSString * const iTM2ExternalInspectorMode = @"iTM2ExternalInspector";
 
 @implementation iTM2ExternalInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+ (NSString *) inspectorMode;
++(NSString *)inspectorMode;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3500,7 +3500,7 @@ To Do List:
 	return iTM2ExternalInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allInspectorVariantsForType:
-+ (NSArray *) allInspectorVariantsForType:(NSString *) type;
++(NSArray *)allInspectorVariantsForType:(NSString *) type;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3513,7 +3513,7 @@ To Do List:
 	return E? [E allObjects]:[NSArray array];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchToExternalHelperWithEnvironment:
-- (BOOL) switchToExternalHelperWithEnvironment:(NSDictionary *) environment;
+-(BOOL)switchToExternalHelperWithEnvironment:(NSDictionary *) environment;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3547,7 +3547,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _taskDidTerminate:
-- (void) _taskDidTerminate:(NSNotification *) notification;
+-(void)_taskDidTerminate:(NSNotification *) notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3:Mon Jun 02 2003
@@ -3561,7 +3561,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
-- (NSString *) windowTitleForDocumentDisplayName:(NSString *) displayName;
+-(NSString *)windowTitleForDocumentDisplayName:(NSString *) displayName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3572,7 +3572,7 @@ To Do List:
     return [[super windowTitleForDocumentDisplayName:displayName] stringByAppendingFormat:@" (%@)", [self inspectorVariant]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
-- (NSString *) inspectorVariant;
+-(NSString *)inspectorVariant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3583,7 +3583,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setInspectorVariant:
-- (void) setInspectorVariant:(NSString *) argument;
+-(void)setInspectorVariant:(NSString *) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3598,7 +3598,7 @@ To Do List:
 
 @implementation iTM2ExternalWindow
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeMainWindow
-- (void) makeMainWindow;
+-(void)makeMainWindow;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3613,7 +3613,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeKeyWindow
-- (void) makeKeyWindow;
+-(void)makeKeyWindow;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3628,7 +3628,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeKeyAndOrderFront:
-- (void) makeKeyAndOrderFront:(id) sender;
+-(void)makeKeyAndOrderFront:(id) sender;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3643,7 +3643,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFront:
-- (void) orderFront:(id) sender;
+-(void)orderFront:(id) sender;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3662,7 +3662,7 @@ To Do List:
 @implementation iTM2ExternalInspectorServer
 static NSMutableDictionary * _iTM2ExternalInspectorServerDictionary = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3682,7 +3682,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mutableDictionary
-+ (NSMutableDictionary *) mutableDictionary;
++(NSMutableDictionary *)mutableDictionary;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

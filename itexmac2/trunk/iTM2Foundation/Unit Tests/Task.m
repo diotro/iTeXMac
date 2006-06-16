@@ -14,7 +14,7 @@
 
 @implementation Task
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  testTaskController
-- (void) testTaskController;
+-(void)testTaskController;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/10/2002
@@ -41,7 +41,7 @@ printf("the task controller should be dealloced now\n");
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  testTaskController1
-- (void) testTaskController1;
+-(void)testTaskController1;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/10/2002
@@ -83,7 +83,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timed:
-- (void) timed: (NSTimer *) aTimer;
+-(void)timed:(NSTimer *)aTimer;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/10/2002

@@ -116,7 +116,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     The name
 */
-- (NSString *) projectName;
+-(NSString *)projectName;
 
 /*! 
     @method     wrapperName
@@ -126,7 +126,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     The wrapper file name
 */
-- (NSString *) wrapperName;
+-(NSString *)wrapperName;
 
 /*! 
     @method     wrapperURL
@@ -136,7 +136,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     The wrapper file name
 */
-- (NSURL *) wrapperURL;
+-(NSURL *)wrapperURL;
 
 /*! 
     @method     wrapper
@@ -145,7 +145,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     The wrapper document
 */
-- (id) wrapper;
+-(id)wrapper;
 
 /*! 
     @method     setWrapper:
@@ -154,7 +154,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      The new wrapper document
     @result     None
 */
-- (void) setWrapper: (id) argument;
+-(void)setWrapper:(id)argument;
 
 /*! 
     @method     subdocuments
@@ -167,7 +167,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      Irrelevant.
     @result     None.
 */
-- (id) subdocuments;
+-(id)subdocuments;
 
 /*! 
     @method     saveSubdocuments:
@@ -176,7 +176,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      Irrelevant.
     @result     None.
 */
-- (void) saveSubdocuments: (id) sender;
+-(void)saveSubdocuments:(id)sender;
 
 /*! 
     @method     addSubdocument:
@@ -189,7 +189,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      document to be added.
     @result     None.
 */
-- (void) addSubdocument: (id) document;
+-(void)addSubdocument:(id)document;
 
 /*! 
     @method     removeSubdocument:
@@ -198,7 +198,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      document to be removed.
     @result     None.
 */
-- (void) removeSubdocument: (id) document;
+-(void)removeSubdocument:(id)document;
 
 /*! 
     @method     closeSubdocument:
@@ -207,7 +207,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      document to be forgotten.
     @result     None.
 */
-- (void) closeSubdocument: (id) document;
+-(void)closeSubdocument:(id)document;
 
 /*! 
     @method     ownsSubdocument:
@@ -216,7 +216,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      document to be quesried about.
     @result     yorn.
 */
-- (BOOL) ownsSubdocument: (id) document;
+-(BOOL)ownsSubdocument:(id)document;
 
 /*! 
     @method     keyForFileName:
@@ -241,7 +241,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName is a full path name, or relative to the project directory, posszibly converted if internal
     @result     An NSMutableDictionary
 */
-- (NSString *) keyForFileName: (NSString *) fileName;
+-(NSString *)keyForFileName:(NSString *)fileName;
 
 /*! 
     @method     showSubdocuments:
@@ -250,7 +250,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (void) showSubdocuments: (id) sender;
+-(void)showSubdocuments:(id)sender;
 
 /*! 
     @method     showSettings:
@@ -259,7 +259,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (void) showSettings: (id) sender;
+-(void)showSettings:(id)sender;
 
 /*! 
     @method     makeDefaultInspector
@@ -269,7 +269,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     None
 */
-- (void) makeDefaultInspector;
+-(void)makeDefaultInspector;
 
 /*! 
     @method     makeSubdocumentsInspector
@@ -279,8 +279,8 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     None
 */
-- (void) makeSubdocumentsInspector;
-- (id) subdocumentsInspector;
+-(void)makeSubdocumentsInspector;
+-(id)subdocumentsInspector;
 
 /*! 
     @method     prepareFrontendCompleteWriteToURL:ofType:error:
@@ -290,7 +290,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     result forthcoming
 */
-- (BOOL) prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outError;
+-(BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outError;
 
 /*! 
     @method     projectCompleteWillClose
@@ -299,7 +299,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     result forthcoming
 */
-- (void) projectCompleteWillClose;
+-(void)projectCompleteWillClose;
 
 /*! 
     @method     subdocumentMightHaveClosed
@@ -308,7 +308,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     result forthcoming
 */
-- (void) subdocumentMightHaveClosed;
+-(void)subdocumentMightHaveClosed;
 
 /*! 
     @method     newKeyForFileName:
@@ -318,7 +318,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName is a full path name, or relative to the project directory
     @result     a unique key identifier
 */
-- (NSString *) newKeyForFileName: (NSString *) fileName;
+-(NSString *)newKeyForFileName:(NSString *)fileName;
 
 /*! 
     @method     newKeyForFileName:save:
@@ -331,7 +331,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      yorn is a flag indicating whether the project should save if a new key is really created
     @result     a unique key identifier
 */
-- (NSString *)newKeyForFileName:(NSString *)fileName save:(BOOL)yorn;
+-(NSString *)newKeyForFileName:(NSString *)fileName save:(BOOL)yorn;
 
 /*! 
     @method     saveAllSubdocumentsWithDelegate:didSaveAllSelector:contextInfo:
@@ -342,7 +342,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      context info
     @result     None
 */
-- (void) saveAllSubdocumentsWithDelegate: (id) delegate didSaveAllSelector: (SEL) action contextInfo: (void *) contextInfo;
+-(void)saveAllSubdocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
 
 /*! 
     @method     keysDidChange
@@ -351,7 +351,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     None
 */
-- (void)keysDidChange;
+-(void)keysDidChange;
 
 /*! 
     @method     nextAvailableKey
@@ -369,7 +369,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName is a full path name
     @result     a unique key identifier
 */
-- (NSString *) nextAvailableKey;
+-(NSString *)nextAvailableKey;
 
 /*! 
     @method     removeKey:
@@ -381,7 +381,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName is a full path name
     @result     a unique key identifier
 */
-- (void) removeKey: (NSString *) key;
+-(void)removeKey:(NSString *)key;
 
 /*! 
     @method     allKeys
@@ -390,7 +390,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     an NSArray
 */
-- (NSArray *) allKeys;
+-(NSArray *)allKeys;
 
 /*! 
     @method     relativeFileNameForKey:
@@ -400,8 +400,8 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      a key
     @result     an NSString
 */
-- (NSString *) relativeFileNameForKey: (NSString *) key;
-- (NSArray *)relativeFileNamesForKeys:(NSArray *)keys;
+-(NSString *)relativeFileNameForKey:(NSString *)key;
+-(NSArray *)relativeFileNamesForKeys:(NSArray *)keys;
 
 /*! 
     @method     absoluteFileNameForKey:
@@ -411,8 +411,8 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      a key
     @result     an NSString
 */
-- (NSString *) absoluteFileNameForKey: (NSString *) key;
-- (NSArray *)absoluteFileNamesForKeys:(NSArray *)keys;
+-(NSString *)absoluteFileNameForKey:(NSString *)key;
+-(NSArray *)absoluteFileNamesForKeys:(NSArray *)keys;
 
 /*! 
     @method     setFileName:forKey:makeRelative:
@@ -428,7 +428,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      flag is a flag
     @result     None.
 */
-- (void) setFileName: (NSString *) fileName forKey: (NSString *) key makeRelative: (BOOL) flag;
+-(void)setFileName:(NSString *)fileName forKey:(NSString *)key makeRelative:(BOOL)flag;
 
 /*! 
     @method     subdocumentForFileName:
@@ -437,7 +437,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      file name is a full path
     @result     a document.
 */
-- (id) subdocumentForFileName: (NSString *) fileName;
+-(id)subdocumentForFileName:(NSString *)fileName;
 
 /*! 
     @method     subdocumentForURL:
@@ -446,7 +446,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      file name is a full path
     @result     a project document.
 */
-- (id)subdocumentForURL:(NSURL *)url;
+-(id)subdocumentForURL:(NSURL *)url;
 
 /*! 
     @method     subdocumentURLForKey:
@@ -455,7 +455,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      key
     @result     an url.
 */
-- (NSURL *)subdocumentURLForKey:(NSString *)key;
+-(NSURL *)subdocumentURLForKey:(NSString *)key;
 
 /*! 
     @method     externalSubdocumentURLForKey:
@@ -464,7 +464,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      key
     @result     an url.
 */
-- (NSURL *)externalSubdocumentURLForKey:(NSString *)key;
+-(NSURL *)externalSubdocumentURLForKey:(NSString *)key;
 
 /*! 
     @method     keyedSubdocuments
@@ -473,7 +473,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     a dictionary mapping keys to project documents.
 */
-- (id) keyedSubdocuments;
+-(id)keyedSubdocuments;
 
 /*! 
     @method     keyForSubdocument:
@@ -489,7 +489,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      \p subdocument is a document
     @result     a key identifier.
 */
-- (NSString *) keyForSubdocument: (id) subdocument;
+-(NSString *)keyForSubdocument:(id)subdocument;
 
 /*! 
     @method     subdocumentForKey:
@@ -503,7 +503,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      a key identifier
     @result     a project document.
 */
-- (id) subdocumentForKey: (NSString *) key;
+-(id)subdocumentForKey:(NSString *)key;
 
 /*! 
     @method     propertyValueForKey:fileKey:
@@ -515,7 +515,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileKey is a file name
     @result     a language.
 */
-- (id) propertyValueForKey: (NSString *) key fileKey: (NSString *) fileKey;
+-(id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey;
 
 /*! 
     @method     originalPropertyValueForKey:fileKey:
@@ -525,7 +525,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileKey is a file name
     @result     a language.
 */
-- (id) originalPropertyValueForKey: (NSString *) key fileKey: (NSString *) fileKey;
+-(id)originalPropertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey;
 
 /*! 
     @method     takePropertyValue:forKey:fileKey:
@@ -536,7 +536,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileKey is a file name
     @result     a language.
 */
-- (void) takePropertyValue: (id) property forKey: (NSString *) key fileKey: (NSString *) fileKey;
+-(void)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey;
 
 /*! 
     @method     keyedFileNames
@@ -548,7 +548,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     A dictionary
 */
-- (id) keyedFileNames;
+-(id)keyedFileNames;
 
 /*! 
     @method     keyedProperties
@@ -560,7 +560,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     A dictionary
 */
-- (id) keyedProperties;
+-(id)keyedProperties;
 
 /*! 
     @method     propertiesForFileKey:
@@ -569,7 +569,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      The key
     @result     A dictionary
 */
-- (id) propertiesForFileKey: (NSString *) key;
+-(id)propertiesForFileKey:(NSString *)key;
 
 /*! 
     @method     propertiesForFileName:
@@ -578,7 +578,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      The file name
     @result     A dictionary
 */
-- (id) propertiesForFileName: (NSString *) fileName;
+-(id)propertiesForFileName:(NSString *)fileName;
 
 /*! 
     @method     addGhostWindowController:
@@ -588,7 +588,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     None
 */
-- (void) addGhostWindowController;
+-(void)addGhostWindowController;
 
 /*! 
     @method     projectCompleteWriteToURL:ofType:error:
@@ -600,7 +600,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      outError points to an NSError instance if non void.
     @result     yorn
 */
-- (BOOL) projectCompleteWriteToURL: (NSURL *) fileURL ofType: (NSString *) type error:(NSError**)outError;
+-(BOOL)projectCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 
 /*! 
     @method     projectCompleteReadFromURL:ofType:error:
@@ -612,7 +612,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      outError points to an error instance
     @result     yorn
 */
-- (BOOL) projectCompleteReadFromURL: (NSURL *) fileURL ofType: (NSString *) type error:(NSError**)outError;
+-(BOOL)projectCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 
 /*! 
     @method     saveContext:
@@ -626,7 +626,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (void) saveContext: (id) irrelevant;
+-(void)saveContext:(id)irrelevant;
 
 /*! 
     @method     contextValueForKey:fileKey:
@@ -637,7 +637,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      \p fileKey is the file key
     @result     An object.
 */
-- (id) contextValueForKey: (NSString *) aKey fileKey: (NSString *) fileKey;
+-(id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey;
 
 /*! 
     @method     takeContextValue:forKey:fileKey:
@@ -648,7 +648,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      \p fileKey is the file key
     @result     None.
 */
-- (void) takeContextValue: (id) object forKey: (NSString *) aKey fileKey: (NSString *) fileKey;
+-(void)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey;
 
 /*! 
     @method     addFileName:
@@ -657,7 +657,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName
     @result     None.
 */
-- (void) addFileName: (NSString *) fileName;
+-(void)addFileName:(NSString *)fileName;
 
 /*! 
     @method     openSubdocumentWithContentsOfURL:context:display:error:
@@ -667,7 +667,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outError;
+-(id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outError;
 
 /*! 
     @method     openSubdocumentForKey:display:error:
@@ -677,7 +677,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outError;
+-(id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outError;
 
 @end
 
@@ -691,7 +691,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     a dictionary
 */
-- (void) updateOrderedFileKeys;
+-(void)updateOrderedFileKeys;
 
 /*! 
     @method     orderedFileKeys
@@ -700,7 +700,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     the new file keys
 */
-- (NSMutableArray *) orderedFileKeys;
+-(NSMutableArray *)orderedFileKeys;
 
 /*! 
     @method     setOrderedFileKeys:
@@ -709,7 +709,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      the new file keys
     @result     None
 */
-- (void) setOrderedFileKeys: (id) argument;
+-(void)setOrderedFileKeys:(id)argument;
 
 /*! 
     @method     documentsView
@@ -718,13 +718,13 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     a table view (or subclass)
 */
-- (NSTableView *) documentsView;
+-(NSTableView *)documentsView;
 
-- (IBAction) newDocument: (id) sender;
-- (IBAction) importDocument: (id) sender;
-- (IBAction) removeDocument: (id) sender;
-- (IBAction) help: (id) sender;
-- (IBAction) projectPathEdited: (id) sender;
+-(IBAction)newDocument:(id)sender;
+-(IBAction)importDocument:(id)sender;
+-(IBAction)removeDocument:(id)sender;
+-(IBAction)help:(id)sender;
+-(IBAction)projectPathEdited:(id)sender;
 
 @end
 
@@ -754,7 +754,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     An \p iTM2ProjectController instance.
 */
-+ (id) sharedProjectController;
++(id)sharedProjectController;
 
 /*!
     @method     setSharedProjectController
@@ -765,7 +765,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     An \p iTM2ProjectController instance.
 */
-+ (void) setSharedProjectController: (id) argument;
++(void)setSharedProjectController:(id)argument;
 
 /*!
     @method     flushCaches
@@ -774,7 +774,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     None.
 */
-- (void) flushCaches;
+-(void)flushCaches;
 
 /*! 
     @method     projectForFileName:
@@ -789,7 +789,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName is a full path name
     @result     A project document
 */
-- (id) projectForFileName: (NSString *) fileName;
+-(id)projectForFileName:(NSString *)fileName;
 
 /*! 
     @method     setProject:forFileName:
@@ -799,7 +799,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param		File name
 	@result		None
 */
-- (void) setProject: (id) PD forFileName: (NSString *) fileName;
+-(void)setProject:(id)PD forFileName:(NSString *)fileName;
 
 /*! 
     @method     projectForDocument:
@@ -828,7 +828,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      document is any document...
     @result     A project document
 */
-- (id) projectForDocument: (NSDocument *) document;
+-(id)projectForDocument:(NSDocument *)document;
 
 /*! 
     @method     setProject:forDocument:
@@ -844,7 +844,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param		A project document in general owning the given document
 	@result		None
 */
-- (void) setProject: (id) PD forDocument: (NSDocument *) document;
+-(void)setProject:(id)PD forDocument:(NSDocument *)document;
 
 /*! 
     @method     projectForSource:
@@ -896,7 +896,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      The source is either a file name or a document.
     @result     A project document
 */
-- (id) projectForSource: (id) source;
+-(id)projectForSource:(id)source;
 
 /*! 
     @method		projects
@@ -906,7 +906,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param		None
     @result		An array
 */
-- (NSArray *) projects;
+-(NSArray *)projects;
 
 /*! 
     @method     currentProject
@@ -917,7 +917,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     A project
 */
-- (id) currentProject;
+-(id)currentProject;
 
 /*! 
     @method     registerProject:
@@ -931,7 +931,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      A project
     @result     None
 */
-- (void) registerProject: (id) project;
+-(void)registerProject:(id)project;
 
 /*! 
     @method     forgetProject:
@@ -940,7 +940,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      A project
     @result     None
 */
-- (void) forgetProject: (id) project;
+-(void)forgetProject:(id)project;
 
 /*! 
     @method     finderAliasesSubdirectory
@@ -949,7 +949,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     a relative path
 */
-- (NSString*) finderAliasesSubdirectory;
+-(NSString*)finderAliasesSubdirectory;
 
 /*! 
     @method     softLinksSubdirectory
@@ -958,7 +958,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None
     @result     a relative path
 */
-- (NSString*) softLinksSubdirectory;
+-(NSString*)softLinksSubdirectory;
 
 /*! 
     @method     newProjectForFileNameRef:display:error:
@@ -988,11 +988,11 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      outError
     @result     A project.
 */
-- (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
-- (void) willGetNewProjectForFileNameRef:(NSString **)fileNameRef;
-- (void) didGetNewProjectForFileNameRef:(NSString **)fileNameRef;
-- (BOOL) canGetNewProjectForFileNameRef:(NSString **)fileNameRef;
-- (id)newExternalProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+-(id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
+-(void)willGetNewProjectForFileNameRef:(NSString **)fileNameRef;
+-(void)didGetNewProjectForFileNameRef:(NSString **)fileNameRef;
+-(BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef;
+-(id)newExternalProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
 
 /*! 
     @method     getProjectFromPanelForFileNameRef:display:error:
@@ -1012,7 +1012,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      outError is a pointer to an NSError instance
     @result     project document.
 */
-- (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
+-(id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
 
 /*! 
     @method		baseProjects
@@ -1021,7 +1021,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param		None
     @result		A dictionary
 */
-- (NSDictionary *) baseProjects;
+-(NSDictionary *)baseProjects;
 
 /*! 
     @method     baseProjectWithName:
@@ -1030,7 +1030,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      projectName
     @result     A project
 */
-- (id) baseProjectWithName: (NSString *) projectName;
+-(id)baseProjectWithName:(NSString *)projectName;
 
 /*! 
     @method     addBaseProject:
@@ -1040,7 +1040,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      A project
     @result     None
 */
-- (void) addBaseProject: (id) project;
+-(void)addBaseProject:(id)project;
 
 /*! 
     @method     removeBaseProject:
@@ -1049,7 +1049,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      A project
     @result     None
 */
-- (void) removeBaseProject: (id) project;
+-(void)removeBaseProject:(id)project;
 
 /*! 
     @method     isBaseProject:
@@ -1058,7 +1058,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      argument is the object to be tested
     @result     yorn.
 */
-- (BOOL) isBaseProject: (id) argument;
+-(BOOL)isBaseProject:(id)argument;
 
 /*! 
     @method     isProject:
@@ -1069,7 +1069,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      argument is the object to be tested
     @result     yorn.
 */
-- (BOOL) isProject: (id) argument;
+-(BOOL)isProject:(id)argument;
 
 /*! 
     @method     availableProjectsForPath:
@@ -1078,7 +1078,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      path...
     @result     an array of projects
 */
-- (id)availableProjectsForPath:(NSString *)dirName;
+-(id)availableProjectsForPath:(NSString *)dirName;
 
 @end
 
@@ -1113,7 +1113,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param      None
     @result     A project
 */
-- (id) project;
+-(id)project;
 
 /*! 
     @method     wrapper
@@ -1122,7 +1122,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param      None
     @result     A wrapper
 */
-- (id) wrapper;
+-(id)wrapper;
 
 /*! 
     @method     hasProject
@@ -1138,7 +1138,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param      None
     @result     yorn
 */
-- (BOOL) hasProject;
+-(BOOL)hasProject;
 
 /*! 
     @method     setHasProject:
@@ -1149,7 +1149,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param      yorn
     @result     None
 */
-- (void) setHasProject: (BOOL) yorn;
+-(void)setHasProject:(BOOL)yorn;
 
 /*! 
     @method     contextValueForKey:
@@ -1158,7 +1158,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param      key
     @result     A project
 */
-- (id) contextValueForKey: (NSString *) key;
+-(id)contextValueForKey:(NSString *)key;
 
 /*! 
     @method     takeContextValue:forKey:
@@ -1199,7 +1199,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param      key is the context value key
     @result     None
 */
-- (void) takeContextValue: (id) value forKey: (NSString *) key;
+-(void)takeContextValue:(id)value forKey:(NSString *)key;
 
 /*!
 	@method			documentProjectCompleteSaveContext:
@@ -1210,7 +1210,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void) documentProjectCompleteSaveContext: (id) sender;
+-(void)documentProjectCompleteSaveContext:(id)sender;
 
 @end
 
@@ -1237,7 +1237,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param		display.
     @result		A document.
 */
-- (id) openDocumentWithContentsOfURL: (NSURL *) URL display: (BOOL) display error: (NSError **) error;
+-(id)openDocumentWithContentsOfURL:(NSURL *)URL display:(BOOL)display error:(NSError **)error;
 
 @end
 
@@ -1250,7 +1250,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param		None.
     @result		A project document type.
 */
-- (NSString *) projectDocumentType;
+-(NSString *)projectDocumentType;
 
 /*!
     @method		projectPathExtension
@@ -1259,7 +1259,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param		None.
     @result		A project path extension.
 */
-- (NSString *) projectPathExtension;
+-(NSString *)projectPathExtension;
 
 /*!
     @method		wrapperDocumentType
@@ -1268,7 +1268,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param		None.
     @result		A project document type.
 */
-- (NSString *) wrapperDocumentType;
+-(NSString *)wrapperDocumentType;
 
 /*!
     @method		wrapperPathExtension
@@ -1277,11 +1277,11 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param		None.
     @result		A wrapper path extension.
 */
-- (NSString *) wrapperPathExtension;
+-(NSString *)wrapperPathExtension;
 
 @end
 
-enum {iTM2ToggleOldProjectMode = 0, iTM2ToggleNewProjectMode, iTM2ToggleStandaloneMode, iTM2ToggleNoProjectMode, iTM2ToggleUnknownProjectMode};
+enum {iTM2ToggleOldProjectMode = 0, iTM2ToggleNewProjectMode, iTM2ToggleStandaloneMode, iTM2ToggleNoProjectMode, iTM2ToggleUnknownProjectMode, iTM2ToggleForbiddenProjectMode=-1};
 
 extern NSString * const iTM2WrapperInspectorType;
 
@@ -1302,7 +1302,7 @@ extern NSString * const iTM2WrapperInspectorType;
 				The project document is expected to live sometimes with possibly no wrapper,
 				such that there is the need of an independant wrapper document.
 */
-- (id) project;
+-(id)project;
 
 @end
 
@@ -1327,7 +1327,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param      None
     @result     None
 */
-- (BOOL) isProjectPackageAtPath: (NSString *) fullPath;
+-(BOOL)isProjectPackageAtPath:(NSString *)fullPath;
 
 /*!
     @method		isWrapperPackageAtPath:
@@ -1339,7 +1339,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param      None
     @result     None
 */
-- (BOOL) isWrapperPackageAtPath: (NSString *) fullPath;
+-(BOOL)isWrapperPackageAtPath:(NSString *)fullPath;
 
 @end
 
@@ -1354,7 +1354,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param      None
     @result     An NSString instance.
 */
-+ (NSString *) externalProjectsDirectory;
++(NSString *)externalProjectsDirectory;
 
 /*!
     @method		belongsToExternalProjectsDirectory
@@ -1374,7 +1374,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param		None.
     @result		A full wrapper path.
 */
-- (NSString *) enclosingWrapperFileName;
+-(NSString *)enclosingWrapperFileName;
 
 /*!
     @method		enclosingProjectFileName
@@ -1383,7 +1383,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param		None.
     @result		A full project path.
 */
-- (NSString *)enclosingProjectFileName;
+-(NSString *)enclosingProjectFileName;
 
 /*!
     @method		enclosedProjectFileNames
@@ -1395,7 +1395,19 @@ extern NSString * const iTM2WrapperInspectorType;
     @param		None.
     @result		An array or project paths relative to the receiver.
 */
-- (NSArray *) enclosedProjectFileNames;
+-(NSArray *)enclosedProjectFileNames;
+
+/*! 
+    @method     availableProjectFileNames
+    @abstract	The available project names of the receiver.
+    @discussion	Return an array of project paths in the receiver as directory.
+				If the receiver is not a directory, or if it does not contain any project, nothing is returned.
+				The project are returned, no deeper than contained in the receiver.
+				But, links are not followed (a priori to avoid problems of recursivity)
+    @param      None
+    @result     an array of projects
+*/
+-(id)availableProjectFileNames;
 
 @end
 
@@ -1408,7 +1420,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param		window is the sheet receiver.
     @result		YES if the user really wants no project.
 */
-+ (BOOL) alertForWindow: (id) window;
++(BOOL)alertForWindow:(id)window;
 
 @end
 

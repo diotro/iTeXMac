@@ -49,7 +49,7 @@ NSString * const iTM2TeXProjectPathExtension = @"texp";
 @end
 @implementation NSDocumentController_iTM2TeXProject
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -64,7 +64,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectPathExtension
-- (NSString *) projectPathExtension;
+-(NSString *)projectPathExtension;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -76,7 +76,7 @@ To Do List:
 	return iTM2TeXProjectPathExtension;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wrapperPathExtension
-- (NSString *) wrapperPathExtension;
+-(NSString *)wrapperPathExtension;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -88,7 +88,7 @@ To Do List:
 	return iTM2TeXWrapperPathExtension;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectDocumentType
-- (NSString *) projectDocumentType;
+-(NSString *)projectDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -100,7 +100,7 @@ To Do List:
     return iTM2TeXProjectDocumentType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wrapperDocumentType
-- (NSString *) wrapperDocumentType;
+-(NSString *)wrapperDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -117,7 +117,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation iTM2TeXProjectDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -182,7 +182,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -193,7 +193,7 @@ To Do List:
     return iTM2TeXProjectInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectDocumentsInspector
-- (id) projectDocumentsInspector;
+-(id)projectDocumentsInspector;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -204,7 +204,7 @@ To Do List:
     return [self inspectorAddedWithMode:[iTM2TeXSubdocumentsInspector inspectorMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  close
-- (void) close;
+-(void)close;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -218,7 +218,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= needsToUpdate
-- (BOOL) needsToUpdate;
+-(BOOL)needsToUpdate;
 /*"The project is known to be modified externally (see the .iTM folder). Do not update.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -230,7 +230,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  realMasterFileKey
-- (NSString *) realMasterFileKey;
+-(NSString *)realMasterFileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -243,7 +243,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  TWS Support
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  masterFileKey
-- (NSString *) masterFileKey;
+-(NSString *)masterFileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -252,7 +252,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * key = [IMPLEMENTATION modelValueForKey:TWSMasterFileKey ofType:iTM2TeXProjectInfoType];
-	if([key isEqual: @"...iTM2FrontDocument"])
+	if([key isEqual:@"...iTM2FrontDocument"])
 	{
 		// get the front most document of the project
 		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
@@ -260,7 +260,7 @@ To Do List:
 		while(W = [E nextObject])
 		{
 			NSDocument * D = [[W windowController] document];
-			if([D isEqual: self])
+			if([D isEqual:self])
 			{
 				return @"";
 			}
@@ -284,7 +284,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMasterFileKey:
-- (void) setMasterFileKey:(NSString *) key;
+-(void)setMasterFileKey:(NSString *) key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -303,7 +303,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingStringForFileKey:
-- (NSString *) stringEncodingStringForFileKey:(NSString *) fileKey;
+-(NSString *)stringEncodingStringForFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -314,7 +314,7 @@ To Do List:
     return [self propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncodingString:forFileKey:
-- (void) setStringEncodingString:(NSString *) stringEncoding forFileKey:(NSString *) fileKey;
+-(void)setStringEncodingString:(NSString *) stringEncoding forFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -326,7 +326,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOLStringForFileKey:
-- (NSString *) EOLStringForFileKey:(NSString *) fileKey;
+-(NSString *)EOLStringForFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -337,7 +337,7 @@ To Do List:
     return [self propertyValueForKey:TWSEOLFileKey fileKey:fileKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOLString:forFileKey:
-- (void) setEOLString:(NSString *) EOLString forFileKey:(NSString *) fileKey;
+-(void)setEOLString:(NSString *) EOLString forFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -350,7 +350,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PROPERTIES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  propertyValueForKey:fileKey:
-- (id) propertyValueForKey:(NSString *) key fileKey:(NSString *) fileKey;
+-(id)propertyValueForKey:(NSString *) key fileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -375,7 +375,7 @@ NSString * iTM2ProjectLocalizedChooseMaster = nil;
 
 @implementation iTM2TeXSubdocumentsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -386,7 +386,7 @@ To Do List:
     return iTM2TeXProjectInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+ (NSString *) inspectorMode;
++(NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -397,7 +397,7 @@ To Do List:
     return iTM2SubdocumentsInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowFrameIdentifier
-- (NSString *) windowFrameIdentifier;
+-(NSString *)windowFrameIdentifier;
 /*"YESSSS.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -408,7 +408,7 @@ To Do List:
     return @"TeX Project Files";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL) windowPositionShouldBeObserved;
+-(BOOL)windowPositionShouldBeObserved;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -422,7 +422,7 @@ To Do List:
 #ifndef HUNTING
 #pragma mark =-=-=-=-=-  UI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  help:
-- (IBAction) help:(id) sender;
+-(IBAction)help:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -433,7 +433,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectPathEdited:
-- (IBAction) projectPathEdited:(id) sender;
+-(IBAction)projectPathEdited:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -444,7 +444,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateProjectPathEdited:
-- (BOOL) validateProjectPathEdited:(id) sender;
+-(BOOL)validateProjectPathEdited:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -456,7 +456,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseMainFile:
-- (IBAction) chooseMainFile:(id) sender;
+-(IBAction)chooseMainFile:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -468,7 +468,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseMainFile:
-- (BOOL) validateChooseMainFile:(id) sender;
+-(BOOL)validateChooseMainFile:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -544,7 +544,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeMainFileFromRepresentedObject:
-- (IBAction) takeMainFileFromRepresentedObject:(id) sender;
+-(IBAction)takeMainFileFromRepresentedObject:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -565,7 +565,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileNameEdited:
-- (IBAction) fileNameEdited:(id) sender;
+-(IBAction)fileNameEdited:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -693,7 +693,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFileNameEdited:
-- (BOOL) validateFileNameEdited:(id) sender;
+-(BOOL)validateFileNameEdited:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -737,7 +737,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseStringEncoding:
-- (IBAction) chooseStringEncoding:(id) sender;
+-(IBAction)chooseStringEncoding:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -749,7 +749,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseStringEncoding:
-- (BOOL) validateChooseStringEncoding:(id) sender;
+-(BOOL)validateChooseStringEncoding:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -838,7 +838,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStringEncodingFromTag:
-- (IBAction) takeStringEncodingFromTag:(id) sender;
+-(IBAction)takeStringEncodingFromTag:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -867,7 +867,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseEOL:
-- (IBAction) chooseEOL:(id) sender;
+-(IBAction)chooseEOL:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -879,7 +879,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseEOL:
-- (BOOL) validateChooseEOL:(id) sender;
+-(BOOL)validateChooseEOL:(id) sender;
 /*"Description forthcoming. This is the one in the documents list inspector.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -949,7 +949,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeEOLFromTag:
-- (IBAction) takeEOLFromTag:(id) sender;
+-(IBAction)takeEOLFromTag:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -981,7 +981,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillOpen:
-- (void) drawerWillOpen:(NSNotification *) notification;
+-(void)drawerWillOpen:(NSNotification *) notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -993,7 +993,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-- (BOOL) validateMenuItem:(id <NSMenuItem>) sender;
+-(BOOL)validateMenuItem:(id <NSMenuItem>) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1007,7 +1007,7 @@ To Do List:
 		return [super validateMenuItem:sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
-- (BOOL) handlesKeyBindings;
+-(BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1018,7 +1018,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
-- (BOOL) handlesKeyStrokes;
+-(BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1030,7 +1030,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  interpretKeyStrokeEnter:
-- (BOOL) interpretKeyStrokeEnter:(id) sender;
+-(BOOL)interpretKeyStrokeEnter:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1042,7 +1042,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  interpretKeyStrokeReturn:
-- (BOOL) interpretKeyStrokeReturn:(id) sender;
+-(BOOL)interpretKeyStrokeReturn:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1054,7 +1054,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  interpretKeyStrokeBackspace:
-- (BOOL) interpretKeyStrokeBackspace:(id) sender;
+-(BOOL)interpretKeyStrokeBackspace:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1068,13 +1068,13 @@ To Do List:
 #if 0
 
 // optional - drag and drop support
-- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
+-(BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
     // This method is called after it has been determined that a drag should begin, but before the drag has been started.  To refuse the drag, return NO.  To start a drag, return YES and place the drag data onto the pasteboard (data, owner, etc...).  The drag image and other drag related information will be set up and provided by the table view once this call returns with YES.  The rows array is the list of row numbers that will be participating in the drag.
 
-- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
+-(NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
     // This method is used by NSTableView to determine a valid drop target.  Based on the mouse position, the table view will suggest a proposed drop location.  This method must return a value that indicates which dragging operation the data source will perform.  The data source may "re-target" a drop if desired by calling setDropRow:dropOperation:and returning something other than NSDragOperationNone.  One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
 
-- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
+-(BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
 #endif
 #pragma mark >>>>  HUNTING
 #endif
@@ -1087,7 +1087,7 @@ NSString * const iTM2TeXProjectBaseComponent = @"Base Projects.localized";
 
 @implementation iTM2MainInstaller(TeXProjectDocument)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 This message is sent at initialization time.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -1101,7 +1101,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXProjectControllerCompleteInstallation
-+ (void) iTM2TeXProjectControllerCompleteInstallation;
++(void)iTM2TeXProjectControllerCompleteInstallation;
 /*"Description forthcoming.
 This message is sent at initialization time.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -1142,7 +1142,7 @@ To Do List:
 
 @implementation iTM2TeXProjectController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateTeXBaseProjectsNotified:
-- (void) updateTeXBaseProjectsNotified:(NSNotification *) irrelevant;
+-(void)updateTeXBaseProjectsNotified:(NSNotification *) irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1191,7 +1191,7 @@ To Do List:
 
 @implementation iTM2StringFormatController_iTM2TeXProjectDocumentKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1206,7 +1206,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOL
-- (unsigned int) EOL;
+-(unsigned int)EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1225,7 +1225,7 @@ To Do List:
     return [super EOL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
-- (void) setEOL:(unsigned int) argument;
+-(void)setEOL:(unsigned int) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1240,7 +1240,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
-- (NSStringEncoding) stringEncoding;
+-(NSStringEncoding)stringEncoding;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1261,7 +1261,7 @@ To Do List:
     return [super stringEncoding];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
-- (void) setStringEncoding:(NSStringEncoding) argument;
+-(void)setStringEncoding:(NSStringEncoding) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1280,7 +1280,7 @@ To Do List:
 
 @implementation iTM2TeXWrapperDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  representedClass
-+ (id) representedClass;
++(id)representedClass;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1296,7 +1296,7 @@ To Do List:
 @interface NSNotificationCenter_DEBUG:NSNotificationCenter
 @end
 @implementation NSNotificationCenter_DEBUG
-- (void)postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
+-(void)postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
 {
 	iTM2_LOG(@"aName is:%@", aName);
 	iTM2_LOG(@"anObject is:%@", anObject);
@@ -1309,7 +1309,7 @@ To Do List:
 
 @implementation NSWorkspace(iTM2TeXProjectDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isTeXProjectPackageAtPath:
-- (BOOL) isTeXProjectPackageAtPath:(NSString *) fullPath;
+-(BOOL)isTeXProjectPackageAtPath:(NSString *) fullPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1321,7 +1321,7 @@ To Do List:
     return [fullPath length] && [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] isEqualToString:iTM2TeXProjectPathExtension];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isTeXWrapperPackageAtPath:
-- (BOOL) isTeXWrapperPackageAtPath:(NSString *) fullPath;
+-(BOOL)isTeXWrapperPackageAtPath:(NSString *) fullPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

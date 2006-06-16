@@ -37,41 +37,41 @@ typedef unichar (* iTM2CharacterAtIndexIMP) (id, SEL, unsigned);
 //    iTM2CharacterAtIndexIMP CAI;
 }
 /*"Class methods"*/
-+ (id) scannerWithString: (NSString *) string;
++(id)scannerWithString:(NSString *)string;
 /*"Setters and Getters"*/
-- (NSString *) string;
-- (void) setString: (NSString *) string;
-- (unsigned) scanLocation;
-- (void) setScanLocation: (unsigned) pos;
-- (NSCharacterSet *) charactersToBeSkipped;
-- (void) setCharactersToBeSkipped: (NSCharacterSet *) set;
-- (NSCharacterSet *) charactersNotToBeSkipped;
-- (void) setCharactersNotToBeSkipped: (NSCharacterSet *) set;
-- (BOOL) caseSensitive;
-- (void) setCaseSensitive: (BOOL) flag;
-- (BOOL) isAtEnd;
+-(NSString *)string;
+-(void)setString:(NSString *)string;
+-(unsigned)scanLocation;
+-(void)setScanLocation:(unsigned)pos;
+-(NSCharacterSet *)charactersToBeSkipped;
+-(void)setCharactersToBeSkipped:(NSCharacterSet *)set;
+-(NSCharacterSet *)charactersNotToBeSkipped;
+-(void)setCharactersNotToBeSkipped:(NSCharacterSet *)set;
+-(BOOL)caseSensitive;
+-(void)setCaseSensitive:(BOOL)flag;
+-(BOOL)isAtEnd;
 /*"Main methods"*/
-- (id) initWithString: (NSString *) string;
-- (BOOL) scanString: (NSString *) string intoString: (NSString **) value;
-- (BOOL) scanCharactersFromSet: (NSCharacterSet *) set intoString: (NSString **) value;
-- (BOOL) scanUpToString: (NSString *) string intoString: (NSString **) value;
-- (BOOL) scanUpToCharactersFromSet: (NSCharacterSet *) set intoString: (NSString **) value;
-- (BOOL) scanUpToEOLIntoString: (NSString **) value;
-- (BOOL) scanString: (NSString *) aString intoString: (NSString **) value beforeIndex: (unsigned) stopIndex;
-- (BOOL) scanCharactersFromSet: (NSCharacterSet *) set intoString: (NSString **) value beforeIndex: (unsigned) stopIndex;
-- (BOOL) scanUpToString: (NSString *) aString intoString: (NSString **) value beforeIndex: (unsigned) stopIndex;
-- (BOOL) scanUpToCharactersFromSet: (NSCharacterSet *) stopSet intoString: (NSString **) value beforeIndex: (unsigned) stopIndex;
+-(id)initWithString:(NSString *)string;
+-(BOOL)scanString:(NSString *)string intoString:(NSString **)value;
+-(BOOL)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
+-(BOOL)scanUpToString:(NSString *)string intoString:(NSString **)value;
+-(BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
+-(BOOL)scanUpToEOLIntoString:(NSString **)value;
+-(BOOL)scanString:(NSString *)aString intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
+-(BOOL)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
+-(BOOL)scanUpToString:(NSString *)aString intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
+-(BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)stopSet intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
 /*"Overriden methods"*/
-- (id) init;
-- (void) dealloc;
+-(id)init;
+-(void)dealloc;
 @end
 
 @interface iTM2LiteScanner (iTM2ExtendedScanner) 
-- (BOOL) scanInt: (int *) value;
-- (BOOL) scanHexInt: (unsigned *) value;		/* Optionally prefixed with "0x" or "0X" */
-- (BOOL) scanLongLong: (long long *) value;
-- (BOOL) scanFloat: (float *) value;
-- (BOOL) scanDouble: (double *) value;
+-(BOOL)scanInt:(int *)value;
+-(BOOL)scanHexInt:(unsigned *)value;		/* Optionally prefixed with "0x" or "0X" */
+-(BOOL)scanLongLong:(long long *)value;
+-(BOOL)scanFloat:(float *)value;
+-(BOOL)scanDouble:(double *)value;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2LiteScanner

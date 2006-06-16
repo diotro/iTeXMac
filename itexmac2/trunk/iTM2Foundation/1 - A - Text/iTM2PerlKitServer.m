@@ -28,7 +28,7 @@
 
 @implementation iTM2Application(iTM2PerlKitServer)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  testSelector
-+ (SEL) testSelector;
++(SEL)testSelector;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -42,7 +42,7 @@ To Do List:
 @end
 @implementation NSApplication(iTM2PerlKitServer)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  activeWindow
-- (NSWindow *) activeWindow;
+-(NSWindow *)activeWindow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -56,7 +56,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  testSelector
-- (SEL) testSelector;
+-(SEL)testSelector;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -68,7 +68,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vendedClassForName:
-- (Class) vendedClassForName: (NSString *) name;
+-(Class)vendedClassForName:(NSString *)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -81,7 +81,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vendedClassForName:methodSignatureForSelector:
-- (NSMethodSignature *) vendedClassForName: (NSString *) name methodSignatureForSelector: (SEL) aSelector;
+-(NSMethodSignature *)vendedClassForName:(NSString *)name methodSignatureForSelector:(SEL)aSelector;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -93,7 +93,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vendedClassForName:forwardInvocation:
-- (void) vendedClassForName: (NSString *) name forwardInvocation: (NSInvocation *) invocation;
+-(void)vendedClassForName:(NSString *)name forwardInvocation:(NSInvocation *)invocation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -120,7 +120,7 @@ NSLog(@"%s target: %@, invocation: %@", __PRETTY_FUNCTION__, name, invocation);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vendedClassForName:performSelector
-- (id) vendedClassForName: (NSString *) name performSelector:(SEL)aSelector;
+-(id)vendedClassForName:(NSString *)name performSelector:(SEL)aSelector;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -147,7 +147,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vendedClassForName:performSelector:withObject:
-- (id) vendedClassForName: (NSString *) name performSelector:(SEL)aSelector withObject:(id)object1;
+-(id)vendedClassForName:(NSString *)name performSelector:(SEL)aSelector withObject:(id)object1;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -180,7 +180,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vendedClassForName:performSelector:withObject:withObject:
-- (id) vendedClassForName: (NSString *) name performSelector:(SEL)aSelector withObject:(id)object1 withObject:(id)object2;
+-(id)vendedClassForName:(NSString *)name performSelector:(SEL)aSelector withObject:(id)object1 withObject:(id)object2;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -234,12 +234,12 @@ To Do List:
 {
 	id _target;
 }
-+ (id) proxyForClass: (Class) aClass;
-- (id) initWithTarget: (id) target;
++(id)proxyForClass:(Class)aClass;
+-(id)initWithTarget:(id)target;
 @end
 
 @implementation iTM2SimpleProxy
-+ (id) proxyForClass: (Class) aClass;
++(id)proxyForClass:(Class)aClass;
 {
 	static NSMutableDictionary * D = nil;
 	if(!D)
@@ -253,7 +253,7 @@ To Do List:
 		[D setObject:result forKey:key];
 	return result;
 }
-- (id) initWithTarget: (id) target;
+-(id)initWithTarget:(id)target;
 {
 	if(self = [super init])
 	{
@@ -262,24 +262,24 @@ To Do List:
 	}
 	return self;
 }
-- (void) dealloc;
+-(void)dealloc;
 {
 	[_target autorelease];
 	_target = nil;
 	[super dealloc];
 	return;
 }
-- (BOOL)respondsToSelector:(SEL)aSelector
+-(BOOL)respondsToSelector:(SEL)aSelector
 {
 //iTM2_LOG(@"aSelector: %@", NSStringFromSelector(aSelector));
     return [_target respondsToSelector:aSelector];
 }
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+-(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
 //iTM2_LOG(@"aSelector: %@", NSStringFromSelector(aSelector));
     return [_target methodSignatureForSelector:aSelector];
 }
-- (void)forwardInvocation:(NSInvocation *)anInvocation
+-(void)forwardInvocation:(NSInvocation *)anInvocation
 {
 //iTM2_LOG(@"anInvocation: %@", anInvocation);
     [anInvocation setTarget:_target];
@@ -290,7 +290,7 @@ To Do List:
 
 @implementation NSObject(iTM2PerlKitServer)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  classFromString
-- (id) classFromString: (NSString *) aString;
+-(id)classFromString:(NSString *)aString;
 /*"Usefull for DO connection through perl. We cannot use class from string...
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -309,7 +309,7 @@ To Do List:
 @end
 @implementation _iTM2PerlKitServer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006

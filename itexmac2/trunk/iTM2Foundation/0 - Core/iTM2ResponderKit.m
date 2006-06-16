@@ -30,10 +30,10 @@
 
 @interface NSResponder(iTeXMac2Private)
 /*"Designated initializer and... Private use only."*/
-+ (id) responderForWindow: (NSWindow *) aWindow;
-+ (BOOL) responder: (NSResponder*) aResponder hasAmongNextResponders: (NSResponder*) anotherResponder;
-- (BOOL) insertInResponderChainAfter: (NSResponder*) responder;
-- (void) windowWillClose: (NSNotification *) notification;
++(id)responderForWindow:(NSWindow *)aWindow;
++(BOOL)responder:(NSResponder*)aResponder hasAmongNextResponders:(NSResponder*)anotherResponder;
+-(BOOL)insertInResponderChainAfter:(NSResponder*)responder;
+-(void)windowWillClose:(NSNotification *)notification;
 @end
 
 @implementation NSResponder(iTeXMac2)
@@ -48,7 +48,7 @@ or after the window delegate.
 There might be a bug/memory leak when the window is closed but not released (as for iTeXMac2 project windows).
 Better design is needed."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uninstallInNSAppResponderChain
-- (void) uninstallInNSAppResponderChain;
+-(void)uninstallInNSAppResponderChain;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -71,7 +71,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  installInResponderChainAfterNSApp
-+ (void) installInResponderChainAfterNSApp;
++(void)installInResponderChainAfterNSApp;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -96,7 +96,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=  installResponderForWindow:
-+ (void) installResponderForWindow: (NSWindow *) aWindow;
++(void)installResponderForWindow:(NSWindow *)aWindow;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -130,7 +130,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=  responderForWindow:
-+ (id) responderForWindow: (NSWindow *) aWindow;
++(id)responderForWindow:(NSWindow *)aWindow;
 /*"Scans the responder chain after aWindow's content view, if there is already a NSResponder
 of class [self class] that will be able to send an apropriate Notification for example, or respond to appropriate messages.
 If it is not the case, we create such an object.
@@ -151,7 +151,7 @@ Note that only the 100 first objects in the chain are investigated. Beware of lo
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=  responder:hasAmongNextResponders:
-+ (BOOL) responder: (NSResponder*) aResponder hasAmongNextResponders: (NSResponder *) anotherResponder;
++(BOOL)responder:(NSResponder*)aResponder hasAmongNextResponders:(NSResponder *)anotherResponder;
 /*"We should not insert in the responder chain starting from aResponder, an object that is already in it.
 It would remove some previously registered responders and would cause unexpected effects."*/
 {iTM2_DIAGNOSTIC;
@@ -168,7 +168,7 @@ It would remove some previously registered responders and would cause unexpected
         return [self responder:nextResponder hasAmongNextResponders:anotherResponder];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-= responderWindowWillClose:
-- (void) responderWindowWillClose: (NSNotification *) aNotification;
+-(void)responderWindowWillClose:(NSNotification *)aNotification;
 /*"The receiver just send the #{autorelease} message to itself."*/
 {iTM2_DIAGNOSTIC;
     [DNC removeObserver:self name:nil object:nil];
@@ -176,7 +176,7 @@ It would remove some previously registered responders and would cause unexpected
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=  insertInResponderChainAfter:
-- (BOOL) insertInResponderChainAfter: (NSResponder *) aResponder;
+-(BOOL)insertInResponderChainAfter:(NSResponder *)aResponder;
 /*"Inserts the receiver in the responder chain just after aResponder, if it is not already there."*/
 {iTM2_DIAGNOSTIC;
     // we must preserve the existing chain
@@ -196,7 +196,7 @@ It would remove some previously registered responders and would cause unexpected
 
 @implementation iTM2AutoInstallResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 11/21/2003
@@ -212,7 +212,7 @@ To Do List: retain?
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  applicationWillFinishLaunchingNotified:
-+ (void) applicationWillFinishLaunchingNotified: (NSNotification *) notification;
++(void)applicationWillFinishLaunchingNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004

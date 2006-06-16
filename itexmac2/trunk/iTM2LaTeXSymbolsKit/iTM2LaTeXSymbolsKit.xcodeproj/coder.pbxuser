@@ -75,13 +75,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172008827;
-			PBXWorkspaceStateSaveDate = 172008827;
+			PBXPerProjectTemplateStateSaveDate = 172186314;
+			PBXWorkspaceStateSaveDate = 172186314;
 		};
 		perUserProjectItems = {
-			DC2D34CB0A40A15C00FD25C4 = DC2D34CB0A40A15C00FD25C4 /* PBXBookmark */;
-			DC665B670A3F9B4000076617 = DC665B670A3F9B4000076617 /* PBXBookmark */;
-			DCEC25D10A3EECF4001AD65E = DCEC25D10A3EECF4001AD65E /* PBXBookmark */;
+			DC2D34CB0A40A15C00FD25C4 /* PBXBookmark */ = DC2D34CB0A40A15C00FD25C4 /* PBXBookmark */;
+			DCF34E600A43626D005375E6 /* PBXBookmark */ = DCF34E600A43626D005375E6 /* PBXBookmark */;
 		};
 		sourceControlManager = DC520432088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -148,10 +147,6 @@
 	DC5D70990949E31200EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
 	};
-	DC665B670A3F9B4000076617 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC99E9B20A2608A400F50752 /* iTM2WSMhoIcon.tiff */;
-	};
 	DC81AE8608871B9A00943C99 /* iTeXMac2 */ = {
 		activeExec = 0;
 		executables = (
@@ -184,7 +179,7 @@
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
-	DCEC25D10A3EECF4001AD65E /* PBXBookmark */ = {
+	DCF34E600A43626D005375E6 /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = DC99E9B20A2608A400F50752 /* iTM2WSMhoIcon.tiff */;
 	};

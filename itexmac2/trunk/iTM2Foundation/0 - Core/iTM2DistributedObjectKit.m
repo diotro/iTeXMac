@@ -27,7 +27,7 @@
 
 @implementation NSConnection(iTM2DistributedObjectKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTeXMac2ConnectionIdentifier
-+ (NSString *) iTeXMac2ConnectionIdentifier;
++(NSString *)iTeXMac2ConnectionIdentifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -42,7 +42,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(iTM2DistributedObjectKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DistributedObjectKit_CompleteInstallation
-+ (void) iTM2DistributedObjectKit_CompleteInstallation;
++(void)iTM2DistributedObjectKit_CompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006

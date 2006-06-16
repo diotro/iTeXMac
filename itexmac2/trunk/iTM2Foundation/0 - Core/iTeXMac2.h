@@ -64,11 +64,11 @@ enum{
 #endif
 
 #define iTM2_STRONG_GETSET(source, className, getter, setter)\
-- (void) getter;\
+-(void)getter;\
 {\
     return source;\
 }\
-- (void) setter: (id) argument;\
+-(void)setter:(id)argument;\
 {\
     if(![source isEqual:argument])\
     {\
@@ -164,7 +164,7 @@ NSString * _iTM2_DFM_CURRENT_DIRECTORY_ = nil;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (int) currentVersion;
++(int)currentVersion;
 
 /*!
 	@method			currentFoundationVersion
@@ -174,7 +174,7 @@ NSString * _iTM2_DFM_CURRENT_DIRECTORY_ = nil;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (int) currentFoundationVersion;
++(int)currentFoundationVersion;
 
 @end
 

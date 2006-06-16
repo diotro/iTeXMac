@@ -25,14 +25,14 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSObject(iTeXMac2)
 
 @interface NSObject(iTeXMac2)
-+ (Class) distantClass;
-- (Class) distantClass;
-+ (bool) isDistantClass;
-- (bool) isDistantClass;
++(Class)distantClass;
+-(Class)distantClass;
++(bool)isDistantClass;
+-(bool)isDistantClass;
 /*"Class methods"*/
 /*"Setters and Getters"*/
-- (unsigned) evaluatedPosition;
-- (NSRange) evaluatedRange;
+-(unsigned)evaluatedPosition;
+-(NSRange)evaluatedRange;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end

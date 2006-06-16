@@ -25,26 +25,26 @@
 #define INC [NSNotificationCenter iTeXMac2Center]
 
 @interface NSNotificationCenter(iTeXMac2)
-+ (id) iTeXMac2Center;
++(id)iTeXMac2Center;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2StatusNotificationCenter
 
 @interface iTM2StatusField: NSTextField
 /*"Main methods"*/
-- (void) statusNotified: (NSNotification *) aNotification;
+-(void)statusNotified:(NSNotification *)aNotification;
 @end
 
 @interface NSObject(iTM2Status)
 /*"Main methods"*/
-+ (void) postNotificationWithStatus: (NSString *) aStatus;
-+ (void) postNotificationWithToolTip: (NSString *) aStatus;
-- (void) postNotificationWithStatus: (NSString *) aStatus;
-- (void) postNotificationWithToolTip: (NSString *) aStatus;
-+ (void) postNotificationWithStatus: (NSString *) aStatus object: (id) object;
-+ (void) postNotificationWithToolTip: (NSString *) aStatus object: (id) object;
-- (void) postNotificationWithStatus: (NSString *) aStatus object: (id) object;
-- (void) postNotificationWithToolTip: (NSString *) aStatus object: (id) object;
++(void)postNotificationWithStatus:(NSString *)aStatus;
++(void)postNotificationWithToolTip:(NSString *)aStatus;
+-(void)postNotificationWithStatus:(NSString *)aStatus;
+-(void)postNotificationWithToolTip:(NSString *)aStatus;
++(void)postNotificationWithStatus:(NSString *)aStatus object:(id)object;
++(void)postNotificationWithToolTip:(NSString *)aStatus object:(id)object;
+-(void)postNotificationWithStatus:(NSString *)aStatus object:(id)object;
+-(void)postNotificationWithToolTip:(NSString *)aStatus object:(id)object;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2StatusNotificationCenter

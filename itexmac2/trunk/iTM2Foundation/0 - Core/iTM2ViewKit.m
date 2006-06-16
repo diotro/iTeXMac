@@ -34,7 +34,7 @@ To Do List:
 "*/
 @implementation NSView(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  grabKeyMask
-+ (int) grabKeyMask;
++(int)grabKeyMask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -45,7 +45,7 @@ To Do List:
     return NSCommandKeyMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomInKeyMask
-+ (int) zoomInKeyMask;
++(int)zoomInKeyMask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -56,7 +56,7 @@ To Do List:
     return NSShiftKeyMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomOutKeyMask
-+ (int) zoomOutKeyMask;
++(int)zoomOutKeyMask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -67,7 +67,7 @@ To Do List:
     return NSAlternateKeyMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameCenter
-- (NSPoint) frameCenter;
+-(NSPoint)frameCenter;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -78,7 +78,7 @@ To Do List:
     return NSMakePoint(NSMidX([self frame]), NSMidY([self frame]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setFrameCenter:
-- (void) setFrameCenter: (NSPoint) aCenter;
+-(void)setFrameCenter:(NSPoint)aCenter;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -93,7 +93,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= relativeFrameCenter
-- (NSPoint) relativeFrameCenter;
+-(NSPoint)relativeFrameCenter;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -104,7 +104,7 @@ To Do List:
     return [self absolutePointWithPoint:[self frameCenter]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= absolutePointWithPoint:
-- (NSPoint) absolutePointWithPoint: (NSPoint) aPoint;
+-(NSPoint)absolutePointWithPoint:(NSPoint)aPoint;
 /*"Given aPoint in the receiver coordinate system, it returns a point in a normalized coordinate system, with the origin at the lower left corner, height and width equal 1. For example to top right corner has normalized coordinates (1, 1).
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -119,7 +119,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pointWithAbsolutePoint:
-- (NSPoint) pointWithAbsolutePoint: (NSPoint) aPoint;
+-(NSPoint)pointWithAbsolutePoint:(NSPoint)aPoint;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -131,7 +131,7 @@ To Do List:
                             [self bounds].origin.y+aPoint.y*[self bounds].size.height);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= absoluteSizeWithSize:
-- (NSSize) absoluteSizeWithSize: (NSSize) aSize;
+-(NSSize)absoluteSizeWithSize:(NSSize)aSize;
 /*"Given aPoint in the receiver coordinate system, it returns a point in a normalized coordinate system, with the origin at the lower left corner, height and width equal 1. For example to top right corner has normalized coordinates (1, 1).
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 07/17/2003
@@ -146,7 +146,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sizeWithAbsoluteSize:
-- (NSSize) sizeWithAbsoluteSize: (NSSize) aSize;
+-(NSSize)sizeWithAbsoluteSize:(NSSize)aSize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 07/17/2003
@@ -157,7 +157,7 @@ To Do List:
     return NSMakeSize(aSize.width*[self bounds].size.width, aSize.height*[self bounds].size.height);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= absoluteSizeWithSize:
-- (NSRect) absoluteRectWithRect: (NSRect) aRect;
+-(NSRect)absoluteRectWithRect:(NSRect)aRect;
 /*"Given aPoint in the receiver coordinate system, it returns a point in a normalized coordinate system, with the origin at the lower left corner, height and width equal 1. For example to top right corner has normalized coordinates (1, 1).
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 07/17/2003
@@ -173,7 +173,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rectWithAbsoluteRect:
-- (NSRect) rectWithAbsoluteRect: (NSRect) aRect;
+-(NSRect)rectWithAbsoluteRect:(NSRect)aRect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 07/17/2003
@@ -185,7 +185,7 @@ To Do List:
                             aRect.size.width*[self bounds].size.width, aRect.size.height*[self bounds].size.height);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= boundsCenter
-- (NSPoint) boundsCenter;
+-(NSPoint)boundsCenter;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -196,7 +196,7 @@ To Do List:
     return NSMakePoint(NSMidX([self bounds]), NSMidY([self bounds]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setBoundsCenter:
-- (void) setBoundsCenter: (NSPoint) aCenter;
+-(void)setBoundsCenter:(NSPoint)aCenter;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -211,7 +211,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= centerBoundsOrigin
-- (void) centerBoundsOrigin;
+-(void)centerBoundsOrigin;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -223,7 +223,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= centerInSuperview
-- (void) centerInSuperview;
+-(void)centerInSuperview;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -238,7 +238,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeSubviewsWithoutNeedingDisplay
-- (void) removeSubviewsWithoutNeedingDisplay;
+-(void)removeSubviewsWithoutNeedingDisplay;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -253,7 +253,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= visibleArea
-- (float) visibleArea;
+-(float)visibleArea;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -265,7 +265,7 @@ To Do List:
     return VR.size.width * VR.size.height;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= compareArea:
-- (NSComparisonResult) compareArea: (NSView *) otherView;
+-(NSComparisonResult)compareArea:(NSView *)otherView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -284,7 +284,7 @@ To Do List:
         return NSOrderedSame;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFocus
-- (NSPoint) absoluteFocus;
+-(NSPoint)absoluteFocus;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -316,7 +316,7 @@ To Do List:
     return absoluteFocus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= controlWithAction:
-- (NSControl *) controlWithAction: (SEL) action;
+-(NSControl *)controlWithAction:(SEL)action;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -336,7 +336,7 @@ To Do List:
 
 @implementation NSControl(iTM2ViewKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= controlWithAction:
-- (NSControl *) controlWithAction: (SEL) action;
+-(NSControl *)controlWithAction:(SEL)action;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -350,7 +350,7 @@ To Do List:
 
 @implementation NSView(iTeXMac2Scrolling)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollPageLeft:
-- (void) scrollPageLeft: (id) sender;
+-(void)scrollPageLeft:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -363,7 +363,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollPageRight:
-- (void) scrollPageRight: (id) sender;
+-(void)scrollPageRight:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -376,7 +376,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollPageUp:
-- (void) scrollPageUp: (id) sender;
+-(void)scrollPageUp:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -390,7 +390,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollPageDown:
-- (void) scrollPageDown: (id) sender;
+-(void)scrollPageDown:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -404,7 +404,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollCharacterLeft:
-- (void) scrollCharacterLeft: (id) sender;
+-(void)scrollCharacterLeft:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -417,7 +417,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollCharacterRight:
-- (void) scrollCharacterRight: (id) sender;
+-(void)scrollCharacterRight:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -430,7 +430,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollLineUp:
-- (void) scrollLineUp: (id) sender;
+-(void)scrollLineUp:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -443,7 +443,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollLineDown:
-- (void) scrollLineDown: (id) sender;
+-(void)scrollLineDown:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -460,7 +460,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSView(iTeXMac2)
 
 @interface NSView(iTM2_PRIVATE)
-- (NSSize) minFrameSize;
+-(NSSize)minFrameSize;
 @end
 
 #import <iTM2Foundation/iTM2InstallationKit.h>
@@ -468,7 +468,7 @@ To Do List:
 
 @implementation iTM2View
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
-- (id) initWithFrame: (NSRect) frame;
+-(id)initWithFrame:(NSRect)frame;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -483,7 +483,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
-- (id) initWithCoder: (NSCoder *) decoder;
+-(id)initWithCoder:(NSCoder *)decoder;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -498,7 +498,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -513,7 +513,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
-- (id) implementation;
+-(id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -524,7 +524,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void) setImplementation: (id) argument;
+-(void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -552,7 +552,7 @@ Margins are added.
 The bounds origin is at (0, 0), I don't know yet if this is flipped.
 "*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
-- (id) initWithFrame: (NSRect) aFrame;
+-(id)initWithFrame:(NSRect)aFrame;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -567,7 +567,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
-- (id) initWithCoder: (NSCoder *) decoder;
+-(id)initWithCoder:(NSCoder *)decoder;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -582,7 +582,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -599,7 +599,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  CENTERED SUBVIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  centeredSubview
-- (id) centeredSubview;
+-(id)centeredSubview;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -610,7 +610,7 @@ To Do List:
     return _Subview;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCenteredSubview:
-- (void) setCenteredSubview: (NSView *) argument;
+-(void)setCenteredSubview:(NSView *)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -641,7 +641,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willChangeCenteredSubview
-- (void) willChangeCenteredSubview;
+-(void)willChangeCenteredSubview;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -653,7 +653,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didChangeCenteredSubview
-- (void) didChangeCenteredSubview;
+-(void)didChangeCenteredSubview;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -665,7 +665,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willRemoveSubview:
-- (void) willRemoveSubview: (NSView *) subview;
+-(void)willRemoveSubview:(NSView *)subview;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -679,7 +679,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  centerSubview
-- (void) centerSubview;
+-(void)centerSubview;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -693,7 +693,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  IMPLEMENTATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
-- (id) implementation;
+-(id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -704,7 +704,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void) setImplementation: (id) argument;
+-(void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -721,7 +721,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  SIZE MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  minFrameSize
-- (NSSize) minFrameSize;
+-(NSSize)minFrameSize;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -740,7 +740,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resizeSubviewsWithOldSize:
-- (void) resizeSubviewsWithOldSize: (NSSize) oldSize;
+-(void)resizeSubviewsWithOldSize:(NSSize)oldSize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -753,7 +753,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  horizontalMargin
-- (float) horizontalMargin;
+-(float)horizontalMargin;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -764,7 +764,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verticalMargin
-- (float) verticalMargin;
+-(float)verticalMargin;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -805,7 +805,7 @@ In tags from [0-15], bits correspond to shift, control, alternate, command keys.
 Message to change the subviews are sent by an instance of the
 //iTM2FlagsChangedResponder class."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-= autorelease
-- (id) autorelease;
+-(id)autorelease;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -817,7 +817,7 @@ To Do List:
     return self;
 } 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
-- (void) awakeFromNib
+-(void)awakeFromNib
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -829,7 +829,7 @@ To Do List:
     return;
 } 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-= computeIndexFromTag
-- (void) computeIndexFromTag;
+-(void)computeIndexFromTag;
 /*"Records the partial tags of subviews of the receiver and stores the index in the 
 table %{_IndexFromTag[]}. If two views have the same partial tag, only the last one is
 taken into account. The tags accepted are those between 0 and 15 (included) which corresponds to 4 modifiers key flags. One view can have at most seven different tags like this each of them corresponds to a combination of modifier keys assuming that we cannot have more than 3 modifier key at a time. Those tags are part of the NSView tag code, more
@@ -915,7 +915,7 @@ loop3:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
-- (id) initWithCoder: (NSCoder *) aDecoder;
+-(id)initWithCoder:(NSCoder *)aDecoder;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -934,7 +934,7 @@ To Do List:
 	return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  encodeWithCoder:
-- (void) encodeWithCoder: (NSCoder *) aCoder;
+-(void)encodeWithCoder:(NSCoder *)aCoder;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -952,7 +952,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-- (void) dealloc
+-(void)dealloc
 {iTM2_DIAGNOSTIC;
     [INC removeObserver:self];
     [_SubFrames autorelease];
@@ -961,14 +961,14 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptsFirstResponder =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-- (BOOL) acceptsFirstResponder
+-(BOOL)acceptsFirstResponder
 /*"Overriden to always return  YES to allow event messages to go through the responder chain
 down to the receiver. We only need one such view in the window, the receiver can play this role."*/
 {iTM2_DIAGNOSTIC;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-= flagsDidChangeNotified:... =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-- (void) flagsDidChangeNotified: (NSNotification *) aNotification;
+-(void)flagsDidChangeNotified:(NSNotification *)aNotification;
 /*" The subview which tag corresponds to the combination of modifier keys is moved to the origin while the subview that was previously there is moved away."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -979,7 +979,7 @@ down to the receiver. We only need one such view in the window, the receiver can
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateWithFlags:... =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-- (void) updateWithFlags: (unsigned int) flags;
+-(void)updateWithFlags:(unsigned int)flags;
 /*" The subview which tag corresponds to the combination of modifier keys is moved to the origin while the subview that was previously there is moved away."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -994,7 +994,7 @@ down to the receiver. We only need one such view in the window, the receiver can
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-= tagFromMask: =-=-=-=-=-=-=-=-=-=-=-=-
-- (int) tagFromMask: (int) aMask;
+-(int)tagFromMask:(int)aMask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1013,13 +1013,13 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-= moveCloserSubviewAtIndex:... =-=-=-=-=-=-=-=-=-=-=-=-
-- (void) moveAwaySubviewAtIndex: (int) index
+-(void)moveAwaySubviewAtIndex:(int)index
 /*"Sets the origin of this subview at point (10000, 10000)."*/
 {iTM2_DIAGNOSTIC;
     [[_subviews objectAtIndex:index] setFrameOrigin:NSMakePoint(10000, 10000)];
 }
 //=-=-=-=-=-=-=-=-=-=-= moveCloserSubviewAtIndex:... =-=-=-=-=-=-=-=-=-=-=-=-
-- (void) moveCloserSubviewAtIndex: (int) index
+-(void)moveCloserSubviewAtIndex:(int)index
 /*"Sets the origin of this subview at point (0, 0)."*/
 {iTM2_DIAGNOSTIC;
     if(index<[_SubFrames count])
@@ -1077,7 +1077,7 @@ To Do List:
 
 @implementation NSView(iTM2SplitKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enclosingSplitView
-- (NSSplitView *) enclosingSplitView;
+-(NSSplitView *)enclosingSplitView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1092,7 +1092,7 @@ To Do List:
 
 @implementation NSWindowController(iTM2AutoSplitKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splittableEnclosingViewForView:vertical:
-- (NSView *) splittableEnclosingViewForView: (NSView *) view vertical: (BOOL) yorn;
+-(NSView *)splittableEnclosingViewForView:(NSView *)view vertical:(BOOL)yorn;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1129,7 +1129,7 @@ loop:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unsplittableEnclosingViewForView:
-- (NSView *) unsplittableEnclosingViewForView: (NSView *) view;
+-(NSView *)unsplittableEnclosingViewForView:(NSView *)view;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1158,7 +1158,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  duplicateViewForSplitting:vertical:
-- (NSView *) duplicateViewForSplitting: (NSView *) view vertical: (BOOL) yorn;
+-(NSView *)duplicateViewForSplitting:(NSView *)view vertical:(BOOL)yorn;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1170,7 +1170,7 @@ To Do List:
 	return iTM2DebugEnabled>10000? [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:view]]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unsplit:
-- (void) unsplit: (NSView *) view;
+-(void)unsplit:(NSView *)view;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1215,7 +1215,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  split:vertical:createSplitView:
-- (void) split: (NSView *) view vertical: (BOOL) vertical createSplitView: (BOOL) create;
+-(void)split:(NSView *)view vertical:(BOOL)vertical createSplitView:(BOOL)create;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1284,7 +1284,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didAddSplittingView:
-- (void) didAddSplittingView: (NSView *) view;
+-(void)didAddSplittingView:(NSView *)view;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1296,7 +1296,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didRemoveSplittingView:
-- (void) didRemoveSplittingView: (NSView *) view;
+-(void)didRemoveSplittingView:(NSView *)view;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1309,7 +1309,7 @@ To Do List:
 }
 #pragma mark  =-=-=-=-=-  007
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splitVertical:
-- (IBAction) splitVertical: (id) sender;
+-(IBAction)splitVertical:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1332,7 +1332,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splitHorizontal:
-- (IBAction) splitHorizontal: (id) sender;
+-(IBAction)splitHorizontal:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1355,7 +1355,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splitClose:
-- (IBAction) splitClose: (id) sender;
+-(IBAction)splitClose:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1371,11 +1371,11 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ScrollerToolbarKit
 
 @interface iTM2ScrollerToolbar(PRIVATE)
-- (void) setPosition: (iTM2ScrollerToolbarPosition) position;
+-(void)setPosition:(iTM2ScrollerToolbarPosition)position;
 @end
 @implementation iTM2ScrollerToolbar
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollerToolbarForPosition:
-+ (id) scrollerToolbarForPosition: (iTM2ScrollerToolbarPosition) position;
++(id)scrollerToolbarForPosition:(iTM2ScrollerToolbarPosition)position;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1389,7 +1389,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  encodeWithCoder:
-- (void) encodeWithCoder: (NSCoder *) aCoder;
+-(void)encodeWithCoder:(NSCoder *)aCoder;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1404,7 +1404,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
-- (id) initWithCoder: (NSCoder *) aDecoder;
+-(id)initWithCoder:(NSCoder *)aDecoder;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1422,13 +1422,13 @@ To Do List:
 	return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-- (void) dealloc
+-(void)dealloc
 {iTM2_DIAGNOSTIC;
     [super dealloc];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  position
-- (iTM2ScrollerToolbarPosition) position;
+-(iTM2ScrollerToolbarPosition)position;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1440,7 +1440,7 @@ To Do List:
 	return _Position;//[metaGETTER unsignedIntValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPosition:
-- (void) setPosition: (iTM2ScrollerToolbarPosition) position;
+-(void)setPosition:(iTM2ScrollerToolbarPosition)position;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1456,7 +1456,7 @@ To Do List:
 
 @implementation NSScrollView(iTM2ViewKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1474,7 +1474,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2ViewKit_tile
-- (void) swizzle_iTM2ViewKit_tile;
+-(void)swizzle_iTM2ViewKit_tile;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005

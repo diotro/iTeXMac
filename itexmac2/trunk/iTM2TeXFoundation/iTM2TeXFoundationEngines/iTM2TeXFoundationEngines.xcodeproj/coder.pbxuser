@@ -203,8 +203,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172008833;
-			PBXWorkspaceStateSaveDate = 172008833;
+			PBXPerProjectTemplateStateSaveDate = 172180817;
+			PBXWorkspaceStateSaveDate = 172180817;
+		};
+		perUserProjectItems = {
+			DCF34C5D0A4352D1005375E6 /* PBXBookmark */ = DCF34C5D0A4352D1005375E6 /* PBXBookmark */;
+			DCF34E5E0A436251005375E6 /* PBXTextBookmark */ = DCF34E5E0A436251005375E6 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBuildSettings = {
@@ -233,8 +237,8 @@
 	DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1204, 5389}}";
-			sepNavSelRange = "{4160, 6}";
-			sepNavVisRect = "{{0, 1627}, {1145, 639}}";
+			sepNavSelRange = "{3183, 53}";
+			sepNavVisRect = "{{0, 1011}, {1145, 639}}";
 			sepNavWindowFrame = "{{84, 42}, {1184, 768}}";
 		};
 	};
@@ -256,9 +260,10 @@
 	};
 	DC9DC4C3094840CC0079E1B3 /* iTM2TeXWrapperKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1420, 44999}}";
-			sepNavSelRange = "{65443, 13}";
-			sepNavVisRect = "{{0, 30678}, {921, 32}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1412, 44999}}";
+			sepNavSelRange = "{93258, 0}";
+			sepNavVisRect = "{{0, 17083}, {1193, 720}}";
+			sepNavWindowFrame = "{{15, 24}, {1232, 849}}";
 		};
 	};
 	DC9DC6E5094844DF0079E1B3 /* All */ = {
@@ -274,5 +279,19 @@
 			sepNavVisRect = "{{0, 0}, {1103, 617}}";
 			sepNavWindowFrame = "{{61, 39}, {1142, 746}}";
 		};
+	};
+	DCF34C5D0A4352D1005375E6 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DC9DC4C3094840CC0079E1B3 /* iTM2TeXWrapperKit.m */;
+	};
+	DCF34E5E0A436251005375E6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC9DC4C3094840CC0079E1B3 /* iTM2TeXWrapperKit.m */;
+		name = "iTM2TeXWrapperKit.m: iTM2TeXWrapperKitCompleteInstallation";
+		rLen = 0;
+		rLoc = 93258;
+		rType = 0;
+		vrLen = 1597;
+		vrLoc = 36889;
 	};
 }

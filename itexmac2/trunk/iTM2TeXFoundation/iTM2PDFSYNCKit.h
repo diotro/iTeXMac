@@ -43,7 +43,7 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
     @param      hint is a dictionary containing hints to help synchronizing
     @result     None
 */
-- (void) synchronizeWithLocation: (NSPoint) thePoint inPageAtIndex: (unsigned int) thePage withHint: (NSDictionary *) hint;
+-(void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint;
 
 /*! 
     @method     displayPageForLine:column:source:withHint:orderFront:
@@ -55,18 +55,18 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
     @param      yorn is a flag.
     @result     NO if nothing special is done
 */
-- (BOOL) displayPageForLine: (unsigned int) l column: (unsigned int) c source: (NSString *) SRCE withHint: (NSDictionary *) hint orderFront: (BOOL) yorn force: (BOOL) force;
+-(BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 
-- (id) synchronizer;
-- (void) setSynchronizer: (id) argument;
-- (void) replaceSynchronizer: (id) argument;
+-(id)synchronizer;
+-(void)setSynchronizer:(id)argument;
+-(void)replaceSynchronizer:(id)argument;
 /*! 
     @method     updatePdfsync:
     @abstract   Update the receiver.
     @discussion This message should be sent each time the information linking the PDF with its source have changed.
 This implementation reads the .PDFSYNC file associated to the receiver. There should be a consistency test to ensure that the PDFSYNC file read is really in synchronization with the PDF file read. The the file is parsed in a new thread and some information is cached.
 */
-- (void) updatePdfsync: (id) sender;
+-(void)updatePdfsync:(id)sender;
 
 /*! 
     @method     updatePdfSyncFileModificationDate
@@ -74,7 +74,7 @@ This implementation reads the .PDFSYNC file associated to the receiver. There sh
     @discussion This message is sent each time the file modification date of the receiver is expected to change.
 				More precisely it is sent when the context is saved and when the receiver is saved.
 */
-- (void) updatePdfSyncFileModificationDate;
+-(void)updatePdfSyncFileModificationDate;
 
 @end
 
@@ -124,7 +124,7 @@ typedef struct
     @result     a dictionary which keys are 0 based page indices wrapped as unsigned int in numbers,
 				values are arrays of points wrapped in values.
 */
-- (NSDictionary *) destinationsForLine: (unsigned int) line column: (unsigned int) column inSource: (NSString *) source;
+-(NSDictionary *)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
 
 /*! 
     @method     getLine:column:source:forLocation:withHint:inPageAtIndex:
@@ -137,8 +137,8 @@ typedef struct
     @param      point is the point of the PDF.
     @result     a flag, NO if no PDFSYNCH info where available, YES othewise. A NO return value does not mean that the receiver is using DVI.
 */
-- (BOOL) getLine: (unsigned int *) linePtr column: (unsigned int *) columnPtr source: (NSString **) sourcePtr forLocation: (NSPoint) point withHint: (NSDictionary *) hint inPageAtIndex: (unsigned int) pageIndex;
-- (BOOL) getLine: (unsigned int *) linePtr column: (unsigned int *) columnPtr sourceBefore: (NSString **) sourceBeforeRef sourceAfter: (NSString **) sourceAfterRef forLocation: (NSPoint) point withHint: (NSDictionary *) hint inPageAtIndex: (unsigned int) pageIndex;
+-(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+-(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 
 /*! 
     @method     synchronizationLocationsForPageIndex:
@@ -147,7 +147,7 @@ typedef struct
     @param      page is a 0 based page number.
     @result     an enumerator, maybe nil.
 */
-- (NSDictionary *) synchronizationLocationsForPageIndex: (unsigned int) page;
+-(NSDictionary *)synchronizationLocationsForPageIndex:(unsigned int)page;
 
 /*!
     @method     sourcesForPageAtIndex:
@@ -158,7 +158,7 @@ typedef struct
     @param		pageIndex is the 0 based page index in the output.
     @result     An array of source paths, relative to the main source/pdf file.
 */
-- (NSArray *) sourcesForPageAtIndex: (unsigned int) pageIndex;
+-(NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
 
 /*! 
     @method     parsePdfsync:
@@ -167,7 +167,7 @@ typedef struct
     @param      The path of the .pdfsync file.
     @result     None.
 */
-- (void) parsePdfsync: (NSString *) pdfsyncPath;
+-(void)parsePdfsync:(NSString *)pdfsyncPath;
 
 /*! 
     @method     lock
@@ -176,8 +176,8 @@ typedef struct
     @param      None.
     @result     None.
 */
-- (void) lock;
-- (void) unlock;
+-(void)lock;
+-(void)unlock;
 
 @end
 
@@ -190,7 +190,7 @@ typedef struct
     @param      page is a 0 based page number.
     @result     an enumerator, maybe nil.
 */
-- (void) toggleSyncFollowFocus: (id) sender;
+-(void)toggleSyncFollowFocus:(id)sender;
 
 /*! 
     @method     toggleSynchronizationMode:
@@ -199,7 +199,7 @@ typedef struct
     @param      irrelevant.
     @result     None.
 */
-- (void) toggleSynchronizationMode: (id) sender;
+-(void)toggleSynchronizationMode:(id)sender;
 
 /*! 
     @method     toggleSyncNoBullets:
@@ -208,7 +208,7 @@ typedef struct
     @param      irrelevant.
     @result     None.
 */
-- (void) toggleSyncNoBullets: (id) sender;
+-(void)toggleSyncNoBullets:(id)sender;
 
 /*! 
     @method     toggleSyncAllBullets:
@@ -217,7 +217,7 @@ typedef struct
     @param      irrelevant.
     @result     None.
 */
-- (void) toggleSyncAllBullets: (id) sender;
+-(void)toggleSyncAllBullets:(id)sender;
 
 /*! 
     @method     toggleSyncUserBullets:
@@ -226,7 +226,7 @@ typedef struct
     @param      irrelevant.
     @result     None.
 */
-- (void) toggleSyncUserBullets: (id) sender;
+-(void)toggleSyncUserBullets:(id)sender;
 
 /*! 
     @method     toggleSyncFocusBullet:
@@ -235,7 +235,7 @@ typedef struct
     @param      irrelevant.
     @result     None.
 */
-- (void) toggleSyncFocusBullet: (id) sender;
+-(void)toggleSyncFocusBullet:(id)sender;
 
 @end
 
@@ -243,24 +243,24 @@ typedef struct
 
 @interface iTM2PDFAlbumView(iTM2PDFSYNCKit)
 
-- (BOOL) takeCurrentPhysicalPage: (int) aCurrentPhysicalPage synchronizationPoint: (NSPoint) P withHint: (NSDictionary *) hint;
-- (void) scrollSynchronizationPointToVisible: (id) sender;
+-(BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+-(void)scrollSynchronizationPointToVisible:(id)sender;
 
 @end
 
 @interface iTM2PDFImageRepView(iTM2PDFSYNCKit)
-- (void) scrollSynchronizationPointToVisible: (id) sender;
-- (void) pdfSynchronizeMouseDown: (NSEvent *) theEvent;
+-(void)scrollSynchronizationPointToVisible:(id)sender;
+-(void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 @end
 
 @interface iTM2PDFInspector(iTM2PDFSYNCKit)
-- (BOOL) canSynchronizeOutput;
-- (IBAction) scrollSynchronizationPointToVisible: (id) sender;
-- (BOOL) validateScrollSynchronizationPointToVisible: (id) sender;
-- (void) displayPhysicalPage: (int) page synchronizationPoint: (NSPoint) P withHint: (NSDictionary *) hint;
-- (void) synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint;
+-(BOOL)canSynchronizeOutput;
+-(IBAction)scrollSynchronizationPointToVisible:(id)sender;
+-(BOOL)validateScrollSynchronizationPointToVisible:(id)sender;
+-(void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+-(void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 @end
 
 @interface NSTextView(iTM2PDFSYNCKit)
-- (void) pdfSynchronizeMouseDown: (NSEvent *) event;
+-(void)pdfSynchronizeMouseDown:(NSEvent *)event;
 @end

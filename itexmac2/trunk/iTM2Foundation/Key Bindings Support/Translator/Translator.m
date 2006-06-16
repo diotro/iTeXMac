@@ -4,10 +4,10 @@ int main (int argc, const char * argv[]) {
 	NSAutoreleasePool * AP = [[NSAutoreleasePool alloc] init];
 	// parse the environment variables
 	NSDictionary * environment = [[NSProcessInfo processInfo] environment];
-	NSString * SOURCE = [environment objectForKey: @"KeyBindingsTranslatorSource"];
-	NSString * DTD = [environment objectForKey: @"KeyBindingsTranslatorMenuDTD"];
-	NSString * TARGET = [environment objectForKey: @"KeyBindingsTranslatorTarget"];
-	NSString * MACROS = [environment objectForKey: @"KeyBindingsTranslatorMacros"];
+	NSString * SOURCE = [environment objectForKey:@"KeyBindingsTranslatorSource"];
+	NSString * DTD = [environment objectForKey:@"KeyBindingsTranslatorMenuDTD"];
+	NSString * TARGET = [environment objectForKey:@"KeyBindingsTranslatorTarget"];
+	NSString * MACROS = [environment objectForKey:@"KeyBindingsTranslatorMacros"];
 	int index = 0;
 	while(++index < argc)
 	{
@@ -15,7 +15,7 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				SOURCE = [NSString stringWithUTF8String: argv[index]];
+				SOURCE = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
@@ -24,7 +24,7 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				DTD = [NSString stringWithUTF8String: argv[index]];
+				DTD = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
@@ -33,7 +33,7 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				TARGET = [NSString stringWithUTF8String: argv[index]];
+				TARGET = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
@@ -42,18 +42,18 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				MACROS = [NSString stringWithUTF8String: argv[index]];
+				MACROS = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
 		}
 	}
-	if(![[NSFileManager defaultManager] isReadableFileAtPath: SOURCE]) 
+	if(![[NSFileManager defaultManager] isReadableFileAtPath:SOURCE]) 
 	{
 		NSLog(@"%s ERROR: no readable file at %@", argv[0], SOURCE);
 		goto ERROR;
 	}
-	if(![[NSFileManager defaultManager] isReadableFileAtPath: DTD]) 
+	if(![[NSFileManager defaultManager] isReadableFileAtPath:DTD]) 
 	{
 		NSLog(@"%s ERROR: no readable file at %@", argv[0], DTD);
 		goto ERROR;
@@ -68,58 +68,58 @@ int main (int argc, const char * argv[]) {
 		MACROS = [[SOURCE stringByDeletingLastPathComponent]
 							stringByAppendingPathComponent: @"iTM2Macros.xml"];
 	}
-	if(![[NSFileManager defaultManager] isWritableFileAtPath: [TARGET stringByDeletingLastPathComponent]]) 
+	if(![[NSFileManager defaultManager] isWritableFileAtPath:[TARGET stringByDeletingLastPathComponent]]) 
 	{
 		NSLog(@"%s ERROR: no writable directory at %@", argv[0], TARGET);
 		goto ERROR;
 	}
 	NSError * error = nil;
-	NSURL * url = [NSURL fileURLWithPath: SOURCE];
+	NSURL * url = [NSURL fileURLWithPath:SOURCE];
 	NSXMLDocument *xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&error] autorelease];
 	if(error)
 	{
 		NSLog(@"error: %@\npath: %@", error, SOURCE);
 	}
 	NSXMLElement * element = [xmlDoc rootElement];// dict
-	NSXMLElement * rootElement = [[[NSXMLElement alloc] initWithName: @"LIST"] autorelease];
+	NSXMLElement * rootElement = [[[NSXMLElement alloc] initWithName:@"LIST"] autorelease];
 	do
 	{
-		if([element isKindOfClass: [NSXMLElement class]])
+		if([element isKindOfClass:[NSXMLElement class]])
 		{
-			NSString * key = [[element attributeForName: @"KEY"] stringValue];
+			NSString * key = [[element attributeForName:@"KEY"] stringValue];
 			if([key length])
 			{
 				NSXMLElement * item = [NSXMLNode elementWithName:@"ITEM"];
-				[item addAttribute: [NSXMLNode attributeWithName: @"KEY" stringValue:key]];
-				NSString * actionName = [[element attributeForName: @"ACT"] stringValue];
+				[item addAttribute:[NSXMLNode attributeWithName:@"KEY" stringValue:key]];
+				NSString * actionName = [[element attributeForName:@"ACT"] stringValue];
 				if([actionName length])
 				{
-					[item addAttribute: [NSXMLNode attributeWithName: @"ACT" stringValue:actionName]];
-					NSXMLElement * E = [[element elementsForName: @"ARGLIST"] lastObject];
+					[item addAttribute:[NSXMLNode attributeWithName:@"ACT" stringValue:actionName]];
+					NSXMLElement * E = [[element elementsForName:@"ARGLIST"] lastObject];
 					if(E)
 					{
-						id list = [NSXMLNode elementWithName: @"ARGLIST"];
-						id node = [E childAtIndex: 0];
+						id list = [NSXMLNode elementWithName:@"ARGLIST"];
+						id node = [E childAtIndex:0];
 						do
 						{
 							NSString * s = [node stringValue];
 							if([s length])
 							{
-								[list addChild: [NSXMLNode elementWithName:@"ARG" stringValue:s]];
+								[list addChild:[NSXMLNode elementWithName:@"ARG" stringValue:s]];
 							}
 						}
 						while(node = [node nextSibling]);
-						[item addChild: list];
+						[item addChild:list];
 					}
-					else if(E = [[element elementsForName: @"ARG"] lastObject])
+					else if(E = [[element elementsForName:@"ARG"] lastObject])
 					{
 						NSString * s = [E stringValue];
 						if([s length])
 						{
-							[item addChild: [NSXMLNode elementWithName:@"ARG" stringValue:s]];
+							[item addChild:[NSXMLNode elementWithName:@"ARG" stringValue:s]];
 						}
 					}
-					[rootElement addChild: item];
+					[rootElement addChild:item];
 				}
 			}
 		}
@@ -131,17 +131,17 @@ int main (int argc, const char * argv[]) {
 	[xmlDoc setCharacterEncoding:@"UTF-8"];
 	// add the embedded DTD
 	// DON'T RELY ON COCOA: THERE IS A BUG in 10.4.4
-	[xmlDoc setDTD: [[[NSXMLDTD alloc] init] autorelease]];
-	NSMutableString * MS = [[[xmlDoc XMLStringWithOptions: NSXMLNodePrettyPrint] mutableCopy] autorelease];
-	NSRange R = [MS rangeOfString: @"<!DOCTYPE >"];
+	[xmlDoc setDTD:[[[NSXMLDTD alloc] init] autorelease]];
+	NSMutableString * MS = [[[xmlDoc XMLStringWithOptions:NSXMLNodePrettyPrint] mutableCopy] autorelease];
+	NSRange R = [MS rangeOfString:@"<!DOCTYPE >"];
 	if(R.length)
 	{
-		url = [NSURL fileURLWithPath: DTD];
+		url = [NSURL fileURLWithPath:DTD];
 		NSString * DTDContents = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
 		DTDContents = [DTDContents stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		[MS replaceCharactersInRange: R withString: [NSString stringWithFormat: @"<!DOCTYPE %@ [\n%@\n]>", [[xmlDoc rootElement] name], DTDContents]];
+		[MS replaceCharactersInRange:R withString:[NSString stringWithFormat:@"<!DOCTYPE %@ [\n%@\n]>", [[xmlDoc rootElement] name], DTDContents]];
 	}
-	if([MS writeToURL:[NSURL fileURLWithPath: TARGET] atomically:YES encoding:NSUTF8StringEncoding error:&error])
+	if([MS writeToURL:[NSURL fileURLWithPath:TARGET] atomically:YES encoding:NSUTF8StringEncoding error:&error])
 	{
 		NSLog(@"OKAY %@", TARGET);
 	}

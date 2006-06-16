@@ -35,12 +35,12 @@ NSString * const iTM2MacroToolTipKey = @"__(MACRO_TOOLTIP)__";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextMacro
 /*"This class deals with macro strings. These are strings with some key words to control the insertion of the macro in the current text."*/
 @interface NSTextView (iTM2TextMacro_PRIVATE)
-+ (NSString *) tabAnchor;
-- (NSString *) cachedSelection;
++(NSString *)tabAnchor;
+-(NSString *)cachedSelection;
 @end
 @implementation iTM2TextMacro
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroV1WithBefore:selected:after:
-+ (id) macroV1WithBefore: (NSString *) before selected: (NSString *) selected after: (NSString *) after;
++(id)macroV1WithBefore:(NSString *)before selected:(NSString *)selected after:(NSString *)after;
 /*"Compatibility with iTeXMac2 < 1.0.7.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -73,7 +73,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  string
-- (NSString *) string
+-(NSString *)string
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -92,7 +92,7 @@ To Do List:
             [self macroBefore], iTM2MacroToolTipKey, [self toolTip]]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithString:
-- (id) initWithString: (NSString *) argument
+-(id)initWithString:(NSString *)argument
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -143,7 +143,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroWithBefore:selected:after:toolTip:
-+ (id) macroWithBefore: (NSString *) before selected: (NSString *) selected after: (NSString *) after toolTip: (NSString *) toolTip;
++(id)macroWithBefore:(NSString *)before selected:(NSString *)selected after:(NSString *)after toolTip:(NSString *)toolTip;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -154,7 +154,7 @@ To Do List:
     return [[[self alloc] initWithBefore:before selected:selected after:after toolTip:toolTip] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithBefore:selected:after:toolTip:
-- (id) initWithBefore: (NSString *) before selected: (NSString *) selected after: (NSString *) after toolTip: (NSString *) toolTip;
+-(id)initWithBefore:(NSString *)before selected:(NSString *)selected after:(NSString *)after toolTip:(NSString *)toolTip;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -172,7 +172,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithAttributedString:name:toolTip:
-- (id) initWithAttributedString: (NSAttributedString *) attributedString name: (NSString *) name toolTip: (NSString *) toolTip;
+-(id)initWithAttributedString:(NSAttributedString *)attributedString name:(NSString *)name toolTip:(NSString *)toolTip;
 /*"Description forthcoming. The selected range is relative to the returned string.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/19/2002
@@ -227,7 +227,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributedStringForName:delimiter:
-- (NSAttributedString *) attributedStringForName: (NSString *) name delimiter: (NSAttributedString *) delimiterAttributedString;
+-(NSAttributedString *)attributedStringForName:(NSString *)name delimiter:(NSAttributedString *)delimiterAttributedString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/19/2002
@@ -257,7 +257,7 @@ To Do List:
     return MAS;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroStringForName:selection:indent:selectedRangePointer:
-- (NSString *) macroStringForName: (NSString *) name selection: (NSString *) selection indent: (NSString *) indentPrefix
+-(NSString *)macroStringForName:(NSString *)name selection:(NSString *)selection indent:(NSString *)indentPrefix
     selectedRangePointer: (NSRangePointer) aRangePtr
 /*"Description forthcoming. The selected range is relative to the returned string.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -359,7 +359,7 @@ GETTER(toolTip, _ToolTip);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMacroAfter:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolTip:
 #define SETTER(setter, source)\
-- (void) setter: (NSString *) argument;\
+-(void)setter:(NSString *)argument;\
 {\
     if(![source isEqualToString:argument])\
     {\
@@ -381,7 +381,7 @@ SETTER(setToolTip, _ToolTip);
     #warning 10.1
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc
+-(void)dealloc
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -400,7 +400,7 @@ To Do List:
 
 @implementation NSTextView (iTM2TextMacro)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabAnchor
-+ (NSString *) tabAnchor;
++(NSString *)tabAnchor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -411,7 +411,7 @@ To Do List:
     return [SUD stringForKey:iTM2UDTabAnchorStringKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:
-- (void) insertMacro: (id) argument;
+-(void)insertMacro:(id)argument;
 /*"Description forthcoming. argument is either a dictionary with strings for keys "before", "selected" and "after" or a string playing the role of before keyed object (the other strings are blank). When the argument is a NSMenuItem (or so) we add a pretreatment replacing the argument by its represented object.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -423,7 +423,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delayedSetSelectedRangeValue:
-- (void) delayedSetSelectedRangeValue: (id) rangeValue;
+-(void)delayedSetSelectedRangeValue:(id)rangeValue;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -434,7 +434,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:tabAnchor:
-- (void) insertMacro: (id) argument tabAnchor: (NSString *) tabAnchor;
+-(void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
 /*"Description forthcoming. argument is either a dictionary with strings for keys "before", "selected" and "after" or a string playing the role of before keyed object (the other strings are blank). When the argument is a NSMenuItem (or so) we add a pretreatment replacing the argument by its represented object.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -592,18 +592,18 @@ To Do List:
 @end
 
 @interface NSObject(NSTextStorage_iTeXMac2)
-- (NSTextView *) mainTextView;
-- (NSRange) rangeValue;
-- (unsigned) index;
-- (unsigned) insertionIndex;
-- (unsigned) intValue;
+-(NSTextView *)mainTextView;
+-(NSRange)rangeValue;
+-(unsigned)index;
+-(unsigned)insertionIndex;
+-(unsigned)intValue;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection_MACRO)
 /*"Description forthcoming."*/
 @implementation NSTextStorage(iTM2Selection_MACRO)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertMacro:inRangeValue:
-- (void) insertMacro: (id) argument inRangeValue: (id) rangeValue;
+-(void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -627,7 +627,7 @@ To Do List:
 
 @implementation iTM2AppleScriptMacro
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithScript:
-- (id) initWithScript: (NSString *) argument;
+-(id)initWithScript:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -642,7 +642,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithEncodedScript:
-- (id) initWithEncodedScript: (NSString *) argument;
+-(id)initWithEncodedScript:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -659,7 +659,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -673,7 +673,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  script
-- (NSString *) script;
+-(NSString *)script;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -684,7 +684,7 @@ To Do List:
     return _Script;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  encodedScript
-- (NSString *) encodedScript;
+-(NSString *)encodedScript;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -697,7 +697,7 @@ To Do List:
             _Script;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScript:
-- (void) setScript: (NSString *) argument;
+-(void)setScript:(NSString *)argument;
 /*"Description forthcoming.
 No copy made, just retain.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -717,7 +717,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolTip
-- (NSString *) toolTip;
+-(NSString *)toolTip;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -728,7 +728,7 @@ To Do List:
     return _ToolTip;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolTip:
-- (void) setToolTip: (NSString *) argument;
+-(void)setToolTip:(NSString *)argument;
 /*"Description forthcoming.
 No copy made, just retain.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -751,7 +751,7 @@ To Do List:
 
 @implementation iTM2AppleScriptFileMacro
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithPath:
-- (id) initWithPath: (NSString *) argument;
+-(id)initWithPath:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -766,7 +766,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithEncodedPath:
-- (id) initWithEncodedPath: (NSString *) argument;
+-(id)initWithEncodedPath:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -783,7 +783,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -797,7 +797,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  path
-- (NSString *) path;
+-(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -808,7 +808,7 @@ To Do List:
     return _Path;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  encodedPath
-- (NSString *) encodedPath;
+-(NSString *)encodedPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -821,7 +821,7 @@ To Do List:
             _Path;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPath:
-- (void) setPath: (NSString *) argument;
+-(void)setPath:(NSString *)argument;
 /*"Description forthcoming.
 No copy made, just retain.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -841,7 +841,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolTip
-- (NSString *) toolTip;
+-(NSString *)toolTip;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -852,7 +852,7 @@ To Do List:
     return _ToolTip;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolTip:
-- (void) setToolTip: (NSString *) argument;
+-(void)setToolTip:(NSString *)argument;
 /*"Description forthcoming.
 No copy made, just retain.
 Version history: jlaurens AT users DOT sourceforge DOT net

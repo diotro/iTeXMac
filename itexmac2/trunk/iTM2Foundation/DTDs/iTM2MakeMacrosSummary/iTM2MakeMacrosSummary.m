@@ -3,10 +3,10 @@
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSDictionary * environment = [[NSProcessInfo processInfo] environment];
-	NSString * SOURCE = [environment objectForKey: @"Source"];
-	NSString * TARGET = [environment objectForKey: @"Target"];
-	NSString * DTD = [environment objectForKey: @"DTD"];
-	NSString * SOURCE_ROOT = [environment objectForKey: @"SOURCE_ROOT"];
+	NSString * SOURCE = [environment objectForKey:@"Source"];
+	NSString * TARGET = [environment objectForKey:@"Target"];
+	NSString * DTD = [environment objectForKey:@"DTD"];
+	NSString * SOURCE_ROOT = [environment objectForKey:@"SOURCE_ROOT"];
 	int index = 0;
 	while(++index < argc)
 	{
@@ -14,7 +14,7 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				SOURCE = [NSString stringWithUTF8String: argv[index]];
+				SOURCE = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
@@ -23,7 +23,7 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				TARGET = [NSString stringWithUTF8String: argv[index]];
+				TARGET = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
@@ -32,33 +32,33 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				DTD = [NSString stringWithUTF8String: argv[index]];
+				DTD = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
 		}
 	}
-	if(![[NSFileManager defaultManager] isReadableFileAtPath: SOURCE]) 
+	if(![[NSFileManager defaultManager] isReadableFileAtPath:SOURCE]) 
 	{
 		SOURCE = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:SOURCE];
-		if(![[NSFileManager defaultManager] isReadableFileAtPath: SOURCE]) 
+		if(![[NSFileManager defaultManager] isReadableFileAtPath:SOURCE]) 
 		{
 			NSLog(@"%s ERROR: no readable file at %@", argv[0], SOURCE);
 			goto ERROR;
 		}
 		goto ERROR;
 	}
-	if(![[NSFileManager defaultManager] isReadableFileAtPath: DTD]) 
+	if(![[NSFileManager defaultManager] isReadableFileAtPath:DTD]) 
 	{
 		DTD = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:DTD];
-		if(![[NSFileManager defaultManager] isReadableFileAtPath: DTD]) 
+		if(![[NSFileManager defaultManager] isReadableFileAtPath:DTD]) 
 		{
 			DTD = [[[[[SOURCE_ROOT stringByAppendingPathComponent:@".."]
 				stringByAppendingPathComponent:@"iTM2Foundation"]
 					stringByAppendingPathComponent:@"DTDs"]
 						stringByAppendingPathComponent:@"Actions"]
 							stringByAppendingPathExtension:@"DTD"];
-			if(![[NSFileManager defaultManager] isReadableFileAtPath: DTD]) 
+			if(![[NSFileManager defaultManager] isReadableFileAtPath:DTD]) 
 			{
 				NSLog(@"%s ERROR: no readable file at %@", argv[0], DTD);
 				goto ERROR;
@@ -160,14 +160,14 @@ int main (int argc, const char * argv[]) {
 	NSXMLDocument *xmlDoc = [[[NSXMLDocument alloc] initWithRootElement:nil] autorelease];
 	[xmlDoc setVersion:@"1.0"];
 	[xmlDoc setCharacterEncoding:@"UTF-8"];
-	[xmlDoc setRootElement: root];
+	[xmlDoc setRootElement:root];
 	[xmlDoc setStandalone:YES];
 	// add the embedded DTD
-	[xmlDoc setDTD: [[[NSXMLDTD alloc] initWithContentsOfURL:[NSURL fileURLWithPath: DTD] options:0 error:&localError] autorelease]];
-	NSMutableString * MS = [[[xmlDoc XMLStringWithOptions: NSXMLNodePrettyPrint|NSXMLDocumentIncludeContentTypeDeclaration] mutableCopy] autorelease];
+	[xmlDoc setDTD:[[[NSXMLDTD alloc] initWithContentsOfURL:[NSURL fileURLWithPath:DTD] options:0 error:&localError] autorelease]];
+	NSMutableString * MS = [[[xmlDoc XMLStringWithOptions:NSXMLNodePrettyPrint|NSXMLDocumentIncludeContentTypeDeclaration] mutableCopy] autorelease];
 	[MS replaceOccurrencesOfString:@"></ITEM>" withString:@"/>" options:0 range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@"></CUT>" withString:@"/>" options:0 range:NSMakeRange(0,[MS length])];
-	if([MS writeToURL:[NSURL fileURLWithPath: TARGET] atomically:YES encoding:NSUTF8StringEncoding error:&localError])
+	if([MS writeToURL:[NSURL fileURLWithPath:TARGET] atomically:YES encoding:NSUTF8StringEncoding error:&localError])
 	{
 		NSLog(@"OKAY");
 	}

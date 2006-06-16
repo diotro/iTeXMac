@@ -34,7 +34,7 @@ do
                         shift 1
                         if [ $# -gt 0 ]
                         then
-							iTM2_Compile_Swicth="$1"
+							iTM2_Compile_Switch="$1"
                         else
 							"${iTM2_CMD_Notify}" echo "Missing a switcher document"
 							"${iTM2_CMD_Notify}" echo "$iTM2_COMPILE_USAGE"
@@ -67,11 +67,12 @@ fi
 pushd "`dirname "${iTM2_Compile_Master}"`"
 iTM2_Compile_INPUT_Directory="${PWD}"
 popd
-iTM2_Compile_INPUT="`basename "${iTM2_Compile_Master}"`"
+iTM2_Compile_INPUT="$(basename "${iTM2_Compile_Master}")"
 iTM2_Compile_Extension="${iTM2_Compile_INPUT##*.}"
+iTM2_Compile_Extension="$(echo "${iTM2_Compile_Extension}" | tr 'TEX' 'tex')"
 if [ "${iTM2_Compile_Extension}" == "${iTM2_Compile_INPUT}" ]
 then
-	iTM2_Compile_Extension="${iTM2_Compile_Swicth}"
+	iTM2_Compile_Extension="${iTM2_Compile_Switch}"
 	if [ ${#iTM2_Compile_Extension} -eq 0 ]
 	then
 		"${iTM2_CMD_Notify}" error  "Missing a master file name with an extension, or an extension switcher...
@@ -87,7 +88,7 @@ iTM2_Compile_EnginePath="`which "${iTM2_Compile_Wrapped}"`"
 # the iTM2_Compile_EnginePath now contains the full path of the command to launch, or something weird if there is no command
 if [ ! -x "${iTM2_Compile_EnginePath}" ]
 then
-	"${iTM2_CMD_Notify}" echo "pwd is `pwd`"
+	"${iTM2_CMD_Notify}" echo "pwd is $(pwd)"
 	"${iTM2_CMD_Notify}" echo "PATH is ${PATH}"
 	"${iTM2_CMD_Notify}" echo "Looking for ${iTM2_Compile_Wrapped}"
 	oldIFS="$IFS"

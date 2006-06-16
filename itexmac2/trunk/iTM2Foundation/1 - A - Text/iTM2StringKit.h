@@ -26,22 +26,22 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 
 @interface NSString(iTeXMac2)
 /*"Class methods"*/
-+ (NSString *) bullet;
++(NSString *)bullet;
 /*"Setters and Getters"*/
-- (BOOL) getIntegerTrailer: (int *) intPtr;
-- (NSRange) rangeForLine: (unsigned int) aLine nextLine: (unsigned int *) aNextLinePtr;
-- (NSRange) rangeForLineRange: (NSRange) aLineRange nextLine: (unsigned int *) aNextLinePtr;
-- (NSRange) rangeContentForLine: (unsigned int) aLine nextLine: (unsigned int *) aNextLinePtr;
-- (unsigned) lineForRange: (NSRange) aRange;
-- (unsigned) numberOfLines;
+-(BOOL)getIntegerTrailer:(int *)intPtr;
+-(NSRange)rangeForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
+-(NSRange)rangeForLineRange:(NSRange)aLineRange nextLine:(unsigned int *)aNextLinePtr;
+-(NSRange)rangeContentForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
+-(unsigned)lineForRange:(NSRange)aRange;
+-(unsigned)numberOfLines;
 //- (NSString *) commentedStringForKey: (NSString *) aKey value: (NSString *) aValue;
-- (NSString *) stringForCommentedKey: (NSString *) aKey forRange: (NSRange) aRange effectiveRange: (NSRangePointer) aRangePtr inHeader: (BOOL) aFlag;
-- (NSString *) stringByRemovingTrailingWhites;
-- (NSString*) stringWithSubstring: (NSString*) oldString replacedByString: (NSString*) newString;
-- (int) compareUsingLastPathComponent: (NSString *) rhs;
+-(NSString *)stringForCommentedKey:(NSString *)aKey forRange:(NSRange)aRange effectiveRange:(NSRangePointer)aRangePtr inHeader:(BOOL)aFlag;
+-(NSString *)stringByRemovingTrailingWhites;
+-(NSString*)stringWithSubstring:(NSString*)oldString replacedByString:(NSString*)newString;
+-(int)compareUsingLastPathComponent:(NSString *)rhs;
 /*"Main methods"*/
-- (NSRange) rangeBySelectingParagraphIfNeededWithRange: (NSRange) range;
-- (NSRange) doubleClickAtIndex: (unsigned) index;
+-(NSRange)rangeBySelectingParagraphIfNeededWithRange:(NSRange)range;
+-(NSRange)doubleClickAtIndex:(unsigned)index;
 /*!
     @method     rangeOfWordAtIndex:
     @abstract   The range of the word containing the character at the given index
@@ -53,7 +53,7 @@ extern NSString * const iTM2UDTabAnchorStringKey;
     @param		index
     @result     a range
 */
-- (NSRange) rangeOfWordAtIndex: (unsigned int) index;
+-(NSRange)rangeOfWordAtIndex:(unsigned int)index;
 
 /*!
     @method     wordRangeForRange:
@@ -64,7 +64,7 @@ extern NSString * const iTM2UDTabAnchorStringKey;
     @param		wordRange
     @result     a range
 */
-- (NSRange) wordRangeForRange: (NSRange) wordRange;
+-(NSRange)wordRangeForRange:(NSRange)wordRange;
 
 /*!
     @method     rangeOfWord:options:range:
@@ -76,9 +76,9 @@ extern NSString * const iTM2UDTabAnchorStringKey;
     @param		searchRange: the same for rangeOfString:options:range:
     @result     a range
 */
-- (NSRange) rangeOfWord: (NSString *) aWord options: (unsigned) mask range: (NSRange) searchRange;
+-(NSRange)rangeOfWord:(NSString *)aWord options:(unsigned)mask range:(NSRange)searchRange;
 
-- (NSArray *) componentsSeparatedByStrings: (NSString *) separator, ...;// nil or non NSString terminated list or arguments
+-(NSArray *)componentsSeparatedByStrings:(NSString *)separator, ...;// nil or non NSString terminated list or arguments
 /*"Overriden methods"*/
 @end
 

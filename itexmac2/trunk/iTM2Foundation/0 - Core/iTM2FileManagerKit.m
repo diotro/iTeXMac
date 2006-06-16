@@ -31,12 +31,12 @@ NSString * const iTM2PathComponentsSeparator = @"/";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
 @interface NSFileManager(PRIVATE)
-- (BOOL)_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
+-(BOOL)_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
 @end
 
 @implementation NSFileManager(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepDirectoryAtPath:attributes:error:
-- (BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)errorPtr;
+-(BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)errorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -116,7 +116,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepFileAtPath:contents:attributes:
-- (BOOL)createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
+-(BOOL)createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -142,7 +142,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepSymbolicLinkAtPath:pathContent:
-- (BOOL)createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+-(BOOL)createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -164,7 +164,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _createDeepDirectoryAtPath:attributes:seed:
-- (BOOL)_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
+-(BOOL)_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -207,7 +207,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeFileWritableAtPath:recursive:
-- (void)makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)recursive;
+-(void)makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)recursive;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -235,7 +235,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hideExtensionAtPath:
-- (BOOL)hideExtensionAtPath:(NSString *)path;
+-(BOOL)hideExtensionAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -249,7 +249,7 @@ To Do List:
 	return [self changeFileAttributes:attributes atPath:path];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showExtensionAtPath:
-- (BOOL)showExtensionAtPath:(NSString *)path;
+-(BOOL)showExtensionAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -263,7 +263,7 @@ To Do List:
 	return [self changeFileAttributes:attributes atPath:path];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyNameAtPath:
-- (NSString *)prettyNameAtPath:(NSString *)path;
+-(NSString *)prettyNameAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -276,7 +276,7 @@ To Do List:
 			[[path lastPathComponent] stringByDeletingPathExtension]:[path lastPathComponent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileExistsAtPath:isAlias:error:
-- (BOOL)fileExistsAtPath:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)errorPtr;
+-(BOOL)fileExistsAtPath:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)errorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -306,7 +306,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
++(void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -324,7 +324,7 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-- (BOOL)swizzled_removeFileAtPath:(NSString *)path handler:handler;
+-(BOOL)swizzled_removeFileAtPath:(NSString *)path handler:handler;
 {
 //iTM2_LOG(@"path: %@", path);
 	if([[path lastPathComponent] isEqual:@"CV.tex"])
@@ -345,18 +345,18 @@ To Do List:
 @end
 
 @interface NSFileManager(_iTM2ExtendedAttributes)
-- (NSDictionary *)extendedFileAttributesWithResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
-- (NSData *)extendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
-- (BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
-- (BOOL)removeExtendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
-- (BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
-- (NSData *)extendedFileAttributeWithResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
-- (BOOL)addExtendedFileAttribute:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
+-(NSDictionary *)extendedFileAttributesWithResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(NSData *)extendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)removeExtendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(NSData *)extendedFileAttributeWithResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)addExtendedFileAttribute:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
 @end
 
 @implementation NSFileManager(iTM2ExtendedAttributes)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttributesInDomain:atPath:error:
-- (NSDictionary *)extendedFileAttributesInSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+-(NSDictionary *)extendedFileAttributesInSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -372,7 +372,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttributesWithResourceType:atPath:error:
-- (NSDictionary *)extendedFileAttributesWithResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(NSDictionary *)extendedFileAttributesWithResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -490,7 +490,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttribute:inSpace:atPath:error:
-- (NSData *)extendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+-(NSData *)extendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -504,7 +504,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttribute:withResourceType:atPath:error:
-- (NSData *)extendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(NSData *)extendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -628,7 +628,7 @@ To Do List:
 	return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute:value:inSpace:atPath:error:
-- (BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -642,7 +642,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute:value:withResourceType:atPath:error:
-- (BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -778,7 +778,7 @@ else NSLog(@"No spec");
     return result;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute:inSpace:atPath:error:
-- (BOOL)removeExtendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)removeExtendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -792,7 +792,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeExtendedFileAttribute:withResourceType:atPath:error:
-- (BOOL)removeExtendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)removeExtendedFileAttribute:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -937,7 +937,7 @@ else NSLog(@"No spec");
     return result;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeExtendedFileAttributes:inSpace:atPath:error:
-- (BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -951,7 +951,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeExtendedFileAttributes:withResourceType:atPath:error:
-- (BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -1189,7 +1189,7 @@ else NSLog(@"No spec");
     return result;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttributeWithResourceType:resourceID:atPath:error:
-- (NSData *)extendedFileAttributeWithResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
+-(NSData *)extendedFileAttributeWithResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -1302,7 +1302,7 @@ To Do List:
 	return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute:value:withResourceType:resourceID:atPath:error:
-- (BOOL)addExtendedFileAttribute:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
+-(BOOL)addExtendedFileAttribute:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -1428,7 +1428,7 @@ else NSLog(@"No spec");
 
 @implementation NSData(iTM2ALias)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeAsFinderAliasToURL:options:error:
-- (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
+-(BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1509,7 +1509,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  aliasDataWithContentsOfURL:error:
-+ (NSData *) aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
++(NSData *)aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1524,7 +1524,7 @@ To Do List:
 		: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathByResolvingDataAlias:relativeTo:error:
-- (NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)error;
+-(NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)error;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1580,7 +1580,7 @@ jail:
 
 @implementation NSString(iTM2FileManagerKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataAliasRelativeTo:error:
-- (NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)error;
+-(NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)error;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03

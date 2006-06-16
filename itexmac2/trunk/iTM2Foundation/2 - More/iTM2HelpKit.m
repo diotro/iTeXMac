@@ -33,7 +33,7 @@ NSString * const iTeXMac2HelpBookName = @"iTeXMac2 Help";
 /*"Description forthcoming."*/
 @implementation iTM2HelpManager
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= buttonHelp
-+ (iTM2ButtonHelp *) buttonHelp;
++(iTM2ButtonHelp *)buttonHelp;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -47,7 +47,7 @@ To Do List:
     return buttonHelp;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= helpToolbarItem
-+ (id) helpToolbarItem;
++(id)helpToolbarItem;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -68,7 +68,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= showHelp:
-+ (void) showHelp: (id) sender;
++(void)showHelp:(id)sender;
 /*"When the receiver is in a palette, it should always be valid. Its target should be itself. Forwards the message to NSApp.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -81,7 +81,7 @@ To Do List: implement a sender specific Help
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= showHelp:anchor:
-+ (void) showHelp: (id) object anchor: (NSString *) anchor;
++(void)showHelp:(id)object anchor:(NSString *)anchor;
 /*"Public method: you give a key and the help controller manages all the stuff in order to show the help
 related to the key. It manages localization...
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -111,7 +111,7 @@ NSString * const iTM2RequestFeatureURLKey = @"iTM2:RequestFeatureURL";
 
 @implementation iTM2HelpResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"initialize.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -131,7 +131,7 @@ To Do List: implement a sender specific Help
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showLaTeXHelp:
-- (IBAction) showLaTeXHelp: (id) sender;
+-(IBAction)showLaTeXHelp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -146,7 +146,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showTeXCatalogueOnLine:
-- (IBAction) showTeXCatalogueOnLine: (id) sender;
+-(IBAction)showTeXCatalogueOnLine:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -162,7 +162,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showLocaleHelp:
-- (IBAction) showLocaleHelp: (id) sender;
+-(IBAction)showLocaleHelp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 09/03/2002
@@ -175,7 +175,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mailForHelp:
-- (IBAction) mailForHelp: (id) sender;
+-(IBAction)mailForHelp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -188,7 +188,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  reportBug:
-- (IBAction) reportBug: (id) sender;
+-(IBAction)reportBug:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -201,7 +201,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  requestFeature:
-- (IBAction) requestFeature: (id) sender;
+-(IBAction)requestFeature:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -223,7 +223,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation iTM2ButtonHelp
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initWithFrame:
-- (id) initWithFrame: (NSRect) irrelevant;
+-(id)initWithFrame:(NSRect)irrelevant;
 /*"No target set here.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -250,7 +250,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initWithCoder:
-- (id) initWithCoder: (NSCoder *) aDecoder;
+-(id)initWithCoder:(NSCoder *)aDecoder;
 /*"No target set here.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -273,7 +273,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  awakeFromNib
-- (void) awakeFromNib;
+-(void)awakeFromNib;
 /*"No target set here.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -289,7 +289,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect:
-- (void) drawRect: (NSRect) aRect;
+-(void)drawRect:(NSRect)aRect;
 /*"Draws a button (inherited method), then draws a question mark.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -313,7 +313,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= showHelp:
-- (void) showHelp: (id) sender;
+-(void)showHelp:(id)sender;
 /*"When the receiver is in a palette, it should always be valid. Its target should be itself. Does nothing.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -324,7 +324,7 @@ To Do List: IS IT RELEVANT?
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= description
-- (NSString *) description;
+-(NSString *)description;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

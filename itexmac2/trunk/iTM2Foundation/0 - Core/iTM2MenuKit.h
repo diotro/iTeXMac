@@ -28,43 +28,43 @@
 
 @interface NSMenu(iTeXMac2)
 /*"Class methods"*/
-+ (NSMenu *) hierarchicalMenuAtPath: (NSString *) aFullPath action: (SEL) aSelector target: (id) aTarget;
++(NSMenu *)hierarchicalMenuAtPath:(NSString *)aFullPath action:(SEL)aSelector target:(id)aTarget;
 /*"Setters and Getters"*/
-- (id) deepItemWithTitle: (NSString *) aTitle;
-- (id) deepItemWithAction: (SEL) aSelector;
-- (id) deepItemWithRepresentedObject: (id) anObject;
-- (id) deepItemWithKeyEquivalent: (NSString *) key modifierMask: (unsigned int) mask;
-- (BOOL) isRootMenu;
-- (NSMenu *) rootMenu;
-- (id) itemWithAction: (SEL) aSelector;
-- (id) itemWithRepresentedObject: (id) anObject;
-- (int) indexOfItemWithAction: (SEL) aSelector;
-- (int) indexOfItemWithTarget: (id) aTarget;
-- (void) deepSetTarget: (id) aTarget;
-- (void) deepSetAutoenablesItems: (BOOL) aFlag;
+-(id)deepItemWithTitle:(NSString *)aTitle;
+-(id)deepItemWithAction:(SEL)aSelector;
+-(id)deepItemWithRepresentedObject:(id)anObject;
+-(id)deepItemWithKeyEquivalent:(NSString *)key modifierMask:(unsigned int)mask;
+-(BOOL)isRootMenu;
+-(NSMenu *)rootMenu;
+-(id)itemWithAction:(SEL)aSelector;
+-(id)itemWithRepresentedObject:(id)anObject;
+-(int)indexOfItemWithAction:(SEL)aSelector;
+-(int)indexOfItemWithTarget:(id)aTarget;
+-(void)deepSetTarget:(id)aTarget;
+-(void)deepSetAutoenablesItems:(BOOL)aFlag;
 /*"Main methods"*/
-- (void) cleanSeparators;
-- (void) deselectItemsWithAction: (SEL) anAction;
-- (void) removeItemsWithAction: (SEL) anAction;
-- (void) removeItemsWithRepresentedObject: (id) anObject;
-- (void) deepEnableItems;
-- (NSMenu *) deepCopy;
-- (NSMenu *) deepCopyWithZone: (NSZone *) aZone;
-- (void) _MakeCellSizeSmall;
-- (void) deepMakeCellSizeSmall;
+-(void)cleanSeparators;
+-(void)deselectItemsWithAction:(SEL)anAction;
+-(void)removeItemsWithAction:(SEL)anAction;
+-(void)removeItemsWithRepresentedObject:(id)anObject;
+-(void)deepEnableItems;
+-(NSMenu *)deepCopy;
+-(NSMenu *)deepCopyWithZone:(NSZone *)aZone;
+-(void)_MakeCellSizeSmall;
+-(void)deepMakeCellSizeSmall;
 /*"Overriden methods"*/
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSMenuItem(iTM2Representation)
 
 @interface NSMenuItem(iTM2Representation)
-- (NSComparisonResult) compareUsingTitle: (id) rhs;
-- (NSString *) representedString;
-- (NSDictionary *) representedDictionary;
+-(NSComparisonResult)compareUsingTitle:(id)rhs;
+-(NSString *)representedString;
+-(NSDictionary *)representedDictionary;
 /*"Overriden methods"*/
 @end
 @interface NSCell(iTM2Representation)
-- (NSString *) representedString;
-- (NSDictionary *) representedDictionary;
+-(NSString *)representedString;
+-(NSDictionary *)representedDictionary;
 /*"Overriden methods"*/
 @end

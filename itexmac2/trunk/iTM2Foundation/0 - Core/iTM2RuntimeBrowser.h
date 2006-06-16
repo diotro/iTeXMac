@@ -41,7 +41,7 @@
 	@param		aClass
 	@result		A flag indicating whether the change has benn made
 */
-+ (BOOL) swizzleInstanceMethodSelector: (SEL) orig_sel replacement: (SEL) alt_sel forClass: (Class) aClass;
++(BOOL)swizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
 
 /*!
     @method		swizzleClassMethodSelector:replacement:forClass:
@@ -52,7 +52,7 @@
 	@param		aClass
 	@result		A flag indicating whether the change has benn made
 */
-+ (BOOL) swizzleClassMethodSelector: (SEL) orig_sel replacement: (SEL) alt_sel forClass: (Class) aClass;
++(BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
 
 /*!
     @method		allClassReferences
@@ -61,7 +61,7 @@
 	@param		None
 	@result		An array of NSNumber's containing references to classes
 */
-+ (NSArray *) allClassReferences;
++(NSArray *)allClassReferences;
 
 /*!
     @method		numberOfClasses
@@ -70,7 +70,7 @@
 	@param		None
 	@result		An integer
 */
-+ (int) numberOfClasses;
++(int)numberOfClasses;
 
 /*!
     @method		subclassReferencesOfClass:
@@ -80,7 +80,7 @@
 	@param		The class for which subclasses are looked for.
 	@result		An array of NSValues's containing references to classes
 */
-+ (NSArray *) subclassReferencesOfClass: (Class) aClass;
++(NSArray *)subclassReferencesOfClass:(Class)aClass;
 
 /*!
     @method		cleanCache:
@@ -89,7 +89,7 @@
 	@param		None.
 	@result		None
 */
-+ (void) cleanCache;
++(void)cleanCache;
 
 /*!
     @method		isClass:subclassOfClass:
@@ -99,7 +99,7 @@
 	@param		rhsClass is the possible ancestor.
 	@result		yorn
 */
-+ (BOOL) isClass: (Class) lhsClass subclassOfClass: (Class) rhsClass;
++(BOOL)isClass:(Class)lhsClass subclassOfClass:(Class)rhsClass;
 
 /*!
     @method		isClass:subclassOfClassNamed:
@@ -109,7 +109,7 @@
 	@param		className is the name of the possible ancestor.
 	@result		yorn
 */
-+ (BOOL) isClass: (Class) lhsClass subclassOfClassNamed: (const char *) className;
++(BOOL)isClass:(Class)lhsClass subclassOfClassNamed:(const char *)className;
 
 /*!
     @method		instanceSelectorsOfClass:withSuffix:signature:inherited:
@@ -121,7 +121,7 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of numbers wrapping selectors
 */
-+ (NSArray *) instanceSelectorsOfClass: (Class) Class withSuffix: (NSString *) suffix signature: (NSMethodSignature *) signature inherited: (BOOL) yorn;
++(NSArray *)instanceSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
 /*!
     @method		classSelectorsOfClass:withSuffix:signature:inherited:
@@ -133,7 +133,7 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of numbers wrapping selectors
 */
-+ (NSArray *) classSelectorsOfClass: (Class) Class withSuffix: (NSString *) suffix signature: (NSMethodSignature *) signature inherited: (BOOL) yorn;
++(NSArray *)classSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
 /*!
     @method		realInstanceSelectorsOfClass:withSuffix:signature:inherited:
@@ -148,7 +148,7 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of values wrapping selectors
 */
-+ (NSArray *) realInstanceSelectorsOfClass: (Class) Class withSuffix: (NSString *) suffix signature: (NSMethodSignature *) signature inherited: (BOOL) yorn;
++(NSArray *)realInstanceSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
 /*!
     @method		realClassSelectorsOfClass:withSuffix:signature:inherited:
@@ -161,9 +161,9 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of values wrapping selectors
 */
-+ (NSArray *) realClassSelectorsOfClass: (Class) Class withSuffix: (NSString *) suffix signature: (NSMethodSignature *) signature inherited: (BOOL) yorn;
++(NSArray *)realClassSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
-+ (BOOL) disableInstanceMethodSelector: (SEL) orig_sel forClass: (Class) aClass;
-+ (BOOL) disableClassMethodSelector: (SEL) orig_sel forClass: (Class) aClass;
++(BOOL)disableInstanceMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
++(BOOL)disableClassMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
 
 @end

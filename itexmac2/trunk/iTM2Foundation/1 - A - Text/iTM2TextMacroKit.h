@@ -92,27 +92,27 @@ extern NSString * const iTM2MacroToolTipKey;
     NSString * _ToolTip;
 }
 /*"Class methods"*/
-+ (id) macroV1WithBefore: (NSString *) before selected: (NSString *) selected after: (NSString *) after;
-+ (id) macroWithBefore: (NSString *) before selected: (NSString *) selected after: (NSString *) after toolTip: (NSString *) toolTip;
++(id)macroV1WithBefore:(NSString *)before selected:(NSString *)selected after:(NSString *)after;
++(id)macroWithBefore:(NSString *)before selected:(NSString *)selected after:(NSString *)after toolTip:(NSString *)toolTip;
 /*"Setters and Getters"*/
-- (NSString *) macroBefore;
-- (void) setMacroBefore: (NSString *) argument;
-- (NSString *) macroSelected;
-- (void) setMacroSelected: (NSString *) argument;
-- (NSString *) macroAfter;
-- (void) setMacroAfter: (NSString *) argument;
-- (NSString *) toolTip;
-- (void) setToolTip: (NSString *) argument;
-- (NSString *) macroStringForName: (NSString *) name selection: (NSString *) selection indent: (NSString *) indentPrefix
+-(NSString *)macroBefore;
+-(void)setMacroBefore:(NSString *)argument;
+-(NSString *)macroSelected;
+-(void)setMacroSelected:(NSString *)argument;
+-(NSString *)macroAfter;
+-(void)setMacroAfter:(NSString *)argument;
+-(NSString *)toolTip;
+-(void)setToolTip:(NSString *)argument;
+-(NSString *)macroStringForName:(NSString *)name selection:(NSString *)selection indent:(NSString *)indentPrefix
     selectedRangePointer: (NSRangePointer) aRangePtr;
-- (NSString *) string;
-- (NSAttributedString *) attributedStringForName: (NSString *) name delimiter: (NSAttributedString *) delimiterAttributedString;
+-(NSString *)string;
+-(NSAttributedString *)attributedStringForName:(NSString *)name delimiter:(NSAttributedString *)delimiterAttributedString;
 /*"Main methods"*/
-- (id) initWithString: (NSString *) argument;
-- (id) initWithBefore: (NSString *) before selected: (NSString *) selected after: (NSString *) after toolTip: (NSString *) toolTip;
-- (id) initWithAttributedString: (NSAttributedString *) attributedString name: (NSString *) name toolTip: (NSString *) toolTip;
+-(id)initWithString:(NSString *)argument;
+-(id)initWithBefore:(NSString *)before selected:(NSString *)selected after:(NSString *)after toolTip:(NSString *)toolTip;
+-(id)initWithAttributedString:(NSAttributedString *)attributedString name:(NSString *)name toolTip:(NSString *)toolTip;
 /*"Overriden methods"*/
-- (void) dealloc;
+-(void)dealloc;
 @end
 
 @interface iTM2AppleScriptMacro: NSObject
@@ -121,14 +121,14 @@ extern NSString * const iTM2MacroToolTipKey;
     NSString * _Script;
     NSString * _ToolTip;
 }
-- (id) initWithScript: (NSString *) argument;
-- (id) initWithEncodedScript: (NSString *) argument;
-- (void) dealloc;
-- (NSString *) script;
-- (NSString *) encodedScript;
-- (void) setScript: (NSString *) argument;
-- (NSString *) toolTip;
-- (void) setToolTip: (NSString *) argument;
+-(id)initWithScript:(NSString *)argument;
+-(id)initWithEncodedScript:(NSString *)argument;
+-(void)dealloc;
+-(NSString *)script;
+-(NSString *)encodedScript;
+-(void)setScript:(NSString *)argument;
+-(NSString *)toolTip;
+-(void)setToolTip:(NSString *)argument;
 @end
 
 @interface iTM2AppleScriptFileMacro: NSObject
@@ -137,25 +137,25 @@ extern NSString * const iTM2MacroToolTipKey;
     NSString * _Path;
     NSString * _ToolTip;
 }
-- (id) initWithPath: (NSString *) argument;
-- (id) initWithEncodedPath: (NSString *) argument;
-- (void) dealloc;
-- (NSString *) path;
-- (NSString *) encodedPath;
-- (void) setPath: (NSString *) argument;
-- (NSString *) toolTip;
-- (void) setToolTip: (NSString *) argument;
+-(id)initWithPath:(NSString *)argument;
+-(id)initWithEncodedPath:(NSString *)argument;
+-(void)dealloc;
+-(NSString *)path;
+-(NSString *)encodedPath;
+-(void)setPath:(NSString *)argument;
+-(NSString *)toolTip;
+-(void)setToolTip:(NSString *)argument;
 @end
 
 @interface NSTextView (iTM2TextMacro)
-- (void) insertMacro: (id) sender;
-- (void) insertMacro: (id) argument tabAnchor: (NSString *) tabAnchor;
+-(void)insertMacro:(id)sender;
+-(void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection)
 
 @interface NSTextStorage(iTM2TextMacroKit)
-- (void) insertMacro: (id) argument inRangeValue: (id) rangeValue;
+-(void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextMacro

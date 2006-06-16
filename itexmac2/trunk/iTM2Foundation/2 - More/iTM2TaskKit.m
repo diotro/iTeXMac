@@ -35,7 +35,7 @@ NSString * const iTM2TaskControllerIsBlindKey = @"iTM2TaskControllerIsBlind";
 /*"This object manages the UI of the task controller."*/
 @implementation iTM2TaskInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowFrameIdentifier
-- (NSString *) windowFrameIdentifier;
+-(NSString *)windowFrameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -46,7 +46,7 @@ To Do List:
     return @"Task Window";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL) windowPositionShouldBeObserved;
+-(BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -57,7 +57,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanLog:
-- (void) cleanLog: (id) sender;
+-(void)cleanLog:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -71,7 +71,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  OUTPUT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputView
-- (id) outputView;
+-(id)outputView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -88,7 +88,7 @@ To Do List:
     return TV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOutputView:
-- (void) setOutputView: (NSTextView *) argument;
+-(void)setOutputView:(NSTextView *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -114,7 +114,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logOutput:
-- (void) logOutput: (NSString *) argument;
+-(void)logOutput:(NSString *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -134,7 +134,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputDidTerminate
-- (void) outputDidTerminate;
+-(void)outputDidTerminate;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -148,7 +148,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  CUSTOM
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logCustom:
-- (void) logCustom: (NSString *) argument;
+-(void)logCustom:(NSString *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -161,7 +161,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  customDidTerminate
-- (void) customDidTerminate;
+-(void)customDidTerminate;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -174,7 +174,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  ERROR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  errorView
-- (id) errorView;
+-(id)errorView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -191,7 +191,7 @@ To Do List:
     return TV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setErrorView:
-- (void) setErrorView: (NSTextView *) argument;
+-(void)setErrorView:(NSTextView *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -216,7 +216,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logError:
-- (void) logError: (NSString *) argument;
+-(void)logError:(NSString *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -236,7 +236,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  errorDidTerminate
-- (void) errorDidTerminate;
+-(void)errorDidTerminate;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -249,7 +249,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  TASK
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskController
-- (id) taskController;
+-(id)taskController;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -260,7 +260,7 @@ To Do List:
     return [metaGETTER nonretainedObjectValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTaskController:
-- (void) setTaskController: (iTM2TaskController *) argument;
+-(void)setTaskController:(iTM2TaskController *)argument;
 /*"Description Forthcoming. The task controller si not owned.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -285,7 +285,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= taskWillLaunch
-- (void) taskWillLaunch;
+-(void)taskWillLaunch;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -297,7 +297,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= taskDidTerminate
-- (void) taskDidTerminate;
+-(void)taskDidTerminate;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -310,7 +310,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= execute:
-- (void) execute: (NSString *) aCommand;
+-(void)execute:(NSString *)aCommand;
 /*"Description Forthcoming. Rough input, no verification.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -322,7 +322,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= cancel:
-- (void) cancel: (NSString *) cancel;
+-(void)cancel:(NSString *)cancel;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -334,7 +334,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation:
-- (void) initImplementation;
+-(void)initImplementation;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -347,7 +347,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logInput:
-- (void) logInput: (NSString *) argument;
+-(void)logInput:(NSString *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -360,7 +360,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateOutputAndError:
-- (void) updateOutputAndError: (id) irrelevant;
+-(void)updateOutputAndError:(id)irrelevant;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -389,7 +389,7 @@ To Do List:
     @discussion When the task controller receives some data as output, it asks its interface to display it.
     @param      The string to display.
 */
-- (void) _logErrorData: (NSData *) argument;
+-(void)_logErrorData:(NSData *)argument;
 
 /*!
     @method     _logOutputData:
@@ -397,7 +397,7 @@ To Do List:
     @discussion When the task controller receives some data as error, it asks its interface to display it.
     @param      The string to display.
 */
-- (void) _logOutputData: (NSData *) argument;
+-(void)_logOutputData:(NSData *)argument;
 
 /*!
     @method     _logCustomData:
@@ -405,7 +405,7 @@ To Do List:
     @discussion When the task controller receives some data as error, it asks its interface to display it.
     @param      The string to display.
 */
-- (void) _logCustomData: (NSData *) D;
+-(void)_logCustomData:(NSData *)D;
 
 @end
 
@@ -426,7 +426,7 @@ NSString * const iTM2ServerComwarnerNotification = @"iTM2ServerComwarnerNotifica
 */
 @implementation iTM2TaskController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id) init;
+-(id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -450,7 +450,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  retain
-- (id) retain;
+-(id)retain;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -461,7 +461,7 @@ To Do List:
 	return [super retain];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  release
-- (void) release;
+-(void)release;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -474,7 +474,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -509,7 +509,7 @@ printf("%s %#x\n", __PRETTY_FUNCTION__, self);
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentTask
-- (NSTask *) currentTask;
+-(NSTask *)currentTask;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -520,7 +520,7 @@ To Do List:
     return _CurrentTask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isDeaf
-- (BOOL) isDeaf;
+-(BOOL)isDeaf;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -531,7 +531,7 @@ To Do List:
     return [self contextBoolForKey:iTM2TaskControllerIsDeafKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDeaf:
-- (void) setDeaf: (BOOL) yorn;
+-(void)setDeaf:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -543,7 +543,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isMute
-- (BOOL) isMute;
+-(BOOL)isMute;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -554,7 +554,7 @@ To Do List:
     return [self contextBoolForKey:iTM2TaskControllerIsMuteKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMute:
-- (void) setMute: (BOOL) yorn;
+-(void)setMute:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -566,7 +566,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isBlind
-- (BOOL) isBlind;
+-(BOOL)isBlind;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -577,7 +577,7 @@ To Do List:
     return [self contextBoolForKey:iTM2TaskControllerIsBlindKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBlind:
-- (void) setBlind: (BOOL) yorn;
+-(void)setBlind:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -589,7 +589,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentWrapper
-- (id <iTM2TaskWrapper>) currentWrapper;
+-(id <iTM2TaskWrapper>)currentWrapper;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -600,7 +600,7 @@ To Do List:
     return _CurrentWrapper;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addInspector:
-- (void) addInspector: (id <iTM2TaskInspector>) argument;
+-(void)addInspector:(id <iTM2TaskInspector>)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -630,7 +630,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeInspector:
-- (void) removeInspector: (id <iTM2TaskInspector>) argument;
+-(void)removeInspector:(id <iTM2TaskInspector>)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -647,7 +647,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorsEnumerator
-- (NSEnumerator *) inspectorsEnumerator;
+-(NSEnumerator *)inspectorsEnumerator;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -664,7 +664,7 @@ To Do List:
     return [MRA objectEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addTaskWrapper:
-- (void) addTaskWrapper: (id <iTM2TaskWrapper>) argument;
+-(void)addTaskWrapper:(id <iTM2TaskWrapper>)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -682,7 +682,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  restartWithTaskWrapper:
-- (void) restartWithTaskWrapper: (iTM2TaskWrapper *) argument;
+-(void)restartWithTaskWrapper:(iTM2TaskWrapper *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -697,7 +697,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeTaskWrapper:
-- (void) removeTaskWrapper: (id <iTM2TaskWrapper>) argument;
+-(void)removeTaskWrapper:(id <iTM2TaskWrapper>)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -726,7 +726,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stop
-- (void) stop;
+-(void)stop;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -745,7 +745,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= start
-- (void) start;
+-(void)start;
 /*"Launching the firts available task in the task stack. Connets the I/O, registers the receiver to the default notification center.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -993,7 +993,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= becomeStandalone
-- (void) becomeStandalone;
+-(void)becomeStandalone;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1009,7 +1009,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= flush
-- (void) flush;
+-(void)flush;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1027,7 +1027,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clean
-- (void) clean;
+-(void)clean;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1042,7 +1042,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= output
-- (NSString *) output;
+-(NSString *)output;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1053,7 +1053,7 @@ To Do List:
 	return _Output? [[_Output copy] autorelease]:[NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= custom
-- (NSString *) custom;
+-(NSString *)custom;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1064,7 +1064,7 @@ To Do List:
     return _Custom? [[_Custom copy] autorelease]:[NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= error
-- (NSString *) error;
+-(NSString *)error;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1075,7 +1075,7 @@ To Do List:
     return _Error? [[_Error copy] autorelease]:[NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _outputDataAvailableNotified:
-- (void) _outputDataAvailableNotified: (NSNotification *) aNotification;
+-(void)_outputDataAvailableNotified:(NSNotification *)aNotification;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1097,7 +1097,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _logOutputData:
-- (void) _logOutputData: (NSData *) D;
+-(void)_logOutputData:(NSData *)D;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1122,7 +1122,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _customDataAvailableNotified:
-- (void) _customDataAvailableNotified: (NSNotification *) notification;
+-(void)_customDataAvailableNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1179,7 +1179,7 @@ In this example, the value ``0000011682'' translates to 11,682 4K pages, or appr
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _logCustomData:
-- (void) _logCustomData: (NSData *) D;
+-(void)_logCustomData:(NSData *)D;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1276,7 +1276,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _errorDataAvailableNotified:
-- (void) _errorDataAvailableNotified: (NSNotification *) aNotification;
+-(void)_errorDataAvailableNotified:(NSNotification *)aNotification;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1295,7 +1295,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _logErrorData:
-- (void) _logErrorData: (NSData *) D;
+-(void)_logErrorData:(NSData *)D;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1319,7 +1319,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _currentTaskDidTerminate:
-- (void) _currentTaskDidTerminate: (NSNotification *) aNotification;
+-(void)_currentTaskDidTerminate:(NSNotification *)aNotification;
 /*"Description Forthcoming. Not orthogonal.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1369,7 +1369,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeAppleScript:
-- (void) executeAppleScript: (NSString *) source;
+-(void)executeAppleScript:(NSString *)source;
 /*"Description Forthcoming. Rough input, no verification.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1408,7 +1408,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  waitUntilExit
-- (void) waitUntilExit;
+-(void)waitUntilExit;
 /*"Description Forthcoming. Rough input, no verification.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1440,7 +1440,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedInterruptionCatcher:
-- (void) timedInterruptionCatcher: (NSTimer *) aTimer;
+-(void)timedInterruptionCatcher:(NSTimer *)aTimer;
 /*"Description Forthcoming. Rough input, no verification.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1453,7 +1453,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= execute:
-- (void) execute: (NSString *) aCommand;
+-(void)execute:(NSString *)aCommand;
 /*"Description Forthcoming. Rough input, no verification.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1504,11 +1504,11 @@ NSString * const iTM2TaskTerminationStatusKey = @"iTM2TaskTerminationStatus";
 NSString * const iTM2TaskPATHKey = @"PATH";
 
 @interface iTM2TaskWrapper(PRIVATE)
-- (void) cleanInvocations;
+-(void)cleanInvocations;
 @end
 @implementation iTM2TaskWrapper
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1524,7 +1524,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanInvocations
-- (void) cleanInvocations;
+-(void)cleanInvocations;
 /*"The _Launch and _Terminate invocations are private, use them with care.
 There can be problems with retain/release of the target.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1549,7 +1549,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
-- (void) initImplementation;
+-(void)initImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1567,7 +1567,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delegate
-- (id) delegate;
+-(id)delegate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1579,7 +1579,7 @@ To Do List:
     return I? [I target]:[[[self implementation] metaValueForKey:iTM2TaskTerminateInvocationKey] target];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  userInfo
-- (id) userInfo;
+-(id)userInfo;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1606,7 +1606,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDelegate:launchCallback:terminateCallback:interruptCallback:userInfo:
-- (void) setDelegate: (id) delegate launchCallback: (SEL) LCB terminateCallback: (SEL) TCB interruptCallback: (SEL) ICB userInfo: (id) userInfo;
+-(void)setDelegate:(id)delegate launchCallback:(SEL)LCB terminateCallback:(SEL)TCB interruptCallback:(SEL)ICB userInfo:(id)userInfo;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1670,7 +1670,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _callbackTemplate:::
-- (void) _callbackTemplate: (iTM2TaskWrapper *) arg1 : (iTM2TaskController *) taskController : (id) userInfo;
+-(void)_callbackTemplate:(iTM2TaskWrapper *)arg1 :(iTM2TaskController *)taskController :(id)userInfo;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1682,7 +1682,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  launchPath
-- (NSString *) launchPath;
+-(NSString *)launchPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1693,7 +1693,7 @@ To Do List:
     return iVarLaunchPath;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setLaunchPath:
-- (void) setLaunchPath: (NSString *) argument;
+-(void)setLaunchPath:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1709,7 +1709,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  arguments
-- (NSMutableArray *) arguments;
+-(NSMutableArray *)arguments;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1720,7 +1720,7 @@ To Do List:
     return iVarArguments;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setArguments:
-- (void) setArguments: (NSArray *) argument;
+-(void)setArguments:(NSArray *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1736,7 +1736,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addArgument:
-- (void) addArgument: (NSString *) argument;
+-(void)addArgument:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1754,7 +1754,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addArguments:
-- (void) addArguments: (NSArray *) argument;
+-(void)addArguments:(NSArray *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1780,7 +1780,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environment
-- (NSMutableDictionary *) environment;
+-(NSMutableDictionary *)environment;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1791,7 +1791,7 @@ To Do List:
     return iVarTaskEnvironment;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEnvironment:
-- (void) setEnvironment: (NSMutableDictionary *) argument;
+-(void)setEnvironment:(NSMutableDictionary *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1807,7 +1807,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceEnvironment:
-- (void) replaceEnvironment: (NSDictionary *) argument;
+-(void)replaceEnvironment:(NSDictionary *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1825,7 +1825,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mergeEnvironment:
-- (void) mergeEnvironment: (NSDictionary *) argument;
+-(void)mergeEnvironment:(NSDictionary *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1843,7 +1843,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEnvironmentString:forKey:
-- (void) setEnvironmentString: (NSString *) argument forKey: (NSString *) key;
+-(void)setEnvironmentString:(NSString *)argument forKey:(NSString *)key;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1865,7 +1865,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  appendPATHComponent:
-- (void) appendPATHComponent: (NSString *) path;
+-(void)appendPATHComponent:(NSString *)path;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1895,7 +1895,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prependPATHComponent:
-- (void) prependPATHComponent: (NSString *) path;
+-(void)prependPATHComponent:(NSString *)path;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1933,7 +1933,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentDirectoryPath
-- (NSString *) currentDirectoryPath;
+-(NSString *)currentDirectoryPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1944,7 +1944,7 @@ To Do List:
     return iVarCurrentDirectoryPath;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCurrentDirectoryPath:
-- (void) setCurrentDirectoryPath: (NSString *) argument;
+-(void)setCurrentDirectoryPath:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1960,7 +1960,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  terminationStatus
-- (int) terminationStatus;
+-(int)terminationStatus;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1971,7 +1971,7 @@ To Do List:
     return iVarTerminationStatus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTerminationStatus:
-- (void) setTerminationStatus: (int) argument;
+-(void)setTerminationStatus:(int)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1983,7 +1983,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id) currentContextManager;
+-(id)currentContextManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1994,7 +1994,7 @@ To Do List:
     return [self delegate]?:[super currentContextManager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskWillLaunch:
-- (void) taskWillLaunch: (iTM2TaskController *) sender;
+-(void)taskWillLaunch:(iTM2TaskController *)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2028,7 +2028,7 @@ To Do List:
 //NSLog(@"%@ %#x end", __PRETTY_FUNCTION__, self);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskDidTerminate:
-- (void) taskDidTerminate: (iTM2TaskController *) sender;
+-(void)taskDidTerminate:(iTM2TaskController *)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2048,7 +2048,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskInterruptIfNeeded:
-- (void) taskInterruptIfNeeded: (iTM2TaskController *) sender;
+-(void)taskInterruptIfNeeded:(iTM2TaskController *)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2068,7 +2068,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInterruptTask
-- (BOOL) canInterruptTask;
+-(BOOL)canInterruptTask;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2079,7 +2079,7 @@ To Do List:
     return [[self implementation] metaValueForKey:iTM2TaskInterruptInvocationKey] != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusAndOutput:error:
-- (int) modalStatusAndOutput: (NSString **) outputPtr error: (NSString **) errorPtr;
+-(int)modalStatusAndOutput:(NSString **)outputPtr error:(NSString **)errorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2098,7 +2098,7 @@ To Do List:
     return [[TC currentTask] terminationStatus];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusOfScript:output:error:
-+ (int) modalStatusOfScript: (NSString *) script output: (NSString **) outputPtr error: (NSString **) errorPtr;
++(int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2122,7 +2122,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  release
-- (void) release;
+-(void)release;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2135,7 +2135,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  retain;
-- (id) retain;
+-(id)retain;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2147,7 +2147,7 @@ To Do List:
     return [super retain];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autorelease;
-- (id) autorelease;
+-(id)autorelease;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2163,7 +2163,7 @@ To Do List:
 
 @implementation iTM2TaskControllerResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTaskControllerDeaf:
-- (IBAction) toggleTaskControllerDeaf: (id) sender;
+-(IBAction)toggleTaskControllerDeaf:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2175,7 +2175,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTaskControllerDeaf:
-- (BOOL) validateToggleTaskControllerDeaf: (id) sender;
+-(BOOL)validateToggleTaskControllerDeaf:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2187,7 +2187,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTaskControllerMute:
-- (IBAction) toggleTaskControllerMute: (id) sender;
+-(IBAction)toggleTaskControllerMute:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2199,7 +2199,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTaskControllerMute:
-- (BOOL) validateToggleTaskControllerMute: (id) sender;
+-(BOOL)validateToggleTaskControllerMute:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2211,7 +2211,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTaskControllerBlind:
-- (IBAction) toggleTaskControllerBlind: (id) sender;
+-(IBAction)toggleTaskControllerBlind:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2223,7 +2223,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTaskControllerBlind:
-- (BOOL) validateToggleTaskControllerBlind: (id) sender;
+-(BOOL)validateToggleTaskControllerBlind:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

@@ -167,7 +167,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
 	@result		extension
 */
-- (NSString *) outputFileExtension;
+-(NSString *)outputFileExtension;
 
 /*! 
     @method     setOutputFileExtension:
@@ -176,7 +176,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      extension
 	@result		None
 */
-- (void) setOutputFileExtension: (NSString *) extension;
+-(void)setOutputFileExtension:(NSString *)extension;
 
 /*! 
     @method     modelForCommandName:
@@ -195,7 +195,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      command is one of the predefined command names
     @result     None
 */
-- (id) modelForCommandName: (NSString *) commandName;
+-(id)modelForCommandName:(NSString *)commandName;
 
 /*! 
     @method     takeModel:forCommandName:
@@ -205,7 +205,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
     @result     None
 */
-- (void) takeModel: (id) argument forCommandName: (NSString *) commandName;
+-(void)takeModel:(id)argument forCommandName:(NSString *)commandName;
 
 /*! 
     @method     environmentForCommandMode:
@@ -215,7 +215,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      command
     @result     a property list
 */
-- (NSDictionary *) environmentForCommandMode: (NSString *) command;
+-(NSDictionary *)environmentForCommandMode:(NSString *)command;
 
 /*! 
     @method     takeEnvironment:forCommandMode:
@@ -225,7 +225,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      scriptMode
     @result     None
 */
-- (void) takeEnvironment: (id) environment forCommandMode: (NSString *) mode;
+-(void)takeEnvironment:(id)environment forCommandMode:(NSString *)mode;
 
 /*! 
     @method     scriptDescriptorForCommandMode:
@@ -238,7 +238,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      commandName
     @result     a string
 */
-- (NSDictionary *) scriptDescriptorForCommandMode: (NSString *) scriptMode;
+-(NSDictionary *)scriptDescriptorForCommandMode:(NSString *)scriptMode;
 
 /*! 
     @method     takeScriptDescriptor:forCommandMode:
@@ -248,7 +248,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      commandName
     @result     None
 */
-- (void) takeScriptDescriptor: (id) script forCommandMode: (NSString *) scriptMode;
+-(void)takeScriptDescriptor:(id)script forCommandMode:(NSString *)scriptMode;
 
 /*! 
     @method     commands
@@ -257,9 +257,9 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
     @result     an NSDictionary
 */
-- (NSDictionary *) commands;
-- (NSDictionary *) commandEnvironments;
-- (NSDictionary *) commandScripts;
+-(NSDictionary *)commands;
+-(NSDictionary *)commandEnvironments;
+-(NSDictionary *)commandScripts;
 
 /*! 
     @method     editCommands:
@@ -268,10 +268,10 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
     @result     None
 */
-- (void) editCommands: (id) sender;
+-(void)editCommands:(id)sender;
 
-- (void) showSettings: (id) sender;
-- (void) showFiles: (id) sender;
+-(void)showSettings:(id)sender;
+-(void)showFiles:(id)sender;
 
 /*! 
     @method     smartShowTerminal:
@@ -280,7 +280,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      Irrelevant
     @result     None
 */
-- (void) smartShowTerminal: (id) sender;
+-(void)smartShowTerminal:(id)sender;
 
 /*! 
     @method     showTerminal:
@@ -289,7 +289,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      Irrelevant
     @result     None
 */
-- (void) showTerminal: (id) sender;
+-(void)showTerminal:(id)sender;
 
 /*! 
     @method     showTerminalInBackGroundIfNeeded:
@@ -298,7 +298,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      Irrelevant
     @result     None
 */
-- (void) showTerminalInBackGroundIfNeeded: (id) sender;
+-(void)showTerminalInBackGroundIfNeeded:(id)sender;
 
 /*! 
     @method     commandWrapperForName
@@ -307,7 +307,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      A name
     @result     A command wrapper
 */
-- (id) commandWrapperForName: (NSString *) name;
+-(id)commandWrapperForName:(NSString *)name;
 
 /*! 
     @method     commandWrappers
@@ -316,7 +316,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
     @result     Ana array of command wrappers
 */
-- (id) commandWrappers;
+-(id)commandWrappers;
 
 /*! 
     @method     lazyCommandWrappers
@@ -325,7 +325,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
     @result     Ana array of command wrappers
 */
-- (id) lazyCommandWrappers;
+-(id)lazyCommandWrappers;
 
 /*! 
     @method     setCommandWrappers:
@@ -334,9 +334,9 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      An array of command wrappers
     @result     None
 */
-- (void) setCommandWrappers: (NSArray *) argument;
+-(void)setCommandWrappers:(NSArray *)argument;
 
-- (BOOL) isValidEnvironmentMode: (NSString *) environmentMode forScriptMode: (NSString *) scriptMode commandName: (NSString *) commandName;
+-(BOOL)isValidEnvironmentMode:(NSString *)environmentMode forScriptMode:(NSString *)scriptMode commandName:(NSString *)commandName;
 
 @end
 
@@ -349,7 +349,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      sd
     @result     None
 */
-- (void) setScriptDescriptor: (id) sd;
+-(void)setScriptDescriptor:(id)sd;
 
 /*! 
     @method     scriptDescriptor
@@ -358,7 +358,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
     @result     a script descriptor
 */
-- (id) scriptDescriptor;
+-(id)scriptDescriptor;
 
 /*! 
     @method     textView
@@ -367,7 +367,7 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
     @param      None
     @result     a text view
 */
-- (NSTextView *) textView;
+-(NSTextView *)textView;
 
 @end
 
@@ -395,7 +395,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     A dictionary
 */
-- (NSDictionary *) TeXProjectProperties;
+-(NSDictionary *)TeXProjectProperties;
 
 @end
 
@@ -418,7 +418,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     A name
 */
-+ (NSString *) windowNibName;
++(NSString *)windowNibName;
 
 /*!
     @method     
@@ -428,14 +428,14 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     A dictionary
 */
-- (id) model;
-- (void) takeModel: (NSDictionary *) model;
-- (id) modelValueForKey: (NSString *) key;
-- (void) takeModelValue: (id) value forKey: (NSString *) key;
-- (BOOL) modelFlagForKey: (NSString *) key;
-- (void) toggleModelFlagForKey: (NSString *) key;
-- (IBAction) cancel: (id) sender;
-- (IBAction) OK: (id) sender;
+-(id)model;
+-(void)takeModel:(NSDictionary *)model;
+-(id)modelValueForKey:(NSString *)key;
+-(void)takeModelValue:(id)value forKey:(NSString *)key;
+-(BOOL)modelFlagForKey:(NSString *)key;
+-(void)toggleModelFlagForKey:(NSString *)key;
+-(IBAction)cancel:(id)sender;
+-(IBAction)OK:(id)sender;
 
 /*!
     @method     defaultShellEnvironment
@@ -444,7 +444,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     an array of all environment variables
 */
-+ (NSDictionary *) defaultShellEnvironment;
++(NSDictionary *)defaultShellEnvironment;
 
 /*!
     @method     allShellEnvironmentVariables
@@ -453,7 +453,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     an array of all environment variables
 */
-+ (NSArray *) allShellEnvironmentVariables;
++(NSArray *)allShellEnvironmentVariables;
 
 /*!
     @method     shellEnvironment
@@ -462,7 +462,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     an environment dictionary
 */
-- (NSDictionary *) shellEnvironment;
+-(NSDictionary *)shellEnvironment;
 
 /*!
     @method     takeShellEnvironment:
@@ -471,7 +471,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      environment
     @result     None
 */
-- (void) takeShellEnvironment: (NSDictionary *) environment;
+-(void)takeShellEnvironment:(NSDictionary *)environment;
 
 @end
 
@@ -484,7 +484,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     the name of a project document
 */
-- (NSString *) baseProjectName;
+-(NSString *)baseProjectName;
 
 /*! 
     @method     setBaseProjectName:
@@ -493,7 +493,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      fileName
     @result     None
 */
-- (void) setBaseProjectName: (NSString *) baseProjectName;
+-(void)setBaseProjectName:(NSString *)baseProjectName;
 
 /*! 
     @method     baseProject
@@ -502,7 +502,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     The base project
 */
-- (id) baseProject;
+-(id)baseProject;
 
 @end
 
@@ -515,7 +515,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      sender is either a document, a view, even nothing...
     @result     A TeX project document
 */
-- (id)requiredTeXProjectForSource:(id)sender;
+-(id)requiredTeXProjectForSource:(id)sender;
 
 /*! 
     @method     TeXProjectForSource:
@@ -527,7 +527,7 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      sender is either a document, a view, even nothing...
     @result     A TeX project document
 */
-- (id)TeXProjectForSource:(id)sender;
+-(id)TeXProjectForSource:(id)sender;
 
 /*! 
     @method     currentTeXProject
@@ -536,9 +536,9 @@ extern NSString * const iTM2TPFEPDFOutput;
     @param      None
     @result     A TeX project document
 */
-- (id) currentTeXProject;
+-(id)currentTeXProject;
 
-- (NSDictionary *) TeXProjectsProperties;
+-(NSDictionary *)TeXProjectsProperties;
 
 @end
 
@@ -560,32 +560,58 @@ extern NSString * const iTM2ToolbarProjectFilesItemIdentifier;
 extern NSString * const iTM2ToolbarProjectTerminalItemIdentifier;
 
 @interface iTM2SharedResponder(TeXProject)
-- (IBAction) showCurrentProjectSettings: (id) sender;
-- (IBAction) showCurrentProjectFiles: (id) sender;
-- (IBAction) showCurrentProjectTerminal: (id) sender;
+-(IBAction)showCurrentProjectSettings:(id)sender;
+-(IBAction)showCurrentProjectFiles:(id)sender;
+-(IBAction)showCurrentProjectTerminal:(id)sender;
 @end
 
 @interface iTM2NewTeXProjectController:iTM2Inspector
-- (NSString *)fileName;
-- (void)setFileName:(NSString *)fileName;
-- (NSString *)newProjectName;
-- (void)setNewProjectName:(NSString *)argument;
-- (NSString *)oldProjectName;
-- (void)setOldProjectName: (id) argument;
-- (NSString *)baseProjectName;
-- (void)setBaseProjectName:(NSString *)argument;
-- (BOOL)documentIsMaster;
-- (void)setDocumentIsMaster:(BOOL)yorn;
-- (BOOL)exportOutput;
-- (void)setExportOutput:(BOOL)yorn;
-- (BOOL)preferWrapper;
-- (void)setPreferWrapper:(BOOL)yorn;
-- (BOOL) documentIsMaster;
-- (BOOL) preferWrapper;
-- (id)availableProjects;
-- (void)setAvailableProjects:(id) argument;
-- (int) creationMode;
-- (void) setCreationMode: (int) tag;
-- (BOOL)belongsToAWrapper;
-- (NSString *)projectName;
+{
+@private
+	unsigned int flags;
+}
+-(NSString *)fileName;
+-(void)setFileName:(NSString *)fileName;
+-(NSString *)newProjectName;
+-(void)setNewProjectName:(NSString *)argument;
+-(NSString *)oldProjectName;
+-(void)setOldProjectName:(id)argument;
+-(NSString *)baseProjectName;
+-(void)setBaseProjectName:(NSString *)argument;
+-(BOOL)documentIsMaster;
+-(void)setDocumentIsMaster:(BOOL)yorn;
+-(BOOL)exportOutput;
+-(void)setExportOutput:(BOOL)yorn;
+-(BOOL)preferWrapper;
+-(void)setPreferWrapper:(BOOL)yorn;
+-(BOOL)documentIsMaster;
+-(BOOL)preferWrapper;
+-(id)availableProjects;
+-(void)setAvailableProjects:(id) argument;
+/*!
+    @method     validateCreationMode
+    @abstract   validate the creation mode
+    @discussion Given a file name, the purpose is to create an associate project.
+				The creation mode is one of 4 modes
+				1 - standalone: the project is created in the external location
+				2 - old project: the file name is inserted in an already existing project
+				3 - new project: a new project is created
+				4 - forbidden: no project is authorized
+				What are the possibilities for the file we are asked to create a project for?
+				- is it external?
+				- is it a wrapper?
+				- is it a project?
+				- is it included in a project?
+				- is it included in a wrapper?
+				- does the wrapper contain projects?
+				- are there projects the file could be added to?
+*/
+-(void)validateCreationMode;
+-(int)creationMode;
+-(void)setCreationMode:(int)tag;
+-(BOOL)belongsToAWrapper;
+-(NSString *)projectName;
+-(BOOL)canInsertInOldProject;
+-(BOOL)canCreateNewProject;
+-(BOOL)canBeStandalone;
 @end

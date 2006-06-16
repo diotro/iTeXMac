@@ -32,7 +32,7 @@ NSString * const iTM2NavLastRootDirectory = @"NSNavLastRootDirectory";
 /*"Description forthcoming."*/
 @implementation NSUserDefaults(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= notifyChangeNow
-- (void) notifyChangeNow;
+-(void)notifyChangeNow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -43,7 +43,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= notifyFontOrColorChangeNow
-- (void) notifyFontOrColorChangeNow;
+-(void)notifyFontOrColorChangeNow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -54,7 +54,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fontForKey:
-- (NSFont *) fontForKey: (NSString *) aKey;
+-(NSFont *)fontForKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -64,7 +64,7 @@ To Do List:
     return [NSFont fontWithNameSizeDictionary:[self objectForKey:aKey]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setFont:forKey:
-- (void) setFont: (NSFont *) aFont forKey: (NSString *) aKey;
+-(void)setFont:(NSFont *)aFont forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -77,7 +77,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerFont:forKey:
-- (void) registerFont: (NSFont *) aFont forKey: (NSString *) aKey;
+-(void)registerFont:(NSFont *)aFont forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -89,7 +89,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= colorForKey:
-- (NSColor *) colorForKey: (NSString *) aKey;
+-(NSColor *)colorForKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -100,7 +100,7 @@ To Do List:
     return [NSColor colorWithRGBADictionary:[self objectForKey:aKey]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setColor:forKey:
-- (void) setColor: (NSColor *) aColor forKey: (NSString *) aKey;
+-(void)setColor:(NSColor *)aColor forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -113,7 +113,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerColor:forKey:
-- (void) registerColor: (NSColor *) aColor forKey: (NSString *) aKey;
+-(void)registerColor:(NSColor *)aColor forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -128,7 +128,7 @@ To Do List:
 
 @implementation NSFont(iTM2UserDefaults)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fontWithNameSizeDictionary:
-+ (NSFont *) fontWithNameSizeDictionary: (NSDictionary *) aDictionary;
++(NSFont *)fontWithNameSizeDictionary:(NSDictionary *)aDictionary;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -152,7 +152,7 @@ To Do List:
     return [NSFont userFontOfSize:12];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameSizeDictionary
-- (NSDictionary *) nameSizeDictionary;
+-(NSDictionary *)nameSizeDictionary;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -166,7 +166,7 @@ To Do List:
 
 @implementation NSColor(iTM2UserDefaults)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= colorWithRGBADictionary:
-+ (NSColor *) colorWithRGBADictionary: (NSDictionary *) aDictionary;
++(NSColor *)colorWithRGBADictionary:(NSDictionary *)aDictionary;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -188,7 +188,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  RGBADictionary
-- (NSDictionary *) RGBADictionary;
+-(NSDictionary *)RGBADictionary;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

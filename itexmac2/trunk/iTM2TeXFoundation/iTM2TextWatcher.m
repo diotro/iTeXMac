@@ -31,7 +31,7 @@ NSString * const iTM2UDMatchDelimiterKey = @"iTM2-Text: Match Delimiter";
 static id _iTM2TextWatcherDictionary = nil;
 @implementation iTM2TextWatcher
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -41,7 +41,7 @@ To Do List:
 //iTM2_START;
 	[super initialize];
     [SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithBool: YES], iTM2UDMatchDelimiterKey,
+            [NSNumber numberWithBool:YES], iTM2UDMatchDelimiterKey,
                     nil]];
 	if(!_iTM2TextWatcherDictionary)
 	{
@@ -50,7 +50,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textView:didChangeSelectionWithOldSelectedRange:
-+ (void) textView: (NSTextView *) TV didChangeSelectionWithOldSelectedRange: (NSRange) oldSelectedRange;
++(void)textView:(NSTextView *)TV didChangeSelectionWithOldSelectedRange:(NSRange)oldSelectedRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net, from Mike Ferris Text Extras
 - < 1.1: 03/10/2002
@@ -69,7 +69,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
             NSString * string = [TV string];
             NSRange range = NSMakeRange(0, [string length]);
             BOOL isInRange = NSLocationInRange(index, range);
-            unichar delimiter = isInRange? [string characterAtIndex: index]: 0;
+            unichar delimiter = isInRange? [string characterAtIndex:index]: 0;
             unichar left = 0, right = 0;
             BOOL isDelimiter = NO;
             BOOL isLeft = NO;
@@ -100,11 +100,11 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
             if(isDelimiter && (index>0))
             {
                 BOOL isEscaped = NO;
-                isDelimiter = ![string isControlAtIndex: index-1 escaped: &isEscaped] || isEscaped; 
+                isDelimiter = ![string isControlAtIndex:index-1 escaped: &isEscaped] || isEscaped; 
             }
             if(isDelimiter)
             {
-                NSRange R = [[TV string] groupRangeAtIndex: index beginDelimiter: left endDelimiter: right];
+                NSRange R = [[TV string] groupRangeAtIndex:index beginDelimiter:left endDelimiter:right];
                 if (R.location != NSNotFound)
                 {
                     unsigned matchIndex = isLeft? NSMaxRange(R)-1: R.location;
@@ -112,28 +112,28 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
                     {
                         NSLayoutManager * layoutManager = [TV layoutManager];
                         NSRange matchRange = NSMakeRange(matchIndex, 1);
-                        NSDictionary * oldTempAttr = [[[layoutManager temporaryAttributesAtCharacterIndex: matchIndex effectiveRange: nil] copy] autorelease];
+                        NSDictionary * oldTempAttr = [[[layoutManager temporaryAttributesAtCharacterIndex:matchIndex effectiveRange:nil] copy] autorelease];
                         [layoutManager textContainerForGlyphAtIndex:
-                            [layoutManager glyphRangeForCharacterRange: matchRange actualCharacterRange: NULL].location
+                            [layoutManager glyphRangeForCharacterRange:matchRange actualCharacterRange:NULL].location
                                 effectiveRange: NULL];
-						NSDictionary * attributes = [NSDictionary dictionaryWithObject: [NSColor selectedTextBackgroundColor]
+						NSDictionary * attributes = [NSDictionary dictionaryWithObject:[NSColor selectedTextBackgroundColor]
 												forKey: NSBackgroundColorAttributeName];
-						[layoutManager addTemporaryAttributes: attributes forCharacterRange: matchRange];
-						if(![NSApp nextEventMatchingMask: NSKeyDownMask untilDate: [NSDate dateWithTimeIntervalSinceNow: 0.075] inMode: NSEventTrackingRunLoopMode dequeue: NO])
+						[layoutManager addTemporaryAttributes:attributes forCharacterRange:matchRange];
+						if(![NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.075] inMode:NSEventTrackingRunLoopMode dequeue:NO])
 						{
-	//                        [TV setSelectedRange: matchRange affinity: NSSelectByCharacter stillSelecting: YES];
+	//                        [TV setSelectedRange:matchRange affinity:NSSelectByCharacter stillSelecting:YES];
 							[TV displayIfNeeded];
-							[NSThread sleepUntilDate: [NSDate dateWithTimeIntervalSinceNow: 0.1]];
+							[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 						}
 						NSEnumerator * E = [attributes keyEnumerator];
 						NSString * attrName;
 						while(attrName = [E nextObject])
-							[layoutManager removeTemporaryAttribute: attrName forCharacterRange: matchRange];
-						[layoutManager addTemporaryAttributes: oldTempAttr forCharacterRange: matchRange];
+							[layoutManager removeTemporaryAttribute:attrName forCharacterRange:matchRange];
+						[layoutManager addTemporaryAttributes:oldTempAttr forCharacterRange:matchRange];
 						[[TV window] flushWindow];
 						[TV displayIfNeeded];
-//                        [TV setSelectedRange: selectedRange];
-//							[layoutManager setTemporaryAttributes: oldTempAttr forCharacterRange: matchRange];
+//                        [TV setSelectedRange:selectedRange];
+//							[layoutManager setTemporaryAttributes:oldTempAttr forCharacterRange:matchRange];
 					}
                 }
             }
@@ -141,7 +141,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textViewDidChangeSelectionNotified:
-+ (void) textViewDidChangeSelectionNotified: (NSNotification *) notification;
++(void)textViewDidChangeSelectionNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -152,19 +152,19 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 	NSTextView * TV = [notification object];
 	if(TV != [[TV window] firstResponder])
 		return;
-	NSValue * K = [NSValue valueWithNonretainedObject: TV];
-	NSMutableDictionary * D = [_iTM2TextWatcherDictionary objectForKey: K];
+	NSValue * K = [NSValue valueWithNonretainedObject:TV];
+	NSMutableDictionary * D = [_iTM2TextWatcherDictionary objectForKey:K];
 	if(!D)
 	{
 		D = [NSMutableDictionary dictionary];
-		[_iTM2TextWatcherDictionary setObject: D forKey: K];
-		[D setObject: [NSNumber numberWithBool: [TV contextBoolForKey: iTM2UDMatchDelimiterKey]] forKey: iTM2UDMatchDelimiterKey];
+		[_iTM2TextWatcherDictionary setObject:D forKey:K];
+		[D setObject:[NSNumber numberWithBool:[TV contextBoolForKey:iTM2UDMatchDelimiterKey]] forKey:iTM2UDMatchDelimiterKey];
 	}
-	if([[D objectForKey: iTM2UDMatchDelimiterKey] boolValue])
+	if([[D objectForKey:iTM2UDMatchDelimiterKey] boolValue])
 	{
 		NSRange oldSelectedRange;
-		[[[notification userInfo] objectForKey: @"NSOldSelectedCharacterRange"] getValue: &oldSelectedRange];
-		[self textView: TV didChangeSelectionWithOldSelectedRange: oldSelectedRange];
+		[[[notification userInfo] objectForKey:@"NSOldSelectedCharacterRange"] getValue: &oldSelectedRange];
+		[self textView:TV didChangeSelectionWithOldSelectedRange:oldSelectedRange];
 	}
     return;
 }
@@ -172,7 +172,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 
 @implementation NSTextView(iTM2TextWatcher)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleWatchDelimiter:
-- (IBAction) toggleWatchDelimiter: (id) sender;
+-(IBAction)toggleWatchDelimiter:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/11/2005
@@ -180,12 +180,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeContextBool: ![self contextBoolForKey: iTM2UDMatchDelimiterKey] forKey: iTM2UDMatchDelimiterKey];
+	[self takeContextBool: ![self contextBoolForKey:iTM2UDMatchDelimiterKey] forKey:iTM2UDMatchDelimiterKey];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleWatchDelimiter:
-- (BOOL) validateToggleWatchDelimiter: (id) sender;
+-(BOOL)validateToggleWatchDelimiter:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/11/2005
@@ -193,7 +193,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self contextBoolForKey: iTM2UDMatchDelimiterKey]? NSOnState: NSOffState)];
+	[sender setState: ([self contextBoolForKey:iTM2UDMatchDelimiterKey]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -204,7 +204,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 
 @implementation NSTextView_iTM2TextWatcher
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -212,13 +212,13 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[_iTM2TextWatcherDictionary removeObjectForKey: [NSValue valueWithNonretainedObject: self]];
+	[_iTM2TextWatcherDictionary removeObjectForKey:[NSValue valueWithNonretainedObject:self]];
 	[super dealloc];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void) contextDidChange;
+-(void)contextDidChange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -226,7 +226,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[_iTM2TextWatcherDictionary removeObjectForKey: [NSValue valueWithNonretainedObject: self]];
+	[_iTM2TextWatcherDictionary removeObjectForKey:[NSValue valueWithNonretainedObject:self]];
 	[super contextDidChange];
 //iTM2_END;
     return;
@@ -235,7 +235,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 
 @implementation iTM2MainInstaller(iTM2TextWatcher)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -244,13 +244,13 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	[iTM2MileStone registerMileStone: @"!!!   No delimiter watching available, report BUG" forKey: @"iTM2TextWatcher"];
+	[iTM2MileStone registerMileStone:@"!!!   No delimiter watching available, report BUG" forKey:@"iTM2TextWatcher"];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextWatcherCompleteInstallation:
-+ (void) iTM2TextWatcherCompleteInstallation;
++(void)iTM2TextWatcherCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -258,12 +258,12 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {
 //iTM2_START;
-	[NSTextView_iTM2TextWatcher poseAsClass: [NSTextView class]];
-	[DNC addObserver: [iTM2TextWatcher class]
+	[NSTextView_iTM2TextWatcher poseAsClass:[NSTextView class]];
+	[DNC addObserver:[iTM2TextWatcher class]
 		selector: @selector(textViewDidChangeSelectionNotified:)
 			name: NSTextViewDidChangeSelectionNotification
 				object: nil];
-	[iTM2MileStone putMileStoneForKey: @"iTM2TextWatcher"];
+	[iTM2MileStone putMileStoneForKey:@"iTM2TextWatcher"];
     return;
 }
 @end

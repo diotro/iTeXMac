@@ -32,7 +32,7 @@
 
 @implementation iTM2SpellContextController(Project)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectNameForText:
-- (NSString *) spellPrettyProjectNameForText:(NSText *) text;
+-(NSString *)spellPrettyProjectNameForText:(NSText *) text;
 /*"Description forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -45,7 +45,7 @@ To Do List:
 @end
 @implementation NSDocument(iTM2SpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
-- (id) spellContextController;
+-(id)spellContextController;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -59,7 +59,7 @@ To Do List:
 
 @implementation iTM2ProjectDocument(ProjectSpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
-- (id) spellContextController;
+-(id)spellContextController;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -70,7 +70,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextController
-- (void) setSpellContextController:(id) controller;
+-(void)setSpellContextController:(id) controller;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -82,7 +82,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitMetaFixImplementation:
-- (void) spellKitMetaFixImplementation;
+-(void)spellKitMetaFixImplementation;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -105,7 +105,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromURL:ofType:error:
-- (void) spellKitCompleteDidReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
+-(void)spellKitCompleteDidReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -131,7 +131,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareSpellKitMetaCompleteWriteToURL:ofType:error:
-- (BOOL) prepareSpellKitMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outError;
+-(BOOL)prepareSpellKitMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outError;
 /*"Description forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Fri Feb 20 13:19:00 GMT 2004

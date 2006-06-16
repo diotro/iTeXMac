@@ -32,7 +32,7 @@
 	@param      None
     @result     A name
 */
-+ (BOOL) acceptConversationWithID: (id) conversationID;
++(BOOL)acceptConversationWithID:(id)conversationID;
 /*!
 	@method			acceptNotificationWithEnvironment:
 	@abstract		Abstract forthcoming.
@@ -43,14 +43,14 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (BOOL) acceptNotificationWithEnvironment: (id) environment;
++(BOOL)acceptNotificationWithEnvironment:(id)environment;
 
-+ (void) sytemSignalSIGUSR1Notified: (NSNotification *) notification;
-+ (void) shouldEditFileNotified: (NSNotification *) notification;
-+ (void) shouldOpenFileNotified: (NSNotification *) notification;
-+ (void) shouldDisplayFileNotified: (NSNotification *) notification;
-+ (void) shouldUpdateFilesNotified: (NSNotification *) notification;
-+ (void) serverComwarnerNotified: (NSNotification *) notification;
-+ (void) serverAppleScriptNotified: (NSNotification *) notification;
++(void)sytemSignalSIGUSR1Notified:(NSNotification *)notification;
++(void)shouldEditFileNotified:(NSNotification *)notification;
++(void)shouldOpenFileNotified:(NSNotification *)notification;
++(void)shouldDisplayFileNotified:(NSNotification *)notification;
++(void)shouldUpdateFilesNotified:(NSNotification *)notification;
++(void)serverComwarnerNotified:(NSNotification *)notification;
++(void)serverAppleScriptNotified:(NSNotification *)notification;
 @end
 

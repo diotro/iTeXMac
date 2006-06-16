@@ -4,9 +4,9 @@ int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSDictionary * environment = [[NSProcessInfo processInfo] environment];
 	NSLog(@"environment: %@", environment);
-	NSString * SOURCE = [environment objectForKey: @"XSLTApplicatorSOURCE"];
-	NSString * DESTINATION = [environment objectForKey: @"XSLTApplicatorDESTINATION"];
-	NSString * XSLT = [environment objectForKey: @"XSLTApplicatorXSLT"];
+	NSString * SOURCE = [environment objectForKey:@"XSLTApplicatorSOURCE"];
+	NSString * DESTINATION = [environment objectForKey:@"XSLTApplicatorDESTINATION"];
+	NSString * XSLT = [environment objectForKey:@"XSLTApplicatorXSLT"];
 	id pathComponents = [[[NSFileManager defaultManager] currentDirectoryPath] pathComponents];
 	if([pathComponents containsObject:@"build"])
 	{
@@ -25,7 +25,7 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				SOURCE = [NSString stringWithUTF8String: argv[index]];
+				SOURCE = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
@@ -34,7 +34,7 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				DESTINATION = [NSString stringWithUTF8String: argv[index]];
+				DESTINATION = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
@@ -43,25 +43,25 @@ int main (int argc, const char * argv[]) {
 		{
 			if(++index < argc)
 			{
-				XSLT = [NSString stringWithUTF8String: argv[index]];
+				XSLT = [NSString stringWithUTF8String:argv[index]];
 			}
 			else
 				goto ERROR;
 		}
 	}
-	if(![[NSFileManager defaultManager] isReadableFileAtPath: SOURCE]) 
+	if(![[NSFileManager defaultManager] isReadableFileAtPath:SOURCE]) 
 	{
 		SOURCE = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:SOURCE];
-		if(![[NSFileManager defaultManager] isReadableFileAtPath: SOURCE]) 
+		if(![[NSFileManager defaultManager] isReadableFileAtPath:SOURCE]) 
 		{
 			NSLog(@"%s ERROR: no readable file at %@", argv[0], SOURCE);
 			goto ERROR;
 		}
 	}
-	if(![[NSFileManager defaultManager] isReadableFileAtPath: XSLT]) 
+	if(![[NSFileManager defaultManager] isReadableFileAtPath:XSLT]) 
 	{
 		XSLT = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:XSLT];
-		if(![[NSFileManager defaultManager] isReadableFileAtPath: XSLT]) 
+		if(![[NSFileManager defaultManager] isReadableFileAtPath:XSLT]) 
 		{
 			NSLog(@"%s ERROR: no readable file at %@", argv[0], XSLT);
 			goto ERROR;

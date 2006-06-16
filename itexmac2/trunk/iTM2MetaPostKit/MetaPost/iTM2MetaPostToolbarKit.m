@@ -31,24 +31,24 @@ NSString * const iTM2MetaPostToolbarIdentifier = @"iTM2: MetaPost";
 
 
 @interface iTM2MetaPostInspector(PRIVATE)
-- (id) scaleAndPageTarget;
+-(id)scaleAndPageTarget;
 @end
 
 @implementation iTM2MetaPostInspector(Toolbar)
 #pragma mark =-=-=-=-=-  TOOLBAR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolMode
-- (iTM2ToolMode) toolMode;
+-(iTM2ToolMode)toolMode;
 {
 	return [metaGETTER intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolMode:
-- (void) setToolMode: (iTM2ToolMode) argument;
+-(void)setToolMode:(iTM2ToolMode)argument;
 {
 	metaSETTER([NSNumber numberWithInt: (int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupToolbarWindowDidLoad
-- (void) setupToolbarWindowDidLoad;
+-(void)setupToolbarWindowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -56,53 +56,53 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier: iTM2MetaPostToolbarIdentifier] autorelease];
-	NSString * key = [NSString stringWithFormat: @"NSToolbar Configuration %@", [toolbar identifier]];
-	if([self contextBoolForKey: @"iTM2MetaPostToolbarShareConfiguration"])
+    NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2MetaPostToolbarIdentifier] autorelease];
+	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
+	if([self contextBoolForKey:@"iTM2MetaPostToolbarShareConfiguration"])
 	{
-		NSDictionary * configDictionary = [SUD dictionaryForKey: key];
+		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if([configDictionary count])
 		{
-			[toolbar setConfigurationFromDictionary: configDictionary];
+			[toolbar setConfigurationFromDictionary:configDictionary];
 			if(![[toolbar items] count])
 			{
-				[SUD removeObjectForKey: key];
-				toolbar = [[[NSToolbar alloc] initWithIdentifier: iTM2MetaPostToolbarIdentifier] autorelease];
+				[SUD removeObjectForKey:key];
+				toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2MetaPostToolbarIdentifier] autorelease];
 			}
 		}
 	}
 	else
 	{
-		NSDictionary * configDictionary = [SUD dictionaryForKey: key];
+		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
-		configDictionary = [self contextDictionaryForKey: key];
+		configDictionary = [self contextDictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
 		if([configDictionary count])
-			[toolbar setConfigurationFromDictionary: configDictionary];
+			[toolbar setConfigurationFromDictionary:configDictionary];
 		if(![[toolbar items] count])
 		{
-			configDictionary = [SUD dictionaryForKey: key];
+			configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
-			[self takeContextValue: nil forKey: key];
+			[self takeContextValue:nil forKey:key];
 			if([configDictionary count])
-				[toolbar setConfigurationFromDictionary: configDictionary];
+				[toolbar setConfigurationFromDictionary:configDictionary];
 			if(![[toolbar items] count])
 			{
-				[SUD removeObjectForKey: key];
-				toolbar = [[[NSToolbar alloc] initWithIdentifier: iTM2MetaPostToolbarIdentifier] autorelease];
+				[SUD removeObjectForKey:key];
+				toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2MetaPostToolbarIdentifier] autorelease];
 			}
 		}
 	}
-	[toolbar setAutosavesConfiguration: YES];
-    [toolbar setAllowsUserCustomization: YES];
-//    [toolbar setSizeMode: NSToolbarSizeModeSmall];
-    [toolbar setDelegate: self];
-    [[self window] setToolbar: toolbar];
+	[toolbar setAutosavesConfiguration:YES];
+    [toolbar setAllowsUserCustomization:YES];
+//    [toolbar setSizeMode:NSToolbarSizeModeSmall];
+    [toolbar setDelegate:self];
+    [[self window] setToolbar:toolbar];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShareToolbarConfiguration:
-- (void) toggleShareToolbarConfiguration: (id) sender;
+-(void)toggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -110,14 +110,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL old = [self contextBoolForKey: @"iTM2MetaPostToolbarShareConfiguration"];
-	[self takeContextBool: !old forKey: @"iTM2MetaPostToolbarShareConfiguration"];
+	BOOL old = [self contextBoolForKey:@"iTM2MetaPostToolbarShareConfiguration"];
+	[self takeContextBool: !old forKey:@"iTM2MetaPostToolbarShareConfiguration"];
 	[self validateWindowContent];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShareToolbarConfiguration:
-- (BOOL) validateToggleShareToolbarConfiguration: (id) sender;
+-(BOOL)validateToggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -125,12 +125,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self contextBoolForKey: @"iTM2MetaPostToolbarShareConfiguration"]? NSOnState: NSOffState)];
+	[sender setState: ([self contextBoolForKey:@"iTM2MetaPostToolbarShareConfiguration"]? NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext:
-- (void) prepareToolbarConfigurationCompleteSaveContext: (id) sender;
+-(void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -139,13 +139,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSToolbar * toolbar = [[self window] toolbar];
-	NSString * key = [NSString stringWithFormat: @"NSToolbar Configuration %@", [toolbar identifier]];
-	[self takeContextValue: [toolbar configurationDictionary] forKey: key];
+	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
+	[self takeContextValue:[toolbar configurationDictionary] forKey:key];
 //iTM2_START;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:
-- (NSToolbarItem *) toolbar: (NSToolbar *) toolbar itemForItemIdentifier: (NSString *) itemIdent willBeInsertedIntoToolbar: (BOOL) willBeInserted;
+-(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdent willBeInsertedIntoToolbar:(BOOL)willBeInserted;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -156,161 +156,161 @@ To Do List:
     // Required delegate method:  Given an item identifier, this method returns an item 
     // The toolbar will use this method to obtain toolbar items that can be displayed in the customization sheet, or in the toolbar itself 
     NSToolbarItem * toolbarItem = nil;
-	SEL action = NSSelectorFromString([itemIdent stringByAppendingString: @":"]);
+	SEL action = NSSelectorFromString([itemIdent stringByAppendingString:@":"]);
 	if(action == @selector(goBackForward:))
 	{
-		if(willBeInserted && [IMPLEMENTATION metaValueForKey: @"toolbar back forward"])
+		if(willBeInserted && [IMPLEMENTATION metaValueForKey:@"toolbar back forward"])
 			return nil;
 		NSControl * F = _toolbarBackForwardView;
-		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier: itemIdent forToolbarIdentifier: [toolbar identifier]];
-		[toolbarItem setView: F];
-		[toolbarItem setMinSize: [F frame].size];
-		[toolbarItem setMaxSize: [F frame].size];
-		[F setAction: action];
+		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier:itemIdent forToolbarIdentifier:[toolbar identifier]];
+		[toolbarItem setView:F];
+		[toolbarItem setMinSize:[F frame].size];
+		[toolbarItem setMaxSize:[F frame].size];
+		[F setAction:action];
 		if(willBeInserted)
-			[IMPLEMENTATION takeMetaValue: F forKey: @"toolbar back forward"];
+			[IMPLEMENTATION takeMetaValue:F forKey:@"toolbar back forward"];
 	}
 	else if(action == @selector(takeToolModeFromSegment:))
 	{
-		if(willBeInserted && [IMPLEMENTATION metaValueForKey: @"toolbar select tool mode"])
+		if(willBeInserted && [IMPLEMENTATION metaValueForKey:@"toolbar select tool mode"])
 			return nil;
-		toolbarItem = toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier: itemIdent forToolbarIdentifier: [toolbar identifier]];
+		toolbarItem = toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier:itemIdent forToolbarIdentifier:[toolbar identifier]];
 		NSControl * F = _toolbarToolModeView;
-		[toolbarItem setView: F];
-		[toolbarItem setMinSize: [F frame].size];
-		[toolbarItem setMaxSize: [F frame].size];
-		[F setAction: action];
+		[toolbarItem setView:F];
+		[toolbarItem setMinSize:[F frame].size];
+		[toolbarItem setMaxSize:[F frame].size];
+		[F setAction:action];
 		if(willBeInserted)
-			[IMPLEMENTATION takeMetaValue: F forKey: @"toolbar select tool mode"];
+			[IMPLEMENTATION takeMetaValue:F forKey:@"toolbar select tool mode"];
 	}
 	else if(action == @selector(takeScaleFrom:))
 	{
-		if(willBeInserted && [IMPLEMENTATION metaValueForKey: @"toolbar scale field"])
+		if(willBeInserted && [IMPLEMENTATION metaValueForKey:@"toolbar scale field"])
 			return nil;
-		NSTextField * F = [[[NSTextField alloc] initWithFrame: NSZeroRect] autorelease];
-		[F setAction: action];
-		[F setTarget: nil];
-		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter allocWithZone: [self zone]] init] autorelease];
-		[F setFormatter: NF];
-		[F setDelegate: NF];
-		[F setFrameOrigin: NSMakePoint(4,6)];
-		[[F cell] setSendsActionOnEndEditing: NO];
+		NSTextField * F = [[[NSTextField alloc] initWithFrame:NSZeroRect] autorelease];
+		[F setAction:action];
+		[F setTarget:nil];
+		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter allocWithZone:[self zone]] init] autorelease];
+		[F setFormatter:NF];
+		[F setDelegate:NF];
+		[F setFrameOrigin:NSMakePoint(4,6)];
+		[[F cell] setSendsActionOnEndEditing:NO];
 		if(willBeInserted)
 		{
-			[F setFloatValue: 1];
+			[F setFloatValue:1];
 		}
 		else
 		{
-			[F setFloatValue: [_pdfView scaleFactor]];
+			[F setFloatValue:[_pdfView scaleFactor]];
 		}
-		[F setFrameSize: NSMakeSize([[NF stringForObjectValue: [NSNumber numberWithFloat: [F floatValue]]]
+		[F setFrameSize:NSMakeSize([[NF stringForObjectValue:[NSNumber numberWithFloat:[F floatValue]]]
 						sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 								[[F cell] font], NSFontAttributeName, nil]].width+8, 22)];
-		[F setTag: 421];
-		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier: itemIdent forToolbarIdentifier: [toolbar identifier]];
-		[toolbarItem setView: F];
-		[toolbarItem setMinSize: [F frame].size];
-		[toolbarItem setMaxSize: [F frame].size];
-		[F setAction: action];
+		[F setTag:421];
+		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier:itemIdent forToolbarIdentifier:[toolbar identifier]];
+		[toolbarItem setView:F];
+		[toolbarItem setMinSize:[F frame].size];
+		[toolbarItem setMaxSize:[F frame].size];
+		[F setAction:action];
 		if(willBeInserted)
-			[IMPLEMENTATION takeMetaValue: F forKey: @"toolbar scale field"];
+			[IMPLEMENTATION takeMetaValue:F forKey:@"toolbar scale field"];
 	}
 	else if(action == @selector(takePageFrom:))
 	{
-		if(willBeInserted && [IMPLEMENTATION metaValueForKey: @"toolbar page field"])
+		if(willBeInserted && [IMPLEMENTATION metaValueForKey:@"toolbar page field"])
 			return nil;
-		NSTextField * F = [[[NSTextField alloc] initWithFrame: NSZeroRect] autorelease];
-		[F setAction: action];
-		[F setTarget: nil];
+		NSTextField * F = [[[NSTextField alloc] initWithFrame:NSZeroRect] autorelease];
+		[F setAction:action];
+		[F setTarget:nil];
 		iTM2NavigationFormatter * NF = [[[iTM2NavigationFormatter alloc] init] autorelease];
-		[NF setMinimum: [NSDecimalNumber zero]];
-		[F setFormatter: NF];
-		[F setDelegate: NF];
-		[F setFrameOrigin: NSMakePoint(4,6)];
-		[[F cell] setSendsActionOnEndEditing: NO];
+		[NF setMinimum:[NSDecimalNumber zero]];
+		[F setFormatter:NF];
+		[F setDelegate:NF];
+		[F setFrameOrigin:NSMakePoint(4,6)];
+		[[F cell] setSendsActionOnEndEditing:NO];
 		int maximum = 1000;
-		[F setFrameSize: NSMakeSize([[NF stringForObjectValue: [NSNumber numberWithInt: maximum]]
+		[F setFrameSize:NSMakeSize([[NF stringForObjectValue:[NSNumber numberWithInt:maximum]]
 						sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 								[[F cell] font], NSFontAttributeName, nil]].width+8, 22)];
 		if(willBeInserted)
 		{
 			PDFPage * page = [_pdfView currentPage];
 			PDFDocument * document = [page document];
-			unsigned int pageCount = [document indexForPage: page];
-			[F setIntValue: pageCount+1];
+			unsigned int pageCount = [document indexForPage:page];
+			[F setIntValue:pageCount+1];
 			pageCount = [document pageCount];
-			[NF setMaximum: [NSNumber numberWithInt: pageCount]];
+			[NF setMaximum:[NSNumber numberWithInt:pageCount]];
 		}
 		else
-			[F setStringValue: @"421"];
-		[F setTag: 421];
-		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier: itemIdent forToolbarIdentifier: [toolbar identifier]];
-		[toolbarItem setView: F];
-		[toolbarItem setMinSize: [F frame].size];
-		[toolbarItem setMaxSize: [F frame].size];
-		[F setAction: action];
+			[F setStringValue:@"421"];
+		[F setTag:421];
+		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier:itemIdent forToolbarIdentifier:[toolbar identifier]];
+		[toolbarItem setView:F];
+		[toolbarItem setMinSize:[F frame].size];
+		[toolbarItem setMaxSize:[F frame].size];
+		[F setAction:action];
 		if(willBeInserted)
-			[IMPLEMENTATION takeMetaValue: F forKey: @"toolbar page field"];
+			[IMPLEMENTATION takeMetaValue:F forKey:@"toolbar page field"];
 	}
 	else if(action)
 	{
-		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier: itemIdent forToolbarIdentifier: [toolbar identifier]];
-		[toolbarItem setAction: action];
-		[toolbarItem setTarget: nil];
+		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier:itemIdent forToolbarIdentifier:[toolbar identifier]];
+		[toolbarItem setAction:action];
+		[toolbarItem setTarget:nil];
 	}
     #if 0
-    if ([itemIdent isEqual: SaveDocToolbarItemIdentifier])
+    if ([itemIdent isEqual:SaveDocToolbarItemIdentifier])
 	{
-		toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
+		toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdent] autorelease];
 		
 			// Set the text label to be displayed in the toolbar and customization palette 
-		[toolbarItem setLabel: @"Save"];
-		[toolbarItem setPaletteLabel: @"Save"];
+		[toolbarItem setLabel:@"Save"];
+		[toolbarItem setPaletteLabel:@"Save"];
 		
 		// Set up a reasonable tooltip, and image   Note, these aren't localized, but you will likely want to localize many of the item's properties 
-		[toolbarItem setToolTip: @"Save Your Document"];
-		[toolbarItem setImage: [NSImage imageNamed: @"SaveDocumentItemImage"]];
+		[toolbarItem setToolTip:@"Save Your Document"];
+		[toolbarItem setImage:[NSImage imageNamed:@"SaveDocumentItemImage"]];
 		
 		// Tell the item what message to send when it is clicked 
-		[toolbarItem setTarget: self];
-		[toolbarItem setAction: @selector(saveDocument:)];
+		[toolbarItem setTarget:self];
+		[toolbarItem setAction:@selector(saveDocument:)];
     }
-	else if([itemIdent isEqual: SearchDocToolbarItemIdentifier])
+	else if([itemIdent isEqual:SearchDocToolbarItemIdentifier])
 	{
 			// NSToolbarItem doens't normally autovalidate items that hold custom views, but we want this guy to be disabled when there is no text to search.
-			toolbarItem = [[[ValidatedViewToolbarItem alloc] initWithItemIdentifier: itemIdent] autorelease];
+			toolbarItem = [[[ValidatedViewToolbarItem alloc] initWithItemIdentifier:itemIdent] autorelease];
 
 		NSMenu *submenu = nil;
 		NSMenuItem *submenuItem = nil, *menuFormRep = nil;
 		
 		// Set up the standard properties 
-		[toolbarItem setLabel: @"Search"];
-		[toolbarItem setPaletteLabel: @"Search"];
-		[toolbarItem setToolTip: @"Search Your Document"];
+		[toolbarItem setLabel:@"Search"];
+		[toolbarItem setPaletteLabel:@"Search"];
+		[toolbarItem setToolTip:@"Search Your Document"];
 		
 			searchFieldOutlet = [[NSSearchField alloc] initWithFrame:[searchFieldOutlet frame]];
 		// Use a custom view, a text field, for the search item 
-		[toolbarItem setView: searchFieldOutlet];
+		[toolbarItem setView:searchFieldOutlet];
 		[toolbarItem setMinSize:NSMakeSize(30, NSHeight([searchFieldOutlet frame]))];
 		[toolbarItem setMaxSize:NSMakeSize(400,NSHeight([searchFieldOutlet frame]))];
 
 		// By default, in text only mode, a custom items label will be shown as disabled text, but you can provide a 
 		// custom menu of your own by using <item> setMenuFormRepresentation] 
 		submenu = [[[NSMenu alloc] init] autorelease];
-		submenuItem = [[[NSMenuItem alloc] initWithTitle: @"Search Panel" action: @selector(searchUsingSearchPanel:) keyEquivalent: @""] autorelease];
+		submenuItem = [[[NSMenuItem alloc] initWithTitle:@"Search Panel" action:@selector(searchUsingSearchPanel:) keyEquivalent:@""] autorelease];
 		menuFormRep = [[[NSMenuItem alloc] init] autorelease];
 
-		[submenu addItem: submenuItem];
-		[submenuItem setTarget: self];
-		[menuFormRep setSubmenu: submenu];
-		[menuFormRep setTitle: [toolbarItem label]];
+		[submenu addItem:submenuItem];
+		[submenuItem setTarget:self];
+		[menuFormRep setSubmenu:submenu];
+		[menuFormRep setTitle:[toolbarItem label]];
 
         // Normally, a menuFormRep with a submenu should just act like a pull down.  However, in 10.4 and later, the menuFormRep can have its own target / action.  If it does, on click and hold (or if the user clicks and drags down), the submenu will appear.  However, on just a click, the menuFormRep will fire its own action.
-        [menuFormRep setTarget: self];
-        [menuFormRep setAction: @selector(searchMenuFormRepresentationClicked:)];
+        [menuFormRep setTarget:self];
+        [menuFormRep setAction:@selector(searchMenuFormRepresentationClicked:)];
 
         // Please note, from a user experience perspective, you wouldn't set up your search field and menuFormRep like we do here.  This is simply an example which shows you all of the features you could use.
-		[toolbarItem setMenuFormRepresentation: menuFormRep];
+		[toolbarItem setMenuFormRepresentation:menuFormRep];
     }
 	else
 	{
@@ -324,16 +324,16 @@ To Do List:
 		NSView * v = [toolbarItem view];
 		if(v)
 		{
-			[v setToolbarSizeMode: [toolbar sizeMode]];
-			[toolbarItem setMinSize: [v frame].size];
-			[toolbarItem setMaxSize: [v frame].size];
+			[v setToolbarSizeMode:[toolbar sizeMode]];
+			[toolbarItem setMinSize:[v frame].size];
+			[toolbarItem setMaxSize:[v frame].size];
 		}
 	}
 //iTM2_END;
     return toolbarItem;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDefaultItemIdentifiers:
-- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar;
+-(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -367,7 +367,7 @@ To Do List:
 					nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarAllowedItemIdentifiers:
-- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar;
+-(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -409,7 +409,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarWillAddItem:
-- (void) toolbarWillAddItem: (NSNotification *) notif;
+-(void)toolbarWillAddItem:(NSNotification *)notif;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -422,13 +422,13 @@ To Do List:
     // cache a reference to the toolbar item or need to set up some initial state, this is the best place 
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
     // added is found by referencing the @"item" key in the userInfo 
-    NSToolbarItem *addedItem = [[notif userInfo] objectForKey: @"item"];
+    NSToolbarItem *addedItem = [[notif userInfo] objectForKey:@"item"];
 //iTM2_END;
     return;
 }  
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDidRemoveItem:
-- (void) toolbarDidRemoveItem: (NSNotification *) notif;
+-(void)toolbarDidRemoveItem:(NSNotification *)notif;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -441,16 +441,16 @@ To Do List:
     // cache a reference to the toolbar item or need to set up some initial state, this is the best place 
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
     // added is found by referencing the @"item" key in the userInfo 
-    NSToolbarItem * removedItem = [[notif userInfo] objectForKey: @"item"];
-	if([[removedItem itemIdentifier] isEqual: iTM2ToolbarPageItemIdentifier])
+    NSToolbarItem * removedItem = [[notif userInfo] objectForKey:@"item"];
+	if([[removedItem itemIdentifier] isEqual:iTM2ToolbarPageItemIdentifier])
 	{
-		[IMPLEMENTATION takeMetaValue: nil forKey: @"toolbar page field"];
+		[IMPLEMENTATION takeMetaValue:nil forKey:@"toolbar page field"];
 	}
 //iTM2_END;
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rotateLeft:
-- (IBAction) rotateLeft: (id) sender;
+-(IBAction)rotateLeft:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -461,14 +461,14 @@ To Do List:
 	PDFPage * currentPage = [_pdfView currentPage];
 	int rotation = [currentPage rotation];
 	rotation -= 90;
-	[currentPage setRotation: rotation];
-	[_pdfView setNeedsDisplay: YES];
+	[currentPage setRotation:rotation];
+	[_pdfView setNeedsDisplay:YES];
 	[self validateWindowContent];
 //iTM2_END;
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rotateRight:
-- (IBAction) rotateRight: (id) sender;
+-(IBAction)rotateRight:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -479,14 +479,14 @@ To Do List:
 	PDFPage * currentPage = [_pdfView currentPage];
 	int rotation = [currentPage rotation];
 	rotation += 90;
-	[currentPage setRotation: rotation];
-	[_pdfView setNeedsDisplay: YES];
+	[currentPage setRotation:rotation];
+	[_pdfView setNeedsDisplay:YES];
 	[self validateWindowContent];
 //iTM2_END;
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePageFrom:
-- (IBAction) takePageFrom: (id) sender;
+-(IBAction)takePageFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -497,14 +497,14 @@ To Do List:
 	int n = MIN(MAX(1, [sender intValue]), [[self outputFigureNumbers] count]);
 	if(n--)
 	{
-		[self setCurrentOutputFigure: [[self outputFigureNumbers] objectAtIndex: n]];
+		[self setCurrentOutputFigure:[[self outputFigureNumbers] objectAtIndex:n]];
 		[self validateWindowContent];
 	}
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePageFrom:
-- (BOOL) validateTakePageFrom: (id) sender;
+-(BOOL)validateTakePageFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -512,37 +512,37 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[sender currentEditor] isEqual: [[sender window] firstResponder]])
+	if([[sender currentEditor] isEqual:[[sender window] firstResponder]])
 		return YES;
 	int pageCount = [[self outputFigureNumbers] count];
 	NSNumberFormatter * NF = [sender formatter];
-	[NF setMaximum: [NSNumber numberWithInt: pageCount]];
-	pageCount = [[self outputFigureNumbers] indexOfObject: [self currentOutputFigure]];
+	[NF setMaximum:[NSNumber numberWithInt:pageCount]];
+	pageCount = [[self outputFigureNumbers] indexOfObject:[self currentOutputFigure]];
 	if(pageCount == NSNotFound)
 	{
-		[sender setIntValue: 0];
+		[sender setIntValue:0];
 	}
 	else
 	{
-		[sender setIntValue: pageCount+1];
+		[sender setIntValue:pageCount+1];
 	}
 	NSSize oldSize = [sender frame].size;
 	float width = 8 + MAX(
-		([[NF stringForObjectValue: [NSNumber numberWithInt: [sender intValue]]]
+		([[NF stringForObjectValue:[NSNumber numberWithInt:[sender intValue]]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width),
-		([[NF stringForObjectValue: [NSNumber numberWithInt: 99]]
+		([[NF stringForObjectValue:[NSNumber numberWithInt:99]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width));
-	[sender setFrameSize: NSMakeSize(width, oldSize.height)];
+	[sender setFrameSize:NSMakeSize(width, oldSize.height)];
 	NSEnumerator * E = [[[[sender window] toolbar] items] objectEnumerator];
 	NSToolbarItem * TBI;
 	while(TBI = [E nextObject])
 	{
 		if(sender == [TBI view])
 		{
-			[TBI setMinSize: [sender frame].size];
-			[TBI setMaxSize: [sender frame].size];
+			[TBI setMinSize:[sender frame].size];
+			[TBI setMaxSize:[sender frame].size];
 			break;
 		}
 	}
@@ -550,7 +550,7 @@ To Do List:
     return [sender intValue] > 0;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeScaleFrom:
-- (IBAction) takeScaleFrom: (id) sender;
+-(IBAction)takeScaleFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -561,13 +561,13 @@ To Do List:
 	float newScale = [sender floatValue];
 	if(newScale <= 0)
 		newScale = 1;
-    [([self scaleAndPageTarget]?:_pdfView) setScaleFactor: newScale];
+    [([self scaleAndPageTarget]?:_pdfView) setScaleFactor:newScale];
 	[self validateWindowContent];
 //iTM2_END;
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeScaleFrom:
-- (BOOL) validateTakeScaleFrom: (id) sender;
+-(BOOL)validateTakeScaleFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -575,27 +575,27 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[sender currentEditor] isEqual: [[sender window] firstResponder]])
+	if([[sender currentEditor] isEqual:[[sender window] firstResponder]])
 		return YES;
-	[sender setFloatValue: [_pdfView scaleFactor]];
+	[sender setFloatValue:[_pdfView scaleFactor]];
 	NSNumberFormatter * NF = [sender formatter];
 	NSSize oldSize = [sender frame].size;
 	float width = 8 + MAX(
-			([[NF stringForObjectValue: [NSNumber numberWithFloat: [sender floatValue]]]
+			([[NF stringForObjectValue:[NSNumber numberWithFloat:[sender floatValue]]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width),
-			([[NF stringForObjectValue: [NSNumber numberWithFloat: 1]]
+			([[NF stringForObjectValue:[NSNumber numberWithFloat:1]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width));
-	[sender setFrameSize: NSMakeSize(width, oldSize.height)];
+	[sender setFrameSize:NSMakeSize(width, oldSize.height)];
 	NSEnumerator * E = [[[[sender window] toolbar] items] objectEnumerator];
 	NSToolbarItem * TBI;
 	while(TBI = [E nextObject])
 	{
 		if(sender == [TBI view])
 		{
-			[TBI setMinSize: [sender frame].size];
-			[TBI setMaxSize: [sender frame].size];
+			[TBI setMinSize:[sender frame].size];
+			[TBI setMaxSize:[sender frame].size];
 			break;
 		}
 	}
@@ -603,7 +603,7 @@ To Do List:
     return YES;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeToolModeFromSegment:
-- (IBAction) takeToolModeFromSegment: (id) sender;
+-(IBAction)takeToolModeFromSegment:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -611,13 +611,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setToolMode: [[sender cell] tagForSegment: [sender selectedSegment]]];
+	[self setToolMode:[[sender cell] tagForSegment:[sender selectedSegment]]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeToolModeFromSegment:
-- (BOOL) validateTakeToolModeFromSegment: (id) sender;
+-(BOOL)validateTakeToolModeFromSegment:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -625,22 +625,22 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![sender selectSegmentWithTag: [self toolMode]])
+	if(![sender selectSegmentWithTag:[self toolMode]])
 	{
-		[self setToolMode: kiTM2MoveToolMode];
-		[sender selectSegmentWithTag: [self toolMode]];
+		[self setToolMode:kiTM2MoveToolMode];
+		[sender selectSegmentWithTag:[self toolMode]];
 	}
 	int segment = [sender segmentCount];
 	while(segment--)
 	{
-		[sender setEnabled: ([[sender cell] tagForSegment: segment] != kiTM2AnnotateToolMode) forSegment: segment];
+		[sender setEnabled: ([[sender cell] tagForSegment:segment] != kiTM2AnnotateToolMode) forSegment:segment];
 	}
-	[sender setEnabled: YES];
+	[sender setEnabled:YES];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scaleAndPageTarget
-- (id) scaleAndPageTarget;
+-(id)scaleAndPageTarget;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -652,7 +652,7 @@ To Do List:
     return [metaGETTER pointerValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleAndPageTarget:
-- (void) setScaleAndPageTarget: (id) argument;
+-(void)setScaleAndPageTarget:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -660,8 +660,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([argument isEqual: _pdfView] || [argument isEqual: [self textView]])
-		metaSETTER([NSValue valueWithPointer: argument]);
+	if([argument isEqual:_pdfView] || [argument isEqual:[self textView]])
+		metaSETTER([NSValue valueWithPointer:argument]);
 	return;
 }
 @end

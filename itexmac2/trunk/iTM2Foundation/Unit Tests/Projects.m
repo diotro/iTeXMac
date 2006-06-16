@@ -13,7 +13,7 @@
 UNIMPLEMENTED
 
 @implementation Projects
--(void) testAvailableProjects
+-(void)testAvailableProjects
 {
 	NSLog(@"Testing the available projects, won't break if thing go wrong.");
 	NSString * path = [[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]

@@ -37,7 +37,7 @@ NSString * const TWSSpellComponent = @"spell";
 @end
 @implementation iTM2TeXSpellContextController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -52,7 +52,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextModeForText:
-- (NSString *) spellContextModeForText:(NSText *) text;
+-(NSString *)spellContextModeForText:(NSText *) text;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -70,7 +70,7 @@ To Do List:
     return mode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextMode:forText:
-- (void) setSpellContextMode:(NSString *) mode forText:(id) text;
+-(void)setSpellContextMode:(NSString *) mode forText:(id) text;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -87,7 +87,7 @@ To Do List:
 
 @implementation iTM2SpellContextController(TeXProjectSpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  project
-- (id) project;
+-(id)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -99,7 +99,7 @@ To Do List:
     return [metaGETTER nonretainedObjectValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setProject:
-- (void) setProject:(id) project;
+-(void)setProject:(id) project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -112,7 +112,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  writeToDirectory:
-- (BOOL) writeToDirectory:(NSString *) directoryName;
+-(BOOL)writeToDirectory:(NSString *) directoryName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -158,7 +158,7 @@ To Do List:
 		NSString * path = [directoryName stringByAppendingPathComponent:component];
 		NSURL * url = [NSURL fileURLWithPath:path];
 		NSError * error = nil;
-        if(![[self spellContextForMode:mode] writeToURL: url error:&error])
+        if(![[self spellContextForMode:mode] writeToURL:url error:&error])
 		{
 			if(iTM2DebugEnabled && (error!=nil))
 				[SDC presentError:error];
@@ -175,7 +175,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  readFromDirectory:
-- (BOOL) readFromDirectory:(NSString *) directoryName;
+-(BOOL)readFromDirectory:(NSString *) directoryName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -220,12 +220,12 @@ To Do List:
 @end
 
 @interface iTM2ProjectDocument(PRIVATE_TeXProjectSpellKit)
-- (void) spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;
+-(void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;
 @end
 
 @implementation iTM2TeXProjectDocument(ProjectSpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextController
-- (void) setSpellContextController:(id) controller;
+-(void)setSpellContextController:(id) controller;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -240,7 +240,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  TWS Ignored Words
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  spellingModeForFileKey:
-- (NSString *) spellingModeForFileKey:(NSString *) fileKey;
+-(NSString *)spellingModeForFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -251,7 +251,7 @@ To Do List:
     return [self propertyValueForKey:TWSSpellingFileKey fileKey:fileKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSpellingMode:forFileKey:
-- (void) setSpellingMode:(NSString *) spellingMode forFileKey:(NSString *) fileKey;
+-(void)setSpellingMode:(NSString *) spellingMode forFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -263,7 +263,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromFile:ofType:
-- (void) spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;
+-(void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -277,7 +277,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  spellKitMetaCompleteWriteToURL:ofType:error:
-- (BOOL) spellKitMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+-(BOOL)spellKitMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

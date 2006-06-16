@@ -35,7 +35,7 @@
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
-- (NSCellImagePosition) imagePosition;
+-(NSCellImagePosition)imagePosition;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end
@@ -47,17 +47,17 @@
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
-- (int) numberOfRows;
-- (int) numberOfColumns;
-- (void) setNumberOfColumns: (int) NOC;
-- (id <NSMenuItem>) itemAtRow: (int) row column: (int) column;
-- (int) rowForItemIndex: (int) index;
-- (int) columnForItemIndex: (int) index;
-- (int) itemIndexForRow: (int) row column: (int) column;
+-(int)numberOfRows;
+-(int)numberOfColumns;
+-(void)setNumberOfColumns:(int)NOC;
+-(id <NSMenuItem>)itemAtRow:(int)row column:(int)column;
+-(int)rowForItemIndex:(int)index;
+-(int)columnForItemIndex:(int)index;
+-(int)itemIndexForRow:(int)row column:(int)column;
 /*"Main methods"*/
 /*"Overriden methods"*/
-- (id) initWithTitle: (NSString *) aTitle;
-- (id <NSMenuItem>) itemAtIndex: (int) index;
+-(id)initWithTitle:(NSString *)aTitle;
+-(id <NSMenuItem>)itemAtIndex:(int)index;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DMenuKit

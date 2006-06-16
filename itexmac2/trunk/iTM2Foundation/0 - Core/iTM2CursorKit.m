@@ -28,7 +28,7 @@
 /*"Description forthcoming."*/
 @implementation NSCursor(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fingerCursor
-+ (NSCursor *) fingerCursor;
++(NSCursor *)fingerCursor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 23 2003
@@ -53,7 +53,7 @@ To Do List:
     return cursor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handCursor
-+ (NSCursor *) handCursor;
++(NSCursor *)handCursor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 23 2003
@@ -78,7 +78,7 @@ To Do List:
     return cursor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomInCursor
-+ (NSCursor *) zoomInCursor;
++(NSCursor *)zoomInCursor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 23 2003
@@ -103,7 +103,7 @@ To Do List:
     return cursor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomOutCursor
-+ (NSCursor *) zoomOutCursor;
++(NSCursor *)zoomOutCursor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 23 2003
@@ -128,7 +128,7 @@ To Do List:
     return cursor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  crossHairCursor
-+ (NSCursor *) crossHairCursor;
++(NSCursor *)crossHairCursor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 23 2003
@@ -153,7 +153,7 @@ To Do List:
     return cursor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  horizontalResizeCursor
-+ (NSCursor *) horizontalResizeCursor;
++(NSCursor *)horizontalResizeCursor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 23 2003
@@ -195,7 +195,7 @@ To Do List:
     return cursor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verticalResizeCursor
-+ (NSCursor *) verticalResizeCursor;
++(NSCursor *)verticalResizeCursor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jan 23 2003
@@ -237,7 +237,7 @@ To Do List:
     return cursor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  whiteIBeamCursor
-+ (NSCursor *) whiteIBeamCursor;
++(NSCursor *)whiteIBeamCursor;
 /*"Description forthcoming
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
 To Do List:

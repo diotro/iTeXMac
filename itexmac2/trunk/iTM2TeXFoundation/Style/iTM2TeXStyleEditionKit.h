@@ -97,11 +97,11 @@ extern NSString * const iTM2StyleSymbolsPboardType;
     
     BOOL _Background;
 }
-- (id) symbolAtRow: (int) row;
-- (BOOL) tableView: (NSTableView*) tv paste: (NSPasteboard *) pboard;
-- (void) addSymbolInTableView: (NSTableView *) tv;
-- (NSMutableDictionary *) currentSets;
-- (NSString *) currentSetKey;
+-(id)symbolAtRow:(int)row;
+-(BOOL)tableView:(NSTableView*)tv paste:(NSPasteboard *)pboard;
+-(void)addSymbolInTableView:(NSTableView *)tv;
+-(NSMutableDictionary *)currentSets;
+-(NSString *)currentSetKey;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXStyleEditionKit

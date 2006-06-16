@@ -24,26 +24,26 @@
 #import "iTM2ConTeXtKit.h"
 
 @interface iTM2ConTeXtPrefsPane(PRIVATE)
-- (id) downloadIndicator;
-- (id) manualsTableView;
-- (id) downloadPanel;
-- (NSArray *)ConTeXtManuals;
-- (void)setConTeXtManuals:(NSArray *)aConTeXtManuals;
-- (unsigned int)countOfConTeXtManuals;
-- (id)objectInConTeXtManualsAtIndex:(unsigned int)index;
-- (unsigned int) indexOfObjectInConTeXtManuals:(id) object;
-- (void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index;
-- (void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index;
-- (void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject;
-- (id) URLDownload;
-- (void) setURLDownload: (id) object;
-- (void) synchronizeUserDefaults; 
-- (void) synchronizeWithUserDefaults; 
+-(id)downloadIndicator;
+-(id)manualsTableView;
+-(id)downloadPanel;
+-(NSArray *)ConTeXtManuals;
+-(void)setConTeXtManuals:(NSArray *)aConTeXtManuals;
+-(unsigned int)countOfConTeXtManuals;
+-(id)objectInConTeXtManualsAtIndex:(unsigned int)index;
+-(unsigned int)indexOfObjectInConTeXtManuals:(id) object;
+-(void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index;
+-(void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index;
+-(void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject;
+-(id)URLDownload;
+-(void)setURLDownload:(id)object;
+-(void)synchronizeUserDefaults; 
+-(void)synchronizeWithUserDefaults; 
 @end
 
 @implementation iTM2ConTeXtPrefsPane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -61,7 +61,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
-- (NSString *) prefPaneIdentifier;
+-(NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -73,7 +73,7 @@ To Do List:
     return @"2.TeX.ConTeXt";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  manualsTableView
-- (id) manualsTableView
+-(id)manualsTableView
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -85,7 +85,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setManualsTableView:
-- (void) setManualsTableView: (id) object;
+-(void)setManualsTableView:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -94,15 +94,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	metaSETTER(object);
-	[object registerForDraggedTypes: [NSArray arrayWithObjects: NSURLPboardType, NSFilenamesPboardType, NSStringPboardType, nil]];
-	[object setDataSource: self];
-	[object setDelegate: self];
+	[object registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, NSFilenamesPboardType, NSStringPboardType, nil]];
+	[object setDataSource:self];
+	[object setDelegate:self];
 	[self synchronizeWithUserDefaults];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  downloadPanel
-- (id) downloadPanel
+-(id)downloadPanel
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -114,7 +114,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDownloadPanel:
-- (void) setDownloadPanel: (id) object;
+-(void)setDownloadPanel:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -129,7 +129,7 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  DATA MODEL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtManuals
-- (NSArray *)ConTeXtManuals
+-(NSArray *)ConTeXtManuals
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -141,7 +141,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setConTeXtManuals:
-- (void) setConTeXtManuals: (NSArray *) argument
+-(void)setConTeXtManuals:(NSArray *)argument
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -149,12 +149,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	metaSETTER(([argument isKindOfClass: [NSArray class]]? [argument mutableCopy]: (argument? [NSMutableArray array]: argument)));
+	metaSETTER(([argument isKindOfClass:[NSArray class]]? [argument mutableCopy]: (argument? [NSMutableArray array]: argument)));
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfConTeXtManuals:
-- (unsigned int)countOfConTeXtManuals;
+-(unsigned int)countOfConTeXtManuals;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -166,7 +166,7 @@ To Do List:
     return [(NSMutableArray *)[self ConTeXtManuals] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInConTeXtManualsAtIndex:
-- (id)objectInConTeXtManualsAtIndex:(unsigned int)index;
+-(id)objectInConTeXtManualsAtIndex:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -178,7 +178,7 @@ To Do List:
     return [(NSMutableArray *)[self ConTeXtManuals] objectAtIndex:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexOfObjectInConTeXtManuals:
-- (unsigned int)indexOfObjectInConTeXtManuals:(id) object;
+-(unsigned int)indexOfObjectInConTeXtManuals:(id) object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -187,17 +187,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	unsigned int index = [self countOfConTeXtManuals];
-	NSString * title = [object valueForKeyPath: @"Path"];
+	NSString * title = [object valueForKeyPath:@"Path"];
 	while(index--)
 	{
-		if([[[self objectInConTeXtManualsAtIndex: index] valueForKeyPath: @"Path"] isEqual: title])
+		if([[[self objectInConTeXtManualsAtIndex:index] valueForKeyPath:@"Path"] isEqual:title])
 			return index;
 	}
 //iTM2_END;
     return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inConTeXtManualsAtIndex:
-- (void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index 
+-(void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -211,7 +211,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromConTeXtManualsAtIndex:
-- (void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index 
+-(void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -225,7 +225,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceObjectInConTeXtManualsAtIndex:withObject:
-- (void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject 
+-(void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -239,7 +239,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeUserDefaults
-- (void) synchronizeUserDefaults; 
+-(void)synchronizeUserDefaults; 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -252,16 +252,16 @@ To Do List:
 	NSDictionary * D;
 	while(D = [E nextObject])
 	{
-		id O = [D objectForKey: @"Path"];
+		id O = [D objectForKey:@"Path"];
 		if(O)
-			[MRA addObject: [[O copy] autorelease]];
+			[MRA addObject:[[O copy] autorelease]];
 	}
-	[SUD setObject: MRA forKey: iTM2ConTeXtManuals];
+	[SUD setObject:MRA forKey:iTM2ConTeXtManuals];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithUserDefaults
-- (void) synchronizeWithUserDefaults; 
+-(void)synchronizeWithUserDefaults; 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -270,17 +270,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * MRA = [NSMutableArray array];
-	NSEnumerator * E = [[SUD stringArrayForKey: iTM2ConTeXtManuals] objectEnumerator];
+	NSEnumerator * E = [[SUD stringArrayForKey:iTM2ConTeXtManuals] objectEnumerator];
 	NSString * S;
-	while(S = [E nextObject]) [MRA addObject: [NSDictionary dictionaryWithObject: S forKey: @"Path"]];
-	[self setConTeXtManuals: MRA];
+	while(S = [E nextObject]) [MRA addObject:[NSDictionary dictionaryWithObject:S forKey:@"Path"]];
+	[self setConTeXtManuals:MRA];
 //iTM2_END;
 	return;
 }
 #pragma mark -
 #pragma mark =-=-=-=-=-  DATASOURCE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= add:
-- (IBAction) add: (id) sender;
+-(IBAction)add:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -289,16 +289,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSTableView * myTableView = [self manualsTableView];
-	[myTableView deselectAll: nil];
-	[self insertObject: [NSMutableDictionary dictionary] inConTeXtManualsAtIndex: 0];
+	[myTableView deselectAll:nil];
+	[self insertObject:[NSMutableDictionary dictionary] inConTeXtManualsAtIndex:0];
 	[myTableView reloadData];
-	[myTableView selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
-	[myTableView editColumn: 0 row: 0 withEvent: nil select: YES];
+	[myTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+	[myTableView editColumn:0 row:0 withEvent:nil select:YES];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= remove:
-- (IBAction) remove: (id) sender;
+-(IBAction)remove:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -311,8 +311,8 @@ To Do List:
 	unsigned int index = [IS lastIndex];
 	while(index != NSNotFound)
 	{
-		[self removeObjectFromConTeXtManualsAtIndex: index];
-		index = [IS indexLessThanIndex: index];
+		[self removeObjectFromConTeXtManualsAtIndex:index];
+		index = [IS indexLessThanIndex:index];
 	}
 	[myTableView reloadData];
 //iTM2_END;
@@ -321,7 +321,7 @@ To Do List:
 /* required methods
 */
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+-(int)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -333,7 +333,7 @@ To Do List:
 	return [self countOfConTeXtManuals];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -342,11 +342,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [[[self objectInConTeXtManualsAtIndex: row] valueForKeyPath: [tableColumn identifier]] lastPathComponent];
+	return [[[self objectInConTeXtManualsAtIndex:row] valueForKeyPath:[tableColumn identifier]] lastPathComponent];
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  :
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+-(void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -354,7 +354,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self objectInConTeXtManualsAtIndex: row] setValue: object forKeyPath: [tableColumn identifier]];
+	[[self objectInConTeXtManualsAtIndex:row] setValue:object forKeyPath:[tableColumn identifier]];
 //iTM2_END;
 	return;
 }
@@ -363,7 +363,7 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  DRAG & DROP
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:writeRowsWithIndexes:toPasteboard:
-- (BOOL) tableView: (NSTableView *) view
+-(BOOL)tableView:(NSTableView *)view
          writeRowsWithIndexes:(NSIndexSet *)rowIndexes
          toPasteboard: (NSPasteboard *) pboard;
 /*"Description Forthcoming.
@@ -373,15 +373,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id object = [self objectInConTeXtManualsAtIndex: [rowIndexes lastIndex]];
-	[pboard declareTypes: [NSArray arrayWithObjects: NSStringPboardType, nil] owner: nil];
-	[pboard setString: [object valueForKeyPath: @"Path"] forType: NSStringPboardType];
+	id object = [self objectInConTeXtManualsAtIndex:[rowIndexes lastIndex]];
+	[pboard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil] owner:nil];
+	[pboard setString:[object valueForKeyPath:@"Path"] forType:NSStringPboardType];
 //iTM2_END;
 	return YES;
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:validateDrop:proposedRow:proposedDropOperation:
-- (NSDragOperation) tableView: (NSTableView *) tableView
+-(NSDragOperation)tableView:(NSTableView *)tableView
                     validateDrop: (id <NSDraggingInfo>) info
                     proposedRow: (int) row
                     proposedDropOperation: (NSTableViewDropOperation) operation;
@@ -395,7 +395,7 @@ To Do List:
 	if (row > [self countOfConTeXtManuals])
 		return NSDragOperationNone;
 
-	[tableView setDropRow: row dropOperation: NSTableViewDropAbove];
+	[tableView setDropRow:row dropOperation:NSTableViewDropAbove];
 	if (tableView == [info draggingSource]) // From self
     {
 //iTM2_END;
@@ -408,7 +408,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:acceptDrop:row:dropOperation:
-- (BOOL) tableView: (NSTableView *) tableView
+-(BOOL)tableView:(NSTableView *)tableView
          acceptDrop: (id <NSDraggingInfo>) info
          row: (int) row
          dropOperation: (NSTableViewDropOperation) operation;
@@ -423,15 +423,15 @@ To Do List:
 		return NO;
 
 	NSPasteboard *pboard = [info draggingPasteboard];
-	NSURL * myURL = [NSURL URLFromPasteboard: pboard];
+	NSURL * myURL = [NSURL URLFromPasteboard:pboard];
 	if(myURL)
 	{
 		// is it a local file URL?
 		if([myURL isFileURL])
 		{
-			id object = [NSMutableDictionary dictionaryWithObject: [myURL path] forKey: @"Path"];
-			unsigned int oldIndex = [self indexOfObjectInConTeXtManuals: object];
-			[self insertObject: object inConTeXtManualsAtIndex: row];
+			id object = [NSMutableDictionary dictionaryWithObject:[myURL path] forKey:@"Path"];
+			unsigned int oldIndex = [self indexOfObjectInConTeXtManuals:object];
+			[self insertObject:object inConTeXtManualsAtIndex:row];
 			if(oldIndex != NSNotFound)
 			{
 				[self removeObjectFromConTeXtManualsAtIndex: (oldIndex<row? oldIndex: ++oldIndex)];
@@ -441,24 +441,24 @@ To Do List:
 		}
 		else
 		{
-			[NSApp beginSheet: [self downloadPanel] modalForWindow: [[self mainView] window] modalDelegate: nil didEndSelector: NULL contextInfo: nil];
-			[[self downloadIndicator] setIndeterminate: YES];
-			[[self downloadIndicator] startAnimation: nil];
-			[self setURLDownload: [[[NSURLDownload allocWithZone: [self zone]] initWithRequest: [NSURLRequest requestWithURL: myURL] delegate: self] autorelease]];
-			// [myURL loadResourceDataNotifyingClient: self usingCache: YES];
+			[NSApp beginSheet:[self downloadPanel] modalForWindow:[[self mainView] window] modalDelegate:nil didEndSelector:NULL contextInfo:nil];
+			[[self downloadIndicator] setIndeterminate:YES];
+			[[self downloadIndicator] startAnimation:nil];
+			[self setURLDownload:[[[NSURLDownload allocWithZone:[self zone]] initWithRequest:[NSURLRequest requestWithURL:myURL] delegate:self] autorelease]];
+			// [myURL loadResourceDataNotifyingClient:self usingCache:YES];
 			return YES;
 		}
 	}
-	NSArray * FNs = [pboard propertyListForType: NSFilenamesPboardType];
+	NSArray * FNs = [pboard propertyListForType:NSFilenamesPboardType];
 	if([FNs count])
 	{
 		NSEnumerator * E = [FNs reverseObjectEnumerator];
 		NSString * S;
 		while(S = [E nextObject])
 		{
-			id object = [NSMutableDictionary dictionaryWithObject: S forKey: @"Path"];
-			unsigned int oldIndex = [self indexOfObjectInConTeXtManuals: object];
-			[self insertObject: object inConTeXtManualsAtIndex: row];
+			id object = [NSMutableDictionary dictionaryWithObject:S forKey:@"Path"];
+			unsigned int oldIndex = [self indexOfObjectInConTeXtManuals:object];
+			[self insertObject:object inConTeXtManualsAtIndex:row];
 			if(oldIndex != NSNotFound)
 			{
 				[self removeObjectFromConTeXtManualsAtIndex: (oldIndex<row? oldIndex: ++oldIndex)];
@@ -468,9 +468,9 @@ To Do List:
 		return YES;
 	}
 	
-	id object = [NSMutableDictionary dictionaryWithObject: [pboard stringForType: NSStringPboardType] forKey: @"Path"];
-	unsigned int oldIndex = [self indexOfObjectInConTeXtManuals: object];
-	[self insertObject: object inConTeXtManualsAtIndex: row];
+	id object = [NSMutableDictionary dictionaryWithObject:[pboard stringForType:NSStringPboardType] forKey:@"Path"];
+	unsigned int oldIndex = [self indexOfObjectInConTeXtManuals:object];
+	[self insertObject:object inConTeXtManualsAtIndex:row];
 	if(oldIndex != NSNotFound)
 	{
 		[self removeObjectFromConTeXtManualsAtIndex: (oldIndex<row? oldIndex: ++oldIndex)];
@@ -480,7 +480,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didReceiveResponse:
-- (void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response;
+-(void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -491,17 +491,17 @@ To Do List:
 	int ECL = [response expectedContentLength];
 	if(ECL)
 	{
-		[[self downloadIndicator] setMaxValue: ECL+0.0];
-		[[self downloadIndicator] setIndeterminate: NO];
+		[[self downloadIndicator] setMaxValue:ECL+0.0];
+		[[self downloadIndicator] setIndeterminate:NO];
 	}
 	else
-		[[self downloadIndicator] setIndeterminate: YES];
+		[[self downloadIndicator] setIndeterminate:YES];
 	[[self downloadPanel] validateContent];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didReceiveDataOfLength:
-- (void)download:(NSURLDownload *)download didReceiveDataOfLength:(unsigned)length;
+-(void)download:(NSURLDownload *)download didReceiveDataOfLength:(unsigned)length;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -510,12 +510,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"data received ");
-	[[self downloadIndicator] setDoubleValue: [[self downloadIndicator] doubleValue] + length];
+	[[self downloadIndicator] setDoubleValue:[[self downloadIndicator] doubleValue] + length];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  downloadDidFinish:
-- (void)downloadDidFinish:(NSURLDownload *)download;
+-(void)downloadDidFinish:(NSURLDownload *)download;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -523,16 +523,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self downloadIndicator] stopAnimation: nil];
-	[NSApp endSheet: [self downloadPanel]];
-	[[self downloadPanel] orderOut: self];
+	[[self downloadIndicator] stopAnimation:nil];
+	[NSApp endSheet:[self downloadPanel]];
+	[[self downloadPanel] orderOut:self];
 	[[self manualsTableView] reloadData];
-	[self setURLDownload: nil];
+	[self setURLDownload:nil];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didFailWithError:
-- (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error;
+-(void)download:(NSURLDownload *)download didFailWithError:(NSError *)error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -541,15 +541,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_LOG(@"Download error: %@", error);
-	[NSApp endSheet: [self downloadPanel]];
-	[[self downloadPanel] orderOut: self];
+	[NSApp endSheet:[self downloadPanel]];
+	[[self downloadPanel] orderOut:self];
 	[[self manualsTableView] reloadData];
-	[self setURLDownload: nil];
+	[self setURLDownload:nil];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:decideDestinationWithSuggestedFilename:
-- (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename;
+-(void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -557,13 +557,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * dir = [[NSBundle mainBundle] pathForSupportDirectory: @"Documentation/ConTeXt" inDomain: NSUserDomainMask create: YES];
-	[download setDestination: [dir stringByAppendingPathComponent: [filename lastPathComponent]] allowOverwrite: YES];
+	NSString * dir = [[NSBundle mainBundle] pathForSupportDirectory:@"Documentation/ConTeXt" inDomain:NSUserDomainMask create:YES];
+	[download setDestination:[dir stringByAppendingPathComponent:[filename lastPathComponent]] allowOverwrite:YES];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didCreateDestination:
-- (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path;
+-(void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -571,20 +571,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id object = [NSMutableDictionary dictionaryWithObject: path forKey: @"Path"];
-	unsigned int oldIndex = [self indexOfObjectInConTeXtManuals: object];
+	id object = [NSMutableDictionary dictionaryWithObject:path forKey:@"Path"];
+	unsigned int oldIndex = [self indexOfObjectInConTeXtManuals:object];
 	if(oldIndex != NSNotFound)
 	{
-		[self removeObjectFromConTeXtManualsAtIndex: oldIndex];
+		[self removeObjectFromConTeXtManualsAtIndex:oldIndex];
 	}
-	[self insertObject: object inConTeXtManualsAtIndex: [self countOfConTeXtManuals]];
+	[self insertObject:object inConTeXtManualsAtIndex:[self countOfConTeXtManuals]];
 	[[self manualsTableView] reloadData];
 //iTM2_END;
 	return;
 }
 //- (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancelDownload:
-- (IBAction) cancelDownload: (id) sender;
+-(IBAction)cancelDownload:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -593,15 +593,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[[self URLDownload] cancel];
-	[NSApp endSheet: [self downloadPanel]];
-	[[self downloadPanel] orderOut: self];
+	[NSApp endSheet:[self downloadPanel]];
+	[[self downloadPanel] orderOut:self];
 	[[self manualsTableView] reloadData];
-	[self setURLDownload: nil];
+	[self setURLDownload:nil];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editDownload:
-- (IBAction) editDownload: (id) sender;
+-(IBAction)editDownload:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -613,7 +613,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditDownload:
-- (BOOL) validateEditDownload: (id) sender;
+-(BOOL)validateEditDownload:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -621,12 +621,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setStringValue: [[[[self URLDownload] request] URL] description]];
+	[sender setStringValue:[[[[self URLDownload] request] URL] description]];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  downloadIndicator
-- (id) downloadIndicator
+-(id)downloadIndicator
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -638,7 +638,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDownloadIndicator:
-- (void) setDownloadIndicator: (id) object;
+-(void)setDownloadIndicator:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -651,7 +651,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  URLDownload
-- (id) URLDownload
+-(id)URLDownload
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -663,7 +663,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setURLDownload:
-- (void) setURLDownload: (id) object;
+-(void)setURLDownload:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -676,7 +676,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtAtPragmaADE:
-- (IBAction) ConTeXtAtPragmaADE: (id) sender;
+-(IBAction)ConTeXtAtPragmaADE:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -684,7 +684,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[SWS openURL: [iTM2ConTeXtInspector ConTeXtPragmaADEURL]];
+	[SWS openURL:[iTM2ConTeXtInspector ConTeXtPragmaADEURL]];
 //iTM2_END;
 	return;
 }
@@ -692,7 +692,7 @@ To Do List:
 
 @implementation NSApplication(iTM2ConTeXtPrefsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showConTeXtPrefs:
-- (IBAction) showConTeXtPrefs: (id) sender;
+-(IBAction)showConTeXtPrefs:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -700,12 +700,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[iTM2PrefsController sharedPrefsController] displayPrefsPaneWithIdentifier: @"2.TeX.ConTeXt"];
+	[[iTM2PrefsController sharedPrefsController] displayPrefsPaneWithIdentifier:@"2.TeX.ConTeXt"];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showConTeXtManualsPrefs:
-- (IBAction) showConTeXtManualsPrefs: (id) sender;
+-(IBAction)showConTeXtManualsPrefs:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -713,7 +713,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self showConTeXtPrefs: sender];
+	[self showConTeXtPrefs:sender];
 //iTM2_END;
 	return;
 }
@@ -721,7 +721,7 @@ To Do List:
 
 @implementation iTM2ConTeXtManualsFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringForObjectValue:
-- (NSString *) stringForObjectValue: (id) anObject;
+-(NSString *)stringForObjectValue:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -729,19 +729,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * SOV = [super stringForObjectValue: anObject];
+	NSString * SOV = [super stringForObjectValue:anObject];
 	NSString * LSOV = NSLocalizedStringFromTableInBundle([SOV stringByDeletingPathExtension], iTM2ConTeXtManualsTable, [self classBundle], "");
-    return [SOV isEqual: LSOV]? SOV: [NSString stringWithFormat: @"%@ (%@)", LSOV, SOV];
+    return [SOV isEqual:LSOV]? SOV:[NSString stringWithFormat:@"%@ (%@)", LSOV, SOV];
 }
 @end
 
 @interface iTM2ConTeXtManualsTableView: NSTableView
-- (BOOL) interpretKeyStrokeBackspace: (id) sender;
+-(BOOL)interpretKeyStrokeBackspace:(id)sender;
 @end 
 @implementation iTM2ConTeXtManualsTableView
 #pragma mark =-=-=-=-=-  KEY BINDINGS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
-- (id) keyBindingsManager;
+-(id)keyBindingsManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -754,14 +754,14 @@ To Do List:
 	{
 		iTM2_LOG(@"The identifier is: %@", identifier);
 	}
-	[iTM2KeyBindingsManager registerKeyBindingsForIdentifier: identifier];
-    return [[[iTM2KeyBindingsManager allocWithZone: [self zone]]
+	[iTM2KeyBindingsManager registerKeyBindingsForIdentifier:identifier];
+    return [[[iTM2KeyBindingsManager allocWithZone:[self zone]]
 				initWithIdentifier: identifier
 					handleKeyBindings: [self handlesKeyBindings]
 						handleKeyStrokes: [self handlesKeyStrokes]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
-- (BOOL) handlesKeyBindings;
+-(BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -772,7 +772,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
-- (BOOL) handlesKeyStrokes;
+-(BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -784,7 +784,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeDelete:
-- (BOOL) interpretKeyStrokeDelete: (id) sender;
+-(BOOL)interpretKeyStrokeDelete:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -796,7 +796,7 @@ To Do List:
     return [self interpretKeyStrokeBackspace: (id) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeBackspace:
-- (BOOL) interpretKeyStrokeBackspace: (id) sender;
+-(BOOL)interpretKeyStrokeBackspace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -812,8 +812,8 @@ To Do List:
 		unsigned int index = [IS lastIndex];
 		while(index != NSNotFound)
 		{
-			[[self dataSource] removeObjectFromConTeXtManualsAtIndex: index];
-			index = [IS indexLessThanIndex: index];
+			[[self dataSource] removeObjectFromConTeXtManualsAtIndex:index];
+			index = [IS indexLessThanIndex:index];
 		}
 		[self reloadData];
 	//iTM2_END;

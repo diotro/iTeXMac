@@ -57,12 +57,12 @@ NSString * iTM2EOLDefaultFormat = nil;
 /*"Description forthcoming."*/
 
 @interface NSString(PRIVATE_DE_CHEZ_PRIVATE)
-- (void) getLineStart: (unsigned *) startPtr end: (unsigned *) lineEndPtr contentsEnd: (unsigned *) contentsEndPtr TeXComment: (unsigned *) commentPtr forIndex:(unsigned) index;
+-(void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
 @end
 
 @implementation NSString(iTM2StringFormatController)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedNameOfEOL:
-+ (NSString *) localizedNameOfEOL: (iTM2EOL) LE;
++(NSString *)localizedNameOfEOL:(iTM2EOL)LE;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -83,7 +83,7 @@ To do list:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringByUsingEOL:
-- (NSString *) stringByUsingEOL: (iTM2EOL) EOL;
+-(NSString *)stringByUsingEOL:(iTM2EOL)EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -119,7 +119,7 @@ To Do List:
     return MS;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= EOLUsed
-- (iTM2EOL) EOLUsed;
+-(iTM2EOL)EOLUsed;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -156,7 +156,7 @@ To Do List:
     return iTM2UnchangedEOL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getHardCodedStringEncoding:range:
-- (void) getHardCodedStringEncoding: (NSStringEncoding *) stringEncodingRef range: (NSRangePointer) rangeRef;
+-(void)getHardCodedStringEncoding:(NSStringEncoding *)stringEncodingRef range:(NSRangePointer)rangeRef;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -293,14 +293,14 @@ To Do List: Nothing
 #import <iTM2Foundation/iTM2Implementation.h>
 
 @interface iTM2StringFormatController(LAZINESS)
-- (NSStringEncoding) lazyStringEncoding;
-- (unsigned int) lazyEOL;
-+ (void) completeInitialization;
+-(NSStringEncoding)lazyStringEncoding;
+-(unsigned int)lazyEOL;
++(void)completeInitialization;
 @end
 
 @implementation iTM2MainInstaller(StringFormatter)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2StringFormatControllerCompleteInstallation
-+ (void) iTM2StringFormatControllerCompleteInstallation;
++(void)iTM2StringFormatControllerCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -316,7 +316,7 @@ To Do List:
 
 @implementation iTM2StringFormatController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -329,7 +329,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInitialization
-+ (void) completeInitialization;
++(void)completeInitialization;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -396,7 +396,7 @@ To do list:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= terminationStringForEOL:
-+ (NSString *) terminationStringForEOL: (iTM2EOL) EOL;
++(NSString *)terminationStringForEOL:(iTM2EOL)EOL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -415,7 +415,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOLForTerminationString:
-+ (iTM2EOL) EOLForTerminationString: (NSString *) terminationString;
++(iTM2EOL)EOLForTerminationString:(NSString *)terminationString;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -429,7 +429,7 @@ To do list:
     return iTM2UnknownEOL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOLForName:
-+ (iTM2EOL) EOLForName: (NSString *) name;
++(iTM2EOL)EOLForName:(NSString *)name;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -444,7 +444,7 @@ To do list:
     return iTM2UnknownEOL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= encodingsDictionary
-+ (NSDictionary *) encodingsDictionary;
++(NSDictionary *)encodingsDictionary;
 /*"Read in iTM2Encodings.plist. Contains the correspondance emacs or regime name -> mac os x encoding.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2003
@@ -457,7 +457,7 @@ To Do List:
 
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= coreFoundationStringEncodingFromString:
-+ (CFStringEncoding) coreFoundationStringEncodingFromString: (NSString *) argument;
++(CFStringEncoding)coreFoundationStringEncodingFromString:(NSString *)argument;
 /*"Yellow box string encoding returned. Core Foundation string encodings constants used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -867,7 +867,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringEncodingFromString:
-+ (NSNumber *) stringEncodingFromString: (NSString *) argument;
++(NSNumber *)stringEncodingFromString:(NSString *)argument;
 /*"Yellow box string encoding returned. Core Foundation string encodings constants used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -885,7 +885,7 @@ To Do List:
         return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= nameOfCoreFoundationStringEncoding:
-+ (NSString *) nameOfCoreFoundationStringEncoding: (CFStringEncoding) argument;
++(NSString *)nameOfCoreFoundationStringEncoding:(CFStringEncoding)argument;
 /*"Yellow box string encoding returned. Core Foundation string encodings constants used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1162,7 +1162,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameOfEOL:
-+ (NSString *) nameOfEOL: (iTM2EOL) LE;
++(NSString *)nameOfEOL:(iTM2EOL)LE;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -1179,7 +1179,7 @@ To do list:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= availableStringEncodings
-+ (NSArray *) availableStringEncodings;
++(NSArray *)availableStringEncodings;
 /*"Yellow box string encoding returned. UInt32 used!!!
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1210,7 +1210,7 @@ To Do List:
     return g_iTM2AvailableStringEncodings;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithDocument:
-- (id) initWithDocument: (id) document;
+-(id)initWithDocument:(id)document;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1226,7 +1226,7 @@ To Do List:
 	return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataWithString:allowLossyConversion:
-- (NSData *) dataWithString: (NSString *) argument allowLossyConversion: (BOOL) lossy;
+-(NSData *)dataWithString:(NSString *)argument allowLossyConversion:(BOOL)lossy;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1237,7 +1237,7 @@ To Do List:
     return [argument dataUsingEncoding:[self stringEncoding] allowLossyConversion:lossy];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canConvertString:
-- (BOOL) canConvertString: (NSString *) argument;
+-(BOOL)canConvertString:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1248,7 +1248,7 @@ To Do List:
     return ![argument length] || [argument canBeConvertedToEncoding:[self stringEncoding]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nextUnconvertibleCharacterIndexOfString:startingAt:
-- (unsigned int) nextUnconvertibleCharacterIndexOfString: (NSString *) argument startingAt: (unsigned int) index;
+-(unsigned int)nextUnconvertibleCharacterIndexOfString:(NSString *)argument startingAt:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1277,7 +1277,7 @@ To Do List:
         return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringWithData:
-- (NSString *) stringWithData: (NSData *) docData;
+-(NSString *)stringWithData:(NSData *)docData;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1394,7 +1394,7 @@ To Do List:
     return string;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOL
-- (unsigned int) EOL;
+-(unsigned int)EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1411,7 +1411,7 @@ To Do List:
     return [result unsignedIntValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyEOL
-- (unsigned int) lazyEOL;
+-(unsigned int)lazyEOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1422,7 +1422,7 @@ To Do List:
     return (unsigned int)[SUD integerForKey:iTM2EOLPreferredKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
-- (void) setEOL: (unsigned int) argument;
+-(void)setEOL:(unsigned int)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1434,7 +1434,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
-- (NSStringEncoding) stringEncoding;
+-(NSStringEncoding)stringEncoding;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1451,7 +1451,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyStringEncoding
-- (NSStringEncoding) lazyStringEncoding;
+-(NSStringEncoding)lazyStringEncoding;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1462,7 +1462,7 @@ To Do List:
     return [self contextIntegerForKey:iTM2StringEncodingOpenKey]?:[self contextIntegerForKey:iTM2StringEncodingPreferredKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
-- (void) setStringEncoding: (NSStringEncoding) argument;
+-(void)setStringEncoding:(NSStringEncoding)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1476,7 +1476,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hardStringEncodingString
-- (NSString *) hardStringEncodingString;
+-(NSString *)hardStringEncodingString;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1488,7 +1488,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setHardStringEncodingString:
-- (void) setHardStringEncodingString: (NSString *) argument;
+-(void)setHardStringEncodingString:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1500,7 +1500,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isStringEncodingHardCoded
-- (BOOL) isStringEncodingHardCoded;
+-(BOOL)isStringEncodingHardCoded;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1512,7 +1512,7 @@ To Do List:
     return [metaGETTER boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncodingHardCoded:
-- (void) setStringEncodingHardCoded: (BOOL) yorn;
+-(void)setStringEncodingHardCoded:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1525,7 +1525,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  document
-- (id) document;
+-(id)document;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1536,7 +1536,7 @@ To Do List:
     return [[[metaGETTER nonretainedObjectValue] retain] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDocument:
-- (void) setDocument: (id) document;
+-(void)setDocument:(id)document;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1548,7 +1548,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOLMenuWithAction:target:
-+ (NSMenu *) EOLMenuWithAction: (SEL) anAction target: (id) aTarget;
++(NSMenu *)EOLMenuWithAction:(SEL)anAction target:(id)aTarget;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -1600,7 +1600,7 @@ To do list:
     return menu;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingMenuWithAction:target:
-+ (NSMenu *) stringEncodingMenuWithAction: (SEL) anAction target: (id) aTarget;
++(NSMenu *)stringEncodingMenuWithAction:(SEL)anAction target:(id)aTarget;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -1636,7 +1636,7 @@ To do list:
     return menu;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  supportedStringEncodings
-+ (NSArray *) supportedStringEncodings;
++(NSArray *)supportedStringEncodings;
 /*"StringEncodings.plist file contains an array of integers.
 StringEncodings constants in the StringEncodings.plist are meant in core foundation sense, not in yellow box sense.
 However, they are in yellow box sense in the returned array.
@@ -1721,7 +1721,7 @@ abacab:;
                                 nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id) currentContextManager;
+-(id)currentContextManager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1736,7 +1736,7 @@ To Do List:
 
 @implementation NSObject(iTM2StringFormatKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _iTM2CompareStringEncoding:
-- (NSComparisonResult) _iTM2CompareStringEncoding: (NSNumber *) rhs;
+-(NSComparisonResult)_iTM2CompareStringEncoding:(NSNumber *)rhs;
 /*"Yellow box string encoding returned. Core Foundation string encodings constants used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1761,7 +1761,7 @@ To Do List:
 @end
 
 @implementation NSDocument(iTM2StringFormatController)
-- (id) stringFormatter;
+-(id)stringFormatter;
 {iTM2_DIAGNOSTIC;
 	return nil;
 }
@@ -1941,7 +1941,7 @@ NSString * const iTM2DraggingStringEncodingPboardType = @"iTM2DraggingStringEnco
 
 @implementation iTM2StringEncodingDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id) init;
+-(id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -1957,7 +1957,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -1971,7 +1971,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowNibName
-- (NSString *) windowNibName;
+-(NSString *)windowNibName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -1982,7 +1982,7 @@ To Do List:
     return NSStringFromClass([self class]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument
-- (id) newRecentDocument;
+-(id)newRecentDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -1993,7 +1993,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveDocument:
-- (IBAction) saveDocument: (id) sender;
+-(IBAction)saveDocument:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2006,7 +2006,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveDocumentAs:
-- (IBAction) saveDocumentAs: (id) sender;
+-(IBAction)saveDocumentAs:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2017,7 +2017,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSaveDocumentAs:
-- (BOOL) validateSaveDocumentAs: (id) sender;
+-(BOOL)validateSaveDocumentAs:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2028,7 +2028,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSaveDocumentTo:
-- (IBAction) saveDocumentTo: (id) sender;
+-(IBAction)saveDocumentTo:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2039,7 +2039,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSaveDocumentTo:
-- (BOOL) validateSaveDocumentTo: (id) sender;
+-(BOOL)validateSaveDocumentTo:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2050,7 +2050,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToFile:ofType:
-- (BOOL) writeToFile: (NSString *) fileName ofType: (NSString *) irrelevantType;
+-(BOOL)writeToFile:(NSString *)fileName ofType:(NSString *)irrelevantType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2063,7 +2063,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) irrelevantType;
-- (BOOL) readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+-(BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2082,7 +2082,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delete:
-- (IBAction) delete: (id) sender;
+-(IBAction)delete:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2116,7 +2116,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDelete:
-- (void) validateDelete: (id) sender;
+-(void)validateDelete:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2128,7 +2128,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSelection:
-- (IBAction) addSelection: (id) sender;
+-(IBAction)addSelection:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2156,7 +2156,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSeparator:
-- (IBAction) addSeparator: (id) sender;
+-(IBAction)addSeparator:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2178,7 +2178,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerDidLoadNib:
-- (void) windowControllerDidLoadNib: (NSWindowController *) windowController;
+-(void)windowControllerDidLoadNib:(NSWindowController *)windowController;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2201,7 +2201,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
-- (int) numberOfRowsInTableView: (NSTableView *) tableView;
+-(int)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2212,7 +2212,7 @@ To Do List:
     return [tableView isEqual:actualTableView]? [_ActualStringEncodings count]:[[iTM2StringFormatController availableStringEncodings] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
-- (id) tableView: (NSTableView *) tableView objectValueForTableColumn: (NSTableColumn *) tableColumn row: (int) row;
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2233,7 +2233,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:writeRows:toPasteboard:
-- (BOOL) tableView: (NSTableView *) tv writeRows: (NSArray*) rows toPasteboard: (NSPasteboard*) pboard;
+-(BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2251,7 +2251,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:validateDrop:proposedRow:proposedDropOperation:
-- (NSDragOperation) tableView: (NSTableView *) tv validateDrop: (id <NSDraggingInfo>) info proposedRow: (int) row proposedDropOperation: (NSTableViewDropOperation) op;
+-(NSDragOperation)tableView:(NSTableView *)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2271,7 +2271,7 @@ To Do List:
     return NSDragOperationNone;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:acceptDrop:row:dropOperation:
-- (BOOL) tableView: (NSTableView *) tv acceptDrop: (id <NSDraggingInfo>) info row: (int) row dropOperation: (NSTableViewDropOperation) op;
+-(BOOL)tableView:(NSTableView *)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2356,7 +2356,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
-- (void) tableViewSelectionDidChange: (NSNotification *) notification;
+-(void)tableViewSelectionDidChange:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2370,30 +2370,30 @@ To Do List:
 #if 0
 // optional @implementation MyOutlineView 
 
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
+-(NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
     if (isLocal) return NSDragOperationEvery;
     else return NSDragOperationCopy;
 }
 
 @end
 registerForDragged
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+-(void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 
 // optional - drag and drop support
-- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
+-(BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
     // This method is called after it has been determined that a drag should begin, but before the drag has been started.  To refuse the drag, return NO.  To start a drag, return YES and place the drag data onto the pasteboard (data, owner, etc...).  The drag image and other drag related information will be set up and provided by the table view once this call returns with YES.  The rows array is the list of row numbers that will be participating in the drag.
 
-- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
+-(NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
     // This method is used by NSTableView to determine a valid drop target.  Based on the mouse position, the table view will suggest a proposed drop location.  This method must return a value that indicates which dragging operation the data source will perform.  The data source may "re-target" a drop if desired by calling setDropRow:dropOperation: and returning something other than NSDragOperationNone.  One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
 
-- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
+-(BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
     // This method is called when the mouse is released over an outline view that previously decided to allow a drop via the validateDrop method.  The data source should incorporate the data from the dragging pasteboard at this time.
 #endif
 @end
 
 @implementation iTM2StringEncodingFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringForObjectValue:
-- (NSString *) stringForObjectValue: (id) obj;
+-(NSString *)stringForObjectValue:(id)obj;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003

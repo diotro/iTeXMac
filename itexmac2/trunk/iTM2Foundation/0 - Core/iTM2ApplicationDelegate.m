@@ -39,7 +39,7 @@ NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 #warning <<<<  HUNTING
 #ifndef HUNTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
-+ (void) initialize;
++(void)initialize;
 /*"Registers some defaults: initialize iTM2DefaultsController.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -57,7 +57,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Registers some defaults: initialize iTM2DefaultsController.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -72,7 +72,7 @@ To Do List:
 #warning DEBUGGGGGGGGGG: NO APPLICATION DOCK MENU YET
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applicationDockMenu:
-- (NSMenu *) applicationDockMenu: (id) sender;
+-(NSMenu *)applicationDockMenu:(id)sender;
 /*"Lazy initializer and message.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -84,7 +84,7 @@ To Do List: Nothing at first glance
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setApplicationDockMenu:
-- (void) setApplicationDockMenu: (NSMenu *) argument;
+-(void)setApplicationDockMenu:(NSMenu *)argument;
 /*"Description forthcoming.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -107,7 +107,7 @@ To Do List: Nothing at first glance
 }
 #warning =-=-=-=-=-=-=-=-=-=-  DELEGATE METHODS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applicationOpenUntitledFile:
-- (BOOL) applicationOpenUntitledFile: (NSApplication *) theApplication;
+-(BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication;
 /*"Description forthcoming.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 I really don't know why but this simple method could replace the previous one. Nevertheless, I prefer what I can understand...
@@ -117,7 +117,7 @@ I really don't know why but this simple method could replace the previous one. N
     return ![SUD boolForKey:iTM2MakeEmptyDocumentKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applicationDidFinishLaunching:
-- (void) applicationDidFinishLaunching: (NSNotification *) aNotification;
+-(void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 /*"Updates the templates and macros menus.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 To Do: problem when there is no UI.

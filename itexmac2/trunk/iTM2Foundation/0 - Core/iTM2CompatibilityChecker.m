@@ -34,7 +34,7 @@
 
 @implementation iTM2MainInstaller(CompatibilityChecker)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  JAGUARCompleteInstallation
-+ (void) JAGUARCompleteInstallation;
++(void)JAGUARCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 06/01/03

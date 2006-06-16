@@ -28,7 +28,7 @@
 @implementation NSNotificationCenter(iTeXMac2)
 static NSNotificationCenter * _giTeXMac2NotificationCenter = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTeXMac2Center
-+ (id) iTeXMac2Center;
++(id)iTeXMac2Center;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -55,27 +55,27 @@ NSString * const iTM2SNStatusKey = @"status";
     NSTimer * _Timer;
 }
 /*"Class methods"*/
-+ (id) defaultCenter;
++(id)defaultCenter;
 /*"Setters and Getters"*/
-- (NSString *) currentStatus;
-- (void) setCurrentStatus: (NSString *) argument;
-- (NSString *) currentToolTip;
-- (void) setCurrentToolTip: (NSString *) argument;
-- (NSTimer *) timer;
-- (void) setTimer: (NSTimer *) argument;
+-(NSString *)currentStatus;
+-(void)setCurrentStatus:(NSString *)argument;
+-(NSString *)currentToolTip;
+-(void)setCurrentToolTip:(NSString *)argument;
+-(NSTimer *)timer;
+-(void)setTimer:(NSTimer *)argument;
 /*"Main methods"*/
-- (void) addObserver: (id) observer;
-- (void) postNotificationWithStatus: (NSString *) aStatus;
-- (void) postNotificationWithToolTip: (NSString *) aToolTip;
-- (void) cleanStatusNotified: (NSNotification *) aNotification;
-- (void) cleanToolTipNotified: (NSNotification *) aNotification;
+-(void)addObserver:(id)observer;
+-(void)postNotificationWithStatus:(NSString *)aStatus;
+-(void)postNotificationWithToolTip:(NSString *)aToolTip;
+-(void)cleanStatusNotified:(NSNotification *)aNotification;
+-(void)cleanToolTipNotified:(NSNotification *)aNotification;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2StatusNotificationCenter
 /*"Description forthcoming."*/
 @implementation iTM2StatusNotificationCenter
 static id _giTM2StatusNotificationCenter;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultCenter
-+ (void) initialize;
++(void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -93,7 +93,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultCenter
-+ (id) defaultCenter;
++(id)defaultCenter;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -105,7 +105,7 @@ To Do List:
                             (_giTM2StatusNotificationCenter = [[self allocWithZone:[NSApp zone]] init]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id) init;
+-(id)init;
 /*"The first object inited is the shared one.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -126,7 +126,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description Forhcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -141,7 +141,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timer
-- (NSTimer *) timer;
+-(NSTimer *)timer;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -152,7 +152,7 @@ To Do List:
     return _Timer;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTimer:
-- (void) setTimer: (NSTimer *) argument;
+-(void)setTimer:(NSTimer *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -172,7 +172,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentStatus
-- (NSString *) currentStatus;
+-(NSString *)currentStatus;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -183,7 +183,7 @@ To Do List:
     return [_CurrentStatus length]? [[_CurrentStatus copy] autorelease]:[NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCurrentStatus:
-- (void) setCurrentStatus: (NSString *) argument;
+-(void)setCurrentStatus:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -202,7 +202,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentToolTip
-- (NSString *) currentToolTip;
+-(NSString *)currentToolTip;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 09/20/2002
@@ -213,7 +213,7 @@ To Do List:
     return [_CurrentToolTip length]? [[_CurrentToolTip copy] autorelease]:[NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCurrentToolTip:
-- (void) setCurrentToolTip: (NSString *) argument;
+-(void)setCurrentToolTip:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 09/20/2002
@@ -232,7 +232,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addObserver:
-- (void) addObserver: (id) observer;
+-(void)addObserver:(id)observer;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -246,7 +246,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithStatus:
-- (void) postNotificationWithStatus: (NSString *) aStatus;
+-(void)postNotificationWithStatus:(NSString *)aStatus;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -258,7 +258,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithStatus:object:
-- (void) postNotificationWithStatus: (NSString *) aStatus object: (id) object;
+-(void)postNotificationWithStatus:(NSString *)aStatus object:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -284,7 +284,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithToolTip:
-- (void) postNotificationWithToolTip: (NSString *) aToolTip;
+-(void)postNotificationWithToolTip:(NSString *)aToolTip;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -296,7 +296,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithToolTip:object:
-- (void) postNotificationWithToolTip: (NSString *) aToolTip object: (id) object;
+-(void)postNotificationWithToolTip:(NSString *)aToolTip object:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -319,7 +319,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanStatusNotified:
-- (void) cleanStatusNotified: (NSNotification *) aNotification;
+-(void)cleanStatusNotified:(NSNotification *)aNotification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -332,7 +332,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanToolTipNotified:
-- (void) cleanToolTipNotified: (NSNotification *) aNotification;
+-(void)cleanToolTipNotified:(NSNotification *)aNotification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -349,7 +349,7 @@ To Do List:
 
 @implementation iTM2StatusField
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
-- (id) initWithFrame: (NSRect) aFrame;
+-(id)initWithFrame:(NSRect)aFrame;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -364,7 +364,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
-- (id) initWithCoder: (NSCoder *) decoder;
+-(id)initWithCoder:(NSCoder *)decoder;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -380,7 +380,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -393,7 +393,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  statusNotified:
-- (void) statusNotified: (NSNotification *) aNotification;
+-(void)statusNotified:(NSNotification *)aNotification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -418,7 +418,7 @@ To Do List:
 
 @implementation NSObject(iTM2Status)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithStatus:
-+ (void) postNotificationWithStatus: (NSString *) aStatus;
++(void)postNotificationWithStatus:(NSString *)aStatus;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -430,7 +430,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithStatus:
-- (void) postNotificationWithStatus: (NSString *) aStatus;
+-(void)postNotificationWithStatus:(NSString *)aStatus;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -442,7 +442,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithToolTip:
-+ (void) postNotificationWithToolTip: (NSString *) aToolTip;
++(void)postNotificationWithToolTip:(NSString *)aToolTip;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -454,7 +454,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithToolTip:
-- (void) postNotificationWithToolTip: (NSString *) aToolTip;
+-(void)postNotificationWithToolTip:(NSString *)aToolTip;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -466,7 +466,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithStatus:object:
-+ (void) postNotificationWithStatus: (NSString *) aStatus object: (id) object;
++(void)postNotificationWithStatus:(NSString *)aStatus object:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -478,7 +478,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithStatus:object:
-- (void) postNotificationWithStatus: (NSString *) aStatus object: (id) object;
+-(void)postNotificationWithStatus:(NSString *)aStatus object:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -490,7 +490,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithToolTip:object:
-+ (void) postNotificationWithToolTip: (NSString *) aStatus object: (id) object;
++(void)postNotificationWithToolTip:(NSString *)aStatus object:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -502,7 +502,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  postNotificationWithToolTip:object:
-- (void) postNotificationWithToolTip: (NSString *) aStatus object: (id) object;
+-(void)postNotificationWithToolTip:(NSString *)aStatus object:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

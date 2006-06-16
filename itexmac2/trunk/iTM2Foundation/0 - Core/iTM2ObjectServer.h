@@ -46,7 +46,7 @@
     @param	key is a dictionary key
     @result	something, may be nil
 */
-+ (id) objectForType: (id) type key: (id) key;
++(id)objectForType:(id)type key:(id)key;
 
 /*! 
     @method	typeEnumerator
@@ -55,7 +55,7 @@
     @param	None
     @result	an enumerator
 */
-+ (NSEnumerator *) typeEnumerator;
++(NSEnumerator *)typeEnumerator;
 
 /*! 
     @method	keyEnumeratorForType:
@@ -64,7 +64,7 @@
     @param	type is a dictionary key
     @result	an enumerator
 */
-+ (NSEnumerator *) keyEnumeratorForType: (id) type;
++(NSEnumerator *)keyEnumeratorForType:(id)type;
 
 /*! 
     @method	objectEnumeratorForType:
@@ -73,7 +73,7 @@
     @param	type is a dictionary key
     @result	an enumerator
 */
-+ (NSEnumerator *) objectEnumeratorForType: (id) type;
++(NSEnumerator *)objectEnumeratorForType:(id)type;
 
 /*! 
     @method		registerObject:forType:key:retain:
@@ -89,7 +89,7 @@
     @param		yorn is a flag indicating whether the receiver is the owner of the object.
     @result		A flag indicating whether the receiver did register something
 */
-+ (BOOL) registerObject: (id) argument forType: (id) type key: (id) key retain: (BOOL) yorn;
++(BOOL)registerObject:(id)argument forType:(id)type key:(id)key retain:(BOOL)yorn;
 
 /*! 
     @method		unregisterObjectForType:key:
@@ -99,7 +99,7 @@
     @param		key is a dictionary key, nil is forbidden
     @result		None
 */
-+ (void) unregisterObjectForType: (id) type key: (id) key;
++(void)unregisterObjectForType:(id)type key:(id)key;
 
 /*! 
     @method		mutableDictionary
@@ -109,7 +109,7 @@
                 The default implementation returns a global dictionary.
     @result		An NSMutableDictionary
 */
-+ (id) mutableDictionary;
++(id)mutableDictionary;
 
 @end
 

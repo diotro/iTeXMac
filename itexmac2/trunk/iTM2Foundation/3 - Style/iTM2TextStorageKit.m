@@ -59,7 +59,7 @@ NSString * const iTM2TextSyntaxParserVariantKey = @"iTM2TextSyntaxParserVariant"
 #define _TextStorage (iTM2TextStorage *)_TS
 #define _TextModel (NSMutableString *)_Model
 @interface iTM2ModeLine(diagnostic)
-- (BOOL) diagnostic;
+-(BOOL)diagnostic;
 @end
 
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
@@ -70,7 +70,7 @@ NSString * const iTM2SyntaxParserStyleEnabledKey = @"iTM2SyntaxParserStyleEnable
 
 @implementation iTM2MainInstaller(TextStorageKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TextStorageCompleteInstallation
-+ (void) iTM2TextStorageCompleteInstallation;
++(void)iTM2TextStorageCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004
@@ -89,7 +89,7 @@ To Do List: Nothing
 
 @implementation iTM2TextInspector(iTM2TextStorageKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_style_swizzled_lazyTextStorage
-- (id) iTM2_style_swizzled_lazyTextStorage;
+-(id)iTM2_style_swizzled_lazyTextStorage;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -126,7 +126,7 @@ To Do List:
 	return [self iTM2_style_swizzled_lazyTextStorage];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textInspectorStyleCompleteSaveContext:
-- (void) textInspectorStyleCompleteSaveContext: (id) sender;
+-(void)textInspectorStyleCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -147,7 +147,7 @@ To Do List:
 
 @implementation iTM2TextStorage
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
-- (id) init;
+-(id)init;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -163,7 +163,7 @@ To Do List: Nothing
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithString:
-- (id) initWithString: (NSString *) aString;
+-(id)initWithString:(NSString *)aString;
 /*"Designated initializer.
 When no syntax parser is given, the layout is not invalidated and the attributes are not fixed.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -184,7 +184,7 @@ To Do List: Nothing
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithString:attributes:
-- (id) initWithString: (NSString *) aString attributes: (NSDictionary *) attrs;
+-(id)initWithString:(NSString *)aString attributes:(NSDictionary *)attrs;
 /*"Designated initializer.
 When no syntax parser is given, the layout is not invalidated and the attributes are not fixed.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -196,7 +196,7 @@ To Do List: Nothing
     return [self initWithString:aString];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithAttributedString:
-- (id) initWithAttributedString: (NSAttributedString *) attrStr;
+-(id)initWithAttributedString:(NSAttributedString *)attrStr;
 /*"Designated initializer.
 When no syntax parser is given, the layout is not invalidated and the attributes are not fixed.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -208,7 +208,7 @@ To Do List: Nothing
     return [self initWithString:[attrStr string]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -224,7 +224,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isEqualToAttributedString:
-- (BOOL) isEqualToAttributedString: (NSAttributedString *) other;
+-(BOOL)isEqualToAttributedString:(NSAttributedString *)other;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -235,7 +235,7 @@ To Do List:
     return [_TextModel isEqualToString:[other string]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  processEditing
-- (void) processEditing;
+-(void)processEditing;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -250,7 +250,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lineBreakBeforeIndex:withinRange:
-- (unsigned) lineBreakBeforeIndex: (unsigned) location withinRange: (NSRange) aRange;
+-(unsigned)lineBreakBeforeIndex:(unsigned)location withinRange:(NSRange)aRange;
 /*"Don't know if it is a bug of mine or apple's but sometimes the returned location has nothing to do with aRange.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 03/10/2002
@@ -263,7 +263,7 @@ To Do List:
 #endif
 #pragma mark =-=-=-=-=-=-=-=-=-=-  GETTING CHARACTERS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= string
-- (NSString *) string;
+-(NSString *)string;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -274,7 +274,7 @@ To Do List:
     return _TextModel;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mutableString
-- (NSMutableString *) mutableString;
+-(NSMutableString *)mutableString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -285,7 +285,7 @@ To Do List:
     return _TextModel;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedSubstringFromRange:
-- (NSAttributedString *) attributedSubstringFromRange: (NSRange) range;
+-(NSAttributedString *)attributedSubstringFromRange:(NSRange)range;
 /*"Does nothing: no one should change the attributes except the receiver itself.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -297,7 +297,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTING CHARACTERS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= replaceCharactersInRange:withString:
-- (void) replaceCharactersInRange: (NSRange) range withString: (NSString *) string;
+-(void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
 /*"Relies on the shared syntax parser. May invalidate some range of characters if it was not easy or rapid to parse
 the text for correct syntax coloring.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -474,7 +474,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  GETTING ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:effectiveRange:
-- (NSDictionary *) attributesAtIndex: (unsigned) aLocation effectiveRange: (NSRangePointer) aRangePtr;
+-(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -494,7 +494,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:effectiveRange:inRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
+-(NSDictionary *)attributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -515,7 +515,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTING ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setAttributes:range:
-- (void) setAttributes: (NSDictionary *) attributes range: (NSRange) aRange;
+-(void)setAttributes:(NSDictionary *)attributes range:(NSRange)aRange;
 /*"Does nothing: no one should change the attributes except the receiver itself.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -528,7 +528,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addAttribute:value:range:
-- (void) addAttribute: (NSString *) name value: (id) value range: (NSRange) range;
+-(void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range;
 /*"Does nothing: no one should change the attributes except the receiver itself.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -541,7 +541,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SYNTAX COLORING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fixesAttributesLazily
-- (BOOL) fixesAttributesLazily;
+-(BOOL)fixesAttributesLazily;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -553,7 +553,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ensureAttributesAreFixedInRange:
-- (void) ensureAttributesAreFixedInRange: (NSRange) range;
+-(void)ensureAttributesAreFixedInRange:(NSRange)range;
 /*"Description forthcoming. Bypass the inherited method.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -568,7 +568,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParser
-- (id) syntaxParser;
+-(id)syntaxParser;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (03/08/02)
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -579,7 +579,7 @@ To Do List:
     return _SP;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= replaceSyntaxParser:
-- (void) replaceSyntaxParser: (id) argument;
+-(void)replaceSyntaxParser:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/07/01)
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -604,7 +604,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addLayoutManager:
-- (void) addLayoutManager: (NSLayoutManager *) obj;
+-(void)addLayoutManager:(NSLayoutManager *)obj;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/07/01)
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -620,7 +620,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setSyntaxParser:
-- (void) setSyntaxParser: (id) argument;
+-(void)setSyntaxParser:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/07/01)
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -640,7 +640,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSyntaxParserStyle:variant:
-- (void) setSyntaxParserStyle: (NSString *) style variant: (NSString *) variant;
+-(void)setSyntaxParserStyle:(NSString *)style variant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -652,7 +652,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceSyntaxParserStyle:variant:
-- (void) replaceSyntaxParserStyle: (NSString *) style variant: (NSString *) variant;
+-(void)replaceSyntaxParserStyle:(NSString *)style variant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -666,7 +666,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= invalidateAttributesInRange:
-- (void) invalidateAttributesInRange: (NSRange) range;
+-(void)invalidateAttributesInRange:(NSRange)range;
 /*"Bypass the inherited method.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -677,7 +677,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixAttributesInRange:
-- (void) fixAttributesInRange: (NSRange) aRange;
+-(void)fixAttributesInRange:(NSRange)aRange;
 /*"Description forthcoming.
 Version history: 
 - 1.1: 05/22/2002
@@ -690,7 +690,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserStyle
-- (NSString *) syntaxParserStyle;
+-(NSString *)syntaxParserStyle;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -701,7 +701,7 @@ To Do List:
     return [[[self syntaxParser] class] syntaxParserStyle];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserVariant
-- (NSString *) syntaxParserVariant;
+-(NSString *)syntaxParserVariant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -714,7 +714,7 @@ To Do List:
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CONTEXT
 #warning THERE MUST BE SOMETHING DESIGNED TO CASCADE A CHANGE IN THE CONTEXT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void) xcontextDidChange;
+-(void)xcontextDidChange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Oct  3 07:38:23 GMT 2004
@@ -749,12 +749,12 @@ NSString * const iTM2TextSyntaxParserType = @"_SPC";
 				The _iTM2TextObjectServer stores these shared instances.
 */
 @interface _iTM2TextObjectServer: iTM2ObjectServer
-+ (void) update;
++(void)update;
 @end
 @implementation _iTM2TextObjectServer
 static NSMutableDictionary * _iTM2TextObjectServerDictionary = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -776,7 +776,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mutableDictionary
-+ (NSMutableDictionary *) mutableDictionary;
++(NSMutableDictionary *)mutableDictionary;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -787,7 +787,7 @@ To Do List:
     return _iTM2TextObjectServerDictionary;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bundleDidLoadNotified:
-+ (void) bundleDidLoadNotified: (NSNotification *) notification;
++(void)bundleDidLoadNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -800,7 +800,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  update
-+ (void) update;
++(void)update;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -834,12 +834,12 @@ To Do List:
 @end
 
 @interface iTM2TextSyntaxParser(PRIVATE)
-- (unsigned int) xlineIndexForLocation: (unsigned) location;
+-(unsigned int)xlineIndexForLocation:(unsigned)location;
 @end
 
 @implementation iTM2TextSyntaxParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesServerClass
-+ (Class) attributesServerClass;
++(Class)attributesServerClass;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -857,7 +857,7 @@ To Do List:
     return Nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserClassForStyle:
-+ (id) syntaxParserClassForStyle: (NSString *) style;
++(id)syntaxParserClassForStyle:(NSString *)style;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -884,7 +884,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserWithStyle:variant:
-+ (id) syntaxParserWithStyle: (NSString *) style variant: (NSString *) variant;
++(id)syntaxParserWithStyle:(NSString *)style variant:(NSString *)variant;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -902,7 +902,7 @@ To Do List:
 
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserClassEnumerator
-+ (NSEnumerator *) syntaxParserClassEnumerator;
++(NSEnumerator *)syntaxParserClassEnumerator;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -913,7 +913,7 @@ To Do List:
     return [_iTM2TextObjectServer objectEnumeratorForType:iTM2TextSyntaxParserType];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserStyle
-+ (NSString *) syntaxParserStyle;
++(NSString *)syntaxParserStyle;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -925,7 +925,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CONSTRUCTOR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
-- (id) init;
+-(id)init;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -944,7 +944,7 @@ To Do List: Nothing
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -961,7 +961,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  diagnostic
-- (BOOL) diagnostic;
+-(BOOL)diagnostic;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1075,7 +1075,7 @@ testNextLine:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTER/GETTER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesServer
-- (id) attributesServer;
+-(id)attributesServer;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1086,7 +1086,7 @@ To Do List:
     return _AS;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceAttributesServer:
-- (void) replaceAttributesServer: (iTM2TextSyntaxParserAttributesServer *) argument;
+-(void)replaceAttributesServer:(iTM2TextSyntaxParserAttributesServer *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1103,7 +1103,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserVariant
-- (NSString *) syntaxParserVariant;
+-(NSString *)syntaxParserVariant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1114,7 +1114,7 @@ To Do List:
     return [_AS syntaxParserVariant];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage
-- (id) textStorage;
+-(id)textStorage;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1125,7 +1125,7 @@ To Do List:
     return _TS;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTextStorage:
-- (void) setTextStorage: (id) argument;
+-(void)setTextStorage:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1141,7 +1141,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidChange
-- (void) textStorageDidChange;
+-(void)textStorageDidChange;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1204,7 +1204,7 @@ RoseRouge:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addAttribute:value:range:
-- (void) addAttribute: (NSString *) name value: (id) value range: (NSRange) range;
+-(void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range;
 /*"Does nothing: no one should change the attributes except the receiver itself.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -1216,7 +1216,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  TEXTVIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUpAllTextViews
-- (void) setUpAllTextViews;
+-(void)setUpAllTextViews;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1238,7 +1238,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUpTextView:
-- (void) setUpTextView: (NSTextView *) TV;
+-(void)setUpTextView:(NSTextView *)TV;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1300,7 +1300,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxAttributesDidChangeNotified:
-- (void) syntaxAttributesDidChangeNotified: (NSNotification *) aNotification;
+-(void)syntaxAttributesDidChangeNotified:(NSNotification *)aNotification;
 /*"The notification object is used to retrieve font and color info. If no object is given, the NSFontColorManager class object is used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1326,7 +1326,7 @@ To Do List: NYI
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  INDEX WITH BAD OFFSET
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  badOffsetIndex
-- (unsigned) badOffsetIndex;
+-(unsigned)badOffsetIndex;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1337,7 +1337,7 @@ To Do List:
     return _BadOffsetIndex;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOffsetsUpTo:
-- (void) validateOffsetsUpTo: (unsigned) argument;
+-(void)validateOffsetsUpTo:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1352,7 +1352,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  invalidateOffsetsFrom:
-- (void) invalidateOffsetsFrom: (unsigned) argument;
+-(void)invalidateOffsetsFrom:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1365,7 +1365,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  INDEX WITH BAD MODE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  badModeIndex
-- (unsigned) badModeIndex;
+-(unsigned)badModeIndex;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1376,7 +1376,7 @@ To Do List:
     return _BadModeIndex;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateModesUpTo:
-- (void) validateModesUpTo: (unsigned) argument;
+-(void)validateModesUpTo:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1391,7 +1391,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  invalidateModesFrom:
-- (void) invalidateModesFrom: (unsigned) argument;
+-(void)invalidateModesFrom:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1404,7 +1404,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MODELINES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modeLineAtIndex:
-- (id) modeLineAtIndex: (unsigned) idx;
+-(id)modeLineAtIndex:(unsigned)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1415,7 +1415,7 @@ To Do List:
     return [_ModeLines objectAtIndex:idx];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertModeLine:atIndex:
-- (void) insertModeLine: (id) modeLine atIndex: (unsigned) idx;
+-(void)insertModeLine:(id)modeLine atIndex:(unsigned)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1427,7 +1427,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceModeLineAtIndex:withModeLine:
-- (void) replaceModeLineAtIndex: (unsigned) idx withModeLine: (id) modeLine;
+-(void)replaceModeLineAtIndex:(unsigned)idx withModeLine:(id)modeLine;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1440,7 +1440,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceModeLinesInRange:withModeLines:
-- (void) replaceModeLinesInRange: (NSRange) range withModeLines: (NSArray *) MLs;
+-(void)replaceModeLinesInRange:(NSRange)range withModeLines:(NSArray *)MLs;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1454,7 +1454,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfModeLines
-- (unsigned) numberOfModeLines;
+-(unsigned)numberOfModeLines;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1465,7 +1465,7 @@ To Do List:
     return [_ModeLines count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  lineIndexForLocation:
-- (unsigned int) lineIndexForLocation: (unsigned) location;
+-(unsigned int)lineIndexForLocation:(unsigned)location;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -1602,7 +1602,7 @@ waikiki:
 //NSLog(@"This is a default return");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  xlineIndexForLocation:
-- (unsigned int) xlineIndexForLocation: (unsigned) location;
+-(unsigned int)xlineIndexForLocation:(unsigned)location;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -1701,7 +1701,7 @@ waikiki:
 //NSLog(@"This is a default return");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxModeAtIndex:longestRange:
-- (unsigned) syntaxModeAtIndex: (unsigned) aLocation longestRange: (NSRangePointer) aRangePtr;
+-(unsigned)syntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
 /*"This has been overriden by a subclasser... No need to further subclassing. Default return value is 0 on (inconsistency?)
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1716,7 +1716,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *) attributesAtIndex: (unsigned) aLocation effectiveRange: (NSRangePointer) aRangePtr;
+-(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1732,7 +1732,7 @@ To Do List:
     return [_AS attributesForMode:iTM2TextDefaultKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:longestEffectiveRange:inRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
+-(NSDictionary *)attributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1748,7 +1748,7 @@ To Do List:
     return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableSyntaxModeAtIndex:longestRange:
-- (unsigned) availableSyntaxModeAtIndex: (unsigned) aLocation longestRange: (NSRangePointer) aRangePtr;
+-(unsigned)availableSyntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1765,7 +1765,7 @@ To Do List:
         [self syntaxModeForLocation:idx previousMode:mode effectiveLength:length nextModeIn:nextModeRef before:top];//NSLog(@"iTM2TSModeForIndexFCT-idx:%u, mode:%u, length:%#x, before:%u", idx, mode, length, top)
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fixSyntaxModesInRange:
-- (void) fixSyntaxModesInRange: (NSRange) range;
+-(void)fixSyntaxModesInRange:(NSRange)range;
 /*"Description forthcoming. This is a critical method that gets called every time?
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -1821,7 +1821,7 @@ ValidateNextModeLine:;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= invalidateModesForCharacterRange:editedAttributesRangeIn:
-- (void) invalidateModesForCharacterRange: (NSRange) range editedAttributesRangeIn: (NSRangePointer) editedAttributesRangePtr;
+-(void)invalidateModesForCharacterRange:(NSRange)range editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -1886,7 +1886,7 @@ here:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
-- (unsigned) validEOLModeOfModeLine: (id) originalModeLine forPreviousMode: (unsigned) previousMode;
+-(unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
 /*"This method will compute all the correct attributes.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2129,7 +2129,7 @@ To Do List:
 }
 #elif 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
-- (unsigned) validEOLModeOfModeLine: (id) originalModeLine forPreviousMode: (unsigned) previousMode;
+-(unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
 /*"This method will compute all the correct attributes.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2426,7 +2426,7 @@ To Do List:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
-- (unsigned) validEOLModeOfModeLine: (id) originalModeLine forPreviousMode: (unsigned) mode;
+-(unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2452,7 +2452,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
-- (unsigned) syntaxModeForCharacter: (unichar) theChar previousMode: (unsigned) previousMode;
+-(unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2463,7 +2463,7 @@ To Do List:
     return kiTM2TextUnknownSyntaxMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned) syntaxModeForLocation: (unsigned) idx previousMode: (unsigned) previousMode effectiveLength: (unsigned *) lengthRef nextModeIn: (unsigned *) nextModeRef before: (unsigned) beforeIndex;
+-(unsigned)syntaxModeForLocation:(unsigned)idx previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2480,7 +2480,7 @@ To Do List:
     return kiTM2TextUnknownSyntaxMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLModeForPreviousMode:
-- (unsigned) EOLModeForPreviousMode: (unsigned) previousMode;
+-(unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2495,7 +2495,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COMMUNICATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= textStorageWillReplaceCharactersInRange:withString:
-- (void) textStorageWillReplaceCharactersInRange: (NSRange) range withString: (NSString *) string;
+-(void)textStorageWillReplaceCharactersInRange:(NSRange)range withString:(NSString *)string;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -2517,7 +2517,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharacterAtIndex:
-- (void) textStorageDidInsertCharacterAtIndex: (unsigned) aGlobalLocation editedAttributesRangeIn: (NSRangePointer) editedAttributesRangePtr;
+-(void)textStorageDidInsertCharacterAtIndex:(unsigned)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -2870,7 +2870,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:
-- (void) textStorageDidReplaceCharactersAtIndex: (unsigned) location count: (unsigned) oldCount withCount: (unsigned) newCount editedAttributesRangeIn: (NSRangePointer) editedAttributesRangePtr;
+-(void)textStorageDidReplaceCharactersAtIndex:(unsigned)location count:(unsigned)oldCount withCount:(unsigned)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3007,7 +3007,7 @@ BesameMucho:
     #undef workingML
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharactersAtIndex:count:editedAttributesRangeIn:
-- (void) textStorageDidInsertCharactersAtIndex: (unsigned) location count: (unsigned) count editedAttributesRangeIn: (NSRangePointer) editedAttributesRangePtr;
+-(void)textStorageDidInsertCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3107,7 +3107,7 @@ RoseRouge:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharacterAtIndex:editedAttributesRangeIn:
-- (void) textStorageDidDeleteCharacterAtIndex: (unsigned) location editedAttributesRangeIn: (NSRangePointer) editedAttributesRangePtr;
+-(void)textStorageDidDeleteCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3163,7 +3163,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharactersAtIndex:count:editedAttributesRangeIn:
-- (void) textStorageDidDeleteCharactersAtIndex: (unsigned) location count: (unsigned) count editedAttributesRangeIn: (NSRangePointer) editedAttributesRangePtr;
+-(void)textStorageDidDeleteCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3259,7 +3259,7 @@ maui:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageWillProcessEditing
-- (void) textStorageWillProcessEditing;
+-(void)textStorageWillProcessEditing;
 /*"Default implementation does nothing. Subclassers will append their job. Delegate can change the characters or attributes
 Version history: 
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3270,7 +3270,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidProcessEditing
-- (void) textStorageDidProcessEditing;
+-(void)textStorageDidProcessEditing;
 /*"Default implementation does nothing. Subclassers will append their job. Delegate can change the attributes.
 Version history: 
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3295,7 +3295,7 @@ such that the description will remain valid even if chars are inserted or delete
 @implementation iTM2ModeLine
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CONSTRUCTOR/DESTRUCTOR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  modeLine
-+ (id) modeLine;
++(id)modeLine;
 /*"This is and "end of text". The contentsEnd and end are fixed to -1.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3306,7 +3306,7 @@ To Do List:
     return [[[self alloc] initWithString:@"" atCursor:nil] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initWithString:atCursor:
-- (id) initWithString: (NSString *) aString atCursor: (unsigned *) cursorPtr;
+-(id)initWithString:(NSString *)aString atCursor:(unsigned *)cursorPtr;
 /*"Designated initializer. The cursor is meant to point to the beginning of the line (typically given by a #{getLineStart:...} or 0)
 on return, it will point to the beginning of the next line. If the cursor is nil, it is assumed to point to 0.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -3401,7 +3401,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3425,7 +3425,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swapContentsWithModeLine:
-- (void) swapContentsWithModeLine: (iTM2ModeLine *) swapModeLine;
+-(void)swapContentsWithModeLine:(iTM2ModeLine *)swapModeLine;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Sat Dec 13 10:35:39 GMT 2003
@@ -3480,7 +3480,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  describe
-- (void) describe;
+-(void)describe;
 /*"Description forthcoming. Raises exception when things are not consistent.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3517,7 +3517,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  diagnostic
-- (BOOL) diagnostic;
+-(BOOL)diagnostic;
 /*"Description forthcoming. Returns YES when things are not consistent.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3591,7 +3591,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTER/GETTER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  startOffset
-- (unsigned) startOffset;
+-(unsigned)startOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3602,7 +3602,7 @@ To Do List:
     return _StartOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setStartOffset:
-- (void) setStartOffset: (unsigned) argument;
+-(void)setStartOffset:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3616,7 +3616,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  commentOffset
-- (unsigned) commentOffset;
+-(unsigned)commentOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3627,7 +3627,7 @@ To Do List:
     return _CommentOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  uncommentedLength
-- (unsigned) uncommentedLength;
+-(unsigned)uncommentedLength;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3639,7 +3639,7 @@ To Do List:
     return _UncommentedLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCommentStart:
-- (void) setUncommentedLength: (unsigned) argument;
+-(void)setUncommentedLength:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3652,7 +3652,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  contentsEndOffset
-- (unsigned) contentsEndOffset;
+-(unsigned)contentsEndOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3663,7 +3663,7 @@ To Do List:
     return _ContentsEndOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  endOffset
-- (unsigned) endOffset;
+-(unsigned)endOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3674,7 +3674,7 @@ To Do List:
     return _EndOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLLength
-- (unsigned) EOLLength;
+-(unsigned)EOLLength;
 /*"Description forthcoming. The sum of all the wordLengths are assumed to be the EOLLength.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3685,7 +3685,7 @@ To Do List:
     return _EOLLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setEOLLength:
-- (void) setEOLLength: (unsigned) argument;
+-(void)setEOLLength:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3699,7 +3699,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  contentsLength
-- (unsigned) contentsLength;
+-(unsigned)contentsLength;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3710,7 +3710,7 @@ To Do List:
     return _ContentsLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  length
-- (unsigned) length;
+-(unsigned)length;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3721,7 +3721,7 @@ To Do List:
     return _Length;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  invalidLocalRange
-- (NSRange) invalidLocalRange;
+-(NSRange)invalidLocalRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3732,7 +3732,7 @@ To Do List:
     return _InvalidLocalRange;// In LOCAL coordinates
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  invalidGlobalRange
-- (NSRange) invalidGlobalRange;
+-(NSRange)invalidGlobalRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3743,7 +3743,7 @@ To Do List:
     return NSMakeRange(_InvalidLocalRange.location+_StartOff7, _InvalidLocalRange.length);// In GLOBAL coordinates
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateLocalRange:
-- (void) validateLocalRange: (NSRange) argument;
+-(void)validateLocalRange:(NSRange)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3791,7 +3791,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateGlobalRange:
-- (void) validateGlobalRange: (NSRange) argument;
+-(void)validateGlobalRange:(NSRange)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3805,7 +3805,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  invalidateGlobalRange:
-- (void) invalidateGlobalRange: (NSRange) argument;
+-(void)invalidateGlobalRange:(NSRange)argument;
 /*"Description forthcoming. argument is global.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3823,7 +3823,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  invalidateLocalRange:
-- (void) invalidateLocalRange: (NSRange) argument;
+-(void)invalidateLocalRange:(NSRange)argument;
 /*"Description forthcoming. argument is global.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3840,7 +3840,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  previousMode
-- (unsigned) previousMode;
+-(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3851,7 +3851,7 @@ To Do List:
     return _PreviousMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setPreviousMode:
-- (void) setPreviousMode: (unsigned) argument;
+-(void)setPreviousMode:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3863,7 +3863,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLMode
-- (unsigned) EOLMode;
+-(unsigned)EOLMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3874,7 +3874,7 @@ To Do List:
     return _EOLMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setEOLMode:
-- (void) setEOLMode: (unsigned) argument;
+-(void)setEOLMode:(unsigned)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3886,7 +3886,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  hasNewLine
-- (BOOL) hasNewLine;
+-(BOOL)hasNewLine;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3897,7 +3897,7 @@ To Do List:
     return _Length > _EOLLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  numberOfSyntaxWords
-- (unsigned) numberOfSyntaxWords;
+-(unsigned)numberOfSyntaxWords;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3910,7 +3910,7 @@ To Do List:
 #ifdef __ELEPHANT_MODELINE__
 #warning ELEPHANT MODE: For debugging purpose only... see iTM2TextStorageKit.h
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  originalString
-- (NSString *) originalString;
+-(NSString *)originalString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3923,7 +3923,7 @@ To Do List:
 #endif
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MODES/LENGTHS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxLengthAtIndex
-- (unsigned) syntaxLengthAtIndex: (unsigned) idx;
+-(unsigned)syntaxLengthAtIndex:(unsigned)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3934,7 +3934,7 @@ To Do List:
     return (idx < _NumberOfSyntaxWords)? __SyntaxWordLengths[idx]:(idx? 0:[self contentsLength]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeAtIndex
-- (unsigned) syntaxModeAtIndex: (unsigned) idx;
+-(unsigned)syntaxModeAtIndex:(unsigned)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3945,7 +3945,7 @@ To Do List:
     return (idx < _NumberOfSyntaxWords)? __SyntaxWordModes[idx]:_EOLMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  moreStorage
-- (BOOL) moreStorage;
+-(BOOL)moreStorage;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3981,7 +3981,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  appendSyntaxMode:length:
-- (void) appendSyntaxMode: (unsigned) mode length: (unsigned) length;
+-(void)appendSyntaxMode:(unsigned)mode length:(unsigned)length;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4048,7 +4048,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  removeLastMode
-- (BOOL) removeLastMode;
+-(BOOL)removeLastMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4082,7 +4082,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  enlargeSyntaxModeAtGlobalLocation:length:
-- (BOOL) enlargeSyntaxModeAtGlobalLocation: (unsigned) aGlobalLocation length: (unsigned) lengthOffset;
+-(BOOL)enlargeSyntaxModeAtGlobalLocation:(unsigned)aGlobalLocation length:(unsigned)lengthOffset;
 /*Adds length to the length at global location aGlobalLocation.
 It is relative to the beginning of the line. Other locations mean new line char insertions.
 The attribute value at aGlobalLocation won't change once the message is sent!!! It simply finds the "word" containing
@@ -4200,7 +4200,7 @@ To Do List:
 //[self describe];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeAtGlobalLocation:longestRange:
-- (unsigned) syntaxModeAtGlobalLocation: (unsigned) aGlobalLocation longestRange: (NSRangePointer) aRangePtr;
+-(unsigned)syntaxModeAtGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming. aGlobalLocation is global.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4316,7 +4316,7 @@ pano2:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  deleteModesInRange:
-- (BOOL) deleteModesInRange: (NSRange) deleteRange;
+-(BOOL)deleteModesInRange:(NSRange)deleteRange;
 /*"Description forthcoming. deleteRange is in global coordinates.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4483,7 +4483,7 @@ NSString * const iTM2TextAttributesServerType = @"_AS";
 
 @implementation iTM2TextSyntaxParser(Attributes)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModesAttributes
-+ (NSDictionary *) defaultModesAttributes;
++(NSDictionary *)defaultModesAttributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4518,7 +4518,7 @@ To Do List:
             _background,   [_background   objectForKey:iTM2TextModeAttributeName], nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesServerWithStyle:variant:
-+ (id) attributesServerWithStyle: (NSString  *) style variant: (NSString *) variant;
++(id)attributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4558,7 +4558,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createAttributesServerWithStyle:variant:
-+ (void) createAttributesServerWithStyle: (NSString  *) style variant: (NSString *) variant;
++(void)createAttributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4591,7 +4591,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeAttributesServerWithStyle:variant:
-+ (void) removeAttributesServerWithStyle: (NSString  *) style variant: (NSString *) variant;
++(void)removeAttributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4612,7 +4612,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserVariantsForStyle:
-+ (NSDictionary *) syntaxParserVariantsForStyle: (NSString  *) style;
++(NSDictionary *)syntaxParserVariantsForStyle:(NSString  *)style;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4680,7 +4680,7 @@ To Do List:
 static id _iTM2TextPTeXLetterCharacterSet = nil;
 static id _iTM2TextPTeXFileNameLetterCharacterSet = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4708,7 +4708,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXLetterCharacterSet;
-+ (NSCharacterSet *) TeXLetterCharacterSet;
++(NSCharacterSet *)TeXLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -4718,7 +4718,7 @@ To Do List:
     return _iTM2TextPTeXLetterCharacterSet;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
-+ (NSCharacterSet *) TeXFileNameLetterCharacterSet;
++(NSCharacterSet *)TeXFileNameLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -4747,7 +4747,7 @@ To Do List:
 
 @implementation iTM2TextSyntaxParserAttributesServer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserClass
-+ (Class) syntaxParserClass;
++(Class)syntaxParserClass;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -4765,7 +4765,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  ATTRIBUTES SERVERS MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithVariant:
-- (id) initWithVariant: (NSString *) variant;
+-(id)initWithVariant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4785,7 +4785,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4803,7 +4803,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserVariant
-- (NSString *) syntaxParserVariant;
+-(NSString *)syntaxParserVariant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4815,7 +4815,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modesAttributes
-- (NSDictionary *) modesAttributes;
+-(NSDictionary *)modesAttributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4827,7 +4827,7 @@ To Do List:
     return _ModesAttributes;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesDidChange
-- (void) attributesDidChange;
+-(void)attributesDidChange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4845,7 +4845,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shouldUpdateAttributes
-- (void) shouldUpdateAttributes;
+-(void)shouldUpdateAttributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4863,7 +4863,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  __canUpdateNow
-- (void) __canUpdateNow;
+-(void)__canUpdateNow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4877,7 +4877,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  MODES ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesFforMode:
-- (NSDictionary *) attributesForMode: (NSString *) mode;
+-(NSDictionary *)attributesForMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4888,7 +4888,7 @@ To Do List:
     return [_ModesAttributes objectForKey:mode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAttributes:forMode:
-- (void) setAttributes: (NSDictionary *) dictionary forMode: (NSString *) mode;
+-(void)setAttributes:(NSDictionary *)dictionary forMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4903,7 +4903,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= modesAttributesWithVariant:error:
-+ (NSDictionary *) modesAttributesWithVariant: (NSString *) variant error:(NSError **)outError;
++(NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4959,7 +4959,7 @@ To Do List:
     return modesAttributes;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= builtInStylePaths
-+ (NSArray *) builtInStylePaths;
++(NSArray *)builtInStylePaths;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4993,7 +4993,7 @@ To Do List:
     return [NSArray arrayWithArray:builtInStylePaths];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= otherStylePaths
-+ (NSArray *) otherStylePaths;
++(NSArray *)otherStylePaths;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -5014,7 +5014,7 @@ To Do List:
     return [NSArray arrayWithArray:otherStylePaths];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modesAttributesWithContentsOfFile:error:
-+ (NSDictionary *) modesAttributesWithContentsOfFile: (NSString *) fileName error:(NSError **)outError;
++(NSDictionary *)modesAttributesWithContentsOfFile:(NSString *)fileName error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -5045,7 +5045,7 @@ To Do List:
     return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeModesAttributes:toFile:error:
-+ (BOOL) writeModesAttributes: (NSDictionary *) dictionary toFile: (NSString *) fileName error:(NSError **)outError;
++(BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -5064,7 +5064,7 @@ To Do List:
     return [MD writeToFile:fileName options:NSAtomicWrite error:outError];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  character:isMemberOfCoveredCharacterSetForMode:
-- (BOOL) character: (unichar) theChar isMemberOfCoveredCharacterSetForMode: (NSString *) mode;
+-(BOOL)character:(unichar)theChar isMemberOfCoveredCharacterSetForMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -5085,7 +5085,7 @@ static unsigned iTM2TextModeAttributeNameHash = 0;
 static unsigned iTM2CursorIsWhiteAttributeNameHash = 0;
 static unsigned iTM2NoBackgroundAttributeNameHash = 0;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5111,7 +5111,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id) init;
+-(id)init;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5134,7 +5134,7 @@ To Do List:
         }\
     }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithContentsOfFile:
-- (id) initWithContentsOfFile: (NSString *) path;
+-(id)initWithContentsOfFile:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5159,7 +5159,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithContentsOfURL:
-- (id) initWithContentsOfURL: (NSURL *) url;
+-(id)initWithContentsOfURL:(NSURL *)url;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5184,7 +5184,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithObjects:forKeys:
-- (id) initWithObjects: (NSArray *) objects forKeys: (NSArray *) keys;
+-(id)initWithObjects:(NSArray *)objects forKeys:(NSArray *)keys;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5209,7 +5209,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithObjects:forKeys:count:
-- (id)initWithObjects:(id *)objects forKeys:(id *)keys count:(unsigned)count;
+-(id)initWithObjects:(id *)objects forKeys:(id *)keys count:(unsigned)count;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5234,7 +5234,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithDictionary:
-- (id) initWithDictionary: (NSDictionary *) otherDictionary;
+-(id)initWithDictionary:(NSDictionary *)otherDictionary;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5259,7 +5259,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithDictionary:copyItems:
-- (id) initWithDictionary: (NSDictionary *) otherDictionary copyItems: (BOOL) aBool;
+-(id)initWithDictionary:(NSDictionary *)otherDictionary copyItems:(BOOL)aBool;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5284,7 +5284,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5310,7 +5310,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  count
-- (unsigned) count;
+-(unsigned)count;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5320,7 +5320,7 @@ To Do List:
     return _Count;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEnumerator
-- (NSEnumerator *) keyEnumerator;
+-(NSEnumerator *)keyEnumerator;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5330,7 +5330,7 @@ To Do List:
     return [_Keys objectEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectForKey:
-- (id) objectForKey: (id) aKey;
+-(id)objectForKey:(id)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5354,7 +5354,7 @@ To Do List:
         return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqual
-- (BOOL) isEqual: (id) object;
+-(BOOL)isEqual:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004

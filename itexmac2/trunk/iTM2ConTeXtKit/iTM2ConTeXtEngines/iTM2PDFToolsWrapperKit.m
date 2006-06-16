@@ -24,37 +24,37 @@
 */
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue: [NSNumber numberWithBool: ![[self modelValueForKey: KEY] boolValue]] forKey: KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setState: ([[self modelValueForKey: KEY] boolValue]? NSOnState: NSOffState)];return YES;}
+-(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:KEY] boolValue]] forKey:KEY];[self validateWindowContent];return;}\
+-(BOOL)VALIDATE:(id)sender;{[sender setState:([[self modelValueForKey:KEY] boolValue]? NSOnState:NSOffState)];return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY)\
--(void)ACTION: (id) sender;{[self takeModelValue: [NSNumber numberWithFloat: [sender floatValue]] forKey: KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setFloatValue: [[self modelValueForKey: KEY] floatValue]];return YES;}
+-(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithFloat:[sender floatValue]] forKey:KEY];[self validateWindowContent];return;}\
+-(BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self modelValueForKey:KEY] floatValue]];return YES;}
 #define SEDIT(ACTION, VALIDATE, KEY)\
--(void)ACTION: (id) sender;{[self takeModelValue: [sender stringValue] forKey: KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setStringValue: [self modelValueForKey: KEY]];return YES;}
+-(void)ACTION:(id)sender;{[self takeModelValue:[sender stringValue] forKey:KEY];[self validateWindowContent];return;}\
+-(BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self modelValueForKey:KEY]];return YES;}
 #define UNIT(ACTION, VALIDATE, KEY)\
-- (void) ACTION: (id) sender;\
+-(void)ACTION:(id)sender;\
 {\
 	switch([[sender selectedItem] tag])\
 	{\
-		case 0: [self takeModelValue: @"bp" forKey: KEY]; [self validateWindowContent]; return;\
-		case 1: [self takeModelValue: @"pt" forKey: KEY]; [self validateWindowContent]; return;\
-		case 2: [self takeModelValue: @"in" forKey: KEY]; [self validateWindowContent]; return;\
-		default: [self takeModelValue: @"cm" forKey: KEY]; [self validateWindowContent]; return;\
+		case 0: [self takeModelValue:@"bp" forKey:KEY]; [self validateWindowContent]; return;\
+		case 1: [self takeModelValue:@"pt" forKey:KEY]; [self validateWindowContent]; return;\
+		case 2: [self takeModelValue:@"in" forKey:KEY]; [self validateWindowContent]; return;\
+		default: [self takeModelValue:@"cm" forKey:KEY]; [self validateWindowContent]; return;\
 	}\
     return;\
 }\
-- (BOOL) VALIDATE: (id) sender;\
+-(BOOL)VALIDATE:(id)sender;\
 {\
-	NSString * unit = [self modelValueForKey: KEY];\
-	if([unit isEqual: @"bp"])\
-		[sender selectItemWithTag: 0];\
-	else if([unit isEqual: @"pt"])\
-		[sender selectItemWithTag: 1];\
-	else if([unit isEqual: @"in"])\
-		[sender selectItemWithTag: 2];\
+	NSString * unit = [self modelValueForKey:KEY];\
+	if([unit isEqual:@"bp"])\
+		[sender selectItemWithTag:0];\
+	else if([unit isEqual:@"pt"])\
+		[sender selectItemWithTag:1];\
+	else if([unit isEqual:@"in"])\
+		[sender selectItemWithTag:2];\
 	else\
-		[sender selectItemWithTag: 3];\
+		[sender selectItemWithTag:3];\
 	return YES;\
 }
 
@@ -89,7 +89,7 @@ NSString * const iTM2PDFArrangeResult = @"iTM2_PDFArrange_result";
 
 @implementation iTM2PDFArrangeInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+ (NSString *) engineMode;
++(NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -100,7 +100,7 @@ To Do List:
     return @".iTM2_Engine_pdfarrange";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+ (NSArray *) inputFileExtensions;
++(NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -108,10 +108,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObject: @"pdf"];
+    return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+ (NSDictionary *) defaultShellEnvironment;
++(NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -120,31 +120,31 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeUseAddEmpty,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeUseAddEmpty,
 				@"", iTM2PDFArrangeAddEmpty,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeUseBackground,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeUseBackground,
 				@"", iTM2PDFArrangeBackground,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeUseBackSpace,
-				[NSNumber numberWithFloat: 0], iTM2PDFArrangeBackSpaceValue,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeUseBackSpace,
+				[NSNumber numberWithFloat:0], iTM2PDFArrangeBackSpaceValue,
 				@"cm", iTM2PDFArrangeBackSpaceUnit,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeCutMarks,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeSingleSided,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeCutMarks,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeSingleSided,
 				@"A4", iTM2PDFArrangePaper,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeUsePaperOffset,
-				[NSNumber numberWithFloat: 0], iTM2PDFArrangePaperOffsetValue,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeUsePaperOffset,
+				[NSNumber numberWithFloat:0], iTM2PDFArrangePaperOffsetValue,
 				@"cm", iTM2PDFArrangePaperOffsetUnit,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeUsePages,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeUsePages,
 				@"", iTM2PDFArrangePages,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeUseTextWidth,
-				[NSNumber numberWithFloat: 0], iTM2PDFArrangeTextWidthValue,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeUseTextWidth,
+				[NSNumber numberWithFloat:0], iTM2PDFArrangeTextWidthValue,
 				@"cm", iTM2PDFArrangeTextWidthUnit,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeUseTopSpace,
-				[NSNumber numberWithFloat: 0], iTM2PDFArrangeTopSpaceValue,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeUseTopSpace,
+				[NSNumber numberWithFloat:0], iTM2PDFArrangeTopSpaceValue,
 				@"cm", iTM2PDFArrangeTopSpaceUnit,
 				@"", iTM2PDFArrangeInput,
 				@"", iTM2PDFArrangeResult,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeVerbose,
-				[NSNumber numberWithBool: NO], iTM2PDFArrangeSilent,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeVerbose,
+				[NSNumber numberWithBool:NO], iTM2PDFArrangeSilent,
 					nil];
 }
 TOGGLE(useAddEmpty, validateUseAddEmpty, iTM2PDFArrangeUseAddEmpty);
@@ -194,7 +194,7 @@ NSString * const iTM2PDFCombineSilent = @"iTM2_PDFCombine_silent";
 
 @implementation iTM2PDFCombineInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+ (NSString *) engineMode;
++(NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -205,7 +205,7 @@ To Do List:
     return @".iTM2_Engine_pdfcombine";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+ (NSArray *) inputFileExtensions;
++(NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -213,10 +213,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObject: @"pdf"];
+    return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+ (NSDictionary *) defaultShellEnvironment;
++(NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -226,13 +226,13 @@ To Do List:
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
 				@"1*1", iTM2PDFCombineCombination,
-				[NSNumber numberWithBool: NO], iTM2PDFCombineNoBanner,
+				[NSNumber numberWithBool:NO], iTM2PDFCombineNoBanner,
 				@"A4", iTM2PDFCombinePaper,
-				[NSNumber numberWithBool: NO], iTM2PDFCombineUsePaperOffset,
-				[NSNumber numberWithFloat: 0], iTM2PDFCombinePaperOffsetValue,
+				[NSNumber numberWithBool:NO], iTM2PDFCombineUsePaperOffset,
+				[NSNumber numberWithFloat:0], iTM2PDFCombinePaperOffsetValue,
 				@"cm", iTM2PDFCombinePaperOffsetUnit,
-				[NSNumber numberWithBool: NO], iTM2PDFCombineVerbose,
-				[NSNumber numberWithBool: NO], iTM2PDFCombineSilent,
+				[NSNumber numberWithBool:NO], iTM2PDFCombineVerbose,
+				[NSNumber numberWithBool:NO], iTM2PDFCombineSilent,
 					nil];
 }
 TOGGLE(usePaperOffset, validateUsePaperOffset, iTM2PDFCombineUsePaperOffset);
@@ -274,7 +274,7 @@ NSString * const iTM2PDFCopySilent = @"iTM2_PDFCopy_silent";
 
 @implementation iTM2PDFCopyInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+ (NSString *) engineMode;
++(NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -285,7 +285,7 @@ To Do List:
     return @".iTM2_Engine_pdfcopy";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+ (NSArray *) inputFileExtensions;
++(NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -293,10 +293,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObject: @"pdf"];
+    return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+ (NSDictionary *) defaultShellEnvironment;
++(NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -305,14 +305,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithBool: NO], iTM2PDFCopyUseBackground,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyCutMarks,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyUsePaperOffset,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyUseResult,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyVerbose,
-				[NSNumber numberWithBool: NO], iTM2PDFCopySilent,
-				[NSNumber numberWithFloat: 0], iTM2PDFCopyScale,
-				[NSNumber numberWithFloat: 0], iTM2PDFCopyPaperOffsetValue,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyUseBackground,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyCutMarks,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyUsePaperOffset,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyUseResult,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyVerbose,
+				[NSNumber numberWithBool:NO], iTM2PDFCopySilent,
+				[NSNumber numberWithFloat:0], iTM2PDFCopyScale,
+				[NSNumber numberWithFloat:0], iTM2PDFCopyPaperOffsetValue,
 				@"", iTM2PDFCopyResult,
 				@"", iTM2PDFCopyBackground,
 				@"cm", iTM2PDFCopyPaperOffsetUnit,
@@ -370,7 +370,7 @@ NSString * const iTM2PDFSelectSilent = @"iTM2_PDFSelect_silent";
 
 @implementation iTM2PDFSelectInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+ (NSString *) engineMode;
++(NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -381,7 +381,7 @@ To Do List:
     return @".iTM2_Engine_pdfselect";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+ (NSArray *) inputFileExtensions;
++(NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -389,10 +389,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObject: @"pdf"];
+    return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+ (NSDictionary *) defaultShellEnvironment;
++(NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -401,16 +401,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithBool: NO], iTM2PDFCopyUseBackground,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyCutMarks,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyUsePaperOffset,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyUseResult,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyVerbose,
-				[NSNumber numberWithBool: NO], iTM2PDFCopySilent,
-				[NSNumber numberWithBool: NO], iTM2PDFCopyVerbose,
-				[NSNumber numberWithBool: NO], iTM2PDFCopySilent,
-				[NSNumber numberWithFloat: 0], iTM2PDFCopyScale,
-				[NSNumber numberWithFloat: 0], iTM2PDFCopyPaperOffsetValue,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyUseBackground,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyCutMarks,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyUsePaperOffset,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyUseResult,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyVerbose,
+				[NSNumber numberWithBool:NO], iTM2PDFCopySilent,
+				[NSNumber numberWithBool:NO], iTM2PDFCopyVerbose,
+				[NSNumber numberWithBool:NO], iTM2PDFCopySilent,
+				[NSNumber numberWithFloat:0], iTM2PDFCopyScale,
+				[NSNumber numberWithFloat:0], iTM2PDFCopyPaperOffsetValue,
 				@"", iTM2PDFCopyResult,
 				@"", iTM2PDFCopyBackground,
 				@"cm", iTM2PDFCopyPaperOffsetUnit,

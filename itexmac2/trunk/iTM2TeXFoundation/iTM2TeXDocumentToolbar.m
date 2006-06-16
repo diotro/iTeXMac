@@ -35,7 +35,7 @@ NSString * const iTM2ToolbarBookmarkItemIdentifier = @"bookmark";
 
 @implementation iTM2MainInstaller(TeXInspectorToolbar)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXInspectorToolbarCompleteInstallation
-+ (void) TeXInspectorToolbarCompleteInstallation;
++(void)TeXInspectorToolbarCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -44,8 +44,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
-		[NSNumber numberWithBool: NO], @"iTM2TeXToolbarAutosavesConfiguration",
-		[NSNumber numberWithBool: YES], @"iTM2TeXToolbarShareConfiguration",
+		[NSNumber numberWithBool:NO], @"iTM2TeXToolbarAutosavesConfiguration",
+		[NSNumber numberWithBool:YES], @"iTM2TeXToolbarShareConfiguration",
 			nil]];
 //iTM2_END;
 	return;
@@ -53,7 +53,7 @@ To Do List:
 @end
 
 #define DEFINE_TOOLBAR_ITEM(SELECTOR)\
-+ (NSToolbarItem *) SELECTOR;{return [self toolbarItemWithIdentifier: [self identifierFromSelector: _cmd] inBundle: [iTM2TeXInspector classBundle]];}
++(NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXInspector classBundle]];}
 
 #import <iTM2TeXFoundation/iTM2TeXPCommandWrapperKit.h>
 
@@ -63,7 +63,7 @@ DEFINE_TOOLBAR_ITEM(bookmarkToolbarItem)
 
 @implementation iTM2TeXInspector(Toolbar)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupToolbarWindowDidLoad
-- (void) setupToolbarWindowDidLoad;
+-(void)setupToolbarWindowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -71,54 +71,54 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier: iTM2TeXToolbarIdentifier] autorelease];
-	NSString * key = [NSString stringWithFormat: @"NSToolbar Configuration %@", [toolbar identifier]];
-	if([self contextBoolForKey: @"iTM2TeXToolbarShareConfiguration"])
+    NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2TeXToolbarIdentifier] autorelease];
+	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
+	if([self contextBoolForKey:@"iTM2TeXToolbarShareConfiguration"])
 	{
-		NSDictionary * configDictionary = [SUD dictionaryForKey: key];
+		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if([configDictionary count])
 		{
-			[toolbar setConfigurationFromDictionary: configDictionary];
+			[toolbar setConfigurationFromDictionary:configDictionary];
 			if(![[toolbar items] count])
 			{
-				[SUD removeObjectForKey: key];
-				toolbar = [[[NSToolbar alloc] initWithIdentifier: iTM2TeXToolbarIdentifier] autorelease];
+				[SUD removeObjectForKey:key];
+				toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2TeXToolbarIdentifier] autorelease];
 			}
 		}
 	}
 	else
 	{
-		NSDictionary * configDictionary = [SUD dictionaryForKey: key];
+		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
-		configDictionary = [self contextDictionaryForKey: key];
+		configDictionary = [self contextDictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
 		if([configDictionary count])
-			[toolbar setConfigurationFromDictionary: configDictionary];
+			[toolbar setConfigurationFromDictionary:configDictionary];
 		if(![[toolbar items] count])
 		{
-			configDictionary = [SUD dictionaryForKey: key];
+			configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
-			[self takeContextValue: nil forKey: key];
+			[self takeContextValue:nil forKey:key];
 			if([configDictionary count])
-				[toolbar setConfigurationFromDictionary: configDictionary];
+				[toolbar setConfigurationFromDictionary:configDictionary];
 			if(![[toolbar items] count])
 			{
-				[SUD removeObjectForKey: key];
-				toolbar = [[[NSToolbar alloc] initWithIdentifier: iTM2TeXToolbarIdentifier] autorelease];
+				[SUD removeObjectForKey:key];
+				toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2TeXToolbarIdentifier] autorelease];
 			}
 		}
 	}
-	[toolbar setAutosavesConfiguration: YES];
-    [toolbar setAllowsUserCustomization: YES];
-//    [toolbar setSizeMode: NSToolbarSizeModeSmall];
-    [toolbar setDelegate: self];
-	[toolbar setShowsBaselineSeparator: NO];
-    [[self window] setToolbar: toolbar];
+	[toolbar setAutosavesConfiguration:YES];
+    [toolbar setAllowsUserCustomization:YES];
+//    [toolbar setSizeMode:NSToolbarSizeModeSmall];
+    [toolbar setDelegate:self];
+	[toolbar setShowsBaselineSeparator:NO];
+    [[self window] setToolbar:toolbar];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShareToolbarConfiguration:
-- (void) toggleShareToolbarConfiguration: (id) sender;
+-(void)toggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -126,14 +126,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL old = [self contextBoolForKey: @"iTM2TeXToolbarShareConfiguration"];
-	[self takeContextBool: !old forKey: @"iTM2TeXToolbarShareConfiguration"];
+	BOOL old = [self contextBoolForKey:@"iTM2TeXToolbarShareConfiguration"];
+	[self takeContextBool: !old forKey:@"iTM2TeXToolbarShareConfiguration"];
 	[self validateWindowContent];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShareToolbarConfiguration:
-- (BOOL) validateToggleShareToolbarConfiguration: (id) sender;
+-(BOOL)validateToggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -141,12 +141,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self contextBoolForKey: @"iTM2TeXToolbarShareConfiguration"]? NSOnState: NSOffState)];
+	[sender setState: ([self contextBoolForKey:@"iTM2TeXToolbarShareConfiguration"]? NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext:
-- (void) prepareToolbarConfigurationCompleteSaveContext: (id) sender;
+-(void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -154,17 +154,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([self contextBoolForKey: @"iTM2TeXToolbarAutosavesConfiguration"])
+	if([self contextBoolForKey:@"iTM2TeXToolbarAutosavesConfiguration"])
 	{
 		NSToolbar * toolbar = [[self window] toolbar];
-		NSString * key = [NSString stringWithFormat: @"NSToolbar Configuration %@", [toolbar identifier]];
-		[self takeContextValue: [toolbar configurationDictionary] forKey: key];
+		NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
+		[self takeContextValue:[toolbar configurationDictionary] forKey:key];
 	}
 //iTM2_START;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:
-- (NSToolbarItem *) toolbar: (NSToolbar *) toolbar itemForItemIdentifier: (NSString *) itemIdent willBeInsertedIntoToolbar: (BOOL) willBeInserted;
+-(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdent willBeInsertedIntoToolbar:(BOOL)willBeInserted;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -175,29 +175,29 @@ To Do List:
     // Required delegate method:  Given an item identifier, this method returns an item 
     // The toolbar will use this method to obtain toolbar items that can be displayed in the customization sheet, or in the toolbar itself 
     NSToolbarItem * toolbarItem = nil;
-	SEL action = NSSelectorFromString([itemIdent stringByAppendingString: @":"]);
+	SEL action = NSSelectorFromString([itemIdent stringByAppendingString:@":"]);
 	if(action)
 	{
 //id objc_msgSend(id theReceiver, SEL theSelector, ...);
-		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier: itemIdent forToolbarIdentifier: [toolbar identifier]];
-		[toolbarItem setAction: action];
-		[toolbarItem setTarget: nil];
+		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier:itemIdent forToolbarIdentifier:[toolbar identifier]];
+		[toolbarItem setAction:action];
+		[toolbarItem setTarget:nil];
 	}
 	if(willBeInserted)
 	{
 		NSView * v = [toolbarItem view];
 		if(v)
 		{
-			[v setToolbarSizeMode: [toolbar sizeMode]];
-			[toolbarItem setMinSize: [v frame].size];
-			[toolbarItem setMaxSize: [v frame].size];
+			[v setToolbarSizeMode:[toolbar sizeMode]];
+			[toolbarItem setMinSize:[v frame].size];
+			[toolbarItem setMaxSize:[v frame].size];
 		}
 	}
 //iTM2_END;
     return toolbarItem;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDefaultItemIdentifiers:
-- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar;
+-(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -222,7 +222,7 @@ To Do List:
 						nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarAllowedItemIdentifiers:
-- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar;
+-(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -251,7 +251,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarWillAddItem:
-- (void) toolbarWillAddItem: (NSNotification *) notif;
+-(void)toolbarWillAddItem:(NSNotification *)notif;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -265,12 +265,12 @@ To Do List:
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
     // added is found by referencing the @"item" key in the userInfo 
     NSToolbar *toolbar = [notif object];
-    NSToolbarItem *toolbarItem = [[notif userInfo] objectForKey: @"item"];
+    NSToolbarItem *toolbarItem = [[notif userInfo] objectForKey:@"item"];
 //iTM2_END;
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDidRemoveItem:
-- (void) toolbarDidRemoveItem: (NSNotification *) notif;
+-(void)toolbarDidRemoveItem:(NSNotification *)notif;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -283,10 +283,10 @@ To Do List:
     // cache a reference to the toolbar item or need to set up some initial state, this is the best place 
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
     // added is found by referencing the @"item" key in the userInfo 
-    NSToolbarItem * removedItem = [[notif userInfo] objectForKey: @"item"];
-	if([[removedItem itemIdentifier] isEqual: iTM2ToolbarPageItemIdentifier])
+    NSToolbarItem * removedItem = [[notif userInfo] objectForKey:@"item"];
+	if([[removedItem itemIdentifier] isEqual:iTM2ToolbarPageItemIdentifier])
 	{
-		[IMPLEMENTATION takeMetaValue: nil forKey: @"toolbar page field"];
+		[IMPLEMENTATION takeMetaValue:nil forKey:@"toolbar page field"];
 	}
 //iTM2_END;
     return;

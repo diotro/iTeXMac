@@ -60,7 +60,7 @@
 	@discussion	Discussion forthcoming.
 	@result		An object.
 */
-- (id)initWithParent:(id)aParent value:(id)anObject;
+-(id)initWithParent:(id)aParent value:(id)anObject;
 
 /*!
 	@method		initWithParent:retainedValue:
@@ -68,7 +68,7 @@
 	@discussion	Discussion forthcoming.
 	@result		An object.
 */
-- (id) initWithParent:(id)aParent nonRetainedValue:(id)anObject;
+-(id)initWithParent:(id)aParent nonRetainedValue:(id)anObject;
 
 /*!
 	@method		parent
@@ -76,7 +76,7 @@
 	@discussion	Not retained by the receiver.
 	@result		A node.
 */
-- (id) parent;
+-(id)parent;
 
 /*!
 	@method		setParent:
@@ -84,7 +84,7 @@
 	@discussion	Not retained by the receiver.
 	@result		None.
 */
-- (void) setParent:(id)aNode;
+-(void)setParent:(id)aNode;
 
 /*!
 	@method		value
@@ -92,7 +92,7 @@
 	@discussion	Retained by the receiver.
 	@result		An object.
 */
-- (id)value;
+-(id)value;
 
 /*!
 	@method		setValue:
@@ -100,7 +100,7 @@
 	@discussion	Put here whatever leaf value you want.
 	@result		None.
 */
-- (void)setValue:(id)argument;
+-(void)setValue:(id)argument;
 
 /*!
 	@method		nonRetainedValue
@@ -108,7 +108,7 @@
 	@discussion	Retained by the receiver.
 	@result		An object.
 */
-- (id)nonRetainedValue;
+-(id)nonRetainedValue;
 
 /*!
 	@method		setNonRetainedValue:
@@ -116,7 +116,7 @@
 	@discussion	Put here whatever leaf value you want. This value must be held by someone else during the lifetime of the receiver.
 	@result		None.
 */
-- (void)setNonRetainedValue:(id)argument;
+-(void)setNonRetainedValue:(id)argument;
 
 /*!
 	@method		countOfChildren
@@ -124,7 +124,7 @@
 	@discussion	No access to the whole set of children. The -addObjectInChildren: and -removeChild: of the receiver must be used instead, they preserve the overall consistency.
 	@result		A count.
 */
-- (unsigned int)countOfChildren;
+-(unsigned int)countOfChildren;
 
 /*!
 	@method setCountOfChildren:
@@ -133,7 +133,7 @@
 				If you access an object that has never been set before, [NSNull null] is returned.
 	@result None.
 */
-- (void) setCountOfChildren:(unsigned int) argument;
+-(void)setCountOfChildren:(unsigned int) argument;
 
 /*!
 	@method addObjectInChildren:
@@ -144,7 +144,7 @@
 	@result The object added. If a copy is really added to the array, this copy is returned.
 	nil is returned when nothing has been added, either there was nothing to add or there was an error or the child item was already listed in the child items array.
 */
-- (void) addObjectInChildren:(id)anObject;
+-(void)addObjectInChildren:(id)anObject;
 
 /*!
 	@method insertObject:inChildrenAtIndex:
@@ -155,7 +155,7 @@
 	@result The object added. If a copy is really added to the array, this copy is returned.
 	nil is returned when nothing has been added, either there was nothing to add or there was an error or the child item was already listed in the child items array.
 */
-- (void)insertObject:(id)anObject inChildrenAtIndex:(unsigned int)index;
+-(void)insertObject:(id)anObject inChildrenAtIndex:(unsigned int)index;
 
 /*!
 	@method		replaceObjectInChildrenAtIndex:withObject:
@@ -163,7 +163,7 @@
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (void) replaceObjectInChildrenAtIndex:(unsigned) index withObject:(id) anObject;
+-(void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(id) anObject;
 
 /*!
 	@method		removeObjectFromChildren:
@@ -174,7 +174,7 @@
 				The overall consistency is preserved by asking the leaf of the receiver to do the real job through the message -removeOwnerChild:.
 	@result		A flag indicating wheether the object has really been removed.
 */
-- (void)removeObjectFromChildren:(id)anObject;
+-(void)removeObjectFromChildren:(id)anObject;
 
 /*!
 	@method		indexOfObjectInChildren:
@@ -182,7 +182,7 @@
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (unsigned) indexOfObjectInChildren:(id)anObject;
+-(unsigned)indexOfObjectInChildren:(id)anObject;
 
 /*!
 	@method		objectInChildrenAtIndex:
@@ -190,7 +190,7 @@
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (id) objectInChildrenAtIndex:(unsigned)index;
+-(id)objectInChildrenAtIndex:(unsigned)index;
 
 /*!
 	@method		objectInChildrenWithValue:
@@ -198,7 +198,7 @@
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (id) objectInChildrenWithValue:(id)anObject;
+-(id)objectInChildrenWithValue:(id)anObject;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode

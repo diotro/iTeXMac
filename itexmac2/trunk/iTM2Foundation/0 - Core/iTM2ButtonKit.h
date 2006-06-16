@@ -36,17 +36,17 @@ extern NSString * const iTM2UDMixedButtonDelayKey;
 }
 /*"Class methods."*/
 /*"Setters and getters."*/
-- (NSTimer *) timer;
-- (void) setTimer: (NSTimer *) aTimer;
-- (BOOL) isCenteredArrow;
-- (void) setCenteredArrow: (BOOL) aFlag;
-- (BOOL) isMixedEnabled;
-- (void) setMixedEnabled: (BOOL) aFlag;
-- (SEL) mixedAction;
-- (void) setMixedAction: (SEL) anAction;
+-(NSTimer *)timer;
+-(void)setTimer:(NSTimer *)aTimer;
+-(BOOL)isCenteredArrow;
+-(void)setCenteredArrow:(BOOL)aFlag;
+-(BOOL)isMixedEnabled;
+-(void)setMixedEnabled:(BOOL)aFlag;
+-(SEL)mixedAction;
+-(void)setMixedAction:(SEL)anAction;
 /*"Main methods."*/
-- (void) popUpContextMenuWithEvent: (NSEvent *) theEvent;
-- (BOOL) willPopUp;
+-(void)popUpContextMenuWithEvent:(NSEvent *)theEvent;
+-(BOOL)willPopUp;
 /*"Overriden methods."*/
 @end
 
@@ -61,17 +61,17 @@ extern NSString * const iTM2ToggleEditableKey;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2HistoryButton
 
 @interface NSButton(iTeXMac2)
-+ (NSButton *) buttonFirst;
-+ (NSButton *) buttonLast;
-+ (NSButton *) buttonPrevious;
-+ (NSButton *) buttonNext;
-+ (NSButton *) buttonPreviousPrevious;
-+ (NSButton *) buttonNextNext;
-+ (NSButton *) buttonForward;
-+ (NSButton *) buttonBack;
-- (void) fixImageNamed: (NSString *) name inBundle: (NSBundle *) B;
-- (void) fixImageNamed: (NSString *) argument;
-- (void) fixImage;
++(NSButton *)buttonFirst;
++(NSButton *)buttonLast;
++(NSButton *)buttonPrevious;
++(NSButton *)buttonNext;
++(NSButton *)buttonPreviousPrevious;
++(NSButton *)buttonNextNext;
++(NSButton *)buttonForward;
++(NSButton *)buttonBack;
+-(void)fixImageNamed:(NSString *)name inBundle:(NSBundle *)B;
+-(void)fixImageNamed:(NSString *)argument;
+-(void)fixImage;
 @end
 
 @interface iTM2ButtonRWStatus: NSButton
@@ -115,11 +115,11 @@ extern NSString * const iTM2ToggleEditableKey;
 @private
 	id popUp;
 }
--(void) setup;
-- (id) popUp;
-- (void) setPopUp: (id) cell;
-- (SEL)doubleAction;
-- (void)setDoubleAction:(SEL)aSelector;
+-(void)setup;
+-(id)popUp;
+-(void)setPopUp:(id)cell;
+-(SEL)doubleAction;
+-(void)setDoubleAction:(SEL)aSelector;
 @end
 @interface iTM2MixedButtonCell: NSButtonCell
 {
@@ -127,12 +127,12 @@ extern NSString * const iTM2ToggleEditableKey;
 	SEL doubleAction;
 	id popUpCell;
 }
-- (BOOL) willPopUp;
-- (id) popUpCell;
-- (void) setPopUpCell: (id) cell;
-- (SEL)doubleAction;
-- (void)setDoubleAction:(SEL)aSelector;
-- (BOOL) isDoubleValid;
+-(BOOL)willPopUp;
+-(id)popUpCell;
+-(void)setPopUpCell:(id)cell;
+-(SEL)doubleAction;
+-(void)setDoubleAction:(SEL)aSelector;
+-(BOOL)isDoubleValid;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ButtonKit

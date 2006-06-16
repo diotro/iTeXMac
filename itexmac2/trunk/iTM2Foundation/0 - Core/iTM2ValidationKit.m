@@ -29,16 +29,16 @@
 #ifdef __iTM2_AUTO_VALIDATION_OFF__
 #warning Auto validation is OFF, undefine the __iTM2_AUTO_VALIDATION_OFF__ preprocessor macro
 @implementation NSObject(iTM2Validation)
-- (BOOL) validateUserInterfaceItems;{return YES;}
-- (BOOL) validateContent;{return YES;}
-- (BOOL) validateWindowContent;{return YES;}
-- (BOOL) validateWindowsContents;{return YES;}
-- (BOOL) isValid;{return YES;}
-- (NSWindow *) window;{return nil;}
-- (BOOL) validateUserInterfaceItem: (id) sender;{return YES;}
-+ (BOOL) target: (id) validatorTarget validateUserInterfaceItem: (id) sender;{return YES;}
-- (BOOL) validateMenuItem: (id <NSMenuItem>) sender;{return YES;}
-+ (BOOL) validateMenuItem: (id <NSMenuItem>) sender;{return YES;}
+-(BOOL)validateUserInterfaceItems;{return YES;}
+-(BOOL)validateContent;{return YES;}
+-(BOOL)validateWindowContent;{return YES;}
+-(BOOL)validateWindowsContents;{return YES;}
+-(BOOL)isValid;{return YES;}
+-(NSWindow *)window;{return nil;}
+-(BOOL)validateUserInterfaceItem:(id)sender;{return YES;}
++(BOOL)target:(id)validatorTarget validateUserInterfaceItem:(id)sender;{return YES;}
+-(BOOL)validateMenuItem:(id <NSMenuItem>)sender;{return YES;}
++(BOOL)validateMenuItem:(id <NSMenuItem>)sender;{return YES;}
 @end
 #else
 
@@ -48,7 +48,7 @@ static const char * iTM2ValidationANSICapitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 /*"Description forthcoming."*/
 @implementation NSCell(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -63,7 +63,7 @@ To Do List:
 
 @implementation NSActionCell(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -124,7 +124,7 @@ To Do List:
 
 @implementation NSPopUpButtonCell(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -142,7 +142,7 @@ To Do List:
 
 @implementation NSControl(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -202,7 +202,7 @@ To Do List:
 
 @implementation NSTextFieldCell(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -219,7 +219,7 @@ To Do List:
 
 @implementation NSMatrix(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -249,7 +249,7 @@ To Do List:
 
 @implementation NSTabView(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the delegate.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -263,7 +263,7 @@ To Do List:
 	return [super isValid];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSelectNextTabViewItem:
-- (BOOL)validateSelectNextTabViewItem:(id)sender;
+-(BOOL)validateSelectNextTabViewItem:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 02/28/2006
@@ -275,7 +275,7 @@ To Do List:
 	return [self indexOfTabViewItem:[self selectedTabViewItem]]+1 < [self numberOfTabViewItems];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSelectPreviousTabViewItem:
-- (BOOL)validateSelectPreviousTabViewItem:(id)sender;
+-(BOOL)validateSelectPreviousTabViewItem:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 02/28/2006
@@ -296,7 +296,7 @@ To Do List:
 "*/
 @implementation NSView(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateUserInterfaceItems
-- (BOOL) validateUserInterfaceItems;
+-(BOOL)validateUserInterfaceItems;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -318,7 +318,7 @@ To Do List:
         return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The default implementation returns NO, which causes the view to forward the #{validateUserInterfaceItems} message to its subviews.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -329,7 +329,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
-- (BOOL) validateWindowContent;
+-(BOOL)validateWindowContent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -343,7 +343,7 @@ To Do List:
 
 @implementation NSWindow(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateContent
-- (BOOL) validateContent;
+-(BOOL)validateContent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -375,7 +375,7 @@ printf("Currently validating: %s from document %s in zone %#x\n", [[self title] 
 // I assume that order front and order back both call orderWindow:relativeTo:
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFront:
-- (void) orderFront: (id) sender;
+-(void)orderFront:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -389,7 +389,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderBack:
-- (void) orderBack: (id) sender;
+-(void)orderBack:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -404,7 +404,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderWindow:relativeTo:
-- (void) orderWindow: (NSWindowOrderingMode) place relativeTo: (int) otherWin;
+-(void)orderWindow:(NSWindowOrderingMode)place relativeTo:(int)otherWin;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -419,7 +419,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFrontRegardless
-- (void) orderFrontRegardless;
+-(void)orderFrontRegardless;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -433,7 +433,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  becomeKeyWindow
-- (void) becomeKeyWindow;
+-(void)becomeKeyWindow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -447,7 +447,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resignKeyWindow
-- (void) resignKeyWindow;
+-(void)resignKeyWindow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -467,7 +467,7 @@ To Do List:
 
 @implementation NSDrawer(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateContent
-- (BOOL) validateContent;
+-(BOOL)validateContent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -486,7 +486,7 @@ To Do List:
 
 @implementation NSWindowController(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
-- (BOOL) validateWindowContent;
+-(BOOL)validateWindowContent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -505,7 +505,7 @@ To Do List:
 @end
 @implementation NSDocument_iTM2Validation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-- (BOOL) validateMenuItem: (id) sender;
+-(BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -517,7 +517,7 @@ To Do List:
     return [isa target:self validateUserInterfaceItem:sender] || [super validateMenuItem:(id) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowsContents
-- (BOOL) validateWindowsContents;
+-(BOOL)validateWindowsContents;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -539,7 +539,7 @@ To Do List:
 @end
 @implementation NSTextView_iTM2Validation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+ (void) load;
++(void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -554,7 +554,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-- (BOOL) validateMenuItem: (id) sender;
+-(BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -569,7 +569,7 @@ To Do List:
 
 @implementation NSObject(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= noop:
-- (IBAction) noop: (id) sender;// do nothing: message catcher
+-(IBAction)noop:(id)sender;// do nothing: message catcher
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -581,7 +581,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateNoop:
-- (BOOL) validateNoop: (id) sender;// always return NO such that the sender is not enabled...
+-(BOOL)validateNoop:(id)sender;// always return NO such that the sender is not enabled...
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -593,7 +593,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateUserInterfaceItem:
-- (BOOL) validateUserInterfaceItem: (id) sender;
+-(BOOL)validateUserInterfaceItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -605,7 +605,7 @@ To Do List:
 	return [isa target:self validateUserInterfaceItem:(id) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= target:validateUserInterfaceItem:
-+ (BOOL) target: (id) validatorTarget validateUserInterfaceItem: (id) sender;
++(BOOL)target:(id)validatorTarget validateUserInterfaceItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -641,7 +641,7 @@ To Do List:
 	return (int)result & 0xFF;//BOOL
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
-- (BOOL) validateMenuItem: (id <NSMenuItem>) sender;
+-(BOOL)validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -652,7 +652,7 @@ To Do List:
     return ([sender action] && [isa target:self validateUserInterfaceItem:sender]) || [sender submenu];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
-+ (BOOL) validateMenuItem: (id <NSMenuItem>) sender;
++(BOOL)validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -663,7 +663,7 @@ To Do List:
     return ([sender action] && [self target:self validateUserInterfaceItem:sender]) || [sender hasSubmenu];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ValidationSwizzle_validateMenuItem:
-- (BOOL) iTM2ValidationSwizzle_validateMenuItem: (id <NSMenuItem>) sender;
+-(BOOL)iTM2ValidationSwizzle_validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -676,11 +676,11 @@ To Do List:
 @end
 
 @interface NSTabView_iTM2ValidationKit : NSTabView
-- (void)selectTabViewItem:(NSTabViewItem *)tabViewItem;
+-(void)selectTabViewItem:(NSTabViewItem *)tabViewItem;
 @end
 @implementation NSTabView_iTM2ValidationKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectTabViewItem:
-- (void)selectTabViewItem:(NSTabViewItem *)tabViewItem;
+-(void)selectTabViewItem:(NSTabViewItem *)tabViewItem;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -699,7 +699,7 @@ To Do List:
 @end
 @implementation NSToolbarItem_iTM2ValidationKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validate
-- (void) validate;
+-(void)validate;
 /*"This is the validation protocol "invented". Sends a validateUserInterfaceItems to the view if any, or calls the inherited method.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -721,7 +721,7 @@ To Do List: Test, blinkering? don't call super ?
 
 @implementation iTM2MainInstaller(iTM2ValidationKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ValidationKitCompleteInstallation
-+ (void) iTM2ValidationKitCompleteInstallation;
++(void)iTM2ValidationKitCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -744,9 +744,9 @@ To Do List:
 @interface NSTextFinderButton_DEBUG: NSButton
 @end
 @implementation NSTextFinderButton_DEBUG
-+ (void) load;{[self poseAsClass:[NSButton class]];}
++(void)load;{[self poseAsClass:[NSButton class]];}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL) isValid;
+-(BOOL)isValid;
 /*"Description forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

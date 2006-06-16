@@ -31,7 +31,7 @@ and added a validation process."*/
 @implementation iTM2TextFinder
 static id _iTM2TextFinder = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedTextFinder
-+ (id) sharedTextFinder;
++(id)sharedTextFinder;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - 1.1: 03/10/2002
@@ -47,7 +47,7 @@ To Do List:
     return _iTM2TextFinder;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithWindow:
-- (id) initWithWindow: (NSWindow *) window;
+-(id)initWithWindow:(NSWindow *)window;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -71,7 +71,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder
-- (id) initWithCoder: (NSCoder *) aDecoder;
+-(id)initWithCoder:(NSCoder *)aDecoder;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -91,7 +91,7 @@ To Do List: TEST
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithTextView:
-- (id) initWithTextView: (NSTextView *) TV;
+-(id)initWithTextView:(NSTextView *)TV;
 /*"The only way to create an unshared instance. With no UI.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -107,7 +107,7 @@ To Do List: TEST
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"No dealloc at all.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -124,7 +124,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
-- (void) windowDidLoad;
+-(void)windowDidLoad;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -146,7 +146,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateUserInterfaceItems
-- (BOOL) validateUserInterfaceItems;
+-(BOOL)validateUserInterfaceItems;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -162,7 +162,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  applicationWillResignActive:
-- (void) applicationWillResignActive: (NSNotification *) aNotification;
+-(void)applicationWillResignActive:(NSNotification *)aNotification;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -181,7 +181,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enterFindPboardSelection:
-- (void) enterFindPboardSelection: (id) irrelevant;
+-(void)enterFindPboardSelection:(id)irrelevant;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -202,7 +202,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findString
-- (NSString *) findString;
+-(NSString *)findString;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -213,7 +213,7 @@ To Do List:
     return _FindString? _FindString: [NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFindString:
-- (void) setFindString: (NSString *) aString;
+-(void)setFindString:(NSString *)aString;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -232,7 +232,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceString
-- (NSString *) replaceString;
+-(NSString *)replaceString;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -243,7 +243,7 @@ To Do List:
     return _ReplaceString? _ReplaceString: [NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setReplaceString:
-- (void) setReplaceString: (NSString *) aString;
+-(void)setReplaceString:(NSString *)aString;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -258,7 +258,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMute:
-- (void) setMute: (BOOL) flag;
+-(void)setMute:(BOOL)flag;
 /*"Description Forthcoming. Selection vs entire
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - 1.2: 07/18/2002
@@ -271,7 +271,7 @@ To Do List: Collect the flags in a struct...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isMute
-- (BOOL) isMute;
+-(BOOL)isMute;
 /*"Description Forthcoming. Selection vs entire
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - 1.2: 07/18/2002
@@ -282,7 +282,7 @@ To Do List: Collect the flags in a struct...
     return _Mute;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  entireFileFlag
-- (BOOL) entireFileFlag;
+-(BOOL)entireFileFlag;
 /*"Description Forthcoming. Selection vs entire
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -293,7 +293,7 @@ To Do List: Collect the flags in a struct...
     return _EntireFileFlag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEntireFileFlag:
-- (void) setEntireFileFlag: (BOOL) aFlag;
+-(void)setEntireFileFlag:(BOOL)aFlag;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -306,7 +306,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  caseInsensitiveFlag
-- (BOOL) caseInsensitiveFlag;
+-(BOOL)caseInsensitiveFlag;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -317,7 +317,7 @@ To Do List:
     return _CaseInsensitiveFlag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCaseInsensitiveFlag:
-- (void) setCaseInsensitiveFlag: (BOOL) aFlag;
+-(void)setCaseInsensitiveFlag:(BOOL)aFlag;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -330,7 +330,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wrapFlag
-- (BOOL) wrapFlag;
+-(BOOL)wrapFlag;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - 1.1: 03/10/2002
@@ -341,7 +341,7 @@ To Do List:
     return _WrapFlag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setWrapFlag:
-- (void) setWrapFlag: (BOOL) aFlag;
+-(void)setWrapFlag:(BOOL)aFlag;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - 1.1: 03/10/2002
@@ -354,7 +354,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textViewToSearchIn:
-- (NSTextView *) textViewToSearchIn;
+-(NSTextView *)textViewToSearchIn;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -374,7 +374,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  TEXT FIELDS EDITED
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findStringEdited:
-- (void) findStringEdited: (id) sender;
+-(void)findStringEdited:(id)sender;
 /*"Description Forthcoming. USEFULL ???
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -392,7 +392,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFindStringEdited:
-- (BOOL) validateFindStringEdited: (id) sender;
+-(BOOL)validateFindStringEdited:(id)sender;
 /*"Description Forthcoming. USEFULL ???
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -405,7 +405,7 @@ To Do List:
     return ([self textViewToSearchIn] != nil);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceStringEdited:
-- (void) replaceStringEdited: (id) sender;
+-(void)replaceStringEdited:(id)sender;
 /*"Description Forthcoming. USEFULL ???
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -424,7 +424,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateReplaceStringEdited:
-- (BOOL) validateReplaceStringEdited: (id) sender;
+-(BOOL)validateReplaceStringEdited:(id)sender;
 /*"Description Forthcoming. USEFULL ???
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -437,7 +437,7 @@ To Do List:
     return ([self textViewToSearchIn] != nil);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeFromUserInterface
-- (void) synchronizeFromUserInterface;
+-(void)synchronizeFromUserInterface;
 /*"Description Forthcoming. Tag = position in the matrix
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -456,7 +456,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  FIND ACTIONS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  find:
-- (BOOL) find: (BOOL) direction;
+-(BOOL)find:(BOOL)direction;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -517,7 +517,7 @@ To Do List:
     return [self lastFindWasSuccessful];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  centerSelectionInVisibleArea:
-- (void) centerSelectionInVisibleArea: (id) sender;
+-(void)centerSelectionInVisibleArea:(id)sender;
 /*"Action forwarded the self's textFinder.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -531,7 +531,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findNext:
-- (void) findNext: (id) sender;
+-(void)findNext:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -546,7 +546,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFindNext:
-- (BOOL) validateFindNext: (id) sender;
+-(BOOL)validateFindNext:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -558,7 +558,7 @@ To Do List:
     return ([self textViewToSearchIn] != nil);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findPrevious:
-- (void) findPrevious: (id) sender;
+-(void)findPrevious:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -573,7 +573,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFindPrevious:
-- (BOOL) validateFindPrevious: (id) sender;
+-(BOOL)validateFindPrevious:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -585,7 +585,7 @@ To Do List:
     return ([self textViewToSearchIn] != nil);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replace:
-- (void) replace: (id) sender;
+-(void)replace:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -600,7 +600,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateReplace:
-- (BOOL) validateReplace: (id) sender;
+-(BOOL)validateReplace:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -612,7 +612,7 @@ To Do List:
     return ([self lastFindWasSuccessful] && [self textViewToSearchIn]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceAndFind:
-- (void) replaceAndFind: (id) sender;
+-(void)replaceAndFind:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -627,7 +627,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateReplaceAndFind:
-- (BOOL) validateReplaceAndFind: (id) sender;
+-(BOOL)validateReplaceAndFind:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -639,7 +639,7 @@ To Do List:
     return ([self lastFindWasSuccessful] && [self textViewToSearchIn]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceAll:
-- (void) replaceAll: (id) sender;
+-(void)replaceAll:(id)sender;
 /*" The replaceAll: code is somewhat complex, and more complex than it used to be in DR1.  The main reason for this is to support undo. To play along with the undo mechanism in the textView object, this method goes through the shouldChangeTextInRange:replacementString: mechanism. In order to do that, it precomputes the section of the string that is being updated. An alternative would be for this guy to handle the undo for the replaceAll: operation itself, and register the appropriate changes. However, this is simpler...
 
 Turns out this approach of building the new string and inserting it at the appropriate place in the actual textView storage also has an added benefit performance; it avoids copying the contents of the string around on every replace, which is significant in large files with many replacements. Of course there is the added cost of the temporary replacement string, but we try to compute that as tightly as possible beforehand to reduce the memory requirements.
@@ -743,7 +743,7 @@ To Do List: rewrite this to replace all in range...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateReplaceAll:
-- (BOOL) validateReplaceAll: (id) sender;
+-(BOOL)validateReplaceAll:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -755,7 +755,7 @@ To Do List:
     return ([self textViewToSearchIn] != nil);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enterSelection:
-- (void) enterSelection: (id) sender;
+-(void)enterSelection:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -775,7 +775,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lastFindWasSuccessful
-- (BOOL) lastFindWasSuccessful;
+-(BOOL)lastFindWasSuccessful;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -786,7 +786,7 @@ To Do List:
     return _NumberOfOps > 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfOps
-- (unsigned) numberOfOps;
+-(unsigned)numberOfOps;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -797,7 +797,7 @@ To Do List:
     return _NumberOfOps;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidBecomeKey:
-- (void) windowDidBecomeKey: (NSNotification *) notification;
+-(void)windowDidBecomeKey:(NSNotification *)notification;
 /*"Example. the object is not in the responder chain.
 Version history: jlaurens AT users DOT sourceforge DOT net
 first version Richard Koch
@@ -812,7 +812,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showFindPanel:
-- (void) showFindPanel: (id) irrelevant;
+-(void)showFindPanel:(id)irrelevant;
 /*"Description Forthcoming and avalidates the user interface.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -833,7 +833,7 @@ To Do List:
 @implementation NSString (iTM2TextFinderKit)
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeOfString:selectedRange:options:wrap:
-- (NSRange) rangeOfString: (NSString *) aString selectedRange: (NSRange) aSelectedRange options: (unsigned) options wrap: (BOOL) wrap;
+-(NSRange)rangeOfString:(NSString *)aString selectedRange:(NSRange)aSelectedRange options:(unsigned)options wrap:(BOOL)wrap;
 /*"Description Forthcoming.
 Version History: Apple, jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002

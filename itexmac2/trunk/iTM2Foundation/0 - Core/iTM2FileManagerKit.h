@@ -41,7 +41,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@param		errorPtr points to an NSError place holder.
 	@result		yorn.
 */
-- (BOOL) createDeepDirectoryAtPath: (NSString *) path attributes: (NSDictionary *) attributes error:(NSError**)errorPtr;
+-(BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)errorPtr;
 
 /*! 
 	@method		createDeepFileAtPath:contents:attributes:
@@ -52,7 +52,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@param		attributes are the attributes of all the created directories.
 	@result		yorn.
 */
-- (BOOL) createDeepFileAtPath: (NSString *) path contents: (NSData *) data attributes: (NSDictionary *) attributes;
+-(BOOL)createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
 
 /*!
 	@method		createDeepSymbolicLinkAtPath:pathContent:
@@ -62,7 +62,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@param		otherpath is the target.
 	@result		yorn.
 */
-- (BOOL) createDeepSymbolicLinkAtPath: (NSString *) path pathContent: (NSString *) otherpath;
+-(BOOL)createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
 
 /*!
 	@method			makeFileWritableAtPath:recursive:
@@ -74,7 +74,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void) makeFileWritableAtPath: (NSString *) fileName recursive: (BOOL) yorn;
+-(void)makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)yorn;
 
 /*!
 	@method			prettyNameAtPath:
@@ -85,7 +85,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *) prettyNameAtPath:(NSString *)path;
+-(NSString *)prettyNameAtPath:(NSString *)path;
 
 /*!
 	@method			hideExtensionAtPath:
@@ -96,7 +96,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)hideExtensionAtPath:(NSString *)path;
+-(BOOL)hideExtensionAtPath:(NSString *)path;
 
 /*!
 	@method			showExtensionAtPath:
@@ -107,7 +107,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)showExtensionAtPath:(NSString *)path;
+-(BOOL)showExtensionAtPath:(NSString *)path;
 
 @end
 
@@ -142,7 +142,7 @@ enum
 	@result		an NSDictionary. All the keys are NSString's (less than 255 characters in UTF8 representation)
 				and the corresponding values are NSData objects. 
 */
-- (NSDictionary *) extendedFileAttributesInSpace: (id) space atPath: (NSString *) path error: (NSError **) outError;
+-(NSDictionary *)extendedFileAttributesInSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 
 /*!
 	@method		extendedFileAttribute:inSpace:atPath:error:
@@ -154,7 +154,7 @@ enum
 	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
 	@result		an NSData objects. 
 */
-- (NSData *) extendedFileAttribute: (NSString *) attributeName inSpace: (id) space atPath: (NSString *) path error: (NSError **) outError;
+-(NSData *)extendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 
 /*!
 	@method		removeExtendedFileAttribute:inSpace:atPath:traverseLink:error:
@@ -166,7 +166,7 @@ enum
 	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
 	@result		a flag indicating success or failure.
 */
-- (BOOL) removeExtendedFileAttribute: (NSString *) attributeName inSpace: (id) space atPath: (NSString *) path error: (NSError **) outError;
+-(BOOL)removeExtendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 
 /*!
 	@method		addExtendedFileAttribute:value:inSpace:atPath:error:
@@ -179,7 +179,7 @@ enum
 	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
 	@result		a flag indicating success or failure.
 */
-- (BOOL) addExtendedFileAttribute: (NSString *) attributeName value: (NSData *) D inSpace: (id) space atPath: (NSString *) path error: (NSError **) outError;
+-(BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 
 /*!
 	@method		changeExtendedFileAttributes:inSpace:atPath:error:
@@ -191,7 +191,7 @@ enum
 	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
 	@result		a flag indicating success or failure. 
 */
-- (BOOL) changeExtendedFileAttributes: (NSDictionary *) attributes inSpace: (id) space atPath: (NSString *) path error: (NSError **) outError;
+-(BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSFileManager(iTeXMac2)
@@ -209,7 +209,7 @@ enum
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)fileExistsAtPath:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)errorPtr;
+-(BOOL)fileExistsAtPath:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)errorPtr;
 
 @end
 
@@ -223,9 +223,9 @@ enum
 	@param		error is an NSError pointer, can be nil.
 	@result		a path or nil in case of error. 
 */
-- (NSString*) pathByResolvingDataAliasRelativeTo: (NSString *) base error: (NSError **) error;
-- (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
-+ (NSData *) aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
+-(NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)error;
+-(BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
++(NSData *)aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
 
 @end
 
@@ -239,6 +239,6 @@ enum
 	@param		error is an NSError pointer, can be nil.
 	@result		a data object containing a dereferenced AliasHandle. 
 */
-- (NSData*) dataAliasRelativeTo: (NSString *) base error: (NSError **) error;
+-(NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)error;
 
 @end

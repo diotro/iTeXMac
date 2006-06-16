@@ -91,7 +91,7 @@ extern NSString * const iTM2InspectorTable;
                 It is not required that a document only uses inspectors with the same type.
     @result		A unique identifier.
 */
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 
 /*!
     @method		prettyInspectorType
@@ -99,7 +99,7 @@ extern NSString * const iTM2InspectorTable;
     @discussion	This corresponds to the human readable version of the major mode of the receiver. No check for uniquness is made.
     @result		The localized version of the major mode of the receiver (in the bundle of the receiver).
 */
-+ (NSString *) prettyInspectorType;
++(NSString *)prettyInspectorType;
 
 /*!
     @method		originalFileName
@@ -110,7 +110,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		A full path.
 */
-- (NSString *) originalFileName;
+-(NSString *)originalFileName;
 
 /*!
     @method		smartClose
@@ -120,7 +120,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) smartClose;
+-(void)smartClose;
 
 /*!
     @method		documentWillClose
@@ -129,7 +129,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) documentWillClose;
+-(void)documentWillClose;
 
 /*!
     @method		documentDidClose
@@ -138,7 +138,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) documentDidClose;
+-(void)documentDidClose;
 
 /*! 
     @method     modelTypeForFileType:
@@ -150,7 +150,7 @@ extern NSString * const iTM2InspectorTable;
     @param      \p fileType is the document type.
     @result     A string identifying a model type.
 */
-- (NSString *) modelTypeForFileType: (NSString *) fileType;
+-(NSString *)modelTypeForFileType:(NSString *)fileType;
 
 /*! 
     @method     modelType
@@ -159,7 +159,7 @@ extern NSString * const iTM2InspectorTable;
     @param      None.
     @result     A string identifying a model type.
 */
-- (NSString *) modelType;
+-(NSString *)modelType;
 
 /*!
     @method		frontWindow
@@ -168,7 +168,7 @@ extern NSString * const iTM2InspectorTable;
                 The question is to implement a lazy intializer for that matter.
     @result		an NSWindow object.
 */
-- (id) frontWindow;
+-(id)frontWindow;
 
 /*!
     @method		cannotCloseWithNoFileImage
@@ -179,7 +179,7 @@ extern NSString * const iTM2InspectorTable;
     @param      None.
     @result     yorn.
 */
-- (BOOL) cannotCloseWithNoFileImage;
+-(BOOL)cannotCloseWithNoFileImage;
 
 /*! 
     @method     contextDictionaryFromFile:
@@ -188,10 +188,10 @@ extern NSString * const iTM2InspectorTable;
     @param      fullDocumentPath is a full document path.
     @result     A dictionary.
 */
-+ (id) contextDictionaryFromFile: (NSString *) fullDocumentPath;
++(id)contextDictionaryFromFile:(NSString *)fullDocumentPath;
 
-- (BOOL) readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error: (NSError **) outError;
-- (BOOL) writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error: (NSError **) outError;
+-(BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError;
+-(BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError;
 
 /*!
     @method		needsToUpdate
@@ -203,7 +203,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		A yorn flag.
 */
-- (BOOL) needsToUpdate;
+-(BOOL)needsToUpdate;
 
 /*!
     @method		updateIfNeeded
@@ -212,7 +212,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) updateIfNeeded;
+-(void)updateIfNeeded;
 
 /*!
     @method		recordFileModificationDateFromURL:
@@ -224,7 +224,7 @@ extern NSString * const iTM2InspectorTable;
     @param		fileName is a file name.
     @result		None.
 */
-- (void) recordFileModificationDateFromURL:(NSURL *)absoluteURL;
+-(void)recordFileModificationDateFromURL:(NSURL *)absoluteURL;
 
 /*!
     @method		lastFileModificationDate
@@ -234,7 +234,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		A date.
 */
-- (NSDate *) lastFileModificationDate;
+-(NSDate *)lastFileModificationDate;
 
 @end
 
@@ -259,7 +259,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) dealloc;
+-(void)dealloc;
 
 /*!
     @method		fileAttributes
@@ -270,7 +270,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		A date.
 */
-- (NSDictionary *) fileAttributes;
+-(NSDictionary *)fileAttributes;
 
 /*!
     @method		directoryName
@@ -278,7 +278,7 @@ extern NSString * const iTM2InspectorTable;
     @discussion	Value cached.
     @result		maybe nil if the receiver does not have a non void file name.
 */
-- (NSString *) directoryName;
+-(NSString *)directoryName;
 
 /*!
     @method		inspectorAddedWithMode:
@@ -289,7 +289,7 @@ extern NSString * const iTM2InspectorTable;
     @param		The mode.
     @result		an inspector.
 */
-- (id) inspectorAddedWithMode: (NSString *) mode;
+-(id)inspectorAddedWithMode:(NSString *)mode;
 
 /*!
     @method		inspectorAddedWithMode:error:
@@ -301,7 +301,7 @@ extern NSString * const iTM2InspectorTable;
     @param		The outError is an NSError instance pointer.
     @result		an inspector.
 */
-- (id) inspectorAddedWithMode:(NSString *) mode error:(NSError**)outError;
+-(id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outError;
 
 /*!
     @method		replaceInspectorMode:variant:
@@ -311,7 +311,7 @@ extern NSString * const iTM2InspectorTable;
     @param		variant is the new inspector variant.
     @result		None.
 */
-- (void) replaceInspectorMode: (NSString *) mode variant: (NSString *) variant;
+-(void)replaceInspectorMode:(NSString *)mode variant:(NSString *)variant;
 
 /*!
     @method		makeDefaultInspector
@@ -320,7 +320,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) makeDefaultInspector;
+-(void)makeDefaultInspector;
 
 /*!
     @method		didAddWindowController:
@@ -330,7 +330,7 @@ extern NSString * const iTM2InspectorTable;
     @param		The window controller added.
     @result		None.
 */
-- (void) didAddWindowController: (id) WC;
+-(void)didAddWindowController:(id)WC;
 
 /*!
     @method		willRemoveWindowController:
@@ -341,7 +341,7 @@ extern NSString * const iTM2InspectorTable;
     @param		The window controller to be removed.
     @result		None.
 */
-- (void) willRemoveWindowController: (id) WC;
+-(void)willRemoveWindowController:(id)WC;
 
 /*!
     @method		writeToDirectoryWrapper:error:
@@ -360,7 +360,7 @@ extern NSString * const iTM2InspectorTable;
 	@param		errorStringRef is a reference to an error string. It will eventually point to an error string if the result is NO. The error string is autoreleased.
     @result		yorn. The way the answer is handled is not that clear. It is left undefined.
 */
-- (BOOL) writeToDirectoryWrapper: (NSFileWrapper *) DW error: (NSString **) errorStringRef;
+-(BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSString **)errorStringRef;
 
 /*!
     @method		readFromDirectoryWrapper:error:
@@ -376,7 +376,7 @@ extern NSString * const iTM2InspectorTable;
 	@param		errorStringRef is a reference to an error string. It will eventually point to an error string if the result is NO. The error string is autoreleased.
     @result		yorn. The way the answer is handled is not that clear. It is left undefined.
 */
-- (BOOL) readFromDirectoryWrapper: (NSFileWrapper *) DW error: (NSString **) errorStringRef;
+-(BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSString **)errorStringRef;
 
 /*!
     @method		contextDictionary
@@ -384,7 +384,7 @@ extern NSString * const iTM2InspectorTable;
     @discussion	Discussion forthcoming.
     @result		an NSDictionary instance.
 */
-- (id) contextDictionary;
+-(id)contextDictionary;
 
 /*!
     @method		userDefaultsDidChange:
@@ -393,7 +393,7 @@ extern NSString * const iTM2InspectorTable;
                 This method should nopt be used nor subclassed. Consider it as private.
     @param		a notification.
 */
-- (void) userDefaultsDidChange: (NSNotification *) notification;
+-(void)userDefaultsDidChange:(NSNotification *)notification;
 
 /*!
     @method		loadFileWrapperRepresentation:ofType:
@@ -404,14 +404,14 @@ extern NSString * const iTM2InspectorTable;
     @param		type is an unused document type.
     @result		Allways NO.
 */
-- (BOOL) loadFileWrapperRepresentation: (NSFileWrapper *) wrapper ofType: (NSString *) type;
+-(BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type;
 
 /*!
     @method		willSave
     @abstract	The receiver is about to save its data.
     @discussion	Description forthcoming.
 */
-- (void) willSave;
+-(void)willSave;
 
 /*!
     @method		didSave
@@ -423,7 +423,7 @@ extern NSString * const iTM2InspectorTable;
     @param      None.
     @result     None.
 */
-- (void) didSave;
+-(void)didSave;
 
 /*! 
     @method     readFromURL:ofType:error:
@@ -450,7 +450,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     A flag.
 */
-- (BOOL) readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)outputError;
+-(BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)outputError;
 
 /*! 
     @method     dataCompleteReadFromURL:ofType:error:
@@ -464,7 +464,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     A flag.
 */
-- (BOOL) dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
+-(BOOL)dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
 
 /*! 
     @method     resourcesCompleteReadFromURL:ofType:error:
@@ -480,7 +480,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     A flag.
 */
-- (BOOL) resourcesCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
+-(BOOL)resourcesCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
 
 /*!
     @method		didReadFromURL:ofType:error:
@@ -494,7 +494,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     None.
 */
-- (void) didReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
+-(void)didReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
 
 /*! 
     @method		writeToURL:ofType:error:
@@ -512,7 +512,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     A flag.
 */
-- (BOOL) writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
+-(BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
 
 /*! 
     @method     dataCompleteWriteToURL:ofType:error:
@@ -523,7 +523,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     A flag.
 */
-- (BOOL) dataCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
+-(BOOL)dataCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
 
 /*! 
     @method     resourcesCompleteWriteToURL:ofType:error:
@@ -539,7 +539,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     A flag.
 */
-- (BOOL) resourcesCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
+-(BOOL)resourcesCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
 
 /*! 
     @method     writeToURL:ofType:forSaveOperation:originalContentsURL:error:
@@ -562,7 +562,7 @@ extern NSString * const iTM2InspectorTable;
     @param      outputError.
     @result     A flag.
 */
-- (BOOL) writeToURL: (NSURL *) absoluteURL ofType: (NSString *) typeName forSaveOperation:(NSSaveOperationType)saveOperationType originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError**)error;
+-(BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperationType originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError**)error;
 
 /*! 
     @method     dataRepresentation
@@ -572,7 +572,7 @@ extern NSString * const iTM2InspectorTable;
     @param      None.
     @result     A data.
 */
-- (NSData *) dataRepresentation;
+-(NSData *)dataRepresentation;
 
 /*! 
     @method     setDataRepresentation:
@@ -582,7 +582,7 @@ extern NSString * const iTM2InspectorTable;
     @param      The document type.
     @result     A flag.
 */
-- (void) setDataRepresentation: (NSData *) data;
+-(void)setDataRepresentation:(NSData *)data;
 
 /*! 
     @method     dataRepresentationOfType:
@@ -591,7 +591,7 @@ extern NSString * const iTM2InspectorTable;
     @param      The document type.
     @result     A flag.
 */
-- (NSData *) dataRepresentationOfType: (NSString *) type;
+-(NSData *)dataRepresentationOfType:(NSString *)type;
 
 /*! 
     @method     loadDataRepresentation:ofType:
@@ -601,7 +601,7 @@ extern NSString * const iTM2InspectorTable;
     @param      The document type.
     @result     A flag indicating whether the operation succeeded of failed.
 */
-- (BOOL) loadDataRepresentation: (NSData *) data ofType: (NSString *) type;
+-(BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 
 @end
 
@@ -625,7 +625,7 @@ extern NSString * const iTM2InspectorTable;
                 and isInstanceUnsique returns YES, nothing happens.
     @result		yorn.
 */
-+ (BOOL) isInstanceUnique;
++(BOOL)isInstanceUnique;
 
 /*!
     @method		inspectorType
@@ -644,7 +644,7 @@ extern NSString * const iTM2InspectorTable;
                 a logical link rather than a programmatic one.
     @result		a uniquely used identifier.
 */
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 
 /*!
     @method		prettyInspectorType
@@ -652,7 +652,7 @@ extern NSString * const iTM2InspectorTable;
     @discussion	This corresponds to the human readable version of the major mode of the receiver. No check for uniquness is made.
     @result		The localized version of the major mode of the receiver (in the bundle of the receiver).
 */
-+ (NSString *) prettyInspectorType;
++(NSString *)prettyInspectorType;
 
 /*!
     @method		inspectorMode
@@ -664,7 +664,7 @@ extern NSString * const iTM2InspectorTable;
                 The variant is a further identifying string. It can be for example "simple", "advanced" and "expert".
     @result		a uniquely used identifier.
 */
-+ (NSString *) inspectorMode;
++(NSString *)inspectorMode;
 
 /*!
     @method		prettyInspectorMode
@@ -674,7 +674,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		The localized version of the identifier of the receiver (in the bundle of the receiver).
 */
-+ (NSString *) prettyInspectorMode;
++(NSString *)prettyInspectorMode;
 
 /*!
     @method		inspectorVariant
@@ -683,7 +683,7 @@ extern NSString * const iTM2InspectorTable;
                 we can choose between different variants, for example wa can have simple and expert variants of the same mode.
     @result		a uniquely used identifier.
 */
-+ (NSString *) inspectorVariant;
++(NSString *)inspectorVariant;
 
 /*!
     @method		prettyInspectorVariant
@@ -694,7 +694,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		The localized version of the identifier of the receiver (in the bundle of the receiver).
 */
-+ (NSString *) prettyInspectorVariant;
++(NSString *)prettyInspectorVariant;
 
 /*!
     @method		allInspectorVariantsForType:
@@ -706,7 +706,7 @@ extern NSString * const iTM2InspectorTable;
     @param		type is an inspector type.
     @result		an array
 */
-+ (NSArray *) allInspectorVariantsForType: (NSString *) type;
++(NSArray *)allInspectorVariantsForType:(NSString *)type;
 
 /*!
     @method		windowNibName
@@ -716,7 +716,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		a window nib name
 */
-+ (NSString *) windowNibName;
++(NSString *)windowNibName;
 
 /*!
     @method		inspectorVariant
@@ -731,7 +731,7 @@ extern NSString * const iTM2InspectorTable;
 				it returns the set inspector variant, otherwise it returns the inherited stuff.
     @result		a uniquely used identifier.
 */
-- (NSString *) inspectorVariant;
+-(NSString *)inspectorVariant;
 
 /*!
     @method		prettyInspectorVariant
@@ -743,7 +743,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		The localized version of the identifier of the receiver (in the bundle of the receiver).
 */
-- (NSString *) prettyInspectorVariant;
+-(NSString *)prettyInspectorVariant;
 
 /*!
     @method		setInspectorVariant:
@@ -757,7 +757,7 @@ extern NSString * const iTM2InspectorTable;
     @param		a uniquely used identifier.
     @result		None.
 */
-- (void) setInspectorVariant: (NSString *) argument;
+-(void)setInspectorVariant:(NSString *)argument;
 
 /*!
     @method		inspectorClassForType:mode:variant:
@@ -768,7 +768,7 @@ extern NSString * const iTM2InspectorTable;
     @param		mode is a unique NSString identifier within the same type class.
     @result		an NSWindowController subclass object.
 */
-+ (Class) inspectorClassForType: (NSString *) type mode: (NSString *) mode variant: (NSString *) variant;
++(Class)inspectorClassForType:(NSString *)type mode:(NSString *)mode variant:(NSString *)variant;
 
 /*!
     @method		inspectorClassesEnumeratorForType:mode:
@@ -778,7 +778,7 @@ extern NSString * const iTM2InspectorTable;
     @param		mode is a unique NSString identifier.
     @result		an enumerator.
 */
-+ (NSEnumerator *) inspectorClassesEnumeratorForType: (NSString *) type mode: (NSString *) mode;
++(NSEnumerator *)inspectorClassesEnumeratorForType:(NSString *)type mode:(NSString *)mode;
 
 /*!
     @method		inspectorModesForType:
@@ -787,7 +787,7 @@ extern NSString * const iTM2InspectorTable;
     @param      type
     @result     array of modes
 */
-+ (NSArray *) inspectorModesForType: (NSString *) type;
++(NSArray *)inspectorModesForType:(NSString *)type;
 
 /*!
     @method		synchronizeDocument
@@ -795,7 +795,7 @@ extern NSString * const iTM2InspectorTable;
     @discussion	This message should be sent to have the document in synch with its inspectors. Useful when you are about to save your document.
                 Subclasseres will prepend their own stuff. We should be sure that the use interface always reflects the state of the stored data.
 */
-- (void) synchronizeDocument;
+-(void)synchronizeDocument;
 
 /*!
     @method		synchronizeWithDocument
@@ -805,7 +805,7 @@ extern NSString * const iTM2InspectorTable;
                 The default implementation does nothing but setting the document edited flag to NO, subclassers know what to do.
 				This message is sent each time a window controller is added to a document in the -didAddWindowController: method.
 */
-- (void) synchronizeWithDocument;
+-(void)synchronizeWithDocument;
 
 /*!
     @method		isInspectorEdited
@@ -814,7 +814,7 @@ extern NSString * const iTM2InspectorTable;
                 by the window close button. Here, documents will ask their window controllers too.
     @result		a flag.
 */
-- (BOOL) isInspectorEdited;
+-(BOOL)isInspectorEdited;
 
 /*!
     @method		setInspectorEdited:
@@ -823,7 +823,7 @@ extern NSString * const iTM2InspectorTable;
                 by the window close button. Here, documents will ask their window controllers too.
     @result		a flag.
 */
-- (void) setInspectorEdited: (BOOL) flag;
+-(void)setInspectorEdited:(BOOL)flag;
 
 /*!
     @method		updateChangeCount:
@@ -832,7 +832,7 @@ extern NSString * const iTM2InspectorTable;
     @param		change.
     @result		a flag.
 */
-- (void) updateChangeCount: (NSDocumentChangeType) change;
+-(void)updateChangeCount:(NSDocumentChangeType)change;
 
 @end
 
@@ -847,7 +847,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) windowWillLoad;
+-(void)windowWillLoad;
 
 /*!
     @method		windowDidLoad
@@ -858,7 +858,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) windowDidLoad;
+-(void)windowDidLoad;
 
 @end
 
@@ -889,7 +889,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) backupModel;
+-(void)backupModel;
 
 /*!
     @method		restoreModel
@@ -902,7 +902,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		None.
 */
-- (void) restoreModel;
+-(void)restoreModel;
 
 /*!
     @method		takeModelBackup:forKey:
@@ -912,7 +912,7 @@ extern NSString * const iTM2InspectorTable;
     @param		key.
     @result		None.
 */
-- (void) takeModelBackup: (id) backup forKey: (NSString *) key;
+-(void)takeModelBackup:(id)backup forKey:(NSString *)key;
 
 /*!
     @method		modelBackupForKey:
@@ -921,7 +921,7 @@ extern NSString * const iTM2InspectorTable;
     @param		key.
     @result		an object.
 */
-- (id) modelBackupForKey: (NSString *) key;
+-(id)modelBackupForKey:(NSString *)key;
 
 /*!
     @method		windowNibPath
@@ -930,7 +930,7 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		a path.
 */
-- (NSString *) windowNibPath;  
+-(NSString *)windowNibPath;  
 
 @end
 
@@ -980,7 +980,7 @@ extern NSString * const iTM2ExternalInspectorMode;
     @param		None.
     @result		iTM2ExternalInspectorMode.
 */
-+ (NSString *) inspectorMode;
++(NSString *)inspectorMode;
 
 /*!
     @method		switchToExternalHelperWithEnvironment:
@@ -989,7 +989,7 @@ extern NSString * const iTM2ExternalInspectorMode;
     @param		environment is an environment.
     @result		yorn.
 */
-- (BOOL) switchToExternalHelperWithEnvironment: (NSDictionary *) environment;
+-(BOOL)switchToExternalHelperWithEnvironment:(NSDictionary *)environment;
 
 /*!
     @method		allInspectorVariantsForType:
@@ -999,7 +999,7 @@ extern NSString * const iTM2ExternalInspectorMode;
     @param		type is an inspector type.
     @result		an array
 */
-+ (NSArray *) allInspectorVariantsForType: (NSString *) type;
++(NSArray *)allInspectorVariantsForType:(NSString *)type;
 
 @end
 

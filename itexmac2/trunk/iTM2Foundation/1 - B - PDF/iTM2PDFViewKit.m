@@ -35,7 +35,7 @@ NSString * const iTM2PDFSheetBackgroundColorKey = @"iTM2PDFSheetBackgroundColor"
 NSString * const iTM2PDFUseSheetBackgroundColorKey = @"iTM2PDFUseSheetBackgroundColor";
 
 @interface NSView(iTM2_PRIVATE)
-- (id) imageRepresentation;
+-(id)imageRepresentation;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFImageRepView
@@ -44,7 +44,7 @@ NSString * const iTM2PDFUseSheetBackgroundColorKey = @"iTM2PDFUseSheetBackground
 @implementation iTM2PDFImageRepView
 /*""*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
-- (id) initWithFrame: (NSRect) frameRect;
+-(id)initWithFrame:(NSRect)frameRect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -60,7 +60,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  imageRepresentation
-- (NSPDFImageRep *) imageRepresentation;
+-(NSPDFImageRep *)imageRepresentation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -77,7 +77,7 @@ To Do List:
     return [result isKindOfClass:[NSPDFImageRep class]]? result:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImageRepresentation:
-- (void) setImageRepresentation: (NSPDFImageRep *) value;
+-(void)setImageRepresentation:(NSPDFImageRep *)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -89,7 +89,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawingBounds
-- (NSRect) drawingBounds;
+-(NSRect)drawingBounds;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -109,7 +109,7 @@ To Do List:
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  drawRect:
-- (void) drawRect: (NSRect) rect;
+-(void)drawRect:(NSRect)rect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -309,7 +309,7 @@ To Do List:
 #endif
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  minFrameSize
-- (NSSize) minFrameSize;
+-(NSSize)minFrameSize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -331,7 +331,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inset
-- (NSSize) inset;
+-(NSSize)inset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -342,7 +342,7 @@ To Do List:
     return NSMakeSize(10, 10);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tag
-- (int) tag;
+-(int)tag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -353,7 +353,7 @@ To Do List:
     return _Tag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTag:
-- (void) setTag: (int) anInt;
+-(void)setTag:(int)anInt;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -365,7 +365,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  state
-- (int) state;
+-(int)state;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -376,7 +376,7 @@ To Do List:
     return _State;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setState:
-- (void) setState: (int) value;
+-(void)setState:(int)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -388,7 +388,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawsBoundary
-- (BOOL) drawsBoundary;
+-(BOOL)drawsBoundary;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -399,7 +399,7 @@ To Do List:
     return _DrawsBoundary;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDrawsBoundary:
-- (void) setDrawsBoundary: (BOOL) flag;
+-(void)setDrawsBoundary:(BOOL)flag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -411,7 +411,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id) contextManager;
+-(id)contextManager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -422,7 +422,7 @@ To Do List:
     return _ContextManager? _ContextManager: [super contextManager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextManager:
-- (void) setContextManager: (id) value;
+-(void)setContextManager:(id)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -434,7 +434,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  acceptsFirstResponder
-- (BOOL) acceptsFirstResponder;
+-(BOOL)acceptsFirstResponder;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -445,7 +445,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resetCursorRects
-- (void) resetCursorRects;
+-(void)resetCursorRects;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -463,7 +463,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusPoint
-- (NSPoint) focusPoint;
+-(NSPoint)focusPoint;
 /*"In bounds coordinates.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -474,7 +474,7 @@ To Do List:
     return [self pointWithAbsolutePoint:_AbsoluteFocusPoint];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFocusPoint:
-- (void) setFocusPoint: (NSPoint) value;
+-(void)setFocusPoint:(NSPoint)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -486,7 +486,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationPoint
-- (NSPoint) synchronizationPoint;
+-(NSPoint)synchronizationPoint;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -497,7 +497,7 @@ To Do List:
     return _SynchronizationPoint;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSynchronizationPoint:
-- (void) setSynchronizationPoint: (NSPoint) P;
+-(void)setSynchronizationPoint:(NSPoint)P;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -511,7 +511,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFImageRepViewCompleteLoadContext:
-- (void) PDFImageRepViewCompleteLoadContext: (id) irrelevant;
+-(void)PDFImageRepViewCompleteLoadContext:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -525,7 +525,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFImageRepViewCompleteSaveContext:
-- (void) PDFImageRepViewCompleteSaveContext: (id) irrelevant;
+-(void)PDFImageRepViewCompleteSaveContext:(id)irrelevant;
 /*"YES."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -550,7 +550,7 @@ NSString * const iTM2LogicalPageNumberDidChangeNotification = @"iTM2LogicalPageN
 NSString * const iTM2FocusedPageNumberDidChangeNotification = @"iTM2FocusedPageNumberDidChange";
 
 @interface NSView(PRIVATE)
-- (NSRect) focusFrame;
+-(NSRect)focusFrame;
 @end
 
 #import <iTM2Foundation/iTM2NotificationKit.h>
@@ -559,7 +559,7 @@ NSString * const iTM2FocusedPageNumberDidChangeNotification = @"iTM2FocusedPageN
 /*"Description forthcoming."*/
 @implementation iTM2PDFView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -582,7 +582,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initWithFrame:
-- (id) initWithFrame: (NSRect) rect;
+-(id)initWithFrame:(NSRect)rect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -601,7 +601,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -617,7 +617,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  drawRect:
-- (void) drawRect: (NSRect) rect;
+-(void)drawRect:(NSRect)rect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -632,7 +632,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSubview:
-- (void) addSubview: (NSView *) aView;
+-(void)addSubview:(NSView *)aView;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -645,7 +645,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  FOCUS MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateFocusInformation
-- (void) updateFocusInformation;
+-(void)updateFocusInformation;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -691,7 +691,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateFocusInformationWithPoint:
-- (void) updateFocusInformationWithPoint: (NSPoint) P;
+-(void)updateFocusInformationWithPoint:(NSPoint)P;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -723,7 +723,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hitTest:
-- (NSView *) hitTest: (NSPoint) P;
+-(NSView *)hitTest:(NSPoint)P;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -735,7 +735,7 @@ To Do List:
     return [super hitTest:P];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusView
-- (id) focusView;
+-(id)focusView;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -746,7 +746,7 @@ To Do List:
     return [self viewWithTag:[self currentLogicalPage]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedView
-- (id) selectedView;
+-(id)selectedView;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -762,7 +762,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  viewWithTag:
-- (id) viewWithTag: (int) tag;
+-(id)viewWithTag:(int)tag;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -779,7 +779,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectViewWithTag
-- (void) selectViewWithTag: (int) tag;
+-(void)selectViewWithTag:(int)tag;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -818,7 +818,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  placeFocusPointInVisibleArea
-- (void) placeFocusPointInVisibleArea;
+-(void)placeFocusPointInVisibleArea;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -884,7 +884,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= softCurrentPhysicalPage
-- (int) softCurrentPhysicalPage;
+-(int)softCurrentPhysicalPage;
 /*"Description forthcoming.
 Safe: the return value lies inside the cells index range.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -896,7 +896,7 @@ To Do List:
     return MAX(0, MIN([self currentPhysicalPage], [[self subviews] count]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentPhysicalPage
-- (int) currentPhysicalPage;
+-(int)currentPhysicalPage;
 /*"Description forthcoming.
 Safe: the return value lies inside the cells index range.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -908,7 +908,7 @@ To Do List:
     return [self currentLogicalPage] - 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCurrentPhysicalPage:
-- (void) setCurrentPhysicalPage: (int) aCurrentPhysicalPage;
+-(void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -922,7 +922,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentLogicalPage
-- (int) currentLogicalPage;
+-(int)currentLogicalPage;
 /*"Starting at 1, in general the number printed at the bottom of the page.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -937,7 +937,7 @@ To Do List:
     return _CurrentLogicalPage;//MAX(1, MIN(_CurrentLogicalPage, [[self cells] count]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCurrentLogicalPage:
-- (void) setCurrentLogicalPage: (int) aCurrentLogicalPage;
+-(void)setCurrentLogicalPage:(int)aCurrentLogicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -962,7 +962,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentPageDidChange
-- (void) currentPageDidChange;
+-(void)currentPageDidChange;
 /*"Sends an #{updateGeometry} message to the receiver, after fixing the number of columns and rows
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 07/25/2003
@@ -982,7 +982,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  BACKGROUND
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backgroundColor
-- (NSColor *) backgroundColor;
+-(NSColor *)backgroundColor;
 /*"Description Fortcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -996,7 +996,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  IMAGE REPRESENTATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= representation
-- (id) imageRepresentation;
+-(id)imageRepresentation;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1007,7 +1007,7 @@ To Do List:
     return _ImageRepresentation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImageRepresentation:
-- (void) setImageRepresentation: (id) aImageRepresentation;
+-(void)setImageRepresentation:(id)aImageRepresentation;
 /*"Sends a #{representationDidChange} to the receiver.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/24/2002
@@ -1024,7 +1024,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  imageRepresentationDidChange
-- (void) imageRepresentationDidChange;
+-(void)imageRepresentationDidChange;
 /*"Cleans the cells, forwards the message to super.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1064,7 +1064,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recache
-- (void) recache;
+-(void)recache;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1077,7 +1077,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= cachedImageRepresentation
-- (id) cachedImageRepresentation;
+-(id)cachedImageRepresentation;
 /*"Lazy initializer.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1103,7 +1103,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  MAGNIFICATION MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= magnification
-- (float) magnification;
+-(float)magnification;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1115,7 +1115,7 @@ To Do List:
     return _Magnification;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnification:
-- (void) setMagnification: (float) aMagnification;
+-(void)setMagnification:(float)aMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1131,7 +1131,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= magnificationDidChange
-- (void) magnificationDidChange;
+-(void)magnificationDidChange;
 /*"Cleans the cells, forwards the message to super.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/24/2002
@@ -1145,7 +1145,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  GEOMETRY
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  needsToUpdateGeometry
-- (BOOL) needsToUpdateGeometry;
+-(BOOL)needsToUpdateGeometry;
 /*"Description forthcoming. Only when the magnification has changed.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -1155,7 +1155,7 @@ To Do List:
     return _NeedsUpdateGeometry;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setNeedsUpdateGeometry:
-- (void) setNeedsUpdateGeometry: (BOOL) flag;
+-(void)setNeedsUpdateGeometry:(BOOL)flag;
 /*"Description forthcoming. Only when the magnification has changed.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -1166,7 +1166,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  updateGeometry
-- (void) updateGeometry;
+-(void)updateGeometry;
 /*"Description forthcoming. Only when the magnification, the page layout, the orientation have changed.
 The purpose is to place the correct views at the right location, and set the size of the receiver
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1253,7 +1253,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pageFrameSizeWithMagnification:
-- (NSSize) pageFrameSizeWithMagnification: (float) aMagnification;
+-(NSSize)pageFrameSizeWithMagnification:(float)aMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1272,7 +1272,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isFlipped
-- (BOOL) isFlipped
+-(BOOL)isFlipped
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -1283,7 +1283,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pageLayout
-- (unsigned) pageLayout;
+-(unsigned)pageLayout;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -1294,7 +1294,7 @@ To Do List:
     return _PageLayout;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setPageLayout:
-- (void) setPageLayout: (unsigned) PL;
+-(void)setPageLayout:(unsigned)PL;
 /*"Initializer. MUST be called at initialization time.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -1310,7 +1310,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pageLayoutDidChange
-- (void) pageLayoutDidChange;
+-(void)pageLayoutDidChange;
 /*"Sends an #{updateGeometry} message to the receiver, after fixing the number of columns and rows
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 07/25/2003
@@ -1324,7 +1324,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBoundsRotation:
-- (void) setBoundsRotation: (float) angle;
+-(void)setBoundsRotation:(float)angle;
 /*"Catching the message: changes in fact the orientation.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/11/2002
@@ -1337,7 +1337,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= PDFOrientation
-- (int) PDFOrientation;
+-(int)PDFOrientation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1348,7 +1348,7 @@ To Do List:
     return _OrientationMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPDFOrientation:
-- (void) setPDFOrientation: (int) argument;
+-(void)setPDFOrientation:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1367,21 +1367,21 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  UI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  acceptsFirstResponder  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-- (BOOL) acceptsFirstResponder;
+-(BOOL)acceptsFirstResponder;
 /*"YES."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  acceptsFirstMouse  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-- (BOOL) acceptsFirstMouse: (NSEvent *) theEvent;
+-(BOOL)acceptsFirstMouse:(NSEvent *)theEvent;
 /*"YES."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewCompleteLoadContext:
-- (void) PDFViewCompleteLoadContext: (id) irrelevant;
+-(void)PDFViewCompleteLoadContext:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1394,7 +1394,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewCompleteSaveContext:
-- (void) PDFViewCompleteSaveContext: (id) irrelevant;
+-(void)PDFViewCompleteSaveContext:(id)irrelevant;
 /*"YES."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -1410,7 +1410,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFPrintView  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 @implementation iTM2PDFPrintView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithRepresentation:slidesLandscape:scale:
-- (id) initWithRepresentation: (id) aRepresentation slidesLandscape: (BOOL) flag scale: (float) scale;
+-(id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(float)scale;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1437,7 +1437,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithFrame:
-- (id) initWithFrame: (NSRect) aRect;
+-(id)initWithFrame:(NSRect)aRect;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1449,7 +1449,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect:
-- (void) drawRect: (NSRect) aRect;
+-(void)drawRect:(NSRect)aRect;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1476,7 +1476,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pageCount
-- (int) pageCount;
+-(int)pageCount;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1490,7 +1490,7 @@ To Do List:
         return 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= knowsPageRange:
-- (BOOL) knowsPageRange: (NSRangePointer) range;
+-(BOOL)knowsPageRange:(NSRangePointer)range;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1503,7 +1503,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isVerticallyCentered
-- (BOOL) isVerticallyCentered;
+-(BOOL)isVerticallyCentered;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1514,7 +1514,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isHorizontallyCentered
-- (BOOL) isHorizontallyCentered;
+-(BOOL)isHorizontallyCentered;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1525,7 +1525,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rectForPage:
-- (NSRect) rectForPage: (int) pageNumber;
+-(NSRect)rectForPage:(int)pageNumber;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1540,7 +1540,7 @@ To Do List:
     return [self frame];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= imageRepresentation
-- (id) imageRepresentation;
+-(id)imageRepresentation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1551,7 +1551,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setImageRepresentation:
-- (void) setImageRepresentation: (id) anImageRep;
+-(void)setImageRepresentation:(id)anImageRep;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1566,7 +1566,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scale
-- (float) scale;
+-(float)scale;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1577,7 +1577,7 @@ To Do List:
     return [metaGETTER floatValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setScale:
-- (void) setScale: (float) scale;
+-(void)setScale:(float)scale;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1589,7 +1589,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= slidesLandscape
-- (BOOL) slidesLandscape;
+-(BOOL)slidesLandscape;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1600,7 +1600,7 @@ To Do List:
     return [metaGETTER boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setImageRepresentation:
-- (void) setSlidesLandscape: (BOOL) yorn;
+-(void)setSlidesLandscape:(BOOL)yorn;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

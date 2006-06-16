@@ -24,40 +24,40 @@
 
 @interface NSView(iTeXMac2)
 /*"Class methods"*/
-+ (int) grabKeyMask;
-+ (int) zoomInKeyMask;
-+ (int) zoomOutKeyMask;
++(int)grabKeyMask;
++(int)zoomInKeyMask;
++(int)zoomOutKeyMask;
 /*"Setters and Getters"*/
-- (NSPoint) frameCenter;
-- (void) setFrameCenter: (NSPoint) aCenter;
-- (NSPoint) boundsCenter;
-- (void) setBoundsCenter: (NSPoint) aCenter;
-- (float) visibleArea;
-- (NSComparisonResult) compareArea: (NSView *) otherView;
+-(NSPoint)frameCenter;
+-(void)setFrameCenter:(NSPoint)aCenter;
+-(NSPoint)boundsCenter;
+-(void)setBoundsCenter:(NSPoint)aCenter;
+-(float)visibleArea;
+-(NSComparisonResult)compareArea:(NSView *)otherView;
 /*"Main methods"*/
-- (NSPoint) absolutePointWithPoint: (NSPoint) aPoint;
-- (NSPoint) pointWithAbsolutePoint: (NSPoint) aRelativePoint;
-- (NSSize) absoluteSizeWithSize: (NSSize) aSize;
-- (NSSize) sizeWithAbsoluteSize: (NSSize) aSize;
-- (NSRect) absoluteRectWithRect: (NSRect) aRect;
-- (NSRect) rectWithAbsoluteRect: (NSRect) aRect;
-- (void) centerBoundsOrigin;
-- (void) centerInSuperview;
-- (void) removeSubviewsWithoutNeedingDisplay;
-- (NSPoint) absoluteFocus;
-- (NSControl *) controlWithAction: (SEL) action;
+-(NSPoint)absolutePointWithPoint:(NSPoint)aPoint;
+-(NSPoint)pointWithAbsolutePoint:(NSPoint)aRelativePoint;
+-(NSSize)absoluteSizeWithSize:(NSSize)aSize;
+-(NSSize)sizeWithAbsoluteSize:(NSSize)aSize;
+-(NSRect)absoluteRectWithRect:(NSRect)aRect;
+-(NSRect)rectWithAbsoluteRect:(NSRect)aRect;
+-(void)centerBoundsOrigin;
+-(void)centerInSuperview;
+-(void)removeSubviewsWithoutNeedingDisplay;
+-(NSPoint)absoluteFocus;
+-(NSControl *)controlWithAction:(SEL)action;
 /*"Overriden methods"*/
 @end
 
 @interface NSView(iTeXMac2Scrolling)
-- (void) scrollPageLeft: (id) sender;
-- (void) scrollPageRight: (id) sender;
-- (void) scrollCharacterLeft: (id) sender;
-- (void) scrollCharacterRight: (id) sender;
-- (void) scrollLineUp: (id) sender;
-- (void) scrollLineDown: (id) sender;
-- (void) scrollPageUp: (id) sender;
-- (void) scrollPageDown: (id) sender;
+-(void)scrollPageLeft:(id)sender;
+-(void)scrollPageRight:(id)sender;
+-(void)scrollCharacterLeft:(id)sender;
+-(void)scrollCharacterRight:(id)sender;
+-(void)scrollLineUp:(id)sender;
+-(void)scrollLineDown:(id)sender;
+-(void)scrollPageUp:(id)sender;
+-(void)scrollPageDown:(id)sender;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2View
@@ -74,7 +74,7 @@
     @param		None.
     @result		an iTM2Implementation object.
 */
-- (id) implementation;
+-(id)implementation;
 
 /*!
     @method		setImplementation:
@@ -83,7 +83,7 @@
     @param		None.
     @result		None.
 */
-- (void) setImplementation: (id) argument;
+-(void)setImplementation:(id)argument;
 
 @end
 
@@ -97,14 +97,14 @@
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
-- (id) centeredSubview;
-- (void) setCenteredSubview: (NSView *) argument;
-- (void) willChangeCenteredSubview;
-- (void) didChangeCenteredSubview;
-- (void) centerSubview;
-- (NSSize) minFrameSize;
-- (float) horizontalMargin;
-- (float) verticalMargin;
+-(id)centeredSubview;
+-(void)setCenteredSubview:(NSView *)argument;
+-(void)willChangeCenteredSubview;
+-(void)didChangeCenteredSubview;
+-(void)centerSubview;
+-(NSSize)minFrameSize;
+-(float)horizontalMargin;
+-(float)verticalMargin;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end
@@ -117,12 +117,12 @@
     int _VisibleSubviewIndex;
     
 }
-- (void) computeIndexFromTag;
-- (BOOL) acceptsFirstResponder;
-- (void) updateWithFlags: (unsigned int) flags;
-- (int) tagFromMask: (int) aMask;
-- (void) moveAwaySubviewAtIndex: (int) index;
-- (void) moveCloserSubviewAtIndex: (int) index;
+-(void)computeIndexFromTag;
+-(BOOL)acceptsFirstResponder;
+-(void)updateWithFlags:(unsigned int)flags;
+-(int)tagFromMask:(int)aMask;
+-(void)moveAwaySubviewAtIndex:(int)index;
+-(void)moveCloserSubviewAtIndex:(int)index;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2CenteringView
 
@@ -143,7 +143,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
     @param		None.
     @result		an NSSplitView.
 */
-- (NSSplitView *) enclosingSplitView;
+-(NSSplitView *)enclosingSplitView;
 
 @end
 
@@ -159,7 +159,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
     @param		yorn.
     @result		a view.
 */
-- (NSView *) splittableEnclosingViewForView: (NSView *) view vertical: (BOOL) yorn;
+-(NSView *)splittableEnclosingViewForView:(NSView *)view vertical:(BOOL)yorn;
 
 /*!
     @method		unsplittableEnclosingViewForView:
@@ -170,7 +170,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
     @param		view can be nil.
     @result		a unsplittableViewEnclosingViewForView:.
 */
-- (NSView *) unsplittableEnclosingViewForView: (NSView *) view;
+-(NSView *)unsplittableEnclosingViewForView:(NSView *)view;
 
 /*!
     @method		duplicateViewForSplitting:vertical:
@@ -182,7 +182,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
 				When this view is added to the split view, a -didAddSplittingView: message should be sent.
     @result		a duplicated view.
 */
-- (NSView *) duplicateViewForSplitting: (NSView *) view vertical: (BOOL) vertical;
+-(NSView *)duplicateViewForSplitting:(NSView *)view vertical:(BOOL)vertical;
 
 /*!
     @method		split:vertical:createSplitView:
@@ -193,7 +193,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
     @param		create indicates whether an already existing enclosing split view should be used or a new one should be used iinstead.
     @result		None.
 */
-- (void) split: (NSView *) view vertical: (BOOL) vertical createSplitView: (BOOL) create;
+-(void)split:(NSView *)view vertical:(BOOL)vertical createSplitView:(BOOL)create;
 
 /*!
     @method		didAddSplittingView:
@@ -204,7 +204,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
     @param		view was added to the split view...
     @result		None.
 */
-- (void) didAddSplittingView: (NSView *) view;
+-(void)didAddSplittingView:(NSView *)view;
 
 /*!
     @method		didRemoveSplittingView:
@@ -214,7 +214,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
     @param		view was removed from the split view...
     @result		None.
 */
-- (void) didRemoveSplittingView: (NSView *) view;
+-(void)didRemoveSplittingView:(NSView *)view;
 
 /*!
     @method		unsplit:
@@ -223,7 +223,7 @@ NSRect iTM2CenterRect(NSRect rect, NSPoint point);
     @param		view is the view to be removed.
     @result		None.
 */
-- (void) unsplit: (NSView *) view;
+-(void)unsplit:(NSView *)view;
 
 @end
 
@@ -254,7 +254,7 @@ unsigned int _Position;
     @param		position is the expected.
     @result		A view.
 */
-+ (id) scrollerToolbarForPosition: (iTM2ScrollerToolbarPosition) position;
++(id)scrollerToolbarForPosition:(iTM2ScrollerToolbarPosition)position;
 
 /*!
     @method		position
@@ -263,7 +263,7 @@ unsigned int _Position;
     @param		None.
     @result		A position.
 */
-- (iTM2ScrollerToolbarPosition) position;
+-(iTM2ScrollerToolbarPosition)position;
 
 @end
 

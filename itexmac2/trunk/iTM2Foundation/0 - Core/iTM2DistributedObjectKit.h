@@ -30,6 +30,6 @@
     @param      None.
     @result     the output
 */
-+ (NSString *) iTeXMac2ConnectionIdentifier;
++(NSString *)iTeXMac2ConnectionIdentifier;
 
 @end

@@ -25,7 +25,7 @@
 
 @implementation iTM2LaTeXMKWrapper
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -33,13 +33,13 @@ To Do List:
 {
 	iTM2_INIT_POOL;
 //iTM2_START;
-    [NSObject completeInstallationOf: self];
+    [NSObject completeInstallationOf:self];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInstallation
-+ (void) completeInstallation;
++(void)completeInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -47,15 +47,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super completeInstallation];
-    NSTask * T = [[[NSTask allocWithZone: [self zone]] init] autorelease];
-    NSString * path = [[NSBundle bundleForClass: self] pathForAuxiliaryExecutable: @"bin/iTM2_Setup"];
-    NSString * P = [[NSBundle bundleForClass: self] pathForAuxiliaryExecutable: @"bin/latexmk"];
+    NSTask * T = [[[NSTask allocWithZone:[self zone]] init] autorelease];
+    NSString * path = [[NSBundle bundleForClass:self] pathForAuxiliaryExecutable:@"bin/iTM2_Setup"];
+    NSString * P = [[NSBundle bundleForClass:self] pathForAuxiliaryExecutable:@"bin/latexmk"];
     if([path length] && [P length])
     {
         [T setArguments: [NSArray arrayWithObjects:
-                [[NSBundle bundleForClass: self] pathForAuxiliaryExecutable: @"bin/latexmk"], nil]];
+                [[NSBundle bundleForClass:self] pathForAuxiliaryExecutable:@"bin/latexmk"], nil]];
                 #warning you will have to copy other codes here?
-        [T setLaunchPath: path];
+        [T setLaunchPath:path];
         [T launch];
     }
     else

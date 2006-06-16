@@ -39,12 +39,12 @@ NSString * const iTM2SmartUpdateEnabledKey = @"iTM2SmartUpdateEnabled";
 int iTM2AutoUpdateWindowNumberComparator(id, id, void *);
 
 @interface NSDocument_iTM2AutoKit:NSDocument
-- (void) fileModificationDataCompleteDidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) originalAbsoluteContentsURL error:(NSError**)error;
-- (void) fileModificationDataCompleteDidReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+-(void)fileModificationDataCompleteDidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) originalAbsoluteContentsURL error:(NSError**)error;
+-(void)fileModificationDataCompleteDidReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
 @end
 @implementation NSDocument_iTM2AutoKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -59,7 +59,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canAutoUpdate
-- (BOOL) canAutoUpdate;
+-(BOOL)canAutoUpdate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -75,7 +75,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canAutoSave
-- (BOOL) canAutoSave;
+-(BOOL)canAutoSave;
 /*"Subclasses will return YES if they want to be auto saved at regular intervals.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1:05/04/2002
@@ -86,7 +86,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
+-(BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -103,7 +103,7 @@ To Do List:save the file, if it has disappeared from the HD.
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileModificationDataCompleteDidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (void) fileModificationDataCompleteDidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) absoluteOriginalContentsURL error:(NSError**)error;
+-(void)fileModificationDataCompleteDidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) absoluteOriginalContentsURL error:(NSError**)error;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -117,7 +117,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL) readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)error;
+-(BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)error;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -132,7 +132,7 @@ To Do List:save the file, if it has disappeared from the HD.
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fileModificationDataCompleteDidReadFromURL:ofType:error:
-- (void) fileModificationDataCompleteDidReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+-(void)fileModificationDataCompleteDidReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
 /*"Description Forthcoming. Record the file modification date
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -148,7 +148,7 @@ To Do List:
 
 @implementation NSWindowController(iTM2AutoKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canAutoUpdate
-- (BOOL) canAutoUpdate;
+-(BOOL)canAutoUpdate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -167,7 +167,7 @@ To Do List:
 
 @implementation iTM2AutoResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id) contextManager;
+-(id)contextManager;
 /*"Toggles the display mode between iTM2StickMode and iTM2LastMode.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -179,7 +179,7 @@ To Do List:
     return [NSApp keyWindow]?:(id)SUD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleAutoUpdate:
-- (IBAction) toggleAutoUpdate:(id) sender;
+-(IBAction)toggleAutoUpdate:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -191,7 +191,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleAutoUpdate:
-- (BOOL) validateToggleAutoUpdate:(id) sender;
+-(BOOL)validateToggleAutoUpdate:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -203,7 +203,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartUpdate:
-- (IBAction) toggleSmartUpdate:(id) sender;
+-(IBAction)toggleSmartUpdate:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -218,7 +218,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartUpdate:
-- (BOOL) validateToggleSmartUpdate:(id) sender;
+-(BOOL)validateToggleSmartUpdate:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -237,11 +237,11 @@ NSString * const iTM2AutoSaveIntervalKey = @"iTM2AutoSaveInterval";
 
 #pragma mark =-=-=-=-=-=-=-=-  AUTO SAVE
 @interface iTM2AutoController(PRIVATE)
-+ (void) _UserDefaultsDidChange:(id) sender;
++(void)_UserDefaultsDidChange:(id) sender;
 @end
 @implementation iTM2MainInstaller(AutoController)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2AutoControllerCompleteInstallation
-+ (void) iTM2AutoControllerCompleteInstallation;
++(void)iTM2AutoControllerCompleteInstallation;
 /*"Description forthcoming;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
 - 1.4 :jlaurens:20040514 
@@ -258,7 +258,7 @@ To Do List:to be improved... to allow different signature
 static id _iTM2_AutoSave_Timer;
 static NSTimeInterval _iTM2_AutoSave_TimeInterval; 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -290,7 +290,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _UserDefaultsDidChange:
-+ (void) _UserDefaultsDidChange:(id) sender;
++(void)_UserDefaultsDidChange:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1:05/04/2002
@@ -324,7 +324,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _TimedSaveAllDocuments:
-+ (void) _TimedSaveAllDocuments:(id) sender;
++(void)_TimedSaveAllDocuments:(id) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1:05/04/2002
@@ -344,7 +344,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2AutoUpdateWindowDidUpdateNotified:
-+ (void) iTM2AutoUpdateWindowDidUpdateNotified:(NSNotification *) aNotification;
++(void)iTM2AutoUpdateWindowDidUpdateNotified:(NSNotification *) aNotification;
 /*"Subclasses should not need to override this method. Registers in the registration domain of the user defaults database the frame of aNotification object. The key used is the class frameIdentifier of this object.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -400,7 +400,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autoUpdateSheetDidDismiss:returnCode:document:
-+ (void) autoUpdateSheetDidDismiss:(NSWindow *) sheet returnCode:(int) returnCode document:(NSDocument *) D;
++(void)autoUpdateSheetDidDismiss:(NSWindow *) sheet returnCode:(int) returnCode document:(NSDocument *) D;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002

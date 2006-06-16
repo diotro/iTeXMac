@@ -54,7 +54,7 @@ NSString * const iTM2Dvipdfm_include_thumbnails = @"iTM2_dvipdfm_include_thumbna
 
 @implementation iTM2EngineDvipdfm
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+ (NSString *) engineMode;
++(NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -65,7 +65,7 @@ To Do List:
     return @"iTM2_Engine_dvipdfm";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+ (NSArray *) inputFileExtensions;
++(NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -73,10 +73,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObject: @"dvi"];
+    return [NSArray arrayWithObject:@"dvi"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+ (NSDictionary *) defaultShellEnvironment;
++(NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -85,48 +85,48 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_landscape,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_use_paper,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_landscape,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_paper,
 				@"a4", iTM2Dvipdfm_paper,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_use_offset,
-				[NSNumber numberWithFloat: 1], iTM2Dvipdfm_x_offset,
-				[NSNumber numberWithFloat: 1], iTM2Dvipdfm_y_offset,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_offset,
+				[NSNumber numberWithFloat:1], iTM2Dvipdfm_x_offset,
+				[NSNumber numberWithFloat:1], iTM2Dvipdfm_y_offset,
 				@"in", iTM2Dvipdfm_x_offset_unit,
 				@"in", iTM2Dvipdfm_y_offset_unit,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_use_magnification,
-				[NSNumber numberWithFloat: 1000], iTM2Dvipdfm_magnification,
-				[NSNumber numberWithBool: YES], iTM2Dvipdfm_partial_font_embedding,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_use_map_file,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_magnification,
+				[NSNumber numberWithFloat:1000], iTM2Dvipdfm_magnification,
+				[NSNumber numberWithBool:YES], iTM2Dvipdfm_partial_font_embedding,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_map_file,
 				@"", iTM2Dvipdfm_map_file,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_use_resolution,
-				[NSNumber numberWithFloat: 600], iTM2Dvipdfm_resolution,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_ignore_color_specials,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_use_output_name,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_resolution,
+				[NSNumber numberWithFloat:600], iTM2Dvipdfm_resolution,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_ignore_color_specials,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_output_name,
 				@"", iTM2Dvipdfm_output_name,
-				[NSNumber numberWithBool: NO], iTM2Dvipdfm_use_page_specifications,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_page_specifications,
 				@"", iTM2Dvipdfm_page_specifications,
-				[NSNumber numberWithInt: 0], iTM2Dvipdfm_verbosity_level,
-				[NSNumber numberWithInt: 9], iTM2Dvipdfm_compression_level,
+				[NSNumber numberWithInt:0], iTM2Dvipdfm_verbosity_level,
+				[NSNumber numberWithInt:9], iTM2Dvipdfm_compression_level,
 					nil];
 }
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
--(BOOL)GETTER;{return [[self modelValueForKey: KEY] boolValue];}\
--(void)SETTER:(BOOL)yorn;{[self takeModelValue: [NSNumber numberWithBool: yorn] forKey: KEY];return;}
+-(BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
+-(void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
 MODEL_BOOL(landscape, setLandscape, iTM2Dvipdfm_landscape);
 MODEL_BOOL(usePaper, setUsePaper, iTM2Dvipdfm_use_paper);
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
--(id)GETTER;{return [self modelValueForKey: KEY];}\
--(void)SETTER:(id)argument;{[self takeModelValue: argument forKey: KEY];return;}
+-(id)GETTER;{return [self modelValueForKey:KEY];}\
+-(void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
 MODEL_OBJECT(paper, setPaper, iTM2Dvipdfm_paper);
 MODEL_BOOL(useOffset, setUseOffset, iTM2Dvipdfm_use_offset);
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
--(float)GETTER;{return [[self modelValueForKey: KEY] floatValue];}\
--(void)SETTER:(float)argument;{[self takeModelValue: [NSNumber numberWithFloat: argument] forKey: KEY];return;}
+-(float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
+-(void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
 MODEL_FLOAT(xOffset, setXOffset, iTM2Dvipdfm_x_offset);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvipdfm_y_offset);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  xOffsetUnit
-- (int) xOffsetUnit;
+-(int)xOffsetUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -134,19 +134,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * unit = [self modelValueForKey: iTM2Dvipdfm_x_offset_unit];
-	if([unit isEqual: @"bp"])
+	NSString * unit = [self modelValueForKey:iTM2Dvipdfm_x_offset_unit];
+	if([unit isEqual:@"bp"])
 		return 0;
-	else if([unit isEqual: @"pt"])
+	else if([unit isEqual:@"pt"])
 		return 1;
-	else if([unit isEqual: @"in"])
+	else if([unit isEqual:@"in"])
 		return 2;
-	else if([unit isEqual: @"cm"])
+	else if([unit isEqual:@"cm"])
 		return 3;
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setXOffsetUnit:
-- (void) setXOffsetUnit: (int) argument;
+-(void)setXOffsetUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -156,16 +156,16 @@ To Do List:
 //iTM2_START;
 	switch(argument)
 	{
-		case 0: [self takeModelValue: @"bp" forKey: iTM2Dvipdfm_x_offset_unit]; return;
-		case 1: [self takeModelValue: @"pt" forKey: iTM2Dvipdfm_x_offset_unit]; return;
-		case 3: [self takeModelValue: @"cm" forKey: iTM2Dvipdfm_x_offset_unit]; return;
-		default: [self takeModelValue: @"in" forKey: iTM2Dvipdfm_x_offset_unit]; return;
+		case 0: [self takeModelValue:@"bp" forKey:iTM2Dvipdfm_x_offset_unit]; return;
+		case 1: [self takeModelValue:@"pt" forKey:iTM2Dvipdfm_x_offset_unit]; return;
+		case 3: [self takeModelValue:@"cm" forKey:iTM2Dvipdfm_x_offset_unit]; return;
+		default: [self takeModelValue:@"in" forKey:iTM2Dvipdfm_x_offset_unit]; return;
 	}
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  yOffsetUnit
-- (int) yOffsetUnit;
+-(int)yOffsetUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -173,19 +173,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * unit = [self modelValueForKey: iTM2Dvipdfm_y_offset_unit];
-	if([unit isEqual: @"bp"])
+	NSString * unit = [self modelValueForKey:iTM2Dvipdfm_y_offset_unit];
+	if([unit isEqual:@"bp"])
 		return 0;
-	else if([unit isEqual: @"pt"])
+	else if([unit isEqual:@"pt"])
 		return 1;
-	else if([unit isEqual: @"in"])
+	else if([unit isEqual:@"in"])
 		return 2;
-	else if([unit isEqual: @"cm"])
+	else if([unit isEqual:@"cm"])
 		return 3;
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setYOffsetUnit:
-- (void) setYOffsetUnit: (int) argument;
+-(void)setYOffsetUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -195,10 +195,10 @@ To Do List:
 //iTM2_START;
 	switch(argument)
 	{
-		case 0: [self takeModelValue: @"bp" forKey: iTM2Dvipdfm_y_offset_unit]; return;
-		case 1: [self takeModelValue: @"pt" forKey: iTM2Dvipdfm_y_offset_unit]; return;
-		case 3: [self takeModelValue: @"cm" forKey: iTM2Dvipdfm_y_offset_unit]; return;
-		default: [self takeModelValue: @"in" forKey: iTM2Dvipdfm_y_offset_unit]; return;
+		case 0: [self takeModelValue:@"bp" forKey:iTM2Dvipdfm_y_offset_unit]; return;
+		case 1: [self takeModelValue:@"pt" forKey:iTM2Dvipdfm_y_offset_unit]; return;
+		case 3: [self takeModelValue:@"cm" forKey:iTM2Dvipdfm_y_offset_unit]; return;
+		default: [self takeModelValue:@"in" forKey:iTM2Dvipdfm_y_offset_unit]; return;
 	}
 //iTM2_END;
     return;
@@ -218,11 +218,11 @@ MODEL_OBJECT(pageSpecifications, setPageSpecifications, iTM2Dvipdfm_page_specifi
 MODEL_BOOL(useOutputName, setUseOutputName, iTM2Dvipdfm_use_output_name);
 MODEL_OBJECT(outputName, setOutputName, iTM2Dvipdfm_output_name);
 #define MODEL_INT(GETTER, SETTER, KEY)\
--(int)GETTER;{return [[self modelValueForKey: KEY] intValue];}\
--(void)SETTER:(int)argument;{[self takeModelValue: [NSNumber numberWithInt: argument] forKey: KEY];return;}
+-(int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
+-(void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
 MODEL_INT(compressionLevel, setCompressionLevel, iTM2Dvipdfm_compression_level);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verbosityLevel
-- (int) verbosityLevel;
+-(int)verbosityLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -230,15 +230,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * level = [self modelValueForKey: iTM2Dvipdfm_verbosity_level];
-	if([level isEqual: @"v"])
+	NSString * level = [self modelValueForKey:iTM2Dvipdfm_verbosity_level];
+	if([level isEqual:@"v"])
 		return 1;
-	else if([level isEqual: @"vv"])
+	else if([level isEqual:@"vv"])
 		return 2;
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setVerbosityLevel:
-- (void) setVerbosityLevel: (int) argument;
+-(void)setVerbosityLevel:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -249,9 +249,9 @@ To Do List:
 //iTM2_END;
 	switch(argument)
 	{
-		case 0: [self takeModelValue: @"" forKey: iTM2Dvipdfm_verbosity_level]; return;
-		case 1: [self takeModelValue: @"v" forKey: iTM2Dvipdfm_verbosity_level]; return;
-		default: [self takeModelValue: @"vv" forKey: iTM2Dvipdfm_verbosity_level]; return;
+		case 0: [self takeModelValue:@"" forKey:iTM2Dvipdfm_verbosity_level]; return;
+		case 1: [self takeModelValue:@"v" forKey:iTM2Dvipdfm_verbosity_level]; return;
+		default: [self takeModelValue:@"vv" forKey:iTM2Dvipdfm_verbosity_level]; return;
 	}
     return;
 }
@@ -259,7 +259,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(dvipdfm)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DvipdfmCompleteInstallation
-+ (void) iTM2DvipdfmCompleteInstallation;
++(void)iTM2DvipdfmCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -280,7 +280,7 @@ OPTIONS
 in the configuration file, that flag is off, and color\specialsare interpreted normally. The-coption 
 may be used to produce a black and white document from a document containing color TeX\special 
 commands. 
--d Remove thumbnail images after including them. (See the-toption for more information.) 
+-d Remove thumbnail images after including them.(See the-toption for more information.)
 -e Toggle partial font embedding flag. If partial font embedding is off, embedded fonts are fully 
 embedded. Thedefault, if not changed in the configuration file, is to embed only those glyphs actu- 
 ally used in the document. 
@@ -322,7 +322,7 @@ The thumbnail images must be named in a specific format. Theymust have the same 
 theDVIfile and theymust have the page number as the extension to the file name. Dvipdfm does not 
 generate the thumbnails itself, but it is distributed with a wrapper program nameddvipdftthat does 
 so. 
--v Increase verbosity. Results of the-voption are cumulative (e.g., -vv) increases the verbosity by 
+-v Increase verbosity. Results of the-voption are cumulative(e.g., -vv)increases the verbosity by 
 twoincrements. 
 -x x_offset 
 Set the left margin tox_offset. The default left margin is1.0in. The dimension may be specified in 

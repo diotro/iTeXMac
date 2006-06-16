@@ -24,7 +24,7 @@
 @implementation iTM2ObjectServer
 static id _iTM2SharedObjectServer = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -41,7 +41,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mutableDictionary
-+ (id) mutableDictionary;
++(id)mutableDictionary;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -52,7 +52,7 @@ To Do List:
     return _iTM2SharedObjectServer;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectForType:key:
-+ (id) objectForType: (id) type key: (id) key;
++(id)objectForType:(id)type key:(id)key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -63,7 +63,7 @@ To Do List:
     return [[[[[self mutableDictionary] objectForKey:type] objectForKey:key] objectForKey:@"address"] nonretainedObjectValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  typeEnumerator
-+ (NSEnumerator *) typeEnumerator;
++(NSEnumerator *)typeEnumerator;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -74,7 +74,7 @@ To Do List:
     return [[self mutableDictionary] keyEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEnumeratorForType:
-+ (NSEnumerator *) keyEnumeratorForType: (id) type;
++(NSEnumerator *)keyEnumeratorForType:(id)type;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -85,7 +85,7 @@ To Do List:
     return [[[self mutableDictionary] objectForKey:type] keyEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectEnumeratorForType:
-+ (NSEnumerator *) objectEnumeratorForType: (id) type;
++(NSEnumerator *)objectEnumeratorForType:(id)type;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -101,7 +101,7 @@ To Do List:
     return [MRA objectEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerObject:forType:key:retain:
-+ (BOOL) registerObject: (id) argument forType: (id) type key: (id) key retain: (BOOL) yorn;
++(BOOL)registerObject:(id)argument forType:(id)type key:(id)key retain:(BOOL)yorn;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -127,7 +127,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unregisterObjectForType:key:
-+ (void) unregisterObjectForType: (id) type key: (id) key;
++(void)unregisterObjectForType:(id)type key:(id)key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

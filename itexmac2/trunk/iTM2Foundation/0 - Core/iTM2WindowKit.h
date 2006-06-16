@@ -36,20 +36,20 @@ extern NSString * const iTM2DocumentEditedStatusNotification;
 
 @interface NSWindow(iTM2WindowKit)
 /*"Class methods"*/
-- (NSString *) frameIdentifier;
+-(NSString *)frameIdentifier;
 //+ (NSRect) frame;
 /*"Setters and Getters"*/
-- (NSString *) frameAutosaveIdentifierForMode: (iTM2WindowFrameAutosaveMode) aMode; // private
-- (NSString *) frameAutosaveModeKey; // private
-- (BOOL) positionShouldBeObserved; // YES to record the window position from one session to the other
-- (NSString *) windowsMenuItemTitle;
-- (NSComparisonResult) compareUsingLevel: (id) rhs;
+-(NSString *)frameAutosaveIdentifierForMode:(iTM2WindowFrameAutosaveMode)aMode; // private
+-(NSString *)frameAutosaveModeKey; // private
+-(BOOL)positionShouldBeObserved; // YES to record the window position from one session to the other
+-(NSString *)windowsMenuItemTitle;
+-(NSComparisonResult)compareUsingLevel:(id)rhs;
 @end
 
 @interface NSObject(iTM2WindowKitDelegation)
 
-- (NSString *) frameIdentifierForWindow: (NSWindow *) window;// the window delegate supplies the answer to the window's -positionShouldBeObserved
-- (BOOL) windowPositionShouldBeObserved: (NSWindow *) window;// the window delegate supplies the answer to the window's -positionShouldBeObserved
+-(NSString *)frameIdentifierForWindow:(NSWindow *)window;// the window delegate supplies the answer to the window's -positionShouldBeObserved
+-(BOOL)windowPositionShouldBeObserved:(NSWindow *)window;// the window delegate supplies the answer to the window's -positionShouldBeObserved
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindow(iTeXMac2)
@@ -60,9 +60,9 @@ extern NSString * const iTM2DocumentEditedStatusNotification;
 /*"Class methods"*/
 /*"Setters and Getters"*/
 /*"Main methods"*/
-- (NSString *) windowFrameIdentifier;
-- (NSString *) windowsMenuItemTitleForDocumentDisplayName: (NSString *) displayName;
-- (BOOL) windowPositionShouldBeObserved;
+-(NSString *)windowFrameIdentifier;
+-(NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+-(BOOL)windowPositionShouldBeObserved;
 /*"Overriden methods"*/
 @end
 

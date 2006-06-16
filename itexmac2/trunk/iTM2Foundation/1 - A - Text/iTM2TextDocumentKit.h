@@ -43,7 +43,7 @@ extern NSString * const iTM2TextInspectorType;
 	@abstract	Simply 'Text type'.
 	@result		see above.
 */
-+ (NSString *) inspectorType;
++(NSString *)inspectorType;
 
 /*!
 	@method		textStorage
@@ -51,19 +51,19 @@ extern NSString * const iTM2TextInspectorType;
 	@discussion	Forwards the message to its inspector.
 	@result		For AppleScript™ support.
 */
-- (id) textStorage;
+-(id)textStorage;
 
 /*!
 	@method		stringRepresentation
 	@abstract	String representation.
 */
-- (NSString *) stringRepresentation;
+-(NSString *)stringRepresentation;
 
 /*!
 	@method		setStringRepresentation:
 	@abstract	Setter of the string representation.
 */
-- (void) setStringRepresentation: (NSString *) argument;
+-(void)setStringRepresentation:(NSString *)argument;
 
 /*!
 	@method		stringFormatter
@@ -72,7 +72,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		A string formatter.
 */
-- (id) stringFormatter;
+-(id)stringFormatter;
 
 /*!
 	@method		setStringFormatter:
@@ -81,7 +81,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (void) setStringFormatter: (id) argument;
+-(void)setStringFormatter:(id)argument;
 
 /*!
 	@method		EOL
@@ -90,7 +90,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (unsigned int) EOL;
+-(unsigned int)EOL;
 
 /*!
 	@method		setEOL:
@@ -99,7 +99,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (void) setEOL: (unsigned int) argument;
+-(void)setEOL:(unsigned int)argument;
 
 /*!
 	@method		stringEncoding
@@ -108,7 +108,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (NSStringEncoding) stringEncoding;
+-(NSStringEncoding)stringEncoding;
 
 /*!
 	@method		isStringEncodingHardCoded
@@ -117,7 +117,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		yorn
 */
-- (BOOL) isStringEncodingHardCoded;
+-(BOOL)isStringEncodingHardCoded;
 
 /*!
 	@method		setStringEncoding:
@@ -126,7 +126,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (void) setStringEncoding: (NSStringEncoding) argument;
+-(void)setStringEncoding:(NSStringEncoding)argument;
 
 /*!
 	@method		revertDocumentToSavedWithStringEncoding:
@@ -135,7 +135,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		encoding is the encoding
 	@result		None
 */
-- (void) revertDocumentToSavedWithStringEncoding: (NSStringEncoding) encoding;
+-(void)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding;
 
 /*!
 	@method			getLine:column:forHint:
@@ -147,7 +147,7 @@ extern NSString * const iTM2TextInspectorType;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (unsigned int) getLine: (unsigned int *) lineRef column: (unsigned int *) columnRef forHint: (NSDictionary *) hint;
+-(unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
 
 @end
 
@@ -164,14 +164,14 @@ extern NSString * const iTM2TextInspectorType;
 	@abstract	This is the object edited.
 	@result		an NSTextStorage like object.
 */
-- (id) textStorage;
+-(id)textStorage;
 
 /*!
 	@method		lazyTextStorage
 	@abstract	This is the object edited. Lazy initializer.
 	@result		an NSTextStorage like object.
 */
-- (id) lazyTextStorage;
+-(id)lazyTextStorage;
 
 /*!
 	@method		setTextStorage
@@ -179,7 +179,7 @@ extern NSString * const iTM2TextInspectorType;
 	@discussion	Description forthcoming.
 	@param		an NSTextStorage like object.
 */
-- (void) setTextStorage: (id) argument;
+-(void)setTextStorage:(id)argument;
 
 /*!
 	@method		textEditors
@@ -187,7 +187,7 @@ extern NSString * const iTM2TextInspectorType;
 	@discussion	Discussion forthcoming.
 	@result		a mutable array of views.
 */
-- (id) textEditors;
+-(id)textEditors;
 
 /*!
 	@method		textView
@@ -197,7 +197,7 @@ extern NSString * const iTM2TextInspectorType;
 				or at least the last one that received the focus.
 	@result		an NSTextView object, may be only a NSText object but it is not required.
 */
-- (id) textView;
+-(id)textView;
 
 /*!
 	@method		highlightAndScrollToVisibleLine:column:
@@ -207,7 +207,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		column is a column number
 	@result		None
 */
-- (void) highlightAndScrollToVisibleLine: (unsigned int) line column: (unsigned int) column;
+-(void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column;
 
 /*!
 	@method		EOL
@@ -216,7 +216,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (unsigned int) EOL;
+-(unsigned int)EOL;
 
 /*!
 	@method		setEOL:
@@ -225,7 +225,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (void) setEOL: (unsigned int) argument;
+-(void)setEOL:(unsigned int)argument;
 
 /*!
 	@method		stringEncoding
@@ -234,7 +234,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (NSStringEncoding) stringEncoding;
+-(NSStringEncoding)stringEncoding;
 
 /*!
 	@method		isStringEncodingHardCoded
@@ -243,7 +243,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		yorn
 */
-- (BOOL) isStringEncodingHardCoded;
+-(BOOL)isStringEncodingHardCoded;
 
 /*!
 	@method		setStringEncoding:
@@ -252,7 +252,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		None
 */
-- (void) setStringEncoding: (NSStringEncoding) argument;
+-(void)setStringEncoding:(NSStringEncoding)argument;
 
 /*!
 	@method		isStringEncodingHardCoded
@@ -261,7 +261,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		None
 	@result		yorn
 */
-- (BOOL) isStringEncodingHardCoded;
+-(BOOL)isStringEncodingHardCoded;
 
 @end
 
@@ -275,7 +275,7 @@ extern NSString * const iTM2TextInspectorType;
 	@param		string is an NSString object.
 	@result		None
 */
-- (void) replaceCharactersInRange: (NSRange) range withString: (NSString *) string;
+-(void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
 
 @end
 
@@ -308,6 +308,6 @@ extern NSString * const iTM2TextInspectorType;
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @interface iTM2TextEditor: NSTextView <iTM2TextEditor>
-- (void) scrollTaggedToVisible: (id <NSMenuItem>) sender;
-- (void) scrollTaggedAndRepresentedStringToVisible: (id <NSMenuItem>) sender;
+-(void)scrollTaggedToVisible:(id <NSMenuItem>)sender;
+-(void)scrollTaggedAndRepresentedStringToVisible:(id <NSMenuItem>)sender;
 @end

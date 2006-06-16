@@ -27,7 +27,7 @@
 
 @implementation NSApplication(iTM2AppleScriptSupport)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projects
-- (NSArray *) projects;// get the project documents of application "iTeXMac2"
+-(NSArray *)projects;// get the project documents of application "iTeXMac2"
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -39,7 +39,7 @@ To Do List:
 	return [SPC projects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertInProjects:
-- (void) insertInProjects: (id) argument;// make new project document
+-(void)insertInProjects:(id)argument;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -47,12 +47,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[SDC addDocument: argument];
+	[SDC addDocument:argument];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedTeXDocuments:
-- (id) orderedTeXDocuments;
+-(id)orderedTeXDocuments;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (02/06/2002)
 - 1.1: 06/01/2002
@@ -64,24 +64,24 @@ To Do List:
     NSMutableArray * MA = [NSMutableArray array];
     while(D = [E nextObject])
     {
-        if(([D isKindOfClass: [iTM2TeXDocument class]]) && ([MA indexOfObject: D] == NSNotFound))
-            [MA addObject: D];
+        if(([D isKindOfClass:[iTM2TeXDocument class]]) && ([MA indexOfObject:D] == NSNotFound))
+            [MA addObject:D];
     }
     return [[MA copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertInOrderedTeXDocuments:atIndex:
-- (void) insertInOrderedTeXDocuments: (NSDocument *) document atIndex: (int) index;
+-(void)insertInOrderedTeXDocuments:(NSDocument *)document atIndex:(int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (02/06/2002)
 - 1.1: 06/01/2002
 To Do List:
 "*/
 {
-    if([document isKindOfClass: [iTM2TeXDocument class]])
+    if([document isKindOfClass:[iTM2TeXDocument class]])
     {
         
-        if([[self orderedTeXDocuments] indexOfObject: document] == NSNotFound)
-            [SDC addDocument: document];
+        if([[self orderedTeXDocuments] indexOfObject:document] == NSNotFound)
+            [SDC addDocument:document];
         
         if(index == 0)
         {
@@ -91,7 +91,7 @@ To Do List:
                 NSWindowController * WC;
                 while(WC = [E nextObject])
                 {
-                    [[WC window] orderFront: self];
+                    [[WC window] orderFront:self];
                 }
             }
         }
@@ -102,7 +102,7 @@ To Do List:
 
 @implementation NSDocument(iTM2AppleScriptSupport)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedWindows
-- (NSArray *) orderedWindows;
+-(NSArray *)orderedWindows;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -117,7 +117,7 @@ To Do List:
 	NSWindow * W;
 	while(WC = [E nextObject])
 		if(W = [WC window])
-			[mra addObject: W];
+			[mra addObject:W];
 //iTM2_END;
 	return mra;
 }
@@ -125,7 +125,7 @@ To Do List:
 
 @implementation iTM2TeXProjectDocument(iTM2AppleScriptSupport)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXDocumentsArray
-- (NSArray *) TeXDocumentsArray;// make new project document
+-(NSArray *)TeXDocumentsArray;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -137,13 +137,13 @@ To Do List:
 	NSEnumerator * E = [[self subdocuments] objectEnumerator];
 	id document;
 	while(document = [E nextObject])
-		if([document isKindOfClass: [iTM2TeXDocument class]])
-			[mra addObject: document];
+		if([document isKindOfClass:[iTM2TeXDocument class]])
+			[mra addObject:document];
 //iTM2_END;
 	return mra;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentsArray
-- (NSArray *) PDFDocumentsArray;// make new project document
+-(NSArray *)PDFDocumentsArray;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -155,13 +155,13 @@ To Do List:
 	NSEnumerator * E = [[self subdocuments] objectEnumerator];
 	id document;
 	while(document = [E nextObject])
-		if([document isKindOfClass: [iTM2PDFDocument class]])
-			[mra addObject: document];
+		if([document isKindOfClass:[iTM2PDFDocument class]])
+			[mra addObject:document];
 //iTM2_END;
 	return mra;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectDocumentsArray
-- (NSArray *) projectDocumentsArray;// make new project document
+-(NSArray *)projectDocumentsArray;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -173,7 +173,7 @@ To Do List:
 	return [[self subdocuments] allObjects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertInSubdocumentsArray:
-- (void) insertInSubdocumentsArray: (id) argument;// make new document
+-(void)insertInSubdocumentsArray:(id)argument;// make new document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -181,7 +181,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self addSubdocument: argument];
+	[self addSubdocument:argument];
 //iTM2_END;
 	return;
 }
@@ -190,15 +190,15 @@ To Do List:
 @interface NSGetCommand_iTM2 : NSGetCommand
 @end
 @implementation NSGetCommand_iTM2
-+ (void) load;
++(void)load;
 {
-	[NSGetCommand_iTM2 poseAsClass: [NSGetCommand class]];
+	[NSGetCommand_iTM2 poseAsClass:[NSGetCommand class]];
 }
-- (id) performDefaultImplementation;
+-(id)performDefaultImplementation;
 {
 	return [super performDefaultImplementation];
 }
-- (id)executeCommand;
+-(id)executeCommand;
 {
 	return [super executeCommand];
 }
@@ -215,20 +215,20 @@ NSString * const iTM2ApplProjectNameKey = @"Project";// the name of AppleScript 
 @interface CLASS: NSScriptCommand\
 @end\
 @implementation CLASS\
-- (id) performDefaultImplementation;\
+-(id)performDefaultImplementation;\
 {\
 	NSString * path = [[self directParameter] stringByStandardizingPath];\
-	if(![DFM isReadableFileAtPath: path])\
+	if(![DFM isReadableFileAtPath:path])\
     {\
-        path = [[[self evaluatedArguments] objectForKey: iTM2ApplFileNameKey] stringByStandardizingPath];\
-        if(![DFM isReadableFileAtPath: path])\
+        path = [[[self evaluatedArguments] objectForKey:iTM2ApplFileNameKey] stringByStandardizingPath];\
+        if(![DFM isReadableFileAtPath:path])\
         {\
             NSLog(@"No readable file at path: %@", path);\
             return nil;\
         }\
     }\
-    NSString * project = [[self evaluatedArguments] objectForKey: iTM2ApplProjectNameKey];\
-	[[iTM2TeXPCommandManager commandPerformerForName: KEY] performCommandForProject: [SPC projectForSource: project]];\
+    NSString * project = [[self evaluatedArguments] objectForKey:iTM2ApplProjectNameKey];\
+	[[iTM2TeXPCommandManager commandPerformerForName:KEY] performCommandForProject:[SPC projectForSource:project]];\
     return nil;\
 }\
 @end

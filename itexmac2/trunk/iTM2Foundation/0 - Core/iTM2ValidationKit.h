@@ -24,56 +24,56 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ValidationKit
 
 @interface NSView(iTM2Validation)
-- (BOOL) validateUserInterfaceItems;
-- (BOOL) isValid;
-- (BOOL) validateWindowContent;
+-(BOOL)validateUserInterfaceItems;
+-(BOOL)isValid;
+-(BOOL)validateWindowContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindow(iTeXMac2)
 @interface NSWindow(iTM2Validation)
-- (BOOL) validateContent;
+-(BOOL)validateContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSDrawer(iTeXMac2)
 @interface NSDrawer(iTM2Validation)
-- (BOOL) validateContent;
+-(BOOL)validateContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindowController(iTeXMac2)
 @interface NSWindowController(iTM2Validation)
-- (BOOL) validateWindowContent;
+-(BOOL)validateWindowContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindowController(iTeXMac2)
 @interface NSDocument(iTM2Validation)
-- (BOOL) validateWindowsContents;
+-(BOOL)validateWindowsContents;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSCell(iTeXMac2)
 
 @interface NSCell(iTM2Validation)
-- (BOOL) isValid;
+-(BOOL)isValid;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSControl(iTeXMac2)
 
 @interface NSControl(iTM2Validation)
-- (BOOL) isValid;
+-(BOOL)isValid;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSToolbar(iTM2Validation)
 
 @interface NSToolbar(iTM2Validation)
-- (NSWindow *) window;
+-(NSWindow *)window;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSObject(iTM2Validation)
 
 @interface NSObject(iTM2Validation)
-- (BOOL) validateUserInterfaceItem: (id) sender;
-+ (BOOL) target: (id) target validateUserInterfaceItem: (id) sender;
-- (IBAction) noop: (id) sender;// do nothing: message catcher
-- (BOOL) validateNoop: (id) sender;// always return NO such that the sender is not enabled...
+-(BOOL)validateUserInterfaceItem:(id)sender;
++(BOOL)target:(id)target validateUserInterfaceItem:(id)sender;
+-(IBAction)noop:(id)sender;// do nothing: message catcher
+-(BOOL)validateNoop:(id)sender;// always return NO such that the sender is not enabled...
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ValidationKit

@@ -35,7 +35,7 @@
     @param      None
     @result     None
 */
-- (void) uninstallInNSAppResponderChain;
+-(void)uninstallInNSAppResponderChain;
 
 /*! 
     @method     installInResponderChainAfterNSApp
@@ -44,7 +44,7 @@
     @param      None
     @result     None
 */
-+ (void) installInResponderChainAfterNSApp;
++(void)installInResponderChainAfterNSApp;
 
 /*! 
     @method     installResponderForWindow:
@@ -53,7 +53,7 @@
     @param      aWindow
     @result     None
 */
-+ (void) installResponderForWindow: (NSWindow *) aWindow;
++(void)installResponderForWindow:(NSWindow *)aWindow;
 
 /*! 
     @method     insertInResponderChainAfter:
@@ -62,16 +62,16 @@
     @param      responder
     @result     None
 */
-- (BOOL) insertInResponderChainAfter: (NSResponder*) responder;
+-(BOOL)insertInResponderChainAfter:(NSResponder*)responder;
 
 @end
 
 //Declared but not implemented
 @interface NSResponder(iTeXMac2Scrolling)
-- (void) scrollPageLeft: (id) sender;
-- (void) scrollPageRight: (id) sender;
-- (void) scrollCharacterLeft: (id) sender;
-- (void) scrollCharacterRight: (id) sender;
+-(void)scrollPageLeft:(id)sender;
+-(void)scrollPageRight:(id)sender;
+-(void)scrollCharacterLeft:(id)sender;
+-(void)scrollCharacterRight:(id)sender;
 @end
 
 /*! 

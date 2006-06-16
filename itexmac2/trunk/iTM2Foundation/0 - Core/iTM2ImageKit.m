@@ -26,7 +26,7 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 
 #define DEFINE_IMAGE(SELECTOR, NAME)\
-+ (NSImage *) SELECTOR;\
++(NSImage *)SELECTOR;\
 {\
 	static NSImage * I = nil;\
 	if(!I)\

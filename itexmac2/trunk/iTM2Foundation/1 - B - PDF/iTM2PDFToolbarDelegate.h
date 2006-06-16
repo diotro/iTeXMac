@@ -55,36 +55,36 @@ extern NSString * const iTM2ToolbarHistorySetItemIdentifier;
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
-- (NSTextField *) navigationFieldForToolbar;
-- (NSTextField *) navigationFieldForPalette;
-- (NSView *) navigationSetForToolbar;
-- (NSView *) navigationSetForPalette;
-- (NSView *) previousSet;
-- (NSView *) previousMixedSet;
-- (NSView *) nextMixedSet;
-- (NSView *) nextSet;
-- (NSView *) historySet;
-- (NSButton *) buttonFirst;
-- (NSButton *) buttonPrevious;
-- (NSButton *) buttonPreviousPrevious;
-- (NSButton *) buttonLast;
-- (NSButton *) buttonNext;
-- (NSButton *) buttonNextNext;
-- (NSButton *) buttonBack;
-- (NSButton *) buttonForward;
-- (NSTextField *) navigationField;
-- (void) setNavigationField: (NSTextField *) aTextField;
-- (id) backMenu;
-- (void) setBackMenu: (NSMenu *) aMenu;
-- (id) forwardMenu;
-- (void) setForwardMenu: (NSMenu *) aMenu;
+-(NSTextField *)navigationFieldForToolbar;
+-(NSTextField *)navigationFieldForPalette;
+-(NSView *)navigationSetForToolbar;
+-(NSView *)navigationSetForPalette;
+-(NSView *)previousSet;
+-(NSView *)previousMixedSet;
+-(NSView *)nextMixedSet;
+-(NSView *)nextSet;
+-(NSView *)historySet;
+-(NSButton *)buttonFirst;
+-(NSButton *)buttonPrevious;
+-(NSButton *)buttonPreviousPrevious;
+-(NSButton *)buttonLast;
+-(NSButton *)buttonNext;
+-(NSButton *)buttonNextNext;
+-(NSButton *)buttonBack;
+-(NSButton *)buttonForward;
+-(NSTextField *)navigationField;
+-(void)setNavigationField:(NSTextField *)aTextField;
+-(id)backMenu;
+-(void)setBackMenu:(NSMenu *)aMenu;
+-(id)forwardMenu;
+-(void)setForwardMenu:(NSMenu *)aMenu;
 /*"Main methods"*/
-- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar*) aToolbar;
-- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar*) aToolbar;
-- (NSToolbarItem *) toolbar: (NSToolbar *) aToolbar itemForItemIdentifier: (NSString *) anItemIdentifier willBeInsertedIntoToolbar: (BOOL) aFlag;
+-(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
+-(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
+-(NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
 /*"Overriden methods"*/
-- (id) init;
-- (void) dealloc;
+-(id)init;
+-(void)dealloc;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFToolbarDelegate

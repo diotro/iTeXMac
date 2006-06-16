@@ -32,7 +32,7 @@ NSString * const iTM2CompletionsExtension = @"iTM2Completions";
 static id _iTM2_CompletionsServer_Data = nil;
 @implementation iTM2CompletionsServer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  reloadCompletions
-+ (void)reloadCompletions;
++(void)reloadCompletions;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -117,7 +117,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  reloadCompletionsAtPath:
-+ (void)reloadCompletionsAtPath:(NSString *)path;
++(void)reloadCompletionsAtPath:(NSString *)path;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -201,7 +201,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addCompletions:forContext:ofCategory:
-+ (void)addCompletions:(NSArray *)completions forContext:(NSString *)context ofCategory:(NSString *)category;
++(void)addCompletions:(NSArray *)completions forContext:(NSString *)context ofCategory:(NSString *)category;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -255,7 +255,7 @@ once_more_joe:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= storageForContext:ofCategory:
-+ (id)storageForContext:(NSString *)context ofCategory:(NSString *)category;
++(id)storageForContext:(NSString *)context ofCategory:(NSString *)category;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -279,7 +279,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionsWithContentsOfURL:error:
-+ (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
++(NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -304,7 +304,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionsForPartialWord:inContext:ofCategory:
-+ (NSArray *)completionsForPartialWord:(NSString *)partialWord inContext:(NSString *)context ofCategory:(NSString *)category;
++(NSArray *)completionsForPartialWord:(NSString *)partialWord inContext:(NSString *)context ofCategory:(NSString *)category;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -349,7 +349,7 @@ To Do List:
 @implementation iTM2TextEditor(iTM2TextCompletionKit)
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  complete:
-- (void)complete:(id)sender;
+-(void)complete:(id)sender;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -361,7 +361,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
-- (NSRange)rangeForUserCompletion;
+-(NSRange)rangeForUserCompletion;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -374,7 +374,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionsForPartialWordRange:indexOfSelectedItem:
-- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)index;
+-(NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)index;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -405,7 +405,7 @@ To Do List:
     return RA;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContext:category:forPartialWordRange:
-- (BOOL)getContext:(NSString **)contextPtr category:(NSString **)categoryPtr forPartialWordRange:(NSRange)charRange;
+-(BOOL)getContext:(NSString **)contextPtr category:(NSString **)categoryPtr forPartialWordRange:(NSRange)charRange;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -426,7 +426,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertCompletion:forPartialWordRange:movement:isFinal:
-- (void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(int)movement isFinal:(BOOL)flag;
+-(void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(int)movement isFinal:(BOOL)flag;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003

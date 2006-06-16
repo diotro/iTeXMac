@@ -39,16 +39,16 @@ extern NSString * const iTM2MakeEmptyDocumentKey;
 @private
     NSMenu * _ADM;
 }
-+ (void) initialize;
-- (BOOL) applicationOpenUntitledFile: (NSApplication *) theApplication;
-- (void) setApplicationDockMenu: (NSMenu *) argument;
++(void)initialize;
+-(BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication;
+-(void)setApplicationDockMenu:(NSMenu *)argument;
 @end
 
 @interface NSObject(iTM2ApplicationDelegate)
-- (BOOL) isStrongGeneric;
-- (int) count;
-- (int) currentPhysicalPage;
-- (void) setCurrentPhysicalPage: (int) argument;
-- (NSRange) selectedRange;
-- (NSArray *) windowControllers;
+-(BOOL)isStrongGeneric;
+-(int)count;
+-(int)currentPhysicalPage;
+-(void)setCurrentPhysicalPage:(int)argument;
+-(NSRange)selectedRange;
+-(NSArray *)windowControllers;
 @end

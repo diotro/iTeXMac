@@ -41,10 +41,10 @@ typedef enum
 } iTM2PathDomainType;
 
 @interface iTM2TeXDistributionController: NSObject
-+ (NSString *) formatsPath;
-+ (NSDictionary *) fmtsAtPath: (NSString *) path;
-+ (NSArray *) basesAtPath: (NSString *) path;
-+ (NSArray *) memsAtPath: (NSString *) path;
++(NSString *)formatsPath;
++(NSDictionary *)fmtsAtPath:(NSString *)path;
++(NSArray *)basesAtPath:(NSString *)path;
++(NSArray *)memsAtPath:(NSString *)path;
 @end
 
 /*!
@@ -65,7 +65,7 @@ typedef enum
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (IBAction) showTeXDistributionPreferences: (id) sender;
+-(IBAction)showTeXDistributionPreferences:(id)sender;
 
 @end
 
@@ -109,28 +109,28 @@ typedef enum
     @param      None.
     @result     result forthcoming
 */
-- (NSString *) commonCommandOutputDirectory;
+-(NSString *)commonCommandOutputDirectory;
 
-+ (NSString *) defaultTeXMFPath;
-+ (NSString *) defaultTeXMFBinariesPath;
-+ (NSString *) defaultGhostScriptBinariesPath;
-- (NSString *) TeXMFDistribution;// low level getter
-- (void) setTeXMFDistribution: (NSString *) argument;
-- (NSString *) TeXMFBinariesDistribution;// low level getter
-- (void) setTeXMFBinariesDistribution: (NSString *) argument;
-- (NSString *) GhostScriptBinariesDistribution;// low level getter
-- (void) setGhostScriptBinariesDistribution: (NSString *) argument;
-- (NSString *) getTeXMFPath;
-- (NSString *) TeXMFPath;
-- (void) setTeXMFPath: (NSString *) argument;
-- (NSString *) getTeXMFBinariesPath;
-- (NSString *) TeXMFBinariesPath;
-- (void) setTeXMFBinariesPath: (NSString *) argument;
-- (NSString *) getGhostScriptBinariesPath;
-- (NSString *) GhostScriptBinariesPath;
-- (void) setGhostScriptBinariesPath: (NSString *) argument;
-- (NSString *) getPATHPrefix;
-- (NSString *) getPATHSuffix;
++(NSString *)defaultTeXMFPath;
++(NSString *)defaultTeXMFBinariesPath;
++(NSString *)defaultGhostScriptBinariesPath;
+-(NSString *)TeXMFDistribution;// low level getter
+-(void)setTeXMFDistribution:(NSString *)argument;
+-(NSString *)TeXMFBinariesDistribution;// low level getter
+-(void)setTeXMFBinariesDistribution:(NSString *)argument;
+-(NSString *)GhostScriptBinariesDistribution;// low level getter
+-(void)setGhostScriptBinariesDistribution:(NSString *)argument;
+-(NSString *)getTeXMFPath;
+-(NSString *)TeXMFPath;
+-(void)setTeXMFPath:(NSString *)argument;
+-(NSString *)getTeXMFBinariesPath;
+-(NSString *)TeXMFBinariesPath;
+-(void)setTeXMFBinariesPath:(NSString *)argument;
+-(NSString *)getGhostScriptBinariesPath;
+-(NSString *)GhostScriptBinariesPath;
+-(void)setGhostScriptBinariesPath:(NSString *)argument;
+-(NSString *)getPATHPrefix;
+-(NSString *)getPATHSuffix;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2DistributionServer

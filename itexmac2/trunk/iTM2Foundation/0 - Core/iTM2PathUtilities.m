@@ -27,7 +27,7 @@
 /*"Description forthcoming."*/
 @implementation NSString(iTM2PathUtilities)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isFinderAliasTraverseLink:isDirectory:
-- (BOOL) isFinderAliasTraverseLink: (BOOL) aFlag isDirectory: (BOOL *) isDirectory;
+-(BOOL)isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
 /*"Returns YES if the receiver is a Finder Alias.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -64,13 +64,12 @@ OSStatus FSRefMakePath ( const FSRef *ref, UInt8 *path, UInt32 pathSize );
  OSErr FSIsAliasFile ( const FSRef *fileRef, Boolean *aliasFileFlag, Boolean *folderFlag ); 
 */
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByResolvingFinderAliasesInPath
-- (NSString *) stringByResolvingFinderAliasesInPath;
+-(NSString *)stringByResolvingFinderAliasesInPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List:
 "*/
-#if 1
 {iTM2_DIAGNOSTIC;
     NSString * path = self;
     NSMutableArray * PCs = [NSMutableArray array];
@@ -90,7 +89,7 @@ To Do List:
                 int error = 0;
                 if(error = FSResolveAliasFile (&fsRef, true , &targetIsFolder, &wasAliased))
                 {
-                    NSLog(@"%@ FSResolveAliasFile error: %d.", __PRETTY_FUNCTION__, error);
+                    NSLog(@"%s FSResolveAliasFile error: %d.", __PRETTY_FUNCTION__, error);
                     return self;
                 }
                 else
@@ -101,11 +100,12 @@ To Do List:
                         if(resolvedUrl != NULL)
                         {
                             resolvedPath = (NSString*) CFURLCopyFileSystemPath(resolvedUrl, kCFURLPOSIXPathStyle);
+							[resolvedPath autorelease];
                             CFRelease(resolvedUrl);
                         }
                         else
                         {
-                            NSLog(@"%@ CFURLCreateFromFSRef error.", __PRETTY_FUNCTION__);
+                            NSLog(@"%s CFURLCreateFromFSRef error.", __PRETTY_FUNCTION__);
                             return self;
                         }
                     }
@@ -148,45 +148,8 @@ To Do List:
         }
     }
 }
-#else
-{iTM2_DIAGNOSTIC;
-    FSRef ref;
-    OSErr error;
-    error = FSPathMakeRef([DFM fileSystemRepresentationWithPath:self], &ref, nil);
-    if(error)
-    {
-        NSLog(@"%@ FSPathMakeRef error: %d.", __PRETTY_FUNCTION__, error);
-        return self;
-    }
-    else
-    {
-        BOOL isDirectory = NO;
-        BOOL wasAlias = NO;
-        error = FSResolveAliasFile(&ref, YES, &isDirectory, &wasAlias);
-        if(error)
-        {
-            NSLog(@"%@ FSResolveAliasFile error: %d.", __PRETTY_FUNCTION__, error);
-            return self;
-        }
-        else if(wasAlias)
-        {
-            char path[2048];
-            error = FSRefMakePath (&ref, path, 2048);
-            if(error)
-            {
-                NSLog(@"%@ FSResolveAliasFile error: %d.", __PRETTY_FUNCTION__, error);
-                return self;
-            }
-            else
-                return [NSString stringWithUTF8String:path];
-        }
-        else
-            return self;
-    }
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByResolvingSymlinksAndFinderAliasesInPath
-- (NSString *) stringByResolvingSymlinksAndFinderAliasesInPath;
+-(NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -206,7 +169,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByAbbreviatingWithDotsRelativeToDirectory:
-- (NSString *) stringByAbbreviatingWithDotsRelativeToDirectory: (NSString *) aPath;
+-(NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
 /*"It is not strong: the sender is responsible of the arguments, if they do not represent directory paths, the shame on it.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -236,7 +199,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shortestStringByAbbreviatingWithTildeInPath
-- (NSString *) shortestStringByAbbreviatingWithTildeInPath;
+-(NSString *)shortestStringByAbbreviatingWithTildeInPath;
 /*"In between the receiver and the path abbreviated with tilde, return the shortest one.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -247,7 +210,7 @@ To Do List:
     return ([S length]<[self length]? S:self);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByNormalizingPath
-- (NSString *) stringByNormalizingPath;
+-(NSString *)stringByNormalizingPath;
 /*"In between the receiver and the path abbreviated with tilde, return the shortest one.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -282,7 +245,7 @@ To Do List:
     return [NSString pathWithComponents:components];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByDeletingAllPathExtensions
-- (NSString *) stringByDeletingAllPathExtensions;
+-(NSString *)stringByDeletingAllPathExtensions;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -300,7 +263,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enclosingDirectoryForFileNames:
-+ (NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
++(NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -345,7 +308,7 @@ To Do List:
 	return [NSString pathWithComponents:commonComponents];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileName:
-- (BOOL)isEqualToFileName:(NSString *)otherFileName;
+-(BOOL)isEqualToFileName:(NSString *)otherFileName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -358,7 +321,7 @@ To Do List:
 		&& [[self lowercaseString] isEqual:[otherFileName lowercaseString]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContainedInDirectory:
-- (BOOL)isContainedInDirectory:(NSString *)dirName;
+-(BOOL)isContainedInDirectory:(NSString *)dirName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -396,7 +359,7 @@ NSString * const iTM2PATHSuffixKey = @"iTM2PATHSuffix";
 
 @implementation iTM2MainInstaller(iTM2PathUtilities)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PathUtilitiesCompleteInstallation
-+ (void) iTM2PathUtilitiesCompleteInstallation;
++(void)iTM2PathUtilitiesCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

@@ -23,19 +23,19 @@
 
 
 @interface NSImage(iTeXMac2)
-+ (NSImage *) imageReadOnlyPencil;
-+ (NSImage *) imageLock;
-+ (NSImage *) imageUnlock;
-+ (NSImage *) imageJava;
-+ (NSImage *) imageBlueDimple;
-+ (NSImage *) imageGreyDimple;
-+ (NSImage *) imageRedDimple;
-+ (NSImage *) imageOrangeDimple;
-+ (NSImage *) imageGreenDimple;
-+ (NSImage *) imageSplitClose;
-+ (NSImage *) imageSplitHorizontal;
-+ (NSImage *) imageSplitVertical;
-+ (NSImage *) imageMissingImage;
++(NSImage *)imageReadOnlyPencil;
++(NSImage *)imageLock;
++(NSImage *)imageUnlock;
++(NSImage *)imageJava;
++(NSImage *)imageBlueDimple;
++(NSImage *)imageGreyDimple;
++(NSImage *)imageRedDimple;
++(NSImage *)imageOrangeDimple;
++(NSImage *)imageGreenDimple;
++(NSImage *)imageSplitClose;
++(NSImage *)imageSplitHorizontal;
++(NSImage *)imageSplitVertical;
++(NSImage *)imageMissingImage;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ImageKit

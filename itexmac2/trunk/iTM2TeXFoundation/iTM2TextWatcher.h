@@ -28,7 +28,7 @@ extern NSString * const iTM2UDMatchDelimiterKey;
 
 @interface NSTextView(iTM2TextWatcher)
 
-- (IBAction) toggleWatchDelimiter: (id) sender;
+-(IBAction)toggleWatchDelimiter:(id)sender;
 
 @end
 

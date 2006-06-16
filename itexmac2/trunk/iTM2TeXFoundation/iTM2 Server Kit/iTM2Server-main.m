@@ -71,19 +71,19 @@ int main(int argc, const char *argv[])
             }
             if(strlen(fileName) && LaunchiTeXMac2IfNeeded(argc, argv))
             {
-                NSString * conversationID = [NSString stringWithUTF8String: conversation];
-                NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey: @"PWD"];
+                NSString * conversationID = [NSString stringWithUTF8String:conversation];
+                NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey:@"PWD"];
 //NSLog(@"PWD: %@", PWD);
-                NSString * path = [[NSString stringWithUTF8String: fileName] stringByStandardizingPath];
+                NSString * path = [[NSString stringWithUTF8String:fileName] stringByStandardizingPath];
 //NSLog(@"Editing file: %@", path);
                 NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                    ([path hasPrefix: @"/"]? path:
-                        [[PWD stringByAppendingPathComponent: path] stringByStandardizingPath]), iTM2ServerFileKey,
+                    ([path hasPrefix:@"/"]? path:
+                        [[PWD stringByAppendingPathComponent:path] stringByStandardizingPath]), iTM2ServerFileKey,
                     conversationID, iTM2ServerConversationIDKey,
                             nil];
-				[MD setObject: [[NSProcessInfo processInfo] environment] forKey: iTM2ProcessInfoEnvironmentKey];
+				[MD setObject:[[NSProcessInfo processInfo] environment] forKey:iTM2ProcessInfoEnvironmentKey];
                 if(strlen(projectName))
-                    [MD setObject: [[NSString stringWithUTF8String: projectName] stringByStandardizingPath] forKey: iTM2ServerProjectKey];
+                    [MD setObject:[[NSString stringWithUTF8String:projectName] stringByStandardizingPath] forKey:iTM2ServerProjectKey];
                 [[NSDistributedNotificationCenter defaultCenter]
                     postNotificationName: iTM2ServerShouldOpenFileNotification
                         object: nil
@@ -161,25 +161,25 @@ int main(int argc, const char *argv[])
             }
             if(strlen(fileName) && LaunchiTeXMac2IfNeeded(argc, argv))
             {
-                NSString * conversationID = [NSString stringWithUTF8String: conversation];
-                NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey: @"PWD"];
+                NSString * conversationID = [NSString stringWithUTF8String:conversation];
+                NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey:@"PWD"];
 //NSLog(@"PWD: %@", PWD);
-                NSString * path = [[NSString stringWithUTF8String: fileName] stringByStandardizingPath];
+                NSString * path = [[NSString stringWithUTF8String:fileName] stringByStandardizingPath];
 //NSLog(@"Editing file: %@", path);
                 NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                    ([path hasPrefix: @"/"]? path:
-                        [[PWD stringByAppendingPathComponent: path] stringByStandardizingPath]), iTM2ServerFileKey,
+                    ([path hasPrefix:@"/"]? path:
+                        [[PWD stringByAppendingPathComponent:path] stringByStandardizingPath]), iTM2ServerFileKey,
                     conversationID, iTM2ServerConversationIDKey,
-                    [NSNumber numberWithBool: dontOrderFront], iTM2ServerDontOrderFrontKey,
+                    [NSNumber numberWithBool:dontOrderFront], iTM2ServerDontOrderFrontKey,
                             nil];
                 if(strlen(projectName))
-                    [MD setObject: [[NSString stringWithUTF8String: projectName] stringByStandardizingPath] forKey: iTM2ServerProjectKey];
+                    [MD setObject:[[NSString stringWithUTF8String:projectName] stringByStandardizingPath] forKey:iTM2ServerProjectKey];
                 if(strlen(lineNumber))
-                    [MD setObject: [NSString stringWithUTF8String: lineNumber] forKey: iTM2ServerLineKey];
+                    [MD setObject:[NSString stringWithUTF8String:lineNumber] forKey:iTM2ServerLineKey];
                 if(strlen(columnNumber))
-                    [MD setObject: [NSString stringWithUTF8String: columnNumber] forKey: iTM2ServerColumnKey];
+                    [MD setObject:[NSString stringWithUTF8String:columnNumber] forKey:iTM2ServerColumnKey];
             
-				[MD setObject: [[NSProcessInfo processInfo] environment] forKey: iTM2ProcessInfoEnvironmentKey];
+				[MD setObject:[[NSProcessInfo processInfo] environment] forKey:iTM2ProcessInfoEnvironmentKey];
                 [[NSDistributedNotificationCenter defaultCenter]
                     postNotificationName: iTM2ServerShouldEditFileNotification
                         object: nil
@@ -268,26 +268,26 @@ int main(int argc, const char *argv[])
             }
             if(strlen(fileName) && LaunchiTeXMac2IfNeeded(argc, argv))
             {
-                NSString * conversationID = [NSString stringWithUTF8String: conversation];
-                NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey: @"PWD"];
-                NSString * path = [[NSString stringWithUTF8String: fileName] stringByStandardizingPath];
+                NSString * conversationID = [NSString stringWithUTF8String:conversation];
+                NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey:@"PWD"];
+                NSString * path = [[NSString stringWithUTF8String:fileName] stringByStandardizingPath];
 //NSLog(@"Displaying file: %@", path);
                 NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                    ([path hasPrefix: @"/"]? path:
-                        [[PWD stringByAppendingPathComponent: path] stringByStandardizingPath]), iTM2ServerFileKey,
+                    ([path hasPrefix:@"/"]? path:
+                        [[PWD stringByAppendingPathComponent:path] stringByStandardizingPath]), iTM2ServerFileKey,
                     conversationID, iTM2ServerConversationIDKey,
-                    [NSNumber numberWithBool: dontOrderFront], iTM2ServerDontOrderFrontKey,
+                    [NSNumber numberWithBool:dontOrderFront], iTM2ServerDontOrderFrontKey,
                             nil];
                 if(strlen(sourceName))
-                    [MD setObject: [NSString stringWithUTF8String: sourceName] forKey: iTM2ServerSourceKey];
+                    [MD setObject:[NSString stringWithUTF8String:sourceName] forKey:iTM2ServerSourceKey];
                 if(strlen(projectName))
-                    [MD setObject: [[NSString stringWithUTF8String: projectName] stringByStandardizingPath] forKey: iTM2ServerProjectKey];
+                    [MD setObject:[[NSString stringWithUTF8String:projectName] stringByStandardizingPath] forKey:iTM2ServerProjectKey];
                 if(strlen(lineNumber))
-                    [MD setObject: [NSString stringWithUTF8String: lineNumber] forKey: iTM2ServerLineKey];
+                    [MD setObject:[NSString stringWithUTF8String:lineNumber] forKey:iTM2ServerLineKey];
                 if(strlen(columnNumber))
-                    [MD setObject: [NSString stringWithUTF8String: columnNumber] forKey: iTM2ServerColumnKey];
+                    [MD setObject:[NSString stringWithUTF8String:columnNumber] forKey:iTM2ServerColumnKey];
             
-				[MD setObject: [[NSProcessInfo processInfo] environment] forKey: iTM2ProcessInfoEnvironmentKey];
+				[MD setObject:[[NSProcessInfo processInfo] environment] forKey:iTM2ProcessInfoEnvironmentKey];
                 [[NSDistributedNotificationCenter defaultCenter]
                     postNotificationName: iTM2ServerShouldDisplayFileNotification
                         object: nil
@@ -295,7 +295,7 @@ int main(int argc, const char *argv[])
                                 deliverImmediately: YES];
             }
             else
-                NSLog(@"Could not display file: <%@>", [NSString stringWithUTF8String: fileName]);
+                NSLog(@"Could not display file: <%@>", [NSString stringWithUTF8String:fileName]);
 //    printf("iTM2TextEditorShouldOpenTextFile distributed notification posted\nfile: <%s>, line: <%s>", fileName, lineNumber);
             iTM2_RELEASE_POOL;
             return 0;
@@ -305,9 +305,9 @@ int main(int argc, const char *argv[])
         {
 //NSLog(@"***  UPDATE");
 			const char * projectName = "";
-            NSString * conversationID = [NSString stringWithUTF8String: conversation];
+            NSString * conversationID = [NSString stringWithUTF8String:conversation];
             NSMutableArray * FNs = [NSMutableArray array];
-            NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey: @"PWD"];
+            NSString * PWD = [[[NSProcessInfo processInfo] environment] objectForKey:@"PWD"];
             BOOL all = NO;
             while(++index < argc)
             {
@@ -328,11 +328,11 @@ int main(int argc, const char *argv[])
                     {
                         const char * fileName = argv[index];
 //NSLog(@"argv[index]: %s", fileName);
-//NSLog(@"UTF8: %@", [NSString stringWithUTF8String: fileName]);
-                        NSString * path = [[NSString stringWithUTF8String: fileName] stringByStandardizingPath];
-                        if(![path hasPrefix: @"/"])
-                            path = [[PWD stringByAppendingPathComponent: path] stringByStandardizingPath];
-                        [FNs addObject: path];
+//NSLog(@"UTF8: %@", [NSString stringWithUTF8String:fileName]);
+                        NSString * path = [[NSString stringWithUTF8String:fileName] stringByStandardizingPath];
+                        if(![path hasPrefix:@"/"])
+                            path = [[PWD stringByAppendingPathComponent:path] stringByStandardizingPath];
+                        [FNs addObject:path];
                     }
                     else
                     {
@@ -356,11 +356,11 @@ int main(int argc, const char *argv[])
                 NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     conversationID, iTM2ServerConversationIDKey,
                     FNs, iTM2ServerFilesKey,
-                    [NSNumber numberWithBool: all], iTM2ServerAllKey,
+                    [NSNumber numberWithBool:all], iTM2ServerAllKey,
                         nil];
                 if(strlen(projectName))
-                    [MD setObject: [[NSString stringWithUTF8String: projectName] stringByStandardizingPath] forKey: iTM2ServerProjectKey];
-				[MD setObject: [[NSProcessInfo processInfo] environment] forKey: iTM2ProcessInfoEnvironmentKey];
+                    [MD setObject:[[NSString stringWithUTF8String:projectName] stringByStandardizingPath] forKey:iTM2ServerProjectKey];
+				[MD setObject:[[NSProcessInfo processInfo] environment] forKey:iTM2ProcessInfoEnvironmentKey];
                 [[NSDistributedNotificationCenter defaultCenter]
                     postNotificationName: iTM2ServerShouldUpdateFilesNotification
                         object: nil
@@ -375,7 +375,7 @@ int main(int argc, const char *argv[])
         else if(!strcmp(argv[index], "notify"))
         {
 //NSLog(@"***  NOTIFY");
-            NSString * conversationID = [NSString stringWithUTF8String: conversation];
+            NSString * conversationID = [NSString stringWithUTF8String:conversation];
             NSMutableArray * comments = [NSMutableArray array];
             NSMutableArray * errors = [NSMutableArray array];
             NSMutableArray * warnings = [NSMutableArray array];
@@ -385,7 +385,7 @@ int main(int argc, const char *argv[])
                 {
                     if(++index < argc)
                     {
-                        [comments addObject: [NSString stringWithUTF8String: argv[index]]];
+                        [comments addObject:[NSString stringWithUTF8String:argv[index]]];
                     }
                     else
                     {
@@ -397,7 +397,7 @@ int main(int argc, const char *argv[])
                 {
                     if(++index < argc)
                     {
-                        [warnings addObject: [NSString stringWithUTF8String: argv[index]]];
+                        [warnings addObject:[NSString stringWithUTF8String:argv[index]]];
                     }
                     else
                     {
@@ -409,7 +409,7 @@ int main(int argc, const char *argv[])
                 {
                     if(++index < argc)
                     {
-                        [errors addObject: [NSString stringWithUTF8String: argv[index]]];
+                        [errors addObject:[NSString stringWithUTF8String:argv[index]]];
                     }
                     else
                     {
@@ -431,7 +431,7 @@ int main(int argc, const char *argv[])
                     warnings, iTM2ServerWarningsKey,
                     errors,   iTM2ServerErrorsKey,
                         nil];
-				[MD setObject: [[NSProcessInfo processInfo] environment] forKey: iTM2ProcessInfoEnvironmentKey];
+				[MD setObject:[[NSProcessInfo processInfo] environment] forKey:iTM2ProcessInfoEnvironmentKey];
                 [[NSDistributedNotificationCenter defaultCenter]
                     postNotificationName: iTM2ServerComwarnerNotification
                         object: nil
@@ -450,12 +450,12 @@ int main(int argc, const char *argv[])
             {
                 if(LaunchiTeXMac2IfNeeded(argc, argv))
                 {
-                    NSString * conversationID = [NSString stringWithUTF8String: conversation];
+                    NSString * conversationID = [NSString stringWithUTF8String:conversation];
                     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                         conversationID, iTM2ServerConversationIDKey,
-                        [NSString stringWithUTF8String: argv[index]], iTM2ServerSourceKey,
+                        [NSString stringWithUTF8String:argv[index]], iTM2ServerSourceKey,
                             nil];
-					[MD setObject: [[NSProcessInfo processInfo] environment] forKey: iTM2ProcessInfoEnvironmentKey];
+					[MD setObject:[[NSProcessInfo processInfo] environment] forKey:iTM2ProcessInfoEnvironmentKey];
                     [[NSDistributedNotificationCenter defaultCenter]
                         postNotificationName: iTM2ServerComwarnerNotification
                             object: nil
@@ -515,12 +515,12 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
         return YES;
     #endif
     iTM2_INIT_POOL;
-	NSString * temporaryDirectory = [[[NSProcessInfo processInfo] environment] objectForKey: @"iTM2_TemporaryDirectory"];
+	NSString * temporaryDirectory = [[[NSProcessInfo processInfo] environment] objectForKey:@"iTM2_TemporaryDirectory"];
 	if([temporaryDirectory length])
 	{
 		// this program was launched by iTeXMac, either directly or through another script.
         if([[NSWorkspace sharedWorkspace] launchApplication:
-				[[temporaryDirectory stringByAppendingPathComponent: @"iTeXMac2.app"] stringByStandardizingPath]])
+				[[temporaryDirectory stringByAppendingPathComponent:@"iTeXMac2.app"] stringByStandardizingPath]])
 		{
 //NSLog(@".....  Switching to iTeXMac2.");
 			return YES;
@@ -536,9 +536,9 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
     BOOL isRunning = NO;
     while(D = [E nextObject])
 	{
-		NSString * applicationPath = [D objectForKey: @"NSApplicationPath"];
-		NSBundle * applicationBundle = [NSBundle bundleWithPath: applicationPath];
-        if([[applicationBundle bundleIdentifier] isEqualToString: iTeXMac2BundleIdentifier])
+		NSString * applicationPath = [D objectForKey:@"NSApplicationPath"];
+		NSBundle * applicationBundle = [NSBundle bundleWithPath:applicationPath];
+        if([[applicationBundle bundleIdentifier] isEqualToString:iTeXMac2BundleIdentifier])
         {
             isRunning = YES;
             break;
@@ -548,13 +548,13 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
     {
         NSLog(@"Trying to launch iTeXMac2...");
         if(isRunning = [[NSWorkspace sharedWorkspace] launchApplication:
-            [[[[[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
+            [[[[[NSHomeDirectory() stringByAppendingPathComponent:@"Library"]
                 stringByAppendingPathComponent: @"TeX"]
                     stringByAppendingPathComponent: @"bin"]
                         stringByAppendingPathComponent: @"iTeXMac2.app"]
                             stringByStandardizingPath]])
         {
-            [NSThread sleepUntilDate: [NSDate dateWithTimeIntervalSinceNow: 2]];
+            [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
         }
         else
         {

@@ -25,37 +25,37 @@
 #import "NSObject_iTeXMac2.h"
 
 @interface NSObject(iTM2Scripting_Private)
-- (NSRange) rangeValue;
-- (unsigned) index;
-- (unsigned) insertionIndex;
-- (unsigned) intValue;
-- (NSScriptObjectSpecifier *)startSpecifier;
-- (NSScriptObjectSpecifier *)endSpecifier;
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem;
+-(NSRange)rangeValue;
+-(unsigned)index;
+-(unsigned)insertionIndex;
+-(unsigned)intValue;
+-(NSScriptObjectSpecifier *)startSpecifier;
+-(NSScriptObjectSpecifier *)endSpecifier;
+-(BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSObject(iTeXMac2)
 /*"Description forthcoming."*/
 @implementation NSObject(iTeXMac2)
-+ (Class) distantClass;
++(Class)distantClass;
 {
 	return self;
 }
-- (Class) distantClass;
+-(Class)distantClass;
 {
 	iTM2_LOG(@"Returning %@", [self class]);
 	return [self class];
 }
-+ (bool) isDistantClass;
++(bool)isDistantClass;
 {
 	return YES;
 }
-- (bool) isDistantClass;
+-(bool)isDistantClass;
 {
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  evaluatedPosition
-- (unsigned) evaluatedPosition;
+-(unsigned)evaluatedPosition;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -78,7 +78,7 @@ To Do List:
         return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  evaluatedRange
-- (NSRange) evaluatedRange;
+-(NSRange)evaluatedRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:

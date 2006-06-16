@@ -45,7 +45,7 @@ NSString * const iTM2TeXInspectorMode = @"TeX Mode";
 
 @implementation iTM2TeXDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -57,7 +57,7 @@ To Do List:
 	NSDictionary * D = [SUD dictionaryForKey:iTM2SUDInspectorVariants];
 	NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:D];
 	NSString * type = iTM2TeXDocumentType;
-	if(![MD objectForKey: type])
+	if(![MD objectForKey:type])
 	{
 		NSString * mode = [iTM2TeXInspector inspectorMode];
 		NSString * variant = [iTM2TeXInspector inspectorVariant];
@@ -68,7 +68,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveToFile:saveOperation:delegate:didSaveSelector:contextInfo:
-- (void) saveToFile: (NSString *) fileName saveOperation: (NSSaveOperationType) saveOperation delegate: (id) delegate didSaveSelector: (SEL) didSaveSelector contextInfo: (void *) contextInfo;
+-(void)saveToFile:(NSString *)fileName saveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
 /*"Spaces are replaced by underscores.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -78,9 +78,9 @@ To Do List:
 //iTM2_START;
     NSString * path = [fileName stringByDeletingLastPathComponent];
 	NSMutableString * last = [[[fileName lastPathComponent] mutableCopy] autorelease];
-	if([last replaceOccurrencesOfString: @" " withString: @"_" options: 0L range: NSMakeRange(0, [last length])])
+	if([last replaceOccurrencesOfString:@" " withString:@"_" options:0L range:NSMakeRange(0, [last length])])
 	{
-		fileName = [path stringByAppendingPathComponent: [last stringWithSubstring: @" " replacedByString: @"_"]];
+		fileName = [path stringByAppendingPathComponent:[last stringWithSubstring:@" " replacedByString:@"_"]];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"\nSpaces changed, new fileName: %@", fileName);
@@ -95,7 +95,7 @@ To Do List:
 
 @implementation iTM2TeXInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+ (NSString *) inspectorMode;
++(NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -112,7 +112,7 @@ To Do List:
 
 @implementation iTM2TeXEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
-- (void) clickedOnLink: (id) link atIndex: (unsigned) charIndex;
+-(void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -121,36 +121,36 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * S = [[self textStorage] string];
-	NSRange R = [NSString TeXAwareDoubleClick: S atIndex: charIndex];
+	NSRange R = [NSString TeXAwareDoubleClick:S atIndex:charIndex];
 	if(R.length<2)
 		return;
 	++R.location;
 	--R.length;
-	NSString * command = [S substringWithRange: R];
-	if([command isEqual: @"input"])
+	NSString * command = [S substringWithRange:R];
+	if([command isEqual:@"input"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])
 		{
 			unsigned contentsEnd, TeXComment;
-			[S getLineStart: nil end: nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex: start];
+			[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
 			NSString * string = [S substringWithRange:
 				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment) - start)];
-			NSScanner * scanner = [NSScanner scannerWithString: string];
-			[scanner scanString: @"{" intoString: nil];
+			NSScanner * scanner = [NSScanner scannerWithString:string];
+			[scanner scanString:@"{" intoString:nil];
 			NSString * fileName;
-			if([scanner scanCharactersFromSet: [NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+			if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
 			{
-				if(![fileName hasPrefix: @"/"])
+				if(![fileName hasPrefix:@"/"])
 				{
-					fileName = [[[[[[self window] windowController] document] fileName] stringByDeletingLastPathComponent] stringByAppendingPathComponent: fileName];
+					fileName = [[[[[[self window] windowController] document] fileName] stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
 				}
-				if(![SDC openDocumentWithContentsOfURL: [NSURL fileURLWithPath: fileName] display: YES error: nil])
+				if(![SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES error:nil])
 				{
-					NSString * newFileName = [fileName stringByAppendingPathExtension: @"tex"];
-					if(![SDC openDocumentWithContentsOfURL: [NSURL fileURLWithPath: newFileName] display: YES error: nil]
-						&& ![SWS openFile: fileName]
-							&& ![SWS openFile: newFileName])
+					NSString * newFileName = [fileName stringByAppendingPathExtension:@"tex"];
+					if(![SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:newFileName] display:YES error:nil]
+						&& ![SWS openFile:fileName]
+							&& ![SWS openFile:newFileName])
 					{
 						iTM2_LOG(@"INFO: could not open file <%@>", newFileName);
 					}				
@@ -163,12 +163,12 @@ To Do List:
 		}
 		return;
 	}
-	[super clickedOnLink: link atIndex: charIndex];
+	[super clickedOnLink:link atIndex:charIndex];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollInputToVisible:
-- (void) scrollInputToVisible: (id <NSMenuItem>) sender;
+-(void)scrollInputToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -176,7 +176,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self performSelector: @selector(delayedScrollInputToVisible:) withObject: sender afterDelay: 0.1];
+	[self performSelector:@selector(delayedScrollInputToVisible:) withObject:sender afterDelay:0.1];
 	#if 0
     [NSInvocation delayInvocationWithTarget: self
         action: @selector(_ScrollInputToVisible:)
@@ -188,7 +188,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollInputToVisible:
-- (void) delayedScrollInputToVisible: (id <NSMenuItem>) sender;
+-(void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -198,27 +198,27 @@ To Do List: include the tetex path...
 //iTM2_START;
     NSString * path = [[[[[sender menu] title]  stringByAppendingPathComponent:
                                 [sender representedObject]] stringByResolvingSymlinksInPath] stringByStandardizingPath];
-    if([DFM isReadableFileAtPath: path])
-        [SDC openDocumentWithContentsOfURL: [NSURL fileURLWithPath: path] display: YES error: nil];
+    if([DFM isReadableFileAtPath:path])
+        [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:YES error:nil];
     else
     {
-        NSString * P = [path stringByAppendingPathExtension: @"tex"];
-        if([[NSFileManager defaultManager] isReadableFileAtPath: P])
-            [SDC openDocumentWithContentsOfURL: [NSURL fileURLWithPath: P] display: YES error: nil];
+        NSString * P = [path stringByAppendingPathExtension:@"tex"];
+        if([[NSFileManager defaultManager] isReadableFileAtPath:P])
+            [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:P] display:YES error:nil];
         else
         {
-            [sender setEnabled: NO];
+            [sender setEnabled:NO];
             NSBeep();
             [self postNotificationWithStatus:
                 [NSString stringWithFormat:  NSLocalizedStringFromTableInBundle(@"No file at path: %@", @"TeX",
-                            [NSBundle bundleForClass: [self class]], "Could not complete the \\input action... 1 line only"), path]]; 
+                            [NSBundle bundleForClass:[self class]], "Could not complete the \\input action... 1 line only"), path]]; 
         }
     }
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
-- (void) mouseDown: (NSEvent * )event
+-(void)mouseDown:(NSEvent * )event
 /*"Description Forthcoming
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -231,22 +231,22 @@ To Do List:
 //NSLog(@"[event clickCount]: %i", [event clickCount]);
         NSString * S = [self string];
         NSRange SR = [self selectedRange];
-//        NSRange GR = [S groupRangeForRange: SR];
+//        NSRange GR = [S groupRangeForRange:SR];
 		// comparer SR, GR, PR
 //NSLog(NSStringFromRange(GR));
         unsigned start, end;
-        [S getLineStart: &start end: &end contentsEnd: nil forRange: SR];
+        [S getLineStart: &start end: &end contentsEnd:nil forRange:SR];
         end -= start;
         NSRange PR = (end>SR.length)? NSMakeRange(start, end): NSMakeRange(0, [S length]);
-        [self setSelectedRange: PR];
+        [self setSelectedRange:PR];
 		return;
     }
     else
-        [super mouseDown: event];
+        [super mouseDown:event];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
-- (NSRange)rangeForUserCompletion;
+-(NSRange)rangeForUserCompletion;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -265,14 +265,14 @@ To Do List:
     return R;
 }
 #if 0
-- (void)moveWordForwardAndModifySelection:(id)sender;
-- (void)moveWordBackwardAndModifySelection:(id)sender;
-- (void)moveWordRightAndModifySelection:(id)sender;
-- (void)moveWordLeftAndModifySelection:(id)sender;
-- (void)moveUpAndModifySelection:(id)sender;
+-(void)moveWordForwardAndModifySelection:(id)sender;
+-(void)moveWordBackwardAndModifySelection:(id)sender;
+-(void)moveWordRightAndModifySelection:(id)sender;
+-(void)moveWordLeftAndModifySelection:(id)sender;
+-(void)moveUpAndModifySelection:(id)sender;
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
-- (void) insertUnderscore: (id) sender;
+-(void)insertUnderscore:(id)sender;
 /*"Tabs are inserted only at the beginning of the line.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -282,21 +282,21 @@ To Do List: Nothing at first glance.
 //NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
     if(!_iTMTVFlags.smartInsert || _iTMTVFlags.isEscaped || _iTMTVFlags.isDeepEscaped)
     {
-        [self insertText: @"_"];
+        [self insertText:@"_"];
     }
     else
     {
         BOOL escaped;
         NSRange R = [self selectedRange];
-        if(!R.location || ![[self string] isControlAtIndex: R.location-1 escaped: &escaped] || escaped)
-            [self insertMacro: @"_{__(SEL)__}"];
+        if(!R.location || ![[self string] isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
+            [self insertMacro:@"_{__(SEL)__}"];
         else
-            [self insertText: @"_"];
+            [self insertText:@"_"];
     }
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertHat:
-- (void) insertHat: (id) sender;
+-(void)insertHat:(id)sender;
 /*"Inserting a smart hat. Problem with dead keys.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -308,23 +308,23 @@ To Do List: Nothing at first glance.
 //NSLog(NSStringFromRange([self markedRange]));
     if(!_iTMTVFlags.smartInsert || _iTMTVFlags.isEscaped || _iTMTVFlags.isDeepEscaped)
     {
-        [self insertText: @"^"];
+        [self insertText:@"^"];
     }
     else
     {
         BOOL escaped;
-        int index = [self hasMarkedText]? [self markedRange].location: [self selectedRange].location;
-        if(!index || ![[self string] isControlAtIndex: index-1 escaped: &escaped] || !escaped)
+        int index = [self hasMarkedText]? [self markedRange].location:[self selectedRange].location;
+        if(!index || ![[self string] isControlAtIndex:index-1 escaped: &escaped] || !escaped)
         {
             index = [self selectedRange].location;
-            if(!index || ([[self string] characterAtIndex: index-1] != '^'))
-                [self insertMacro: @"^{__(SEL)__}"];
+            if(!index || ([[self string] characterAtIndex:index-1] != '^'))
+                [self insertMacro:@"^{__(SEL)__}"];
             else
-                [self insertMacro: @"{__(SEL)__}"];
+                [self insertMacro:@"{__(SEL)__}"];
         }
         else
         {
-            [self insertText: @"^"];
+            [self insertText:@"^"];
         }
     }
 #warning WARNING----------------------------------------
@@ -332,7 +332,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
-- (void) insertControl: (id) sender;
+-(void)insertControl:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -343,21 +343,21 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
-    if(!R.location || ![S isControlAtIndex: R.location-1 escaped: &escaped] || escaped)
+    if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-        [self insertText: @"\\"];
+        [self insertText:@"\\"];
     }
     else
     {
         [[self undoManager] beginUndoGrouping];
-        [self insertText: @"\\"];
-        [self insertNewline: self];
+        [self insertText:@"\\"];
+        [self insertNewline:self];
         [[self undoManager] endUndoGrouping];
     }
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertDollar:
-- (void) insertDollar: (id) sender;
+-(void)insertDollar:(id)sender;
 /*"Tabs are inserted only at the beginning of the line.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -367,14 +367,14 @@ To Do List: Nothing at first glance.
 //NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
     BOOL escaped;
     NSRange R = [self selectedRange];
-    if(!R.location || ![[self string] isControlAtIndex: R.location-1 escaped: &escaped] || escaped)
-        [self insertMacro: @"$__(SEL)__$"];
+    if(!R.location || ![[self string] isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
+        [self insertMacro:@"$__(SEL)__$"];
     else
-        [self insertText: @"$"];
+        [self insertText:@"$"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBrace:
-- (void) insertOpenBrace: (id) sender;
+-(void)insertOpenBrace:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -386,16 +386,16 @@ To Do List: Nothing at first glance.
     NSString * S = [self string];
     NSRange R = [self selectedRange];
 	
-    if(!R.location || ![S isControlAtIndex: R.location-1 escaped: &escaped] || escaped)
+    if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-        [self insertMacro: @"{__(SEL)__}"];
+        [self insertMacro:@"{__(SEL)__}"];
     }
     else
-        [self insertText: @"{"];
+        [self insertText:@"{"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenParenthesis:
-- (void) insertOpenParenthesis: (id) sender;
+-(void)insertOpenParenthesis:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -406,13 +406,13 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
-    NSString * macro = (!R.location || ![S isControlAtIndex: R.location-1 escaped: &escaped] || escaped)?
+    NSString * macro = (!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)?
 	@"(__(SEL)__)__(INS)__": @"(__(SEL)__\\)__(INS)__";
-    [self insertMacro: macro];
+    [self insertMacro:macro];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBracket:
-- (void) insertOpenBracket: (id) sender;
+-(void)insertOpenBracket:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -423,9 +423,9 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
-    if(!R.location || ![S isControlAtIndex: R.location-1 escaped: &escaped] || escaped)
+    if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-        [self insertMacro: @"[__(SEL)__]"];
+        [self insertMacro:@"[__(SEL)__]"];
     }
     else// this follows an unescaped \: insert "[\]"
     {
@@ -440,18 +440,18 @@ To Do List: Nothing at first glance.
             EOL = (R.location == contentsEnd);
             if(!BOL)
             {
-                [self setSelectedRange: NSMakeRange(R.location - 1, 1)];
-                [self insertNewline: self];
+                [self setSelectedRange:NSMakeRange(R.location - 1, 1)];
+                [self insertNewline:self];
             }
             [self insertMacro:
-                [NSString stringWithFormat: @"%@[__(SEL)__\\]%@", (BOL? @"": @"\\"), (EOL? @"": @"\n")]];
+                [NSString stringWithFormat:@"%@[__(SEL)__\\]%@", (BOL? @"":@"\\"), (EOL? @"":@"\n")]];
         }
         [[self undoManager] endUndoGrouping];
     }
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertTabAnchor:
-- (void) insertTabAnchor: (id) sender;
+-(void)insertTabAnchor:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -459,7 +459,7 @@ To Do List: Nothing at first glance.
 "*/
 {
 //NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
-    [self insertText: [self tabAnchor]];
+    [self insertText:[self tabAnchor]];
     return;
 }
 @end
@@ -467,7 +467,7 @@ To Do List: Nothing at first glance.
 #pragma mark =-=-=-=-=-  BOOKMARKS
 @implementation iTM2TeXEditor(Bookmarks)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= gotoTeXBookmark
-- (IBAction) gotoTeXBookmark: (id) sender; 
+-(IBAction)gotoTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -480,14 +480,14 @@ To Do List:
 	if(tag>=0 && tag<[S length])
 	{
 		unsigned begin, end;
-		[S getLineStart: &begin end: &end contentsEnd: nil forRange: NSMakeRange(tag, 0)];
-		[self highlightAndScrollToVisibleRange: NSMakeRange(begin, end-begin)];
+		[S getLineStart: &begin end: &end contentsEnd:nil forRange:NSMakeRange(tag, 0)];
+		[self highlightAndScrollToVisibleRange:NSMakeRange(begin, end-begin)];
 	}
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoTeXBookmark:
-- (BOOL) validateGotoTeXBookmark: (id) sender; 
+-(BOOL)validateGotoTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -499,7 +499,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertTeXBookmark:
-- (IBAction) insertTeXBookmark: (id) sender; 
+-(IBAction)insertTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -511,7 +511,7 @@ To Do List:
 		TABLE, BUNDLE, @"%! TEX bookmark: __(a labeled identifier)__", "Inserting a  macro");
 	unsigned start, end, contentsEnd;
 	NSRange selectedRange = [self selectedRange];
-	[[[self textStorage] string] getLineStart: &start end: &end contentsEnd: &contentsEnd forRange: selectedRange];
+	[[[self textStorage] string] getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:selectedRange];
 	NSString * prefix = @"";
 	NSString * suffix = @"";
 	if(NSMaxRange(selectedRange)>contentsEnd)
@@ -522,21 +522,21 @@ To Do List:
 		{
 			prefix = @"\n";
 		}
-		[self setSelectedRange: selectedRange];
+		[self setSelectedRange:selectedRange];
 	}
 	else if(start<selectedRange.location)
 	{
 		selectedRange.location = start;
 		selectedRange.length = 0;
 		suffix = @"\n";
-		[self setSelectedRange: selectedRange];
+		[self setSelectedRange:selectedRange];
 	}
-	[self insertMacro: [NSString stringWithFormat: @"%@%@%@", prefix, macro, suffix]];
+	[self insertMacro:[NSString stringWithFormat:@"%@%@%@", prefix, macro, suffix]];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertTeXBookmark:
-- (BOOL) validateInsertTeXBookmark: (id) sender; 
+-(BOOL)validateInsertTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -550,12 +550,12 @@ To Do List:
 @end
 
 @interface NSTextStorage(TeX)
-- (NSMenu *) TeXBookmarkMenu;
+-(NSMenu *)TeXBookmarkMenu;
 @end
 
 @implementation iTM2TeXBookmarkButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
-- (void) awakeFromNib;
+-(void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -563,10 +563,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self superclass] instancesRespondToSelector: _cmd])
+	if([[self superclass] instancesRespondToSelector:_cmd])
 		[super awakeFromNib];
-	[self setAction: @selector(TeXBookmarkButtonAction:)];
-	[self performSelector: @selector(initMenu) withObject: nil afterDelay: 0.01];
+	[self setAction:@selector(TeXBookmarkButtonAction:)];
+	[self performSelector:@selector(initMenu) withObject:nil afterDelay:0.01];
 	[DNC removeObserver: self
 		name: NSPopUpButtonWillPopUpNotification
 			object: self];
@@ -578,7 +578,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
-- (void) popUpButtonWillPopUpNotified: (NSNotification *) notification;
+-(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -588,22 +588,22 @@ To Do List:
 //iTM2_START;
 	NSMenu * M = [[[[self window] windowController] textStorage] TeXBookmarkMenu];
 	NSAssert(M, @"Missing TeX bookmark menu: inconsistency");
-	NSMenuItem * MI = [[self menu] deepItemWithRepresentedObject: @"TeX Bookmarks Menu"];
+	NSMenuItem * MI = [[self menu] deepItemWithRepresentedObject:@"TeX Bookmarks Menu"];
 	if(MI)
 	{
-		[[MI menu] setSubmenu: ([M numberOfItems]? M: nil) forItem: MI];
+		[[MI menu] setSubmenu: ([M numberOfItems]? M:nil) forItem:MI];
 	}
-	else if(MI = [[self menu] deepItemWithAction: @selector(gotoTeXBookmark:)])
+	else if(MI = [[self menu] deepItemWithAction:@selector(gotoTeXBookmark:)])
 	{
-		[MI setAction: NULL];
-		[MI setRepresentedObject: @"TeX Bookmarks Menu"];
-		[[MI menu] setSubmenu: ([M numberOfItems]? M: nil) forItem: MI];
+		[MI setAction:NULL];
+		[MI setRepresentedObject:@"TeX Bookmarks Menu"];
+		[[MI menu] setSubmenu: ([M numberOfItems]? M:nil) forItem:MI];
 	}
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
-- (void) initMenu;
+-(void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -611,19 +611,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone: [self zone]] initWithFrame: NSZeroRect] autorelease];
-	NSDictionary * context = [NSDictionary dictionaryWithObject: owner forKey: @"NSOwner"];
+	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
 next:
-	fileName = [[NSBundle bundleForClass: class] pathForResource: @"iTM2TeXBookmarkMenu" ofType: @"nib"];
+	fileName = [[NSBundle bundleForClass:class] pathForResource:@"iTM2TeXBookmarkMenu" ofType:@"nib"];
 	if([fileName length])
 	{
 		NSString * title = [self title];
-		if([NSBundle loadNibFile: fileName externalNameTable: context withZone: [self zone]])
+		if([NSBundle loadNibFile:fileName externalNameTable:context withZone:[self zone]])
 		{
 			NSMenu * M = [[[owner menu] retain] autorelease];
-			[owner setMenu: nil];
+			[owner setMenu:nil];
 			if([M numberOfItems])
 			{
 				NSMenuItem * MI;
@@ -633,16 +633,16 @@ next:
 					SEL action = [MI action];
 					if(action)
 					{
-						if([NSStringFromSelector(action) hasPrefix: @"insert"])
+						if([NSStringFromSelector(action) hasPrefix:@"insert"])
 						{
 							if(![MI indentationLevel])
-								[MI setIndentationLevel: 1];
+								[MI setIndentationLevel:1];
 						}
 					}
 				}
-				[[M itemAtIndex: 0] setTitle: title];
-				[self setTitle: title];// will raise if the menu is void
-				[self setMenu: M];
+				[[M itemAtIndex:0] setTitle:title];
+				[self setTitle:title];// will raise if the menu is void
+				[self setMenu:M];
 			}
 			else
 			{
@@ -670,7 +670,7 @@ next:
 
 @implementation iTM2ScriptUserButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
-- (void) awakeFromNib;
+-(void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -678,10 +678,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self superclass] instancesRespondToSelector: _cmd])
+	if([[self superclass] instancesRespondToSelector:_cmd])
 		[super awakeFromNib];
-	[self setAction: @selector(ScriptUserButtonAction:)];
-	[self performSelector: @selector(initMenu) withObject: nil afterDelay: 0.01];
+	[self setAction:@selector(ScriptUserButtonAction:)];
+	[self performSelector:@selector(initMenu) withObject:nil afterDelay:0.01];
 	[DNC removeObserver: self
 		name: NSPopUpButtonWillPopUpNotification
 			object: self];
@@ -693,7 +693,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
-- (void) popUpButtonWillPopUpNotified: (NSNotification *) notification;
+-(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -703,22 +703,22 @@ To Do List:
 //iTM2_START;
 	NSMenu * M = [[[[self window] windowController] textStorage] TeXBookmarkMenu];
 	NSAssert(M, @"Missing TeX bookmark menu: inconsistency");
-	NSMenuItem * MI = [[self menu] deepItemWithRepresentedObject: @"TeX Bookmarks Menu"];
+	NSMenuItem * MI = [[self menu] deepItemWithRepresentedObject:@"TeX Bookmarks Menu"];
 	if(MI)
 	{
-		[[MI menu] setSubmenu: ([M numberOfItems]? M: nil) forItem: MI];
+		[[MI menu] setSubmenu: ([M numberOfItems]? M:nil) forItem:MI];
 	}
-	else if(MI = [[self menu] deepItemWithAction: @selector(gotoTeXBookmark:)])
+	else if(MI = [[self menu] deepItemWithAction:@selector(gotoTeXBookmark:)])
 	{
-		[MI setAction: NULL];
-		[MI setRepresentedObject: @"TeX Bookmarks Menu"];
-		[[MI menu] setSubmenu: ([M numberOfItems]? M: nil) forItem: MI];
+		[MI setAction:NULL];
+		[MI setRepresentedObject:@"TeX Bookmarks Menu"];
+		[[MI menu] setSubmenu: ([M numberOfItems]? M:nil) forItem:MI];
 	}
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
-- (void) initMenu;
+-(void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -726,19 +726,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone: [self zone]] initWithFrame: NSZeroRect] autorelease];
-	NSDictionary * context = [NSDictionary dictionaryWithObject: owner forKey: @"NSOwner"];
+	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
 next:
-	fileName = [[NSBundle bundleForClass: class] pathForResource: @"iTM2TeXBookmarkMenu" ofType: @"nib"];
+	fileName = [[NSBundle bundleForClass:class] pathForResource:@"iTM2TeXBookmarkMenu" ofType:@"nib"];
 	if([fileName length])
 	{
 		NSString * title = [self title];
-		if([NSBundle loadNibFile: fileName externalNameTable: context withZone: [self zone]])
+		if([NSBundle loadNibFile:fileName externalNameTable:context withZone:[self zone]])
 		{
 			NSMenu * M = [[[owner menu] retain] autorelease];
-			[owner setMenu: nil];
+			[owner setMenu:nil];
 			if([M numberOfItems])
 			{
 				NSMenuItem * MI;
@@ -748,16 +748,16 @@ next:
 					SEL action = [MI action];
 					if(action)
 					{
-						if([NSStringFromSelector(action) hasPrefix: @"insert"])
+						if([NSStringFromSelector(action) hasPrefix:@"insert"])
 						{
 							if(![MI indentationLevel])
-								[MI setIndentationLevel: 1];
+								[MI setIndentationLevel:1];
 						}
 					}
 				}
-				[[M itemAtIndex: 0] setTitle: title];
-				[self setTitle: title];// will raise if the menu is void
-				[self setMenu: M];
+				[[M itemAtIndex:0] setTitle:title];
+				[self setTitle:title];// will raise if the menu is void
+				[self setMenu:M];
 			}
 			else
 			{
@@ -785,7 +785,7 @@ next:
 
 @implementation NSTextStorage(TeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXBookmarkMenu
-- (NSMenu *) TeXBookmarkMenu;
+-(NSMenu *)TeXBookmarkMenu;
 /*"Description forthcoming. No consistency test.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -793,81 +793,81 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMenu * markMenu = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: @""] autorelease];
-    [markMenu setAutoenablesItems: YES];
+    NSMenu * markMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    [markMenu setAutoenablesItems:YES];
 	
     NSString * S = [self string];
-    iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString: S];
+    iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S];
     unsigned scanLocation = 0, end = [S length];
     unichar theChar;
     while(scanLocation < end)
     {
-        theChar = [S characterAtIndex: scanLocation];
+        theChar = [S characterAtIndex:scanLocation];
         switch(theChar)
         {
             case '\\':
             {
                 if((++scanLocation < end) &&
-                    ([S characterAtIndex: scanLocation] == 'i') &&
+                    ([S characterAtIndex:scanLocation] == 'i') &&
                         (++scanLocation < end) &&
-                            ([S characterAtIndex: scanLocation] == 'n') &&
+                            ([S characterAtIndex:scanLocation] == 'n') &&
                                 (++scanLocation < end))
                 {
                     NSRange R1 = NSMakeRange(scanLocation, end-scanLocation);
-                    NSRange R2 = [S rangeOfString: @"put" options: NSAnchoredSearch range: R1];
+                    NSRange R2 = [S rangeOfString:@"put" options:NSAnchoredSearch range:R1];
                     if(R2.length)
                     {
                         SEL selector = @selector(scrollInputToVisible:);
                         NSString * prefix = @"Input";
-                        [S getLineStart: nil end: nil contentsEnd: &scanLocation forRange: R2];
-                        [scan setScanLocation: NSMaxRange(R2)];
-                        [scan scanString: @"{" intoString: nil];
+                        [S getLineStart:nil end:nil contentsEnd: &scanLocation forRange:R2];
+                        [scan setScanLocation:NSMaxRange(R2)];
+                        [scan scanString:@"{" intoString:nil];
                         NSString * object;
-                        if([scan scanUpToString: @"}" intoString: &object beforeIndex: scanLocation] ||
-                            [scan scanCharactersFromSet: [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]
+                        if([scan scanUpToString:@"}" intoString: &object beforeIndex:scanLocation] ||
+                            [scan scanCharactersFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]
                                 intoString: &object beforeIndex: scanLocation])
                         {
-                            object = [object stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];                            
-                            NSString * title = [NSString stringWithFormat: @"%@: %@", prefix, object];
+                            object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];                            
+                            NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                             title = ([title length] > 48)?
-                                            [NSString stringWithFormat: @"%@[...]",
-                                                    [title substringWithRange: NSMakeRange(0,43)]]: title;
+                                            [NSString stringWithFormat:@"%@[...]",
+                                                    [title substringWithRange:NSMakeRange(0,43)]]: title;
                             if([title length])
                             {
-                                NSMenuItem * MI = [markMenu addItemWithTitle: title action: selector keyEquivalent: [NSString string]];
-                                [MI setRepresentedObject: object];
-								[MI setTag: scanLocation];
+                                NSMenuItem * MI = [markMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
+                                [MI setRepresentedObject:object];
+								[MI setTag:scanLocation];
                                 [MI setEnabled: ([[markMenu title] length] > 0)];
                             }
                         }
                     }
-                    else if(R2 = [S rangeOfString: @"clude" options: NSAnchoredSearch range: R1], R2.length)
+                    else if(R2 = [S rangeOfString:@"clude" options:NSAnchoredSearch range:R1], R2.length)
                     {
                         SEL selector = @selector(scrollIncludeToVisible:);
                         NSString * prefix = @"Include";
                         unsigned int contentsEnd;
-                        [S getLineStart: nil end: nil contentsEnd: &contentsEnd forRange: R1];
-                        [scan setScanLocation: NSMaxRange(R2)];
-                        if([scan scanString: @"[" intoString: nil beforeIndex: contentsEnd])
+                        [S getLineStart:nil end:nil contentsEnd: &contentsEnd forRange:R1];
+                        [scan setScanLocation:NSMaxRange(R2)];
+                        if([scan scanString:@"[" intoString:nil beforeIndex:contentsEnd])
                         {
-                            [scan scanUpToString: @"]" intoString: nil];
-                            [scan scanString: @"]" intoString: nil];
+                            [scan scanUpToString:@"]" intoString:nil];
+                            [scan scanString:@"]" intoString:nil];
                         }
-                        if([scan scanString: @"{" intoString: nil beforeIndex: contentsEnd])
+                        if([scan scanString:@"{" intoString:nil beforeIndex:contentsEnd])
                         {
                             NSString * object;
-                            if([scan scanUpToString: @"}" intoString: &object beforeIndex: contentsEnd])
+                            if([scan scanUpToString:@"}" intoString: &object beforeIndex:contentsEnd])
                             {
-                                object = [object stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-                                NSString * title = [NSString stringWithFormat: @"%@: %@", prefix, object];
+                                object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                 title = ([title length] > 48)?
-                                                [NSString stringWithFormat: @"%@[...]",
-                                                        [title substringWithRange: NSMakeRange(0,43)]]: title;
+                                                [NSString stringWithFormat:@"%@[...]",
+                                                        [title substringWithRange:NSMakeRange(0,43)]]: title;
                                 if([title length])
                                 {
-                                    NSMenuItem * MI = [markMenu addItemWithTitle: title action: selector keyEquivalent: [NSString string]];
-                                    [MI setRepresentedObject: object];
-                                    [MI setTag: scanLocation];
+                                    NSMenuItem * MI = [markMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
+                                    [MI setRepresentedObject:object];
+                                    [MI setTag:scanLocation];
                                 }
                             }
                         }
@@ -886,35 +886,35 @@ To Do List:
             case '%':
             {
                 [scan setScanLocation: ++scanLocation];
-                [scan setCaseSensitive: NO];
+                [scan setCaseSensitive:NO];
                 NSString * object = nil;
-                if([scan scanString: @"!" intoString: nil] &&
+                if([scan scanString:@"!" intoString:nil] &&
 					(
-                    [scan scanString: @"itexmac" intoString: nil] &&
-                    [scan scanString: @"(" intoString: nil] &&
-                    [scan scanString: @"mark" intoString: nil] &&
-                    [scan scanString: @")" intoString: nil]
-					|| [scan scanString: @"tex" intoString: nil] &&
-                    [scan scanString: @"bookmark" intoString: nil]) &&
-                    [scan scanString: @":" intoString: nil] &&
+                    [scan scanString:@"itexmac" intoString:nil] &&
+                    [scan scanString:@"(" intoString:nil] &&
+                    [scan scanString:@"mark" intoString:nil] &&
+                    [scan scanString:@")" intoString:nil]
+					|| [scan scanString:@"tex" intoString:nil] &&
+                    [scan scanString:@"bookmark" intoString:nil]) &&
+                    [scan scanString:@":" intoString:nil] &&
                     [scan scanUpToCharactersFromSet:
-                        [NSCharacterSet characterSetWithCharactersInString: @"\r\n"]
+                        [NSCharacterSet characterSetWithCharactersInString:@"\r\n"]
                             intoString: &object])
                 {
-                    object = [object stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+                    object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     NSString * title = ([object length] > 48)?
-                                            [NSString stringWithFormat: @"%@[...]",
-                                                [object substringWithRange: NSMakeRange(0,43)]]: object;
+                                            [NSString stringWithFormat:@"%@[...]",
+                                                [object substringWithRange:NSMakeRange(0,43)]]: object;
                     if([title length])
                     {
                         NSMenuItem * MI = [markMenu addItemWithTitle: title
                                                 action: @selector(gotoTeXBookmark:)
                                                     keyEquivalent: [NSString string]];
-                        [MI setTag: scanLocation];
-                        [MI setRepresentedObject: object];
+                        [MI setTag:scanLocation];
+                        [MI setRepresentedObject:object];
                     }
                 }
-                [scan setCaseSensitive: YES];
+                [scan setCaseSensitive:YES];
                 scanLocation = [scan scanLocation];
             }
             default:
@@ -929,7 +929,7 @@ NSString * const iTM2TeXSmartSelectionKey = @"iTM2-Text: Smart Selection";
 
 @implementation iTM2TextStorage(DoubleClick)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -937,12 +937,12 @@ To Do List: implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithBool: YES], iTM2TeXSmartSelectionKey, nil]];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], iTM2TeXSmartSelectionKey, nil]];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
-- (NSRange) doubleClickAtIndex: (unsigned) index;
+-(NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -950,13 +950,13 @@ To Do List: implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRange R = [self contextBoolForKey: iTM2TeXSmartSelectionKey] && ![iTM2EventObserver isAlternateKeyDown]?
-        [self smartDoubleClickAtIndex: index]: [super doubleClickAtIndex: index];
+    NSRange R = [self contextBoolForKey:iTM2TeXSmartSelectionKey] && ![iTM2EventObserver isAlternateKeyDown]?
+        [self smartDoubleClickAtIndex:index]:[super doubleClickAtIndex:index];
 //iTM2_END;
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartDoubleClickAtIndex:
-- (NSRange) smartDoubleClickAtIndex: (unsigned) index;
+-(NSRange)smartDoubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -967,41 +967,41 @@ To Do List:
     NSString * string = [self string];
     if(NSLocationInRange(index, NSMakeRange(0, [string length])))
     {
-		NSRange PHR = [string rangeOfPlaceholderAtIndex: index];
+		NSRange PHR = [string rangeOfPlaceholderAtIndex:index];
 		if(PHR.length)
 			return PHR;
         BOOL escaped = YES;
-        if([string isControlAtIndex: index escaped: &escaped])
+        if([string isControlAtIndex:index escaped: &escaped])
         {
             if(!escaped && index+1<[string length])
             {
-                return [super doubleClickAtIndex: index+1];
+                return [super doubleClickAtIndex:index+1];
             }
             return NSMakeRange(index, 1);
         }
         //else
-        switch([string characterAtIndex: index])
+        switch([string characterAtIndex:index])
         {
             NSRange R;
             case '{':
             case '}':
-                if(R = [string groupRangeAtIndex: index beginDelimiter: '{' endDelimiter: '}'], R.length>0)
+                if(R = [string groupRangeAtIndex:index beginDelimiter: '{' endDelimiter: '}'], R.length>0)
                     return R;
                 break;
             case '(':
             case ')':
-                if (R = [string groupRangeAtIndex: index beginDelimiter: '(' endDelimiter: ')'], R.length>0)
+                if (R = [string groupRangeAtIndex:index beginDelimiter: '(' endDelimiter: ')'], R.length>0)
                     return R;
                 break;
             case '[':
             case ']':
-                if (R = [string groupRangeAtIndex: index beginDelimiter: '[' endDelimiter: ']'], R.length>0)
+                if (R = [string groupRangeAtIndex:index beginDelimiter: '[' endDelimiter: ']'], R.length>0)
                     return R;
                 break;
             case '%':
             {
                 BOOL escaped;
-                if((index>0) && [string isControlAtIndex: index-1 escaped: &escaped] && !escaped)
+                if((index>0) && [string isControlAtIndex:index-1 escaped: &escaped] && !escaped)
                     return NSMakeRange(index-1, 2);
                 else
                 {
@@ -1009,7 +1009,7 @@ To Do List:
                     unsigned int end;
                     unsigned int contentsEnd;
 //NSLog(@"GLS");
-                    [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange: NSMakeRange(index, 0)];
+                    [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:NSMakeRange(index, 0)];
 //NSLog(@"GLS");
                     return (start<index)? NSMakeRange(index, contentsEnd - index): NSMakeRange(start, end - start);
                 }
@@ -1018,9 +1018,9 @@ To Do List:
             case '_':
             {
                 BOOL escaped;
-                if((index+1<[string length]) && (![string isControlAtIndex: index-1 escaped: &escaped] || escaped))
+                if((index+1<[string length]) && (![string isControlAtIndex:index-1 escaped: &escaped] || escaped))
                 {
-                    NSRange R = [string groupRangeAtIndex: index+1];
+                    NSRange R = [string groupRangeAtIndex:index+1];
                     if(R.length)
                     {
                         --R.location;
@@ -1037,17 +1037,17 @@ To Do List:
                 int leftBlackChars = 0;
                 int top = [[self string] length];
                 int n = index;
-                while((++n<top) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember: [string characterAtIndex: n]])
+                while((++n<top) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:n]])
                     ++rightBlackChars;
-                while((n--<0) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember: [string characterAtIndex: n]])
+                while((n--<0) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:n]])
                     ++leftBlackChars;
                 if(rightBlackChars && leftBlackChars)
                     return NSMakeRange(index - leftBlackChars, leftBlackChars + rightBlackChars + 1);
-            //NSLog(@"[S substringWithRange: %@]: %@", NSStringFromRange(R), [S substringWithRange: R]);
+            //NSLog(@"[S substringWithRange: %@]: %@", NSStringFromRange(R), [S substringWithRange:R]);
             }
         }
 //iTM2_END;
-        return [super doubleClickAtIndex: index];
+        return [super doubleClickAtIndex:index];
     }
 //iTM2_END;
     return NSMakeRange(NSNotFound, 0);

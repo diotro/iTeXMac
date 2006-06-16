@@ -106,7 +106,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2006 jlaurens@users.sourceforge.net and others.
 */
-+ (NSMenu *) macrosMenuAtPath: (NSString *) path error: (NSError **) error;
++(NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
 
 @end
 
@@ -226,7 +226,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+(id)macroActionForKey: (NSString *) key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
++(id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			macroLocaleOfType:forKey:forContext:inCategory:ofDomain:
@@ -247,5 +247,5 @@ extern NSString * const iTM2MacroToolTipKey;
 @end
 
 @interface iTM2GenericScriptButton: NSPopUpButton
-+ (NSString *) domain;//see the LaTeX kit for definitions... should be overriden by subclassers
++(NSString *)domain;//see the LaTeX kit for definitions... should be overriden by subclassers
 @end

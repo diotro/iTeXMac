@@ -40,12 +40,12 @@
 #import <iTM2Foundation/iTM2PathUtilities.h>
 
 @interface iTM2PDFResponder: iTM2AutoInstallResponder
-- (id) PDFInspector;
+-(id)PDFInspector;
 @end
 
 @implementation NSApplication(iTM2PDFResponder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -60,7 +60,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFResponderDidFinishLaunching
-- (void) iTM2PDFResponderDidFinishLaunching;
+-(void)iTM2PDFResponderDidFinishLaunching;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -77,7 +77,7 @@ To Do List:
 
 @implementation iTM2PDFResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= PDFInspector
-- (id) PDFInspector;
+-(id)PDFInspector;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -89,7 +89,7 @@ To Do List:
     return [PDFInspector isKindOfClass:[iTM2PDFInspector class]]? PDFInspector:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextManager
-- (id) contextManager;
+-(id)contextManager;
 /*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -100,7 +100,7 @@ To Do List:
     return [[self PDFInspector] contextManager]?:(id)SUD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= album
-- (id) album;
+-(id)album;
 /*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -111,7 +111,7 @@ To Do List:
     return [[self PDFInspector] album];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtMagnification:
-- (void) displayPDFAtMagnification: (float) magnification;
+-(void)displayPDFAtMagnification:(float)magnification;
 /*"Description forthcoming. From the menu items
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -125,7 +125,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtFixedSize:...
-- (IBAction) displayPDFAtFixedSize: (id) sender
+-(IBAction)displayPDFAtFixedSize:(id)sender
 /*"It is the message sent by a menu item of the display menu in the View menu.
 It sets the display mode to iTM2FixedMode then sends a #{fixMagnification} message to the album.
 As a side effect, it updates the album display if the magnification has changed.
@@ -143,7 +143,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDisplayPDFAtFixedSize:
-- (BOOL) validateDisplayPDFAtFixedSize: (id) anItem;
+-(BOOL)validateDisplayPDFAtFixedSize:(id)anItem;
 /*" This concerns only the magnification menu items of the PDF Display menu and the
 corresponding ones in the popUp Fit button. Only takes into account the upper limit
 of the magnification."*/
@@ -159,7 +159,7 @@ of the magnification."*/
     return (f > 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFFitFromTag:...
-- (IBAction) displayPDFFitFromTag: (id) sender
+-(IBAction)displayPDFFitFromTag:(id)sender
 /*"See #{displayFitToWidth}.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -175,7 +175,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtMagnificationFromRepresentedObject:
-- (IBAction) displayPDFAtMagnificationFromRepresentedObject: (id) sender;
+-(IBAction)displayPDFAtMagnificationFromRepresentedObject:(id)sender;
 /*"Description forthcoming. From the menu items
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -206,7 +206,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtMagnificationFromStepper:
-- (IBAction) displayPDFAtMagnificationFromStepper: (id) sender;
+-(IBAction)displayPDFAtMagnificationFromStepper:(id)sender;
 /*"Zoom In or Zoom Out.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -222,7 +222,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtMagnificationFromField:
-- (IBAction) displayPDFAtMagnificationFromField: (id) sender;
+-(IBAction)displayPDFAtMagnificationFromField:(id)sender;
 /*"Display mode is set to iTM2LastMode.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -234,7 +234,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-- (BOOL) validateMenuItem: (id) anItem;
+-(BOOL)validateMenuItem:(id)anItem;
 /*" This concerns only the magnification menu items of the PDF Display menu and the
 corresponding ones in the popUp Fit button. Only takes into account the upper limit
 of the magnification."*/
@@ -242,7 +242,7 @@ of the magnification."*/
     return [super validateMenuItem:(id) anItem] && ([[[self PDFInspector] album] imageRepresentation] != nil);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPDFPhysicalPageNumber:
-- (void) displayPDFPhysicalPageNumber: (int) pageNumber;
+-(void)displayPDFPhysicalPageNumber:(int)pageNumber;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -255,7 +255,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPDFPageFromTag:
-- (IBAction) displayPDFPageFromTag: (id) sender;
+-(IBAction)displayPDFPageFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -267,7 +267,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDisplayPDFPageFromTag:
-- (BOOL) validateDisplayPDFPageFromTag: (id) sender;
+-(BOOL)validateDisplayPDFPageFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -278,7 +278,7 @@ To Do List:
 	return [[[self PDFInspector] album] imageRepresentation]!=nil && [[[self PDFInspector] album] currentPhysicalPage]<[[[self PDFInspector] album] lastPhysicalPage];//add a page number check
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPDFPageFromRepresentedObject:
-- (IBAction) displayPDFPageFromRepresentedObject: (id) sender;
+-(IBAction)displayPDFPageFromRepresentedObject:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -291,7 +291,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDisplayPDFPageFromRepresentedObject:
-- (BOOL) validateDisplayPDFPageFromRepresentedObject: (id) sender;
+-(BOOL)validateDisplayPDFPageFromRepresentedObject:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -302,7 +302,7 @@ To Do List:
     return [[self PDFInspector] album] != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPDFPageFromField:
-- (IBAction) displayPDFPageFromField: (id) sender;
+-(IBAction)displayPDFPageFromField:(id)sender;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -315,7 +315,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDisplayPDFPageFromField:
-- (BOOL) validateDisplayPDFPageFromField: (id) sender;
+-(BOOL)validateDisplayPDFPageFromField:(id)sender;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -326,7 +326,7 @@ To Do List:
 	return([[[sender formatter] maximum] intValue] > 1);//?
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takePDFNewPageModeFromTag:
-- (IBAction) takePDFNewPageModeFromTag: (id <NSMenuItem>) sender;
+-(IBAction)takePDFNewPageModeFromTag:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -338,7 +338,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakePDFNewPageModeFromTag:
-- (BOOL) validateTakePDFNewPageModeFromTag: (id <NSMenuItem>) sender;
+-(BOOL)validateTakePDFNewPageModeFromTag:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -350,7 +350,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takePDFPageLayoutModeFromTag:
-- (IBAction) takePDFPageLayoutModeFromTag: (id <NSMenuItem>) sender;
+-(IBAction)takePDFPageLayoutModeFromTag:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -364,7 +364,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakePDFPageLayoutModeFromTag:
-- (BOOL) validateTakePDFPageLayoutModeFromTag: (id <NSMenuItem>) sender;
+-(BOOL)validateTakePDFPageLayoutModeFromTag:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -376,7 +376,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= togglePDFDisplayModeStick:
-- (void) togglePDFDisplayModeStick: (id) sender;
+-(void)togglePDFDisplayModeStick:(id)sender;
 /*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -398,7 +398,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePDFDisplayModeStick:
-- (BOOL) validateTogglePDFDisplayModeStick: (id) anItem;
+-(BOOL)validateTogglePDFDisplayModeStick:(id)anItem;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -411,7 +411,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePDFStickModeFromTag:...
-- (IBAction) takePDFStickModeFromTag: (id) sender
+-(IBAction)takePDFStickModeFromTag:(id)sender
 /*"Radio width|height|view. Sets the display mode to iTM2StickMode, sets the stick mode to iTM2StickToWidthMode,
 then #{fixMagnification} of the album. The display is a side effect.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -427,7 +427,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePDFStickModeFromTag:
-- (BOOL) validateTakePDFStickModeFromTag: (id) sender;
+-(BOOL)validateTakePDFStickModeFromTag:(id)sender;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -440,7 +440,7 @@ To Do List:
     return [self contextIntegerForKey:iTM2PDFDisplayModeKey] == iTM2PDFDisplayModeStick;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePDFDisplayOrientationFromTag:
-- (IBAction) takePDFDisplayOrientationFromTag: (id) sender
+-(IBAction)takePDFDisplayOrientationFromTag:(id)sender
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -464,7 +464,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePDFDisplayOrientationFromTag:
-- (BOOL) validateTakePDFDisplayOrientationFromTag: (id) anItem;
+-(BOOL)validateTakePDFDisplayOrientationFromTag:(id)anItem;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -476,7 +476,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePDFSlidesLandscapeMode:
-- (void) togglePDFSlidesLandscapeMode: (id) sender;
+-(void)togglePDFSlidesLandscapeMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -490,7 +490,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePDFSlidesLandscapeMode:
-- (BOOL) validateTogglePDFSlidesLandscapeMode: (id <NSMenuItem>) sender;
+-(BOOL)validateTogglePDFSlidesLandscapeMode:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -502,7 +502,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autoZoom:
-- (IBAction) autoZoom: (id) sender;
+-(IBAction)autoZoom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -517,7 +517,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateAutoZoom:
-- (BOOL) validateAutoZoom: (id) sender;
+-(BOOL)validateAutoZoom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -532,13 +532,13 @@ To Do List:
 @end
 
 @interface iTM2StringFormatControllerResponder(PRIVATE)
-- (id) textInspector;
-+ (void) stringEncodingListDidChangeNotified: (NSNotification *) irrelevant;
+-(id)textInspector;
++(void)stringEncodingListDidChangeNotified:(NSNotification *)irrelevant;
 @end
 
 @implementation NSApplication(iTM2Responders)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -553,7 +553,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2StringFormatControllerResponderDidFinishLaunching
-- (void) iTM2StringFormatControllerResponderDidFinishLaunching;
+-(void)iTM2StringFormatControllerResponderDidFinishLaunching;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -570,7 +570,7 @@ To Do List:
 
 @implementation iTM2StringFormatControllerResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -588,7 +588,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
+-(void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -602,7 +602,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingListDidChangeNotified:
-+ (void) stringEncodingListDidChangeNotified: (NSNotification *) irrelevant;
++(void)stringEncodingListDidChangeNotified:(NSNotification *)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -635,7 +635,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= textInspector
-- (id) textInspector;
+-(id)textInspector;
 /*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -647,7 +647,7 @@ To Do List:
     return [TI isKindOfClass:[iTM2TextInspector class]]? TI:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStringEncodingFromTag:
-- (IBAction) takeStringEncodingFromTag: (id) sender;
+-(IBAction)takeStringEncodingFromTag:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -665,7 +665,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
-- (IBAction) stringEncodingToggleAuto: (id) sender;
+-(IBAction)stringEncodingToggleAuto:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -679,7 +679,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
-- (BOOL) validateStringEncodingToggleAuto: (id) sender;
+-(BOOL)validateStringEncodingToggleAuto:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -750,7 +750,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingEditList:
-- (IBAction) stringEncodingEditList: (id) sender;
+-(IBAction)stringEncodingEditList:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -795,7 +795,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeEOLFromTag:
-- (IBAction) takeEOLFromTag: (id) sender;
+-(IBAction)takeEOLFromTag:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -813,7 +813,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
-- (BOOL) validateTakeEOLFromTag: (id) sender;
+-(BOOL)validateTakeEOLFromTag:(id)sender;
 /*"Description Forthcoming. This is the one form the main menu.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

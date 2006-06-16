@@ -39,11 +39,11 @@ NSString * const iTM2PDFSYNCTimeKey = @"iTM2PDFSYNCTime";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFSynchronizer
 
 @interface iTM2PDFSynchronizer(PRIVATE)
-- (BOOL) getLocation: (NSPoint *) thePointPtr page: (unsigned int *) thePagePtr forRecordIndex: (unsigned int) index;
-- (void) getRecordIndexes: (NSArray **) hereIndexes beforeIndexes: (NSArray **) beforeIndexes afterIndexes: (NSArray **) afterIndexes forLine: (unsigned int) line column: (unsigned int) column inSource: (NSString *) source;
-- (BOOL) getLine: (unsigned int *) linePtr column: (unsigned int *) columnPtr source: (NSString **) sourcePtr forRecordIndex: (unsigned int) index;
-- (int) recordIndexForLocation: (NSPoint) point inPageAtIndex: (unsigned int) pageIndex;
-- (void) doDealloc: (id) sender;
+-(BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
+-(void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+-(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
+-(int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
+-(void)doDealloc:(id)sender;
 @end
 
 typedef enum
@@ -56,7 +56,7 @@ typedef enum
 
 @implementation iTM2PDFSynchronizer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -71,7 +71,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc: (id) sender;
+-(void)dealloc:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -92,7 +92,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lock
-- (void) lock;
+-(void)lock;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -104,7 +104,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unlock
-- (void) unlock;
+-(void)unlock;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -116,7 +116,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parsePdfsync:
-- (void) parsePdfsync: (NSString *) pdfsyncPath;
+-(void)parsePdfsync:(NSString *)pdfsyncPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -131,7 +131,7 @@ To Do List:
         _Semaphore = updatingState;
         [_FileName release];
         _FileName = [pdfsyncPath copy]?: @"";
-        [NSThread detachNewThreadSelector: @selector(_ThreadedParsePdfsync:) toTarget: self withObject: nil];
+        [NSThread detachNewThreadSelector:@selector(_ThreadedParsePdfsync:) toTarget:self withObject:nil];
     }
     else if(_IsLocked)
     {
@@ -144,14 +144,14 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _ThreadedParsePdfsync:
-- (void) _ThreadedParsePdfsync: (id) irrelevant;
+-(void)_ThreadedParsePdfsync:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    NSLock * L = [[NSLock allocWithZone: [self zone]] init];
+    NSLock * L = [[NSLock allocWithZone:[self zone]] init];
     NSString * s = nil;
     NSAutoreleasePool * pool = nil;
     
@@ -168,35 +168,35 @@ To Do List:
     [L unlock];
     
     [pool release];
-    pool = [[NSAutoreleasePool allocWithZone: [self zone]] init];
+    pool = [[NSAutoreleasePool allocWithZone:[self zone]] init];
 //iTM2_START;
 //NSLog(@"pdfsync ing");
-    s = [NSString stringWithContentsOfFile: _FileName];
+    s = [NSString stringWithContentsOfFile:_FileName];
     if(![s length])
         goto kauehi;    
-    NSPoint offset = NSPointFromString([SUD stringForKey: iTM2PDFSyncOffsetKey]);
+    NSPoint offset = NSPointFromString([SUD stringForKey:iTM2PDFSyncOffsetKey]);
 
     NSPoint firstPoint = NSZeroPoint;
     
-    iTM2LiteScanner * S = [iTM2LiteScanner scannerWithString: s];
+    iTM2LiteScanner * S = [iTM2LiteScanner scannerWithString:s];
     
     NSString * directoryPath = [_FileName stringByDeletingLastPathComponent];
 
     NSString * file;
     if(![S scanUpToEOLIntoString: &file] || (!_IsLocked))
         goto kauehi;
-    if(![DFM fileExistsAtPath: [directoryPath stringByAppendingPathComponent: file]])
+    if(![DFM fileExistsAtPath:[directoryPath stringByAppendingPathComponent:file]])
     {
-        file = [file stringByAppendingPathExtension: @"tex"];
+        file = [file stringByAppendingPathExtension:@"tex"];
     }
-    file = [directoryPath stringByAppendingPathComponent: file];
+    file = [directoryPath stringByAppendingPathComponent:file];
     NSMutableArray * files = [NSMutableArray array];
     NSMutableArray * fileStack = [NSMutableArray array];
-    [files addObject: file];
-    [fileStack addObject: file];
+    [files addObject:file];
+    [fileStack addObject:file];
 
     int version;
-    if(![S scanString: @"version" intoString: nil] || ![S scanInt: &version])
+    if(![S scanString:@"version" intoString:nil] || ![S scanInt: &version])
     {
         goto kauehi;
     }
@@ -211,8 +211,8 @@ To Do List:
     // each time a page is shipped out, a new array is created.
     // the objects of that array are just iTM2SynchronizationLineRecord encapsulated in values
     NSMutableArray * lines = [NSMutableArray array];
-    [lines addObject: [NSNumber numberWithInt: 0]];
-    [lines addObject: [NSMutableDictionary dictionary]];
+    [lines addObject:[NSNumber numberWithInt:0]];
+    [lines addObject:[NSMutableDictionary dictionary]];
     int folio = 0;// the \@@folio?
     
     unsigned recordIndex;
@@ -221,19 +221,19 @@ To Do List:
     iTM2SynchronizationLocationRecord locationRecord;
 
     parsingStateAnchor:
-    if([S scanString: @"l" intoString: nil])
+    if([S scanString:@"l" intoString:nil])
     {
         if([S scanInt: &recordIndex] && [S scanInt: &lineRecord.line])
         {
             [[lines lastObject]
-                setObject: [NSValue value: &lineRecord withObjCType: @encode(iTM2SynchronizationLineRecord)]
-                    forKey: [NSNumber numberWithUnsignedInt: recordIndex]];
+                setObject: [NSValue value: &lineRecord withObjCType:@encode(iTM2SynchronizationLineRecord)]
+                    forKey: [NSNumber numberWithUnsignedInt:recordIndex]];
         }
 //NSLog(@"line: %i ([lines count] = %i & [[lines lastObject] count] = %i )", line, [lines count], [[lines lastObject] count]);
     }
-    else if([S scanString: @"p" intoString: nil])
+    else if([S scanString:@"p" intoString:nil])
     {
-        locationRecord.star = [S scanString: @"*" intoString: nil];
+        locationRecord.star = [S scanString:@"*" intoString:nil];
         // here we are expected to read something like
         // #1 #2 #3
         // where #1 is the order of the record
@@ -255,40 +255,40 @@ To Do List:
                 locationRecord.x+=offset.x;
                 locationRecord.y+=offset.y;
                 [[pages lastObject]
-                    setObject: [NSValue value: &locationRecord withObjCType: @encode(iTM2SynchronizationLocationRecord)]
-                        forKey: [NSNumber numberWithUnsignedInt: recordIndex]];
+                    setObject: [NSValue value: &locationRecord withObjCType:@encode(iTM2SynchronizationLocationRecord)]
+                        forKey: [NSNumber numberWithUnsignedInt:recordIndex]];
             }
 //else NSLog(@"Ignored: %u, %f, %f", recordIndex, locationRecord.x, locationRecord.y);
             // I guess there is only pages for a little while... I do not take advantage of this to have a more rapid parser
 //NSLog(@"page: %i, point: (%f, %f)", page, P.x, P.y);
         }
     }
-    else if([S scanString: @"s" intoString: nil] && [S scanInt: &folio])
+    else if([S scanString:@"s" intoString:nil] && [S scanInt: &folio])
     {
         // some page is being shipped out
-        [pages addObject: [NSMutableDictionary dictionary]];
+        [pages addObject:[NSMutableDictionary dictionary]];
     }
-    else if([S scanString: @"(" intoString: nil])
+    else if([S scanString:@"(" intoString:nil])
     {
         if(![S scanUpToEOLIntoString: &file])
             goto kauehi;
-        if(![DFM fileExistsAtPath: [directoryPath stringByAppendingPathComponent: file]])
+        if(![DFM fileExistsAtPath:[directoryPath stringByAppendingPathComponent:file]])
         {
-            file = [file stringByAppendingPathExtension: @"tex"];
+            file = [file stringByAppendingPathExtension:@"tex"];
         }
-        file = [directoryPath stringByAppendingPathComponent: file];
-        [fileStack addObject: file];
-        if(![files containsObject: file])
-            [files addObject: file];
-        [lines addObject: [NSNumber numberWithInt: [files indexOfObject: file]]];
-        [lines addObject: [NSMutableDictionary dictionary]];
+        file = [directoryPath stringByAppendingPathComponent:file];
+        [fileStack addObject:file];
+        if(![files containsObject:file])
+            [files addObject:file];
+        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:file]]];
+        [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"down to: %@", [fileStack lastObject]);
     }
-    else if([S scanString: @")" intoString: nil])
+    else if([S scanString:@")" intoString:nil])
     {
         [fileStack removeLastObject];
-        [lines addObject: [NSNumber numberWithInt: [files indexOfObject: [fileStack lastObject]]]];
-        [lines addObject: [NSMutableDictionary dictionary]];
+        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:[fileStack lastObject]]]];
+        [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"up to : %@", [fileStack lastObject]);
     }
     if([S isAtEnd])
@@ -301,15 +301,15 @@ To Do List:
         _PageSyncLocations = [pages mutableCopy];
         _Lines = [lines copy];
         [L unlock];
-        [self performSelectorOnMainThread: @selector(pdfsyncDidParse:) withObject: nil waitUntilDone: NO]; 
+        [self performSelectorOnMainThread:@selector(pdfsyncDidParse:) withObject:nil waitUntilDone:NO]; 
         // cleaning the lines and the pages: we only keep line infos for which there exists a synchronization point.
-        [NSThread setThreadPriority: [self contextFloatForKey: iTM2PDFSyncPriorityKey]];
+        [NSThread setThreadPriority:[self contextFloatForKey:iTM2PDFSyncPriorityKey]];
 #if 1
         NSEnumerator * E = [pages objectEnumerator];
         id O;
         NSMutableArray * allRecordIndices = [NSMutableArray array];
         while(O = [E nextObject])
-            [allRecordIndices addObjectsFromArray: [O allKeys]];
+            [allRecordIndices addObjectsFromArray:[O allKeys]];
         E = [lines objectEnumerator];
         unsigned saved = 0;
         unsigned total = 0;
@@ -320,10 +320,10 @@ To Do List:
             while(K = [e nextObject])
             {
                 ++total;
-                if(![allRecordIndices containsObject: K])
+                if(![allRecordIndices containsObject:K])
                 {
 //NSLog(@"removing line record index: %@", K);
-                    [O removeObjectForKey: K];
+                    [O removeObjectForKey:K];
                     ++saved;
                 }
                 if(!_IsLocked)
@@ -361,14 +361,14 @@ To Do List:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _ThreadedParsePdfsync:
-- (void) _ThreadedParsePdfsync: (id) irrelevant;
+-(void)_ThreadedParsePdfsync:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    NSLock * L = [[NSLock allocWithZone: [self zone]] init];
+    NSLock * L = [[NSLock allocWithZone:[self zone]] init];
     NSString * s = nil;
     updatingStateAnchor:
     
@@ -385,33 +385,33 @@ To Do List:
     iTM2_INIT_POOL;
 //iTM2_START;
 //NSLog(@"pdfsync ing");
-    s = [NSString stringWithContentsOfFile: _FileName];
+    s = [NSString stringWithContentsOfFile:_FileName];
     if(![s length])
         goto kauehi;    
-    NSPoint offset = NSPointFromString([SUD stringForKey: iTM2PDFSyncOffsetKey]);
+    NSPoint offset = NSPointFromString([SUD stringForKey:iTM2PDFSyncOffsetKey]);
 
 //iTM2_LOG(@"offset is: %@", NSStringFromPoint(offset));
     NSPoint firstPoint = NSZeroPoint;
     
-    iTM2LiteScanner * S = [iTM2LiteScanner scannerWithString: s];
+    iTM2LiteScanner * S = [iTM2LiteScanner scannerWithString:s];
     
     NSString * directoryPath = [_FileName stringByDeletingLastPathComponent];
 
     NSString * file;
     if(![S scanUpToEOLIntoString: &file] || (!_IsLocked))
         goto kauehi;
-    if(![DFM fileExistsAtPath: [directoryPath stringByAppendingPathComponent: file]])
+    if(![DFM fileExistsAtPath:[directoryPath stringByAppendingPathComponent:file]])
     {
-        file = [file stringByAppendingPathExtension: @"tex"];
+        file = [file stringByAppendingPathExtension:@"tex"];
     }
-    file = [directoryPath stringByAppendingPathComponent: file];
+    file = [directoryPath stringByAppendingPathComponent:file];
     NSMutableArray * files = [NSMutableArray array];
     NSMutableArray * fileStack = [NSMutableArray array];
-    [files addObject: file];
-    [fileStack addObject: file];
+    [files addObject:file];
+    [fileStack addObject:file];
 
     int version;
-    if(![S scanString: @"version" intoString: nil] || ![S scanInt: &version])
+    if(![S scanString:@"version" intoString:nil] || ![S scanInt: &version])
     {
         goto kauehi;
     }
@@ -426,8 +426,8 @@ To Do List:
     // each time a page is shipped out, a new array is created.
     // the objects of that array are just iTM2SynchronizationLineRecord encapsulated in values
     NSMutableArray * lines = [NSMutableArray array];
-    [lines addObject: [NSNumber numberWithInt: 0]];
-    [lines addObject: [NSMutableDictionary dictionary]];
+    [lines addObject:[NSNumber numberWithInt:0]];
+    [lines addObject:[NSMutableDictionary dictionary]];
     int folio = 0;// the \@@folio?
     
     int recordIndex;
@@ -436,19 +436,19 @@ To Do List:
     iTM2SynchronizationLocationRecord locationRecord;
 
     parsingStateAnchor:
-    if([S scanString: @"l" intoString: nil])
+    if([S scanString:@"l" intoString:nil])
     {
         if([S scanInt: &recordIndex] && [S scanInt: &lineRecord.line])
         {
             [[lines lastObject]
-                setObject: [NSValue value: &lineRecord withObjCType: @encode(iTM2SynchronizationLineRecord)]
-                    forKey: [NSNumber numberWithUnsignedInt: recordIndex]];
+                setObject: [NSValue value: &lineRecord withObjCType:@encode(iTM2SynchronizationLineRecord)]
+                    forKey: [NSNumber numberWithUnsignedInt:recordIndex]];
         }
 //NSLog(@"line: %i ([lines count] = %i & [[lines lastObject] count] = %i )", line, [lines count], [[lines lastObject] count]);
     }
-    else if([S scanString: @"p" intoString: nil])
+    else if([S scanString:@"p" intoString:nil])
     {
-        locationRecord.star = [S scanString: @"*" intoString: nil];
+        locationRecord.star = [S scanString:@"*" intoString:nil];
         // here we are expected to read something like
         // #1 #2 #3
         // where #1 is the order of the record
@@ -470,40 +470,40 @@ To Do List:
                 locationRecord.x+=offset.x;
                 locationRecord.y+=offset.y;
                 [[pages lastObject]
-                    setObject: [NSValue value: &locationRecord withObjCType: @encode(iTM2SynchronizationLocationRecord)]
-                        forKey: [NSNumber numberWithUnsignedInt: recordIndex]];
+                    setObject: [NSValue value: &locationRecord withObjCType:@encode(iTM2SynchronizationLocationRecord)]
+                        forKey: [NSNumber numberWithUnsignedInt:recordIndex]];
             }
 //else NSLog(@"Ignored: %u, %f, %f", recordIndex, locationRecord.x, locationRecord.y);
             // I guess there is only pages for a little while... I do not take advantage of this to have a more rapid parser
 //NSLog(@"page: %i, point: (%f, %f)", page, P.x, P.y);
         }
     }
-    else if([S scanString: @"s" intoString: nil] && [S scanInt: &folio])
+    else if([S scanString:@"s" intoString:nil] && [S scanInt: &folio])
     {
         // some page is being shipped out
-        [pages addObject: [NSMutableDictionary dictionary]];
+        [pages addObject:[NSMutableDictionary dictionary]];
     }
-    else if([S scanString: @"(" intoString: nil])
+    else if([S scanString:@"(" intoString:nil])
     {
         if(![S scanUpToEOLIntoString: &file])
             goto kauehi;
-        if(![DFM fileExistsAtPath: [directoryPath stringByAppendingPathComponent: file]])
+        if(![DFM fileExistsAtPath:[directoryPath stringByAppendingPathComponent:file]])
         {
-            file = [file stringByAppendingPathExtension: @"tex"];
+            file = [file stringByAppendingPathExtension:@"tex"];
         }
-        file = [directoryPath stringByAppendingPathComponent: file];
-        [fileStack addObject: file];
-        if(![files containsObject: file])
-            [files addObject: file];
-        [lines addObject: [NSNumber numberWithInt: [files indexOfObject: file]]];
-        [lines addObject: [NSMutableDictionary dictionary]];
+        file = [directoryPath stringByAppendingPathComponent:file];
+        [fileStack addObject:file];
+        if(![files containsObject:file])
+            [files addObject:file];
+        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:file]]];
+        [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"down to: %@", [fileStack lastObject]);
     }
-    else if([S scanString: @")" intoString: nil])
+    else if([S scanString:@")" intoString:nil])
     {
         [fileStack removeLastObject];
-        [lines addObject: [NSNumber numberWithInt: [files indexOfObject: [fileStack lastObject]]]];
-        [lines addObject: [NSMutableDictionary dictionary]];
+        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:[fileStack lastObject]]]];
+        [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"up to : %@", [fileStack lastObject]);
     }
     if([S isAtEnd])
@@ -516,15 +516,15 @@ To Do List:
         _PageSyncLocations = [pages mutableCopy];
         _Lines = [lines copy];
         [L unlock];
-        [self performSelectorOnMainThread: @selector(pdfsyncDidParse:) withObject: nil waitUntilDone: NO]; 
+        [self performSelectorOnMainThread:@selector(pdfsyncDidParse:) withObject:nil waitUntilDone:NO]; 
         // cleaning the lines and the pages: we only keep line infos for which there exists a synchronization point.
-        [NSThread setThreadPriority: [self contextFloatForKey: iTM2PDFSyncPriorityKey]];
+        [NSThread setThreadPriority:[self contextFloatForKey:iTM2PDFSyncPriorityKey]];
 #if 1
         NSEnumerator * E = [pages objectEnumerator];
         id O;
         NSMutableArray * allRecordIndices = [NSMutableArray array];
         while(O = [E nextObject])
-            [allRecordIndices addObjectsFromArray: [O allKeys]];// EXC_BAD_ACCESS Here?
+            [allRecordIndices addObjectsFromArray:[O allKeys]];// EXC_BAD_ACCESS Here?
         E = [lines objectEnumerator];
         unsigned saved = 0;
         unsigned total = 0;
@@ -535,10 +535,10 @@ To Do List:
             while(K = [e nextObject])
             {
                 ++total;
-                if(![allRecordIndices containsObject: K])
+                if(![allRecordIndices containsObject:K])
                 {
 //NSLog(@"removing line record index: %@", K);
-                    [O removeObjectForKey: K];
+                    [O removeObjectForKey:K];
                     ++saved;
                 }
                 if(!_IsLocked)
@@ -577,7 +577,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfsyncDidParse:
-- (void) pdfsyncDidParse: (id) irrelevant;
+-(void)pdfsyncDidParse:(id)irrelevant;
 /*"Description Forthcoming. This is meant to live in the main thread...
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -585,11 +585,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [INC postNotificationName: iTM2PDFSyncParsedNotificationName object: self];
+    [INC postNotificationName:iTM2PDFSyncParsedNotificationName object:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forLocation:withHint:inPageAtIndex:
-- (BOOL) getLine: (unsigned int *) linePtr column: (unsigned int *) columnPtr source: (NSString **) sourcePtr forLocation: (NSPoint) point withHint: (NSDictionary *) hint inPageAtIndex: (unsigned int) pageIndex;
+-(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -601,10 +601,10 @@ To Do List:
         return NO;
 
     NSValue * V = nil;
-	if(V = [hint objectForKey: @"line bounds"])
+	if(V = [hint objectForKey:@"line bounds"])
 	{
 		NSRect lineBounds = NSInsetRect([V rectValue], -1, -1);
-		NSDictionary * D = [_PageSyncLocations objectAtIndex: pageIndex];
+		NSDictionary * D = [_PageSyncLocations objectAtIndex:pageIndex];
 		NSEnumerator * E = [D keyEnumerator];
 		NSNumber * N;
 		NSMutableArray * left = [NSMutableArray array];// records are on the left of the column
@@ -613,49 +613,49 @@ To Do List:
 		NSMutableArray * right = [NSMutableArray array];// records are on the right of the column
 		while(N = [E nextObject])
 		{
-			V = [D objectForKey: N];
+			V = [D objectForKey:N];
 			iTM2SynchronizationLocationRecord locationRecord;
 			[V getValue: &locationRecord];
 			if(locationRecord.x < NSMinX(lineBounds))
-				[left addObject: N];
+				[left addObject:N];
 			else if(locationRecord.x > NSMaxX(lineBounds))
-				[right addObject: N];
+				[right addObject:N];
 			else if(locationRecord.y < NSMinY(lineBounds))
 			{
-				NSNumber * n = [NSNumber numberWithFloat: NSMinY(lineBounds) - locationRecord.y];
-				NSMutableArray * mra = [below objectForKey: n];
+				NSNumber * n = [NSNumber numberWithFloat:NSMinY(lineBounds) - locationRecord.y];
+				NSMutableArray * mra = [below objectForKey:n];
 				if(!mra)
 				{
 					mra = [NSMutableArray array];
-					[below setObject: mra forKey: n];
+					[below setObject:mra forKey:n];
 				}
-				[mra addObject: N];
+				[mra addObject:N];
 			}
 			else if([above count] || ![below count])// necessary to eliminate some exotic sync points
 			{
-				NSNumber * n = [NSNumber numberWithFloat: locationRecord.y - NSMinY(lineBounds)];
-				NSMutableArray * mra = [above objectForKey: n];
+				NSNumber * n = [NSNumber numberWithFloat:locationRecord.y - NSMinY(lineBounds)];
+				NSMutableArray * mra = [above objectForKey:n];
 				if(!mra)
 				{
 					mra = [NSMutableArray array];
-					[above setObject: mra forKey: n];
+					[above setObject:mra forKey:n];
 				}
-				[mra addObject: N];
+				[mra addObject:N];
 			}
 		}
 //NSLog(@"The record index for location: %@ in page : %u is %i", NSStringFromPoint(point), page, result);
-//NSLog(@"record index: %u (%@)", (resultObject? [[[D allKeysForObject: resultObject] lastObject] unsignedIntValue]: NSNotFound), resultObject);
+//NSLog(@"record index: %u (%@)", (resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntValue]: NSNotFound), resultObject);
 		if([above count])
 		{
-			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector: @selector(compare:)] objectAtIndex: 0];
-			NSNumber * recordNumber = [[above objectForKey: weightNumber] objectAtIndex: 0];
+			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+			NSNumber * recordNumber = [[above objectForKey:weightNumber] objectAtIndex:0];
 			return [self getLine: linePtr column: columnPtr source: sourcePtr
 							forRecordIndex: [recordNumber unsignedIntValue]];
 		}
 		else if([below count])
 		{
-			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector: @selector(compare:)] objectAtIndex: 0];
-			NSNumber * recordNumber = [[below objectForKey: weightNumber] objectAtIndex: 0];
+			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+			NSNumber * recordNumber = [[below objectForKey:weightNumber] objectAtIndex:0];
 			return [self getLine: linePtr column: columnPtr source: sourcePtr
 							forRecordIndex: [recordNumber unsignedIntValue]];
 		}
@@ -667,16 +667,16 @@ To Do List:
 		}
 		else if([right count])
 		{
-			NSNumber * recordNumber = [right objectAtIndex: 0];
+			NSNumber * recordNumber = [right objectAtIndex:0];
 			return [self getLine: linePtr column: columnPtr source: sourcePtr
 							forRecordIndex: [recordNumber unsignedIntValue]];
 		}
 	}
 	return [self getLine: linePtr column: columnPtr source: sourcePtr
-		forRecordIndex: [self recordIndexForLocation: point inPageAtIndex: pageIndex]];
+		forRecordIndex: [self recordIndexForLocation:point inPageAtIndex:pageIndex]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:sourceBefore:sourceAfter:forLocation:withHint:inPageAtIndex:
-- (BOOL) getLine: (unsigned int *) linePtr column: (unsigned int *) columnPtr sourceBefore: (NSString **) sourceBeforeRef sourceAfter: (NSString **) sourceAfterRef forLocation: (NSPoint) point withHint: (NSDictionary *) hint inPageAtIndex: (unsigned int) pageIndex;
+-(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -688,10 +688,10 @@ To Do List:
         return NO;
 
     NSValue * V = nil;
-	if(V = [hint objectForKey: @"line bounds"])
+	if(V = [hint objectForKey:@"line bounds"])
 	{
 		NSRect lineBounds = NSInsetRect([V rectValue], -1, -1);
-		NSDictionary * D = [_PageSyncLocations objectAtIndex: pageIndex];
+		NSDictionary * D = [_PageSyncLocations objectAtIndex:pageIndex];
 		NSEnumerator * E = [D keyEnumerator];
 		NSNumber * N;
 		NSMutableArray * left = [NSMutableArray array];// records are on the left of the column
@@ -700,49 +700,49 @@ To Do List:
 		NSMutableArray * right = [NSMutableArray array];// records are on the right of the column
 		while(N = [E nextObject])
 		{
-			V = [D objectForKey: N];
+			V = [D objectForKey:N];
 			iTM2SynchronizationLocationRecord locationRecord;
 			[V getValue: &locationRecord];
 			if(locationRecord.x < NSMinX(lineBounds))
-				[left addObject: N];
+				[left addObject:N];
 			else if(locationRecord.x > NSMaxX(lineBounds))
-				[right addObject: N];
+				[right addObject:N];
 			else if(locationRecord.y < NSMinY(lineBounds))
 			{
-				NSNumber * n = [NSNumber numberWithFloat: NSMinY(lineBounds) - locationRecord.y];
-				NSMutableArray * mra = [below objectForKey: n];
+				NSNumber * n = [NSNumber numberWithFloat:NSMinY(lineBounds) - locationRecord.y];
+				NSMutableArray * mra = [below objectForKey:n];
 				if(!mra)
 				{
 					mra = [NSMutableArray array];
-					[below setObject: mra forKey: n];
+					[below setObject:mra forKey:n];
 				}
-				[mra addObject: N];
+				[mra addObject:N];
 			}
 			else// if([above count] || ![below count])// necessary to eliminate some exotic sync points
 			{
-				NSNumber * n = [NSNumber numberWithFloat: locationRecord.y - NSMinY(lineBounds)];
-				NSMutableArray * mra = [above objectForKey: n];
+				NSNumber * n = [NSNumber numberWithFloat:locationRecord.y - NSMinY(lineBounds)];
+				NSMutableArray * mra = [above objectForKey:n];
 				if(!mra)
 				{
 					mra = [NSMutableArray array];
-					[above setObject: mra forKey: n];
+					[above setObject:mra forKey:n];
 				}
-				[mra addObject: N];
+				[mra addObject:N];
 			}
 		}
 //NSLog(@"The record index for location: %@ in page : %u is %i", NSStringFromPoint(point), page, result);
-//NSLog(@"record index: %u (%@)", (resultObject? [[[D allKeysForObject: resultObject] lastObject] unsignedIntValue]: NSNotFound), resultObject);
+//NSLog(@"record index: %u (%@)", (resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntValue]: NSNotFound), resultObject);
 		if([above count])
 		{
-			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector: @selector(compare:)] objectAtIndex: 0];
-			NSNumber * recordNumber = [[above objectForKey: weightNumber] objectAtIndex: 0];
+			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+			NSNumber * recordNumber = [[above objectForKey:weightNumber] objectAtIndex:0];
 			return [self getLine: linePtr column: columnPtr source: sourceBeforeRef
 							forRecordIndex: [recordNumber unsignedIntValue]];
 		}
 		else if([below count])
 		{
-			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector: @selector(compare:)] objectAtIndex: 0];
-			NSNumber * recordNumber = [[below objectForKey: weightNumber] objectAtIndex: 0];
+			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+			NSNumber * recordNumber = [[below objectForKey:weightNumber] objectAtIndex:0];
 			return [self getLine: linePtr column: columnPtr source: sourceAfterRef
 							forRecordIndex: [recordNumber unsignedIntValue]];
 		}
@@ -754,16 +754,16 @@ To Do List:
 		}
 		else if([right count])
 		{
-			NSNumber * recordNumber = [right objectAtIndex: 0];
+			NSNumber * recordNumber = [right objectAtIndex:0];
 			return [self getLine: linePtr column: columnPtr source: sourceAfterRef
 							forRecordIndex: [recordNumber unsignedIntValue]];
 		}
 	}
 	return [self getLine: linePtr column: columnPtr source: sourceBeforeRef
-		forRecordIndex: [self recordIndexForLocation: point inPageAtIndex: pageIndex]];
+		forRecordIndex: [self recordIndexForLocation:point inPageAtIndex:pageIndex]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getRecordIndexes:beforeIndexes:afterIndexes:column:inSource:
-- (void) getRecordIndexes: (NSArray **) hereIndexes beforeIndexes: (NSArray **) beforeIndexes afterIndexes: (NSArray **) afterIndexes forLine: (unsigned int) line column: (unsigned int) column inSource: (NSString *) source;
+-(void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -782,12 +782,12 @@ To Do List:
         return;
 	}
     if(![source length] && [_Files count])
-        source = [_Files objectAtIndex: 0];
-    if(![source hasPrefix: @"/"])
+        source = [_Files objectAtIndex:0];
+    if(![source hasPrefix:@"/"])
         source = [[[_FileName stringByDeletingLastPathComponent]
 			stringByAppendingPathComponent: source] stringByStandardizingPath];
 //NSLog(@"hereIndexesForLine: %u (%u) column: %u inSource: %@", line, NSNotFound, column, source);
-	int sourceIndex = [_Files indexOfObject: source];
+	int sourceIndex = [_Files indexOfObject:source];
     if(sourceIndex == NSNotFound)
     {
         iTM2_LOG(@"%@ not found in available: %@", source, _Files);
@@ -814,18 +814,18 @@ To Do List:
                 [V getValue: &lineRecord];
                 if(lineRecord.line == line)
                 {
-//NSLog(@"result exact line number: %u", [[[D allKeysForObject: V] lastObject] unsignedIntValue]);
+//NSLog(@"result exact line number: %u", [[[D allKeysForObject:V] lastObject] unsignedIntValue]);
 					if(beforeIndexes)
 						*beforeIndexes = nil;
 					if(afterIndexes)
 						*afterIndexes = nil;
 					if(hereIndexes)
-						*hereIndexes = [D allKeysForObject: V];
+						*hereIndexes = [D allKeysForObject:V];
                     return;
 				}
                 else if(lineRecord.line < line)
                 {
-//NSLog(@"result exact line number: %u", [[[D allKeysForObject: V] lastObject] unsignedIntValue]);
+//NSLog(@"result exact line number: %u", [[[D allKeysForObject:V] lastObject] unsignedIntValue]);
 					int newMin = line-lineRecord.line;
 					if(newMin < beforeMin)
 					{
@@ -836,7 +836,7 @@ To Do List:
 				}
                 else//if(lineRecord.line > line)
                 {
-//NSLog(@"result exact line number: %u", [[[D allKeysForObject: V] lastObject] unsignedIntValue]);
+//NSLog(@"result exact line number: %u", [[[D allKeysForObject:V] lastObject] unsignedIntValue]);
 					int newMin = lineRecord.line-line;
 					if(newMin < afterMin)
 					{
@@ -851,15 +851,15 @@ To Do List:
             [E nextObject];
     }
 	if(beforeIndexes)
-		*beforeIndexes = [beforeDictResult allKeysForObject: beforeObjectResult];
+		*beforeIndexes = [beforeDictResult allKeysForObject:beforeObjectResult];
 	if(afterIndexes)
-		*afterIndexes = [afterDictResult allKeysForObject: afterObjectResult];
+		*afterIndexes = [afterDictResult allKeysForObject:afterObjectResult];
 	if(hereIndexes)
 		*hereIndexes = nil;// allways nil
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLocation:page:forRecordIndex:
-- (BOOL) getLocation: (NSPoint *) thePointPtr page: (unsigned int *) thePagePtr forRecordIndex: (unsigned int) index;
+-(BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -870,11 +870,11 @@ To Do List:
     if(index == NSNotFound)
         return NO;
     unsigned int page = 0;
-    NSNumber * K = [NSNumber numberWithUnsignedInt: index];
+    NSNumber * K = [NSNumber numberWithUnsignedInt:index];
     while(page<[_PageSyncLocations count])
     {
-        NSDictionary * locations = [_PageSyncLocations objectAtIndex: page];
-        NSValue * V = [locations objectForKey: K];
+        NSDictionary * locations = [_PageSyncLocations objectAtIndex:page];
+        NSValue * V = [locations objectForKey:K];
         if(V)
         {
             iTM2SynchronizationLocationRecord locationRecord;
@@ -891,7 +891,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  destinationsForLine:column:inSource:
-- (NSDictionary*) destinationsForLine: (unsigned int) line column: (unsigned int) column inSource: (NSString *) source;
+-(NSDictionary*)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -902,7 +902,7 @@ To Do List:
 	NSArray * hereIndexes = nil;
 	NSArray * beforeIndexes = nil;
 	NSArray * afterIndexes = nil;
-	[self getRecordIndexes: &hereIndexes beforeIndexes: &beforeIndexes afterIndexes: &afterIndexes forLine: line column: column inSource: source];
+	[self getRecordIndexes: &hereIndexes beforeIndexes: &beforeIndexes afterIndexes: &afterIndexes forLine:line column:column inSource:source];
 	NSMutableDictionary * hereResult = [NSMutableDictionary dictionary];
 	NSMutableDictionary * beforeResult = [NSMutableDictionary dictionary];
 	NSMutableDictionary * afterResult = [NSMutableDictionary dictionary];
@@ -917,15 +917,15 @@ To Do List:
 		while(N = [E nextObject])
 		{
 			unsigned int recordIndex = [N unsignedIntValue];
-			[self getLocation: &point page: &pageIndex forRecordIndex: recordIndex];
-			NSNumber * key = [NSNumber numberWithUnsignedInt: pageIndex];
-			NSMutableArray * MRA = [hereResult objectForKey: key];
+			[self getLocation: &point page: &pageIndex forRecordIndex:recordIndex];
+			NSNumber * key = [NSNumber numberWithUnsignedInt:pageIndex];
+			NSMutableArray * MRA = [hereResult objectForKey:key];
 			if(!MRA)
 			{
 				MRA = [NSMutableArray array];
-				[hereResult setObject: MRA forKey: key];
+				[hereResult setObject:MRA forKey:key];
 			}
-			[MRA addObject: [NSValue valueWithPoint: point]];
+			[MRA addObject:[NSValue valueWithPoint:point]];
 		}
 	}
 	if(beforeIndexes)
@@ -939,15 +939,15 @@ To Do List:
 		while(N = [E nextObject])
 		{
 			unsigned int recordIndex = [N unsignedIntValue];
-			[self getLocation: &point page: &pageIndex forRecordIndex: recordIndex];
-			NSNumber * key = [NSNumber numberWithUnsignedInt: pageIndex];
-			NSMutableArray * MRA = [beforeResult objectForKey: key];
+			[self getLocation: &point page: &pageIndex forRecordIndex:recordIndex];
+			NSNumber * key = [NSNumber numberWithUnsignedInt:pageIndex];
+			NSMutableArray * MRA = [beforeResult objectForKey:key];
 			if(!MRA)
 			{
 				MRA = [NSMutableArray array];
-				[beforeResult setObject: MRA forKey: key];
+				[beforeResult setObject:MRA forKey:key];
 			}
-			[MRA addObject: [NSValue valueWithPoint: point]];
+			[MRA addObject:[NSValue valueWithPoint:point]];
 		}
 	}
 	if(afterIndexes)
@@ -961,25 +961,25 @@ To Do List:
 		while(N = [E nextObject])
 		{
 			unsigned int recordIndex = [N unsignedIntValue];
-			[self getLocation: &point page: &pageIndex forRecordIndex: recordIndex];
-			NSNumber * key = [NSNumber numberWithUnsignedInt: pageIndex];
-			NSMutableArray * MRA = [afterResult objectForKey: key];
+			[self getLocation: &point page: &pageIndex forRecordIndex:recordIndex];
+			NSNumber * key = [NSNumber numberWithUnsignedInt:pageIndex];
+			NSMutableArray * MRA = [afterResult objectForKey:key];
 			if(!MRA)
 			{
 				MRA = [NSMutableArray array];
-				[afterResult setObject: MRA forKey: key];
+				[afterResult setObject:MRA forKey:key];
 			}
-			[MRA addObject: [NSValue valueWithPoint: point]];
+			[MRA addObject:[NSValue valueWithPoint:point]];
 		}
 	}
 	NSMutableDictionary * result = [NSMutableDictionary dictionary];
-	[result setObject: beforeResult forKey: @"before"];
-	[result setObject: afterResult forKey: @"after"];
-	[result setObject: hereResult forKey: @"here"];
+	[result setObject:beforeResult forKey:@"before"];
+	[result setObject:afterResult forKey:@"after"];
+	[result setObject:hereResult forKey:@"here"];
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordIndexForLocation:inPageAtIndex:
-- (int) recordIndexForLocation: (NSPoint) point inPageAtIndex: (unsigned int) pageIndex;
+-(int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -990,7 +990,7 @@ To Do List:
 //NSLog(@"recordIndexForLocation: %@ inPageAtIndex: %u", NSStringFromPoint(point), pageIndex);
     if((pageIndex<0) || (pageIndex>=[_PageSyncLocations count]))
         return NSNotFound;
-    NSDictionary * D = [_PageSyncLocations objectAtIndex: pageIndex];
+    NSDictionary * D = [_PageSyncLocations objectAtIndex:pageIndex];
     NSEnumerator * E = [D objectEnumerator];
     NSValue * V = nil;
     float min = 1e20;
@@ -1011,11 +1011,11 @@ To Do List:
         }
     }
 //NSLog(@"The record index for location: %@ in page : %u is %i", NSStringFromPoint(point), page, result);
-//NSLog(@"record index: %u (%@)", (resultObject? [[[D allKeysForObject: resultObject] lastObject] unsignedIntValue]: NSNotFound), resultObject);
-    return resultObject? [[[D allKeysForObject: resultObject] lastObject] unsignedIntValue]: NSNotFound;
+//NSLog(@"record index: %u (%@)", (resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntValue]: NSNotFound), resultObject);
+    return resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntValue]: NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forRecordIndex:
-- (BOOL) getLine: (unsigned int *) linePtr column: (unsigned int *) columnPtr source: (NSString **) sourcePtr forRecordIndex: (unsigned int) index;
+-(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1027,7 +1027,7 @@ To Do List:
 //NSLog(@"_Lines: %@", _Lines);
     if(index == NSNotFound)
         return NO;
-    NSNumber * recordNumber = [NSNumber numberWithUnsignedInt: index];
+    NSNumber * recordNumber = [NSNumber numberWithUnsignedInt:index];
     NSEnumerator * E = [_Lines objectEnumerator];
     NSNumber * N;
     while(N = [E nextObject])
@@ -1035,7 +1035,7 @@ To Do List:
         int sourceIndex = [N intValue];
 //NSLog(@"sourceIndex: %i", sourceIndex);
         NSDictionary * lines = [E nextObject];
-        NSValue * V = [lines objectForKey: recordNumber];
+        NSValue * V = [lines objectForKey:recordNumber];
         if(V)
         {
             iTM2SynchronizationLineRecord lineRecord;
@@ -1045,14 +1045,14 @@ To Do List:
             if(columnPtr)
                 * columnPtr = lineRecord.column;
             if(sourcePtr)
-                * sourcePtr = [_Files objectAtIndex: sourceIndex];
+                * sourcePtr = [_Files objectAtIndex:sourceIndex];
             return YES;
         }
     }
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sourcesForPageAtIndex:
-- (NSArray *) sourcesForPageAtIndex: (unsigned int) pageIndex;
+-(NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1064,21 +1064,21 @@ To Do List:
     if((pageIndex<0) || (pageIndex>=[_PageSyncLocations count]))
         return nil;
 	NSMutableSet * result = [NSMutableSet set];// to be converted to an array on return
-    NSEnumerator * E = [[_PageSyncLocations objectAtIndex: pageIndex] keyEnumerator];
+    NSEnumerator * E = [[_PageSyncLocations objectAtIndex:pageIndex] keyEnumerator];
     NSNumber * N = nil;
     while(N = [E nextObject])
     {
 		NSString * source;
-		if([self getLine: nil column: nil source: &source forRecordIndex: [N unsignedIntValue]])
+		if([self getLine:nil column:nil source: &source forRecordIndex:[N unsignedIntValue]])
 		{
-			[result addObject: source];
+			[result addObject:source];
 		}
     }
 //iTM2_END;
 	return [result allObjects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationLocationsForPageIndex:
-- (NSDictionary *) synchronizationLocationsForPageIndex: (unsigned int) page;
+-(NSDictionary *)synchronizationLocationsForPageIndex:(unsigned int)page;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1086,7 +1086,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return (page >= 0) && (page < [_PageSyncLocations count])? [_PageSyncLocations objectAtIndex: page]: nil;
+    return (page >= 0) && (page < [_PageSyncLocations count])? [_PageSyncLocations objectAtIndex:page]: nil;
 }
 @end
 #import <iTM2Foundation/iTM2ResponderKit.h>
@@ -1094,13 +1094,13 @@ To Do List:
 #import <iTM2Foundation/iTM2Implementation.h>
 
 @interface iTM2PDFImageRepView(Synchronization_PRIVATE_9)
-- (BOOL) validateScrollSynchronizationPointToVisible: (NSMenuItem *) sender;
+-(BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
 @end
 
 
 @implementation NSApplication(iTM2PDFSYNCResponder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFSYNCResponderDidFinishLaunching
-- (void) iTM2PDFSYNCResponderDidFinishLaunching;
+-(void)iTM2PDFSYNCResponderDidFinishLaunching;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1108,8 +1108,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([self targetForAction: @selector(toggleSyncFollowFocus:)])
-		[iTM2MileStone putMileStoneForKey: @"iTM2PDFSYNCResponder"];
+	if([self targetForAction:@selector(toggleSyncFollowFocus:)])
+		[iTM2MileStone putMileStoneForKey:@"iTM2PDFSYNCResponder"];
 //iTM2_END;
 	return;
 }
@@ -1117,7 +1117,7 @@ To Do List:
 
 @implementation iTM2PDFSYNCResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1126,13 +1126,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	[iTM2MileStone registerMileStone: @"No installer available" forKey: @"iTM2PDFSYNCResponder"];
+	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2PDFSYNCResponder"];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1142,16 +1142,16 @@ To Do List:
 //iTM2_START;
 	[super initialize];
 	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithBool: YES], iTM2PDFSyncFollowFocusKey,
-			[NSNumber numberWithFloat: 0.5], iTM2PDFSyncPriorityKey,
-			[NSNumber numberWithBool: NO], iTM2PDFSyncShowRecordNumberKey,
-			[NSNumber numberWithInt: 7], iTM2PDFSYNCDisplayBulletsKey,
-			[NSNumber numberWithFloat: 30], iTM2PDFSYNCTimeKey,
+			[NSNumber numberWithBool:YES], iTM2PDFSyncFollowFocusKey,
+			[NSNumber numberWithFloat:0.5], iTM2PDFSyncPriorityKey,
+			[NSNumber numberWithBool:NO], iTM2PDFSyncShowRecordNumberKey,
+			[NSNumber numberWithInt:7], iTM2PDFSYNCDisplayBulletsKey,
+			[NSNumber numberWithFloat:30], iTM2PDFSYNCTimeKey,
 				nil]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncFollowFocus:
-- (IBAction) toggleSyncFollowFocus: (id) sender;
+-(IBAction)toggleSyncFollowFocus:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1160,12 +1160,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id R = [[NSApp mainWindow] firstResponder];
-    BOOL old = [R contextBoolForKey: iTM2PDFSyncFollowFocusKey];
-    [R takeContextBool: !old forKey: iTM2PDFSyncFollowFocusKey];
+    BOOL old = [R contextBoolForKey:iTM2PDFSyncFollowFocusKey];
+    [R takeContextBool: !old forKey:iTM2PDFSyncFollowFocusKey];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncFollowFocus:
-- (BOOL) validateToggleSyncFollowFocus: (id) sender;
+-(BOOL)validateToggleSyncFollowFocus:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1173,11 +1173,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey: iTM2PDFSyncFollowFocusKey]? NSOnState: NSOffState)];
+	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey:iTM2PDFSyncFollowFocusKey]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSynchronizationMode:
-- (IBAction) toggleSynchronizationMode: (id) sender;
+-(IBAction)toggleSynchronizationMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1187,15 +1187,15 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [NSApp mainWindow];
     id R = [W firstResponder];
-    BOOL old = [R contextBoolForKey: iTM2PDFNoSynchronizationKey];
-    [R takeContextBool: !old forKey: iTM2PDFNoSynchronizationKey];
+    BOOL old = [R contextBoolForKey:iTM2PDFNoSynchronizationKey];
+    [R takeContextBool: !old forKey:iTM2PDFNoSynchronizationKey];
 	id D = [[W windowController] document];
-	if([D respondsToSelector: @selector(updatePdfsync:)])
-		[D updatePdfsync: self];//update the views
+	if([D respondsToSelector:@selector(updatePdfsync:)])
+		[D updatePdfsync:self];//update the views
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSynchronizationMode:
-- (BOOL) validateToggleSynchronizationMode: (id) sender;
+-(BOOL)validateToggleSynchronizationMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1203,11 +1203,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey: iTM2PDFNoSynchronizationKey]? NSOffState: NSOnState)];
+//	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey:iTM2PDFNoSynchronizationKey]? NSOffState:NSOnState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncNoBullets:
-- (IBAction) toggleSyncNoBullets: (id) sender;
+-(IBAction)toggleSyncNoBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1217,12 +1217,12 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [NSApp mainWindow];
     id R = [W firstResponder];
-    [R takeContextInteger: 0 forKey: iTM2PDFSYNCDisplayBulletsKey];
-    [[[W windowController] document] updatePdfsync: self];//update the views
+    [R takeContextInteger:0 forKey:iTM2PDFSYNCDisplayBulletsKey];
+    [[[W windowController] document] updatePdfsync:self];//update the views
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncNoBullets:
-- (BOOL) validateToggleSyncNoBullets: (id) sender;
+-(BOOL)validateToggleSyncNoBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1231,12 +1231,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey: iTM2PDFSYNCDisplayBulletsKey];
-	[sender setState: (mode == 0? NSOnState: NSOffState)];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	[sender setState: (mode == 0? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncAllBullets:
-- (IBAction) toggleSyncAllBullets: (id) sender;
+-(IBAction)toggleSyncAllBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1248,12 +1248,12 @@ To Do List:
     id R = [W firstResponder];
     [R takeContextInteger: kiTM2PDFSYNCDisplayBuiltInBullets|kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets
         forKey: iTM2PDFSYNCDisplayBulletsKey];
-    [[[W windowController] document] updatePdfsync: self];//update the views
+    [[[W windowController] document] updatePdfsync:self];//update the views
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncAllBullets:
-- (BOOL) validateToggleSyncAllBullets: (id) sender;
+-(BOOL)validateToggleSyncAllBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1262,13 +1262,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey: iTM2PDFSYNCDisplayBulletsKey];
-	[sender setState: (mode == (kiTM2PDFSYNCDisplayBuiltInBullets|kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState: NSOffState)];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	[sender setState: (mode == (kiTM2PDFSYNCDisplayBuiltInBullets|kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncUserBullets:
-- (IBAction) toggleSyncUserBullets: (id) sender;
+-(IBAction)toggleSyncUserBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1280,12 +1280,12 @@ To Do List:
     id CM = [[W firstResponder] contextManager];
     [CM takeContextInteger: kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets
         forKey: iTM2PDFSYNCDisplayBulletsKey];
-    [[[W windowController] document] updatePdfsync: self];//update the views
+    [[[W windowController] document] updatePdfsync:self];//update the views
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncUserBullets:
-- (BOOL) validateToggleSyncUserBullets: (id) sender;
+-(BOOL)validateToggleSyncUserBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1294,13 +1294,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey: iTM2PDFSYNCDisplayBulletsKey];
-	[sender setState: (mode == (kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState: NSOffState)];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	[sender setState: (mode == (kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncFocusBullet:
-- (IBAction) toggleSyncFocusBullet: (id) sender;
+-(IBAction)toggleSyncFocusBullet:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1310,12 +1310,12 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [NSApp mainWindow];
     id CM = [[W firstResponder] contextManager];
-    [CM takeContextInteger: kiTM2PDFSYNCDisplayFocusBullets forKey: iTM2PDFSYNCDisplayBulletsKey];
-    [[[W windowController] document] updatePdfsync: self];//update the views
+    [CM takeContextInteger:kiTM2PDFSYNCDisplayFocusBullets forKey:iTM2PDFSYNCDisplayBulletsKey];
+    [[[W windowController] document] updatePdfsync:self];//update the views
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncFocusBullet:
-- (BOOL) validateToggleSyncFocusBullet: (id) sender;
+-(BOOL)validateToggleSyncFocusBullet:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1324,12 +1324,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey: iTM2PDFSYNCDisplayBulletsKey];
-	[sender setState: (mode == kiTM2PDFSYNCDisplayFocusBullets? NSOnState: NSOffState)];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	[sender setState: (mode == kiTM2PDFSYNCDisplayFocusBullets? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findAndScrollSynchronizationPointToVisible:
-- (IBAction) findAndScrollSynchronizationPointToVisible: (id) sender;
+-(IBAction)findAndScrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1338,14 +1338,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2PDFInspector * WC = [[NSApp mainWindow] windowController];
-	if([WC respondsToSelector: @selector(canSynchronizeOutput)] && [WC canSynchronizeOutput])
+	if([WC respondsToSelector:@selector(canSynchronizeOutput)] && [WC canSynchronizeOutput])
 	{
 		[WC scrollSynchronizationPointToVisible: (id) sender];		
 	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFindAndScrollSynchronizationPointToVisible:
-- (BOOL) validateFindAndScrollSynchronizationPointToVisible: (id) sender;
+-(BOOL)validateFindAndScrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1354,8 +1354,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     iTM2PDFInspector * WC = [[NSApp mainWindow] windowController];
-	return [WC respondsToSelector: @selector(canSynchronizeOutput)] && [WC canSynchronizeOutput]
-		&& [WC validateScrollSynchronizationPointToVisible: sender];
+	return [WC respondsToSelector:@selector(canSynchronizeOutput)] && [WC canSynchronizeOutput]
+		&& [WC validateScrollSynchronizationPointToVisible:sender];
 }
 @end
 
@@ -1366,7 +1366,7 @@ NSString * const iTM2PDFSYNCExtension = @"pdfsync";
 
 @implementation iTM2PDFDocument(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizer
-- (id) synchronizer;
+-(id)synchronizer;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1377,7 +1377,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSynchronizer:
-- (void) setSynchronizer: (id) argument;
+-(void)setSynchronizer:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1392,7 +1392,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceSynchronizer:
-- (void) replaceSynchronizer: (id) argument;
+-(void)replaceSynchronizer:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1400,13 +1400,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSInvocation * I = [[[IMPLEMENTATION metaValueForKey: @"_Invocation"] retain] autorelease];
-    [IMPLEMENTATION takeMetaValue: nil forKey: @"_Invocation"];
+	NSInvocation * I = [[[IMPLEMENTATION metaValueForKey:@"_Invocation"] retain] autorelease];
+    [IMPLEMENTATION takeMetaValue:nil forKey:@"_Invocation"];
     id _Synchronizer = [self synchronizer];
     if(argument != _Synchronizer)
     {
         [_Synchronizer unlock];
-        [self setSynchronizer: argument];
+        [self setSynchronizer:argument];
         _Synchronizer = [self synchronizer];
         [_Synchronizer lock];
     }
@@ -1415,8 +1415,8 @@ To Do List:
     while(W = [E nextObject])
 	{
 		id WC = [W windowController];
-		if(([WC document] == self) && [WC respondsToSelector: @selector(canSynchronizeOutput)] && [WC canSynchronizeOutput])
-            [[WC album] setNeedsDisplay: YES];
+		if(([WC document] == self) && [WC respondsToSelector:@selector(canSynchronizeOutput)] && [WC canSynchronizeOutput])
+            [[WC album] setNeedsDisplay:YES];
 	}
     if(_Synchronizer)
     {
@@ -1427,7 +1427,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteDidReadFromURL:ofType:error:
-- (void) synchronizationCompleteDidReadFromURL: (NSURL *) fileURL ofType: (NSString *) type error:(NSError**)outError;
+-(void)synchronizationCompleteDidReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1435,12 +1435,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self updatePdfsync: self];
+	[self updatePdfsync:self];
 //iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteWriteToURL:ofType:error:
-- (void) synchronizationCompleteWriteToURL: (NSURL *) fileURL ofType: (NSString *) type error:(NSError**)outError;
+-(void)synchronizationCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1454,7 +1454,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteSaveContext:
-- (void) synchronizationCompleteSaveContext: (id) sender;
+-(void)synchronizationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1468,7 +1468,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePdfSyncFileModificationDate
-- (void) updatePdfSyncFileModificationDate;
+-(void)updatePdfSyncFileModificationDate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1481,10 +1481,10 @@ To Do List:
 	NSString * pdfsyncPath = [[[FN stringByDeletingPathExtension]
 								stringByAppendingPathExtension: iTM2PDFSYNCExtension]
 										stringByResolvingSymlinksAndFinderAliasesInPath];
-	if([DFM fileExistsAtPath: pdfsyncPath])
+	if([DFM fileExistsAtPath:pdfsyncPath])
 	{
-		NSDate * pdfDate = [[DFM fileAttributesAtPath: FN traverseLink: NO] fileModificationDate];
-		if(![DFM changeFileAttributes: [NSDictionary dictionaryWithObject: pdfDate forKey: NSFileModificationDate] atPath: pdfsyncPath])
+		NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
+		if(![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
 		{
 			iTM2_LOG(@"ERROR: Unexpected problem: could not change the file modification date...");
 		}
@@ -1493,7 +1493,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updatePdfsync:
-- (void) updatePdfsync: (id) irrelevant;
+-(void)updatePdfsync:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1504,9 +1504,9 @@ To Do List:
     //things should be done only when the receiver is using the built in viewer
     // does a PDFSYNC info exist?
 #warning USE THE SETTINGS
-    if([self contextBoolForKey: iTM2PDFNoSynchronizationKey])
+    if([self contextBoolForKey:iTM2PDFNoSynchronizationKey])
 	{
-        [self replaceSynchronizer: nil];
+        [self replaceSynchronizer:nil];
 		return;
 	}
     NSEnumerator * E = [[NSApp windows] objectEnumerator];
@@ -1514,7 +1514,7 @@ To Do List:
     while(W = [E nextObject])
 	{
 		id WC = [W windowController];
-		if(([WC document] == self) && [WC respondsToSelector: @selector(canSynchronizeOutput)] && [WC canSynchronizeOutput])
+		if(([WC document] == self) && [WC respondsToSelector:@selector(canSynchronizeOutput)] && [WC canSynchronizeOutput])
             goto laSuite;
 	}
 //iTM2_LOG(@"NO WINDOW TO SYNCHRONIZE");
@@ -1524,11 +1524,11 @@ To Do List:
 	NSString * pdfsyncPath = [[[FN stringByDeletingPathExtension]
 									stringByAppendingPathExtension: iTM2PDFSYNCExtension]
 											stringByResolvingSymlinksAndFinderAliasesInPath];
-	NSDate * pdfsyncDate = [[DFM fileAttributesAtPath: pdfsyncPath traverseLink: NO] fileModificationDate];
+	NSDate * pdfsyncDate = [[DFM fileAttributesAtPath:pdfsyncPath traverseLink:NO] fileModificationDate];
 	if(!pdfsyncDate)
 	{
 		if(![self synchronizer])
-			[self replaceSynchronizer: [[[iTM2PDFSynchronizer allocWithZone: [self zone]] init] autorelease]];
+			[self replaceSynchronizer:[[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease]];
 		return;
 	}
 #if 0
@@ -1543,39 +1543,39 @@ To Do List:
 		NSLog(@"The file is already open");        
 	}
 #endif
-	NSDate * pdfDate = [[DFM fileAttributesAtPath: FN traverseLink: NO] fileModificationDate];
-//iTM2_LOG(@"pdfDate: %@, pdfsyncDate: %@, [pdfDate timeIntervalSinceDate: pdfsyncDate]: %d", pdfDate, pdfsyncDate, [pdfDate timeIntervalSinceDate: pdfsyncDate]);
-	if([pdfDate timeIntervalSinceDate: pdfsyncDate] < [self contextFloatForKey: iTM2PDFSYNCTimeKey])// in seconds
+	NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
+//iTM2_LOG(@"pdfDate: %@, pdfsyncDate: %@, [pdfDate timeIntervalSinceDate:pdfsyncDate]: %d", pdfDate, pdfsyncDate, [pdfDate timeIntervalSinceDate:pdfsyncDate]);
+	if([pdfDate timeIntervalSinceDate:pdfsyncDate] < [self contextFloatForKey:iTM2PDFSYNCTimeKey])// in seconds
 	{
 		[INC removeObserver: self
 			name: iTM2PDFSyncParsedNotificationName
 				object: nil];
-		id S = [[[iTM2PDFSynchronizer allocWithZone: [self zone]] init] autorelease];
-		[self replaceSynchronizer: S];
+		id S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+		[self replaceSynchronizer:S];
 		[INC addObserver: self
 			selector: @selector(pdfsyncDidParseNotified:)
 				name: iTM2PDFSyncParsedNotificationName
 					object: S];
-		[S parsePdfsync: pdfsyncPath];
+		[S parsePdfsync:pdfsyncPath];
 	}
 	else
 	{
-		iTM2_LOG(@"No synchronization available (pdfsync date %@>= pdf date %@ (%f s error -> pdfsync %lf)).", pdfsyncDate, pdfDate, [self contextFloatForKey: iTM2PDFSYNCTimeKey], [pdfDate timeIntervalSinceDate: pdfsyncDate]);
+		iTM2_LOG(@"No synchronization available (pdfsync date %@>= pdf date %@ (%f s error -> pdfsync %lf)).", pdfsyncDate, pdfDate, [self contextFloatForKey:iTM2PDFSYNCTimeKey], [pdfDate timeIntervalSinceDate:pdfsyncDate]);
 		int tag;
 		if(![SWS performFileOperation: NSWorkspaceRecycleOperation
 			source: [pdfsyncPath stringByDeletingLastPathComponent]	
 				destination: nil
-					files: [NSArray arrayWithObject: [pdfsyncPath lastPathComponent]]
+					files: [NSArray arrayWithObject:[pdfsyncPath lastPathComponent]]
 						tag: &tag])
 		{
 			iTM2_LOG(@"ERROR: Could not recycle %@ due to %i, please do it for me...", pdfsyncPath, tag);
 		}
-		[self replaceSynchronizer: nil];
+		[self replaceSynchronizer:nil];
 	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfsyncDidParseNotified:
-- (void) pdfsyncDidParseNotified: (NSNotification *) notification;
+-(void)pdfsyncDidParseNotified:(NSNotification *)notification;
 /*"Description Forthcoming. This is meant to live in the main thread...
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1583,11 +1583,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self replaceSynchronizer: [notification object]];
+    [self replaceSynchronizer:[notification object]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:
-- (BOOL) displayPageForLine: (unsigned int) l column: (unsigned int) c source: (NSString *) SRCE withHint: (NSDictionary *) hint orderFront: (BOOL) yorn force: (BOOL) force;
+-(BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1603,26 +1603,26 @@ To Do List:
 	[self makeWindowControllers];
 	[self showWindows];
 laSuite:
-	if([SRCE hasPrefix: @"/"])
-		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory: [[self fileName] stringByDeletingLastPathComponent]];
+	if([SRCE hasPrefix:@"/"])
+		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory:[[self fileName] stringByDeletingLastPathComponent]];
 //NSLog(@"line: %u column: %u source: %@", l, c, SRCE);
-    [IMPLEMENTATION takeMetaValue: nil forKey: @"_Invocation"];
+    [IMPLEMENTATION takeMetaValue:nil forKey:@"_Invocation"];
 	BOOL result = NO;
 	// external viewers are prominent
 	E = [[NSApp windows] objectEnumerator];
 	while(W = [E nextObject])
 	{
 		iTM2ExternalInspector * WC = [W windowController];
-		if(([WC document] == self) && force && [WC isKindOfClass: [iTM2ExternalInspector class]])
+		if(([WC document] == self) && force && [WC isKindOfClass:[iTM2ExternalInspector class]])
 		{
 			result = result || [WC switchToExternalHelperWithEnvironment: [NSDictionary dictionaryWithObjectsAndKeys:
 				[self fileName], @"file",
-				[NSNumber numberWithInt: l], @"line",
-				[NSNumber numberWithInt: c], @"column",
-				([SRCE length]? SRCE: @""), @"source", nil]];
+				[NSNumber numberWithInt:l], @"line",
+				[NSNumber numberWithInt:c], @"column",
+				([SRCE length]? SRCE:@""), @"source", nil]];
 		}
 	}
-	NSDictionary * destinations = [[self synchronizer] destinationsForLine: l column: c inSource: SRCE];
+	NSDictionary * destinations = [[self synchronizer] destinationsForLine:l column:c inSource:SRCE];
 //NSLog(@"SYNCHRONIZING");
 	if(destinations)
 	{
@@ -1633,16 +1633,16 @@ laSuite:
 			iTM2PDFInspector * WC = [W windowController];
 //iTM2_LOG(@"[WC document]: %@, [WC class]: %@", [WC document], [WC class]);
 			if(([WC document] == self)
-				&& [WC respondsToSelector: @selector(canSynchronizeOutput)]
+				&& [WC respondsToSelector:@selector(canSynchronizeOutput)]
 					&& [WC canSynchronizeOutput])
 			{
-				[WC synchronizeWithDestinations: destinations hint: hint];// after the window has been loaded
+				[WC synchronizeWithDestinations:destinations hint:hint];// after the window has been loaded
 				if(yorn)
 				{
 					if(force)
-						[[WC window] makeKeyAndOrderFront: self];
-					else if(![WC isKindOfClass: [iTM2ExternalInspector class]])
-						[[WC window] orderWindow: NSWindowBelow relativeTo: [[NSApp keyWindow] windowNumber]];
+						[[WC window] makeKeyAndOrderFront:self];
+					else if(![WC isKindOfClass:[iTM2ExternalInspector class]])
+						[[WC window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
 				}
 				result = YES;
 			}
@@ -1656,32 +1656,32 @@ laSuite:
 			iTM2PDFInspector * WC = [W windowController];
 //iTM2_LOG(@"[WC document]: %@, [WC class]: %@", [WC document], [WC class]);
 			if(([WC document] == self)
-				&& [WC respondsToSelector: @selector(canSynchronizeOutput)]
+				&& [WC respondsToSelector:@selector(canSynchronizeOutput)]
 					&& [WC canSynchronizeOutput])
 			{
-				[WC synchronizeWithDestinations: destinations hint: hint];
-				if(yorn && (force || ![WC isKindOfClass: [iTM2ExternalInspector class]]))
-					[[WC window] makeKeyAndOrderFront: self];
+				[WC synchronizeWithDestinations:destinations hint:hint];
+				if(yorn && (force || ![WC isKindOfClass:[iTM2ExternalInspector class]]))
+					[[WC window] makeKeyAndOrderFront:self];
 				result = YES;
 			}
 		}
 		if([self synchronizer])
 		{
-			NSInvocation * _Invocation = [NSInvocation invocationWithMethodSignature: [self methodSignatureForSelector: _cmd]];
+			NSInvocation * _Invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:_cmd]];
 			[_Invocation retainArguments];
-			[_Invocation setTarget: self];
-			[_Invocation setSelector: _cmd];
-			[_Invocation setArgument: &l atIndex: 2];
-			[_Invocation setArgument: &c atIndex: 3];
-			[_Invocation setArgument: &SRCE atIndex: 4];
-			[IMPLEMENTATION takeMetaValue: _Invocation forKey: @"_Invocation"];
+			[_Invocation setTarget:self];
+			[_Invocation setSelector:_cmd];
+			[_Invocation setArgument: &l atIndex:2];
+			[_Invocation setArgument: &c atIndex:3];
+			[_Invocation setArgument: &SRCE atIndex:4];
+			[IMPLEMENTATION takeMetaValue:_Invocation forKey:@"_Invocation"];
 		}
 //NSLog(@"DELAYED SYNCHRONIZATION %@", _Invocation);
 	}
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:
-- (void) synchronizeWithLocation: (NSPoint) thePoint inPageAtIndex: (unsigned int) thePage withHint: (NSDictionary *) hint;
+-(void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1692,14 +1692,14 @@ To Do List:
     NSString * source = @"";
     unsigned int line = 0;
     unsigned int column = -1;
-    [[self synchronizer] getLine: &line column: &column source: &source forLocation: thePoint withHint: hint inPageAtIndex: thePage];
+    [[self synchronizer] getLine: &line column: &column source: &source forLocation:thePoint withHint:hint inPageAtIndex:thePage];
 //NSLog(@"point: %@ page: %u", NSStringFromPoint(thePoint) , thePage);
 //NSLog(@"line: %u source: %@", line, source);
     if([source length])
 	{
-		NSURL * absoluteURL = [NSURL fileURLWithPath: source];
-		id D = [SDC openDocumentWithContentsOfURL: absoluteURL display: NO error: nil];
-		[D displayLine: line column: column withHint: hint orderFront: YES];
+		NSURL * absoluteURL = [NSURL fileURLWithPath:source];
+		id D = [SDC openDocumentWithContentsOfURL:absoluteURL display:NO error:nil];
+		[D displayLine:line column:column withHint:hint orderFront:YES];
 		return;
 	}
 	if(iTM2DebugEnabled)
@@ -1713,7 +1713,7 @@ To Do List:
 @implementation iTM2PDFInspector(SYNCKit)
 /*"Description forthcoming."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canSynchronizeOutput
-- (BOOL) canSynchronizeOutput;
+-(BOOL)canSynchronizeOutput;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1725,7 +1725,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
-- (IBAction) scrollSynchronizationPointToVisible: (id) sender;
+-(IBAction)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1738,17 +1738,17 @@ To Do List:
 	iTM2PDFImageRepView * V;
 	while(V = [E nextObject])
 	{
-		if([V isKindOfClass: [iTM2PDFImageRepView class]] && NSPointInRect([V synchronizationPoint], [V bounds]))
+		if([V isKindOfClass:[iTM2PDFImageRepView class]] && NSPointInRect([V synchronizationPoint], [V bounds]))
 		{
-			[centeredSubview selectViewWithTag: [V tag]];
-			[[centeredSubview selectedView] scrollSynchronizationPointToVisible: sender];
+			[centeredSubview selectViewWithTag:[V tag]];
+			[[centeredSubview selectedView] scrollSynchronizationPointToVisible:sender];
 			break;
 		}
 	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
-- (BOOL) validateScrollSynchronizationPointToVisible: (id) sender;
+-(BOOL)validateScrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1759,7 +1759,7 @@ To Do List:
 	return [(iTM2PDFImageRepView *)[[[self album] centeredSubview] focusView] validateScrollSynchronizationPointToVisible: (NSMenuItem *) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPhysicalPage:synchronizationPoint:withHint:
-- (void) displayPhysicalPage: (int) page synchronizationPoint: (NSPoint) P withHint: (NSDictionary *) hint;
+-(void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1774,11 +1774,11 @@ To Do List:
         page = 0;
         P = NSMakePoint(1e100, 1e100);
     }
-    [[self album] takeCurrentPhysicalPage: page synchronizationPoint: P withHint: hint];
+    [[self album] takeCurrentPhysicalPage:page synchronizationPoint:P withHint:hint];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
-- (void) synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint;
+-(void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1798,7 +1798,7 @@ To Do List:
 @implementation iTM2PDFAlbumView(SYNCKit)
 /*"Description forthcoming."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
-- (void) synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint;
+-(void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1806,7 +1806,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSDictionary * Ds = [destinations objectForKey: @"here"];
+	NSDictionary * Ds = [destinations objectForKey:@"here"];
 	NSEnumerator * E = [Ds keyEnumerator];
 	NSNumber * N = [E nextObject];
 	NSNumber * minN = N;
@@ -1823,18 +1823,18 @@ To Do List:
 				minN = N;
 			}
 		}
-		NSArray * synchPoints = [Ds objectForKey: minN];
+		NSArray * synchPoints = [Ds objectForKey:minN];
 		if([synchPoints count])
 		{
-			[self takeCurrentPhysicalPage: [N unsignedIntValue]
-				synchronizationPoint: [[synchPoints objectAtIndex: 0] pointValue]
+			[self takeCurrentPhysicalPage:[N unsignedIntValue]
+				synchronizationPoint: [[synchPoints objectAtIndex:0] pointValue]
 					withHint: hint];
-			[self scrollSynchronizationPointToVisible: self];
+			[self scrollSynchronizationPointToVisible:self];
 			return;
 		}
 	}
-	NSMutableDictionary * MDs = [[[destinations objectForKey: @"before"] mutableCopy] autorelease];
-	[MDs addEntriesFromDictionary: [destinations objectForKey: @"after"]];
+	NSMutableDictionary * MDs = [[[destinations objectForKey:@"before"] mutableCopy] autorelease];
+	[MDs addEntriesFromDictionary:[destinations objectForKey:@"after"]];
 	E = [MDs keyEnumerator];
 	N = [E nextObject];
 	minN = N;
@@ -1850,13 +1850,13 @@ To Do List:
 				minN = N;
 			}
 		}
-		NSArray * synchPoints = [MDs objectForKey: minN];
+		NSArray * synchPoints = [MDs objectForKey:minN];
 		if([synchPoints count])
 		{
-			[self takeCurrentPhysicalPage: [N unsignedIntValue]
-				synchronizationPoint: [[synchPoints objectAtIndex: 0] pointValue]
+			[self takeCurrentPhysicalPage:[N unsignedIntValue]
+				synchronizationPoint: [[synchPoints objectAtIndex:0] pointValue]
 					withHint: hint];
-			[self scrollSynchronizationPointToVisible: self];
+			[self scrollSynchronizationPointToVisible:self];
 			return;
 		}
 	}
@@ -1865,7 +1865,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint: 
-- (BOOL) takeCurrentPhysicalPage: (int) aCurrentPhysicalPage synchronizationPoint: (NSPoint) P withHint: (NSDictionary *) hint;
+-(BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"O based.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1874,16 +1874,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #warning DEBUGGGG: I DONT KNOW WHY THIS SHOULD WORK!!!
-    if([[self centeredSubview] takeCurrentPhysicalPage: aCurrentPhysicalPage synchronizationPoint: P withHint: hint])
+    if([[self centeredSubview] takeCurrentPhysicalPage:aCurrentPhysicalPage synchronizationPoint:P withHint:hint])
     {
-        [self setParametersHaveChanged: YES];
+        [self setParametersHaveChanged:YES];
         return YES;
     }
     else
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
-- (void) scrollSynchronizationPointToVisible: (id) sender;
+-(void)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1891,11 +1891,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[(iTM2PDFImageRepView *)[[self centeredSubview] focusView] scrollSynchronizationPointToVisible: sender];
+	[(iTM2PDFImageRepView *)[[self centeredSubview] focusView] scrollSynchronizationPointToVisible:sender];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
-- (BOOL) validateScrollSynchronizationPointToVisible: (NSMenuItem *) sender;
+-(BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1910,12 +1910,12 @@ To Do List:
 #import <iTM2Foundation/iTM2PDFViewKit.h>
 
 @interface NSView(iTM2PDFSYNCKik)
-- (void) setSynchronizationPoint: (NSPoint) P;
+-(void)setSynchronizationPoint:(NSPoint)P;
 @end
 
 @implementation iTM2PDFView(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint: 
-- (BOOL) takeCurrentPhysicalPage: (int) aCurrentPhysicalPage synchronizationPoint: (NSPoint) P withHint: (NSDictionary *) hint;
+-(BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1930,12 +1930,12 @@ To Do List:
         NSEnumerator * E = [[self subviews] objectEnumerator];
         NSView * V;
         while(V = [E nextObject])
-            [V setSynchronizationPoint: NSMakePoint(1e100, 1e100)];
-        [self setCurrentLogicalPage: aCurrentPhysicalPage];
+            [V setSynchronizationPoint:NSMakePoint(1e100, 1e100)];
+        [self setCurrentLogicalPage:aCurrentPhysicalPage];
     }
     if (!NSEqualPoints([[self focusView] synchronizationPoint], P))
     {
-        [[self focusView] setSynchronizationPoint: P];
+        [[self focusView] setSynchronizationPoint:P];
         return YES;
     }
     return NO;
@@ -1944,7 +1944,7 @@ To Do List:
 
 @implementation NSView(iTM2PDFSYNCKik)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSynchronizationPoint:
-- (void) setSynchronizationPoint: (NSPoint) P;
+-(void)setSynchronizationPoint:(NSPoint)P;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1958,7 +1958,7 @@ To Do List:
 
 @implementation iTM2PDFImageRepView(iTM2PDFSYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
-- (void) scrollSynchronizationPointToVisible: (id) sender;
+-(void)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1966,11 +1966,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(![self contextBoolForKey: iTM2PDFNoSynchronizationKey])
+    if(![self contextBoolForKey:iTM2PDFNoSynchronizationKey])
     {
         NSRect R = NSZeroRect;
         R.origin = _SynchronizationPoint;
-        NSSize S = [self convertSize: NSMakeSize(15, 15) fromView: nil];
+        NSSize S = [self convertSize:NSMakeSize(15, 15) fromView:nil];
         R.origin.x -= S.width;
         R.origin.y -= S.height;
         R.size.width = 2 * S.width;
@@ -1978,12 +1978,12 @@ To Do List:
 		NSRect visibleRect = [self visibleRect];
         NSRect visibleR = NSIntersectionRect(R, visibleRect);
         if(visibleR.size.width*visibleR.size.height<R.size.width*R.size.height)
-            [self scrollRectToVisible: R];
+            [self scrollRectToVisible:R];
     }
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
-- (BOOL) validateScrollSynchronizationPointToVisible: (NSMenuItem *) sender;
+-(BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1994,7 +1994,7 @@ To Do List:
     return NSPointInRect(_SynchronizationPoint, [self bounds]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown
-- (void) mouseDown: (NSEvent *) theEvent;
+-(void)mouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -2015,16 +2015,16 @@ To Do List:
 				|NSFunctionKeyMask);
 		if((modifierFlags == NSCommandKeyMask) || !modifierFlags)
 		{
-			[self pdfSynchronizeMouseDown: theEvent];
+			[self pdfSynchronizeMouseDown:theEvent];
 			return;
 		}
 	}
 //iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
-    [super mouseDown: theEvent];
+    [super mouseDown:theEvent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
-- (void) pdfSynchronizeMouseDown: (NSEvent *) theEvent;
+-(void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -2032,12 +2032,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[[[self window] windowController] document] synchronizeWithLocation: [self convertPoint: [theEvent locationInWindow] fromView: nil] inPageAtIndex: [self tag]-1 withHint: nil];
+    [[[[self window] windowController] document] synchronizeWithLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil] inPageAtIndex:[self tag]-1 withHint:nil];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationCompleteDrawRect:
-- (void) synchronizationCompleteDrawRect: (NSRect) rect;
+-(void)synchronizationCompleteDrawRect:(NSRect)rect;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -2045,67 +2045,67 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(![self contextBoolForKey: iTM2PDFNoSynchronizationKey])
+    if(![self contextBoolForKey:iTM2PDFNoSynchronizationKey])
     {
-        NSColor * C = [[NSColor blueColor] colorWithAlphaComponent: 0.3];
-        NSColor * CStar = [NSColor colorWithCalibratedRed: 0 green: 0.5 blue: 0 alpha: 0.3];
+        NSColor * C = [[NSColor blueColor] colorWithAlphaComponent:0.3];
+        NSColor * CStar = [NSColor colorWithCalibratedRed:0 green:0.5 blue:0 alpha:0.3];
 		iTM2PDFDocument * D = [[[self window] windowController] document];
 		iTM2PDFSynchronizer * syncer = [D synchronizer];
 		if(!syncer)
 		{
-			[D updatePdfsync: self];
+			[D updatePdfsync:self];
 			return;
 		}
-        NSDictionary * SLs = [syncer synchronizationLocationsForPageIndex: [self tag] - 1];
-        if([SUD boolForKey: iTM2PDFSyncShowRecordNumberKey])
+        NSDictionary * SLs = [syncer synchronizationLocationsForPageIndex:[self tag] - 1];
+        if([SUD boolForKey:iTM2PDFSyncShowRecordNumberKey])
         {
             NSEnumerator * E = [SLs keyEnumerator];
             iTM2SynchronizationLocationRecord locationRecord;
             NSDictionary * D = [NSDictionary dictionaryWithObjectsAndKeys:
-                [NSFont systemFontOfSize: 8], NSFontAttributeName,
+                [NSFont systemFontOfSize:8], NSFontAttributeName,
                 [NSColor purpleColor], NSForegroundColorAttributeName, nil];
             id K;
             while(K = [E nextObject])
             {
-                NSValue * V = [SLs objectForKey: K];
+                NSValue * V = [SLs objectForKey:K];
                 [V getValue: &locationRecord];
                 NSPoint P = NSMakePoint(locationRecord.x, locationRecord.y);
-                [(locationRecord.star? CStar: C) set];
-                [[NSBezierPath bezierPathWithOvalInRect: NSMakeRect(P.x-2, P.y-2, 4, 4)] fill];
-                [[NSString stringWithFormat: @"%@", K] drawAtPoint: P withAttributes: D];
+                [(locationRecord.star? CStar:C) set];
+                [[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(P.x-2, P.y-2, 4, 4)] fill];
+                [[NSString stringWithFormat:@"%@", K] drawAtPoint:P withAttributes:D];
             }
             if(NSPointInRect(_SynchronizationPoint, NSInsetRect([self bounds], 2, 2)))
             {
-                [[[NSColor redColor] colorWithAlphaComponent: 0.1] set];
+                [[[NSColor redColor] colorWithAlphaComponent:0.1] set];
                 NSRect R = NSMakeRect(_SynchronizationPoint.x-3, _SynchronizationPoint.y-3, 6, 6);
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 #define INSET 1.0
                 #define DOUBLEINSET 2.0
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
             }
         }
         else
         {
-            unsigned displayBulletsMode = [self contextIntegerForKey: iTM2PDFSYNCDisplayBulletsKey];
+            unsigned displayBulletsMode = [self contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
             NSEnumerator * E = [SLs objectEnumerator];
             iTM2SynchronizationLocationRecord locationRecord;
             NSValue * V;
@@ -2118,43 +2118,43 @@ To Do List:
                     if(locationRecord.star)
                     {
                         [CStar set];
-                        [[NSBezierPath bezierPathWithOvalInRect: NSMakeRect(P.x-2, P.y-2, 4, 4)] fill];
+                        [[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(P.x-2, P.y-2, 4, 4)] fill];
                     }
                     else if(displayBulletsMode & kiTM2PDFSYNCDisplayBuiltInBullets)
                     {
                         [C set];
-                        [[NSBezierPath bezierPathWithOvalInRect: NSMakeRect(P.x-2, P.y-2, 4, 4)] fill];
+                        [[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(P.x-2, P.y-2, 4, 4)] fill];
                     }
                 }
             }
             if((displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
                     && NSPointInRect(_SynchronizationPoint, NSInsetRect([self bounds], 2, 2)))
             {
-                [[[NSColor redColor] colorWithAlphaComponent: 0.1] set];
+                [[[NSColor redColor] colorWithAlphaComponent:0.1] set];
                 NSRect R = NSMakeRect(_SynchronizationPoint.x-3, _SynchronizationPoint.y-3, 6, 6);
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 #define INSET 1.0
                 #define DOUBLEINSET 2.0
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 R.origin.x -= INSET;
                 R.origin.y -= INSET;
                 R.size.width += DOUBLEINSET;
                 R.size.height += DOUBLEINSET;
-                [[NSBezierPath bezierPathWithOvalInRect: R] fill];
+                [[NSBezierPath bezierPathWithOvalInRect:R] fill];
             }
         }
     }
@@ -2172,7 +2172,7 @@ To Do List:
 
 @implementation NSTextView_iTM2IOSynch
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
++(void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 03 2003
@@ -2181,13 +2181,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	[NSTextView_iTM2IOSynch poseAsClass: [NSTextView class]];
+	[NSTextView_iTM2IOSynch poseAsClass:[NSTextView class]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void) initialize;
++(void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -2197,13 +2197,13 @@ To Do List:
 //iTM2_START;
 	[super initialize];
 	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithBool: YES], @"iTM2PDFSYNCOrderFrontOutput",
+			[NSNumber numberWithBool:YES], @"iTM2PDFSYNCOrderFrontOutput",
 				nil]];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
-- (void) mouseDown: (NSEvent *) event
+-(void)mouseDown:(NSEvent *)event
 /*"Description Forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2214,14 +2214,14 @@ To Do List:
     // this is where the support for poor man synchronicity begins
     unsigned modifierFlags = [event modifierFlags];
     if((modifierFlags & NSCommandKeyMask) && ([event clickCount]>1))
-		[self pdfSynchronizeMouseDown: event];
+		[self pdfSynchronizeMouseDown:event];
     else
-        [super mouseDown: event];
+        [super mouseDown:event];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
-- (void) pdfSynchronizeMouseDown: (NSEvent *) event
+-(void)pdfSynchronizeMouseDown:(NSEvent *)event
 /*"Description Forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2232,23 +2232,23 @@ To Do List:
     // this is where the support for poor man synchronicity begins
 	NSDocument * D = [[[self window] windowController] document];
 	NSString * S = [self string];
-	unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex: [[self layoutManager] glyphIndexForPoint:
-		[self convertPoint: [event locationInWindow] fromView: nil]
+	unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:[[self layoutManager] glyphIndexForPoint:
+		[self convertPoint:[event locationInWindow] fromView:nil]
 			inTextContainer: [self textContainer]]];
 	unsigned start, contentsEnd;
-	[S getLineStart: &start end: nil contentsEnd: &contentsEnd forRange: NSMakeRange(charIndex, 1)];
-	unsigned line = [S lineForRange: NSMakeRange(charIndex, 1)];
+	[S getLineStart: &start end:nil contentsEnd: &contentsEnd forRange:NSMakeRange(charIndex, 1)];
+	unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
 	unsigned column = charIndex - start;
-	[SDC displayPageForLine: line column: column source: [D fileName]
+	[SDC displayPageForLine:line column:column source:[D fileName]
 		withHint: [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithUnsignedInt: charIndex], @"character index", S, @"container", nil]
-				orderFront: [SUD boolForKey: @"iTM2PDFSYNCOrderFrontOutput"] force: YES];
+			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil]
+				orderFront: [SUD boolForKey:@"iTM2PDFSYNCOrderFrontOutput"] force:YES];
 //iTM2_END;
     return;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  jumpToOutput:
-- (void) jumpToOutput: (NSEvent *) event;
+-(void)jumpToOutput:(NSEvent *)event;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003
@@ -2258,13 +2258,13 @@ To Do List:
 //iTM2_START;
     NSDocument * D = [[[self window] windowController] document];
     NSString * S = [self string];
-    unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex: [[self layoutManager] glyphIndexForPoint:
-        [self convertPoint: [event locationInWindow] fromView: nil]
+    unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:[[self layoutManager] glyphIndexForPoint:
+        [self convertPoint:[event locationInWindow] fromView:nil]
             inTextContainer: [self textContainer]]];
     unsigned start;
-    [S getLineStart: &start end: nil contentsEnd: nil forRange: NSMakeRange(charIndex, 1)];
-    unsigned line = [S lineForRange: NSMakeRange(charIndex, 1)];
-    [SDC displayPageForLine: line column: charIndex - start source: [D fileName] withHint: hint orderFront: YES force: YES];
+    [S getLineStart: &start end:nil contentsEnd:nil forRange:NSMakeRange(charIndex, 1)];
+    unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
+    [SDC displayPageForLine:line column:charIndex - start source:[D fileName] withHint:hint orderFront:YES force:YES];
 //iTM2_END;
     return;
 }
@@ -2276,7 +2276,7 @@ To Do List:
 
 @implementation iTM2TextInspector(PDFSYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKitWindowDidLoad
-- (void) PDFSYNCKitWindowDidLoad;
+-(void)PDFSYNCKitWindowDidLoad;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003
@@ -2284,12 +2284,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[DNC addObserver: self selector: @selector(PDFSYNCKit_NSTextViewDidChangeSelectionNotified:) name: NSTextViewDidChangeSelectionNotification object: nil];
+	[DNC addObserver:self selector:@selector(PDFSYNCKit_NSTextViewDidChangeSelectionNotified:) name:NSTextViewDidChangeSelectionNotification object:nil];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKitCompleteDealloc
-- (void) PDFSYNCKitCompleteDealloc;
+-(void)PDFSYNCKitCompleteDealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003
@@ -2297,12 +2297,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[DNC removeObserver: self];
+	[DNC removeObserver:self];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKit_NSTextViewDidChangeSelectionNotified:
-- (void) PDFSYNCKit_NSTextViewDidChangeSelectionNotified: (NSNotification *) notification;
+-(void)PDFSYNCKit_NSTextViewDidChangeSelectionNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003
@@ -2311,18 +2311,18 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSTextView * TV = [self textView];
-	if([notification object] == TV && [self contextBoolForKey: iTM2PDFSyncFollowFocusKey])
+	if([notification object] == TV && [self contextBoolForKey:iTM2PDFSyncFollowFocusKey])
 	{
 		NSDocument * D = [self document];
 		NSString * S = [TV string];
 		unsigned charIndex = [TV selectedRange].location;
 		unsigned start, contentsEnd;
-		[S getLineStart: &start end: nil contentsEnd: &contentsEnd forRange: NSMakeRange(charIndex, 0)];
-		unsigned line = [S lineForRange: NSMakeRange(charIndex, 1)];
+		[S getLineStart: &start end:nil contentsEnd: &contentsEnd forRange:NSMakeRange(charIndex, 0)];
+		unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
 		unsigned column = charIndex - start;
-		[SDC displayPageForLine: line column: column source: [D fileName]
+		[SDC displayPageForLine:line column:column source:[D fileName]
 			withHint: [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithUnsignedInt: charIndex], @"character index", S, @"container", nil]
+				[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil]
 					orderFront: NO force: NO];// side effect: text document opens pdf document as when focus is on
 	}
 //iTM2_END;

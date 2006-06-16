@@ -37,11 +37,11 @@ extern NSString * const iTM2MacroToolTipKey;
 */
 
 @interface NSApplication(iTM2PerlKit)
-- (Class) vendedClassForName: (NSString *) name;
-- (NSMethodSignature *) vendedClassForName: (NSString *) name methodSignatureForSelector: (SEL) aSelector;
-- (void) vendedClassForName: (NSString *) name forwardInvocation: (NSInvocation *) invocation;
-- (id) vendedClassForName: (NSString *) name performSelector:(SEL)aSelector;
-- (id) vendedClassForName: (NSString *) name performSelector:(SEL)aSelector withObject:(id)object1;
-- (id) vendedClassForName: (NSString *) name performSelector:(SEL)aSelector withObject:(id)object1 withObject:(id)object2;
+-(Class)vendedClassForName:(NSString *)name;
+-(NSMethodSignature *)vendedClassForName:(NSString *)name methodSignatureForSelector:(SEL)aSelector;
+-(void)vendedClassForName:(NSString *)name forwardInvocation:(NSInvocation *)invocation;
+-(id)vendedClassForName:(NSString *)name performSelector:(SEL)aSelector;
+-(id)vendedClassForName:(NSString *)name performSelector:(SEL)aSelector withObject:(id)object1;
+-(id)vendedClassForName:(NSString *)name performSelector:(SEL)aSelector withObject:(id)object1 withObject:(id)object2;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PerlKitServer
