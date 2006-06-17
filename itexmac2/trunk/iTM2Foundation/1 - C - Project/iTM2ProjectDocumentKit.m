@@ -6600,7 +6600,7 @@ To Do List:
 				[projectDocument makeWindowControllers];
 				[projectDocument showWindows];
 			}
-			[DFM hideExtensionAtPath:projectName];
+			[DFM setExtensionHidden:YES atPath:projectName];
 			return projectDocument;
 		}
 		break;

@@ -1404,6 +1404,15 @@ To Do List:
 //iTM2_START;
 	if([view isKindOfClass:[NSTextView class]])
 	{
+		NSString * representedFilename = [[self window] representedFilename];
+		if([representedFilename length] || ((representedFilename = [[self document] fileName]), [representedFilename length]))
+		{
+			[view setEditable:[DFM isWritableFileAtPath:representedFilename]];
+		}
+		else
+		{
+			[view setEditable:YES];
+		}
 		if([view conformsToProtocol:@protocol(iTM2TextEditor)])
 		{
 			if(![[self textEditors] containsObject:view])

@@ -3225,6 +3225,7 @@ To Do List:
         NSEnumerator * E = [[NSWindowController inspectorModesForType:type] objectEnumerator];
         NSString * inspectorMode;
         while(inspectorMode = [E nextObject])
+		{
 			if(![inspectorMode hasPrefix:@"."])
 			{
 				NSString * title = [[[NSWindowController inspectorClassesEnumeratorForType:type mode:inspectorMode] nextObject] prettyInspectorMode];
@@ -3287,7 +3288,9 @@ while(mi = [E nextObject])
 					iTM2_LOG(@"There is some weird thing happening with the inspectors(type:%@, mode:%@)...", type, inspectorMode);
 				}
 			}
-		// adding now the external inspectors
+		}
+		int NOI = [self numberOfItems];
+		// adding now the external inspectors, if any
 		E = [[[[iTM2ExternalInspectorServer keyEnumeratorForType:type] allObjects] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
 		NSString * inspectorVariant;
 		while(inspectorVariant = [E nextObject])
@@ -3296,6 +3299,10 @@ while(mi = [E nextObject])
 					action:@selector(toggleExternalInspector:) keyEquivalent:@""];
 			[mi setRepresentedObject:[iTM2ExternalInspectorServer objectForType:type key:inspectorVariant]];
 			[mi setTarget:self];
+		}
+		if([self numberOfItems]>NOI)
+		{
+			[self insertItem:[NSMenuItem separatorItem] atIndex:NOI];
 		}
         [self setMenuChangedMessagesEnabled:old];
     }

@@ -234,8 +234,8 @@ To Do List:
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hideExtensionAtPath:
--(BOOL)hideExtensionAtPath:(NSString *)path;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setExtensionHidden:atPath:
+-(BOOL)setExtensionHidden:(BOOL)yorn atPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -244,21 +244,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableDictionary * attributes = [[[self fileAttributesAtPath:path traverseLink:NO] mutableCopy] autorelease];
-	[attributes setObject:[NSNumber numberWithBool:YES] forKey:NSFileExtensionHidden];
-//iTM2_END;
-	return [self changeFileAttributes:attributes atPath:path];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showExtensionAtPath:
--(BOOL)showExtensionAtPath:(NSString *)path;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 06/01/03
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableDictionary * attributes = [[[self fileAttributesAtPath:path traverseLink:NO] mutableCopy] autorelease];
-	[attributes setObject:[NSNumber numberWithBool:NO] forKey:NSFileExtensionHidden];
+	[attributes setObject:[NSNumber numberWithBool:yorn] forKey:NSFileExtensionHidden];
 //iTM2_END;
 	return [self changeFileAttributes:attributes atPath:path];
 }

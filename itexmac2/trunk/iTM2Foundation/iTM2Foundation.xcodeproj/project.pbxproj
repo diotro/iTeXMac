@@ -227,6 +227,10 @@
 		DCD404A80994B5CA006B91DF /* iTM2TextMacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */; };
 		DCD404A90994B5CA006B91DF /* iTM2TextMacroKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD404A60994B5CA006B91DF /* iTM2TextMacroKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCD404AA0994B5CA006B91DF /* iTM2TextMacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */; };
+		DCD7D6D70A4399C20096B1A9 /* alphax in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D68B0A4398DD0096B1A9 /* alphax */; };
+		DCD7D6D80A4399CB0096B1A9 /* bbedit in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D68D0A4398DD0096B1A9 /* bbedit */; };
+		DCD7D6DA0A4399DF0096B1A9 /* bbedit lite in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D68E0A4398DD0096B1A9 /* bbedit lite */; };
+		DCD7D6DB0A4399F30096B1A9 /* emacs in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D6910A4398DD0096B1A9 /* emacs */; };
 		DCDA12840908CDF9005E9B57 /* missing_image.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12830908CDF9005E9B57 /* missing_image.tiff */; };
 		DCDA12F30908E57E005E9B57 /* toggleDrawerToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */; };
 		DCDA12F60908E59B005E9B57 /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F40908E59B005E9B57 /* Toolbar.strings */; };
@@ -518,6 +522,62 @@
 			remoteGlobalIDString = DCC7F67A0854B37C00F3EB8A;
 			remoteInfo = "JAGUAR Support";
 		};
+		DCD7D69E0A43992D0096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB200320858E250003659F3;
+			remoteInfo = "Install iTM2Foundation";
+		};
+		DCD7D6AD0A4399620096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB200320858E250003659F3;
+			remoteInfo = "Install iTM2Foundation";
+		};
+		DCD7D6BB0A4399790096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB200320858E250003659F3;
+			remoteInfo = "Install iTM2Foundation";
+		};
+		DCD7D6CB0A4399990096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB200320858E250003659F3;
+			remoteInfo = "Install iTM2Foundation";
+		};
+		DCD7D6DE0A439A9F0096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCD7D6C90A4399990096B1A9 /* Emacs */;
+			remoteInfo = Emacs;
+		};
+		DCD7D6E00A439AA20096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCD7D6B90A4399790096B1A9 /* BBEdit Lite */;
+			remoteInfo = "BBEdit Lite";
+		};
+		DCD7D6E20A439AA40096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCD7D6AB0A4399620096B1A9 /* BBEdit */;
+			remoteInfo = BBEdit;
+		};
+		DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCD7D69C0A43992D0096B1A9 /* Alpha X */;
+			remoteInfo = "Alpha X";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -600,6 +660,50 @@
 			name = "Copy Readme.rtf";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCD7D69F0A43992D0096B1A9 /* Copy Command */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				DCD7D6D70A4399C20096B1A9 /* alphax in Copy Command */,
+			);
+			name = "Copy Command";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCD7D6AE0A4399620096B1A9 /* Copy Command */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				DCD7D6D80A4399CB0096B1A9 /* bbedit in Copy Command */,
+			);
+			name = "Copy Command";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCD7D6BC0A4399790096B1A9 /* Copy Command */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				DCD7D6DA0A4399DF0096B1A9 /* bbedit lite in Copy Command */,
+			);
+			name = "Copy Command";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCD7D6CC0A4399990096B1A9 /* Copy Command */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				DCD7D6DB0A4399F30096B1A9 /* emacs in Copy Command */,
+			);
+			name = "Copy Command";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -661,7 +765,7 @@
 		DC8AD5440A3ABD77006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/templates.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5460A3ABD80006C28A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/templates.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
-		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98663A09EA733B00FF4BD3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DC98663B09EA733B00FF4BD3 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextCompletionKit.h; sourceTree = "<group>"; };
@@ -743,6 +847,22 @@
 		DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit.m; sourceTree = "<group>"; };
 		DCD404A60994B5CA006B91DF /* iTM2TextMacroKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextMacroKit.h; sourceTree = "<group>"; };
 		DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextMacroKit.m; sourceTree = "<group>"; };
+		DCD7D68B0A4398DD0096B1A9 /* alphax */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = alphax; sourceTree = "<group>"; };
+		DCD7D68C0A4398DD0096B1A9 /* AlphaX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "AlphaX-Info.plist"; sourceTree = "<group>"; };
+		DCD7D68D0A4398DD0096B1A9 /* bbedit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bbedit; sourceTree = "<group>"; };
+		DCD7D68E0A4398DD0096B1A9 /* bbedit lite */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "bbedit lite"; sourceTree = "<group>"; };
+		DCD7D68F0A4398DD0096B1A9 /* BBEdit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BBEdit-Info.plist"; sourceTree = "<group>"; };
+		DCD7D6900A4398DD0096B1A9 /* BBEditLite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BBEditLite-Info.plist"; sourceTree = "<group>"; };
+		DCD7D6910A4398DD0096B1A9 /* emacs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = emacs; sourceTree = "<group>"; };
+		DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Emacs-Info.plist"; sourceTree = "<group>"; };
+		DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Alpha X.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD7D6A80A43992D0096B1A9 /* Text-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy.plist"; sourceTree = "<group>"; };
+		DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BBEdit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD7D6B60A4399630096B1A9 /* Text-Info copy 2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy 2.plist"; sourceTree = "<group>"; };
+		DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BBEdit Lite.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD7D6C40A43997A0096B1A9 /* Text-Info copy 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy 3.plist"; sourceTree = "<group>"; };
+		DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Emacs.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD7D6D40A43999A0096B1A9 /* Text-Info copy 4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy 4.plist"; sourceTree = "<group>"; };
 		DCDA12830908CDF9005E9B57 /* missing_image.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = missing_image.tiff; sourceTree = "<group>"; };
 		DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawerToolbarImage.tif; sourceTree = "<group>"; };
 		DCDA12F50908E59B005E9B57 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
@@ -998,6 +1118,10 @@
 				DC25E42E0991F5F000545F27 /* iTM2TaskKit Test.octest */,
 				DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */,
 				DC99ECBE0A284EA800F50752 /* Project.octest */,
+				DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */,
+				DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */,
+				DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */,
+				DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1181,9 +1305,21 @@
 		DCC7F8B50854DC0F00F3EB8A /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				DCC7F8B60854DC0F00F3EB8A /* command */,
 				DCC7F8B70854DC0F00F3EB8A /* README.rtf */,
+				DCC7F8B60854DC0F00F3EB8A /* command */,
 				DCC7F8B80854DC0F00F3EB8A /* Text-Info.plist */,
+				DCD7D68B0A4398DD0096B1A9 /* alphax */,
+				DCD7D68C0A4398DD0096B1A9 /* AlphaX-Info.plist */,
+				DCD7D68D0A4398DD0096B1A9 /* bbedit */,
+				DCD7D68E0A4398DD0096B1A9 /* bbedit lite */,
+				DCD7D68F0A4398DD0096B1A9 /* BBEdit-Info.plist */,
+				DCD7D6900A4398DD0096B1A9 /* BBEditLite-Info.plist */,
+				DCD7D6910A4398DD0096B1A9 /* emacs */,
+				DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */,
+				DCD7D6A80A43992D0096B1A9 /* Text-Info copy.plist */,
+				DCD7D6B60A4399630096B1A9 /* Text-Info copy 2.plist */,
+				DCD7D6C40A43997A0096B1A9 /* Text-Info copy 3.plist */,
+				DCD7D6D40A43999A0096B1A9 /* Text-Info copy 4.plist */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -1210,6 +1346,8 @@
 				DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */,
 				DCF61B790854654B003F5F79 /* iTM2RuntimeBrowser.h */,
 				DCF61B7A0854654B003F5F79 /* iTM2RuntimeBrowser.m */,
+				DCF61B660854654B003F5F79 /* iTM2ImageKit.h */,
+				DCF61B670854654B003F5F79 /* iTM2ImageKit.m */,
 				DCF61B640854654B003F5F79 /* iTM2FileManagerKit.h */,
 				DCF61B650854654B003F5F79 /* iTM2FileManagerKit.m */,
 				DCF61B560854654B003F5F79 /* iTM2BundleKit.h */,
@@ -1240,8 +1378,6 @@
 				DCF61B610854654B003F5F79 /* iTM2DocumentKit.m */,
 				DCF61B620854654B003F5F79 /* iTM2EventKit.h */,
 				DCF61B630854654B003F5F79 /* iTM2EventKit.m */,
-				DCF61B660854654B003F5F79 /* iTM2ImageKit.h */,
-				DCF61B670854654B003F5F79 /* iTM2ImageKit.m */,
 				DCD403EF099498B0006B91DF /* iTM2MacroKit.h */,
 				DCD403F0099498B0006B91DF /* iTM2MacroKit.m */,
 				DCF61B6C0854654B003F5F79 /* iTM2KeyBindingsKit.h */,
@@ -2193,6 +2329,10 @@
 				WRAPPER_EXTENSION = iTM2;
 			};
 			dependencies = (
+				DCD7D6E50A439AA60096B1A9 /* PBXTargetDependency */,
+				DCD7D6E30A439AA40096B1A9 /* PBXTargetDependency */,
+				DCD7D6DF0A439A9F0096B1A9 /* PBXTargetDependency */,
+				DCD7D6E10A439AA20096B1A9 /* PBXTargetDependency */,
 				DCB200460858E2A5003659F3 /* PBXTargetDependency */,
 			);
 			name = "External Text Editor";
@@ -2285,6 +2425,258 @@
 ";
 			productType = "com.apple.product-type.bundle";
 		};
+		DCD7D69C0A43992D0096B1A9 /* Alpha X */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCD7D6A30A43992D0096B1A9 /* Build configuration list for PBXNativeTarget "Alpha X" */;
+			buildPhases = (
+				DCD7D69F0A43992D0096B1A9 /* Copy Command */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "External Text Editor";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			dependencies = (
+				DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */,
+			);
+			name = "Alpha X";
+			productName = "External Text Editor";
+			productReference = DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>External Text Editor</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.External_Text_Editor</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.bundle";
+		};
+		DCD7D6AB0A4399620096B1A9 /* BBEdit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCD7D6B10A4399620096B1A9 /* Build configuration list for PBXNativeTarget "BBEdit" */;
+			buildPhases = (
+				DCD7D6AE0A4399620096B1A9 /* Copy Command */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "External Text Editor";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			dependencies = (
+				DCD7D6AC0A4399620096B1A9 /* PBXTargetDependency */,
+			);
+			name = BBEdit;
+			productName = "External Text Editor";
+			productReference = DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>External Text Editor</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.External_Text_Editor</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.bundle";
+		};
+		DCD7D6B90A4399790096B1A9 /* BBEdit Lite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCD7D6BF0A4399790096B1A9 /* Build configuration list for PBXNativeTarget "BBEdit Lite" */;
+			buildPhases = (
+				DCD7D6BC0A4399790096B1A9 /* Copy Command */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "External Text Editor";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			dependencies = (
+				DCD7D6BA0A4399790096B1A9 /* PBXTargetDependency */,
+			);
+			name = "BBEdit Lite";
+			productName = "External Text Editor";
+			productReference = DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>External Text Editor</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.External_Text_Editor</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.bundle";
+		};
+		DCD7D6C90A4399990096B1A9 /* Emacs */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCD7D6CF0A4399990096B1A9 /* Build configuration list for PBXNativeTarget "Emacs" */;
+			buildPhases = (
+				DCD7D6CC0A4399990096B1A9 /* Copy Command */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "External Text Editor";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			dependencies = (
+				DCD7D6CA0A4399990096B1A9 /* PBXTargetDependency */,
+			);
+			name = Emacs;
+			productName = "External Text Editor";
+			productReference = DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>External Text Editor</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.External_Text_Editor</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2308,6 +2700,10 @@
 				DCC7F67A0854B37C00F3EB8A /* JAGUAR Support */,
 				DCB2007D0858E57F003659F3 /* Install JAGUAR Support */,
 				DCB200320858E250003659F3 /* Install iTM2Foundation */,
+				DCD7D69C0A43992D0096B1A9 /* Alpha X */,
+				DCD7D6AB0A4399620096B1A9 /* BBEdit */,
+				DCD7D6B90A4399790096B1A9 /* BBEdit Lite */,
+				DCD7D6C90A4399990096B1A9 /* Emacs */,
 				DCC7F8980854DB8C00F3EB8A /* External Text Editor */,
 				DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */,
 				DC2CA7A50855D53C00128F14 /* All */,
@@ -2865,6 +3261,46 @@
 			isa = PBXTargetDependency;
 			target = DCC7F67A0854B37C00F3EB8A /* JAGUAR Support */;
 			targetProxy = DCB200800858E59D003659F3 /* PBXContainerItemProxy */;
+		};
+		DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
+			targetProxy = DCD7D69E0A43992D0096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCD7D6AC0A4399620096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
+			targetProxy = DCD7D6AD0A4399620096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCD7D6BA0A4399790096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
+			targetProxy = DCD7D6BB0A4399790096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCD7D6CA0A4399990096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
+			targetProxy = DCD7D6CB0A4399990096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCD7D6DF0A439A9F0096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCD7D6C90A4399990096B1A9 /* Emacs */;
+			targetProxy = DCD7D6DE0A439A9F0096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCD7D6E10A439AA20096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCD7D6B90A4399790096B1A9 /* BBEdit Lite */;
+			targetProxy = DCD7D6E00A439AA20096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCD7D6E30A439AA40096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCD7D6AB0A4399620096B1A9 /* BBEdit */;
+			targetProxy = DCD7D6E20A439AA40096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCD7D6E50A439AA60096B1A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCD7D69C0A43992D0096B1A9 /* Alpha X */;
+			targetProxy = DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4699,6 +5135,418 @@
 			};
 			name = Default;
 		};
+		DCD7D6A40A43992D0096B1A9 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "Alpha X";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		DCD7D6A50A43992D0096B1A9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "Alpha X";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DCD7D6A60A43992D0096B1A9 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "Alpha X";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			name = Default;
+		};
+		DCD7D6B20A4399620096B1A9 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEdit-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = BBEdit;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		DCD7D6B30A4399620096B1A9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEdit-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = BBEdit;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DCD7D6B40A4399620096B1A9 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEdit-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = BBEdit;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			name = Default;
+		};
+		DCD7D6C00A4399790096B1A9 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEditLite-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "BBEdit Lite";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		DCD7D6C10A4399790096B1A9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEditLite-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "BBEdit Lite";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DCD7D6C20A4399790096B1A9 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEditLite-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = "BBEdit Lite";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			name = Default;
+		};
+		DCD7D6D00A4399990096B1A9 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/Emacs-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Emacs;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		DCD7D6D10A4399990096B1A9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/Emacs-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Emacs;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DCD7D6D20A4399990096B1A9 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/Emacs-Info.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Emacs;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = iTM2;
+			};
+			name = Default;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4868,6 +5716,46 @@
 				DCB0A00E09AEF96F00D2A37C /* Development */,
 				DCB0A00F09AEF96F00D2A37C /* Deployment */,
 				DCB0A01009AEF96F00D2A37C /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DCD7D6A30A43992D0096B1A9 /* Build configuration list for PBXNativeTarget "Alpha X" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCD7D6A40A43992D0096B1A9 /* Development */,
+				DCD7D6A50A43992D0096B1A9 /* Deployment */,
+				DCD7D6A60A43992D0096B1A9 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DCD7D6B10A4399620096B1A9 /* Build configuration list for PBXNativeTarget "BBEdit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCD7D6B20A4399620096B1A9 /* Development */,
+				DCD7D6B30A4399620096B1A9 /* Deployment */,
+				DCD7D6B40A4399620096B1A9 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DCD7D6BF0A4399790096B1A9 /* Build configuration list for PBXNativeTarget "BBEdit Lite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCD7D6C00A4399790096B1A9 /* Development */,
+				DCD7D6C10A4399790096B1A9 /* Deployment */,
+				DCD7D6C20A4399790096B1A9 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DCD7D6CF0A4399990096B1A9 /* Build configuration list for PBXNativeTarget "Emacs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCD7D6D00A4399990096B1A9 /* Development */,
+				DCD7D6D10A4399990096B1A9 /* Deployment */,
+				DCD7D6D20A4399990096B1A9 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;

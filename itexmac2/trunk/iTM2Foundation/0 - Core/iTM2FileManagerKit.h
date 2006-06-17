@@ -88,26 +88,16 @@ extern NSString * const iTM2PathComponentsSeparator;
 -(NSString *)prettyNameAtPath:(NSString *)path;
 
 /*!
-	@method			hideExtensionAtPath:
+	@method			setExtensionHidden:atPath:
 	@abstract		Abstract forthcoming.
 	@discussion		The display name at path traverses links. This one does not.
+	@param			yorn.
 	@param			path
 	@result			yorn.
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(BOOL)hideExtensionAtPath:(NSString *)path;
-
-/*!
-	@method			showExtensionAtPath:
-	@abstract		Abstract forthcoming.
-	@discussion		The display name at path traverses links. This one does not.
-	@param			path
-	@result			yorn.
-	@availability	iTM2.
-	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
-*/
--(BOOL)showExtensionAtPath:(NSString *)path;
+-(BOOL)setExtensionHidden:(BOOL)yorn atPath:(NSString *)path;
 
 @end
 

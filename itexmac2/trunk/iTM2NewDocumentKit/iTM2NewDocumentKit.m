@@ -1084,6 +1084,8 @@ To Do List:
 	[SP setDelegate:self];
 	[SP setAccessoryView:[self savePanelAccessoryView]];
 	[SP pushNavLastRootDirectory];
+	[SP setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden]];
+	[SP setCanSelectHiddenExtension:YES];
 	NSString * newDirectory = nil;
 	BOOL isDirectory = NO;
 	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
@@ -1197,6 +1199,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	BOOL isExtensionHidden = [panel isExtensionHidden];
+	[SUD setBool:isExtensionHidden forKey:NSFileExtensionHidden];
 	[panel popNavLastRootDirectory];
 	[panel close];
 	if(returnCode == NSOKButton)
@@ -1260,6 +1264,7 @@ To Do List:
 	BOOL isDirectory;
 	if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 	{
+		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		if(isDirectory)
 		{
 			// remove any "Contents" directory;
@@ -1342,6 +1347,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: Missing file at %@", targetName);
 	}
+	[self stopProgressIndication];
 //iTM2_END;
     return YES;
 }
@@ -1389,6 +1395,7 @@ To Do List:
 	BOOL isDirectory;
 	if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 	{
+		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		if(isDirectory)
 		{
 			// remove any "Contents" directory;
@@ -1525,6 +1532,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: Missing file at %@", targetName);
 	}
+	[self stopProgressIndication];
 //iTM2_END;
     return YES;
 }
@@ -1575,6 +1583,7 @@ To Do List:
 	}
 	if([DFM copyPath:sourceName toPath:fileName handler:nil])
 	{
+		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 		{
@@ -1758,6 +1767,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
 	}
+	[self stopProgressIndication];
 //iTM2_END;
     return YES;
 }
@@ -1814,6 +1824,7 @@ To Do List:
 	[self startProgressIndicationForName:targetName];
 	if([DFM copyPath:sourceName toPath:targetName handler:nil])
 	{
+		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 		{
@@ -1861,6 +1872,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
 	}
+	[self stopProgressIndication];
 //iTM2_END;
     return YES;
 }
@@ -1905,8 +1917,10 @@ To Do List:
 
 	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
 
+	[self startProgressIndicationForName:targetName];
 	if([DFM copyPath:sourceName toPath:targetName handler:nil])
 	{
+		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 		{
@@ -1980,6 +1994,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
 	}
+	[self stopProgressIndication];
 //iTM2_END;
     return YES;
 }
@@ -2003,8 +2018,10 @@ To Do List:
 	[self takeContextValue:[targetName stringByDeletingLastPathComponent]
 		forKey:@"iTM2NewDocumentDirectory"];
 	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
+	[self startProgressIndicationForName:targetName];
 	if([DFM copyPath:sourceName toPath:targetName handler:nil])
 	{
+		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		// targetName is free now
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
@@ -2043,7 +2060,9 @@ To Do List:
 					NSString * old = [TS string];
 					NSDictionary *filter = [self filterForProjectName:projectName];
 					NSString * new = [self convertedString:old withDictionary:filter];
+					[TS beginEditing];
 					[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
+					[TS endEditing];
 				}
 				[document saveDocument:self];
 				[[document undoManager] removeAllActions];
