@@ -192,6 +192,7 @@
 			DCD7D67B0A438DA30096B1A9 /* PBXTextBookmark */ = DCD7D67B0A438DA30096B1A9 /* PBXTextBookmark */;
 			DCD7D67D0A4392680096B1A9 /* PBXTextBookmark */ = DCD7D67D0A4392680096B1A9 /* PBXTextBookmark */;
 			DCD7D6810A4392AF0096B1A9 /* PBXTextBookmark */ = DCD7D6810A4392AF0096B1A9 /* PBXTextBookmark */;
+			DCD7DAB10A43EFF40096B1A9 /* PBXTextBookmark */ = DCD7DAB10A43EFF40096B1A9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
@@ -259,7 +260,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {4284, 57222}}";
 			sepNavSelRange = "{109784, 0}";
-			sepNavVisRect = "{{0, 25536}, {1050, 455}}";
+			sepNavVisRect = "{{0, 33930}, {1193, 720}}";
 			sepNavWindowFrame = "{{37, 5}, {1232, 849}}";
 		};
 	};
@@ -666,6 +667,7 @@
 	};
 	DCD7D60B0A4387270096B1A9 /* iTM2ProjectDocumentKit.m */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
 		name = iTM2ProjectDocumentKit.m;
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.m";
 		sourceTree = "<absolute>";
@@ -838,6 +840,16 @@
 		name = standaloneFileName;
 		rLen = 18;
 		rLoc = 70852;
+		rType = 0;
+		vrLen = 1552;
+		vrLoc = 70372;
+	};
+	DCD7DAB10A43EFF40096B1A9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109784;
 		rType = 0;
 		vrLen = 1552;
 		vrLoc = 70372;

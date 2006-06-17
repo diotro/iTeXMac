@@ -329,8 +329,12 @@ To Do List:
     {
         NSWindowController * WC = [W windowController];
 		NSDocument * D = [WC document];
-        if((D == self) && [[[WC class] inspectorType] isEqual:[[D class] inspectorType]])
+		NSString * WCType = [[WC class] inspectorType];
+		NSString * DType = [[D class] inspectorType];
+        if((D == self) && [WCType isEqual:DType])
+		{
             return W;
+		}
     }
     // lazy initializer here?
     return nil;
@@ -927,7 +931,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSWindowController * currentWC = [[self frontWindow] windowController];
+	NSWindow * W = [self frontWindow];
+	NSWindowController * currentWC = [W windowController];
+	currentWC = [[currentWC retain] autorelease];
 	if(currentWC)
 	{
 		if([[[currentWC class] inspectorMode] isEqual:mode]
@@ -940,7 +946,9 @@ To Do List:
 			return;
 		}
 		if([currentWC isWindowLoaded])
+		{
 			[[currentWC window] orderOut:self];
+		}
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"Removing the window controller:%@", currentWC);
@@ -952,25 +960,30 @@ To Do List:
 	if([mode isEqual:iTM2ExternalInspectorMode])
 	{
 		if([iTM2ExternalInspectorServer objectForType:type key:variant])
+		{
 			C = [iTM2ExternalInspector class];
+		}
 	}
 	else
 	{
-		// removing the external inspectors... if necessary
-		NSEnumerator * E = [[self windowControllers] objectEnumerator];
-		NSWindowController * WC;
-		while(WC = [E nextObject])
-			if([WC isKindOfClass:[iTM2ExternalInspector class]])
-				[self removeWindowController:WC];
 		C = [NSWindowController inspectorClassForType:type mode:mode variant:variant];
 	}
-    if(C)
-    {
-        NSWindowController * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass(C)] autorelease];
+	if(C)
+	{
+		// removing the external inspectors... if necessary
+		NSEnumerator * E = [[self windowControllers] objectEnumerator];
+		NSWindowController * WC = nil;
+		while(WC = [E nextObject])
+		{
+			if([WC isKindOfClass:[iTM2ExternalInspector class]])
+			{
+				[self removeWindowController:WC];
+			}
+		}
+		WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass(C)] autorelease];
 		[WC setInspectorVariant:variant];
         [self addWindowController:WC];
-        NSWindow * W = [WC window];
-        if(W)
+        if(W = [WC window])
         {
             [W makeKeyAndOrderFront:self];
         }
@@ -3265,7 +3278,7 @@ To Do List:
 				if([M numberOfItems] > 1)
 				{
 					[self setSubmenu:M forItem:MI];
-					#if 0
+#if 0
 //iTM2_LOG(@"M is:%@", M);
 NSEnumerator * E = [[M itemArray] objectEnumerator];
 id mi;
