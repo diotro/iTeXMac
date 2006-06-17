@@ -1,0 +1,34 @@
+#!/bin/sh -f
+# this is alphax shell script for iTeXMac 1.3 version 0.1
+# © 2003 jlaurens@users.sourceforge.net
+base="/Applications/Alpha/Tools/alphac"
+if [ -x "~${base}" ]
+then
+    command="~/Applications/Alpha/Tools/alphac"
+else
+    command="/Applications/Alpha/Tools/alphac"
+fi
+
+if [ ${#file} -gt 0 ]
+then
+    echo "`pwd`"
+    cd "`dirname "${file}"`"
+    echo "`pwd`"
+    options=""
+    if [ ${line:--1} -gt 0 ]
+    then
+        options="+${line}"
+        if [ ${column:--1} -gt 0 ]
+        then
+            next="`expr ${line} + 1`"
+            options="${options}.${column},${next}.${column}"
+        else
+            options="${options}.0,${line}.65535"
+        fi
+    fi
+    echo "\"${command}\" ${options} \"${file##*/}\""
+    ${command} ${options} "${file##*/}"
+else
+    "${command}"
+fi
+exit

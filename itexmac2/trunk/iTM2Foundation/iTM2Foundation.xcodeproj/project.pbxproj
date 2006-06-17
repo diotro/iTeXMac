@@ -856,13 +856,9 @@
 		DCD7D6910A4398DD0096B1A9 /* emacs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = emacs; sourceTree = "<group>"; };
 		DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Emacs-Info.plist"; sourceTree = "<group>"; };
 		DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Alpha X.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCD7D6A80A43992D0096B1A9 /* Text-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy.plist"; sourceTree = "<group>"; };
 		DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BBEdit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCD7D6B60A4399630096B1A9 /* Text-Info copy 2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy 2.plist"; sourceTree = "<group>"; };
 		DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BBEdit Lite.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCD7D6C40A43997A0096B1A9 /* Text-Info copy 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy 3.plist"; sourceTree = "<group>"; };
 		DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Emacs.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCD7D6D40A43999A0096B1A9 /* Text-Info copy 4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Text-Info copy 4.plist"; sourceTree = "<group>"; };
 		DCDA12830908CDF9005E9B57 /* missing_image.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = missing_image.tiff; sourceTree = "<group>"; };
 		DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawerToolbarImage.tif; sourceTree = "<group>"; };
 		DCDA12F50908E59B005E9B57 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
@@ -1316,10 +1312,6 @@
 				DCD7D6900A4398DD0096B1A9 /* BBEditLite-Info.plist */,
 				DCD7D6910A4398DD0096B1A9 /* emacs */,
 				DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */,
-				DCD7D6A80A43992D0096B1A9 /* Text-Info copy.plist */,
-				DCD7D6B60A4399630096B1A9 /* Text-Info copy 2.plist */,
-				DCD7D6C40A43997A0096B1A9 /* Text-Info copy 3.plist */,
-				DCD7D6D40A43999A0096B1A9 /* Text-Info copy 4.plist */,
 			);
 			path = Text;
 			sourceTree = "<group>";

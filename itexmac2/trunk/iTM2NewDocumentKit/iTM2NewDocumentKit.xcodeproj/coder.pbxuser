@@ -233,7 +233,7 @@
 		functionName = "-createNewWrapperWithName:";
 		hitCount = 1;
 		lineNumber = 1436;
-		modificationTime = 172200541.539789;
+		modificationTime = 172202847.798386;
 		state = 1;
 	};
 	DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */ = {
@@ -258,8 +258,8 @@
 	DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {4284, 57222}}";
-			sepNavSelRange = "{70852, 18}";
-			sepNavVisRect = "{{0, 33930}, {1193, 720}}";
+			sepNavSelRange = "{109784, 0}";
+			sepNavVisRect = "{{0, 25536}, {1050, 455}}";
 			sepNavWindowFrame = "{{37, 5}, {1232, 849}}";
 		};
 	};
