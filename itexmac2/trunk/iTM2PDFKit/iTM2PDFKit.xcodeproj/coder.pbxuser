@@ -101,6 +101,7 @@
 			DC98674D09EADAD800FF4BD3 = DC98674D09EADAD800FF4BD3 /* PBXBookmark */;
 			DC98675009EADAD800FF4BD3 = DC98675009EADAD800FF4BD3 /* PBXBookmark */;
 			DCC544C90937B2780050770C = DCC544C90937B2780050770C /* PBXBookmark */;
+			DCD7DB2F0A45F17C0096B1A9 /* PBXTextBookmark */ = DCD7DB2F0A45F17C0096B1A9 /* PBXTextBookmark */;
 			DCEAE51209D2083500903594 = DCEAE51209D2083500903594 /* PBXTextBookmark */;
 			DCF34E5C0A436250005375E6 = DCF34E5C0A436250005375E6 /* PBXTextBookmark */;
 		};
@@ -140,7 +141,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2636, 113356}}";
 			sepNavSelRange = "{214712, 0}";
-			sepNavVisRect = "{{0, 75618}, {633, 163}}";
+			sepNavVisRect = "{{0, 75620}, {633, 163}}";
 			sepNavWindowFrame = "{{38, 31}, {1134, 801}}";
 		};
 	};
@@ -300,6 +301,16 @@
 		modificationTime = 171845477.04193;
 		state = 1;
 		symbolName = "-[NSException raise]";
+	};
+	DCD7DB2F0A45F17C0096B1A9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
+		name = "iTM2PDFKit.m: 6668";
+		rLen = 0;
+		rLoc = 214712;
+		rType = 0;
+		vrLen = 196;
+		vrLoc = 150722;
 	};
 	DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */ = {
 		uiCtxt = {

@@ -483,6 +483,7 @@
 				DCC3EDF508FE65DC00A74157 /* Resources */,
 				DCC3EDF608FE65DC00A74157 /* Sources */,
 				DCC3EDF708FE65DC00A74157 /* Frameworks */,
+				DCD7DB2B0A45F11D0096B1A9 /* Make the header documentation */,
 				DC5896C609D455C700E8F33C /* Expand compressed resources */,
 			);
 			buildRules = (
@@ -657,6 +658,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
+		};
+		DCD7DB2B0A45F11D0096B1A9 /* Make the header documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Make the header documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2PDFKit\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

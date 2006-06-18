@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCD7DAEA0A43F9FD0096B1A9</string>
+						<string>DCD7DB170A45F0140096B1A9</string>
 						<key>history</key>
 						<array>
 							<string>DCD7DAB90A43F5A80096B1A9</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCD7DAEB0A43F9FD0096B1A9</string>
+						<string>DCD7DB180A45F0140096B1A9</string>
 						<key>history</key>
 						<array>
 							<string>DCD7D65F0A438BC80096B1A9</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCD7DAEC0A43F9FD0096B1A9</string>
+						<string>DCD7DB190A45F0140096B1A9</string>
 						<key>history</key>
 						<array>
 							<string>DCD7D64E0A438A510096B1A9</string>
@@ -376,25 +376,21 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>0867D691FE84028FC02AAC07</string>
-								<string>DCB49C8609C5A3D600CF628D</string>
-								<string>DCF61B510854654B003F5F79</string>
-								<string>DCF61B830854654B003F5F79</string>
-								<string>DCF61BAA0854654B003F5F79</string>
-								<string>DCF61BAD0854654B003F5F79</string>
-								<string>034768DFFF38A50411DB9C8B</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DCD7DB140A45F0140096B1A9</string>
+								<string>DCD7DB150A45F0140096B1A9</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>41</integer>
-									<integer>5</integer>
-									<integer>0</integer>
+									<integer>40</integer>
+									<integer>31</integer>
+									<integer>28</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 119}, {287, 703}}</string>
+							<string>{{0, 77}, {287, 703}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -441,7 +437,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCD7DAE90A43F9FD0096B1A9</string>
+										<string>DCD7DB160A45F0140096B1A9</string>
 										<key>history</key>
 										<array>
 											<string>DCF34B6A0A434342005375E6</string>
@@ -670,7 +666,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCD7DAED0A43F9FD0096B1A9</string>
 		<string>DCD7D7160A439D000096B1A9</string>
 		<string>DCD7D6510A438A510096B1A9</string>
 		<string>DCD7D6520A438A510096B1A9</string>
@@ -679,11 +674,11 @@
 		<string>DCD7D5FA0A4386F20096B1A9</string>
 		<string>DCD7D64C0A438A510096B1A9</string>
 		<string>DCD7D66A0A438C030096B1A9</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>DCD7D6860A4394050096B1A9</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>5 77 1182 762 0 0 1440 878 </string>

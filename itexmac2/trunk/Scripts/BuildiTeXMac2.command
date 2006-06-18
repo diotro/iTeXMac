@@ -8,7 +8,11 @@ if [ ${#} -gt 0 ]
 then
     echo "xcodebuild -target All -configuration $1 clean build"
     xcodebuild -target "All" -configuration "$1" clean build
+elif [ "${USER}" = "root" ]
+then
+    echo "xcodebuild -target \"All\" -configuration \"Deployment\" clean build"
+    xcodebuild -target "All" -configuration "Deployment" clean build
 else
-    echo "xcodebuild -target All clean build"
+    echo "xcodebuild -target \"All\" clean build"
     xcodebuild -target "All" clean build
 fi

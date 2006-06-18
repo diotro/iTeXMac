@@ -385,7 +385,7 @@
 		DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStorageKit.m; sourceTree = "<group>"; };
 		DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStyleEditionKit.h; sourceTree = "<group>"; };
 		DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStyleEditionKit.m; sourceTree = "<group>"; };
-		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Inactive.tif; sourceTree = "<group>"; };
 		DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Pressed.tif; sourceTree = "<group>"; };
@@ -1241,7 +1241,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2Foundation\n";
+			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2TeXFoundation\n";
 		};
 		DC892C1A08FB10E9007A4673 /* Build & Install */ = {
 			isa = PBXShellScriptBuildPhase;

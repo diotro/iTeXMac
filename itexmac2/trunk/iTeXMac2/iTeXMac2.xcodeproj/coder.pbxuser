@@ -47,7 +47,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					300,
-					310.2085,
+					310,
 				);
 				PBXFileTableDataSourceColumnsKey = (
 					PBXErrorsWarningsDataSource_TypeID,
@@ -305,8 +305,8 @@
 	DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {961, 29903}}";
-			sepNavSelRange = "{2009, 0}";
-			sepNavVisRect = "{{0, 916}, {961, 615}}";
+			sepNavSelRange = "{44995, 0}";
+			sepNavVisRect = "{{0, 29288}, {961, 615}}";
 			sepNavWindowFrame = "{{-4, 88}, {1000, 744}}";
 		};
 	};

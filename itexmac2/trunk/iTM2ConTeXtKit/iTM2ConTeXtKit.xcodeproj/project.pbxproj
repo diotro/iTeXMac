@@ -405,6 +405,7 @@
 				DC2741E4090CE39000C2D1D2 /* Resources */,
 				DC2741E5090CE39000C2D1D2 /* Sources */,
 				DC2741E6090CE39000C2D1D2 /* Frameworks */,
+				DCD7DB250A45F0500096B1A9 /* Make the header documentation */,
 				DCEAF9BA09A3EA5D00AB577D /* Expand compressed resources */,
 			);
 			buildRules = (
@@ -731,6 +732,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\necho \"warning: iTeXMac2 INFO: preparing the ConTeXt Garden resource file\"\nTARGET_DIR=\"${TARGET_BUILD_DIR}/ConTeXtGarden\"\nmkdir -p \"${TARGET_DIR}\"\nSOURCE_DIR=\"${PROJECT_DIR}/ConTeXtGarden\"\nMAINPAGE_SOURCE=\"${SOURCE_DIR}/Main_Page.xml\"\nMAINPAGE_TARGET=\"${TARGET_BUILD_DIR}/iTM2ConTeXtGardenMainPageAbstract.xml\"\nif ! [ -e \"${MAINPAGE_SOURCE}\" ]\nthen\n\t\"${SOURCE_DIR}/ParseMain_Page.pl\" -s \"${SOURCE_DIR}\" -b \"${TARGET_DIR}\"\nfi\nif [ -e \"${MAINPAGE_SOURCE}\" ]\nthen\n\techo \"Copying ${MAINPAGE_SOURCE} to ${MAINPAGE_TARGET}\"\n\tcp -f \"${MAINPAGE_SOURCE}\" \"${MAINPAGE_TARGET}\"\n\techo \"warning: iTeXMac2 INFO: preparing the ConTeXt Garden resource file... DONE\"\n\texit 0\nfi\necho \"warning: iTeXMac2 INFO: ${MAINPAGE_SOURCE} does not exist\"\ntouch \"${MAINPAGE_TARGET}\"\necho \"warning: iTeXMac2 INFO: preparing the ConTeXt Garden resource file... FAILED\"\nexit 0\n";
+		};
+		DCD7DB250A45F0500096B1A9 /* Make the header documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Make the header documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2ConTeXtKit\n";
 		};
 		DCEAF9BA09A3EA5D00AB577D /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;

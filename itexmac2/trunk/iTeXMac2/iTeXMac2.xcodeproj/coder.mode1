@@ -221,8 +221,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -261,21 +259,20 @@
 								<string>2A37F4AAFDCFA73011CA2CEA</string>
 								<string>DCB93A5107D6FFC1005E5B38</string>
 								<string>DC28D63D0855B69A00D4CA66</string>
-								<string>19C28FB0FE9D524F11CA2CBB</string>
-								<string>DC4F6A33085A2E33004868B8</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DCD7DB440A45F2E00096B1A9</string>
+								<string>DCD7DAF40A4400350096B1A9</string>
+								<string>DCD7DAF50A4400350096B1A9</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>6</integer>
-									<integer>2</integer>
-									<integer>0</integer>
+									<integer>54</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {310, 551}}</string>
+							<string>{{0, 384}, {310, 551}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -339,6 +336,8 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

@@ -336,6 +336,7 @@
 				8DC2EF560486A6940098B216 /* Frameworks */,
 				DCC7FA060854E29600F3EB8A /* Copy Binaries */,
 				DC81B1BF0887F7C300943C99 /* Make the header documentation */,
+				DCD7DB320A45F1930096B1A9 /* Make the header documentation */,
 				DCEAF99009A3EA0F00AB577D /* Expand the compressed resources */,
 			);
 			buildRules = (
@@ -614,6 +615,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"warning: iTeXMac2 INFO, merging the ${PRODUCT_NAME} headers\"\n# this is only while developping\ncd \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\"\nchmod -R u+w .\nheader=\"${PRODUCT_NAME}.h\"\nif [ -f \"${header}\" ]\nthen\n\t\trm -Rf \"${header}\"\nfi\ntargets=\"`ls -1 -R *.h`$IFS\"\necho \"// ${PRODUCT_NAME} merged headers\" > \"${header}\"\necho \"// Automatically created when building project ${PROJECT_NAME}\" >> \"${header}\"\necho \"// Created on `date +format \"%m/%d/%y at %H:%M:%S\"`\" >> \"${header}\"\nfor var in ${targets}\ndo\n\techo \"#import <${PRODUCT_NAME}/$var>\" >> \"${header}\"\ndone\nfind . -name \"*.h\" -exec chmod a-w {} \\;\nls -l *.h\necho \"warning: iTeXMac2 INFO, merging the ${PRODUCT_NAME} headers... DONE\"\n";
+		};
+		DCD7DB320A45F1930096B1A9 /* Make the header documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Make the header documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2MetaPostKit\n";
 		};
 		DCEAF99009A3EA0F00AB577D /* Expand the compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
