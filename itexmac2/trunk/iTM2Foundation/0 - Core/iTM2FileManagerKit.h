@@ -99,6 +99,28 @@ extern NSString * const iTM2PathComponentsSeparator;
 */
 -(BOOL)setExtensionHidden:(BOOL)yorn atPath:(NSString *)path;
 
+/*!
+	@method			pushDirectory:
+	@abstract		Abstract forthcoming.
+	@discussion		Something like the pushd command.
+	@param			path
+	@result			yorn.
+	@availability	iTM2.
+	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)pushDirectory:(NSString *)path;
+
+/*!
+	@method			popDirectory
+	@abstract		Abstract forthcoming.
+	@discussion		Something like the popd command.
+	@param			None
+	@result			yorn.
+	@availability	iTM2.
+	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)popDirectory;
+
 @end
 
 /*!

@@ -2620,7 +2620,6 @@ To Do List: to be improved...
 //iTM2_LOG(@"/\\/\\/\\/\\  1");
         iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
 //iTM2_LOG(@"/\\/\\/\\/\\  2");
-        [TW setCurrentDirectoryPath:[[project fileName] stringByDeletingLastPathComponent]];
 		[TW setLaunchPath:iTM2_Launch];
 //iTM2_LOG(@"/\\/\\/\\/\\  3");
 		[TW replaceEnvironment:[SUD dictionaryForKey:iTM2EnvironmentVariablesKey]];
@@ -2629,7 +2628,8 @@ To Do List: to be improved...
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
 		[TW mergeEnvironment:[[project baseProjectName] TeXProjectProperties]];
-		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
+		NSString * currentDirectory = [[TW environment] objectForKey:@"PWD"];
+        [TW setCurrentDirectoryPath:(currentDirectory?:@"")];
 		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
         [TW addArgument:commandName];
 		[TW prependPATHComponent:[project getTeXMFBinariesPath]];
@@ -2920,7 +2920,9 @@ blablabla:
 			[project setMasterFileKey:@"...iTM2FrontDocument"];
 		}
 	}
-    [result takeValue:[project relativeFileNameForKey:MFK] forKey:TWSShellEnvironmentMasterKey];
+	NSString * master = [project absoluteFileNameForKey:MFK];
+    [result takeValue:[master lastPathComponent] forKey:TWSShellEnvironmentMasterKey];
+    [result takeValue:[master stringByDeletingLastPathComponent] forKey:@"PWD"];
     [result takeValue:[[project fileName] stringByDeletingLastPathComponent] forKey:TWSShellEnvironmentProjectDirectoryKey];
     [result takeValue:[[project fileName] lastPathComponent] forKey:TWSShellEnvironmentProjectNameKey];
     [result takeValue:[NSNumber numberWithInt:iTM2DebugEnabled] forKey:@"iTM2_Debug"];

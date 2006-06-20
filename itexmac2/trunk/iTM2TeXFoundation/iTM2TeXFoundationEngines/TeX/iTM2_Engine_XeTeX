@@ -82,7 +82,7 @@ then
 fi
 if ! [ -r "${TWSMaster}" ]
 then
-	"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster}."
+	"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster} (in $(pwd))."
 	iTM2TeXEngineUsage
 fi
 "$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"

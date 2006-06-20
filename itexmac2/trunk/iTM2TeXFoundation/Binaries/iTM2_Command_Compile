@@ -90,7 +90,7 @@ if [ ! -x "${iTM2_Compile_EnginePath}" ]
 then
 	"${iTM2_CMD_Notify}" echo "pwd is $(pwd)"
 	"${iTM2_CMD_Notify}" echo "PATH is ${PATH}"
-	"${iTM2_CMD_Notify}" echo "Looking for ${iTM2_Compile_Wrapped}"
+	"${iTM2_CMD_Notify}" echo "Looking for \"${iTM2_Compile_Wrapped}\" (from ${iTM2_Compile_Engine})"
 	oldIFS="$IFS"
 	IFS=":"
 	# there were an error concerning a missing 'x' flag

@@ -1908,7 +1908,7 @@ To Do List:
 		return YES;
 	}
 	NSString * targetDirName = [oldProjectName stringByDeletingLastPathComponent];
-	targetDirName = [targetDirName stringByStrippingExternalProjectsDirectory];
+	targetDirName = [targetDirName stringByStrippingFarawayProjectsDirectory];
 	// this is the location where the new document should be stored
 	[self takeContextValue:[targetName stringByDeletingLastPathComponent]
 		forKey:@"iTM2NewDocumentDirectory"];
@@ -2046,7 +2046,7 @@ To Do List:
 			{
 				// then create a standalone project...
 				NSError * localError = nil;
-				id projectDocument = [SPC newExternalProjectForFileName:targetName display:NO error:&localError];
+				id projectDocument = [SPC newFarawayProjectForFileName:targetName display:NO error:&localError];
 				if(localError)
 				{
 					[SDC presentError:localError];
@@ -2276,7 +2276,7 @@ To Do List:
 		switch([self creationMode])
 		{
 			case iTM2ToggleOldProjectMode:// insert in existing project
-			case iTM2ToggleStandaloneMode:// standalone document (in fact with an external project)
+			case iTM2ToggleStandaloneMode:// standalone document (in fact with an faraway project)
 			// it is not expected to be a project or a wrapper: it is a standalone document
 				requiredPathExtension = [[self standaloneFileName] pathExtension];
 				break;
@@ -2436,9 +2436,9 @@ To Do List:
 //iTM2_END;
 		return NO;
 	}
-	if([directory belongsToExternalProjectsDirectory])
+	if([directory belongsToFarawayProjectsDirectory])
 	{
-		return NO;// nothing can be added in the external projects directory
+		return NO;// nothing can be added in the faraway projects directory
 	}
 	NSString * enclosing = [directory enclosingProjectFileName];
 	if([enclosing length])
@@ -2527,10 +2527,10 @@ To Do List:
 //iTM2_END;
 		return NO;
 	}
-	if([directory belongsToExternalProjectsDirectory])
+	if([directory belongsToFarawayProjectsDirectory])
 	{
 //iTM2_END;
-		return NO;// nothing can be added in the external projects directory
+		return NO;// nothing can be added in the faraway projects directory
 	}
 	NSString * enclosing = [directory enclosingProjectFileName];
 	if([enclosing length])
@@ -2583,9 +2583,9 @@ To Do List:
 //iTM2_END;
 		return NO;
 	}
-	if([directory belongsToExternalProjectsDirectory])
+	if([directory belongsToFarawayProjectsDirectory])
 	{
-		return NO;// nothing can be added in the external projects directory
+		return NO;// nothing can be added in the faraway projects directory
 	}
 	NSString * enclosing = [directory enclosingProjectFileName];
 	if([enclosing length])
@@ -2780,7 +2780,7 @@ To Do List:
 		return;
 	}
 	[self setOldProjectName:new];
-	if(![new belongsToExternalProjectsDirectory]
+	if(![new belongsToFarawayProjectsDirectory]
 		&& [SWS isWrapperPackageAtPath:new])
 	{
 		NSSavePanel * SP = [NSSavePanel savePanel];

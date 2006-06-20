@@ -263,16 +263,20 @@
 								<string>DCAF97E809D80BEB00AFD95F</string>
 								<string>19C28FB8FE9D52D311CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DCD7DB550A4603A10096B1A9</string>
+								<string>DCD7DB560A4603A10096B1A9</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>0</integer>
+									<integer>42</integer>
+									<integer>33</integer>
+									<integer>30</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {281, 678}}</string>
+							<string>{{0, 104}, {281, 678}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -382,9 +386,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCF34E170A435AD8005375E6</string>
+				<string>DCD7DB570A4603A10096B1A9</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCF34E180A435AD8005375E6</string>
+				<string>DCD7DB580A4603A10096B1A9</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>

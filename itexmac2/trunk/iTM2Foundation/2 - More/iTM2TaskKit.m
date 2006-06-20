@@ -965,22 +965,29 @@ To Do List:
 //NSLog(@"[_CurrentWrapper launchPath]:%@", [_CurrentTask launchPath]);
     [_CurrentTask setLaunchPath:[_CurrentWrapper launchPath]];
 //NSLog(@"[_CurrentTask launchPath]:%@", [_CurrentTask launchPath]);
-    if([[_CurrentWrapper currentDirectoryPath] length])
-        [_CurrentTask setCurrentDirectoryPath:[_CurrentWrapper currentDirectoryPath]];
+	NSString * currentDirectory = [_CurrentWrapper currentDirectoryPath];
+    if([currentDirectory length])
+	{
+        [_CurrentTask setCurrentDirectoryPath:currentDirectory];
+	}
 
 //iTM2_LOG(@"5");
     NSString * PATH = [[_CurrentWrapper environment] objectForKey:iTM2TaskPATHKey];
     NSString * oldPATH = [environment objectForKey:iTM2TaskPATHKey];
     [environment addEntriesFromDictionary:[_CurrentWrapper environment]];
     if([PATH length])
+	{
         [environment setObject:[NSString stringWithFormat:([oldPATH hasPrefix:@":"]? @":%@%@":@":%@:%@"), PATH, oldPATH] forKey:iTM2TaskPATHKey];
+	}
 
 //NSLog(@"[_CurrentTask environment]:%@", [_CurrentTask environment]);
 //NSLog(@"[_CurrentWrapper environment]:%@", [_CurrentWrapper environment]);
 //NSLog(@"[[NSProcessInfo processInfo] environment]:%@", [[NSProcessInfo processInfo] environment]);
 //NSLog(@"[[NSProcessInfo processInfo] arguments]:%@", [[NSProcessInfo processInfo] arguments]);
     if([[_CurrentWrapper arguments] count])
+	{
         [_CurrentTask setArguments:[_CurrentWrapper arguments]];
+	}
     [_CurrentTask setEnvironment:environment];
     [_CurrentTask launch];
 	if(iTM2DebugEnabled)

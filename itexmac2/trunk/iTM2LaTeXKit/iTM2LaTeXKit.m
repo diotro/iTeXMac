@@ -749,6 +749,30 @@ To Do List:
     return;
 }
 #endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeLaTeXEnvironment:
+- (void) completeLaTeXEnvironment: (id) sender;
+/*"Desription Forthcoming.
+Version history: jlaurens@users.sourceforge.net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{
+//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+    // find what is the name of the current environment...
+    NSString * name = [[self string] lossyLaTeXEnvironmentNameAtIndex: [self selectedRange].location];
+    if([name length])
+    {
+        [self insertText:[NSString stringWithFormat: @"\\end{%@}", name]];
+    }
+    else
+    {
+        // Nothing was found: stop it here
+        NSBeep();
+        [self postNotificationWithToolTip:
+            NSLocalizedStringFromTableInBundle(@"No open environment found.", @"TeX", [NSBundle bundleForClass:[self class]], "used in completeLaTeXEnvironment")];
+    }
+    return;
+}
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
 -(void)insertControl:(id)sender;

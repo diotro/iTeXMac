@@ -221,6 +221,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -260,19 +262,19 @@
 								<string>DCB93A5107D6FFC1005E5B38</string>
 								<string>DC28D63D0855B69A00D4CA66</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>DCD7DB440A45F2E00096B1A9</string>
-								<string>DCD7DAF40A4400350096B1A9</string>
-								<string>DCD7DAF50A4400350096B1A9</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>54</integer>
+									<integer>17</integer>
+									<integer>12</integer>
+									<integer>2</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 384}, {310, 551}}</string>
+							<string>{{0, 214}, {310, 551}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -336,8 +338,6 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -374,9 +374,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCD7CE000A4370760096B1A9</string>
+				<string>DC7E36630A482ADD0053F6CA</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCD7CE010A4370760096B1A9</string>
+				<string>DC7E36640A482ADD0053F6CA</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -510,13 +510,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCD7CE0F0A4371E60096B1A9</string>
-		<string>DCD7CE100A4371E60096B1A9</string>
-		<string>DC691935088C8CD600F00114</string>
 		<string>DC69174E088BFB5600F00114</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DCD7CE0A0A4370760096B1A9</string>
+		<string>DC7E366C0A482ADD0053F6CA</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>124 191 991 610 0 0 1440 878 </string>
@@ -557,12 +554,10 @@
 							<string>189pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 206}, {1023, 253}}</string>
+								<string>{{0, 75}, {1023, 384}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -600,7 +595,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC69174E088BFB5600F00114</string>
-				<string>DCD7CE030A4370760096B1A9</string>
+				<string>DC7E36650A482ADD0053F6CA</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -706,14 +701,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCD7CE040A4370760096B1A9</string>
+				<string>DC7E36660A482ADD0053F6CA</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCD7CE050A4370760096B1A9</string>
-				<string>DCD7CE060A4370760096B1A9</string>
-				<string>DCD7CE070A4370760096B1A9</string>
-				<string>DCD7CE080A4370760096B1A9</string>
-				<string>DCD7CE090A4370760096B1A9</string>
-				<string>DCD7CE0A0A4370760096B1A9</string>
+				<string>DC7E36670A482ADD0053F6CA</string>
+				<string>DC7E36680A482ADD0053F6CA</string>
+				<string>DC7E36690A482ADD0053F6CA</string>
+				<string>DC7E366A0A482ADD0053F6CA</string>
+				<string>DC7E366B0A482ADD0053F6CA</string>
+				<string>DC7E366C0A482ADD0053F6CA</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -722,7 +717,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -867,7 +862,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC691935088C8CD600F00114</string>
-				<string>DCD7CE0E0A4371E60096B1A9</string>
+				<string>DCEB75D00A46CCE6001516CE</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>WindowString</key>
@@ -1088,8 +1083,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBottomSmartGroupGIDs</key>
@@ -1151,6 +1144,8 @@
 							<string>185pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -1190,8 +1185,8 @@
 			<true/>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC6827F30A3F9BBA00B04D3E</string>
-				<string>DC6827F40A3F9BBA00B04D3E</string>
+				<string>DCEB75D60A46CEA1001516CE</string>
+				<string>DCEB75D70A46CEA1001516CE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
 				<string>1CA1AED706398EBD00589147</string>
 			</array>
@@ -1200,7 +1195,7 @@
 			<key>WindowString</key>
 			<string>373 242 939 392 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
-			<string>DC6827F30A3F9BBA00B04D3E</string>
+			<string>DCEB75D60A46CEA1001516CE</string>
 			<key>WindowToolIsVisible</key>
 			<false/>
 		</dict>

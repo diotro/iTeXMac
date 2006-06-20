@@ -270,7 +270,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_END;
 	if([self fileExistsAtPath:path])
 	{
 		FSRef ref = {0};
@@ -279,6 +278,7 @@ To Do List:
 		{
 			[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:status
 				userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create an FSRef for %@", path] forKey:NSLocalizedDescriptionKey]];
+//iTM2_END;
 			return YES;
 		}
 		OSErr err = FSIsAliasFile(&ref,(Boolean*)isAlias, NULL);
@@ -287,10 +287,56 @@ To Do List:
 			[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:err
 				userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not check an alias at %@", path] forKey:NSLocalizedDescriptionKey]];
 		}
+//iTM2_END;
 		return YES;
 	}
+//iTM2_END;
 	return NO;
 }
+static NSMutableArray * iTM2FileManagerKitDirectoryStack = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pushDirectory:
+- (BOOL)pushDirectory:(NSString *)path;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(!iTM2FileManagerKitDirectoryStack)
+	{
+		iTM2FileManagerKitDirectoryStack = [[NSMutableArray array] retain];
+	}
+	NSString * currentDirectoryPath = [DFM currentDirectoryPath];
+	if([self changeCurrentDirectoryPath:path])
+	{
+		[iTM2FileManagerKitDirectoryStack addObject:currentDirectoryPath];
+//iTM2_END;
+		return YES;
+	}
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popDirectory
+- (BOOL)popDirectory;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * path = [iTM2FileManagerKitDirectoryStack lastObject];
+	if(path && [self changeCurrentDirectoryPath:path])
+	{
+		[iTM2FileManagerKitDirectoryStack removeLastObject];
+//iTM2_END;
+		return YES;
+	}
+//iTM2_END;
+	return NO;
+}
+#warning *** DEBUGGING PURPOSE ONLY, to be removed
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 +(void)load;
 /*"Description Forthcoming.

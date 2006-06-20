@@ -141,12 +141,16 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172195441;
-			PBXWorkspaceStateSaveDate = 172195441;
+			PBXPerProjectTemplateStateSaveDate = 172439524;
+			PBXWorkspaceStateSaveDate = 172439524;
 		};
 		perUserProjectItems = {
 			DC986AFF09EFD6C500FF4BD3 = DC986AFF09EFD6C500FF4BD3 /* PBXTextBookmark */;
 			DC986B0109EFD6C500FF4BD3 = DC986B0109EFD6C500FF4BD3 /* PBXTextBookmark */;
+			DCEB74380A4687B2001516CE = DCEB74380A4687B2001516CE /* PBXTextBookmark */;
+			DCEB74390A4687B2001516CE = DCEB74390A4687B2001516CE /* PBXTextBookmark */;
+			DCEB743E0A4687B2001516CE = DCEB743E0A4687B2001516CE /* PBXTextBookmark */;
+			DCEB743F0A4687B2001516CE = DCEB743F0A4687B2001516CE /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -256,9 +260,9 @@
 	};
 	DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1636, 51527}}";
-			sepNavSelRange = "{17706, 29}";
-			sepNavVisRect = "{{0, 8517}, {1135, 545}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1540, 51969}}";
+			sepNavSelRange = "{23534, 27}";
+			sepNavVisRect = "{{0, 12827}, {1135, 545}}";
 			sepNavWindowFrame = "{{84, 95}, {1174, 674}}";
 		};
 	};
@@ -310,8 +314,42 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 1;
-		modificationTime = 167132463.504782;
+		modificationTime = 172394415.656753;
 		state = 1;
 		symbolName = "-[NSException raise]";
+	};
+	DCEB74380A4687B2001516CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		rLen = 10;
+		rLoc = 43027;
+		rType = 0;
+	};
+	DCEB74390A4687B2001516CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = ompleteLaT;
+		rLen = 10;
+		rLoc = 43027;
+		rType = 0;
+		vrLen = 757;
+		vrLoc = 41668;
+	};
+	DCEB743E0A4687B2001516CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		rLen = 1;
+		rLoc = 1678;
+		rType = 1;
+	};
+	DCEB743F0A4687B2001516CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = postNotificationWithToolTip;
+		rLen = 27;
+		rLoc = 23534;
+		rType = 0;
+		vrLen = 1107;
+		vrLoc = 23014;
 	};
 }

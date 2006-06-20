@@ -53,6 +53,7 @@ then
 	done
 	"${iTM2_CMD_Notify}" stop comment
 fi
+date "+MIDDLE - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 # the binary path:
 if ! [ -d "${TWSProjectDirectory}" ]
 then
@@ -61,7 +62,7 @@ fi
 iTM2PROJECT="$TWSProjectDirectory/$TWSProjectName"
 if [ -d "${iTM2PROJECT}" ]
 then
-	cd "`dirname "${iTM2PROJECT}"`"
+	pushd "`dirname "${iTM2PROJECT}"`"
 	iTM2BinaryPATH="`basename "${iTM2PROJECT}"`/.iTM2"
 	if [ ! -w "${iTM2PROJECT}" ]
 	then

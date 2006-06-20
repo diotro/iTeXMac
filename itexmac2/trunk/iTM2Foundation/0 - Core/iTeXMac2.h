@@ -90,6 +90,7 @@ enum{
 #define DNC [NSNotificationCenter defaultCenter]
 #define DDNC [NSDistributedNotificationCenter defaultCenter]
 #define SWS [NSWorkspace sharedWorkspace]
+#define WSN [[NSWorkspace sharedWorkspace] notificationCenter]
 #define SFM [NSFontManager sharedFontManager]
 #define SCP [NSColorPanel sharedColorPanel]
 

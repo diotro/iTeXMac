@@ -230,11 +230,11 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				they can use links or finder aliases. The first time this method is sent,
 				it tries to use some information cached when one of the newKeyForFileName: or newKeyForFileName:context:
 				was previously used. If no such information is available, it tries to guess the key based on some simple rules
-				implemented in the private guessedKeyForFileName: method (this is for developpers only). This method manages the absolute/relative/link/alias/external problem.
-				When the project is external, things are more complicated.
+				implemented in the private guessedKeyForFileName: method (this is for developpers only). This method manages the absolute/relative/link/alias/faraway problem.
+				When the project is faraway, things are more complicated.
 				The problem is to convert the absolute file name into a relative file name.
 				Both the given file name and the project file name can live in the same domain
-				with respect to the external projects directory. If not, one is converted to the other.
+				with respect to the faraway projects directory. If not, one is converted to the other.
 				This method does not create a new key for the file name. It just use the information that once was created
 				either stored in the project or in a private cache.
 				Use the newKeyForFileName: or newKeyForFileName:context: for that purpose.
@@ -458,13 +458,13 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 -(NSURL *)subdocumentURLForKey:(NSString *)key;
 
 /*! 
-    @method     externalSubdocumentURLForKey:
-    @abstract   The project document external URL for the given key.
+    @method     farawaySubdocumentURLForKey:
+    @abstract   The project document faraway URL for the given key.
     @discussion Discussion forthcoming.
     @param      key
     @result     an url.
 */
--(NSURL *)externalSubdocumentURLForKey:(NSString *)key;
+-(NSURL *)farawaySubdocumentURLForKey:(NSString *)key;
 
 /*! 
     @method     keyedSubdocuments
@@ -695,8 +695,8 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 
 /*! 
     @method     orderedFileKeys
-    @abstract   Abstract forthcoming.
-    @discussion Decription forthcoming.
+    @abstract   Ordered list of file keys.
+    @discussion This list is used while populating the receiver documents table view.
     @param      None
     @result     the new file keys
 */
@@ -857,7 +857,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				typically .tex files downloaded from the web will use convenient one shot projects stored in a temporary directory.
 				If the directory containing the file is not writable, all the information of the project except the file
 				itself will not be stored at the same level, whether in the file through embedded resources
-				or in the file system as external resource. In that case, projects are stored either in the temporary directory if this makes sense,
+				or in the file system as faraway resource. In that case, projects are stored either in the temporary directory if this makes sense,
 				or in a dedicated location of a Caches subfolder. If the resource is not stored with the file, we must have a strong mapping
 				binding the file and the associate resource. There can be problems if the file name changes.
 				Given a file, we can use either the file name or an alias to the file to retrieve the project information.
@@ -873,7 +873,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				Here is the common location
 				<code>~/Library/Application\ Support/Projects.put_aside/...</code>
 				to which we append the full path to the source base name with the correct path extension.
-				This common location is referred to <code>+externalProjectsDirectory</code>, because the projects are not stored near the file they are bound to.
+				This common location is referred to <code>+farawayProjectsDirectory</code>, because the projects are not stored near the file they are bound to.
 
 				This is the mapping file name -> project.
 				
@@ -887,12 +887,8 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				
 				The final components are the ones used by the user interface to display information to the user.
 				Unlimited directory level should be used.
-				The big question is how iTM2 will know that a file needs a one shot project or needs a hard one to be created.
-				Most certainly, if the source file contains header information, a one shot project should be used.
-				The user is asked for that kind of information. And a hard project is always created.
-				This implies the management of the read only status when file are downloaded in a read only folder!
-				Some file names don't need projects, we should only propose a shared ghost project.
-				Let spend some time to discuss the problem of projects.
+				
+				Faraway projects are used for standalone documents.
     @param      The source is either a file name or a document.
     @result     A project document
 */
@@ -967,12 +963,12 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				This method is used by various other methods to ensure that some objects are really bound to a project.
 				An internal project is a directory wrapper found in the same directory or in a directory above.
 				If the directory is not writable, or if the user does not want a project near the source file,
-				the project is stored in an application support subfolder. In that case, it is called an external project.
+				the project is stored in an application support subfolder. In that case, it is called an faraway project.
 				Let us explain this design in more details.
-				Given the file name, the external project is always inside a wrapper.
+				Given the file name, the faraway project is always inside a wrapper.
 				More precisely, if the file name is /my/dir/name/foo, then the associate wrapper is located in the folder
 				Application\ Support/iTeXMac2/Projects/my/dir/name/
-				or above. Which allows external projects to be shared by a file subhierarchy.
+				or above. Which allows faraway projects to be shared by a file subhierarchy.
 				In order to bind the wrapper and the source file, the wrapper will keep track of the source files.
 				The included tex project will contain a list of finder aliases to the files they should be bound to.
 				And soft links too.
@@ -992,7 +988,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 -(void)willGetNewProjectForFileNameRef:(NSString **)fileNameRef;
 -(void)didGetNewProjectForFileNameRef:(NSString **)fileNameRef;
 -(BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef;
--(id)newExternalProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+-(id)newFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
 
 /*! 
     @method     getProjectFromPanelForFileNameRef:display:error:
@@ -1346,26 +1342,26 @@ extern NSString * const iTM2WrapperInspectorType;
 @interface NSString(iTM2ProjectDocumentKit)
 
 /*!
-    @method     externalProjectsDirectory
-    @abstract   The directory where external projects are stored.
+    @method     farawayProjectsDirectory
+    @abstract   The directory where faraway projects are stored.
     @discussion Returns
 					~/Library/Application\ Support/AppName/Projects.put_aside.
 				The extension is used to hide the contents of this directory to the end user by declaring the extension as a wrapper tag.
     @param      None
     @result     An NSString instance.
 */
-+(NSString *)externalProjectsDirectory;
++(NSString *)farawayProjectsDirectory;
 
 /*!
-    @method		belongsToExternalProjectsDirectory
+    @method		belongsToFarawayProjectsDirectory
     @abstract	Abstract forthcoming
     @discussion	Discussion forthcoming.
     @param      None
     @result     yorn
 */
--(BOOL)belongsToExternalProjectsDirectory;
+-(BOOL)belongsToFarawayProjectsDirectory;
 
--(NSString *)stringByStrippingExternalProjectsDirectory;
+-(NSString *)stringByStrippingFarawayProjectsDirectory;
 
 /*!
     @method		enclosingWrapperFileName

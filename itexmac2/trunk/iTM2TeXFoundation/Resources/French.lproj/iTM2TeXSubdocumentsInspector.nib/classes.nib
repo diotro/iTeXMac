@@ -1,6 +1,7 @@
 {
     IBClasses = (
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = iTM2TeXPFilesWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
         {
             ACTIONS = {
                 chooseEOL = id; 
@@ -14,12 +15,11 @@
                 relativeToEdited = id; 
                 removeDocument = id; 
             }; 
-            CLASS = iTM2TeXPDocumentsInspector; 
+            CLASS = iTM2TeXPSubdocumentsInspector; 
             LANGUAGE = ObjC; 
             OUTLETS = {documentsView = id; }; 
             SUPERCLASS = NSWindowController; 
-        }, 
-        {CLASS = iTM2TeXPFilesWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
+        }
     ); 
     IBVersion = 1; 
 }

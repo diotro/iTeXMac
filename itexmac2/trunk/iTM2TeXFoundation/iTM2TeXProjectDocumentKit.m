@@ -574,120 +574,121 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int row = [[self documentsView] selectedRow];
-    NSString * oldRelative;
-    if(row < 0 || row >= [[self documentsView] numberOfRows])
+	NSArray * orderedFileKeys = [self orderedFileKeys];
+    if(row < 0 || row >= [orderedFileKeys count])
+	{
         return;
+	}
     else if(row)
     {
-        oldRelative = [[[self documentsView] dataSource]
-                        tableView:[self documentsView]
-                    objectValueForTableColumn:[[[self documentsView] tableColumns] lastObject]
-                row:row];
-        if([oldRelative length])
+		NSString * key = [orderedFileKeys objectAtIndex:row];
+		iTM2ProjectDocument * PD = [self document];
+        NSString * oldRelative = [PD relativeFileNameForKey:key];
+        if(![oldRelative length])
 		{
-			NSString * newRelative = [sender stringValue];
-			if([newRelative isEqual:oldRelative])
-				return;
-			iTM2ProjectDocument * PD = [self document];
-			NSString * projectName = [PD fileName];
-			NSString * dirName = [projectName stringByDeletingLastPathComponent];
-			NSString * new = [dirName stringByAppendingPathComponent:newRelative];
-			new = [new stringByStandardizingPath];
-			// is this file acceptable?
-			newRelative = [new stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
-			NSBundle * B = [iTM2ProjectDocument classBundle];
-			if([newRelative hasPrefix:@".."])
+			return;
+		}
+		NSString * newRelative = [sender stringValue];
+		if([newRelative isEqual:oldRelative])
+		{
+			return;
+		}
+		NSString * projectName = [PD fileName];
+		NSString * dirName = [projectName stringByDeletingLastPathComponent];
+		if([dirName belongsToExternalProjectsDirectory])
+		{
+			dirName = [dirName stringByDeletingLastPathComponent];
+			dirName = [dirName stringByStrippingExternalProjectsDirectory];
+		}
+		NSString * new = [dirName stringByAppendingPathComponent:newRelative];
+		new = [new stringByStandardizingPath];
+		// is this file acceptable?
+		newRelative = [new stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+		NSBundle * B = [iTM2ProjectDocument classBundle];
+		if([newRelative hasPrefix:@".."])
+		{
+			NSBeginAlertSheet(
+				NSLocalizedStringFromTableInBundle(@"Bad name", iTM2ProjectTable, B, ""),
+				nil, nil, nil,
+				[self window],
+				nil, NULL, NULL,
+				nil,// will be released below
+				NSLocalizedStringFromTableInBundle(@"The name %@ must not contain \"..\".", iTM2ProjectTable, B, ""),
+				new);
+			return;
+		}
+		NSString * old = [PD absoluteFileNameForKey:key];
+		old = [old stringByStandardizingPath];
+		if(![DFM fileExistsAtPath:old])
+		{
+			// nothing to copy
+			return;
+		}
+		NSDocument * subDocument = [PD subdocumentForFileName:old];
+		if([subDocument isDocumentEdited])
+		{
+			return;
+		}
+		if([old isEqual:new])
+		{
+			return;
+		}
+		NSString * newKey = [PD keyForFileName:new];
+		if([newKey length])
+		{
+			NSBeginAlertSheet(
+				NSLocalizedStringFromTableInBundle(@"Name conflict", iTM2ProjectTable, B, ""),
+				nil, nil, nil,
+				[self window],
+				nil, NULL, NULL,
+				nil,// will be released below
+				NSLocalizedStringFromTableInBundle(@"The name %@ is already used.", iTM2ProjectTable, B, ""),
+				new);
+			return;
+		}
+		if([DFM fileExistsAtPath:new])
+		{
+			// there is a possible conflict
+			NSBeginAlertSheet(
+				NSLocalizedStringFromTableInBundle(@"Naming problem", iTM2ProjectTable, B, ""),
+				nil, nil, nil,
+				[self window],
+				nil, NULL, NULL,
+				nil,
+				NSLocalizedStringFromTableInBundle(@"Already existing file at\n%@", iTM2ProjectTable, B, ""),
+				new);
+			return;
+		}
+		NSError * localError = nil;
+		if([DFM createDeepDirectoryAtPath:[new stringByDeletingLastPathComponent] attributes:nil error:&localError])
+		{
+			if(![DFM movePath:old toPath:new handler:nil])
 			{
-				NSBeginAlertSheet(
-					NSLocalizedStringFromTableInBundle(@"Bad name", iTM2ProjectTable, B, ""),
-					nil, nil, nil,
-					[self window],
-					nil, NULL, NULL,
-					nil,// will be released below
-					NSLocalizedStringFromTableInBundle(@"The name %@ must not contain \"..\".", iTM2ProjectTable, B, ""),
-					new);
-				return;
-			}
-			NSString * old = [dirName stringByAppendingPathComponent:oldRelative];
-			old = [old stringByStandardizingPath];
-			NSDocument * subDocument = [PD subdocumentForFileName:old];
-			if([subDocument isDocumentEdited])
-			{
-				return;
-			}
-			if([old isEqual:new])
-			{
-				return;
-			}
-			NSString * key = [PD keyForFileName:new];
-			if([key length])
-			{
-				NSBeginAlertSheet(
-					NSLocalizedStringFromTableInBundle(@"Name conflict", iTM2ProjectTable, B, ""),
-					nil, nil, nil,
-					[self window],
-					nil, NULL, NULL,
-					nil,// will be released below
-					NSLocalizedStringFromTableInBundle(@"The name %@ is already used.", iTM2ProjectTable, B, ""),
-					new);
-				return;
-			}
-			key = [PD keyForFileName:old];
-			if(![key length])
-			{
-				return;
-			}
-			if(![DFM fileExistsAtPath:old])
-			{
-				// nothing to copy
-				return;
-			}
-			if([DFM fileExistsAtPath:new])
-			{
-				// there is a possible conflict
 				NSBeginAlertSheet(
 					NSLocalizedStringFromTableInBundle(@"Naming problem", iTM2ProjectTable, B, ""),
 					nil, nil, nil,
 					[self window],
 					nil, NULL, NULL,
-					nil,
-					NSLocalizedStringFromTableInBundle(@"Already existing file at\n%@", iTM2ProjectTable, B, ""),
-					new);
+					nil,// will be released below
+					NSLocalizedStringFromTableInBundle(@"A file could not move.", iTM2ProjectTable, B, ""));
 				return;
 			}
-			NSError * localError = nil;
-			if([DFM createDeepDirectoryAtPath:[new stringByDeletingLastPathComponent] attributes:nil error:&localError])
+			[subDocument setFileURL:[NSURL fileURLWithPath:new]];// before the project is aware of a file change
+			[PD setFileName:new forKey:key makeRelative:YES];// after the document name has changed
+			if(iTM2DebugEnabled)
 			{
-				if([DFM fileExistsAtPath:old])
-				{
-
-					if(![DFM movePath:old toPath:new handler:nil])
-					{
-						NSBeginAlertSheet(
-							NSLocalizedStringFromTableInBundle(@"Naming problem", iTM2ProjectTable, B, ""),
-							nil, nil, nil,
-							[self window],
-							nil, NULL, NULL,
-							nil,// will be released below
-							NSLocalizedStringFromTableInBundle(@"A file could not move.", iTM2ProjectTable, B, ""));
-						return;
-					}
-				}
-				[PD setFileName:new forKey:key makeRelative:YES];
-				[subDocument setFileName:new];
-				if(iTM2DebugEnabled)
-				{
-					iTM2_LOG(@"Name successfully changed from %@ to %@", old, new);
-				}
+				iTM2_LOG(@"Name successfully changed from %@ to %@", old, new);
 			}
-			else
-			{
-				if(localError)
-					[SDC presentError:localError];
-				return;
-			}
-			[sender validateWindowContent];
 		}
+		else
+		{
+			if(localError)
+			{
+				[SDC presentError:localError];
+			}
+			return;
+		}
+		[sender validateWindowContent];
     }
     return;
 }

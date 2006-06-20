@@ -89,19 +89,18 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172195446;
-			PBXWorkspaceStateSaveDate = 172195446;
+			PBXPerProjectTemplateStateSaveDate = 172439529;
+			PBXWorkspaceStateSaveDate = 172439529;
 		};
 		perUserProjectItems = {
 			DC264C470986353C00109CD2 = DC264C470986353C00109CD2 /* PBXTextBookmark */;
 			DC264C490986353C00109CD2 = DC264C490986353C00109CD2 /* PBXTextBookmark */;
-			DC2D34D00A40A15C00FD25C4 = DC2D34D00A40A15C00FD25C4 /* PBXTextBookmark */;
 			DC4EF0750A3E1EC400E264F0 = DC4EF0750A3E1EC400E264F0 /* PBXTextBookmark */;
 			DC4EF0770A3E1EC400E264F0 = DC4EF0770A3E1EC400E264F0 /* PBXTextBookmark */;
 			DC98674D09EADAD800FF4BD3 = DC98674D09EADAD800FF4BD3 /* PBXBookmark */;
 			DC98675009EADAD800FF4BD3 = DC98675009EADAD800FF4BD3 /* PBXBookmark */;
 			DCC544C90937B2780050770C = DCC544C90937B2780050770C /* PBXBookmark */;
-			DCD7DB2F0A45F17C0096B1A9 /* PBXTextBookmark */ = DCD7DB2F0A45F17C0096B1A9 /* PBXTextBookmark */;
+			DCD7DB630A4603A30096B1A9 = DCD7DB630A4603A30096B1A9 /* PBXTextBookmark */;
 			DCEAE51209D2083500903594 = DCEAE51209D2083500903594 /* PBXTextBookmark */;
 			DCF34E5C0A436250005375E6 = DCF34E5C0A436250005375E6 /* PBXTextBookmark */;
 		};
@@ -141,7 +140,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2636, 113356}}";
 			sepNavSelRange = "{214712, 0}";
-			sepNavVisRect = "{{0, 75620}, {633, 163}}";
+			sepNavVisRect = "{{0, 75622}, {633, 163}}";
 			sepNavWindowFrame = "{{38, 31}, {1134, 801}}";
 		};
 	};
@@ -175,16 +174,6 @@
 			sepNavVisRect = "{{0, 0}, {633, 163}}";
 			sepNavWindowFrame = "{{107, 60}, {1151, 683}}";
 		};
-	};
-	DC2D34D00A40A15C00FD25C4 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 6666";
-		rLen = 0;
-		rLoc = 214712;
-		rType = 0;
-		vrLen = 197;
-		vrLoc = 152458;
 	};
 	DC4EF0750A3E1EC400E264F0 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -302,7 +291,7 @@
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
-	DCD7DB2F0A45F17C0096B1A9 /* PBXTextBookmark */ = {
+	DCD7DB630A4603A30096B1A9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
 		name = "iTM2PDFKit.m: 6668";
