@@ -26,6 +26,7 @@
 #import <iTM2Foundation/iTM2WindowKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2DistributedObjectKit.h>
 
 NSString * const iTM2TaskControllerIsDeafKey = @"iTM2TaskControllerIsDeaf";
 NSString * const iTM2TaskControllerIsMuteKey = @"iTM2TaskControllerIsMute";
@@ -979,7 +980,7 @@ To Do List:
 	{
         [environment setObject:[NSString stringWithFormat:([oldPATH hasPrefix:@":"]? @":%@%@":@":%@:%@"), PATH, oldPATH] forKey:iTM2TaskPATHKey];
 	}
-
+	[environment setObject:[NSConnection iTeXMac2ConnectionIdentifier] forKey:iTM2ConnectionIdentifierKey];
 //NSLog(@"[_CurrentTask environment]:%@", [_CurrentTask environment]);
 //NSLog(@"[_CurrentWrapper environment]:%@", [_CurrentWrapper environment]);
 //NSLog(@"[[NSProcessInfo processInfo] environment]:%@", [[NSProcessInfo processInfo] environment]);

@@ -381,7 +381,11 @@ To Do List:
 		{
 			NSString * recorded = [self fileNameForRecordedKey:key];
 			NSString * absolute = [self absoluteFileNameForKey:key];
-			[fileNames addObject:([recorded length]?recorded:absolute)];
+			NSString * candidate = ([recorded length]?recorded:absolute);
+			if(![candidate belongsToFarawayProjectsDirectory])
+			{
+				[fileNames addObject:candidate];
+			}
 		}
 	}
 	NSString * enclosingDirectory = [NSString enclosingDirectoryForFileNames:fileNames];
@@ -439,109 +443,96 @@ To Do List:
 	{
 		return YES;// we can't do anything smart
 	}
-	// rule #1: a faraway project must contain only one subdocument
 	NSArray * allKeys = [self allKeys];
-	if([allKeys count]>1)
+	allKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
+	NSMutableDictionary * keyedFileNames = [NSMutableDictionary dictionary];
+	NSEnumerator * E = [allKeys objectEnumerator];
+	NSString * key = nil;
+	NSString * requiredName = nil;
+	while(key = [E nextObject])
 	{
-		[self makeNotFaraway];
-//iTM2_END;
-		return YES;
-	}
-	NSString * key = [allKeys lastObject];
-	NSString * recordedFileName = [self fileNameForRecordedKey:key];
-	if([recordedFileName belongsToFarawayProjectsDirectory])
-	{
-		// this is not authorized
-		// the faraway project has now a faraway document, bad news
-		#warning NYI
-//iTM2_END;
-		return YES;
-	}
-	else if([DFM fileExistsAtPath:recordedFileName isDirectory:nil])
-	{
-		// rule #2, the file and project should have similar paths;
-		NSString * sourceDirectory = [recordedFileName stringByDeletingLastPathComponent];
-		NSString * requiredFarawayDirectory = [NSString farawayProjectsDirectory];
-		requiredFarawayDirectory = [requiredFarawayDirectory stringByAppendingPathComponent:sourceDirectory];
-		// this is the directory where the faraway wrapper should be located
-		NSString * requiredName = [recordedFileName lastPathComponent];
-		NSString * requiredCore = [requiredName stringByDeletingPathExtension];
-		
-		NSString * requiredFarawayWrapper = [requiredCore stringByAppendingPathExtension:[SDC wrapperPathExtension]];
-		requiredFarawayWrapper = [requiredFarawayDirectory stringByAppendingPathComponent:requiredFarawayWrapper];
-		
-		NSString * requiredFarawayProject = [requiredCore stringByAppendingPathExtension:[SDC projectPathExtension]];
-		requiredFarawayProject = [requiredFarawayWrapper stringByAppendingPathComponent:requiredFarawayProject];
-		
-		if([requiredFarawayProject isEqualToFileName:projectFileName])
+		NSString * recorded = [self fileNameForRecordedKey:key];
+		if([recorded length] && ![recorded belongsToFarawayProjectsDirectory])
 		{
-			// No significant change has been made so far
-			// what about the file name of the unique subdocument?
-			NSString * absoluteFileName = [self absoluteFileNameForKey:key];
-			NSString * component = [recordedFileName lastPathComponent];
-			if(![absoluteFileName isEqualToFileName:recordedFileName])
+			requiredName = [recorded lastPathComponent];
+			[keyedFileNames setObject:recorded forKey:key];
+			while(key = [E nextObject])
 			{
-				[[self keyedFileNames] setObject:component forKey:key];
-				absoluteFileName = [self absoluteFileNameForKey:key];
-				NSAssert2([absoluteFileName isEqualToFileName:recordedFileName],@"*** both path should be equal:\n%@\n%@", absoluteFileName, recordedFileName);
-			}
-			// things are OK now
-			// make the soft link to the main file
-			NSString * path = [requiredFarawayProject stringByDeletingLastPathComponent];
-			path = [path stringByAppendingPathComponent:component];
-			if([DFM fileExistsAtPath:path isDirectory:nil])
-			{
-				if(![DFM removeFileAtPath:path handler:nil])
+				NSString * recorded = [self fileNameForRecordedKey:key];
+				if([recorded length] && ![recorded belongsToFarawayProjectsDirectory])
 				{
-					// broken situation, can't do anything best at first
-//iTM2_END;
-					return YES;
+					[keyedFileNames setObject:recorded forKey:key];
 				}
 			}
-			[DFM createSymbolicLinkAtPath:path pathContent:recordedFileName];
-//iTM2_END;
+			break;
+		}
+	}
+	NSString * requiredCore = [requiredName stringByDeletingPathExtension];
+	NSString * ancestor = [NSString enclosingDirectoryForFileNames:[keyedFileNames allValues]];
+	NSString * requiredFarawayDirectory = [NSString farawayProjectsDirectory];
+	requiredFarawayDirectory = [requiredFarawayDirectory stringByAppendingPathComponent:ancestor];
+	// this is the directory where the faraway wrapper should be located
+	NSString * requiredFarawayWrapper = [requiredCore stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+	requiredFarawayWrapper = [requiredFarawayDirectory stringByAppendingPathComponent:requiredFarawayWrapper];
+
+	NSString * wrapperFileName = [projectFileName enclosingWrapperFileName];
+	
+	NSError * localError = nil;
+	if(![requiredFarawayWrapper isEqualToFileName:wrapperFileName])
+	{
+		if([DFM fileExistsAtPath:requiredFarawayWrapper isDirectory:nil]
+			&& ![DFM removeFileAtPath:requiredFarawayWrapper handler:nil])
+		{
+			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could no remove\n%@\nPlease, do it for me.",requiredFarawayWrapper]),nil);
 			return YES;
 		}
-		if([DFM fileExistsAtPath:requiredFarawayWrapper])
+		if([DFM createDeepDirectoryAtPath:requiredFarawayDirectory attributes:nil error:&localError] || !localError)
 		{
-			if(![DFM removeFileAtPath:requiredFarawayWrapper handler:nil])
+			// now I can move the project around
+			if([DFM movePath:wrapperFileName toPath:requiredFarawayWrapper handler:nil])
 			{
-				// broken situation, can't do anything best at first
-//iTM2_END;
+				// changing the file names
+				projectFileName = [[requiredFarawayWrapper enclosedProjectFileNames] lastObject];
+			}
+			else
+			{
+				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could no move\n%@\nto\n%@", wrapperFileName, requiredFarawayWrapper]),nil);
 				return YES;
 			}
 		}
-		if([DFM createDeepDirectoryAtPath:[requiredFarawayProject stringByDeletingLastPathComponent] attributes:nil error:nil])
+		// I should also remove the void directories
+	}
+	NSString * requiredFarawayProject = [requiredCore stringByAppendingPathExtension:[projectFileName pathExtension]];
+	requiredFarawayProject = [requiredFarawayWrapper stringByAppendingPathComponent:requiredFarawayProject];
+	if(![requiredFarawayProject isEqualToFileName:projectFileName])
+	{
+		if([DFM fileExistsAtPath:requiredFarawayProject isDirectory:nil]
+			&& ![DFM removeFileAtPath:requiredFarawayProject handler:nil])
 		{
-			NSURL * url = [NSURL fileURLWithPath:requiredFarawayProject];
-			[self setFileURL:url];
-			NSString * absoluteFileName = [self absoluteFileNameForKey:key];
-			if(![absoluteFileName isEqualToFileName:recordedFileName])
-			{
-				[[self keyedFileNames] setObject:[recordedFileName lastPathComponent] forKey:key];
-				absoluteFileName = [self absoluteFileNameForKey:key];
-				NSAssert2([absoluteFileName isEqualToFileName:recordedFileName],@"*** both path should be equal:\n%@\n%@", absoluteFileName, recordedFileName);
-			}
-			// things are OK now
-			// make the soft link to the main file
-			NSString * path = [requiredFarawayProject stringByDeletingLastPathComponent];
-			path = [path stringByAppendingPathComponent:requiredName];
-			if([DFM fileExistsAtPath:path isDirectory:nil])
-			{
-				if(![DFM removeFileAtPath:path handler:nil])
-				{
-					// broken situation, can't do anything best at first
-//iTM2_END;
-					return YES;
-				}
-			}
-			[DFM createSymbolicLinkAtPath:path pathContent:recordedFileName];
-//iTM2_END;
+			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could no remove\n%@\nPlease, do it for me.",requiredFarawayProject]),nil);
+			return YES;
+		}
+		// now I can move the project around
+		if(![DFM movePath:projectFileName toPath:requiredFarawayProject handler:nil])
+		{
+			iTM2_REPORTERROR(1,(@"Could no move faraway project around"),nil);
 			return YES;
 		}
 	}
-	// things are definitely broken and need some cure
-	// should I remove the whole project?
+	E = [keyedFileNames keyEnumerator];
+	while(key = [E nextObject])
+	{
+		NSString * fileName = [keyedFileNames objectForKey:key];
+		NSString * abbreviatedFileName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:ancestor];
+		[[self keyedFileNames] setObject:abbreviatedFileName forKey:key];
+		// create the symbolic link
+		NSString * symbolicLink = [requiredFarawayWrapper stringByAppendingPathComponent:abbreviatedFileName];
+		NSString * directory = [symbolicLink stringByDeletingLastPathComponent];
+		if([DFM createDeepDirectoryAtPath:directory attributes:nil error:&localError] || !localError)
+		{
+			[DFM createSymbolicLinkAtPath:symbolicLink pathContent:fileName];
+		}
+	}
 //iTM2_END;
 	return YES;
 }
@@ -2551,7 +2542,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(outError)
+	{
 		* outError = nil;
+	}
 	// is it a document already open by the project
 	id SD = [self subdocumentForKey:key];
 	if(SD)
@@ -2625,7 +2618,7 @@ absoluteFileNameIsChosen:
 	else if([DFM fileExistsAtPath:farawayFileName])
 	{
 		// I also choose the absolute file name.
-		fileURL = [NSURL fileURLWithPath:absoluteFileName];
+		fileURL = [NSURL fileURLWithPath:farawayFileName];
 		return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
 	}
 	else if([absoluteFileName length])
@@ -3734,14 +3727,19 @@ To Do List:
 			return [projectDocument relativeFileNameForKey:key];
 		}
         NSString * absoluteName = [projectDocument absoluteFileNameForKey:key];
-		return [SWS iconForFile:absoluteName];
+		if([DFM fileExistsAtPath:absoluteName isDirectory:nil])
+		{
+			return [SWS iconForFile:absoluteName];
+		}
+        NSString * farawayName = [projectDocument farawayFileNameForKey:key];
+		return [SWS iconForFile:farawayName];
     }
     else
         return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:setObjectValue:forTableColumn:row:
 -(void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
-/*"Description forthcoming.
+/*"Description forthcoming. NOT USED!
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
@@ -3824,8 +3822,11 @@ To Do List:
 		if(rowIndex)
 		{
 			NSArray * fileKeys = [self orderedFileKeys];
+			NSString * key = [fileKeys objectAtIndex:rowIndex];
 			iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
-			BOOL YORN = [DFM fileExistsAtPath:[projectDocument absoluteFileNameForKey:[fileKeys objectAtIndex:rowIndex]]];
+			NSString * absolute = [projectDocument absoluteFileNameForKey:key];
+			NSString * faraway = [projectDocument farawayFileNameForKey:key];
+			BOOL YORN = [DFM fileExistsAtPath:absolute] || [DFM fileExistsAtPath:faraway];
 			[aCell setTextColor:(YORN? [NSColor controlTextColor]:[NSColor disabledControlTextColor])];
 		}
 		else

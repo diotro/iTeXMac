@@ -21,6 +21,11 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
+extern NSString * const iTM2ServerEnvironmentKey;
+extern NSString * const iTM2ServerArgumentsKey;
+extern NSString * const iTM2ServerConnectionIDKey;
+extern NSString * const iTM2ServerPerformProjectActionWithContextNotification;
+
 /*
 	@class		iTM2ServerKeys
 	@abstract	Abstract forthcoming
@@ -30,38 +35,3 @@
 				but also to implement the code to forward invocations to iTeXMac2.
 */
 
-extern NSString * const iTM2ServerShouldOpenFileNotification;
-extern NSString * const iTM2ServerShouldEditFileNotification;
-extern NSString * const iTM2ServerShouldDisplayFileNotification;
-extern NSString * const iTM2ServerShouldUpdateFilesNotification;
-extern NSString * const iTM2ServerComwarnerNotification;
-extern NSString * const iTM2ServerAppleScriptNotification;
-
-extern NSString * const iTM2ProcessInfoEnvironmentKey;
-
-extern NSString * const iTM2ServerAllKey;
-extern NSString * const iTM2ServerFileKey;
-extern NSString * const iTM2ServerFilesKey;
-extern NSString * const iTM2ServerColumnKey;
-extern NSString * const iTM2ServerLineKey;
-extern NSString * const iTM2ServerSourceKey;
-extern NSString * const iTM2ServerProjectKey;
-extern NSString * const iTM2ServerDontOrderFrontKey;
-
-extern NSString * const iTM2ServerConversationIDKey;
-extern NSString * const iTM2ServerCommentsKey;
-extern NSString * const iTM2ServerWarningsKey;
-extern NSString * const iTM2ServerErrorsKey;
-
-extern NSString * const iTM2ServerShouldInsertTextNotification;
-
-extern NSString * const iTM2ServerConversationIdentifierKey;
-extern NSString * const iTM2ServerScriptFileNameKey;
-extern NSString * const iTM2ServerInputTextKey;
-extern NSString * const iTM2ServerInputSelectedLocationKey;
-extern NSString * const iTM2ServerInputSelectedLengthKey;
-extern NSString * const iTM2ServerOutputTextKey;
-extern NSString * const iTM2ServerOutputSelectedLocationKey;
-extern NSString * const iTM2ServerOutputSelectedLengthKey;
-extern NSString * const iTM2ServerOutputInsertionLocationKey;
-extern NSString * const iTM2ServerOutputInsertionLengthKey;

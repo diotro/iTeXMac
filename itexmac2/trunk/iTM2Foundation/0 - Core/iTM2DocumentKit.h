@@ -236,6 +236,15 @@ extern NSString * const iTM2InspectorTable;
 */
 -(NSDate *)lastFileModificationDate;
 
+/*!
+    @method		showWindowsBelowFront
+    @abstract	Show the receiver's windows just behind the main or key window.
+    @discussion	The showWindowBelowFront: is sent to all the window controllers of the receiver.
+    @param		Irrelevant sender.
+    @result		None.
+*/
+- (void)showWindowsBelowFront:(id)sender;
+
 @end
 
 /*!
@@ -833,6 +842,15 @@ extern NSString * const iTM2InspectorTable;
     @result		a flag.
 */
 -(void)updateChangeCount:(NSDocumentChangeType)change;
+
+/*!
+    @method		showWindowBelowFront
+    @abstract	Show the receiver's window just behind the main or key window.
+    @discussion	Discussion forthcoming.
+    @param		Irrelevant sender.
+    @result		None.
+*/
+- (void)showWindowBelowFront:(id)sender;
 
 @end
 

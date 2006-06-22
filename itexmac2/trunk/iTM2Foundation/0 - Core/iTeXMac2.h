@@ -135,11 +135,6 @@ else\
 			[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@\n%@",(STRING),[UNDERLYING localizedDescription]],NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
 				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])]]
 
-#define iTM2_PREPARE_DFM_STACK NSMutableArray * _iTM2_DFM_STACK_ = [NSMutableArray array];\
-BOOL _iTM2_DFM_STACK_PUSHED_ = NO;\
-NSString * _iTM2_DFM_CURRENT_DIRECTORY_ = nil;
-#define iTM2_PUSH_DIRECTORY(new) ((_iTM2_DFM_CURRENT_DIRECTORY_ = [DFM currentDirectory]),([DFM setCurrentDirectory:new]?([_iTM2_DFM_STACK_ addObject:_iTM2_DFM_CURRENT_DIRECTORY_], YES):NO))
-
 
 //#define HUNTING
 

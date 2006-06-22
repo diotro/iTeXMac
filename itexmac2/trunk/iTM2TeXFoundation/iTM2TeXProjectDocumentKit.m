@@ -595,10 +595,10 @@ To Do List:
 		}
 		NSString * projectName = [PD fileName];
 		NSString * dirName = [projectName stringByDeletingLastPathComponent];
-		if([dirName belongsToExternalProjectsDirectory])
+		if([dirName belongsToFarawayProjectsDirectory])
 		{
 			dirName = [dirName stringByDeletingLastPathComponent];
-			dirName = [dirName stringByStrippingExternalProjectsDirectory];
+			dirName = [dirName stringByStrippingFarawayProjectsDirectory];
 		}
 		NSString * new = [dirName stringByAppendingPathComponent:newRelative];
 		new = [new stringByStandardizingPath];

@@ -627,6 +627,18 @@ To Do List:
 //iTM2_END;
     return YES;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWindowsBelowFront
+- (void)showWindowsBelowFront:(id)sender;
+/*"Description Forthcoming.
+Version History: Originally created by RK, huge corrections by JL.
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self windowControllers] makeObjectsPerformSelector:@selector(showWindowBelowFront:) withObject:sender];
+//iTM2_END;
+    return;
+}
 @end
 
 @interface iTM2Document(PRIVATE)
@@ -2822,6 +2834,43 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSString stringWithFormat:@"%@.%@.%@", [isa inspectorType], [isa inspectorMode], [self inspectorVariant]];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWindowBelowFront
+- (void)showWindowBelowFront:(id)sender;
+/*"Description Forthcoming.
+Version History: Originally created by RK, huge corrections by JL.
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSWindow * W = [self window];
+	NSWindow * mainWindow = [NSApp mainWindow];
+	NSWindow * keyWindow = [NSApp keyWindow];
+	NSWindow * frontWindow = [[[NSApp orderedWindows] reverseObjectEnumerator] nextObject];
+	int WN;
+	if(mainWindow)
+	{
+		if(keyWindow)
+		{
+			WN = MIN([mainWindow windowNumber],[keyWindow windowNumber]);
+		}
+		else
+		{
+			WN = [mainWindow windowNumber];
+		}
+	}
+	else if(keyWindow)
+	{
+		WN = [keyWindow windowNumber];
+	}
+	else
+	{
+		WN = [frontWindow windowNumber];
+	}
+	[W orderWindow:NSWindowBelow relativeTo:WN];
+	[W displayIfNeeded];
+//iTM2_END;
+    return;
 }
 @end
 

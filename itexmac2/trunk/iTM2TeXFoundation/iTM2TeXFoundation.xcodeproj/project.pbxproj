@@ -1311,7 +1311,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)\"\n\"${BUILD_DIR}/${FULL_PRODUCT_NAME}\" help\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 ERROR: testing iTeXMac2 Server (universal binary?)... FAILED\"\n    exit 1\nfi\necho \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)... DONE\"\n";
+			shellScript = "echo \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)\"\n\"${BUILD_DIR}/${FULL_PRODUCT_NAME}\" -debug\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 ERROR: testing iTeXMac2 Server (universal binary?)... FAILED\"\n    exit 1\nfi\necho \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)... DONE\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

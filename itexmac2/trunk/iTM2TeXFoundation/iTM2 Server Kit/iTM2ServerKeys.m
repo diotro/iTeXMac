@@ -21,38 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-NSString * const iTM2ServerShouldOpenFileNotification = @"iTM2ServerShouldOpenFile";
-NSString * const iTM2ServerShouldEditFileNotification = @"iTM2ServerShouldEditFile";
-NSString * const iTM2ServerShouldDisplayFileNotification = @"iTM2ServerShouldDisplayFile";
-NSString * const iTM2ServerShouldUpdateFilesNotification = @"iTM2ServerShouldUpdateFiles";
-NSString * const iTM2ServerAllKey = @"All";
-NSString * const iTM2ServerFileKey = @"File";
-NSString * const iTM2ServerFilesKey = @"Files";
-NSString * const iTM2ServerColumnKey = @"Column";
-NSString * const iTM2ServerLineKey = @"Line";
-NSString * const iTM2ServerSourceKey = @"Source";
-NSString * const iTM2ServerProjectKey = @"Project";
-NSString * const iTM2ServerDontOrderFrontKey = @"DontOrderFront";
-
-NSString * const iTM2ProcessInfoEnvironmentKey = @"iTM2ProcessInfoEnvironment";
-
-NSString * const iTM2ServerComwarnerNotification = @"iTM2ServerComwarner";
-NSString * const iTM2ServerConversationIDKey = @"ConversationID";
-NSString * const iTM2ServerCommentsKey = @"Comments";
-NSString * const iTM2ServerWarningsKey = @"Warnings";
-NSString * const iTM2ServerErrorsKey = @"Errors";
-
-NSString * const iTM2ServerAppleScriptNotification = @"iTM2ServerAppleScript";
-
-NSString * const iTM2ServerShouldInsertTextNotification = @"iTM2ServerShouldInsertTextNotification";
-
-NSString * const iTM2ServerConversationIdentifierKey = @"conversation";
-NSString * const iTM2ServerScriptFileNameKey = @"script_file_name";
-NSString * const iTM2ServerInputTextKey = @"input_text";
-NSString * const iTM2ServerInputSelectedLocationKey = @"input_selected_location";
-NSString * const iTM2ServerInputSelectedLengthKey = @"input_selected_length";
-NSString * const iTM2ServerOutputTextKey = @"output_text";
-NSString * const iTM2ServerOutputSelectedLocationKey = @"output_selected_location";
-NSString * const iTM2ServerOutputSelectedLengthKey = @"output_selected_length";
-NSString * const iTM2ServerOutputInsertionLocationKey = @"output_insertion_location";
-NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length";
+NSString * const iTM2ServerEnvironmentKey = @"environment";
+NSString * const iTM2ServerArgumentsKey = @"arguments";
+NSString * const iTM2ServerConnectionIDKey = @"-connection";
+NSString * const iTM2ServerPerformProjectActionWithContextNotification = @"iTM2ServerPerformProjectActionWithContextNotification";

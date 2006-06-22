@@ -21,6 +21,8 @@
 //  To Do List: (format "- proposition (percentage actually done) ") 
 */
 
+extern NSString * const iTM2ConnectionIdentifierKey;
+
 @interface NSConnection(iTM2DistributedObjectKit)
 
 /*! 
@@ -31,5 +33,27 @@
     @result     the output
 */
 +(NSString *)iTeXMac2ConnectionIdentifier;
+
+@end
+
+@interface iTM2ConnectionRoot: NSObject
+
+/*! 
+    @method     sharedConnectionRoot
+    @abstract   The shared connection controller.
+    @discussion Description Forthcoming.
+    @param      None.
+    @result     the output
+*/
++(id)sharedConnectionRoot;
+
+/*! 
+    @method     sharedApplication
+    @abstract   The iTeXMac2 application object.
+    @discussion Description Forthcoming.
+    @param      None.
+    @result     the output
+*/
+-(id)sharedApplication;
 
 @end

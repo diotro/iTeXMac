@@ -22,7 +22,40 @@
 */
 
 #import "iTM2ServerKit.h"
-#import "iTM2ServerKeys.h"
+#import <iTM2TeXFoundation/iTM2ServerKeys.h>
+#import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
+
+NSString * const iTM2ServerAllKey = @"-all";
+NSString * const iTM2ServerFileKey = @"-file";
+NSString * const iTM2ServerFilesKey = @"-files";
+NSString * const iTM2ServerColumnKey = @"-column";
+NSString * const iTM2ServerLineKey = @"-line";
+NSString * const iTM2ServerSourceKey = @"-source";
+NSString * const iTM2ServerProjectKey = @"-project";
+NSString * const iTM2ServerDontOrderFrontKey = @"DontOrderFront";
+
+NSString * const iTM2ProcessInfoEnvironmentKey = @"iTM2ProcessInfoEnvironment";
+
+NSString * const iTM2ServerComwarnerNotification = @"iTM2ServerComwarner";
+NSString * const iTM2ServerConversationIDKey = @"ConversationID";
+NSString * const iTM2ServerCommentsKey = @"Comments";
+NSString * const iTM2ServerWarningsKey = @"Warnings";
+NSString * const iTM2ServerErrorsKey = @"Errors";
+
+NSString * const iTM2ServerAppleScriptNotification = @"iTM2ServerAppleScript";
+
+NSString * const iTM2ServerShouldInsertTextNotification = @"iTM2ServerShouldInsertTextNotification";
+
+NSString * const iTM2ServerConversationIdentifierKey = @"conversation";
+NSString * const iTM2ServerScriptFileNameKey = @"script_file_name";
+NSString * const iTM2ServerInputTextKey = @"input_text";
+NSString * const iTM2ServerInputSelectedLocationKey = @"input_selected_location";
+NSString * const iTM2ServerInputSelectedLengthKey = @"input_selected_length";
+NSString * const iTM2ServerOutputTextKey = @"output_text";
+NSString * const iTM2ServerOutputSelectedLocationKey = @"output_selected_location";
+NSString * const iTM2ServerOutputSelectedLengthKey = @"output_selected_length";
+NSString * const iTM2ServerOutputInsertionLocationKey = @"output_insertion_location";
+NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length";
 
 #import <iTM2Foundation/iTM2JAGUARSupportKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
@@ -34,6 +67,15 @@
 
 @interface iTM2ServerKit(PRIVATE)
 +(void)completeServerInstallation;
++(NSString *)getVerbFromContext:(NSDictionary *)context;
++(NSString *)getProjectNameFromContext:(NSDictionary *)context;
++(NSString *)getFileNameFromContext:(NSDictionary *)context;
++(NSArray *)getFileNamesFromContext:(NSDictionary *)context;
++(NSString *)getSourceNameFromContext:(NSDictionary *)context;
++(unsigned int)getLineFromContext:(NSDictionary *)context;
++(unsigned int)getColumnFromContext:(NSDictionary *)context;
++(BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
++(void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
 @end
 
 @implementation iTM2MainInstaller(ServerKit)
@@ -65,38 +107,8 @@ To Do List: see the warning below
 	iTM2_INIT_POOL;
 //iTM2_START;
     [[NSDistributedNotificationCenter defaultCenter] addObserver: self
-        selector: @selector(shouldOpenFileNotified:)
-            name: iTM2ServerShouldOpenFileNotification
-                object: nil
-                    suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver: self
-        selector: @selector(shouldEditFileNotified:)
-            name: iTM2ServerShouldEditFileNotification
-                object: nil
-                    suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver: self
-        selector: @selector(shouldDisplayFileNotified:)
-            name: iTM2ServerShouldDisplayFileNotification
-                object: nil
-                    suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver: self
-        selector: @selector(shouldUpdateFilesNotified:)
-            name: iTM2ServerShouldUpdateFilesNotification
-                object: nil
-                    suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver: self
-        selector: @selector(serverComwarnerNotified:)
-            name: iTM2ServerComwarnerNotification
-                object: nil
-                    suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver: self
-        selector: @selector(serverAppleScriptNotified:)
-            name: iTM2ServerAppleScriptNotification
-                object: nil
-                    suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver: self
-        selector: @selector(shouldInsertTextNotified:)
-            name: iTM2ServerShouldInsertTextNotification
+        selector: @selector(performProjectActionWithContextNotified:)
+            name: iTM2ServerPerformProjectActionWithContextNotification
                 object: nil
                     suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
 	#warning THIS SHOULD ONLY OCCUR WITH USER DEFAULT SETTINGS
@@ -161,39 +173,6 @@ To Do List: see the warning below
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptConversationWithID:
-+(BOOL)acceptConversationWithID:(id)conversationID;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptNotificationWithEnvironment:
-+(BOOL)acceptNotificationWithEnvironment:(id)environment;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([environment isKindOfClass:[NSDictionary class]])
-	{
-		NSString * temporaryDirectory = [environment objectForKey:@"iTM2_TemporaryDirectory"];
-		if([temporaryDirectory isKindOfClass:[NSString class]])
-		{
-			return [temporaryDirectory isEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
-		}
-		return !temporaryDirectory;
-	}
-//iTM2_END;
-	return YES;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setupTaskDidTerminateNotified:
 +(void)setupTaskDidTerminateNotified:(NSNotification *)notification;
 /*"Description forthcoming.
@@ -246,8 +225,302 @@ To Do List: see the warning below
 #endif
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shouldEditFileNotified:
-+(void)shouldEditFileNotified:(NSNotification *)notification;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptConversationWithID:
++(BOOL)acceptConversationWithID:(id)conversationID;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptNotificationWithEnvironment:
++(BOOL)acceptNotificationWithEnvironment:(id)environment;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([environment isKindOfClass:[NSDictionary class]])
+	{
+		NSString * temporaryDirectory = [environment objectForKey:@"iTM2_TemporaryDirectory"];
+		if([temporaryDirectory isKindOfClass:[NSString class]])
+		{
+			return [temporaryDirectory isEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
+		}
+		return !temporaryDirectory;
+	}
+//iTM2_END;
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performProjectActionWithContextNotified:
++(void)performProjectActionWithContextNotified:(NSNotification *)notification;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDictionary * context = [notification userInfo];
+	[self performSelectorOnMainThread:@selector(doPerformProjectActionWithContext:) withObject:context waitUntilDone:NO];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getVerbFromContext:
++(NSString *)getVerbFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerConversationIDKey])
+		{
+			argument = [E nextObject];
+		}
+		else if([argument isEqual:iTM2ServerConnectionIDKey])
+		{
+			argument = [E nextObject];
+		}
+		else
+		{
+			return argument;
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doPerformProjectActionWithContext:
++(void)doPerformProjectActionWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+iTM2_LOG(@"context is: %@", context);
+	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
+	if(![self acceptConversationWithID:[environment objectForKey:iTM2ServerConversationIDKey]])
+		return;
+	if(![self acceptNotificationWithEnvironment:environment])
+		return;
+	NSString * verb = [self getVerbFromContext:context];
+	NSString * S = [verb stringByAppendingString:@"PerformedWithContext:"];
+	SEL cmd = NSSelectorFromString(S);
+	if([self respondsToSelector:cmd])
+	{
+		[self performSelector:cmd withObject:context];
+	}
+	else
+	{
+		iTM2_LOG(@"ERROR: %@ verb is not recognized by iTeXMac2 server, missing a %@ method.", verb, S);
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getProjectNameFromContext:
++(NSString *)getProjectNameFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
+	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerProjectKey])
+		{
+			argument = [E nextObject];
+			argument = [NSString absolutePathWithPath:argument base:PWD];
+			return argument;
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getFileNameFromContext:
++(NSString *)getFileNameFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
+	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerFileKey])
+		{
+			argument = [E nextObject];
+			argument = [NSString absolutePathWithPath:argument base:PWD];
+			return argument;
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getFileNamesFromContext:
++(NSArray *)getFileNamesFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
+	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSMutableArray * RA = [NSMutableArray array];
+	NSString * argument = [self getFileNameFromContext:context];
+	if([argument length])
+	{
+		[RA addObject:argument];
+	}
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerFilesKey])
+		{
+			while(argument = [E nextObject])
+			{
+				if([argument hasPrefix:@"-"])
+				{
+					return RA;
+				}
+				else
+				{
+					argument = [E nextObject];
+					argument = [NSString absolutePathWithPath:argument base:PWD];
+					[RA addObject:argument];
+				}
+			}
+		}
+	}
+//iTM2_END;
+    return RA;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getSourceNameFromContext:
++(NSString *)getSourceNameFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
+	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerSourceKey])
+		{
+			argument = [E nextObject];
+			argument = [NSString absolutePathWithPath:argument base:PWD];
+			return argument;
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineFromContext:
++(unsigned int)getLineFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerLineKey])
+		{
+			argument = [E nextObject];
+			return argument?[argument intValue]:NSNotFound;
+		}
+	}
+//iTM2_END;
+    return NSNotFound;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getColumnFromContext:
++(unsigned int)getColumnFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerColumnKey])
+		{
+			argument = [E nextObject];
+			return argument?[argument intValue]:NSNotFound;
+		}
+	}
+//iTM2_END;
+    return NSNotFound;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getDontOrderFrontFromContext:
++(BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		if([argument isEqual:iTM2ServerDontOrderFrontKey])
+		{
+			return YES;
+		}
+	}
+//iTM2_END;
+    return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= editPerformedWithContext:
++(void)editPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -256,50 +529,54 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_Server_Test__
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"context: %@", context);
 #else
-    NSDictionary * D = [notification userInfo];
-	if(![self acceptConversationWithID:[D objectForKey:iTM2ServerConversationIDKey]])
-		return;
-	if(![self acceptNotificationWithEnvironment:[D objectForKey:iTM2ProcessInfoEnvironmentKey]])
-		return;
-    NSString * projectName = [D objectForKey:iTM2ServerProjectKey];
-    NSString * fileName = [D objectForKey:iTM2ServerFileKey];
-    NSString * lineNumber = [D objectForKey:iTM2ServerLineKey];
-    NSString * columnNumber = [D objectForKey:iTM2ServerColumnKey];
-	id doc = [SDC documentForFileName:fileName];
-	BOOL orderFront = ![[D objectForKey:iTM2ServerDontOrderFrontKey] boolValue];
+    NSString * fileName = [self getFileNameFromContext:context];
+	if(![fileName length])
+	{
+		iTM2_REPORTERROR(1,@"Error in iTeXMac2 server invocation: the \"edit\" verb requires a \"-file foo\".",nil);
+	}
+	NSURL * url = [NSURL fileURLWithPath:fileName];
+	NSError * localError = nil;
+	unsigned int line = [self getLineFromContext:context];
+	unsigned int column = [self getColumnFromContext:context];
+	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
+	id doc = [SDC documentForURL:url];
 	if(doc)
 	{
 		[doc updateIfNeeded];
-		[doc displayLine:[lineNumber intValue]
-			column: (columnNumber? [columnNumber intValue]: -1)
-				withHint: nil
-					orderFront: orderFront];
-		if(!orderFront)
-			[[[[doc windowControllers] lastObject] window] orderWindow:NSWindowBelow relativeTo:[[NSApp mainWindow] windowNumber]];
 	}
 	else
 	{
-		iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-		if(!PD)
+		NSString * projectName = [self getProjectNameFromContext:context];
+		if([projectName length])
 		{
-			PD = [SPC projectForFileName:projectName];
-			[PD newKeyForFileName:fileName];
+			url = [NSURL fileURLWithPath:projectName];
+			id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
+			{
+				[SDC presentError:localError];
+				return;
+			}
+			[projectDocument newKeyForFileName:fileName save:YES];
 		}
-		doc = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:NO error:nil];
-		[doc displayLine:[lineNumber intValue]
-                column: (columnNumber? [columnNumber intValue]: -1)
-					withHint: nil
-						orderFront: orderFront];
-		if(!orderFront)
-			[[[[doc windowControllers] lastObject] window] orderWindow:NSWindowBelow relativeTo:[[NSApp mainWindow] windowNumber]];
+		doc = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		if(localError)
+		{
+			[SDC presentError:localError];
+			return;
+		}
+	}
+	[doc displayLine:line column:column withHint:nil orderFront:!dontOrderFront];
+	if(dontOrderFront)
+	{
+		[doc showWindowsBelowFront:self];
 	}
 #endif
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shouldOpenFileNotified:
-+(void)shouldOpenFileNotified:(NSNotification *)notification;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openPerformedWithContext:
++(void)openPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -308,41 +585,49 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_Server_Test__
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"context: %@", context);
 #else
-    NSDictionary * D = [notification userInfo];
-	if(![self acceptConversationWithID:[D objectForKey:iTM2ServerConversationIDKey]])
-		return;
-	if(![self acceptNotificationWithEnvironment:[D objectForKey:iTM2ProcessInfoEnvironmentKey]])
-		return;
-    NSString * projectName = [D objectForKey:iTM2ServerProjectKey];
-    NSString * fileName = [D objectForKey:iTM2ServerFileKey];
-	id document = [SDC documentForFileName:fileName];
-	BOOL dontOrderFront = [[D objectForKey:iTM2ServerDontOrderFrontKey] boolValue];
-	if(document)
+    NSString * projectName = [self getProjectNameFromContext:context];
+    NSString * fileName = [self getFileNameFromContext:context];
+	NSURL * url = nil;
+	NSError * localError = nil;
+	if([projectName length])
 	{
-		[document updateIfNeeded];
-		if(!dontOrderFront && [SDC shouldCreateUI])
+		url = [NSURL fileURLWithPath:projectName];
+		id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		if(localError)
 		{
-			[document makeWindowControllers];
-			[document showWindows];
+			[SDC presentError:localError];
+			return;
+		}
+		if([fileName length])
+		{
+			[projectDocument newKeyForFileName:fileName save:YES];
+			url = [NSURL fileURLWithPath:fileName];
+			[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
+			{
+				[SDC presentError:localError];
+				return;
+			}
+			return;
 		}
 	}
 	else
 	{
-		iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-		if(!PD)
+		url = [NSURL fileURLWithPath:fileName];
+		[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		if(localError)
 		{
-			PD = [SPC projectForFileName:projectName];
-			[PD newKeyForFileName:fileName];
+			[SDC presentError:localError];
+			return;
 		}
-		[SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES error:nil];
 	}
 #endif
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shouldDisplayFileNotified:
-+(void)shouldDisplayFileNotified:(NSNotification *)notification;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPerformedWithContext:
++(void)displayPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by main as server tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -351,39 +636,54 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_Server_Test__
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"arguments: %@", arguments);
 #else
-    NSDictionary * D = [notification userInfo];
-	if(![self acceptConversationWithID:[D objectForKey:iTM2ServerConversationIDKey]])
-		return;
-	if(![self acceptNotificationWithEnvironment:[D objectForKey:iTM2ProcessInfoEnvironmentKey]])
-		return;
-    NSString * projectName = [D objectForKey:iTM2ServerProjectKey];
-    NSString * fileName = [D objectForKey:iTM2ServerFileKey];
-    NSString * sourceName = [D objectForKey:iTM2ServerSourceKey];
-    NSString * lineNumber = [D objectForKey:iTM2ServerLineKey];
-    NSString * columnNumber = [D objectForKey:iTM2ServerColumnKey];
-	BOOL orderFront = ![[D objectForKey:iTM2ServerDontOrderFrontKey] boolValue];
-	iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-	if(!PD)
+    NSString * fileName = [self getFileNameFromContext:context];
+	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
+	id doc = [SDC documentForURL:fileURL];
+	if(!doc)
 	{
-		PD = [SPC projectForFileName:projectName];
-		[PD newKeyForFileName:fileName save:YES];
+		iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+		NSError * localError = nil;
+		if(!PD)
+		{
+			NSString * projectName = [self getProjectNameFromContext:context];
+			if([projectName length])
+			{
+				PD = [SPC projectForFileName:projectName];
+				if(!PD)
+				{
+					NSURL * url = [NSURL fileURLWithPath:projectName];
+					PD = [SDC openDocumentWithContentsOfURL:url display:NO error:&localError];
+					if(localError)
+					{
+						[SDC presentError:localError];
+						return;
+					}
+					[PD newKeyForFileName:fileName save:YES];
+					[PD makeDefaultInspector];
+					[PD showWindowsBelowFront:self];
+				}
+			}
+		}
+		id doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
 	}
-	id doc = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:NO error:nil];
-	[doc displayPageForLine:[lineNumber intValue]
-			column: (columnNumber? [columnNumber intValue]: -1)
-				source: sourceName
-					withHint: D
-						orderFront: orderFront
-							force: YES];// or NO? a SUD here?
-	if(!orderFront)
-		[[[[doc windowControllers] lastObject] window] orderWindow:NSWindowBelow relativeTo:[[NSApp mainWindow] windowNumber]];
+	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
+	unsigned int line = [self getLineFromContext:context];
+	unsigned int column = [self getColumnFromContext:context];
+    NSString * sourceName = [self getSourceNameFromContext:context];
+	NSDictionary * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	[doc displayPageForLine:line column:column source:sourceName
+					withHint:arguments orderFront:!dontOrderFront force:YES];// or NO? a SUD here?
+	if(dontOrderFront)
+	{
+		[doc showWindowsBelowFront:self];
+	}
 #endif
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shouldUpdateFilesNotified:
-+(void)shouldUpdateFilesNotified:(NSNotification *)notification;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePerformedWithContext:
++(void)updatePerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -392,76 +692,54 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_Server_Test__
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"arguments: %@", arguments);
 #else
-    NSDictionary * D = [notification userInfo];
-	if(![self acceptConversationWithID:[D objectForKey:iTM2ServerConversationIDKey]])
-		return;
-	if(![self acceptNotificationWithEnvironment:[D objectForKey:iTM2ProcessInfoEnvironmentKey]])
-		return;
-    NSString * projectName = [D objectForKey:iTM2ServerProjectKey];
-    NSArray * fileNames = [D objectForKey:iTM2ServerFilesKey];
-    if([fileNames isKindOfClass:[NSArray class]])
-    {
-		NSString * fileName;
-		NSEnumerator * E = [fileNames objectEnumerator];
-		while(fileName = [E nextObject])
-			if([fileName isKindOfClass:[NSString class]])
+    NSString * projectName = [self getProjectNameFromContext:context];
+    NSArray * fileNames = [self getFileNamesFromContext:context];
+	NSError * localError = nil;
+	NSString * fileName;
+	NSEnumerator * E = [fileNames objectEnumerator];
+	while(fileName = [E nextObject])
+	{
+		NSURL * url = [NSURL fileURLWithPath:fileName];
+		NSDocument * document = [SDC documentForURL:url];
+		if(document)
+		{
+			[document updateIfNeeded];
+			[document showWindowsBelowFront:self];
+		}
+		else
+		{
+			iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+			if(!PD)
 			{
-				NSDocument * document = [SDC documentForFileName:fileName];
-				if(document)
+				PD = [SPC projectForFileName:projectName];
+				if(!PD)
 				{
-					[document updateIfNeeded];
-					NSWindow * W = [[[document windowControllers] lastObject] window];
-					[W orderWindow:NSWindowBelow relativeTo:[[NSApp mainWindow] windowNumber]];
-					[W displayIfNeeded];
-				}
-				else
-				{
-					iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-					if(!PD)
+					NSURL * url = [NSURL fileURLWithPath:projectName];
+					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					if(localError)
 					{
-						PD = [SPC projectForFileName:projectName];
-						[PD newKeyForFileName:fileName];
-					}
-					if([DFM fileExistsAtPath:fileName])
-					{
-						NSURL * fileURL = [NSURL fileURLWithPath:fileName];
-						NSError * localError = nil;
-						if(document = [PD openSubdocumentWithContentsOfURL:fileURL context:nil display:NO error:&localError])
-						{
-							[document makeWindowControllers];
-							NSWindow * W = [[[document windowControllers] lastObject] window];
-							[document updateIfNeeded];
-							[W orderWindow:NSWindowBelow relativeTo:[[NSApp mainWindow] windowNumber]];
-							[W displayIfNeeded];
-						}
-						else if(localError)
-						{
-							iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document: %@", fileName]),(localError));
-						}
-					}
-					else
-					{
-						iTM2_LOG(@"No file to update at: %@", fileName);
+						[SDC presentError:localError];
+						return;
 					}
 				}
+				[PD newKeyForFileName:fileName];
 			}
-			else
+			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
 			{
-				iTM2_LOG(@"A file name was expected instead of: %@", fileName);
+				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
 			}
-    }
-    else
-    {
-        iTM2_LOG(@"An array of file names was expected in: %@", [notification userInfo]);
-    }
+			document = [SDC documentForURL:url];
+		}
+	}
 #warning NYI: -all not supported
 #endif
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shouldInsertTextNotified:
-+(void)shouldInsertTextNotified:(NSNotification *)notification;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= insertPerformedWithContext:
++(void)insertPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -470,16 +748,16 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_Server_Test__
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"context: %@", context);
 #else
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"context: %@", context);
 	
 #warning NYI: -all not supported
 #endif
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  serverComwarnerNotified:
-+(void)serverComwarnerNotified:(NSNotification *)notification;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= helpPerformedWithContext:
++(void)helpPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -488,15 +766,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_Server_Test__
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"context: %@", context);
 #else
-    NSDictionary * D = (NSDictionary *)[notification userInfo];
-    iTM2_LOG(@"userInfo: %@", D);
+    iTM2_LOG(@"context: %@", context);
 #endif
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  serverAppleScriptNotified:
-+(void)serverAppleScriptNotified:(NSNotification *)notification;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applescriptPerformedWithContext:
++(void)applescriptPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -505,14 +782,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_Server_Test__
-    iTM2_LOG(@"userInfo: %@", [notification userInfo]);
+    iTM2_LOG(@"arguments: %@", arguments);
 #endif
-    NSDictionary * D = (NSDictionary *)[notification userInfo];
-	if(![self acceptConversationWithID:[D objectForKey:iTM2ServerConversationIDKey]])
-		return;
-	if(![self acceptNotificationWithEnvironment:[D objectForKey:iTM2ProcessInfoEnvironmentKey]])
-		return;
-    NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithSource:[D objectForKey:iTM2ServerSourceKey]] autorelease];
+	NSString * sourceName = [self getSourceNameFromContext:context];
+    NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithSource:sourceName] autorelease];
     if(AS)
     {
         NSDictionary * errorInfo = nil;
@@ -534,6 +807,153 @@ To Do List:
             iTM2_LOG(MS);
         }
     }
+//iTM2_END;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= compilePerformedWithContext:
++(void)compilePerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self actionWithName:@"Compile" performedWithContext:context];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= typesetPerformedWithContext:
++(void)typesetPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self actionWithName:@"Typeset" performedWithContext:context];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bibliographyPerformedWithContext:
++(void)bibliographyPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self actionWithName:@"Bibliography" performedWithContext:context];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexPerformedWithContext:
++(void)indexPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self actionWithName:@"Index" performedWithContext:context];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= glossaryPerformedWithContext:
++(void)glossaryPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self actionWithName:@"Glossary" performedWithContext:context];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= specialPerformedWithContext:
++(void)specialPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self actionWithName:@"Special" performedWithContext:context];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= cleanPerformedWithContext:
++(void)cleanPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self actionWithName:@"Clean" performedWithContext:context];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= actionWithName:performedWithContext:
++(void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSString * fileName = [self getFileNameFromContext:context];
+	id PD = [SPC projectForFileName:fileName];
+	if(!PD)
+	{
+		NSURL * url = nil;
+		NSError * localError = nil;
+		NSString * projectName = [self getProjectNameFromContext:context];
+		PD = [SPC projectForFileName:projectName];
+		if(!PD)
+		{
+			if([projectName length])
+			{
+				url = [NSURL fileURLWithPath:projectName];
+				PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+				[PD newKeyForFileName:fileName];
+			}
+			else
+			{
+				PD = [SPC newProjectForFileNameRef:&fileName display:YES error:nil];
+			}
+		}
+	}
+	if(PD)
+	{
+		id performer = [iTM2TeXPCommandManager commandPerformerForName:name];
+		[performer performCommandForProject:PD];
+	}
+//iTM2_END;
+    return;
+}
+@end
+
+@implementation iTM2ConnectionRoot(iTM2ServerKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performProjectActionWithContext:
+-(oneway void)performProjectActionWithContext:(id)context;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 01/15/2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[iTM2ServerKit performSelectorOnMainThread:@selector(doPerformProjectActionWithContext:) withObject:context waitUntilDone:NO];
+	return;
+//iTM2_END;
 }
 @end

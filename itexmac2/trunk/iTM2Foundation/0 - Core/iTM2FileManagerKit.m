@@ -47,7 +47,9 @@ To Do List:
 	NSParameterAssert([path length]);
 	NSString * currentDirectoryPath = [self currentDirectoryPath];
     if([path isAbsolutePath])
+	{
         [self changeCurrentDirectoryPath:NSOpenStepRootDirectory()];
+	}
 	NSEnumerator * E = [[path pathComponents] objectEnumerator];
 	NSString * component;
 	while(component = [E nextObject])

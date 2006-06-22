@@ -25,6 +25,8 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 
+NSString * const iTM2ConnectionIdentifierKey = @"iTM2ConnectionID";
+
 @implementation NSConnection(iTM2DistributedObjectKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTeXMac2ConnectionIdentifier
 +(NSString *)iTeXMac2ConnectionIdentifier;
@@ -40,9 +42,9 @@ To Do List:
 }
 @end
 
-@implementation iTM2MainInstaller(iTM2DistributedObjectKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DistributedObjectKit_CompleteInstallation
-+(void)iTM2DistributedObjectKit_CompleteInstallation;
+@implementation NSApplication(iTM2DistributedObjectKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DistributedObjectKit_DidFinishLaunching
+-(void)iTM2DistributedObjectKit_DidFinishLaunching;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -50,12 +52,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSConnection *theConnection = nil;
-	id root = [NSMutableDictionary dictionary];
-	[root setObject:[NSApplication sharedApplication] forKey:@"NSApp"];
-	[root setObject:[NSApplication sharedApplication] forKey:@"NSClassServer"];
-	theConnection = [NSConnection defaultConnection];
-	[theConnection setRootObject:root];
+	NSConnection *theConnection = [NSConnection defaultConnection];
+	[theConnection setRootObject:[iTM2ConnectionRoot sharedConnectionRoot]];
 	NSString * identifier = [NSConnection iTeXMac2ConnectionIdentifier];
 	if([theConnection registerName:identifier])
 	{
@@ -65,6 +63,35 @@ To Do List:
 	{
 		iTM2_LOG(@"****  ERROR: The DO connection is NOT available... iTeXMac2 won't work as expected.");
 	}
+//iTM2_END;
+	return;
+}
+@end
+
+@implementation iTM2ConnectionRoot
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedConnectionRoot
++(id)sharedConnectionRoot;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 01/15/2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	static id O = nil;
+	return O?:(O=[[iTM2ConnectionRoot alloc] init]);
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedApplication
+-(id)sharedApplication;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 01/15/2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	return [NSApplication sharedApplication];
 //iTM2_END;
 }
 @end

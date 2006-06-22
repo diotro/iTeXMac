@@ -115,7 +115,7 @@ To Do List:
 	NSRange R = [[self string] rangeForLine:aLine nextLine:nil];
 	if(R.location != NSNotFound)
 	{
-		if((column != NSNotFound) && (column < R.length + 1))
+		if((column != NSNotFound ) && (column < R.length + 1))
 		{
 			R.location += column;
 			R.length = 1;

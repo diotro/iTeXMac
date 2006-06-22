@@ -100,7 +100,7 @@ To Do List:
 			NSURL * url = [NSURL fileURLWithPath:output];
 			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
 				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
-			output = [output stringByStrippingExternalProjectsDirectory];
+			output = [output stringByStrippingFarawayProjectsDirectory];
 			url = [NSURL fileURLWithPath:output];
 			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
 				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];

@@ -57,6 +57,16 @@
 */
 -(BOOL)isContainedInDirectory:(NSString *)fileName;
 
+/*!
+	@method		absolutePathWithPath:base:
+	@abstract	Abstract forthcoming.
+	@discussion If the given path is already absolute, it is returned as is.
+	@param		path
+	@param		base
+	@result		absolute path. 
+*/
++(NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
+
 @end
 
 /*! 

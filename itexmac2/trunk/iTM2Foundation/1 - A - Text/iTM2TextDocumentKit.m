@@ -82,7 +82,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * documentString = [[self textStorage] string];
-	if(line && (line < [documentString numberOfLines]))
+	if(line && (line <= [documentString numberOfLines]))
 	{
 		NSEnumerator * E = [[[NSApp windows]
 			sortedArrayUsingSelector: @selector(compareUsingLevel:)] objectEnumerator];

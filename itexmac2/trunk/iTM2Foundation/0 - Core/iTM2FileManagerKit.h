@@ -35,7 +35,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@discussion The given path must be non void. If it does not start with a / character, it will be appended to the current directoy path.
 				If the answer is NO and there was an error, an explanation is returned.
 				If no error is returned, the specified directory do exist.
-				In the user info dictionary of the returned error, youwill find the faulty path with the key @"iTM2DirectoryPath"
+				In the user info dictionary of the returned error, you will find the faulty path with the key @"iTM2DirectoryPath"
 	@param		path is the path where the directory should be created, if the path is not absolute (ie if it does not start with a /, it is appended to the current directory.
 	@param		attributes are the attributes of all the created directories.
 	@param		errorPtr points to an NSError place holder.

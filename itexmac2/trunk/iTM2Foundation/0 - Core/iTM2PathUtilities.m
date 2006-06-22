@@ -344,6 +344,21 @@ To Do List:
 //iTM2_END;
 	return YES;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absolutePathWithPath:base:
++(NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSURL * baseURL = [NSURL fileURLWithPath:base];
+	path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSURL * fileURL = [NSURL URLWithString:path relativeToURL:baseURL];
+//iTM2_END;
+	return [fileURL path];
+}
 @end
 
 NSString * const iTM2PATHDomainX11BinariesKey = @"iTM2PATHX11Binaries";

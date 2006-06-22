@@ -194,27 +194,6 @@ To Do List: see the warning below
 	}
 }
 #pragma mark =-=-=-=-=-  OVERRIDE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openDocument:
--(void)openDocument:(id)sender;
-/*"Description Forthcoming. Ghost documents are not added.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#warning Bug fixing
-//	if([SUD boolForKey:@"iTM2OpenDocumentIsSafe"])
-	{
-//iTM2_LOG(@"OPENING ONCE...");
-		[super openDocument:sender];
-		return;
-	}
-	NSBeep();
-	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"iTM2OpenDocumentIsSafe"]];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addDocument:
 -(void)addDocument:(NSDocument *)document;
 /*"Description Forthcoming. Ghost documents are not added.
