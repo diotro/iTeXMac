@@ -2,12 +2,12 @@ To build iTeXMac2, go to the Scripts folder,
 
 if you have administrator privilege double click
 
-BuildOgreKit-sudo.terminal
-BuildiTeXMac2-sudo.terminal
+BuildOgreKit-sudo.command
+BuildiTeXMac2-sudo. command
 
 otherwise
 
-BuildOgreKit.terminal
-BuildiTeXMac2.terminal
+BuildOgreKit. command
+BuildiTeXMac2. command
 
 everything should be available in the build folder
