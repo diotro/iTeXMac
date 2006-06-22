@@ -666,7 +666,7 @@ To Do List: see the warning below
 				}
 			}
 		}
-		id doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
 	}
 	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
 	unsigned int line = [self getLineFromContext:context];
@@ -955,5 +955,18 @@ To Do List:
 	[iTM2ServerKit performSelectorOnMainThread:@selector(doPerformProjectActionWithContext:) withObject:context waitUntilDone:NO];
 	return;
 //iTM2_END;
+}
+@end
+
+@interface iTM2URLHandlerCommand: NSScriptCommand
+@end
+@implementation iTM2URLHandlerCommand
+- (id)performDefaultImplementation
+{
+    NSString *urlString = [self directParameter];
+    
+    NSLog(@"url = %@", urlString);
+
+    return nil;
 }
 @end

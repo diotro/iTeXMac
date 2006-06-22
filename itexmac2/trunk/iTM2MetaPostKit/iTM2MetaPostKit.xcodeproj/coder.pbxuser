@@ -6,7 +6,6 @@
 		activeExecutable = DC5203AC088B1FB000DE6E7F /* iTeXMac2 */;
 		activeTarget = DC2CA78D0855D4F500128F14 /* All */;
 		addToTargets = (
-			8DC2EF4F0486A6940098B216 /* iTM2MetaPostKit */,
 		);
 		breakpoints = (
 			DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */,
@@ -105,8 +104,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172439525;
-			PBXWorkspaceStateSaveDate = 172439525;
+			PBXPerProjectTemplateStateSaveDate = 172704846;
+			PBXWorkspaceStateSaveDate = 172704846;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBookmarkGroup = DC8A4281091108CA00F47F63 /* PBXBookmarkGroup */;

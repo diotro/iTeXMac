@@ -260,19 +260,19 @@
 							<array>
 								<string>089C166AFE841209C02AAC07</string>
 								<string>08FB77AFFE84173DC02AAC07</string>
+								<string>32C88E010371C26100C91783</string>
 								<string>089C167CFE841241C02AAC07</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>DCD7DB2E0A45F17C0096B1A9</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>0</integer>
+									<integer>21</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 136}, {389, 394}}</string>
+							<string>{{0, 0}, {389, 537}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -284,14 +284,14 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {406, 412}}</string>
+						<string>{{0, 0}, {406, 555}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>MainColumn</string>
 							<real>389</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>126 170 1085 453 0 0 1440 878 </string>
+						<string>116 178 1110 596 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -319,13 +319,13 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCD7DB630A4603A30096B1A9</string>
+										<string>DC3B47E40A4B458E00E83ABA</string>
 										<key>history</key>
 										<array>
 											<string>DC264C470986353C00109CD2</string>
 											<string>DC98674D09EADAD800FF4BD3</string>
 											<string>DC4EF0750A3E1EC400E264F0</string>
-											<string>DCF34E5C0A436250005375E6</string>
+											<string>DC3B41850A4ADD1600E83ABA</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -345,14 +345,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {674, 195}}</string>
+								<string>{{0, 0}, {699, 338}}</string>
 								<key>RubberWindowFrame</key>
-								<string>126 170 1085 453 0 0 1440 878 </string>
+								<string>116 178 1110 596 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>195pt</string>
+							<string>338pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -365,9 +365,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 200}, {674, 212}}</string>
+								<string>{{0, 343}, {699, 212}}</string>
 								<key>RubberWindowFrame</key>
-								<string>126 170 1085 453 0 0 1440 878 </string>
+								<string>116 178 1110 596 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -376,7 +376,7 @@
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>674pt</string>
+					<string>699pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -391,9 +391,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCD7DB300A45F17C0096B1A9</string>
+				<string>DC3B47E50A4B458E00E83ABA</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCD7DB310A45F17C0096B1A9</string>
+				<string>DC3B47E60A4B458E00E83ABA</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -530,7 +530,7 @@
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>126 170 1085 453 0 0 1440 878 </string>
+	<string>116 178 1110 596 0 0 1440 878 </string>
 	<key>WindowTools</key>
 	<array>
 		<dict>

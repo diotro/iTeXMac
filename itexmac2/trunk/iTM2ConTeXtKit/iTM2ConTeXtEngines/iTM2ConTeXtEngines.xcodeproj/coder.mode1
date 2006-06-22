@@ -267,7 +267,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>0</integer>
+									<integer>18</integer>
+									<integer>15</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -392,9 +393,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCD7DB530A4603A00096B1A9</string>
+				<string>DC3B46760A4B405300E83ABA</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCD7DB540A4603A00096B1A9</string>
+				<string>DC3B46770A4B405300E83ABA</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -542,6 +543,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>DC099B36088B331B0028F810</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -588,7 +590,7 @@
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 181}, {1150, 290}}</string>
+								<string>{{0, 118}, {1150, 353}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -626,7 +628,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC099B36088B331B0028F810</string>
-				<string>DC99E8900A25F55700F50752</string>
+				<string>DC3B46BA0A4B420100E83ABA</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -637,7 +639,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC099B36088B331B0028F810</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

@@ -1105,8 +1105,7 @@ To Do List:
 loop:
 		if([view isKindOfClass:[NSView class]])
 		{
-	//iTM2_START;
-	blueLagoon:;
+//iTM2_START;
 			NSView * ESV = [view enclosingSplitView];
 			if(ESV)
 			{

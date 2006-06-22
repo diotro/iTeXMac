@@ -6,7 +6,6 @@
 		activeExecutable = DCDE975E08EC808300A7C892 /* iTeXMac2 */;
 		activeTarget = DC81AD7F088718FA00943C99 /* iTeXMac2 */;
 		addToTargets = (
-			DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */,
 		);
 		breakpoints = (
 			DCE8742609352CC500037138 /* -[NSException raise] */,
@@ -14,6 +13,7 @@
 			DCDF58510A3A1F5E0099E562 /* iTM2NewDocumentKit.m:2650 */,
 			DC0874220A42DB4C0062ABE6 /* iTM2NewDocumentKit.m:1548 */,
 			DC08760D0A42E4C10062ABE6 /* iTM2NewDocumentKit.m:1363 */,
+			DCD3A89D0A39A59300B5EE0C /* iTM2NewDocumentKit.m:3156 */,
 		);
 		breakpointsGroup = DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DCDE977508EC808C00A7C892 /* Code sense */;
@@ -141,13 +141,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172439527;
-			PBXWorkspaceStateSaveDate = 172439527;
+			PBXPerProjectTemplateStateSaveDate = 172704969;
+			PBXWorkspaceStateSaveDate = 172704969;
 		};
 		perUserProjectItems = {
-			DCB1B98E0A473A7100B7C51A /* PBXTextBookmark */ = DCB1B98E0A473A7100B7C51A /* PBXTextBookmark */;
-			DCD7D5CB0A4380D30096B1A9 = DCD7D5CB0A4380D30096B1A9 /* PBXTextBookmark */;
-			DCD7DB4B0A46039C0096B1A9 = DCD7DB4B0A46039C0096B1A9 /* PBXTextBookmark */;
+			DC3B44430A4AEF8500E83ABA /* PBXTextBookmark */ = DC3B44430A4AEF8500E83ABA /* PBXTextBookmark */;
+			DC3B47AB0A4B452E00E83ABA /* PBXTextBookmark */ = DC3B47AB0A4B452E00E83ABA /* PBXTextBookmark */;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
@@ -215,9 +214,45 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {4284, 57222}}";
 			sepNavSelRange = "{109774, 0}";
-			sepNavVisRect = "{{0, 33932}, {1193, 720}}";
+			sepNavVisRect = "{{0, 33938}, {1193, 720}}";
 			sepNavWindowFrame = "{{37, 5}, {1232, 849}}";
 		};
+	};
+	DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1105, 663}}";
+			sepNavSelRange = "{0, 314}";
+			sepNavVisRect = "{{0, 0}, {1105, 663}}";
+			sepNavWindowFrame = "{{38, 60}, {1144, 792}}";
+		};
+	};
+	DC3B41890A4ADD2400E83ABA /* Development.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1105, 663}}";
+			sepNavSelRange = "{314, 0}";
+			sepNavVisRect = "{{0, 0}, {1105, 663}}";
+			sepNavWindowFrame = "{{61, 39}, {1144, 792}}";
+		};
+	};
+	DC3B44430A4AEF8500E83ABA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109774;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 70374;
+	};
+	DC3B47AB0A4B452E00E83ABA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109774;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 70374;
 	};
 	DC5D70750949E27F00EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
@@ -243,16 +278,6 @@
 	DC9E4F310858A8A300A86BED /* All */ = {
 		activeExec = 0;
 	};
-	DCB1B98E0A473A7100B7C51A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3366";
-		rLen = 0;
-		rLoc = 109774;
-		rType = 0;
-		vrLen = 1549;
-		vrLoc = 70375;
-	};
 	DCD3A89D0A39A59300B5EE0C /* iTM2NewDocumentKit.m:3156 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -265,26 +290,6 @@
 		lineNumber = 3156;
 		modificationTime = 172440164.464213;
 		state = 1;
-	};
-	DCD7D5CB0A4380D30096B1A9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 1266";
-		rLen = 0;
-		rLoc = 43280;
-		rType = 0;
-		vrLen = 1871;
-		vrLoc = 42317;
-	};
-	DCD7DB4B0A46039C0096B1A9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3366";
-		rLen = 0;
-		rLoc = 109774;
-		rType = 0;
-		vrLen = 1552;
-		vrLoc = 70372;
 	};
 	DCDE975E08EC808300A7C892 /* iTeXMac2 */ = {
 		isa = PBXExecutable;

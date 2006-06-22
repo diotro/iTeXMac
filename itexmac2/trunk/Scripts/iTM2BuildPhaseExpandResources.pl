@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# run this script while building any bundle containing New Documents.
+# run this script while building any bundle containing New Documents, projects, macros...
 use File::Basename;
 use Cwd;
 $FULL_PRODUCT_NAME="$ENV{FULL_PRODUCT_NAME}";
@@ -12,7 +12,7 @@ print "warning: iTeXMac2 INFO Expanding resources at $FOLDER...\n";
 @CANDIDATES=split('\0', `find "$FOLDER" -regex ".*\.resources\.tgz" -print0`);
 while(my $FILE = shift(@CANDIDATES))
 {
-    print "Expanding compressed resource $FILE:";
+    print "Expanding compressed resource:\n$FILE...\n";
     my $dir = dirname($FILE);
     `tar -xvzf "$FILE" --directory "$dir";rm "$FILE"`;
     print "Expanding $FILE... DONE\n";

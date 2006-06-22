@@ -6,7 +6,6 @@
 		activeExecutable = DC520395088B1FAE00DE6E7F /* iTeXMac2 */;
 		activeTarget = DC81AD250887161F00943C99 /* iTeXMac2 */;
 		addToTargets = (
-			DC2741E7090CE39000C2D1D2 /* iTM2ConTeXtKit */,
 		);
 		breakpoints = (
 			DCD3D325088EA6DB009ED7E0 /* -[NSException raise] */,
@@ -163,14 +162,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172439523;
-			PBXWorkspaceStateSaveDate = 172439523;
+			PBXPerProjectTemplateStateSaveDate = 172703830;
+			PBXWorkspaceStateSaveDate = 172703830;
 		};
 		perUserProjectItems = {
-			DC99E87B0A25F55700F50752 = DC99E87B0A25F55700F50752 /* PBXTextBookmark */;
-			DC99E87E0A25F55700F50752 = DC99E87E0A25F55700F50752 /* PBXTextBookmark */;
-			DCCD305909E186E50003EEF9 = DCCD305909E186E50003EEF9 /* PBXTextBookmark */;
-			DCCD305B09E186E50003EEF9 = DCCD305B09E186E50003EEF9 /* PBXTextBookmark */;
+			DC99E87B0A25F55700F50752 /* PBXTextBookmark */ = DC99E87B0A25F55700F50752 /* PBXTextBookmark */;
+			DC99E87E0A25F55700F50752 /* PBXTextBookmark */ = DC99E87E0A25F55700F50752 /* PBXTextBookmark */;
+			DCCD305909E186E50003EEF9 /* PBXTextBookmark */ = DCCD305909E186E50003EEF9 /* PBXTextBookmark */;
+			DCCD305B09E186E50003EEF9 /* PBXTextBookmark */ = DCCD305B09E186E50003EEF9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {

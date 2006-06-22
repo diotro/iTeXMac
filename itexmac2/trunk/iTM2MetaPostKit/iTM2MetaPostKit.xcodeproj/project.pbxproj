@@ -144,6 +144,8 @@
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC14CE8C091F2E36009D184E /* iTM2MetaPostToolbarKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MetaPostToolbarKit.h; sourceTree = "<group>"; };
 		DC14CE8D091F2E36009D184E /* iTM2MetaPostToolbarKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MetaPostToolbarKit.m; sourceTree = "<group>"; };
+		DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC892FBF08FC1CD6007A4673 /* iTM2MetaPostKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2MetaPostKit-Info.plist"; sourceTree = "<group>"; };
 		DC892FC008FC1CD6007A4673 /* iTM2MetaPostKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2MetaPostKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				DC892FC208FC1CD6007A4673 /* MetaPost */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				DC3B41A50A4ADDCF00E83ABA /* Settings */,
 			);
 			name = iTM2TeXFoundation;
 			sourceTree = "<group>";
@@ -267,6 +270,16 @@
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
+		};
+		DC3B41A50A4ADDCF00E83ABA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */,
+				DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = SOURCE_ROOT;
 		};
 		DC892FC208FC1CD6007A4673 /* MetaPost */ = {
 			isa = PBXGroup;
@@ -764,65 +777,31 @@
 /* Begin XCBuildConfiguration section */
 		DC6BB80A09474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTM2MetaPostKit-Prefix.pch";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "iTM2MetaPostKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				MACH_O_TYPE = mh_dylib;
-				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x49000000,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2MetaPostKit;
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC6BB80B09474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTM2MetaPostKit-Prefix.pch";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "iTM2MetaPostKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				MACH_O_TYPE = mh_dylib;
-				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x49000000,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2MetaPostKit;
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -916,69 +895,17 @@
 		};
 		DC6BB81209474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC6BB81309474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -1012,31 +939,15 @@
 		};
 		DC6BB81609474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = ../build;
 			};
 			name = Development;
 		};
 		DC6BB81709474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = ../build;
 			};
 			name = Deployment;
 		};
@@ -1057,55 +968,17 @@
 		};
 		DCBD7E3B09491B4600E2ACC7 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2PDFKit;
-				SYMROOT = build;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DCBD7E3C09491B4600E2ACC7 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2PDFKit;
-				SYMROOT = build;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};

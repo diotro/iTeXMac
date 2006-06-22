@@ -15,6 +15,6 @@
 	<key>CFBundleSignature</key>
 	<string>i™ac</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>Version 1.0 (build __BUILD__ on __DATE__)</string>
 </dict>
 </plist>

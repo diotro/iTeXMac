@@ -127,6 +127,8 @@
 		DC2741E8090CE39000C2D1D2 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2LaTeXKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2LaTeXKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2LaTeXKit-Prefix.pch"; sourceTree = "<group>"; };
 		DC2CA71A0855D19F00128F14 /* iTM2LaTeXKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2LaTeXKit-Info.plist"; sourceTree = "<group>"; };
+		DC3B41B60A4ADE6E00E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		DC3B41B70A4ADE6E00E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC4AF4C9091269C30057E325 /* LaTeXLabelToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LaTeXLabelToolbarImage.tif; sourceTree = "<group>"; };
 		DC4AF4CA091269C30057E325 /* LaTeXSectionToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = LaTeXSectionToolbarImage.tif; sourceTree = "<group>"; };
 		DC4AF50209126D6C0057E325 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
@@ -135,7 +137,7 @@
 		DC7471240884604700C264BB /* iTM2Bookmarks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Bookmarks.png; sourceTree = "<group>"; };
 		DC7471250884604700C264BB /* iTM2Labels.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Labels.png; sourceTree = "<group>"; };
 		DC7471260884604700C264BB /* iTM2Sections.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Sections.png; sourceTree = "<group>"; };
-		DC81AD260887161F00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AD260887161F00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A61D9088D7DDF0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A61DA088D7DDF0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC90D02609978AFF00C79525 /* iTM2ScriptColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptColor.png; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				DC7471230884604700C264BB /* Images */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
+				DC3B41B50A4ADE6E00E83ABA /* Settings */,
 			);
 			name = iTM2LaTeXKit;
 			sourceTree = "<group>";
@@ -276,6 +279,16 @@
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
+		};
+		DC3B41B50A4ADE6E00E83ABA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DC3B41B60A4ADE6E00E83ABA /* Deployment.xcconfig */,
+				DC3B41B70A4ADE6E00E83ABA /* Development.xcconfig */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = SOURCE_ROOT;
 		};
 		DC7471230884604700C264BB /* Images */ = {
 			isa = PBXGroup;
@@ -792,55 +805,17 @@
 /* Begin XCBuildConfiguration section */
 		DC5D6FEC0949DFAF00EBA96C /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B70A4ADE6E00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
-				SYMROOT = build;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC5D6FED0949DFAF00EBA96C /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B60A4ADE6E00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
-				SYMROOT = build;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -870,77 +845,31 @@
 		};
 		DC6BB7E209474615004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B70A4ADE6E00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTM2LaTeXKit-Prefix.pch";
 				INFOPLIST_FILE = "iTM2LaTeXKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				MACH_O_TYPE = mh_dylib;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x4A000000,
 				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2LaTeXKit;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BB7E309474615004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B60A4ADE6E00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTM2LaTeXKit-Prefix.pch";
 				INFOPLIST_FILE = "iTM2LaTeXKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				MACH_O_TYPE = mh_dylib;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x4A000000,
 				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2LaTeXKit;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -1041,71 +970,17 @@
 		};
 		DC6BB7EA09474615004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B70A4ADE6E00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BB7EB09474615004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B60A4ADE6E00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -1139,31 +1014,15 @@
 		};
 		DC6BB7EE09474615004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B70A4ADE6E00E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = ../build;
 			};
 			name = Development;
 		};
 		DC6BB7EF09474615004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41B60A4ADE6E00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = ../build;
 			};
 			name = Deployment;
 		};

@@ -17,10 +17,18 @@
 			<property name="selection" code="SLXN" description="The selection" type="text" access="r">
 				<cocoa key="selection"/>
 			</property>
-			<responds-to name="replace"/>
-			<responds-to name="find"/>
-			<responds-to name="select"/>
-			<responds-to name="insert"/>
+			<responds-to name="replace">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="find">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="select">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="insert">
+				<cocoa method="method:"/>
+                        </responds-to>
 		</class>
 		<command name="insert macro" code="iTM3ISTM" description="Insert some macro.">
 			<cocoa name="iTM2InsertMacroScriptCommand" class="iTM2InsertMacroScriptCommand"/>
@@ -48,12 +56,14 @@
 			<parameter name="in" code="RPIN" description="Either the text where insertion should occur, the position in the text or the range of characters." type="any">
 				<cocoa key="In"/>
 			</parameter>
-			<parameter name="backwards search" code="RBAK" description="Yes for backwards search (default is no)." type="boolean" optional="yes"/>
+			<parameter name="backwards search" code="RBAK" description="Yes for backwards search (default is no)." type="boolean" optional="yes">
+				<cocoa key="Backwards"/>
+			</parameter>
 			<parameter name="entire file search" code="REFL" description="Replace all occurences." type="boolean" optional="yes">
 				<cocoa key="EntireFile"/>
 			</parameter>
 			<parameter name="by" code="RSTR" description="Replacement string" type="text">
-				<cocoa key="Repalcement"/>
+				<cocoa key="Replacement"/>
 			</parameter>
 			<parameter name="cycle search" code="RCYK" description="Yes if the search should cycle to the beginning of the text (defaults is no, without effect when searching in selection)" type="boolean">
 				<cocoa key="Cycle"/>
@@ -98,6 +108,13 @@
 			</parameter>
 		</command>
 	</suite>
+	<suite name="URLHandler" code="UrHd" description="iTeXMac2 GetURL support">
+		<cocoa name="URL Handler"/>
+		<command name="GetURL" code="GURLGURL" description="Catch the given URL">
+			<cocoa name="GetURL" class="iTM2URLHandlerCommand"/>
+                        <direct-parameter type="text" optional="no" description="The URL to be reached."/>
+		</command>
+	</suite>
 	<suite name="iTeXMac2 Suite" code="iTM2" description="iTeXMac2 Scripting suite">
 		<cocoa name="iTeXMac2"/>
 		<class name="application" code="capp" description="iTeXMac2&apos;s top level scripting object." inherits="application">
@@ -105,15 +122,29 @@
 			<element code="TXDQ" type="TeX document" access="r">
 				<cocoa key="orderedTeXDocuments"/>
 			</element>
-			<responds-to name="Index"/>
-			<responds-to name="Bibliography"/>
-			<responds-to name="Compile"/>
-			<responds-to name="Typeset"/>
-			<responds-to name="Glossary"/>
-			<responds-to name="Special"/>
-			<responds-to name="Stop"/>
+			<responds-to name="Index">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Bibliography">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Compile">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Typeset">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Glossary">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Special">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Stop">
+				<cocoa method="method:"/>
+                        </responds-to>
 		</class>
-		<class name="TeX document" code="TXDQ" description="TeX source document." inherits="document">
+		<class name="TeX document" code="TXDQ" description="TeX source document." inherits="NSCoreSuite.document">
 			<cocoa class="iTM2TeXDocument"/>
 			<property name="text" code="ctxt" type="any" access="rw">
 				<cocoa key="textStorage"/>

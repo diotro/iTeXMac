@@ -266,11 +266,11 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>11</integer>
+									<integer>12</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {341, 356}}</string>
+							<string>{{0, 0}, {341, 688}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -282,14 +282,14 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {358, 374}}</string>
+						<string>{{0, 0}, {358, 706}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>MainColumn</string>
 							<real>341</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>65 412 892 415 0 0 1440 878 </string>
+						<string>65 80 987 747 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -324,9 +324,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {529, 0}}</string>
+								<string>{{0, 0}, {624, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>65 412 892 415 0 0 1440 878 </string>
+								<string>65 80 987 747 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -344,18 +344,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 5}, {529, 369}}</string>
+								<string>{{0, 5}, {624, 701}}</string>
 								<key>RubberWindowFrame</key>
-								<string>65 412 892 415 0 0 1440 878 </string>
+								<string>65 80 987 747 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>369pt</string>
+							<string>701pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>529pt</string>
+					<string>624pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -370,9 +370,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCD7DB510A4603A00096B1A9</string>
+				<string>DC3B46530A4B404300E83ABA</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCD7DB520A4603A00096B1A9</string>
+				<string>DC3B46540A4B404300E83ABA</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -506,10 +506,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>DC691A99088D24E900F00114</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2BibTeXSupportKit/iTM2BibTeXSupportKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>65 412 892 415 0 0 1440 878 </string>
+	<string>65 80 987 747 0 0 1440 878 </string>
 	<key>WindowTools</key>
 	<array>
 		<dict>
@@ -552,7 +553,7 @@
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 218}, {744, 224}}</string>
+								<string>{{0, 160}, {744, 282}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -590,7 +591,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC691A99088D24E900F00114</string>
-				<string>DCEC206A0A3EA510001AD65E</string>
+				<string>DC3B46550A4B404300E83ABA</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -601,7 +602,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC691A99088D24E900F00114</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

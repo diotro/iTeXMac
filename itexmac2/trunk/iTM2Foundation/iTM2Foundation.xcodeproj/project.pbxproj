@@ -168,6 +168,7 @@
 		DC25E5280991FB3700545F27 /* regexec.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B930854654B003F5F79 /* regexec.m */; };
 		DC25E5290991FB3700545F27 /* regfree.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B940854654B003F5F79 /* regfree.c */; };
 		DC25E52B0991FB9C00545F27 /* iTM2ARegexpHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B860854654B003F5F79 /* iTM2ARegexpHelpers.m */; };
+		DC3B48F00A4B469E00E83ABA /* ARETemplates.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC3B48EE0A4B469E00E83ABA /* ARETemplates.resources.tgz */; };
 		DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */; };
 		DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */; };
@@ -187,7 +188,6 @@
 		DC8A65E6088DCBE20016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */; };
 		DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD53B0A3ABD37006C28A5 /* KeyBindings.resources.tgz */; };
 		DC8AD5400A3ABD38006C28A5 /* TextEditor.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD53D0A3ABD38006C28A5 /* TextEditor.resources.tgz */; };
-		DC8AD5450A3ABD77006C28A5 /* templates.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD5430A3ABD77006C28A5 /* templates.resources.tgz */; };
 		DC90CE9E09976BBD00C79525 /* iTM2MacrosMenu.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */; };
 		DC98663C09EA733B00FF4BD3 /* iTM2PrefsController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC98663909EA733B00FF4BD3 /* iTM2PrefsController.nib */; };
 		DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -737,6 +737,10 @@
 		DC25E50C0991FA7600545F27 /* iTM2TaskKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TaskKit.h; sourceTree = "<group>"; };
 		DC25E50D0991FA7600545F27 /* iTM2TaskKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TaskKit.m; sourceTree = "<group>"; };
 		DC2732D309645D0A008B4D56 /* OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OgreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC3B48EF0A4B469E00E83ABA /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/ARETemplates.resources.tgz; sourceTree = "<group>"; };
+		DC3B48F10A4B46AB00E83ABA /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/ARETemplates.resources.tgz; sourceTree = "<group>"; };
 		DC3C79970940EFA500EBF811 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TaskInspector.nib; sourceTree = "<group>"; };
 		DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DistributedObjectKit.h; sourceTree = "<group>"; };
 		DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DistributedObjectKit.m; sourceTree = "<group>"; };
@@ -762,8 +766,6 @@
 		DC8AD53E0A3ABD38006C28A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
-		DC8AD5440A3ABD77006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/templates.resources.tgz; sourceTree = "<group>"; };
-		DC8AD5460A3ABD80006C28A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/templates.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
 		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98663A09EA733B00FF4BD3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
@@ -1152,6 +1154,7 @@
 				DC25E42F0991F5F000545F27 /* iTM2TaskKit Test-Info.plist */,
 				DCB0A00B09AEF96E00D2A37C /* Alias Test-Info.plist */,
 				DC99ECBF0A284EA800F50752 /* Project-Info.plist */,
+				DC3B41C40A4ADEA400E83ABA /* Settings */,
 			);
 			name = iTM2Foundation;
 			sourceTree = "<group>";
@@ -1210,6 +1213,16 @@
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
+		};
+		DC3B41C40A4ADEA400E83ABA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */,
+				DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = SOURCE_ROOT;
 		};
 		DC66983708E0B554004FCA6D /* 5 - Preferences */ = {
 			isa = PBXGroup;
@@ -1514,7 +1527,7 @@
 		DCF61BDD0854654B003F5F79 /* code ARE UI */ = {
 			isa = PBXGroup;
 			children = (
-				DC8AD5430A3ABD77006C28A5 /* templates.resources.tgz */,
+				DC3B48EE0A4B469E00E83ABA /* ARETemplates.resources.tgz */,
 				DCF61BDE0854654B003F5F79 /* iTM2AREAtomPullDownButton.plist */,
 				DCF61BE00854654B003F5F79 /* iTM2ARECodingTemplates.strings */,
 				DCF61BE20854654B003F5F79 /* iTM2AREConstraintPullDownButton.plist */,
@@ -2790,7 +2803,7 @@
 				DC98663C09EA733B00FF4BD3 /* iTM2PrefsController.nib in Resources */,
 				DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */,
 				DC8AD5400A3ABD38006C28A5 /* TextEditor.resources.tgz in Resources */,
-				DC8AD5450A3ABD77006C28A5 /* templates.resources.tgz in Resources */,
+				DC3B48F00A4B469E00E83ABA /* ARETemplates.resources.tgz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3321,6 +3334,15 @@
 			name = iTeXMac2.nib;
 			sourceTree = "<group>";
 		};
+		DC3B48EE0A4B469E00E83ABA /* ARETemplates.resources.tgz */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC3B48EF0A4B469E00E83ABA /* English */,
+				DC3B48F10A4B46AB00E83ABA /* French */,
+			);
+			name = ARETemplates.resources.tgz;
+			sourceTree = "<group>";
+		};
 		DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3346,15 +3368,6 @@
 				DC8AD5420A3ABD44006C28A5 /* French */,
 			);
 			name = TextEditor.resources.tgz;
-			sourceTree = "<group>";
-		};
-		DC8AD5430A3ABD77006C28A5 /* templates.resources.tgz */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC8AD5440A3ABD77006C28A5 /* French */,
-				DC8AD5460A3ABD80006C28A5 /* English */,
-			);
-			name = templates.resources.tgz;
 			sourceTree = "<group>";
 		};
 		DC98663909EA733B00FF4BD3 /* iTM2PrefsController.nib */ = {
@@ -3720,68 +3733,45 @@
 /* Begin XCBuildConfiguration section */
 		DC1E8A8E09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
 				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTM2Foundation-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "iTM2Foundation-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
 				MACH_O_TYPE = mh_dylib;
-				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x4E000000,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2Foundation;
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
 				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC1E8A8F09462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTM2Foundation-Prefix.pch";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "iTM2Foundation-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
 				MACH_O_TYPE = mh_dylib;
-				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0x4E000000,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = iTM2Foundation;
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
 				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -4049,74 +4039,21 @@
 		};
 		DC1E8A9E09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
 				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "External Text Editor";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC1E8A9F09462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "External Text Editor";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -4152,74 +4089,21 @@
 		};
 		DC1E8AA209462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
 				INFOPLIST_FILE = "External Inspectors/PDF/PDF-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "External PDF Viewer";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC1E8AA309462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "External Inspectors/PDF/PDF-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "External PDF Viewer";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -4320,74 +4204,22 @@
 		};
 		DC1E8AAA09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
 				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Test Application";
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC1E8AAB09462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = (
-					/Users/coder/iTeXMac2/iTeXMac2/build,
-					/Users/coder/iTeXMac/iTeXMac2/Developer/build,
-				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Test Application";
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -4425,68 +4257,17 @@
 		};
 		DC1E8AAE09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC1E8AAF09462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -4685,31 +4466,15 @@
 		};
 		DC1E8ABA09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Development;
 		};
 		DC1E8ABB09462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Deployment;
 		};
@@ -4886,57 +4651,17 @@
 		};
 		DC6BC64009490316008F8188 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = OgreKit;
-				SYMROOT = build;
-				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BC64109490316008F8188 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = OgreKit;
-				SYMROOT = build;
-				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -5129,74 +4854,21 @@
 		};
 		DCD7D6A40A43992D0096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Alpha X";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DCD7D6A50A43992D0096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Alpha X";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -5232,74 +4904,21 @@
 		};
 		DCD7D6B20A4399620096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEdit-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = BBEdit;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DCD7D6B30A4399620096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEdit-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = BBEdit;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -5335,74 +4954,21 @@
 		};
 		DCD7D6C00A4399790096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEditLite-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "BBEdit Lite";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DCD7D6C10A4399790096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEditLite-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "BBEdit Lite";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -5438,74 +5004,21 @@
 		};
 		DCD7D6D00A4399990096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/Emacs-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = Emacs;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DCD7D6D10A4399990096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/Emacs-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = Emacs;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};

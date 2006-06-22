@@ -263,20 +263,18 @@
 								<string>DCAF97E809D80BEB00AFD95F</string>
 								<string>19C28FB8FE9D52D311CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>DCD7DB550A4603A10096B1A9</string>
-								<string>DCD7DB560A4603A10096B1A9</string>
+								<string>DC3B46B00A4B415400E83ABA</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>42</integer>
 									<integer>33</integer>
-									<integer>30</integer>
+									<integer>31</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 104}, {281, 678}}</string>
+							<string>{{0, 121}, {281, 678}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -386,9 +384,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCD7DB570A4603A10096B1A9</string>
+				<string>DC3B46B10A4B415400E83ABA</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCD7DB580A4603A10096B1A9</string>
+				<string>DC3B46B20A4B415400E83ABA</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -522,6 +520,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>DC8A64A8088DBEB50016FAA2</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -568,7 +567,7 @@
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 445}, {1212, 110}}</string>
+								<string>{{0, 420}, {1212, 135}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -606,7 +605,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC8A64A8088DBEB50016FAA2</string>
-				<string>DC99E7CD0A250D8E00F50752</string>
+				<string>DC3B46AD0A4B413100E83ABA</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

@@ -1746,6 +1746,15 @@
 	<string>2.0 preview (build __(REVISION)__)</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>itexmac2</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSMainNibFile</key>

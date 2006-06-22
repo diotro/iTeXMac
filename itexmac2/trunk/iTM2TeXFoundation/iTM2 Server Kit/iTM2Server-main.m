@@ -42,7 +42,6 @@ int main(int argc, const char *argv[])
 	NSDictionary * context = [NSDictionary dictionaryWithObjectsAndKeys:environment,iTM2ServerEnvironmentKey,arguments,iTM2ServerArgumentsKey,nil];
 	NSString * connectionID = [environment objectForKey:@"iTM2ConnectionID"];
 NSLog(@"connectionID is: %@", connectionID);
-	BOOL debug = NO;
 	if(!connectionID)
 	{
 		NSEnumerator * E = [arguments objectEnumerator];
