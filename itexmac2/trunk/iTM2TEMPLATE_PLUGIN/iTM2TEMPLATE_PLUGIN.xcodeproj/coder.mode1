@@ -275,7 +275,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {186, 338}}</string>
+							<string>{{0, 172}, {186, 338}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -294,7 +294,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>179 98 690 397 0 0 1440 878 </string>
+						<string>94 252 690 397 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -331,7 +331,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {482, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>179 98 690 397 0 0 1440 878 </string>
+								<string>94 252 690 397 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -351,7 +351,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {482, 351}}</string>
 								<key>RubberWindowFrame</key>
-								<string>179 98 690 397 0 0 1440 878 </string>
+								<string>94 252 690 397 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -375,9 +375,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC3B41610A4ADB5E00E83ABA</string>
+				<string>DC5B696D0A4B6AB500F7DE47</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC3B41620A4ADB5E00E83ABA</string>
+				<string>DC5B696E0A4B6AB500F7DE47</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -514,7 +514,7 @@
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TEMPLATE_PLUGIN/iTM2TEMPLATE_PLUGIN.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>179 98 690 397 0 0 1440 878 </string>
+	<string>94 252 690 397 0 0 1440 878 </string>
 	<key>WindowTools</key>
 	<array>
 		<dict>

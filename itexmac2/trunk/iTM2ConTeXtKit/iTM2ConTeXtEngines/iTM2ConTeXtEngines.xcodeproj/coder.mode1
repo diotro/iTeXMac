@@ -267,7 +267,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>18</integer>
 									<integer>15</integer>
 								</array>
 							</array>
@@ -393,9 +392,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC3B46760A4B405300E83ABA</string>
+				<string>DC5B65FB0A4B5EE800F7DE47</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC3B46770A4B405300E83ABA</string>
+				<string>DC5B65FC0A4B5EE800F7DE47</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -543,7 +542,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC099B36088B331B0028F810</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

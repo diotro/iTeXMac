@@ -146,6 +146,12 @@
 		DC14CE8D091F2E36009D184E /* iTM2MetaPostToolbarKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MetaPostToolbarKit.m; sourceTree = "<group>"; };
 		DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC5B69890A4B6B9100F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B698A0A4B6B9100F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B698B0A4B6B9100F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B698C0A4B6B9100F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B698D0A4B6B9100F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B698E0A4B6B9100F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC892FBF08FC1CD6007A4673 /* iTM2MetaPostKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2MetaPostKit-Info.plist"; sourceTree = "<group>"; };
 		DC892FC008FC1CD6007A4673 /* iTM2MetaPostKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2MetaPostKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -274,6 +280,12 @@
 		DC3B41A50A4ADDCF00E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DC5B69890A4B6B9100F7DE47 /* Framework */,
+				DC5B698A0A4B6B9100F7DE47 /* FrameworkDeployment.xcconfig */,
+				DC5B698B0A4B6B9100F7DE47 /* FrameworkDevelopment.xcconfig */,
+				DC5B698C0A4B6B9100F7DE47 /* PlugIn */,
+				DC5B698D0A4B6B9100F7DE47 /* PlugInDeployment.xcconfig */,
+				DC5B698E0A4B6B9100F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */,
 				DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */,
 			);
@@ -777,31 +789,19 @@
 /* Begin XCBuildConfiguration section */
 		DC6BB80A09474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B698B0A4B6B9100F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "iTM2MetaPostKit-Prefix.pch";
-				INFOPLIST_FILE = "iTM2MetaPostKit-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x49000000,
-				);
 				PRODUCT_NAME = iTM2MetaPostKit;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2METAPOSTKIT_ADDRESS)";
 			};
 			name = Development;
 		};
 		DC6BB80B09474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B698A0A4B6B9100F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "iTM2MetaPostKit-Prefix.pch";
-				INFOPLIST_FILE = "iTM2MetaPostKit-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x49000000,
-				);
 				PRODUCT_NAME = iTM2MetaPostKit;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2METAPOSTKIT_ADDRESS)";
 			};
 			name = Deployment;
 		};

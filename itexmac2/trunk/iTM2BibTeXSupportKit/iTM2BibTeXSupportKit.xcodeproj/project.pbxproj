@@ -112,6 +112,12 @@
 		DC2CA71A0855D19F00128F14 /* iTM2BibTeXSupportKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2BibTeXSupportKit-Info.plist"; sourceTree = "<group>"; };
 		DC3B41EA0A4ADFC800E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41EB0A4ADFC800E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC5B69E10A4B6E9E00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B69E20A4B6E9E00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69E30A4B6E9E00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B69E40A4B6E9E00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B69E50A4B6E9E00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69E60A4B6E9E00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D7421094A579800EBA96C /* Prepare iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2TeXFoundation.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC81AD80088718FA00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
@@ -224,6 +230,12 @@
 		DC3B41E90A4ADFC800E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DC5B69E10A4B6E9E00F7DE47 /* Framework */,
+				DC5B69E20A4B6E9E00F7DE47 /* FrameworkDeployment.xcconfig */,
+				DC5B69E30A4B6E9E00F7DE47 /* FrameworkDevelopment.xcconfig */,
+				DC5B69E40A4B6E9E00F7DE47 /* PlugIn */,
+				DC5B69E50A4B6E9E00F7DE47 /* PlugInDeployment.xcconfig */,
+				DC5B69E60A4B6E9E00F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41EA0A4ADFC800E83ABA /* Deployment.xcconfig */,
 				DC3B41EB0A4ADFC800E83ABA /* Development.xcconfig */,
 			);
@@ -256,7 +268,7 @@
 				INFOPLIST_FILE = "iTM2BibTeXSupportKit-Info.plist";
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DC5D7431094A580200EBA96C /* PBXTargetDependency */,
@@ -577,34 +589,17 @@
 		};
 		DC6BB78609474610004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41EB0A4ADFC800E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69E60A4B6E9E00F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTM2BibTeXSupportKit-Prefix.pch";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iTM2BibTeXSupportKit-Info.plist";
-				PREBINDING = YES;
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
-				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC6BB78709474610004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41EA0A4ADFC800E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69E50A4B6E9E00F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "iTM2BibTeXSupportKit-Prefix.pch";
-				INFOPLIST_FILE = "iTM2BibTeXSupportKit-Info.plist";
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -620,7 +615,7 @@
 				INFOPLIST_FILE = "iTM2BibTeXSupportKit-Info.plist";
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 				ZERO_LINK = NO;
 			};
 			name = Default;

@@ -268,7 +268,7 @@
 				INFOPLIST_FILE = "iTM2EDITORKit-Info.plist";
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2EDITORKit;
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DC81BB35088975A500943C99 /* PBXTargetDependency */,
@@ -548,7 +548,7 @@
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2EDITORKit;
 				SYMROOT = "$(SRCROOT)/../build";
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 				ZERO_LINK = YES;
 			};
 			name = Development;
@@ -570,7 +570,7 @@
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2EDITORKit;
 				SYMROOT = "$(SRCROOT)/../build";
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 				ZERO_LINK = NO;
 			};
 			name = Deployment;
@@ -588,7 +588,7 @@
 				INFOPLIST_FILE = "iTM2EDITORKit-Info.plist";
 				PREBINDING = YES;
 				PRODUCT_NAME = iTM2EDITORKit;
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			name = Default;
 		};

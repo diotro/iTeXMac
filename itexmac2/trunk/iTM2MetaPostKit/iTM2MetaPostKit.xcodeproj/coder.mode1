@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -273,7 +271,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 262}, {336, 452}}</string>
+							<string>{{0, 184}, {336, 452}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -373,9 +371,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC3B47750A4B44C600E83ABA</string>
+				<string>DC5B6BB70A4B76C300F7DE47</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC3B47760A4B44C600E83ABA</string>
+				<string>DC5B6BB80A4B76C300F7DE47</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -528,6 +526,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/iTM2MetaPostKit.xcodeproj</string>
+		<string>DC099B36088B331B0028F810</string>
 	</array>
 	<key>WindowString</key>
 	<string>26 346 990 532 0 0 1440 878 </string>
@@ -560,7 +559,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1276, 463}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 34 1276 800 0 0 1440 878 </string>
+								<string>0 38 1276 800 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -568,6 +567,8 @@
 							<string>463pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
@@ -586,7 +587,7 @@
 								<key>Frame</key>
 								<string>{{0, 468}, {1276, 291}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 34 1276 800 0 0 1440 878 </string>
+								<string>0 38 1276 800 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -609,18 +610,18 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC099B36088B331B0028F810</string>
-				<string>DCD7DB380A45F1BF0096B1A9</string>
+				<string>DC5B6B8F0A4B75ED00F7DE47</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.build</string>
 			<key>WindowString</key>
-			<string>0 34 1276 800 0 0 1440 878 </string>
+			<string>0 38 1276 800 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>DC099B36088B331B0028F810</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

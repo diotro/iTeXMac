@@ -202,9 +202,16 @@
 		DC0EF843094856570018276F /* dvipdfm wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvipdfm wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0EF8A9094858D00018276F /* dvips target.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvips target.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0EF91809485D730018276F /* pstopdf wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "pstopdf wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC3865890948B02100352215 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC3865890948B02100352215 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC5B692E0A4B679400F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B692F0A4B679400F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69300A4B679400F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B69310A4B679400F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B705F0A4B7CB800F7DE47 /* Prepare iTM2TeXFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Prepare iTM2TeXFoundation-Info.plist"; sourceTree = "<group>"; };
 		DC5D6D0F0949A97100EBA96C /* Prepare iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2TeXFoundation.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9DC483094840CB0079E1B3 /* dvipdfm.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dvipdfm.pdf; sourceTree = "<group>"; };
 		DC9DC48A094840CC0079E1B3 /* iTM2_Engine_dvipdfm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_dvipdfm; sourceTree = "<group>"; };
@@ -318,6 +325,12 @@
 		DC3B41690A4ADBA100E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DC5B692E0A4B679400F7DE47 /* Framework */,
+				DC5B692F0A4B679400F7DE47 /* FrameworkDeployment.xcconfig */,
+				DC5B69300A4B679400F7DE47 /* FrameworkDevelopment.xcconfig */,
+				DC5B69310A4B679400F7DE47 /* PlugIn */,
+				DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */,
+				DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */,
 				DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */,
 			);
@@ -336,6 +349,7 @@
 				DC9DC4C8094840ED0079E1B3 /* External Frameworks and Libraries */,
 				DC9DC4CB0948410C0079E1B3 /* Products */,
 				DC3B41690A4ADBA100E83ABA /* Settings */,
+				DC5B705F0A4B7CB800F7DE47 /* Prepare iTM2TeXFoundation-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1193,97 +1207,55 @@
 /* Begin XCBuildConfiguration section */
 		DC0EF846094856580018276F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "dvipdfm/iTM2DviPDFMWrapper-Prefix.pch";
 				INFOPLIST_FILE = "dvipdfm/iTM2DviPDFMWrapper-Info.plist";
 				PRODUCT_NAME = "dvipdfm wrapper";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DC0EF847094856580018276F /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "dvipdfm/iTM2DviPDFMWrapper-Prefix.pch";
 				INFOPLIST_FILE = "dvipdfm/iTM2DviPDFMWrapper-Info.plist";
 				PRODUCT_NAME = "dvipdfm wrapper";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
 		DC0EF8AC094858D10018276F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "dvips/iTM2DvipsWrapper-Prefix.pch";
 				INFOPLIST_FILE = "dvips/iTM2DvipsWrapper-Info.plist";
 				PRODUCT_NAME = "dvips target";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DC0EF8AD094858D10018276F /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "dvips/iTM2DvipsWrapper-Prefix.pch";
 				INFOPLIST_FILE = "dvips/iTM2DvipsWrapper-Info.plist";
 				PRODUCT_NAME = "dvips target";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
 		DC0EF92009485D730018276F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "pstopdf/iTM2PStoPDFWrapper-Prefix.pch";
 				INFOPLIST_FILE = "pstopdf/iTM2PStoPDFWrapper-Info.plist";
 				PRODUCT_NAME = "pstopdf wrapper";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DC0EF92109485D730018276F /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "pstopdf/iTM2PStoPDFWrapper-Prefix.pch";
 				INFOPLIST_FILE = "pstopdf/iTM2PStoPDFWrapper-Info.plist";
 				PRODUCT_NAME = "pstopdf wrapper";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -1331,6 +1303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Development;
 		};
@@ -1339,21 +1312,30 @@
 			baseConfigurationReference = DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Deployment;
 		};
 		DC9DC47C094840B10079E1B3 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYMROOT)",
+					"$(PROJECT_DIR)/../../build",
+				);
 				SYMROOT = build;
 			};
 			name = Development;
 		};
 		DC9DC47D094840B10079E1B3 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYMROOT)",
+					"$(PROJECT_DIR)/../../build",
+				);
 				SYMROOT = build;
 			};
 			name = Deployment;
@@ -1382,33 +1364,19 @@
 		};
 		DC9DC71F09484CBA0079E1B3 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "TeX/TeX Engines-Prefix.pch";
 				INFOPLIST_FILE = "TeX/TeX Engines-Info.plist";
 				PRODUCT_NAME = "TeX Engines";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DC9DC72009484CBA0079E1B3 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SYMROOT)",
-					"$(PROJECT_DIR)/../../build",
-				);
 				GCC_PREFIX_HEADER = "TeX/TeX Engines-Prefix.pch";
 				INFOPLIST_FILE = "TeX/TeX Engines-Info.plist";
 				PRODUCT_NAME = "TeX Engines";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};

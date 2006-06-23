@@ -33,12 +33,11 @@ then
 		exit 1
 	fi
 fi
-echo "warning: iTeXMac2 INFO, list of engines..."
-#ls -l *.iTM2
+pushd "${ENGINES_REPOSITORY}"
+echo "warning: iTeXMac2 INFO, list of engines in `pwd`..."
 # copier tout ce qui se termine par iTM2
 IFS='
 '
-pushd "${ENGINES_REPOSITORY}"
 iTM2_TARGETS="`find . -regex ".*/build/[^/]*\.iTM2" -print`"
 popd
 echo "${iTM2_TARGETS}"

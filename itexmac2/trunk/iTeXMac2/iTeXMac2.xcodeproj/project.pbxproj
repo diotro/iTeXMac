@@ -387,13 +387,19 @@
 		DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2ConTeXtKit.framework; path = ../build/iTM2ConTeXtKit.framework; sourceTree = SOURCE_ROOT; };
 		DC4F6A32085A2E33004868B8 /* iTeXMac2.CMPlugIn */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTeXMac2.CMPlugIn; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC4F6A33085A2E33004868B8 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC5B67660A4B625E00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B67670A4B625E00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B67680A4B625E00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B67690A4B625E00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B676A0A4B625E00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B676B0A4B625E00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D13860855B6DE003786EF /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DC5D13880855B6DE003786EF /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC6BC59B0948FB3E008F8188 /* Prepare iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2LaTeXKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC5DE0948FCEC008F8188 /* Prepare iTM2MetaPostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2MetaPostKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC5E90948FD59008F8188 /* Prepare iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2NewDocumentKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC5F40948FD8B008F8188 /* Prepare iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2ConTeXtKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2BibTeXSupportKit.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2BibTeXSupportKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptKit.framework; path = /System/Library/Frameworks/AppleScriptKit.framework; sourceTree = "<absolute>"; };
 		DC72F9EB08E5961100D81CEB /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = "English.lproj/iTeXMac2 Help"; sourceTree = "<group>"; };
 		DC74C82007D8532800E10C57 /* iTeXMac2-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTeXMac2-Prefix.pch"; sourceTree = "<group>"; };
@@ -420,7 +426,7 @@
 		DCB93D2F07D70F95005E5B38 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		DCCE70A4091B58D200960441 /* iTM2AppleScriptSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AppleScriptSupport.h; sourceTree = "<group>"; };
 		DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2AppleScriptSupport.m; sourceTree = "<group>"; };
-		DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2LaTeXSymbolsKit.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2LaTeXSymbolsKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFD96E60858F5980034D83E /* TeX CM PlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TeX CM PlugIn-Info.plist"; sourceTree = "<group>"; };
 		DCFFA6C80855B7C900607AAA /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCFFA6CC0855B7C900607AAA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Localized.strings; sourceTree = "<group>"; };
@@ -489,12 +495,12 @@
 			children = (
 				DC4F6A32085A2E33004868B8 /* iTeXMac2.CMPlugIn */,
 				DC4F6A33085A2E33004868B8 /* iTeXMac2.app */,
-				DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.iTM2 */,
+				DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.bundle */,
 				DC6BC59B0948FB3E008F8188 /* Prepare iTM2LaTeXKit.framework */,
 				DC6BC5DE0948FCEC008F8188 /* Prepare iTM2MetaPostKit.framework */,
 				DC6BC5E90948FD59008F8188 /* Prepare iTM2NewDocumentKit.framework */,
 				DC6BC5F40948FD8B008F8188 /* Prepare iTM2ConTeXtKit.framework */,
-				DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.iTM2 */,
+				DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -620,6 +626,12 @@
 		DC3B3DB00A4ADADF00E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DC5B67660A4B625E00F7DE47 /* Framework */,
+				DC5B67670A4B625E00F7DE47 /* FrameworkDeployment.xcconfig */,
+				DC5B67680A4B625E00F7DE47 /* FrameworkDevelopment.xcconfig */,
+				DC5B67690A4B625E00F7DE47 /* PlugIn */,
+				DC5B676A0A4B625E00F7DE47 /* PlugInDeployment.xcconfig */,
+				DC5B676B0A4B625E00F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */,
 				DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */,
 			);
@@ -944,7 +956,7 @@
 			);
 			name = "Prepare iTM2BibTeXSupportKit PlugIn";
 			productName = "LaTeX Symbols PlugIn";
-			productReference = DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.iTM2 */;
+			productReference = DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */;
 			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
@@ -998,7 +1010,7 @@
 			);
 			name = "Prepare LaTeX Symbols PlugIn";
 			productName = "LaTeX Symbols PlugIn";
-			productReference = DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.iTM2 */;
+			productReference = DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.bundle */;
 			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
@@ -1592,71 +1604,23 @@
 		};
 		DC6BB75209474610004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = "__iTM2_DEVELOPMENT__=1";
 				INFOPLIST_FILE = "iTeXMac2 CM PlugIn/TeX CM PlugIn-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = CMPlugIn;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC6BB75309474610004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "iTeXMac2 CM PlugIn/TeX CM PlugIn-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WRAPPER_EXTENSION = CMPlugIn;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -1692,39 +1656,18 @@
 		};
 		DC6BB76609474610004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTeXMac2-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "__iTM2_DEVELOPMENT__=1";
-				INFOPLIST_FILE = "iTeXMac2-Info.plist";
-				OBJROOT = "$(SYMROOT)";
+				INFOPLIST_FILE = "$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = iTeXMac2;
-				SYMROOT = "$(SRCROOT)/../build";
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		DC6BB76709474610004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTeXMac2-Prefix.pch";
-				INFOPLIST_FILE = "iTeXMac2-Info.plist";
-				OBJROOT = "$(SYMROOT)";
 				PRODUCT_NAME = iTeXMac2;
-				SYMROOT = "$(SRCROOT)/../build";
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -1861,14 +1804,12 @@
 		};
 		DC6BB77E09474610004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */;
 			buildSettings = {
 			};
 			name = Development;
 		};
 		DC6BB77F09474610004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 			};
 			name = Deployment;
@@ -1892,50 +1833,14 @@
 		DC6BC59E0948FB40008F8188 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2LaTeXKit";
-				SYMROOT = build;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BC59F0948FB40008F8188 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2LaTeXKit";
-				SYMROOT = build;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -1964,50 +1869,14 @@
 		DC6BC5DB0948FCEC008F8188 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2MetaPostKit";
-				SYMROOT = build;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BC5DC0948FCEC008F8188 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2MetaPostKit";
-				SYMROOT = build;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -2036,50 +1905,14 @@
 		DC6BC5E60948FD59008F8188 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2NewDocumentKit";
-				SYMROOT = build;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BC5E70948FD59008F8188 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2NewDocumentKit";
-				SYMROOT = build;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -2108,50 +1941,14 @@
 		DC6BC5F10948FD8B008F8188 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2ConTeXtKit";
-				SYMROOT = build;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BC5F20948FD8B008F8188 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2ConTeXtKit";
-				SYMROOT = build;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -2180,50 +1977,14 @@
 		DC6BC66D0949099D008F8188 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2BibTeXSupportKit";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DC6BC66E0949099D008F8188 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2BibTeXSupportKit";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -2244,7 +2005,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2BibTeXSupportKit";
 				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 				ZERO_LINK = YES;
 			};
 			name = Default;
@@ -2252,50 +2013,14 @@
 		DCF929770948EC0F00EE2F46 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2LaTeXSymbolsKit";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
 		DCF929780948EC0F00EE2F46 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2LaTeXSymbolsKit";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
-				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
@@ -2316,7 +2041,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "Prepare iTM2LaTeXSymbolsKit";
 				SYMROOT = build;
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 				ZERO_LINK = YES;
 			};
 			name = Default;

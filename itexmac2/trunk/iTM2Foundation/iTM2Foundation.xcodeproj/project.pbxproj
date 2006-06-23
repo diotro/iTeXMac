@@ -744,6 +744,12 @@
 		DC3C79970940EFA500EBF811 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TaskInspector.nib; sourceTree = "<group>"; };
 		DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DistributedObjectKit.h; sourceTree = "<group>"; };
 		DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DistributedObjectKit.m; sourceTree = "<group>"; };
+		DC5B69B20A4B6CD100F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B69B30A4B6CD100F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B69B50A4B6CD100F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC66983808E0B554004FCA6D /* iTM2PreferencesKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PreferencesKit.h; sourceTree = "<group>"; };
 		DC66983908E0B554004FCA6D /* iTM2PreferencesKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PreferencesKit.m; sourceTree = "<group>"; };
 		DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2PreferenceTemplate.prePane; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1217,6 +1223,12 @@
 		DC3B41C40A4ADEA400E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DC5B69B20A4B6CD100F7DE47 /* Framework */,
+				DC5B69B30A4B6CD100F7DE47 /* FrameworkDeployment.xcconfig */,
+				DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */,
+				DC5B69B50A4B6CD100F7DE47 /* PlugIn */,
+				DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */,
+				DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */,
 				DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */,
 			);
@@ -2331,7 +2343,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DCD7D6E50A439AA60096B1A9 /* PBXTargetDependency */,
@@ -2399,7 +2411,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DCB2004E0858E2AF003659F3 /* PBXTargetDependency */,
@@ -2462,7 +2474,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */,
@@ -2525,7 +2537,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DCD7D6AC0A4399620096B1A9 /* PBXTargetDependency */,
@@ -2588,7 +2600,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DCD7D6BA0A4399790096B1A9 /* PBXTargetDependency */,
@@ -2651,7 +2663,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			dependencies = (
 				DCD7D6CA0A4399990096B1A9 /* PBXTargetDependency */,
@@ -3733,45 +3745,17 @@
 /* Begin XCBuildConfiguration section */
 		DC1E8A8E09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_VERSION = A;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREFIX_HEADER = "iTM2Foundation-Prefix.pch";
-				INFOPLIST_FILE = "iTM2Foundation-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				MACH_O_TYPE = mh_dylib;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x4E000000,
-				);
 				PRODUCT_NAME = iTM2Foundation;
-				WRAPPER_EXTENSION = framework;
 			};
 			name = Development;
 		};
 		DC1E8A8F09462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69B30A4B6CD100F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTM2Foundation-Prefix.pch";
-				INFOPLIST_FILE = "iTM2Foundation-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				MACH_O_TYPE = mh_dylib;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x4E000000,
-				);
 				PRODUCT_NAME = iTM2Foundation;
-				WRAPPER_EXTENSION = framework;
 			};
 			name = Deployment;
 		};
@@ -4039,21 +4023,19 @@
 		};
 		DC1E8A9E09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
 				PRODUCT_NAME = "External Text Editor";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DC1E8A9F09462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
 				PRODUCT_NAME = "External Text Editor";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -4083,27 +4065,25 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			name = Default;
 		};
 		DC1E8AA209462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "External Inspectors/PDF/PDF-Info.plist";
 				PRODUCT_NAME = "External PDF Viewer";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DC1E8AA309462DC40037B13F /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "External Inspectors/PDF/PDF-Info.plist";
 				PRODUCT_NAME = "External PDF Viewer";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -4133,7 +4113,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			name = Default;
 		};
@@ -4854,21 +4834,19 @@
 		};
 		DCD7D6A40A43992D0096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/AlphaX-Info.plist";
 				PRODUCT_NAME = "Alpha X";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DCD7D6A50A43992D0096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/AlphaX-Info.plist";
 				PRODUCT_NAME = "Alpha X";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -4898,27 +4876,25 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			name = Default;
 		};
 		DCD7D6B20A4399620096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEdit-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/BBEdit-Info.plist";
 				PRODUCT_NAME = BBEdit;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DCD7D6B30A4399620096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEdit-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/BBEdit-Info.plist";
 				PRODUCT_NAME = BBEdit;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -4948,27 +4924,25 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			name = Default;
 		};
 		DCD7D6C00A4399790096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEditLite-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/BBEditLite-Info.plist";
 				PRODUCT_NAME = "BBEdit Lite";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DCD7D6C10A4399790096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/BBEditLite-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/BBEditLite-Info.plist";
 				PRODUCT_NAME = "BBEdit Lite";
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -4998,27 +4972,25 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			name = Default;
 		};
 		DCD7D6D00A4399990096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/Emacs-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/Emacs-Info.plist";
 				PRODUCT_NAME = Emacs;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Development;
 		};
 		DCD7D6D10A4399990096B1A9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/Emacs-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/Emacs-Info.plist";
 				PRODUCT_NAME = Emacs;
-				WRAPPER_EXTENSION = iTM2;
 			};
 			name = Deployment;
 		};
@@ -5048,7 +5020,7 @@
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
-				WRAPPER_EXTENSION = iTM2;
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
 			name = Default;
 		};

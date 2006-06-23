@@ -76,30 +76,10 @@
 	DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1105, 663}}";
-			sepNavSelRange = "{215, 0}";
+			sepNavSelRange = "{134, 0}";
 			sepNavVisRect = "{{0, 0}, {1105, 663}}";
 			sepNavWindowFrame = "{{61, 39}, {1144, 792}}";
 		};
-	};
-	DC3B41710A4ADC3F00E83ABA /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */;
-		name = "Development.xcconfig: 8";
-		rLen = 0;
-		rLoc = 215;
-		rType = 0;
-		vrLen = 215;
-		vrLoc = 0;
-	};
-	DC3B462C0A4B3E3900E83ABA /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */;
-		name = "Development.xcconfig: 7";
-		rLen = 0;
-		rLoc = 215;
-		rType = 0;
-		vrLen = 724;
-		vrLoc = 0;
 	};
 	DC5D6D0E0949A97100EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
@@ -214,7 +194,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					200,
-					10,
+					78,
 					20,
 					48,
 					43,
@@ -230,12 +210,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172701501;
-			PBXWorkspaceStateSaveDate = 172701501;
-		};
-		perUserProjectItems = {
-			DC3B41710A4ADC3F00E83ABA /* PBXTextBookmark */ = DC3B41710A4ADC3F00E83ABA /* PBXTextBookmark */;
-			DC3B462C0A4B3E3900E83ABA /* PBXTextBookmark */ = DC3B462C0A4B3E3900E83ABA /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 172717087;
+			PBXWorkspaceStateSaveDate = 172717087;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBuildSettings = {

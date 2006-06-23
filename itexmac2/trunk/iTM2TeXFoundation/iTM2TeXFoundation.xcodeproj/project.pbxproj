@@ -381,6 +381,12 @@
 		DC4AF394091225C20057E325 /* cautionTypesetToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = cautionTypesetToolbarImage.tif; sourceTree = "<group>"; };
 		DC4AF395091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = stopTypesetCurrentProjectToolbarImage.tif; sourceTree = "<group>"; };
 		DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentProjectTerminalToolbarImage.tif; sourceTree = "<group>"; };
+		DC5B69410A4B699F00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B69420A4B699F00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69430A4B699F00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B69440A4B699F00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B69450A4B699F00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69460A4B699F00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D6CBA0949A3F100EBA96C /* Prepare iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2Foundation.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2TeXDistributionPrefPane.tif; sourceTree = "<group>"; };
 		DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStorageKit.h; sourceTree = "<group>"; };
@@ -620,6 +626,12 @@
 		DC3B41740A4ADC7300E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DC5B69410A4B699F00F7DE47 /* Framework */,
+				DC5B69420A4B699F00F7DE47 /* FrameworkDeployment.xcconfig */,
+				DC5B69430A4B699F00F7DE47 /* FrameworkDevelopment.xcconfig */,
+				DC5B69440A4B699F00F7DE47 /* PlugIn */,
+				DC5B69450A4B699F00F7DE47 /* PlugInDeployment.xcconfig */,
+				DC5B69460A4B699F00F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */,
 				DC3B41760A4ADC7300E83ABA /* Development.xcconfig */,
 			);
@@ -1735,43 +1747,19 @@
 		};
 		DC6BB85E09474619004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41760A4ADC7300E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC5B69430A4B699F00F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTM2TeXFoundation-Prefix.pch";
-				INFOPLIST_FILE = "iTM2TeXFoundation-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x4C000000,
-				);
 				PRODUCT_NAME = iTM2TeXFoundation;
-				WRAPPER_EXTENSION = framework;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2TEXFOUNDATION_ADDRESS)";
 			};
 			name = Development;
 		};
 		DC6BB85F09474619004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = DC5B69420A4B699F00F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTM2TeXFoundation-Prefix.pch";
-				INFOPLIST_FILE = "iTM2TeXFoundation-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x4C000000,
-				);
 				PRODUCT_NAME = iTM2TeXFoundation;
-				WRAPPER_EXTENSION = framework;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2TEXFOUNDATION_ADDRESS)";
 			};
 			name = Deployment;
 		};

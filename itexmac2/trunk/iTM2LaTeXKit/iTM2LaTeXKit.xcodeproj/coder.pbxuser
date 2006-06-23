@@ -124,7 +124,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					200,
-					10,
+					425,
 					20,
 					48,
 					43,
@@ -140,12 +140,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172704433;
-			PBXWorkspaceStateSaveDate = 172704433;
+			PBXPerProjectTemplateStateSaveDate = 172713843;
+			PBXWorkspaceStateSaveDate = 172713843;
 		};
 		perUserProjectItems = {
-			DC3B44320A4AEF8300E83ABA /* PBXTextBookmark */ = DC3B44320A4AEF8300E83ABA /* PBXTextBookmark */;
-			DC3B46FB0A4B43C800E83ABA /* PBXTextBookmark */ = DC3B46FB0A4B43C800E83ABA /* PBXTextBookmark */;
+			DC5B67760A4B63C100F7DE47 /* PBXTextBookmark */ = DC5B67760A4B63C100F7DE47 /* PBXTextBookmark */;
+			DC5B69AF0A4B6C7F00F7DE47 /* PBXTextBookmark */ = DC5B69AF0A4B6C7F00F7DE47 /* PBXTextBookmark */;
 			DC986AFF09EFD6C500FF4BD3 /* PBXTextBookmark */ = DC986AFF09EFD6C500FF4BD3 /* PBXTextBookmark */;
 			DC986B0109EFD6C500FF4BD3 /* PBXTextBookmark */ = DC986B0109EFD6C500FF4BD3 /* PBXTextBookmark */;
 		};
@@ -171,26 +171,6 @@
 			sepNavVisRect = "{{0, 0}, {1112, 554}}";
 			sepNavWindowFrame = "{{84, 81}, {1151, 683}}";
 		};
-	};
-	DC3B44320A4AEF8300E83ABA /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = ompleteLaT;
-		rLen = 10;
-		rLoc = 43027;
-		rType = 0;
-		vrLen = 757;
-		vrLoc = 41668;
-	};
-	DC3B46FB0A4B43C800E83ABA /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = ompleteLaT;
-		rLen = 10;
-		rLoc = 43027;
-		rType = 0;
-		vrLen = 757;
-		vrLoc = 41668;
 	};
 	DC4AF50209126D6C0057E325 /* English */ = {
 		uiCtxt = {
@@ -237,6 +217,26 @@
 	DC52042D088B1FD300DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
+	};
+	DC5B67760A4B63C100F7DE47 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = ompleteLaT;
+		rLen = 10;
+		rLoc = 43027;
+		rType = 0;
+		vrLen = 757;
+		vrLoc = 41668;
+	};
+	DC5B69AF0A4B6C7F00F7DE47 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = ompleteLaT;
+		rLen = 10;
+		rLoc = 43027;
+		rType = 0;
+		vrLen = 757;
+		vrLoc = 41668;
 	};
 	DC5D6FE80949DFAE00EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
