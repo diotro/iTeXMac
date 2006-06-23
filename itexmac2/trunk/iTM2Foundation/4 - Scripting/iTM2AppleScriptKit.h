@@ -26,8 +26,8 @@
 
 @interface iTM2AppleScriptLauncher : NSObject
 /*"Class methods"*/
-+(IBAction)executeAppleScriptAtPath:(id)sender;
-+(IBAction)executeAppleScript:(id)sender;
++ (IBAction)executeAppleScriptAtPath:(id)sender;
++ (IBAction)executeAppleScript:(id)sender;
 /*"Setters and Getters"*/
 /*"Main methods"*/
 /*"Overriden methods"*/
@@ -43,7 +43,7 @@
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @interface NSScriptSuiteRegistry(iTeXMac2)
--(void)loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
+- (void)loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2AppleScriptLauncher
 
@@ -57,6 +57,6 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(unsigned int)endOfLine;
--(void)setEndOfLine:(unsigned int)argument;
+- (unsigned int)endOfLine;
+- (void)setEndOfLine:(unsigned int)argument;
 @end

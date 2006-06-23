@@ -21,13 +21,13 @@
 #import <iTM2TeXFoundation/iTM2TeXStringKit.h>
 
 @interface NSString(MY_OWN_PRIVACY)
--(NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
--(NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
 @end
 
 @implementation NSString(iTM2TeXKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= backslashCharacter
-+(unichar)backslashCharacter;
++ (unichar)backslashCharacter;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -39,7 +39,7 @@ To Do List:
 	return [[self backslashString] characterAtIndex:0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commentCharacter
-+(unichar)commentCharacter;
++ (unichar)commentCharacter;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -51,7 +51,7 @@ To Do List:
 	return [[self commentString] characterAtIndex:0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupCharacter
-+(unichar)bgroupCharacter;
++ (unichar)bgroupCharacter;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -63,7 +63,7 @@ To Do List:
 	return [[self bgroupString] characterAtIndex:0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= egroupCharacter
-+(unichar)egroupCharacter;
++ (unichar)egroupCharacter;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -75,7 +75,7 @@ To Do List:
 	return [[self egroupString] characterAtIndex:0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= backslashString
-+(NSString *)backslashString;
++ (NSString *)backslashString;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -87,7 +87,7 @@ To Do List:
 	return @"\\";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commentString
-+(NSString *)commentString;
++ (NSString *)commentString;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -99,7 +99,7 @@ To Do List:
 	return @"%";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupString
-+(NSString *)bgroupString;
++ (NSString *)bgroupString;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -111,7 +111,7 @@ To Do List:
 	return @"{";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= egroupString
-+(NSString *)egroupString;
++ (NSString *)egroupString;
 /*" Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -123,7 +123,7 @@ To Do List:
 	return @"}";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isControlAtIndex:escaped:
--(BOOL)isControlAtIndex:(unsigned)index escaped:(BOOL *)aFlagPtr;
+- (BOOL)isControlAtIndex:(unsigned)index escaped:(BOOL *)aFlagPtr;
 /*" Returns YES if there is a '\' at index index. For example "\\ " is a 3 length string.
 For index = 0, 1 and 2, the aFlagPtr* is NO, YES, NO.
 If there is no backslash, aFlagPtr will point to NO, if it is not nil.
@@ -153,7 +153,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:TeXComment:forIndex:
--(void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
+- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
 /*" Description Forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -181,7 +181,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isTeXCommentAtIndex:
--(BOOL)isTeXCommentAtIndex:(unsigned)index;
+- (BOOL)isTeXCommentAtIndex:(unsigned)index;
 /*" Description Forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -214,7 +214,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:
--(NSRange)groupRangeAtIndex:(unsigned)index;
+- (NSRange)groupRangeAtIndex:(unsigned)index;
 /*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -225,7 +225,7 @@ To Do List:
     return [self groupRangeAtIndex:index beginDelimiter: '{' endDelimiter: '}'];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:beginDelimiter:endDelimiter:
--(NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
+- (NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 /*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -319,7 +319,7 @@ To Do List:
     return  NSMakeRange(NSNotFound, 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeForRange:
--(NSRange)groupRangeForRange:(NSRange)range;
+- (NSRange)groupRangeForRange:(NSRange)range;
 /*"Returns the range of the smallest group in TeX sense, containing range. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 The delimiters of the outer teX group are not part of range.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -331,7 +331,7 @@ To Do List:
     return [self groupRangeForRange:range beginDelimiter: '{' endDelimiter: '}'];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeForRange:beginDelimiter:endDelimiter:
--(NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
+- (NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 /*"Returns the range of the smallest group in TeX sense, containing range. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 The delimiters of the outer teX group are not part of range.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -416,7 +416,7 @@ To Do List:
     return NSMakeRange(NSNotFound, 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareDoubleClick:atIndex:
-+(NSRange)TeXAwareDoubleClick:(NSString *)string atIndex:(unsigned)index;
++ (NSRange)TeXAwareDoubleClick:(NSString *)string atIndex:(unsigned)index;
 /*"Description forthcoming. Extends the double click at index...
 This takes TeX commands into account, and \- hyphenation two
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -476,7 +476,7 @@ To Do List: implement some kind of balance range for range
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByStrippingTeXTagsInString:
-+(NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
++ (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -586,7 +586,7 @@ To Do List:
 	return [MRA componentsJoinedByString:@"%"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getWordBefore:here:after:atIndex:
--(unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
+- (unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -792,7 +792,7 @@ nextBeforeWord:
 @end
 @implementation iTM2TeXAttributedString_0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
 Version history: jlaurens@users.sourceforge.net
 - 2.0: 02/15/2006
@@ -805,7 +805,7 @@ To Do List: implement some kind of balance range for range
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
--(NSRange)doubleClickAtIndex:(unsigned)index;
+- (NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
 Version history: jlaurens@users.sourceforge.net
 - 2.0: 02/15/2006

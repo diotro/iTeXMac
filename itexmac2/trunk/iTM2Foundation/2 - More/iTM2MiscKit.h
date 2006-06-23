@@ -28,14 +28,14 @@ extern NSString * const iTM2PrintInfoDidChangeNotification;
 
 @interface iTeXMac2Responder: NSResponder
 
--(IBAction)checkForUpdate:(id)sender;
+- (IBAction)checkForUpdate:(id)sender;
 
 @end
 
 @interface NSSavePanel(iTM2MiscKit)
 
--(void)pushNavLastRootDirectory;
--(void)popNavLastRootDirectory;
+- (void)pushNavLastRootDirectory;
+- (void)popNavLastRootDirectory;
 
 @end
 
@@ -49,7 +49,7 @@ extern NSString * const iTM2ToolbarToggleDrawerItemIdentifier;
     @discussion Use this #define'd fonction in your custom NSToolbarItem category
 */
 #define iTM2_DEFINE_TOOLBAR_ITEM(SELECTOR, BUNDLE)\
-+(NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:BUNDLE];}
++ (NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:BUNDLE];}
 
 @interface NSToolbarItem(iTM2MiscKit)
 
@@ -62,20 +62,20 @@ extern NSString * const iTM2ToolbarToggleDrawerItemIdentifier;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+(NSToolbarItem *)seedToolbarItemWithIdentifier:(NSString *)anIdentifier forToolbarIdentifier:(NSString *)anotherIdentifier;
++ (NSToolbarItem *)seedToolbarItemWithIdentifier:(NSString *)anIdentifier forToolbarIdentifier:(NSString *)anotherIdentifier;
 
-+(NSString *)identifierFromSelector:(SEL)aSelector;
-+(SEL)selectorFromIdentifier:(NSString *)anIdentifier;
-+(NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)anIdentifier inBundle:(NSBundle *)bundle;
++ (NSString *)identifierFromSelector:(SEL)aSelector;
++ (SEL)selectorFromIdentifier:(NSString *)anIdentifier;
++ (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)anIdentifier inBundle:(NSBundle *)bundle;
 
-+(NSToolbarItem *)toggleDrawerToolbarItem;
++ (NSToolbarItem *)toggleDrawerToolbarItem;
 
--(void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
+- (void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
 
 @end
 
 @interface NSView(iTM2MiscKit)
--(void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
+- (void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
 @end
 
 /*!
@@ -86,6 +86,6 @@ extern NSString * const iTM2ToolbarToggleDrawerItemIdentifier;
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @interface iTM2ValueTransformer: NSValueTransformer
-+(NSString *)transformerName;
++ (NSString *)transformerName;
 @end
 

@@ -30,7 +30,7 @@
 /*"Description forthcoming."*/
 @implementation iTM2SymbolMenu
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -74,7 +74,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  image
--(NSImage *)image;
+- (NSImage *)image;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -84,7 +84,7 @@ To Do List:
     return _Image;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeSymbolsInstruction:
--(IBAction)executeSymbolsInstruction:(id)sender;
+- (IBAction)executeSymbolsInstruction:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -107,7 +107,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateMenuItem:
--(BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -165,7 +165,7 @@ NSString * const iTM2SymbolMenuBugKey = @"iTM2SymbolMenuBug";
 /*"Description forthcoming."*/
 @implementation iTM2SymbolMenuItemCell
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Patch for old system: there is a problem between systeme 10.1 and 10.1.5.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -178,7 +178,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFixSymbolMenuBug:
-+(void)toggleFixSymbolMenuBug:(id)sender;
++ (void)toggleFixSymbolMenuBug:(id)sender;
 /*"Patch for old system: there is a problem between systeme 10.1 and 10.1.5.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -193,7 +193,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-+(BOOL)validateMenuItem:(id <NSMenuItem>)sender;
++ (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -204,7 +204,7 @@ To do list:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
--(id)init;
+- (id)init;
 /*"Patch for old system: there is a problem between systeme 10.1 and 10.1.5.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -219,7 +219,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cellSize
--(NSSize)cellSize;
+- (NSSize)cellSize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -233,7 +233,7 @@ To Do List:
     return NSMakeSize(S.width / [M numberOfColumns], S.height / [M numberOfRows]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  imageWidth
--(float)imageWidth;
+- (float)imageWidth;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -244,7 +244,7 @@ To Do List:
     return [self cellSize].width;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  drawImageWithFrame:inView:
--(void)drawImageWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
+- (void)drawImageWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -279,7 +279,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  imageRectForBounds:
--(NSRect)imageRectForBounds:(NSRect)cellFrame;
+- (NSRect)imageRectForBounds:(NSRect)cellFrame;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -299,7 +299,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation NSTextView(iTM2LaTeXSymbolsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useLaTeXPackage:
--(IBAction)useLaTeXPackage:(id)sender;
+- (IBAction)useLaTeXPackage:(id)sender;
 /*".
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -322,7 +322,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeSymbolsInstruction:
--(void)executeSymbolsInstruction:(id)instruction;
+- (void)executeSymbolsInstruction:(id)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -336,7 +336,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_executeSymbolsInstruction:
--(void)iTM2_executeSymbolsInstruction:(id)instruction;
+- (void)iTM2_executeSymbolsInstruction:(id)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -384,7 +384,7 @@ To Do List:
 
 @implementation iTM2LaTeXSymbolsPanel
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  sharedPanel
-+(id)sharedPanel;
++ (id)sharedPanel;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -398,7 +398,7 @@ To Do List:
     return [WC window];
 }
 ///=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowPositionShouldBeObserved
--(BOOL)canBecomeKeyWindow;
+- (BOOL)canBecomeKeyWindow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -407,7 +407,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowPositionShouldBeObserved
--(BOOL)windowPositionShouldBeObserved;
+- (BOOL)windowPositionShouldBeObserved;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -416,7 +416,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  frameIdentifier
--(NSString *)frameIdentifier;
+- (NSString *)frameIdentifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -428,7 +428,7 @@ To Do List:
 
 @implementation iTM2SharedResponder(iTM2LaTeXSymbolsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  orderFrontLaTeXSymbolsPanel:
--(IBAction)orderFrontLaTeXSymbolsPanel:(id)sender;
+- (IBAction)orderFrontLaTeXSymbolsPanel:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:

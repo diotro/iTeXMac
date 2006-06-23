@@ -27,7 +27,7 @@
 
 @implementation NSApplication(iTM2AppleScriptSupport)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projects
--(NSArray *)projects;// get the project documents of application "iTeXMac2"
+- (NSArray *)projects;// get the project documents of application "iTeXMac2"
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -39,7 +39,7 @@ To Do List:
 	return [SPC projects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertInProjects:
--(void)insertInProjects:(id)argument;// make new project document
+- (void)insertInProjects:(id)argument;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -52,7 +52,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedTeXDocuments:
--(id)orderedTeXDocuments;
+- (id)orderedTeXDocuments;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (02/06/2002)
 - 1.1: 06/01/2002
@@ -70,7 +70,7 @@ To Do List:
     return [[MA copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertInOrderedTeXDocuments:atIndex:
--(void)insertInOrderedTeXDocuments:(NSDocument *)document atIndex:(int)index;
+- (void)insertInOrderedTeXDocuments:(NSDocument *)document atIndex:(int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (02/06/2002)
 - 1.1: 06/01/2002
@@ -102,7 +102,7 @@ To Do List:
 
 @implementation NSDocument(iTM2AppleScriptSupport)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedWindows
--(NSArray *)orderedWindows;
+- (NSArray *)orderedWindows;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -125,7 +125,7 @@ To Do List:
 
 @implementation iTM2TeXProjectDocument(iTM2AppleScriptSupport)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXDocumentsArray
--(NSArray *)TeXDocumentsArray;// make new project document
+- (NSArray *)TeXDocumentsArray;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -143,7 +143,7 @@ To Do List:
 	return mra;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentsArray
--(NSArray *)PDFDocumentsArray;// make new project document
+- (NSArray *)PDFDocumentsArray;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -161,7 +161,7 @@ To Do List:
 	return mra;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectDocumentsArray
--(NSArray *)projectDocumentsArray;// make new project document
+- (NSArray *)projectDocumentsArray;// make new project document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -173,7 +173,7 @@ To Do List:
 	return [[self subdocuments] allObjects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertInSubdocumentsArray:
--(void)insertInSubdocumentsArray:(id)argument;// make new document
+- (void)insertInSubdocumentsArray:(id)argument;// make new document
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -190,15 +190,15 @@ To Do List:
 @interface NSGetCommand_iTM2 : NSGetCommand
 @end
 @implementation NSGetCommand_iTM2
-+(void)load;
++ (void)load;
 {
 	[NSGetCommand_iTM2 poseAsClass:[NSGetCommand class]];
 }
--(id)performDefaultImplementation;
+- (id)performDefaultImplementation;
 {
 	return [super performDefaultImplementation];
 }
--(id)executeCommand;
+- (id)executeCommand;
 {
 	return [super executeCommand];
 }
@@ -215,7 +215,7 @@ NSString * const iTM2ApplProjectNameKey = @"Project";// the name of AppleScript 
 @interface CLASS: NSScriptCommand\
 @end\
 @implementation CLASS\
--(id)performDefaultImplementation;\
+- (id)performDefaultImplementation;\
 {\
 	NSString * path = [[self directParameter] stringByStandardizingPath];\
 	if(![DFM isReadableFileAtPath:path])\

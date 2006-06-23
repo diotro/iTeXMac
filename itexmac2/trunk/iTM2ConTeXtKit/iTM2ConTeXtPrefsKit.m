@@ -24,26 +24,26 @@
 #import "iTM2ConTeXtKit.h"
 
 @interface iTM2ConTeXtPrefsPane(PRIVATE)
--(id)downloadIndicator;
--(id)manualsTableView;
--(id)downloadPanel;
--(NSArray *)ConTeXtManuals;
--(void)setConTeXtManuals:(NSArray *)aConTeXtManuals;
--(unsigned int)countOfConTeXtManuals;
--(id)objectInConTeXtManualsAtIndex:(unsigned int)index;
--(unsigned int)indexOfObjectInConTeXtManuals:(id) object;
--(void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index;
--(void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index;
--(void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject;
--(id)URLDownload;
--(void)setURLDownload:(id)object;
--(void)synchronizeUserDefaults; 
--(void)synchronizeWithUserDefaults; 
+- (id)downloadIndicator;
+- (id)manualsTableView;
+- (id)downloadPanel;
+- (NSArray *)ConTeXtManuals;
+- (void)setConTeXtManuals:(NSArray *)aConTeXtManuals;
+- (unsigned int)countOfConTeXtManuals;
+- (id)objectInConTeXtManualsAtIndex:(unsigned int)index;
+- (unsigned int)indexOfObjectInConTeXtManuals:(id) object;
+- (void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index;
+- (void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index;
+- (void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject;
+- (id)URLDownload;
+- (void)setURLDownload:(id)object;
+- (void)synchronizeUserDefaults; 
+- (void)synchronizeWithUserDefaults; 
 @end
 
 @implementation iTM2ConTeXtPrefsPane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -61,7 +61,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -73,7 +73,7 @@ To Do List:
     return @"2.TeX.ConTeXt";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  manualsTableView
--(id)manualsTableView
+- (id)manualsTableView
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -85,7 +85,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setManualsTableView:
--(void)setManualsTableView:(id)object;
+- (void)setManualsTableView:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -102,7 +102,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  downloadPanel
--(id)downloadPanel
+- (id)downloadPanel
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -114,7 +114,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDownloadPanel:
--(void)setDownloadPanel:(id)object;
+- (void)setDownloadPanel:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -129,7 +129,7 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  DATA MODEL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtManuals
--(NSArray *)ConTeXtManuals
+- (NSArray *)ConTeXtManuals
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -141,7 +141,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setConTeXtManuals:
--(void)setConTeXtManuals:(NSArray *)argument
+- (void)setConTeXtManuals:(NSArray *)argument
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -154,7 +154,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfConTeXtManuals:
--(unsigned int)countOfConTeXtManuals;
+- (unsigned int)countOfConTeXtManuals;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -166,7 +166,7 @@ To Do List:
     return [(NSMutableArray *)[self ConTeXtManuals] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInConTeXtManualsAtIndex:
--(id)objectInConTeXtManualsAtIndex:(unsigned int)index;
+- (id)objectInConTeXtManualsAtIndex:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -178,7 +178,7 @@ To Do List:
     return [(NSMutableArray *)[self ConTeXtManuals] objectAtIndex:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexOfObjectInConTeXtManuals:
--(unsigned int)indexOfObjectInConTeXtManuals:(id) object;
+- (unsigned int)indexOfObjectInConTeXtManuals:(id) object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -197,7 +197,7 @@ To Do List:
     return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inConTeXtManualsAtIndex:
--(void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index 
+- (void)insertObject:(id)anObject inConTeXtManualsAtIndex:(unsigned int)index 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -211,7 +211,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromConTeXtManualsAtIndex:
--(void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index 
+- (void)removeObjectFromConTeXtManualsAtIndex:(unsigned int)index 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -225,7 +225,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceObjectInConTeXtManualsAtIndex:withObject:
--(void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject 
+- (void)replaceObjectInConTeXtManualsAtIndex:(unsigned int)index withObject:(id)anObject 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -239,7 +239,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeUserDefaults
--(void)synchronizeUserDefaults; 
+- (void)synchronizeUserDefaults; 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -261,7 +261,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithUserDefaults
--(void)synchronizeWithUserDefaults; 
+- (void)synchronizeWithUserDefaults; 
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -280,7 +280,7 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  DATASOURCE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= add:
--(IBAction)add:(id)sender;
+- (IBAction)add:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -298,7 +298,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= remove:
--(IBAction)remove:(id)sender;
+- (IBAction)remove:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -321,7 +321,7 @@ To Do List:
 /* required methods
 */
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= numberOfRowsInTableView:
--(int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (int)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -333,7 +333,7 @@ To Do List:
 	return [self countOfConTeXtManuals];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
--(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -346,7 +346,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  :
--(void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -363,7 +363,7 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  DRAG & DROP
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:writeRowsWithIndexes:toPasteboard:
--(BOOL)tableView:(NSTableView *)view
+- (BOOL)tableView:(NSTableView *)view
          writeRowsWithIndexes:(NSIndexSet *)rowIndexes
          toPasteboard: (NSPasteboard *) pboard;
 /*"Description Forthcoming.
@@ -381,7 +381,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:validateDrop:proposedRow:proposedDropOperation:
--(NSDragOperation)tableView:(NSTableView *)tableView
+- (NSDragOperation)tableView:(NSTableView *)tableView
                     validateDrop: (id <NSDraggingInfo>) info
                     proposedRow: (int) row
                     proposedDropOperation: (NSTableViewDropOperation) operation;
@@ -408,7 +408,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:acceptDrop:row:dropOperation:
--(BOOL)tableView:(NSTableView *)tableView
+- (BOOL)tableView:(NSTableView *)tableView
          acceptDrop: (id <NSDraggingInfo>) info
          row: (int) row
          dropOperation: (NSTableViewDropOperation) operation;
@@ -480,7 +480,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didReceiveResponse:
--(void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response;
+- (void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -501,7 +501,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didReceiveDataOfLength:
--(void)download:(NSURLDownload *)download didReceiveDataOfLength:(unsigned)length;
+- (void)download:(NSURLDownload *)download didReceiveDataOfLength:(unsigned)length;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -515,7 +515,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  downloadDidFinish:
--(void)downloadDidFinish:(NSURLDownload *)download;
+- (void)downloadDidFinish:(NSURLDownload *)download;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -532,7 +532,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didFailWithError:
--(void)download:(NSURLDownload *)download didFailWithError:(NSError *)error;
+- (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -549,7 +549,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:decideDestinationWithSuggestedFilename:
--(void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename;
+- (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -563,7 +563,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  download:didCreateDestination:
--(void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path;
+- (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -584,7 +584,7 @@ To Do List:
 }
 //- (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancelDownload:
--(IBAction)cancelDownload:(id)sender;
+- (IBAction)cancelDownload:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -601,7 +601,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editDownload:
--(IBAction)editDownload:(id)sender;
+- (IBAction)editDownload:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -613,7 +613,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditDownload:
--(BOOL)validateEditDownload:(id)sender;
+- (BOOL)validateEditDownload:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -626,7 +626,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  downloadIndicator
--(id)downloadIndicator
+- (id)downloadIndicator
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -638,7 +638,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDownloadIndicator:
--(void)setDownloadIndicator:(id)object;
+- (void)setDownloadIndicator:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -651,7 +651,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  URLDownload
--(id)URLDownload
+- (id)URLDownload
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -663,7 +663,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setURLDownload:
--(void)setURLDownload:(id)object;
+- (void)setURLDownload:(id)object;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/27/2005
@@ -676,7 +676,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtAtPragmaADE:
--(IBAction)ConTeXtAtPragmaADE:(id)sender;
+- (IBAction)ConTeXtAtPragmaADE:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -692,7 +692,7 @@ To Do List:
 
 @implementation NSApplication(iTM2ConTeXtPrefsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showConTeXtPrefs:
--(IBAction)showConTeXtPrefs:(id)sender;
+- (IBAction)showConTeXtPrefs:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -705,7 +705,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showConTeXtManualsPrefs:
--(IBAction)showConTeXtManualsPrefs:(id)sender;
+- (IBAction)showConTeXtManualsPrefs:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -721,7 +721,7 @@ To Do List:
 
 @implementation iTM2ConTeXtManualsFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringForObjectValue:
--(NSString *)stringForObjectValue:(id)anObject;
+- (NSString *)stringForObjectValue:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -736,12 +736,12 @@ To Do List:
 @end
 
 @interface iTM2ConTeXtManualsTableView: NSTableView
--(BOOL)interpretKeyStrokeBackspace:(id)sender;
+- (BOOL)interpretKeyStrokeBackspace:(id)sender;
 @end 
 @implementation iTM2ConTeXtManualsTableView
 #pragma mark =-=-=-=-=-  KEY BINDINGS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
--(id)keyBindingsManager;
+- (id)keyBindingsManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -761,7 +761,7 @@ To Do List:
 						handleKeyStrokes: [self handlesKeyStrokes]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
--(BOOL)handlesKeyBindings;
+- (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -772,7 +772,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -784,7 +784,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeDelete:
--(BOOL)interpretKeyStrokeDelete:(id)sender;
+- (BOOL)interpretKeyStrokeDelete:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -796,7 +796,7 @@ To Do List:
     return [self interpretKeyStrokeBackspace: (id) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeBackspace:
--(BOOL)interpretKeyStrokeBackspace:(id)sender;
+- (BOOL)interpretKeyStrokeBackspace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005

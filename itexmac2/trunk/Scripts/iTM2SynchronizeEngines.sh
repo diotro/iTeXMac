@@ -40,7 +40,7 @@ IFS='
 '
 iTM2_TARGETS="`find . -regex ".*/build/[^/]*\.iTM2" -print`"
 popd
-echo "${iTM2_TARGETS}"
+echo "...${iTM2_TARGETS}"
 for iTM2_VAR in ${iTM2_TARGETS}
 do
 	rm -Rf "${iTM2_PLUGINS_FOLDER_PATH}/${iTM2_VAR}"

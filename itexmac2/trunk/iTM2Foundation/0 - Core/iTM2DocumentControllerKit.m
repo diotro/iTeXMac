@@ -43,7 +43,7 @@
 
 @implementation NSDocumentController(iTeXMac2Kit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:force:
--(BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -58,7 +58,7 @@ To Do List:
 
 @implementation iTM2DocumentController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
--(id)init;
+- (id)init;
 /*"Designated intializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -73,7 +73,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -88,7 +88,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -99,7 +99,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -115,9 +115,9 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveAllDocumentsWithDelegate:didSaveSelector:contextInfo:
--(void)saveAllDocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
+- (void)saveAllDocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
 /*"Call back must have the following signature:
--(void)documentController:(id)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
+- (void)documentController:(id)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
 - 2.0: 03/10/2002
 To Do List: to be improved... to allow different signature
@@ -147,9 +147,9 @@ To Do List: to be improved... to allow different signature
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _fakeDocumentController:didSaveAll:contextInfo:
--(void)_fakeDocumentController:(id)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
+- (void)_fakeDocumentController:(id)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 /*"Call back must have the following signature:
--(void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
+- (void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
 - 2.0: 03/10/2002
 To Do List: to be improved...
@@ -159,7 +159,7 @@ To Do List: to be improved...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openDocumentWithContentsOfFile:displayPageForLine:column:source:withHint:orderFront:
--(id)openDocumentWithContentsOfFile:(NSString *)fileName displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (id)openDocumentWithContentsOfFile:(NSString *)fileName displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"This is the answer to the notification sent by the "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/06/2003
@@ -195,7 +195,7 @@ To Do List: see the warning below
 }
 #pragma mark =-=-=-=-=-  OVERRIDE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addDocument:
--(void)addDocument:(NSDocument *)document;
+- (void)addDocument:(NSDocument *)document;
 /*"Description Forthcoming. Ghost documents are not added.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -216,7 +216,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= noteNewRecentDocument:
--(void)noteNewRecentDocument:(NSDocument *)document;
+- (void)noteNewRecentDocument:(NSDocument *)document;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -243,9 +243,9 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  closeAllDocumentsWithDelegate:didCloseAllSelector:contextInfo:
--(void)closeAllDocumentsWithDelegate:(id)delegate didCloseAllSelector:(SEL)didAllCloseSelector contextInfo:(void *)contextInfo;
+- (void)closeAllDocumentsWithDelegate:(id)delegate didCloseAllSelector:(SEL)didAllCloseSelector contextInfo:(void *)contextInfo;
 /*"Call back must have the following signature:
--(void)documentController:(id)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
+- (void)documentController:(id)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
 - 2.0: 03/10/2002
 To Do List: to be improved... to allow different signature
@@ -264,7 +264,7 @@ To Do List: to be improved... to allow different signature
 #pragma mark =-=-=-=-=-  Plug-Ins support
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentClassNames
--(NSArray *)documentClassNames;
+- (NSArray *)documentClassNames;
 /*"Description Forthcoming
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -280,7 +280,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentClassNameForTypeDictionary;
--(NSDictionary *)documentClassNameForTypeDictionary;
+- (NSDictionary *)documentClassNameForTypeDictionary;
 /*"Description Forthcoming
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -423,7 +423,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentClassForType:
--(Class)documentClassForType:(NSString *)documentTypeName;
+- (Class)documentClassForType:(NSString *)documentTypeName;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -440,7 +440,7 @@ To Do List:
 }
 #warning THIS IS A BUG CATCHER!!! What bug man? Sometimes the document is not opened with the expected class...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  typeFromFileExtensionDictionary
--(NSDictionary *)typeFromFileExtensionDictionary;
+- (NSDictionary *)typeFromFileExtensionDictionary;
 /*"On n'est jamais si bien servi que par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -521,7 +521,7 @@ To Do List:
     return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  typeFromFileExtension:
--(NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType;
+- (NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType;
 /*"On n'est jamais si bien servi que par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -539,7 +539,7 @@ To Do List:
 
 @implementation NSDocument(iTM2DocumentControllerKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument
--(id)newRecentDocument;
+- (id)newRecentDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -551,7 +551,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayLine:column:withHint:orderFront:
--(BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -563,7 +563,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:force:
--(BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -575,7 +575,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzle_readableTypes
-+(NSArray *)iTM2_swizzle_readableTypes;
++ (NSArray *)iTM2_swizzle_readableTypes;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -589,7 +589,7 @@ To Do List:
 @end
 
 @interface NSMenu(iTM2OpenQuicklyMenu)
--(unsigned int)_completeWithCurrentDirectoryContentsForDepth:(unsigned int)depth limit:(unsigned int)limit;
+- (unsigned int)_completeWithCurrentDirectoryContentsForDepth:(unsigned int)depth limit:(unsigned int)limit;
 @end
 
 NSString * const iTM2OpenQuicklyCountKey = @"iTM2:OpenQuicklyCount";
@@ -601,12 +601,12 @@ NSString * const iTM2OpenQuicklyCachedKey = @"iTM2:OpenQuicklyCached";
 #import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
 
 @interface NSMenu(DocumentController)
--(unsigned int)_completeWithDirectoryContentsAtPath:(NSString *)cdp forDepth:(unsigned int)depth limit:(unsigned int)limit;
+- (unsigned int)_completeWithDirectoryContentsAtPath:(NSString *)cdp forDepth:(unsigned int)depth limit:(unsigned int)limit;
 @end
 
 @implementation iTM2MainInstaller(OpenQuicklyMenu)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2OpenQuicklyMenuCompleteInstallation
-+(void)iTM2OpenQuicklyMenuCompleteInstallation;
++ (void)iTM2OpenQuicklyMenuCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/21/2003
@@ -625,7 +625,7 @@ static NSMenuItem * _iTM2OpenQuicklyTextMenuItem = nil;
 static NSMenuItem * _iTM2OpenQuicklyGfxMenuItem = nil;
 static NSMenuItem * _iTM2OpenQuicklyOtherMenuItem = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/21/2003
@@ -673,7 +673,7 @@ To Do List: retain?
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  update
--(void)update;
+- (void)update;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/21/2003
@@ -709,7 +709,7 @@ To Do List: retain?
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _action:
-+(void)_action:(id)sender;
++ (void)_action:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/21/2003
@@ -725,7 +725,7 @@ To Do List: retain?
 
 @implementation NSMenu(DocumentController)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _completeWithDirectoryContentsAtPath:forDepth:limit:
--(unsigned int)_completeWithDirectoryContentsAtPath:(NSString *)cdp forDepth:(unsigned int)depth limit:(unsigned int)limit;
+- (unsigned int)_completeWithDirectoryContentsAtPath:(NSString *)cdp forDepth:(unsigned int)depth limit:(unsigned int)limit;
 /*"Description Forthcoming. ".hidden" files compatible.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -901,12 +901,12 @@ To Do List: retain?
 
 #pragma mark =-=-=-=-=-  GHOST DOCUMENT
 @implementation iTM2GhostDocument
--(BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 {iTM2_DIAGNOSTIC;
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument
--(id)newRecentDocument;
+- (id)newRecentDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

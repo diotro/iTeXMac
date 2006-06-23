@@ -57,7 +57,7 @@ NSString * const iTM2SpellKitTable = @"Spell";
 
 @implementation iTM2SpellContext
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -73,7 +73,7 @@ To Do List:
    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  init
--(id)init;
+- (id)init;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -90,7 +90,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
--(BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -122,7 +122,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadPropertyListRepresentation:
--(BOOL)loadPropertyListRepresentation:(id)PL;
+- (BOOL)loadPropertyListRepresentation:(id)PL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -151,7 +151,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  propertyListRepresentation
--(id)propertyListRepresentation;
+- (id)propertyListRepresentation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -170,7 +170,7 @@ To Do List:
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:error:
--(BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -202,7 +202,7 @@ To Do List:
     return [D writeToURL:fileURL options:NSAtomicWrite error:outError];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -216,7 +216,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tag
--(int)tag;
+- (int)tag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -227,7 +227,7 @@ To Do List:
     return ivarTag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellLanguage
--(NSString *)spellLanguage;
+- (NSString *)spellLanguage;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -238,7 +238,7 @@ To Do List:
     return ivarLanguage;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellLanguage:
--(void)setSpellLanguage:(NSString *)argument;
+- (void)setSpellLanguage:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -260,7 +260,7 @@ To Do List:
    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  ignoredWords
--(NSArray *)ignoredWords;
+- (NSArray *)ignoredWords;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -271,7 +271,7 @@ To Do List:
     return ivarIgnoredWords;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setIgnoredWords:
--(void)setIgnoredWords:(NSArray *)argument;
+- (void)setIgnoredWords:(NSArray *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -298,7 +298,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  replaceIgnoredWords:
--(void)replaceIgnoredWords:(NSArray *)argument;
+- (void)replaceIgnoredWords:(NSArray *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -315,7 +315,7 @@ To Do List:
 
 @implementation NSWindow(iTM2SpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
--(id)spellContextController;
+- (id)spellContextController;
 /*"Asks a delegate for a non empty #{spellContextController}.
 The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -330,7 +330,7 @@ To Do List:
 
 @implementation NSWindowController(iTM2SpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
--(id)spellContextController;
+- (id)spellContextController;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -349,7 +349,7 @@ To Do List:
 
 @implementation NSObject(iTM2SpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
--(id)spellContextController;
+- (id)spellContextController;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -363,8 +363,8 @@ To Do List:
 
 
 @interface NSSpellChecker(iTeXMac2)
--(void)updateGuessesList;
--(NSButton *)guessButton;
+- (void)updateGuessesList;
+- (NSButton *)guessButton;
 @end
 
 @interface NSSpellChecker_iTeXMac2: NSSpellChecker
@@ -377,7 +377,7 @@ To Do List:
 
 @implementation NSTextView_iTM2SpellKit: NSTextView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellCheckerDocumentTag
--(int)spellCheckerDocumentTag;
+- (int)spellCheckerDocumentTag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -389,7 +389,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSelectedRange:affinity:stillSelecting:
--(void)setSelectedRange:(NSRange)charRange affinity:(NSSelectionAffinity)affinity stillSelecting:(BOOL)stillSelectingFlag;
+- (void)setSelectedRange:(NSRange)charRange affinity:(NSSelectionAffinity)affinity stillSelecting:(BOOL)stillSelectingFlag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -412,7 +412,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContinuousSpellCheckingEnabled:
--(void)setContinuousSpellCheckingEnabled:(BOOL)flag;
+- (void)setContinuousSpellCheckingEnabled:(BOOL)flag;
 /*"Default implementation does nothing.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -427,7 +427,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContinuousSpellChecking:
--(IBAction)toggleContinuousSpellChecking:(id)sender;
+- (IBAction)toggleContinuousSpellChecking:(id)sender;
 /*"Default implementation does nothing.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -442,7 +442,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
--(void)contextDidChange;
+- (void)contextDidChange;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 04/04/2002
@@ -458,17 +458,17 @@ To Do List: ...
 @end
 
 @interface iTM2SpellContextController(iTM2SpellKit)
-+(void)_writeToUserDefaults;
-+(void)completeInitialization;
++ (void)_writeToUserDefaults;
++ (void)completeInitialization;
 @end
 
 @interface iTM2SpellCheckerHelper(PRIVATE0)
--(void)_1stResponderMightHaveChanged:(id)irrelevant;
+- (void)_1stResponderMightHaveChanged:(id)irrelevant;
 @end
 
 @implementation iTM2MainInstaller(iTM2SpellContextController)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextControllerCompleteInstallation
-+(void)spellContextControllerCompleteInstallation;
++ (void)spellContextControllerCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -484,7 +484,7 @@ To Do List:
 @implementation iTM2SpellContextController
 static id _iTM2SpellContextController = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInitialization
-+(void)completeInitialization;
++ (void)completeInitialization;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -523,7 +523,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _applicationWillTerminateNotified:
-+(void)_applicationWillTerminateNotified:(NSNotification *)notification;
++ (void)_applicationWillTerminateNotified:(NSNotification *)notification;
 /*"Designated intializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -538,7 +538,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _writeToUserDefaults
-+(void)_writeToUserDefaults;
++ (void)_writeToUserDefaults;
 /*"Designated intializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -564,7 +564,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  defaultSpellContextController
-+(id)defaultSpellContextController;
++ (id)defaultSpellContextController;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -575,7 +575,7 @@ To Do List:
     return _iTM2SpellContextController;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -599,7 +599,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Spell modes management
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  addSpellMode:
--(BOOL)addSpellMode:(NSString *)mode;
+- (BOOL)addSpellMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -621,7 +621,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  removeSpellMode:
--(BOOL)removeSpellMode:(NSString *)mode;
+- (BOOL)removeSpellMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -640,7 +640,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextModesEnumerator
--(NSEnumerator *)spellContextModesEnumerator;
+- (NSEnumerator *)spellContextModesEnumerator;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -651,7 +651,7 @@ To Do List:
     return [[[self spellContexts] allKeys] objectEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextModeForText:
--(NSString *)spellContextModeForText:(NSText *)text;
+- (NSString *)spellContextModeForText:(NSText *)text;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -670,7 +670,7 @@ To Do List:
     return mode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextMode:forText:
--(void)setSpellContextMode:(NSString *)mode forText:(id)text;
+- (void)setSpellContextMode:(NSString *)mode forText:(id)text;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -683,7 +683,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyNameForText:
--(NSString *)spellPrettyNameForText:(NSText *)text;
+- (NSString *)spellPrettyNameForText:(NSText *)text;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -695,7 +695,7 @@ To Do List:
     return D? [D displayName]:[[text window] title];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextForMode:
--(id)spellContextForMode:(NSString *)mode;
+- (id)spellContextForMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -724,7 +724,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContext:forMode:
--(void)setSpellContext:(id)newContext forMode:(NSString *)mode;
+- (void)setSpellContext:(id)newContext forMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -739,7 +739,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContexts
--(id)spellContexts;
+- (id)spellContexts;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -750,7 +750,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContexts:
--(void)setSpellContexts:(id)newContexts;
+- (void)setSpellContexts:(id)newContexts;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -764,7 +764,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  propertyListRepresentation
--(id)propertyListRepresentation;
+- (id)propertyListRepresentation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -783,7 +783,7 @@ To Do List:
     return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadPropertyListRepresentation:
--(BOOL)loadPropertyListRepresentation:(id)PL;
+- (BOOL)loadPropertyListRepresentation:(id)PL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -823,7 +823,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isEdited
--(BOOL)isEdited;
+- (BOOL)isEdited;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -834,7 +834,7 @@ To Do List:
     return [[[self implementation] metaValueForKey:@"ChangeCount"] intValue] != 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  updateChangeCount
--(void)updateChangeCount:(NSDocumentChangeType)change;
+- (void)updateChangeCount:(NSDocumentChangeType)change;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -861,7 +861,7 @@ To Do List:
 
 @implementation iTM2IgnoredWordsWindow 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameIdentifier
--(NSString *)frameIdentifier;
+- (NSString *)frameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -873,7 +873,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayIfNeeded
--(void)displayIfNeeded;
+- (void)displayIfNeeded;
 /*"Returns the contextManager of its window controller.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -898,25 +898,25 @@ To Do List:
     NSMutableArray *	iVarIgnoredWords;
     int			iVarSpellDocumentTag;
 }
-+(id)sharedEditor;
--(BOOL)addIgnoredWord:(NSString *)argument;
--(BOOL)smartReplaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
--(BOOL)replaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
--(NSMutableArray *)ignoredWords;
--(void)setIgnoredWords:(NSArray *)argument;
--(void)setCurrentText:(NSText *)currentText;
++ (id)sharedEditor;
+- (BOOL)addIgnoredWord:(NSString *)argument;
+- (BOOL)smartReplaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
+- (BOOL)replaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
+- (NSMutableArray *)ignoredWords;
+- (void)setIgnoredWords:(NSArray *)argument;
+- (void)setCurrentText:(NSText *)currentText;
 @end
 
 #import <iTM2Foundation/iTM2ValidationKit.h>
 
 @interface NSText(iTM2SpellKit0)
--(int)spellCheckerDocumentTag;
+- (int)spellCheckerDocumentTag;
 @end
 
 @implementation _iTM2IgnoredWordsEditor
 static id _iTM2SpellIgnoredWordsEditor = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  sharedEditor
-+(id)sharedEditor;
++ (id)sharedEditor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -933,7 +933,7 @@ To Do List:
     return _iTM2SpellIgnoredWordsEditor;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Creating a new entry in the ignored words list.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -952,7 +952,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -966,7 +966,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentText
--(NSText *)currentText;
+- (NSText *)currentText;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -977,7 +977,7 @@ To Do List:
     return [iVarCurrentTextRef nonretainedObjectValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentText:
--(void)setCurrentText:(NSText *)currentText;
+- (void)setCurrentText:(NSText *)currentText;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1006,7 +1006,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  MESSAGING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  new:
--(void)new:(id)sender;
+- (void)new:(id)sender;
 /*"Creating a new entry in the ignored words list.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1038,7 +1038,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  ok:
--(void)ok:(id)sender;
+- (void)ok:(id)sender;
 /*"Message sent when all is finished.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1056,7 +1056,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  cancel:
--(void)cancel:(id)sender;
+- (void)cancel:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1070,7 +1070,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  check:
--(void)check:(id)sender;
+- (void)check:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1083,7 +1083,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  UI Validation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  projectNameEdited:
--(IBAction)projectNameEdited:(id)sender;
+- (IBAction)projectNameEdited:(id)sender;
 /*"Just a message catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1094,7 +1094,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateProjectNameEdited:
--(BOOL)validateProjectNameEdited:(id)sender;
+- (BOOL)validateProjectNameEdited:(id)sender;
 /*"Catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1110,7 +1110,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  modeNameEdited:
--(IBAction)modeNameEdited:(id)sender;
+- (IBAction)modeNameEdited:(id)sender;
 /*"Just a message catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1121,7 +1121,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateModeNameEdited:
--(BOOL)validateModeNameEdited:(id)sender;
+- (BOOL)validateModeNameEdited:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1136,7 +1136,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  numberOfIgnoredWordsEdited:
--(IBAction)numberOfIgnoredWordsEdited:(id)sender;
+- (IBAction)numberOfIgnoredWordsEdited:(id)sender;
 /*"Just a message catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1147,7 +1147,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateNumberOfIgnoredWordsEdited:
--(BOOL)validateNumberOfIgnoredWordsEdited:(id)sender;
+- (BOOL)validateNumberOfIgnoredWordsEdited:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1166,7 +1166,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  TABLE VIEW MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setTableView:
--(void)setTableView:(NSTableView *)tableView;
+- (void)setTableView:(NSTableView *)tableView;
 /*"Description forthcoming. Passive delegate.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1187,7 +1187,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  numberOfRowsInTableView:
--(int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (int)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description forthcoming. Passive delegate.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1198,7 +1198,7 @@ To Do List:
     return [iVarIgnoredWords count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableView:objectValueForTableColumn:row:
--(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1209,7 +1209,7 @@ To Do List:
     return ((row>-1) && ((row<[iVarIgnoredWords count]))? [iVarIgnoredWords objectAtIndex:row]:@"?");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableView:setObjectValue:forTableColumn:row:
--(void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1237,7 +1237,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  removeSelectedRowsInTableView:
--(void)removeSelectedRowsInTableView:(NSTableView *)TV;
+- (void)removeSelectedRowsInTableView:(NSTableView *)TV;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1258,7 +1258,7 @@ To Do List:
     [self validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableViewSelectionDidChange:
--(void)tableViewSelectionDidChange:(NSNotification *)notification;
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1273,7 +1273,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableView:shouldEditTableColumn:tableColumn row:
--(BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1286,32 +1286,32 @@ To Do List:
 // optional
 
 // optional - drag and drop support
--(BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
+- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
     // This method is called after it has been determined that a drag should begin, but before the drag has been started.  To refuse the drag, return NO.  To start a drag, return YES and place the drag data onto the pasteboard (data, owner, etc...).  The drag image and other drag related information will be set up and provided by the table view once this call returns with YES.  The rows array is the list of row numbers that will be participating in the drag.
 
--(NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
     // This method is used by NSTableView to determine a valid drop target.  Based on the mouse position, the table view will suggest a proposed drop location.  This method must return a value that indicates which dragging operation the data source will perform.  The data source may "re-target" a drop if desired by calling setDropRow:dropOperation: and returning something other than NSDragOperationNone.  One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
 
--(BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
+- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
     // This method is called when the mouse is released over an outline view that previously decided to allow a drop via the validateDrop method.  The data source should incorporate the data from the dragging pasteboard at this time.
 
 
 
--(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
--(BOOL)selectionShouldChangeInTableView:(NSTableView *)aTableView;
--(BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row;
--(BOOL)tableView:(NSTableView *)tableView shouldSelectTableColumn:(NSTableColumn *)tableColumn;
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (BOOL)selectionShouldChangeInTableView:(NSTableView *)aTableView;
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row;
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectTableColumn:(NSTableColumn *)tableColumn;
 
--(void)tableView:(NSTableView*)tableView mouseDownInHeaderOfTableColumn:(NSTableColumn *)tableColumn;
--(void)tableView:(NSTableView*)tableView didClickTableColumn:(NSTableColumn *)tableColumn;
--(void)tableView:(NSTableView*)tableView didDragTableColumn:(NSTableColumn *)tableColumn;
--(void)tableViewColumnDidMove:(NSNotification *)notification;
--(void)tableViewColumnDidResize:(NSNotification *)notification;
--(void)tableViewSelectionIsChanging:(NSNotification *)notification;
+- (void)tableView:(NSTableView*)tableView mouseDownInHeaderOfTableColumn:(NSTableColumn *)tableColumn;
+- (void)tableView:(NSTableView*)tableView didClickTableColumn:(NSTableColumn *)tableColumn;
+- (void)tableView:(NSTableView*)tableView didDragTableColumn:(NSTableColumn *)tableColumn;
+- (void)tableViewColumnDidMove:(NSNotification *)notification;
+- (void)tableViewColumnDidResize:(NSNotification *)notification;
+- (void)tableViewSelectionIsChanging:(NSNotification *)notification;
 #endif
 #pragma mark =-=-=-=-=-  MANAGING WORDS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isWellFormedWord:
--(BOOL)isWellFormedWord:(NSString *)argument;
+- (BOOL)isWellFormedWord:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1327,7 +1327,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isMisspelledWord:
--(BOOL)isMisspelledWord:(NSString *)argument;
+- (BOOL)isMisspelledWord:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1344,7 +1344,7 @@ To Do List:
     return R.location != NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  smartAddIgnoredWord:
--(BOOL)smartAddIgnoredWord:(NSString *)argument;
+- (BOOL)smartAddIgnoredWord:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1355,7 +1355,7 @@ To Do List:
     return [self isWellFormedWord:argument] && [self isMisspelledWord:argument] && [self addIgnoredWord:argument];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  addIgnoredWord:
--(BOOL)addIgnoredWord:(NSString *)argument;
+- (BOOL)addIgnoredWord:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1379,7 +1379,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  removeIgnoredWord:
--(BOOL)removeIgnoredWord:(NSString *)argument;
+- (BOOL)removeIgnoredWord:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1397,7 +1397,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  smartReplaceIgnoredWord:by:
--(BOOL)smartReplaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
+- (BOOL)smartReplaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1409,7 +1409,7 @@ To Do List:
                                 && [self replaceIgnoredWord:oldArgument by:newArgument];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  replaceIgnoredWord:by:
--(BOOL)replaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
+- (BOOL)replaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1429,7 +1429,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  ignoredWords
--(NSMutableArray *)ignoredWords;
+- (NSMutableArray *)ignoredWords;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1440,7 +1440,7 @@ To Do List:
     return iVarIgnoredWords;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setIgnoredWords:
--(void)setIgnoredWords:(NSArray *)argument;
+- (void)setIgnoredWords:(NSArray *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1454,7 +1454,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager:
--(id)contextManager;
+- (id)contextManager;
 /*"Returns the contextManager of its window controller.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -1468,12 +1468,12 @@ To Do List:
 @end
 
 @interface iTM2SpellCheckerHelper(PRIVATE)
--(id)currentText;
--(void)setCurrentText:(id)argument;
--(void)setCurrentSpellLanguage:(NSString *)language;
--(BOOL)isEditing;
--(void)setEditing:(BOOL)yorn;
--(void)delayedSetCurrentSpellLanguage:(NSString *)language;
+- (id)currentText;
+- (void)setCurrentText:(id)argument;
+- (void)setCurrentSpellLanguage:(NSString *)language;
+- (BOOL)isEditing;
+- (void)setEditing:(BOOL)yorn;
+- (void)delayedSetCurrentSpellLanguage:(NSString *)language;
 @end
 
 @interface NSText_iTM2SpellKit: NSText
@@ -1483,7 +1483,7 @@ static id _iTM2SpellCheckerHelper = nil;
 
 @implementation iTM2MainInstaller(SpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellKitCompleteInstallation
-+(void)iTM2SpellKitCompleteInstallation;
++ (void)iTM2SpellKitCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1552,7 +1552,7 @@ To Do List:
 @end
 @implementation iTM2SpellCheckerHelper
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  sharedHelper
-+(id)sharedHelper;
++ (id)sharedHelper;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1563,7 +1563,7 @@ To Do List:
 	return _iTM2SpellCheckerHelper;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initWithWindow:
--(id)initWithWindow:(NSWindow *)window;
+- (id)initWithWindow:(NSWindow *)window;
 /*"One instance can be created.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1600,7 +1600,7 @@ To Do List:
     return _iTM2SpellCheckerHelper = self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1612,7 +1612,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1623,7 +1623,7 @@ To Do List:
     return _iVarPrivateImplementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1640,7 +1640,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1654,7 +1654,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  textDidEndEditingNotified:
--(void)textDidEndEditingNotified:(NSNotification *)notification;
+- (void)textDidEndEditingNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1688,7 +1688,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _windowWillCloseOrDidResignKeyNotified:
--(void)_windowWillCloseOrDidResignKeyNotified:(NSNotification *)notification;
+- (void)_windowWillCloseOrDidResignKeyNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1729,7 +1729,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _windowDidBecomeKeyNotified:
--(void)_windowDidBecomeKeyNotified:(NSNotification *)notification;
+- (void)_windowDidBecomeKeyNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1796,7 +1796,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  textDidBecomeFirstResponder:
--(void)textDidBecomeFirstResponder:(id)newText;
+- (void)textDidBecomeFirstResponder:(id)newText;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1848,7 +1848,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentText
--(id)currentText;
+- (id)currentText;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1860,7 +1860,7 @@ To Do List:
 	return [metaGETTER nonretainedObjectValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentText:
--(void)setCurrentText:(id)argument;
+- (void)setCurrentText:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1879,7 +1879,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isEditing
--(BOOL)isEditing;
+- (BOOL)isEditing;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1891,7 +1891,7 @@ To Do List:
 	return [metaGETTER boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setEditing:
--(void)setEditing:(BOOL)yorn;
+- (void)setEditing:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1904,7 +1904,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delayedSetCurrentSpellLanguage:
--(void)delayedSetCurrentSpellLanguage:(NSString *)language;
+- (void)delayedSetCurrentSpellLanguage:(NSString *)language;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1917,7 +1917,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentSpellLanguage:
--(void)setCurrentSpellLanguage:(NSString *)language;
+- (void)setCurrentSpellLanguage:(NSString *)language;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1971,7 +1971,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _1stResponderMightHaveChanged:
--(void)_1stResponderMightHaveChanged:(id)irrelevant;
+- (void)_1stResponderMightHaveChanged:(id)irrelevant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1985,7 +1985,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  synchronizeWithCurrentText
--(void)synchronizeWithCurrentText;
+- (void)synchronizeWithCurrentText;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2022,7 +2022,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellCheckerAccessoryView
--(NSView *)spellCheckerAccessoryView;
+- (NSView *)spellCheckerAccessoryView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2033,7 +2033,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellCheckerAccessoryView
--(void)setSpellCheckerAccessoryView:(NSView *)view;
+- (void)setSpellCheckerAccessoryView:(NSView *)view;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2048,7 +2048,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateWindowContent
--(BOOL)validateWindowContent;
+- (BOOL)validateWindowContent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2061,7 +2061,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  GUI Validation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  projectNameEdited:
--(IBAction)projectNameEdited:(id)sender;
+- (IBAction)projectNameEdited:(id)sender;
 /*"Catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2072,7 +2072,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateProjectNameEdited:
--(BOOL)validateProjectNameEdited:(id)sender;
+- (BOOL)validateProjectNameEdited:(id)sender;
 /*"Catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2087,7 +2087,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  textNameEdited:
--(IBAction)textNameEdited:(id)sender;
+- (IBAction)textNameEdited:(id)sender;
 /*"Catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2098,7 +2098,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateTextNameEdited:
--(BOOL)validateTextNameEdited:(id)sender;
+- (BOOL)validateTextNameEdited:(id)sender;
 /*"Catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2132,7 +2132,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  GUI messages
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectMode:
--(IBAction)selectMode:(id)sender;
+- (IBAction)selectMode:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2159,7 +2159,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateSelectMode:
--(BOOL)validateSelectMode:(id)sender;
+- (BOOL)validateSelectMode:(id)sender;
 /*"Message catcher.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2228,7 +2228,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  newMode:
--(void)newMode:(id)sender;
+- (void)newMode:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2255,7 +2255,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  takeSpellingModeFromRepresentedObject:
--(void)takeSpellingModeFromRepresentedObject:(id)sender;
+- (void)takeSpellingModeFromRepresentedObject:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2296,7 +2296,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateMenuItem:
--(BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2316,7 +2316,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  removeSpellingModeFromRepresentedObject:
--(void)removeSpellingModeFromRepresentedObject:(id)sender;
+- (void)removeSpellingModeFromRepresentedObject:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2330,7 +2330,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  editIgnoredWords:
--(void)editIgnoredWords:(id)sender;
+- (void)editIgnoredWords:(id)sender;
 /*"Description forthcoming. Passive delegate.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2365,7 +2365,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  New mode GUI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  newModeEdited:
--(void)newModeEdited:(id)sender;
+- (void)newModeEdited:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2387,7 +2387,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  newModeCancelled:
--(void)newModeCancelled:(id)sender;
+- (void)newModeCancelled:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2401,13 +2401,13 @@ To Do List:
 @end
 
 @interface NSObject(iTM2SpellKit_PRIVATE_2)
--(void)removeSelectedRowsInTableView:(NSTableView *)tableView;
+- (void)removeSelectedRowsInTableView:(NSTableView *)tableView;
 @end
 @interface iTM2IgnoredWordsTableView: NSTableView
 @end
 @implementation iTM2IgnoredWordsTableView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  keyDown:
--(void)keyDown:(NSEvent *)theEvent;
+- (void)keyDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2427,7 +2427,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  drawRow:clipRect:
--(void)drawRow:(int)row clipRect:(NSRect)theRect;
+- (void)drawRow:(int)row clipRect:(NSRect)theRect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2447,7 +2447,7 @@ To Do List:
 
 @implementation NSSpellChecker(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delayedUpdateGuessesList
--(void)delayedUpdateGuessesList;
+- (void)delayedUpdateGuessesList;
 /*"Crash if we do not use a delayed design.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2461,7 +2461,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  updateGuessesList
--(void)updateGuessesList;
+- (void)updateGuessesList;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2478,7 +2478,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  guessButton
--(NSButton *)guessButton;
+- (NSButton *)guessButton;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2495,7 +2495,7 @@ To Do List:
     return (NSButton *)button;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentText
--(id)currentText;
+- (id)currentText;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2512,7 +2512,7 @@ To Do List:
 #warning DEBUG
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setLanguage:
--(BOOL)setLanguage:(NSString *)language;
+- (BOOL)setLanguage:(NSString *)language;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2532,7 +2532,7 @@ To Do List:
 #endif
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkSpellingOfString:startingAt:language:wrap:inSpellDocumentWithTag:wordCount:
--(NSRange)checkSpellingOfString:(NSString *)stringToCheck startingAt:(int)startingOffset language:(NSString *)language wrap:(BOOL)wrapFlag inSpellDocumentWithTag:(int)tag wordCount:(int *)wordCount;
+- (NSRange)checkSpellingOfString:(NSString *)stringToCheck startingAt:(int)startingOffset language:(NSString *)language wrap:(BOOL)wrapFlag inSpellDocumentWithTag:(int)tag wordCount:(int *)wordCount;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2551,7 +2551,7 @@ To Do List:
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkSpellingOfString:startingAt:
--(NSRange)checkSpellingOfString:(NSString *)stringToCheck startingAt:(int)startingOffset;
+- (NSRange)checkSpellingOfString:(NSString *)stringToCheck startingAt:(int)startingOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 1.0.3 improved for check spelling as you type.
@@ -2569,16 +2569,16 @@ To Do List:
 @end
 
 @interface NSText(iTM2SpellKit_PRIVATE)
--(int)spellCheckerDocumentTag;
+- (int)spellCheckerDocumentTag;
 @end
 
 @interface NSObject(iTM2SpellKit_PRIVATE)
--(void)textDidBecomeFirstResponder:(id)sender;
+- (void)textDidBecomeFirstResponder:(id)sender;
 @end
 
 @implementation NSText_iTM2SpellKit: NSText
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2592,7 +2592,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  becomeFirstResponder
--(BOOL)becomeFirstResponder;
+- (BOOL)becomeFirstResponder;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2609,7 +2609,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
--(id)spellContextController;
+- (id)spellContextController;
 /*"Asks a delegate for a non empty #{spellContextController}.
 The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2621,7 +2621,7 @@ To Do List:
     return [[self window] spellContextController];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellKit_NSText_Catcher
--(void)iTM2SpellKit_NSText_Catcher:(id)irrelevant;
+- (void)iTM2SpellKit_NSText_Catcher:(id)irrelevant;
 /*"Asks a delegate for a non empty #{spellContextController}.
 The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2633,7 +2633,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextMode
--(NSString *)spellContextMode;
+- (NSString *)spellContextMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2645,7 +2645,7 @@ To Do List:
     return [[self spellContextController] spellContextModeForText:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyName
--(NSString *)spellPrettyName;
+- (NSString *)spellPrettyName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2657,7 +2657,7 @@ To Do List:
     return [[self spellContextController] spellPrettyNameForText:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectName
--(NSString *)spellPrettyProjectName;
+- (NSString *)spellPrettyProjectName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2668,7 +2668,7 @@ To Do List:
     return [[self spellContextController] spellPrettyProjectNameForText:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext
--(iTM2SpellContext *)spellContext;
+- (iTM2SpellContext *)spellContext;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2680,7 +2680,7 @@ To Do List:
     return [[self spellContextController] spellContextForMode:[self spellContextMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextMode:
--(void)setSpellContextMode:(NSString *)mode;
+- (void)setSpellContextMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2693,7 +2693,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellCheckerDocumentTag
--(int)spellCheckerDocumentTag;
+- (int)spellCheckerDocumentTag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2709,16 +2709,16 @@ To Do List:
 @interface NSTextView__iTM2SpellKit_PRIVATE: NSTextView
 @end
 @implementation NSTextView__iTM2SpellKit_PRIVATE
-+(void)load;
++ (void)load;
 {iTM2_DIAGNOSTIC;
 	[self poseAsClass:[NSTextView class]];
 }
--(void)showGuessPanel:(id)sender;
+- (void)showGuessPanel:(id)sender;
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super showGuessPanel:(id)sender];
 }
--(void)checkSpelling:(id)sender;
+- (void)checkSpelling:(id)sender;
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super checkSpelling:(id)sender];
@@ -2732,12 +2732,12 @@ To Do List:
 @interface NSObject_iTM2SpellKit: NSObject
 @end
 @implementation NSObject_iTM2SpellKit
-+(void)load;
++ (void)load;
 {iTM2_DIAGNOSTIC;
 	[self poseAsClass:[NSObject class]];
 	return;
 }
--(id)autorelease;
+- (id)autorelease;
 {iTM2_DIAGNOSTIC;
 	return [super autorelease];
 }

@@ -33,7 +33,7 @@ void _objc_flush_caches (Class cls);
 @interface NSObject_iTM2RuntimeBrowser: NSObject
 @end
 @implementation NSObject_iTM2RuntimeBrowser: NSObject
-+(void)poseAsClass:(Class)aClass;
++ (void)poseAsClass:(Class)aClass;
 {iTM2_DIAGNOSTIC;
 	[super poseAsClass:aClass];
 	[iTM2RuntimeBrowser cleanCache];
@@ -42,7 +42,7 @@ void _objc_flush_caches (Class cls);
 @end
 @implementation NSObject(iTM2RuntimeBrowser)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_noop
-+(void)iTM2_noop;
++ (void)iTM2_noop;
 /*"Designated Initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -56,7 +56,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_noop
--(void)iTM2_noop;
+- (void)iTM2_noop;
 /*"Designated Initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -73,7 +73,7 @@ To Do List:
 @implementation iTM2RuntimeBrowser
 static id iTM2RuntimeBrowserDictionary = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -94,7 +94,7 @@ To Do List:
 }
 static NSMutableArray * _DelayedSwizzleInvocations;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -113,7 +113,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  applicationWillFinishLaunchingNotified:
-+(void)applicationWillFinishLaunchingNotified:(NSNotification *)notification;
++ (void)applicationWillFinishLaunchingNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -129,7 +129,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleInstanceMethodSelector:replacement:forClass:
-+(BOOL)swizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
++ (BOOL)swizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -187,7 +187,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleClassMethodSelector:replacement:forClass:
-+(BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
++ (BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -245,7 +245,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  disableInstanceMethodSelector:forClass:
-+(BOOL)disableInstanceMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
++ (BOOL)disableInstanceMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -300,7 +300,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  disableClassMethodSelector:forClass:
-+(BOOL)disableClassMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
++ (BOOL)disableClassMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -355,7 +355,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delaySwizzleInstanceMethodSelector:replacement:forClassName:
-+(void)delaySwizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClassName:(NSString *)aClassName;
++ (void)delaySwizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClassName:(NSString *)aClassName;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -389,7 +389,7 @@ To Do List:
 }
 static NSMutableArray * _DelayedSwizzleInvocations;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delaySwizzleInstanceMethodSelector:replacement:forClassName:
-+(void)delaySwizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClassName:(NSString *)aClassName;
++ (void)delaySwizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClassName:(NSString *)aClassName;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -421,7 +421,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bundleDidLoadNotified:
-+(void)bundleDidLoadNotified:(NSNotification *)notification;
++ (void)bundleDidLoadNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -434,7 +434,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanCache
-+(void)cleanCache;
++ (void)cleanCache;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -459,7 +459,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  allClassReferences
-+(NSArray *)allClassReferences;
++ (NSArray *)allClassReferences;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -496,7 +496,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subclassReferencesOfClass:
-+(NSArray *)subclassReferencesOfClass:(Class)aClass;
++ (NSArray *)subclassReferencesOfClass:(Class)aClass;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -554,7 +554,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isClass:subclassOfClass:
-+(BOOL)isClass:(Class)lhsClass subclassOfClass:(Class)rhsClass;
++ (BOOL)isClass:(Class)lhsClass subclassOfClass:(Class)rhsClass;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -565,7 +565,7 @@ To Do List:
 	return [self isClass:lhsClass subclassOfClassNamed:[NSStringFromClass(rhsClass) lossyCString]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isClass:subclassOfClassNamed:
-+(BOOL)isClass:(Class)target subclassOfClassNamed:(const char *)className;
++ (BOOL)isClass:(Class)target subclassOfClassNamed:(const char *)className;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -580,7 +580,7 @@ To Do List:
 		return [self isClass:target->super_class subclassOfClassNamed:className];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  numberOfClasses
-+(int)numberOfClasses;
++ (int)numberOfClasses;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -590,7 +590,7 @@ To Do List:
 	return [[self allClassReferences] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  instanceSelectorsOfClass:withSuffix:signature:inherited:
-+(NSArray *)instanceSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSArray *)instanceSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -635,7 +635,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  realInstanceSelectorsOfClass:withSuffix:signature:inherited:
-+(NSArray *)realInstanceSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSArray *)realInstanceSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -783,7 +783,7 @@ To Do List:
 	return [NSArray arrayWithArray:SELs];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classSelectorsOfClass:withSuffix:signature:inherited:
-+(NSArray *)classSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSArray *)classSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -828,7 +828,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  realClassSelectorsOfClass:withSuffix:signature:inherited:
-+(NSArray *)realClassSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSArray *)realClassSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -974,7 +974,7 @@ To Do List:
 	return [NSArray arrayWithArray:SELs];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  newSubclassOfClass:withName:
-+(Class)newSubclassOfClass:(Class)superClass withName:(NSString *)name;
++ (Class)newSubclassOfClass:(Class)superClass withName:(NSString *)name;
 /*"Sample code from apple documentation (Tiger).
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:

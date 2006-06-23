@@ -56,7 +56,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		None
     @result		A context manager
 */
--(id)contextManager;
+- (id)contextManager;
 
 /*! 
     @method		currentContextManager
@@ -72,7 +72,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		None
     @result		A context manager
 */
--(id)currentContextManager;
+- (id)currentContextManager;
 
 /*! 
     @method		setContextManager:
@@ -83,7 +83,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		A new context manager
     @result		None
 */
--(void)setContextManager:(id)manager;
+- (void)setContextManager:(id)manager;
 
 /*! 
     @method		updateContextManager
@@ -95,7 +95,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		None
     @result		A context manager
 */
--(void)updateContextManager;
+- (void)updateContextManager;
 
 /*! 
     @method		contextDictionary
@@ -106,7 +106,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		None
     @result		A NSDictionary
 */
--(id)contextDictionary;
+- (id)contextDictionary;
 
 /*! 
     @method		setContextDictionary:
@@ -115,7 +115,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		A new NSDictionary
     @result		None
 */
--(void)setContextDictionary:(id)dictionary;
+- (void)setContextDictionary:(id)dictionary;
 
 /*! 
     @method		contextValueForKey:
@@ -124,7 +124,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(id)contextValueForKey:(NSString *)aKey;
+- (id)contextValueForKey:(NSString *)aKey;
 
 /*! 
     @method		takeContextValue:forKey:
@@ -135,7 +135,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(void)takeContextValue:(id)object forKey:(NSString *)aKey;
+- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
 
 /*! 
     @method		contextFontForKey:
@@ -144,7 +144,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(NSFont *)contextFontForKey:(NSString *)aKey;
+- (NSFont *)contextFontForKey:(NSString *)aKey;
 
 /*! 
     @method		takeContextFont:forKey:
@@ -154,7 +154,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey;
+- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey;
 
 /*! 
     @method		contextColorForKey:
@@ -163,7 +163,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(NSColor *)contextColorForKey:(NSString *)key;
+- (NSColor *)contextColorForKey:(NSString *)key;
 
 /*! 
     @method		takeContextColor:forKey:
@@ -173,7 +173,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(void)takeContextColor:(NSColor *)value forKey:(NSString *)key;
+- (void)takeContextColor:(NSColor *)value forKey:(NSString *)key;
 
 /*! 
     @method		contextStringForKey:
@@ -182,7 +182,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(NSString *)contextStringForKey:(NSString *)key;
+- (NSString *)contextStringForKey:(NSString *)key;
 
 /*! 
     @method		contextArrayForKey:
@@ -191,7 +191,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(NSArray *)contextArrayForKey:(NSString *)key;
+- (NSArray *)contextArrayForKey:(NSString *)key;
 
 /*! 
     @method		contextDictionaryForKey:
@@ -200,7 +200,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(NSDictionary *)contextDictionaryForKey:(NSString *)key;
+- (NSDictionary *)contextDictionaryForKey:(NSString *)key;
 
 /*! 
     @method		contextDataForKey:
@@ -209,7 +209,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(NSData *)contextDataForKey:(NSString *)key;
+- (NSData *)contextDataForKey:(NSString *)key;
 
 /*! 
     @method		contextStringArrayForKey
@@ -218,7 +218,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(NSArray *)contextStringArrayForKey:(NSString *)key;
+- (NSArray *)contextStringArrayForKey:(NSString *)key;
 
 /*! 
     @method		contextIntegerForKey:
@@ -227,7 +227,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(int)contextIntegerForKey:(NSString *)key; 
+- (int)contextIntegerForKey:(NSString *)key; 
 
 /*! 
     @method		contextFloatForKey:
@@ -236,7 +236,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(float)contextFloatForKey:(NSString *)key; 
+- (float)contextFloatForKey:(NSString *)key; 
 
 /*! 
     @method		contextBoolForKey:
@@ -245,7 +245,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(BOOL)contextBoolForKey:(NSString *)key;  
+- (BOOL)contextBoolForKey:(NSString *)key;  
 
 /*! 
     @method		takeContextInteger:forKey:
@@ -255,7 +255,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(void)takeContextInteger:(int)value forKey:(NSString *)key;
+- (void)takeContextInteger:(int)value forKey:(NSString *)key;
 
 /*! 
     @method		takeContextFloat:forKey:
@@ -265,7 +265,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(void)takeContextFloat:(float)value forKey:(NSString *)key;
+- (void)takeContextFloat:(float)value forKey:(NSString *)key;
 
 /*! 
     @method		takeContextBool:forKey:
@@ -275,7 +275,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
--(void)takeContextBool:(BOOL)value forKey:(NSString *)key;
+- (void)takeContextBool:(BOOL)value forKey:(NSString *)key;
 
 /*! 
     @method     saveContext:
@@ -297,7 +297,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      None
     @result     None
 */
--(void)saveContext:(id)sender;
+- (void)saveContext:(id)sender;
 
 /*! 
     @method     loadContext
@@ -306,7 +306,7 @@ extern NSString * const iTM2ContextTypesKey;
 	@param      None
     @result     None
 */
--(void)loadContext:(id)sender;
+- (void)loadContext:(id)sender;
 
 /*! 
     @method     awakeFromContext
@@ -315,7 +315,7 @@ extern NSString * const iTM2ContextTypesKey;
 	@param      None
     @result     None
 */
--(void)awakeFromContext;
+- (void)awakeFromContext;
 
 /*! 
     @method     contextDidChange
@@ -326,7 +326,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      None
     @result     None
 */
--(void)contextDidChange;
+- (void)contextDidChange;
 
 /*! 
     @method     contextRegistrationNeeded
@@ -341,7 +341,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      None
     @result     yorn
 */
--(BOOL)contextRegistrationNeeded;
+- (BOOL)contextRegistrationNeeded;
 
 @end
 
@@ -354,7 +354,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      key
     @result     A value
 */
--(id)contextValueForKey:(NSString *)key;
+- (id)contextValueForKey:(NSString *)key;
 
 /*! 
     @method     takeContextValue:forKey:
@@ -385,7 +385,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      key is the context value key
     @result     None
 */
--(void)takeContextValue:(id)value forKey:(NSString *)key;
+- (void)takeContextValue:(id)value forKey:(NSString *)key;
 
 /*! 
     @method     documentCompleteSaveContext:
@@ -394,7 +394,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      sender
     @result     None
 */
--(IBAction)documentCompleteSaveContext:(id)sender;
+- (IBAction)documentCompleteSaveContext:(id)sender;
 
 /*! 
     @method     documentCompleteLoadContext:
@@ -403,7 +403,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      sender
     @result     None
 */
--(IBAction)documentCompleteLoadContext:(id)sender;
+- (IBAction)documentCompleteLoadContext:(id)sender;
 
 @end
 

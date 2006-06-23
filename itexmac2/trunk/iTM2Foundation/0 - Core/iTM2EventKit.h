@@ -38,8 +38,8 @@ typedef KeyMap iTM2KeyMap;
 /*"Class methods"*/
 /*"Setters and Getters"*/
 /*"Main methods"*/
-+(BOOL)isAlternateKeyDown;
-+(BOOL)isKeyDown:(char)keyNumber;
++ (BOOL)isAlternateKeyDown;
++ (BOOL)isKeyDown:(char)keyNumber;
 /*"Overriden methods"*/
 @end
 

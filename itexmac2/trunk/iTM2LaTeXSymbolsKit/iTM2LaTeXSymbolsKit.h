@@ -35,7 +35,7 @@
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
--(NSImage *)image;
+- (NSImage *)image;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end
@@ -87,14 +87,14 @@ INTF(iTM2WSZodiacMenu)
     BOOL _Bug;
 }
 /*"Class methods"*/
-+(void)toggleFixSymbolMenuBug:(id)sender;
++ (void)toggleFixSymbolMenuBug:(id)sender;
 /*"Setters and Getters"*/
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end
 
 @interface NSTextView(iTM2SymbolMenu)
--(IBAction)useLaTeXPackage:(id)sender;
+- (IBAction)useLaTeXPackage:(id)sender;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SymbolView
@@ -107,14 +107,14 @@ INTF(iTM2WSZodiacMenu)
 
 @interface iTM2LaTeXSymbolsPanel: NSPanel
 /*"Class methods"*/
-+(id)sharedPanel;
++ (id)sharedPanel;
 /*"Setters and Getters"*/
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end
 
 @interface iTM2SharedResponder(iTM2LaTeXSymbolsKit)
--(IBAction)orderFrontLaTeXSymbolsPanel:(id)sender;
+- (IBAction)orderFrontLaTeXSymbolsPanel:(id)sender;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SymbolKit

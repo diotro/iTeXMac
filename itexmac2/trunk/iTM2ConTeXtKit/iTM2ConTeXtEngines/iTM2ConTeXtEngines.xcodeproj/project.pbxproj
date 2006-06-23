@@ -176,11 +176,11 @@
 		DC5B69DA0A4B6E5C00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		DC5B69DB0A4B6E5C00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69DC0A4B6E5C00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2ConTeXtKit.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit. */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2ConTeXtKit."; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5D6CDF0949A48100EBA96C /* Prepare iTM2ConTeXtKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Prepare iTM2ConTeXtKit-Info.plist"; sourceTree = "<group>"; };
 		DC618FEE093C7BCF0044795A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
 		DC618FF0093C7BCF0044795A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineTeXExec.nib; sourceTree = "<group>"; };
-		DC81AE6E08871B4600943C99 /* iTeXMac2.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AE6E08871B4600943C99 /* iTeXMac2. */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC9815CF092A2FBE0011D8DA /* TeXexec wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TeXexec wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC99E78E0A2456C800F50752 /* Aqua2_Add.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add.tif; sourceTree = "<group>"; };
@@ -222,9 +222,9 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC81AE6E08871B4600943C99 /* iTeXMac2.iTM2 */,
+				DC81AE6E08871B4600943C99 /* iTeXMac2. */,
 				DC9815CF092A2FBE0011D8DA /* TeXexec wrapper.iTM2 */,
-				DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit.iTM2 */,
+				DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit. */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -372,7 +372,7 @@
 			);
 			name = "Prepare iTM2ConTeXtKit";
 			productName = "Prepare iTM2ConTeXtKit";
-			productReference = DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit.iTM2 */;
+			productReference = DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit. */;
 			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
@@ -434,7 +434,7 @@
 			);
 			name = "build iTeXMac2";
 			productName = iTeXMac2;
-			productReference = DC81AE6E08871B4600943C99 /* iTeXMac2.iTM2 */;
+			productReference = DC81AE6E08871B4600943C99 /* iTeXMac2. */;
 			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">

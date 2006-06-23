@@ -56,7 +56,7 @@ NSString * const iTM2DistributionSDictionaryKey = @"PATHs dictionary";
 
 @implementation iTM2MainInstaller(iTM2TeXProjectTaskKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  load;
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -69,7 +69,7 @@ To do list:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  iTM2TeXProjectTaskKitCompleteInstallation;
-+(void)iTM2TeXProjectTaskKitCompleteInstallation;
++ (void)iTM2TeXProjectTaskKitCompleteInstallation;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -251,7 +251,7 @@ NSString * const iTM2DistributionPATHSuffixKey = @"iTM2DistributionPATHSuffix";
 
 @implementation iTM2TeXProjectDocument(TeXDistributionKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXDistributionFixImplementation
--(void)TeXDistributionFixImplementation;
+- (void)TeXDistributionFixImplementation;
 /*"Description forthcoming. Automatically called.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -275,7 +275,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXDistributionCompleteDidReadFromFile:ofType:
--(void)TeXDistributionCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;
+- (void)TeXDistributionCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -288,7 +288,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commonCommandOutputDirectory
--(NSString *)commonCommandOutputDirectory;
+- (NSString *)commonCommandOutputDirectory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -302,12 +302,12 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  DISTRIBUTIONS
 #define DISTRIBUTION(getter, setter)\
--(NSString *)getter;\
+- (NSString *)getter;\
 {\
 	NSString * result = [[[self implementation] iVarDistributionEnvironment] objectForKey:iTM2KeyFromSelector(_cmd)];\
 	return [result length]? result: iTM2DistributionDefault;\
 }\
--(void)setter:(NSString *)argument;\
+- (void)setter:(NSString *)argument;\
 {\
 	if(argument)\
 		[[[self implementation] iVarDistributionEnvironment] setObject:argument forKey:iTM2KeyFromSelector(_cmd)];\
@@ -323,7 +323,7 @@ DISTRIBUTION(TeXMFBinariesPath, setTeXMFBinariesPath)
 DISTRIBUTION(GhostScriptBinariesPath, setGhostScriptBinariesPath)
 #undef DISTRIBUTION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTeXMFBinariesPath
--(NSString *)getTeXMFBinariesPath;
+- (NSString *)getTeXMFBinariesPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -349,7 +349,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTeXMFPath
--(NSString *)getTeXMFPath;
+- (NSString *)getTeXMFPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -375,7 +375,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getGhostScriptBinariesPath
--(NSString *)getGhostScriptBinariesPath;
+- (NSString *)getGhostScriptBinariesPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -401,7 +401,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultTeXMFPath
-+(NSString *)defaultTeXMFPath;
++ (NSString *)defaultTeXMFPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -426,7 +426,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultTeXMFBinariesPath
-+(NSString *)defaultTeXMFBinariesPath;
++ (NSString *)defaultTeXMFBinariesPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -451,7 +451,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultGhostScriptBinariesPath
-+(NSString *)defaultGhostScriptBinariesPath;
++ (NSString *)defaultGhostScriptBinariesPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -476,7 +476,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  distributionsCompleteDidReadFromFile:ofType:
--(void)distributionsCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;
+- (void)distributionsCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -512,7 +512,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyUncompleteDistributionWarning:
--(void)notifyUncompleteDistributionWarning:(id)irrelevant;
+- (void)notifyUncompleteDistributionWarning:(id)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -530,7 +530,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyDefaultDistributionFixedWarning:
-+(void)notifyDefaultDistributionFixedWarning:(id)irrelevant;
++ (void)notifyDefaultDistributionFixedWarning:(id)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -548,7 +548,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyDefaultDistributionUnfixedError:
-+(void)notifyDefaultDistributionUnfixedError:(id)irrelevant;
++ (void)notifyDefaultDistributionUnfixedError:(id)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -567,7 +567,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPATHPrefix
--(NSString *)getPATHPrefix;
+- (NSString *)getPATHPrefix;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -596,7 +596,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPATHSuffix
--(NSString *)getPATHSuffix;
+- (NSString *)getPATHSuffix;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -625,7 +625,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTEXMFOUTPUT
--(NSString *)getTEXMFOUTPUT;
+- (NSString *)getTEXMFOUTPUT;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -650,7 +650,7 @@ NSString * const iTM2TEXLogHeaderKey = @"iTM2TEXLogHeader";
 
 @implementation iTM2TeXDistributionController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005To Do List:
@@ -666,7 +666,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  formatsPath
-+(NSString *)formatsPath;
++ (NSString *)formatsPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005To Do List:
@@ -691,7 +691,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	return path?:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fmtsAtPath:
-+(NSDictionary *)fmtsAtPath:(NSString *)path;
++ (NSDictionary *)fmtsAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005To Do List:
@@ -733,7 +733,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 			nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  basesAtPath:
-+(NSArray *)basesAtPath:(NSString *)path;
++ (NSArray *)basesAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005To Do List:
@@ -753,7 +753,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	return bases;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  memsAtPath:
-+(NSArray *)memsAtPath:(NSString *)path;
++ (NSArray *)memsAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005To Do List:
@@ -777,17 +777,17 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 #pragma mark -
 #import "iTM2TeXProjectCommandKit.h"
 @interface iTM2TeXPCommandsInspector(TeXDistributionKit_PRIVATE)
--(NSString *)lossyTeXMFBinariesDistribution;
--(BOOL)TeXMFBinariesDistributionIsIntel;
--(void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
--(NSString *)lossyGhostScriptBinariesDistribution;
--(BOOL)GhostScriptBinariesDistributionIsIntel;
--(void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
+- (NSString *)lossyTeXMFBinariesDistribution;
+- (BOOL)TeXMFBinariesDistributionIsIntel;
+- (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
+- (NSString *)lossyGhostScriptBinariesDistribution;
+- (BOOL)GhostScriptBinariesDistributionIsIntel;
+- (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
 @end
 @implementation iTM2TeXPCommandsInspector(TeXDistributionKit)
 #pragma mark =-=-=-=-=-  INTEL?
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyTeXMFBinariesDistribution
--(NSString *)lossyTeXMFBinariesDistribution;
+- (NSString *)lossyTeXMFBinariesDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -817,7 +817,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXMFBinariesDistributionIsIntel
--(BOOL)TeXMFBinariesDistributionIsIntel;
+- (BOOL)TeXMFBinariesDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -833,7 +833,7 @@ To Do List:
 		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
--(void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
+- (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -863,7 +863,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyGhostScriptBinariesDistribution
--(NSString *)lossyGhostScriptBinariesDistribution;
+- (NSString *)lossyGhostScriptBinariesDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -893,7 +893,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  GhostScriptBinariesDistributionIsIntel
--(BOOL)GhostScriptBinariesDistributionIsIntel;
+- (BOOL)GhostScriptBinariesDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -909,7 +909,7 @@ To Do List:
 		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
--(void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
+- (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -940,7 +940,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Output directory
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputDirectory:
--(IBAction)toggleOutputDirectory:(id)sender;
+- (IBAction)toggleOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -957,7 +957,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputDirectory:
--(BOOL)validateToggleOutputDirectory:(id)sender;
+- (BOOL)validateToggleOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -971,7 +971,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeOutputDirectoryFromStringValue:
--(IBAction)takeOutputDirectoryFromStringValue:(id)sender;
+- (IBAction)takeOutputDirectoryFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -992,7 +992,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeOutputDirectoryFromStringValue:
--(BOOL)validateTakeOutputDirectoryFromStringValue:(id)sender;
+- (BOOL)validateTakeOutputDirectoryFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1013,7 +1013,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PATH
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHPrefix:
--(IBAction)togglePATHPrefix:(id)sender;
+- (IBAction)togglePATHPrefix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1033,7 +1033,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHPrefix:
--(BOOL)validateTogglePATHPrefix:(id)sender;
+- (BOOL)validateTogglePATHPrefix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1047,7 +1047,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePATHPrefixFromStringValue:
--(IBAction)takePATHPrefixFromStringValue:(id)sender;
+- (IBAction)takePATHPrefixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1068,7 +1068,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePATHPrefixFromStringValue:
--(BOOL)validateTakePATHPrefixFromStringValue:(id)sender;
+- (BOOL)validateTakePATHPrefixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1088,7 +1088,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHSuffix:
--(IBAction)togglePATHSuffix:(id)sender;
+- (IBAction)togglePATHSuffix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1105,7 +1105,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHSuffix:
--(BOOL)validateTogglePATHSuffix:(id)sender;
+- (BOOL)validateTogglePATHSuffix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1119,7 +1119,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePATHSuffixFromStringValue:
--(IBAction)takePATHSuffixFromStringValue:(id)sender;
+- (IBAction)takePATHSuffixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1140,7 +1140,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePATHSuffixFromStringValue:
--(BOOL)validateTakePATHSuffixFromStringValue:(id)sender;
+- (BOOL)validateTakePATHSuffixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1161,7 +1161,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DISTRIBUTIONS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFDistributionFromPopUp:
--(IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
+- (IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -1186,7 +1186,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFDistributionFromPopUp:
--(BOOL)validateTakeTeXMFDistributionFromPopUp:(id)sender;
+- (BOOL)validateTakeTeXMFDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1239,7 +1239,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFPathFromStringValue:
--(IBAction)takeTeXMFPathFromStringValue:(id)sender;
+- (IBAction)takeTeXMFPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1259,7 +1259,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFPathFromStringValue:
--(BOOL)validateTakeTeXMFPathFromStringValue:(id)sender;
+- (BOOL)validateTakeTeXMFPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1275,7 +1275,7 @@ To Do List:
 	return [[TPD TeXMFDistribution] isEqual:iTM2DistributionCustom];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesDistributionFromPopUp:
--(IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
+- (IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -1302,7 +1302,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesDistributionFromPopUp:
--(BOOL)validateTakeTeXMFBinariesDistributionFromPopUp:(id)sender;
+- (BOOL)validateTakeTeXMFBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1355,7 +1355,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesPathFromStringValue:
--(IBAction)takeTeXMFBinariesPathFromStringValue:(id)sender;
+- (IBAction)takeTeXMFBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1375,7 +1375,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesPathFromStringValue:
--(BOOL)validateTakeTeXMFBinariesPathFromStringValue:(id)sender;
+- (BOOL)validateTakeTeXMFBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1391,7 +1391,7 @@ To Do List:
 	return [[TPD TeXMFBinariesDistribution] isEqual:iTM2DistributionCustom];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTeXMFBinariesCPUType:
--(IBAction)toggleTeXMFBinariesCPUType:(id)sender;
+- (IBAction)toggleTeXMFBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1407,7 +1407,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTeXMFBinariesCPUType:
--(BOOL)validateToggleTeXMFBinariesCPUType:(id)sender;
+- (BOOL)validateToggleTeXMFBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1431,7 +1431,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesDistributionFromPopUp:
--(IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+- (IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -1458,7 +1458,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesDistributionFromPopUp:
--(BOOL)validateTakeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+- (BOOL)validateTakeGhostScriptBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1511,7 +1511,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesPathFromStringValue:
--(IBAction)takeGhostScriptBinariesPathFromStringValue:(id)sender;
+- (IBAction)takeGhostScriptBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1531,7 +1531,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesPathFromStringValue:
--(BOOL)validateTakeGhostScriptBinariesPathFromStringValue:(id)sender;
+- (BOOL)validateTakeGhostScriptBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1547,7 +1547,7 @@ To Do List:
 	return [[TPD GhostScriptBinariesDistribution] isEqual:iTM2DistributionCustom];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleGhostScriptBinariesCPUType:
--(IBAction)toggleGhostScriptBinariesCPUType:(id)sender;
+- (IBAction)toggleGhostScriptBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1563,7 +1563,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleGhostScriptBinariesCPUType:
--(BOOL)validateToggleGhostScriptBinariesCPUType:(id)sender;
+- (BOOL)validateToggleGhostScriptBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1591,23 +1591,23 @@ To Do List:
 
 #pragma mark -
 @interface iTM2TeXDistributionPrefPane: iTM2PreferencePane
--(IBAction)toggleOutputDirectory:(id)sender;
--(IBAction)takeOutputDirectoryFromStringValue:(id)sender;
--(IBAction)togglePATHPrefix:(id)sender;
--(IBAction)takePATHPrefixFromStringValue:(id)sender;
--(IBAction)togglePATHSuffix:(id)sender;
--(IBAction)takePATHSuffixFromStringValue:(id)sender;
--(IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
--(IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
--(IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
--(id)orderedEnvironmentVariableNames;
--(void)setOrderedEnvironmentVariableNames:(id)argument;
--(id)environmentVariables;
+- (IBAction)toggleOutputDirectory:(id)sender;
+- (IBAction)takeOutputDirectoryFromStringValue:(id)sender;
+- (IBAction)togglePATHPrefix:(id)sender;
+- (IBAction)takePATHPrefixFromStringValue:(id)sender;
+- (IBAction)togglePATHSuffix:(id)sender;
+- (IBAction)takePATHSuffixFromStringValue:(id)sender;
+- (IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
+- (IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
+- (IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+- (id)orderedEnvironmentVariableNames;
+- (void)setOrderedEnvironmentVariableNames:(id)argument;
+- (id)environmentVariables;
 @end
 
 @implementation iTM2TeXDistributionPrefPane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1622,7 +1622,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tabView:didSelectTabViewItem:
--(void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1636,7 +1636,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1648,7 +1648,7 @@ To Do List:
     return @"1.TeX";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= orderedEnvironmentVariableNames
--(id)orderedEnvironmentVariableNames;
+- (id)orderedEnvironmentVariableNames;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1671,7 +1671,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setOrderedEnvironmentVariableNames:
--(void)setOrderedEnvironmentVariableNames:(id)argument;
+- (void)setOrderedEnvironmentVariableNames:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1684,7 +1684,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentVariables
--(id)environmentVariables;
+- (id)environmentVariables;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1704,7 +1704,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentTableView
--(id)environmentTableView;
+- (id)environmentTableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1716,7 +1716,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setEnvironmentTableView:
--(void)setEnvironmentTableView:(id)argument;
+- (void)setEnvironmentTableView:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1731,7 +1731,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Environment variables
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
--(int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (int)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1747,7 +1747,7 @@ To Do List:
     return [[self orderedEnvironmentVariableNames] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
--(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1778,7 +1778,7 @@ To Do List:
     return key;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:setObjectValue:forTableColumn:row:
--(void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1827,7 +1827,7 @@ abort:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
--(void)tableViewSelectionDidChange:(NSNotification *)notification;
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1840,7 +1840,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addEnvironmentVariable:
--(IBAction)addEnvironmentVariable:(id)sender;
+- (IBAction)addEnvironmentVariable:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1867,7 +1867,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeEnvironmentVariable:
--(IBAction)removeEnvironmentVariable:(id)sender;
+- (IBAction)removeEnvironmentVariable:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1903,7 +1903,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeEnvironmentVariableSheetDidDismiss:returnCode:indexSet:
--(void)removeEnvironmentVariableSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode indexSet:(NSIndexSet *)indexSet;
+- (void)removeEnvironmentVariableSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode indexSet:(NSIndexSet *)indexSet;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1930,7 +1930,7 @@ To Do List:
 }
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateRemoveEnvironmentVariable:
--(BOOL)validateRemoveEnvironmentVariable:(id)sender;
+- (BOOL)validateRemoveEnvironmentVariable:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1942,7 +1942,7 @@ To Do List:
     return [[[self environmentTableView] selectedRowIndexes] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= revertToDefaultEnvironment:
--(IBAction)revertToDefaultEnvironment:(id)sender;
+- (IBAction)revertToDefaultEnvironment:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -2002,7 +2002,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateRevertToDefaultEnvironment:
--(BOOL)validateRevertToDefaultEnvironment:(id)sender;
+- (BOOL)validateRevertToDefaultEnvironment:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -2015,7 +2015,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Output directory
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputDirectory:
--(IBAction)toggleOutputDirectory:(id)sender;
+- (IBAction)toggleOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2029,7 +2029,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputDirectory:
--(BOOL)validateToggleOutputDirectory:(id)sender;
+- (BOOL)validateToggleOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2042,7 +2042,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeOutputDirectoryFromStringValue:
--(IBAction)takeOutputDirectoryFromStringValue:(id)sender;
+- (IBAction)takeOutputDirectoryFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2056,7 +2056,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeOutputDirectoryFromStringValue:
--(BOOL)validateTakeOutputDirectoryFromStringValue:(id)sender;
+- (BOOL)validateTakeOutputDirectoryFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2076,7 +2076,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PATH
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHPrefix:
--(IBAction)togglePATHPrefix:(id)sender;
+- (IBAction)togglePATHPrefix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2090,7 +2090,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHPrefix:
--(BOOL)validateTogglePATHPrefix:(id)sender;
+- (BOOL)validateTogglePATHPrefix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2103,7 +2103,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePATHPrefixFromStringValue:
--(IBAction)takePATHPrefixFromStringValue:(id)sender;
+- (IBAction)takePATHPrefixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2117,7 +2117,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePATHPrefixFromStringValue:
--(BOOL)validateTakePATHPrefixFromStringValue:(id)sender;
+- (BOOL)validateTakePATHPrefixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2136,7 +2136,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHSuffix:
--(IBAction)togglePATHSuffix:(id)sender;
+- (IBAction)togglePATHSuffix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2150,7 +2150,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHSuffix:
--(BOOL)validateTogglePATHSuffix:(id)sender;
+- (BOOL)validateTogglePATHSuffix:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2164,7 +2164,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePATHSuffixFromStringValue:
--(IBAction)takePATHSuffixFromStringValue:(id)sender;
+- (IBAction)takePATHSuffixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2178,7 +2178,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePATHSuffixFromStringValue:
--(BOOL)validateTakePATHSuffixFromStringValue:(id)sender;
+- (BOOL)validateTakePATHSuffixFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2198,7 +2198,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  INTEL?
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyTeXMFBinariesDistribution
--(NSString *)lossyTeXMFBinariesDistribution;
+- (NSString *)lossyTeXMFBinariesDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2228,7 +2228,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXMFBinariesDistributionIsIntel
--(BOOL)TeXMFBinariesDistributionIsIntel;
+- (BOOL)TeXMFBinariesDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2244,7 +2244,7 @@ To Do List:
 		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
--(void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
+- (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2273,7 +2273,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyGhostScriptBinariesDistribution
--(NSString *)lossyGhostScriptBinariesDistribution;
+- (NSString *)lossyGhostScriptBinariesDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2303,7 +2303,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  GhostScriptBinariesDistributionIsIntel
--(BOOL)GhostScriptBinariesDistributionIsIntel;
+- (BOOL)GhostScriptBinariesDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2319,7 +2319,7 @@ To Do List:
 		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
--(void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
+- (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2349,7 +2349,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DISTRIBUTIONS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFDistributionFromPopUp:
--(IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
+- (IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2372,7 +2372,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFDistributionFromPopUp:
--(BOOL)validateTakeTeXMFDistributionFromPopUp:(id)sender;
+- (BOOL)validateTakeTeXMFDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2425,7 +2425,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFPathFromStringValue:
--(IBAction)takeTeXMFPathFromStringValue:(id)sender;
+- (IBAction)takeTeXMFPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2444,7 +2444,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFPathFromStringValue:
--(BOOL)validateTakeTeXMFPathFromStringValue:(id)sender;
+- (BOOL)validateTakeTeXMFPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2470,7 +2470,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesDistributionFromPopUp:
--(IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
+- (IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2496,7 +2496,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesDistributionFromPopUp:
--(BOOL)validateTakeTeXMFBinariesDistributionFromPopUp:(id)sender;
+- (BOOL)validateTakeTeXMFBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2549,7 +2549,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesPathFromStringValue:
--(IBAction)takeTeXMFBinariesPathFromStringValue:(id)sender;
+- (IBAction)takeTeXMFBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2568,7 +2568,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesPathFromStringValue:
--(BOOL)validateTakeTeXMFBinariesPathFromStringValue:(id)sender;
+- (BOOL)validateTakeTeXMFBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2594,7 +2594,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesDistributionFromPopUp:
--(IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+- (IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2620,7 +2620,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesDistributionFromPopUp:
--(BOOL)validateTakeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+- (BOOL)validateTakeGhostScriptBinariesDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2673,7 +2673,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesPathFromStringValue:
--(IBAction)takeGhostScriptBinariesPathFromStringValue:(id)sender;
+- (IBAction)takeGhostScriptBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2692,7 +2692,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesPathFromStringValue:
--(BOOL)validateTakeGhostScriptBinariesPathFromStringValue:(id)sender;
+- (BOOL)validateTakeGhostScriptBinariesPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2718,7 +2718,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTeXMFBinariesCPUType:
--(IBAction)toggleTeXMFBinariesCPUType:(id)sender;
+- (IBAction)toggleTeXMFBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2732,7 +2732,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTeXMFBinariesCPUType:
--(BOOL)validateToggleTeXMFBinariesCPUType:(id)sender;
+- (BOOL)validateToggleTeXMFBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2756,7 +2756,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleGhostScriptBinariesCPUType:
--(IBAction)toggleGhostScriptBinariesCPUType:(id)sender;
+- (IBAction)toggleGhostScriptBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2770,7 +2770,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleGhostScriptBinariesCPUType:
--(BOOL)validateToggleGhostScriptBinariesCPUType:(id)sender;
+- (BOOL)validateToggleGhostScriptBinariesCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2797,7 +2797,7 @@ To Do List:
 
 @implementation NSApplication(iTM2TeXDistributionKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showTeXDistributionPreferences:
--(IBAction)showTeXDistributionPreferences:(id)sender;
+- (IBAction)showTeXDistributionPreferences:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -2816,9 +2816,9 @@ To Do List:
 @interface NSMenuItem_TeXDistributionKit: NSMenuItem
 @end
 @implementation NSMenuItem_TeXDistributionKit
-+(void)xload;
++ (void)xload;
 {[self poseAsClass:[NSMenuItem class]];}
--(void)setAction:(SEL)action;
+- (void)setAction:(SEL)action;
 {
 	if([self action] == @selector(_popUpItemAction:))
 		NSLog(@"BOULOUBOULOU--");

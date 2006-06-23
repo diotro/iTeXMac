@@ -52,7 +52,7 @@ Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
 
 @implementation iTM2Installer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallation
-+(void)completeInstallation;
++ (void)completeInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -109,7 +109,7 @@ static NSMutableArray * _iTM2_CompleteInstallationQueue = nil;
 
 @implementation NSApplication_iTM2InstallationKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -124,7 +124,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  finishLaunching
--(void)finishLaunching;
+- (void)finishLaunching;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -171,7 +171,7 @@ static NSMutableDictionary * __iTM2MileStone = nil;
 
 @implementation iTM2MileStone
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -189,7 +189,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  registerMileStone:forKey:
-+(void)registerMileStone:(NSString *)comment forKey:(NSString *)key;
++ (void)registerMileStone:(NSString *)comment forKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -204,7 +204,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  putMileStoneForKey:
-+(void)putMileStoneForKey:(NSString *)key;
++ (void)putMileStoneForKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -227,7 +227,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verifyRegisteredMileStones
-+(void)verifyRegisteredMileStones;
++ (void)verifyRegisteredMileStones;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -240,7 +240,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedVerifyRegisteredMileStones:
-+(void)timedVerifyRegisteredMileStones:(NSTimer *)timer;
++ (void)timedVerifyRegisteredMileStones:(NSTimer *)timer;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -261,7 +261,7 @@ To Do List:
 
 @implementation NSApplication(_iTM2InstallationKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInstallation
-+(void)completeInstallation;
++ (void)completeInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -301,7 +301,7 @@ To Do List:
 @implementation NSObject(iTM2InstallationKit)
 #pragma mark =-=-=-=-=-  FIX INSTALLATIION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixInstallationOf:
-+(void)fixInstallationOf:(id)target;
++ (void)fixInstallationOf:(id)target;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -332,7 +332,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  otherFixInstallationOf:
-+(void)otherFixInstallationOf:(id)target;
++ (void)otherFixInstallationOf:(id)target;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -356,7 +356,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixAllInstallations
-+(void)fixAllInstallations;
++ (void)fixAllInstallations;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -387,7 +387,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixInstallation
-+(void)fixInstallation;
++ (void)fixInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -421,7 +421,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixInstallation
--(void)fixInstallation;
+- (void)fixInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -453,7 +453,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  COMPLETE INSTALLATIION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallationOf:
-+(void)completeInstallationOf:(id)target;
++ (void)completeInstallationOf:(id)target;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -482,7 +482,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  otherCompleteInstallationOf:
-+(void)otherCompleteInstallationOf:(id)target;
++ (void)otherCompleteInstallationOf:(id)target;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -506,7 +506,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeAllInstallations
-+(void)completeAllInstallations;
++ (void)completeAllInstallations;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -542,7 +542,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallation
-+(void)completeInstallation;
++ (void)completeInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -576,7 +576,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallation
--(void)completeInstallation;
+- (void)completeInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004

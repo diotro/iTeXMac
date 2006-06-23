@@ -61,8 +61,8 @@ extern NSString * const iTM2ToolbarTypesetItemIdentifier;
 @end
 
 @interface NSToolbarItem(iTM2TeXProjectCommandKit)
-+(NSToolbarItem *)typesetCurrentProjectToolbarItem;
-+(NSToolbarItem *)stopTypesetCurrentProjectToolbarItem;
++ (NSToolbarItem *)typesetCurrentProjectToolbarItem;
++ (NSToolbarItem *)stopTypesetCurrentProjectToolbarItem;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXPCommandWrapperKit

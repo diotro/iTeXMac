@@ -31,24 +31,24 @@ NSString * const iTM2MetaPostToolbarIdentifier = @"iTM2: MetaPost";
 
 
 @interface iTM2MetaPostInspector(PRIVATE)
--(id)scaleAndPageTarget;
+- (id)scaleAndPageTarget;
 @end
 
 @implementation iTM2MetaPostInspector(Toolbar)
 #pragma mark =-=-=-=-=-  TOOLBAR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolMode
--(iTM2ToolMode)toolMode;
+- (iTM2ToolMode)toolMode;
 {
 	return [metaGETTER intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolMode:
--(void)setToolMode:(iTM2ToolMode)argument;
+- (void)setToolMode:(iTM2ToolMode)argument;
 {
 	metaSETTER([NSNumber numberWithInt: (int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupToolbarWindowDidLoad
--(void)setupToolbarWindowDidLoad;
+- (void)setupToolbarWindowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -102,7 +102,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShareToolbarConfiguration:
--(void)toggleShareToolbarConfiguration:(id)sender;
+- (void)toggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -117,7 +117,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShareToolbarConfiguration:
--(BOOL)validateToggleShareToolbarConfiguration:(id)sender;
+- (BOOL)validateToggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -130,7 +130,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext:
--(void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
+- (void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -145,7 +145,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:
--(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdent willBeInsertedIntoToolbar:(BOOL)willBeInserted;
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdent willBeInsertedIntoToolbar:(BOOL)willBeInserted;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -333,7 +333,7 @@ To Do List:
     return toolbarItem;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDefaultItemIdentifiers:
--(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -367,7 +367,7 @@ To Do List:
 					nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarAllowedItemIdentifiers:
--(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -409,7 +409,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarWillAddItem:
--(void)toolbarWillAddItem:(NSNotification *)notif;
+- (void)toolbarWillAddItem:(NSNotification *)notif;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -428,7 +428,7 @@ To Do List:
 }  
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDidRemoveItem:
--(void)toolbarDidRemoveItem:(NSNotification *)notif;
+- (void)toolbarDidRemoveItem:(NSNotification *)notif;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -450,7 +450,7 @@ To Do List:
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rotateLeft:
--(IBAction)rotateLeft:(id)sender;
+- (IBAction)rotateLeft:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -468,7 +468,7 @@ To Do List:
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rotateRight:
--(IBAction)rotateRight:(id)sender;
+- (IBAction)rotateRight:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -486,7 +486,7 @@ To Do List:
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePageFrom:
--(IBAction)takePageFrom:(id)sender;
+- (IBAction)takePageFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -504,7 +504,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePageFrom:
--(BOOL)validateTakePageFrom:(id)sender;
+- (BOOL)validateTakePageFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -550,7 +550,7 @@ To Do List:
     return [sender intValue] > 0;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeScaleFrom:
--(IBAction)takeScaleFrom:(id)sender;
+- (IBAction)takeScaleFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -567,7 +567,7 @@ To Do List:
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeScaleFrom:
--(BOOL)validateTakeScaleFrom:(id)sender;
+- (BOOL)validateTakeScaleFrom:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -603,7 +603,7 @@ To Do List:
     return YES;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeToolModeFromSegment:
--(IBAction)takeToolModeFromSegment:(id)sender;
+- (IBAction)takeToolModeFromSegment:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -617,7 +617,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeToolModeFromSegment:
--(BOOL)validateTakeToolModeFromSegment:(id)sender;
+- (BOOL)validateTakeToolModeFromSegment:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -640,7 +640,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scaleAndPageTarget
--(id)scaleAndPageTarget;
+- (id)scaleAndPageTarget;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -652,7 +652,7 @@ To Do List:
     return [metaGETTER pointerValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleAndPageTarget:
--(void)setScaleAndPageTarget:(id)argument;
+- (void)setScaleAndPageTarget:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

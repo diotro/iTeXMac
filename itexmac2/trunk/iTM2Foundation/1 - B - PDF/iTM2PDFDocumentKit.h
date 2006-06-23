@@ -48,10 +48,10 @@ extern NSString * const iTM2PDFStickModeKey;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFDocument  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 @interface iTM2PDFDocument: iTM2Document
--(id)init; // designated initializer
--(id)imageRepresentation;
--(void)setImageRepresentation:(id)aRepresentation;
--(void)setOriginalFileName:(NSString *)argument;// due to translation dvi, eps -> pdf!!!
+- (id)init; // designated initializer
+- (id)imageRepresentation;
+- (void)setImageRepresentation:(id)aRepresentation;
+- (void)setOriginalFileName:(NSString *)argument;// due to translation dvi, eps -> pdf!!!
 /*!
 	@method			dataCompleteReadFromURL:ofType:error:
 	@abstract		Reads the data from the given file.
@@ -63,8 +63,8 @@ extern NSString * const iTM2PDFStickModeKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
--(BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 @end
 
 @interface iTM2PDFWindow: NSWindow
@@ -77,13 +77,13 @@ extern NSString * const iTM2PDFInspectorMode;
 @interface iTM2PDFInspector: iTM2Inspector
 /*"Class methods"*/
 /*"Setters and Getters"*/
--(id)album;
--(int)firstPhysicalPage;
--(int)lastPhysicalPage;
--(int)currentPhysicalPage;
--(void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
--(float)magnification;
--(void)setMagnification:(float)magnification;
+- (id)album;
+- (int)firstPhysicalPage;
+- (int)lastPhysicalPage;
+- (int)currentPhysicalPage;
+- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
+- (float)magnification;
+- (void)setMagnification:(float)magnification;
 /*"Main methods"*/
 //- (void) synchronizePageWith: (NSNumber *) aCurrentPhysicalPage;
 /*"Overriden methods"*/
@@ -91,8 +91,8 @@ extern NSString * const iTM2PDFInspectorMode;
 @end
 
 @interface iTM2PDFInspector(KeyStroke)
--(void)doZoomIn:(id)sender;
--(void)doZoomOut:(id)sender;
+- (void)doZoomIn:(id)sender;
+- (void)doZoomOut:(id)sender;
 @end
 
 extern NSString * const iTM2PDFLastMagnificationKey;
@@ -118,34 +118,34 @@ extern NSString * const iTM2PDFToolbarIdentifier;
 }
 /*"Class mathods."*/
 /*"Setters and getters."*/
--(int)currentPhysicalPage;
--(void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
--(unsigned)pageLayout;
--(void)setPageLayout:(unsigned)PL;
+- (int)currentPhysicalPage;
+- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
+- (unsigned)pageLayout;
+- (void)setPageLayout:(unsigned)PL;
 /*"Main mathods."*/
--(float)magnification;
--(void)setMagnification:(float)aMagnification;
--(void)setMagnificationWithDisplayMode:(int)displayMode stickMode:(int)stickMode;
--(BOOL)parametersHaveChanged;
--(void)setParametersHaveChanged:(BOOL)aFlag;
--(int)PDFOrientation;
--(void)setPDFOrientation:(int)argument;
--(id)imageRepresentation;
+- (float)magnification;
+- (void)setMagnification:(float)aMagnification;
+- (void)setMagnificationWithDisplayMode:(int)displayMode stickMode:(int)stickMode;
+- (BOOL)parametersHaveChanged;
+- (void)setParametersHaveChanged:(BOOL)aFlag;
+- (int)PDFOrientation;
+- (void)setPDFOrientation:(int)argument;
+- (id)imageRepresentation;
 /*"Overriden methods."*/
--(void)awakeFromNib;
--(float)ratioContentVersusDocumentWidth;
--(float)ratioContentVersusDocumentHeight;
--(int)forwardPhysicalPage;
--(int)backPhysicalPage;
--(int)logicalToPhysicalPage:(int)logicalPage;
+- (void)awakeFromNib;
+- (float)ratioContentVersusDocumentWidth;
+- (float)ratioContentVersusDocumentHeight;
+- (int)forwardPhysicalPage;
+- (int)backPhysicalPage;
+- (int)logicalToPhysicalPage:(int)logicalPage;
 @end
 
 extern NSString * const iTM2PDFSSetUpPageWhenBadPaperSizeKey;
 extern NSString * const iTM2PDFPreferA4PaperKey;
 
 @interface iTM2PDFDocument(Print)
--(void)printShowingPrintPanel:(BOOL)flag;
--(void)printRepresentationShowingPrintPanel:(BOOL)flag;
+- (void)printShowingPrintPanel:(BOOL)flag;
+- (void)printRepresentationShowingPrintPanel:(BOOL)flag;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFDocumentKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

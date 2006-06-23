@@ -34,7 +34,7 @@ NSString * const iTM2TeXParserAttributesInspectorType = @"iTM2TeXParserAttribute
 
 @implementation iTM2TeXParserAttributesDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -54,7 +54,7 @@ NSString * const iTM2TextAttributesCommandIdentifier = @"command";
 
 @implementation iTM2TeXParserAttributesInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -65,7 +65,7 @@ To Do List:
     return iTM2TeXParserAttributesInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowNibName
-+(NSString *)windowNibName;
++ (NSString *)windowNibName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -85,7 +85,7 @@ NSString * const iTM2XtdTeXParserAttributesInspectorType = @"iTM2XtdTeXParserAtt
 
 @implementation iTM2XtdTeXParserAttributesDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -96,7 +96,7 @@ To Do List:
     return iTM2XtdTeXParserAttributesInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeWindowControllers
--(void)makeWindowControllers;
+- (void)makeWindowControllers;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -138,7 +138,7 @@ To Do List:
 
 @implementation iTM2XtdTeXParserAttributesInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -152,7 +152,7 @@ To Do List:
 
 @implementation iTM2XtdTeXParserSymbolsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -163,7 +163,7 @@ To Do List:
     return iTM2XtdTeXParserAttributesInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -174,7 +174,7 @@ To Do List:
     return iTM2XtdTeXParserSymbolsInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowNibName
-+(NSString *)windowNibName;
++ (NSString *)windowNibName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -185,7 +185,7 @@ To Do List:
     return @"iTM2XtdTeXParserSymbolsInspector";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithWindow:
--(id)initWithWindow:(NSWindow *)window;
+- (id)initWithWindow:(NSWindow *)window;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -218,7 +218,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -250,7 +250,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentSets
--(NSMutableDictionary *)currentSets;
+- (NSMutableDictionary *)currentSets;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -261,7 +261,7 @@ To Do List:
     return [[_CurrentSetItem representedObject] objectForKey:@"S"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentSetKey
--(NSString *)currentSetKey;
+- (NSString *)currentSetKey;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -273,7 +273,7 @@ To Do List:
     return [result length]? result: @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
--(BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 /*"For the revert to saved.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -441,7 +441,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
--(BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -540,7 +540,7 @@ To Do List:
     return success;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillLoad
--(void)windowWillLoad;
+- (void)windowWillLoad;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -554,7 +554,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -574,7 +574,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
--(BOOL)validateWindowContent;
+- (BOOL)validateWindowContent;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -635,7 +635,7 @@ To Do List:
     return [addSetPanel validateContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
--(NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -649,7 +649,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETS MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setChosen:
--(IBAction)setChosen:(id)sender;
+- (IBAction)setChosen:(id)sender;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -666,7 +666,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSetChosen:
--(BOOL)validateSetChosen:(id)sender;
+- (BOOL)validateSetChosen:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -908,7 +908,7 @@ To Do List:
     return YES;//[sender numberOfItems] > 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseSet:
--(IBAction)chooseSet:(id)sender;
+- (IBAction)chooseSet:(id)sender;
 /*"Message sent from menu items.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -926,7 +926,7 @@ To Do List:
 }
 NSString * _iTM2PRIVATE_NewSetName = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSet:
--(void)addSet:(id)sender;
+- (void)addSet:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -938,7 +938,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _addSet:
--(IBAction)_addSet:(id)sender;
+- (IBAction)_addSet:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -962,7 +962,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSetSheetDidEnd:returnCode:contextInfo:
--(void)addSetSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+- (void)addSetSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1004,7 +1004,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSetOk:
--(IBAction)addSetOk:(id)sender;
+- (IBAction)addSetOk:(id)sender;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1019,7 +1019,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSetCancel:
--(IBAction)addSetCancel:(id)sender;
+- (IBAction)addSetCancel:(id)sender;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1034,7 +1034,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSetTitleEdited:
--(IBAction)addSetTitleEdited:(id)sender;
+- (IBAction)addSetTitleEdited:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1045,7 +1045,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateAddSetTitleEdited:
--(BOOL)validateAddSetTitleEdited:(id)sender;
+- (BOOL)validateAddSetTitleEdited:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1057,7 +1057,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSetNameEdited:
--(IBAction)addSetNameEdited:(id)sender;
+- (IBAction)addSetNameEdited:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1073,7 +1073,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSet:
--(IBAction)removeSet:(id)sender;
+- (IBAction)removeSet:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1096,7 +1096,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSetSheetDidEnd:returnCode:recycleSet:
--(void)removeSetSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode recycleSet:(NSString *)name;
+- (void)removeSetSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode recycleSet:(NSString *)name;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1121,7 +1121,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateRemoveSet:
--(BOOL)validateRemoveSet:(id)sender;
+- (BOOL)validateRemoveSet:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1133,7 +1133,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  TABLEVIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  symbolAtRow:
--(id)symbolAtRow:(int)row;
+- (id)symbolAtRow:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1167,7 +1167,7 @@ To Do List:
         return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
--(int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (int)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1178,7 +1178,7 @@ To Do List:
     return [[_CustomKeysSets objectForKey:[self currentSetKey]] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
--(id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1198,7 +1198,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
--(void)tableViewSelectionDidChange:(NSNotification *)notification;
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1210,7 +1210,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:shouldEditTableColumn:row:
--(BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1238,7 +1238,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SYMBOLS MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSymbol:
--(IBAction)addSymbol:(id)sender;
+- (IBAction)addSymbol:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1250,7 +1250,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSymbolInTableView:
--(void)addSymbolInTableView:(NSTableView *)tv;
+- (void)addSymbolInTableView:(NSTableView *)tv;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1305,7 +1305,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDuplicateSymbol:
--(BOOL)validateDuplicateSymbol:(id)sender;
+- (BOOL)validateDuplicateSymbol:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1316,7 +1316,7 @@ To Do List:
     return ([tableView numberOfSelectedRows] == 1);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deleteSelectedSymbolsInTableView:
--(IBAction)deleteSelectedSymbolsInTableView:(NSTableView *)tv;
+- (IBAction)deleteSelectedSymbolsInTableView:(NSTableView *)tv;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1353,7 +1353,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COLOR MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertToFactoryColor:
--(IBAction)revertToFactoryColor:(id)sender;
+- (IBAction)revertToFactoryColor:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1367,7 +1367,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateRevertToFactoryColor:
--(BOOL)validateRevertToFactoryColor:(id)sender;
+- (BOOL)validateRevertToFactoryColor:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1386,7 +1386,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleBackgroundColor:
--(IBAction)toggleBackgroundColor:(id)sender;
+- (IBAction)toggleBackgroundColor:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1400,7 +1400,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleBackgroundColor:
--(BOOL)validateToggleBackgroundColor:(id)sender;
+- (BOOL)validateToggleBackgroundColor:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1413,7 +1413,7 @@ To Do List:
     return NO && ([self currentSets] == _CustomSymbolsSets);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:setObjectValue:forTableColumn:row:
--(void)tableView:(NSTableView *)TV setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)TV setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1489,7 +1489,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:changeFont:
--(void)tableView:(NSTableView *)TV changeFont:(id)sender;
+- (void)tableView:(NSTableView *)TV changeFont:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1535,7 +1535,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:changeColor:
--(void)tableView:(NSTableView *)TV changeColor:(id)sender;
+- (void)tableView:(NSTableView *)TV changeColor:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1596,7 +1596,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:writeRows:toPasteboard:
--(BOOL)tableView:(NSTableView *)tv writeRows:(NSArray *)rows toPasteboard:(NSPasteboard *)pboard;
+- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray *)rows toPasteboard:(NSPasteboard *)pboard;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1637,7 +1637,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:validateDrop:proposedRow:proposedDropOperation:
--(NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1651,7 +1651,7 @@ To Do List:
     return [type length]? NSDragOperationEvery: NSDragOperationNone;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:acceptDrop:row:dropOperation:
--(BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
+- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1662,7 +1662,7 @@ To Do List:
     return [self tableView:tv paste:[info draggingPasteboard]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:paste:
--(BOOL)tableView:(NSTableView*)tv paste:(NSPasteboard *)pboard;
+- (BOOL)tableView:(NSTableView*)tv paste:(NSPasteboard *)pboard;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1739,7 +1739,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  none:
--(void)none:(id)sender;
+- (void)none:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1751,7 +1751,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  KEY BINDING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
--(NSString *)keyBindingsManagerIdentifier;
+- (NSString *)keyBindingsManagerIdentifier;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1762,7 +1762,7 @@ To Do List:
     return @"Text/Xtd";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useKeyBindingsManager
--(BOOL)useKeyBindingsManager;
+- (BOOL)useKeyBindingsManager;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1774,7 +1774,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1786,7 +1786,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeEnter:
--(BOOL)interpretKeyStrokeEnter:(id)sender;
+- (BOOL)interpretKeyStrokeEnter:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1806,7 +1806,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeReturn:
--(BOOL)interpretKeyStrokeReturn:(id)sender;
+- (BOOL)interpretKeyStrokeReturn:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1818,7 +1818,7 @@ To Do List:
     return [self interpretKeyStrokeEnter: (id) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeHorizontalTab:
--(BOOL)interpretKeyStrokeHorizontalTab:(id)sender;
+- (BOOL)interpretKeyStrokeHorizontalTab:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1882,7 +1882,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeDelete:
--(BOOL)interpretKeyStrokeDelete:(id)sender;
+- (BOOL)interpretKeyStrokeDelete:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1902,7 +1902,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStrokeBackspace:
--(BOOL)interpretKeyStrokeBackspace:(id)sender;
+- (BOOL)interpretKeyStrokeBackspace:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1928,7 +1928,7 @@ To Do List:
 
 @implementation iTM2TextStyleTableView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeFont:
--(void)changeFont:(id)sender;
+- (void)changeFont:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1941,7 +1941,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeColor:
--(void)changeColor:(id)sender;
+- (void)changeColor:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1954,7 +1954,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  draggingSourceOperationMaskForLocal:
--(NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag;
+- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1966,7 +1966,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MENU ITEMS MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  copy:
--(IBAction)copy:(id)sender;
+- (IBAction)copy:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1981,7 +1981,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCopy:
--(BOOL)validateCopy:(id)sender;
+- (BOOL)validateCopy:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1992,7 +1992,7 @@ To Do List:
 	return [self numberOfSelectedRows] > 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paste:
--(IBAction)paste:(id)sender;
+- (IBAction)paste:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2004,7 +2004,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePaste:
--(BOOL)validatePaste:(id)sender;
+- (BOOL)validatePaste:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2015,7 +2015,7 @@ To Do List:
 	return [[[NSPasteboard generalPasteboard] availableTypeFromArray:[NSArray arrayWithObjects:iTM2StyleSymbolsPboardType, NSStringPboardType, nil]] length] > 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delete:
--(IBAction)delete:(id)sender;
+- (IBAction)delete:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2027,7 +2027,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDelete:
--(BOOL)validateDelete:(id <NSMenuItem>)menuItem;
+- (BOOL)validateDelete:(id <NSMenuItem>)menuItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2038,7 +2038,7 @@ To Do List:
     return ([self numberOfSelectedRows]>0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cut:
--(IBAction)cut:(id)sender;
+- (IBAction)cut:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2051,7 +2051,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCut:
--(BOOL)validateCut:(id)sender;
+- (BOOL)validateCut:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

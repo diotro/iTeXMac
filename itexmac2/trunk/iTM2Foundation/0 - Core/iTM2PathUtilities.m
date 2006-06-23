@@ -27,7 +27,7 @@
 /*"Description forthcoming."*/
 @implementation NSString(iTM2PathUtilities)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isFinderAliasTraverseLink:isDirectory:
--(BOOL)isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
+- (BOOL)isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
 /*"Returns YES if the receiver is a Finder Alias.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -64,7 +64,7 @@ OSStatus FSRefMakePath ( const FSRef *ref, UInt8 *path, UInt32 pathSize );
  OSErr FSIsAliasFile ( const FSRef *fileRef, Boolean *aliasFileFlag, Boolean *folderFlag ); 
 */
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByResolvingFinderAliasesInPath
--(NSString *)stringByResolvingFinderAliasesInPath;
+- (NSString *)stringByResolvingFinderAliasesInPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -149,7 +149,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByResolvingSymlinksAndFinderAliasesInPath
--(NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
+- (NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -169,7 +169,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByAbbreviatingWithDotsRelativeToDirectory:
--(NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
+- (NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
 /*"It is not strong: the sender is responsible of the arguments, if they do not represent directory paths, the shame on it.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -199,7 +199,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shortestStringByAbbreviatingWithTildeInPath
--(NSString *)shortestStringByAbbreviatingWithTildeInPath;
+- (NSString *)shortestStringByAbbreviatingWithTildeInPath;
 /*"In between the receiver and the path abbreviated with tilde, return the shortest one.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -210,7 +210,7 @@ To Do List:
     return ([S length]<[self length]? S:self);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByNormalizingPath
--(NSString *)stringByNormalizingPath;
+- (NSString *)stringByNormalizingPath;
 /*"In between the receiver and the path abbreviated with tilde, return the shortest one.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -245,7 +245,7 @@ To Do List:
     return [NSString pathWithComponents:components];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByDeletingAllPathExtensions
--(NSString *)stringByDeletingAllPathExtensions;
+- (NSString *)stringByDeletingAllPathExtensions;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -263,7 +263,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enclosingDirectoryForFileNames:
-+(NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
++ (NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -308,7 +308,7 @@ To Do List:
 	return [NSString pathWithComponents:commonComponents];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileName:
--(BOOL)isEqualToFileName:(NSString *)otherFileName;
+- (BOOL)isEqualToFileName:(NSString *)otherFileName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -321,7 +321,7 @@ To Do List:
 		&& [[self lowercaseString] isEqual:[otherFileName lowercaseString]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContainedInDirectory:
--(BOOL)isContainedInDirectory:(NSString *)dirName;
+- (BOOL)isContainedInDirectory:(NSString *)dirName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -345,7 +345,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absolutePathWithPath:base:
-+(NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
++ (NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -374,7 +374,7 @@ NSString * const iTM2PATHSuffixKey = @"iTM2PATHSuffix";
 
 @implementation iTM2MainInstaller(iTM2PathUtilities)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PathUtilitiesCompleteInstallation
-+(void)iTM2PathUtilitiesCompleteInstallation;
++ (void)iTM2PathUtilitiesCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

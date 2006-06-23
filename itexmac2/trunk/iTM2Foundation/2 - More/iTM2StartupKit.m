@@ -34,7 +34,7 @@ NSString * const iTM2DontShowTipsKey = @"iTM2DontShowTips";
 
 @implementation NSApplication(iTM2StartupKit) 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showReleaseNotes:
-+(IBAction)showReleaseNotes:(id)sender;
++ (IBAction)showReleaseNotes:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -46,7 +46,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWelcomeNotes:
-+(IBAction)showWelcomeNotes:(id)sender;
++ (IBAction)showWelcomeNotes:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -63,7 +63,7 @@ To Do List:
 #warning <<<<  HUNTING
 #ifndef HUNTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
-+(void)initialize;
++ (void)initialize;
 /*"Registers some defaults: initialize iTM2DefaultsController.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -81,7 +81,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showReleaseNotes:
--(IBAction)showReleaseNotes:(id)sender;
+- (IBAction)showReleaseNotes:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -110,7 +110,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWelcomeNotes:
--(IBAction)showWelcomeNotes:(id)sender;
+- (IBAction)showWelcomeNotes:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -139,7 +139,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  firstPanelOK:
--(IBAction)firstPanelOK:(id)sender
+- (IBAction)firstPanelOK:(id)sender
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -152,7 +152,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDontShowTips:
--(IBAction)toggleDontShowTips:(id)sender;
+- (IBAction)toggleDontShowTips:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -166,7 +166,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDontShowTips:
--(BOOL)validateToggleDontShowTips:(id)sender;
+- (BOOL)validateToggleDontShowTips:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -178,7 +178,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= infoTextView
--(id)infoTextView;
+- (id)infoTextView;
 /*"Description forthcoming.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -197,7 +197,7 @@ To Do List: Nothing at first glance
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setInfoTextView:
--(void)setInfoTextView:(NSTextView *)argument;
+- (void)setInfoTextView:(NSTextView *)argument;
 /*"Description forthcoming.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -215,7 +215,7 @@ To Do List: Nothing at first glance
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowWillLoad
--(void)windowWillLoad;
+- (void)windowWillLoad;
 /*"Description forthcoming.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.2: 03/10/2002
@@ -228,7 +228,7 @@ To Do List: Nothing at first glance
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description forthcoming.
 Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.2: 03/10/2002

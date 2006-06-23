@@ -29,7 +29,7 @@ NSString * const iTM2ConnectionIdentifierKey = @"iTM2ConnectionID";
 
 @implementation NSConnection(iTM2DistributedObjectKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTeXMac2ConnectionIdentifier
-+(NSString *)iTeXMac2ConnectionIdentifier;
++ (NSString *)iTeXMac2ConnectionIdentifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -44,7 +44,7 @@ To Do List:
 
 @implementation NSApplication(iTM2DistributedObjectKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DistributedObjectKit_DidFinishLaunching
--(void)iTM2DistributedObjectKit_DidFinishLaunching;
+- (void)iTM2DistributedObjectKit_DidFinishLaunching;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -70,7 +70,7 @@ To Do List:
 
 @implementation iTM2ConnectionRoot
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedConnectionRoot
-+(id)sharedConnectionRoot;
++ (id)sharedConnectionRoot;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006
@@ -83,7 +83,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedApplication
--(id)sharedApplication;
+- (id)sharedApplication;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006

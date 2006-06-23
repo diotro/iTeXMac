@@ -43,7 +43,7 @@ NSString * const iTM2MainType = @"main";
 				(maybe the last path component...)
 	@result		a mutable dictionary object.
 */
--(id)_DataRepresentations;
+- (id)_DataRepresentations;
 
 @end
 
@@ -54,7 +54,7 @@ NSString * const iTM2MainType = @"main";
 @implementation NSObject(iTM2Implementation)
 #pragma mark =-=-=-=-=-  IMPLEMENTATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
--(void)initImplementation;
+- (void)initImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -69,7 +69,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixImplementation
--(void)fixImplementation;
+- (void)fixImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -100,7 +100,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deallocImplementation
--(void)deallocImplementation;
+- (void)deallocImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -113,7 +113,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeImplementation
--(void)observeImplementation;
+- (void)observeImplementation;
 /*"
 Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -136,7 +136,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -147,7 +147,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyImplementation
--(id)lazyImplementation;
+- (id)lazyImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -158,7 +158,7 @@ To Do List:
     return [[[iTM2Implementation allocWithZone:[self zone]] initWithOwner:self] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -174,7 +174,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceImplementation:
--(void)replaceImplementation:(id)argument;
+- (void)replaceImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -193,7 +193,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementationWillChange
--(void)implementationWillChange;
+- (void)implementationWillChange;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -205,7 +205,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementationDidChange
--(void)implementationDidChange;
+- (void)implementationDidChange;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -218,7 +218,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willDealloc
--(void)willDealloc;
+- (void)willDealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -240,7 +240,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModel
-+(NSDictionary *)defaultModel;
++ (NSDictionary *)defaultModel;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -254,13 +254,13 @@ To Do List:
 @end
 
 @interface iTM2Implementation(PRIVATE1)
-+(void)_cleanDictionary:(id)MD;
--(id)_PropertyLists;
--(void)checkPropertyList:(id)PL againstFormat:(NSPropertyListFormat)format;
++ (void)_cleanDictionary:(id)MD;
+- (id)_PropertyLists;
+- (void)checkPropertyList:(id)PL againstFormat:(NSPropertyListFormat)format;
 @end
 @implementation iTM2Implementation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Designated Initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -289,7 +289,7 @@ To Do List:
 static NSMutableDictionary * tracker;
 static int trackerTag = 0;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOwner:
--(id)initWithOwner:(id)owner;
+- (id)initWithOwner:(id)owner;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -312,7 +312,7 @@ To Do List:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOwner:
--(id)initWithOwner:(id)owner;
+- (id)initWithOwner:(id)owner;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -328,7 +328,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -355,7 +355,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _cleanDictionary:
-+(void)_cleanDictionary:(id)MD;
++ (void)_cleanDictionary:(id)MD;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -387,7 +387,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  owner
--(id)owner;
+- (id)owner;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -398,7 +398,7 @@ To Do List:
     return _Owner;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOwner:
--(void)setOwner:(id)argument;
+- (void)setOwner:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -410,7 +410,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  root
--(id)root;
+- (id)root;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -425,7 +425,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -436,7 +436,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  name
--(id)name;
+- (id)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -448,7 +448,7 @@ To Do List:
         [_Owner fileName]:(metaGETTER?:@"");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileName:
--(void)setName:(id)argument;
+- (void)setName:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -461,7 +461,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelType
--(id)modelType;
+- (id)modelType;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -473,7 +473,7 @@ To Do List:
         [_Owner modelType]:(metaGETTER?:@"");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setModelType:
--(void)setModelType:(id)argument;
+- (void)setModelType:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -486,7 +486,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaValues
--(id)metaValues;
+- (id)metaValues;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -497,7 +497,7 @@ To Do List:
     return _MetaValueDictionary;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeMetaValues:
--(void)takeMetaValues:(NSDictionary *)argument;
+- (void)takeMetaValues:(NSDictionary *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -510,7 +510,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaValueForKey:
--(id)metaValueForKey:(NSString *)key;
+- (id)metaValueForKey:(NSString *)key;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -521,7 +521,7 @@ To Do List:
     return [_MetaValueDictionary valueForKey:key];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaFlagForKey:
--(BOOL)metaFlagForKey:(NSString *)key;
+- (BOOL)metaFlagForKey:(NSString *)key;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -532,7 +532,7 @@ To Do List:
     return [[_MetaValueDictionary valueForKey:key] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeMetaValue:forKey:
--(void)takeMetaValue:(id)argument forKey:(NSString *)key;
+- (void)takeMetaValue:(id)argument forKey:(NSString *)key;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -554,7 +554,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeMetaFlag:forKey:
--(void)takeMetaFlag:(BOOL)yorn forKey:(NSString *)key;
+- (void)takeMetaFlag:(BOOL)yorn forKey:(NSString *)key;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -566,7 +566,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaValueForKeyPath:
--(id)metaValueForKeyPath:(NSString *)key;
+- (id)metaValueForKeyPath:(NSString *)key;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -577,7 +577,7 @@ To Do List:
     return [_MetaValueDictionary valueForKeyPath:key];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeMetaValue:forKeyPath:
--(void)takeMetaValue:(id)argument forKeyPath:(NSString *)key;
+- (void)takeMetaValue:(id)argument forKeyPath:(NSString *)key;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -600,7 +600,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  I/O
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willSave
--(void)willSave;
+- (void)willSave;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -612,7 +612,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didSave
--(void)didSave;
+- (void)didSave;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -624,7 +624,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didRead
--(void)didRead;
+- (void)didRead;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -636,7 +636,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToParentImplementation
--(BOOL)writeToParentImplementation;
+- (BOOL)writeToParentImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -648,7 +648,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromParentImplementation
--(BOOL)readFromParentImplementation;
+- (BOOL)readFromParentImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -660,7 +660,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _DataRepresentations
--(id)_DataRepresentations;
+- (id)_DataRepresentations;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -672,7 +672,7 @@ To Do List:
     return _DataRepresentations? _DataRepresentations: (_DataRepresentations = [[NSMutableDictionary dictionary] retain]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationTypes
--(NSArray *)dataRepresentationTypes;
+- (NSArray *)dataRepresentationTypes;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -684,7 +684,7 @@ To Do List:
     return [[self _DataRepresentations] allKeys];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
--(NSData *)dataRepresentationOfType:(NSString *)type;
+- (NSData *)dataRepresentationOfType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -696,7 +696,7 @@ To Do List:
     return [[self _DataRepresentations] valueForKey:type];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
--(BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
+- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -709,7 +709,7 @@ To Do List:
 }
 NSString * const iTM2DataRepresentationsName = @"D";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:
--(BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW;
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -739,7 +739,7 @@ To Do List:
     return [self writeToParentImplementation] && result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromDirectoryWrapper:
--(BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW;
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -770,7 +770,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=  TREE HIERARCHY
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parent
--(id)parent;
+- (id)parent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -781,7 +781,7 @@ To Do List:
     return _Parent;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setParent:
--(void)setParent:(id)argument;
+- (void)setParent:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -794,7 +794,7 @@ To Do List:
 }
 NSString * iTM2ChildrenKey = @"C";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childDocuments
--(id)children;
+- (id)children;
 /*"Description Forthcoming. Lazy intilaizer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -811,7 +811,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateChildren
--(void)updateChildren;
+- (void)updateChildren;
 /*"Description Forthcoming. Must be subclassed.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -824,7 +824,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childForName:
--(id)childForName:(NSString *)name;
+- (id)childForName:(NSString *)name;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -840,7 +840,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addChild:
--(void)addChild:(id)argument;
+- (void)addChild:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -857,7 +857,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeChild:
--(void)removeChild:(id)argument;
+- (void)removeChild:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -876,7 +876,7 @@ To Do List:
 #pragma mark =-=-=-=-=-=-=-=  MODEL
 NSString * iTM2PropertyListsNameKey = @" P";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _PropertyLists
--(id)_PropertyLists;
+- (id)_PropertyLists;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -894,7 +894,7 @@ To Do List:
 }
 NSString * iTM2PLXMLFormatsNameKey = @" F";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _PLXMLFormats
--(id)_PLXMLFormats;
+- (id)_PLXMLFormats;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -911,7 +911,7 @@ To Do List:
     return formats;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelFormatOfType:
--(NSPropertyListFormat)modelFormatOfType:(NSString *)type;
+- (NSPropertyListFormat)modelFormatOfType:(NSString *)type;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -923,7 +923,7 @@ To Do List:
     return N? [N intValue]:[[NSUserDefaults standardUserDefaults] integerForKey:iTM2ItemPropertyListXMLFormatKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModelFormat:ofType:
--(void)takeModelFormat:(NSPropertyListFormat)argument ofType:(NSString *)type;
+- (void)takeModelFormat:(NSPropertyListFormat)argument ofType:(NSString *)type;
 /*"Description forthcoming. argument is retained. Lazy dataWrapper initializer as side effect.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -935,7 +935,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfModelOfType:
--(NSData *)dataRepresentationOfModelOfType:(NSString *)type;
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -961,7 +961,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfModelOfType:error:
--(NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outError;
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -994,7 +994,7 @@ To Do List:
     return [NSData data];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkPropertyList:againstFormat:
--(void)checkPropertyList:(id)PL againstFormat:(NSPropertyListFormat)format;
+- (void)checkPropertyList:(id)PL againstFormat:(NSPropertyListFormat)format;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1034,7 +1034,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadModelValueOfDataRepresentation:ofType:
--(BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1083,7 +1083,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadModelValueOfDataRepresentation:ofType:error:
--(BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1142,7 +1142,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelTypes
--(NSArray *)modelTypes;
+- (NSArray *)modelTypes;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1153,7 +1153,7 @@ To Do List:
     return [[self _PropertyLists] allKeys];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelOfType:
--(id)modelOfType:(NSString *)type;
+- (id)modelOfType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1165,7 +1165,7 @@ To Do List:
     return [[self _PropertyLists] valueForKey:type];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModel:ofType:
--(void)takeModel:(id)model ofType:(NSString *)type;
+- (void)takeModel:(id)model ofType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1180,7 +1180,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelValueKeysOfType:
--(NSArray *)modelValueKeysOfType:(NSString *)type;
+- (NSArray *)modelValueKeysOfType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1191,7 +1191,7 @@ To Do List:
     return [[self modelOfType:type] allKeys];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelValueForKey:ofType:
--(id)modelValueForKey:(NSString *)key ofType:(NSString *)type;
+- (id)modelValueForKey:(NSString *)key ofType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1204,7 +1204,7 @@ To Do List:
     return [model valueForKey:key];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModelValue:forKey:ofType:
--(void)takeModelValue:(id)PL forKey:(NSString *)key ofType:(NSString *)type;
+- (void)takeModelValue:(id)PL forKey:(NSString *)key ofType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1306,7 +1306,7 @@ To Do List:
 
 @implementation iTM2Implementation(Selector)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaValueForSelector:
--(id)metaValueForSelector:(SEL)selector;
+- (id)metaValueForSelector:(SEL)selector;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -1318,7 +1318,7 @@ To Do List:
 	return K? [_MetaValueDictionary valueForKey:K]:nil;	
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeMetaValue:forSelector:
--(void)takeMetaValue:(id)argument forSelector:(SEL)selector;
+- (void)takeMetaValue:(id)argument forSelector:(SEL)selector;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -1333,7 +1333,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelValueForSelector:ofType:
--(id)modelValueForSelector:(SEL)selector ofType:(NSString *)type;
+- (id)modelValueForSelector:(SEL)selector ofType:(NSString *)type;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -1345,7 +1345,7 @@ To Do List:
 	return K? [[[self _PropertyLists] valueForKey:type] valueForKey:K]:nil;	
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModelValue:forSelector:ofType:
--(void)takeModelValue:(id)argument forSelector:(SEL)selector ofType:(NSString *)type;
+- (void)takeModelValue:(id)argument forSelector:(SEL)selector ofType:(NSString *)type;
 /*"Basic getter.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -1370,7 +1370,7 @@ NSString * const iTM2ImplementationDidChangeModelObjectNotification = @"iTM2Impl
 @implementation NSNotificationCenter(Implementation)
 static NSNotificationCenter * _iTM2ImplementationNotificationCenter = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1386,7 +1386,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementationCenter
-+(NSNotificationCenter *)implementationCenter;
++ (NSNotificationCenter *)implementationCenter;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1401,7 +1401,7 @@ To Do List:
 
 @implementation iTM2Object
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1416,7 +1416,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1432,7 +1432,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1443,7 +1443,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1462,7 +1462,7 @@ To Do List:
 
 @implementation iTM2Proxy
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1474,7 +1474,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1487,7 +1487,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
--(void)initImplementation;
+- (void)initImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1502,7 +1502,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixImplementation
--(void)fixImplementation;
+- (void)fixImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1532,7 +1532,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deallocImplementation
--(void)deallocImplementation;
+- (void)deallocImplementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1545,7 +1545,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeImplementation
--(void)observeImplementation;
+- (void)observeImplementation;
 /*"
 Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1568,7 +1568,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1579,7 +1579,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1602,7 +1602,7 @@ To Do List:
 
 @implementation NSObject_iTM2Implementation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1615,7 +1615,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  valueForUndefinedKey:
--(id)valueForUndefinedKey:(NSString *)key;
+- (id)valueForUndefinedKey:(NSString *)key;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1628,7 +1628,7 @@ To Do List:
 		[super valueForUndefinedKey:key];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setValue:forUndefinedKey:
--(void)setValue:(id)value forUndefinedKey:(NSString *)key;
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

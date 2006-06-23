@@ -118,7 +118,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		D is a key stroke selectors dictionary.
     @result		None.
 */
-+(void)addKeyStrokeSelectorsFromDictionary:(NSDictionary *)D;
++ (void)addKeyStrokeSelectorsFromDictionary:(NSDictionary *)D;
 
 /*!
     @method		keyBindingsForIdentifier:
@@ -137,7 +137,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		An NSString identifier.
     @result		A dictionary.
 */
-+(id)keyBindingsForIdentifier:(NSString *)identifier;
++ (id)keyBindingsForIdentifier:(NSString *)identifier;
 
 /*!
     @method		selectorMapForIdentifier:
@@ -146,7 +146,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		identifier.
     @result		A dictionary.
 */
-+(id)selectorMapForIdentifier:(NSString *)identifier;
++ (id)selectorMapForIdentifier:(NSString *)identifier;
 
 /*!
     @method		registerKeyBindingsForIdentifier:
@@ -157,7 +157,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		identifier.
     @result		None.
 */
-+(void)registerKeyBindingsForIdentifier:(NSString *)identifier;
++ (void)registerKeyBindingsForIdentifier:(NSString *)identifier;
 
 /*!
     @method		initWithIdentifier:handleKeyBindings:handleKeyStrokes:
@@ -166,7 +166,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None.
     @result		A dictionary.
 */
--(id)initWithIdentifier:(NSString *)identifier handleKeyBindings:(BOOL)handlesKeyBindings handleKeyStrokes:(BOOL)handlesKeyStrokes;
+- (id)initWithIdentifier:(NSString *)identifier handleKeyBindings:(BOOL)handlesKeyBindings handleKeyStrokes:(BOOL)handlesKeyStrokes;
 
 /*!
     @method		rootKeyBindings
@@ -176,7 +176,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None.
     @result		A dictionary.
 */
--(NSDictionary *)rootKeyBindings;
+- (NSDictionary *)rootKeyBindings;
 
 /*!
     @method		currentKeyBindings
@@ -186,7 +186,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None.
     @result		None.
 */
--(NSDictionary *)currentKeyBindings;
+- (NSDictionary *)currentKeyBindings;
 
 /*!
     @method		client:performKeyEquivalent:
@@ -197,7 +197,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		theEvent is the event.
     @result		NO iff this event could not be interpreted.
 */
--(BOOL)client:(id)C performKeyEquivalent:(NSEvent *)theEvent;
+- (BOOL)client:(id)C performKeyEquivalent:(NSEvent *)theEvent;
 
 /*!
     @method		client:performMnemonic:
@@ -209,7 +209,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		theString is the string.
     @result		NO iff this string could not be interpreted as a mnemonic.
 */
--(BOOL)client:(id)C performMnemonic:(NSString *)theString;
+- (BOOL)client:(id)C performMnemonic:(NSString *)theString;
 
 /*!
     @method		client:interpretKeyEvent:
@@ -227,7 +227,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		theEvent is the event.
     @result		NO iff this event could not be interpreted..
 */
--(BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
+- (BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
 
 /*!
     @method		client:executeInstruction:
@@ -242,7 +242,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		theEvent is the event.
     @result		NO iff this instruction could not be executed..
 */
--(BOOL)client:(id)C executeInstruction:(id)instruction;
+- (BOOL)client:(id)C executeInstruction:(id)instruction;
 
 /*!
     @method		toggleEscape:
@@ -251,7 +251,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		irrelevant sender.
     @result		None.
 */
--(IBAction)toggleEscape:(id)sender;
+- (IBAction)toggleEscape:(id)sender;
 
 /*!
     @method		toggleDeepEscape:
@@ -261,7 +261,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		irrelevant sender.
     @result		None.
 */
--(IBAction)toggleDeepEscape:(id)sender;
+- (IBAction)toggleDeepEscape:(id)sender;
 
 /*!
     @method		flushKeyBindings:
@@ -270,7 +270,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		irrelevant sender.
     @result		None.
 */
--(void)flushKeyBindings:(id)irrelevant;
+- (void)flushKeyBindings:(id)irrelevant;
 
 /*!
     @method		escapeCurrentKeyBindingsIfAllowed
@@ -279,7 +279,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None.
     @result		None.
 */
--(void)escapeCurrentKeyBindingsIfAllowed;
+- (void)escapeCurrentKeyBindingsIfAllowed;
 
 @end
 
@@ -294,8 +294,8 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		An instruction.
     @result		A flag indicating whether the receiver has executed the given instruction.
 */
--(BOOL)executeStringInstruction:(NSString *)instruction;
--(BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+- (BOOL)executeStringInstruction:(NSString *)instruction;
+- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
 
 /*!
     @method		keyBindingsManager
@@ -315,7 +315,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None
     @result		a key binding manager.
 */
--(id)keyBindingsManager;
+- (id)keyBindingsManager;
 
 /*!
     @method		keyBindingsManagerForClient:
@@ -331,10 +331,10 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		client is a NSResponder...
     @result		a key binding manager.
 */
--(id)keyBindingsManagerForClient:(id)client;
+- (id)keyBindingsManagerForClient:(id)client;
 
--(id)keyBindingsManagerWithIdentifier:(NSString *)identifier;
--(id)lazyKeyBindingsManager;
+- (id)keyBindingsManagerWithIdentifier:(NSString *)identifier;
+- (id)lazyKeyBindingsManager;
 
 @end
 
@@ -348,7 +348,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		An instruction.
     @result		A flag indicating whether the receiver has executed the given instruction.
 */
--(BOOL)executeStringInstruction:(NSString *)instruction;
+- (BOOL)executeStringInstruction:(NSString *)instruction;
 
 @end
 
@@ -375,7 +375,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None
     @result		None
 */
--(id)keyStrokeEvents;
+- (id)keyStrokeEvents;
 
 /*
     @method		keyStrokes
@@ -384,7 +384,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None
     @result		None
 */
--(NSString *)keyStrokes;
+- (NSString *)keyStrokes;
 
 /*
     @method		pushKeyStrokeEvent:
@@ -393,7 +393,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		event
     @result		None
 */
--(void)pushKeyStrokeEvent:(NSEvent *)event;
+- (void)pushKeyStrokeEvent:(NSEvent *)event;
 
 /*
     @method		pushKeyStroke:
@@ -402,7 +402,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		key
     @result		None
 */
--(void)pushKeyStroke:(NSString *)key;
+- (void)pushKeyStroke:(NSString *)key;
 
 /*
     @method		flushKeyStrokeEvents:
@@ -412,7 +412,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		an irrelevant sender
     @result		None
 */
--(void)flushKeyStrokeEvents:(id)sender;
+- (void)flushKeyStrokeEvents:(id)sender;
 
 /*
     @method		flushLastKeyStrokeEvent:
@@ -421,7 +421,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		an irrelevant sender
     @result		None
 */
--(void)flushLastKeyStrokeEvent:(id)sender;
+- (void)flushLastKeyStrokeEvent:(id)sender;
 
 /*
     @method		selectorFromKeyStroke:
@@ -435,7 +435,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param	    The key stroke is expected to be a 1 length string
     @result     a selector
 */
-+(SEL)selectorFromKeyStroke:(NSString *)key;
++ (SEL)selectorFromKeyStroke:(NSString *)key;
 
 /*
     @method		interpretKeyStroke:
@@ -447,7 +447,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param      The key stroke is expected to be a 1 length string.
     @result     yorn
 */
--(BOOL)interpretKeyStroke:(NSString *)key;
+- (BOOL)interpretKeyStroke:(NSString *)key;
 
 /*
     @method		tryToReallyPerform:with:
@@ -464,7 +464,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		argument is an object argument
     @result		yorn
 */
--(BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
+- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
 
 @end
 
@@ -487,7 +487,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param	    None
     @result     yorn
 */
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 
 /*
     @method     interpretKeyStroke:
@@ -503,7 +503,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param	    The key stroke is expected to be a 1 length string
     @result     yorn
 */
--(BOOL)interpretKeyStroke:(NSString *)key;
+- (BOOL)interpretKeyStroke:(NSString *)key;
 
 /*
     @method     executeMacroWithIdentifier:
@@ -512,7 +512,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 				The default implementation does nothing more than returning NO.
     @result     yorn
 */
--(BOOL)executeMacroWithIdentifier:(NSString *)key;
+- (BOOL)executeMacroWithIdentifier:(NSString *)key;
 
 @end
 
@@ -531,7 +531,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None
     @result		void string
 */
--(NSString *)keyBindingsManagerIdentifier;
+- (NSString *)keyBindingsManagerIdentifier;
 
 /*
     @method		handlesKeyBindings
@@ -543,7 +543,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None
     @result		yorn
 */
--(BOOL)handlesKeyBindings;
+- (BOOL)handlesKeyBindings;
 
 /*
     @method		keyBindingsManager
@@ -557,7 +557,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None
     @result		a key binding manager.
 */
--(id)keyBindingsManager;
+- (id)keyBindingsManager;
 
 /*
     @method		flushKeyBindings:
@@ -566,7 +566,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		Irrelevant sender
     @result		None
 */
--(IBAction)flushKeyBindings:(id)irrelevant;
+- (IBAction)flushKeyBindings:(id)irrelevant;
 
 @end
 
@@ -574,8 +574,8 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 
 @interface NSWindowController(iTM2KeyBindingsKit)
 
--(NSString *)keyBindingsManagerIdentifier;
--(void)setKeyBindingsManager:(id)argument;
+- (NSString *)keyBindingsManagerIdentifier;
+- (void)setKeyBindingsManager:(id)argument;
 
 /*
     @method     handlesKeyStrokes
@@ -587,7 +587,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param	    None
     @result     yorn
 */
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 
 @end
 
@@ -599,5 +599,5 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 */
 
 @interface iTM2KeyBindingsResponder: iTM2AutoInstallResponder
--(IBAction)toggleNoKeyBindings:(id)irrelevant;
+- (IBAction)toggleNoKeyBindings:(id)irrelevant;
 @end

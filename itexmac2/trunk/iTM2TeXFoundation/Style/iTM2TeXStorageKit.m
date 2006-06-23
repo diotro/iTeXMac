@@ -29,7 +29,7 @@ NSString * const iTM2Text2ndSymbolColorAttributeName = @"iTM2Text2ndSymbolColorA
 
 @implementation iTM2MainInstaller(TeXStorageKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXStorageCompleteInstallation
-+(void)iTM2TeXStorageCompleteInstallation;
++ (void)iTM2TeXStorageCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004
@@ -49,7 +49,7 @@ To Do List: Nothing
 
 @implementation iTM2XtdTeXParserAttributesServer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithVariant:
--(id)initWithVariant:(NSString *)variant;
+- (id)initWithVariant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -70,7 +70,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -88,7 +88,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAttributes:forMode:
--(void)setAttributes:(NSDictionary *)dictionary forMode:(NSString *)mode;
+- (void)setAttributes:(NSDictionary *)dictionary forMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -105,7 +105,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesDidChange
--(void)attributesDidChange;
+- (void)attributesDidChange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -126,7 +126,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  SYMBOLS ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesForSymbol:
--(NSDictionary *)attributesForSymbol:(NSString *)symbol;
+- (NSDictionary *)attributesForSymbol:(NSString *)symbol;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -166,7 +166,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadSymbolsAttributesWithVariant:
--(void)loadSymbolsAttributesWithVariant:(NSString *)variant;
+- (void)loadSymbolsAttributesWithVariant:(NSString *)variant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -212,7 +212,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadSymbolsAttributesAtPath:
--(void)loadSymbolsAttributesAtPath:(NSString *)stylePath;
+- (void)loadSymbolsAttributesAtPath:(NSString *)stylePath;
 /*"The notification object is used to retrieve font and color info. If no object is given, the NSFontColorManager class object is used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -243,7 +243,7 @@ To Do List: NYI
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDraftSymbolsAttributesAtPath:
--(void)loadDraftSymbolsAttributesAtPath:(NSString *)stylePath;
+- (void)loadDraftSymbolsAttributesAtPath:(NSString *)stylePath;
 /*"The notification object is used to retrieve font and color info. If no object is given, the NSFontColorManager class object is used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -263,7 +263,7 @@ To Do List: NYI
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  symbolsAttributesWithContentsOfFile:
-+(NSDictionary *)symbolsAttributesWithContentsOfFile:(NSString *)fileName;
++ (NSDictionary *)symbolsAttributesWithContentsOfFile:(NSString *)fileName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -281,7 +281,7 @@ To Do List:
     return [NSDictionary dictionary];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeSymbolsAttributes:toFile:
-+(BOOL)writeSymbolsAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName;
++ (BOOL)writeSymbolsAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -305,7 +305,7 @@ static NSArray * _iTM2TeXModeForModeArray = nil;
 
 @implementation iTM2TeXParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -322,7 +322,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+(NSString *)syntaxParserStyle;
++ (NSString *)syntaxParserStyle;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -333,7 +333,7 @@ To Do List: Nothing
     return @"TeX";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModesAttributes
-+(NSDictionary *)defaultModesAttributes;
++ (NSDictionary *)defaultModesAttributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -415,7 +415,7 @@ To Do List:
     return [NSDictionary dictionaryWithDictionary:MD];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
--(unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -705,7 +705,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
--(unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+- (unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -800,7 +800,7 @@ To Do List:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
--(unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+- (unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -855,7 +855,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLModeForPreviousMode:
--(unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
+- (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -869,7 +869,7 @@ To Do List:
     return kiTM2TeXRegularSyntaxMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
--(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -923,7 +923,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxModeAtIndex:longestEffectiveRange:
--(unsigned)syntaxModeAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr;
+- (unsigned)syntaxModeAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr;
 /*"BUGGY
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -958,7 +958,7 @@ meursault:
 	return mode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:longestEffectiveRange:inRange:
--(NSDictionary *)xattributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
+- (NSDictionary *)xattributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
 /*"Description forthcoming. BUGGY
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1015,7 +1015,7 @@ To Do List:
 
 @implementation iTM2XtdTeXParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+(NSString *)syntaxParserStyle;
++ (NSString *)syntaxParserStyle;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -1026,7 +1026,7 @@ To Do List: Nothing
     return @"TeX-Xtd";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
--(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1234,7 +1234,7 @@ To Do List:
 static id _iTM2TextPTeXLetterCharacterSet = nil;
 static id _iTM2TextPTeXFileNameLetterCharacterSet = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1262,7 +1262,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXLetterCharacterSet;
-+(NSCharacterSet *)TeXLetterCharacterSet;
++ (NSCharacterSet *)TeXLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -1272,7 +1272,7 @@ To Do List:
     return _iTM2TextPTeXLetterCharacterSet;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
-+(NSCharacterSet *)TeXFileNameLetterCharacterSet;
++ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:

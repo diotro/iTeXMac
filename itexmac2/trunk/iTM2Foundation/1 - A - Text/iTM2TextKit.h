@@ -41,14 +41,14 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 @abstract Breaks the typing flow with respect to undo management.
 @discussion Used in the save document process and the insert macro one to separate the undo management.
 */
--(void)breakTypingFlow;
+- (void)breakTypingFlow;
 
 /*!
 @method openSelectionQuickly:
 @abstract Opens the selection quickly.
 @discussion Description forthcoming.
 */
--(void)openSelectionQuickly:(id)sender;
+- (void)openSelectionQuickly:(id)sender;
 
 @end
 
@@ -62,7 +62,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@param		aLine an integer.
 	@result		None.
 */
--(void)highlightAndScrollToVisibleLine:(unsigned int)aLine;
+- (void)highlightAndScrollToVisibleLine:(unsigned int)aLine;
 
 /*!
 	@method		highlightAndScrollToVisibleLine:column:
@@ -72,7 +72,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@param		column an integer.
 	@result		None.
 */
--(void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column;
+- (void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column;
 
 /*!
 	@method		highlightAndScrollToVisibleLineRange:
@@ -80,7 +80,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@discussion	Uses the receiver's highlightAndScrollToVisibleRange: message with the right argument..
 	@param		an NSRange.
 */
--(void)highlightAndScrollToVisibleLineRange:(NSRange)aLineRange;
+- (void)highlightAndScrollToVisibleLineRange:(NSRange)aLineRange;
 
 /*!
 	@method		highlightAndScrollToVisibleRange:
@@ -88,7 +88,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@discussion	Uses the receiver's textView's highlightAndScrollToVisibleRange: message with the right argument..
 	@param		an NSString object.
 */
--(void)highlightAndScrollToVisibleRange:(NSRange)aRange;
+- (void)highlightAndScrollToVisibleRange:(NSRange)aRange;
 
 /*!
 	@method		highlightRange:cleanBefore:
@@ -97,7 +97,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@param		an NSRange to be highlighted.
 	@param		aFlag indicates whether previously highlighted ranges should be cleaned before.
 */
--(void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
+- (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
 
 /*!
 	@method		secondaryHighlightAtIndices:lengths:
@@ -105,7 +105,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@discussion	Uses the receiver's textView's highlightAndScrollToVisibleRange: message with the right argument..
 	@param		an NSString object.
 */
--(void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
+- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
 
 @end
 
@@ -118,7 +118,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
     @param		A list of strings.
     @result		None.
 */
--(void)insertStringArray:(NSArray *)textArray;
+- (void)insertStringArray:(NSArray *)textArray;
 
 /*!
     @method		extendSelectionWithRange:
@@ -127,7 +127,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
     @param		A range of characters.
     @result		None.
 */
--(void)extendSelectionWithRange:(NSRange)range;
+- (void)extendSelectionWithRange:(NSRange)range;
 
 /*!
     @method		visibleRange
@@ -136,7 +136,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
     @param		None.
     @result		A range of characters.
 */
--(NSRange)visibleRange;
+- (NSRange)visibleRange;
 
 /*!
 	@method		highlightRange:cleanBefore:
@@ -145,7 +145,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@param		an NSRange to be highlighted.
 	@param		aFlag indicates whether previously highlighted ranges should be cleaned before.
 */
--(void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
+- (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
 
 /*!
 	@method		secondaryHighlightAtIndices:lengths:
@@ -153,7 +153,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@discussion	Uses the receiver's textView's highlightAndScrollToVisibleRange: message with the right argument..
 	@param		an NSString object.
 */
--(void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
+- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
 
 /*!
 	@method		scaleFactor
@@ -161,7 +161,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@discussion	The magnification is the ration of the frame width over the bounds width.
 	@result		a positive ratio.
 */
--(float)scaleFactor;
+- (float)scaleFactor;
 
 /*!
 	@method		setScaleFactor:
@@ -171,10 +171,10 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@param		aMagnification is a positive float.
 	@result		None
 */
--(void)setScaleFactor:(float)aMagnification;
+- (void)setScaleFactor:(float)aMagnification;
 
--(IBAction)doZoomIn:(id)sender;
--(IBAction)doZoomOut:(id)sender;
+- (IBAction)doZoomIn:(id)sender;
+- (IBAction)doZoomOut:(id)sender;
 
 
 @end
@@ -187,18 +187,18 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@discussion	Red color...
 	@param		an NSColor object.
 */
-+(NSColor *)textRangeHighlightColor;
++ (NSColor *)textRangeHighlightColor;
 
 @end
 
 @interface NSTextView(Placeholder)
--(IBAction)selectNextPlaceholder:(id)sender;
--(IBAction)selectPreviousPlaceholder:(id)sender;
-+(NSString *)tabAnchorKey;
--(NSString *)tabAnchor;
--(void)selectNextTabAnchor:(id)sender;
--(void)selectPreviousTabAnchor:(id)sender;
--(void)selectNextTabAnchorAndDelete:(id)sender;
+- (IBAction)selectNextPlaceholder:(id)sender;
+- (IBAction)selectPreviousPlaceholder:(id)sender;
++ (NSString *)tabAnchorKey;
+- (NSString *)tabAnchor;
+- (void)selectNextTabAnchor:(id)sender;
+- (void)selectPreviousTabAnchor:(id)sender;
+- (void)selectNextTabAnchorAndDelete:(id)sender;
 @end
 
 @interface NSString(iTM2Placeholder)
@@ -209,7 +209,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@discussion	Discussion forthcoming.
 	@param		An index.
 */
--(NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
+- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
 
 @end
 

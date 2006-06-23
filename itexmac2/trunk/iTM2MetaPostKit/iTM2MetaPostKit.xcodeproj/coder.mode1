@@ -271,7 +271,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 184}, {336, 452}}</string>
+							<string>{{0, 0}, {336, 452}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -371,9 +371,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC5B6BB70A4B76C300F7DE47</string>
+				<string>DC2A7B120A4C175C006864F4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC5B6BB80A4B76C300F7DE47</string>
+				<string>DC2A7B130A4C175C006864F4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -526,7 +526,6 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/iTM2MetaPostKit.xcodeproj</string>
-		<string>DC099B36088B331B0028F810</string>
 	</array>
 	<key>WindowString</key>
 	<string>26 346 990 532 0 0 1440 878 </string>
@@ -621,7 +620,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC099B36088B331B0028F810</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

@@ -32,32 +32,32 @@ extern NSString * const iTM2NavLastRootDirectory;
 @interface NSUserDefaults(iTeXMac2)
 /*"Class methods"*/
 /*"Setters and Getters"*/
--(NSFont *)fontForKey:(NSString *)aKey;
--(void)setFont:(NSFont *)aFont forKey:(NSString *)aKey;
--(NSColor *)colorForKey:(NSString *)aKey;
--(void)setColor:(NSColor *)aColor forKey:(NSString *)aKey;
+- (NSFont *)fontForKey:(NSString *)aKey;
+- (void)setFont:(NSFont *)aFont forKey:(NSString *)aKey;
+- (NSColor *)colorForKey:(NSString *)aKey;
+- (void)setColor:(NSColor *)aColor forKey:(NSString *)aKey;
 /*"Main methods"*/
--(void)registerFont:(NSFont *)aFont forKey:(NSString *)aKey;
--(void)registerColor:(NSColor *)aColor forKey:(NSString *)aKey;
--(void)notifyChangeNow;
--(void)notifyFontOrColorChangeNow;
+- (void)registerFont:(NSFont *)aFont forKey:(NSString *)aKey;
+- (void)registerColor:(NSColor *)aColor forKey:(NSString *)aKey;
+- (void)notifyChangeNow;
+- (void)notifyFontOrColorChangeNow;
 /*"Overriden methods"*/
 @end
 
 @interface NSFont(iTM2UserDefaults)
 /*"Class methods"*/
-+(NSFont *)fontWithNameSizeDictionary:(NSDictionary *)aDictionary;
++ (NSFont *)fontWithNameSizeDictionary:(NSDictionary *)aDictionary;
 /*"Setters and Getters"*/
--(NSDictionary *)nameSizeDictionary;
+- (NSDictionary *)nameSizeDictionary;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end
 
 @interface NSColor(iTM2UserDefaults)
 /*"Class methods"*/
-+(NSColor *)colorWithRGBADictionary:(NSDictionary *)aDictionary;
++ (NSColor *)colorWithRGBADictionary:(NSDictionary *)aDictionary;
 /*"Setters and Getters"*/
--(NSDictionary *)RGBADictionary;
+- (NSDictionary *)RGBADictionary;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end

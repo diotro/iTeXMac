@@ -27,23 +27,23 @@
 #import <iTM2ConTeXtKit/iTM2ConTeXtKit.h>
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:KEY] boolValue]] forKey:KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setState:([[self modelValueForKey:KEY] boolValue]? NSOnState:NSOffState)];return YES;}
+- (void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:KEY] boolValue]] forKey:KEY];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setState:([[self modelValueForKey:KEY] boolValue]? NSOnState:NSOffState)];return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithFloat:[sender floatValue]] forKey:KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self modelValueForKey:KEY] floatValue]];\
+- (void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithFloat:[sender floatValue]] forKey:KEY];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self modelValueForKey:KEY] floatValue]];\
 return [[self modelValueForKey:USE_KEY] boolValue];}
 //return ![self modelValueForKey:USE_KEY] || [[self modelValueForKey:USE_KEY] boolValue];}
 #define IEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithInt:[sender intValue]] forKey:KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setIntValue:[[self modelValueForKey:KEY] intValue]];\
+- (void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithInt:[sender intValue]] forKey:KEY];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setIntValue:[[self modelValueForKey:KEY] intValue]];\
 return [[self modelValueForKey:USE_KEY] boolValue];}
 #define SEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue:[sender stringValue] forKey:KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self modelValueForKey:KEY]];\
+- (void)ACTION:(id)sender;{[self takeModelValue:[sender stringValue] forKey:KEY];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self modelValueForKey:KEY]];\
 return [[self modelValueForKey:USE_KEY] boolValue];}
 #define UNIT(ACTION, VALIDATE, KEY)\
--(void)ACTION:(id)sender;\
+- (void)ACTION:(id)sender;\
 {\
 	switch([[sender selectedItem] tag])\
 	{\
@@ -54,7 +54,7 @@ return [[self modelValueForKey:USE_KEY] boolValue];}
 	}\
     return;\
 }\
--(BOOL)VALIDATE:(id)sender;\
+- (BOOL)VALIDATE:(id)sender;\
 {\
 	NSString * unit = [self modelValueForKey:KEY];\
 	if([unit isEqual:@"bp"])\
@@ -257,7 +257,7 @@ NSString * const iTM2TeXExecXMLFilter = @"iTM2_TeXExec_xmlfilter";
 
 @implementation iTM2EngineTeXExec
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -268,7 +268,7 @@ To Do List:
     return @"iTM2_Engine_texexec";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -279,7 +279,7 @@ To Do List:
     return [NSArray arrayWithObjects:@"tex", @"xml", nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -422,7 +422,7 @@ SEDIT(TXCPassOn, validateTXCPassOn, iTM2TeXExecTXCPassOn, iTM2TeXExecUseTXCPassO
 TOGGLE(useResult, validateUseResult, iTM2TeXExecUseResult);
 //SEDIT(result, validateResult, iTM2TeXExecResult, iTM2TeXExecUseResult);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  result:
--(void)result:(id) sender;
+- (void)result:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -436,7 +436,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateResult:
--(BOOL)validateResult:(id)sender;
+- (BOOL)validateResult:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -468,7 +468,7 @@ To Do List:
 }
 TOGGLE(useMode, validateUseMode, iTM2TeXExecUseMode);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mode:
--(void)mode:(id) sender;
+- (void)mode:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -487,7 +487,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMode:
--(BOOL)validateMode:(id)sender;
+- (BOOL)validateMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -500,7 +500,7 @@ To Do List:
 	return ![self modelValueForKey:iTM2TeXExecUseMode] || [[self modelValueForKey:iTM2TeXExecUseMode] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent:
--(BOOL)validateWindowContent;
+- (BOOL)validateWindowContent;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -525,7 +525,7 @@ To Do List:
 	return [super validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useXeTeX:
--(void)useXeTeX:(id)sender;
+- (void)useXeTeX:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -539,7 +539,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateUseXeTeX:
--(BOOL)validateUseXeTeX:(id)sender;
+- (BOOL)validateUseXeTeX:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -561,7 +561,7 @@ To Do List:
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchInteraction:
--(IBAction)switchInteraction:(id)sender;
+- (IBAction)switchInteraction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -587,7 +587,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
--(BOOL)validateSwitchInteraction:(id)sender;
+- (BOOL)validateSwitchInteraction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -613,7 +613,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputFormat:
--(IBAction)outputFormat:(id)sender;
+- (IBAction)outputFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -658,7 +658,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOutputFormat:
--(BOOL)validateOutputFormat:(id)sender;
+- (BOOL)validateOutputFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -721,7 +721,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtPragmaADE:
--(IBAction)ConTeXtPragmaADE:(id)sender;
+- (IBAction)ConTeXtPragmaADE:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -737,7 +737,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(dvipdfm)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXExecCompleteInstallation
-+(void)iTM2TeXExecCompleteInstallation;
++ (void)iTM2TeXExecCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -753,7 +753,7 @@ To Do List:
 
 @implementation iTM2ConTeXtResultFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedStringForObjectValue:withDefaultAttributes:
--(NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
+- (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002

@@ -69,17 +69,17 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 /*"Public methods"*/
 /*"Setters and Getters"*/
 //+ (BOOL) validateMenuItem: (id <NSMenuItem>) sender;
-+(iTM2EOL)EOLForName:(NSString *)name;
-+(NSMenu *)EOLMenuWithAction:(SEL)anAction target:(id)aTarget;
-+(NSMenu *)stringEncodingMenuWithAction:(SEL)anAction target:(id)aTarget;
-+(NSArray *)supportedStringEncodings;
-+(NSString *)terminationStringForEOL:(iTM2EOL)EOL;
-+(iTM2EOL)EOLForTerminationString:(NSString *)terminationString;
-+(CFStringEncoding)coreFoundationStringEncodingFromString:(NSString *)argument;
-+(NSNumber *)stringEncodingFromString:(NSString *)argument;
-+(NSString *)nameOfCoreFoundationStringEncoding:(CFStringEncoding)argument;
-+(NSString *)nameOfEOL:(iTM2EOL)LE;
-+(NSArray *)availableStringEncodings;// NSStringEncodings
++ (iTM2EOL)EOLForName:(NSString *)name;
++ (NSMenu *)EOLMenuWithAction:(SEL)anAction target:(id)aTarget;
++ (NSMenu *)stringEncodingMenuWithAction:(SEL)anAction target:(id)aTarget;
++ (NSArray *)supportedStringEncodings;
++ (NSString *)terminationStringForEOL:(iTM2EOL)EOL;
++ (iTM2EOL)EOLForTerminationString:(NSString *)terminationString;
++ (CFStringEncoding)coreFoundationStringEncodingFromString:(NSString *)argument;
++ (NSNumber *)stringEncodingFromString:(NSString *)argument;
++ (NSString *)nameOfCoreFoundationStringEncoding:(CFStringEncoding)argument;
++ (NSString *)nameOfEOL:(iTM2EOL)LE;
++ (NSArray *)availableStringEncodings;// NSStringEncodings
 /*"Main methods"*/
 /*"Overriden methods"*/
 
@@ -90,7 +90,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		The new document
 	@result		None
 */
--(id)initWithDocument:(id)document;
+- (id)initWithDocument:(id)document;
 
 
 /*!
@@ -100,7 +100,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param EOL is the line endings setting.
 	@result		An NSString in cr, cr+lf or lf.
 */
-+(NSString *)terminationStringForEOL:(iTM2EOL)EOL;
++ (NSString *)terminationStringForEOL:(iTM2EOL)EOL;
 
 /*!
 	@method		dataWithString:allowLossyConversion:
@@ -110,7 +110,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		lossy is a flag.
 	@result		An NSData instance.
 */
--(NSData *)dataWithString:(NSString *)argument allowLossyConversion:(BOOL)lossy;
+- (NSData *)dataWithString:(NSString *)argument allowLossyConversion:(BOOL)lossy;
 
 /*!
 	@method		canConvertString:
@@ -119,7 +119,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param string is the NSString object to be converted.
 	@result		yorn.
 */
--(BOOL)canConvertString:(NSString *)argument;
+- (BOOL)canConvertString:(NSString *)argument;
 
 /*!
 	@method		nextUnconvertibleCharacterIndexOfString:startingAt:
@@ -129,7 +129,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param index is the starting point of the testing (included).
 	@result		an index.
 */
--(unsigned int)nextUnconvertibleCharacterIndexOfString:(NSString *)argument startingAt:(unsigned int)index;
+- (unsigned int)nextUnconvertibleCharacterIndexOfString:(NSString *)argument startingAt:(unsigned int)index;
 
 /*!
 	@method		stringWithData:
@@ -141,7 +141,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param data is the NSData object to be converted.
 	@result		An NSString instance.
 */
--(NSString *)stringWithData:(NSData *)data;
+- (NSString *)stringWithData:(NSData *)data;
 
 /*!
 	@method		EOL
@@ -150,7 +150,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		0 for unspecified, 1 for UNIX (LF), 2 for Macintosh (CR), 3 for windows (CR+LF).
 */
--(unsigned int)EOL;
+- (unsigned int)EOL;
 
 /*!
 	@method		setEOL:
@@ -159,7 +159,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		None
 */
--(void)setEOL:(unsigned int)argument;
+- (void)setEOL:(unsigned int)argument;
 
 /*!
 	@method		stringEncoding
@@ -169,7 +169,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		An NSString instance owned by the receiver.
 */
--(NSStringEncoding)stringEncoding;
+- (NSStringEncoding)stringEncoding;
 
 /*!
 	@method		setStringEncoding:
@@ -178,7 +178,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		None
 */
--(void)setStringEncoding:(NSStringEncoding)argument;
+- (void)setStringEncoding:(NSStringEncoding)argument;
 
 /*!
 	@method		isStringEncodingHardCoded
@@ -192,11 +192,11 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		yorn.
 */
--(BOOL)isStringEncodingHardCoded;
--(void)setStringEncodingHardCoded:(BOOL)yorn;
+- (BOOL)isStringEncodingHardCoded;
+- (void)setStringEncodingHardCoded:(BOOL)yorn;
 
--(NSString *)hardStringEncodingString;
--(void)setHardStringEncodingString:(NSString *)argument;
+- (NSString *)hardStringEncodingString;
+- (void)setHardStringEncodingString:(NSString *)argument;
 
 /*!
 	@method		document
@@ -205,7 +205,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		the owner
 */
--(id)document;
+- (id)document;
 
 /*!
 	@method		setDocument:
@@ -214,7 +214,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		The new document
 	@result		None
 */
--(void)setDocument:(id)document;
+- (void)setDocument:(id)document;
 
 @end
 
@@ -227,7 +227,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		None
 */
-+(NSString *)localizedNameOfEOL:(iTM2EOL)LE;
++ (NSString *)localizedNameOfEOL:(iTM2EOL)LE;
 
 /*!
 	@method		stringByUsingEOL:
@@ -236,7 +236,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		None
 */
--(NSString *)stringByUsingEOL:(iTM2EOL)EOL;
+- (NSString *)stringByUsingEOL:(iTM2EOL)EOL;
 
 /*!
 	@method		EOLUsed
@@ -245,7 +245,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		None
 */
--(iTM2EOL)EOLUsed;
+- (iTM2EOL)EOLUsed;
 
 /*!
 	@method		getHardCodedStringEncoding:range:
@@ -254,13 +254,13 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@param		None
 	@result		None
 */
--(void)getHardCodedStringEncoding:(NSStringEncoding *)stringEncodingRef range:(NSRangePointer)rangeRef;
+- (void)getHardCodedStringEncoding:(NSStringEncoding *)stringEncodingRef range:(NSRangePointer)rangeRef;
 
 @end
 
 @interface NSDocument(iTM2StringFormatController)
 
--(id)stringFormatter;
+- (id)stringFormatter;
 
 @end
 

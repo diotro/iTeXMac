@@ -29,7 +29,7 @@ void * iTM2ARETestAndCompileString(NSString *string, BOOL ignoreCase);
 
 @implementation iTM2ARegularExpression
 
-+(BOOL)validString:(NSString *)argument;
++ (BOOL)validString:(NSString *)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -52,7 +52,7 @@ To Do List: ...
     return isValid;
 }
 
-+(id)regularExpressionWithString:(NSString *)string;
++ (id)regularExpressionWithString:(NSString *)string;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -63,7 +63,7 @@ To Do List: ...
     return [[[[self class] allocWithZone:nil] initWithString:string] autorelease];
 }
 
-+(NSString *)keyForErrorStatus:(int)status;
++ (NSString *)keyForErrorStatus:(int)status;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -97,7 +97,7 @@ To Do List: ...
     }
 }
 
-+(NSString *)localizedStringForErrorStatus:(int)status;
++ (NSString *)localizedStringForErrorStatus:(int)status;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -109,7 +109,7 @@ To Do List: ...
         @"iTM2AREStatusString", [self classBundle], "pretty human readable error status");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compilationStatusString
--(NSString *)compilationStatusString;
+- (NSString *)compilationStatusString;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -120,7 +120,7 @@ To Do List: ...
     return [[self class] localizedStringForErrorStatus:[self compilationStatus]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compilationStatus;
--(iTM2AREErrorStatus)compilationStatus;
+- (iTM2AREErrorStatus)compilationStatus;
 /*"Lazy intializer.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -132,7 +132,7 @@ To Do List: ...
     return _CompilationStatus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  executionStatus;
--(iTM2AREErrorStatus)executionStatus;
+- (iTM2AREErrorStatus)executionStatus;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -143,7 +143,7 @@ To Do List: ...
     return _ExecutionStatus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithString:
--(id)initWithString:(NSString *)string;
+- (id)initWithString:(NSString *)string;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -154,7 +154,7 @@ To Do List: ...
     return [self initWithString:string options:iTM2AREAdvancedMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithString:options:
--(id)initWithString:(NSString *)string options:(unsigned)flags;
+- (id)initWithString:(NSString *)string options:(unsigned)flags;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -181,7 +181,7 @@ To Do List: ...
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  expressionValue
--(void *)expressionValue;
+- (void *)expressionValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -226,7 +226,7 @@ To Do List: ...
     return _Expression;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  
--(id)copyWithZone:(NSZone *)zone;
+- (id)copyWithZone:(NSZone *)zone;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -241,7 +241,7 @@ To Do List: ...
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -260,14 +260,14 @@ To Do List: ...
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqual:
--(BOOL)isEqual:(id)rhs
+- (BOOL)isEqual:(id)rhs
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [super isEqual:rhs] ||
         ([rhs isKindOfClass:[iTM2ARegularExpression class]] && [[self stringValue] isEqualToString:[rhs stringValue]]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hash
--(unsigned)hash;
+- (unsigned)hash;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -278,7 +278,7 @@ To Do List: ...
     return [_String hash];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringValue
--(NSString *)stringValue;
+- (NSString *)stringValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -289,7 +289,7 @@ To Do List: ...
     return _String;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ignoreCase
--(BOOL)ignoreCase;
+- (BOOL)ignoreCase;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -300,7 +300,7 @@ To Do List: ...
     return _Options & iTM2ARECaseIndependentMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setIgnoreCase:
--(void)setIgnoreCase:(BOOL)flag;
+- (void)setIgnoreCase:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -315,7 +315,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOptions:
--(void)setOptions:(int)flags;
+- (void)setOptions:(int)flags;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -337,7 +337,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  matchRangesInCharacters: (const unichar *) candidateChars range;
--(NSArray *)matchRangesInCharacters:(const unichar *)unichars range:(NSRange)searchRange;
+- (NSArray *)matchRangesInCharacters:(const unichar *)unichars range:(NSRange)searchRange;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -420,7 +420,7 @@ To Do List: ...
 }
 #define EXPRESSION_STRING_KEY @"iTM2String"
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  
--(void)encodeWithCoder:(NSCoder *)coder;
+- (void)encodeWithCoder:(NSCoder *)coder;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -433,7 +433,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  
--(id)initWithCoder:(NSCoder *)coder
+- (id)initWithCoder:(NSCoder *)coder
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     // Do not call super.  NSObject does not conform to NSCoding.
@@ -444,7 +444,7 @@ To Do List: ...
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangesOfRegularExpression:options:range:
--(NSString *)description
+- (NSString *)description
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -494,7 +494,7 @@ void iTM2FreeRegex(void *re) {
 
 @implementation NSString(iTM2ARegularExpression)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeX2REConvertedString
--(NSString *)TeX2REConvertedString;
+- (NSString *)TeX2REConvertedString;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -528,7 +528,7 @@ To Do List: ...
     return S;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  RE2TeXConvertedString
--(NSString *)RE2TeXConvertedString;
+- (NSString *)RE2TeXConvertedString;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -565,7 +565,7 @@ To Do List: ...
     return S;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangesOfRegularExpression:
--(NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE;
+- (NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -576,7 +576,7 @@ To Do List: ...
     return [self rangesOfRegularExpression:RE options:0L];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangesOfRegularExpression:options:
--(NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
+- (NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -588,7 +588,7 @@ To Do List: ...
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangesOfRegularExpression:options:range:
--(NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
+- (NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -624,7 +624,7 @@ To Do List: ...
 
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangesOfRegularExpression:options:range:
--(NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
+- (NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -673,7 +673,7 @@ To Do List: ...
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allRangesOfRegularExpression:
--(NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE;
+- (NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -684,7 +684,7 @@ To Do List: ...
     return [self allRangesOfRegularExpression:(iTM2ARegularExpression *) RE options:iTM2AREAdvancedMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allRangesOfRegularExpression:options:
--(NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
+- (NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -695,7 +695,7 @@ To Do List: ...
     return [self allRangesOfRegularExpression:RE options:mask range:NSMakeRange(0, [self length])];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allRangesOfRegularExpression:options:range:
--(NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
+- (NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -745,12 +745,12 @@ To Do List: ...
 
 @implementation iTM2ARESyntaxFormatter
 
--(NSString *)stringForObjectValue:(id)obj
+- (NSString *)stringForObjectValue:(id)obj
 {iTM2_DIAGNOSTIC;
     return ([obj isKindOfClass:[iTM2ARegularExpression class]] ? [obj stringValue] :@"");
 }
 
--(BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error
+- (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error
 {iTM2_DIAGNOSTIC;
     if (string && ![string isKindOfClass:[NSArray class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",

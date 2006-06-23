@@ -27,7 +27,7 @@ NSString * const iTM2EDITORToolbarIdentifier = @"iTM2 EDITOR Toolbar: Tiger";
 
 @implementation iTM2EDITORInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 2.0: Fri Sep 05 2003
@@ -39,7 +39,7 @@ To Do List:
     return iTM2EDITORInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 2.0: Fri Sep 05 2003
@@ -52,7 +52,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
--(BOOL)windowPositionShouldBeObserved;
+- (BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens@users.sourceforge.net
 - 2.0: Fri May 21 07:52:07 GMT 2004

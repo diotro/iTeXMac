@@ -34,7 +34,7 @@
     @param      None.
     @result     None.
 */
--(iTM2TaskController *)taskController;
+- (iTM2TaskController *)taskController;
 
 /*! 
     @method     didAddWindowController:
@@ -44,7 +44,7 @@
     @param      WC.
     @result     None.
 */
--(void)didAddWindowController:(id)WC;
+- (void)didAddWindowController:(id)WC;
 
 /*! 
     @method     willRemoveWindowController:
@@ -54,7 +54,7 @@
     @param      WC.
     @result     None.
 */
--(void)willRemoveWindowController:(id)WC;
+- (void)willRemoveWindowController:(id)WC;
 
 @end
 
@@ -76,7 +76,7 @@ extern NSString * const iTM2TeXProjectTerminalInspectorMode;
     @param      irrelevant
     @result     None
 */
--(void)updateOutputAndError:(id)irrelevant;
+- (void)updateOutputAndError:(id)irrelevant;
 
 /*! 
     @method     outputView
@@ -85,7 +85,7 @@ extern NSString * const iTM2TeXProjectTerminalInspectorMode;
     @param      None
     @result     NSTextView
 */
--(id)outputView;
+- (id)outputView;
 
 /*! 
     @method     customView
@@ -94,7 +94,7 @@ extern NSString * const iTM2TeXProjectTerminalInspectorMode;
     @param      None
     @result     NSTextView
 */
--(id)customView;
+- (id)customView;
 
 /*! 
     @method     errorView
@@ -103,7 +103,7 @@ extern NSString * const iTM2TeXProjectTerminalInspectorMode;
     @param      None
     @result     NSTextView
 */
--(id)errorView;
+- (id)errorView;
 
 /*! 
     @method     smartView
@@ -112,7 +112,7 @@ extern NSString * const iTM2TeXProjectTerminalInspectorMode;
     @param      None
     @result     NSView
 */
--(id)smartView;
+- (id)smartView;
 
 /*! 
     @method     isHidden
@@ -121,7 +121,7 @@ extern NSString * const iTM2TeXProjectTerminalInspectorMode;
     @param      None
     @result     yorn
 */
--(BOOL)isHidden;
+- (BOOL)isHidden;
 
 /*! 
     @method     setHidden:
@@ -130,7 +130,7 @@ extern NSString * const iTM2TeXProjectTerminalInspectorMode;
     @param      yorn
     @result     None
 */
--(void)setHidden:(BOOL)yorn;
+- (void)setHidden:(BOOL)yorn;
 
 @end
 
@@ -146,7 +146,7 @@ extern NSString * const iTM2UDLogStandardColorKey;
     @param      None
     @result     A key
 */
-+(void)registerParser;
++ (void)registerParser;
 
 /*! 
     @method     key
@@ -155,7 +155,7 @@ extern NSString * const iTM2UDLogStandardColorKey;
     @param      None
     @result     A key
 */
-+(NSString *)key;
++ (NSString *)key;
 
 /*! 
     @method     attributedMessageWithString:previousMessage:
@@ -169,7 +169,7 @@ extern NSString * const iTM2UDLogStandardColorKey;
     @param      previousMessage is the possibly nil previous message
     @result     A dictionary
 */
-+(id)attributedMessageWithString:(NSString *)argument previousMessage:(NSAttributedString *)previousMessage;
++ (id)attributedMessageWithString:(NSString *)argument previousMessage:(NSAttributedString *)previousMessage;
 
 /*! 
     @method     logParserForKey:
@@ -178,7 +178,7 @@ extern NSString * const iTM2UDLogStandardColorKey;
     @param      a string
     @result     A dictionary
 */
-+(id)logParserForKey:(NSString *)key;
++ (id)logParserForKey:(NSString *)key;
 
 @end
 

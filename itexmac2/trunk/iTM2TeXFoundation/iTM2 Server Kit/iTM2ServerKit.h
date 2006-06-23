@@ -65,7 +65,7 @@ extern NSString * const iTM2ServerOutputInsertionLengthKey;
 	@param      None
     @result     A name
 */
-+(BOOL)acceptConversationWithID:(id)conversationID;
++ (BOOL)acceptConversationWithID:(id)conversationID;
 /*!
 	@method			acceptNotificationWithEnvironment:
 	@abstract		Abstract forthcoming.
@@ -76,8 +76,8 @@ extern NSString * const iTM2ServerOutputInsertionLengthKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+(BOOL)acceptNotificationWithEnvironment:(id)environment;
++ (BOOL)acceptNotificationWithEnvironment:(id)environment;
 
-+(void)sytemSignalSIGUSR1Notified:(NSNotification *)notification;
++ (void)sytemSignalSIGUSR1Notified:(NSNotification *)notification;
 @end
 

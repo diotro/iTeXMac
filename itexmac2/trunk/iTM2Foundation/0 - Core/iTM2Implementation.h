@@ -76,7 +76,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param  	The owner
 	@result 	something
 */
--(id)initWithOwner:(id)owner;
+- (id)initWithOwner:(id)owner;
 
 /*!
 	@method		implementation
@@ -86,7 +86,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				This is a tricky definition to allow the tree hierarchy to be disconnected to the iTM2Document class objects.
 	@result		self.
 */
--(id)implementation;
+- (id)implementation;
 
 /*!
 	@method		owner
@@ -94,7 +94,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	The receiver is assumed to be own by an iTM2Document. Therefore it will not own its owner to avoid memory leaks.
 	@result		Basically, it is an iTM2Document.
 */
--(id)owner;
+- (id)owner;
 
 /*!
 	@method		setOwner:
@@ -102,7 +102,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	The receiver is assumed to be own by an iTM2Document. Therefore it will not own its owner to avoid memory leaks.
 	@param		Basically, it is an iTM2Document.
 */
--(void)setOwner:(id)argument;
+- (void)setOwner:(id)argument;
 
 /*!
 	@method		root
@@ -110,7 +110,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description Forthcoming.
 	@result		Basically, it is an iTM2Document.
 */
--(id)root;
+- (id)root;
 
 /*!
 	@method		name
@@ -119,7 +119,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				Otherwise a local value is used.
 	@result		A name.
 */
--(id)name;
+- (id)name;
 
 /*!
 	@method		setName:
@@ -129,7 +129,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		A name.
 	@result		None.
 */
--(void)setName:(id)argument;
+- (void)setName:(id)argument;
 
 /*!
 	@method		modelType
@@ -138,7 +138,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				Otherwise a local value is used.
 	@result		A type.
 */
--(id)modelType;
+- (id)modelType;
 
 /*!
 	@method		setModelType:
@@ -148,7 +148,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		A name.
 	@result		None.
 */
--(void)setModelType:(id)argument;
+- (void)setModelType:(id)argument;
 
 /*!
 	@method		metaValues
@@ -156,7 +156,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description forthcoming.
 	@param		key is a key dictionary object
 */
--(id)metaValues;
+- (id)metaValues;
 
 /*!
 	@method		metaValues
@@ -164,7 +164,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description forthcoming.
 	@param		key is a key dictionary object
 */
--(id)metaValues;
+- (id)metaValues;
 
 /*!
 	@method		takeMetaValues:
@@ -173,7 +173,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		The new meta values
 	@result		None
 */
--(void)takeMetaValues:(NSDictionary *)argument;
+- (void)takeMetaValues:(NSDictionary *)argument;
 
 /*!
 	@method		metaValueForKey:
@@ -181,7 +181,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	The receiver can store more information than just the data implementation.
 	@param		key is a key dictionary object
 */
--(id)metaValueForKey:(NSString *)key;
+- (id)metaValueForKey:(NSString *)key;
 
 /*!
 	@method		takeMetaValue:forKey:
@@ -190,7 +190,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		the argument is any kind of object
 	@param		key is a key dictionary object
 */
--(void)takeMetaValue:(id)argument forKey:(NSString *)key;
+- (void)takeMetaValue:(id)argument forKey:(NSString *)key;
 
 /*!
 	@method		metaValueForKeyPath:
@@ -198,7 +198,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	The receiver can store more information than just the data implementation.
 	@param		key is a key dictionary object
 */
--(id)metaValueForKeyPath:(NSString *)key;
+- (id)metaValueForKeyPath:(NSString *)key;
 
 /*!
 	@method		takeMetaValue:forKeyPath:
@@ -208,7 +208,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		key is a key dictionary object
 	@result		None.
 */
--(void)takeMetaValue:(id)argument forKeyPath:(NSString *)key;
+- (void)takeMetaValue:(id)argument forKeyPath:(NSString *)key;
 
 /*!
 	@method		metaFlagForKey:
@@ -217,7 +217,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		key is a key
 	@result		a flag.
 */
--(BOOL)metaFlagForKey:(NSString *)key;
+- (BOOL)metaFlagForKey:(NSString *)key;
 
 /*!
 	@method		takeMetaFlag:forKey:
@@ -227,7 +227,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		key is a key
 	@result		None.
 */
--(void)takeMetaFlag:(BOOL)yorn forKey:(NSString *)key;
+- (void)takeMetaFlag:(BOOL)yorn forKey:(NSString *)key;
 
 /*!
 	@method		dataRepresentationOfType:
@@ -237,7 +237,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		type is a key dictionary type
 	@result		a data object.
 */
--(NSData *)dataRepresentationOfType:(NSString *)type;
+- (NSData *)dataRepresentationOfType:(NSString *)type;
 
 /*!
 	@method		willSave
@@ -246,7 +246,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				in its documentWillSave method. The default implementation just forwards the message to the children.
 				Subclassers will append or prepend their own stuff, calling super method unless good reasons are invoked.
 */
--(void)willSave;
+- (void)willSave;
 
 /*!
 	@method		didSave
@@ -255,7 +255,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				in its documentWillSave method. The default implementation just forwards the message to the children.
 				Subclassers will append or prepend their own stuff, calling super method unless good reasons are invoked.
 */
--(void)didSave;
+- (void)didSave;
 
 /*!
 	@method		didRead
@@ -265,7 +265,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				Subclassers will append or prepend their own stuff, calling super method unless good reasons are invoked.
 				It is time now for thge receiver to read its data from the document or the parent
 */
--(void)didRead;
+- (void)didRead;
 
 /*!
 	@method		loadDataRepresentation:ofType:
@@ -273,7 +273,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	This default implementation just stores the given data in its data representation dictionary, as is, with key, the given type. It overrides any previously loaded data representation with no precaution.
 	@result		YES.
 */
--(BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
+- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 
 /*!
 	@method		dataRepresentationTypes
@@ -281,7 +281,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description forthcoming.
 	@result		an array of NSString's.
 */
--(NSArray *)dataRepresentationTypes;
+- (NSArray *)dataRepresentationTypes;
 
 /*!
 	@method		writeToParentImplementation
@@ -290,7 +290,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description never forthcoming.
 	@result		yorn.
 */
--(BOOL)writeToParentImplementation;
+- (BOOL)writeToParentImplementation;
 
 /*!
 	@method		readFromParentImplementation
@@ -298,7 +298,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description never forthcoming.
 	@result		yorn.
 */
--(BOOL)readFromParentImplementation;
+- (BOOL)readFromParentImplementation;
 
 /*!
 	@method		writeToDirectoryWrapper:
@@ -306,7 +306,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description never forthcoming.
 	@result		yorn.
 */
--(BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW;
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW;
 
 /*!
 	@method		readFromDirectoryWrapper:
@@ -314,7 +314,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description never forthcoming.
 	@result		yorn.
 */
--(BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW;
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW;
 
 /*!
 	@method		parent
@@ -323,7 +323,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				The parent document owns the receiver but the receiver does not own its parent document.
 	@result		Basically, it is an iTM2Document.
 */
--(id)parent;
+- (id)parent;
 
 /*!
 	@method		setParent:
@@ -334,7 +334,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		an iTM2Document.
 	@result		None.
 */
--(void)setParent:(id)argument;
+- (void)setParent:(id)argument;
 
 /*!
 	@method		children
@@ -343,7 +343,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				It is a lazy initializer returning a void array at least.
 	@result		Basically, it is an iTM2Document.
 */
--(id)children;
+- (id)children;
 
 /*!
 	@method		childForName:
@@ -351,7 +351,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	If the receiver has no child document with that name, nil is returned.
 	@result		Basically, it is an iTM2Document, but it is not required.
 */
--(id)childForName:(NSString *)name;
+- (id)childForName:(NSString *)name;
 
 /*!
 	@method		addChild:
@@ -359,7 +359,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description forthcoming.
 	@param		an iTM2Document.
 */
--(void)addChild:(id)argument;
+- (void)addChild:(id)argument;
 
 /*!
 	@method		removeChild:
@@ -367,7 +367,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description forthcoming.
 	@param		an iTM2Document.
 */
--(void)removeChild:(id)argument;
+- (void)removeChild:(id)argument;
 
 /*!
 	@method		updateChildren
@@ -376,7 +376,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				iTeXMac2 project documents are hierarchical and are meant to contain children.
 	@discussion	Description never forthcoming.
 */
--(void)updateChildren;
+- (void)updateChildren;
 
 /*!
 	@method		modelFormatOfType:
@@ -385,7 +385,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param  	type is a type
 	@result 	a NSPropertyListFormat
 */
--(NSPropertyListFormat)modelFormatOfType:(NSString *)type;
+- (NSPropertyListFormat)modelFormatOfType:(NSString *)type;
 
 /*!
 	@method		takeModelFormat:ofType:
@@ -395,7 +395,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param  	key is a key
 	@result 	None
 */
--(void)takeModelFormat:(NSPropertyListFormat)argument ofType:(NSString *)type;
+- (void)takeModelFormat:(NSPropertyListFormat)argument ofType:(NSString *)type;
 
 /*!
 	@method		dataRepresentationOfModelOfType:
@@ -405,8 +405,8 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param  	outError is an NSError instance pointer
 	@result 	a data object
 */
--(NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outError;
--(NSData *)dataRepresentationOfModelOfType:(NSString *)type;//Deprecated, use the above method
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outError;
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type;//Deprecated, use the above method
 
 /*!
 	@method		loadModelValueOfDataRepresentation:ofType:
@@ -417,8 +417,8 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param  	outError is an NSError instance pointer
 	@result 	A flag indicating whther things have been done or not.
 */
--(BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outError;
--(BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;//Deprecated, use the above method
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;//Deprecated, use the above method
 
 /*!
 	@method		modelTypes
@@ -427,7 +427,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None
 	@result		an NSArray of NSString's.
 */
--(NSArray *)modelTypes;
+- (NSArray *)modelTypes;
 
 /*!
 	@method		modelOfType:
@@ -436,7 +436,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		type is a type
 	@result		a model
 */
--(id)modelOfType:(NSString *)type;
+- (id)modelOfType:(NSString *)type;
 
 /*!
 	@method		takeModel:ofType:
@@ -446,7 +446,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		type is a type
 	@result		None
 */
--(void)takeModel:(id)model ofType:(NSString *)type;
+- (void)takeModel:(id)model ofType:(NSString *)type;
 
 /*!
 	@method		modelValueKeysOfType:
@@ -455,7 +455,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None
 	@result		an NSArray of NSString's.
 */
--(NSArray *)modelValueKeysOfType:(NSString *)type;
+- (NSArray *)modelValueKeysOfType:(NSString *)type;
 
 /*!
 	@method		modelValueForKey:ofType:
@@ -466,7 +466,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		type is a type
 	@result		a property list, if relevant.
 */
--(id)modelValueForKey:(NSString *)key ofType:(NSString *)type;
+- (id)modelValueForKey:(NSString *)key ofType:(NSString *)type;
 
 /*!
 	@method		modelValueForKey:ofType:
@@ -478,7 +478,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		type is a type
 	@result		None.
 */
--(void)takeModelValue:(id)PL forKey:(NSString *)key ofType:(NSString *)type;
+- (void)takeModelValue:(id)PL forKey:(NSString *)key ofType:(NSString *)type;
 
 @end
 
@@ -505,7 +505,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		A getter selector
 	@result		An object.
 */
--(id)metaValueForSelector:(SEL)selector;
+- (id)metaValueForSelector:(SEL)selector;
 
 /*!
 	@method		takeMetaValue:forSelector:
@@ -526,7 +526,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		A setter selector
 	@result		None.
 */
--(void)takeMetaValue:(id)argument forSelector:(SEL)selector;
+- (void)takeMetaValue:(id)argument forSelector:(SEL)selector;
 
 /*!
 	@method		modelValueForSelector:ofType:
@@ -551,7 +551,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		type is a type
 	@result		An object.
 */
--(id)modelValueForSelector:(SEL)selector ofType:(NSString *)type;
+- (id)modelValueForSelector:(SEL)selector ofType:(NSString *)type;
 
 /*!
 	@method		takeModelValue:forSelector:ofType:
@@ -573,7 +573,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		type is a type
 	@result		None.
 */
--(void)takeModelValue:(id)argument forSelector:(SEL)selector ofType:(NSString *)type;
+- (void)takeModelValue:(id)argument forSelector:(SEL)selector ofType:(NSString *)type;
 
 @end
 
@@ -597,7 +597,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
-+(NSDictionary *)defaultModel;
++ (NSDictionary *)defaultModel;
 
 /*!
 	@method		initImplementation
@@ -608,7 +608,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
--(void)initImplementation;
+- (void)initImplementation;
 
 /*!
 	@method		fixImplementation
@@ -619,7 +619,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
--(void)fixImplementation;
+- (void)fixImplementation;
 
 /*!
 	@method		deallocImplementation
@@ -629,7 +629,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
--(void)deallocImplementation;
+- (void)deallocImplementation;
 
 /*!
 	@method		observeImplementation
@@ -646,7 +646,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
--(void)observeImplementation;
+- (void)observeImplementation;
 
 /*!
 	@method		implementation
@@ -656,7 +656,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		an iTM2Implementation instance.
 */
--(id)implementation;
+- (id)implementation;
 
 /*!
 	@method		lazyImplementation
@@ -665,7 +665,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		an iTM2Implementation instance.
 */
--(id)lazyImplementation;
+- (id)lazyImplementation;
 
 /*!
 	@method		setImplementation:
@@ -674,7 +674,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		an iTM2Implementation instance.
 	@result		None
 */
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 
 /*!
 	@method		replaceImplementation:
@@ -682,7 +682,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	If relevant, implementationWillChange and implementationDidChange are sent.
 	@result		an iTM2Implementation instance.
 */
--(void)replaceImplementation:(id)argument;
+- (void)replaceImplementation:(id)argument;
 
 /*!
 	@method		implementationWillChange
@@ -692,7 +692,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
--(void)implementationWillChange;
+- (void)implementationWillChange;
 
 /*!
 	@method		implementationDidChange
@@ -702,7 +702,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
--(void)implementationDidChange;
+- (void)implementationDidChange;
 
 /*!
 	@method		willDealloc
@@ -713,7 +713,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@param		None.
 	@result		None.
 */
--(void)willDealloc;
+- (void)willDealloc;
 
 @end
 
@@ -743,7 +743,7 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		NSNotificationCenter.
 */
-+(NSNotificationCenter *)implementationCenter;
++ (NSNotificationCenter *)implementationCenter;
 
 @end
 
@@ -759,7 +759,7 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		an iTM2Implementation object.
 */
--(id)implementation;
+- (id)implementation;
 
 /*!
 	@method		setImplementation:
@@ -768,7 +768,7 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		None.
 */
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 
 @end
 
@@ -789,7 +789,7 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		an iTM2Implementation object.
 */
--(id)implementation;
+- (id)implementation;
 
 /*!
 	@method		setImplementation:
@@ -798,9 +798,9 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		None.
 */
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 
--(void)initImplementation;
+- (void)initImplementation;
 
 /*!
 	@method		fixImplementation
@@ -811,7 +811,7 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		None.
 */
--(void)fixImplementation;
+- (void)fixImplementation;
 
 /*!
 	@method		deallocImplementation
@@ -821,7 +821,7 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		None.
 */
--(void)deallocImplementation;
+- (void)deallocImplementation;
 
 /*!
 	@method		observeImplementation
@@ -838,6 +838,6 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@param		None.
 	@result		None.
 */
--(void)observeImplementation;
+- (void)observeImplementation;
 
 @end

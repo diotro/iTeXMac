@@ -12,7 +12,7 @@
 
 @implementation iTM2StartupDocument
 
--(id)init
+- (id)init
 {iTM2_DIAGNOSTIC;
     self = [super init];
     if (self) {
@@ -24,26 +24,26 @@
     return self;
 }
 
--(NSString *)windowNibName
+- (NSString *)windowNibName
 {iTM2_DIAGNOSTIC;
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"iTM2StartupDocument";
 }
 
--(void)windowControllerDidLoadNib:(NSWindowController *) aController
+- (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {iTM2_DIAGNOSTIC;
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
 }
 
--(NSData *)dataRepresentationOfType:(NSString *)aType
+- (NSData *)dataRepresentationOfType:(NSString *)aType
 {iTM2_DIAGNOSTIC;
     // Insert code here to write your document from the given data.  You can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
     return nil;
 }
 
--(BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)aType
+- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)aType
 {iTM2_DIAGNOSTIC;
     // Insert code here to read your document from the given data.  You can also choose to override -loadFileWrapperRepresentation:ofType: or -readFromFile:ofType: instead.
     return YES;
@@ -57,7 +57,7 @@
 
 @implementation iTM2Application_FixMenuShortcut
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: // :jlaurens:20040514 
@@ -71,7 +71,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sendEvent:
--(void)sendEvent:(NSEvent *)anEvent;
+- (void)sendEvent:(NSEvent *)anEvent;
 /*"I am ashamed. This might be done elsewhere, but i do not know where or how...
 This patch deals with command+arrow keystroke: different meanings while in text view or in pdf view.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -183,7 +183,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFrontColorPanel:
--(IBAction)orderFrontColorPanel:(id)sender;
+- (IBAction)orderFrontColorPanel:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 03/10/2002

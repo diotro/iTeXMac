@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 @implementation iTM2Application(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentVersion
-+(int)currentVersion;
++ (int)currentVersion;
 /*"This is the build number.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.3: 03/10/2002
@@ -75,12 +75,12 @@ To Do List:
 @end
 #import <OgreKit/OgreKit.h>
 @interface NSObject(OgreKit)
--(void)setShouldHackFindMenu:(BOOL)yorn;
--(void)setUseStylesInFindPanel:(BOOL)yorn;
--(NSMenu *)findMenu;
+- (void)setShouldHackFindMenu:(BOOL)yorn;
+- (void)setUseStylesInFindPanel:(BOOL)yorn;
+- (NSMenu *)findMenu;
 @end
 @implementation NSApplication(OgreKit)
--(void)ogreKitWillHackFindMenu:(id)textFinder
+- (void)ogreKitWillHackFindMenu:(id)textFinder
 {
 	NSMenuItem * mi = [[self mainMenu] deepItemWithAction:@selector(OgreFindMenuItemAction:)];
 	if(mi)
@@ -96,11 +96,11 @@ To Do List:
 	[textFinder setShouldHackFindMenu:NO];
 	return;
 }
--(void)ogreKitShouldUseStylesInFindPanel:(id)textFinder
+- (void)ogreKitShouldUseStylesInFindPanel:(id)textFinder
 {
 	[textFinder setUseStylesInFindPanel:NO];
 }
--(void)OgreKit_DidFinishLaunching;
+- (void)OgreKit_DidFinishLaunching;
 {
 	if([[OgreTextFinder alloc] init])// beware of the bug
 	{
@@ -115,7 +115,7 @@ To Do List:
 @end
 
 @implementation OgreTextFinder(OgreKit)
--(NSMenu *)findMenu;
+- (NSMenu *)findMenu;
 {
 	return findMenu;
 }
@@ -124,7 +124,7 @@ To Do List:
 
 @implementation NSApplication(iTMWelcome)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: // :jlaurens:20040514 
@@ -139,7 +139,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepare0000000000WelcomeCompleteInstallation
-+(void)prepare0000000000WelcomeCompleteInstallation;
++ (void)prepare0000000000WelcomeCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: // :jlaurens:20040514 
@@ -191,12 +191,12 @@ To Do List:
 @interface NSApplication_DEBUG: NSApplication
 @end
 @implementation NSApplication_DEBUG
-+(void)load;
++ (void)load;
 {iTM2_DIAGNOSTIC;
 	[self poseAsClass:[NSApplication class]];
 	return;
 }
--(void)sendEvent:(NSEvent *)theEvent;
+- (void)sendEvent:(NSEvent *)theEvent;
 {iTM2_DIAGNOSTIC;
 //NSLog(@"theEvent is: %@", theEvent);
 	[super sendEvent:theEvent];
@@ -207,7 +207,7 @@ To Do List:
 #if 0
 #import <iTM2Foundation/iTM2Foundation.h>
 @implementation iTM2Application(IIUOP)
-+(void)load;
++ (void)load;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 	NSEnumerator * E = [[iTM2RuntimeBrowser realInstanceSelectorsOfClass:[NSAutoreleasePool class] withSuffix:@"" signature:nil inherited:NO] objectEnumerator];
@@ -222,20 +222,20 @@ To Do List:
 
 #if 0
 @interface NSAutoreleasePool_DEBUG: NSAutoreleasePool
--(void)swizzled_AddObject:(id)object;
+- (void)swizzled_AddObject:(id)object;
 @end
 static NSMutableDictionary * NSAutoreleasePool_Recorder = nil;
 static BOOL NSAutoreleasePool_Swizzled = NO;
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 @implementation iTM2MainInstaller(NSAutoreleasePool_DEBUG)
-+(void)NSAutoreleasePool_CompleteInstallationX;
++ (void)NSAutoreleasePool_CompleteInstallationX;
 {iTM2_DIAGNOSTIC;
 	[iTM2RuntimeBrowser swizzleClassMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[NSAutoreleasePool class]];
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(dealloc) replacement:@selector(swizzled_dealloc) forClass:[NSAutoreleasePool class]];
 	return;
 }
-+(void)xload;
++ (void)xload;
 {iTM2_DIAGNOSTIC;
 	NSAutoreleasePool * P = [[NSAutoreleasePool alloc] init];
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(release) replacement:@selector(swizzled_release) forClass:[NSAutoreleasePool class]];
@@ -246,7 +246,7 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 @end
 #import <objc/objc.h>
 @implementation NSObject(iTeXMac2_DEBUG)
--(void)swizzled_NSObject_release;
+- (void)swizzled_NSObject_release;
 {iTM2_DIAGNOSTIC;
 	printf("=-=-=-=-=-=-=-=-=-=-  object release: %#x %s %i START", self, object_getClassName(self), [self retainCount]);
 	[self swizzled_NSObject_release];
@@ -255,7 +255,7 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 }
 @end
 @implementation NSAutoreleasePool(iTeXMac2_DEBUG)
--(void)swizzled_release;
+- (void)swizzled_release;
 {iTM2_DIAGNOSTIC;
 //	[isa showPools];
 	printf("=-=-=-=-=-=-=-=-=-=-  AP release: %#x START", self);
@@ -267,12 +267,12 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 #elif 0
 #pragma mark =-=-=-=-=-  BUG HUNTING
 @interface NSAutoreleasePool_DEBUG: NSAutoreleasePool
--(void)swizzled_AddObject:(id)object;
+- (void)swizzled_AddObject:(id)object;
 @end
 static NSMutableDictionary * NSAutoreleasePool_Recorder = nil;
 static BOOL NSAutoreleasePool_Swizzled = NO;
 @implementation iTM2MainInstaller(NSAutoreleasePool_Recorder)
-+(void)NSAutoreleasePool_Recorder_CompleteInstallation;
++ (void)NSAutoreleasePool_Recorder_CompleteInstallation;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 	if([SUD boolForKey:@"NSAutoreleasePool_Recorder"])
@@ -286,7 +286,7 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 }
 @end
 @implementation NSAutoreleasePool_DEBUG
--(void)swizzled_AddObject:(id)object;
+- (void)swizzled_AddObject:(id)object;
 {iTM2_DIAGNOSTIC;
 	if(NSAutoreleasePool_Swizzled)
 	{
@@ -309,13 +309,13 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 	[self swizzled_AddObject:object];
 	return;
 }
--(id)initWithCapacity:(unsigned)numItems;
+- (id)initWithCapacity:(unsigned)numItems;
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[self class]];
 	return [self initWithCapacity:numItems];
 }
--(void)dealloc:(id)object;
+- (void)dealloc:(id)object;
 {iTM2_DIAGNOSTIC;
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[self class]];
 	iTM2_INIT_POOL;
@@ -346,8 +346,8 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 @end
 #import <objc/objc.h>
 @implementation NSAutoreleasePool_DEBUG
-+(void)load;{[self poseAsClass:[NSAutoreleasePool class]];}
--(void)addObject:(id)object;
++ (void)load;{[self poseAsClass:[NSAutoreleasePool class]];}
+- (void)addObject:(id)object;
 {iTM2_DIAGNOSTIC;
 #if 0
 	const char * name = object_getClassName(object);
@@ -360,7 +360,7 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 	[super addObject:object];
 	return;
 }
--(void)dealloc;
+- (void)dealloc;
 {iTM2_DIAGNOSTIC;
 	printf("=-=-=-=-=-=-=-=-=-=-  AP dealloc: %#x START", self);
 	[super dealloc];

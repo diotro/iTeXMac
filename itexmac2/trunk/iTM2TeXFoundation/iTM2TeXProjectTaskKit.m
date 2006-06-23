@@ -51,12 +51,12 @@ NSString * const iTM2LogLinkPageAttributeName = @"iTM2: link page";
 NSString * const iTM2LogLinkFileAttributeName = @"iTM2: link file";
 
 @interface iTM2TeXProjectDocument(PRIVATE2)
--(iTM2TaskController *)_taskController;
+- (iTM2TaskController *)_taskController;
 @end
 
 @implementation iTM2TeXProjectDocument(_iTM2TeXProjectTaskKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= taskController
--(iTM2TaskController *)taskController;
+- (iTM2TaskController *)taskController;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - < 1.1: 03/10/2002
@@ -87,7 +87,7 @@ To Do List:
     return TC;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _taskController
--(iTM2TaskController *)_taskController;
+- (iTM2TaskController *)_taskController;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - < 1.1: 03/10/2002
@@ -101,7 +101,7 @@ To Do List:
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didAddWindowController:
--(void)didAddWindowController:(id)WC;
+- (void)didAddWindowController:(id)WC;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -116,7 +116,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willRemoveWindowController:
--(void)willRemoveWindowController:(id)WC;
+- (void)willRemoveWindowController:(id)WC;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -132,15 +132,15 @@ To Do List:
 @end
 
 @interface iTM2TeXPTaskInspector(PRIVATE)
--(void)fontOrColorDidChangeNotified:(NSNotification *)aNotification;
+- (void)fontOrColorDidChangeNotified:(NSNotification *)aNotification;
 @end
 @interface NSColor(TeXProject)
-+(NSColor *)logColorForType:(NSString *)type;
++ (NSColor *)logColorForType:(NSString *)type;
 @end
 NSString * const iTM2TeXProjectTerminalInspectorMode = @"Terminal Mode";
 @implementation iTM2TeXPTaskInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -156,7 +156,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation:
--(void)initImplementation;
+- (void)initImplementation;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -169,7 +169,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -180,7 +180,7 @@ To Do List:
     return iTM2TeXProjectInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -191,7 +191,7 @@ To Do List:
     return iTM2TeXProjectTerminalInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -271,7 +271,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
--(BOOL)validateWindowContent;
+- (BOOL)validateWindowContent;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -296,7 +296,7 @@ To Do List:
     return [super validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowShouldClose:
--(BOOL)windowShouldClose:(id)sender;
+- (BOOL)windowShouldClose:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -308,7 +308,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
--(NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -324,7 +324,7 @@ To Do List:
             displayName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
--(NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+- (NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -336,7 +336,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  SPLIT VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splitViewDidResizeSubviews:
--(void)splitViewDidResizeSubviews:(NSNotification *)notification;
+- (void)splitViewDidResizeSubviews:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -379,7 +379,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  CUSTOM VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  customView
--(id)customView;
+- (id)customView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -396,7 +396,7 @@ To Do List:
     return TV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCustomView:
--(void)setCustomView:(NSTextView *)argument;
+- (void)setCustomView:(NSTextView *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -422,7 +422,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTerminalCustom:
--(IBAction)toggleTerminalCustom:(id)sender;
+- (IBAction)toggleTerminalCustom:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -449,7 +449,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalCustom:
--(BOOL)validateToggleTerminalCustom:(id)sender;
+- (BOOL)validateToggleTerminalCustom:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -496,7 +496,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logCustom:
--(void)logCustom:(NSString *)argument;
+- (void)logCustom:(NSString *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -513,7 +513,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  OUTPUT VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputView
--(id)outputView;
+- (id)outputView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -530,7 +530,7 @@ To Do List:
     return TV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOutputView:
--(void)setOutputView:(NSTextView *)argument;
+- (void)setOutputView:(NSTextView *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -556,7 +556,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textView:clickedOnLink:atIndex:
--(BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link atIndex:(unsigned)charIndex;
+- (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link atIndex:(unsigned)charIndex;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -613,7 +613,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTerminalOutput:
--(IBAction)toggleTerminalOutput:(id)sender;
+- (IBAction)toggleTerminalOutput:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -635,7 +635,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalOutput:
--(BOOL)validateToggleTerminalOutput:(id)sender;
+- (BOOL)validateToggleTerminalOutput:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -657,7 +657,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logOutput:
--(void)logOutput:(NSString *)argument;
+- (void)logOutput:(NSString *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -693,7 +693,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputDidTerminate
--(void)outputDidTerminate;
+- (void)outputDidTerminate;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -711,7 +711,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  ERROR VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  errorView
--(id)errorView;
+- (id)errorView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -728,7 +728,7 @@ To Do List:
     return TV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setErrorView:
--(void)setErrorView:(NSTextView *)argument;
+- (void)setErrorView:(NSTextView *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -753,7 +753,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTerminalErrors:
--(IBAction)toggleTerminalErrors:(id)sender;
+- (IBAction)toggleTerminalErrors:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -775,7 +775,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalErrors:
--(BOOL)validateToggleTerminalErrors:(id)sender;
+- (BOOL)validateToggleTerminalErrors:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -806,7 +806,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logError:
--(void)logError:(NSString *)argument;
+- (void)logError:(NSString *)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -827,7 +827,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  errorDidTerminate
--(void)errorDidTerminate;
+- (void)errorDidTerminate;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -840,7 +840,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-  GENERAL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fontOrColorDidChangeNotified:
--(void)fontOrColorDidChangeNotified:(NSNotification *)aNotification;
+- (void)fontOrColorDidChangeNotified:(NSNotification *)aNotification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -882,7 +882,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanLog:
--(void)cleanLog:(id) sender;
+- (void)cleanLog:(id) sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -905,7 +905,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateOutputAndError:
--(void)updateOutputAndError:(id)irrelevant;
+- (void)updateOutputAndError:(id)irrelevant;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -949,7 +949,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStyleFromTag:
--(IBAction)takeStyleFromTag:(id)sender;
+- (IBAction)takeStyleFromTag:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -977,7 +977,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStyleFromTag:
--(BOOL)validateTakeStyleFromTag:(id)sender;
+- (BOOL)validateTakeStyleFromTag:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -996,7 +996,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTerminalSilent:
--(IBAction)toggleTerminalSilent:(id)sender;
+- (IBAction)toggleTerminalSilent:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1011,7 +1011,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalSilent:
--(BOOL)validateToggleTerminalSilent:(id)sender;
+- (BOOL)validateToggleTerminalSilent:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1023,7 +1023,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTerminalHidden:
--(IBAction)toggleTerminalHidden:(id)sender;
+- (IBAction)toggleTerminalHidden:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1037,7 +1037,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalHidden:
--(BOOL)validateToggleTerminalHidden:(id)sender;
+- (BOOL)validateToggleTerminalHidden:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1049,7 +1049,7 @@ To Do List:
     return ! [[self taskController] isMute];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isHidden
--(BOOL)isHidden;
+- (BOOL)isHidden;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1060,7 +1060,7 @@ To Do List:
     return [self contextBoolForKey:iTM2TaskTerminalIsHiddenKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setHidden:
--(void)setHidden:(BOOL)yorn;
+- (void)setHidden:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1072,7 +1072,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= taskDidTerminate
--(void)taskDidTerminate;
+- (void)taskDidTerminate;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1085,7 +1085,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskController
--(id)taskController;
+- (id)taskController;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1103,7 +1103,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  ACTIONS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectTerminalIgnore:
--(IBAction)projectTerminalIgnore:(id)sender;
+- (IBAction)projectTerminalIgnore:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1115,7 +1115,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectTerminalStop:
--(IBAction)projectTerminalStop:(id)sender;
+- (IBAction)projectTerminalStop:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1127,7 +1127,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectTerminalQuiet:
--(IBAction)projectTerminalQuiet:(id)sender;
+- (IBAction)projectTerminalQuiet:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1139,7 +1139,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectTerminalEdit:
--(IBAction)projectTerminalEdit:(id)sender;
+- (IBAction)projectTerminalEdit:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1151,7 +1151,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectTerminalExit:
--(IBAction)projectTerminalExit:(id)sender;
+- (IBAction)projectTerminalExit:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1163,7 +1163,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectExecute:
--(IBAction)projectExecute:(id)sender;
+- (IBAction)projectExecute:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1176,7 +1176,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showError:
--(IBAction)showError:(id)sender;
+- (IBAction)showError:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1189,7 +1189,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  SMART VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartView
--(id)smartView;
+- (id)smartView;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1207,7 +1207,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSmartView:
--(void)setSmartView:(id)argument;
+- (void)setSmartView:(id)argument;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1226,7 +1226,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartView:objectValueForTableColumn:row:
--(id)smartView:(NSTableView *)smartView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)smartView:(NSTableView *)smartView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1238,7 +1238,7 @@ To Do List:
     return (row >= 0 && row < [RA count])? [[RA objectAtIndex:row] valueForKey:[tableColumn identifier]]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
--(int)numberOfRowsInTableView:(NSTableView *)smartView;
+- (int)numberOfRowsInTableView:(NSTableView *)smartView;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1249,7 +1249,7 @@ To Do List:
     return [(NSArray *)[IMPLEMENTATION metaValueForKey:@"_errors"] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartErrors:
--(IBAction)toggleSmartErrors:(id)sender;
+- (IBAction)toggleSmartErrors:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1271,7 +1271,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartErrors:
--(BOOL)validateToggleSmartErrors:(id)sender;
+- (BOOL)validateToggleSmartErrors:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1295,13 +1295,13 @@ To Do List:
 @end
 
 @interface NSDocument(iTM2TeXProjectTaskKit)
--(id)taskController;
+- (id)taskController;
 @end
 @implementation NSDocument(iTM2TeXProjectTaskKit)
--(id)taskController;{return nil;}
+- (id)taskController;{return nil;}
 @end
 @interface NSObject(RIEN_RIEN)
--(int)length;
+- (int)length;
 @end
 
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
@@ -1310,7 +1310,7 @@ To Do List:
 @end
 @implementation iTM2TaskController_TeXProject
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1325,7 +1325,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
--(id)contextManager;
+- (id)contextManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1346,7 +1346,7 @@ NSString * const iTM2TPFELogParserKey = @"iTM2LogParser";
 
 @implementation iTM2LogParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerParser
-+(void)registerParser;
++ (void)registerParser;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1359,7 +1359,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1372,7 +1372,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  key
-+(NSString *)key;
++ (NSString *)key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1383,7 +1383,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributedMessageWithString:previousMessage:
-+(id)attributedMessageWithString:(NSString *)argument previousMessage:(NSAttributedString *)message;
++ (id)attributedMessageWithString:(NSString *)argument previousMessage:(NSAttributedString *)message;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1394,7 +1394,7 @@ To Do List:
     return [[[NSAttributedString alloc] initWithString:argument] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logParserForKey:
-+(id)logParserForKey:(NSString *)key;
++ (id)logParserForKey:(NSString *)key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1417,7 +1417,7 @@ extern NSString * const iTM2InfoInput;
 @implementation NSColor(iTM2TeXProjectTaskKit)
 static NSDictionary * _iTM2LogColors = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1450,7 +1450,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logColorForType:
-+(NSColor *)logColorForType:(NSString *)type;
++ (NSColor *)logColorForType:(NSString *)type;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1463,13 +1463,13 @@ To Do List:
 @end
 
 @interface NSCharacterSet(iTM2TeXProjectTaskKit)
-+(NSCharacterSet *)TeXFilenameCharacterSet;
++ (NSCharacterSet *)TeXFilenameCharacterSet;
 @end
 
 @implementation NSCharacterSet(iTM2TeXProjectTaskKit)
 static NSCharacterSet * _iTM2TeXFilenameCharacterSet = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1486,7 +1486,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXFilenameCharacterSet
-+(NSCharacterSet *)TeXFilenameCharacterSet;
++ (NSCharacterSet *)TeXFilenameCharacterSet;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1499,7 +1499,7 @@ To Do List:
 @end
 @implementation iTM2LaTeXLogParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1514,7 +1514,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  key
-+(NSString *)key;
++ (NSString *)key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1525,7 +1525,7 @@ To Do List:
     return @"LaTeX";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributedMessageWithString:previousMessage:
-+(id)attributedMessageWithString:(NSString *)string previousMessage:(NSAttributedString *)message;
++ (id)attributedMessageWithString:(NSString *)string previousMessage:(NSAttributedString *)message;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - 1.4: Fri Apr 16 11:39:43 GMT 2004

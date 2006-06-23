@@ -35,13 +35,13 @@ NSString * const iTM2CurrentColumnKey = @"CurrentColumn";
 NSString * const iTM2LastColumnKey = @"LastColumn";
 
 @interface iTM2LineField(PRIVATE)
--(void)updateFrame;
+- (void)updateFrame;
 @end
 @interface NSWindowController(iTM2TextFieldKit)
--(id)textView;
+- (id)textView;
 @end
 @implementation NSWindowController(iTM2TextFieldKit)
--(id)textView;
+- (id)textView;
 {iTM2_DIAGNOSTIC;
     return nil;
 }
@@ -50,7 +50,7 @@ NSString * const iTM2LastColumnKey = @"LastColumn";
 /*"Description forthcoming."*/
 @implementation iTM2LineField
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -77,7 +77,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -90,7 +90,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineFieldAction:
--(IBAction)lineFieldAction:(id)sender;
+- (IBAction)lineFieldAction:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -116,7 +116,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isValid
--(BOOL)isValid;
+- (BOOL)isValid;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -129,7 +129,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateFrame
--(void)updateFrame;
+- (void)updateFrame;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -163,7 +163,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textViewDidChangeSelectionNotified:
--(void)textViewDidChangeSelectionNotified:(NSNotification *)notification;
+- (void)textViewDidChangeSelectionNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -203,7 +203,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textDidChangeNotified:
--(void)textDidChangeNotified:(NSNotification *)notification;
+- (void)textDidChangeNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -240,7 +240,7 @@ To Do List:
 
 @implementation iTM2LineResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoLineField:
--(IBAction)gotoLineField:(id)sender;
+- (IBAction)gotoLineField:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -255,7 +255,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoLineField:
--(BOOL)validateGotoLineField:(id)sender;
+- (BOOL)validateGotoLineField:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -271,7 +271,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation iTM2LineFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -294,7 +294,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -307,7 +307,7 @@ To Do List:
     return;
 }	 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= navigationFormat
--(NSString *)navigationFormat;
+- (NSString *)navigationFormat;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -320,7 +320,7 @@ To Do List:
 #define TABLE @"Basic"
 #define BUNDLE [NSBundle bundleForClass:[iTM2LineFormatter class]]
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lazyNavigationFormat
--(NSString *)lazyNavigationFormat;
+- (NSString *)lazyNavigationFormat;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -331,7 +331,7 @@ To Do List:
     return NSLocalizedStringFromTableInBundle(@"Line %1$@ of %2$@", TABLE, BUNDLE, "Navigation format");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setNavigationFormat:
--(void)setNavigationFormat:(NSString *)aFormat;
+- (void)setNavigationFormat:(NSString *)aFormat;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -348,7 +348,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForObjectValue:
--(NSString *)stringForObjectValue:(id)anObject;
+- (NSString *)stringForObjectValue:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -371,7 +371,7 @@ To Do List:
         [super stringForObjectValue:[self maximum]]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= editingStringForObjectValue:
--(NSString *)editingStringForObjectValue:(id) anObject;
+- (NSString *)editingStringForObjectValue:(id) anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -383,7 +383,7 @@ To Do List:
     return [NSString stringWithFormat:@"%@", anObject];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isPartialStringValid:proposedSelectedRange:originalString:originalSelectedRange:errorDescription:
--(BOOL)isPartialStringValid:(NSString **)partialStringPtr
+- (BOOL)isPartialStringValid:(NSString **)partialStringPtr
 proposedSelectedRange: (NSRangePointer) proposedSelRangePtr
 originalString: (NSString *) origString
 originalSelectedRange: (NSRange) origSelRange
@@ -409,7 +409,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getObjectValue:forString:errorDescription:
--(BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error;
+- (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -452,7 +452,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation iTM2NavigationFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -475,7 +475,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lazyNavigationFormat
--(NSString *)lazyNavigationFormat;
+- (NSString *)lazyNavigationFormat;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -494,7 +494,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(MagnificationFormatter)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  magnificationFormatterCompleteInstallation
-+(void)iTM2MagnificationFormatterCompleteInstallation;
++ (void)iTM2MagnificationFormatterCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -523,7 +523,7 @@ To Do List:
 
 @implementation iTM2MagnificationFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -547,7 +547,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForObjectValue:
--(NSString *)stringForObjectValue:(id)anObject;
+- (NSString *)stringForObjectValue:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -565,7 +565,7 @@ To Do List: Bug when inherited method is used: 200 % comes instead of 221 % (for
         return @"?";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= editingStringForObjectValue:
--(NSString *)editingStringForObjectValue:(id)anObject;
+- (NSString *)editingStringForObjectValue:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -584,7 +584,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isPartialStringValid:newEditingString:errorDescription:
--(BOOL)isPartialStringValid:(NSString **)partialStringPtr
+- (BOOL)isPartialStringValid:(NSString **)partialStringPtr
 proposedSelectedRange: (NSRangePointer) proposedSelRangePtr
 originalString: (NSString *) origString
 originalSelectedRange: (NSRange) origSelRange
@@ -612,7 +612,7 @@ To Do List: I don't know if it is really needed, test...
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getObjectValue:forString:errorDescription:
--(BOOL)getObjectValue:(id *)objectPtr forString:(NSString *)string errorDescription:(NSString **)errorPtr;
+- (BOOL)getObjectValue:(id *)objectPtr forString:(NSString *)string errorDescription:(NSString **)errorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -632,7 +632,7 @@ To Do List:
 
 @implementation iTM2StringFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -647,7 +647,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -663,7 +663,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -674,7 +674,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -690,7 +690,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForObjectValue:
--(NSString *)stringForObjectValue:(id)anObject;
+- (NSString *)stringForObjectValue:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -701,7 +701,7 @@ To Do List: Bug when inherited method is used: 200 % comes instead of 221 % (for
     return [anObject isKindOfClass:[NSString class]]? anObject:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getObjectValue:forString:errorDescription:
--(BOOL)getObjectValue:(id *)objectPtr forString:(NSString *)string errorDescription:(NSString **)errorPtr;
+- (BOOL)getObjectValue:(id *)objectPtr forString:(NSString *)string errorDescription:(NSString **)errorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -717,7 +717,7 @@ To Do List:
 
 @implementation iTM2FileNameFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForObjectValue:
--(NSString *)stringForObjectValue:(id)anObject;
+- (NSString *)stringForObjectValue:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -733,7 +733,7 @@ To Do List: Bug when inherited method is used: 200 % comes instead of 221 % (for
         return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedStringForObjectValue:withDefaultAttributes:
--(NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
+- (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002
@@ -762,7 +762,7 @@ To Do List:
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getObjectValue:forString:errorDescription:
--(BOOL)getObjectValue:(id *)objectPtr forString:(NSString *)string errorDescription:(NSString **)errorPtr;
+- (BOOL)getObjectValue:(id *)objectPtr forString:(NSString *)string errorDescription:(NSString **)errorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -780,7 +780,7 @@ To Do List:
 
 @implementation NSFormatter_iTeXMac2
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today?
@@ -795,7 +795,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedStringForObjectValue:withDefaultAttributes:
--(NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
+- (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002
@@ -811,7 +811,7 @@ To Do List:
 	return [super attributedStringForObjectValue:obj withDefaultAttributes:attrs];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedStringForNilObjectValueWithDefaultAttributes:
--(NSAttributedString *)attributedStringForNilObjectValueWithDefaultAttributes:(NSDictionary *)attrs;
+- (NSAttributedString *)attributedStringForNilObjectValueWithDefaultAttributes:(NSDictionary *)attrs;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002
@@ -825,7 +825,7 @@ To Do List:
 	return [[[NSAttributedString allocWithZone:[self zone]] initWithString:string attributes:MD] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForNilObjectValue
--(NSString *)stringForNilObjectValue;
+- (NSString *)stringForNilObjectValue;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002
@@ -840,7 +840,7 @@ To Do List:
 	return NSLocalizedStringFromTableInBundle(key, TABLE, BUNDLE, "");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringForNilObjectValue:
--(void)setStringForNilObjectValue:(NSString *)aString;
+- (void)setStringForNilObjectValue:(NSString *)aString;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004

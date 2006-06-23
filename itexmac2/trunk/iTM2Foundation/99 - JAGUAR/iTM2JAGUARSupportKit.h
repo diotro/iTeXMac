@@ -32,7 +32,7 @@
     @param		None.
     @result		nil
 */
--(NSAttributedString*)attributedTitle;
+- (NSAttributedString*)attributedTitle;
 
 /*!
     @method		setAttributedTitle:
@@ -41,7 +41,7 @@
     @param		string.
     @result		None.
 */
--(void)setAttributedTitle:(NSAttributedString*)string;
+- (void)setAttributedTitle:(NSAttributedString*)string;
 
 /*!
     @method		setIndentationLevel:
@@ -50,17 +50,17 @@
     @param		level.
     @result		None.
 */
--(void)setIndentationLevel:(int)level;
+- (void)setIndentationLevel:(int)level;
 
 @end
 
 @interface NSTextView(iTM2JAGUARSupportKit)
--(void)setUsesFindPanel:(BOOL)yorn;
--(BOOL)usesFindPanel;
+- (void)setUsesFindPanel:(BOOL)yorn;
+- (BOOL)usesFindPanel;
 @end
 
 @interface NSDocumentController(iTM2JAGUARSupportKit)
--(id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError;
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError;
 @end
 
 #endif

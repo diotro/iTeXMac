@@ -74,8 +74,8 @@ extern NSString * const iTM2TeXProjectPathExtension;
     @param      None
     @result     a NSString
 */
--(NSString *)masterFileKey;
--(NSString *)realMasterFileKey;
+- (NSString *)masterFileKey;
+- (NSString *)realMasterFileKey;
 
 /*! 
     @method     setMasterFileKey:
@@ -84,7 +84,7 @@ extern NSString * const iTM2TeXProjectPathExtension;
     @param      key is the new key
     @result     None
 */
--(void)setMasterFileKey:(NSString *)key;
+- (void)setMasterFileKey:(NSString *)key;
 
 /*! 
     @method     stringEncodingStringForFileKey:
@@ -95,7 +95,7 @@ Don't assume that there will always be a default value.
     @param      key is a key
     @result     a string encoding.
 */
--(NSString *)stringEncodingStringForFileKey:(NSString *)key;
+- (NSString *)stringEncodingStringForFileKey:(NSString *)key;
 
 /*! 
     @method     setStringEncodingString:forFileKey:
@@ -105,7 +105,7 @@ Don't assume that there will always be a default value.
     @param      key is a key
     @result     None.
 */
--(void)setStringEncodingString:(NSString *)stringEncoding forFileKey:(NSString *)key;
+- (void)setStringEncodingString:(NSString *)stringEncoding forFileKey:(NSString *)key;
 
 /*! 
     @method     EOLStringForFileKey:
@@ -115,7 +115,7 @@ Don't assume that there will always be a default value.
     @param      key is a key
     @result     a EOL marker.
 */
--(NSString *)EOLStringForFileKey:(NSString *)key;
+- (NSString *)EOLStringForFileKey:(NSString *)key;
 
 /*! 
     @method     setEOLString:forFileKey:
@@ -127,7 +127,7 @@ Don't assume that there will always be a default value.
     @param      key is a key
     @result     None.
 */
--(void)setEOLString:(NSString *)EOL forFileKey:(NSString *)key;
+- (void)setEOLString:(NSString *)EOL forFileKey:(NSString *)key;
 
 @end
 
@@ -136,12 +136,12 @@ Don't assume that there will always be a default value.
 
 @interface iTM2TeXSubdocumentsInspector: iTM2SubdocumentsInspector
 
--(IBAction)help:(id)sender;
--(IBAction)projectPathEdited:(id)sender;
--(IBAction)takeMainFileFromRepresentedObject:(id)sender;
--(IBAction)fileNameEdited:(id)sender;
--(IBAction)takeStringEncodingFromTag:(id)sender;
--(IBAction)takeEOLFromTag:(id)sender;
+- (IBAction)help:(id)sender;
+- (IBAction)projectPathEdited:(id)sender;
+- (IBAction)takeMainFileFromRepresentedObject:(id)sender;
+- (IBAction)fileNameEdited:(id)sender;
+- (IBAction)takeStringEncodingFromTag:(id)sender;
+- (IBAction)takeEOLFromTag:(id)sender;
 
 @end
 
@@ -171,7 +171,7 @@ Don't assume that there will always be a default value.
     @param      the notification is not yet used
     @result     None
 */
--(void)updateTeXBaseProjectsNotified:(NSNotification *)irrelevant;
+- (void)updateTeXBaseProjectsNotified:(NSNotification *)irrelevant;
 
 @end
 
@@ -184,7 +184,7 @@ Don't assume that there will always be a default value.
     @param      None
     @result     None
 */
-+(id)representedClass;
++ (id)representedClass;
 
 @end
 
@@ -197,7 +197,7 @@ Don't assume that there will always be a default value.
     @param      None
     @result     None
 */
--(BOOL)isTeXProjectPackageAtPath:(NSString *)fullPath;
+- (BOOL)isTeXProjectPackageAtPath:(NSString *)fullPath;
 
 /*!
     @method		isTeXWrapperPackageAtPath:
@@ -206,7 +206,7 @@ Don't assume that there will always be a default value.
     @param      None
     @result     None
 */
--(BOOL)isTeXWrapperPackageAtPath:(NSString *)fullPath;
+- (BOOL)isTeXWrapperPackageAtPath:(NSString *)fullPath;
 
 @end
 

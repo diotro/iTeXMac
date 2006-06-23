@@ -38,7 +38,7 @@ extern NSString * const iTM2SmartUpdateEnabledKey;
     @param		None.
     @result		A yorn flag.
 */
--(BOOL)canAutoUpdate;
+- (BOOL)canAutoUpdate;
 
 /*!
     @method		canAutoSave
@@ -46,7 +46,7 @@ extern NSString * const iTM2SmartUpdateEnabledKey;
     @discussion Description forthcoming.
     @result		a flag indicating whether the receiver should be saved on periodical basis.
 */
--(BOOL)canAutoSave;
+- (BOOL)canAutoSave;
 
 @end
 
@@ -70,7 +70,7 @@ extern NSString * const iTM2SmartUpdateEnabledKey;
     @param		None.
     @result		A yorn flag.
 */
--(IBAction)toggleAutoUpdate:(id)sender;
+- (IBAction)toggleAutoUpdate:(id)sender;
 
 /*!
     @method		toggleSmartUpdate:
@@ -79,7 +79,7 @@ extern NSString * const iTM2SmartUpdateEnabledKey;
     @param		None.
     @result		A yorn flag.
 */
--(IBAction)toggleSmartUpdate:(id)sender;
+- (IBAction)toggleSmartUpdate:(id)sender;
 
 @end
 
@@ -108,6 +108,6 @@ extern NSString * const iTM2UDAutoSaveIntervalKey;
     @param      None.
     @result     A yorn flag.
 */
--(BOOL)canAutoUpdate;
+- (BOOL)canAutoUpdate;
 
 @end

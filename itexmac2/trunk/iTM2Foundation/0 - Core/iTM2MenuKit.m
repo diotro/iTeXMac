@@ -28,7 +28,7 @@
 /*"Description forthcoming."*/
 @implementation NSMenu(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= cleanSeparators
--(void)cleanSeparators;
+- (void)cleanSeparators;
 /*"Extends the #{itemWithTitle:} to look down the menu hierarchy beginning from the receiver.
 Only items with no submenus are searched for.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -76,7 +76,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepItemWithTitle:
--(id)deepItemWithTitle:(NSString *)aTitle;
+- (id)deepItemWithTitle:(NSString *)aTitle;
 /*"Extends the #{itemWithTitle:} to look down the menu hierarchy beginning from the receiver.
 Only items with no submenus are searched for.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -110,7 +110,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= itemWithAction:
--(id)itemWithAction:(SEL)aSelector;
+- (id)itemWithAction:(SEL)aSelector;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -125,7 +125,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexOfItemWithAction:
--(int)indexOfItemWithAction:(SEL)aSelector;
+- (int)indexOfItemWithAction:(SEL)aSelector;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -137,7 +137,7 @@ To Do List:
     return index;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexOfItemWithTarget:
--(int)indexOfItemWithTarget:(id)aTarget;
+- (int)indexOfItemWithTarget:(id)aTarget;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -149,7 +149,7 @@ To Do List:
     return index;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepItemWithAction:
--(id)deepItemWithAction:(SEL)aSelector;
+- (id)deepItemWithAction:(SEL)aSelector;
 /*"Extends the #{itemWithTitle:} to look down the menu hierarchy beginning from the receiver.
 Only items with no submenus are searched for.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -184,7 +184,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepItemWithRepresentedObject:
--(id)deepItemWithRepresentedObject:(id)anObject;
+- (id)deepItemWithRepresentedObject:(id)anObject;
 /*"Seeks the menu hierarchy beginning from the receiver, the first positive occurrence is returned.
 Only items with no submenus are searched for.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -220,7 +220,7 @@ To Do List: Better management of the nil arg
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepItemWithKeyEquivalent:modifierMask:
--(id)deepItemWithKeyEquivalent:(NSString *)key modifierMask:(unsigned int)mask;
+- (id)deepItemWithKeyEquivalent:(NSString *)key modifierMask:(unsigned int)mask;
 /*"Seeks the menu hierarchy beginning from the receiver, the first positive occurrence is returned.
 Only items with no submenus are searched for.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -253,7 +253,7 @@ To Do List: Better management of the nil arg
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= itemWithRepresentedObject:
--(id)itemWithRepresentedObject:(id)anObject;
+- (id)itemWithRepresentedObject:(id)anObject;
 /*"Seeks the menu hierarchy beginning from the receiver, the first positive occurrence is returned.
 Only items with no submenus are searched for.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -269,7 +269,7 @@ To Do List:
     return item;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isRootMenu
--(BOOL)isRootMenu;
+- (BOOL)isRootMenu;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -279,7 +279,7 @@ To Do List:
     return ([self supermenu] == nil);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rootMenu
--(NSMenu *)rootMenu;
+- (NSMenu *)rootMenu;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -292,7 +292,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deselectItemsWithAction:
--(void)deselectItemsWithAction:(SEL)anAction;
+- (void)deselectItemsWithAction:(SEL)anAction;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -307,7 +307,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeItemsWithAction:
--(void)removeItemsWithAction:(SEL)anAction;
+- (void)removeItemsWithAction:(SEL)anAction;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -320,7 +320,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeItemsWithRepresentedObject:
--(void)removeItemsWithRepresentedObject:(id)anObject;
+- (void)removeItemsWithRepresentedObject:(id)anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -333,7 +333,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepCopy
--(NSMenu *)deepCopy;
+- (NSMenu *)deepCopy;
 /*"Simply forwards a #{deepCopyWithZone:} to the receiver, with the receiver's zone as argument.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -343,7 +343,7 @@ To Do List:
     return [self deepCopyWithZone:[self zone]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepCopyWithZone:
--(NSMenu *)deepCopyWithZone:(NSZone *)aZone;
+- (NSMenu *)deepCopyWithZone:(NSZone *)aZone;
 /*"The menu items are also copied, not only retained.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -371,7 +371,7 @@ The cell is not copied. Better should be done.
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _MakeCellSizeSmall
--(void)_MakeCellSizeSmall;
+- (void)_MakeCellSizeSmall;
 /*"Use the deep variant unless your app will crash...
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -385,7 +385,7 @@ The cell is not copied. Better should be done.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepMakeCellSizeSmall
--(void)deepMakeCellSizeSmall;
+- (void)deepMakeCellSizeSmall;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -402,7 +402,7 @@ The cell is not copied. Better should be done.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepEnableItems
--(void)deepEnableItems;
+- (void)deepEnableItems;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -423,7 +423,7 @@ The cell is not copied. Better should be done.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepSetTarget:
--(void)deepSetTarget:(id)aTarget;
+- (void)deepSetTarget:(id)aTarget;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -441,7 +441,7 @@ The cell is not copied. Better should be done.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepSetAutoenablesItems:
--(void)deepSetAutoenablesItems:(BOOL)aFlag;
+- (void)deepSetAutoenablesItems:(BOOL)aFlag;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -457,7 +457,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= hierarchicalMenuAtPath:action:target:
-+(NSMenu *)hierarchicalMenuAtPath:(NSString *)aFullPath action:(SEL)aSelector target:(id)aTarget;
++ (NSMenu *)hierarchicalMenuAtPath:(NSString *)aFullPath action:(SEL)aSelector target:(id)aTarget;
 /*"Description Forthcoming. ".hidden" files compatible.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -525,7 +525,7 @@ To Do List: retain?
 /*"Description forthcoming."*/
 @implementation NSMenuItem(iTM2Representation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= representedString
--(NSString *)representedString;
+- (NSString *)representedString;
 /*"Description forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 03/10/2002
@@ -537,7 +537,7 @@ To Do List:
     return [result isKindOfClass:[NSString class]]? result:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= representedDictionary
--(NSDictionary *)representedDictionary;
+- (NSDictionary *)representedDictionary;
 /*"Description forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 03/10/2002
@@ -549,7 +549,7 @@ To Do List:
     return [result isKindOfClass:[NSDictionary class]]? result:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compareUsingTitle:
--(NSComparisonResult)compareUsingTitle:(id)MI;
+- (NSComparisonResult)compareUsingTitle:(id)MI;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -564,7 +564,7 @@ To Do List:
 
 @implementation NSCell(iTM2Representation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= representedString
--(NSString *)representedString;
+- (NSString *)representedString;
 /*"Description forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 03/10/2002
@@ -576,7 +576,7 @@ To Do List:
     return [result isKindOfClass:[NSString class]]? result:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= representedDictionary
--(NSDictionary *)representedDictionary;
+- (NSDictionary *)representedDictionary;
 /*"Description forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 03/10/2002

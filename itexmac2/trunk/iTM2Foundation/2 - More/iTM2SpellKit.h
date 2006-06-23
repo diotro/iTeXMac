@@ -78,7 +78,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @result		A flag indicating in an obvious manner the success or failure of the operation.
                 If the slightest problem is encountered, the result is NO. So don't be too exigent.
 */
--(BOOL)loadPropertyListRepresentation:(id)PL;
+- (BOOL)loadPropertyListRepresentation:(id)PL;
 
 /*!
     @method		readFromURL:error:
@@ -88,7 +88,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		outError.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
--(BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outError;
 
 /*!
     @method		writeFromURL:error:
@@ -98,7 +98,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		outError.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
--(BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outError;
 
 /*!
     @method		loadPropertyListRepresentation:
@@ -108,7 +108,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @result		A flag indicating in an obvious manner the success or failure of the operation.
                 If the slightest problem is encountered, the result is NO. So don't be too exigent.
 */
--(BOOL)loadPropertyListRepresentation:(id)PL;
+- (BOOL)loadPropertyListRepresentation:(id)PL;
 
 /*!
     @method		propertyListRepresentation
@@ -117,7 +117,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		A dictionary.
 */
--(id)propertyListRepresentation;
+- (id)propertyListRepresentation;
 
 /*!
     @method		spellLanguage
@@ -126,7 +126,7 @@ extern NSString * const TWSSpellDefaultContextMode;
                 If the stored format is different, there must be a translator.
     @result		A NSString for the language.
 */
--(NSString *)spellLanguage;
+- (NSString *)spellLanguage;
 
 /*!
     @method		setSpellLanguage:
@@ -136,7 +136,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		A NSString for the language.
     @result		None.
 */
--(void)setSpellLanguage:(NSString *)argument;
+- (void)setSpellLanguage:(NSString *)argument;
 
 /*!
     @method		ignoredWords
@@ -144,7 +144,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Just an array of words, to feed the spell checker.
     @result		An NSArray of NSString's.
 */
--(NSArray *)ignoredWords;
+- (NSArray *)ignoredWords;
 
 /*!
     @method		setIgnoredWords:
@@ -154,7 +154,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		An NSArray of NSString's.
     @result		None.
 */
--(void)setIgnoredWords:(NSArray *)argument;
+- (void)setIgnoredWords:(NSArray *)argument;
 
 /*!
     @method		replaceIgnoredWords:
@@ -163,7 +163,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		An NSArray of NSString's.
     @result		None.
 */
--(void)replaceIgnoredWords:(NSArray *)argument;
+- (void)replaceIgnoredWords:(NSArray *)argument;
 
 /*!
     @method		tag
@@ -172,7 +172,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		An integer.
 */
--(int)tag;
+- (int)tag;
 
 @end
 
@@ -213,7 +213,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		A default spell context controller.
 */
-+(id)defaultSpellContextController;
++ (id)defaultSpellContextController;
 
 /*!
     @method		addSpellMode:
@@ -222,7 +222,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		mode is a NSString uniquely identifying a set of spelling parameters.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
--(BOOL)addSpellMode:(NSString *)mode;
+- (BOOL)addSpellMode:(NSString *)mode;
 
 /*!
     @method		removeSpellMode:
@@ -231,7 +231,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		mode is a NSString uniquely identifying a set of spelling parameters.
     @result		YES iff something was really added. NO if the mode already exists e.g.
 */
--(BOOL)removeSpellMode:(NSString *)mode;
+- (BOOL)removeSpellMode:(NSString *)mode;
 
 /*!
     @method		spellContextModesEnumerator:
@@ -239,7 +239,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description forthcoming.
     @result		A convenience NSEnumaretor.
 */
--(NSEnumerator *)spellContextModesEnumerator;
+- (NSEnumerator *)spellContextModesEnumerator;
 
 /*!
     @method		spellContexts
@@ -248,7 +248,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		A convenience NSEnumaretor.
 */
--(id)spellContexts;
+- (id)spellContexts;
 
 /*!
     @method		setSpellContexts:
@@ -257,7 +257,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		newContexts.
     @result		None.
 */
--(void)setSpellContexts:(id)newContexts;
+- (void)setSpellContexts:(id)newContexts;
 
 /*!
     @method		spellContextForMode:
@@ -267,7 +267,7 @@ extern NSString * const TWSSpellDefaultContextMode;
                 the language and the ignored words. The mode must exist prior to this message.
     @result		An iTM2SpellContext.
 */
--(id)spellContextForMode:(NSString *)mode;
+- (id)spellContextForMode:(NSString *)mode;
 
 /*!
     @method		setSpellContext:forMode:
@@ -278,7 +278,7 @@ extern NSString * const TWSSpellDefaultContextMode;
                 the language and the ignored words. The mode must exist prior to this message.
     @result		An iTM2SpellContext.
 */
--(void)setSpellContext:(id)newContext forMode:(NSString *)mode;
+- (void)setSpellContext:(id)newContext forMode:(NSString *)mode;
 
 /*!
     @method		spellContextModeForText:
@@ -287,7 +287,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		text is basically a NSText instance.
     @result		A spell context mode.
 */
--(NSString *)spellContextModeForText:(NSText *)text;
+- (NSString *)spellContextModeForText:(NSText *)text;
 
 /*!
     @method		setSpellContextMode:forText:
@@ -299,7 +299,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		text is basically a NSText instance.
     @result		None.
 */
--(void)setSpellContextMode:(NSString *)mode forText:(id)text;
+- (void)setSpellContextMode:(NSString *)mode forText:(id)text;
 
 /*!
     @method		spellPrettyNameForText:
@@ -313,10 +313,10 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		text is basically a NSText instance.
     @result		A human readable name.
 */
--(NSString *)spellPrettyNameForText:(NSText *)text;
+- (NSString *)spellPrettyNameForText:(NSText *)text;
 
--(id)propertyListRepresentation;
--(BOOL)loadPropertyListRepresentation:(id)PL;
+- (id)propertyListRepresentation;
+- (BOOL)loadPropertyListRepresentation:(id)PL;
 
 @end
 
@@ -333,7 +333,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		text is basically a NSText instance.
     @result		A human readable name.
 */
--(NSString *)spellPrettyProjectNameForText:(NSText *)text;
+- (NSString *)spellPrettyProjectNameForText:(NSText *)text;
 
 @end
 
@@ -371,7 +371,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @parameter	None.
     @result		A spell context controller.
 */
--(id)spellContextController;
+- (id)spellContextController;
 
 @end
 
@@ -393,7 +393,7 @@ extern NSString * const TWSSpellDefaultContextMode;
                 which is the default spell context controller unless subclassers have overriden the default behaviour...
     @result		an iTM2SpellContextController instance.
 */
--(id)spellContextController;
+- (id)spellContextController;
 
 /*!
     @method		spellContext
@@ -403,7 +403,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		The new mode.
 */
--(iTM2SpellContext *)spellContext;
+- (iTM2SpellContext *)spellContext;
 
 /*!
     @method		spellPrettyName
@@ -412,7 +412,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		The human readable name.
 */
--(NSString *)spellPrettyName;
+- (NSString *)spellPrettyName;
 
 /*!
     @method		spellPrettyProjectName
@@ -421,7 +421,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		The human readable project name.
 */
--(NSString *)spellPrettyProjectName;
+- (NSString *)spellPrettyProjectName;
 
 /*!
     @method		spellContextController
@@ -430,7 +430,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		The new mode.
 */
--(NSString *)spellContextMode;
+- (NSString *)spellContextMode;
 
 /*!
     @method		setSpellContextMode:
@@ -439,7 +439,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		The new mode.
     @result		None.
 */
--(void)setSpellContextMode:(NSString *)mode;
+- (void)setSpellContextMode:(NSString *)mode;
 
 @end
 
@@ -465,7 +465,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	There is only one spell checker, so there is only one spell checker helper.
     @result		The shared instance....
 */
-+(id)sharedHelper;
++ (id)sharedHelper;
 
 /*!
     @method		synchronizeWithCurrentText
@@ -474,7 +474,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		None.
 */
--(void)synchronizeWithCurrentText;
+- (void)synchronizeWithCurrentText;
 
 /*!
     @method		spellCheckerAccessoryView
@@ -483,7 +483,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		A spell checker accessory view.
 */
--(NSView *)spellCheckerAccessoryView;
+- (NSView *)spellCheckerAccessoryView;
 
 /*!
     @method		setSpellCheckerAccessoryView:
@@ -492,7 +492,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		view is the new view.
     @result		None.
 */
--(void)setSpellCheckerAccessoryView:(NSView *)view;
+- (void)setSpellCheckerAccessoryView:(NSView *)view;
 
 /*!
     @method		editIgnoredWords:
@@ -500,7 +500,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description forthcoming.
     @param		An irrelevant sender....
 */
--(void)editIgnoredWords:(id)sender;
+- (void)editIgnoredWords:(id)sender;
 
 /*!
     @method		selectMode:
@@ -508,7 +508,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description Forthcoming.
     @param		An irrelevant sender...
 */
--(void)selectMode:(id)sender;
+- (void)selectMode:(id)sender;
 
 /*!
     @method		newMode:
@@ -516,7 +516,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description Forthcoming.
     @param		An irrelevant sender...
 */
--(void)newMode:(id)sender;
+- (void)newMode:(id)sender;
 
 /*!
     @method		newModeEdited:
@@ -524,7 +524,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description Forthcoming.
     @param		An irrelevant sender...
 */
--(void)newModeEdited:(id)sender;
+- (void)newModeEdited:(id)sender;
 
 /*!
     @method		removeSpellingModeFromRepresentedObject:
@@ -532,7 +532,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description Forthcoming.
     @param		An irrelevant sender...
 */
--(void)removeSpellingModeFromRepresentedObject:(id)sender;
+- (void)removeSpellingModeFromRepresentedObject:(id)sender;
 
 @end
 
@@ -544,7 +544,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		key is a unique identifier for a file. There is an indirection layer to allow an efficient management of the change in path. It is the job of the file controller of the owner to maintain the on to one correspondance between the file names and the keys. The spelling model does not know anything about those file names.
     @result		A spelling mode.
 */
--(NSString *)spellModeForFileKey:(NSString *)key;
+- (NSString *)spellModeForFileKey:(NSString *)key;
 
 /*!
     @method		addFileKey:toSpellMode:
@@ -554,7 +554,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		mode is a NSString uniquely identifying a set of spelling parameters. The mode must exist prior to this message.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
--(BOOL)addFileKey:(NSString *)key toSpellMode:(NSString *)mode;
+- (BOOL)addFileKey:(NSString *)key toSpellMode:(NSString *)mode;
 
 /*!
     @method		removeFileKey:fromSpellMode:
@@ -564,7 +564,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		mode is a NSString uniquely identifying a set of spelling parameters. The mode must exist prior to this message.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
--(BOOL)removeFileKey:(NSString *)key fromSpellMode:(NSString *)mode;
+- (BOOL)removeFileKey:(NSString *)key fromSpellMode:(NSString *)mode;
 
 /*!
     @method		isEdited
@@ -572,7 +572,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Mimics NSDocument.
     @result		A flag indicating in an obvious manner if the receiver has been edited.
 */
--(BOOL)isEdited;
+- (BOOL)isEdited;
 
 /*!
     @method		updateChangeCount:
@@ -580,7 +580,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	This method should be called in exactly the same situation than for the eponym method of the NSDocument class.
     @param		The same argument as the one for the eponym NSDocument message.
 */
--(void)updateChangeCount:(NSDocumentChangeType)change;
+- (void)updateChangeCount:(NSDocumentChangeType)change;
 
 /*!
     @method		project
@@ -588,7 +588,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	The project of the owner if any, nil otherwise.
     @result		A project document is expected to have a filesController.
 */
--(id)project;
+- (id)project;
 
 @end
 
@@ -604,7 +604,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		A NSText instance, not retained.
 */
--(id)currentText;
+- (id)currentText;
 
 @end
 

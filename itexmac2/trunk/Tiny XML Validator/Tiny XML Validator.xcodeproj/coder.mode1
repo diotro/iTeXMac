@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF34E610A436270005375E6</string>
+						<string>DC2A7B4E0A4C1FC0006864F4</string>
 						<key>history</key>
 						<array>
-							<string>DC428E9D0A3D9B0500823093</string>
+							<string>DCF34E610A436270005375E6</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -223,7 +223,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>32 55 1142 776 0 0 1440 878 </string>
+				<string>32 59 1142 776 0 0 1440 878 </string>
 			</dict>
 		</dict>
 	</array>
@@ -414,9 +414,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCF34E260A435AD8005375E6</string>
+				<string>DC2A7B270A4C175D006864F4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCF34E270A435AD8005375E6</string>
+				<string>DC2A7B280A4C175D006864F4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -550,7 +550,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCF34E2F0A435AD8005375E6</string>
+		<string>DC2A7B300A4C175D006864F4</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DC7145C209F63A7B004A5A6A</string>
 		<string>1C0AD2B3069F1EA900FABCE6</string>
@@ -676,8 +676,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {249, 152}}</string>
-											<string>{{249, 0}, {445, 152}}</string>
+											<string>{{0, 0}, {235, 149}}</string>
+											<string>{{235, 0}, {459, 149}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -692,8 +692,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 152}}</string>
-											<string>{{0, 152}, {694, 229}}</string>
+											<string>{{0, 0}, {694, 149}}</string>
+											<string>{{0, 149}, {694, 232}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -740,14 +740,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCF34E290A435AD8005375E6</string>
+				<string>DC2A7B2A0A4C175D006864F4</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCF34E2A0A435AD8005375E6</string>
-				<string>DCF34E2B0A435AD8005375E6</string>
-				<string>DCF34E2C0A435AD8005375E6</string>
-				<string>DCF34E2D0A435AD8005375E6</string>
-				<string>DCF34E2E0A435AD8005375E6</string>
-				<string>DCF34E2F0A435AD8005375E6</string>
+				<string>DC2A7B2B0A4C175D006864F4</string>
+				<string>DC2A7B2C0A4C175D006864F4</string>
+				<string>DC2A7B2D0A4C175D006864F4</string>
+				<string>DC2A7B2E0A4C175D006864F4</string>
+				<string>DC2A7B2F0A4C175D006864F4</string>
+				<string>DC2A7B300A4C175D006864F4</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -1006,9 +1006,9 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C0AD2B3069F1EA900FABCE6</string>
-				<string>DCF34E300A435AD8005375E6</string>
+				<string>DC2A7B310A4C175D006864F4</string>
 				<string>1CD0528B0623707200166675</string>
-				<string>DCF34E310A435AD8005375E6</string>
+				<string>DC2A7B320A4C175D006864F4</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.run</string>

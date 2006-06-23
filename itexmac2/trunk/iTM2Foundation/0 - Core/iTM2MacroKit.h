@@ -106,7 +106,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2006 jlaurens@users.sourceforge.net and others.
 */
-+(NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
++ (NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
 
 @end
 
@@ -124,13 +124,16 @@ extern NSString * const iTM2MacroToolTipKey;
 					For example all macros concerning maths in LaTeX should be gathered in the "Math" category of the "LaTeX" domain.
 					The macros are defined in different files in the different resource directories available.
 					Domains, categories and contexts come from the subpath where they are stored:
-					.../Macros/domain_name/category_name/context_name
+					.../Macros.localized/domain_name/category_name/context_name
 					Macros directly stored under
-					.../Macros/domain_name/category_name
+					.../Macros.localized/domain_name/category_name
 					have a void context
 					Macros directly stored under
-					.../Macros/domain_name/
+					.../Macros.localized/domain_name/
 					have a void category and context.
+					<P/>
+					 All the following is not accurate and should not be relied on.
+					<P/>
 					In general, those folders are built in bundles or plugins, such that they are perfectly known at ship time.
 					As they are expected to contain a great deal of macros, we are relying on some already existing index.
 					Those indexes are created at build time.
@@ -188,7 +191,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+(BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
++ (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			macroActionForKey:context:inCategory:ofDomain:
@@ -226,7 +229,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+(id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
++ (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			macroLocaleOfType:forKey:forContext:inCategory:ofDomain:
@@ -242,10 +245,10 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+(NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
++ (NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 @end
 
 @interface iTM2GenericScriptButton: NSPopUpButton
-+(NSString *)domain;//see the LaTeX kit for definitions... should be overriden by subclassers
++ (NSString *)domain;//see the LaTeX kit for definitions... should be overriden by subclassers
 @end

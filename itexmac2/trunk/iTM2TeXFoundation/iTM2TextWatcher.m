@@ -31,7 +31,7 @@ NSString * const iTM2UDMatchDelimiterKey = @"iTM2-Text: Match Delimiter";
 static id _iTM2TextWatcherDictionary = nil;
 @implementation iTM2TextWatcher
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -50,7 +50,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textView:didChangeSelectionWithOldSelectedRange:
-+(void)textView:(NSTextView *)TV didChangeSelectionWithOldSelectedRange:(NSRange)oldSelectedRange;
++ (void)textView:(NSTextView *)TV didChangeSelectionWithOldSelectedRange:(NSRange)oldSelectedRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net, from Mike Ferris Text Extras
 - < 1.1: 03/10/2002
@@ -141,7 +141,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textViewDidChangeSelectionNotified:
-+(void)textViewDidChangeSelectionNotified:(NSNotification *)notification;
++ (void)textViewDidChangeSelectionNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -172,7 +172,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 
 @implementation NSTextView(iTM2TextWatcher)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleWatchDelimiter:
--(IBAction)toggleWatchDelimiter:(id)sender;
+- (IBAction)toggleWatchDelimiter:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/11/2005
@@ -185,7 +185,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleWatchDelimiter:
--(BOOL)validateToggleWatchDelimiter:(id)sender;
+- (BOOL)validateToggleWatchDelimiter:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/11/2005
@@ -204,7 +204,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 
 @implementation NSTextView_iTM2TextWatcher
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -218,7 +218,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
--(void)contextDidChange;
+- (void)contextDidChange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -235,7 +235,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 
 @implementation iTM2MainInstaller(iTM2TextWatcher)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -250,7 +250,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextWatcherCompleteInstallation:
-+(void)iTM2TextWatcherCompleteInstallation;
++ (void)iTM2TextWatcherCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

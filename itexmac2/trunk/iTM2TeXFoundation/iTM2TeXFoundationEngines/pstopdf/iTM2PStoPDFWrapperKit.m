@@ -30,7 +30,7 @@ NSString * const iTM2PStoPDF_progress_message = @"iTM2_pstopdf_progress_message"
 
 @implementation iTM2EnginePStoPDF
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -41,7 +41,7 @@ To Do List:
     return @"iTM2_Engine_pstopdf";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -52,7 +52,7 @@ To Do List:
     return [NSArray arrayWithObjects:@"ps", @"eps", nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -69,17 +69,17 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
--(BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
--(void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
+- (BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
+- (void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
--(id)GETTER;{return [self modelValueForKey:KEY];}\
--(void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
+- (id)GETTER;{return [self modelValueForKey:KEY];}\
+- (void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
--(float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
--(void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
+- (float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
+- (void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
 #define MODEL_INT(GETTER, SETTER, KEY)\
--(int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
--(void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
+- (int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
+- (void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
 MODEL_BOOL(useOutput, setUseOutput, iTM2PStoPDF_use_output);
 MODEL_OBJECT(output, setOutput, iTM2PStoPDF_output);
 MODEL_BOOL(writeToLog, setWriteToLog, iTM2PStoPDF_write_to_log);
@@ -88,7 +88,7 @@ MODEL_BOOL(progressMessage, setProgressMessage, iTM2PStoPDF_progress_message);
 
 @implementation iTM2MainInstaller(pstopdf)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PStoPDFCompleteInstallation
-+(void)iTM2PStoPDFCompleteInstallation;
++ (void)iTM2PStoPDFCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004

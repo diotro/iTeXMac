@@ -29,7 +29,7 @@
 /*"Description forthcoming."*/
 @implementation iTM2GridMenuView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
--(id)initWithFrame:(NSRect)frame;
+- (id)initWithFrame:(NSRect)frame;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -44,7 +44,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -59,7 +59,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sizeToFit
--(void)sizeToFit;
+- (void)sizeToFit;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -117,7 +117,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rectOfItemAtIndex:
--(NSRect)rectOfItemAtIndex:(int)index;
+- (NSRect)rectOfItemAtIndex:(int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -169,7 +169,7 @@ To Do List:
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stateImageOffset
--(float)stateImageOffset;
+- (float)stateImageOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -181,7 +181,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stateImageWidth
--(float)stateImageWidth;
+- (float)stateImageWidth;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -193,7 +193,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  imageAndTitleOffset
--(float)imageAndTitleOffset;
+- (float)imageAndTitleOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -205,7 +205,7 @@ To Do List:
     return [self horizontalEdgePadding];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  imageAndTitleWidth
--(float)imageAndTitleWidth;
+- (float)imageAndTitleWidth;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -219,7 +219,7 @@ To Do List:
     return _CachedWidth;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentOffset
--(float)keyEquivalentOffset;
+- (float)keyEquivalentOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -231,7 +231,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentWidth
--(float)keyEquivalentWidth;
+- (float)keyEquivalentWidth;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -243,7 +243,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  imagePosition
--(NSCellImagePosition)imagePosition;
+- (NSCellImagePosition)imagePosition;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -254,7 +254,7 @@ To Do List:
     return _ImagePosition;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImagePosition:
--(void)setImagePosition:(NSCellImagePosition)argument;
+- (void)setImagePosition:(NSCellImagePosition)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -268,7 +268,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawRect:
--(void)drawRect:(NSRect)aRect;
+- (void)drawRect:(NSRect)aRect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -296,7 +296,7 @@ No facility is given to deal with rows and columns: inserting a menu item will p
 Only row/column based accessors are provided. Row and column numbering are 0 based"*/
 @implementation iTM2GridMenu
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithTitle: 
--(id)initWithTitle:(NSString *)aTitle;
+- (id)initWithTitle:(NSString *)aTitle;
 /*"Designated initializer. The menu representation is created here (forced) as an iTM2GridMenuView instance.
 The number of columns is set to 1.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -312,7 +312,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder: 
--(id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithCoder:(NSCoder *)aDecoder;
 /*"Designated initializer. The menu representation is created here (forced) as an iTM2GridMenuView instance.
 The number of columns is set to 1.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -328,7 +328,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRows
--(int)numberOfRows;
+- (int)numberOfRows;
 /*"Computed from the total number of items and the number of columns. The total number of items need not be a multiple of the declared number of columns.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -341,7 +341,7 @@ To Do List:
     return result * [self numberOfColumns] < [self numberOfItems]? result + 1: result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfColumns
--(int)numberOfColumns;
+- (int)numberOfColumns;
 /*"At least 1 is returned.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -353,7 +353,7 @@ To Do List:
     return MAX(_NOC, 1);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setNumberOfColumns: 
--(void)setNumberOfColumns:(int)NOC;
+- (void)setNumberOfColumns:(int)NOC;
 /*"Only positive NOC are acceptable. Nothing happens for a nonpositive argument.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -371,7 +371,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  itemAtIndex:
--(id <NSMenuItem>)itemAtIndex:(int)index;
+- (id <NSMenuItem>)itemAtIndex:(int)index;
 /*"Returns nil to fill the (eventually) missing items to terminate the grid rectangle.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -383,7 +383,7 @@ To Do List: Raise an exception.
     return ((index>=0) && (index<[self numberOfItems]))? [super itemAtIndex:index]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  itemAtRow:column:
--(id <NSMenuItem>)itemAtRow:(int)row column:(int)column;
+- (id <NSMenuItem>)itemAtRow:(int)row column:(int)column;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -396,7 +396,7 @@ To Do List: Raise an exception.
         [self itemAtIndex:row + [self numberOfColumns] * column]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  itemIndexForRow:column:
--(int)itemIndexForRow:(int)row column:(int)column;
+- (int)itemIndexForRow:(int)row column:(int)column;
 /*"Returns -1 if row or column is not consistent.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -409,7 +409,7 @@ To Do List:
         row + [self numberOfColumns] * column: -1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rowForItemIndex:
--(int)rowForItemIndex:(int)index;
+- (int)rowForItemIndex:(int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -421,7 +421,7 @@ To Do List:
     return index / [self numberOfColumns];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  columnForItemIndex:
--(int)columnForItemIndex:(int)index;
+- (int)columnForItemIndex:(int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

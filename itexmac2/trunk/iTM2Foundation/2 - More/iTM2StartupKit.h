@@ -36,13 +36,13 @@
 extern NSString * const iTM2DontShowTipsKey;
 
 @interface NSApplication(iTM2StartupKit) 
-+(IBAction)showReleaseNotes:(id)sender;
-+(IBAction)showWelcomeNotes:(id)sender;
++ (IBAction)showReleaseNotes:(id)sender;
++ (IBAction)showWelcomeNotes:(id)sender;
 @end
 
 @interface iTM2StartupController: iTM2Inspector 
--(IBAction)showReleaseNotes:(id)sender;
--(IBAction)showWelcomeNotes:(id)sender;
--(id)infoTextView;
--(void)setInfoTextView:(NSTextView *)argument;
+- (IBAction)showReleaseNotes:(id)sender;
+- (IBAction)showWelcomeNotes:(id)sender;
+- (id)infoTextView;
+- (void)setInfoTextView:(NSTextView *)argument;
 @end

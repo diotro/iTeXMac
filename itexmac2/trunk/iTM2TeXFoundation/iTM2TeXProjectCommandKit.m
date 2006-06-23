@@ -33,8 +33,8 @@ NSString * const iTM2TeXProjectHelpPage = @"pgs/004.htm";
 //#import <iTM2Foundation/iTM2WindowKit.h>
 
 @interface iTM2TeXPCommandsInspector(FrontendKit)
--(id)editedCommand;
--(void)setEditedCommand:(id)argument;
+- (id)editedCommand;
+- (void)setEditedCommand:(id)argument;
 @end
 
 @implementation iTM2TeXPCommandsWindow
@@ -42,7 +42,7 @@ NSString * const iTM2TeXProjectHelpPage = @"pgs/004.htm";
 
 @implementation iTM2TeXPCommandsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -53,7 +53,7 @@ To Do List:
     return iTM2TeXProjectInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -64,7 +64,7 @@ To Do List:
     return iTM2TeXProjectSettingsInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -77,7 +77,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -96,7 +96,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
--(BOOL)windowPositionShouldBeObserved;
+- (BOOL)windowPositionShouldBeObserved;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -107,7 +107,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  flagsDidChangeNotified:
--(void)flagsDidChangeNotified:(NSNotification *)notification;
+- (void)flagsDidChangeNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -120,7 +120,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
--(NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -136,7 +136,7 @@ To Do List:
             displayName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
--(NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+- (NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -151,7 +151,7 @@ To Do List:
             displayName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowShouldClose:
--(BOOL)windowShouldClose:(id)sender;
+- (BOOL)windowShouldClose:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -163,7 +163,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
--(BOOL)validateWindowContent;
+- (BOOL)validateWindowContent;
 /*"Before calling the inherited method, update the list of available projects.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -177,7 +177,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
--(void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 /*"Validates the window contents whenever the tabviewitem changes.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -191,7 +191,7 @@ To Do List:
 #endif
 #pragma mark =-=-=-=-=-=-=-=-=-=-  GUI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  OK:
--(IBAction)OK:(id)sender;
+- (IBAction)OK:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -204,7 +204,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancel:
--(IBAction)cancel:(id)sender;
+- (IBAction)cancel:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -218,7 +218,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchToAdvancedSettings:
--(IBAction)switchToAdvancedSettings:(id)sender;
+- (IBAction)switchToAdvancedSettings:(id)sender;
 /*"Message sent by the "Advanced Settings" button in the basic project settings panel.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -237,7 +237,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  Backup/Cancel
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doCommandCompleteBackupModel
--(void)doCommandCompleteBackupModel;
+- (void)doCommandCompleteBackupModel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -263,7 +263,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doCommandCompleteRestoreModel
--(void)doCommandCompleteRestoreModel;
+- (void)doCommandCompleteRestoreModel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -314,7 +314,7 @@ To Do List:
 #pragma mark =-=-=-=-=-  BASE PROJECT
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseBaseMode:
--(IBAction)chooseBaseMode:(id)sender;
+- (IBAction)chooseBaseMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -368,7 +368,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseBaseMode:
--(BOOL)validateChooseBaseMode:(id)sender;
+- (BOOL)validateChooseBaseMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -435,7 +435,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseVariant:
--(IBAction)chooseVariant:(id)sender;
+- (IBAction)chooseVariant:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -497,7 +497,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
--(BOOL)validateChooseVariant:(id)sender;
+- (BOOL)validateChooseVariant:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -571,7 +571,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOutput:
--(IBAction)chooseOutput:(id)sender;
+- (IBAction)chooseOutput:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -606,7 +606,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
--(BOOL)validateChooseOutput:(id)sender;
+- (BOOL)validateChooseOutput:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -675,7 +675,7 @@ To Do List:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseBaseMode:
--(IBAction)chooseBaseMode:(id)sender;
+- (IBAction)chooseBaseMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -730,7 +730,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseBaseMode:
--(BOOL)validateChooseBaseMode:(id)sender;
+- (BOOL)validateChooseBaseMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -783,7 +783,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseVariant:
--(IBAction)chooseVariant:(id)sender;
+- (IBAction)chooseVariant:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -846,7 +846,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
--(BOOL)validateChooseVariant:(id)sender;
+- (BOOL)validateChooseVariant:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -915,7 +915,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOutput:
--(IBAction)chooseOutput:(id)sender;
+- (IBAction)chooseOutput:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -951,7 +951,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
--(BOOL)validateChooseOutput:(id)sender;
+- (BOOL)validateChooseOutput:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1012,7 +1012,7 @@ To Do List:
 #endif
 #pragma mark =-=-=-=-=-=-=-=-=-=-  ADVANCED TYPESETTING MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editedCommand
--(id)editedCommand;
+- (id)editedCommand;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1023,7 +1023,7 @@ To Do List:
     return [self contextStringForKey:@"Commands Inspector:Edited Command"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEditedCommand:
--(void)setEditedCommand:(id)argument;
+- (void)setEditedCommand:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1036,7 +1036,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseEditCommand:
--(IBAction)chooseEditCommand:(id)sender;
+- (IBAction)chooseEditCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1049,7 +1049,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseEditCommand:
--(BOOL)validateChooseEditCommand:(id)sender;
+- (BOOL)validateChooseEditCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1091,7 +1091,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultCommand:
--(IBAction)defaultCommand:(id)sender;
+- (IBAction)defaultCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1118,7 +1118,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDefaultCommand:
--(BOOL)validateDefaultCommand:(id)sender;
+- (BOOL)validateDefaultCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1136,7 +1136,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  ACTION SCRIPTS MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseScript:
--(IBAction)chooseScript:(id)sender;
+- (IBAction)chooseScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1158,7 +1158,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseScript:
--(BOOL)validateChooseScript:(id)sender;
+- (BOOL)validateChooseScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1222,7 +1222,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newShellScript:
--(IBAction)newShellScript:(id)sender;
+- (IBAction)newShellScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1247,7 +1247,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeShellScript:
--(IBAction)removeShellScript:(id)sender;
+- (IBAction)removeShellScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1266,7 +1266,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editScript:
--(IBAction)editScript:(id)sender;
+- (IBAction)editScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1323,7 +1323,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditScript:
--(BOOL)validateEditScript:(id)sender;
+- (BOOL)validateEditScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1350,7 +1350,7 @@ To Do List:
     return [[[TPD commandScripts] allKeys] containsObject:scriptMode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editScriptSheetDidEnd:returnCode:scriptMode:
--(void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode scriptMode:(NSString *)scriptMode;
+- (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode scriptMode:(NSString *)scriptMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1377,7 +1377,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  OPTIONS MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOptions:
--(IBAction)chooseOptions:(id)sender;
+- (IBAction)chooseOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1409,7 +1409,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOptions:
--(BOOL)validateChooseOptions:(id)sender;
+- (BOOL)validateChooseOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1525,7 +1525,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOptions:
--(IBAction)editOptions:(id)sender;
+- (IBAction)editOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1589,7 +1589,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOptionsSheetDidEnd:returnCode:environmentMode:
--(void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode environmentMode:(NSString *)environmentMode;
+- (void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode environmentMode:(NSString *)environmentMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1618,7 +1618,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOptions:
--(BOOL)validateEditOptions:(id)sender;
+- (BOOL)validateEditOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1657,7 +1657,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showHelp:
--(IBAction)showHelp:(id)sender;
+- (IBAction)showHelp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1688,7 +1688,7 @@ OSStatus status = AHSearch (
 
 @implementation iTM2TeXPXtdCommandsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
-+(NSString *)inspectorVariant;
++ (NSString *)inspectorVariant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1701,8 +1701,8 @@ To Do List:
 @end
 
 @interface iTM2TeXPCommandPerformer(PRIVATE)
-+(int)_commandLevel;
-+(int)_commandGroup;
++ (int)_commandLevel;
++ (int)_commandGroup;
 @end
 
 NSString * const iTM2TPFEEnvironmentModeKey = @"EnvironmentMode";
@@ -1713,7 +1713,7 @@ NSString * const iTM2TPFEScriptModeKey = @"ScriptMode";
 
 @implementation iTM2CommandWrapper
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  description
--(NSString *)description;
+- (NSString *)description;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1725,7 +1725,7 @@ To Do List:
 		[super description], [self name], [self scriptMode], [self environmentMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaFixImplementation
--(void)metaFixImplementation;
+- (void)metaFixImplementation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1738,7 +1738,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelDidChange
--(void)modelDidChange;
+- (void)modelDidChange;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1749,7 +1749,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  name
--(NSString *)name;
+- (NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1760,7 +1760,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setName:
--(void)setName:(NSString *)name;
+- (void)setName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1773,7 +1773,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project
--(id)project;
+- (id)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1784,7 +1784,7 @@ To Do List:
     return [metaGETTER nonretainedObjectValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:
--(void)setProject:(id)project;
+- (void)setProject:(id)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1796,7 +1796,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  model
--(id)model;
+- (id)model;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1807,7 +1807,7 @@ To Do List:
     return [IMPLEMENTATION modelOfType:iTM2MainType];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setModel:
--(void)setModel:(NSDictionary *)model;
+- (void)setModel:(NSDictionary *)model;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1820,7 +1820,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scriptMode
--(id)scriptMode;
+- (id)scriptMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1838,7 +1838,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScriptMode:
--(void)setScriptMode:(NSString *)mode;
+- (void)setScriptMode:(NSString *)mode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1851,7 +1851,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentMode
--(id)environmentMode;
+- (id)environmentMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1869,7 +1869,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEnvironmentMode:
--(void)setEnvironmentMode:(NSString *)mode;
+- (void)setEnvironmentMode:(NSString *)mode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1881,7 +1881,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqual:
--(BOOL)isEqual:(id)rhs;
+- (BOOL)isEqual:(id)rhs;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1897,7 +1897,7 @@ To Do List:
 
 @implementation iTM2TeXPCommandWrapper
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelDidChange
--(void)modelDidChange;
+- (void)modelDidChange;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1935,7 +1935,7 @@ static NSMutableDictionary * _iTM2TeXPCommandInspectors = nil;
 
 @implementation iTM2TeXPCommandInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1964,7 +1964,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  classForMode:
-+(id)classForMode:(NSString *)action;
++ (id)classForMode:(NSString *)action;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1981,7 +1981,7 @@ To Do List:
     return C;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandName
-+(NSString *)commandName;
++ (NSString *)commandName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2017,7 +2017,7 @@ NSString * const TWSShellEnvironmentProjectDirectoryKey = @"TWSProjectDirectory"
 
 @implementation iTM2MainInstaller(TeXPCommandManager)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXPCommandManager
-+(void)iTM2TeXPCommandManagerCompleteInstallation;
++ (void)iTM2TeXPCommandManagerCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2034,7 +2034,7 @@ To Do List:
 @implementation iTM2TeXPCommandManager
 static NSArray * _iTM2TeXPBuiltInCommandNames = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2049,7 +2049,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bundleDidLoadNotified:
-+(void)bundleDidLoadNotified:(NSNotification *)notification;
++ (void)bundleDidLoadNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2061,7 +2061,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixTeXMenu
-+(void)fixTeXMenu;
++ (void)fixTeXMenu;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2075,7 +2075,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _fixTeXMenu
-+(void)_fixTeXMenu;
++ (void)_fixTeXMenu;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2232,7 +2232,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  builtInCommandNames
-+(NSArray *)builtInCommandNames;
++ (NSArray *)builtInCommandNames;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2265,7 +2265,7 @@ To Do List:
     return _iTM2TeXPBuiltInCommandNames;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedBuiltInCommandNames
-+(NSArray *)orderedBuiltInCommandNames;
++ (NSArray *)orderedBuiltInCommandNames;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2309,7 +2309,7 @@ To Do List:
     return MRA;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandPerformerForName:
-+(id)commandPerformerForName:(NSString *)name;
++ (id)commandPerformerForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2337,7 +2337,7 @@ NSString * const iTM2FactoryEnvironmentVariablesKey = @"iTM2FactoryEnvironmentVa
 
 @implementation iTM2TeXPCommandPerformer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -2361,7 +2361,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandName
-+(NSString *)commandName;
++ (NSString *)commandName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2384,7 +2384,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedNameForName:
-+(NSString *)localizedNameForName:(NSString *)name;
++ (NSString *)localizedNameForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2395,7 +2395,7 @@ To Do List:
     return NSLocalizedStringFromTableInBundle(name, iTM2TeXPCommandTableName, myBUNDLE, "");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuItemTitleForProject:
-+(NSString *)menuItemTitleForProject:(id)project;
++ (NSString *)menuItemTitleForProject:(id)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2406,7 +2406,7 @@ To Do List:
     return [self localizedNameForName:[self commandName]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compare:
-+(NSComparisonResult)compare:(id)rhs;
++ (NSComparisonResult)compare:(id)rhs;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2422,7 +2422,7 @@ To Do List:
     return NSOrderedAscending;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandLevel
-+(int)commandLevel;
++ (int)commandLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2433,7 +2433,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandLevel
-+(int)_commandLevel;
++ (int)_commandLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2446,7 +2446,7 @@ To Do List:
     return [S intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandGroup
-+(int)commandGroup;
++ (int)commandGroup;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2457,7 +2457,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandGroup
-+(int)_commandGroup;
++ (int)_commandGroup;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2470,7 +2470,7 @@ To Do List:
     return [S intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentForName:
-+(NSString *)keyEquivalentForName:(NSString *)name;
++ (NSString *)keyEquivalentForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2483,7 +2483,7 @@ To Do List:
     return [result length] != 1? @"":[result substringWithRange:NSMakeRange(0, 1)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentModifierMaskForName;
-+(unsigned int)keyEquivalentModifierMaskForName:(NSString *)name;
++ (unsigned int)keyEquivalentModifierMaskForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2507,7 +2507,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommand:
-+(IBAction)performCommand:(id)sender;
++ (IBAction)performCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2520,7 +2520,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canPerformCommandForProject:
-+(BOOL)canPerformCommandForProject:(iTM2TeXProjectDocument *)project;
++ (BOOL)canPerformCommandForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2532,7 +2532,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommandForProject:
-+(void)performCommandForProject:(iTM2TeXProjectDocument *)project;
++ (void)performCommandForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2560,9 +2560,9 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project:didSaveAllProjectDocuments:contextInfo:
-+(void)project:(id)project didSaveAllProjectDocuments:(BOOL)flag contextInfo:(void *)contextInfo;
++ (void)project:(id)project didSaveAllProjectDocuments:(BOOL)flag contextInfo:(void *)contextInfo;
 /*"Call back must have the following signature:
--(void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
+- (void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
 - < 1.1: 03/10/2002
 To Do List: to be improved...
@@ -2574,9 +2574,9 @@ To Do List: to be improved...
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doPerformCommandForProject:
-+(void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
++ (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
 /*"Call back must have the following signature:
--(void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
+- (void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
 - < 1.1: 03/10/2002
 To Do List: to be improved...
@@ -2652,7 +2652,7 @@ To Do List: to be improved...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskWrapperDidPerformCommand:taskController:userInfo:
-+(void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
++ (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
 /*"Here come the actions to be performed when the Index task has completed.
 userInfo is still owned by the receiver and should be released.
 Subclassers will prepend their own stuff.
@@ -2671,7 +2671,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePerformCommand:
-+(BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
++ (BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2712,7 +2712,7 @@ To Do List:
 		return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForBaseProject:
-+(NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2738,7 +2738,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForProject:
-+(NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2764,7 +2764,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForBaseProject:
-+(NSDictionary *)environmentDictionaryForBaseProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)environmentDictionaryForBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2800,7 +2800,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForProject:
-+(NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2840,7 +2840,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= concreteEnvironmentDictionaryForProject:
-+(NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2935,7 +2935,7 @@ blablabla:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mustSaveProjectDocumentsBefore
-+(BOOL)mustSaveProjectDocumentsBefore;
++ (BOOL)mustSaveProjectDocumentsBefore;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2946,15 +2946,15 @@ To Do List:
  //iTM2_END;
     return YES;
 }
-+(void)encodeWithCoder:(NSCoder *)aCoder;
++ (void)encodeWithCoder:(NSCoder *)aCoder;
 {
 	[aCoder encodeObject:NSStringFromClass(self) forKey:@"performerClassName"];
 }
--(void)encodeWithCoder:(NSCoder *)aCoder;
+- (void)encodeWithCoder:(NSCoder *)aCoder;
 {
 	return;
 }
--(id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithCoder:(NSCoder *)aDecoder;
 {
 	NSString * performerClassName = [aDecoder decodeObjectForKey:@"performerClassName"];
 	id result = NSClassFromString(performerClassName);

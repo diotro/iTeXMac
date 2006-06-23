@@ -49,7 +49,7 @@ NSString * const iTM2MetaPostPDFConverterKey = @"iTM2_MP_pdf_converter";
 
 @implementation iTM2EngineMetaPost
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -60,7 +60,7 @@ To Do List:
     return @"iTM2_Engine_mpost";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -71,7 +71,7 @@ To Do List:
     return [NSArray arrayWithObject:@"mp"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -105,7 +105,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=- FORMAT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editFormat:
--(IBAction)editFormat:(id)sender;
+- (IBAction)editFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -117,7 +117,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
--(BOOL)validateEditFormat:(id)sender;
+- (BOOL)validateEditFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -129,7 +129,7 @@ To Do List:
     return ![self modelFlagForKey:iTM2MetaPostParseFirstLineKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseFormat:
--(IBAction)chooseFormat:(id)sender;
+- (IBAction)chooseFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -141,7 +141,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
--(BOOL)validateChooseFormat:(id)sender;
+- (BOOL)validateChooseFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -192,7 +192,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchFormat:
--(IBAction)switchFormat:(id)sender;
+- (IBAction)switchFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -204,7 +204,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
--(BOOL)validateSwitchFormat:(id)sender;
+- (BOOL)validateSwitchFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -221,7 +221,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleProgName:
--(IBAction)toggleProgName:(id)sender;
+- (IBAction)toggleProgName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -233,7 +233,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleProgName:
--(BOOL)validateToggleProgName:(id)sender;
+- (BOOL)validateToggleProgName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -245,7 +245,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editProgName:
--(IBAction)editProgName:(id)sender;
+- (IBAction)editProgName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -257,7 +257,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
--(BOOL)validateEditProgName:(id)sender;
+- (BOOL)validateEditProgName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -283,7 +283,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseProgName:
--(IBAction)chooseProgName:(id)sender;
+- (IBAction)chooseProgName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -295,7 +295,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
--(BOOL)validateChooseProgName:(id)sender;
+- (BOOL)validateChooseProgName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -331,7 +331,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTeXFormat:
--(IBAction)editTeXFormat:(id)sender;
+- (IBAction)editTeXFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -343,7 +343,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
--(BOOL)validateEditTeXFormat:(id)sender;
+- (BOOL)validateEditTeXFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -355,7 +355,7 @@ To Do List:
     return ![self modelFlagForKey:iTM2MetaPostTeXParseFirstLineKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXFormat:
--(IBAction)chooseTeXFormat:(id)sender;
+- (IBAction)chooseTeXFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -367,7 +367,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXFormat:
--(BOOL)validateChooseTeXFormat:(id)sender;
+- (BOOL)validateChooseTeXFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -418,7 +418,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchTeXFormat:
--(IBAction)switchTeXFormat:(id)sender;
+- (IBAction)switchTeXFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -430,7 +430,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchTeXFormat:
--(BOOL)validateSwitchTeXFormat:(id)sender;
+- (BOOL)validateSwitchTeXFormat:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -442,7 +442,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleConvertToPDF:
--(IBAction)toggleConvertToPDF:(id)sender;
+- (IBAction)toggleConvertToPDF:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -454,7 +454,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleConvertToPDF:
--(BOOL)validateToggleConvertToPDF:(id)sender;
+- (BOOL)validateToggleConvertToPDF:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -466,7 +466,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchPDFConverter:
--(IBAction)switchPDFConverter:(id)sender;
+- (IBAction)switchPDFConverter:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -478,7 +478,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchPDFConverter:
--(BOOL)validateSwitchPDFConverter:(id)sender;
+- (BOOL)validateSwitchPDFConverter:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -490,7 +490,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Translate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTable:
--(IBAction)editTable:(id)sender;
+- (IBAction)editTable:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -502,7 +502,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
--(BOOL)validateEditTable:(id)sender;
+- (BOOL)validateEditTable:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -514,7 +514,7 @@ To Do List:
     return ![self modelFlagForKey:iTM2MetaPostPARSETranslationKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchTable:
--(IBAction)switchTable:(id)sender;
+- (IBAction)switchTable:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -526,7 +526,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
--(BOOL)validateSwitchTable:(id)sender;
+- (BOOL)validateSwitchTable:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -539,7 +539,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Advanced
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTROFF:
--(IBAction)toggleTROFF:(id)sender;
+- (IBAction)toggleTROFF:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -551,7 +551,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTROFF:
--(BOOL)validateToggleTROFF:(id)sender;
+- (BOOL)validateToggleTROFF:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -563,7 +563,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:
--(IBAction)toggleIni:(id)sender;
+- (IBAction)toggleIni:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -575,7 +575,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleIni:
--(BOOL)validateToggleIni:(id)sender;
+- (BOOL)validateToggleIni:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -587,7 +587,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
--(IBAction)editJobName:(id)sender;
+- (IBAction)editJobName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -599,7 +599,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
--(BOOL)validateEditJobName:(id)sender;
+- (BOOL)validateEditJobName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -611,7 +611,7 @@ To Do List:
     return [self modelFlagForKey:iTM2MetaPostUSEJobNameKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleJobName:
--(IBAction)toggleJobName:(id)sender;
+- (IBAction)toggleJobName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -623,7 +623,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleJobName:
--(BOOL)validateToggleJobName:(id)sender;
+- (BOOL)validateToggleJobName:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -636,7 +636,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Output directory
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputDirectory:
--(IBAction)toggleOutputDirectory:(id)sender;
+- (IBAction)toggleOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -649,7 +649,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputDirectory:
--(BOOL)validateToggleOutputDirectory:(id)sender;
+- (BOOL)validateToggleOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -662,7 +662,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputDirectory:
--(IBAction)editOutputDirectory:(id)sender;
+- (IBAction)editOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -675,7 +675,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputDirectory:
--(BOOL)validateEditOutputDirectory:(id)sender;
+- (BOOL)validateEditOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -691,7 +691,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Interaction
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchInteraction:
--(IBAction)switchInteraction:(id)sender;
+- (IBAction)switchInteraction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -712,7 +712,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
--(BOOL)validateSwitchInteraction:(id)sender;
+- (BOOL)validateSwitchInteraction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -727,7 +727,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DEBUG
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFileLineErrorStyle:
--(IBAction)toggleFileLineErrorStyle:(id)sender;
+- (IBAction)toggleFileLineErrorStyle:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -739,7 +739,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFileLineErrorStyle:
--(BOOL)validateToggleFileLineErrorStyle:(id)sender;
+- (BOOL)validateToggleFileLineErrorStyle:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -751,7 +751,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleRecorder:
--(IBAction)toggleRecorder:(id)sender;
+- (IBAction)toggleRecorder:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 29 08:07:47 GMT 2004
@@ -763,7 +763,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleRecorder:
--(BOOL)validateToggleRecorder:(id)sender;
+- (BOOL)validateToggleRecorder:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -778,7 +778,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(mpost)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MetaPostCompleteInstallation
-+(void)iTM2MetaPostCompleteInstallation;
++ (void)iTM2MetaPostCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -802,7 +802,7 @@ NSString * const iTM2MPtoPDFPassOnKey = @"iTM2_MPtoPDF_pass_on";
 
 @implementation iTM2EngineMPtoPDF
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -813,7 +813,7 @@ To Do List:
     return @"iTM2_Engine_mptopdf";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -824,7 +824,7 @@ To Do List:
     return [NSArray arrayWithObject:@"mp"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -840,7 +840,7 @@ To Do List:
 					nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isLaTeX
--(BOOL)isLaTeX;
+- (BOOL)isLaTeX;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -851,7 +851,7 @@ To Do List:
     return [[self modelValueForKey:iTM2MPtoPDFIsLaTeXKey] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setIsLaTeX:
--(void)setIsLaTeX:(BOOL)flag;
+- (void)setIsLaTeX:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -863,7 +863,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isRawMP
--(BOOL)isRawMP;
+- (BOOL)isRawMP;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -874,7 +874,7 @@ To Do List:
     return [[self modelValueForKey:iTM2MPtoPDFIsRawMPKey] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setIsRawMP:
--(void)setIsRawMP:(BOOL)flag;
+- (void)setIsRawMP:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -886,7 +886,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  usePassOn
--(BOOL)usePassOn;
+- (BOOL)usePassOn;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -897,7 +897,7 @@ To Do List:
     return [[self modelValueForKey:iTM2MPtoPDFUSEPassOnKey] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsePassOn:
--(void)setUsePassOn:(BOOL)flag;
+- (void)setUsePassOn:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -909,7 +909,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  passOn
--(NSString *)passOn;
+- (NSString *)passOn;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -920,7 +920,7 @@ To Do List:
     return [self modelValueForKey:iTM2MPtoPDFPassOnKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPassOn:
--(void)setPassOn:(NSString *)argument;
+- (void)setPassOn:(NSString *)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -940,7 +940,7 @@ NSString * const iTM2MPS2PDFDviPSOptionsKey = @"iTM2_MPS2PDF_dvips_options";
 
 @implementation iTM2EngineMPS2PDF
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -951,7 +951,7 @@ To Do List:
     return @"iTM2_Engine_mps2pdf";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -962,7 +962,7 @@ To Do List:
     return [NSArray arrayWithObject:@"mps"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -978,7 +978,7 @@ To Do List:
 					nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  DviPSOptionsEdited:
--(IBAction)DviPSOptionsEdited:(id)sender;
+- (IBAction)DviPSOptionsEdited:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -991,7 +991,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDviPSOptionsEdited:
--(BOOL)validateDviPSOptionsEdited:(id)sender;
+- (BOOL)validateDviPSOptionsEdited:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -1004,7 +1004,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXOptionsEdited:
--(IBAction)TeXOptionsEdited:(id)sender;
+- (IBAction)TeXOptionsEdited:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -1017,7 +1017,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTeXOptionsEdited:
--(BOOL)validateTeXOptionsEdited:(id)sender;
+- (BOOL)validateTeXOptionsEdited:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -1030,7 +1030,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleUseDviPSOptions:
--(IBAction)toggleUseDviPSOptions:(id)sender;
+- (IBAction)toggleUseDviPSOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -1043,7 +1043,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleUseDviPSOptions:
--(BOOL)validateToggleUseDviPSOptions:(id)sender;
+- (BOOL)validateToggleUseDviPSOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -1056,7 +1056,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleUseTeXOptions:
--(IBAction)toggleUseTeXOptions:(id)sender;
+- (IBAction)toggleUseTeXOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -1069,7 +1069,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleUseTeXOptions:
--(BOOL)validateToggleUseTeXOptions:(id)sender;
+- (BOOL)validateToggleUseTeXOptions:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004

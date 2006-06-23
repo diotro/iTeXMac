@@ -24,14 +24,14 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSCursor(iTeXMac2)
 
 @interface NSCursor(iTeXMac2)
-+(NSCursor *)fingerCursor;
-+(NSCursor *)handCursor;
-+(NSCursor *)zoomInCursor;
-+(NSCursor *)zoomOutCursor;
-+(NSCursor *)crossHairCursor;
-+(NSCursor *)horizontalResizeCursor;
-+(NSCursor *)verticalResizeCursor;
-+(NSCursor *)whiteIBeamCursor;
++ (NSCursor *)fingerCursor;
++ (NSCursor *)handCursor;
++ (NSCursor *)zoomInCursor;
++ (NSCursor *)zoomOutCursor;
++ (NSCursor *)crossHairCursor;
++ (NSCursor *)horizontalResizeCursor;
++ (NSCursor *)verticalResizeCursor;
++ (NSCursor *)whiteIBeamCursor;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSCursor(iTeXMac2)

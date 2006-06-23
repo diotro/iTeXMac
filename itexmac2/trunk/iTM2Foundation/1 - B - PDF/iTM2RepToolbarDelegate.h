@@ -39,21 +39,21 @@ extern NSString * const iTM2ToolbarMagnificationSetItemIdentifier;
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
--(NSTextField *)magnificationField;
--(void)setMagnificationField:(NSTextField *)aTextField;
--(NSStepper *)magStepper;
--(void)setMagStepper:(NSStepper *)aStepper;
--(void)setMagnification:(NSDecimalNumber *)aMagnification;
+- (NSTextField *)magnificationField;
+- (void)setMagnificationField:(NSTextField *)aTextField;
+- (NSStepper *)magStepper;
+- (void)setMagStepper:(NSStepper *)aStepper;
+- (void)setMagnification:(NSDecimalNumber *)aMagnification;
 /*"Main methods"*/
--(NSView *)magnificationFieldForPalette;
--(NSView *)magnificationFieldForToolbar;
--(NSView *)magnificationSetForPalette;
--(NSView *)magnificationSetForToolbar;
--(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
--(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
--(NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
+- (NSView *)magnificationFieldForPalette;
+- (NSView *)magnificationFieldForToolbar;
+- (NSView *)magnificationSetForPalette;
+- (NSView *)magnificationSetForToolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
+- (NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
 /*"Overriden methods"*/
--(id)init;
--(void)dealloc;
+- (id)init;
+- (void)dealloc;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2RepToolbarDelegate

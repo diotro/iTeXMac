@@ -32,12 +32,12 @@
 NSString * const iTM2LastPreferencePaneIdentifier = @"iTM2LastPreferencePaneIdentifier";
 
 @interface iTM2PrefsController(PRIVATE)
--(id)prefPanes;
--(void)setPrefPanes:(id)argument;
--(NSString *)selectedPrefPaneIdentifier;
--(void)setSelectedPrefPaneIdentifier:(id)argument;// no side effect!
--(IBAction)takeSelectedPrefPaneFromIdentifier:(NSToolbarItem *)sender;
--(void)displayPrefsPaneWithIdentifier:(NSString *)identifier;
+- (id)prefPanes;
+- (void)setPrefPanes:(id)argument;
+- (NSString *)selectedPrefPaneIdentifier;
+- (void)setSelectedPrefPaneIdentifier:(id)argument;// no side effect!
+- (IBAction)takeSelectedPrefPaneFromIdentifier:(NSToolbarItem *)sender;
+- (void)displayPrefsPaneWithIdentifier:(NSString *)identifier;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PrefsController
@@ -45,7 +45,7 @@ NSString * const iTM2LastPreferencePaneIdentifier = @"iTM2LastPreferencePaneIden
 @implementation iTM2PrefsController
 static id _iTMSharedPrefsController = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sharedPrefsController
-+(id)sharedPrefsController;
++ (id)sharedPrefsController;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/10/2002
@@ -57,7 +57,7 @@ To Do List:
         [[self allocWithZone:[NSApp zone]] initWithWindowNibName:NSStringFromClass(self)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithWindow:
--(id)initWithWindow:(NSWindow *)window;
+- (id)initWithWindow:(NSWindow *)window;
 /*"The first object inited is the shared one.
 Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -84,7 +84,7 @@ To Do List:
     return _iTMSharedPrefsController = self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPanes
--(id)prefPanes;
+- (id)prefPanes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -95,7 +95,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setPrefPanes:
--(void)setPrefPanes:(id)argument;
+- (void)setPrefPanes:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -108,7 +108,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= selectedPrefPaneIdentifier
--(NSString *)selectedPrefPaneIdentifier;
+- (NSString *)selectedPrefPaneIdentifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -121,7 +121,7 @@ To Do List:
     return [result length]? result:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setSelectedPrefPaneIdentifier:
--(void)setSelectedPrefPaneIdentifier:(id)argument;
+- (void)setSelectedPrefPaneIdentifier:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -133,7 +133,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadPrefPanes
--(void)loadPrefPanes;
+- (void)loadPrefPanes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -256,7 +256,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= preparePrefPanesWindowDidLoad
--(void)preparePrefPanesWindowDidLoad;
+- (void)preparePrefPanesWindowDidLoad;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -293,7 +293,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefsControllerWindowDidLoad
--(void)prefsControllerWindowDidLoad;
+- (void)prefsControllerWindowDidLoad;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -306,7 +306,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applicationWillTerminateNotified:
--(void)applicationWillTerminateNotified:(NSNotification *)aNotification;
+- (void)applicationWillTerminateNotified:(NSNotification *)aNotification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -320,7 +320,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  TOOLBAR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setUpToolbarWindowDidLoad
--(void)setUpToolbarWindowDidLoad;
+- (void)setUpToolbarWindowDidLoad;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: today
@@ -360,7 +360,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= toolbarDefaultItemIdentifiers:
--(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -373,7 +373,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= toolbarAllowedItemIdentifiers:
--(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -385,7 +385,7 @@ To Do List:
     return [self toolbarDefaultItemIdentifiers:aToolbar];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= toolbarSelectableItemIdentifiers:
--(NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *) aToolbar
+- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *) aToolbar
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -397,7 +397,7 @@ To Do List:
     return [self toolbarDefaultItemIdentifiers:aToolbar];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:
--(NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
+- (NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -417,7 +417,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeSelectedPrefPaneFromIdentifier:
--(IBAction)takeSelectedPrefPaneFromIdentifier:(NSToolbarItem *)sender;
+- (IBAction)takeSelectedPrefPaneFromIdentifier:(NSToolbarItem *)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/10/2002
@@ -449,7 +449,7 @@ unselectNow:;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPrefsPaneWithIdentifier:
--(void)displayPrefsPaneWithIdentifier:(NSString *)identifier;
+- (void)displayPrefsPaneWithIdentifier:(NSString *)identifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/10/2002
@@ -511,7 +511,7 @@ To Do List:
 
 @implementation iTM2SharedResponder(PreferencesKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= showPreferences:
--(IBAction)showPreferences:(id)irrelevant;
+- (IBAction)showPreferences:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -530,7 +530,7 @@ To Do List:
 
 @implementation NSPreferencePane(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -552,7 +552,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifierForBundle:
-+(NSString *)prefPaneIdentifierForBundle:(NSBundle *)aBundle;
++ (NSString *)prefPaneIdentifierForBundle:(NSBundle *)aBundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -565,7 +565,7 @@ To Do List:
     return [components count]>1? [components lastObject]:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iconImageForBundle:
-+(NSImage *)iconImageForBundle:(NSBundle *)aBundle;
++ (NSImage *)iconImageForBundle:(NSBundle *)aBundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -604,7 +604,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iconLabelForBundle:
-+(NSString *)iconLabelForBundle:(NSBundle *)aBundle;
++ (NSString *)iconLabelForBundle:(NSBundle *)aBundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -619,7 +619,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -631,7 +631,7 @@ To Do List:
     return [[self class] prefPaneIdentifierForBundle:[self bundle]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iconImage
--(NSImage *)iconImage;
+- (NSImage *)iconImage;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -682,7 +682,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iconLabel
--(NSString *)iconLabel;
+- (NSString *)iconLabel;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -697,7 +697,7 @@ To Do List:
 	return NSLocalizedStringFromTableInBundle(@"NSPrefPaneIconLabel", NSStringFromClass([self class]), [self classBundle], "Comment forthcoming");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= swizzle_iTM2PreferenceKit_loadMainView
--(NSView *)swizzle_iTM2PreferenceKit_loadMainView;
+- (NSView *)swizzle_iTM2PreferenceKit_loadMainView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -724,7 +724,7 @@ To Do List:
 
 @implementation iTM2PreferencePane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithBundle:
--(id)initWithBundle:(NSBundle *)aBundle;
+- (id)initWithBundle:(NSBundle *)aBundle;
 /*"Designated intializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -739,7 +739,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -753,7 +753,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willUnselect
--(void)willUnselect;
+- (void)willUnselect;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -766,7 +766,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
--(id)implementation;
+- (id)implementation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -777,7 +777,7 @@ To Do List:
     return _Implementation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
--(void)setImplementation:(id)argument;
+- (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -801,7 +801,7 @@ To Do List:
 @end
 @implementation iTM2PreferencePane0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -817,7 +817,7 @@ To Do List:
 @end
 @implementation iTM2PreferencePane1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -833,7 +833,7 @@ To Do List:
 @end
 @implementation iTM2PreferencePane2
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -850,7 +850,7 @@ To Do List:
 
 @implementation iTM2PrefsWindow
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
--(BOOL)handlesKeyBindings;
+- (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005

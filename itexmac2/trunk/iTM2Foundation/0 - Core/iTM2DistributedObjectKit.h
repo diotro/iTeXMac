@@ -32,7 +32,7 @@ extern NSString * const iTM2ConnectionIdentifierKey;
     @param      None.
     @result     the output
 */
-+(NSString *)iTeXMac2ConnectionIdentifier;
++ (NSString *)iTeXMac2ConnectionIdentifier;
 
 @end
 
@@ -45,7 +45,7 @@ extern NSString * const iTM2ConnectionIdentifierKey;
     @param      None.
     @result     the output
 */
-+(id)sharedConnectionRoot;
++ (id)sharedConnectionRoot;
 
 /*! 
     @method     sharedApplication
@@ -54,6 +54,6 @@ extern NSString * const iTM2ConnectionIdentifierKey;
     @param      None.
     @result     the output
 */
--(id)sharedApplication;
+- (id)sharedApplication;
 
 @end

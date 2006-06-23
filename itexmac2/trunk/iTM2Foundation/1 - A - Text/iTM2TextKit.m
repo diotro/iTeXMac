@@ -38,7 +38,7 @@ NSString * const iTM2TextTabAnchorKey = @"__(TAB)__";
 /*"Description forthcoming."*/
 @implementation NSText(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSelectionQuickly:
--(void)openSelectionQuickly:(id)sender;
+- (void)openSelectionQuickly:(id)sender;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -69,7 +69,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  breakTypingFlow
--(void)breakTypingFlow;
+- (void)breakTypingFlow;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -104,7 +104,7 @@ To Do List:
 
 @implementation NSText(iTM2TextKit_Highlight)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:
--(void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column;
+- (void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -130,7 +130,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:
--(void)highlightAndScrollToVisibleLine:(unsigned int)aLine;
+- (void)highlightAndScrollToVisibleLine:(unsigned int)aLine;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -149,7 +149,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLineRange:
--(void)highlightAndScrollToVisibleLineRange:(NSRange)aLineRange;
+- (void)highlightAndScrollToVisibleLineRange:(NSRange)aLineRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -161,7 +161,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleRange:
--(void)highlightAndScrollToVisibleRange:(NSRange)aRange;
+- (void)highlightAndScrollToVisibleRange:(NSRange)aRange;
 /*"Description forthcoming. The receiver is the first responder as side effect.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -177,7 +177,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightRange:cleanBefore:
--(void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
+- (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
 /*"Does nothing. Subclasses will do the job.
 - 1.4: Thu May 13 21:02:03 GMT 2004
 To Do List:
@@ -187,7 +187,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  secondaryHighlightAtIndices:lengths:
--(void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
+- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -202,12 +202,12 @@ To Do List:
 @interface NSTextView_iTM2TextKit_Highlight: NSTextView
 @end
 @implementation NSTextView_iTM2TextKit_Highlight
-+(void)load;
++ (void)load;
 {
 	[self poseAsClass:[NSTextView class]];
 	return;
 }
--(void)didChangeText;
+- (void)didChangeText;
 {
 	[self highlightRange:NSMakeRange(0, 0) cleanBefore:YES];
 	[super didChangeText];
@@ -217,7 +217,7 @@ To Do List:
 
 @implementation NSTextView(iTM2TextKit_Highlight)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertStringArray:
--(void)insertStringArray:(NSArray *)textArray;
+- (void)insertStringArray:(NSArray *)textArray;
 /*Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -280,7 +280,7 @@ subLoop:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendSelectionWithRange:
--(void)extendSelectionWithRange:(NSRange)range;
+- (void)extendSelectionWithRange:(NSRange)range;
 /*Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -293,7 +293,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  breakTypingFlow
--(void)breakTypingFlow;
+- (void)breakTypingFlow;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -310,7 +310,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= visibleRange
--(NSRange)visibleRange;
+- (NSRange)visibleRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -332,7 +332,7 @@ To Do List:
     return NSMakeRange(topLeftIndex, botRightIndex - topLeftIndex);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightRange:cleanBefore:
--(void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
+- (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
 /*"Does nothing. Subclasses will do the job.
 - < 1.1: 03/10/2002
 To Do List:
@@ -352,7 +352,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  secondaryHighlightAtIndices:lengths:
--(void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
+- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -386,7 +386,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomIn:
--(void)doZoomIn:(id)sender;
+- (void)doZoomIn:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -401,7 +401,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomOut:
--(void)doZoomOut:(id)sender;
+- (void)doZoomOut:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -416,7 +416,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  actualSize:
--(IBAction)actualSize:(id)sender;
+- (IBAction)actualSize:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -429,7 +429,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateActualSize:
--(BOOL)validateActualSize:(id)sender;
+- (BOOL)validateActualSize:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -441,7 +441,7 @@ To Do List:
     return [self scaleFactor] != 1.0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scaleFactor
--(float)scaleFactor;
+- (float)scaleFactor;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -454,7 +454,7 @@ To Do List:
     return boundsWidth>0? frameWidth / boundsWidth: 0.00001;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleFactor:
--(void)setScaleFactor:(float)aMagnification;
+- (void)setScaleFactor:(float)aMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -484,7 +484,7 @@ To Do List:
 
 @implementation NSColor(iTM2TextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textRangeHighlightColor
-+(NSColor *)textRangeHighlightColor;
++ (NSColor *)textRangeHighlightColor;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -499,7 +499,7 @@ To Do List:
 
 @implementation NSTextView(Placeholder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectNextPlaceholder:
--(IBAction)selectNextPlaceholder:(id)sender;
+- (IBAction)selectNextPlaceholder:(id)sender;
 /*Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -624,7 +624,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectPreviousPlaceholder:
--(IBAction)selectPreviousPlaceholder:(id)sender;
+- (IBAction)selectPreviousPlaceholder:(id)sender;
 /*Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -738,7 +738,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabAnchorKey
-+(NSString *)tabAnchorKey;
++ (NSString *)tabAnchorKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -749,7 +749,7 @@ To Do List:
     return iTM2UDTabAnchorStringKey;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabAnchor
--(NSString *)tabAnchor;
+- (NSString *)tabAnchor;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -760,7 +760,7 @@ To Do List:
     return [SUD stringForKey:[[self class] tabAnchorKey]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectNextTabAnchor:
--(void)selectNextTabAnchor:(id)sender;
+- (void)selectNextTabAnchor:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - < 1.1: 03/10/2002
@@ -791,7 +791,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectNextTabAnchorAndDelete:
--(void)selectNextTabAnchorAndDelete:(id)sender;
+- (void)selectNextTabAnchorAndDelete:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/21/2002
@@ -804,7 +804,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectPreviousTabAnchorAndDelete:
--(void)selectPreviousTabAnchorAndDelete:(id)sender;
+- (void)selectPreviousTabAnchorAndDelete:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/21/2002
@@ -817,7 +817,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectPreviousTabAnchor:
--(void)selectPreviousTabAnchor:(id)sender;
+- (void)selectPreviousTabAnchor:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - < 1.1: 03/10/2002
@@ -850,7 +850,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cachedSelection
--(NSString *)cachedSelection;
+- (NSString *)cachedSelection;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -864,7 +864,7 @@ To Do List:
 
 @implementation NSString(iTM2Placeholder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:
--(NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
+- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
 Version history: jlaurens@users.sourceforge.net
 - 2.0: 02/15/2006
@@ -897,7 +897,7 @@ To Do List: implement some kind of balance range for range
 @end
 @implementation iTM2AttributedString_0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
 Version history: jlaurens@users.sourceforge.net
 - 2.0: 02/15/2006
@@ -910,7 +910,7 @@ To Do List: implement some kind of balance range for range
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
--(NSRange)doubleClickAtIndex:(unsigned)index;
+- (NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
 Version history: jlaurens@users.sourceforge.net
 - 2.0: 02/15/2006

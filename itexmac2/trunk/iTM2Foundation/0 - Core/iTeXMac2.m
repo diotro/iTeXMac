@@ -71,7 +71,7 @@ void iTM2_LOG(NSString *fmt, ...)
 
 @implementation iTM2Application
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
-+(void)initialize;
++ (void)initialize;
 /*"Registers some defaults: initialize iTM2DefaultsController.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - < 1.1: 03/10/2002
@@ -95,7 +95,7 @@ int iTM2DebugEnabled;
 
 @implementation NSApplication(iTMFoundationVersion)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"This is the build number.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -114,7 +114,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentFoundationVersion
-+(int)currentFoundationVersion;
++ (int)currentFoundationVersion;
 /*"This is the build number.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.3: 03/10/2002
@@ -126,7 +126,7 @@ To Do List:
     return 1;// iTM2 preview 5
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentVersion
-+(int)currentVersion;
++ (int)currentVersion;
 /*"This is the build number.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.3: 03/10/2002
@@ -195,7 +195,7 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 @interface NSApplication_iTM2DEBUG: NSApplication
 @end
 @implementation NSMenu_iTM2DEBUG
-+(void)load;
++ (void)load;
 {
 	if([SUD boolForKey:@"iTM2PatchPerformActionForItemAtIndex"])
 	{
@@ -204,7 +204,7 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 	}
 	return;
 }
--(void)performActionForItemAtIndex:(int)index;
+- (void)performActionForItemAtIndex:(int)index;
 {
 	_iTM2_DEBUG_LastAction = NULL;
 	_iTM2_DEBUG_LastTarget = nil;
@@ -219,7 +219,7 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 }
 @end
 @implementation NSApplication_iTM2DEBUG
--(BOOL)sendAction:(SEL)theAction to:(id)theTarget from:(id)sender;
+- (BOOL)sendAction:(SEL)theAction to:(id)theTarget from:(id)sender;
 {
 if(!_iTM2_DEBUG_LastAction)
 {

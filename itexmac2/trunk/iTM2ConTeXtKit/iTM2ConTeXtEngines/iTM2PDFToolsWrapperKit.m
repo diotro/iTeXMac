@@ -24,16 +24,16 @@
 */
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:KEY] boolValue]] forKey:KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setState:([[self modelValueForKey:KEY] boolValue]? NSOnState:NSOffState)];return YES;}
+- (void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:KEY] boolValue]] forKey:KEY];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setState:([[self modelValueForKey:KEY] boolValue]? NSOnState:NSOffState)];return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithFloat:[sender floatValue]] forKey:KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self modelValueForKey:KEY] floatValue]];return YES;}
+- (void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithFloat:[sender floatValue]] forKey:KEY];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self modelValueForKey:KEY] floatValue]];return YES;}
 #define SEDIT(ACTION, VALIDATE, KEY)\
--(void)ACTION:(id)sender;{[self takeModelValue:[sender stringValue] forKey:KEY];[self validateWindowContent];return;}\
--(BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self modelValueForKey:KEY]];return YES;}
+- (void)ACTION:(id)sender;{[self takeModelValue:[sender stringValue] forKey:KEY];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self modelValueForKey:KEY]];return YES;}
 #define UNIT(ACTION, VALIDATE, KEY)\
--(void)ACTION:(id)sender;\
+- (void)ACTION:(id)sender;\
 {\
 	switch([[sender selectedItem] tag])\
 	{\
@@ -44,7 +44,7 @@
 	}\
     return;\
 }\
--(BOOL)VALIDATE:(id)sender;\
+- (BOOL)VALIDATE:(id)sender;\
 {\
 	NSString * unit = [self modelValueForKey:KEY];\
 	if([unit isEqual:@"bp"])\
@@ -89,7 +89,7 @@ NSString * const iTM2PDFArrangeResult = @"iTM2_PDFArrange_result";
 
 @implementation iTM2PDFArrangeInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -100,7 +100,7 @@ To Do List:
     return @".iTM2_Engine_pdfarrange";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -111,7 +111,7 @@ To Do List:
     return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -194,7 +194,7 @@ NSString * const iTM2PDFCombineSilent = @"iTM2_PDFCombine_silent";
 
 @implementation iTM2PDFCombineInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -205,7 +205,7 @@ To Do List:
     return @".iTM2_Engine_pdfcombine";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -216,7 +216,7 @@ To Do List:
     return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -274,7 +274,7 @@ NSString * const iTM2PDFCopySilent = @"iTM2_PDFCopy_silent";
 
 @implementation iTM2PDFCopyInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -285,7 +285,7 @@ To Do List:
     return @".iTM2_Engine_pdfcopy";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -296,7 +296,7 @@ To Do List:
     return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -370,7 +370,7 @@ NSString * const iTM2PDFSelectSilent = @"iTM2_PDFSelect_silent";
 
 @implementation iTM2PDFSelectInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -381,7 +381,7 @@ To Do List:
     return @".iTM2_Engine_pdfselect";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -392,7 +392,7 @@ To Do List:
     return [NSArray arrayWithObject:@"pdf"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004

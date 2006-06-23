@@ -54,7 +54,7 @@ NSString * const iTM2Dvipdfm_include_thumbnails = @"iTM2_dvipdfm_include_thumbna
 
 @implementation iTM2EngineDvipdfm
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -65,7 +65,7 @@ To Do List:
     return @"iTM2_Engine_dvipdfm";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -76,7 +76,7 @@ To Do List:
     return [NSArray arrayWithObject:@"dvi"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -111,22 +111,22 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
--(BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
--(void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
+- (BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
+- (void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
 MODEL_BOOL(landscape, setLandscape, iTM2Dvipdfm_landscape);
 MODEL_BOOL(usePaper, setUsePaper, iTM2Dvipdfm_use_paper);
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
--(id)GETTER;{return [self modelValueForKey:KEY];}\
--(void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
+- (id)GETTER;{return [self modelValueForKey:KEY];}\
+- (void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
 MODEL_OBJECT(paper, setPaper, iTM2Dvipdfm_paper);
 MODEL_BOOL(useOffset, setUseOffset, iTM2Dvipdfm_use_offset);
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
--(float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
--(void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
+- (float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
+- (void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
 MODEL_FLOAT(xOffset, setXOffset, iTM2Dvipdfm_x_offset);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvipdfm_y_offset);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  xOffsetUnit
--(int)xOffsetUnit;
+- (int)xOffsetUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -146,7 +146,7 @@ To Do List:
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setXOffsetUnit:
--(void)setXOffsetUnit:(int)argument;
+- (void)setXOffsetUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -165,7 +165,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  yOffsetUnit
--(int)yOffsetUnit;
+- (int)yOffsetUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -185,7 +185,7 @@ To Do List:
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setYOffsetUnit:
--(void)setYOffsetUnit:(int)argument;
+- (void)setYOffsetUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -218,11 +218,11 @@ MODEL_OBJECT(pageSpecifications, setPageSpecifications, iTM2Dvipdfm_page_specifi
 MODEL_BOOL(useOutputName, setUseOutputName, iTM2Dvipdfm_use_output_name);
 MODEL_OBJECT(outputName, setOutputName, iTM2Dvipdfm_output_name);
 #define MODEL_INT(GETTER, SETTER, KEY)\
--(int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
--(void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
+- (int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
+- (void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
 MODEL_INT(compressionLevel, setCompressionLevel, iTM2Dvipdfm_compression_level);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verbosityLevel
--(int)verbosityLevel;
+- (int)verbosityLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -238,7 +238,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setVerbosityLevel:
--(void)setVerbosityLevel:(int)argument;
+- (void)setVerbosityLevel:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -259,7 +259,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(dvipdfm)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DvipdfmCompleteInstallation
-+(void)iTM2DvipdfmCompleteInstallation;
++ (void)iTM2DvipdfmCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004

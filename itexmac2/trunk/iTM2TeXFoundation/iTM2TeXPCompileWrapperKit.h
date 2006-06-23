@@ -47,7 +47,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      command is one of the predefined command names
     @result     None
 */
--(id)modelForEngineName:(NSString *)name;
+- (id)modelForEngineName:(NSString *)name;
 
 /*! 
     @method     takeModel:forEngineName:
@@ -57,7 +57,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      None
     @result     None
 */
--(void)takeModel:(id)argument forEngineName:(NSString *)name;
+- (void)takeModel:(id)argument forEngineName:(NSString *)name;
 
 /*! 
     @method     engineEnvironmentForEngineMode:
@@ -70,7 +70,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      mode
     @result     a property list
 */
--(NSDictionary *)environmentForEngineMode:(NSString *)mode;
+- (NSDictionary *)environmentForEngineMode:(NSString *)mode;
 
 /*! 
     @method     takeEnvironment:forEngineMode:
@@ -80,7 +80,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      mode
     @result     None
 */
--(void)takeEnvironment:(id)environment forEngineMode:(NSString *)mode;
+- (void)takeEnvironment:(id)environment forEngineMode:(NSString *)mode;
 
 /*! 
     @method     scriptDescriptorForEngineMode:
@@ -91,7 +91,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      key
     @result     a string
 */
--(NSDictionary *)scriptDescriptorForEngineMode:(NSString *)key;
+- (NSDictionary *)scriptDescriptorForEngineMode:(NSString *)key;
 
 /*! 
     @method     takeScriptDescriptor:forEngineMode:
@@ -101,7 +101,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      engineKey
     @result     None
 */
--(void)takeScriptDescriptor:(id)scriptDescriptor forEngineMode:(NSString *)engineKey;
+- (void)takeScriptDescriptor:(id)scriptDescriptor forEngineMode:(NSString *)engineKey;
 
 /*! 
     @method     engines
@@ -110,9 +110,9 @@ extern NSString * const iTM2ContinuousCompile;
     @param      None
     @result     an array of keys
 */
--(NSDictionary *)engines;
--(NSDictionary *)engineScripts;
--(NSDictionary *)engineEnvironments;
+- (NSDictionary *)engines;
+- (NSDictionary *)engineScripts;
+- (NSDictionary *)engineEnvironments;
 
 
 /*! 
@@ -122,7 +122,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      A name
     @result     A command wrapper
 */
--(id)engineWrapperForName:(NSString *)name;
+- (id)engineWrapperForName:(NSString *)name;
 
 /*! 
     @method     engineWrappers
@@ -131,7 +131,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      None
     @result     An array of command wrappers
 */
--(id)engineWrappers;
+- (id)engineWrappers;
 
 /*! 
     @method     lazyEngineWrappers
@@ -140,7 +140,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      None
     @result     An array of command wrappers
 */
--(id)lazyEngineWrappers;
+- (id)lazyEngineWrappers;
 
 /*! 
     @method     setEngineWrappers:
@@ -149,7 +149,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      An array of command wrappers
     @result     None
 */
--(void)setEngineWrappers:(NSArray *)argument;
+- (void)setEngineWrappers:(NSArray *)argument;
 
 @end
 
@@ -164,7 +164,7 @@ extern NSString * const iTM2ContinuousCompile;
     @param      None
     @result     None
 */
--(void)modelDidChange;
+- (void)modelDidChange;
 
 @end
 
@@ -190,7 +190,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      None
     @result     None
 */
-+(void)installBinary;
++ (void)installBinary;
 
 /*!
     @method     classForMode:
@@ -200,7 +200,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      An action key
     @result     An autoreleased command inspector
 */
-+(id)classForMode:(NSString *)action;
++ (id)classForMode:(NSString *)action;
 
 /*!
     @method     engineMode
@@ -209,7 +209,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      None
     @result     A selector string
 */
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 
 /*!
     @method     prettyEngineMode
@@ -218,7 +218,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      None
     @result     A string
 */
-+(NSString *)prettyEngineMode;
++ (NSString *)prettyEngineMode;
 
 /*!
     @method     engineReferences
@@ -227,7 +227,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      None
     @result     An NSArray
 */
-+(NSArray *)engineReferences;
++ (NSArray *)engineReferences;
 
 /*!
     @method     inputFileExtensions
@@ -237,7 +237,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      None
     @result     An array of the file extensions the input is expected to have.
 */
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 
 @end
 
@@ -250,7 +250,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      The name
     @result     None.
 */
--(void)installBinaryWithName:(NSString *)aName;
+- (void)installBinaryWithName:(NSString *)aName;
 
 @end
 

@@ -42,11 +42,11 @@ NSString * const iTM2NoKeyBindingsIdentifier = @"iTM2NoKeyBindings";
 NSString * const iTM2KeyStrokeIntervalKey = @"iTM2KeyStrokeInterval";
 
 @interface NSObject(iTM2KeyBindingsKit)
--(void)postNotificationWithStatus:(NSString *)status;
+- (void)postNotificationWithStatus:(NSString *)status;
 @end
 
 @interface NSResponder(PRIVATE)
--(void)cleanSelectionCache:(id)irrelevant;
+- (void)cleanSelectionCache:(id)irrelevant;
 @end
 
 @interface NSText_iTM2KeyBindingsKit: NSText
@@ -66,15 +66,15 @@ static NSMutableDictionary * iTM2_KeyStroke_Events = nil;
 static NSMutableDictionary * iTM2_KeyStroke_Timers = nil;
 
 @interface iTM2KeyBindingsManager(PRIVATE)
-+(id)getKeyBindingsForIdentifier:(NSString *)identifier;
-+(void)setKeyBindings:(id)keyBindings forIdentifier:(NSString *)identifier;
-+(id)getSelectorMapForIdentifier:(NSString *)identifier;
-+(void)setSelectorMap:(id)selectorMap forIdentifier:(NSString *)identifier;
++ (id)getKeyBindingsForIdentifier:(NSString *)identifier;
++ (void)setKeyBindings:(id)keyBindings forIdentifier:(NSString *)identifier;
++ (id)getSelectorMapForIdentifier:(NSString *)identifier;
++ (void)setSelectorMap:(id)selectorMap forIdentifier:(NSString *)identifier;
 @end
 
 @implementation iTM2MainInstaller(iTM2KeyBindingsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2KeyBindingsKitCompleteInstallation
-+(void)iTM2KeyBindingsKitCompleteInstallation;
++ (void)iTM2KeyBindingsKitCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -91,7 +91,7 @@ To Do List:
 static NSMutableDictionary * _iTM2_KeyBindings_Dictionary = nil;
 static NSMutableDictionary * _iTM2_SelectorMap_Dictionary = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initialize
-+(void)initialize
++ (void)initialize
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -140,7 +140,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  addKeyStrokeSelectorsFromDictionary
-+(void)addKeyStrokeSelectorsFromDictionary:(NSDictionary *)D;
++ (void)addKeyStrokeSelectorsFromDictionary:(NSDictionary *)D;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -205,7 +205,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  registerKeyBindingsForIdentifier:
-+(void)registerKeyBindingsForIdentifier:(NSString *)identifier;
++ (void)registerKeyBindingsForIdentifier:(NSString *)identifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -277,7 +277,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  keyBindingsForIdentifier:
-+(id)keyBindingsForIdentifier:(NSString *)identifier;
++ (id)keyBindingsForIdentifier:(NSString *)identifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -346,7 +346,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getKeyBindingsForIdentifier:
-+(id)getKeyBindingsForIdentifier:(NSString *)identifier;
++ (id)getKeyBindingsForIdentifier:(NSString *)identifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -357,7 +357,7 @@ To Do List:
 	return [_iTM2_KeyBindings_Dictionary objectForKey:identifier];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getKeyBindings:forIdentifier:
-+(void)setKeyBindings:(id)keyBindings forIdentifier:(NSString *)identifier;
++ (void)setKeyBindings:(id)keyBindings forIdentifier:(NSString *)identifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -372,7 +372,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectorMapForIdentifier:
-+(id)selectorMapForIdentifier:(NSString *)identifier;
++ (id)selectorMapForIdentifier:(NSString *)identifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -388,7 +388,7 @@ To Do List:
     return [NSDictionary dictionary];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSelectorMapForIdentifier:
-+(id)getSelectorMapForIdentifier:(NSString *)identifier;
++ (id)getSelectorMapForIdentifier:(NSString *)identifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -399,7 +399,7 @@ To Do List:
 	return [_iTM2_SelectorMap_Dictionary objectForKey:identifier];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSelectorMap:forIdentifier:
-+(void)setSelectorMap:(id)selectorMap forIdentifier:(NSString *)identifier;
++ (void)setSelectorMap:(id)selectorMap forIdentifier:(NSString *)identifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -414,7 +414,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initWithIdentifier:handleKeyBindings:handleKeyStrokes:
--(id)initWithIdentifier:(NSString *)identifier handleKeyBindings:(BOOL)handlesKeyBindings handleKeyStrokes:(BOOL)handlesKeyStrokes;
+- (id)initWithIdentifier:(NSString *)identifier handleKeyBindings:(BOOL)handlesKeyBindings handleKeyStrokes:(BOOL)handlesKeyStrokes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -443,7 +443,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  description
--(NSString *)description;
+- (NSString *)description;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -455,7 +455,7 @@ To Do List:
 		NSStringFromClass(isa), self, [_iTM2_KeyBindings_Dictionary allKeysForObject:_RKB], (_iTM2IMFlags.handlesKeyBindings? @"Y":@"N"), (_iTM2IMFlags.handlesKeyStrokes? @"Y":@"N")];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -478,7 +478,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentKey
--(NSString *)currentKey;
+- (NSString *)currentKey;
 /*"Description forthcoming. Lazy initializer: the root key binding is returned when nothing else is available
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -488,7 +488,7 @@ To Do List:
     return _CK? _CK: (_CK = [NSString string]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectorMap
--(NSDictionary *)selectorMap;
+- (NSDictionary *)selectorMap;
 /*"Description forthcoming. Lazy initializer: the root key binding is returned when nothing else is available
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -498,7 +498,7 @@ To Do List:
     return _SM;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentKey:
--(void)setCurrentKey:(NSString *)argument;
+- (void)setCurrentKey:(NSString *)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -515,7 +515,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentKeyBindings
--(NSDictionary *)currentKeyBindings;
+- (NSDictionary *)currentKeyBindings;
 /*"Description forthcoming. Lazy initializer: the root key binding is returned when nothing else is available
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -529,7 +529,7 @@ To Do List:
         return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentKeyBindings:
--(void)setCurrentKeyBindings:(NSDictionary *)dict;
+- (void)setCurrentKeyBindings:(NSDictionary *)dict;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -555,7 +555,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentClient:
--(void)setCurrentClient:(id)client;
+- (void)setCurrentClient:(id)client;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -572,7 +572,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  rootKeyBindings
--(NSDictionary *)rootKeyBindings;
+- (NSDictionary *)rootKeyBindings;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -582,7 +582,7 @@ To Do List:
     return _RKB;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  escapeCurrentKeyBindingsIfAllowed
--(void)escapeCurrentKeyBindingsIfAllowed;
+- (void)escapeCurrentKeyBindingsIfAllowed;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 06/20/2002
@@ -612,7 +612,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:performKeyEquivalent:
--(BOOL)client:(id)C performKeyEquivalent:(NSEvent *)theEvent;
+- (BOOL)client:(id)C performKeyEquivalent:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -668,7 +668,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:performMnemonic:
--(BOOL)client:(id)C performMnemonic:(NSString *)theString;
+- (BOOL)client:(id)C performMnemonic:(NSString *)theString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -721,7 +721,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:interpretKeyEvent:
--(BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
+- (BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -829,7 +829,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeInstruction:
--(BOOL)client:(id)C executeInstruction:(id)instruction;
+- (BOOL)client:(id)C executeInstruction:(id)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -904,7 +904,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEscape:
--(IBAction)toggleEscape:(id)sender;
+- (IBAction)toggleEscape:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -935,7 +935,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDeepEscape:
--(IBAction)toggleDeepEscape:(id)sender;
+- (IBAction)toggleDeepEscape:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -963,7 +963,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadKeyBindingsAtPath:
--(IBAction)loadKeyBindingsAtPath:(id)sender;
+- (IBAction)loadKeyBindingsAtPath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -996,7 +996,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  flushKeyBindings:
--(void)flushKeyBindings:(id)irrelevant;
+- (void)flushKeyBindings:(id)irrelevant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -1017,7 +1017,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  postNotificationWithStatus:
--(void)postNotificationWithStatus:(NSString *)status;
+- (void)postNotificationWithStatus:(NSString *)status;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1035,7 +1035,7 @@ To Do List:
 
 @implementation NSResponder(iTM2KeyBindingsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
--(BOOL)handlesKeyBindings;
+- (BOOL)handlesKeyBindings;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1047,7 +1047,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
--(NSString *)keyBindingsManagerIdentifier;
+- (NSString *)keyBindingsManagerIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1059,7 +1059,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
--(id)keyBindingsManager;
+- (id)keyBindingsManager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1070,7 +1070,7 @@ To Do List:
     return [[self nextResponder] keyBindingsManager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerForClient:
--(id)keyBindingsManagerForClient:(id)client;
+- (id)keyBindingsManagerForClient:(id)client;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1081,7 +1081,7 @@ To Do List:
     return [[self nextResponder] keyBindingsManagerForClient:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerWithIdentifier:
--(id)keyBindingsManagerWithIdentifier:(NSString *)identifier;
+- (id)keyBindingsManagerWithIdentifier:(NSString *)identifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1108,7 +1108,7 @@ To Do List:
         return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyKeyBindingsManager
--(id)lazyKeyBindingsManager;
+- (id)lazyKeyBindingsManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1128,7 +1128,7 @@ To Do List:
 						handleKeyStrokes: [self handlesKeyStrokes]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanSelectionCache:
--(void)cleanSelectionCache:(id)irrelevant;
+- (void)cleanSelectionCache:(id)irrelevant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1139,7 +1139,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  postNotificationWithStatus:
--(void)postNotificationWithStatus:(NSString *)status;
+- (void)postNotificationWithStatus:(NSString *)status;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1154,7 +1154,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tryToReallyPerform:with:
--(BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
+- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1189,7 +1189,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __reallyPerformSelectorTemplate:
--(BOOL)__reallyPerformSelectorTemplate:(id)argument;
+- (BOOL)__reallyPerformSelectorTemplate:(id)argument;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1201,7 +1201,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
--(BOOL)executeStringInstruction:(NSString *)instruction;
+- (BOOL)executeStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1214,7 +1214,7 @@ To Do List:
     return [self tryToExecuteStringInstruction:instruction];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
--(BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1227,7 +1227,7 @@ To Do List:
     return [self tryToPerform:NSSelectorFromString(instruction) with:nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyStrokeEvents
--(id)keyStrokeEvents;
+- (id)keyStrokeEvents;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1246,7 +1246,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyStrokes
--(NSString *)keyStrokes;
+- (NSString *)keyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1264,7 +1264,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pushKeyStrokeEvent:
--(void)pushKeyStrokeEvent:(NSEvent *)event;
+- (void)pushKeyStrokeEvent:(NSEvent *)event;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1284,7 +1284,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= timedFlushKeyStrokeEvents:
--(void)timedFlushKeyStrokeEvents:(NSTimer *)timer;
+- (void)timedFlushKeyStrokeEvents:(NSTimer *)timer;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1297,7 +1297,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= flushKeyStrokeEvents:
--(void)flushKeyStrokeEvents:(id)sender;
+- (void)flushKeyStrokeEvents:(id)sender;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1316,7 +1316,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= flushLastKeyStrokeEvent:
--(void)flushLastKeyStrokeEvent:(id)sender;
+- (void)flushLastKeyStrokeEvent:(id)sender;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1329,7 +1329,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= selectorFromKeyStroke:
-+(SEL)selectorFromKeyStroke:(NSString *)key;
++ (SEL)selectorFromKeyStroke:(NSString *)key;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1561,7 +1561,7 @@ To Do List:
     return NULL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStroke:
--(BOOL)interpretKeyStroke:(NSString *)key;
+- (BOOL)interpretKeyStroke:(NSString *)key;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1583,7 +1583,7 @@ To Do List:
 
 @implementation NSTextView(iTM2KeyBindingsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
--(BOOL)executeStringInstruction:(NSString *)instruction;
+- (BOOL)executeStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1603,7 +1603,7 @@ To Do List:
 
 @implementation NSWindowController(iTM2KeyBindingsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyBindingsWindowWillLoad
--(void)keyBindingsWindowWillLoad;
+- (void)keyBindingsWindowWillLoad;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1619,7 +1619,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1632,7 +1632,7 @@ To Do List:
         || (![[self owner] isEqual:self] && [[self owner] handlesKeyStrokes]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStroke:
--(BOOL)interpretKeyStroke:(NSString *)key;
+- (BOOL)interpretKeyStroke:(NSString *)key;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1646,7 +1646,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
--(id)keyBindingsManager;
+- (id)keyBindingsManager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1657,7 +1657,7 @@ To Do List:
     return [super keyBindingsManager]?:[self keyBindingsManagerWithIdentifier:[self keyBindingsManagerIdentifier]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
--(NSString *)keyBindingsManagerIdentifier;
+- (NSString *)keyBindingsManagerIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1676,7 +1676,7 @@ To Do List:
     return KBMI;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyKeyBindingsManager
--(id)lazyKeyBindingsManager;
+- (id)lazyKeyBindingsManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1696,7 +1696,7 @@ To Do List:
 						handleKeyStrokes: [self handlesKeyStrokes]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setKeyBindingsManager:
--(void)setKeyBindingsManager:(id)argument;
+- (void)setKeyBindingsManager:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1716,7 +1716,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
--(BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1734,7 +1734,7 @@ To Do List:
 
 @implementation NSWindow(iTM2KeyBindingsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
--(NSString *)keyBindingsManagerIdentifier;
+- (NSString *)keyBindingsManagerIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1751,7 +1751,7 @@ To Do List:
     return KBMI?:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
--(id)keyBindingsManager;
+- (id)keyBindingsManager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1762,7 +1762,7 @@ To Do List:
     return [super keyBindingsManager]?:([[self windowController] keyBindingsManager]?:[self keyBindingsManagerWithIdentifier:[self keyBindingsManagerIdentifier]]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerForClient:
--(id)keyBindingsManagerForClient:(id)client;
+- (id)keyBindingsManagerForClient:(id)client;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1774,7 +1774,7 @@ To Do List:
     return [super keyBindingsManagerForClient:self]?:[[self windowController] keyBindingsManagerForClient:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStroke:
--(BOOL)interpretKeyStroke:(NSString *)key;
+- (BOOL)interpretKeyStroke:(NSString *)key;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1793,7 +1793,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pushKeyStroke:
--(void)pushKeyStroke:(NSString *)key;
+- (void)pushKeyStroke:(NSString *)key;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1824,7 +1824,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1836,7 +1836,7 @@ To Do List:
     return [[self windowController] handlesKeyStrokes];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tryToReallyPerform:with:
--(BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
+- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1898,7 +1898,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
--(BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1916,7 +1916,7 @@ To Do List:
 
 @implementation NSWindow_iTM2KeyBindingsKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performMnemonic:
--(BOOL)performMnemonic:(NSString *)theString;
+- (BOOL)performMnemonic:(NSString *)theString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1935,7 +1935,7 @@ To Do List:
 
 @implementation NSView(iTM2KeyBindingsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager:
--(id)keyBindingsManager;
+- (id)keyBindingsManager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1955,7 +1955,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
--(BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1973,7 +1973,7 @@ To Do List:
 
 @implementation NSText_iTM2KeyBindingsKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performKeyEquivalent:
--(BOOL)performKeyEquivalent:(NSEvent *)theEvent;
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list: problem when more than one key is pressed.
@@ -1984,7 +1984,7 @@ To do list: problem when more than one key is pressed.
                 || [super performKeyEquivalent:theEvent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  interpretKeyEvents:
--(void)interpretKeyEvents:(NSArray *)eventArray;
+- (void)interpretKeyEvents:(NSArray *)eventArray;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -2011,7 +2011,7 @@ To Do List: Nothing at first glance.
 #if 0
 #warning DEBUGGGG
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
--(void)keyDown:(NSEvent *)theEvent;
+- (void)keyDown:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2030,7 +2030,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation NSResponder_iTM2KeyStrokeKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performKeyEquivalent:
--(BOOL)performKeyEquivalent:(NSEvent *)theEvent;
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2042,7 +2042,7 @@ To Do List:
         || [super performKeyEquivalent:theEvent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performMnemonic:
--(BOOL)performMnemonic:(NSString *)theKey;
+- (BOOL)performMnemonic:(NSString *)theKey;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2054,7 +2054,7 @@ To Do List:
         || [super performMnemonic:theKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2075,7 +2075,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyEvents:
--(void)interpretKeyEvents:(NSArray *)eventArray;
+- (void)interpretKeyEvents:(NSArray *)eventArray;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2092,7 +2092,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation NSApplication(iTM2KeyStrokeKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tryToReallyPerform:with:
--(BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
+- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2155,7 +2155,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation NSObject(iTM2KeyStrokeKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2167,7 +2167,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStroke:
--(BOOL)interpretKeyStroke:(NSString *)key;
+- (BOOL)interpretKeyStroke:(NSString *)key;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2179,7 +2179,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithIdentifier:
--(BOOL)executeMacroWithIdentifier:(NSString *)key;
+- (BOOL)executeMacroWithIdentifier:(NSString *)key;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2193,7 +2193,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
--(BOOL)executeStringInstruction:(NSString *)instruction;
+- (BOOL)executeStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -2213,7 +2213,7 @@ To Do List:
 /*"Description forthcoming."*/
 @implementation iTM2KeyBindingsResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  contextManager
--(id)contextManager;
+- (id)contextManager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -2224,7 +2224,7 @@ To Do List:
     return [W firstResponder]? [[W firstResponder] contextManager]:[W contextManager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  toggleNoKeyBindings:
--(IBAction)toggleNoKeyBindings:(id)irrelevant;
+- (IBAction)toggleNoKeyBindings:(id)irrelevant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -2236,7 +2236,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateToggleNoKeyBindings:
--(BOOL)validateToggleNoKeyBindings:(id)sender;
+- (BOOL)validateToggleNoKeyBindings:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -2252,7 +2252,7 @@ To Do List:
 
 @implementation iTM2TextInspector(iTM2KeyBindingsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
--(BOOL)handlesKeyBindings;
+- (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2268,12 +2268,12 @@ To Do List:
 @interface MyWindow: NSWindow
 @end
 @implementation MyWindow: NSWindow
-+(void)load;
++ (void)load;
 {iTM2_DIAGNOSTIC;
 	[MyWindow poseAsClass:[NSWindow class]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performKeyEquivalent:
--(BOOL)performKeyEquivalent:(NSEvent *)theEvent;
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2286,7 +2286,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
--(void)keyDown:(NSEvent *)theEvent;
+- (void)keyDown:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2300,7 +2300,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= makeFirstResponder:
--(BOOL)makeFirstResponder:(NSResponder *)aResponder;
+- (BOOL)makeFirstResponder:(NSResponder *)aResponder;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004

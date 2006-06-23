@@ -49,58 +49,58 @@
 }
 
 /* Common way to get a text finder. One instance of TextFinder per app is good enough. But likely...*/
-+(id)sharedTextFinder;
++ (id)sharedTextFinder;
 
 /* Main method for external users; does a find in the first responder. Selects found range or beeps. */
--(BOOL)find:(BOOL)direction;
+- (BOOL)find:(BOOL)direction;
 
 /* Gets the first responder and returns it if it's an NSTextView */
--(NSTextView *)textViewToSearchIn;
+- (NSTextView *)textViewToSearchIn;
 
 /* Get/set the current find string. Will update UI if UI is loaded */
--(NSString *)findString;
--(void)setFindString:(NSString *)aString;
--(NSString *)replaceString;
--(void)setReplaceString:(NSString *)aString;
+- (NSString *)findString;
+- (void)setFindString:(NSString *)aString;
+- (NSString *)replaceString;
+- (void)setReplaceString:(NSString *)aString;
 
 /* Misc internal methods */
--(void)applicationWillResignActive:(NSNotification *)aNotification;
+- (void)applicationWillResignActive:(NSNotification *)aNotification;
 
--(void)showFindPanel:(id)sender;
--(void)enterSelection:(id)sender;
--(void)enterFindPboardSelection:(id)sender;
+- (void)showFindPanel:(id)sender;
+- (void)enterSelection:(id)sender;
+- (void)enterFindPboardSelection:(id)sender;
 
 /* Methods sent from the find panel UI */
 //- (void) findNextAndOrderFindPanelOut: (id) sender;
--(void)findNext:(id)sender;
--(void)findPrevious:(id)sender;
--(void)replace:(id)sender;
--(void)replaceAndFind:(id) sender;
--(void)replaceAll:(id)sender;
+- (void)findNext:(id)sender;
+- (void)findPrevious:(id)sender;
+- (void)replace:(id)sender;
+- (void)replaceAndFind:(id) sender;
+- (void)replaceAll:(id)sender;
 
--(BOOL)validateUserInterfaceItems;
+- (BOOL)validateUserInterfaceItems;
 
--(id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithCoder:(NSCoder *)aDecoder;
 
--(id)initWithTextView:(NSTextView *)TV;
+- (id)initWithTextView:(NSTextView *)TV;
 
--(BOOL)entireFileFlag;
--(void)setEntireFileFlag:(BOOL)aFlag;
--(BOOL)caseInsensitiveFlag;
--(void)setCaseInsensitiveFlag:(BOOL)aFlag;
--(BOOL)wrapFlag;
--(void)setWrapFlag:(BOOL)aFlag;
+- (BOOL)entireFileFlag;
+- (void)setEntireFileFlag:(BOOL)aFlag;
+- (BOOL)caseInsensitiveFlag;
+- (void)setCaseInsensitiveFlag:(BOOL)aFlag;
+- (BOOL)wrapFlag;
+- (void)setWrapFlag:(BOOL)aFlag;
 
--(BOOL)lastFindWasSuccessful;
--(unsigned)numberOfOps;
+- (BOOL)lastFindWasSuccessful;
+- (unsigned)numberOfOps;
 
--(void)setMute:(BOOL)flag;
--(BOOL)isMute;
+- (void)setMute:(BOOL)flag;
+- (BOOL)isMute;
 @end
 
 
 @interface NSString (iTM2TextFinderKit)
--(NSRange)rangeOfString:(NSString *)string selectedRange:(NSRange)selectedRange options:(unsigned)mask wrap:(BOOL)wrapFlag;
+- (NSRange)rangeOfString:(NSString *)string selectedRange:(NSRange)selectedRange options:(unsigned)mask wrap:(BOOL)wrapFlag;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextFinder

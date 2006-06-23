@@ -29,12 +29,12 @@ NSString * const iTM2ConTeXtManuals = @"iTM2 ConTeXt Manuals";
 NSString * const iTM2ConTeXtManualsTable = @"iTM2ConTeXtManuals";
 
 @interface NSMenu(iTM2ConTeXtKit)
-+(NSMenu *)menuWithConTeXtGardenXMLElements:(NSArray *)elements;
++ (NSMenu *)menuWithConTeXtGardenXMLElements:(NSArray *)elements;
 @end
 
 @implementation iTM2ConTeXtInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -46,7 +46,7 @@ To Do List:
     return iTM2ConTeXtInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
--(BOOL)windowPositionShouldBeObserved;
+- (BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -57,7 +57,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtPragmaADEURL
-+(NSURL *)ConTeXtPragmaADEURL;
++ (NSURL *)ConTeXtPragmaADEURL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -85,7 +85,7 @@ To Do List:
 	return URL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtGardenMainPageURL
-+(NSURL *)ConTeXtGardenMainPageURL;
++ (NSURL *)ConTeXtGardenMainPageURL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -113,7 +113,7 @@ To Do List:
 	return URL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtGardenPageURLWithRef:
-+(NSURL *)ConTeXtGardenPageURLWithRef:(NSString *)ref;
++ (NSURL *)ConTeXtGardenPageURLWithRef:(NSString *)ref;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -148,7 +148,7 @@ NSString * const iTM2ToolbarConTeXtPragmaADEItemIdentifier = @"ConTeXtPragmaADE"
 
 @implementation iTM2MainInstaller(ConTeXtInspectorToolbar)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtInspectorToolbarCompleteInstallation
-+(void)ConTeXtInspectorToolbarCompleteInstallation;
++ (void)ConTeXtInspectorToolbarCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -166,14 +166,14 @@ To Do List:
 @end
 
 #define DEFINE_TOOLBAR_ITEM(SELECTOR)\
-+(NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2ConTeXtInspector classBundle]];}
++ (NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2ConTeXtInspector classBundle]];}
 
 @implementation NSToolbarItem(iTM2ConTeXt)
 DEFINE_TOOLBAR_ITEM(ConTeXtSectionToolbarItem)
 DEFINE_TOOLBAR_ITEM(ConTeXtLabelToolbarItem)
 DEFINE_TOOLBAR_ITEM(ConTeXtAtPragmaADEToolbarItem)
 DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
-+(NSToolbarItem *)ConTeXtAtGardenToolbarItem;
++ (NSToolbarItem *)ConTeXtAtGardenToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2ConTeXtInspector classBundle]];
 	NSRect frame = NSMakeRect(0, 0, 32, 32);
@@ -209,7 +209,7 @@ DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
 	}
 	return toolbarItem;
 }
-+(NSToolbarItem *)ConTeXtManualsToolbarItem;
++ (NSToolbarItem *)ConTeXtManualsToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2ConTeXtInspector classBundle]];
 	NSRect frame = NSMakeRect(0, 0, 32, 32);
@@ -239,7 +239,7 @@ DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
 @implementation iTM2ConTeXtInspector(Toolbar)
 #pragma mark =-=-=-=-=-  TOOLBAR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupToolbarWindowDidLoad
--(void)setupToolbarWindowDidLoad;
+- (void)setupToolbarWindowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -293,7 +293,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShareToolbarConfiguration:
--(void)toggleShareToolbarConfiguration:(id)sender;
+- (void)toggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -308,7 +308,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShareToolbarConfiguration:
--(BOOL)validateToggleShareToolbarConfiguration:(id)sender;
+- (BOOL)validateToggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -321,7 +321,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext:
--(void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
+- (void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -339,7 +339,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDefaultItemIdentifiers:
--(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -370,7 +370,7 @@ To Do List:
 						nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarAllowedItemIdentifiers:
--(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -403,7 +403,7 @@ To Do List:
 							nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtManuals:
--(IBAction)ConTeXtManuals:(id)sender;
+- (IBAction)ConTeXtManuals:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -416,7 +416,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtManualsWillPopUp:
--(BOOL)ConTeXtManualsWillPopUp:(id)sender;
+- (BOOL)ConTeXtManualsWillPopUp:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -449,7 +449,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openConTeXtManualFromRepresentedObject:
--(IBAction)openConTeXtManualFromRepresentedObject:(id)sender;
+- (IBAction)openConTeXtManualFromRepresentedObject:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -473,7 +473,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtAtGarden:
--(IBAction)ConTeXtAtGarden:(id)sender;
+- (IBAction)ConTeXtAtGarden:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -486,7 +486,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtAtGardenFromRepresentedURL:
--(IBAction)ConTeXtAtGardenFromRepresentedURL:(id)sender;
+- (IBAction)ConTeXtAtGardenFromRepresentedURL:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -503,7 +503,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ConTeXtAtPragmaADE:
--(IBAction)ConTeXtAtPragmaADE:(id)sender;
+- (IBAction)ConTeXtAtPragmaADE:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -519,7 +519,7 @@ To Do List:
 
 @implementation iTM2ConTeXtSectionButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -545,7 +545,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
--(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
+- (void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -570,7 +570,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
--(void)initMenu;
+- (void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -637,7 +637,7 @@ next:
 
 @implementation iTM2ConTeXtLabelButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -663,7 +663,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
--(void)initMenu;
+- (void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -728,7 +728,7 @@ next:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
--(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
+- (void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -787,7 +787,7 @@ To Do List:
 
 @implementation iTM2ConTeXtEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
--(void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
+- (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -890,7 +890,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  LABELS & REFERENCES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtLabel:
--(IBAction)insertConTeXtLabel:(id)sender;
+- (IBAction)insertConTeXtLabel:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -904,7 +904,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtLabel:
--(BOOL)validateInsertConTeXtLabel:(id)sender; 
+- (BOOL)validateInsertConTeXtLabel:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -916,7 +916,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoConTeXtLabel:
--(IBAction)gotoConTeXtLabel:(id)sender; 
+- (IBAction)gotoConTeXtLabel:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -936,7 +936,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoConTeXtLabel:
--(BOOL)validateGotoConTeXtLabel:(id)sender; 
+- (BOOL)validateGotoConTeXtLabel:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -948,7 +948,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtReference:
--(IBAction)insertConTeXtReference:(id)sender; 
+- (IBAction)insertConTeXtReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -962,7 +962,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtReference:
--(BOOL)validateInsertConTeXtReference:(id)sender; 
+- (BOOL)validateInsertConTeXtReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -974,7 +974,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoConTeXtReference:
--(IBAction)gotoConTeXtReference:(id)sender; 
+- (IBAction)gotoConTeXtReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -986,7 +986,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoConTeXtReference:
--(BOOL)validateGotoConTeXtReference:(id)sender; 
+- (BOOL)validateGotoConTeXtReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -998,7 +998,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtEquationReference:
--(IBAction)insertConTeXtEquationReference:(id)sender; 
+- (IBAction)insertConTeXtEquationReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1012,7 +1012,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtEquationReference:
--(BOOL)validateInsertConTeXtEquationReference:(id)sender; 
+- (BOOL)validateInsertConTeXtEquationReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1024,7 +1024,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoConTeXtEquationReference:
--(IBAction)gotoConTeXtEquationReference:(id)sender; 
+- (IBAction)gotoConTeXtEquationReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1036,7 +1036,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoConTeXtEquationReference:
--(BOOL)validateGotoConTeXtEquationReference:(id)sender; 
+- (BOOL)validateGotoConTeXtEquationReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1048,7 +1048,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _insertConTeXtKnownReference:
--(IBAction)_insertConTeXtKnownReference:(id)sender; 
+- (IBAction)_insertConTeXtKnownReference:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1063,7 +1063,7 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  SECTIONS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoConTeXtSection:
--(IBAction)gotoConTeXtSection:(id)sender; 
+- (IBAction)gotoConTeXtSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1083,7 +1083,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoConTeXtSection:
--(BOOL)validateGotoConTeXtSection:(id)sender; 
+- (BOOL)validateGotoConTeXtSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1095,7 +1095,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtChapter:
--(IBAction)insertConTeXtChapter:(id)sender; 
+- (IBAction)insertConTeXtChapter:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1109,7 +1109,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtChapter:
--(BOOL)validateInsertConTeXtChapter:(id)sender; 
+- (BOOL)validateInsertConTeXtChapter:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1121,7 +1121,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtPart:
--(IBAction)insertConTeXtPart:(id)sender; 
+- (IBAction)insertConTeXtPart:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1135,7 +1135,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtPart:
--(BOOL)validateInsertConTeXtPart:(id)sender; 
+- (BOOL)validateInsertConTeXtPart:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1147,7 +1147,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtSection:
--(IBAction)insertConTeXtSection:(id)sender; 
+- (IBAction)insertConTeXtSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1161,7 +1161,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtSection:
--(BOOL)validateInsertConTeXtSection:(id)sender; 
+- (BOOL)validateInsertConTeXtSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1173,7 +1173,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtSubSection:
--(IBAction)insertConTeXtSubSection:(id)sender; 
+- (IBAction)insertConTeXtSubSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1187,7 +1187,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtSubSection:
--(BOOL)validateInsertConTeXtSubSection:(id)sender; 
+- (BOOL)validateInsertConTeXtSubSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1199,7 +1199,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtSubSubSection:
--(IBAction)insertConTeXtSubSubSection:(id)sender; 
+- (IBAction)insertConTeXtSubSubSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1213,7 +1213,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtSubSubSection:
--(BOOL)validateInsertConTeXtSubSubSection:(id)sender; 
+- (BOOL)validateInsertConTeXtSubSubSection:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1225,7 +1225,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtTitle:
--(IBAction)insertConTeXtTitle:(id)sender; 
+- (IBAction)insertConTeXtTitle:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1239,7 +1239,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtTitle:
--(BOOL)validateInsertConTeXtTitle:(id)sender; 
+- (BOOL)validateInsertConTeXtTitle:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1251,7 +1251,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtSubject:
--(IBAction)insertConTeXtSubject:(id)sender; 
+- (IBAction)insertConTeXtSubject:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1265,7 +1265,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtSubject:
--(BOOL)validateInsertConTeXtSubject:(id)sender; 
+- (BOOL)validateInsertConTeXtSubject:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1277,7 +1277,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtSubSubject:
--(IBAction)insertConTeXtSubSubject:(id)sender; 
+- (IBAction)insertConTeXtSubSubject:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1291,7 +1291,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtSubSubject:
--(BOOL)validateInsertConTeXtSubSubject:(id)sender; 
+- (BOOL)validateInsertConTeXtSubSubject:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1303,7 +1303,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertConTeXtSubSubSubject:
--(IBAction)insertConTeXtSubSubSubject:(id)sender; 
+- (IBAction)insertConTeXtSubSubSubject:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1317,7 +1317,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertConTeXtSubSubSubject:
--(BOOL)validateInsertConTeXtSubSubSubject:(id)sender; 
+- (BOOL)validateInsertConTeXtSubSubSubject:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1329,7 +1329,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollConTeXtLabelToVisible:
--(void)scrollConTeXtLabelToVisible:(id <NSMenuItem>)sender;
+- (void)scrollConTeXtLabelToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1342,7 +1342,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollConTeXtReferenceToVisible:
--(void)scrollConTeXtReferenceToVisible:(id <NSMenuItem>)sender;
+- (void)scrollConTeXtReferenceToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1355,7 +1355,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollIncludeToVisible:
--(void)scrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)scrollIncludeToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1375,7 +1375,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollIncludeToVisible:
--(void)delayedScrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollIncludeToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1420,11 +1420,11 @@ static id _iTM2ConTeXtModeForModeArray = nil;
 #define _TextStorage (iTM2TextStorage *)_TS
 #if 0
 @implementation NSNotificationCenter(ouam)
-+(void)load;
++ (void)load;
 {
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(postNotificationName:object:userInfo:) replacement:@selector(swizzled_postNotificationName:object:userInfo:) forClass:self];
 }
--(void)swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
+- (void)swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
 {
 	if([aName isEqual:NSPopUpButtonWillPopUpNotification])
 		NSLog(@"COUCOU");
@@ -1435,7 +1435,7 @@ static id _iTM2ConTeXtModeForModeArray = nil;
 
 @implementation NSTextStorage(ConTeXt)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtSectionMenu
--(NSMenu *)ConTeXtSectionMenu;
+- (NSMenu *)ConTeXtSectionMenu;
 /*"Description forthcoming. No consistency test.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1771,7 +1771,7 @@ manihi:
     return sectionMenu;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getConTeXtLabelMenu:refMenu:
--(void)getConTeXtLabelMenu:(NSMenu **)labelMenuRef refMenu:(NSMenu **)refMenuRef;
+- (void)getConTeXtLabelMenu:(NSMenu **)labelMenuRef refMenu:(NSMenu **)refMenuRef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1963,7 +1963,7 @@ To Do List: ...
 
 @implementation iTM2ConTeXtParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1979,7 +1979,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+(NSString *)syntaxParserStyle;
++ (NSString *)syntaxParserStyle;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -1990,7 +1990,7 @@ To Do List: Nothing
     return @"ConTeXt";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModesAttributes
-+(NSDictionary *)defaultModesAttributes;
++ (NSDictionary *)defaultModesAttributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2018,7 +2018,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
--(unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2053,7 +2053,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
--(unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+- (unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2156,7 +2156,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
--(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2211,7 +2211,7 @@ To Do List:
 
 @implementation iTM2XtdConTeXtParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+(NSString *)syntaxParserStyle;
++ (NSString *)syntaxParserStyle;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -2223,7 +2223,7 @@ To Do List: Nothing
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
--(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2280,7 +2280,7 @@ NSString * const iTM2ConTeXtParserAttributesInspectorType = @"iTM2ConTeXtParserA
 
 @implementation iTM2ConTeXtParserAttributesDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2294,7 +2294,7 @@ To Do List:
 
 @implementation iTM2ConTeXtParserAttributesInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2310,7 +2310,7 @@ NSString * const iTM2XtdConTeXtParserAttributesInspectorType = @"iTM2XtdConTeXtP
 
 @implementation iTM2XtdConTeXtParserAttributesDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2324,7 +2324,7 @@ To Do List:
 
 @implementation iTM2XtdConTeXtParserAttributesInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2338,7 +2338,7 @@ To Do List:
 
 @implementation iTM2XtdConTeXtParserSymbolsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2352,7 +2352,7 @@ To Do List:
 
 @implementation iTM2ProjectDocumentResponder(ConTeXt)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtLabelAction:
--(IBAction)ConTeXtLabelAction:(id)sender;
+- (IBAction)ConTeXtLabelAction:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -2364,7 +2364,7 @@ To Do List:
 	return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtLabelActionWillPopUp:
--(BOOL)ConTeXtLabelActionWillPopUp:(id)sender;
+- (BOOL)ConTeXtLabelActionWillPopUp:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -2376,7 +2376,7 @@ To Do List:
 	return YES;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtSectionAction:
--(IBAction)ConTeXtSectionAction:(id)sender;
+- (IBAction)ConTeXtSectionAction:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -2388,7 +2388,7 @@ To Do List:
 	return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtSectionActionWillPopUp:
--(BOOL)ConTeXtSectionActionWillPopUp:(id)sender;
+- (BOOL)ConTeXtSectionActionWillPopUp:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -2403,7 +2403,7 @@ To Do List:
 
 @implementation NSMenu(iTM2ConTeXtKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuWithConTeXtGardenXMLElements:
-+(NSMenu *)menuWithConTeXtGardenXMLElements:(NSArray *)elements;
++ (NSMenu *)menuWithConTeXtGardenXMLElements:(NSArray *)elements;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -2437,12 +2437,12 @@ To Do List:
 
 #undef DEFINE_TOOLBAR_ITEM
 #define DEFINE_TOOLBAR_ITEM(SELECTOR)\
-+(NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXProjectInspector classBundle]];}
++ (NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXProjectInspector classBundle]];}
 
 #import <iTM2TeXFoundation/iTM2TeXPCommandWrapperKit.h>
 #if 0
 @implementation NSToolbarItem(iTM2ConTeXt)
-+(NSToolbarItem *)ConTeXtLabelToolbarItem;
++ (NSToolbarItem *)ConTeXtLabelToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXProjectInspector classBundle]];
 	NSRect frame = NSMakeRect(0, 0, 32, 32);
@@ -2467,7 +2467,7 @@ To Do List:
 	[[B cell] setPopUpCell:[PB cell]];
 	return toolbarItem;
 }
-+(NSToolbarItem *)ConTeXtSectionToolbarItem;
++ (NSToolbarItem *)ConTeXtSectionToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXProjectInspector classBundle]];
 	NSRect frame = NSMakeRect(0, 0, 32, 32);

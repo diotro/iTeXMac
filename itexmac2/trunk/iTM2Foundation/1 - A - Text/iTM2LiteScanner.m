@@ -30,7 +30,7 @@ It is not a subclass of NSScanner...
 When a scan operation is performed, the scanner begins to skip the unwanted characters. Clients will have to keep track of the scan location if they need to save the value."*/
 @implementation iTM2LiteScanner
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scannerWithString:
-+(id)scannerWithString:(NSString *)aString;
++ (id)scannerWithString:(NSString *)aString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -41,7 +41,7 @@ To Do List:
     return [[[self alloc] initWithString:aString] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
--(id)init;
+- (id)init;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -55,7 +55,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithString:
--(id)initWithString:(NSString *)aString;
+- (id)initWithString:(NSString *)aString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -68,7 +68,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -83,7 +83,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= string
--(NSString *)string;
+- (NSString *)string;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -94,7 +94,7 @@ To Do List:
     return self->string;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setString
--(void)setString:(NSString *)aString;
+- (void)setString:(NSString *)aString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -108,7 +108,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanLocation
--(unsigned)scanLocation;
+- (unsigned)scanLocation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -119,7 +119,7 @@ To Do List:
     return self->scanLocation;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setScanLocation:
--(void)setScanLocation:(unsigned)pos;
+- (void)setScanLocation:(unsigned)pos;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -131,7 +131,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= charactersToBeSkipped
--(NSCharacterSet *)charactersToBeSkipped;
+- (NSCharacterSet *)charactersToBeSkipped;
 /*"Critical Description: if the set of charactersToBeSkipped is nil, it means that there is no character to be skipped.
 In one word, no set is equivalent to a void one. It is the opposit for the charactersNotToBeSkipped!!!
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -143,7 +143,7 @@ To Do List:
     return self->charactersToBeSkipped;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCharactersToBeSkipped:
--(void)setCharactersToBeSkipped:(NSCharacterSet *)set;
+- (void)setCharactersToBeSkipped:(NSCharacterSet *)set;
 /*"Beware, both charactersNotToBeSkipped and charactersNotToBeSkipped are changed by this message.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -158,7 +158,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= charactersNotToBeSkipped
--(NSCharacterSet *)charactersNotToBeSkipped;
+- (NSCharacterSet *)charactersNotToBeSkipped;
 /*"Critical Description: if the set of charactersNotToBeSkipped is nil, it means that there is no character to be skipped.
 In one word, no set is equivalent to a full one. It is the opposit for the charactersToBeSkipped!!!
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -170,7 +170,7 @@ To Do List:
     return self->charactersNotToBeSkipped;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCharactersNotToBeSkipped:
--(void)setCharactersNotToBeSkipped:(NSCharacterSet *)set;
+- (void)setCharactersNotToBeSkipped:(NSCharacterSet *)set;
 /*"Beware, both charactersNotToBeSkipped and charactersNotToBeSkipped are changed by this message.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -185,7 +185,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= caseSensitive
--(BOOL)caseSensitive;
+- (BOOL)caseSensitive;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -196,7 +196,7 @@ To Do List:
     return self->caseSensitive;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCaseSensitive
--(void)setCaseSensitive:(BOOL)flag;
+- (void)setCaseSensitive:(BOOL)flag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -208,7 +208,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanString:intoString:
--(BOOL)scanString:(NSString *)aString intoString:(NSString **)value;
+- (BOOL)scanString:(NSString *)aString intoString:(NSString **)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -219,7 +219,7 @@ To Do List:
     return [self scanString:aString intoString:value beforeIndex:[[self string] length]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanString:intoString:beforeIndex:
--(BOOL)scanString:(NSString *)aString intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
+- (BOOL)scanString:(NSString *)aString intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
 /*"First the scanners reads all the characters to be skipped, then it tries to find aString. All this must occur in the range between the current scanner location and stopIndex (stopIndex is excluded).
 A 0 length string is never found...
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -281,7 +281,7 @@ To Do List:
 *	NSAnchoredSearch
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanCharactersFromSet:intoString:
--(BOOL)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
+- (BOOL)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -292,7 +292,7 @@ To Do List:
     return [self scanCharactersFromSet:set intoString:value beforeIndex:[[self string] length]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanCharactersFromSet:intoString:beforeIndex:
--(BOOL)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
+- (BOOL)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 07/11/2002
@@ -345,7 +345,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanUpToString:intoString:
--(BOOL)scanUpToString:(NSString *)stopString intoString:(NSString **)value;
+- (BOOL)scanUpToString:(NSString *)stopString intoString:(NSString **)value;
 /*"If aString is not found, the whole remaining string is scanned into *value.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -356,7 +356,7 @@ To Do List:
     return [self scanUpToString:stopString intoString:value beforeIndex:[[self string] length]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanUpToString:intoString:beforeIndex:
--(BOOL)scanUpToString:(NSString *)stopString intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
+- (BOOL)scanUpToString:(NSString *)stopString intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
 /*" If stopString is void, nothing is done and NO is the answer.
 If stopString is not found, the whole remaining string is scanned into *value.
 If the scanner actually points to character passed the stopIndex, nothing will be found and scanned.
@@ -409,7 +409,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanUpToCharactersFromSet:intoString:
--(BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)stopSet intoString:(NSString **)value;
+- (BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)stopSet intoString:(NSString **)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -420,7 +420,7 @@ To Do List:
     return [self scanUpToCharactersFromSet:stopSet intoString:value beforeIndex:[[self string] length]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanUpToCharactersFromSet:intoString:
--(BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)stopSet intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
+- (BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)stopSet intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 07/11/2002
@@ -468,7 +468,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanUpToEOLIntoString:
--(BOOL)scanUpToEOLIntoString:(NSString **)value;
+- (BOOL)scanUpToEOLIntoString:(NSString **)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -480,7 +480,7 @@ To Do List: Use characters to be skipped...
         intoString: value];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isAtEnd
--(BOOL)isAtEnd;
+- (BOOL)isAtEnd;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -494,7 +494,7 @@ To Do List: Use characters to be skipped...
 
 @implementation iTM2LiteScanner (iTM2ExtendedScanner) 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanInt
--(BOOL)scanInt:(int *)value;
+- (BOOL)scanInt:(int *)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -520,7 +520,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanHexInt
--(BOOL)scanHexInt:(unsigned *)value;		/* Optionally prefixed with "0x" or "0X" */
+- (BOOL)scanHexInt:(unsigned *)value;		/* Optionally prefixed with "0x" or "0X" */
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -546,7 +546,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanLongLong
--(BOOL)scanLongLong:(long long *)value;
+- (BOOL)scanLongLong:(long long *)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -572,7 +572,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanFloat
--(BOOL)scanFloat:(float *)value;
+- (BOOL)scanFloat:(float *)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -598,7 +598,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanDouble:
--(BOOL)scanDouble:(double *)value;
+- (BOOL)scanDouble:(double *)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -625,7 +625,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= message
--(void)message;
+- (void)message;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -642,9 +642,9 @@ To Do List:
 
 
 #if 0
--(BOOL)hasPrefix:(NSString *)aString;
--(BOOL)hasSuffix:(NSString *)aString;
--(NSRange)rangeOfString:(NSString *)aString options:(unsigned)mask range:(NSRange)searchRange;
--(NSRange)rangeOfCharacterFromSet:(NSCharacterSet *)aSet options:(unsigned int)mask range:(NSRange)searchRange;
+- (BOOL)hasPrefix:(NSString *)aString;
+- (BOOL)hasSuffix:(NSString *)aString;
+- (NSRange)rangeOfString:(NSString *)aString options:(unsigned)mask range:(NSRange)searchRange;
+- (NSRange)rangeOfCharacterFromSet:(NSCharacterSet *)aSet options:(unsigned int)mask range:(NSRange)searchRange;
 #endif
 

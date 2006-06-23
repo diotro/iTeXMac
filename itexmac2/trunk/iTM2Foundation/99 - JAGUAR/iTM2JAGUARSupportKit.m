@@ -27,7 +27,7 @@ int iTM2DebugEnabled_FLAGS = 0;
 
 // this will be loaded only if they are not defined (the user runs OS X < 10.3)
 @implementation NSMenuItem(iTM2JAGUARSupportKit)
--(void)setIndentationLevel:(int)level;
+- (void)setIndentationLevel:(int)level;
 {iTM2_DIAGNOSTIC;
 	NSString * title = [self title];
 	NSRange R = [title rangeOfCharacterFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]];
@@ -49,11 +49,11 @@ int iTM2DebugEnabled_FLAGS = 0;
 	}
 	return;
 }
--(void)setAttributedTitle:(NSAttributedString*)string;
+- (void)setAttributedTitle:(NSAttributedString*)string;
 {iTM2_DIAGNOSTIC;
     [self setTitle:[string string]];
 }
--(NSAttributedString*)attributedTitle;
+- (NSAttributedString*)attributedTitle;
 {iTM2_DIAGNOSTIC;
     return nil;
 }
@@ -72,15 +72,15 @@ typedef enum {
 #import "iTM2TextFinderKit.h"
 
 @implementation NSTextView(iTM2JAGUARSupportKit)
--(void)setUsesFindPanel:(BOOL)yorn;
+- (void)setUsesFindPanel:(BOOL)yorn;
 {iTM2_DIAGNOSTIC;
     return;
 }
--(BOOL)usesFindPanel;
+- (BOOL)usesFindPanel;
 {iTM2_DIAGNOSTIC;
     return YES;
 }
--(void)performFindPanelAction:(id)sender;	// See enum NSFindPanelAction for possible tags in sender
+- (void)performFindPanelAction:(id)sender;	// See enum NSFindPanelAction for possible tags in sender
 {iTM2_DIAGNOSTIC;
 	switch([sender tag])
 	{
@@ -114,7 +114,7 @@ typedef enum {
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePerformFindPanelAction:
--(BOOL)validatePerformFindPanelAction:(id)sender;
+- (BOOL)validatePerformFindPanelAction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -144,7 +144,7 @@ To Do List:
 
 @implementation NSDocumentController(iTM2JAGUARSupportKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openDocumentWithContentsOfURL:display:error:
--(id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError;
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002

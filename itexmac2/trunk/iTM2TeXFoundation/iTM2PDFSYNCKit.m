@@ -39,11 +39,11 @@ NSString * const iTM2PDFSYNCTimeKey = @"iTM2PDFSYNCTime";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFSynchronizer
 
 @interface iTM2PDFSynchronizer(PRIVATE)
--(BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
--(void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
--(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
--(int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
--(void)doDealloc:(id)sender;
+- (BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
+- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
+- (int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
+- (void)doDealloc:(id)sender;
 @end
 
 typedef enum
@@ -56,7 +56,7 @@ typedef enum
 
 @implementation iTM2PDFSynchronizer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -71,7 +71,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc:(id)sender;
+- (void)dealloc:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -92,7 +92,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lock
--(void)lock;
+- (void)lock;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -104,7 +104,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unlock
--(void)unlock;
+- (void)unlock;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -116,7 +116,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parsePdfsync:
--(void)parsePdfsync:(NSString *)pdfsyncPath;
+- (void)parsePdfsync:(NSString *)pdfsyncPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -144,7 +144,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _ThreadedParsePdfsync:
--(void)_ThreadedParsePdfsync:(id)irrelevant;
+- (void)_ThreadedParsePdfsync:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -361,7 +361,7 @@ To Do List:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _ThreadedParsePdfsync:
--(void)_ThreadedParsePdfsync:(id)irrelevant;
+- (void)_ThreadedParsePdfsync:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -577,7 +577,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfsyncDidParse:
--(void)pdfsyncDidParse:(id)irrelevant;
+- (void)pdfsyncDidParse:(id)irrelevant;
 /*"Description Forthcoming. This is meant to live in the main thread...
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -589,7 +589,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forLocation:withHint:inPageAtIndex:
--(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -676,7 +676,7 @@ To Do List:
 		forRecordIndex: [self recordIndexForLocation:point inPageAtIndex:pageIndex]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:sourceBefore:sourceAfter:forLocation:withHint:inPageAtIndex:
--(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -763,7 +763,7 @@ To Do List:
 		forRecordIndex: [self recordIndexForLocation:point inPageAtIndex:pageIndex]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getRecordIndexes:beforeIndexes:afterIndexes:column:inSource:
--(void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -859,7 +859,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLocation:page:forRecordIndex:
--(BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
+- (BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -891,7 +891,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  destinationsForLine:column:inSource:
--(NSDictionary*)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (NSDictionary*)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -979,7 +979,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordIndexForLocation:inPageAtIndex:
--(int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
+- (int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1015,7 +1015,7 @@ To Do List:
     return resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntValue]: NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forRecordIndex:
--(BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1052,7 +1052,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sourcesForPageAtIndex:
--(NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
+- (NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1078,7 +1078,7 @@ To Do List:
 	return [result allObjects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationLocationsForPageIndex:
--(NSDictionary *)synchronizationLocationsForPageIndex:(unsigned int)page;
+- (NSDictionary *)synchronizationLocationsForPageIndex:(unsigned int)page;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1094,13 +1094,13 @@ To Do List:
 #import <iTM2Foundation/iTM2Implementation.h>
 
 @interface iTM2PDFImageRepView(Synchronization_PRIVATE_9)
--(BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
+- (BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
 @end
 
 
 @implementation NSApplication(iTM2PDFSYNCResponder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFSYNCResponderDidFinishLaunching
--(void)iTM2PDFSYNCResponderDidFinishLaunching;
+- (void)iTM2PDFSYNCResponderDidFinishLaunching;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1117,7 +1117,7 @@ To Do List:
 
 @implementation iTM2PDFSYNCResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1132,7 +1132,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1151,7 +1151,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncFollowFocus:
--(IBAction)toggleSyncFollowFocus:(id)sender;
+- (IBAction)toggleSyncFollowFocus:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1165,7 +1165,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncFollowFocus:
--(BOOL)validateToggleSyncFollowFocus:(id)sender;
+- (BOOL)validateToggleSyncFollowFocus:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1177,7 +1177,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSynchronizationMode:
--(IBAction)toggleSynchronizationMode:(id)sender;
+- (IBAction)toggleSynchronizationMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1195,7 +1195,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSynchronizationMode:
--(BOOL)validateToggleSynchronizationMode:(id)sender;
+- (BOOL)validateToggleSynchronizationMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1207,7 +1207,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncNoBullets:
--(IBAction)toggleSyncNoBullets:(id)sender;
+- (IBAction)toggleSyncNoBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1222,7 +1222,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncNoBullets:
--(BOOL)validateToggleSyncNoBullets:(id)sender;
+- (BOOL)validateToggleSyncNoBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1236,7 +1236,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncAllBullets:
--(IBAction)toggleSyncAllBullets:(id)sender;
+- (IBAction)toggleSyncAllBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1253,7 +1253,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncAllBullets:
--(BOOL)validateToggleSyncAllBullets:(id)sender;
+- (BOOL)validateToggleSyncAllBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1268,7 +1268,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncUserBullets:
--(IBAction)toggleSyncUserBullets:(id)sender;
+- (IBAction)toggleSyncUserBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1285,7 +1285,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncUserBullets:
--(BOOL)validateToggleSyncUserBullets:(id)sender;
+- (BOOL)validateToggleSyncUserBullets:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1300,7 +1300,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncFocusBullet:
--(IBAction)toggleSyncFocusBullet:(id)sender;
+- (IBAction)toggleSyncFocusBullet:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1315,7 +1315,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncFocusBullet:
--(BOOL)validateToggleSyncFocusBullet:(id)sender;
+- (BOOL)validateToggleSyncFocusBullet:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1329,7 +1329,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findAndScrollSynchronizationPointToVisible:
--(IBAction)findAndScrollSynchronizationPointToVisible:(id)sender;
+- (IBAction)findAndScrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1345,7 +1345,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFindAndScrollSynchronizationPointToVisible:
--(BOOL)validateFindAndScrollSynchronizationPointToVisible:(id)sender;
+- (BOOL)validateFindAndScrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1366,7 +1366,7 @@ NSString * const iTM2PDFSYNCExtension = @"pdfsync";
 
 @implementation iTM2PDFDocument(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizer
--(id)synchronizer;
+- (id)synchronizer;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1377,7 +1377,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSynchronizer:
--(void)setSynchronizer:(id)argument;
+- (void)setSynchronizer:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1392,7 +1392,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceSynchronizer:
--(void)replaceSynchronizer:(id)argument;
+- (void)replaceSynchronizer:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1427,7 +1427,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteDidReadFromURL:ofType:error:
--(void)synchronizationCompleteDidReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (void)synchronizationCompleteDidReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1440,7 +1440,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteWriteToURL:ofType:error:
--(void)synchronizationCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (void)synchronizationCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1454,7 +1454,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteSaveContext:
--(void)synchronizationCompleteSaveContext:(id)sender;
+- (void)synchronizationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1468,7 +1468,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePdfSyncFileModificationDate
--(void)updatePdfSyncFileModificationDate;
+- (void)updatePdfSyncFileModificationDate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1493,7 +1493,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updatePdfsync:
--(void)updatePdfsync:(id)irrelevant;
+- (void)updatePdfsync:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1575,7 +1575,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfsyncDidParseNotified:
--(void)pdfsyncDidParseNotified:(NSNotification *)notification;
+- (void)pdfsyncDidParseNotified:(NSNotification *)notification;
 /*"Description Forthcoming. This is meant to live in the main thread...
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1587,7 +1587,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:
--(BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1681,7 +1681,7 @@ laSuite:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:
--(void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint;
+- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1713,7 +1713,7 @@ To Do List:
 @implementation iTM2PDFInspector(SYNCKit)
 /*"Description forthcoming."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canSynchronizeOutput
--(BOOL)canSynchronizeOutput;
+- (BOOL)canSynchronizeOutput;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1725,7 +1725,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
--(IBAction)scrollSynchronizationPointToVisible:(id)sender;
+- (IBAction)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1748,7 +1748,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
--(BOOL)validateScrollSynchronizationPointToVisible:(id)sender;
+- (BOOL)validateScrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1759,7 +1759,7 @@ To Do List:
 	return [(iTM2PDFImageRepView *)[[[self album] centeredSubview] focusView] validateScrollSynchronizationPointToVisible: (NSMenuItem *) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPhysicalPage:synchronizationPoint:withHint:
--(void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1778,7 +1778,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
--(void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1798,7 +1798,7 @@ To Do List:
 @implementation iTM2PDFAlbumView(SYNCKit)
 /*"Description forthcoming."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
--(void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1865,7 +1865,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint: 
--(BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"O based.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1883,7 +1883,7 @@ To Do List:
         return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
--(void)scrollSynchronizationPointToVisible:(id)sender;
+- (void)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1895,7 +1895,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
--(BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
+- (BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1910,12 +1910,12 @@ To Do List:
 #import <iTM2Foundation/iTM2PDFViewKit.h>
 
 @interface NSView(iTM2PDFSYNCKik)
--(void)setSynchronizationPoint:(NSPoint)P;
+- (void)setSynchronizationPoint:(NSPoint)P;
 @end
 
 @implementation iTM2PDFView(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint: 
--(BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1944,7 +1944,7 @@ To Do List:
 
 @implementation NSView(iTM2PDFSYNCKik)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSynchronizationPoint:
--(void)setSynchronizationPoint:(NSPoint)P;
+- (void)setSynchronizationPoint:(NSPoint)P;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1958,7 +1958,7 @@ To Do List:
 
 @implementation iTM2PDFImageRepView(iTM2PDFSYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
--(void)scrollSynchronizationPointToVisible:(id)sender;
+- (void)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1983,7 +1983,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
--(BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
+- (BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1994,7 +1994,7 @@ To Do List:
     return NSPointInRect(_SynchronizationPoint, [self bounds]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown
--(void)mouseDown:(NSEvent *)theEvent;
+- (void)mouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -2024,7 +2024,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
--(void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -2037,7 +2037,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationCompleteDrawRect:
--(void)synchronizationCompleteDrawRect:(NSRect)rect;
+- (void)synchronizationCompleteDrawRect:(NSRect)rect;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -2172,7 +2172,7 @@ To Do List:
 
 @implementation NSTextView_iTM2IOSynch
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 03 2003
@@ -2187,7 +2187,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -2203,7 +2203,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
--(void)mouseDown:(NSEvent *)event
+- (void)mouseDown:(NSEvent *)event
 /*"Description Forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2221,7 +2221,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
--(void)pdfSynchronizeMouseDown:(NSEvent *)event
+- (void)pdfSynchronizeMouseDown:(NSEvent *)event
 /*"Description Forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2248,7 +2248,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  jumpToOutput:
--(void)jumpToOutput:(NSEvent *)event;
+- (void)jumpToOutput:(NSEvent *)event;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003
@@ -2276,7 +2276,7 @@ To Do List:
 
 @implementation iTM2TextInspector(PDFSYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKitWindowDidLoad
--(void)PDFSYNCKitWindowDidLoad;
+- (void)PDFSYNCKitWindowDidLoad;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003
@@ -2289,7 +2289,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKitCompleteDealloc
--(void)PDFSYNCKitCompleteDealloc;
+- (void)PDFSYNCKitCompleteDealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003
@@ -2302,7 +2302,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKit_NSTextViewDidChangeSelectionNotified:
--(void)PDFSYNCKit_NSTextViewDidChangeSelectionNotified:(NSNotification *)notification;
+- (void)PDFSYNCKit_NSTextViewDidChangeSelectionNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Mon Jun 30 2003

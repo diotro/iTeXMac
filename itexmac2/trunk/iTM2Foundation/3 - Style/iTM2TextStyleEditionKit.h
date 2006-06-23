@@ -53,9 +53,9 @@ extern NSString * const iTM2TextStyleInspectorType;
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @interface iTM2TextStyleResponder: iTM2AutoInstallResponder
--(IBAction)textStyleEdit:(id)sender;
--(IBAction)textStyleToggle:(id)sender;
--(IBAction)textStyleToggleEnabled:(id)sender;
+- (IBAction)textStyleEdit:(id)sender;
+- (IBAction)textStyleToggle:(id)sender;
+- (IBAction)textStyleToggleEnabled:(id)sender;
 @end
 
 /*!
@@ -66,9 +66,9 @@ extern NSString * const iTM2TextStyleInspectorType;
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @interface iTM2TextStyleResponder(IB)
--(IBAction)textStyleName:(id)sender;// a "Style:" localized title
--(IBAction)textStyleFormat:(id)sender;// a "%@(%@ variant)" localized title
--(IBAction)textStyleVariant:(id)sender;// a "Variant:" localized title
+- (IBAction)textStyleName:(id)sender;// a "Style:" localized title
+- (IBAction)textStyleFormat:(id)sender;// a "%@(%@ variant)" localized title
+- (IBAction)textStyleVariant:(id)sender;// a "Variant:" localized title
 @end
 
 /*!
@@ -103,7 +103,7 @@ extern NSString * const iTM2TextStyleInspectorType;
     @param		None.
     @result     None.
 */
-+(Class)attributesDocumentClass;
++ (Class)attributesDocumentClass;
 
 /*!
     @method     prettySyntaxParserStyle
@@ -111,7 +111,7 @@ extern NSString * const iTM2TextStyleInspectorType;
     @discussion Discussion forthcoming.
     @result     a human readable style.
 */
-+(NSString *)prettySyntaxParserStyle;
++ (NSString *)prettySyntaxParserStyle;
 
 @end
 
@@ -124,9 +124,9 @@ extern NSString * const iTM2TextStyleInspectorType;
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @interface iTM2TextSyntaxParserAttributesDocument: iTM2Document
-+(Class)syntaxParserClass;
--(id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)outError;
--(NSString *)syntaxParserVariant;
++ (Class)syntaxParserClass;
+- (id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)outError;
+- (NSString *)syntaxParserVariant;
 @end
 
 /*!
@@ -144,7 +144,7 @@ extern NSString * const iTM2TextStyleInspectorType;
     @discussion Discussion forthcoming.
     @result     a human readable style.
 */
--(NSString *)prettySyntaxParserVariant;
+- (NSString *)prettySyntaxParserVariant;
 
 @end
 

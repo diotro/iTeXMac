@@ -24,5 +24,5 @@
 extern NSString * const iTM2ToolbarBookmarkItemIdentifier;
 
 @interface NSToolbarItem(iTM2TeX)
-+(NSToolbarItem *)bookmarkToolbarItem;
++ (NSToolbarItem *)bookmarkToolbarItem;
 @end

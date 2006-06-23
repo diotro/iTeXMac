@@ -43,11 +43,11 @@ extern NSString * const iTeXMac2HelpBookName;
 
 @interface iTM2HelpManager: NSObject
 /*"Class methods"*/
-+(iTM2ButtonHelp *)buttonHelp;
-+(id)helpToolbarItem;
++ (iTM2ButtonHelp *)buttonHelp;
++ (id)helpToolbarItem;
 /*"Main methods"*/
-+(void)showHelp:(id)sender;
-+(void)showHelp:(id)object anchor:(NSString *)aKey;
++ (void)showHelp:(id)sender;
++ (void)showHelp:(id)object anchor:(NSString *)aKey;
 @end
 
 @interface iTM2HelpResponder: iTM2AutoInstallResponder
@@ -57,11 +57,11 @@ extern NSString * const iTeXMac2HelpBookName;
 /*"Class methods"*/
 /*"Setters and Getters"*/
 /*"Main methods"*/
--(void)showHelp:(id)sender;
--(NSString *)description;
--(void)awakeFromNib;
+- (void)showHelp:(id)sender;
+- (NSString *)description;
+- (void)awakeFromNib;
 /*"Overriden methods"*/
--(id)initWithFrame:(NSRect)irrelevant;
+- (id)initWithFrame:(NSRect)irrelevant;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2HelpKit

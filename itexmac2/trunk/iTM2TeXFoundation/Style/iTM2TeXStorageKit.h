@@ -94,7 +94,7 @@ typedef enum _iTM2TeXInputMode
     @param	None
     @result	None
 */
--(void)attributesDidChange;
+- (void)attributesDidChange;
 
 /*!
     @method	loadSymbolsAttributesWithVariant:
@@ -105,7 +105,7 @@ typedef enum _iTM2TeXInputMode
     @param	an NSString variant identifier
     @result	None
 */
--(void)loadSymbolsAttributesWithVariant:(NSString *)variant;
+- (void)loadSymbolsAttributesWithVariant:(NSString *)variant;
 
 /*!
     @method	loadSymbolsAttributesAtPath:
@@ -114,7 +114,7 @@ typedef enum _iTM2TeXInputMode
     @param	the path is a style path which path extension is iTM2-Style.
     @result	None.
 */
--(void)loadSymbolsAttributesAtPath:(NSString *)stylePath;
+- (void)loadSymbolsAttributesAtPath:(NSString *)stylePath;
 
 /*!
     @method	loadDraftSymbolsAttributesAtPath:
@@ -123,7 +123,7 @@ typedef enum _iTM2TeXInputMode
     @param	the path is a style path which path extension is iTM2-Style.
     @result	None.
 */
--(void)loadDraftSymbolsAttributesAtPath:(NSString *)stylePath;
+- (void)loadDraftSymbolsAttributesAtPath:(NSString *)stylePath;
 
 /*!
     @method	symbolsAttributesWithContentsOfFile:
@@ -132,7 +132,7 @@ typedef enum _iTM2TeXInputMode
     @param	fileName is the path.
     @result	None.
 */
-+(NSDictionary *)symbolsAttributesWithContentsOfFile:(NSString *)fileName;
++ (NSDictionary *)symbolsAttributesWithContentsOfFile:(NSString *)fileName;
 
 /*!
     @method	writeSymbolsAttributes:toFile:
@@ -142,7 +142,7 @@ typedef enum _iTM2TeXInputMode
     @param	fileName is the path.
     @result	None.
 */
-+(BOOL)writeSymbolsAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName;
++ (BOOL)writeSymbolsAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName;
 
 @end
 
@@ -163,7 +163,7 @@ typedef enum _iTM2TeXInputMode
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+(NSCharacterSet *)TeXLetterCharacterSet;
++ (NSCharacterSet *)TeXLetterCharacterSet;
 
 /*!
 	@method			TeXFileNameLetterCharacterSet
@@ -173,7 +173,7 @@ typedef enum _iTM2TeXInputMode
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+(NSCharacterSet *)TeXFileNameLetterCharacterSet;
++ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
 
 @end
 

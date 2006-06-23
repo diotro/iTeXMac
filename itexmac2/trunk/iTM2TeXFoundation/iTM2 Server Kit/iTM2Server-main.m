@@ -30,7 +30,7 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[]);
 void iTeXMac2Usage(int argc, const char *argv[]);
 
 @protocol iTM2Connection
--(oneway void)performProjectActionWithContext:(NSDictionary *)context;
+- (oneway void)performProjectActionWithContext:(NSDictionary *)context;
 @end
 
 int main(int argc, const char *argv[])

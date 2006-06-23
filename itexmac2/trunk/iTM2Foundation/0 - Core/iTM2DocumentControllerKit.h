@@ -51,7 +51,7 @@
     @param		None.
     @result		A dictionary of class names for document types.
 */
--(NSDictionary *)documentClassNameForTypeDictionary;
+- (NSDictionary *)documentClassNameForTypeDictionary;
 
 /*!
     @method		typeFromFileExtensionDictionary
@@ -65,12 +65,12 @@
     @param		None.
     @result		A dictionary of file extension for document types.
 */
--(NSDictionary *)typeFromFileExtensionDictionary;
+- (NSDictionary *)typeFromFileExtensionDictionary;
 
 @end
 
 @interface NSDocumentController(iTeXMac2)
--(void)saveAllDocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
+- (void)saveAllDocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
 
 /*!
     @method		displayPageForLine:column:source:withHint:orderFront:
@@ -83,7 +83,7 @@
     @param		yorn...
     @result		yorn.
 */
--(BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 @end
 
 @interface NSDocument(iTM2DocumentControllerKit)
@@ -98,7 +98,7 @@
     @param		yorn...
     @result		A document.
 */
--(BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 
 /*!
     @method		displayPageForLine:column:source:withHint:orderFront:
@@ -111,7 +111,7 @@
     @param		yorn...
     @result		A document.
 */
--(BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 @end
 
 @interface NSDocument(iTM2DocumentController)
@@ -128,7 +128,7 @@
     @param		None.
     @result		A document.
 */
--(id)newRecentDocument;
+- (id)newRecentDocument;
 
 @end
 
@@ -142,7 +142,7 @@
     @abstract	Open the selection quickly.
     @discussion	Description forthcoming.
 */
--(IBAction)openSelectionQuickly:(id)sender;
+- (IBAction)openSelectionQuickly:(id)sender;
 
 @end
 

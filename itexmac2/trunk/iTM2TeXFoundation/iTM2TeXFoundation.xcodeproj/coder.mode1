@@ -261,7 +261,6 @@
 								<string>0867D691FE84028FC02AAC07</string>
 								<string>DCC7F3CA0854AC9200F3EB8A</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>DC5B6FE10A4B7A3E00F7DE47</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
@@ -392,9 +391,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC5B6FE20A4B7A3E00F7DE47</string>
+				<string>DC2A7B1C0A4C175C006864F4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC5B6FE30A4B7A3E00F7DE47</string>
+				<string>DC2A7B1D0A4C175C006864F4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -538,10 +537,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC5B6FEB0A4B7A3E00F7DE47</string>
+		<string>DC2A7B240A4C175C006864F4</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
-		<string>DC099B36088B331B0028F810</string>
 	</array>
 	<key>WindowString</key>
 	<string>36 71 1260 715 0 0 1440 878 </string>
@@ -667,8 +665,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {142, 255}}</string>
-											<string>{{142, 0}, {1046, 255}}</string>
+											<string>{{0, 0}, {118, 251}}</string>
+											<string>{{118, 0}, {1070, 251}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -683,8 +681,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1188, 255}}</string>
-											<string>{{0, 255}, {1188, 418}}</string>
+											<string>{{0, 0}, {1188, 251}}</string>
+											<string>{{0, 251}, {1188, 422}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -731,14 +729,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC5B6FE50A4B7A3E00F7DE47</string>
+				<string>DC2A7B1E0A4C175C006864F4</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC5B6FE60A4B7A3E00F7DE47</string>
-				<string>DC5B6FE70A4B7A3E00F7DE47</string>
-				<string>DC5B6FE80A4B7A3E00F7DE47</string>
-				<string>DC5B6FE90A4B7A3E00F7DE47</string>
-				<string>DC5B6FEA0A4B7A3E00F7DE47</string>
-				<string>DC5B6FEB0A4B7A3E00F7DE47</string>
+				<string>DC2A7B1F0A4C175C006864F4</string>
+				<string>DC2A7B200A4C175C006864F4</string>
+				<string>DC2A7B210A4C175C006864F4</string>
+				<string>DC2A7B220A4C175C006864F4</string>
+				<string>DC2A7B230A4C175C006864F4</string>
+				<string>DC2A7B240A4C175C006864F4</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

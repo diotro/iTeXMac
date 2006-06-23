@@ -36,7 +36,7 @@
 /*"Description forthcoming."*/
 @implementation NSButton(iTM2ButtonKit_PRIVATE)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  fixImageNamed:inBundle:
--(void)fixImageNamed:(NSString *)name inBundle:(NSBundle *)B;
+- (void)fixImageNamed:(NSString *)name inBundle:(NSBundle *)B;
 /*"If the image is found, .
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -58,7 +58,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  fixImageNamed:
--(void)fixImageNamed:(NSString *)name;
+- (void)fixImageNamed:(NSString *)name;
 /*"This one calls the above method with the receiver's bundle as second argument.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -70,7 +70,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  fixImage
--(void)fixImage;
+- (void)fixImage;
 /*"This one calls the above method with the receiver's bundle as second argument.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -95,7 +95,7 @@ if no menu is associate with that button, it behaves quite like any standard but
 "*/
 @implementation iTM2ButtonMixed
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -114,7 +114,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithFrame:
--(id)initWithFrame:(NSRect)aRect;
+- (id)initWithFrame:(NSRect)aRect;
 /*"One button, one target. No border."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -124,7 +124,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -138,7 +138,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= timer
--(NSTimer *)timer;
+- (NSTimer *)timer;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -149,7 +149,7 @@ To Do List:
     return _Timer;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTimer:
--(void)setTimer:(NSTimer *)aTimer;
+- (void)setTimer:(NSTimer *)aTimer;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -166,7 +166,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isCenteredArrow
--(BOOL)isCenteredArrow;
+- (BOOL)isCenteredArrow;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -177,7 +177,7 @@ To Do List:
     return _CenteredArrow;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCenteredArrow:
--(void)setCenteredArrow:(BOOL)aFlag;
+- (void)setCenteredArrow:(BOOL)aFlag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -189,7 +189,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isMixedEnabled
--(BOOL)isMixedEnabled;
+- (BOOL)isMixedEnabled;
 /*"The receiver is enabled either in a normal fashion, id est when its target authorizes it, or in a menu driven way.
 If the menu has items to display, the receiver is definitely enabled.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -201,7 +201,7 @@ To Do List:
     return _MixedEnabled;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMixedEnabled:
--(void)setMixedEnabled:(BOOL)aFlag;
+- (void)setMixedEnabled:(BOOL)aFlag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -213,14 +213,14 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mixedAction
--(SEL)mixedAction;
+- (SEL)mixedAction;
 /*"#{-action} corresponds to the button's normal mode whereas #{-mixedAction} corresponds to the button's pull down mode. This message is sent when the timer has fired. It is used for example for templates buttons: the help menu stores an invocation and the %mixedAction invokes it once the menu is totally dismissed to avoid weird window positions. The %mixedAction and the %action do not participate to any validating procedure, but subclasses will certainly use them."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return _MixedAction;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMixedAction:
--(void)setMixedAction:(SEL)anAction;
+- (void)setMixedAction:(SEL)anAction;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -232,7 +232,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mouseDown:
--(void)mouseDown:(NSEvent *)theEvent;
+- (void)mouseDown:(NSEvent *)theEvent;
 /*"If the receiver has no menu, it forwards the message to super, otherwise it creates a timer to see if the mouse is down a long time to display a submenu. If the receiver #{isMixedEnabled}, it has a mixed behaviour acting as a standard button when short clicking and as a pull down when long clicking.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -282,7 +282,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= timerHasFired:
--(void)timerHasFired:(NSTimer *)aTimer;
+- (void)timerHasFired:(NSTimer *)aTimer;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -304,7 +304,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= popUpContextMenuWithEvent:
--(void)popUpContextMenuWithEvent:(NSEvent *)theEvent;
+- (void)popUpContextMenuWithEvent:(NSEvent *)theEvent;
 /*"Use #{-popUpContextMenu:withEvent:forView:} to display the menu."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -322,7 +322,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mouseUp:
--(void)mouseUp:(NSEvent *)theEvent;
+- (void)mouseUp:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -340,7 +340,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willPopUp
--(BOOL)willPopUp;
+- (BOOL)willPopUp;
 /*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{isValid} message. The menu of the receiver is also updated."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -376,7 +376,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc:
--(void)dealloc;
+- (void)dealloc;
 /*"Cleans the timer."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -385,7 +385,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect
--(void)drawRect:(NSRect)aRect;
+- (void)drawRect:(NSRect)aRect;
 /*"Adding a small rectangle drawn when the receiver is ON to indicate that there is a menu to pull down."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -414,7 +414,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performKeyEquivalent:
--(BOOL)performKeyEquivalent:(NSEvent *)theEvent;
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list: problem when more than one key is pressed.
@@ -444,7 +444,7 @@ To do list: problem when more than one key is pressed.
     return [super performKeyEquivalent:theEvent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValidInOtherWindow
--(BOOL)isValidInOtherWindow;
+- (BOOL)isValidInOtherWindow;
 /*"Description Forthcoming. Usefull???
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -456,7 +456,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValidInMainOrKeyWindow
--(BOOL)isValidInMainOrKeyWindow;
+- (BOOL)isValidInMainOrKeyWindow;
 /*"Description Forthcoming. Usefull???
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -468,7 +468,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
--(BOOL)isValid;
+- (BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the target of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the target responds to #{validateFooAction:} this message is sent to validate the receiver. If the target does not respond to #{validateFooAction}, then it is asked for #{validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -484,7 +484,7 @@ To Do List:
 
 @implementation iTM2ButtonForward
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithFrame:
--(id)initWithFrame:(NSRect)irrelevant;
+- (id)initWithFrame:(NSRect)irrelevant;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -508,7 +508,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"No target set here.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -525,7 +525,7 @@ To Do List:
 
 @implementation iTM2ButtonBack
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithFrame:
--(id)initWithFrame:(NSRect)irrelevant;
+- (id)initWithFrame:(NSRect)irrelevant;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -549,7 +549,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"No target set here.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -568,14 +568,14 @@ NSString * const iTM2ToggleEditableNotification = @"iTM2ToggleEditableNotificati
 NSString * const iTM2ToggleEditableKey = @"iTM2ToggleEditableKey";
 
 @interface iTM2ButtonRWStatus(PRIVATE)
--(BOOL)validateAction:(id)sender;
+- (BOOL)validateAction:(id)sender;
 @end;
 
 #import <iTM2Foundation/iTM2WindowKit.h>
 
 @implementation iTM2ButtonRWStatus
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"No target set here.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -589,7 +589,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 13/12/2002
@@ -603,7 +603,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  documentEditedStatusNotified:
--(void)documentEditedStatusNotified:(NSNotification *)notification;
+- (void)documentEditedStatusNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 13/12/2002
@@ -615,7 +615,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  action:
--(IBAction)action:(id)sender;
+- (IBAction)action:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -638,7 +638,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateAction:
--(BOOL)validateAction:(id)sender;
+- (BOOL)validateAction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -677,16 +677,16 @@ To Do List:
 @private
     NSView * _VCB;
 }
-+(void)timedCoffeeBreak:(NSTimer *)timer;
-+(void)coffeeBreakNotified:(NSNotification *)notification;
--(void)coffeeBreakNotified:(NSNotification *)notification;
++ (void)timedCoffeeBreak:(NSTimer *)timer;
++ (void)coffeeBreakNotified:(NSNotification *)notification;
+- (void)coffeeBreakNotified:(NSNotification *)notification;
 @end
 
 NSString * const _iTM2CoffeeBreakNotification = @"_iTM2CoffeeBreakNotification";
 
 @implementation iTM2CoffeeBreak
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -701,7 +701,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"No target set here.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 13/12/2002
@@ -731,7 +731,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  blackboxAction:
--(IBAction)blackboxAction:(id)sender;
+- (IBAction)blackboxAction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -745,7 +745,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedCoffeeBreak:
-+(void)timedCoffeeBreak:(NSTimer *)timer;
++ (void)timedCoffeeBreak:(NSTimer *)timer;
 /*"When a revert to saved is performed (for example) the text storage changed and the line numbers must change according.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -768,7 +768,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  coffeeBreakNotified:
-+(void)coffeeBreakNotified:(NSNotification *)notification;
++ (void)coffeeBreakNotified:(NSNotification *)notification;
 /*"When a revert to saved is performed (for example) the text storage changed and the line numbers must change according.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -787,7 +787,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  coffeeBreakNotified:
--(void)coffeeBreakNotified:(NSNotification *)notification;
+- (void)coffeeBreakNotified:(NSNotification *)notification;
 /*"When a revert to saved is performed (for example) the text storage changed and the line numbers must change according.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -823,9 +823,9 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ButtonKit
 
 @interface iTM2ButtonNavigation(PRIVATE)
--(void)displayIcon;
--(id)initWithFrame:(NSRect)irrelevant;
--(void)drawRect:(NSRect)aRect;
+- (void)displayIcon;
+- (id)initWithFrame:(NSRect)irrelevant;
+- (void)drawRect:(NSRect)aRect;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ButtonNavigation
@@ -836,7 +836,7 @@ To Do List:
 "*/
 @implementation iTM2ButtonNavigation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithFrame:
--(id)initWithFrame:(NSRect)irrelevant;
+- (id)initWithFrame:(NSRect)irrelevant;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -855,7 +855,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect:
--(void)drawRect:(NSRect)aRect;
+- (void)drawRect:(NSRect)aRect;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -868,7 +868,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -884,7 +884,7 @@ To Do List:
 
 @implementation iTM2ButtonFirst
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -925,7 +925,7 @@ To Do List:
 
 @implementation iTM2ButtonLast
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -966,7 +966,7 @@ To Do List:
 
 @implementation iTM2ButtonPrevious
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1002,7 +1002,7 @@ To Do List:
 
 @implementation iTM2ButtonNext
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1038,7 +1038,7 @@ To Do List:
 
 @implementation iTM2ButtonPreviousPrevious
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1078,7 +1078,7 @@ To Do List:
 
 @implementation iTM2ButtonNextNext
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1120,7 +1120,7 @@ To Do List:
 
 @implementation NSButton(iTM2ButtonKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonFirst
-+(NSButton *)buttonFirst;
++ (NSButton *)buttonFirst;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1131,7 +1131,7 @@ To Do List:
     return [[[iTM2ButtonFirst alloc] initWithFrame:NSZeroRect] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonLast
-+(NSButton *)buttonLast;
++ (NSButton *)buttonLast;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1142,7 +1142,7 @@ To Do List:
     return [[[iTM2ButtonLast alloc] initWithFrame:NSZeroRect] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonPrevious
-+(NSButton *)buttonPrevious;
++ (NSButton *)buttonPrevious;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1153,7 +1153,7 @@ To Do List:
     return [[[iTM2ButtonPrevious alloc] initWithFrame:NSZeroRect] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonNext
-+(NSButton *)buttonNext;
++ (NSButton *)buttonNext;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1164,7 +1164,7 @@ To Do List:
     return [[[iTM2ButtonNext alloc] initWithFrame:NSZeroRect] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonPreviousPrevious
-+(NSButton *)buttonPreviousPrevious;
++ (NSButton *)buttonPreviousPrevious;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1175,7 +1175,7 @@ To Do List:
     return [[[iTM2ButtonPreviousPrevious alloc] initWithFrame:NSZeroRect] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonNextNext
-+(NSButton *)buttonNextNext;
++ (NSButton *)buttonNextNext;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1186,7 +1186,7 @@ To Do List:
     return [[[iTM2ButtonNextNext alloc] initWithFrame:NSZeroRect] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonForward
-+(NSButton *)buttonForward;
++ (NSButton *)buttonForward;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1197,7 +1197,7 @@ To Do List:
     return [[[iTM2ButtonForward alloc] initWithFrame:NSZeroRect] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonBack
-+(NSButton *)buttonBack;
++ (NSButton *)buttonBack;
 /*"Public use. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1210,12 +1210,12 @@ To Do List:
 @end
 
 @interface NSButton(PRIVATE)
--(void)displayIcon;
+- (void)displayIcon;
 @end
 
 @implementation iTM2ButtonPlus
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect:
--(void)drawRect:(NSRect)aRect;
+- (void)drawRect:(NSRect)aRect;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1228,7 +1228,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1271,7 +1271,7 @@ To Do List:
 
 @implementation iTM2ButtonMinus
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect:
--(void)drawRect:(NSRect)aRect;
+- (void)drawRect:(NSRect)aRect;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1284,7 +1284,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
--(void)displayIcon;
+- (void)displayIcon;
 /*"Private use only. Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 11:07:09 GMT 2004
@@ -1326,41 +1326,41 @@ To Do List:
 @end
 
 @implementation iTM2MixedButton
-+(void)initialize;
++ (void)initialize;
 {
 	[iTM2MixedButton setCellClass:[iTM2MixedButtonCell class]];
 	return;
 }
--(id)popUp;
+- (id)popUp;
 {
 	return popUp;
 }
--(void)setPopUp:(id)argument;
+- (void)setPopUp:(id)argument;
 {
 	[popUp autorelease];
 	popUp = [argument retain];
 	return;
 }
--(void)dealloc;
+- (void)dealloc;
 {
 	[self setPopUp:nil];
 	[super dealloc];
 	return;
 }
--(SEL)doubleAction;
+- (SEL)doubleAction;
 {
 	return [[self cell] doubleAction];
 }
--(void)setDoubleAction:(SEL)aSelector;
+- (void)setDoubleAction:(SEL)aSelector;
 {
 	[[self cell] setDoubleAction:aSelector];
 	return;
 }
--(void)awakeFromNib;
+- (void)awakeFromNib;
 {
 	[self setup];
 }
--(void)setup;
+- (void)setup;
 {
 	if(![[self cell] isKindOfClass:[iTM2MixedButtonCell class]])
 	{
@@ -1429,7 +1429,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolbarSizeMode:
--(void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
+- (void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1454,7 +1454,7 @@ To Do List:
 
 //NSPopUpButtonCell
 @implementation iTM2MixedButtonCell
-+(void)initialize;
++ (void)initialize;
 {
 	[super initialize];
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -1463,7 +1463,7 @@ To Do List:
 			nil]];
 	return;
 }
--(void)encodeWithCoder:(NSCoder *)aCoder;
+- (void)encodeWithCoder:(NSCoder *)aCoder;
 {
 	[super encodeWithCoder:aCoder];
 	if(popUpCell)
@@ -1472,7 +1472,7 @@ To Do List:
 	}
 	[aCoder encodeObject:NSStringFromSelector([self doubleAction]) forKey:@"doubleActionName"];
 }
--(id)initWithCoder:(NSCoder *)aDecoder;
+- (id)initWithCoder:(NSCoder *)aDecoder;
 {
 	if(self = [super initWithCoder:(NSCoder *)aDecoder])
 	{
@@ -1481,11 +1481,11 @@ To Do List:
 	}
 	return self;
 }
--(id)popUpCell;
+- (id)popUpCell;
 {
 	return popUpCell;
 }
--(void)setPopUpCell:(id)argument;
+- (void)setPopUpCell:(id)argument;
 {
 	[popUpCell autorelease];
 	popUpCell = [argument retain];
@@ -1500,7 +1500,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willPopUp
--(BOOL)willPopUp;
+- (BOOL)willPopUp;
 /*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{isValid} message. The menu of the receiver is also updated."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -1539,16 +1539,16 @@ To Do List:
 //iTM2_END;
     return YES;
 }
--(SEL)doubleAction;
+- (SEL)doubleAction;
 {
 	return doubleAction;
 }
--(void)setDoubleAction:(SEL)aSelector;
+- (void)setDoubleAction:(SEL)aSelector;
 {
 	doubleAction = aSelector;
 	return;
 }
--(void)setControlSize:(NSControlSize)size;
+- (void)setControlSize:(NSControlSize)size;
 {
 	[super setControlSize:(NSControlSize)size];
 	switch(size)
@@ -1559,13 +1559,13 @@ To Do List:
 	}
 	return;
 }
--(void)dealloc;
+- (void)dealloc;
 {
 	[self setPopUpCell:nil];
 	[super dealloc];
 	return;
 }
--(BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)flag;
+- (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)flag;
 {
 	if(!popUpCell)
 		return [super trackMouse:theEvent inRect:cellFrame ofView:controlView untilMouseUp:flag];
@@ -1621,7 +1621,7 @@ nextMouseUp:
 	[self highlight:NO withFrame:cellFrame inView:controlView];
 	return result;
 }
--(void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 {
 	NSImage * I = [self image];
 	NSEnumerator * E = [[I representations] objectEnumerator];
@@ -1662,7 +1662,7 @@ nextMouseUp:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
--(BOOL)isValid;
+- (BOOL)isValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1675,7 +1675,7 @@ To Do List:
 	return [super isValid] || result;// both validators are called!
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isDoubleValid
--(BOOL)isDoubleValid;
+- (BOOL)isDoubleValid;
 /*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

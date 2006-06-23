@@ -32,7 +32,7 @@ NSString * const iTM2UDTabAnchorStringKey = @"iTM2UDTabAnchorString";
 /*"Description forthcoming."*/
 @implementation NSString(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -50,7 +50,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bullet
-+(NSString *)bullet;
++ (NSString *)bullet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -62,7 +62,7 @@ To Do List:
     return _Bullet? _Bullet: (_Bullet = [[NSString stringWithUTF8String:"•"] copy]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getIntegerTrailer:
--(BOOL)getIntegerTrailer:(int *)intPtr;
+- (BOOL)getIntegerTrailer:(int *)intPtr;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -96,7 +96,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForCommentedKey:forRange:effectiveRange:inHeader:
--(NSString *)stringForCommentedKey:(NSString *)aKey forRange:(NSRange)aRange effectiveRange:(NSRangePointer)aRangePtr inHeader:(BOOL)aFlag;
+- (NSString *)stringForCommentedKey:(NSString *)aKey forRange:(NSRange)aRange effectiveRange:(NSRangePointer)aRangePtr inHeader:(BOOL)aFlag;
 /*"Scans the string for "% !iTeXMac2(key): value" pairs. If the search takes place only in the header, aRange is the whole string and the search will stop as soon as an uncommented line is scanned. In the other case, the search is performed on the smallest set of lines containing aRange. If aRangePtr is not nil, it will hold on return the range of the whole line corresponding to aKey, including the termination characters if any.
 Scanning the key is not case sensitive while scanning the (on return) value is case sensitive.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -158,7 +158,7 @@ To Do List:
     return [NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeForLine:nextLine:
--(NSRange)rangeForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
+- (NSRange)rangeForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
 /*"Given a 1 based line number, it returns the line range including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -194,7 +194,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeForLineRange:nextLine:
--(NSRange)rangeForLineRange:(NSRange)aLineRange nextLine:(unsigned int *)aNextLinePtr;
+- (NSRange)rangeForLineRange:(NSRange)aLineRange nextLine:(unsigned int *)aNextLinePtr;
 /*"Given a line range number, it returns the range including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -224,7 +224,7 @@ To Do List:
     return NSMakeRange(start, * aNextLinePtr - start);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeContentForLine:nextLine:
--(NSRange)rangeContentForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
+- (NSRange)rangeContentForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
 /*"Given a line number, it returns the line range NOT including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -249,7 +249,7 @@ To Do List:
     return NSMakeRange(start, contentsEnd - start);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineForRange:
--(unsigned)lineForRange:(NSRange)aRange;
+- (unsigned)lineForRange:(NSRange)aRange;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -277,7 +277,7 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= numberOfLines
--(unsigned)numberOfLines;
+- (unsigned)numberOfLines;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -290,7 +290,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingTrailingWhites
--(NSString *)stringByRemovingTrailingWhites;
+- (NSString *)stringByRemovingTrailingWhites;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -308,7 +308,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=  stringWithSubstring:replacedByString:
--(NSString*)stringWithSubstring:(NSString*)oldString replacedByString:(NSString*)newString;
+- (NSString*)stringWithSubstring:(NSString*)oldString replacedByString:(NSString*)newString;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -340,7 +340,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeBySelectingParagraphIfNeededWithRange:
--(NSRange)rangeBySelectingParagraphIfNeededWithRange:(NSRange)range;
+- (NSRange)rangeBySelectingParagraphIfNeededWithRange:(NSRange)range;
 /*"Given a selected range, extends the range to paragraphs.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -372,7 +372,7 @@ To Do List:
     return range;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compareUsingLastPathComponent:
--(int)compareUsingLastPathComponent:(NSString *)rhs;
+- (int)compareUsingLastPathComponent:(NSString *)rhs;
 	/*"Description forthcoming.
 					  Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -384,7 +384,7 @@ To Do List:
     return [[self lastPathComponent] compare:[rhs lastPathComponent]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
--(NSRange)doubleClickAtIndex:(unsigned)index;
+- (NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Uses the NSAttributedString method. too bad.
 Beware of ∞ loops because NSAttributedString uses methods above.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -396,7 +396,7 @@ To Do List:
     return [[[[NSAttributedString alloc] initWithString:self attributes:nil] autorelease] doubleClickAtIndex:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfWordAtIndex:
--(NSRange)rangeOfWordAtIndex:(unsigned int)index;
+- (NSRange)rangeOfWordAtIndex:(unsigned int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -422,7 +422,7 @@ To Do List:
 	return NSMakeRange(NSNotFound, 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= wordRangeForRange:
--(NSRange)wordRangeForRange:(NSRange)wordRange;
+- (NSRange)wordRangeForRange:(NSRange)wordRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -448,7 +448,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfWord:options:range:
--(NSRange)rangeOfWord:(NSString *)aWord options:(unsigned)mask range:(NSRange)searchRange;
+- (NSRange)rangeOfWord:(NSString *)aWord options:(unsigned)mask range:(NSRange)searchRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: coder:20050530 
@@ -503,7 +503,7 @@ To Do List:
     return NSMakeRange(NSNotFound, 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= componentsSeparatedByStrings:
--(NSArray *)componentsSeparatedByStrings:(NSString *)separator, ...;
+- (NSArray *)componentsSeparatedByStrings:(NSString *)separator, ...;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

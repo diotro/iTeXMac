@@ -43,7 +43,7 @@
 	@param		A sender with a tag
 	@result		None
 */
--(IBAction)takeStringEncodingFromTag:(id)sender;
+- (IBAction)takeStringEncodingFromTag:(id)sender;
 
 /*!
 	@method		stringEncodingToggleAuto:
@@ -52,7 +52,7 @@
 	@param		None
 	@result		None
 */
--(IBAction)stringEncodingToggleAuto:(id)sender;
+- (IBAction)stringEncodingToggleAuto:(id)sender;
 
 /*!
 	@method		stringEncodingEditList:
@@ -61,7 +61,7 @@
 	@param		None
 	@result		None
 */
--(IBAction)stringEncodingEditList:(id)sender;
+- (IBAction)stringEncodingEditList:(id)sender;
 
 /*!
 	@method		takeEOLFromTag:
@@ -70,6 +70,6 @@
 	@param		None
 	@result		None
 */
--(IBAction)takeEOLFromTag:(id)sender;
+- (IBAction)takeEOLFromTag:(id)sender;
 
 @end

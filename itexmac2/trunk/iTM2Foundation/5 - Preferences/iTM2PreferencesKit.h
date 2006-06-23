@@ -31,8 +31,8 @@
 
 @interface iTM2PrefsController: iTM2Inspector
 /*"Class methods"*/
-+(id)sharedPrefsController;
--(void)displayPrefsPaneWithIdentifier:(NSString *)identifier;
++ (id)sharedPrefsController;
+- (void)displayPrefsPaneWithIdentifier:(NSString *)identifier;
 @end
 
 /*!
@@ -65,7 +65,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+(NSString*)prefPaneIdentifierForBundle:(NSBundle*)aBundle;
++ (NSString*)prefPaneIdentifierForBundle:(NSBundle*)aBundle;
 
 /*!
 	@method			iconImageForBundle:
@@ -77,7 +77,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+(NSImage *)iconImageForBundle:(NSBundle *)aBundle;
++ (NSImage *)iconImageForBundle:(NSBundle *)aBundle;
 
 /*!
 	@method			iconLabelForBundle:
@@ -88,7 +88,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+(NSString *)iconLabelForBundle:(NSBundle *)aBundle;
++ (NSString *)iconLabelForBundle:(NSBundle *)aBundle;
 
 /*!
 	@method			prefPaneIdentifier
@@ -105,7 +105,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 
 /*!
 	@method			iconImage
@@ -122,7 +122,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(NSImage *)iconImage;
+- (NSImage *)iconImage;
 
 /*!
 	@method			iconLabel
@@ -135,7 +135,7 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(NSString *)iconLabel;
+- (NSString *)iconLabel;
 
 @end
 

@@ -30,7 +30,7 @@
 /*"Description forthcoming."*/
 @implementation iTM2AppleScriptLauncher
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  executeAppleScriptAtPath:
-+(IBAction)executeAppleScriptAtPath:(id)sender;
++ (IBAction)executeAppleScriptAtPath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -62,7 +62,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  executeAppleScript:
-+(IBAction)executeAppleScript:(id)sender;
++ (IBAction)executeAppleScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 06/10/2002
@@ -101,7 +101,7 @@ To Do List:
 
 @implementation iTM2KeyBindingsManager(Scripting)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  executeAppleScriptAtPath:
--(IBAction)executeAppleScriptAtPath:(id)sender;
+- (IBAction)executeAppleScriptAtPath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -114,7 +114,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  executeAppleScript:
--(IBAction)executeAppleScript:(id)sender;
+- (IBAction)executeAppleScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -131,11 +131,11 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2AppleScriptKit
 
 @interface NSScriptSuiteRegistry(PRIVATE)
--(NSDictionary *)dictionaryForLoadingSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
+- (NSDictionary *)dictionaryForLoadingSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 @end
 @implementation NSScriptSuiteRegistry(iTeXMac2_)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -169,7 +169,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dictionaryForloadingSuiteWithDictionary:fromBundle:
--(NSDictionary *)dictionaryForLoadingSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
+- (NSDictionary *)dictionaryForLoadingSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 11 11:42:37 GMT 2005
@@ -228,7 +228,7 @@ To Do List:
     return dictionary;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:
--(void)swizzle_iTM2MiscKit_loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
+- (void)swizzle_iTM2MiscKit_loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 11 11:42:37 GMT 2005
@@ -270,7 +270,7 @@ To Do List:
 
 @implementation iTM2TextDocument(AppleScripting)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  endOfLine
--(unsigned int)endOfLine;
+- (unsigned int)endOfLine;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -288,7 +288,7 @@ To Do List:
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEndOfLine:
--(void)setEndOfLine:(unsigned int)argument;
+- (void)setEndOfLine:(unsigned int)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

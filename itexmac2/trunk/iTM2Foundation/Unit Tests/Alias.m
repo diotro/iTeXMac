@@ -14,7 +14,7 @@
 
 
 @implementation Alias
--(void)testAlias
+- (void)testAlias
 {
 	NSString * temp = NSTemporaryDirectory();
 	NSString * component = @"TARGET";

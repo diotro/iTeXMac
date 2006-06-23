@@ -45,7 +45,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion When the task controller will send a string to the input pipe, it also send it to its interface.
     @param      The string to display.
 */
--(void)logInput:(NSString *)argument;
+- (void)logInput:(NSString *)argument;
 
 /*!
     @method     logOutput:
@@ -53,7 +53,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion When the task controller receives some data as output, it asks its interface to display it.
     @param      The string to display.
 */
--(void)logOutput:(NSString *)argument;
+- (void)logOutput:(NSString *)argument;
 
 /*!
     @method     outputDidTerminate
@@ -62,7 +62,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      None.
     @result     None.
 */
--(void)outputDidTerminate;
+- (void)outputDidTerminate;
 
 /*!
     @method     logError:
@@ -70,7 +70,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion When the task controller receives some data as error, it asks its interface to display it.
     @param      The string to display.
 */
--(void)logError:(NSString *)argument;
+- (void)logError:(NSString *)argument;
 
 /*!
     @method     errorDidTerminate
@@ -79,7 +79,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      None.
     @result     None.
 */
--(void)errorDidTerminate;
+- (void)errorDidTerminate;
 
 /*!
     @method     logCustom:
@@ -87,7 +87,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion When the task controller receives some data as output, it asks its interface to display it.
     @param      The string to display.
 */
--(void)logCustom:(NSString *)argument;
+- (void)logCustom:(NSString *)argument;
 
 /*!
     @method     customDidTerminate
@@ -96,7 +96,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      None.
     @result     None.
 */
--(void)customDidTerminate;
+- (void)customDidTerminate;
 
 /*!
     @method     cleanLog:
@@ -105,7 +105,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      Irrelevant.
     @result     None.
 */
--(void)cleanLog:(id)sender;
+- (void)cleanLog:(id)sender;
 
 /*! 
     @method     taskController
@@ -113,7 +113,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion See the iTM2Controller description for details.
     @result     An iTM2Controller instance.
 */
--(id)taskController;
+- (id)taskController;
 
 /*! 
     @method     setTaskController:
@@ -122,21 +122,21 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
                 This is the responsibility of the receiver to clean the connexions when it is about to die.
     @param      An iTM2TaskController instance.
 */
--(void)setTaskController:(iTM2TaskController *)argument;
+- (void)setTaskController:(iTM2TaskController *)argument;
 
 /*! 
     @method     taskWillLaunch
     @abstract   The controller informs the receiver that it will launch a new task.
     @discussion The receiver should take appropriate actions in such a situation, eg flushing the screen, loging a prompt, maybe.
 */
--(void)taskWillLaunch;
+- (void)taskWillLaunch;
 
 /*! 
     @method     taskDidTerminate
     @abstract   The controller informs the receiver that it will launch a new task.
     @discussion The receiver should take appropriate actions in such a situation, eg loging a prompt, maybe.
 */
--(void)taskDidTerminate;
+- (void)taskDidTerminate;
 
 /*! 
     @method     execute
@@ -145,7 +145,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
 	@param		a command
 	@result		None
 */
--(void)execute:(NSString *)aCommand;
+- (void)execute:(NSString *)aCommand;
 
 /*! 
     @method     cancel
@@ -154,7 +154,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
 	@param		None
 	@result		None
 */
--(void)cancel:(NSString *)cancel;
+- (void)cancel:(NSString *)cancel;
 
 @end
 
@@ -165,11 +165,11 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
 */
 @interface iTM2TaskInspector: iTM2Inspector <iTM2TaskInspector>
 
--(id)errorView;
--(void)setErrorView:(NSTextView *)argument;
--(id)outputView;
--(void)setOutputView:(NSTextView *)argument;
--(void)updateOutputAndError:(id)irrelevant;
+- (id)errorView;
+- (void)setErrorView:(NSTextView *)argument;
+- (id)outputView;
+- (void)setOutputView:(NSTextView *)argument;
+- (void)updateOutputAndError:(id)irrelevant;
 
 @end
 
@@ -196,7 +196,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Description Forthcoming.
     @result     An NSString.
 */
--(NSString *)launchPath;
+- (NSString *)launchPath;
 
 /*! 
     @method     arguments
@@ -204,7 +204,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Description Forthcoming.
     @result     An iTM2Controller instance.
 */
--(NSArray *)arguments;
+- (NSArray *)arguments;
 
 /*! 
     @method     environment
@@ -212,7 +212,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion This environment is used to launch the task.
     @result     An NSMutableDictionary instance.
 */
--(NSDictionary *)environment;
+- (NSDictionary *)environment;
 
 /*! 
     @method     currentDirectoryPath
@@ -220,7 +220,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Once the task did terminate, contains the new current directory path. Different task wrappers can share their current directory path such that a change in one of them also affect another one.
     @result     a path.
 */
--(NSString *)currentDirectoryPath;
+- (NSString *)currentDirectoryPath;
 
 /*! 
     @method     taskWillLaunch:
@@ -228,7 +228,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion The receiver should take any appropriate action in that situation. The default implementation does nothing.
     @param      sender is the task controller who will launch the task.
 */
--(void)taskWillLaunch:(iTM2TaskController *)sender;
+- (void)taskWillLaunch:(iTM2TaskController *)sender;
 
 /*! 
     @method     taskDidTerminate:
@@ -236,7 +236,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion The receiver knows about the termination status and the resulting environment dictionary. The default implementation copies relevant informations from the task.
     @param      sender is the task controller who launched the task.
 */
--(void)taskDidTerminate:(iTM2TaskController *)sender;
+- (void)taskDidTerminate:(iTM2TaskController *)sender;
 
 /*! 
     @method     taskInterruptIfNeeded:
@@ -247,7 +247,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
 				and then should ask the task controller to terminate the task.
     @param      sender is the task controller who launched the task.
 */
--(void)taskInterruptIfNeeded:(iTM2TaskController *)sender;
+- (void)taskInterruptIfNeeded:(iTM2TaskController *)sender;
 
 /*! 
     @method     canInterruptTask
@@ -256,7 +256,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      None.
     @result     yorn.
 */
--(BOOL)canInterruptTask;
+- (BOOL)canInterruptTask;
 
 @end
 
@@ -274,7 +274,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Description Forthcoming.
     @result     An NSString.
 */
--(NSString *)launchPath;
+- (NSString *)launchPath;
 
 /*! 
     @method     setLaunchPath:
@@ -282,7 +282,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Description Forthcoming. No consistency check is made.
     @param      a launch path.
 */
--(void)setLaunchPath:(NSString *)path;
+- (void)setLaunchPath:(NSString *)path;
 
 /*! 
     @method     arguments
@@ -290,7 +290,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Description Forthcoming.
     @result     An iTM2Controller instance.
 */
--(NSMutableArray *)arguments;
+- (NSMutableArray *)arguments;
 
 /*! 
     @method     setArguments:
@@ -298,11 +298,11 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Description Forthcoming.
     @result     An iTM2Controller instance.
 */
--(void)setArguments:(NSArray *)arguments;
+- (void)setArguments:(NSArray *)arguments;
 
--(void)addArgument:(NSString *)argument;
+- (void)addArgument:(NSString *)argument;
 
--(void)addArguments:(NSArray *)argument;
+- (void)addArguments:(NSArray *)argument;
 
 /*! 
     @method     environment
@@ -310,7 +310,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion This environment is used to launch the task.
     @result     An NSMutableDictionary instance.
 */
--(NSMutableDictionary *)environment;
+- (NSMutableDictionary *)environment;
 
 /*! 
     @method     setEnvironment:
@@ -318,7 +318,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion This basic setter does not make a clone of the argument.
     @result     An iTM2Controller instance.
 */
--(void)setEnvironment:(NSMutableDictionary *)dict;
+- (void)setEnvironment:(NSMutableDictionary *)dict;
 
 /*! 
     @method     replaceEnvironment:
@@ -326,7 +326,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion While the basic setter just replace the container, the replacer replaces the contenant.
     @param      dict is an environment dictionary.
 */
--(void)replaceEnvironment:(NSDictionary *)dict;
+- (void)replaceEnvironment:(NSDictionary *)dict;
 
 /*! 
     @method     mergeEnvironment:
@@ -334,7 +334,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion ...
     @param      dict is an environment dictionary.
 */
--(void)mergeEnvironment:(NSDictionary *)argument;
+- (void)mergeEnvironment:(NSDictionary *)argument;
 
 /*! 
     @method     currentDirectoryPath
@@ -342,7 +342,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Once the task did terminate, contains the new current directory path. Different task wrappers can share their current directory path such that a change in one of them also affect another one.
     @result     a path.
 */
--(NSString *)currentDirectoryPath;
+- (NSString *)currentDirectoryPath;
 
 /*! 
     @method     setCurrentDirectoryPath:
@@ -350,7 +350,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion If not set, the current directory path is inherited from the process context.
     @result     An iTM2Controller instance.
 */
--(void)setCurrentDirectoryPath:(NSString *)path;
+- (void)setCurrentDirectoryPath:(NSString *)path;
 
 /*! 
     @method     terminationStatus
@@ -358,7 +358,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion This is set by the controller once the task did terminate.
     @result     An iTM2Controller instance.
 */
--(int)terminationStatus;
+- (int)terminationStatus;
 
 /*! 
     @method     setTerminationStatus:
@@ -366,7 +366,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Description Forthcoming. Used by the task controller.
     @param      An integer.
 */
--(void)setTerminationStatus:(int)argument;
+- (void)setTerminationStatus:(int)argument;
 
 /*! 
     @method     taskWillLaunch:
@@ -375,7 +375,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
 				The default implementation sends its delegate the appropriate message.
     @param      the sender is the task controller.
 */
--(void)taskWillLaunch:(iTM2TaskController *)sender;
+- (void)taskWillLaunch:(iTM2TaskController *)sender;
 
 /*! 
     @method     taskDidTerminate:
@@ -384,10 +384,10 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
 				The default implementation copies relevant informations from the task.
     @param      the sender is the task controller.
 */
--(void)taskDidTerminate:(iTM2TaskController *)sender;
+- (void)taskDidTerminate:(iTM2TaskController *)sender;
 
--(void)taskInterruptIfNeeded:(iTM2TaskController *)sender;
--(BOOL)canInterruptTask;
+- (void)taskInterruptIfNeeded:(iTM2TaskController *)sender;
+- (BOOL)canInterruptTask;
 
 /*! 
     @method     delegate
@@ -395,7 +395,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Will be called if it responds to the appropriate selectors.
     @result     An id.
 */
--(id)delegate;
+- (id)delegate;
 
 /*! 
     @method     userInfo
@@ -403,7 +403,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion Used by the delegate.
     @result     Something.
 */
--(id)userInfo;
+- (id)userInfo;
 
 /*! 
     @method     setDelegate:launchCallBack:terminateCallBack:interruptCallBack:userInfo:
@@ -419,7 +419,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      userInfo is a user info to be used by the delegate. It is considered a priori to be an object. Great care should be taken to manage the retain count.
     @result     None.
 */
--(void)setDelegate:(id)argument launchCallback:(SEL)LCB terminateCallback:(SEL)TCB interruptCallback:(SEL)ICB userInfo:(id)userInfo;
+- (void)setDelegate:(id)argument launchCallback:(SEL)LCB terminateCallback:(SEL)TCB interruptCallback:(SEL)ICB userInfo:(id)userInfo;
 
 /*! 
     @method     modalStatusOfScript:output:error:
@@ -430,7 +430,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      a pointer to an error string.
     @result     the termination status of the task.
 */
-+(int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
++ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
 
 /*! 
     @method     modalStatusAndOutput:error:
@@ -441,7 +441,7 @@ Not strongly tested. Be coutious when using it.
     @param      a pointer to an error string.
     @result     the termination status of the task.
 */
--(int)modalStatusAndOutput:(NSString **)outputPtr error:(NSString **)errorPtr;
+- (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSString **)errorPtr;
 
 /*! 
     @method     setEnvironmentString:forKey:
@@ -451,7 +451,7 @@ Not strongly tested. Be coutious when using it.
     @param      key is the name of the environment variable (appearing in $key).
     @result     None.
 */
--(void)setEnvironmentString:(NSString *)argument forKey:(NSString *)key;
+- (void)setEnvironmentString:(NSString *)argument forKey:(NSString *)key;
 
 /*! 
     @method     appendPATHComponent:
@@ -460,7 +460,7 @@ Not strongly tested. Be coutious when using it.
     @param      path is the component, for example /usr/local/bin.
     @result     None.
 */
--(void)appendPATHComponent:(NSString *)path;
+- (void)appendPATHComponent:(NSString *)path;
 
 /*! 
     @method     prependPATHComponent:
@@ -469,14 +469,14 @@ Not strongly tested. Be coutious when using it.
     @param      path is the component, for example /usr/local/bin.
     @result     None.
 */
--(void)prependPATHComponent:(NSString *)path;
+- (void)prependPATHComponent:(NSString *)path;
 
 /*! 
     @method     modalStatusOfScript:output:error:
     @abstract   Abstract Forthcoming.
     @discussion Description Forthcoming.
 */
-+(int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
++ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
 
 @end
 
@@ -510,7 +510,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     yorn.
 */
--(BOOL)isDeaf;
+- (BOOL)isDeaf;
 
 /*! 
     @method     setDeaf:
@@ -519,7 +519,7 @@ Not strongly tested. Be coutious when using it.
     @param      yorn.
     @result     None.
 */
--(void)setDeaf:(BOOL)yorn;
+- (void)setDeaf:(BOOL)yorn;
 
 /*! 
     @method     isMute
@@ -529,7 +529,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     yorn.
 */
--(BOOL)isMute;
+- (BOOL)isMute;
 
 /*! 
     @method     setMute:
@@ -539,7 +539,7 @@ Not strongly tested. Be coutious when using it.
     @param      yorn.
     @result     None.
 */
--(void)setMute:(BOOL)yorn;
+- (void)setMute:(BOOL)yorn;
 
 /*! 
     @method     currentTask
@@ -547,7 +547,7 @@ Not strongly tested. Be coutious when using it.
     @discussion This is a convenient accessor, don't launch this task.
     @result     An NSTask instance.
 */
--(NSTask *)currentTask;
+- (NSTask *)currentTask;
 
 /*! 
     @method     becomeStandalone
@@ -557,7 +557,7 @@ Not strongly tested. Be coutious when using it.
 				These task controllers are owned by themselves and will be released when their last task terminates.
     @result     An NSTask instance.
 */
--(void)becomeStandalone;
+- (void)becomeStandalone;
 
 /*! 
     @method     addInspector:
@@ -568,7 +568,7 @@ Not strongly tested. Be coutious when using it.
     @param      An inspector.
     @result     None.
 */
--(void)addInspector:(id <iTM2TaskInspector>)argument;
+- (void)addInspector:(id <iTM2TaskInspector>)argument;
 
 /*! 
     @method     removeInspector:
@@ -577,7 +577,7 @@ Not strongly tested. Be coutious when using it.
     @param      An inspector.
     @result     None.
 */
--(void)removeInspector:(id <iTM2TaskInspector>)argument;
+- (void)removeInspector:(id <iTM2TaskInspector>)argument;
 
 /*! 
     @method     inspectorsEnumerator
@@ -586,7 +586,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     An NSEnumerator.
 */
--(NSEnumerator *)inspectorsEnumerator;
+- (NSEnumerator *)inspectorsEnumerator;
 
 /*! 
     @method     addTaskWrapper:
@@ -595,7 +595,7 @@ Not strongly tested. Be coutious when using it.
     @param      An iTM2TaskWrapper instance.
     @result     None.
 */
--(void)addTaskWrapper:(id <iTM2TaskWrapper>)argument;
+- (void)addTaskWrapper:(id <iTM2TaskWrapper>)argument;
 
 /*! 
     @method     restartWithTaskWrapper:
@@ -604,7 +604,7 @@ Not strongly tested. Be coutious when using it.
     @param      An iTM2TaskWrapper instance.
     @result     None.
 */
--(void)restartWithTaskWrapper:(iTM2TaskWrapper *)argument;
+- (void)restartWithTaskWrapper:(iTM2TaskWrapper *)argument;
 
 /*! 
     @method     removeTaskWrapper:
@@ -613,7 +613,7 @@ Not strongly tested. Be coutious when using it.
     @param      An iTM2TaskWrapper instance.
     @result     None.
 */
--(void)removeTaskWrapper:(id <iTM2TaskWrapper>)argument;
+- (void)removeTaskWrapper:(id <iTM2TaskWrapper>)argument;
 
 /*! 
     @method     start
@@ -622,7 +622,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     None.
 */
--(void)start;
+- (void)start;
 
 /*! 
     @method     stop
@@ -631,7 +631,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     None.
 */
--(void)stop;
+- (void)stop;
 
 /*! 
     @method     flush
@@ -640,7 +640,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     None.
 */
--(void)flush;
+- (void)flush;
 
 /*! 
     @method     output
@@ -649,7 +649,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     the output
 */
--(NSString *)output;
+- (NSString *)output;
 
 /*! 
     @method     custom
@@ -659,7 +659,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     the tuptuo
 */
--(NSString *)custom;
+- (NSString *)custom;
 
 /*! 
     @method     error
@@ -668,7 +668,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     the output
 */
--(NSString *)error;
+- (NSString *)error;
 
 /*! 
     @method     clean
@@ -677,7 +677,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     None
 */
--(void)clean;
+- (void)clean;
 
 /*! 
     @method     waitUntilExit
@@ -686,7 +686,7 @@ Not strongly tested. Be coutious when using it.
     @param      None.
     @result     None
 */
--(void)waitUntilExit;
+- (void)waitUntilExit;
 
 /*! 
     @method     execute:
@@ -695,7 +695,7 @@ Not strongly tested. Be coutious when using it.
     @param      the input.
     @result     None
 */
--(void)execute:(NSString *)aCommand;
+- (void)execute:(NSString *)aCommand;
 
 /*! 
     @method     executeAppleScript:
@@ -714,15 +714,15 @@ Not strongly tested. Be coutious when using it.
     @param      the source script.
     @result     None
 */
--(void)executeAppleScript:(NSString *)source;
+- (void)executeAppleScript:(NSString *)source;
 
 @end
 
 @interface iTM2TaskControllerResponder: iTM2AutoInstallResponder
 
--(IBAction)toggleTaskControllerDeaf:(id)sender;
+- (IBAction)toggleTaskControllerDeaf:(id)sender;
 
--(IBAction)toggleTaskControllerMute:(id)sender;
+- (IBAction)toggleTaskControllerMute:(id)sender;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TaskKit

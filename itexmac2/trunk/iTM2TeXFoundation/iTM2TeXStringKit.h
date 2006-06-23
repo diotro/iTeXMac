@@ -27,21 +27,21 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 
 @interface NSString(iTM2TeXKit)
 /*"Main methods"*/
-+(unichar)backslashCharacter;
-+(unichar)commentCharacter;
-+(unichar)bgroupCharacter;
-+(unichar)egroupCharacter;
-+(NSString *)backslashString;
-+(NSString *)commentString;
-+(NSString *)bgroupString;
-+(NSString *)egroupString;
--(void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
--(BOOL)isTeXCommentAtIndex:(unsigned)index;
--(BOOL)isControlAtIndex:(unsigned)index escaped:(BOOL *)aFlagPtr;
--(NSRange)groupRangeAtIndex:(unsigned)index;
--(NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
--(NSRange)groupRangeForRange:(NSRange)range;
--(NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
++ (unichar)backslashCharacter;
++ (unichar)commentCharacter;
++ (unichar)bgroupCharacter;
++ (unichar)egroupCharacter;
++ (NSString *)backslashString;
++ (NSString *)commentString;
++ (NSString *)bgroupString;
++ (NSString *)egroupString;
+- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
+- (BOOL)isTeXCommentAtIndex:(unsigned)index;
+- (BOOL)isControlAtIndex:(unsigned)index escaped:(BOOL *)aFlagPtr;
+- (NSRange)groupRangeAtIndex:(unsigned)index;
+- (NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
+- (NSRange)groupRangeForRange:(NSRange)range;
+- (NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 /*!
     @method     TeXAwareDoubleClick:atIndex:
     @abstract   A TeX Aware doubleClickAtIndex: like method
@@ -51,8 +51,8 @@ extern NSString * const iTM2UDTabAnchorStringKey;
     @param		index is the character index where the click occurred
 	@result		None
 */
-+(NSRange)TeXAwareDoubleClick:(NSString *)string atIndex:(unsigned)index;
-+(NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
++ (NSRange)TeXAwareDoubleClick:(NSString *)string atIndex:(unsigned)index;
++ (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
 
 /*!
     @method     getWordBefore:here:after:atIndex:
@@ -62,7 +62,7 @@ extern NSString * const iTM2UDTabAnchorStringKey;
     @param		index is the character index where the click occurred
 	@result		The character index in the word here of the very character indexed by index in the receiver.
 */
--(unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)index;
+- (unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)index;
 
 @end
 

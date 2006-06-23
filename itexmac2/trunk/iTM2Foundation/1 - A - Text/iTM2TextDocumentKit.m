@@ -46,7 +46,7 @@ NSString * const iTM2TextViewsDontUseStandardFindPanelKey = @"iTM2TextViewsDontU
 
 @implementation iTM2TextDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -62,7 +62,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -73,7 +73,7 @@ To Do List:
     return iTM2TextInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayLine:column:withHint:orderFront:
--(BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -107,7 +107,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:forHint:
--(unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
+- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -500,7 +500,7 @@ match12345:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:forHint:
--(unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
+- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -971,7 +971,7 @@ match12345:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canAutoSave
--(BOOL)canAutoSave;
+- (BOOL)canAutoSave;
 /*"Returns YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1: 05/04/2002
@@ -983,7 +983,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=  MODEL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringRepresentation
--(NSString *)stringRepresentation;
+- (NSString *)stringRepresentation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -994,7 +994,7 @@ To Do List:
     return [[self stringFormatter] stringWithData:[self dataRepresentation]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringRepresentation:
--(void)setStringRepresentation:(NSString *)argument;
+- (void)setStringRepresentation:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1098,7 +1098,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage
--(id)textStorage;
+- (id)textStorage;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1110,7 +1110,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=  PRINTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= printDocument:
--(void)printDocument:(id)aSender;
+- (void)printDocument:(id)aSender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/17/2001)
 - 2 : Wed Oct 01 2003
@@ -1136,7 +1136,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateChangeCount:
--(void)updateChangeCount:(NSDocumentChangeType)change;
+- (void)updateChangeCount:(NSDocumentChangeType)change;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/17/2001)
 - 2 : Wed Oct 01 2003
@@ -1150,7 +1150,7 @@ To Do List: ...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validatePrintDocument:
--(BOOL)validatePrintDocument:(id)sender;
+- (BOOL)validatePrintDocument:(id)sender;
 /*"Replaces old stuff which had absolutely no cocoa flavour.
 Version history: jlaurens AT users DOT sourceforge DOT net (08/29/2001):
 - < 1.1: 03/10/2002
@@ -1161,7 +1161,7 @@ To Do List: implement other actions
     return [[[[[self frontWindow] windowController] textView] string] length]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateRevertDocumentToSaved:
--(BOOL)validateRevertDocumentToSaved:(id)sender;
+- (BOOL)validateRevertDocumentToSaved:(id)sender;
 /*"Replaces old stuff which had absolutely no cocoa flavour.
 Version history: jlaurens AT users DOT sourceforge DOT net (08/29/2001):
 - < 1.1: 03/10/2002
@@ -1173,7 +1173,7 @@ To Do List: implement other actions
 }
 #pragma mark =-=-=-=-=-  CODESET & EOL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringFormatter
--(id)stringFormatter;
+- (id)stringFormatter;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1190,7 +1190,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringFormatter:
--(void)setStringFormatter:(id)argument;
+- (void)setStringFormatter:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1202,7 +1202,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOL
--(unsigned int)EOL;
+- (unsigned int)EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1213,7 +1213,7 @@ To Do List:
     return [[self stringFormatter] EOL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
--(void)setEOL:(unsigned int)argument;
+- (void)setEOL:(unsigned int)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1232,7 +1232,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
--(NSStringEncoding)stringEncoding;
+- (NSStringEncoding)stringEncoding;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1243,7 +1243,7 @@ To Do List:
     return [[self stringFormatter] stringEncoding];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
--(void)setStringEncoding:(NSStringEncoding)argument;
+- (void)setStringEncoding:(NSStringEncoding)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1263,7 +1263,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isStringEncodingHardCoded
--(BOOL)isStringEncodingHardCoded;
+- (BOOL)isStringEncodingHardCoded;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1275,7 +1275,7 @@ To Do List:
 }
 #warning THE STRING ENCODING MUST BE REVISITED WITH LATEST CODE...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:
--(void)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)stringEncoding;
+- (void)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)stringEncoding;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
 To do list: ASK!!!
@@ -1287,7 +1287,7 @@ To do list: ASK!!!
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:
--(void)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)stringEncoding;
+- (void)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)stringEncoding;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
 To do list: ASK!!!
@@ -1321,7 +1321,7 @@ To do list: ASK!!!
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertWithStringEncodingSheetDidDismiss:returnCode:contextInfo:
--(void)revertWithStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo;
+- (void)revertWithStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
 To do list: ASK!!!
@@ -1334,7 +1334,7 @@ To do list: ASK!!!
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
--(BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1352,14 +1352,14 @@ To Do List:
 @end
 
 @interface iTM2TextInspector(PRIVATE)
--(void)recordCurrentContext;
+- (void)recordCurrentContext;
 @end
 
 #import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
 
 @implementation iTM2TextInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1370,7 +1370,7 @@ To Do List:
     return iTM2TextInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1381,7 +1381,7 @@ To Do List:
     return iTM2DefaultInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1394,7 +1394,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupTextEditorsForView:
--(void)setupTextEditorsForView:(id)view;
+- (void)setupTextEditorsForView:(id)view;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1432,7 +1432,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupTextEditorScrollers
--(void)setupTextEditorScrollers;
+- (void)setupTextEditorScrollers;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1577,7 +1577,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
--(void)windowDidLoad;
+- (void)windowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1608,7 +1608,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowFrameIdentifier
--(NSString *)windowFrameIdentifier;
+- (NSString *)windowFrameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -1619,7 +1619,7 @@ To Do List:
     return @"Text Window";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
--(BOOL)windowPositionShouldBeObserved;
+- (BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -1630,7 +1630,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeDocument
--(void)synchronizeDocument;
+- (void)synchronizeDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1643,7 +1643,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument
--(void)synchronizeWithDocument;
+- (void)synchronizeWithDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1664,7 +1664,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-= SETTERS/GETTERS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyTextStorage
--(id)lazyTextStorage;
+- (id)lazyTextStorage;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1675,7 +1675,7 @@ To Do List:
     return [[[NSTextStorage allocWithZone:[self zone]] init] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage
--(id)textStorage;
+- (id)textStorage;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1693,7 +1693,7 @@ To Do List:
     return TS;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTextStorage:
--(void)setTextStorage:(id)argument;
+- (void)setTextStorage:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1710,7 +1710,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringRepresentation:
--(void)setStringRepresentation:(NSString *)argument;
+- (void)setStringRepresentation:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1722,7 +1722,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textEditors
--(id)textEditors;
+- (id)textEditors;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1739,7 +1739,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textView
--(id)textView;
+- (id)textView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1765,7 +1765,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  CONTEXT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textInspectorCompleteLoadContext:
--(void)textInspectorCompleteLoadContext:(id)sender;
+- (void)textInspectorCompleteLoadContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1782,7 +1782,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textInspectorCompleteSaveContext:
--(void)textInspectorCompleteSaveContext:(id)sender;
+- (void)textInspectorCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1814,7 +1814,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  MISC
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  breakTypingFlow
--(void)breakTypingFlow;
+- (void)breakTypingFlow;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1826,7 +1826,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:column:
--(void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column;
+- (void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1839,7 +1839,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  CODESET
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOL
--(unsigned int)EOL;
+- (unsigned int)EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1850,7 +1850,7 @@ To Do List:
     return [[self document] EOL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
--(void)setEOL:(unsigned int)argument;
+- (void)setEOL:(unsigned int)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1862,7 +1862,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
--(NSStringEncoding)stringEncoding;
+- (NSStringEncoding)stringEncoding;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1873,7 +1873,7 @@ To Do List:
     return [[self document] stringEncoding];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
--(void)setStringEncoding:(NSStringEncoding)argument;
+- (void)setStringEncoding:(NSStringEncoding)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1902,7 +1902,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isStringEncodingHardCoded
--(BOOL)isStringEncodingHardCoded;
+- (BOOL)isStringEncodingHardCoded;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1913,7 +1913,7 @@ To Do List:
     return [[self document] isStringEncodingHardCoded];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newStringEncodingSheetDidDismiss:returnCode:contextInfo:
--(void)newStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSNumber *)stringEncodingInfo;
+- (void)newStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSNumber *)stringEncodingInfo;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1950,7 +1950,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newStringEncodingProblemSheetDidDismiss:returnCode:contextInfo:
--(void)newStringEncodingProblemSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSNumber *)stringEncodingInfo;
+- (void)newStringEncodingProblemSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSNumber *)stringEncodingInfo;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2032,7 +2032,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  KEY BINDINGS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
--(NSString *)keyBindingsManagerIdentifier;
+- (NSString *)keyBindingsManagerIdentifier;
 /*"Just to autorelease the window controller of the window.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2043,7 +2043,7 @@ To Do List:
     return iTM2TextKeyBindingsIdentifier;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
--(BOOL)handlesKeyBindings;
+- (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2054,7 +2054,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -2067,7 +2067,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  AUTO SPLIT VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splittableEnclosingViewForView:vertical:
--(NSView *)splittableEnclosingViewForView:(NSView *)view vertical:(BOOL)yorn;
+- (NSView *)splittableEnclosingViewForView:(NSView *)view vertical:(BOOL)yorn;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -2094,7 +2094,7 @@ To Do List:
 	return [super splittableEnclosingViewForView:view vertical:yorn];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unsplittableEnclosingViewForView:
--(NSView *)unsplittableEnclosingViewForView:(NSView *)view;
+- (NSView *)unsplittableEnclosingViewForView:(NSView *)view;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -2122,7 +2122,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  duplicateViewForSplitting:vertical:
--(NSView *)duplicateViewForSplitting:(NSView *)view vertical:(BOOL)yorn;
+- (NSView *)duplicateViewForSplitting:(NSView *)view vertical:(BOOL)yorn;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -2139,7 +2139,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didAddSplittingView:
--(void)didAddSplittingView:(NSView *)view;
+- (void)didAddSplittingView:(NSView *)view;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -2155,7 +2155,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didRemoveSplittingView:
--(void)didRemoveSplittingView:(NSView *)view;
+- (void)didRemoveSplittingView:(NSView *)view;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -2186,7 +2186,7 @@ To Do List:
 @implementation iTM2TextDocument(Scripting)
 #warning IS THIS SOMETHING I CAN REMOVE? SCRIPTING IS ALSO LIVING SOMEWHERE ELSE ISN T IT?
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  textViewDidChangeSelection:
--(void)textViewDidChangeSelection:(NSNotification *)argument;
+- (void)textViewDidChangeSelection:(NSNotification *)argument;
 /*"The focus selection is like the selection but it is meant to be used by Apple Scripts only.
 It is useful because the document may have many text views for just on etext storage.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2203,7 +2203,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  handleInsertScriptCommand:
--(id)handleInsertScriptCommand:(NSScriptCommand *)command;
+- (id)handleInsertScriptCommand:(NSScriptCommand *)command;
 /*"The focus selection is like the selection but it is meant to be used by Apple Scripts only.
 It is useful because the document may have many text views for just one text storage.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2239,7 +2239,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  replaceCharactersInRange:withString:
--(void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
+- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
 /*"Soft exception is raised (logged message...) when the operation could not complete.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -2271,7 +2271,7 @@ To Do List:
 
 @implementation iTM2TextEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromContext
--(void)awakeFromContext;
+- (void)awakeFromContext;
 /*Description Forthcomping.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -2291,7 +2291,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollTaggedToVisible:
--(void)scrollTaggedToVisible:(id <NSMenuItem>)sender;
+- (void)scrollTaggedToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -2311,7 +2311,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollTaggedAndRepresentedStringToVisible:
--(void)scrollTaggedAndRepresentedStringToVisible:(id <NSMenuItem>)sender;
+- (void)scrollTaggedAndRepresentedStringToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002

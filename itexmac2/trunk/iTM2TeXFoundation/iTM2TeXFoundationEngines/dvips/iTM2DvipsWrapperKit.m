@@ -98,15 +98,15 @@ NSString * const iTM2Dvips_USE_more_arguments = @"iTM2_dvips_USE_more_arguments"
 NSString * const iTM2Dvips_more_arguments = @"iTM2_dvips_more_arguments";
 
 @interface iTM2EngineDvips(PRIVATE)
--(id)paperWidthUnitModel;
--(BOOL)usePaper;
--(BOOL)customPaper;
--(void)setCustomPaper:(BOOL)argument;
--(void)setUsePaper:(BOOL)argument;
+- (id)paperWidthUnitModel;
+- (BOOL)usePaper;
+- (BOOL)customPaper;
+- (void)setCustomPaper:(BOOL)argument;
+- (void)setUsePaper:(BOOL)argument;
 @end
 @implementation iTM2EngineDvips
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
-+(NSString *)engineMode;
++ (NSString *)engineMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -117,7 +117,7 @@ To Do List:
     return @"iTM2_Engine_dvips";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
-+(NSArray *)inputFileExtensions;
++ (NSArray *)inputFileExtensions;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -128,7 +128,7 @@ To Do List:
     return [NSArray arrayWithObject:@"dvi"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+(NSDictionary *)defaultShellEnvironment;
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -203,17 +203,17 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  COPIES
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
--(BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
--(void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
+- (BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
+- (void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
--(id)GETTER;{return [self modelValueForKey:KEY];}\
--(void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
+- (id)GETTER;{return [self modelValueForKey:KEY];}\
+- (void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
--(float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
--(void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
+- (float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
+- (void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
 #define MODEL_INT(GETTER, SETTER, KEY)\
--(int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
--(void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
+- (int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
+- (void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
 MODEL_BOOL(duplicatePageBody, setDuplicatePageBody, iTM2Dvips_duplicate_page_body);
 MODEL_BOOL(collatedCopies, setCollatedCopies, iTM2Dvips_collated_copies);
 MODEL_BOOL(multipleCopies, setMultipleCopies, iTM2Dvips_multiple_copies);
@@ -222,7 +222,7 @@ MODEL_BOOL(physicalPage, setPhysicalPage, iTM2Dvips_physical_pages);
 MODEL_BOOL(evenTeXPages, setEvenTeXPages, iTM2Dvips_even_TeX_pages);
 MODEL_BOOL(oddTeXPages, setOddTeXPages, iTM2Dvips_odd_TeX_pages);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXPageMode
--(int)TeXPageMode;
+- (int)TeXPageMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -245,7 +245,7 @@ To Do List:
 		return 3;// custom
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXPageMode:
--(void)setTeXPageMode:(int)argument;
+- (void)setTeXPageMode:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -266,7 +266,7 @@ To Do List:
 MODEL_INT(lastPage, setLastPage, iTM2Dvips_last_page);
 MODEL_INT(firstPage, setFirstPage, iTM2Dvips_first_page);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  usePageRange
--(BOOL)usePageRange;
+- (BOOL)usePageRange;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -287,7 +287,7 @@ MODEL_OBJECT(xOffsetUnitModel, setXOffsetUnitModel, iTM2Dvips_x_offset_unit);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvips_y_offset);
 MODEL_OBJECT(yOffsetUnitModel, setYOffsetUnitModel, iTM2Dvips_y_offset_unit);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  xOffsetUnit
--(int)xOffsetUnit;
+- (int)xOffsetUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -307,7 +307,7 @@ To Do List:
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setXOffsetUnit:
--(void)setXOffsetUnit:(int)argument;
+- (void)setXOffsetUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -326,7 +326,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  yOffsetUnit
--(int)yOffsetUnit;
+- (int)yOffsetUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -346,7 +346,7 @@ To Do List:
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setYOffsetUnit:
--(void)setYOffsetUnit:(int)argument;
+- (void)setYOffsetUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -367,10 +367,10 @@ To Do List:
 MODEL_BOOL(landscape, setLandscape, iTM2Dvips_landscape);
 MODEL_BOOL(useMagnification, setUseMagnification, iTM2Dvips_USE_magnification);
 MODEL_BOOL(bothMagnifications, setBothMagnifications, iTM2Dvips_both_magnifications);
--(float)xMagnification;{return [[self modelValueForKey:iTM2Dvips_x_magnification] floatValue]/10.0;}
--(void)setXMagnification:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument*10] forKey:iTM2Dvips_x_magnification];return;}
--(float)yMagnification;{return [[self modelValueForKey:iTM2Dvips_y_magnification] floatValue]/10.0;}\
--(void)setYMagnification:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument*10] forKey:iTM2Dvips_y_magnification];return;}
+- (float)xMagnification;{return [[self modelValueForKey:iTM2Dvips_x_magnification] floatValue]/10.0;}
+- (void)setXMagnification:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument*10] forKey:iTM2Dvips_x_magnification];return;}
+- (float)yMagnification;{return [[self modelValueForKey:iTM2Dvips_y_magnification] floatValue]/10.0;}\
+- (void)setYMagnification:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument*10] forKey:iTM2Dvips_y_magnification];return;}
 MODEL_BOOL(usePaper, setUsePaper, iTM2Dvips_USE_paper);
 MODEL_OBJECT(paper, setPaper, iTM2Dvips_paper);
 MODEL_BOOL(customPaper, setCustomPaper, iTM2Dvips_custom_paper);
@@ -379,7 +379,7 @@ MODEL_OBJECT(paperWidthUnitModel, setPaperWidthUnitModel, iTM2Dvips_paper_width_
 MODEL_FLOAT(paperHeight, setPaperHeight, iTM2Dvips_paper_height);
 MODEL_OBJECT(paperHeightUnitModel, setPaperHeightUnitModel, iTM2Dvips_paper_height_unit);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paperType
--(int)paperType;
+- (int)paperType;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -390,7 +390,7 @@ To Do List:
     return [self usePaper]? 1: ([self customPaper]?2: 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPaperType:
--(void)setPaperType:(int)argument;
+- (void)setPaperType:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -408,7 +408,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paperWidthUnit
--(int)paperWidthUnit;
+- (int)paperWidthUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -428,7 +428,7 @@ To Do List:
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPaperWidthUnit:
--(void)setPaperWidthUnit:(int)argument;
+- (void)setPaperWidthUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -447,7 +447,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paperHeightUnit
--(int)paperHeightUnit;
+- (int)paperHeightUnit;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -467,7 +467,7 @@ To Do List:
     return 2;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPaperHeightUnit:
--(void)setPaperHeightUnit:(int)argument;
+- (void)setPaperHeightUnit:(int)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -525,7 +525,7 @@ MODEL_OBJECT(moreArguments, setMoreArguments, iTM2Dvips_more_arguments);
 
 @implementation iTM2MainInstaller(dvipdfm)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DvipsCompleteInstallation
-+(void)iTM2DvipsCompleteInstallation;
++ (void)iTM2DvipsCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004

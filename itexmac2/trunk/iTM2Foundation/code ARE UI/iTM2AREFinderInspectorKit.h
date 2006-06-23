@@ -87,7 +87,7 @@ typedef enum
 @discussion Description Forthcoming.
 @result The shared instance.
 */
-+(id)sharedInspector;
++ (id)sharedInspector;
 
 /*!
 @method allRanges
@@ -95,7 +95,7 @@ typedef enum
 @discussion Lazy intializer, the nib name is the class name.
 @result A standard NSArray.
 */
--(NSArray *)allRanges;
+- (NSArray *)allRanges;
 
 /*!
 @method setAllRanges:
@@ -103,7 +103,7 @@ typedef enum
 @discussion Description Forthcoming.
 @param No consistency chack except for the class.
 */
--(void)setAllRanges:(NSArray *)argument;
+- (void)setAllRanges:(NSArray *)argument;
 
 /*!
 @method tagAllRanges:
@@ -111,7 +111,7 @@ typedef enum
 @discussion For each array of ranges, the -tagRanges:highlight: is used unhighlighted.
 @param An array of array of range values, corresponding to all the occurrences of a regexp.
 */
--(void)tagAllRanges:(NSArray *)ranges;
+- (void)tagAllRanges:(NSArray *)ranges;
 
 /*!
 @method find:
@@ -119,7 +119,7 @@ typedef enum
 @discussion Description Forthcoming.
 @param irrelevant sender.
 */
--(void)find:(id)sender;
+- (void)find:(id)sender;
 
 @end
 
@@ -137,7 +137,7 @@ typedef enum
 @discussion Description Forthcoming.
 @param irrelevant sender.
 */
--(void)showAREFindPanel:(id)sender;
+- (void)showAREFindPanel:(id)sender;
 
 @end
 
@@ -161,7 +161,7 @@ typedef enum
 @param flags is the options of an actual iTM2AREFinderInspector instance.
 @result An initialized instance.
 */
--(id)initWithOptions:(int)flags;
+- (id)initWithOptions:(int)flags;
 
 /*!
 @method optionsByRunningModalConfigurationSheetForWindow:
@@ -170,7 +170,7 @@ typedef enum
 @param window is the window from which the sheet will appear.
 @result New options can be unchanged...
 */
--(int)optionsByRunningModalConfigurationSheetForWindow:(NSWindow *)window;
+- (int)optionsByRunningModalConfigurationSheetForWindow:(NSWindow *)window;
 
 @end
 
@@ -186,14 +186,14 @@ typedef enum
 @abstract Description Forthcoming.
 @discussion Description Forthcoming.
  */
--(void)setUpMenu;
+- (void)setUpMenu;
 
 /*!
 @method :
 @abstract Description Forthcoming.
 @discussion Description Forthcoming.
  */
--(NSString *)resourceName;
+- (NSString *)resourceName;
 
 /*!
 @method setAction:
@@ -204,7 +204,7 @@ The actual selector is replaced by -noop: for user interface validation, the tar
 //NSLog for details.
 @param an irrelevant selector.
  */
--(void)setAction:(SEL)aSelector;
+- (void)setAction:(SEL)aSelector;
 
 @end
 

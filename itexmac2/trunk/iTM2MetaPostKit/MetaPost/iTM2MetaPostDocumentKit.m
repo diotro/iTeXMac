@@ -31,27 +31,27 @@ NSString * const iTM2MetaPostInspectorType = @"MetaPost Type";
 NSString * const iTM2MetaPostInspectorMode = @"MetaPost Mode";
 
 @interface NSString(__MetaPostOutputFileNames)
--(NSComparisonResult)iTM2_compareAs__MetaPostOutputFileNames:(NSString *)fileName;
+- (NSComparisonResult)iTM2_compareAs__MetaPostOutputFileNames:(NSString *)fileName;
 @end
 
 @interface iTM2MetaPostDocument(PRIVATE)
--(NSArray *)forwardingTargets;
+- (NSArray *)forwardingTargets;
 @end
 
 @interface iTM2MetaPostInspector(PRIVATE)
--(void)updateThumbnailTable;
--(NSMutableArray *)PDFThumbnails;
--(void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
--(void)synchronizePDFViewWithDocument;
--(iTM2ToolMode)toolMode;
--(void)setToolMode:(iTM2ToolMode)argument;
--(id)scaleAndPageTarget;
--(void)setScaleAndPageTarget:(id)argument;
+- (void)updateThumbnailTable;
+- (NSMutableArray *)PDFThumbnails;
+- (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
+- (void)synchronizePDFViewWithDocument;
+- (iTM2ToolMode)toolMode;
+- (void)setToolMode:(iTM2ToolMode)argument;
+- (id)scaleAndPageTarget;
+- (void)setScaleAndPageTarget:(id)argument;
 @end
 
 @implementation iTM2MetaPostDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -63,7 +63,7 @@ To Do List:
     return iTM2MetaPostInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocuments
--(NSMutableDictionary *)PDFDocuments;
+- (NSMutableDictionary *)PDFDocuments;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -81,7 +81,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedPDFDocumentFileNames
--(NSArray *)orderedPDFDocumentFileNames;
+- (NSArray *)orderedPDFDocumentFileNames;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -99,7 +99,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addPDFDocumentFileName:
--(void)addPDFDocumentFileName:(NSString *)argument;
+- (void)addPDFDocumentFileName:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -118,7 +118,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removePDFDocumentFileName:
--(void)removePDFDocumentFileName:(NSString *)argument;
+- (void)removePDFDocumentFileName:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -138,7 +138,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFKitDocumentForFileName:
--(id)PDFKitDocumentForFileName:(NSString *)argument;
+- (id)PDFKitDocumentForFileName:(NSString *)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -163,7 +163,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentsCompleteReadFromFile:ofType:
--(BOOL)PDFDocumentsCompleteReadFromFile:(NSString *)fileName ofType:(NSString *)type;
+- (BOOL)PDFDocumentsCompleteReadFromFile:(NSString *)fileName ofType:(NSString *)type;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -232,7 +232,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  UPDATING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
--(void)updateIfNeeded;
+- (void)updateIfNeeded;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -267,7 +267,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  FORWARDING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forwardingTargets
--(NSArray *)forwardingTargets;
+- (NSArray *)forwardingTargets;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -286,7 +286,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forwardInvocation:
--(void)forwardInvocation:(NSInvocation *)anInvocation;
+- (void)forwardInvocation:(NSInvocation *)anInvocation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -310,7 +310,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  methodSignatureForSelector:
--(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector;
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -332,15 +332,15 @@ To Do List:
 @end
 
 @interface iTM2PDFKitDocument(MetaPost)
--(NSNumber *)metaPostViewScaleNumber;
--(void)setMetaPostViewScaleNumber:(NSNumber *)factor;
--(NSPoint)metaPostViewFocus;
--(void)setMetaPostViewFocus:(NSPoint)point;
+- (NSNumber *)metaPostViewScaleNumber;
+- (void)setMetaPostViewScaleNumber:(NSNumber *)factor;
+- (NSPoint)metaPostViewFocus;
+- (void)setMetaPostViewFocus:(NSPoint)point;
 @end
 
 @implementation iTM2PDFKitDocument(MetaPost)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaPostViewScaleNumber
--(NSNumber *)metaPostViewScaleNumber;
+- (NSNumber *)metaPostViewScaleNumber;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -352,7 +352,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMetaPostViewScaleNumber:
--(void)setMetaPostViewScaleNumber:(NSNumber *)factor;
+- (void)setMetaPostViewScaleNumber:(NSNumber *)factor;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -365,7 +365,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaPostViewFocus
--(NSPoint)metaPostViewFocus;
+- (NSPoint)metaPostViewFocus;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -377,7 +377,7 @@ To Do List:
     return NSMakePoint(0, 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMetaPostViewFocus:
--(void)setMetaPostViewFocus:(NSPoint)point;
+- (void)setMetaPostViewFocus:(NSPoint)point;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -392,7 +392,7 @@ To Do List:
 
 @implementation NSString(__MetaPostOutputFileNames)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_compareAs__MetaPostOutputFileNames:
--(NSComparisonResult)iTM2_compareAs__MetaPostOutputFileNames:(NSString *)fileName;
+- (NSComparisonResult)iTM2_compareAs__MetaPostOutputFileNames:(NSString *)fileName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -425,7 +425,7 @@ To Do List:
 
 @implementation iTM2MetaPostInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -436,7 +436,7 @@ To Do List:
     return iTM2MetaPostInspectorType;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -448,7 +448,7 @@ To Do List:
     return iTM2DefaultInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaPostCompleteWindowDidLoad
--(void)metaPostCompleteWindowDidLoad;
+- (void)metaPostCompleteWindowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -466,7 +466,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDrawer:
--(IBAction)toggleDrawer:(id)sender;
+- (IBAction)toggleDrawer:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -479,7 +479,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputFigureNumbers
--(NSArray *)outputFigureNumbers;
+- (NSArray *)outputFigureNumbers;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -519,7 +519,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOutputFigureNumbers:
--(void)setOutputFigureNumbers:(id)argument;
+- (void)setOutputFigureNumbers:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -532,7 +532,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentOutputFigure
--(id)currentOutputFigure;
+- (id)currentOutputFigure;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -544,7 +544,7 @@ To Do List:
     return metaGETTER?: [[[self outputFigureNumbers] objectEnumerator] nextObject];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCurrentOutputFigure:
--(void)setCurrentOutputFigure:(id)argument;
+- (void)setCurrentOutputFigure:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -580,7 +580,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentPDFKitDocument
--(id)currentPDFKitDocument;
+- (id)currentPDFKitDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -599,7 +599,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logarithmScaleFactor
--(float)logarithmScaleFactor;
+- (float)logarithmScaleFactor;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -610,7 +610,7 @@ To Do List:
     return 2*log2f(MAX(0, [_pdfView scaleFactor]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setLogarithmScaleFactor:
--(void)setLogarithmScaleFactor:(float)argument;
+- (void)setLogarithmScaleFactor:(float)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -626,7 +626,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewScaleChangedNotified:
--(void)PDFViewScaleChangedNotified:(NSNotification *)notification;
+- (void)PDFViewScaleChangedNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -640,7 +640,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument [NSLayoutManager
--(void)synchronizeWithDocument;
+- (void)synchronizeWithDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -653,7 +653,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizePDFViewWithDocument
--(void)synchronizePDFViewWithDocument;
+- (void)synchronizePDFViewWithDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -669,7 +669,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerDidOpen:
--(void)drawerDidOpen:(NSNotification *)notification;
+- (void)drawerDidOpen:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -683,7 +683,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  SPLITVIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splitView:canCollapseSubview:
--(BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview
+- (BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -694,7 +694,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splitView:constrainMinCoordinate:ofSubviewAt:
--(float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset
+- (float)splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -705,7 +705,7 @@ To Do List:
     return proposedMin+50;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  splitView:constrainMaxCoordinate:ofSubviewAt:
--(float)splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset
+- (float)splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -717,7 +717,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  TABLE VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFThumbnails
--(NSMutableArray *)PDFThumbnails;
+- (NSMutableArray *)PDFThumbnails;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -735,7 +735,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateThumbnailTable
--(void)updateThumbnailTable;
+- (void)updateThumbnailTable;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -754,7 +754,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
--(int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -766,7 +766,7 @@ To Do List:
     return [[self PDFThumbnails] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
--(id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)theColumn row:(int)rowIndex;
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)theColumn row:(int)rowIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -793,7 +793,7 @@ To Do List:
 static NSMutableDictionary * _iTM2MetaPostRenderInBackgroundThumbnails = nil;
 static BOOL _iTM2MetaPostThreadedRenderInBackgroundThumbnails = NO;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  renderInBackroundThumbnailAtIndex:
--(void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
+- (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -830,7 +830,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  detachedRenderThumbnailsInBackground:
-+(void)detachedRenderThumbnailsInBackground:(id)irrelevant;
++ (void)detachedRenderThumbnailsInBackground:(id)irrelevant;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -960,7 +960,7 @@ loop:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
--(void)tableViewSelectionDidChange:(NSNotification *)notification;
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -981,7 +981,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  thumbnailTableAction:
--(IBAction)thumbnailTableAction:(id)sender;
+- (IBAction)thumbnailTableAction:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -993,7 +993,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  thumbnailTableDoubleAction:
--(IBAction)thumbnailTableDoubleAction:(id)sender;
+- (IBAction)thumbnailTableDoubleAction:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1014,7 +1014,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  FORWARDING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forwardingTargets
--(NSArray *)forwardingTargets;
+- (NSArray *)forwardingTargets;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1034,7 +1034,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  respondsToSelector:
--(BOOL)respondsToSelector:(SEL)aSelector;
+- (BOOL)respondsToSelector:(SEL)aSelector;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1053,7 +1053,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forwardInvocation:
--(void)forwardInvocation:(NSInvocation *)anInvocation;
+- (void)forwardInvocation:(NSInvocation *)anInvocation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1077,7 +1077,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  methodSignatureForSelector:
--(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector;
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1100,7 +1100,7 @@ To Do List:
 
 @implementation iTM2MetaPostWindow
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeFirstResponder:
--(BOOL)makeFirstResponder:(NSResponder *)aResponder;
+- (BOOL)makeFirstResponder:(NSResponder *)aResponder;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -1120,7 +1120,7 @@ To Do List:
 
 @implementation iTM2MetaPostEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomIn:
--(IBAction)zoomIn:(id)sender;
+- (IBAction)zoomIn:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -1133,7 +1133,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomOut:
--(IBAction)zoomOut:(id)sender;
+- (IBAction)zoomOut:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -1149,7 +1149,7 @@ To Do List:
 
 @implementation NSTextView(iTM2MetaPostKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollMetaPostFigureToVisible:
--(void)highlightAndScrollMetaPostFigureToVisible:(int)figure;
+- (void)highlightAndScrollMetaPostFigureToVisible:(int)figure;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -1191,7 +1191,7 @@ nextFigure:
 
 @implementation iTM2MetaPostPDFView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
--(NSString *)keyBindingsManagerIdentifier;
+- (NSString *)keyBindingsManagerIdentifier;
 /*"Just to autorelease the window controller of the window.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1203,7 +1203,7 @@ To Do List:
     return iTM2PDFKitKeyBindingsIdentifier;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
--(BOOL)handlesKeyBindings;
+- (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1214,7 +1214,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
--(BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1235,7 +1235,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
--(BOOL)handlesKeyStrokes;
+- (BOOL)handlesKeyStrokes;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1247,7 +1247,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deleteBackward:
--(void)deleteBackward:(id)sender;
+- (void)deleteBackward:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1263,7 +1263,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  actualSize:
--(IBAction)actualSize:(id)sender;
+- (IBAction)actualSize:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1276,7 +1276,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateActualSize:
--(BOOL)validateActualSize:(id)sender;
+- (BOOL)validateActualSize:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1288,7 +1288,7 @@ To Do List:
     return [self scaleFactor] != 1.0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomIn:
--(void)doZoomIn:(id)sender;
+- (void)doZoomIn:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1305,7 +1305,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomOut:
--(void)doZoomOut:(id)sender;
+- (void)doZoomOut:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1322,7 +1322,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomToFit:
--(void)doZoomToFit:(id)sender;
+- (void)doZoomToFit:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1336,7 +1336,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomToSelection:
--(void)doZoomToSelection:(id)sender;
+- (void)doZoomToSelection:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1349,7 +1349,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doGoToPreviousPage:
--(void)doGoToPreviousPage:(id)sender;
+- (void)doGoToPreviousPage:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1378,7 +1378,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= goToPreviousPage:
--(void)goToPreviousPage:(id)sender;
+- (void)goToPreviousPage:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1403,7 +1403,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doGoToNextPage:
--(void)doGoToNextPage:(id)sender;
+- (void)doGoToNextPage:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1427,7 +1427,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= goToNextPage:
--(void)goToNextPage:(id)sender;
+- (void)goToNextPage:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1447,7 +1447,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayZoom:
--(void)displayZoom:(id)sender;
+- (void)displayZoom:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1463,7 +1463,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPage:
--(void)displayPage:(id)sender;
+- (void)displayPage:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jan  5 17:41:55 GMT 2005
@@ -1484,7 +1484,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
--(void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -1501,7 +1501,7 @@ To Do List:
 @end
 
 #define DEFINE_IMAGE(SELECTOR, NAME)\
-+(NSImage *)SELECTOR;\
++ (NSImage *)SELECTOR;\
 {\
 	static NSImage * I = nil;\
 	if(!I)\
@@ -1525,7 +1525,7 @@ DEFINE_IMAGE(imageSmaller, @"iTM2Smaller");
 #pragma mark =-=-=-=-=-  FIGURES
 @implementation iTM2MetaPostEditor(Figures)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMetaPostFigure:
--(IBAction)insertMetaPostFigure:(id)sender; 
+- (IBAction)insertMetaPostFigure:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1562,7 +1562,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
--(void)pdfSynchronizeMouseDown:(NSEvent *)anEvent;
+- (void)pdfSynchronizeMouseDown:(NSEvent *)anEvent;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1595,12 +1595,12 @@ To Do List:
 @end
 
 @interface NSTextStorage(TeX)
--(NSMenu *)MetaPostFigureMenu;
+- (NSMenu *)MetaPostFigureMenu;
 @end
 
 @implementation iTM2MetaPostFigureButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1623,7 +1623,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
--(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
+- (void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1668,7 +1668,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
--(void)initMenu;
+- (void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1735,7 +1735,7 @@ next:
 
 @implementation NSTextStorage(MetaPost)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  MetaPostFigureMenu
--(NSMenu *)MetaPostFigureMenu;
+- (NSMenu *)MetaPostFigureMenu;
 /*"Description forthcoming. No consistency test.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -1855,23 +1855,23 @@ nextFigure:
 @interface NSLayoutManager_DEBUG: NSLayoutManager
 @end
 @implementation NSLayoutManager_DEBUG
-+(void)load;{[self poseAsClass:[NSLayoutManager class]];}
--(void)invalidateGlyphsForCharacterRange:(NSRange)charRange changeInLength:(int)delta actualCharacterRange:(NSRangePointer)actualCharRange;
++ (void)load;{[self poseAsClass:[NSLayoutManager class]];}
+- (void)invalidateGlyphsForCharacterRange:(NSRange)charRange changeInLength:(int)delta actualCharacterRange:(NSRangePointer)actualCharRange;
     // This removes all glyphs for the old character range, adjusts the character indices of all the subsequent glyphs by the change in length, and invalidates the new character range.  If actualCharRange is non-NULL it will be set to the actual range invalidated after any necessary expansion.
 {
 	[super invalidateGlyphsForCharacterRange:(NSRange)charRange changeInLength:(int)delta actualCharacterRange:(NSRangePointer)actualCharRange];
 }
--(void)invalidateLayoutForCharacterRange:(NSRange)charRange isSoft:(BOOL)flag actualCharacterRange:(NSRangePointer)actualCharRange;
+- (void)invalidateLayoutForCharacterRange:(NSRange)charRange isSoft:(BOOL)flag actualCharacterRange:(NSRangePointer)actualCharRange;
     // This invalidates the layout information (glyph location and rotation) for the given range of characters.  If flag is YES then this range is marked as a hard layout invalidation.  If NO, then the invalidation is soft.  A hard invalid layout range indicates that layout information must be completely recalculated no matter what.  A soft invalid layout range means that there is already old layout info for the range in question, and if the NSLayoutManager is smart enough to figure out how to avoid doing the complete relayout, it may perform any optimization available.  If actualCharRange is non-NULL it will be set to the actual range invalidated after any necessary expansion.
 {
 	[super invalidateLayoutForCharacterRange:(NSRange)charRange isSoft:(BOOL)flag actualCharacterRange:(NSRangePointer)actualCharRange];
 }
--(void)invalidateDisplayForGlyphRange:(NSRange)glyphRange;
+- (void)invalidateDisplayForGlyphRange:(NSRange)glyphRange;
 {
 //iTM2_LOG(@"XXXXX  glyphRange: %@", NSStringFromRange(glyphRange));
 	[super invalidateDisplayForGlyphRange:(NSRange)glyphRange];
 }
--(void)invalidateDisplayForCharacterRange:(NSRange)charRange;
+- (void)invalidateDisplayForCharacterRange:(NSRange)charRange;
 {
 //iTM2_LOG(@"XXXXX  charRange: %@", NSStringFromRange(charRange));
 	[super invalidateDisplayForCharacterRange:(NSRange)charRange];

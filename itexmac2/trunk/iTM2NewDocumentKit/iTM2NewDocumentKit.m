@@ -38,19 +38,19 @@ NSString * const iTM2NewDORGANIZATIONNAMEKey = @"__(ORGANIZATIONNAME)__";
 NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 
 @interface iTM2NewDocumentTreeNode:iTM2TreeNode
-+(id)nodeWithParent:(id)parent;
--(void)sortChildrenAccordingToPrettyNameValue;
--(id)childWithPrettyNameValue:(NSString *) prettyName;
--(id)prettyNameValue;
--(void)setPrettyNameValue:(NSString *) prettyName;
--(id)nameValue;
--(void)setNameValue:(NSString *) name;
--(id)pathValue;
--(void)setPathValue:(NSString *) path;
--(id)standaloneFileNameValue;
--(void)setStandaloneFileNameValue:(NSString *) path;
--(id)containsAProjectValue;
--(void)setContainsAProjectValue:(NSNumber *) value;
++ (id)nodeWithParent:(id)parent;
+- (void)sortChildrenAccordingToPrettyNameValue;
+- (id)childWithPrettyNameValue:(NSString *) prettyName;
+- (id)prettyNameValue;
+- (void)setPrettyNameValue:(NSString *) prettyName;
+- (id)nameValue;
+- (void)setNameValue:(NSString *) name;
+- (id)pathValue;
+- (void)setPathValue:(NSString *) path;
+- (id)standaloneFileNameValue;
+- (void)setStandaloneFileNameValue:(NSString *) path;
+- (id)containsAProjectValue;
+- (void)setContainsAProjectValue:(NSNumber *) value;
 @end
 
 /*!
@@ -62,57 +62,57 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 */
 
 @interface iTM2NewDocumentAssistant(PRIVATE)
-+(id)_MutableDictionaryFromArray:(id)array;
-+(id)_ArrayFromDictionary:(id)dictionary;
-+(void)loadTemplates;
-+(void)_loadTemplatesAtPath:(NSString *)path inTree:(iTM2NewDocumentTreeNode *)tree;
-+(id)newDocumentDataSource;
--(id)outlineView;
--(id)selectedTemplate;
--(id)createSheet;
--(id)createField;
--(id)createProgressIndicator;
--(NSString *)convertedString:(NSString *) fileName withDictionary:(NSDictionary *) filter;
--(IBAction)next:(id)sender;
--(NSString *)panelDirectory;
--(void)setPanelDirectory:(id)object;
--(id)mandatoryProject;
--(void)setMandatoryProject:(id)object;
--(NSString *)oldProjectName;
--(void)setOldProjectName:(id)argument;
--(IBAction)orderFrontPanelIfRelevant:(id)object;
--(id)savePanelAccessoryView;
--(void)validateCreationMode;
--(int)creationMode;
--(void)setCreationMode:(int)tag;
--(iTM2ProjectDocument *)projectTarget;
--(BOOL)selectedTemplateCanBeStandalone;
--(BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
--(BOOL)selectedTemplateCanCreateNewProject;
--(BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
--(BOOL)selectedTemplateCanInsertInOldProject;
--(BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
--(NSString *)standaloneFileName;
--(id)availableProjects;
--(void)setAvailableProjects:(id) argument;
--(BOOL)preferWrapper;
--(void)setPreferWrapper:(BOOL) yorn;
--(BOOL)createNewWrapperWithName:(NSString *) fileName;
--(BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
--(BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
--(BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
--(BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
--(BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
++ (id)_MutableDictionaryFromArray:(id)array;
++ (id)_ArrayFromDictionary:(id)dictionary;
++ (void)loadTemplates;
++ (void)_loadTemplatesAtPath:(NSString *)path inTree:(iTM2NewDocumentTreeNode *)tree;
++ (id)newDocumentDataSource;
+- (id)outlineView;
+- (id)selectedTemplate;
+- (id)createSheet;
+- (id)createField;
+- (id)createProgressIndicator;
+- (NSString *)convertedString:(NSString *) fileName withDictionary:(NSDictionary *) filter;
+- (IBAction)next:(id)sender;
+- (NSString *)panelDirectory;
+- (void)setPanelDirectory:(id)object;
+- (id)mandatoryProject;
+- (void)setMandatoryProject:(id)object;
+- (NSString *)oldProjectName;
+- (void)setOldProjectName:(id)argument;
+- (IBAction)orderFrontPanelIfRelevant:(id)object;
+- (id)savePanelAccessoryView;
+- (void)validateCreationMode;
+- (int)creationMode;
+- (void)setCreationMode:(int)tag;
+- (iTM2ProjectDocument *)projectTarget;
+- (BOOL)selectedTemplateCanBeStandalone;
+- (BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
+- (BOOL)selectedTemplateCanCreateNewProject;
+- (BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
+- (BOOL)selectedTemplateCanInsertInOldProject;
+- (BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
+- (NSString *)standaloneFileName;
+- (id)availableProjects;
+- (void)setAvailableProjects:(id) argument;
+- (BOOL)preferWrapper;
+- (void)setPreferWrapper:(BOOL) yorn;
+- (BOOL)createNewWrapperWithName:(NSString *) fileName;
+- (BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
+- (BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
+- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
+- (BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
+- (BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
 @end
 
 @interface iTM2SharedResponder(NewDocumentKit)
--(void)newDocumentFromRunningAssistantPanelForProject:(id)project;
+- (void)newDocumentFromRunningAssistantPanelForProject:(id)project;
 @end
 
 @implementation iTM2SharedResponder(NewDocumentKit)
 static iTM2NewDocumentAssistant * _iTM2NewDocumentAssistant = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newDocumentFromRunningAssistantPanel:
--(IBAction)newDocumentFromRunningAssistantPanel:(id)sender;
+- (IBAction)newDocumentFromRunningAssistantPanel:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -125,7 +125,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newDocumentFromRunningAssistantPanelForProject:
--(void)newDocumentFromRunningAssistantPanelForProject:(id)project;
+- (void)newDocumentFromRunningAssistantPanelForProject:(id)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -148,7 +148,7 @@ To Do List:
 @implementation iTM2NewDocumentAssistant
 static id _iTM2NewDocumentsTree = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataSourceWindowDidLoad
--(void)dataSourceWindowDidLoad;
+- (void)dataSourceWindowDidLoad;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -184,7 +184,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newDocumentDataSource
-+(id)newDocumentDataSource;
++ (id)newDocumentDataSource;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -196,7 +196,7 @@ To Do List:
     return _iTM2NewDocumentsTree;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadTemplates
-+(void)loadTemplates;
++ (void)loadTemplates;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -232,7 +232,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _loadTemplatesAtPath:inTree:
-+(void)_loadTemplatesAtPath:(NSString *)path inTree:(iTM2NewDocumentTreeNode *)tree;
++ (void)_loadTemplatesAtPath:(NSString *)path inTree:(iTM2NewDocumentTreeNode *)tree;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -347,7 +347,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved:
--(BOOL)windowPositionShouldBeObserved:(NSWindow *)window;
+- (BOOL)windowPositionShouldBeObserved:(NSWindow *)window;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -359,7 +359,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mandatoryProject
--(id)mandatoryProject;
+- (id)mandatoryProject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -375,7 +375,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMandatoryProject:
--(void)setMandatoryProject:(id)object;
+- (void)setMandatoryProject:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -387,7 +387,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= panelDirectory
--(NSString *)panelDirectory;
+- (NSString *)panelDirectory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -399,7 +399,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setPanelDirectory:
--(void)setPanelDirectory:(id)object;
+- (void)setPanelDirectory:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -413,7 +413,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= oldProjectName
--(NSString *)oldProjectName;
+- (NSString *)oldProjectName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -430,7 +430,7 @@ To Do List:
 	return [[self mandatoryProject] fileName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setOldProjectName:
--(void)setOldProjectName:(id)argument;
+- (void)setOldProjectName:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -442,7 +442,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= templateImageView
--(id)templateImageView;
+- (id)templateImageView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -454,7 +454,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTemplateImageView:
--(void)setTemplateImageView:(id)object;
+- (void)setTemplateImageView:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -466,7 +466,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createSheet
--(id)createSheet;
+- (id)createSheet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -478,7 +478,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateSheet:
--(void)setCreateSheet:(id)object;
+- (void)setCreateSheet:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -490,7 +490,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createField
--(id)createField;
+- (id)createField;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -502,7 +502,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateField:
--(void)setCreateField:(id)object;
+- (void)setCreateField:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -514,7 +514,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createProgressIndicator
--(id)createProgressIndicator;
+- (id)createProgressIndicator;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -526,7 +526,7 @@ To Do List:
 	return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateProgressIndicator:
--(void)setCreateProgressIndicator:(id)object;
+- (void)setCreateProgressIndicator:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -538,7 +538,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= orderFrontPanelIfRelevant:
--(IBAction)orderFrontPanelIfRelevant:(id)object;
+- (IBAction)orderFrontPanelIfRelevant:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -559,7 +559,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  OLV
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= outlineView
--(id)outlineView;
+- (id)outlineView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -603,7 +603,7 @@ To Do List:
     return OLV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _outlineViewDoubleAction:
--(IBAction)_outlineViewDoubleAction:(id)sender;
+- (IBAction)_outlineViewDoubleAction:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -619,7 +619,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplate
--(id)selectedTemplate;
+- (id)selectedTemplate;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -634,7 +634,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DELEGATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:shouldSelectItem:
--(BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -653,7 +653,7 @@ To Do List:
     return ![[outlineView dataSource] outlineView:outlineView isItemExpandable:item];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineViewSelectionDidChange:
--(void)outlineViewSelectionDidChange:(NSNotification *)notification;
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -666,7 +666,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:willDisplayCell:forTableColumn:item:
--(void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item;
+- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -718,7 +718,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:willDisplayCell:shouldEditTableColumn:item:
--(BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item;
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -731,7 +731,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DATA SOURCE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:child:ofItem:
--(id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item;
+- (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -743,7 +743,7 @@ To Do List:
     return [(item?:_iTM2NewDocumentsTree) objectInChildrenAtIndex:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:isItemExpandable:
--(BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item;
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -755,7 +755,7 @@ To Do List:
     return [(item?:_iTM2NewDocumentsTree) countOfChildren]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:numberOfChildrenOfItem:
--(int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
+- (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -767,7 +767,7 @@ To Do List:
     return [(item?:_iTM2NewDocumentsTree) countOfChildren];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:objectValueForTableColumn:byItem:
--(id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -780,14 +780,14 @@ To Do List:
 }
 /*
 // optional
--(void)outlineView:(NSOutlineView *)outlineView setPathValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
--(id)outlineView:(NSOutlineView *)outlineView itemForPersistentObject:(id)object;
--(id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item;
+- (void)outlineView:(NSOutlineView *)outlineView setPathValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
+- (id)outlineView:(NSOutlineView *)outlineView itemForPersistentObject:(id)object;
+- (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item;
 */
 #pragma mark =-=-=-=-=- D & D
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:writeItems:toPasteboard:
--(BOOL)outlineView:(NSOutlineView *)olv writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard;
+- (BOOL)outlineView:(NSOutlineView *)olv writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard;
     // This method is called after it has been determined that a drag should begin, but before the drag has been started.  To refuse the drag, return NO.  To start a drag, return YES and place the drag data onto the pasteboard (data, owner, etc...).  The drag image and other drag related information will be set up and provided by the outline view once this call returns with YES.  The items array is the list of items that will be participating in the drag.
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -801,7 +801,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:validateDrop:proposedItem:proposedChildIndex:
--(NSDragOperation)outlineView:(NSOutlineView*)olv validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(int)index;
+- (NSDragOperation)outlineView:(NSOutlineView*)olv validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(int)index;
     // This method is used by NSOutlineView to determine a valid drop target.  Based on the mouse position, the outline view will suggest a proposed drop location.  This method must return a value that indicates which dragging operation the data source will perform.  The data source may "re-target" a drop if desired by calling setDropItem:dropChildIndex: and returning something other than NSDragOperationNone.  One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -899,7 +899,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:acceptDrop:item:childIndex:
--(BOOL)outlineView:(NSOutlineView*)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index;
+- (BOOL)outlineView:(NSOutlineView*)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index;
     // This method is called when the mouse is released over an outline view that previously decided to allow a drop via the validateDrop method.  The data source should incorporate the data from the dragging pasteboard at this time.
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -958,7 +958,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  savePanelDidEnd:returnCode:contents:
--(void)savePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode contents:(NSString *)contents;
+- (void)savePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode contents:(NSString *)contents;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -985,7 +985,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _delayed_outlineView:acceptDrop:item:childIndex:
--(BOOL)_delayed_outlineView:(NSOutlineView*)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index;
+- (BOOL)_delayed_outlineView:(NSOutlineView*)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1026,7 +1026,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  savePanelDidEnd:returnCode:filename:
--(void)savePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode filename:(NSString *)filename;
+- (void)savePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode filename:(NSString *)filename;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1049,7 +1049,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=- UI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancel:
--(IBAction)cancel:(id)sender;
+- (IBAction)cancel:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1065,7 +1065,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  next:
--(IBAction)next:(id)sender;
+- (IBAction)next:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1121,7 +1121,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateNext:
--(BOOL)validateNext:(id)sender;
+- (BOOL)validateNext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1133,7 +1133,7 @@ To Do List:
     return [[self outlineView] numberOfSelectedRows] == 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  startProgressIndicationForName:
--(void)startProgressIndicationForName:(NSString *) targetName;
+- (void)startProgressIndicationForName:(NSString *) targetName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1154,7 +1154,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  filterForProjectName:
--(NSDictionary *)filterForProjectName:(NSString *)projectName;
+- (NSDictionary *)filterForProjectName:(NSString *)projectName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1176,7 +1176,7 @@ To Do List:
     return filter;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stopProgressIndication
--(void)stopProgressIndication;
+- (void)stopProgressIndication;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1191,7 +1191,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nextSavePanelDidEnd:returnCode:contextInfo:
--(void)nextSavePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode contextInfo:(void*)irrelevant;
+- (void)nextSavePanelDidEnd:(NSSavePanel *)panel returnCode:(int)returnCode contextInfo:(void*)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1221,7 +1221,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithName:
--(BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
+- (BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1352,7 +1352,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperWithName:
--(BOOL)createNewWrapperWithName:(NSString *)fileName;
+- (BOOL)createNewWrapperWithName:(NSString *)fileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1537,7 +1537,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithName:
--(BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
+- (BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1772,7 +1772,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithName:
--(BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
+- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1877,7 +1877,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInOldProjectNewDocumentWithName:
--(BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
+- (BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1999,7 +1999,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewStandaloneDocumentWithName:
--(BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
+- (BOOL)createNewStandaloneDocumentWithName:(NSString *)targetName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2085,7 +2085,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedString:withDictionary:
--(NSString *)convertedString:(NSString *)fileName withDictionary:(NSDictionary *)filter;
+- (NSString *)convertedString:(NSString *)fileName withDictionary:(NSDictionary *)filter;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2108,7 +2108,7 @@ To Do List:
     return [[MS copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTemplateDescription:
--(IBAction)editTemplateDescription:(id)sender;
+- (IBAction)editTemplateDescription:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2121,7 +2121,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTemplateDescription:
--(BOOL)validateEditTemplateDescription:(id)sender;
+- (BOOL)validateEditTemplateDescription:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2204,7 +2204,7 @@ xonrupt:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTemplateFolderPath:
--(IBAction)editTemplateFolderPath:(id)sender;
+- (IBAction)editTemplateFolderPath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2217,7 +2217,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTemplateFolderPath:
--(BOOL)validateEditTemplateFolderPath:(id)sender;
+- (BOOL)validateEditTemplateFolderPath:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2233,7 +2233,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=- SAVE PANEL DELEGATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:shouldShowFilename:
--(BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename;
+- (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2245,7 +2245,7 @@ To Do List:
     return [filename length] && ![SWS isTeXProjectPackageAtPath:filename] && ![SWS isProjectPackageAtPath:filename];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:directoryDidChange:
--(void)panel:(id)sender directoryDidChange:(NSString *)path;
+- (void)panel:(id)sender directoryDidChange:(NSString *)path;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2259,7 +2259,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:userEnteredFilename:confirmed:
--(NSString *)panel:(id)sender userEnteredFilename:(NSString *)filename confirmed:(BOOL)okFlag;
+- (NSString *)panel:(id)sender userEnteredFilename:(NSString *)filename confirmed:(BOOL)okFlag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2303,7 +2303,7 @@ To Do List:
     return filename;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:isValidFilename:
--(BOOL)panel:(id)sender isValidFilename:(NSString *)filename;
+- (BOOL)panel:(id)sender isValidFilename:(NSString *)filename;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2386,7 +2386,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=- ACCESSORY VIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  savePanelAccessoryView
--(id)savePanelAccessoryView;
+- (id)savePanelAccessoryView;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2398,7 +2398,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSavePanelAccessoryView:
--(void)setSavePanelAccessoryView:(id)argument;
+- (void)setSavePanelAccessoryView:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2411,7 +2411,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectTarget
--(iTM2ProjectDocument *)projectTarget;
+- (iTM2ProjectDocument *)projectTarget;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2423,7 +2423,7 @@ To Do List:
     return [[self standaloneFileName] length]? [self mandatoryProject]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:(id)item inOldProjectForDirectory
--(BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
+- (BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2497,7 +2497,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanInsertInOldProject
--(BOOL)selectedTemplateCanInsertInOldProject;
+- (BOOL)selectedTemplateCanInsertInOldProject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2509,7 +2509,7 @@ To Do List:
 	return [self canInsertItem:[self selectedTemplate] inOldProjectForDirectory:[self panelDirectory]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canCreateNewProjectForDirectory:
--(BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
+- (BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2553,7 +2553,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanCreateNewProject
--(BOOL)selectedTemplateCanCreateNewProject;
+- (BOOL)selectedTemplateCanCreateNewProject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2565,7 +2565,7 @@ To Do List:
 	return [self item:[self selectedTemplate] canCreateNewProjectForDirectory:[self panelDirectory]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canBeStandaloneForDirectory:
--(BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
+- (BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2614,7 +2614,7 @@ To Do List:
     return [standalone length]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanBeStandalone
--(BOOL)selectedTemplateCanBeStandalone;
+- (BOOL)selectedTemplateCanBeStandalone;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2626,7 +2626,7 @@ To Do List:
 	return [self item:[self selectedTemplate] canBeStandaloneForDirectory:[self panelDirectory]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  standaloneFileName
--(NSString *)standaloneFileName;
+- (NSString *)standaloneFileName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2639,7 +2639,7 @@ To Do List:
 	return [item standaloneFileNameValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCreationMode
--(void)validateCreationMode;
+- (void)validateCreationMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2682,7 +2682,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  creationMode
--(int)creationMode;
+- (int)creationMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2695,7 +2695,7 @@ To Do List:
     return result?[result intValue]:[SUD integerForKey:iTM2NewProjectCreationModeKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCreationMode:
--(void)setCreationMode:(int)tag;
+- (void)setCreationMode:(int)tag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2712,7 +2712,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeCreationModeFromTag:
--(IBAction)takeCreationModeFromTag:(id)sender;
+- (IBAction)takeCreationModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2728,7 +2728,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeCreationModeFromTag:
--(BOOL)validateTakeCreationModeFromTag:(id)sender;
+- (BOOL)validateTakeCreationModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2765,7 +2765,7 @@ To Do List:
 #endif
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeProjectFromSelectedItem:
--(IBAction)takeProjectFromSelectedItem:(id)sender;
+- (IBAction)takeProjectFromSelectedItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2792,7 +2792,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeProjectFromSelectedItem:
--(BOOL)validateTakeProjectFromSelectedItem:(id)sender;
+- (BOOL)validateTakeProjectFromSelectedItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2874,7 +2874,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  preferWrapper
--(BOOL)preferWrapper;
+- (BOOL)preferWrapper;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2886,7 +2886,7 @@ To Do List:
     return [metaGETTER boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPreferWrapper:
--(void)setPreferWrapper:(BOOL)yorn;
+- (void)setPreferWrapper:(BOOL)yorn;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2900,7 +2900,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleWrapper:
--(IBAction)toggleWrapper:(id)sender;
+- (IBAction)toggleWrapper:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2915,7 +2915,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleWrapper:
--(BOOL)validateToggleWrapper:(id)sender;
+- (BOOL)validateToggleWrapper:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2929,7 +2929,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  DATA SOURCE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableProjects
--(id)availableProjects;
+- (id)availableProjects;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2959,7 +2959,7 @@ To Do List:
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAvailableProjects:
--(void)setAvailableProjects:(id) argument;
+- (void)setAvailableProjects:(id) argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2972,7 +2972,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfItemsInComboBox:
--(int)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
+- (int)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2984,7 +2984,7 @@ To Do List:
     return [[self availableProjects] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:objectValueForItemAtIndex:
--(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index;
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2997,7 +2997,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:indexOfItemWithStringValue:
--(unsigned int)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string;
+- (unsigned int)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3009,7 +3009,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:completedString:
--(NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string;
+- (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3025,7 +3025,7 @@ To Do List:
 
 @implementation NSUserDefaultsController(NewDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeNewDocumentAuthorNameFromCombo:
--(IBAction)takeNewDocumentAuthorNameFromCombo:(id)sender;
+- (IBAction)takeNewDocumentAuthorNameFromCombo:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3050,7 +3050,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeNewDocumentOrganizationNameFromCombo:
--(IBAction)takeNewDocumentOrganizationNameFromCombo:(id)sender;
+- (IBAction)takeNewDocumentOrganizationNameFromCombo:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3078,7 +3078,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(NewDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3093,7 +3093,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2NewDocumentKitCompleteInstallation
-+(void)iTM2NewDocumentKitCompleteInstallation;
++ (void)iTM2NewDocumentKitCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3116,7 +3116,7 @@ To Do List:
 
 @implementation iTM2NewDocumentPrefPane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prefPaneIdentifier
--(NSString *)prefPaneIdentifier;
+- (NSString *)prefPaneIdentifier;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3131,7 +3131,7 @@ To Do List:
 
 @implementation iTM2NewDocumentTreeNode
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nodeWithParent:
-+(id)nodeWithParent:(id)tree;
++ (id)nodeWithParent:(id)tree;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3143,7 +3143,7 @@ To Do List:
 	return [[[self alloc] initWithParent:tree value:[NSMutableDictionary dictionary]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sortChildrenAccordingToPrettyNameValue
--(void)sortChildrenAccordingToPrettyNameValue;
+- (void)sortChildrenAccordingToPrettyNameValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3170,7 +3170,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childWithPrettyNameValue:
--(id)childWithPrettyNameValue:(NSString *) prettyName;
+- (id)childWithPrettyNameValue:(NSString *) prettyName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3191,7 +3191,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyNameValue
--(id)prettyNameValue;
+- (id)prettyNameValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3203,7 +3203,7 @@ To Do List:
 	return [[self value] valueForKey:@"prettyName"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPrettyNameValue:
--(void)setPrettyNameValue:(NSString *) prettyName;
+- (void)setPrettyNameValue:(NSString *) prettyName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3217,7 +3217,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameValue
--(id)nameValue;
+- (id)nameValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3229,7 +3229,7 @@ To Do List:
 	return [[self value] valueForKey:@"name"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setNameValue:
--(void)setNameValue:(NSString *) name;
+- (void)setNameValue:(NSString *) name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3242,7 +3242,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathValue
--(id)pathValue;
+- (id)pathValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3254,7 +3254,7 @@ To Do List:
 	return [[self value] valueForKey:@"path"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPathValue:
--(void)setPathValue:(NSString *) path;
+- (void)setPathValue:(NSString *) path;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3267,7 +3267,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  standaloneFileNameValue
--(id)standaloneFileNameValue;
+- (id)standaloneFileNameValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3322,7 +3322,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStandaloneFileNameValue:
--(void)setStandaloneFileNameValue:(NSString *) path;
+- (void)setStandaloneFileNameValue:(NSString *) path;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3335,7 +3335,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  containsAProjectValue
--(id)containsAProjectValue;
+- (id)containsAProjectValue;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -3347,7 +3347,7 @@ To Do List:
 	return [[self value] valueForKey:@"containsAProject"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContainsAProjectValue:
--(void)setContainsAProjectValue:(NSNumber *) value;
+- (void)setContainsAProjectValue:(NSNumber *) value;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005

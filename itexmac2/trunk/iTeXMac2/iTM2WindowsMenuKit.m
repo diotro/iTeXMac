@@ -40,7 +40,7 @@ NSString * iTM2ProjectLocalizedAddCurrentDocumentName = nil;
 
 @implementation iTM2ProjectDocument(WindowMenuKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateWindowsSubmenu:
--(void)updateWindowsSubmenu:(NSMenu *)M;
+- (void)updateWindowsSubmenu:(NSMenu *)M;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -171,13 +171,13 @@ To Do List:
 @end
 
 @interface iTM2WindowsMenuObserver: NSObject
-+(void)registerNotifications;
-+(void)updateWindowsMenu:(id)irrelevant;
++ (void)registerNotifications;
++ (void)updateWindowsMenu:(id)irrelevant;
 @end
 
 @implementation iTM2WindowsMenuObserver
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerNotifications
-+(void)registerNotifications;
++ (void)registerNotifications;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -213,7 +213,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuDidChangeNotified:
-+(void)windowsMenuDidChangeNotified:(NSNotification *)notification;
++ (void)windowsMenuDidChangeNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -233,7 +233,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuShouldUpdateNotified:
-+(void)windowsMenuShouldUpdateNotified:(NSNotification *)notification;
++ (void)windowsMenuShouldUpdateNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -251,7 +251,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateWindowsMenu:
-+(void)updateWindowsMenu:(id)irrelevant;
++ (void)updateWindowsMenu:(id)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -530,7 +530,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(WindowsMenuKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2WindowsMenuObserverCompleteInstallation
-+(void)iTM2WindowsMenuObserverCompleteInstallation;
++ (void)iTM2WindowsMenuObserverCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

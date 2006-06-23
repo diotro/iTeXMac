@@ -124,7 +124,7 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		8D5B49B6048680CD000E48DA /* iTM2EDITORKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2EDITORKit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* iTM2EDITORKit. */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2EDITORKit.; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC2CA6AF0855D0CE00128F14 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DC2CA6B50855D0CE00128F14 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = iTM2EDITORInspector.nib; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* iTM2EDITORKit.iTM2 */,
+				8D5B49B6048680CD000E48DA /* iTM2EDITORKit. */,
 				DC81AD80088718FA00943C99 /* iTeXMac2.app */,
 			);
 			name = Products;
@@ -276,7 +276,7 @@
 			name = iTM2EDITORKit;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = iTM2EDITORKit;
-			productReference = 8D5B49B6048680CD000E48DA /* iTM2EDITORKit.iTM2 */;
+			productReference = 8D5B49B6048680CD000E48DA /* iTM2EDITORKit. */;
 			productType = "com.apple.product-type.bundle";
 		};
 		DC81AD7F088718FA00943C99 /* iTeXMac2 */ = {

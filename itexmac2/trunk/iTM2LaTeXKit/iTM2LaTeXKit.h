@@ -51,15 +51,15 @@ extern NSString * const iTM2LaTeXToolbarIdentifier;
     @param		the character at index lies inside the latex environment to be found
     @result     (description)
 */
--(NSString *)lossyLaTeXEnvironmentNameAtIndex:(unsigned)index;
+- (NSString *)lossyLaTeXEnvironmentNameAtIndex:(unsigned)index;
 
--(NSString *)LaTeXEnvironmentNameForRange:(NSRange)range effectiveRange:(NSRangePointer)rangePtr;
+- (NSString *)LaTeXEnvironmentNameForRange:(NSRange)range effectiveRange:(NSRangePointer)rangePtr;
 
 @end
 
 @interface NSTextView(iTeXMac2)
--(void)completeLaTeXEnvironment:(id)sender;
--(void)findLaTeXEnvironment:(id)sender;
+- (void)completeLaTeXEnvironment:(id)sender;
+- (void)findLaTeXEnvironment:(id)sender;
 @end
 
 @interface iTM2LaTeXScriptDocumentButton: iTM2GenericScriptButton
@@ -101,8 +101,8 @@ typedef enum _iTM2LaTeXInputMode
 @end
 
 @interface NSTextStorage(iTM2LaTeX)
--(NSMenu *)LaTeXSectionMenu;
--(void)getLaTeXLabelMenu:(NSMenu **)labelMenuRef refMenu:(NSMenu **)refMenuRef;
+- (NSMenu *)LaTeXSectionMenu;
+- (void)getLaTeXLabelMenu:(NSMenu **)labelMenuRef refMenu:(NSMenu **)refMenuRef;
 @end
 
 @interface iTM2XtdLaTeXParser: iTM2XtdTeXParser
@@ -167,8 +167,8 @@ extern NSString * const iTM2ToolbarLaTeXLabelItemIdentifier;
 extern NSString * const iTM2ToolbarLaTeXSectionItemIdentifier;
 
 @interface NSToolbarItem(iTM2LaTeX)
-+(NSToolbarItem *)LaTeXSectionToolbarItem;
-+(NSToolbarItem *)LaTeXLabelToolbarItem;
++ (NSToolbarItem *)LaTeXSectionToolbarItem;
++ (NSToolbarItem *)LaTeXLabelToolbarItem;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2LaTeXKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

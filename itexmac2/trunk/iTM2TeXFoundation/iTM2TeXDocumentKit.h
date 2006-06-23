@@ -55,8 +55,8 @@ extern NSString * const iTM2TeXSmartSelectionKey;
         unsigned int reserved: 19;
     } _iTMTVFlags;
 }
--(void)scrollInputToVisible:(id <NSMenuItem>)sender;
--(void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
+- (void)scrollInputToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
 @end
 
 @interface iTM2TeXBookmarkButton: NSPopUpButton
@@ -69,5 +69,5 @@ extern NSString * const iTM2TeXSmartSelectionKey;
 @end
 
 @interface iTM2TextStorage(DoubleClick)
--(NSRange)smartDoubleClickAtIndex:(unsigned)index;
+- (NSRange)smartDoubleClickAtIndex:(unsigned)index;
 @end

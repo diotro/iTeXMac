@@ -38,7 +38,7 @@ When no basic contextManager are given on initialization time, the user defaults
 Various categories are declared here, the NSDocument instances are the only object where contextManager are really stored, if ever."*/
 @implementation NSObject(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
--(id)currentContextManager;
+- (id)currentContextManager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -50,7 +50,7 @@ To Do List:
     return SUD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
--(id)contextManager;
+- (id)contextManager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -62,7 +62,7 @@ To Do List:
     return [self currentContextManager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextManager:
--(void)setContextManager:(id)manager;
+- (void)setContextManager:(id)manager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -75,7 +75,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateContextManager
--(void)updateContextManager;
+- (void)updateContextManager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -87,7 +87,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionary
--(id)contextDictionary;
+- (id)contextDictionary;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -99,7 +99,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextDictionary:
--(void)setContextDictionary:(id)dictionary;
+- (void)setContextDictionary:(id)dictionary;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -112,7 +112,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:
--(id)contextValueForKey:(NSString *)aKey;
+- (id)contextValueForKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -135,7 +135,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
--(void)takeContextValue:(id)object forKey:(NSString *)aKey;
+- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -164,7 +164,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextFontForKey:
--(NSFont *)contextFontForKey:(NSString *)aKey;
+- (NSFont *)contextFontForKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -175,7 +175,7 @@ To Do List:
     return [NSFont fontWithNameSizeDictionary:[self contextValueForKey:aKey]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextFont:forKey:
--(void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey;
+- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -187,7 +187,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextColorForKey:
--(NSColor *)contextColorForKey:(NSString *)aKey;
+- (NSColor *)contextColorForKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -198,7 +198,7 @@ To Do List:
     return [NSColor colorWithRGBADictionary:[self contextValueForKey:aKey]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextColor:forKey:
--(void)takeContextColor:(NSColor *)aColor forKey:(NSString *)aKey;
+- (void)takeContextColor:(NSColor *)aColor forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -210,7 +210,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:
--(NSString *)contextStringForKey:(NSString *)key;
+- (NSString *)contextStringForKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -224,7 +224,7 @@ To Do List:
                     ([result respondsToSelector:@selector(stringValue)]? [result stringValue]:[NSString string]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextArrayForKey:
--(NSArray *)contextArrayForKey:(NSString *)key;
+- (NSArray *)contextArrayForKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -236,7 +236,7 @@ To Do List:
     return [result isKindOfClass:[NSArray class]]? result:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionaryForKey:
--(NSDictionary *)contextDictionaryForKey:(NSString *)key;
+- (NSDictionary *)contextDictionaryForKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -248,7 +248,7 @@ To Do List:
     return [result isKindOfClass:[NSDictionary class]]? result:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDataForKey:
--(NSData *)contextDataForKey:(NSString *)key;
+- (NSData *)contextDataForKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -260,7 +260,7 @@ To Do List:
     return [result isKindOfClass:[NSData class]]? result:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringArrayForKey:
--(NSArray *)contextStringArrayForKey:(NSString *)key;
+- (NSArray *)contextStringArrayForKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -286,7 +286,7 @@ To Do List:
     return OK? result: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:
--(int)contextIntegerForKey:(NSString *)key; 
+- (int)contextIntegerForKey:(NSString *)key; 
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -302,7 +302,7 @@ To Do List:
     return [result respondsToSelector:@selector(intValue)]? [result intValue]:0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:
--(float)contextFloatForKey:(NSString *)key; 
+- (float)contextFloatForKey:(NSString *)key; 
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -314,7 +314,7 @@ To Do List:
     return [result respondsToSelector:@selector(floatValue)]? [result floatValue]:0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextBoolForKey:
--(BOOL)contextBoolForKey:(NSString *)key;  
+- (BOOL)contextBoolForKey:(NSString *)key;  
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -326,7 +326,7 @@ To Do List:
     return [result respondsToSelector:@selector(boolValue)]? [result boolValue]:NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextInteger:forKey:
--(void)takeContextInteger:(int)value forKey:(NSString *)key;
+- (void)takeContextInteger:(int)value forKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -338,7 +338,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextFloat:forKey:
--(void)takeContextFloat:(float)value forKey:(NSString *)key;
+- (void)takeContextFloat:(float)value forKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -350,7 +350,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextBool:forKey:
--(void)takeContextBool:(BOOL)value forKey:(NSString *)key;
+- (void)takeContextBool:(BOOL)value forKey:(NSString *)key;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -362,7 +362,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext:
--(void)saveContext:(id)sender;
+- (void)saveContext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -394,7 +394,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromContext:
--(void)awakeFromContext;
+- (void)awakeFromContext;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -406,7 +406,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadContext:
--(void)loadContext:(id)sender;
+- (void)loadContext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -429,7 +429,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
--(void)contextDidChange;
+- (void)contextDidChange;
 /*"This message is sent each time the contextManager have changed.
 The receiver will take appropriate actions to synchronize its state with its contextManager.
 Subclasses will most certainly override this method because the default implementation does nothing.
@@ -443,7 +443,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextRegistrationNeeded
--(BOOL)contextRegistrationNeeded;
+- (BOOL)contextRegistrationNeeded;
 /*"This message is sent each time the contextManager have changed.
 The receiver will take appropriate actions to synchronize its state with its contextManager.
 Subclasses will most certainly override this method because the default implementation does nothing.
@@ -459,7 +459,7 @@ To Do List:
 
 @implementation NSWindowController(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
--(id)currentContextManager;
+- (id)currentContextManager;
 /*"Returns the contextManager of its document.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -470,7 +470,7 @@ To Do List:
     return [self document]?:[super currentContextManager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerCompleteSaveContext:
--(void)windowControllerCompleteSaveContext:(id)sender;
+- (void)windowControllerCompleteSaveContext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -486,7 +486,7 @@ To Do List:
 
 @implementation NSWindow(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
--(id)currentContextManager;
+- (id)currentContextManager;
 /*"Returns the contextManager of its window controller.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -502,7 +502,7 @@ To Do List:
 I am no sure this is a godd design idea
 @implementation NSResponder(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
--(id)currentContextManager;
+- (id)currentContextManager;
 /*"Returns the contextManager of its window.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -517,7 +517,7 @@ To Do List:
 
 @implementation NSView(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
--(id)currentContextManager;
+- (id)currentContextManager;
 /*"Returns the contextManager of its window.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -531,7 +531,7 @@ To Do List:
 
 @implementation NSTextStorage(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
--(id)currentContextManager;
+- (id)currentContextManager;
 /*"Returns the contextManager of the first text view of its first layout manager.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.b0: 04/17/2002
@@ -545,7 +545,7 @@ To Do List:
 
 @implementation NSLayoutManager(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
--(id)currentContextManager;
+- (id)currentContextManager;
 /*"Returns the contextManager of the first text view of its first layout manager.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.b0: 04/17/2002
@@ -559,7 +559,7 @@ To Do List:
 
 @implementation NSUserDefaults(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager:
--(id)contextManager;
+- (id)contextManager;
 /*"Returns the contextManager of the first text view of its first layout manager.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.b0: 04/17/2002
@@ -570,7 +570,7 @@ To Do List:
     return SUD != self? SUD: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:
--(id)contextValueForKey:(NSString *)aKey;
+- (id)contextValueForKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -581,7 +581,7 @@ To Do List:
     return [self objectForKey:aKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
--(void)takeContextValue:(id)object forKey:(NSString *)aKey;
+- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -606,7 +606,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKitCompleteInstallation
-+(void)iTM2ContextKitCompleteInstallation;
++ (void)iTM2ContextKitCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -622,7 +622,7 @@ To Do List:
 
 @implementation NSDocument_iTM2ContextKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -637,7 +637,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKitCompleteInstallation
-+(void)iTM2ContextKitCompleteInstallation;
++ (void)iTM2ContextKitCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -650,7 +650,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKit_ApplicationWillTerminateNotified:
-+(void)iTM2ContextKit_ApplicationWillTerminateNotified:(NSNotification *)notification;
++ (void)iTM2ContextKit_ApplicationWillTerminateNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -663,7 +663,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
--(void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
+- (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -691,7 +691,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _Context_document:shouldClose:shouldCloseInvocation:
--(void)_Context_document:(NSDocument *)doc shouldClose:(BOOL)shouldClose shouldCloseInvocation:(NSInvocation *)invocation;
+- (void)_Context_document:(NSDocument *)doc shouldClose:(BOOL)shouldClose shouldCloseInvocation:(NSInvocation *)invocation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Mon Mar 15 13:59:04 GMT 2004
@@ -717,7 +717,7 @@ NSString * const iTM2ContextTypesKey = @"iTM2ContextTypes";
 
 @implementation NSDocument(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:
--(id)contextValueForKey:(NSString *)aKey;
+- (id)contextValueForKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -750,7 +750,7 @@ To Do List:
     return [super contextValueForKey:aKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
--(void)takeContextValue:(id)object forKey:(NSString *)aKey;
+- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -809,7 +809,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentCompleteSaveContext:
--(void)documentCompleteSaveContext:(id)sender;
+- (void)documentCompleteSaveContext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -822,7 +822,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentCompleteLoadContext:
--(void)documentCompleteLoadContext:(id)sender;
+- (void)documentCompleteLoadContext:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

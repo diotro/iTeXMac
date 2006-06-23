@@ -35,7 +35,7 @@ NSString * const iTM2ToolbarMagnificationSetItemIdentifier = @"Magnification";
 /*"Description forthcoming."*/
 @implementation iTM2RepToolbarDelegate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
--(id)init;
+- (id)init;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -51,7 +51,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -67,7 +67,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnification:
--(void)setMagnification:(NSDecimalNumber *)aMagnification;
+- (void)setMagnification:(NSDecimalNumber *)aMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -80,7 +80,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDefaultItemIdentifiers:
--(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)aToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -99,7 +99,7 @@ To Do List:
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarAllowedItemIdentifiers:
--(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)aToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -118,7 +118,7 @@ To Do List:
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:
--(NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
+- (NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -177,7 +177,7 @@ To Do List:
     return [result autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  magnificationFieldForPalette
--(NSView *)magnificationFieldForPalette;
+- (NSView *)magnificationFieldForPalette;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -194,7 +194,7 @@ To Do List:
     return [result autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  magnificationFieldForToolbar
--(NSView *)magnificationFieldForToolbar;
+- (NSView *)magnificationFieldForToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/10/2002
@@ -215,7 +215,7 @@ To Do List:
     return [result autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  magnificationSetForPalette
--(NSView *)magnificationSetForPalette;
+- (NSView *)magnificationSetForPalette;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -255,7 +255,7 @@ To Do List:
     return [result autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  magnificationSetForToolbar
--(NSView *)magnificationSetForToolbar;
+- (NSView *)magnificationSetForToolbar;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/10/2002
@@ -346,7 +346,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= magnificationField
--(NSTextField *)magnificationField;
+- (NSTextField *)magnificationField;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -370,7 +370,7 @@ To Do List:
     return _MagnificationField;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMagnificationField:
--(void)setMagnificationField:(NSTextField *)aTextField;
+- (void)setMagnificationField:(NSTextField *)aTextField;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -383,7 +383,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= magStepper
--(NSStepper *)magStepper;
+- (NSStepper *)magStepper;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -407,7 +407,7 @@ To Do List:
     return _MagStepper;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMagStepper:
--(void)setMagStepper:(NSStepper *)aStepper;
+- (void)setMagStepper:(NSStepper *)aStepper;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

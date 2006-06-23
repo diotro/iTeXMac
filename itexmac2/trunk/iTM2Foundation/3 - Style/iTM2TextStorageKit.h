@@ -122,7 +122,7 @@ enum
     @param      None
     @result     an iTM2SyntaxParser instance
 */
--(id)syntaxParser;
+- (id)syntaxParser;
 
 /*!
     @method     syntaxParserStyle
@@ -131,7 +131,7 @@ enum
     @param      None
     @result     an NSString identifier
 */
--(NSString *)syntaxParserStyle;
+- (NSString *)syntaxParserStyle;
 
 /*!
     @method     syntaxParserVariant
@@ -140,7 +140,7 @@ enum
     @param      None
     @result     an NSString identifier
 */
--(NSString *)syntaxParserVariant;
+- (NSString *)syntaxParserVariant;
 
 /*!
     @method     replaceSyntaxParser:
@@ -152,7 +152,7 @@ enum
     @param      argument is the new parser
     @result     None
 */
--(void)replaceSyntaxParser:(id)argument;
+- (void)replaceSyntaxParser:(id)argument;
 
 /*!
     @method     setSyntaxParser:
@@ -161,7 +161,7 @@ enum
     @param      argument is the new parser
     @result     None
 */
--(void)setSyntaxParser:(id)argument;
+- (void)setSyntaxParser:(id)argument;
 
 /*!
     @method     setSyntaxParserStyle:variant:
@@ -171,7 +171,7 @@ enum
     @param      variant is a variant
     @result     None
 */
--(void)setSyntaxParserStyle:(NSString *)style variant:(NSString *)variant;
+- (void)setSyntaxParserStyle:(NSString *)style variant:(NSString *)variant;
 
 /*!
     @method     replaceSyntaxParserStyle:variant:
@@ -184,7 +184,7 @@ enum
     @param      variant is a variant
     @result     None
 */
--(void)replaceSyntaxParserStyle:(NSString *)style variant:(NSString *)variant;
+- (void)replaceSyntaxParserStyle:(NSString *)style variant:(NSString *)variant;
 
 /*!
     @method     replaceCharactersInRange:withString:
@@ -194,7 +194,7 @@ enum
     @param      delta is similar to the last argument of -edited:range:changeInLength:
     @result     None
 */
--(void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
+- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
 
 @end
 
@@ -205,14 +205,14 @@ enum
     @abstract   The TeX letters
     @discussion Letters plus @ characters.
 */
-+(NSCharacterSet *)TeXLetterCharacterSet;
++ (NSCharacterSet *)TeXLetterCharacterSet;
 
 /*!
     @method     TeXFileNameLetterCharacterSet
     @abstract   The TeX File Name letters
     @discussion Letters and digits, plus some control characters.
 */
-+(NSCharacterSet *)TeXFileNameLetterCharacterSet;
++ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
 
 @end
 
@@ -255,7 +255,7 @@ enum
                 There is a one to one mapping between styles and receiver.
     @result     a unique NSString style.
 */
-+(NSString *)syntaxParserStyle;
++ (NSString *)syntaxParserStyle;
 
 /*!
     @method     syntaxParserClassEnumerator
@@ -264,7 +264,7 @@ enum
     @param      None
     @result     An NSArray of unique strings.
 */
-+(NSEnumerator *)syntaxParserClassEnumerator;
++ (NSEnumerator *)syntaxParserClassEnumerator;
 
 /*!
     @method     syntaxParserClassForStyle:
@@ -273,7 +273,7 @@ enum
     @param      a style.
     @result     a syntax parser class.
 */
-+(id)syntaxParserClassForStyle:(NSString *)style;
++ (id)syntaxParserClassForStyle:(NSString *)style;
 
 /*!
     @method     syntaxParserWithStyle:variant:
@@ -284,7 +284,7 @@ enum
     @param      a variant.
     @result     a syntax parser class.
 */
-+(id)syntaxParserWithStyle:(NSString *)style variant:(NSString *)variant;
++ (id)syntaxParserWithStyle:(NSString *)style variant:(NSString *)variant;
 
 /*!
     @method     attributesServerClass
@@ -297,7 +297,7 @@ enum
     @param	None.
     @result     None.
 */
-+(Class)attributesServerClass;
++ (Class)attributesServerClass;
 
 /*!
     @method     setUpAllTextViews
@@ -306,7 +306,7 @@ enum
     @param      None.
     @result     None.
 */
--(void)setUpAllTextViews;
+- (void)setUpAllTextViews;
 
 /*!
     @method     setUpTextView:
@@ -317,7 +317,7 @@ enum
     @param      A text view
     @result     None.
 */
--(void)setUpTextView:(NSTextView *)TV;
+- (void)setUpTextView:(NSTextView *)TV;
 
 /*!
     @method     badOffsetIndex
@@ -327,7 +327,7 @@ enum
     @param      None
     @result     an index.
 */
--(unsigned)badOffsetIndex;
+- (unsigned)badOffsetIndex;
 
 /*!
     @method     validateOffsetsUpTo:
@@ -336,7 +336,7 @@ enum
     @param      argument
     @result     None.
 */
--(void)validateOffsetsUpTo:(unsigned)argument;
+- (void)validateOffsetsUpTo:(unsigned)argument;
 
 /*!
     @method     invalidateOffsetsFrom:
@@ -345,7 +345,7 @@ enum
     @param      argument
     @result     None.
 */
--(void)invalidateOffsetsFrom:(unsigned)argument;
+- (void)invalidateOffsetsFrom:(unsigned)argument;
 
 /*!
     @method     badModeIndex
@@ -355,7 +355,7 @@ enum
     @param      None
     @result     an index.
 */
--(unsigned)badModeIndex;
+- (unsigned)badModeIndex;
 
 /*!
     @method     validateModesUpTo:
@@ -366,7 +366,7 @@ enum
     @param      argument
     @result     None.
 */
--(void)validateModesUpTo:(unsigned)argument;
+- (void)validateModesUpTo:(unsigned)argument;
 
 /*!
     @method     invalidateModesFrom:
@@ -377,7 +377,7 @@ enum
     @param      argument
     @result     None.
 */
--(void)invalidateModesFrom:(unsigned)argument;
+- (void)invalidateModesFrom:(unsigned)argument;
 
 /*!
     @method     lineIndexForLocation:
@@ -394,7 +394,7 @@ enum
     @param      location
     @result     index
 */
--(unsigned int)lineIndexForLocation:(unsigned)location;
+- (unsigned int)lineIndexForLocation:(unsigned)location;
 
 /*!
     @method     insertModeLine:atIndex:
@@ -404,7 +404,7 @@ enum
     @param      index
     @result     None.
 */
--(void)insertModeLine:(id)ML atIndex:(unsigned)index;
+- (void)insertModeLine:(id)ML atIndex:(unsigned)index;
 
 /*!
     @method     numberOfModeLines
@@ -412,7 +412,7 @@ enum
     @discussion Description forthcoming.
     @result     unsigned.
 */
--(unsigned)numberOfModeLines;
+- (unsigned)numberOfModeLines;
 
 /*!
     @method     modeLineAtIndex:
@@ -421,7 +421,7 @@ enum
     @param      index
     @result     ML.
 */
--(id)modeLineAtIndex:(unsigned)index;
+- (id)modeLineAtIndex:(unsigned)index;
 
 /*!
     @method     replaceModeLineAtIndex:withModeLine:
@@ -431,7 +431,7 @@ enum
     @param      ML
     @result     None.
 */
--(void)replaceModeLineAtIndex:(unsigned)index withModeLine:(id)ML;
+- (void)replaceModeLineAtIndex:(unsigned)index withModeLine:(id)ML;
 
 /*!
     @method     replaceModeLinesInRange:withModeLines:
@@ -441,7 +441,7 @@ enum
     @param      MLs
     @result     None.
 */
--(void)replaceModeLinesInRange:(NSRange)range withModeLines:(NSArray *)MLs;
+- (void)replaceModeLinesInRange:(NSRange)range withModeLines:(NSArray *)MLs;
 
 /*!
     @method     attributesAtIndex:effectiveRange:
@@ -450,7 +450,7 @@ enum
     @param      aLocation
     @result     A dictionary of attributes
 */
--(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 
 /*!
     @method     availableSyntaxModeAtIndex:longestRange:
@@ -459,7 +459,7 @@ enum
     @param      aLocation
     @result     A dictionary of attributes
 */
--(unsigned)availableSyntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (unsigned)availableSyntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
 
 /*!
     @method     addAttribute:value:range:
@@ -470,7 +470,7 @@ enum
     @param      range
     @result     None.
 */
--(void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range;
+- (void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range;
 
 /*!
     @method     attributesServer
@@ -479,7 +479,7 @@ enum
     @param      None
     @result     an iTM2TextAttributesServer instance.
 */
--(id)attributesServer;
+- (id)attributesServer;
 
 /*!
     @method    	replaceAttributesServer:
@@ -489,7 +489,7 @@ enum
     @param      argument
     @result     None
 */
--(void)replaceAttributesServer:(iTM2TextSyntaxParserAttributesServer *)argument;
+- (void)replaceAttributesServer:(iTM2TextSyntaxParserAttributesServer *)argument;
 
 /*!
     @method     syntaxParserVariant
@@ -498,7 +498,7 @@ enum
     @param      None
     @result     an NSString identifier
 */
--(NSString *)syntaxParserVariant;
+- (NSString *)syntaxParserVariant;
 
 /*!
     @method     textStorage
@@ -507,7 +507,7 @@ enum
     @param      None
     @result     an iTM2TextStorage instance.
 */
--(id)textStorage;
+- (id)textStorage;
 
 /*!
     @method     setTextStorage:
@@ -517,7 +517,7 @@ enum
     @param      argument
     @result     None
 */
--(void)setTextStorage:(id)argument;
+- (void)setTextStorage:(id)argument;
 
 /*!
     @method     textStorageDidChange
@@ -528,7 +528,7 @@ enum
     @param      None
     @result     None
 */
--(void)textStorageDidChange;
+- (void)textStorageDidChange;
 
 /*!
     @method     textStorageWillReplaceCharactersInRange:withString:
@@ -539,7 +539,7 @@ enum
     @param      string, same meaning than -replaceCharactersInRange:withString:
     @result     None
 */
--(void)textStorageWillReplaceCharactersInRange:(NSRange)range withString:(NSString *)string;
+- (void)textStorageWillReplaceCharactersInRange:(NSRange)range withString:(NSString *)string;
 
 /*!
     @method     textStorageDidInsertCharacterAtIndex:editedAttributesRangeIn:
@@ -552,7 +552,7 @@ enum
     @param      editedAttributesRangePtr, on return points to the edited attributes range
     @result     None
 */
--(void)textStorageDidInsertCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidInsertCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidInsertCharactersAtIndex:count:editedAttributesRangeIn:
@@ -565,7 +565,7 @@ enum
     @param      editedAttributesRangePtr, on return points to the edited attributes range
     @result     None
 */
--(void)textStorageDidInsertCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidInsertCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidDeleteCharacterAtIndex:editedAttributesRangeIn:
@@ -578,7 +578,7 @@ enum
     @param      editedAttributesRangePtr, on return points to the edited attributes range
     @result     None
 */
--(void)textStorageDidDeleteCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidDeleteCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidDeleteCharactersAtIndex:count:editedAttributesRangeIn:
@@ -593,7 +593,7 @@ enum
 	@param      editedAttributesRangePtr, on return points to the edited attributes range
 	@result     None
 */
--(void)textStorageDidDeleteCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidDeleteCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:
@@ -606,7 +606,7 @@ enum
 	@param      editedAttributesRangePtr, on return points to the edited attributes range
 	@result     None
 */
--(void)textStorageDidReplaceCharactersAtIndex:(unsigned)location count:(unsigned)oldCount withCount:(unsigned)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidReplaceCharactersAtIndex:(unsigned)location count:(unsigned)oldCount withCount:(unsigned)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageWillProcessEditing
@@ -617,7 +617,7 @@ enum
     @param      None
     @result     None
 */
--(void)textStorageWillProcessEditing;
+- (void)textStorageWillProcessEditing;
 
 /*!
     @method     textStorageDidProcessEditing
@@ -628,7 +628,7 @@ This default implementation does nothing.
     @param      None
     @result     None
 */
--(void)textStorageDidProcessEditing;
+- (void)textStorageDidProcessEditing;
 
 /*!
     @method     validEOLModeOfModeLine:forPreviousMode:
@@ -648,7 +648,7 @@ This default implementation does nothing.
     @param      the previous mode which is the last mode of the previous line
     @result     the EOL mode once things are fixed
 */
--(unsigned)validEOLModeOfModeLine:(id)modeLine forPreviousMode:(unsigned)mode;
+- (unsigned)validEOLModeOfModeLine:(id)modeLine forPreviousMode:(unsigned)mode;
 
 /*!
     @method     syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
@@ -667,7 +667,7 @@ This default implementation does nothing.
     @param      beforeIndex is a wall
     @result     a mode
 */
--(unsigned)syntaxModeForLocation:(unsigned)index previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthPtr nextModeIn:(unsigned *)nextModePtr before:(unsigned)beforeIndex;
+- (unsigned)syntaxModeForLocation:(unsigned)index previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthPtr nextModeIn:(unsigned *)nextModePtr before:(unsigned)beforeIndex;
 
 /*!
     @method     syntaxModeForCharacter:previousMode:
@@ -677,7 +677,7 @@ This default implementation does nothing.
     @param      previousMode
     @result     a mode
 */
--(unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 
 /*!
     @method     invalidateModesForCharacterRange:editedAttributesRangeIn:
@@ -687,7 +687,7 @@ This default implementation does nothing.
     @param      editedAttributesRangePtr
     @result     non
 */
--(void)invalidateModesForCharacterRange:(NSRange)range editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)invalidateModesForCharacterRange:(NSRange)range editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     EOLModeForPreviousMode:
@@ -696,7 +696,7 @@ This default implementation does nothing.
     @param      previousMode
     @result     a mode
 */
--(unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
+- (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
 
 /*!
     @method     syntaxModeAtIndex:longestRange:
@@ -706,7 +706,7 @@ This default implementation does nothing.
     @param      aRangePtr
     @result     a mode
 */
--(unsigned)syntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (unsigned)syntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
 
 /*!
     @method     fixSyntaxModesInRange:
@@ -715,9 +715,9 @@ This default implementation does nothing.
     @param      range
     @result     None
 */
--(void)fixSyntaxModesInRange:(NSRange)range;
+- (void)fixSyntaxModesInRange:(NSRange)range;
 
--(BOOL)diagnostic;// private/debug use
+- (BOOL)diagnostic;// private/debug use
 
 @end
 
@@ -804,15 +804,15 @@ extern NSString * const iTM2TextDefaultStyle;
 #endif
 }
 /*"Class methods"*/
-+(id)modeLine;
++ (id)modeLine;
 /*"Setters and Getters"*/
--(unsigned)startOffset;
--(unsigned)commentOffset;
--(unsigned)contentsEndOffset;
--(unsigned)endOffset;
--(void)setStartOffset:(unsigned)argument;
--(unsigned)EOLLength;
--(unsigned)contentsLength;
+- (unsigned)startOffset;
+- (unsigned)commentOffset;
+- (unsigned)contentsEndOffset;
+- (unsigned)endOffset;
+- (void)setStartOffset:(unsigned)argument;
+- (unsigned)EOLLength;
+- (unsigned)contentsLength;
 
 /*!
     @method     uncommentedLength
@@ -823,7 +823,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      argument
     @result     None
 */
--(unsigned)uncommentedLength;
+- (unsigned)uncommentedLength;
 
 /*!
     @method     setEOLLength:
@@ -832,8 +832,8 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      argument
     @result     None
 */
--(void)setEOLLength:(unsigned)argument;
--(unsigned)length;
+- (void)setEOLLength:(unsigned)argument;
+- (unsigned)length;
 
 /*!
     @method     contentsLength
@@ -842,7 +842,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      argument
     @result     None
 */
--(unsigned)contentsLength;
+- (unsigned)contentsLength;
 
 /*!
     @method     invalidLocalRange
@@ -855,7 +855,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     a local coordinate range
 */
--(NSRange)invalidLocalRange;
+- (NSRange)invalidLocalRange;
 
 /*!
     @method     invalidLocalRange
@@ -868,7 +868,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     a local coordinate range
 */
--(NSRange)invalidGlobalRange;
+- (NSRange)invalidGlobalRange;
 
 /*!
     @method     validateLocalRange:
@@ -883,7 +883,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      The range to be validated
     @result     None
 */
--(void)validateLocalRange:(NSRange)argument;
+- (void)validateLocalRange:(NSRange)argument;
 
 /*!
     @method     validateGlobalRange:
@@ -892,7 +892,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      The range to be validated
     @result     None
 */
--(void)validateGlobalRange:(NSRange)argument;
+- (void)validateGlobalRange:(NSRange)argument;
 
 /*!
     @method     invalidateLocalRange:
@@ -908,7 +908,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      The proposed invalid range in local coordinates.
     @result     None
 */
--(void)invalidateLocalRange:(NSRange)argument;
+- (void)invalidateLocalRange:(NSRange)argument;
 
 
 /*!
@@ -918,7 +918,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      The proposed invalid range in local coordinates.
     @result     None
 */
--(void)invalidateGlobalRange:(NSRange)argument;
+- (void)invalidateGlobalRange:(NSRange)argument;
 
 /*!
     @method     previousMode
@@ -931,7 +931,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     mode
 */
--(unsigned)previousMode;
+- (unsigned)previousMode;
 
 /*!
     @method     setPreviousMode:
@@ -940,7 +940,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      argument
     @result     None
 */
--(void)setPreviousMode:(unsigned)argument;
+- (void)setPreviousMode:(unsigned)argument;
 
 /*!
     @method     EOLMode:
@@ -950,8 +950,8 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     A mode
 */
--(unsigned)EOLMode;
--(void)setEOLMode:(unsigned)argument;
+- (unsigned)EOLMode;
+- (void)setEOLMode:(unsigned)argument;
 
 /*!
     @method     deleteModesInRange:
@@ -961,7 +961,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     A flag indicating whether the receiver did remove some modes, ie its length as decreased.
 */
--(BOOL)deleteModesInRange:(NSRange)aRange;
+- (BOOL)deleteModesInRange:(NSRange)aRange;
 
 /*!
     @method     moreStorage
@@ -970,12 +970,12 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     A flag indicating whether the increase succeeded.
 */
--(BOOL)moreStorage;
+- (BOOL)moreStorage;
 
--(BOOL)enlargeSyntaxModeAtGlobalLocation:(unsigned)aLocation length:(unsigned)length;
--(void)appendSyntaxMode:(unsigned)mode length:(unsigned)length;// beware: the _Length is updated too
--(BOOL)removeLastMode;// NO if no storage for modes
--(void)swapContentsWithModeLine:(iTM2ModeLine *)ML;
+- (BOOL)enlargeSyntaxModeAtGlobalLocation:(unsigned)aLocation length:(unsigned)length;
+- (void)appendSyntaxMode:(unsigned)mode length:(unsigned)length;// beware: the _Length is updated too
+- (BOOL)removeLastMode;// NO if no storage for modes
+- (void)swapContentsWithModeLine:(iTM2ModeLine *)ML;
 
 /*!
     @method     syntaxModeAtGlobalLocation:longestRange:
@@ -985,18 +985,18 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      ref is a range reference where the mode range is returned
     @result     A flag indicating whether the increase succeeded.
 */
--(unsigned)syntaxModeAtGlobalLocation:(unsigned)aLocation longestRange:(NSRangePointer)ref;
--(unsigned)numberOfSyntaxWords;
--(unsigned)syntaxModeAtIndex:(unsigned)index;
--(unsigned)syntaxLengthAtIndex:(unsigned)index;
+- (unsigned)syntaxModeAtGlobalLocation:(unsigned)aLocation longestRange:(NSRangePointer)ref;
+- (unsigned)numberOfSyntaxWords;
+- (unsigned)syntaxModeAtIndex:(unsigned)index;
+- (unsigned)syntaxLengthAtIndex:(unsigned)index;
 //All these should be private
 /*"Main methods"*/
--(id)initWithString:(NSString *)aString atCursor:(unsigned *)cursor;
--(void)describe;
+- (id)initWithString:(NSString *)aString atCursor:(unsigned *)cursor;
+- (void)describe;
 /*"Overriden methods"*/
--(void)dealloc;
+- (void)dealloc;
 #ifdef __ELEPHANT_MODELINE__
--(NSString *)originalString;
+- (NSString *)originalString;
 #endif
 @end
 
@@ -1041,7 +1041,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	None.
     @result	a dictionary.
 */
-+(NSDictionary *)defaultModesAttributes;
++ (NSDictionary *)defaultModesAttributes;
 
 /*!
     @method	syntaxParserVariantsForStyle:
@@ -1050,7 +1050,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	style is the style identifier
     @result	an attributes server class
 */
-+(NSDictionary *)syntaxParserVariantsForStyle:(NSString  *)style;
++ (NSDictionary *)syntaxParserVariantsForStyle:(NSString  *)style;
 
 /*!
     @method	attributesServerWithStyle:variant:
@@ -1060,7 +1060,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	variant is the variant identifier
     @result	a shared attributes server
 */
-+(id)attributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
++ (id)attributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
 
 /*!
     @method	createAttributesServerWithStyle:variant:
@@ -1070,7 +1070,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	variant is the variant identifier
     @result	None
 */
-+(void)createAttributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
++ (void)createAttributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
 
 /*!
     @method	removeAttributesServerWithStyle:variant:
@@ -1081,7 +1081,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	variant is the variant identifier
     @result	None
 */
-+(void)removeAttributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
++ (void)removeAttributesServerWithStyle:(NSString  *)style variant:(NSString *)variant;
 
 @end
 
@@ -1125,7 +1125,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	variant is the variant identifier
     @result	an attributes server
 */
--(id)initWithVariant:(NSString *)variant;
+- (id)initWithVariant:(NSString *)variant;
 
 /*!
     @method	shouldUpdateAttributes
@@ -1135,7 +1135,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	None
     @result	None
 */
--(void)shouldUpdateAttributes;
+- (void)shouldUpdateAttributes;
 
 /*!
     @method	attributesDidChange
@@ -1148,7 +1148,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	None
     @result	None
 */
--(void)attributesDidChange;
+- (void)attributesDidChange;
 
 /*!
     @method	syntaxParserVariant
@@ -1157,7 +1157,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	None
     @result	an NSString identifier
 */
--(NSString *)syntaxParserVariant;
+- (NSString *)syntaxParserVariant;
 
 /*!
     @method	modesAttributes
@@ -1166,7 +1166,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	Node.
     @result	a dictionary of dictionaries of modes attributes.
 */
--(NSDictionary *)modesAttributes;
+- (NSDictionary *)modesAttributes;
 
 /*!
     @method	attributesForMode:
@@ -1175,7 +1175,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	a mode.
     @result	a dictionary of mode attributes.
 */
--(NSDictionary *)attributesForMode:(NSString *)mode;
+- (NSDictionary *)attributesForMode:(NSString *)mode;
 
 /*!
     @method	setAttributes:forMode:
@@ -1185,7 +1185,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	a mode.
     @result	None.
 */
--(void)setAttributes:(NSDictionary *)dictionary forMode:(NSString *)mode;
+- (void)setAttributes:(NSDictionary *)dictionary forMode:(NSString *)mode;
 
 /*!
     @method	loadModesAttributesWithVariant:error:
@@ -1197,7 +1197,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	outError is a pointer to an NSError instance
     @result	None
 */
-+(NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)outError;
++ (NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)outError;
 
 /*!
     @method		builtInStylePaths
@@ -1209,7 +1209,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param		None
     @result		An array of paths
 */
-+(NSArray *)builtInStylePaths;
++ (NSArray *)builtInStylePaths;
 
 /*!
     @method		otherStylePaths
@@ -1222,7 +1222,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param		None
     @result		An array of paths
 */
-+(NSArray *)otherStylePaths;
++ (NSArray *)otherStylePaths;
 
 /*!
     @method	writeModesAttributes:toFile:error:
@@ -1233,7 +1233,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	outError is a pointer to an NSError instance.
     @result	a flag indicating success or failure.
 */
-+(BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outError;
++ (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outError;
 
 /*!
     @method	modesAttributesWithContentsOfFile:error:
@@ -1243,7 +1243,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	outError is a pointer to an NSError instance.
     @result	a dictionary.
 */
-+(NSDictionary *)modesAttributesWithContentsOfFile:(NSString *)fileName error:(NSError **)outError;
++ (NSDictionary *)modesAttributesWithContentsOfFile:(NSString *)fileName error:(NSError **)outError;
 
 /*!
     @method	character:isMemberOfCoveredCharacterSetForMode:
@@ -1253,7 +1253,7 @@ extern NSString * const iTM2TextDefaultVariant;
     @param	mode
     @result	a flag
 */
--(BOOL)character:(unichar)theChar isMemberOfCoveredCharacterSetForMode:(NSString *)mode;
+- (BOOL)character:(unichar)theChar isMemberOfCoveredCharacterSetForMode:(NSString *)mode;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextSyntaxAttributesKit

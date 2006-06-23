@@ -37,7 +37,7 @@
 	@param		obj The iTM2ARegularExpression object to be converted to a string.
 	@result		The expression string of the iTM2ARegularExpression value object.
  */
--(NSString *)stringForObjectValue:(id)obj;
+- (NSString *)stringForObjectValue:(id)obj;
 
 /*!
 	@method		getObjectValue:forString:errorDescription:
@@ -48,7 +48,7 @@
 	@param		error A pointer to a pointer to an error string describing why the string was not valid.
 	@result		YES if the string can be compiled into a valid regular expression, NO if not.  If YES, then obj will be filled in with a pointer to the resulting iTM2ARegularExpression.  If NO, then error will be filled in with a pointer to an error string.
      */
--(BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error;
+- (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error;
 
 	@end
 
@@ -126,7 +126,7 @@ enum {
 	@param		string The candidate regular expression string.
 	@result		YES if the string is a valid regular expression, NO otherwise.
  */
-+(BOOL)validString:(NSString *)string;
++ (BOOL)validString:(NSString *)string;
 
 /*!
 	@method		regularExpressionWithString:ignoreCase:
@@ -136,7 +136,7 @@ enum {
 	@param		ignoreCaseFlag Whether the expression object should ignore case differences when matching candidate strings.
 	@result		The new autoreleased iTM2ARegularExpression, or nil if string is not a valid regular expression string.
  */
-+(id)regularExpressionWithString:(NSString *)string;
++ (id)regularExpressionWithString:(NSString *)string;
 
 /*!
 	@method		keyForErrorStatus:
@@ -145,7 +145,7 @@ enum {
 	@param		status is the integer return by the compile() and exec() functions.
 	@result		A NSString key to be localized.
  */
-+(NSString *)keyForErrorStatus:(int) status;
++ (NSString *)keyForErrorStatus:(int) status;
 
 /*!
 	@method		localizedStringForErrorStatus:
@@ -154,7 +154,7 @@ enum {
 	@param		status is the integer return by the compile() and exec() functions.
 	@result		A localized NSString instance.
  */
-+(NSString *)localizedStringForErrorStatus:(int) status;
++ (NSString *)localizedStringForErrorStatus:(int) status;
 
 /*!
 	@method		initWithString:
@@ -163,7 +163,7 @@ enum {
 	@param		string The regular expression string.
 	@result		The initialized iTM2ARegularExpression.
  */
--(id)initWithString:(NSString *)string;
+- (id)initWithString:(NSString *)string;
 
 /*!
 	@method		initWithString:options:
@@ -173,7 +173,7 @@ enum {
 	@param		options.
 	@result		The initialized iTM2ARegularExpression, or nil if string is not a valid regular expression string.
  */
--(id)initWithString:(NSString *)string options:(unsigned)flags;
+- (id)initWithString:(NSString *)string options:(unsigned)flags;
 
 /*!
 	@method		stringValue
@@ -181,7 +181,7 @@ enum {
 	@discussion Returns the regular expression string that was used to initialize the receiver.
 	@result		The regular expression string.
  */
--(NSString *)stringValue;
+- (NSString *)stringValue;
 
 /*!
 	@method		ignoreCase
@@ -189,7 +189,7 @@ enum {
 	@discussion Returns whether the receiver is case insensitive.
 	@result		YES if the receiver is case insensitive, NO if not.
  */
--(BOOL)ignoreCase;
+- (BOOL)ignoreCase;
 
 
 /*!
@@ -204,7 +204,7 @@ enum {
 	@param		searchRange The range of the buffer to use for matching.
 	@result		YES if the searchRange of the candidateChars matches the expression, NO if not.
  */
--(NSArray *)matchRangesInCharacters:(const unichar *)candidateChars range:(NSRange)searchRange;
+- (NSArray *)matchRangesInCharacters:(const unichar *)candidateChars range:(NSRange)searchRange;
 
 /*!
 	@method		compilationStatusString
@@ -212,7 +212,7 @@ enum {
 	@discussion Localization dictionary a named: iTM2AREStatusString.strings.
 	@result		an NSArray of range values.
  */
--(NSString *)compilationStatusString;
+- (NSString *)compilationStatusString;
 
 /*!
 	@method		compilationStatus
@@ -220,7 +220,7 @@ enum {
 	@discussion An error code
 	@result		an error code.
  */
--(iTM2AREErrorStatus)compilationStatus;
+- (iTM2AREErrorStatus)compilationStatus;
 
 /*!
 	@method		executionStatus
@@ -228,7 +228,7 @@ enum {
 	@discussion An error code
 	@result		an error code.
  */
--(iTM2AREErrorStatus)executionStatus;
+- (iTM2AREErrorStatus)executionStatus;
 
 /*!
 	@method		expressionValue
@@ -236,7 +236,7 @@ enum {
 	@discussion Description F.
 	@result		an NSArray of range values.
  */
--(void *)expressionValue;
+- (void *)expressionValue;
 
 /*!
 	@method		setOptions:
@@ -244,7 +244,7 @@ enum {
 	@discussion Description Forthcoming.
 	@param		flags is an integer gathering all the bit flags.
  */
--(void)setOptions:(int)flags;
+- (void)setOptions:(int)flags;
 
 	@end
 
@@ -273,7 +273,7 @@ void iTM2FreeRegex(void *re);
 	@discussion Description Forthcoming.
 	@result		an NSString with more backslashes.
  */
--(NSString *)TeX2REConvertedString;
+- (NSString *)TeX2REConvertedString;
 
 /*!
 	@method		RE2TeXConvertedString:
@@ -281,7 +281,7 @@ void iTM2FreeRegex(void *re);
 	@discussion Description Forthcoming.
 	@result		an NSString with less backslashes.
  */
--(NSString *)RE2TeXConvertedString;
+- (NSString *)RE2TeXConvertedString;
 
 /*!
 	@method		rangesOfRegularExpression:
@@ -290,7 +290,7 @@ void iTM2FreeRegex(void *re);
 	@param		iTM2ARegularExpression * RE is the regular expression tested against.
 	@result		an NSArray of range values.
  */
--(NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE;
+- (NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE;
 
 /*!
 	@method		rangesOfRegularExpression:options:
@@ -300,7 +300,7 @@ void iTM2FreeRegex(void *re);
 	@param		unsigned mask gathers all the options.
 	@result		an NSArray of range values.
  */
--(NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
+- (NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
 
 /*!
 	@method		rangesOfRegularExpression:options:
@@ -310,7 +310,7 @@ void iTM2FreeRegex(void *re);
 	@param		NSRange searchRange is where the regular expression is searched.
 	@result		an NSArray of range values.
  */
--(NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
+- (NSArray *)rangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
 
 /*!
 	@method		allRangesOfRegularExpression:
@@ -319,7 +319,7 @@ void iTM2FreeRegex(void *re);
 	@param		the regular expression.
 	@result		an NSArray of arrays of range values.
  */
--(NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE;
+- (NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE;
 
 /*!
 	@method		allRangesOfRegularExpression:options:
@@ -329,7 +329,7 @@ void iTM2FreeRegex(void *re);
 	@param		The options applied to the regular expression (unimplemented yet).
 	@result		an NSArray of arrays of range values.
  */
--(NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
+- (NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask;
 
 /*!
 	@method		allRangesOfRegularExpression:options:range:
@@ -340,6 +340,6 @@ void iTM2FreeRegex(void *re);
 	@param		searchRange is the ctrang range where the search should occur.
 	@result		an NSArray of arrays of range values.
  */
--(NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
+- (NSArray *)allRangesOfRegularExpression:(iTM2ARegularExpression *)RE options:(unsigned)mask range:(NSRange)searchRange;
 
 	@end

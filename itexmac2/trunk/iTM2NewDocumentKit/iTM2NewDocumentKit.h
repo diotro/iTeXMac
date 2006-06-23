@@ -65,7 +65,7 @@ enum
 	@param		sender is an irrelevant argument, just like for all messages
 	@result		A new document.
 */
--(IBAction)newDocumentFromRunningAssistantPanel:(id)sender;
+- (IBAction)newDocumentFromRunningAssistantPanel:(id)sender;
 
 /*!
     @method     newDocumentFromRunningAssistantPanelForProject:
@@ -76,7 +76,7 @@ enum
 	@param		sender is an irrelevant argument, just like for all messages
 	@result		A new document.
 */
--(void)newDocumentFromRunningAssistantPanelForProject:(id)project;
+- (void)newDocumentFromRunningAssistantPanelForProject:(id)project;
 
 @end
 
@@ -126,7 +126,7 @@ enum
 	@param		None.
 	@result		None.
 */
-+(void)loadTemplates;
++ (void)loadTemplates;
 
 @end
 

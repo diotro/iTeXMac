@@ -41,21 +41,21 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
--(NSPDFImageRep *)imageRepresentation;
--(void)setImageRepresentation:(NSPDFImageRep *)value;
--(NSSize)inset;
--(NSSize)minFrameSize;
--(int)tag;
--(void)setTag:(int)anInt;
--(int)state;
--(void)setState:(int)value;
--(NSPoint)focusPoint;
--(void)setFocusPoint:(NSPoint)value;
--(NSRect)drawingBounds;
--(BOOL)drawsBoundary;
--(void)setDrawsBoundary:(BOOL)flag;
--(NSPoint)synchronizationPoint;
--(void)setSynchronizationPoint:(NSPoint)P;
+- (NSPDFImageRep *)imageRepresentation;
+- (void)setImageRepresentation:(NSPDFImageRep *)value;
+- (NSSize)inset;
+- (NSSize)minFrameSize;
+- (int)tag;
+- (void)setTag:(int)anInt;
+- (int)state;
+- (void)setState:(int)value;
+- (NSPoint)focusPoint;
+- (void)setFocusPoint:(NSPoint)value;
+- (NSRect)drawingBounds;
+- (BOOL)drawsBoundary;
+- (void)setDrawsBoundary:(BOOL)flag;
+- (NSPoint)synchronizationPoint;
+- (void)setSynchronizationPoint:(NSPoint)P;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @end
@@ -103,38 +103,38 @@ typedef enum _iTM2PDFPageLayout
 }
 /*"Class methods"*/
 /*"Setters and Getters"*/
--(id)imageRepresentation;
--(void)setImageRepresentation:(id)aImageRepresentation;
--(void)imageRepresentationDidChange;
--(float)magnification;
--(void)setMagnification:(float)aMagnification;
--(void)magnificationDidChange;
--(id)cachedImageRepresentation;
--(BOOL)needsToUpdateGeometry;
--(void)setNeedsUpdateGeometry:(BOOL)flag;
--(NSColor *)backgroundColor;
--(unsigned)pageLayout;
--(void)setPageLayout:(unsigned)PL;
--(void)pageLayoutDidChange;
--(int)softCurrentPhysicalPage;
--(int)currentPhysicalPage;
--(void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
--(int)currentLogicalPage;
--(void)setCurrentLogicalPage:(int)aCurrentLogicalPage;
--(void)currentPageDidChange;
--(int)PDFOrientation;
--(void)setPDFOrientation:(int)argument;
--(id)selectedView;
--(void)selectViewWithTag:(int)tag;
--(id)focusView;
+- (id)imageRepresentation;
+- (void)setImageRepresentation:(id)aImageRepresentation;
+- (void)imageRepresentationDidChange;
+- (float)magnification;
+- (void)setMagnification:(float)aMagnification;
+- (void)magnificationDidChange;
+- (id)cachedImageRepresentation;
+- (BOOL)needsToUpdateGeometry;
+- (void)setNeedsUpdateGeometry:(BOOL)flag;
+- (NSColor *)backgroundColor;
+- (unsigned)pageLayout;
+- (void)setPageLayout:(unsigned)PL;
+- (void)pageLayoutDidChange;
+- (int)softCurrentPhysicalPage;
+- (int)currentPhysicalPage;
+- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
+- (int)currentLogicalPage;
+- (void)setCurrentLogicalPage:(int)aCurrentLogicalPage;
+- (void)currentPageDidChange;
+- (int)PDFOrientation;
+- (void)setPDFOrientation:(int)argument;
+- (id)selectedView;
+- (void)selectViewWithTag:(int)tag;
+- (id)focusView;
 /*"Main methods"*/
--(NSSize)pageFrameSizeWithMagnification:(float)aMagnification;
--(void)recache;
--(void)updateGeometry;
--(void)placeFocusPointInVisibleArea;
--(void)updateFocusInformation;
--(void)updateFocusInformationWithPoint:(NSPoint)P;
--(void)updateGeometry;
+- (NSSize)pageFrameSizeWithMagnification:(float)aMagnification;
+- (void)recache;
+- (void)updateGeometry;
+- (void)placeFocusPointInVisibleArea;
+- (void)updateFocusInformation;
+- (void)updateFocusInformationWithPoint:(NSPoint)P;
+- (void)updateGeometry;
 /*"Overriden methods"*/
 @end
 
@@ -143,21 +143,21 @@ typedef enum _iTM2PDFPageLayout
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFPrintKit
 @interface iTM2PDFPrintView: iTM2View 
 /*"Setters and getters"*/
--(id)imageRepresentation;
--(void)setImageRepresentation:(id)anImageRep;
--(float)scale;
--(void)setScale:(float)scale;
--(BOOL)slidesLandscape;
--(void)setSlidesLandscape:(BOOL)yorn;
+- (id)imageRepresentation;
+- (void)setImageRepresentation:(id)anImageRep;
+- (float)scale;
+- (void)setScale:(float)scale;
+- (BOOL)slidesLandscape;
+- (void)setSlidesLandscape:(BOOL)yorn;
 /*"Main methods"*/
--(id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(float)scale;
--(int)pageCount;
+- (id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(float)scale;
+- (int)pageCount;
 /*"Overriden methods"*/
--(void)drawRect:(NSRect)aRect;
--(BOOL)knowsPageRange:(NSRangePointer)range;
--(BOOL)isVerticallyCentered;
--(BOOL)isHorizontallyCentered;
--(NSRect)rectForPage:(int)pageNumber;
+- (void)drawRect:(NSRect)aRect;
+- (BOOL)knowsPageRange:(NSRangePointer)range;
+- (BOOL)isVerticallyCentered;
+- (BOOL)isHorizontallyCentered;
+- (NSRect)rectForPage:(int)pageNumber;
 @end
 
 

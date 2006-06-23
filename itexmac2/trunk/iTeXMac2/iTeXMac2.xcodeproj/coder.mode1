@@ -371,9 +371,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC5B6A440A4B734200F7DE47</string>
+				<string>DC2A7AF80A4C175B006864F4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC5B6A450A4B734200F7DE47</string>
+				<string>DC2A7AF90A4C175B006864F4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -507,14 +507,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC5B70670A4B7DB700F7DE47</string>
-		<string>DC5B6BC60A4B784F00F7DE47</string>
-		<string>DC5B6BC70A4B784F00F7DE47</string>
-		<string>DC691935088C8CD600F00114</string>
-		<string>DC5B6BC40A4B784F00F7DE47</string>
-		<string>DC69174E088BFB5600F00114</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DC2A7B000A4C175C006864F4</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>74 208 991 610 0 0 1440 878 </string>
@@ -704,14 +699,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC5B6BBE0A4B784F00F7DE47</string>
+				<string>DC2A7AFA0A4C175C006864F4</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC5B6BBF0A4B784F00F7DE47</string>
-				<string>DC5B6BC00A4B784F00F7DE47</string>
-				<string>DC5B6BC10A4B784F00F7DE47</string>
-				<string>DC5B6BC20A4B784F00F7DE47</string>
-				<string>DC5B6BC30A4B784F00F7DE47</string>
-				<string>DC5B6BC40A4B784F00F7DE47</string>
+				<string>DC2A7AFB0A4C175C006864F4</string>
+				<string>DC2A7AFC0A4C175C006864F4</string>
+				<string>DC2A7AFD0A4C175C006864F4</string>
+				<string>DC2A7AFE0A4C175C006864F4</string>
+				<string>DC2A7AFF0A4C175C006864F4</string>
+				<string>DC2A7B000A4C175C006864F4</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -720,7 +715,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

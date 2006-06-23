@@ -31,7 +31,7 @@
 
 @implementation iTM2SharedResponder(MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkForUpdate:
--(IBAction)checkForUpdate:(id)sender;
+- (IBAction)checkForUpdate:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 11 11:42:37 GMT 2005
@@ -61,7 +61,7 @@ To Do List:
 
 @implementation NSTextView_iTM2MiscKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Extracted from apple sample code (TextLinks).
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/19/2002
@@ -76,7 +76,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resetCursorRects:
--(void)resetCursorRects;
+- (void)resetCursorRects;
 /*"Extracted from apple sample code (TextLinks).
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/19/2002
@@ -123,7 +123,7 @@ To Do List:
 /*"Adding categories !!!"*/
 @implementation iTM2MainInstaller(NSScriptSuiteRegistry)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scriptSuiteRegistryCompleteInstallation
-+(void)scriptSuiteRegistryCompleteInstallation;
++ (void)scriptSuiteRegistryCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -159,7 +159,7 @@ To Do List:
 
 @implementation NSScriptSuiteRegistry(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MiscKit_loadSuiteWithDictionary:fromBundle:
--(void)iTM2MiscKit_loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
+- (void)iTM2MiscKit_loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 11 11:42:37 GMT 2005
@@ -215,7 +215,7 @@ NSString * const iTM2FontPanelWillOrderFrontNotification = @"iTM2FontPanelWillOr
 
 @implementation iTM2MainInstaller(NSFontManager)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fontManagerCompleteInstallation
-+(void)fontManagerCompleteInstallation;
++ (void)fontManagerCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -239,7 +239,7 @@ To Do List:
 
 @implementation NSFontManager_iTeXMac2
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  orderFrontFontPanel:
--(void)orderFrontFontPanel:(id)sender;
+- (void)orderFrontFontPanel:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -255,7 +255,7 @@ To Do List:
 
 @implementation NSSavePanel(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pushNavLastRootDirectory
--(void)pushNavLastRootDirectory;
+- (void)pushNavLastRootDirectory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -272,7 +272,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  popNavLastRootDirectory
--(void)popNavLastRootDirectory;
+- (void)popNavLastRootDirectory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -293,7 +293,7 @@ NSString * const iTM2PrintInfoDidChangeNotification = @"iTM2PrintInfoDidChange";
 @end
 @implementation NSPageLayout_iTeXMac2
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -308,7 +308,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  writePrintInfo
--(void)writePrintInfo;
+- (void)writePrintInfo;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -326,7 +326,7 @@ To Do List:
 @end
 @implementation NSPrintInfo_iTeXMac2
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -339,73 +339,73 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
--(void)setPaperName:(NSString *)name;
+- (void)setPaperName:(NSString *)name;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setPaperName:(NSString *)name];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setPaperSize:(NSSize)size;
+- (void)setPaperSize:(NSSize)size;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setPaperSize:(NSSize)size];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setOrientation:(NSPrintingOrientation)orientation;
+- (void)setOrientation:(NSPrintingOrientation)orientation;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setOrientation:(NSPrintingOrientation)orientation];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setLeftMargin:(float)margin;
+- (void)setLeftMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setLeftMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setRightMargin:(float)margin;
+- (void)setRightMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setRightMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setTopMargin:(float)margin;
+- (void)setTopMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setTopMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setBottomMargin:(float)margin;
+- (void)setBottomMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setBottomMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setHorizontallyCentered:(BOOL)flag;
+- (void)setHorizontallyCentered:(BOOL)flag;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setHorizontallyCentered:(BOOL)flag];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setVerticallyCentered:(BOOL)flag;
+- (void)setVerticallyCentered:(BOOL)flag;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setVerticallyCentered:(BOOL)flag];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setHorizontalPagination:(NSPrintingPaginationMode)mode;
+- (void)setHorizontalPagination:(NSPrintingPaginationMode)mode;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setHorizontalPagination:(NSPrintingPaginationMode)mode];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setVerticalPagination:(NSPrintingPaginationMode)mode;
+- (void)setVerticalPagination:(NSPrintingPaginationMode)mode;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setVerticalPagination:(NSPrintingPaginationMode)mode];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
--(void)setJobDisposition:(NSString *)disposition;
+- (void)setJobDisposition:(NSString *)disposition;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
 	[super setJobDisposition:(NSString *)disposition];
@@ -425,7 +425,7 @@ NSString * const iTM2ToolbarSuperscriptItemIdentifier = @"superscript";
 NSString * const iTM2ToolbarUnlockDocumentItemIdentifier = @"unlockDocument";
 
 #define DEFINE_IMAGE(SELECTOR, NAME)\
-+(NSImage *)SELECTOR;\
++ (NSImage *)SELECTOR;\
 {\
 	static NSImage * I = nil;\
 	if(!I)\
@@ -448,7 +448,7 @@ DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocumentToolbarImage");
 
 @implementation NSToolbarItem(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDrawerToolbarItem:
-+(NSToolbarItem *)toggleDrawerToolbarItem;
++ (NSToolbarItem *)toggleDrawerToolbarItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -460,7 +460,7 @@ To Do List:
 	return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2MainInstaller classBundle]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lockDocumentToolbarItem:
-+(NSToolbarItem *)lockDocumentToolbarItem;
++ (NSToolbarItem *)lockDocumentToolbarItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -472,7 +472,7 @@ To Do List:
 	return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2MainInstaller classBundle]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unlockDocumentToolbarItemToolbarItem:
-+(NSToolbarItem *)unlockDocumentToolbarItemToolbarItem;
++ (NSToolbarItem *)unlockDocumentToolbarItemToolbarItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -484,7 +484,7 @@ To Do List:
 	return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2MainInstaller classBundle]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  subscriptToolbarItem:
-+(NSToolbarItem *)subscriptToolbarItem;
++ (NSToolbarItem *)subscriptToolbarItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -496,7 +496,7 @@ To Do List:
 	return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2MainInstaller classBundle]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  superscriptDrawerToolbarItem:
-+(NSToolbarItem *)superscriptDrawerToolbarItem;
++ (NSToolbarItem *)superscriptDrawerToolbarItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -508,7 +508,7 @@ To Do List:
 	return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2MainInstaller classBundle]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFrontColorPanelToolbarItem:
-+(NSToolbarItem *)orderFrontColorPanelToolbarItem;
++ (NSToolbarItem *)orderFrontColorPanelToolbarItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -520,7 +520,7 @@ To Do List:
 	return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2MainInstaller classBundle]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFrontFontPanelToolbarItem:
-+(NSToolbarItem *)orderFrontFontPanelToolbarItem;
++ (NSToolbarItem *)orderFrontFontPanelToolbarItem;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -534,7 +534,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  identifierFromSelector:
-+(NSString *)identifierFromSelector:(SEL)aSelector;
++ (NSString *)identifierFromSelector:(SEL)aSelector;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -548,7 +548,7 @@ To Do List:
 	return [name hasSuffix:suffix]? [name substringWithRange:NSMakeRange(0, [name length] - [suffix length])]:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectorFromIdentifier:
-+(SEL)selectorFromIdentifier:(NSString *)anIdentifier;
++ (SEL)selectorFromIdentifier:(NSString *)anIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -561,7 +561,7 @@ To Do List:
 	return NSSelectorFromString([anIdentifier stringByAppendingString:suffix]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarItemWithIdentifier:inBundle:
-+(NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)anIdentifier inBundle:(NSBundle *)bundle;
++ (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)anIdentifier inBundle:(NSBundle *)bundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -600,7 +600,7 @@ To Do List:
     return toolbarItem;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  seedToolbarItemWithIdentifier:forToolbarIdentifier:
-+(NSToolbarItem *)seedToolbarItemWithIdentifier:(NSString *)anIdentifier forToolbarIdentifier:(NSString *)anotherIdentifier;
++ (NSToolbarItem *)seedToolbarItemWithIdentifier:(NSString *)anIdentifier forToolbarIdentifier:(NSString *)anotherIdentifier;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -682,7 +682,7 @@ finish2:
     return [[toolbarItem copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolbarSizeMode:
--(void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
+- (void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -705,7 +705,7 @@ To Do List:
 
 @implementation NSView(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolbarSizeMode:
--(void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
+- (void)setToolbarSizeMode:(NSToolbarSizeMode)sizeMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -723,7 +723,7 @@ To Do List:
 
 @implementation NSToolbar_iTeXMac2
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -738,7 +738,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSizeMode
--(void)setSizeMode:(NSToolbarSizeMode)sizeMode;
+- (void)setSizeMode:(NSToolbarSizeMode)sizeMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -761,7 +761,7 @@ To Do List:
 
 @implementation iTM2ValueTransformer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  transformerName
-+(NSString *)transformerName;
++ (NSString *)transformerName;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -777,7 +777,7 @@ To Do List:
 
 @implementation iTM2MainInstaller(ValueTransformer)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ValueTransformerCompleteInstallation
-+(void)iTM2ValueTransformerCompleteInstallation;
++ (void)iTM2ValueTransformerCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004

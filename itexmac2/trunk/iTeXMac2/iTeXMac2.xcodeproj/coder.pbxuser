@@ -146,12 +146,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172715897;
-			PBXWorkspaceStateSaveDate = 172715897;
-		};
-		perUserProjectItems = {
-			DC5B6A480A4B734300F7DE47 /* PBXTextBookmark */ = DC5B6A480A4B734300F7DE47 /* PBXTextBookmark */;
-			DC5B6A490A4B734300F7DE47 /* PBXTextBookmark */ = DC5B6A490A4B734300F7DE47 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 172758853;
+			PBXWorkspaceStateSaveDate = 172758853;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -284,26 +280,6 @@
 			sepNavVisRect = "{{0, 0}, {959, 538}}";
 			sepNavWindowFrame = "{{130, 101}, {998, 667}}";
 		};
-	};
-	DC5B6A480A4B734300F7DE47 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
-		name = "iTM2_INFOPLIST_FILE = $(PRODUCT_NAME)-Info.plist";
-		rLen = 49;
-		rLoc = 635;
-		rType = 0;
-		vrLen = 684;
-		vrLoc = 0;
-	};
-	DC5B6A490A4B734300F7DE47 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
-		name = "iTM2_INFOPLIST_FILE = $(PRODUCT_NAME)-Info.plist";
-		rLen = 49;
-		rLoc = 635;
-		rType = 0;
-		vrLen = 684;
-		vrLoc = 0;
 	};
 	DC5D13860855B6DE003786EF /* English */ = {
 		uiCtxt = {

@@ -91,8 +91,8 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
 @end
 
 @interface iTM2PDFKitDocument: iTM2PDFDocument
--(PDFDocument *)PDFDocument;
--(void)setPDFDocument:(id)PDFDoc;
+- (PDFDocument *)PDFDocument;
+- (void)setPDFDocument:(id)PDFDoc;
 @end
 
 @interface iTM2PDFKitView: PDFView
@@ -106,9 +106,9 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
 @end
 
 @interface PDFView(iTM2SYNCKit)
--(void)scrollDestinationToVisible:(PDFDestination *)destination;
--(void)zoomToFit:(id)sender;
--(void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (void)scrollDestinationToVisible:(PDFDestination *)destination;
+- (void)zoomToFit:(id)sender;
+- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 @end
 
 @interface PDFPage(iTM2SYNCKit)
@@ -120,7 +120,7 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
     @param		point is the point possibly near some character
     @result     The character index as int
 */
--(int)characterIndexNearPoint:(NSPoint)point;
+- (int)characterIndexNearPoint:(NSPoint)point;
 
 /*!
     @method     localToGlobalCharacterIndex:
@@ -129,7 +129,7 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
     @param		globalIndex is a global index
     @result     An index in the local coordinates
 */
--(int)localToGlobalCharacterIndex:(int)globalIndex;
+- (int)localToGlobalCharacterIndex:(int)globalIndex;
 
 /*!
     @method     globalToLocalCharacterIndex:
@@ -138,7 +138,7 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
     @param		localIndex is a local index
     @result     An index in the global coordinates
 */
--(int)globalToLocalCharacterIndex:(int)localIndex;
+- (int)globalToLocalCharacterIndex:(int)localIndex;
 
 @end
 
@@ -159,14 +159,14 @@ typedef struct
     @discussion (comprehensive description)
     @result     (description)
 */
--(unsigned int)characterOffsetForPageAtIndex:(unsigned int)pageIndex;
+- (unsigned int)characterOffsetForPageAtIndex:(unsigned int)pageIndex;
 /*!
     @method     pageIndexForCharacterIndex:
     @abstract   (brief description)
     @discussion (comprehensive description)
     @result     (description)
 */
--(unsigned int)pageIndexForCharacterIndex:(unsigned int)characterIndex;
+- (unsigned int)pageIndexForCharacterIndex:(unsigned int)characterIndex;
 /*!
     @method     positionOfWord:options:range:
     @abstract   Find the position of the given word
@@ -179,7 +179,7 @@ typedef struct
 	@param		range is the range where we should look for the word.
     @result     (description)
 */
--(iTM2Position)positionOfWord:(NSString *)aWord options:(unsigned)mask range:(NSRange)searchRange;
+- (iTM2Position)positionOfWord:(NSString *)aWord options:(unsigned)mask range:(NSRange)searchRange;
 /*!
     @method     positionsOfWordBefore:here:after:index:
     @abstract   See the discussion.
@@ -197,8 +197,8 @@ typedef struct
 	@param		searchRange: the range where we are expected to find the string...
     @result     A dictionary
 */
--(NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)here after:(NSString *)after index:(unsigned int)hitIndex;
--(NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex inRange:(NSRange)searchRange;
+- (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)here after:(NSString *)after index:(unsigned int)hitIndex;
+- (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex inRange:(NSRange)searchRange;
 @end
 
 @interface iTM2IconSegmentedControl: NSSegmentedControl
@@ -217,47 +217,47 @@ typedef struct
 @end
 
 @interface NSImage(iTM2PDFKit)
-+(NSImage *)imageCaution;
-+(NSImage *)imageDebugScrollToolbarImage;
-+(NSImage *)imageGrabber;
-+(NSImage *)imageLandscape;
-+(NSImage *)imagePortrait;
-+(NSImage *)imageReverseLandscape;
-+(NSImage *)imageTBRotateLeft;
-+(NSImage *)imageTBRotateRight;
-+(NSImage *)imageTBSizeToFit;
-+(NSImage *)imageTBSnowflake;
-+(NSImage *)imageTBZoomActualSize;
-+(NSImage *)imageTBZoomIn;
-+(NSImage *)imageTBZoomOut;
-+(NSImage *)imageThumbnailViewAdorn;
-+(NSImage *)imageTOCViewAdorn;
-+(NSImage *)imageBackAdorn;
-+(NSImage *)imageForwardAdorn;
-+(NSImage *)imageGenericImageDocument;
-+(NSImage *)imageMoveToolAdorn;
-+(NSImage *)imageTextToolAdorn;
-+(NSImage *)imageSelectToolAdorn;
-+(NSImage *)imageAnnotateTool1Adorn;
-+(NSImage *)imageAnnotateTool1AdornDisclosure;
-+(NSImage *)imageAnnotateTool2Adorn;
-+(NSImage *)imageAnnotateTool2AdornDisclosure;
++ (NSImage *)imageCaution;
++ (NSImage *)imageDebugScrollToolbarImage;
++ (NSImage *)imageGrabber;
++ (NSImage *)imageLandscape;
++ (NSImage *)imagePortrait;
++ (NSImage *)imageReverseLandscape;
++ (NSImage *)imageTBRotateLeft;
++ (NSImage *)imageTBRotateRight;
++ (NSImage *)imageTBSizeToFit;
++ (NSImage *)imageTBSnowflake;
++ (NSImage *)imageTBZoomActualSize;
++ (NSImage *)imageTBZoomIn;
++ (NSImage *)imageTBZoomOut;
++ (NSImage *)imageThumbnailViewAdorn;
++ (NSImage *)imageTOCViewAdorn;
++ (NSImage *)imageBackAdorn;
++ (NSImage *)imageForwardAdorn;
++ (NSImage *)imageGenericImageDocument;
++ (NSImage *)imageMoveToolAdorn;
++ (NSImage *)imageTextToolAdorn;
++ (NSImage *)imageSelectToolAdorn;
++ (NSImage *)imageAnnotateTool1Adorn;
++ (NSImage *)imageAnnotateTool1AdornDisclosure;
++ (NSImage *)imageAnnotateTool2Adorn;
++ (NSImage *)imageAnnotateTool2AdornDisclosure;
 @end
 
 @interface NSToolbarItem(iTM2PDFKit)
-+(NSToolbarItem *)goToNextPageToolbarItem;
-+(NSToolbarItem *)goToPreviousPageToolbarItem;
-+(NSToolbarItem *)takePageFromToolbarItem;
-+(NSToolbarItem *)zoomInToolbarItem;
-+(NSToolbarItem *)zoomOutToolbarItem;
-+(NSToolbarItem *)takeScaleFromToolbarItem;
-+(NSToolbarItem *)goBackForwardToolbarItem;
-+(NSToolbarItem *)takeToolModeFromSegmentToolbarItem;
-+(NSToolbarItem *)rotateLeftToolbarItem;
-+(NSToolbarItem *)rotateRightToolbarItem;
-+(NSToolbarItem *)actualSizeToolbarItem;
-+(NSToolbarItem *)doZoomToSelectionToolbarItem;
-+(NSToolbarItem *)doZoomToFitToolbarItem;
++ (NSToolbarItem *)goToNextPageToolbarItem;
++ (NSToolbarItem *)goToPreviousPageToolbarItem;
++ (NSToolbarItem *)takePageFromToolbarItem;
++ (NSToolbarItem *)zoomInToolbarItem;
++ (NSToolbarItem *)zoomOutToolbarItem;
++ (NSToolbarItem *)takeScaleFromToolbarItem;
++ (NSToolbarItem *)goBackForwardToolbarItem;
++ (NSToolbarItem *)takeToolModeFromSegmentToolbarItem;
++ (NSToolbarItem *)rotateLeftToolbarItem;
++ (NSToolbarItem *)rotateRightToolbarItem;
++ (NSToolbarItem *)actualSizeToolbarItem;
++ (NSToolbarItem *)doZoomToSelectionToolbarItem;
++ (NSToolbarItem *)doZoomToFitToolbarItem;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= PDFKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

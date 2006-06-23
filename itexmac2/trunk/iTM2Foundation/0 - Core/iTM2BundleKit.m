@@ -53,7 +53,7 @@ NSString * const iTM2BundleContentsComponent = @"Contents";
 
 @implementation NSBundle_iTeXMac2
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -68,7 +68,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
--(BOOL)load;
+- (BOOL)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -91,7 +91,7 @@ To Do List:
 		return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loadNibNamed:owner:
-+(BOOL)loadNibNamed:(NSString *)aNibName owner:(id)owner;
++ (BOOL)loadNibNamed:(NSString *)aNibName owner:(id)owner;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -120,7 +120,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loadNibFile:externalNameTable:withZone:
-+(BOOL)loadNibFile:(NSString *)fileName externalNameTable:(NSDictionary *)context withZone:(NSZone *)zone;
++ (BOOL)loadNibFile:(NSString *)fileName externalNameTable:(NSDictionary *)context withZone:(NSZone *)zone;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -134,7 +134,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loadNibFile:externalNameTable:withZone:
--(NSString *)pathForAuxiliaryExecutable:(NSString *)executableName;
+- (NSString *)pathForAuxiliaryExecutable:(NSString *)executableName;
 /*"Overriden pethod to add support of frameworks.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -161,7 +161,7 @@ To Do List:
 
 @implementation NSBundle(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isI386
-+(BOOL)isI386;
++ (BOOL)isI386;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -176,7 +176,7 @@ To Do List:
 	return cpu_type == CPU_TYPE_I386;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  plugInPathExtension
-+(NSString *)plugInPathExtension;
++ (NSString *)plugInPathExtension;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -187,7 +187,7 @@ To Do List:
     return @"iTM2";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2FoundationBundle
-+(NSBundle *)iTM2FoundationBundle;
++ (NSBundle *)iTM2FoundationBundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -198,7 +198,7 @@ To Do List:
     return [NSBundle bundleWithIdentifier:iTM2FoundationBundleIdentifier];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTeXMac2Bundle
-+(NSBundle *)iTeXMac2Bundle;
++ (NSBundle *)iTeXMac2Bundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -209,7 +209,7 @@ To Do List:
     return [NSBundle bundleWithIdentifier:iTeXMac2BundleIdentifier];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  searchPathsForSupportInDomains:withName:
-+(NSArray *)searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
++ (NSArray *)searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
 /*"Description forthcoming. Does not check for existence.
 Returns a subarray of
 ~/Library/Application\ Support/iTeXMac2
@@ -235,7 +235,7 @@ To Do List:
     return [[MRA copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pathForSupportDirectory:inDomain:withName:create:
-+(NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName create:(BOOL)create;
++ (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName create:(BOOL)create;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -253,7 +253,7 @@ To Do List:
     return [DFM fileExistsAtPath:path] || (create && [DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])? path:[NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pathForSupportDirectory:inDomain:create:
--(NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
+- (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -264,7 +264,7 @@ To Do List:
     return [isa pathForSupportDirectory:subpath inDomain:domainMask withName:[self bundleName] create:create];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  bundleName
--(NSString *)bundleName;
+- (NSString *)bundleName;
 /*"Description forthcoming. Does not check for existence.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -275,7 +275,7 @@ To Do List:
     return result? result: (self == [NSBundle mainBundle]? [[[self bundlePath] lastPathComponent] stringByDeletingPathExtension]:[self bundleIdentifier]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  temporaryDirectory
-+(NSString *)temporaryDirectory;
++ (NSString *)temporaryDirectory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -299,7 +299,7 @@ To Do List:
 	return path;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  temporaryBinaryDirectory
-+(NSString *)temporaryBinaryDirectory;
++ (NSString *)temporaryBinaryDirectory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -323,7 +323,7 @@ To Do List:
 	return path;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  createSymbolicLinkWithExecutableContent:error:
-+(BOOL)createSymbolicLinkWithExecutableContent:(NSString *)executable error:(NSError **)errorRef;
++ (BOOL)createSymbolicLinkWithExecutableContent:(NSString *)executable error:(NSError **)errorRef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -365,7 +365,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  temporaryUniqueDirectory
-+(NSString *)temporaryUniqueDirectory;
++ (NSString *)temporaryUniqueDirectory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -388,7 +388,7 @@ To Do List:
 	return path;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  defaultWritableFolderPath
-+(NSString *)defaultWritableFolderPath;
++ (NSString *)defaultWritableFolderPath;
 /*"Description forthcoming. Does not check for existence.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -408,7 +408,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uniqueApplicationIdentifier
-+(NSString *)uniqueApplicationIdentifier;
++ (NSString *)uniqueApplicationIdentifier;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sat Jul 23 00:54:14 GMT 2005
@@ -423,7 +423,7 @@ To Do List:
 	return S;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadPlugIns
-+(void)loadPlugIns;
++ (void)loadPlugIns;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -525,7 +525,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= availablePlugInPathsOfType:
-+(NSArray *)availablePlugInPathsOfType:(NSString *)aType;
++ (NSArray *)availablePlugInPathsOfType:(NSString *)aType;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -569,7 +569,7 @@ To Do List:
     return paths;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= availablePlugInPathsOfType:
--(NSArray *)availablePlugInPathsOfType:(NSString *)aType;
+- (NSArray *)availablePlugInPathsOfType:(NSString *)aType;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -592,7 +592,7 @@ To Do List:
     return paths;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= availablePlugInPathsAtPath:ofType:
-+(NSArray *)availablePlugInPathsAtPath:(NSString *)path ofType:(NSString *)aType;
++ (NSArray *)availablePlugInPathsAtPath:(NSString *)path ofType:(NSString *)aType;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -622,7 +622,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleForResourceAtPath:
-+(NSBundle *)bundleForResourceAtPath:(NSString *)aPath;
++ (NSBundle *)bundleForResourceAtPath:(NSString *)aPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -645,7 +645,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pathsForResource:ofType:inDirectory:domains:
--(NSArray *)pathsForResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath domains:(NSSearchPathDomainMask)domainMask;
+- (NSArray *)pathsForResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath domains:(NSSearchPathDomainMask)domainMask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -700,7 +700,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleIsWrapper
--(BOOL)bundleIsWrapper;
+- (BOOL)bundleIsWrapper;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -711,7 +711,7 @@ To Do List:
     return [[[self infoDictionary] objectForKey:@"iTM2BundleIsWrapper"] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleHFSTypeCode
--(OSType)bundleHFSTypeCode;
+- (OSType)bundleHFSTypeCode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -722,7 +722,7 @@ To Do List:
     return *(const unsigned long *)[[[[self infoDictionary] objectForKey:@"CFBundlePackageType"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] lossyCString];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleHFSCreatorCode
--(OSType)bundleHFSCreatorCode;
+- (OSType)bundleHFSCreatorCode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -734,7 +734,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allBundlesAtPath:
-+(NSArray *)allBundlesAtPath:(NSString *)path;
++ (NSArray *)allBundlesAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -760,7 +760,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  supportBundlesInDomain:
--(NSArray *)supportBundlesInDomain:(NSSearchPathDomainMask) domainMask;
+- (NSArray *)supportBundlesInDomain:(NSSearchPathDomainMask) domainMask;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -772,7 +772,7 @@ To Do List:
     return [NSBundle allBundlesAtPath:[self pathForSupportDirectory:@"" inDomain:domainMask create:NO]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= embeddedBundles
--(NSArray *)embeddedBundles;
+- (NSArray *)embeddedBundles;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -788,7 +788,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pathsForBuiltInResource:ofType:inDirectory:
--(NSArray *)pathsForBuiltInResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
+- (NSArray *)pathsForBuiltInResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -816,7 +816,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pathsForSupportResource:ofType:inDirectory:
--(NSArray *)pathsForSupportResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
+- (NSArray *)pathsForSupportResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -888,7 +888,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pathsForSupportResource:ofType:inDirectory:domains:
--(NSArray *)pathsForSupportResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath domains:(NSSearchPathDomainMask)domainMask;
+- (NSArray *)pathsForSupportResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath domains:(NSSearchPathDomainMask)domainMask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -1085,7 +1085,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allPathsForResource:ofType:inDirectory:
--(NSArray *)allPathsForResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
+- (NSArray *)allPathsForResource:(NSString *)name ofType:(NSString *)type inDirectory:(NSString *)subpath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -1105,7 +1105,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allPathsForResource:ofType:
--(NSArray *)allPathsForResource:(NSString *)component ofType:(NSString *)type;
+- (NSArray *)allPathsForResource:(NSString *)component ofType:(NSString *)type;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -1118,7 +1118,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleForClass:localizedStringForKey:value:table:
-+(NSString *)bundleForClass:(Class)aClass localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
++ (NSString *)bundleForClass:(Class)aClass localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/05/2005
@@ -1147,7 +1147,7 @@ To Do List:
 
 @implementation NSApplication(iTM2BundleKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+(void)load;
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1165,7 +1165,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2BundleKit_run
--(void)swizzle_iTM2BundleKit_run;
+- (void)swizzle_iTM2BundleKit_run;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1193,7 +1193,7 @@ To Do List:
 
 @implementation NSObject(iTM2BundleKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classBundle
-+(NSBundle *)classBundle;
++ (NSBundle *)classBundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -1204,7 +1204,7 @@ To Do List:
     return [NSBundle bundleForClass:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classBundle
--(NSBundle *)classBundle;
+- (NSBundle *)classBundle;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -1218,7 +1218,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSBundle(iTeXMac2)
 
 @implementation NSAutoreleasePool(ddff)
-+(id)infoDictionary;
++ (id)infoDictionary;
 {iTM2_DIAGNOSTIC;
 	return nil;
 }

@@ -27,7 +27,7 @@ NSString * const iTM2LaTeXToolbarIdentifier = @"iTM2 LaTeX Toolbar: Tiger";
 
 @implementation iTM2LaTeXInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -39,7 +39,7 @@ To Do List:
     return iTM2LaTeXInspectorMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
--(BOOL)windowPositionShouldBeObserved;
+- (BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -57,7 +57,7 @@ NSString * const iTM2ToolbarLaTeXSectionItemIdentifier = @"LaTeXSection";
 
 @implementation iTM2MainInstaller(LaTeXInspectorToolbar)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  LaTeXInspectorToolbarCompleteInstallation
-+(void)LaTeXInspectorToolbarCompleteInstallation;
++ (void)LaTeXInspectorToolbarCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -75,7 +75,7 @@ To Do List:
 @end
 
 #define DEFINE_TOOLBAR_ITEM(SELECTOR)\
-+(NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXInspector classBundle]];}
++ (NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXInspector classBundle]];}
 
 @implementation NSToolbarItem(iTM2LaTeX)
 DEFINE_TOOLBAR_ITEM(LaTeXSectionToolbarItem)
@@ -88,7 +88,7 @@ NSString * const iTM2ToolbarLaTeXSuperscriptItemIdentifier = @"superscript";
 @implementation iTM2LaTeXInspector(Toolbar)
 #pragma mark =-=-=-=-=-  TOOLBAR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupToolbarWindowDidLoad
--(void)setupToolbarWindowDidLoad;
+- (void)setupToolbarWindowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -142,7 +142,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShareToolbarConfiguration:
--(void)toggleShareToolbarConfiguration:(id)sender;
+- (void)toggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -157,7 +157,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShareToolbarConfiguration:
--(BOOL)validateToggleShareToolbarConfiguration:(id)sender;
+- (BOOL)validateToggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -170,7 +170,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext:
--(void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
+- (void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -188,7 +188,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDefaultItemIdentifiers:
--(NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -217,7 +217,7 @@ To Do List:
 						nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarAllowedItemIdentifiers:
--(NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -250,7 +250,7 @@ To Do List:
 
 @implementation iTM2LaTeXSectionButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -276,7 +276,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
--(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
+- (void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -301,7 +301,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
--(void)initMenu;
+- (void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -368,7 +368,7 @@ next:
 
 @implementation iTM2LaTeXLabelButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -394,7 +394,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
--(void)initMenu;
+- (void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -459,7 +459,7 @@ next:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
--(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
+- (void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -539,7 +539,7 @@ To Do List:
 
 @implementation iTM2LaTeXEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  bold:
--(void)bold:(id)sender;
+- (void)bold:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -550,7 +550,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
--(void)italic:(id)sender;
+- (void)italic:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -561,7 +561,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
--(void)underline:(id)sender;
+- (void)underline:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -572,7 +572,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignCenter:
--(void)alignCenter:(id)sender;
+- (void)alignCenter:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -583,7 +583,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignRight:
--(void)alignRight:(id)sender;
+- (void)alignRight:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -594,7 +594,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignLeft:
--(void)alignLeft:(id)sender;
+- (void)alignLeft:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -605,7 +605,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subscript:
--(void)subscript:(id)sender;
+- (void)subscript:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -616,7 +616,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
--(void)superscript:(id)sender;
+- (void)superscript:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -628,7 +628,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  turnOffKerning:
--(void)turnOffKerning:(id)sender;
+- (void)turnOffKerning:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -639,7 +639,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tightenKerning:
--(void)tightenKerning:(id)sender;
+- (void)tightenKerning:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -650,7 +650,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loosenKerning:
--(void)loosenKerning:(id)sender;
+- (void)loosenKerning:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -660,7 +660,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  useStandardKerning:
--(void)useStandardKerning:(id)sender;
+- (void)useStandardKerning:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -671,7 +671,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  turnOffLigatures:
--(void)turnOffLigatures:(id)sender;
+- (void)turnOffLigatures:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -682,7 +682,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  useStandardLigatures:
--(void)useStandardLigatures:(id)sender;
+- (void)useStandardLigatures:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -693,7 +693,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  useAllLigatures:
--(void)useAllLigatures:(id)sender;
+- (void)useAllLigatures:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -704,7 +704,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  raiseBaseline:
--(void)raiseBaseline:(id)sender;
+- (void)raiseBaseline:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -715,7 +715,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  lowerBaseline:
--(void)lowerBaseline:(id)sender;
+- (void)lowerBaseline:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -726,7 +726,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  toggleTraditionalCharacterShape:
--(void)toggleTraditionalCharacterShape:(id)sender;
+- (void)toggleTraditionalCharacterShape:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -739,7 +739,7 @@ To Do List:
 #endif
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignJustified:
--(void)alignJustified:(id)sender;
+- (void)alignJustified:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -775,7 +775,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
--(void)insertControl:(id)sender;
+- (void)insertControl:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -801,7 +801,7 @@ To Do List: Nothing at first glance.
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
--(void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
+- (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -904,7 +904,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  LABELS & REFERENCES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXLabel:
--(IBAction)insertLaTeXLabel:(id)sender;
+- (IBAction)insertLaTeXLabel:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -918,7 +918,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXLabel:
--(BOOL)validateInsertLaTeXLabel:(id)sender;
+- (BOOL)validateInsertLaTeXLabel:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -930,7 +930,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoLaTeXLabel:
--(IBAction)gotoLaTeXLabel:(id)sender;
+- (IBAction)gotoLaTeXLabel:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -950,7 +950,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoLaTeXLabel:
--(BOOL)validateGotoLaTeXLabel:(id)sender;
+- (BOOL)validateGotoLaTeXLabel:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -962,7 +962,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXReference:
--(IBAction)insertLaTeXReference:(id)sender;
+- (IBAction)insertLaTeXReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -976,7 +976,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXReference:
--(BOOL)validateInsertLaTeXReference:(id)sender;
+- (BOOL)validateInsertLaTeXReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -988,7 +988,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoLaTeXReference:
--(IBAction)gotoLaTeXReference:(id)sender;
+- (IBAction)gotoLaTeXReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1000,7 +1000,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoLaTeXReference:
--(BOOL)validateGotoLaTeXReference:(id)sender;
+- (BOOL)validateGotoLaTeXReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1012,7 +1012,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXEquationReference:
--(IBAction)insertLaTeXEquationReference:(id)sender;
+- (IBAction)insertLaTeXEquationReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1026,7 +1026,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXEquationReference:
--(BOOL)validateInsertLaTeXEquationReference:(id)sender;
+- (BOOL)validateInsertLaTeXEquationReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1038,7 +1038,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoLaTeXEquationReference:
--(IBAction)gotoLaTeXEquationReference:(id)sender;
+- (IBAction)gotoLaTeXEquationReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1050,7 +1050,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoLaTeXEquationReference:
--(BOOL)validateGotoLaTeXEquationReference:(id)sender;
+- (BOOL)validateGotoLaTeXEquationReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1062,7 +1062,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _insertLaTeXKnownReference:
--(IBAction)_insertLaTeXKnownReference:(id)sender;
+- (IBAction)_insertLaTeXKnownReference:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1076,7 +1076,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  SECTIONS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  gotoLaTeXSection:
--(IBAction)gotoLaTeXSection:(id)sender;
+- (IBAction)gotoLaTeXSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1096,7 +1096,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoLaTeXSection:
--(BOOL)validateGotoLaTeXSection:(id)sender;
+- (BOOL)validateGotoLaTeXSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1108,7 +1108,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXChapter:
--(IBAction)insertLaTeXChapter:(id)sender;
+- (IBAction)insertLaTeXChapter:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1122,7 +1122,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXChapter:
--(BOOL)validateInsertLaTeXChapter:(id)sender;
+- (BOOL)validateInsertLaTeXChapter:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1134,7 +1134,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXPart:
--(IBAction)insertLaTeXPart:(id)sender;
+- (IBAction)insertLaTeXPart:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1148,7 +1148,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXPart:
--(BOOL)validateInsertLaTeXPart:(id)sender;
+- (BOOL)validateInsertLaTeXPart:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1160,7 +1160,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXSection:
--(IBAction)insertLaTeXSection:(id)sender;
+- (IBAction)insertLaTeXSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1174,7 +1174,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXSection:
--(BOOL)validateInsertLaTeXSection:(id)sender;
+- (BOOL)validateInsertLaTeXSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1186,7 +1186,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXSubSection:
--(IBAction)insertLaTeXSubSection:(id)sender;
+- (IBAction)insertLaTeXSubSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1200,7 +1200,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXSubSection:
--(BOOL)validateInsertLaTeXSubSection:(id)sender;
+- (BOOL)validateInsertLaTeXSubSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1212,7 +1212,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXSubSubSection:
--(IBAction)insertLaTeXSubSubSection:(id)sender;
+- (IBAction)insertLaTeXSubSubSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1226,7 +1226,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXSubSubSection:
--(BOOL)validateInsertLaTeXSubSubSection:(id)sender;
+- (BOOL)validateInsertLaTeXSubSubSection:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1238,7 +1238,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXParagraph:
--(IBAction)insertLaTeXParagraph:(id)sender;
+- (IBAction)insertLaTeXParagraph:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1252,7 +1252,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXParagraph:
--(BOOL)validateInsertLaTeXParagraph:(id)sender;
+- (BOOL)validateInsertLaTeXParagraph:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1264,7 +1264,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXSubParagraph:
--(IBAction)insertLaTeXSubParagraph:(id)sender;
+- (IBAction)insertLaTeXSubParagraph:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1278,7 +1278,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertLaTeXSubParagraph:
--(BOOL)validateInsertLaTeXSubParagraph:(id)sender;
+- (BOOL)validateInsertLaTeXSubParagraph:(id)sender;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1290,7 +1290,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollLaTeXLabelToVisible:
--(void)scrollLaTeXLabelToVisible:(id <NSMenuItem>)sender;
+- (void)scrollLaTeXLabelToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1303,7 +1303,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollLaTeXReferenceToVisible:
--(void)scrollLaTeXReferenceToVisible:(id <NSMenuItem>)sender;
+- (void)scrollLaTeXReferenceToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1316,7 +1316,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollIncludeToVisible:
--(void)scrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)scrollIncludeToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1336,7 +1336,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollIncludeToVisible:
--(void)delayedScrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollIncludeToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1366,7 +1366,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findLaTeXEnvironment:
--(void)findLaTeXEnvironment:(id)sender;
+- (void)findLaTeXEnvironment:(id)sender;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -1392,7 +1392,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
--(void)mouseDown:(NSEvent * )event
+- (void)mouseDown:(NSEvent * )event
 /*"Description Forthcoming
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -1491,13 +1491,13 @@ To Do List:
 @end
 
 @interface NSString (iTM2LaTeXKit_PRIVATE)
--(NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
--(NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
 @end
 
 @implementation NSString (iTM2LaTeXKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= LaTeXEnvironmentNameForRange:effectiveRange:
--(NSString *)LaTeXEnvironmentNameForRange:(NSRange)range effectiveRange:(NSRangePointer)rangePtr;
+- (NSString *)LaTeXEnvironmentNameForRange:(NSRange)range effectiveRange:(NSRangePointer)rangePtr;
 /*"Given a selected range, returns the name of the latex environment and the effective range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -1676,7 +1676,7 @@ taiao:
     return [NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lossyLaTeXEnvironmentNameAtIndex:
--(NSString *)lossyLaTeXEnvironmentNameAtIndex:(unsigned)index;
+- (NSString *)lossyLaTeXEnvironmentNameAtIndex:(unsigned)index;
 /*"Given an index, returns the name of the latex environment.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -1790,7 +1790,7 @@ To Do List:
     return [NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _nextLaTeXEnvironmentDelimiterRangeAfterIndex:effectiveName:isOpening:
--(NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
 /*"Returns the first occurrence of something like regexp "\\begin\s*([.*?]\s*)*\{(.*?)\}" or \\end... (quite...)
 searchRange.location<=result.location < index, result.location is the max
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1881,7 +1881,7 @@ To Do List:
     return NSMakeRange(NSNotFound, 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _previousLaTeXEnvironmentDelimiterRangeBeforeIndex:effectiveName:isOpening:
--(NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
 /*"Returns the first occurrence of something like regexp "\\begin\s*([.*?]\s*)*\{(.*?)\}" or \\end... (quite...)
 searchRange.location<=result.location < index, result.location is the max
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1987,11 +1987,11 @@ static id _iTM2LaTeXModeForModeArray = nil;
 #define _TextStorage (iTM2TextStorage *)_TS
 #if 0
 @implementation NSNotificationCenter(ouam)
-+(void)load;
++ (void)load;
 {
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(postNotificationName:object:userInfo:) replacement:@selector(swizzled_postNotificationName:object:userInfo:) forClass:self];
 }
--(void)swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
+- (void)swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
 {
 	if([aName isEqual:NSPopUpButtonWillPopUpNotification])
 		NSLog(@"COUCOU");
@@ -2002,7 +2002,7 @@ static id _iTM2LaTeXModeForModeArray = nil;
 
 @implementation NSTextStorage(LaTeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  LaTeXSectionMenu
--(NSMenu *)LaTeXSectionMenu;
+- (NSMenu *)LaTeXSectionMenu;
 /*"Description forthcoming. No consistency test.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2425,7 +2425,7 @@ To Do List:
     return sectionMenu;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLaTeXLabelMenu:refMenu:
--(void)getLaTeXLabelMenu:(NSMenu **)labelMenuRef refMenu:(NSMenu **)refMenuRef;
+- (void)getLaTeXLabelMenu:(NSMenu **)labelMenuRef refMenu:(NSMenu **)refMenuRef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2617,7 +2617,7 @@ To Do List: ...
 
 @implementation iTM2LaTeXParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+(void)load;
++ (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2633,7 +2633,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+(NSString *)syntaxParserStyle;
++ (NSString *)syntaxParserStyle;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -2644,7 +2644,7 @@ To Do List: Nothing
     return @"LaTeX";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModesAttributes
-+(NSDictionary *)defaultModesAttributes;
++ (NSDictionary *)defaultModesAttributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2672,7 +2672,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
--(unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2707,7 +2707,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
--(unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+- (unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2810,7 +2810,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
--(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2865,7 +2865,7 @@ To Do List:
 
 @implementation iTM2XtdLaTeXParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+(NSString *)syntaxParserStyle;
++ (NSString *)syntaxParserStyle;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -2877,7 +2877,7 @@ To Do List: Nothing
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
--(NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2934,7 +2934,7 @@ NSString * const iTM2LaTeXParserAttributesInspectorType = @"iTM2LaTeXParserAttri
 
 @implementation iTM2LaTeXParserAttributesDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2948,7 +2948,7 @@ To Do List:
 
 @implementation iTM2LaTeXParserAttributesInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2964,7 +2964,7 @@ NSString * const iTM2XtdLaTeXParserAttributesInspectorType = @"iTM2XtdLaTeXParse
 
 @implementation iTM2XtdLaTeXParserAttributesDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2978,7 +2978,7 @@ To Do List:
 
 @implementation iTM2XtdLaTeXParserAttributesInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2992,7 +2992,7 @@ To Do List:
 
 @implementation iTM2XtdLaTeXParserSymbolsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+(NSString *)inspectorType;
++ (NSString *)inspectorType;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3006,7 +3006,7 @@ To Do List:
 
 @implementation iTM2ProjectDocumentResponder(LaTeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  LaTeXLabelAction:
--(IBAction)LaTeXLabelAction:(id)sender;
+- (IBAction)LaTeXLabelAction:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -3018,7 +3018,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  LaTeXLabelActionWillPopUp:
--(BOOL)LaTeXLabelActionWillPopUp:(id)sender;
+- (BOOL)LaTeXLabelActionWillPopUp:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -3030,7 +3030,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  LaTeXSectionAction:
--(IBAction)LaTeXSectionAction:(id)sender;
+- (IBAction)LaTeXSectionAction:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005
@@ -3042,7 +3042,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  LaTeXSectionActionWillPopUp:
--(BOOL)LaTeXSectionActionWillPopUp:(id)sender;
+- (BOOL)LaTeXSectionActionWillPopUp:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005

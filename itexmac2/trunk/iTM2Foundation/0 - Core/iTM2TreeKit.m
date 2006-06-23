@@ -27,7 +27,7 @@
 #define iTM2_DIAGNOSTIC
 @implementation iTM2TreeNode
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
--(id)init;
+- (id)init;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -47,7 +47,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithParent:value:
--(id)initWithParent:(id)aParent value:(id)anObject;
+- (id)initWithParent:(id)aParent value:(id)anObject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -65,7 +65,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithParent:nonRetainedValue:
--(id)initWithParent:(id)aParent nonRetainedValue:(id)anObject;
+- (id)initWithParent:(id)aParent nonRetainedValue:(id)anObject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -83,7 +83,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  automaticallyNotifiesObserversForKey:
-+(BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey;
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -98,7 +98,7 @@ To Do List:
 		&& [super automaticallyNotifiesObserversForKey:theKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
--(void)dealloc;
+- (void)dealloc;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -124,7 +124,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  value
--(id)value;
+- (id)value;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -136,7 +136,7 @@ To Do List:
     return _Value;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setValue:
--(void)setValue:(id)argument;
+- (void)setValue:(id)argument;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -156,7 +156,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nonRetainedValue
--(id)nonRetainedValue;
+- (id)nonRetainedValue;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -168,7 +168,7 @@ To Do List:
     return _NonRetainedValue;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setNonRetainedValue:
--(void)setNonRetainedValue:(id)argument;
+- (void)setNonRetainedValue:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -187,7 +187,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parent
--(id)parent;
+- (id)parent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -198,7 +198,7 @@ To Do List:
     return _Parent;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setParent
--(void)setParent:(id)aNode;
+- (void)setParent:(id)aNode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -220,7 +220,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfChildren
--(unsigned)countOfChildren;
+- (unsigned)countOfChildren;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -232,7 +232,7 @@ To Do List:
     return [_Children count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCountOfChildren:
--(void)setCountOfChildren:(unsigned int) argument;
+- (void)setCountOfChildren:(unsigned int) argument;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -248,7 +248,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInChildrenAtIndex:
--(id)objectInChildrenAtIndex:(unsigned) index;
+- (id)objectInChildrenAtIndex:(unsigned) index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -259,7 +259,7 @@ To Do List:
     return index < [_Children count]? [_Children objectAtIndex:index]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexOfObjectInChildren:
--(unsigned)indexOfObjectInChildren:(id)anObject;
+- (unsigned)indexOfObjectInChildren:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -270,7 +270,7 @@ To Do List:
     return [_Children indexOfObject:anObject];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addObjectInChildren:
--(void)addObjectInChildren:(id)node;
+- (void)addObjectInChildren:(id)node;
 /*"Description forthcoming.
 The data model of the receiver is modified.
 nil is returned when nothing is added, including when the key identifier is already in use.
@@ -289,7 +289,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromChildren:
--(void)removeObjectFromChildren:(id)anObject;
+- (void)removeObjectFromChildren:(id)anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -309,7 +309,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inChildrenAtIndex:
--(void)insertObject:(id)node inChildrenAtIndex:(unsigned int)index;
+- (void)insertObject:(id)node inChildrenAtIndex:(unsigned int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -326,7 +326,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceObjectInChildrenAtIndex:withObject:
--(void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(id)node;
+- (void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(id)node;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -346,7 +346,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromChildrenAtIndex:
--(void)removeObjectFromChildrenAtIndex:(unsigned int)index;
+- (void)removeObjectFromChildrenAtIndex:(unsigned int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003
@@ -365,7 +365,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInChildrenWithValue:
--(id)objectInChildrenWithValue:(id) anObject;
+- (id)objectInChildrenWithValue:(id) anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.4: Sat May 24 2003

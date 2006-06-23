@@ -28,21 +28,21 @@
 #import "NSObject_iTeXMac2.h"
 
 @interface NSObject(NSTextStorage_iTeXMac2)
--(NSTextView *)mainTextView;
+- (NSTextView *)mainTextView;
 @end
 
 @interface NSObject(iTM2Scripting_Private)
--(NSRange)rangeValue;
--(unsigned)index;
--(unsigned)insertionIndex;
--(unsigned)intValue;
+- (NSRange)rangeValue;
+- (unsigned)index;
+- (unsigned)insertionIndex;
+- (unsigned)intValue;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection)
 /*"Description forthcoming."*/
 @implementation NSTextStorage(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  invalidateCursorRects
--(void)invalidateCursorRects;
+- (void)invalidateCursorRects;
 /*"Default implementation does nothing.
 The focus range is the range used to insert some text in the text storage when there is no UI.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -66,7 +66,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setFocusRange:
--(void)setFocusRange:(NSRange)range;
+- (void)setFocusRange:(NSRange)range;
 /*"Default implementation does nothing.
 The focus range is the range used to insert some text in the text storage when there is no UI.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -77,7 +77,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  focusRange
--(NSRange)focusRange;
+- (NSRange)focusRange;
 /*"Default implementation returns the range at the end.
 The focus range is the range used to insert some text in the text storage when there is no UI.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -88,7 +88,7 @@ To Do List:
     return NSMakeRange([self length], 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  firstTextView
--(NSTextView *)firstTextView;
+- (NSTextView *)firstTextView;
 /*"Scans the layout managers and their text containers for the first text view with a window.
 If none is found, returns the first text view if any.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -115,7 +115,7 @@ To Do List:
     return cachedTV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  mainTextView
--(NSTextView *)mainTextView;
+- (NSTextView *)mainTextView;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -130,7 +130,7 @@ To Do List:
         return TV;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selection
--(NSTextStorage *)selection;
+- (NSTextStorage *)selection;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -141,7 +141,7 @@ To Do List:
         initWithString: [[self string] substringWithRange:[self selectedRange]]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectedRange
--(NSRange)selectedRange;
+- (NSRange)selectedRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -151,7 +151,7 @@ To Do List:
     return [[self mainTextView] selectedRange];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSelectedRange:
--(void)setSelectedRange:(NSRange)aRange;
+- (void)setSelectedRange:(NSRange)aRange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -162,7 +162,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  firstSelectedIndex
--(unsigned int)firstSelectedIndex;
+- (unsigned int)firstSelectedIndex;
 /*"Description forthcoming. 1 based for AppleScript.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -172,7 +172,7 @@ To Do List:
     return [self selectedRange].location + 1;// beware of 0 ves 1 based numeration
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  lastSelectedIndex
--(unsigned int)lastSelectedIndex;
+- (unsigned int)lastSelectedIndex;
 /*"Description forthcoming. 1 based for AppleScript.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -182,7 +182,7 @@ To Do List:
     return NSMaxRange([self selectedRange]);// beware of 0 versus 1 based numeration
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectedRangeSpecifier
--(NSRangeSpecifier *)selectedRangeSpecifier;
+- (NSRangeSpecifier *)selectedRangeSpecifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -201,7 +201,7 @@ To Do List:
                                 ] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSelectedRangeValue:
--(void)setSelectedRangeValue:(id)argument;
+- (void)setSelectedRangeValue:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -228,7 +228,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectAll:
--(void)selectAll:(id)irrelevant;
+- (void)selectAll:(id)irrelevant;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -239,7 +239,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertText:inRangeValue:
--(void)insertText:(id)text inRangeValue:(id)rangeValue;
+- (void)insertText:(id)text inRangeValue:(id)rangeValue;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -260,7 +260,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineForRange:
--(unsigned int)lineForRange:(NSRange)aRange;
+- (unsigned int)lineForRange:(NSRange)aRange;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -271,7 +271,7 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
     return [[self string] lineForRange:aRange];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= length
--(unsigned int)length;
+- (unsigned int)length;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

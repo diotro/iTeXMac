@@ -45,7 +45,7 @@ NSString * const iTM2TeXInspectorMode = @"TeX Mode";
 
 @implementation iTM2TeXDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -68,7 +68,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveToFile:saveOperation:delegate:didSaveSelector:contextInfo:
--(void)saveToFile:(NSString *)fileName saveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
+- (void)saveToFile:(NSString *)fileName saveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
 /*"Spaces are replaced by underscores.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -95,7 +95,7 @@ To Do List:
 
 @implementation iTM2TeXInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+(NSString *)inspectorMode;
++ (NSString *)inspectorMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -112,7 +112,7 @@ To Do List:
 
 @implementation iTM2TeXEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
--(void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
+- (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -168,7 +168,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollInputToVisible:
--(void)scrollInputToVisible:(id <NSMenuItem>)sender;
+- (void)scrollInputToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -188,7 +188,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollInputToVisible:
--(void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -218,7 +218,7 @@ To Do List: include the tetex path...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
--(void)mouseDown:(NSEvent * )event
+- (void)mouseDown:(NSEvent * )event
 /*"Description Forthcoming
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -246,7 +246,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
--(NSRange)rangeForUserCompletion;
+- (NSRange)rangeForUserCompletion;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -265,14 +265,14 @@ To Do List:
     return R;
 }
 #if 0
--(void)moveWordForwardAndModifySelection:(id)sender;
--(void)moveWordBackwardAndModifySelection:(id)sender;
--(void)moveWordRightAndModifySelection:(id)sender;
--(void)moveWordLeftAndModifySelection:(id)sender;
--(void)moveUpAndModifySelection:(id)sender;
+- (void)moveWordForwardAndModifySelection:(id)sender;
+- (void)moveWordBackwardAndModifySelection:(id)sender;
+- (void)moveWordRightAndModifySelection:(id)sender;
+- (void)moveWordLeftAndModifySelection:(id)sender;
+- (void)moveUpAndModifySelection:(id)sender;
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
--(void)insertUnderscore:(id)sender;
+- (void)insertUnderscore:(id)sender;
 /*"Tabs are inserted only at the beginning of the line.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -296,7 +296,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertHat:
--(void)insertHat:(id)sender;
+- (void)insertHat:(id)sender;
 /*"Inserting a smart hat. Problem with dead keys.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -332,7 +332,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
--(void)insertControl:(id)sender;
+- (void)insertControl:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -357,7 +357,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertDollar:
--(void)insertDollar:(id)sender;
+- (void)insertDollar:(id)sender;
 /*"Tabs are inserted only at the beginning of the line.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -374,7 +374,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBrace:
--(void)insertOpenBrace:(id)sender;
+- (void)insertOpenBrace:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -395,7 +395,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenParenthesis:
--(void)insertOpenParenthesis:(id)sender;
+- (void)insertOpenParenthesis:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -412,7 +412,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBracket:
--(void)insertOpenBracket:(id)sender;
+- (void)insertOpenBracket:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -451,7 +451,7 @@ To Do List: Nothing at first glance.
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertTabAnchor:
--(void)insertTabAnchor:(id)sender;
+- (void)insertTabAnchor:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -467,7 +467,7 @@ To Do List: Nothing at first glance.
 #pragma mark =-=-=-=-=-  BOOKMARKS
 @implementation iTM2TeXEditor(Bookmarks)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= gotoTeXBookmark
--(IBAction)gotoTeXBookmark:(id)sender; 
+- (IBAction)gotoTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -487,7 +487,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGotoTeXBookmark:
--(BOOL)validateGotoTeXBookmark:(id)sender; 
+- (BOOL)validateGotoTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -499,7 +499,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertTeXBookmark:
--(IBAction)insertTeXBookmark:(id)sender; 
+- (IBAction)insertTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -536,7 +536,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateInsertTeXBookmark:
--(BOOL)validateInsertTeXBookmark:(id)sender; 
+- (BOOL)validateInsertTeXBookmark:(id)sender; 
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -550,12 +550,12 @@ To Do List:
 @end
 
 @interface NSTextStorage(TeX)
--(NSMenu *)TeXBookmarkMenu;
+- (NSMenu *)TeXBookmarkMenu;
 @end
 
 @implementation iTM2TeXBookmarkButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -578,7 +578,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
--(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
+- (void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -603,7 +603,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
--(void)initMenu;
+- (void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -670,7 +670,7 @@ next:
 
 @implementation iTM2ScriptUserButton
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
--(void)awakeFromNib;
+- (void)awakeFromNib;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -693,7 +693,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popUpButtonWillPopUpNotified:
--(void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
+- (void)popUpButtonWillPopUpNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -718,7 +718,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initMenu
--(void)initMenu;
+- (void)initMenu;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -785,7 +785,7 @@ next:
 
 @implementation NSTextStorage(TeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXBookmarkMenu
--(NSMenu *)TeXBookmarkMenu;
+- (NSMenu *)TeXBookmarkMenu;
 /*"Description forthcoming. No consistency test.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -929,7 +929,7 @@ NSString * const iTM2TeXSmartSelectionKey = @"iTM2-Text: Smart Selection";
 
 @implementation iTM2TextStorage(DoubleClick)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -942,7 +942,7 @@ To Do List: implement some kind of balance range for range
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
--(NSRange)doubleClickAtIndex:(unsigned)index;
+- (NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -956,7 +956,7 @@ To Do List: implement some kind of balance range for range
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartDoubleClickAtIndex:
--(NSRange)smartDoubleClickAtIndex:(unsigned)index;
+- (NSRange)smartDoubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002

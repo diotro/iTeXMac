@@ -259,16 +259,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>DC9DC478094840B10079E1B3</string>
-								<string>DC9DC4B3094840CC0079E1B3</string>
+								<string>DC9DC4CB0948410C0079E1B3</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>9</integer>
-									<integer>1</integer>
-									<integer>0</integer>
+									<integer>16</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -372,9 +370,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC5B70580A4B7C8E00F7DE47</string>
+				<string>DC2A7B250A4C175C006864F4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC5B70590A4B7C8E00F7DE47</string>
+				<string>DC2A7B260A4C175C006864F4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -508,7 +506,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC9DC6EA094844F00079E1B3</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

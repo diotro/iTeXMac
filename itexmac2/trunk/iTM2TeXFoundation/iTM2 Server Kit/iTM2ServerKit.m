@@ -66,21 +66,21 @@ NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length"
 //#import <iTM2Foundation/iTM2Implementation.h>
 
 @interface iTM2ServerKit(PRIVATE)
-+(void)completeServerInstallation;
-+(NSString *)getVerbFromContext:(NSDictionary *)context;
-+(NSString *)getProjectNameFromContext:(NSDictionary *)context;
-+(NSString *)getFileNameFromContext:(NSDictionary *)context;
-+(NSArray *)getFileNamesFromContext:(NSDictionary *)context;
-+(NSString *)getSourceNameFromContext:(NSDictionary *)context;
-+(unsigned int)getLineFromContext:(NSDictionary *)context;
-+(unsigned int)getColumnFromContext:(NSDictionary *)context;
-+(BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
-+(void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
++ (void)completeServerInstallation;
++ (NSString *)getVerbFromContext:(NSDictionary *)context;
++ (NSString *)getProjectNameFromContext:(NSDictionary *)context;
++ (NSString *)getFileNameFromContext:(NSDictionary *)context;
++ (NSArray *)getFileNamesFromContext:(NSDictionary *)context;
++ (NSString *)getSourceNameFromContext:(NSDictionary *)context;
++ (unsigned int)getLineFromContext:(NSDictionary *)context;
++ (unsigned int)getColumnFromContext:(NSDictionary *)context;
++ (BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
++ (void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
 @end
 
 @implementation iTM2MainInstaller(ServerKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ServerKitCompleteInstallation
-+(void)iTM2ServerKitCompleteInstallation;
++ (void)iTM2ServerKitCompleteInstallation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -97,7 +97,7 @@ To Do List:
 #warning ATTENTION COCO
 @implementation iTM2ServerKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= completeServerInstallation
-+(void)completeServerInstallation;
++ (void)completeServerInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -174,7 +174,7 @@ To Do List: see the warning below
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setupTaskDidTerminateNotified:
-+(void)setupTaskDidTerminateNotified:(NSNotification *)notification;
++ (void)setupTaskDidTerminateNotified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -206,7 +206,7 @@ To Do List: see the warning below
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sytemSignalSIGUSR1Notified:
-+(void)sytemSignalSIGUSR1Notified:(NSNotification *)notification;
++ (void)sytemSignalSIGUSR1Notified:(NSNotification *)notification;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -226,7 +226,7 @@ To Do List: see the warning below
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptConversationWithID:
-+(BOOL)acceptConversationWithID:(id)conversationID;
++ (BOOL)acceptConversationWithID:(id)conversationID;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -238,7 +238,7 @@ To Do List: see the warning below
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptNotificationWithEnvironment:
-+(BOOL)acceptNotificationWithEnvironment:(id)environment;
++ (BOOL)acceptNotificationWithEnvironment:(id)environment;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -259,7 +259,7 @@ To Do List: see the warning below
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performProjectActionWithContextNotified:
-+(void)performProjectActionWithContextNotified:(NSNotification *)notification;
++ (void)performProjectActionWithContextNotified:(NSNotification *)notification;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -273,7 +273,7 @@ To Do List: see the warning below
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getVerbFromContext:
-+(NSString *)getVerbFromContext:(NSDictionary *)context;
++ (NSString *)getVerbFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -303,7 +303,7 @@ To Do List: see the warning below
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doPerformProjectActionWithContext:
-+(void)doPerformProjectActionWithContext:(NSDictionary *)context;
++ (void)doPerformProjectActionWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -332,7 +332,7 @@ iTM2_LOG(@"context is: %@", context);
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getProjectNameFromContext:
-+(NSString *)getProjectNameFromContext:(NSDictionary *)context;
++ (NSString *)getProjectNameFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -358,7 +358,7 @@ To Do List: see the warning below
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getFileNameFromContext:
-+(NSString *)getFileNameFromContext:(NSDictionary *)context;
++ (NSString *)getFileNameFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -384,7 +384,7 @@ To Do List: see the warning below
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getFileNamesFromContext:
-+(NSArray *)getFileNamesFromContext:(NSDictionary *)context;
++ (NSArray *)getFileNamesFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -426,7 +426,7 @@ To Do List: see the warning below
     return RA;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getSourceNameFromContext:
-+(NSString *)getSourceNameFromContext:(NSDictionary *)context;
++ (NSString *)getSourceNameFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -452,7 +452,7 @@ To Do List: see the warning below
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineFromContext:
-+(unsigned int)getLineFromContext:(NSDictionary *)context;
++ (unsigned int)getLineFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -475,7 +475,7 @@ To Do List: see the warning below
     return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getColumnFromContext:
-+(unsigned int)getColumnFromContext:(NSDictionary *)context;
++ (unsigned int)getColumnFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -498,7 +498,7 @@ To Do List: see the warning below
     return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getDontOrderFrontFromContext:
-+(BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
++ (BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -520,7 +520,7 @@ To Do List: see the warning below
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= editPerformedWithContext:
-+(void)editPerformedWithContext:(NSDictionary *)context;
++ (void)editPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -576,7 +576,7 @@ To Do List: see the warning below
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openPerformedWithContext:
-+(void)openPerformedWithContext:(NSDictionary *)context;
++ (void)openPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -627,7 +627,7 @@ To Do List: see the warning below
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPerformedWithContext:
-+(void)displayPerformedWithContext:(NSDictionary *)context;
++ (void)displayPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by main as server tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -683,7 +683,7 @@ To Do List: see the warning below
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePerformedWithContext:
-+(void)updatePerformedWithContext:(NSDictionary *)context;
++ (void)updatePerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -739,7 +739,7 @@ To Do List: see the warning below
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= insertPerformedWithContext:
-+(void)insertPerformedWithContext:(NSDictionary *)context;
++ (void)insertPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -757,7 +757,7 @@ To Do List: see the warning below
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= helpPerformedWithContext:
-+(void)helpPerformedWithContext:(NSDictionary *)context;
++ (void)helpPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -773,7 +773,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applescriptPerformedWithContext:
-+(void)applescriptPerformedWithContext:(NSDictionary *)context;
++ (void)applescriptPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -811,7 +811,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= compilePerformedWithContext:
-+(void)compilePerformedWithContext:(NSDictionary *)context;
++ (void)compilePerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -824,7 +824,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= typesetPerformedWithContext:
-+(void)typesetPerformedWithContext:(NSDictionary *)context;
++ (void)typesetPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -837,7 +837,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bibliographyPerformedWithContext:
-+(void)bibliographyPerformedWithContext:(NSDictionary *)context;
++ (void)bibliographyPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -850,7 +850,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexPerformedWithContext:
-+(void)indexPerformedWithContext:(NSDictionary *)context;
++ (void)indexPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -863,7 +863,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= glossaryPerformedWithContext:
-+(void)glossaryPerformedWithContext:(NSDictionary *)context;
++ (void)glossaryPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -876,7 +876,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= specialPerformedWithContext:
-+(void)specialPerformedWithContext:(NSDictionary *)context;
++ (void)specialPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -889,7 +889,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= cleanPerformedWithContext:
-+(void)cleanPerformedWithContext:(NSDictionary *)context;
++ (void)cleanPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -902,7 +902,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= actionWithName:performedWithContext:
-+(void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
++ (void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -944,7 +944,7 @@ To Do List:
 
 @implementation iTM2ConnectionRoot(iTM2ServerKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performProjectActionWithContext:
--(oneway void)performProjectActionWithContext:(id)context;
+- (oneway void)performProjectActionWithContext:(id)context;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 01/15/2006

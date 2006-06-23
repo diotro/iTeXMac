@@ -27,17 +27,17 @@
 
 @interface NSApplication(iTM2AppleScriptSupport)
 
--(NSArray *)projects;// get the project documents of application "iTeXMac2"
--(void)insertInProjects:(id)argument;// make new project document
+- (NSArray *)projects;// get the project documents of application "iTeXMac2"
+- (void)insertInProjects:(id)argument;// make new project document
 
 @end
 
 @interface iTM2TeXProjectDocument(iTM2AppleScriptSupport)
 
--(NSArray *)projectDocumentsArray;// make new project document
--(void)insertInSubdocumentsArray:(id)argument;// make new document
--(NSArray *)TeXDocumentsArray;// make new project document
--(NSArray *)PDFDocumentsArray;// make new project document
+- (NSArray *)projectDocumentsArray;// make new project document
+- (void)insertInSubdocumentsArray:(id)argument;// make new document
+- (NSArray *)TeXDocumentsArray;// make new project document
+- (NSArray *)PDFDocumentsArray;// make new project document
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2AppleScriptSupport

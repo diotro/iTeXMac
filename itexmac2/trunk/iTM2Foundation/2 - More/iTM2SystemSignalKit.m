@@ -30,9 +30,9 @@ NSString * const iTM2SystemSignalSIGUSR2Notification = @"SIGUSR2";
 int iTM2SystemSignalKit_PendingSignal = 0;
 
 @interface iTM2SystemSignalNotificationCenter(PRIVATE)
--(BOOL)catchSystemSignal:(int)signal;
--(int)systemSignalForNotificationName:(NSString *)aName;
--(NSString *)notificationNameForSystemSignal:(int)signal;
+- (BOOL)catchSystemSignal:(int)signal;
+- (int)systemSignalForNotificationName:(NSString *)aName;
+- (NSString *)notificationNameForSystemSignal:(int)signal;
 @end
 
 static iTM2SystemSignalNotificationCenter * _iTM2SystemSignalNotificationCenter = nil;
@@ -41,7 +41,7 @@ void iTM2SystemSignalKit_SigActionHandler(int);
 
 @implementation iTM2SystemSignalNotificationCenter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
-+(void)initialize;
++ (void)initialize;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -58,7 +58,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultCenter
-+(NSNotificationCenter *)defaultCenter;
++ (NSNotificationCenter *)defaultCenter;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -70,7 +70,7 @@ To Do List:
     return _iTM2SystemSignalNotificationCenter?: (_iTM2SystemSignalNotificationCenter = [[iTM2SystemSignalNotificationCenter alloc] init]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
--(id)init;
+- (id)init;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -91,7 +91,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= catchSystemSignal:
--(BOOL)catchSystemSignal:(int)signal;
+- (BOOL)catchSystemSignal:(int)signal;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -115,7 +115,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= systemSignalForNotificationName:
--(int)systemSignalForNotificationName:(NSString *)aName;
+- (int)systemSignalForNotificationName:(NSString *)aName;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -142,7 +142,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= notificationNameForSystemSignal:
--(NSString *)notificationNameForSystemSignal:(int)signal;
+- (NSString *)notificationNameForSystemSignal:(int)signal;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -159,7 +159,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addObserver:selector:name:object:
--(void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
+- (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -197,7 +197,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_timed:
--(void)iTM2_timed:(NSTimer *)timer;
+- (void)iTM2_timed:(NSTimer *)timer;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -226,7 +226,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeObserver:
--(void)removeObserver:(id)observer;
+- (void)removeObserver:(id)observer;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -240,7 +240,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeObserver:name:object:
--(void)removeObserver:(id)observer name:(NSString *)aName object:(id)anObject;
+- (void)removeObserver:(id)observer name:(NSString *)aName object:(id)anObject;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003

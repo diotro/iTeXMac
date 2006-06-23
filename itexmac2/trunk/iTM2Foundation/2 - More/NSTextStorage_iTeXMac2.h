@@ -30,20 +30,20 @@
 @interface NSTextStorage(iTeXMac2)
 /*"Class methods"*/
 /*"Setters and Getters"*/
--(unsigned int)lineForRange:(NSRange)aRange;
--(unsigned int)length;
--(NSTextView *)mainTextView;
--(NSRangeSpecifier *)selectedRangeSpecifier;
--(NSTextStorage *)selection;
--(NSRange)selectedRange;
--(void)setSelectedRange:(NSRange)aRange;
--(unsigned int)firstSelectedIndex;
--(unsigned int)lastSelectedIndex;
--(void)setSelectedRangeValue:(id)argument;
+- (unsigned int)lineForRange:(NSRange)aRange;
+- (unsigned int)length;
+- (NSTextView *)mainTextView;
+- (NSRangeSpecifier *)selectedRangeSpecifier;
+- (NSTextStorage *)selection;
+- (NSRange)selectedRange;
+- (void)setSelectedRange:(NSRange)aRange;
+- (unsigned int)firstSelectedIndex;
+- (unsigned int)lastSelectedIndex;
+- (void)setSelectedRangeValue:(id)argument;
 /*"Main methods"*/
--(void)selectAll:(id)irrelevant;
--(void)insertText:(id)text inRangeValue:(id)rangeValue;
--(void)invalidateCursorRects;
+- (void)selectAll:(id)irrelevant;
+- (void)insertText:(id)text inRangeValue:(id)rangeValue;
+- (void)invalidateCursorRects;
 /*"Overriden methods"*/
 @end
 

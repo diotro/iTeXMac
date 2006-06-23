@@ -33,16 +33,16 @@ extern NSString * const iTM2CompletionsExtension;
 
 @interface iTM2CompletionsServer: NSObject
 
-+(void)reloadCompletionsAtPath:(NSString *)path;
-+(NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
-+(void)addCompletions:(NSArray *)completions forContext:(NSString *)context ofCategory:(NSString *)category;
-+(id)storageForContext:(NSString *)context ofCategory:(NSString *)category;
++ (void)reloadCompletionsAtPath:(NSString *)path;
++ (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
++ (void)addCompletions:(NSArray *)completions forContext:(NSString *)context ofCategory:(NSString *)category;
++ (id)storageForContext:(NSString *)context ofCategory:(NSString *)category;
 
 @end
 
 @interface NSText(iTM2TextCompletionKit)
 
--(BOOL)getContext:(NSString **)contextPtr category:(NSString **)categoryPtr forPartialWordRange:(NSRange)charRange;
+- (BOOL)getContext:(NSString **)contextPtr category:(NSString **)categoryPtr forPartialWordRange:(NSRange)charRange;
 
 @end
 
