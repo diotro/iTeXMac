@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>$</key>
+	<string>insertDollar:</string>
+	<key>(</key>
+	<string>insertOpenParenthesis:</string>
+	<key>1</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\bigr)&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\bigl(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>2</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\Bigr)&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\Bigl(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>3</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\biggr)&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\biggl(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>4</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\Biggr)&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\Biggl(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>5</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;]\hskip -1pt ]&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>[\hskip -1pt [</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>D</key>
+	<dict>
+		<key>argument</key>
+		<string>\Delta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>F</key>
+	<dict>
+		<key>argument</key>
+		<string>\Phi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>G</key>
+	<dict>
+		<key>argument</key>
+		<string>\Gamma </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>J</key>
+	<dict>
+		<key>argument</key>
+		<string>\Theta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>L</key>
+	<dict>
+		<key>argument</key>
+		<string>\Lambda </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>P</key>
+	<dict>
+		<key>argument</key>
+		<string>\Pi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>Q</key>
+	<dict>
+		<key>argument</key>
+		<string>\Psi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>S</key>
+	<dict>
+		<key>argument</key>
+		<string>\Sigma </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>U</key>
+	<dict>
+		<key>argument</key>
+		<string>\Upsilon </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>W</key>
+	<dict>
+		<key>argument</key>
+		<string>\Omega </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>X</key>
+	<dict>
+		<key>argument</key>
+		<string>\Xi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>Z</key>
+	<dict>
+		<key>argument</key>
+		<string>\Zeta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>[</key>
+	<string>insertOpenBracket:</string>
+	<key>\</key>
+	<string>insertBackslash:</string>
+	<key>^</key>
+	<string>insertHat:</string>
+	<key>^$1</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\bigr\}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\bigl\{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>^$2</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\Bigr\}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\Bigl\{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>^$3</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\biggr\}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\biggl\{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>^$4</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\Biggr\}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\Biggl\{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>^1</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\bigr]&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\bigl[</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>^2</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\Bigr]&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\Bigl[</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>^3</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\biggr]&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\biggl[</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>^4</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&lt;#SEL#&gt;\Biggr]&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\Biggl[</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>dfrac </string>
+	</dict>
+	<key>_</key>
+	<string>insertUnderscore:</string>
+	<key>a</key>
+	<dict>
+		<key>argument</key>
+		<string>\alpha </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>b</key>
+	<dict>
+		<key>argument</key>
+		<string>\beta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>c</key>
+	<dict>
+		<key>argument</key>
+		<string>\chi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>d</key>
+	<dict>
+		<key>argument</key>
+		<string>\delta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>e</key>
+	<dict>
+		<key>argument</key>
+		<string>\varepsilon </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>f</key>
+	<dict>
+		<key>argument</key>
+		<string>\varphi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>g</key>
+	<dict>
+		<key>argument</key>
+		<string>\gamma </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>h</key>
+	<dict>
+		<key>argument</key>
+		<string>\eta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>i</key>
+	<dict>
+		<key>argument</key>
+		<string>\iota </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>j</key>
+	<dict>
+		<key>argument</key>
+		<string>\theta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>k</key>
+	<dict>
+		<key>argument</key>
+		<string>\kappa </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>l</key>
+	<dict>
+		<key>argument</key>
+		<string>\lambda </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>m</key>
+	<dict>
+		<key>argument</key>
+		<string>\mu </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>p</key>
+	<dict>
+		<key>argument</key>
+		<string>\pi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>q</key>
+	<dict>
+		<key>argument</key>
+		<string>\psi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>r</key>
+	<dict>
+		<key>argument</key>
+		<string>\rho </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>s</key>
+	<dict>
+		<key>argument</key>
+		<string>\sigma </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>t</key>
+	<dict>
+		<key>argument</key>
+		<string>\tau </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>u</key>
+	<dict>
+		<key>argument</key>
+		<string>\upsilon </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>v</key>
+	<dict>
+		<key>argument</key>
+		<string>\nu </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>w</key>
+	<dict>
+		<key>argument</key>
+		<string>\omega </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>x</key>
+	<dict>
+		<key>argument</key>
+		<string>\xi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>z</key>
+	<dict>
+		<key>argument</key>
+		<string>\zeta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>{</key>
+	<string>insertOpenBrace:</string>
+	<key>~e</key>
+	<dict>
+		<key>argument</key>
+		<string>\epsilon </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>~f</key>
+	<dict>
+		<key>argument</key>
+		<string>\phi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>~j</key>
+	<dict>
+		<key>argument</key>
+		<string>\vartheta </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>~p</key>
+	<dict>
+		<key>argument</key>
+		<string>\varpi </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>~r</key>
+	<dict>
+		<key>argument</key>
+		<string>\varrho </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>~s</key>
+	<dict>
+		<key>argument</key>
+		<string>\varsigma </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>æ</key>
+	<string>\ insertDollar: </string>
+</dict>
+</plist>

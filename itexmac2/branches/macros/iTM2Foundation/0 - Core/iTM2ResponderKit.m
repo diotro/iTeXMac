@@ -1,0 +1,275 @@
+/*
+//
+//  @version Subversion: $Id$ 
+//
+//  Created by jlaurens AT users DOT sourceforge DOT net on Tue Nov 27 2001.
+//  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
+//
+//  This program is free software; you can redistribute it and/or modify it under the terms
+//  of the GNU General Public License as published by the Free Software Foundation; either
+//  version 2 of the License, or any later version, modified by the addendum below.
+//  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+//  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+//  See the GNU General Public License for more details. You should have received a copy
+//  of the GNU General Public License along with this program; if not, write to the Free Software
+//  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//  GPL addendum: Any simple modification of the present code which purpose is to remove bug,
+//  improve efficiency in both code execution and code reading or writing should be addressed
+//  to the actual developper team.
+//
+//  Version history: (format "- date:contribution(contributor)") 
+//  To Do List: (format "- proposition(percentage actually done)")
+*/
+
+#import <iTM2Foundation/iTM2ResponderKit.h>
+#import <iTM2Foundation/iTM2InstallationKit.h>
+#import <iTM2Foundation/iTM2Implementation.h>
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSResponder(iTeXMac2)  
+
+@interface NSResponder(iTeXMac2Private)
+/*"Designated initializer and... Private use only."*/
++(id)responderForWindow:(NSWindow *)aWindow;
++(BOOL)responder:(NSResponder*)aResponder hasAmongNextResponders:(NSResponder*)anotherResponder;
+-(BOOL)insertInResponderChainAfter:(NSResponder*)responder;
+-(void)windowWillClose:(NSNotification *)notification;
+@end
+
+@implementation NSResponder(iTeXMac2)
+/*"The purpose is to insert a new responder in the responder chain to observe and catch some messages or respond to them.
+This allows to split code in logically different units and it is an alternative to subclass.
+When we improve an object with further methods, we can either add a new responder or subclass an existing one.
+Both methods may be used.
+
+As suggested by apple™ in the NSView documentation, we can insert responders after the main window content view
+or after the window delegate.
+
+There might be a bug/memory leak when the window is closed but not released (as for iTeXMac2 project windows).
+Better design is needed."*/
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uninstallInNSAppResponderChain
+-(void)uninstallInNSAppResponderChain;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSResponder * previous = NSApp;
+	NSResponder * next;
+	while(next = [previous nextResponder])
+		if(next == self)
+		{
+			[previous setNextResponder:[next nextResponder]];
+			[self autorelease];
+			return;
+		}
+		else
+			previous = next;
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  installInResponderChainAfterNSApp
++(void)installInResponderChainAfterNSApp;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(iTM2DebugEnabled)
+    {
+        iTM2_LOG(@"Installing the responder %@ after the application object %@...", self, NSApp);
+    }
+	id R = [[self allocWithZone:[NSApp zone]] init];
+	if([R insertInResponderChainAfter:NSApp])
+#warning SHOULD I FIX IMPLEMENTATION TOO
+	{
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"Responder %@ installed after NSApp", R);
+		}
+	}
+//iTM2_START;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=  installResponderForWindow:
++(void)installResponderForWindow:(NSWindow *)aWindow;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+    id responder = [[self alloc] init];
+    if([responder insertInResponderChainAfter:[aWindow contentView]])
+    {
+        [DNC addObserver:responder
+            selector: @selector(responderWindowWillClose:)
+                name: NSWindowWillCloseNotification
+                    object: aWindow];
+    }
+    
+    #if 0
+    NSLog(@"installResponderForWindow: ==================================================");
+    {
+        NSScanner * S = [NSScanner scannerWithString:[DNC description]];
+        NSString * STOP = NSWindowWillCloseNotification;
+        while(([S scanUpToString:STOP intoString:nil], ![S isAtEnd]))
+        {
+            unsigned begin, end;
+//NSLog(@"GLS");
+            [[S string] getLineStart:&begin end:nil contentsEnd:&end forRange:NSMakeRange([S scanLocation], 0)];
+            NSLog([[S string] substringWithRange:NSMakeRange(begin, end-begin)]);
+            [S scanString:STOP intoString:nil];
+        }
+    }
+    #endif
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=  responderForWindow:
++(id)responderForWindow:(NSWindow *)aWindow;
+/*"Scans the responder chain after aWindow's content view, if there is already a NSResponder
+of class [self class] that will be able to send an apropriate Notification for example, or respond to appropriate messages.
+If it is not the case, we create such an object.
+
+Note that only the 100 first objects in the chain are investigated. Beware of loops."*/
+{iTM2_DIAGNOSTIC;
+    NSResponder * responder = [aWindow contentView];
+    id nextResponder;
+    int max = 100;
+    int index = 0;
+    while((nextResponder = [responder nextResponder]) &&
+                    [nextResponder isKindOfClass:[NSResponder class]] &&
+                                index < max)
+        if([nextResponder isKindOfClass:[self class]])
+            return nextResponder;
+        else
+            responder = nextResponder;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=  responder:hasAmongNextResponders:
++(BOOL)responder:(NSResponder*)aResponder hasAmongNextResponders:(NSResponder *)anotherResponder;
+/*"We should not insert in the responder chain starting from aResponder, an object that is already in it.
+It would remove some previously registered responders and would cause unexpected effects."*/
+{iTM2_DIAGNOSTIC;
+    NSResponder * nextResponder = [aResponder nextResponder];
+    if(!anotherResponder)
+        return YES;
+    else if(!nextResponder)
+        return NO;
+    else if([nextResponder isEqual:anotherResponder])
+        return YES;
+    else
+        // the answer is NO if either nextResponder==nil or
+        // "responder" does not match any subsequent responder
+        return [self responder:nextResponder hasAmongNextResponders:anotherResponder];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-= responderWindowWillClose:
+-(void)responderWindowWillClose:(NSNotification *)aNotification;
+/*"The receiver just send the #{autorelease} message to itself."*/
+{iTM2_DIAGNOSTIC;
+    [DNC removeObserver:self name:nil object:nil];
+    [self autorelease];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=  insertInResponderChainAfter:
+-(BOOL)insertInResponderChainAfter:(NSResponder *)aResponder;
+/*"Inserts the receiver in the responder chain just after aResponder, if it is not already there."*/
+{iTM2_DIAGNOSTIC;
+    // we must preserve the existing chain
+    if(![NSResponder responder:aResponder hasAmongNextResponders:self])
+    {
+        [self setNextResponder:[aResponder nextResponder]];
+        [aResponder setNextResponder:self];
+        return YES;
+    }
+    else
+        return NO;
+}
+@end
+
+@implementation iTM2SharedResponder
+@end
+
+@implementation iTM2AutoInstallResponder
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++(void)load;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: 11/21/2003
+To Do List: retain?
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+//iTM2_START;
+	[iTM2MileStone registerMileStone:@"Responders are missing" forKey:@"iTM2AutoInstallResponder"];
+	[DNC addObserver:self selector:@selector(applicationWillFinishLaunchingNotified:) name:NSApplicationWillFinishLaunchingNotification object:nil];
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  applicationWillFinishLaunchingNotified:
++(void)applicationWillFinishLaunchingNotified:(NSNotification *)notification;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[DNC removeObserver:self name:[notification name] object:nil];
+	NSMutableArray * toInstall = [NSMutableArray array];
+	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:self] objectEnumerator];
+	Class responderClass;
+	while(responderClass = [[E nextObject] nonretainedObjectValue])
+	{
+		if(responderClass != self)
+		{
+			NSString * className = NSStringFromClass(responderClass);
+			NSMutableString * K = [[className mutableCopy] autorelease];
+			if(([K length] > 3) && ([K insertString:@"NO" atIndex:4], [SUD boolForKey:K]))
+			{
+				iTM2_LOG(@"No %@ available, to activate:", className);
+				NSLog(@"terminal%% defaults remove %@ %@", [[NSBundle mainBundle] bundleIdentifier], K);
+			}
+			else
+			{
+				if(iTM2DebugEnabled)
+				{
+					iTM2_LOG(@"%@ available, to deactivate:", className);
+					NSLog(@"terminal%% defaults write %@ %@ 'YES'", [[NSBundle mainBundle] bundleIdentifier], K);
+				}
+				[responderClass installInResponderChainAfterNSApp];
+				[toInstall addObject:responderClass];
+			}
+		}
+	}
+	NSResponder * R = NSApp;
+	while(R = [R nextResponder])
+	{
+//NSLog(@"R is: %@", R);
+		[toInstall removeObject:[R class]];
+	}
+	if([toInstall count])
+	{
+		iTM2_LOG(@"..........  ERROR: Not all the responders are installed...missing %@", toInstall);
+	}
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"Here is the list of the next responders of NSApp");
+		NSResponder * R = NSApp;
+		while(R = [R nextResponder])
+		{
+			NSLog(@"R is: %@", R);
+		}
+	}
+	[iTM2MileStone putMileStoneForKey:@"iTM2AutoInstallResponder"];
+//iTM2_END;
+    return;
+}
+@end
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSResponder(iTeXMac2)  

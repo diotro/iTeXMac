@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\Mercury </string>
+		<string>\Venus </string>
+		<string>noop:</string>
+		<string>\Mars </string>
+		<string>\Jupiter </string>
+		<string>\Saturn </string>
+		<string>\Neptune </string>
+		<string>\Uranus </string>
+		<string>\Pluto </string>
+		<string>\Sun </string>
+		<string>\Moon </string>
+		<string>\Yingyang </string>
+		<string>\Aries </string>
+		<string>\Taurus </string>
+		<string>\Gemini </string>
+		<string>\Cancer </string>
+		<string>\Leo </string>
+		<string>\Virgo </string>
+		<string>\Libra </string>
+		<string>\Scorpio </string>
+		<string>\Sagittarius </string>
+		<string>\Capricorn </string>
+		<string>\Aquarius </string>
+		<string>\Pisces </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

@@ -1,0 +1,79 @@
+\documentclass[10pt]{article}\nofiles%dans le modele
+\newif\ifpdf
+	\ifx\pdfoutput\undefined
+	\pdffalse % we are not running PDFLaTeX
+	\else
+	\pdfoutput=1 % we are running PDFLaTeX
+	\pdftrue
+	\fi
+
+	\ifpdf
+	\usepackage[pdftex]{graphicx}
+	\else
+	\usepackage{graphicx}
+	\fi
+\usepackage{latexsym}
+\usepackage{lscape}
+\usepackage[cmex10]{amsmath}
+%%option [cmex10] sinon problème dans les small size des delimiteurs
+%%n'utilise pas le bon cmex !
+\usepackage{amssymb,latexsym}
+\usepackage{graphpap}
+\usepackage[dvipsnames]{color}
+\usepackage{theorem}
+\usepackage{alltt}
+\usepackage[applemac]{inputenc}
+\usepackage[french]{babel}
+%\usepackage[francais]{babel}%si on veut juste la cesure francaise
+%et pas le style french
+%il faut le dernier package french V3,48 dispo
+%sur le ftp.univ-rennes1.fr /pub/gut/french !
+\usepackage{symbolesmath}
+\usepackage{gestion_feuille}
+\usepackage{para_perso}
+\usepackage{camlindenttt}
+	\ifpdf
+	\DeclareGraphicsExtensions{.pdf, .jpg}
+	\else
+	\DeclareGraphicsExtensions{.eps, .jpg}
+	\fi
+	
+	
+\solfalse      %avec ou sans solution
+\totaltrue  %pour voir tous les exos
+\orifalse   %avec origine des exos
+\concfalse %avec conncours pour exo d'oral..
+\annfalse %avec année ou l'exercice a été posé
+
+\begin{document}
+\begin{landscape}
+\centerline{clavier d'algèbre (Commmande + @)}
+\begin{tabular}[t]{|c|c|c|c|c|c|c||}
+\hline
+ & lettre & maj & alt & alt maj & ctrl & ctrl maj\\\hline\hline
+ A&application lin{\'e}aire&applications lin{\'e}aires&alg{\`e}bre\\  \hline
+B&bijection & & & &bijective\\\hline 
+C&coefficient&&caract{\'e}ristique\\\hline
+D&d{\'e}terminant&diagonalisable\\\hline 
+E&endorphisme\\\hline
+F&de dimension finie&de dimensions finies\\\hline
+G&g{\'e}n{\'e}rateur&g{\'e}n{\'e}ratrice&sous-groupe&&\\\hline
+H&homomorphisme\\\hline
+I&isomorphisme\\\hline
+J\\\hline
+K&noyau\\\hline
+L\\\hline
+M&morphisme\\\hline
+N&nilpotent\\\hline
+O\\\hline
+P&polyn{\^o}me\\\hline
+Q\\\hline
+R\\\hline
+S&suppl{\'e}mentaire\\\hline
+T\\\hline
+U\\\hline
+V&espace vectoriel&espaces vectoriels&sous-espace vectoriel&sous-espaces vectoriels \\\hline
+W&espace vectoriel euclidien&espaces vectoriels euclidiens\\\hline
+\end{tabular}
+\end{landscape}
+\end{document}

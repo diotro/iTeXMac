@@ -1,0 +1,115 @@
+// !$*UTF8*$!
+{
+	08FB7793FE84155DC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeBuildStyle = 014CEA4F0018CE4811CA2923 /* Debug */;
+		activeExecutable = DC7145DB09F78B4D004A5A6A /* Tiny XSLT Applicator */;
+		activeTarget = 8DD76F960486AA7600D96B5E /* Tiny XSLT Applicator */;
+		breakpoints = (
+		);
+		codeSenseManager = DC7145E009F78B6C004A5A6A /* Code sense */;
+		executables = (
+			DC7145DB09F78B4D004A5A6A /* Tiny XSLT Applicator */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					335.5835,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					448,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 172186324;
+			PBXWorkspaceStateSaveDate = 172186324;
+		};
+		sourceControlManager = DC7145DF09F78B6C004A5A6A /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	08FB7796FE84155DC02AAC07 /* Tiny XSLT Applicator.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1103, 2394}}";
+			sepNavSelRange = "{4284, 11}";
+			sepNavVisRect = "{{0, 0}, {1103, 703}}";
+			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
+		};
+	};
+	8DD76F960486AA7600D96B5E /* Tiny XSLT Applicator */ = {
+		activeExec = 0;
+		executables = (
+			DC7145DB09F78B4D004A5A6A /* Tiny XSLT Applicator */,
+		);
+	};
+	DC7145DB09F78B4D004A5A6A /* Tiny XSLT Applicator */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 1;
+		activeArgIndices = (
+			NO,
+			YES,
+		);
+		argumentStrings = (
+			"-s TEST.xml -d TEST.html -x TEST.xsl",
+			"-s Index.xml -d Index.html -x MAIN.xslt",
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 3;
+		libgmallocEnabled = 0;
+		name = "Tiny XSLT Applicator";
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+	};
+	DC7145DF09F78B6C004A5A6A /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 1;
+		scmConfiguration = {
+			SubversionToolPath = /usr/local/bin/svn;
+		};
+		scmType = scm.subversion;
+	};
+	DC7145E009F78B6C004A5A6A /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}

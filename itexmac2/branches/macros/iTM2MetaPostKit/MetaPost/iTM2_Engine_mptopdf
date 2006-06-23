@@ -1,0 +1,84 @@
+#!/bin/sh -f
+# this is iTM2_Engine_MPtoPDF for iTeXMac2 2.0
+# © 2005 jlaurens@users.sourceforge.net
+# This is a MPtoPDF 1.3 wrapper
+#echo "iTM2: STARTING $0"
+printenv
+iTM2_MPtoPDF_Engine_Version=1.0
+iTM2MPtoPDFEngineUsage()
+{
+iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_MPtoPDF_Engine_Version}
+This is iTeXMac2 built in script to wrap the tex engine
+(`which "$0"`)
+© 2004 jlaurens@users.sourceforge.net
+Usage: `basename "$0"` with environment variables
+	TWSMaster: the main input file
+	iTM2_USE_output_directory: 1 or 0 (common)
+	iTM2_output_directory: the common output directory
+	iTM2_MPtoPDF_is_latex: 1 or 0, default to 1
+	iTM2_MPtoPDF_is_raw_mp: 1 or 0, default to 0
+	iTM2_MPtoPDF_USE_pass_on: 1 or 0, default to 0
+	iTM2_MPtoPDF_pass_on: more arguments for TeXexec"
+echo "$iTM2_USAGE"
+exit 0
+}
+"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_MPtoPDF_Engine_Version}
+This is iTeXMac2 built in script to wrap the mpost engine
+© 2005 jlaurens@users.sourceforge.net"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" start comment
+	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	for iTM2VAR in ${!iTM2_MPtoPDF_*}
+	do
+		"$iTM2_CMD_Notify" echo "${iTM2VAR} is: ${!iTM2VAR}"
+	done
+	"$iTM2_CMD_Notify" stop comment
+fi
+iTM2_MPtoPDF_Engine="mptopdf"
+iTM2_MPtoPDF_EnginePath="`which "${iTM2_MPtoPDF_Engine}"`"
+if ! [ -x "${iTM2_MPtoPDF_EnginePath}" ]
+then
+	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_MPtoPDF_Engine}."
+	iTM2MPtoPDFEngineUsage
+fi
+"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
+pushd "$(dirname "${TWSMaster}")"
+INPUT_DIRECTORY="${PWD}"
+INPUT="$(basename "${TWSMaster}")"
+EXTENSION="${INPUT##*.}"
+BASE_INPUT="${INPUT%.*}"
+if ! [ -r "${INPUT}" ]
+then
+    INPUT="${BASE_INPUT}.mp"
+    if ! [ -r "${INPUT}" ]
+    then
+        "$iTM2_CMD_Notify" error "No readable file at ${INPUT}."
+		iTM2MPtoPDFEngineUsage
+    fi
+fi
+if [ "${iTM2_MPtoPDF_is_latex:-0}" != "0" ]
+then
+	iTM2_MPtoPDF_Arguments="--latex"
+fi
+if [ "${iTM2_MPtoPDF_is_raw_mp:-0}" != "0" ]
+then
+	iTM2_MPtoPDF_Arguments="${iTM2_MPtoPDF_Arguments} --rawmp"
+fi
+if [ "${iTM2_MPtoPDF_USE_pass_on:-0}" != "0" ] && [ ${#iTM2_MPtoPDF_pass_on} -ne 0 ]
+then
+	iTM2_MPtoPDF_Arguments="${iTM2_MPtoPDF_Arguments} --passon ${iTM2_MPtoPDF_pass_on}"
+fi
+pushd "${INPUT_DIRECTORY}"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" comment "Performing  ${iTM2_MPtoPDF_EnginePath} ${iTM2_MPtoPDF_Arguments} ${INPUT}"
+fi
+${iTM2_MPtoPDF_EnginePath} ${iTM2_MPtoPDF_Arguments} "${INPUT}"
+popd
+"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${INPUT_DIRECTORY}/${INPUT}" -project "${TWSProjectDirectory}/${TWSProjectName}"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"$iTM2_CMD_Notify" comment "$0 complete."
+fi
+exit 0

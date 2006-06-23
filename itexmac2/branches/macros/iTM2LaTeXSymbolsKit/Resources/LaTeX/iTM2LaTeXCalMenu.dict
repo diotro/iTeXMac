@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\mathcal{__(SEL)__}</string>
+		<string>noop:</string>
+		<string>\mathcal{A}</string>
+		<string>\mathcal{B}</string>
+		<string>\mathcal{C}</string>
+		<string>\mathcal{D}</string>
+		<string>\mathcal{E}</string>
+		<string>\mathcal{F}</string>
+		<string>\mathcal{G}</string>
+		<string>\mathcal{H}</string>
+		<string>\mathcal{I}</string>
+		<string>\mathcal{J}</string>
+		<string>\mathcal{K}</string>
+		<string>\mathcal{L}</string>
+		<string>\mathcal{M}</string>
+		<string>\mathcal{N}</string>
+		<string>\mathcal{O}</string>
+		<string>\mathcal{P}</string>
+		<string>\mathcal{Q}</string>
+		<string>\mathcal{R}</string>
+		<string>\mathcal{S}</string>
+		<string>\mathcal{T}</string>
+		<string>\mathcal{U}</string>
+		<string>\mathcal{V}</string>
+		<string>\mathcal{W}</string>
+		<string>\mathcal{X}</string>
+		<string>\mathcal{Y}</string>
+		<string>\mathcal{Z}</string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

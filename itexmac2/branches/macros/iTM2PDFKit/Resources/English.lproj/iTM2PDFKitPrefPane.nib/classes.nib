@@ -1,0 +1,65 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                apply = id; 
+                revert = id; 
+                takeBackgroundColorFrom = id; 
+                takeDefaultsScopeFromSelectedTag = id; 
+                takeDisplayBoxFromSelectedTag = id; 
+                takeDisplayModeFromSelectedTag = id; 
+                takeGreekingThresholdFrom = id; 
+                toggleAutoScales = id; 
+                toggleContinuous = id; 
+                toggleDisplayBulletsFromTag = id; 
+                toggleDisplaysAsBook = id; 
+                toggleDisplaysPageBreaks = id; 
+                toggleEnableSynchronization = id; 
+                toggleFollowFocus = id; 
+                toggleShouldAntiAlias = id; 
+            }; 
+            CLASS = iTM2PDFKitDefaultsController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {
+                takeBackgroundColorFrom = id; 
+                takeDefaultsScopeFromSelectedTag = id; 
+                takeDisplayBoxFromSelectedTag = id; 
+                takeDisplayModeFromSelectedTag = id; 
+                takeGreekingThresholdFrom = id; 
+                toggleAutoScales = id; 
+                toggleContinuous = id; 
+                toggleDisplayBulletsFromTag = id; 
+                toggleDisplaysAsBook = id; 
+                toggleDisplaysPageBreaks = id; 
+                toggleEnableSynchronization = id; 
+                toggleFollowFocus = id; 
+                toggleShouldAntiAlias = id; 
+            }; 
+            CLASS = iTM2PDFKitPrefPane; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPreferencePane; 
+        }, 
+        {CLASS = iTM2Window; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
+    ); 
+    IBVersion = 1; 
+}

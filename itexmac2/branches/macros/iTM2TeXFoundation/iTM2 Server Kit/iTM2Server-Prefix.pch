@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'iTM2_Server' target in the 'iTM2' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+	#define iTM2_INIT_POOL id _P_O_O_L_ = [[NSAutoreleasePool alloc] init]
+	#define iTM2_RELEASE_POOL [_P_O_O_L_ release]
+#endif

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>iTM2NewDocumentKit.framework</ProjName>
+
+<!--                                                                            -->
+<!--    iTM2NewDocumentKit.framework/../iTM2NewDocumentAssistant.nib.strings    -->
+<!--                                                                            -->
+<File>
+<Filepath>iTM2NewDocumentKit.framework/Versions/A/Resources/English.lproj/iTM2NewDocumentAssistant.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSPanel (New Document) : &lt;title:New Document&gt; (oid:10) </Description>
+<Position>10</Position>
+<TranslationSet>
+
+	<base loc="en"          >New Document</base>
+	<tran loc="fr" origin="">Nouveau Document</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use TeX wrappers instead of finder directories) : &lt;title:Use TeX wrappers instead of finder directories&gt; (oid:126) </Description>
+<Position>126.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use TeX wrappers instead of finder directories</base>
+	<tran loc="fr" origin="">Employez un paquet TeX au lieu d&apos;un dossier du Finder</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Author:) : &lt;title:Author:&gt; (oid:127) </Description>
+<Position>127</Position>
+<TranslationSet>
+
+	<base loc="en"          >Author:</base>
+	<tran loc="fr" origin="">Auteur :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Organization:) : &lt;title:Organization:&gt; (oid:128) </Description>
+<Position>128</Position>
+<TranslationSet>
+
+	<base loc="en"          >Organization:</base>
+	<tran loc="fr" origin="">Organisation :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Every ___AUTHORNAME___ occurrence will be replaced by the vaule of this field.&gt; (oid:132) </Description>
+<Position>132</Position>
+<TranslationSet>
+
+	<base loc="en"          >Every ___AUTHORNAME___ occurrence will be replaced by the vaule of this field.</base>
+	<tran loc="fr" origin="">Chaque occurrence de ___AUTHORNAME___ sera remplacée par le texte de ce champ.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Every ___ORGANIZATIONNAME___ occurrence will be replaced by the vaule of this field.&gt; (oid:134) </Description>
+<Position>134</Position>
+<TranslationSet>
+
+	<base loc="en"          >Every ___ORGANIZATIONNAME___ occurrence will be replaced by the vaule of this field.</base>
+	<tran loc="fr" origin="">Chaque occurrence de ___ORGANIZATIONNAME___ sera remplacée par le texte de ce champ.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:TeX wrappers are considered by the Finder exactly like a document.&gt; (oid:135) </Description>
+<Position>135</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX wrappers are considered by the Finder exactly like a document.</base>
+	<tran loc="fr" origin="">Les paquets TeX sont considérés par le Finder exactement comme un document.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Small System Font Text) : &lt;title:Small System Font Text&gt; (oid:155) </Description>
+<Position>155</Position>
+<TranslationSet>
+
+	<base loc="en"          >Small System Font Text</base>
+	<tran loc="fr" origin="">Police système de texte réduit</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Insert in project:) : &lt;title:Insert in project:&gt; (oid:157) </Description>
+<Position>157.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Insert in project:</base>
+	<tran loc="fr" origin="">Insérer dans le projet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Create a new project:) : &lt;title:Create a new project:&gt; (oid:158) </Description>
+<Position>158.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Create a new project:</base>
+	<tran loc="fr" origin="">Créer un nouveau projet :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Standalone document) : &lt;title:Standalone document&gt; (oid:159) </Description>
+<Position>159.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Standalone document</base>
+	<tran loc="fr" origin="">Document autonome</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Insert the selected document in the named project&gt; (oid:169) </Description>
+<Position>169</Position>
+<TranslationSet>
+
+	<base loc="en"          >Insert the selected document in the named project</base>
+	<tran loc="fr" origin="">Insérez le document choisi dans le projet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Use the template to create a new project&gt; (oid:170) </Description>
+<Position>170</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the template to create a new project</base>
+	<tran loc="fr" origin="">Employez le modèle pour créer un nouveau projet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:The document will not be associated to any project.!#x000a;You can create a standalone project.&gt; (oid:171) </Description>
+<Position>171</Position>
+<TranslationSet>
+
+	<base loc="en"          >The document will not be associated to any project.\nYou can create a standalone project.</base>
+	<tran loc="fr" origin="">Le document ne sera associé à aucun projet.\nVous pouvez créer un projet autonome.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPanel (Panel) : &lt;title:Panel&gt; (oid:181) </Description>
+<Position>181</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Panel</base>
+	<tran loc="fr" origin="Default Names List matched text">Panel</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Creating:) : &lt;title:Creating:&gt; (oid:184) </Description>
+<Position>184</Position>
+<TranslationSet>
+
+	<base loc="en"          >Creating:</base>
+	<tran loc="fr" origin="">Créer :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (&lt;PRIVATE&gt;) : &lt;title:&lt;PRIVATE&gt;&gt; (oid:185) </Description>
+<Position>185</Position>
+<TranslationSet>
+
+	<base loc="en"          >&lt;PRIVATE&gt;</base>
+	<tran loc="fr" origin="">&lt;PRIVATE&gt;</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Pick a template for a new document:) : &lt;title:Pick a template for a new document:&gt; (oid:54) </Description>
+<Position>54</Position>
+<TranslationSet>
+
+	<base loc="en"          >Pick a template for a new document:</base>
+	<tran loc="fr" origin="">Choisir un modèle de nouveau document :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Next) : &lt;title:Next&gt; (oid:55) </Description>
+<Position>55.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Next</base>
+	<tran loc="fr" origin="">Suivant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Cancel) : &lt;title:Cancel&gt; (oid:56) </Description>
+<Position>56.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cancel</base>
+	<tran loc="fr" origin="">Annuler</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (No description available) : &lt;title:No description available&gt; (oid:58) </Description>
+<Position>58</Position>
+<TranslationSet>
+
+	<base loc="en"          >No description available</base>
+	<tran loc="fr" origin="">Aucune description disponible</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                           -->
+<!--    iTM2NewDocumentKit.framework/../iTM2NewDocumentPrefPane.nib.strings    -->
+<!--                                                                           -->
+<File>
+<Filepath>iTM2NewDocumentKit.framework/Versions/A/Resources/English.lproj/iTM2NewDocumentPrefPane.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSPanel (New Document) : &lt;title:New Document&gt; (oid:10) </Description>
+<Position>10</Position>
+<TranslationSet>
+
+	<base loc="en"          >New Document</base>
+	<tran loc="fr" origin="">Nouveau Document</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Every &lt;#AUTHORNAME#&gt; occurrence will be replaced by the vaule of this field.&gt; (oid:110) </Description>
+<Position>110</Position>
+<TranslationSet>
+
+	<base loc="en"          >Every &lt;#AUTHORNAME#&gt; occurrence will be replaced by the vaule of this field.</base>
+	<tran loc="fr" origin="">Chaque occurrence de ___AUTHORNAME___ sera remplacé par le texte de ce champ.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Every &lt;#ORGANIZATIONNAME#&gt; occurrence will be replaced by the vaule of this field.&gt; (oid:111) </Description>
+<Position>111</Position>
+<TranslationSet>
+
+	<base loc="en"          >Every &lt;#ORGANIZATIONNAME#&gt; occurrence will be replaced by the vaule of this field.</base>
+	<tran loc="fr" origin="">Chaque occurrence de ___ORGANIZATIONNAME___ sera remplacé par le texte de ce champ.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Append a texd path extension to the directories such that the finder consider them as a whole wrapper. If you have installed properly the contextual menu, you can switch back from the Finder.) : &lt;title:Append a texd path extension to the directories such that the finder consider them as a whole wrapper. If you have installed properly the contextual menu, you can switch back from the Finder.&gt; (oid:114) </Description>
+<Position>114</Position>
+<TranslationSet>
+
+	<base loc="en"          >Append a texd path extension to the directories such that the finder consider them as a whole wrapper. If you have installed properly the contextual menu, you can switch back from the Finder.</base>
+	<tran loc="fr" origin="">Ajouter l&apos;extension texd pour que le Finder considère le dossier comme un oaquet.  Si vous avez installé correctement le menu contextuel, vous pouvez revenir en arrière depuis le Finder.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (In the template, any occurrence of the string __(AUTHORNAME)__ will be replaced by the string above.) : &lt;title:In the template, any occurrence of the string!#x000a;__(AUTHORNAME)__!#x000a;will be replaced by the string above.&gt; (oid:115) </Description>
+<Position>115</Position>
+<TranslationSet>
+
+	<base loc="en"          >In the template, any occurrence of the string\n__(AUTHORNAME)__\nwill be replaced by the string above.</base>
+	<tran loc="fr" origin="">Dans le modèle, toute occurrence du texte\n__(AUTHORNAME)__\nsera remplacé par le texte ci-dessus.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (In the template, any occurrence of the string __(ORGANIZATIONNAME)__ will be replaced by the string above.) : &lt;title:In the template, any occurrence of the string!#x000a;__(ORGANIZATIONNAME)__!#x000a;will be replaced by the string above.&gt; (oid:116) </Description>
+<Position>116</Position>
+<TranslationSet>
+
+	<base loc="en"          >In the template, any occurrence of the string\n__(ORGANIZATIONNAME)__\nwill be replaced by the string above.</base>
+	<tran loc="fr" origin="">Dans le modèle, toute occurrence du texte\n__(ORGANIZATIONNAME)__\nsera remplacé par le texte ci-dessus.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use TeX wrappers instead of finder directories) : &lt;title:Use TeX wrappers instead of finder directories&gt; (oid:69) </Description>
+<Position>69.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use TeX wrappers instead of finder directories</base>
+	<tran loc="fr" origin="">Employer les paquets TeX au lieu de dossiers du Finder</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Author:) : &lt;title:Author:&gt; (oid:71) </Description>
+<Position>71</Position>
+<TranslationSet>
+
+	<base loc="en"          >Author:</base>
+	<tran loc="fr" origin="">Auteur :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Organization:) : &lt;title:Organization:&gt; (oid:72) </Description>
+<Position>72</Position>
+<TranslationSet>
+
+	<base loc="en"          >Organization:</base>
+	<tran loc="fr" origin="">Organisation :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:TeX wrappers are considered by the Finder exactly like a document.&gt; (oid:77) </Description>
+<Position>77</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX wrappers are considered by the Finder exactly like a document.</base>
+	<tran loc="fr" origin="">Les paquets TeX sont considérés par le Finder exactement comme un document.</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                       -->
+<!--    iTM2NewDocumentKit.framework/../iTM2NewDocumentPrefPane.strings    -->
+<!--                                                                       -->
+<File>
+<Filepath>iTM2NewDocumentKit.framework/Versions/A/Resources/English.lproj/iTM2NewDocumentPrefPane.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>NSPrefPaneIconLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >New Documents</base>
+	<tran loc="fr" origin="">Nouveaux Documents</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- USAGE
+<!ENTITY % StrippedhTML3.2 SYSTEM "Stripped HTML 3.2.dtd"> 
+%StrippedhTML3.2; 
+-->
+<!--=================== Text Markup =======================================-->
+
+<!ELEMENT tt (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT i (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT b (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT u (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT strike  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT big  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT small  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT sub  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT sup  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT em  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT strong  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT dfn  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT code  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT samp  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT kbd  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT var  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT cite  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+
+<!-- there are also 16 widely known color names although
+  the resulting colors are implementation dependent:
+
+   aqua, black, blue, fuchsia, gray, green, lime, maroon,
+   navy, olive, purple, red, silver, teal, white, and yellow
+
+ These colors were originally picked as being the standard
+ 16 colors supported with the Windows VGA palette.
+ -->
+
+<!ELEMENT font (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>     <!-- local change to font -->
+<!ATTLIST font size    CDATA   #IMPLIED>    <!-- [+]nn e.g. size="+1", size=4 -->
+<!ATTLIST font color   CDATA   #IMPLIED>    <!-- #RRGGBB in hex, e.g. red: color="#FF0000" -->
+
+
+<!ELEMENT basefont EMPTY>    <!-- base font size (1 to 7)-->
+<!ATTLIST basefont size    CDATA   #IMPLIED>    <!-- e.g. size=3 -->
+
+
+<!ELEMENT br EMPTY>    <!-- forced line break -->
+<!ATTLIST br clear (left|all|right|none) "none" > <!-- control of text flow -->
+ 
+ <!--=================== Document Body =====================================-->
+<!ELEMENT address (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p)*>
+
+<!ELEMENT div (#PCDATA | h1|h2|h3|h4|h5|h6 | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|form|isindex|hr|table | address)*>
+<!ATTLIST div
+        align   (left|center|right) #IMPLIED ><!-- alignment of following text -->
+
+<!-- center is a shorthand for div with ALIGN=center -->
+<!ELEMENT center (#PCDATA | h1|h2|h3|h4|h5|h6 | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|form|isindex|hr|table | address)*>
+<!--================ Forms ===============================================-->
+
+<!ELEMENT form (#PCDATA | h1|h2|h3|h4|h5|h6 | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|isindex|hr|table | address)*>
+<!ATTLIST form action CDATA #IMPLIED  ><!-- server-side form handler -->
+<!ATTLIST form method (GET | POST) "GET" ><!-- see hTTP specification -->
+<!ATTLIST form enctype CDATA "application/x-www-form-urlencoded">
+
+<!-- Multi-line text input field. -->
+
+<!ELEMENT input EMPTY>
+
+<!ATTLIST input type (TEXT|PASSWORD|ChECKBOX|RADIO|SUBMIT|RESET|FILE|hIDDEN|IMAGE) "TEXT"     ><!-- what kind of widget is needed -->
+<!ATTLIST input name  CDATA   #IMPLIED   ><!-- required for all but submit and reset -->
+<!ATTLIST input value CDATA   #IMPLIED   ><!-- required for radio and checkboxes -->
+<!ATTLIST input checked (checked) #IMPLIED ><!-- for radio buttons and check boxes -->
+<!ATTLIST input size CDATA    #IMPLIED   ><!-- specific to each type of field -->
+<!ATTLIST input maxlength CDATA #IMPLIED ><!-- max chars allowed in text fields -->
+<!ATTLIST input src   CDATA    #IMPLIED   ><!-- for fields with background images -->
+<!ATTLIST input align (top|middle|bottom|left|right) #IMPLIED   ><!-- vertical or horizontal alignment -->
+
+<!ELEMENT select (option+)>
+<!ATTLIST select
+        name CDATA #REQUIRED
+        size CDATA #IMPLIED
+        multiple (multiple) #IMPLIED
+        >
+
+<!ELEMENT option (#PCDATA)*>
+<!ATTLIST option
+        selected (selected) #IMPLIED
+        value  CDATA  #IMPLIED ><!-- defaults to element content -->
+
+
+<!ELEMENT textarea (#PCDATA)*>
+<!ATTLIST textarea name CDATA #REQUIRED>
+<!ATTLIST textarea rows CDATA #REQUIRED>
+<!ATTLIST textarea cols CDATA #REQUIRED>
+
+
+<!--================== The Anchor Element =================================-->
+
+<!ELEMENT a  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | img|applet|font|basefont|br|script|map | input|select|textarea)*>
+
+<!ATTLIST a name    CDATA   #IMPLIED    ><!-- named link end -->
+<!ATTLIST a href    CDATA    #IMPLIED    ><!-- URL for linked resource -->
+<!ATTLIST a rel     CDATA   #IMPLIED    ><!-- forward link types -->
+<!ATTLIST a rev     CDATA   #IMPLIED    ><!-- reverse link types -->
+<!ATTLIST a title   CDATA   #IMPLIED    ><!-- advisory title string -->
+
+<!--================== Client-side image maps ============================-->
+
+<!-- These can be placed in the same document or grouped in a
+     separate document although this isn't yet widely supported -->
+
+<!ELEMENT map  (area)*>
+<!ATTLIST map
+    name    CDATA   #IMPLIED
+    >
+
+<!ELEMENT area EMPTY>
+<!ATTLIST area shape   (rect|circle|poly)  "rect">
+<!ATTLIST area coords  CDATA #IMPLIED  ><!-- defines coordinates for shape -->
+<!ATTLIST area href    CDATA    #IMPLIED  ><!-- this region acts as hypertext link -->
+<!ATTLIST area nohref (nohref) #IMPLIED  ><!-- this region has no action -->
+<!ATTLIST area alt     CDATA   #REQUIRED ><!-- needed for non-graphical user agents -->
+
+<!--================== The link Element ==================================-->
+
+<!ELEMENT link EMPTY>
+<!ATTLIST link href    CDATA    #IMPLIED    ><!-- URL for linked resource -->
+<!ATTLIST link rel     CDATA  #IMPLIED    ><!-- forward link types -->
+<!ATTLIST link rev     CDATA  #IMPLIED    ><!-- reverse link types -->
+<!ATTLIST link title   CDATA   #IMPLIED    ><!-- advisory title string -->
+
+<!--=================== Images ============================================-->
+
+<!-- Suggested widths are used for negotiating image size
+     with the module responsible for painting the image.
+     align=left or right cause image to float to margin
+     and for subsequent text to wrap around image -->
+
+<!ELEMENT img EMPTY ><!--  Embedded image -->
+<!ATTLIST img src     CDATA     #REQUIRED  ><!-- URL of image to embed -->
+<!ATTLIST img alt     CDATA    #IMPLIED   ><!-- for display in place of image -->
+<!ATTLIST img align   (top|middle|bottom|left|right)  #IMPLIED   ><!-- vertical or horizontal alignment -->
+<!ATTLIST img height  CDATA  #IMPLIED   ><!-- suggested height in pixels -->
+<!ATTLIST img width   CDATA  #IMPLIED   ><!-- suggested width in pixels -->
+<!ATTLIST img border  CDATA  #IMPLIED   ><!-- suggested link border width -->
+<!ATTLIST img hspace  CDATA  #IMPLIED   ><!-- suggested horizontal gutter -->
+<!ATTLIST img vspace  CDATA  #IMPLIED   ><!-- suggested vertical gutter -->
+<!ATTLIST img usemap  CDATA     #IMPLIED   ><!-- use client-side image map -->
+<!ATTLIST img ismap   (ismap)  #IMPLIED   ><!-- use server image map -->
+
+<!-- USEMAP points to a map element which may be in this document
+  or an external document, although the latter is not widely supported -->
+
+<!--=================== Java applet tag ===================================-->
+<!--
+  This tag is supported by all Java enabled browsers. Applet resources
+  (including their classes) are normally loaded relative to the document
+  URL (or <BASE> element if it is defined). The CODEBASE attribute is used
+  to change this default behavior. If the CODEBASE attribute is defined then
+  it specifies a different location to find applet resources. The value
+  can be an absolute URL or a relative URL. The absolute URL is used as is
+  without modification and is not effected by the documents <BASE> element.
+  When the codebase attribute is relative, then it is relative to the
+  document URL (or <BASE> tag if defined).
+-->
+<!ELEMENT applet  (#PCDATA | param | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST applet codebase CDATA     #IMPLIED   ><!-- code base -->
+<!ATTLIST applet code     CDATA    #REQUIRED  ><!-- class file -->
+<!ATTLIST applet alt      CDATA    #IMPLIED   ><!-- for display in place of applet -->
+<!ATTLIST applet name     CDATA    #IMPLIED   ><!-- applet name -->
+<!ATTLIST applet width    CDATA  #REQUIRED  ><!-- suggested width in pixels -->
+<!ATTLIST applet height   CDATA  #REQUIRED  ><!-- suggested height in pixels -->
+<!ATTLIST applet align    (top|middle|bottom|left|right)  #IMPLIED   ><!-- vertical or horizontal alignment -->
+<!ATTLIST applet hspace   CDATA  #IMPLIED   ><!-- suggested horizontal gutter -->
+<!ATTLIST applet vspace   CDATA  #IMPLIED   ><!-- suggested vertical gutter -->
+
+<!ELEMENT param EMPTY>
+<!ATTLIST param name    NMTOKEN   #REQUIRED  ><!-- The name of the parameter -->
+<!ATTLIST param value   CDATA     #IMPLIED   ><!-- The value of the parameter -->
+
+<!--
+here is an example:
+
+    <applet codebase="applets/NervousText"
+        code=NervousText.class
+        width=300
+        height=50>
+    <param name=text value="Java is Cool!">
+    <img src=sorry.gif alt="This looks better with Java support">
+    </applet>
+-->
+
+<!--=================== horizontal Rule ===================================-->
+
+<!ELEMENT hr EMPTY>
+<!ATTLIST hr
+        align (left|right|center) #IMPLIED
+        noshade (noshade) #IMPLIED
+        size  CDATA #IMPLIED
+        width CDATA #IMPLIED
+        >
+<!--=================== Paragraphs=========================================-->
+
+<!ELEMENT p (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST p
+        align  (left|center|right) #IMPLIED
+        >
+
+<!--=================== headings ==========================================-->
+
+<!--
+  There are six levels of headers from h1 (the most important)
+  to h6 (the least important).
+-->
+
+<!ELEMENT h1    (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST h1 align  (left|center|right) #IMPLIED >
+<!ELEMENT h2    (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST h2 align  (left|center|right) #IMPLIED >
+<!ELEMENT h3    (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST h3 align  (left|center|right) #IMPLIED >
+<!ELEMENT h4    (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST h4 align  (left|center|right) #IMPLIED >
+<!ELEMENT h5    (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST h5 align  (left|center|right) #IMPLIED >
+<!ELEMENT h6    (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST h6 align  (left|center|right) #IMPLIED >
+
+<!--=================== Preformatted Text =================================-->
+
+<!-- excludes images and changes in font size -->
+
+
+<!ELEMENT pre  (#PCDATA | tt|i|b |u|strike | em|strong|dfn|code|samp|kbd|var|cite | a|applet|basefont|br|script|map | input|select|textarea)*>
+<!ATTLIST pre width CDATA #IMPLIED ><!-- is this widely supported? -->
+
+<!--=================== Block-like Quotes =================================-->
+
+<!ELEMENT blockquote  (#PCDATA | h1|h2|h3|h4|h5|h6 | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|form|isindex|hr|table | address)*>
+
+<!--=================== Lists =============================================-->
+
+<!--
+    hTML 3.2 allows you to control the sequence number for ordered lists.
+    You can set the sequence number with the START and VALUE attributes.
+    The TYPE attribute may be used to specify the rendering of ordered
+    and unordered lists.
+-->
+
+<!-- definition lists - DT for term, DD for its definition -->
+
+<!ELEMENT dl (dt|dd)+>
+<!ATTLIST dl
+        compact (compact) #IMPLIED ><!-- more compact style -->
+
+<!ELEMENT dt (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)*>
+<!ELEMENT dd (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|form|isindex|hr|table)*>
+
+<!-- Ordered lists ol, and unordered lists ul -->
+<!ELEMENT ol (li)+>
+<!ELEMENT ul (li)+>
+
+<!--
+       Numbering style
+    1   arablic numbers     1, 2, 3, ...
+    a   lower alpha         a, b, c, ...
+    a   upper alpha         a, b, C, ...
+    i   lower roman         i, ii, iii, ...
+    i   upper roman         i, II, III, ...
+
+    The style is applied to the sequence number which by default
+    is reset to 1 for the first list item in an ordered list.
+
+    This can't be expressed directly in SGML due to case folding.
+-->
+
+<!ATTLIST ol type      CDATA   #IMPLIED   ><!-- numbering style -->
+<!ATTLIST ol start     CDATA     #IMPLIED   ><!-- starting sequence number -->
+<!ATTLIST ol compact  (compact)   #IMPLIED   ><!-- reduced interitem spacing -->
+
+<!-- unordered lists -->
+<!ATTLIST ul type    (disc|square|circle)   #IMPLIED   ><!-- bullet style -->
+<!ATTLIST ul compact (compact)    #IMPLIED   ><!-- reduced interitem spacing -->
+
+<!--ELEMENT DLI (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)* --><!-- list item -->
+
+<!ATTLIST DLI type    CDATA     #IMPLIED   ><!-- list item style -->
+<!ATTLIST DLI value    CDATA      #IMPLIED   ><!-- reset sequence number -->
+<!ELEMENT dir   (li)+>
+<!ATTLIST dir
+        compact (compact) #IMPLIED
+        >
+<!ELEMENT menu   (li)+>
+<!ATTLIST menu
+        compact (compact) #IMPLIED
+        >
+
+<!-- <dir>              Directory list                  -->
+<!-- <dir COMPACT>      Compact list style              -->
+<!-- <menu>             Menu list                       -->
+<!-- <menu COMPACT>     Compact list style              -->
+
+<!-- The type attribute can be used to change the bullet style
+     in unordered lists and the numbering style in ordered lists -->
+
+<!ELEMENT li (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|form|isindex|hr|table)* ><!-- list item -->
+
+<!ATTLIST li type    CDATA     #IMPLIED   ><!-- list item style -->
+<!ATTLIST li value    CDATA      #IMPLIED   ><!-- reset sequence number -->
+
+<!--======================= Tables ========================================-->
+
+<!-- Widely deployed subset of the full table standard, see RFC 1942
+     e.g. at http://www.ics.uci.edu/pub/ietf/html/rfc1942.txt -->
+
+
+<!ELEMENT table (caption?, tr+)>
+<!ELEMENT tr (th|td)*>
+<!ELEMENT th (#PCDATA | h1|h2|h3|h4|h5|h6 | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|form|isindex|hr|table | address)*>
+<!ELEMENT td (#PCDATA | h1|h2|h3|h4|h5|h6 | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea | p | ul|ol| dir|menu | dl|div|center|blockquote|form|isindex|hr|table | address)*>
+
+<!-- table element -->
+<!ATTLIST table align     (left|center|right)   #IMPLIED  ><!-- table position relative to window -->
+<!ATTLIST table width     CDATA   #IMPLIED  ><!-- table width relative to window -->
+<!ATTLIST table border    CDATA   #IMPLIED  ><!-- controls frame width around table -->
+<!ATTLIST table cellspacing CDATA #IMPLIED  ><!-- spacing between cells -->
+<!ATTLIST table cellpadding CDATA #IMPLIED  ><!-- spacing within cells -->
+
+
+<!ELEMENT caption  (#PCDATA | tt|i|b |u|strike|big|small|sub|sup | em|strong|dfn|code|samp|kbd|var|cite | a|img|applet|font|basefont|br|script|map | input|select|textarea)* ><!-- table or figure caption -->
+<!ATTLIST caption
+        align (top|bottom) #IMPLIED
+        >
+
+<!-- table row -->
+<!ATTLIST tr align  (left|center|right) #IMPLIED              ><!-- horizontal alignment in cells -->
+<!ATTLIST tr valign  (top|middle|bottom)  #IMPLIED              ><!-- vertical alignment in cells -->
+
+<!-- header or data cell -->
+<!ATTLIST th nowrap (nowrap)  #IMPLIED  ><!-- suppress word wrap -->
+<!ATTLIST th rowspan CDATA   "1"         ><!-- number of rows spanned by cell -->
+<!ATTLIST th colspan CDATA   "1"         ><!-- number of cols spanned by cell -->
+<!ATTLIST th align  (left|center|right) #IMPLIED              ><!-- horizontal alignment in cell -->
+<!ATTLIST th valign  (top|middle|bottom)  #IMPLIED              ><!-- vertical alignment in cell -->
+<!ATTLIST th width   CDATA  #IMPLIED  ><!-- suggested width for cell -->
+<!ATTLIST th height  CDATA  #IMPLIED  ><!-- suggested height for cell -->
+
+<!-- header or data cell -->
+<!ATTLIST td nowrap (nowrap)  #IMPLIED  ><!-- suppress word wrap -->
+<!ATTLIST td rowspan CDATA   "1"         ><!-- number of rows spanned by cell -->
+<!ATTLIST td colspan CDATA   "1"         ><!-- number of cols spanned by cell -->
+<!ATTLIST td align  (left|center|right) #IMPLIED              ><!-- horizontal alignment in cell -->
+<!ATTLIST td valign  (top|middle|bottom)  #IMPLIED              ><!-- vertical alignment in cell -->
+<!ATTLIST td width   CDATA  #IMPLIED  ><!-- suggested width for cell -->
+<!ATTLIST td height  CDATA  #IMPLIED  ><!-- suggested height for cell -->
+
+<!ELEMENT isindex EMPTY>
+<!ATTLIST isindex
+        prompt CDATA #IMPLIED ><!-- prompt message -->
+
+<!-- script/style are place holders for transition to next version of hTML -->
+<!ELEMENT style (#PCDATA) ><!-- placeholder for style info -->
+<!ELEMENT script (#PCDATA) ><!-- placeholder for script statements -->

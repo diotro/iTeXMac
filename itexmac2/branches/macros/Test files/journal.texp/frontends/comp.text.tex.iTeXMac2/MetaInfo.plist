@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FileContexts</key>
+	<dict>
+		<key>.</key>
+		<dict>
+			<key>Inspector Variants</key>
+			<dict>
+				<key>Default</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Files</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Settings</key>
+				<array>
+					<string>Default</string>
+					<string>Extended</string>
+				</array>
+				<key>Terminal</key>
+				<array>
+					<string>Default</string>
+				</array>
+			</dict>
+			<key>Open Documents</key>
+			<array>
+				<string>0</string>
+			</array>
+			<key>Open Inspectors</key>
+			<array>
+				<dict>
+					<key>mode</key>
+					<string>Default</string>
+					<key>type</key>
+					<string></string>
+					<key>variant</key>
+					<string>Default</string>
+				</dict>
+				<dict>
+					<key>mode</key>
+					<string>Files</string>
+					<key>type</key>
+					<string>TeX Project</string>
+					<key>variant</key>
+					<string>Default</string>
+				</dict>
+			</array>
+			<key>Print Info Data</key>
+			<data>
+			BAt0eXBlZHN0cmVhbYED6IQBQISEhBNOU011dGFibGVEaWN0aW9u
+			YXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpG5KE
+			hIQITlNTdHJpbmcBlYQBKxBOU0pvYkRpc3Bvc2l0aW9uhpKEl5gP
+			TlNQcmludFNwb29sSm9ihpKEl5gLTlNQYXBlclNpemWGkoSEhAdO
+			U1ZhbHVlAJWEASqEhAx7X05TU2l6ZT1mZn2bgQJkgQMYhpKEl5gN
+			TlNNdXN0Q29sbGF0ZYaShISECE5TTnVtYmVyAJuahIQBY50BhpKE
+			l5gUTlNWZXJ0aWNhbFBhZ2luYXRpb26GkoSfmoSWlgCGkoSXmA1O
+			U1ByaW50ZXJOYW1lhpKEl5gPcHNjIDExMDAgc2VyaWVzhpKEl5gL
+			TlNQcmludFRpbWWGkoSEhAZOU0RhdGUAlYQBZIPCLWPA3AAAAIaS
+			hJeYDU5TUGFnZXNBY3Jvc3OGkoSfmqOWAYaShJeYFE5TVmVydGlj
+			YWxseUNlbnRlcmVkhpKekoSXmA9OU1ByaW50QWxsUGFnZXOGkp6S
+			hJeYC05TUGFwZXJOYW1lhpKEl5gJbmEtbGV0dGVyhpKEl5gPTlNT
+			Y2FsaW5nRmFjdG9yhpKEn5qEhAFmoAGGkoSXmAhOU0NvcGllc4aS
+			qpKEl5gJTlNQcmludGVyhpKEhIQJTlNQcmludGVyAJWSpYaShJeY
+			EE5TUHJpbnRQcm90ZWN0ZWSGkoSfmqCdAIaShJeYFU5TSG9yaXpv
+			bmFsUGFnaW5hdGlvboaShJ+ao5YChpKEl5gWTlNIb3Jpem9udGFs
+			bHlDZW50ZXJlZIaSnpKEl5gLTlNGYXhOdW1iZXKGkoSXmACGkoSX
+			mA5OU0JvdHRvbU1hcmdpboaShJ+asaBahpKEl5gLTlNUb3BNYXJn
+			aW6GkoSfmrGgWoaShJeYC05TRmlyc3RQYWdlhpKqkoSXmApOU0xh
+			c3RQYWdlhpKEn5qjloJ/////hpKEl5gMTlNMZWZ0TWFyZ2luhpKE
+			n5qxoEiGkoSXmBhOU0RldGFpbGVkRXJyb3JSZXBvcnRpbmeGkreS
+			hJeYDU5TUmlnaHRNYXJnaW6GkoSfmrGgSIaShJeYCk5TU2F2ZVBh
+			dGiGkryShJeYC05TUGFnZXNEb3duhpKqkoSXmA1OU09yaWVudGF0
+			aW9uhpKihg==
+			</data>
+			<key>Window Frame Current TeX Project Files:{1280, 854}</key>
+			<string>873 28 336 369 0 0 1280 832 </string>
+			<key>iTM2ProjectAbsolutePath</key>
+			<string>/Users/coder/iTeXMac/iTeXMac2/Developer/Test files/journal.texp</string>
+			<key>iTM2ProjectFileKey</key>
+			<string>.</string>
+			<key>iTM2ProjectRelativePathKey</key>
+			<string>journal.texp</string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+		</dict>
+		<key>0</key>
+		<dict>
+			<key>Inspector Variants</key>
+			<dict>
+				<key>Default</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Files</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>LaTeX</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>TeX</key>
+				<array>
+					<string>Default</string>
+				</array>
+			</dict>
+			<key>Window Frame Current Text Window:{1280, 854}</key>
+			<string>76 288 684 529 0 0 1280 832 </string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2TextMagnification</key>
+			<real>1</real>
+		</dict>
+	</dict>
+	<key>SpellContextModes</key>
+	<dict>
+		<key>Modes</key>
+		<dict>
+			<key>default</key>
+			<dict>
+				<key>isa</key>
+				<string>spelling</string>
+				<key>language</key>
+				<string>en</string>
+				<key>words</key>
+				<array/>
+			</dict>
+		</dict>
+		<key>isa</key>
+		<string>Spelling Context Modes</string>
+	</dict>
+	<key>iTM2ContextExtensions</key>
+	<dict>
+		<key>tex</key>
+		<dict>
+			<key>Inspector Variants</key>
+			<dict>
+				<key>Default</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Files</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>LaTeX</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>TeX</key>
+				<array>
+					<string>Default</string>
+				</array>
+			</dict>
+			<key>Window Frame Current Text Window:{1280, 854}</key>
+			<string>76 288 684 529 0 0 1280 832 </string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2TextMagnification</key>
+			<real>1</real>
+		</dict>
+		<key>texp</key>
+		<dict>
+			<key>Inspector Variants</key>
+			<dict>
+				<key>Default</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Files</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Settings</key>
+				<array>
+					<string>Default</string>
+					<string>Extended</string>
+				</array>
+				<key>Terminal</key>
+				<array>
+					<string>Default</string>
+				</array>
+			</dict>
+			<key>Open Documents</key>
+			<array>
+				<string>0</string>
+			</array>
+			<key>Open Inspectors</key>
+			<array>
+				<dict>
+					<key>mode</key>
+					<string>Default</string>
+					<key>type</key>
+					<string></string>
+					<key>variant</key>
+					<string>Default</string>
+				</dict>
+				<dict>
+					<key>mode</key>
+					<string>Files</string>
+					<key>type</key>
+					<string>TeX Project</string>
+					<key>variant</key>
+					<string>Default</string>
+				</dict>
+			</array>
+			<key>Print Info Data</key>
+			<data>
+			BAt0eXBlZHN0cmVhbYED6IQBQISEhBNOU011dGFibGVEaWN0aW9u
+			YXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpG5KE
+			hIQITlNTdHJpbmcBlYQBKxBOU0pvYkRpc3Bvc2l0aW9uhpKEl5gP
+			TlNQcmludFNwb29sSm9ihpKEl5gLTlNQYXBlclNpemWGkoSEhAdO
+			U1ZhbHVlAJWEASqEhAx7X05TU2l6ZT1mZn2bgQJkgQMYhpKEl5gN
+			TlNNdXN0Q29sbGF0ZYaShISECE5TTnVtYmVyAJuahIQBY50BhpKE
+			l5gUTlNWZXJ0aWNhbFBhZ2luYXRpb26GkoSfmoSWlgCGkoSXmA1O
+			U1ByaW50ZXJOYW1lhpKEl5gPcHNjIDExMDAgc2VyaWVzhpKEl5gL
+			TlNQcmludFRpbWWGkoSEhAZOU0RhdGUAlYQBZIPCLWPA3AAAAIaS
+			hJeYDU5TUGFnZXNBY3Jvc3OGkoSfmqOWAYaShJeYFE5TVmVydGlj
+			YWxseUNlbnRlcmVkhpKekoSXmA9OU1ByaW50QWxsUGFnZXOGkp6S
+			hJeYC05TUGFwZXJOYW1lhpKEl5gJbmEtbGV0dGVyhpKEl5gPTlNT
+			Y2FsaW5nRmFjdG9yhpKEn5qEhAFmoAGGkoSXmAhOU0NvcGllc4aS
+			qpKEl5gJTlNQcmludGVyhpKEhIQJTlNQcmludGVyAJWSpYaShJeY
+			EE5TUHJpbnRQcm90ZWN0ZWSGkoSfmqCdAIaShJeYFU5TSG9yaXpv
+			bmFsUGFnaW5hdGlvboaShJ+ao5YChpKEl5gWTlNIb3Jpem9udGFs
+			bHlDZW50ZXJlZIaSnpKEl5gLTlNGYXhOdW1iZXKGkoSXmACGkoSX
+			mA5OU0JvdHRvbU1hcmdpboaShJ+asaBahpKEl5gLTlNUb3BNYXJn
+			aW6GkoSfmrGgWoaShJeYC05TRmlyc3RQYWdlhpKqkoSXmApOU0xh
+			c3RQYWdlhpKEn5qjloJ/////hpKEl5gMTlNMZWZ0TWFyZ2luhpKE
+			n5qxoEiGkoSXmBhOU0RldGFpbGVkRXJyb3JSZXBvcnRpbmeGkreS
+			hJeYDU5TUmlnaHRNYXJnaW6GkoSfmrGgSIaShJeYCk5TU2F2ZVBh
+			dGiGkryShJeYC05TUGFnZXNEb3duhpKqkoSXmA1OU09yaWVudGF0
+			aW9uhpKihg==
+			</data>
+			<key>Window Frame Current TeX Project Files:{1280, 854}</key>
+			<string>873 28 336 369 0 0 1280 832 </string>
+			<key>iTM2ProjectAbsolutePath</key>
+			<string>/Users/coder/iTeXMac/iTeXMac2/Developer/Test files/journal.texp</string>
+			<key>iTM2ProjectFileKey</key>
+			<string>.</string>
+			<key>iTM2ProjectRelativePathKey</key>
+			<string>journal.texp</string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>iTM2ContextTypes</key>
+	<dict>
+		<key>TeX Document</key>
+		<dict>
+			<key>Inspector Variants</key>
+			<dict>
+				<key>Default</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Files</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>LaTeX</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>TeX</key>
+				<array>
+					<string>Default</string>
+				</array>
+			</dict>
+			<key>Window Frame Current Text Window:{1280, 854}</key>
+			<string>76 288 684 529 0 0 1280 832 </string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2TextMagnification</key>
+			<real>1</real>
+		</dict>
+		<key>TeX Project Document</key>
+		<dict>
+			<key>Inspector Variants</key>
+			<dict>
+				<key>Default</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Files</key>
+				<array>
+					<string>Default</string>
+				</array>
+				<key>Settings</key>
+				<array>
+					<string>Default</string>
+					<string>Extended</string>
+				</array>
+				<key>Terminal</key>
+				<array>
+					<string>Default</string>
+				</array>
+			</dict>
+			<key>Open Documents</key>
+			<array>
+				<string>0</string>
+			</array>
+			<key>Open Inspectors</key>
+			<array>
+				<dict>
+					<key>mode</key>
+					<string>Default</string>
+					<key>type</key>
+					<string></string>
+					<key>variant</key>
+					<string>Default</string>
+				</dict>
+				<dict>
+					<key>mode</key>
+					<string>Files</string>
+					<key>type</key>
+					<string>TeX Project</string>
+					<key>variant</key>
+					<string>Default</string>
+				</dict>
+			</array>
+			<key>Print Info Data</key>
+			<data>
+			BAt0eXBlZHN0cmVhbYED6IQBQISEhBNOU011dGFibGVEaWN0aW9u
+			YXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpG5KE
+			hIQITlNTdHJpbmcBlYQBKxBOU0pvYkRpc3Bvc2l0aW9uhpKEl5gP
+			TlNQcmludFNwb29sSm9ihpKEl5gLTlNQYXBlclNpemWGkoSEhAdO
+			U1ZhbHVlAJWEASqEhAx7X05TU2l6ZT1mZn2bgQJkgQMYhpKEl5gN
+			TlNNdXN0Q29sbGF0ZYaShISECE5TTnVtYmVyAJuahIQBY50BhpKE
+			l5gUTlNWZXJ0aWNhbFBhZ2luYXRpb26GkoSfmoSWlgCGkoSXmA1O
+			U1ByaW50ZXJOYW1lhpKEl5gPcHNjIDExMDAgc2VyaWVzhpKEl5gL
+			TlNQcmludFRpbWWGkoSEhAZOU0RhdGUAlYQBZIPCLWPA3AAAAIaS
+			hJeYDU5TUGFnZXNBY3Jvc3OGkoSfmqOWAYaShJeYFE5TVmVydGlj
+			YWxseUNlbnRlcmVkhpKekoSXmA9OU1ByaW50QWxsUGFnZXOGkp6S
+			hJeYC05TUGFwZXJOYW1lhpKEl5gJbmEtbGV0dGVyhpKEl5gPTlNT
+			Y2FsaW5nRmFjdG9yhpKEn5qEhAFmoAGGkoSXmAhOU0NvcGllc4aS
+			qpKEl5gJTlNQcmludGVyhpKEhIQJTlNQcmludGVyAJWSpYaShJeY
+			EE5TUHJpbnRQcm90ZWN0ZWSGkoSfmqCdAIaShJeYFU5TSG9yaXpv
+			bmFsUGFnaW5hdGlvboaShJ+ao5YChpKEl5gWTlNIb3Jpem9udGFs
+			bHlDZW50ZXJlZIaSnpKEl5gLTlNGYXhOdW1iZXKGkoSXmACGkoSX
+			mA5OU0JvdHRvbU1hcmdpboaShJ+asaBahpKEl5gLTlNUb3BNYXJn
+			aW6GkoSfmrGgWoaShJeYC05TRmlyc3RQYWdlhpKqkoSXmApOU0xh
+			c3RQYWdlhpKEn5qjloJ/////hpKEl5gMTlNMZWZ0TWFyZ2luhpKE
+			n5qxoEiGkoSXmBhOU0RldGFpbGVkRXJyb3JSZXBvcnRpbmeGkreS
+			hJeYDU5TUmlnaHRNYXJnaW6GkoSfmrGgSIaShJeYCk5TU2F2ZVBh
+			dGiGkryShJeYC05TUGFnZXNEb3duhpKqkoSXmA1OU09yaWVudGF0
+			aW9uhpKihg==
+			</data>
+			<key>Window Frame Current TeX Project Files:{1280, 854}</key>
+			<string>873 28 336 369 0 0 1280 832 </string>
+			<key>iTM2ProjectAbsolutePath</key>
+			<string>/Users/coder/iTeXMac/iTeXMac2/Developer/Test files/journal.texp</string>
+			<key>iTM2ProjectFileKey</key>
+			<string>.</string>
+			<key>iTM2ProjectRelativePathKey</key>
+			<string>journal.texp</string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+		</dict>
+	</dict>
+</dict>
+</plist>

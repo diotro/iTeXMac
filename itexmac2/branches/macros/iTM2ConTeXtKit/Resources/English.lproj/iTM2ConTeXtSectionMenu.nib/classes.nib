@@ -1,0 +1,22 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                gotoConTeXtSection = id; 
+                insertConTeXtChapter = id; 
+                insertConTeXtPart = id; 
+                insertConTeXtSection = id; 
+                insertConTeXtSubSection = id; 
+                insertConTeXtSubSubSection = id; 
+                insertConTeXtSubSubSubject = id; 
+                insertConTeXtSubSubject = id; 
+                insertConTeXtSubject = id; 
+                insertConTeXtTitle = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

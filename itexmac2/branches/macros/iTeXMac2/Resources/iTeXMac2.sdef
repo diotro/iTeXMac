@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="iTeXMac2 Terminology">
+	<suite name="iTeXMac2 Text Suite" code="iTM3" description="iTeXMac2 Text Suite">
+		<cocoa name="iTM2TextSuite"/>
+		<value-type name="range" code="RNGE" description="range specifier">
+			<cocoa name="NSRangeSpecifier" class="NSRangeSpecifier"/>
+		</value-type>
+		<class name="text" code="ctxt" description="TeXt source." inherits="text">
+			<cocoa class="NSTextStorage"/>
+			<property name="last selected index" code="LAST" type="integer" access="rw">
+				<cocoa key="lastSelectedIndex"/>
+			</property>
+			<property name="first selected index" code="STRT" type="integer" access="rw">
+				<cocoa key="firstSelectedIndex"/>
+			</property>
+			<property name="selection" code="SLXN" description="The selection" type="text" access="r">
+				<cocoa key="selection"/>
+			</property>
+			<responds-to name="replace">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="find">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="select">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="insert">
+				<cocoa method="method:"/>
+                        </responds-to>
+		</class>
+		<command name="insert macro" code="iTM3ISTM" description="Insert some macro.">
+			<cocoa name="iTM2InsertMacroScriptCommand" class="iTM2InsertMacroScriptCommand"/>
+			<parameter name="in" code="ITXT" description="The text where things are to be inserted." type="text" optional="yes">
+				<cocoa key="InText"/>
+			</parameter>
+			<parameter name="instead of" code="IRNG" description="Character range reference of the text to replace." type="range" optional="yes">
+				<cocoa key="InRange"/>
+			</parameter>
+			<parameter name="at" code="ILOC" description="Insertion location (characters only)." type="location specifier" optional="yes">
+				<cocoa key="AtLocation"/>
+			</parameter>
+			<parameter name="selected text" code="SXTD" description="The text selected after insertion." type="text" optional="yes">
+				<cocoa key="Selected"/>
+			</parameter>
+			<parameter name="following text" code="AFTR" description="The text following selected text after insertion." type="text" optional="yes">
+				<cocoa key="After"/>
+			</parameter>
+		</command>
+		<command name="replace" code="iTM3RPLC" description="Description Forthcoming">
+			<cocoa name="iTM2ReplaceScriptCommand" class="iTM2ReplaceScriptCommand"/>
+			<parameter name="case insensitive search" code="RKSE" description="yes for case insensitive (default is no)" type="boolean">
+				<cocoa key="CaseInsensitive"/>
+			</parameter>
+			<parameter name="in" code="RPIN" description="Either the text where insertion should occur, the position in the text or the range of characters." type="any">
+				<cocoa key="In"/>
+			</parameter>
+			<parameter name="backwards search" code="RBAK" description="Yes for backwards search (default is no)." type="boolean" optional="yes">
+				<cocoa key="Backwards"/>
+			</parameter>
+			<parameter name="entire file search" code="REFL" description="Replace all occurences." type="boolean" optional="yes">
+				<cocoa key="EntireFile"/>
+			</parameter>
+			<parameter name="by" code="RSTR" description="Replacement string" type="text">
+				<cocoa key="Replacement"/>
+			</parameter>
+			<parameter name="cycle search" code="RCYK" description="Yes if the search should cycle to the beginning of the text (defaults is no, without effect when searching in selection)" type="boolean">
+				<cocoa key="Cycle"/>
+			</parameter>
+			<parameter name="change all" code="RALL" description="In selected text only (when all is chosen)." type="boolean">
+				<cocoa key="ChangeAll"/>
+			</parameter>
+			<result type="integer"/>
+		</command>
+		<command name="find" code="iTM3FIND" description="Description Forthcoming">
+			<cocoa name="iTM2FindScriptCommand" class="iTM2FindScriptCommand"/>
+			<parameter name="case insensitive search" code="FKSE" description="Yes for case insensitive (default is no)." type="boolean" optional="yes">
+				<cocoa key="CaseInsensitive"/>
+			</parameter>
+			<parameter name="in" code="FPIN" description="Either the text where insertion should occur, the position in the text or the range of characters." type="any">
+				<cocoa key="In"/>
+			</parameter>
+			<parameter name="backwards search" code="FBAK" description="Yes for backwards search (default is no)." type="boolean" optional="yes">
+				<cocoa key="Backwards"/>
+			</parameter>
+			<parameter name="cycle search" code="FCYK" description="Yes if the search should cycle to the beginning of the text (default is no)." type="boolean" optional="yes">
+				<cocoa key="Cycle"/>
+			</parameter>
+			<result type="boolean"/>
+		</command>
+		<command name="select" code="iTM3SLCT" description="Select some text.">
+			<cocoa name="iTM2SelectScriptCommand" class="iTM2SelectScriptCommand"/>
+			<parameter name="at location" code="SLOC" description="Positional reference" type="location specifier" optional="yes">
+				<cocoa key="AtLocation"/>
+			</parameter>
+		</command>
+		<command name="insert" code="iTM3INST" description="Insert some text.">
+			<cocoa name="iTM2InsertScriptCommand" class="iTM2InsertScriptCommand"/>
+			<parameter name="in" code="ITXT" description="The text where things are to be inserted." type="text" optional="yes">
+				<cocoa key="InText"/>
+			</parameter>
+			<parameter name="instead of" code="IRNG" description="Character range reference of the text to replace." type="range" optional="yes">
+				<cocoa key="InRange"/>
+			</parameter>
+			<parameter name="at" code="ILOC" description="Insertion location (characters only)." type="location specifier" optional="yes">
+				<cocoa key="AtLocation"/>
+			</parameter>
+		</command>
+	</suite>
+	<suite name="URLHandler" code="UrHd" description="iTeXMac2 GetURL support">
+		<cocoa name="URL Handler"/>
+		<command name="GetURL" code="GURLGURL" description="Catch the given URL">
+			<cocoa name="GetURL" class="iTM2URLHandlerCommand"/>
+                        <direct-parameter type="text" optional="no" description="The URL to be reached."/>
+		</command>
+	</suite>
+	<suite name="iTeXMac2 Suite" code="iTM2" description="iTeXMac2 Scripting suite">
+		<cocoa name="iTeXMac2"/>
+		<class name="application" code="capp" description="iTeXMac2&apos;s top level scripting object." inherits="application">
+			<cocoa class="iTM2Application"/>
+			<element code="TXDQ" type="TeX document" access="r">
+				<cocoa key="orderedTeXDocuments"/>
+			</element>
+			<responds-to name="Index">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Bibliography">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Compile">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Typeset">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Glossary">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Special">
+				<cocoa method="method:"/>
+                        </responds-to>
+			<responds-to name="Stop">
+				<cocoa method="method:"/>
+                        </responds-to>
+		</class>
+		<class name="TeX document" code="TXDQ" description="TeX source document." inherits="NSCoreSuite.document">
+			<cocoa class="iTM2TeXDocument"/>
+			<property name="text" code="ctxt" type="any" access="rw">
+				<cocoa key="textStorage"/>
+			</property>
+		</class>
+		<command name="Index" code="iTM2Indx" description="Make the index of a file given by its path">
+			<cocoa name="Index" class="iTM2IndexCommand"/>
+			<parameter name="with project" code="PROJ" description="Project of the file, if any: deprecated" type="text" optional="yes">
+				<cocoa key="Project"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Path of file to typeset (alternate argument)" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="Bibliography" code="iTM2Bibl" description="Make the bibliography of a file given by its path">
+			<cocoa name="Bibliography" class="iTM2BibliographyCommand"/>
+			<parameter name="with project" code="PROJ" description="Project of the file, if any: deprecated" type="text" optional="yes">
+				<cocoa key="Project"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Path of file to typeset (alternate argument)" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="Compile" code="iTM2Cmpl" description="Compile the file given by its path">
+			<cocoa name="Compile" class="iTM2CompileCommand"/>
+			<parameter name="with project" code="PROJ" description="Project of the file, if any: deprecated" type="text" optional="yes">
+				<cocoa key="Project"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Path of file to typeset (alternate argument)" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="Typeset" code="iTM2Tpst" description="Typeset the file given by its path">
+			<cocoa name="Typeset" class="iTM2TypesetCommand"/>
+			<parameter name="with project" code="PROJ" description="Project of the file, if any: deprecated" type="text" optional="yes">
+				<cocoa key="Project"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Path of file to typeset (alternate argument)" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="Glossary" code="iTM2Glos" description="Make the glossary of the file given by its path">
+			<cocoa name="Glossary" class="iTM2GlossaryCommand"/>
+			<parameter name="with project" code="PROJ" description="Project of the file, if any: deprecated" type="text" optional="yes">
+				<cocoa key="Project"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Path of file to typeset (alternate argument)" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="Special" code="iTM2Spec" description="Special the file given by its path">
+			<cocoa name="Special" class="iTM2SpecialCommand"/>
+			<parameter name="with project" code="PROJ" description="Project of the file, if any: deprecated" type="text" optional="yes">
+				<cocoa key="Project"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Path of file to typeset (alternate argument)" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="Stop" code="iTM2Stop" description="Stop the given process">
+			<cocoa name="Stop" class="iTM2StopCommand"/>
+			<parameter name="with project" code="PROJ" description="Project of the file, if any: deprecated" type="text" optional="yes">
+				<cocoa key="Project"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Path of file to typeset (alternate argument)" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="edit" code="iTM2Edit" description="Edits the receiver at the given line and column">
+			<cocoa class="iTM2EditCommand"/>
+			<parameter name="at line" code="LINE" description="The line to highlight" type="number" optional="yes">
+				<cocoa key="Line"/>
+			</parameter>
+			<parameter name="column" code="COLU" description="The column to highlight" type="number" optional="yes">
+				<cocoa key="Column"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="The file path to edit" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="display" code="iTM2Disp" description="Displays the file at the given path, at the location corresponding to the given arguments">
+			<cocoa class="iTM2DisplayCommand"/>
+			<parameter name="at line" code="LINE" description="The line in the source to be synchronized with" type="number" optional="yes">
+				<cocoa key="Line"/>
+			</parameter>
+			<parameter name="column" code="COLU" description="The column in the source to be synchronized with" type="number" optional="yes">
+				<cocoa key="Column"/>
+			</parameter>
+			<parameter name="in source" code="SRCE" description="The source to be synchronized with" type="text" optional="yes">
+				<cocoa key="Source"/>
+			</parameter>
+			<parameter name="file" code="kfil" description="Another way of iving the file name to process" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="update" code="iTM2Updt" description="Updates the receiver, all the documents">
+			<cocoa class="iTM2UpdateCommand"/>
+			<parameter name="file" code="kfil" description="Another way to give the file to update" type="text" optional="yes">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+	</suite>
+</dictionary>

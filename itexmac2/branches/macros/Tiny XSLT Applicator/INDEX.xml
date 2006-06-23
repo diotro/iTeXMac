@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE INDEX SYSTEM "DTDs/MAIN.DTD">
+<INDEX TITLE="Index window title">
+    <INCLUDE HREF="topic1.xml"/>
+    <INCLUDE HREF="topic2.xml"/>
+</INDEX>

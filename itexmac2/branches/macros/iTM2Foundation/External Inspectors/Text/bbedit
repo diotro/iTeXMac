@@ -1,0 +1,17 @@
+#!/bin/sh -f
+# this is bbedit shell script for iTeXMac 1.3 version 0.1
+# © 2003 jlaurens@users.sourceforge.net
+command="/usr/bin/bbedit"
+if [ ${#file} -gt 0 ]
+then
+    options=""
+    if [ ${line:--1} -gt 0 ]
+    then
+    fi
+    echo "\"${command}\" ${options} \"${file}\""
+    "${command}" ${options} "${file}"
+else
+    "${command}"
+fi
+exit
+/usr/bin/bbedit +$line "$file"

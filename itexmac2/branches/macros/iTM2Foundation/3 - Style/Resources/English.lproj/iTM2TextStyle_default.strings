@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Style</key>
+	<string>Default</string>
+	<key>error</key>
+	<string>iTeXMac2 syntax parsing error</string>
+	<key>default</key>
+	<string>Default text mode</string>
+</dict>
+</plist>

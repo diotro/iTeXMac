@@ -1,0 +1,11 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {gotoTeXBookmark = id; insertTeXBookmark = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

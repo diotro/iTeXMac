@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+                <string>\Rightarrow </string>
+                <string>\Vectorarrow </string>
+                <string>\Vectorarrowhigh </string>
+                <string>\Corresponds </string>
+                <string>\Lefttorque </string>
+                <string>\Righttorque </string>
+                <string>\Force </string>
+                <string>\Lineload </string>
+                <string>\Beam </string>
+                <string>\Bearing </string>
+                <string>\Loosebearing </string>
+                <string>\Fixedbearing </string>
+                <string>\Flatsteel </string>
+                <string>\Squarepipe </string>
+                <string>\Rectpipe </string>
+                <string>\Lsteel </string>
+                <string>\TTsteel </string>
+                <string>\Circpipe </string>
+                <string>\Tsteel </string>
+                <string>\Squaredot </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>$</key>
+	<string>  Ligne</string>
+	<key>()</key>
+	<string>Rapport de texte vide</string>
+	<key>(?!re)</key>
+	<string>Prédiction négative</string>
+	<key>(?:)</key>
+	<string>Pas de rapport de texte vide</string>
+	<key>(?:re)</key>
+	<string>ER sans rapport</string>
+	<key>(?=re)</key>
+	<string>Prédiction positive</string>
+	<key>(re)</key>
+	<string>ER avec rapport</string>
+	<key>*</key>
+	<string>  Tout</string>
+	<key>*?</key>
+	<string>  Tout</string>
+	<key>+</key>
+	<string>  Plus qu'une</string>
+	<key>+?</key>
+	<string>  Plus qu'une</string>
+	<key>.</key>
+	<string>Un caractère</string>
+	<key>?</key>
+	<string>  Moins d'une fois</string>
+	<key>??</key>
+	<string>  Moins d'une fois</string>
+	<key>Back Reference</key>
+	<string>Référence</string>
+	<key>Bracket Expression</key>
+	<string>Expression crochet</string>
+	<key>C Special Character</key>
+	<string>Caractère spécial C</string>
+	<key>Character Class</key>
+	<string>Classe de caractères</string>
+	<key>Character Class (ERE)</key>
+	<string>Classe de caractères avancée</string>
+	<key>Coded Character</key>
+	<string>Code de caractère</string>
+	<key>Constraint</key>
+	<string>Contrainte</string>
+	<key>End Of</key>
+	<string>Fin de</string>
+	<key>Longest Match</key>
+	<string>Plus longue correspondance</string>
+	<key>Quantifier</key>
+	<string>Quantificateur</string>
+	<key>Shortest Match</key>
+	<string>Plus courte correspondance</string>
+	<key>Special Character</key>
+	<string>Caractère spécial</string>
+	<key>Start Of</key>
+	<string>Début de</string>
+	<key>Whole match</key>
+	<string>Toute la correpondance</string>
+	<key>[.abc.]</key>
+	<string>Séquences agrégées</string>
+	<key>[=x=]</key>
+	<string>Classe équivalente</string>
+	<key>[[:abc:]]</key>
+	<string>Classe</string>
+	<key>[[:alnum:]]</key>
+	<string>Alphanumerique</string>
+	<key>[[:alpha:]]</key>
+	<string>Lettre</string>
+	<key>[[:blank:]]</key>
+	<string>Espace ou tabulation</string>
+	<key>[[:cntrl:]]</key>
+	<string>Contrôle</string>
+	<key>[[:digit:]]</key>
+	<string>Chiffre</string>
+	<key>[[:graph:]]</key>
+	<string>Visible</string>
+	<key>[[:lower:]]</key>
+	<string>Bas de casse</string>
+	<key>[[:print:]]</key>
+	<string>Alphanumérique</string>
+	<key>[[:punct:]]</key>
+	<string>Ponctuation</string>
+	<key>[[:space:]]</key>
+	<string>Espace blanc</string>
+	<key>[[:upper:]]</key>
+	<string>Haut de casse</string>
+	<key>[[:xdigit:]]</key>
+	<string>Chiffre hexadécimal</string>
+	<key>[]</key>
+	<string>Expression crochet</string>
+	<key>[^]</key>
+	<string>Expression crochet complémentaire</string>
+	<key>[a-z]</key>
+	<string>Étendue de caractère</string>
+	<key>\#</key>
+	<string>#</string>
+	<key>\$</key>
+	<string>Dollar : $</string>
+	<key>\(</key>
+	<string>Parenthèse ouvrante : (</string>
+	<key>\)</key>
+	<string>Parenthèse fermante : )</string>
+	<key>\*</key>
+	<string>Étoile : *</string>
+	<key>\+</key>
+	<string>Plus : +</string>
+	<key>\-</key>
+	<string>Moins : -</string>
+	<key>\.</key>
+	<string>Point : .</string>
+	<key>\0</key>
+	<string>0</string>
+	<key>\1</key>
+	<string>Premier (atome)</string>
+	<key>\2</key>
+	<string>Second (atome)</string>
+	<key>\3</key>
+	<string>Troisième (Atome)</string>
+	<key>\?</key>
+	<string>Poinbt d'interrogation : ?</string>
+	<key>\A</key>
+	<string>  Texte</string>
+	<key>\B</key>
+	<string>Antislash (Autre)</string>
+	<key>\D</key>
+	<string>Pas un chiffre</string>
+	<key>\M</key>
+	<string>  Mots</string>
+	<key>\S</key>
+	<string>Pas un espace</string>
+	<key>\Uxxxxxxxx</key>
+	<string>Unicode long</string>
+	<key>\W</key>
+	<string>Pas alphanumérique - "_"</string>
+	<key>\Y</key>
+	<string>Dans un mot</string>
+	<key>\Z</key>
+	<string>  Texte</string>
+	<key>\[</key>
+	<string>Crochet ouvrant : [</string>
+	<key>\\</key>
+	<string>Antislah : \</string>
+	<key>\]</key>
+	<string>Crochet fermant : ]</string>
+	<key>\^</key>
+	<string>Chapeau : ^</string>
+	<key>\a</key>
+	<string>Cloche</string>
+	<key>\b</key>
+	<string>Retour</string>
+	<key>\cX</key>
+	<string>5 bits</string>
+	<key>\d</key>
+	<string>Chiffre</string>
+	<key>\e</key>
+	<string>Esc</string>
+	<key>\f</key>
+	<string>formfeed</string>
+	<key>\m</key>
+	<string>  Mot</string>
+	<key>\n</key>
+	<string>nouvell ligne</string>
+	<key>\oo</key>
+	<string>2 octaux</string>
+	<key>\ooo</key>
+	<string>3 octaux</string>
+	<key>\r</key>
+	<string>retour chariot</string>
+	<key>\s</key>
+	<string>Espace</string>
+	<key>\t</key>
+	<string>tabulation horizontale</string>
+	<key>\uxxxx</key>
+	<string>Unicode court</string>
+	<key>\v</key>
+	<string>Tabulation verticale</string>
+	<key>\w</key>
+	<string>Alphanumérique + "_"</string>
+	<key>\xhhh</key>
+	<string>3 héxadécimaux</string>
+	<key>\y</key>
+	<string>Pas dans un mot</string>
+	<key>\{</key>
+	<string>Accolade ouvrante : {</string>
+	<key>\|</key>
+	<string>Pipe: |</string>
+	<key>\}</key>
+	<string>Accolade fermante : }</string>
+	<key>^</key>
+	<string>  Migne</string>
+	<key>{i,j}</key>
+	<string>  correspond de i à j</string>
+	<key>{i,j}?</key>
+	<string>  correspond de i à j</string>
+	<key>{i,}</key>
+	<string>  Plus de i correspond</string>
+	<key>{i,}?</key>
+	<string>  Plus de i correspond</string>
+	<key>{i}</key>
+	<string>  i correspond</string>
+	<key>{i}?</key>
+	<string>  i correspond</string>
+</dict>
+</plist>

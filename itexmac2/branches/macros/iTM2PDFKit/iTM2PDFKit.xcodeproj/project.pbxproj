@@ -1,0 +1,1081 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		DC9E4F310858A8A300A86BED /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DC6BB83509474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = All;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			dependencies = (
+				DCC3EE9408FE672500A74157 /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		DC0C1B3408FF02E200C46507 /* template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1B3308FF02E200C46507 /* template.pdf */; };
+		DC0C1CCD08FFF95000C46507 /* ThumbnailViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */; };
+		DC0C1CCE08FFF95400C46507 /* TOCViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */; };
+		DC0C1D1A0900107000C46507 /* Generic.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1D190900106F00C46507 /* Generic.icns */; };
+		DCAF9A5509D810EE00AFD95F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */; };
+		DCAF9A5609D810EE00AFD95F /* iTM2PDFKitDefaultsController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4909D810EE00AFD95F /* iTM2PDFKitDefaultsController.nib */; };
+		DCAF9A5709D810EE00AFD95F /* iTM2PDFKitInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4B09D810EE00AFD95F /* iTM2PDFKitInspector.nib */; };
+		DCAF9A5809D810EE00AFD95F /* iTM2PDFKitPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4D09D810EE00AFD95F /* iTM2PDFKitPrefPane.nib */; };
+		DCAF9A5909D810EE00AFD95F /* iTM2PDFKitPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4F09D810EE00AFD95F /* iTM2PDFKitPrefPane.strings */; };
+		DCAF9A5A09D810EE00AFD95F /* KeyBindings.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A5109D810EE00AFD95F /* KeyBindings.resources.tgz */; };
+		DCAF9A5B09D810EE00AFD95F /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A5309D810EE00AFD95F /* Toolbar.strings */; };
+		DCC3EE6A08FE666500A74157 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		DCC3EE6B08FE666500A74157 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
+		DCC3EE6C08FE666500A74157 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6394088D97F50016FAA2 /* iTM2Foundation.framework */; };
+		DCC3EE6D08FE666500A74157 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6395088D97F50016FAA2 /* iTM2TeXFoundation.framework */; };
+		DCC3EE6E08FE666D00A74157 /* iTM2PDFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */; };
+		DCC3EE6F08FE668E00A74157 /* A aliased.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6730855D0B200128F14 /* A aliased.png */; };
+		DCC3EE7008FE668E00A74157 /* A unaliased.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6740855D0B200128F14 /* A unaliased.png */; };
+		DCC3EE7208FE668E00A74157 /* AnnotateTool1Adorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6760855D0B200128F14 /* AnnotateTool1Adorn.tif */; };
+		DCC3EE7308FE668E00A74157 /* AnnotateTool1AdornDisclosure.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6770855D0B200128F14 /* AnnotateTool1AdornDisclosure.tif */; };
+		DCC3EE7408FE668E00A74157 /* AnnotateTool2Adorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6780855D0B200128F14 /* AnnotateTool2Adorn.tif */; };
+		DCC3EE7508FE668E00A74157 /* AnnotateTool2AdornDisclosure.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6790855D0B200128F14 /* AnnotateTool2AdornDisclosure.tif */; };
+		DCC3EE7608FE668E00A74157 /* BackAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67A0855D0B200128F14 /* BackAdorn.tif */; };
+		DCC3EE7708FE668E00A74157 /* C_Hand.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67B0855D0B200128F14 /* C_Hand.tiff */; };
+		DCC3EE7808FE668E00A74157 /* C_ZoomIn.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */; };
+		DCC3EE7908FE668E00A74157 /* C_ZoomLimit.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */; };
+		DCC3EE7A08FE668E00A74157 /* C_ZoomOut.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */; };
+		DCC3EE7B08FE668E00A74157 /* CropToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67F0855D0B200128F14 /* CropToolbarImage.tiff */; };
+		DCC3EE7C08FE668E00A74157 /* DrawerToggleToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6800855D0B200128F14 /* DrawerToggleToolbarImage.tiff */; };
+		DCC3EE7D08FE668E00A74157 /* ForwardAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */; };
+		DCC3EE7E08FE668E00A74157 /* goToNextPageToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6820855D0B200128F14 /* goToNextPageToolbarImage.tif */; };
+		DCC3EE7F08FE668E00A74157 /* goToPreviousPageToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6830855D0B200128F14 /* goToPreviousPageToolbarImage.tif */; };
+		DCC3EE8008FE668E00A74157 /* MoveToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */; };
+		DCC3EE8108FE668E00A74157 /* rotateLeftToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6850855D0B200128F14 /* rotateLeftToolbarImage.tif */; };
+		DCC3EE8208FE668E00A74157 /* rotateRightToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6860855D0B200128F14 /* rotateRightToolbarImage.tif */; };
+		DCC3EE8308FE668E00A74157 /* SelectToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */; };
+		DCC3EE8408FE668E00A74157 /* TextToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */; };
+		DCC3EE8508FE668E00A74157 /* zoomInToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6890855D0B200128F14 /* zoomInToolbarImage.tiff */; };
+		DCC3EE8608FE668E00A74157 /* zoomOutToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA68A0855D0B200128F14 /* zoomOutToolbarImage.tiff */; };
+		DCC3EE9008FE668E00A74157 /* iTM2PDFKitPrefPane.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */; };
+		DCC3EE9108FE66A600A74157 /* iTM2PDFKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DCDD0680090384C300C5B1E9 /* toggleDrawerToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */; };
+		DCDD06C309038EF900C5B1E9 /* actualSizeToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */; };
+		DCDD06C409038EF900C5B1E9 /* zoomToFitToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDD06C109038EF900C5B1E9 /* zoomToFitToolbarImage.tiff */; };
+		DCDD06C509038EF900C5B1E9 /* zoomToSelectionToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDD06C209038EF900C5B1E9 /* zoomToSelectionToolbarImage.tiff */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		014CEA420018CDE011CA2923 /* Development */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OBJROOT = "$(SYMROOT)";
+				SYMROOT = "$(SRCROOT)/../build";
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		014CEA430018CDE011CA2923 /* Deployment */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OBJROOT = "$(SYMROOT)";
+				SYMROOT = "$(SRCROOT)/../build";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		DC5D703C0949E11A00EBA96C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC5D702D0949E0B100EBA96C;
+			remoteInfo = "Prepare iTM2TeXFoundation";
+		};
+		DC993BF9088DF35A00F8BCE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC9E4F310858A8A300A86BED;
+			remoteInfo = All;
+		};
+		DCC3EE9308FE672500A74157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCC3EDF808FE65DC00A74157;
+			remoteInfo = iTM2PDFKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		DC0C1B3308FF02E200C46507 /* template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = template.pdf; sourceTree = "<group>"; };
+		DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ThumbnailViewAdorn.tif; sourceTree = "<group>"; };
+		DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TOCViewAdorn.tif; sourceTree = "<group>"; };
+		DC0C1D190900106F00C46507 /* Generic.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Generic.icns; sourceTree = "<group>"; };
+		DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PDFKit.h; sourceTree = "<group>"; };
+		DC2CA6700855D08300128F14 /* iTM2PDFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PDFKit.m; sourceTree = "<group>"; };
+		DC2CA6730855D0B200128F14 /* A aliased.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "A aliased.png"; sourceTree = "<group>"; };
+		DC2CA6740855D0B200128F14 /* A unaliased.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "A unaliased.png"; sourceTree = "<group>"; };
+		DC2CA6760855D0B200128F14 /* AnnotateTool1Adorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool1Adorn.tif; sourceTree = "<group>"; };
+		DC2CA6770855D0B200128F14 /* AnnotateTool1AdornDisclosure.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool1AdornDisclosure.tif; sourceTree = "<group>"; };
+		DC2CA6780855D0B200128F14 /* AnnotateTool2Adorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool2Adorn.tif; sourceTree = "<group>"; };
+		DC2CA6790855D0B200128F14 /* AnnotateTool2AdornDisclosure.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool2AdornDisclosure.tif; sourceTree = "<group>"; };
+		DC2CA67A0855D0B200128F14 /* BackAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BackAdorn.tif; sourceTree = "<group>"; };
+		DC2CA67B0855D0B200128F14 /* C_Hand.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_Hand.tiff; sourceTree = "<group>"; };
+		DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomIn.tiff; sourceTree = "<group>"; };
+		DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomLimit.tiff; sourceTree = "<group>"; };
+		DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomOut.tiff; sourceTree = "<group>"; };
+		DC2CA67F0855D0B200128F14 /* CropToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = CropToolbarImage.tiff; sourceTree = "<group>"; };
+		DC2CA6800855D0B200128F14 /* DrawerToggleToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DrawerToggleToolbarImage.tiff; sourceTree = "<group>"; };
+		DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ForwardAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6820855D0B200128F14 /* goToNextPageToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = goToNextPageToolbarImage.tif; sourceTree = "<group>"; };
+		DC2CA6830855D0B200128F14 /* goToPreviousPageToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = goToPreviousPageToolbarImage.tif; sourceTree = "<group>"; };
+		DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = MoveToolAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6850855D0B200128F14 /* rotateLeftToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = rotateLeftToolbarImage.tif; sourceTree = "<group>"; };
+		DC2CA6860855D0B200128F14 /* rotateRightToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = rotateRightToolbarImage.tif; sourceTree = "<group>"; };
+		DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SelectToolAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TextToolAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6890855D0B200128F14 /* zoomInToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomInToolbarImage.tiff; sourceTree = "<group>"; };
+		DC2CA68A0855D0B200128F14 /* zoomOutToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomOutToolbarImage.tiff; sourceTree = "<group>"; };
+		DC2CA6BE0855D0CE00128F14 /* iTM2PDFKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2PDFKit-Prefix.pch"; sourceTree = "<group>"; };
+		DC2CA71A0855D19F00128F14 /* iTM2PDFKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2PDFKit-Info.plist"; sourceTree = "<group>"; };
+		DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC5B696F0A4B6AD500F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B69700A4B6AD500F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69710A4B6AD500F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5B69720A4B6AD500F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B69730A4B6AD500F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		DC5B69740A4B6AD500F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PDFKitPrefPane.tiff; sourceTree = "<group>"; };
+		DC5D702E0949E0B100EBA96C /* Prepare iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2TeXFoundation.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC5D702F0949E0B100EBA96C /* Prepare iTM2TeXFoundation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Prepare iTM2TeXFoundation-Info.plist"; sourceTree = "<group>"; };
+		DC81AD960887196E00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC8A6394088D97F50016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
+		DC8A6395088D97F50016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
+		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		DCAF9A4809D810EE00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCAF9A4A09D810EE00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PDFKitDefaultsController.nib; sourceTree = "<group>"; };
+		DCAF9A4C09D810EE00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PDFKitInspector.nib; sourceTree = "<group>"; };
+		DCAF9A4E09D810EE00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PDFKitPrefPane.nib; sourceTree = "<group>"; };
+		DCAF9A5009D810EE00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2PDFKitPrefPane.strings; sourceTree = "<group>"; };
+		DCAF9A5209D810EE00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
+		DCAF9A5409D810EE00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
+		DCAF9A5C09D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCAF9A5D09D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2PDFKitDefaultsController.nib; sourceTree = "<group>"; };
+		DCAF9A5E09D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2PDFKitInspector.nib; sourceTree = "<group>"; };
+		DCAF9A5F09D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2PDFKitPrefPane.nib; sourceTree = "<group>"; };
+		DCAF9A6009D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2PDFKitPrefPane.strings; sourceTree = "<group>"; };
+		DCAF9A6109D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
+		DCAF9A6209D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Toolbar.strings; sourceTree = "<group>"; };
+		DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2PDFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawerToolbarImage.tif; sourceTree = "<group>"; };
+		DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = actualSizeToolbarImage.tiff; sourceTree = "<group>"; };
+		DCDD06C109038EF900C5B1E9 /* zoomToFitToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomToFitToolbarImage.tiff; sourceTree = "<group>"; };
+		DCDD06C209038EF900C5B1E9 /* zoomToSelectionToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomToSelectionToolbarImage.tiff; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCC3EDF708FE65DC00A74157 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE6A08FE666500A74157 /* Cocoa.framework in Frameworks */,
+				DCC3EE6B08FE666500A74157 /* Quartz.framework in Frameworks */,
+				DCC3EE6C08FE666500A74157 /* iTM2Foundation.framework in Frameworks */,
+				DCC3EE6D08FE666500A74157 /* iTM2TeXFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iTM2XtdPDFKit */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CA71A0855D19F00128F14 /* iTM2PDFKit-Info.plist */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				32C88E010371C26100C91783 /* Other Sources */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				DC2CA6720855D0B200128F14 /* Images */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+				DC3B41820A4ADCEE00E83ABA /* Settings */,
+			);
+			name = iTM2XtdPDFKit;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */,
+				DCAF9A4909D810EE00AFD95F /* iTM2PDFKitDefaultsController.nib */,
+				DCAF9A4B09D810EE00AFD95F /* iTM2PDFKitInspector.nib */,
+				DCAF9A4D09D810EE00AFD95F /* iTM2PDFKitPrefPane.nib */,
+				DCAF9A4F09D810EE00AFD95F /* iTM2PDFKitPrefPane.strings */,
+				DCAF9A5109D810EE00AFD95F /* KeyBindings.resources.tgz */,
+				DCAF9A5309D810EE00AFD95F /* Toolbar.strings */,
+				DC0C1B3308FF02E200C46507 /* template.pdf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */,
+				DC2CA6700855D08300128F14 /* iTM2PDFKit.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC8A6394088D97F50016FAA2 /* iTM2Foundation.framework */,
+				DC8A6395088D97F50016FAA2 /* iTM2TeXFoundation.framework */,
+				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC81AD960887196E00943C99 /* iTeXMac2.app */,
+				DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */,
+				DC5D702E0949E0B100EBA96C /* Prepare iTM2TeXFoundation.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C88E010371C26100C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CA6BE0855D0CE00128F14 /* iTM2PDFKit-Prefix.pch */,
+				DC5D702F0949E0B100EBA96C /* Prepare iTM2TeXFoundation-Info.plist */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		DC2CA6720855D0B200128F14 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */,
+				DC2CA6730855D0B200128F14 /* A aliased.png */,
+				DC2CA6740855D0B200128F14 /* A unaliased.png */,
+				DC2CA67B0855D0B200128F14 /* C_Hand.tiff */,
+				DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */,
+				DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */,
+				DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */,
+				DC2CA67F0855D0B200128F14 /* CropToolbarImage.tiff */,
+				DC2CA6800855D0B200128F14 /* DrawerToggleToolbarImage.tiff */,
+				DC2CA6820855D0B200128F14 /* goToNextPageToolbarImage.tif */,
+				DC2CA6830855D0B200128F14 /* goToPreviousPageToolbarImage.tif */,
+				DC2CA6850855D0B200128F14 /* rotateLeftToolbarImage.tif */,
+				DC2CA6860855D0B200128F14 /* rotateRightToolbarImage.tif */,
+				DC2CA6890855D0B200128F14 /* zoomInToolbarImage.tiff */,
+				DC2CA68A0855D0B200128F14 /* zoomOutToolbarImage.tiff */,
+				DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */,
+				DCDD06C109038EF900C5B1E9 /* zoomToFitToolbarImage.tiff */,
+				DCDD06C209038EF900C5B1E9 /* zoomToSelectionToolbarImage.tiff */,
+				DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */,
+				DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */,
+				DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */,
+				DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */,
+				DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */,
+				DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */,
+				DC2CA67A0855D0B200128F14 /* BackAdorn.tif */,
+				DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */,
+				DC0C1D190900106F00C46507 /* Generic.icns */,
+				DC2CA6760855D0B200128F14 /* AnnotateTool1Adorn.tif */,
+				DC2CA6770855D0B200128F14 /* AnnotateTool1AdornDisclosure.tif */,
+				DC2CA6780855D0B200128F14 /* AnnotateTool2Adorn.tif */,
+				DC2CA6790855D0B200128F14 /* AnnotateTool2AdornDisclosure.tif */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		DC3B41820A4ADCEE00E83ABA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DC5B696F0A4B6AD500F7DE47 /* Framework */,
+				DC5B69700A4B6AD500F7DE47 /* FrameworkDeployment.xcconfig */,
+				DC5B69710A4B6AD500F7DE47 /* FrameworkDevelopment.xcconfig */,
+				DC5B69720A4B6AD500F7DE47 /* PlugIn */,
+				DC5B69730A4B6AD500F7DE47 /* PlugInDeployment.xcconfig */,
+				DC5B69740A4B6AD500F7DE47 /* PlugInDevelopment.xcconfig */,
+				DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */,
+				DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DCC3EDF408FE65DC00A74157 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE9108FE66A600A74157 /* iTM2PDFKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC5D70300949E0B200EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2TeXFoundation" */;
+			buildPhases = (
+				DC5D70360949E0CB00EBA96C /* Synchronize */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Prepare iTM2TeXFoundation-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
+				ZERO_LINK = YES;
+			};
+			dependencies = (
+			);
+			name = "Prepare iTM2TeXFoundation";
+			productName = "Prepare iTM2TeXFoundation";
+			productReference = DC5D702E0949E0B100EBA96C /* Prepare iTM2TeXFoundation.framework */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.Prepare iTM2TeXFoundation</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.framework";
+		};
+		DC81AD950887196E00943C99 /* iTeXMac2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6BB83909474616004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */;
+			buildPhases = (
+				DC81AD990887198300943C99 /* Really build iTeXMac2 */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(USER_APPS_DIR)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = iTeXMac2;
+				SECTORDER_FLAGS = "";
+				SYMROOT = ../iTeXMac2/build;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			comments = "The only purpose of this target is to define iTeXMac2 executable as side effect.\nDon't remove it.\n";
+			dependencies = (
+				DC993BFA088DF35A00F8BCE1 /* PBXTargetDependency */,
+			);
+			name = iTeXMac2;
+			productName = iTeXMac2;
+			productReference = DC81AD960887196E00943C99 /* iTeXMac2.app */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>iTeXMac2</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.iTeXMac2</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.application";
+		};
+		DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6BB83109474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2PDFKit" */;
+			buildPhases = (
+				DCC3EDF408FE65DC00A74157 /* Headers */,
+				DCC3EDF508FE65DC00A74157 /* Resources */,
+				DCC3EDF608FE65DC00A74157 /* Sources */,
+				DCC3EDF708FE65DC00A74157 /* Frameworks */,
+				DCD7DB2B0A45F11D0096B1A9 /* Make the header documentation */,
+				DC5896C609D455C700E8F33C /* Expand compressed resources */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/build;
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iTM2PDFKit-Prefix.pch";
+				INFOPLIST_FILE = "iTM2PDFKit-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-seg1addr",
+					0x4B000000,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = iTM2PDFKit;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			dependencies = (
+				DC5D703D0949E11A00EBA96C /* PBXTargetDependency */,
+			);
+			name = iTM2PDFKit;
+			productName = iTM2PDFKit;
+			productReference = DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>iTM2PDFKit</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.iTM2PDFKit</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = DC6BB83D09474616004B0A81 /* Build configuration list for PBXProject "iTM2PDFKit" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				014CEA420018CDE011CA2923 /* Development */,
+				014CEA430018CDE011CA2923 /* Deployment */,
+			);
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* iTM2XtdPDFKit */;
+			projectDirPath = "";
+			targets = (
+				DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */,
+				DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */,
+				DC9E4F310858A8A300A86BED /* All */,
+				DC81AD950887196E00943C99 /* iTeXMac2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCC3EDF508FE65DC00A74157 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE6F08FE668E00A74157 /* A aliased.png in Resources */,
+				DCC3EE7008FE668E00A74157 /* A unaliased.png in Resources */,
+				DCC3EE7208FE668E00A74157 /* AnnotateTool1Adorn.tif in Resources */,
+				DCC3EE7308FE668E00A74157 /* AnnotateTool1AdornDisclosure.tif in Resources */,
+				DCC3EE7408FE668E00A74157 /* AnnotateTool2Adorn.tif in Resources */,
+				DCC3EE7508FE668E00A74157 /* AnnotateTool2AdornDisclosure.tif in Resources */,
+				DCC3EE7608FE668E00A74157 /* BackAdorn.tif in Resources */,
+				DCC3EE7708FE668E00A74157 /* C_Hand.tiff in Resources */,
+				DCC3EE7808FE668E00A74157 /* C_ZoomIn.tiff in Resources */,
+				DCC3EE7908FE668E00A74157 /* C_ZoomLimit.tiff in Resources */,
+				DCC3EE7A08FE668E00A74157 /* C_ZoomOut.tiff in Resources */,
+				DCC3EE7B08FE668E00A74157 /* CropToolbarImage.tiff in Resources */,
+				DCC3EE7C08FE668E00A74157 /* DrawerToggleToolbarImage.tiff in Resources */,
+				DCC3EE7D08FE668E00A74157 /* ForwardAdorn.tif in Resources */,
+				DCC3EE7E08FE668E00A74157 /* goToNextPageToolbarImage.tif in Resources */,
+				DCC3EE7F08FE668E00A74157 /* goToPreviousPageToolbarImage.tif in Resources */,
+				DCC3EE8008FE668E00A74157 /* MoveToolAdorn.tif in Resources */,
+				DCC3EE8108FE668E00A74157 /* rotateLeftToolbarImage.tif in Resources */,
+				DCC3EE8208FE668E00A74157 /* rotateRightToolbarImage.tif in Resources */,
+				DCC3EE8308FE668E00A74157 /* SelectToolAdorn.tif in Resources */,
+				DCC3EE8408FE668E00A74157 /* TextToolAdorn.tif in Resources */,
+				DCC3EE8508FE668E00A74157 /* zoomInToolbarImage.tiff in Resources */,
+				DCC3EE8608FE668E00A74157 /* zoomOutToolbarImage.tiff in Resources */,
+				DCC3EE9008FE668E00A74157 /* iTM2PDFKitPrefPane.tiff in Resources */,
+				DC0C1B3408FF02E200C46507 /* template.pdf in Resources */,
+				DC0C1CCD08FFF95000C46507 /* ThumbnailViewAdorn.tif in Resources */,
+				DC0C1CCE08FFF95400C46507 /* TOCViewAdorn.tif in Resources */,
+				DC0C1D1A0900107000C46507 /* Generic.icns in Resources */,
+				DCDD0680090384C300C5B1E9 /* toggleDrawerToolbarImage.tif in Resources */,
+				DCDD06C309038EF900C5B1E9 /* actualSizeToolbarImage.tiff in Resources */,
+				DCDD06C409038EF900C5B1E9 /* zoomToFitToolbarImage.tiff in Resources */,
+				DCDD06C509038EF900C5B1E9 /* zoomToSelectionToolbarImage.tiff in Resources */,
+				DCAF9A5509D810EE00AFD95F /* InfoPlist.strings in Resources */,
+				DCAF9A5609D810EE00AFD95F /* iTM2PDFKitDefaultsController.nib in Resources */,
+				DCAF9A5709D810EE00AFD95F /* iTM2PDFKitInspector.nib in Resources */,
+				DCAF9A5809D810EE00AFD95F /* iTM2PDFKitPrefPane.nib in Resources */,
+				DCAF9A5909D810EE00AFD95F /* iTM2PDFKitPrefPane.strings in Resources */,
+				DCAF9A5A09D810EE00AFD95F /* KeyBindings.resources.tgz in Resources */,
+				DCAF9A5B09D810EE00AFD95F /* Toolbar.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DC5896C609D455C700E8F33C /* Expand compressed resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Expand compressed resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+		};
+		DC5D70360949E0CB00EBA96C /* Synchronize */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Synchronize;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2TeXFoundation\n";
+		};
+		DC81AD990887198300943C99 /* Really build iTeXMac2 */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Really build iTeXMac2";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
+		};
+		DCD7DB2B0A45F11D0096B1A9 /* Make the header documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Make the header documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2PDFKit\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCC3EDF608FE65DC00A74157 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE6E08FE666D00A74157 /* iTM2PDFKit.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC5D703D0949E11A00EBA96C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */;
+			targetProxy = DC5D703C0949E11A00EBA96C /* PBXContainerItemProxy */;
+		};
+		DC993BFA088DF35A00F8BCE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC9E4F310858A8A300A86BED /* All */;
+			targetProxy = DC993BF9088DF35A00F8BCE1 /* PBXContainerItemProxy */;
+		};
+		DCC3EE9408FE672500A74157 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */;
+			targetProxy = DCC3EE9308FE672500A74157 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A4809D810EE00AFD95F /* English */,
+				DCAF9A5C09D810F900AFD95F /* French */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DCAF9A4909D810EE00AFD95F /* iTM2PDFKitDefaultsController.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A4A09D810EE00AFD95F /* English */,
+				DCAF9A5D09D810F900AFD95F /* French */,
+			);
+			name = iTM2PDFKitDefaultsController.nib;
+			sourceTree = "<group>";
+		};
+		DCAF9A4B09D810EE00AFD95F /* iTM2PDFKitInspector.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A4C09D810EE00AFD95F /* English */,
+				DCAF9A5E09D810F900AFD95F /* French */,
+			);
+			name = iTM2PDFKitInspector.nib;
+			sourceTree = "<group>";
+		};
+		DCAF9A4D09D810EE00AFD95F /* iTM2PDFKitPrefPane.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A4E09D810EE00AFD95F /* English */,
+				DCAF9A5F09D810F900AFD95F /* French */,
+			);
+			name = iTM2PDFKitPrefPane.nib;
+			sourceTree = "<group>";
+		};
+		DCAF9A4F09D810EE00AFD95F /* iTM2PDFKitPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A5009D810EE00AFD95F /* English */,
+				DCAF9A6009D810F900AFD95F /* French */,
+			);
+			name = iTM2PDFKitPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		DCAF9A5109D810EE00AFD95F /* KeyBindings.resources.tgz */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A5209D810EE00AFD95F /* English */,
+				DCAF9A6109D810F900AFD95F /* French */,
+			);
+			name = KeyBindings.resources.tgz;
+			sourceTree = "<group>";
+		};
+		DCAF9A5309D810EE00AFD95F /* Toolbar.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A5409D810EE00AFD95F /* English */,
+				DCAF9A6209D810F900AFD95F /* French */,
+			);
+			name = Toolbar.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DC5D70310949E0B200EBA96C /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
+			};
+			name = Development;
+		};
+		DC5D70320949E0B200EBA96C /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
+			};
+			name = Deployment;
+		};
+		DC5D70330949E0B200EBA96C /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Prepare iTM2TeXFoundation-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Prepare iTM2TeXFoundation";
+				SYMROOT = build;
+				ZERO_LINK = YES;
+			};
+			name = Default;
+		};
+		DC6BB83209474616004B0A81 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69710A4B6AD500F7DE47 /* FrameworkDevelopment.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = iTM2PDFKit;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2PDFKIT_ADDRESS)";
+			};
+			name = Development;
+		};
+		DC6BB83309474616004B0A81 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69700A4B6AD500F7DE47 /* FrameworkDeployment.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = iTM2PDFKit;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2PDFKIT_ADDRESS)";
+			};
+			name = Deployment;
+		};
+		DC6BB83409474616004B0A81 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/build;
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iTM2PDFKit-Prefix.pch";
+				INFOPLIST_FILE = "iTM2PDFKit-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-seg1addr",
+					0x4B000000,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = iTM2PDFKit;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		DC6BB83609474616004B0A81 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = All;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		DC6BB83709474616004B0A81 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OBJROOT = "$(SYMROOT)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = All;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "$(SRCROOT)/../build";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DC6BB83809474616004B0A81 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = All;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		DC6BB83A09474616004B0A81 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = iTeXMac2;
+			};
+			name = Development;
+		};
+		DC6BB83B09474616004B0A81 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = iTeXMac2;
+			};
+			name = Deployment;
+		};
+		DC6BB83C09474616004B0A81 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(USER_APPS_DIR)";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = iTeXMac2;
+				SECTORDER_FLAGS = "";
+				SYMROOT = ../iTeXMac2/build;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		DC6BB83E09474616004B0A81 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		DC6BB83F09474616004B0A81 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		DC6BB84009474616004B0A81 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SYMROOT = ../build;
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC5D70300949E0B200EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2TeXFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC5D70310949E0B200EBA96C /* Development */,
+				DC5D70320949E0B200EBA96C /* Deployment */,
+				DC5D70330949E0B200EBA96C /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DC6BB83109474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2PDFKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB83209474616004B0A81 /* Development */,
+				DC6BB83309474616004B0A81 /* Deployment */,
+				DC6BB83409474616004B0A81 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DC6BB83509474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB83609474616004B0A81 /* Development */,
+				DC6BB83709474616004B0A81 /* Deployment */,
+				DC6BB83809474616004B0A81 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DC6BB83909474616004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB83A09474616004B0A81 /* Development */,
+				DC6BB83B09474616004B0A81 /* Deployment */,
+				DC6BB83C09474616004B0A81 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DC6BB83D09474616004B0A81 /* Build configuration list for PBXProject "iTM2PDFKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB83E09474616004B0A81 /* Development */,
+				DC6BB83F09474616004B0A81 /* Deployment */,
+				DC6BB84009474616004B0A81 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
