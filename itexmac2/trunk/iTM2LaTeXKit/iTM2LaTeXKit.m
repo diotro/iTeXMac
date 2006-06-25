@@ -546,7 +546,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"Font_Series/Boldface" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"Font_Series/Boldface" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
@@ -557,7 +557,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"Font_Series/Italic" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"Font_Series/Italic" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
@@ -568,7 +568,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"text/underline" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"text/underline" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignCenter:
@@ -579,7 +579,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"text/center" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"text/center" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignRight:
@@ -590,7 +590,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"text/flushright" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"text/flushright" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignLeft:
@@ -601,7 +601,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"text/flushleft" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"text/flushleft" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subscript:
@@ -612,7 +612,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"math/subscript" forContext:@"" ofCategory:@"Math" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"math/subscript" forContext:@"" ofCategory:@"Math" inDomain:@"LaTeX"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
@@ -623,7 +623,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[iTM2MacrosServer executeMacroWithKey:@"math/superscript" forContext:@"" ofCategory:@"Math" inDomain:@"LaTeX"];
+	[SMS executeMacroWithKey:@"math/superscript" forContext:@"" ofCategory:@"Math" inDomain:@"LaTeX"];
     return;
 }
 #if 0
