@@ -206,5 +206,21 @@
 */
 - (id)objectInChildrenWithNonRetainedValue:(id)anObject;
 
+/*!
+	@method		deepObjectInChildrenWithValue:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		None.
+*/
+- (id)deepObjectInChildrenWithValue:(id)anObject;
+
+/*!
+	@method		deepObjectInChildrenWithNonRetainedValue:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		None.
+*/
+- (id)deepObjectInChildrenWithNonRetainedValue:(id)anObject;
+
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode

@@ -379,7 +379,7 @@ To Do List:
 	{
 		while(N = [E nextObject])
 			if([[N value] isEqual:anObject])
-				break;
+				break;// no return here due to a problem with intel gcc, unconfirmed
 	}
 	else
 	{
@@ -403,12 +403,60 @@ To Do List:
 	{
 		while(N = [E nextObject])
 			if([[N nonRetainedValue] isEqual:anObject])
-				break;
+				break;// no return here due to a problem with intel gcc, unconfirmed
 	}
 	else
 	{
 		while((N = [E nextObject]) && [N nonRetainedValue])
 			;
+	}
+    return N;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deepObjectInChildrenWithValue:
+- (id)deepObjectInChildrenWithValue:(id) anObject;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.4: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+	iTM2TreeNode * N = [self objectInChildrenWithValue:anObject];
+	if(N)
+	{
+		return N;
+	}
+	NSEnumerator * E = [_Children objectEnumerator];
+	while(N = [E nextObject])
+	{
+		if(N = [N deepObjectInChildrenWithValue:anObject])
+		{
+			break;// no return here due to a problem with intel gcc, unconfirmed
+		}
+	}
+    return N;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deepObjectInChildrenWithNonRetainedValue:
+- (id)deepObjectInChildrenWithNonRetainedValue:(id) anObject;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.4: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+	iTM2TreeNode * N = [self objectInChildrenWithNonRetainedValue:anObject];
+	if(N)
+	{
+		return N;
+	}
+	NSEnumerator * E = [_Children objectEnumerator];
+	while(N = [E nextObject])
+	{
+		if(N = [N deepObjectInChildrenWithNonRetainedValue:anObject])
+		{
+			break;// no return here due to a problem with intel gcc, unconfirmed
+		}
 	}
     return N;
 }
