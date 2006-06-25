@@ -388,4 +388,28 @@ To Do List:
 	}
     return N;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInChildrenWithNonRetainedValue:
+- (id)objectInChildrenWithNonRetainedValue:(id) anObject;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.4: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+	NSEnumerator * E = [_Children objectEnumerator];
+	iTM2TreeNode * N = nil;
+	if(anObject)
+	{
+		while(N = [E nextObject])
+			if([[N nonRetainedValue] isEqual:anObject])
+				break;
+	}
+	else
+	{
+		while((N = [E nextObject]) && [N nonRetainedValue])
+			;
+	}
+    return N;
+}
 @end

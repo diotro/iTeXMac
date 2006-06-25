@@ -28,21 +28,19 @@
 	@abstract	Leafs of a tree wrapping an ordered hierarchical dada structure. 
 	@discussion	The purpose of iTM2TreeNode is first to model the simplest tree hierarchy.
 				It is the direct data model for a NSTreeController.
+
+				The hierarchy of Tree Items is meant to reflect some hierarchical data model.
 				Each tree item may have a parent which it belongs to, and an array of child items.
 				A Tree Item with no parent is the root of the tree,
+
 				Of course, a Tree Item is meant to be a child item of its parent if any.
 				The Parent retains its children but the child just points to its parent to avoid infinite retain loops.
-				The hierarchy of Tree Items is meant to reflect some hierarchical data model.
-				Each Tree Item points to some leaf data in this hierarchy through its value instance variable
-				and the child items reflect the structure of this data, namely an array or a dictionary
-				(I don't think of anything else but things should not be limited to those two cases).
-				The main problem is to keep the data model and the Tree Item in synchronization,
-				this will be achieved by the Data Controller through various means.
-				Different Tree Items will have different Data Controllers.
-				Data Controllers are a mean to expand an object somehow like delegation.
-				Another problem linked to Tree Models must be avoided consists in circular reference.
+				Another problem linked to Tree Models that must be avoided consists in circular reference.
 				More precisely, if an item retains its parent ant the parent retains its children,
 				a careless design can lead to never deallocated objects.
+
+				Each Tree Item points to some leaf data in this hierarchy through its value instance variable
+				and the child items reflect the structure of this data, namely an array.
 */
 
 @interface iTM2TreeNode: NSObject
@@ -199,6 +197,14 @@
 	@result		None.
 */
 - (id)objectInChildrenWithValue:(id)anObject;
+
+/*!
+	@method		objectInChildrenWithNonRetainedValue:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		None.
+*/
+- (id)objectInChildrenWithNonRetainedValue:(id)anObject;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode

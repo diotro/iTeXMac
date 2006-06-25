@@ -151,6 +151,7 @@
 			DC2A7B700A4C1FDE006864F4 = DC2A7B700A4C1FDE006864F4 /* PBXTextBookmark */;
 			DC2A7B710A4C1FDE006864F4 = DC2A7B710A4C1FDE006864F4 /* PBXTextBookmark */;
 			DC2A7FD50A4C1FFD006864F4 /* PBXTextBookmark */ = DC2A7FD50A4C1FFD006864F4 /* PBXTextBookmark */;
+			DC2A80610A4E00B3006864F4 /* PBXTextBookmark */ = DC2A80610A4E00B3006864F4 /* PBXTextBookmark */;
 			DC3B41C70A4ADEC700E83ABA = DC3B41C70A4ADEC700E83ABA /* PBXTextBookmark */;
 			DC3B41C90A4ADEC700E83ABA = DC3B41C90A4ADEC700E83ABA /* PBXTextBookmark */;
 			DC3B45460A4B32BD00E83ABA = DC3B45460A4B32BD00E83ABA /* PBXTextBookmark */;
@@ -334,6 +335,16 @@
 		vrLen = 593;
 		vrLoc = 64042;
 	};
+	DC2A80610A4E00B3006864F4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */;
+		name = "//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
+		rLen = 39;
+		rLoc = 64041;
+		rType = 0;
+		vrLen = 593;
+		vrLoc = 64042;
+	};
 	DC2CA7A50855D53C00128F14 /* All */ = {
 		activeExec = 0;
 	};
@@ -347,7 +358,7 @@
 		functionName = "-newExternalProjectForFileName:display:error:";
 		hitCount = 1;
 		lineNumber = 6463;
-		modificationTime = 172706121.269422;
+		modificationTime = 172884144.983636;
 		state = 1;
 	};
 	DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */ = {
@@ -475,7 +486,7 @@
 		functionName = "-getProjectNameInWrapperForFileNameRef:error:";
 		hitCount = 1;
 		lineNumber = 6164;
-		modificationTime = 172706121.269445;
+		modificationTime = 172884144.983672;
 		state = 1;
 	};
 	DC66983808E0B554004FCA6D /* iTM2PreferencesKit.h */ = {
@@ -515,7 +526,7 @@
 		functionName = "-fixFarawayProjectConsistency";
 		hitCount = 1;
 		lineNumber = 437;
-		modificationTime = 172706153.48079;
+		modificationTime = 172884144.983598;
 		state = 1;
 	};
 	DC6828540A400F6E00B04D3E /* iTM2ProjectDocumentKit.m:536 */ = {
@@ -528,7 +539,7 @@
 		functionName = "-fixFarawayProjectConsistency";
 		hitCount = 1;
 		lineNumber = 536;
-		modificationTime = 172706157.880478;
+		modificationTime = 172884144.98361;
 		state = 1;
 	};
 	DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */ = {
@@ -616,7 +627,7 @@
 		functionName = "-makeNotFaraway";
 		hitCount = 1;
 		lineNumber = 369;
-		modificationTime = 172706121.269458;
+		modificationTime = 172884144.983698;
 		state = 1;
 	};
 	DC7E3C7C0A48B4A00053F6CA /* PBXTextBookmark */ = {
@@ -825,7 +836,7 @@
 		functionName = "-getProjectInWrapperForFileNameRef:display:error:";
 		hitCount = 1;
 		lineNumber = 6235;
-		modificationTime = 172706121.269488;
+		modificationTime = 172884144.983579;
 		state = 1;
 	};
 	DCB1BB280A47F8EA00B7C51A /* iTM2ProjectDocumentKit.m:6260 */ = {
@@ -838,7 +849,7 @@
 		functionName = "-getProjectInHierarchyForFileName:display:error:";
 		hitCount = 1;
 		lineNumber = 6260;
-		modificationTime = 172706121.269494;
+		modificationTime = 172884144.983619;
 		state = 1;
 	};
 	DCB1BB2A0A47F8F500B7C51A /* iTM2ProjectDocumentKit.m:6005 */ = {
@@ -851,7 +862,7 @@
 		functionName = "-getFarawayProjectForFileName:display:error:";
 		hitCount = 1;
 		lineNumber = 6005;
-		modificationTime = 172706121.2695;
+		modificationTime = 172884144.983627;
 		state = 1;
 	};
 	DCB1BB2C0A47F99300B7C51A /* iTM2ProjectDocumentKit.m:5893 */ = {
@@ -864,7 +875,7 @@
 		functionName = "-getSecondaryFarawayProjectForFileName:display:error:";
 		hitCount = 1;
 		lineNumber = 5893;
-		modificationTime = 172706121.269432;
+		modificationTime = 172884144.983712;
 		state = 1;
 	};
 	DCB1BB390A47FC4B00B7C51A /* iTM2ProjectDocumentKit.m:5823 */ = {
@@ -877,7 +888,7 @@
 		functionName = "-getSecondaryFarawayProjectForFileName:display:error:";
 		hitCount = 1;
 		lineNumber = 5823;
-		modificationTime = 172706121.269438;
+		modificationTime = 172884144.983681;
 		state = 1;
 	};
 	DCB1BB440A47FCEE00B7C51A /* iTM2ProjectDocumentKit.m:5743 */ = {
@@ -890,7 +901,7 @@
 		functionName = "-getPrimaryFarawayProjectForFileName:display:error:";
 		hitCount = 1;
 		lineNumber = 5743;
-		modificationTime = 172706121.269507;
+		modificationTime = 172884144.983589;
 		state = 1;
 	};
 	DCB200320858E250003659F3 /* Install iTM2Foundation */ = {
@@ -1018,7 +1029,7 @@
 	DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1924, 31042}}";
-			sepNavSelRange = "{64636, 0}";
+			sepNavSelRange = "{64041, 39}";
 			sepNavVisRect = "{{0, 30668}, {981, 337}}";
 			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
 		};
@@ -1285,7 +1296,7 @@
 		functionName = "-workspaceDidPerformFileOperationNotified:";
 		hitCount = 1;
 		lineNumber = 4884;
-		modificationTime = 172706121.269146;
+		modificationTime = 172884144.983664;
 		state = 1;
 	};
 	DCEB75840A46C491001516CE /* iTM2ProjectDocumentKit.m:552 */ = {
@@ -1298,7 +1309,7 @@
 		functionName = "-fixProjectConsistency";
 		hitCount = 1;
 		lineNumber = 552;
-		modificationTime = 172706121.269452;
+		modificationTime = 172884143.43805;
 		state = 2;
 	};
 	DCEB75B30A46C989001516CE /* iTM2ProjectDocumentKit.m:4433 */ = {
@@ -1311,7 +1322,7 @@
 		functionName = "-fileNameEdited:";
 		hitCount = 1;
 		lineNumber = 4433;
-		modificationTime = 172706121.269382;
+		modificationTime = 172884144.983689;
 		state = 1;
 	};
 	DCEB75BB0A46CA48001516CE /* iTM2ProjectDocumentKit.m:4521 */ = {
@@ -1324,7 +1335,7 @@
 		functionName = "-validateFileNameEdited:";
 		hitCount = 1;
 		lineNumber = 4521;
-		modificationTime = 172706121.269394;
+		modificationTime = 172884144.983647;
 		state = 1;
 	};
 	DCEB76B30A46EA94001516CE /* iTM2ProjectDocumentKit.m:2544 */ = {
@@ -1337,7 +1348,7 @@
 		functionName = "-openSubdocumentForKey:display:error:";
 		hitCount = 1;
 		lineNumber = 2544;
-		modificationTime = 172706121.269476;
+		modificationTime = 172884144.983656;
 		state = 1;
 	};
 	DCEB76E40A46EFD6001516CE /* iTM2ProjectDocumentKit.m:7768 */ = {
@@ -1350,7 +1361,7 @@
 		functionName = "-openDocumentWithContentsOfURL:display:error:";
 		hitCount = 1;
 		lineNumber = 7768;
-		modificationTime = 172706121.269482;
+		modificationTime = 172884144.983548;
 		state = 1;
 	};
 	DCF61B520854654B003F5F79 /* iTeXMac2.h */ = {
