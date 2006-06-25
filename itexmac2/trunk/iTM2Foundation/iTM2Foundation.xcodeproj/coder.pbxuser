@@ -188,17 +188,17 @@
 	};
 	DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1484, 3485}}";
-			sepNavSelRange = "{4217, 0}";
-			sepNavVisRect = "{{0, 1643}, {1103, 703}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1484, 3859}}";
+			sepNavSelRange = "{8296, 0}";
+			sepNavVisRect = "{{0, 3156}, {1103, 703}}";
 			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
 		};
 	};
 	DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1103, 6664}}";
-			sepNavSelRange = "{2358, 16}";
-			sepNavVisRect = "{{0, 782}, {1103, 703}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1103, 7888}}";
+			sepNavSelRange = "{14105, 0}";
+			sepNavVisRect = "{{0, 6406}, {1103, 703}}";
 			sepNavWindowFrame = "{{37, 46}, {1142, 832}}";
 		};
 	};
@@ -320,7 +320,7 @@
 		fRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */;
 		name = "iTM2MacroKit.m: 1826";
 		rLen = 0;
-		rLoc = 64636;
+		rLoc = 64903;
 		rType = 0;
 		vrLen = 594;
 		vrLoc = 64041;
@@ -330,7 +330,7 @@
 		fRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */;
 		name = "iTM2MacroKit.m: 1826";
 		rLen = 0;
-		rLoc = 64636;
+		rLoc = 64903;
 		rType = 0;
 		vrLen = 593;
 		vrLoc = 64042;
@@ -340,7 +340,7 @@
 		fRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */;
 		name = "//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
 		rLen = 39;
-		rLoc = 64041;
+		rLoc = 64308;
 		rType = 0;
 		vrLen = 593;
 		vrLoc = 64042;
@@ -1021,16 +1021,16 @@
 	DCD403EF099498B0006B91DF /* iTM2MacroKit.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1300, 4335}}";
-			sepNavSelRange = "{14692, 0}";
-			sepNavVisRect = "{{0, 1837}, {1103, 703}}";
+			sepNavSelRange = "{14471, 159}";
+			sepNavVisRect = "{{0, 3632}, {1103, 703}}";
 			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
 		};
 	};
 	DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1924, 31042}}";
-			sepNavSelRange = "{64041, 39}";
-			sepNavVisRect = "{{0, 30668}, {981, 337}}";
+			sepNavSelRange = "{24745, 16}";
+			sepNavVisRect = "{{0, 10146}, {1103, 703}}";
 			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
 		};
 	};

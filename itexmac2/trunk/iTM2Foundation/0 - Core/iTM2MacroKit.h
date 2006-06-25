@@ -84,7 +84,18 @@ extern NSString * const iTM2MacroToolTipKey;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroServer
 
-@interface iTM2MacroServer: NSObject
+#define SMS [iTM2MacroServer sharedMacrosServer]
+@interface iTM2MacroServer: iTM2Object
+
+/*!
+	@method			sharedMacrosServer
+	@abstract		Abstract forthcoming.
+	@discussion		Discussion forthcoming.
+	@result			None.
+	@availability	iTM2.
+	@copyright		2005 jlaurens@users.sourceforge.net and others.
+*/
++ (void)sharedMacrosServer;
 
 /*!
 	@method			updateUserMacrosHashTable
@@ -95,7 +106,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-//+ (void) updateUserMacrosHashTable;
+//+ (void)updateUserMacrosHashTable;
 
 /*!
 	@method			macrosMenuAtPath:error:
@@ -106,7 +117,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2006 jlaurens@users.sourceforge.net and others.
 */
-+ (NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
+- (NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
 
 @end
 

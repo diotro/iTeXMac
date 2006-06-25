@@ -616,7 +616,7 @@ To Do List:
 @end
 
 @implementation iTM2MacrosServer
-static NSMutableDictionary * _iTM2MacroServerStorage = nil;
+static iTM2MacrosServer * _iTM2SharedMacrosServer = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming.
@@ -627,13 +627,25 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	_iTM2MacroServerStorage = [[NSMutableDictionary alloc] init];
+	_iTM2SharedMacrosServer = [[self alloc] init];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sharedMacrosServer
++(void)sharedMacrosServer;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return _iTM2SharedMacrosServer;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithKey:forContext:ofCategory:inDomain:
-+ (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -674,7 +686,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= storageForContext:ofCategory:inDomain:
-+ (id)storageForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (id)storageForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -705,7 +717,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroURLForKey:context:ofCategory:inDomain:
-+ (NSURL *)macroURLForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (NSURL *)macroURLForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -720,7 +732,7 @@ To Do List:
 	return URL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroLocaleOfType:forKey:context:ofCategory:inDomain:
-+ (NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -824,7 +836,7 @@ To Do List:
 	return key;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDescriptionForKey:context:ofCategory:inDomain:
-+ (NSString *)macroDescriptionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (NSString *)macroDescriptionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -882,7 +894,7 @@ To Do List:
 	return key;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroTooltipForKey:context:ofCategory:inDomain:
-+ (NSString *)macroTooltipForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (NSString *)macroTooltipForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -940,7 +952,7 @@ To Do List:
 	return key;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroActionForKey:context:ofCategory:inDomain:
-+ (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -960,7 +972,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateLocalesIndexForContext:ofCategory:inDomain:
-+ (void)updateLocalesIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (void)updateLocalesIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1017,7 +1029,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateActionsIndexForContext:ofCategory:inDomain:
-+ (void)updateActionsIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (void)updateActionsIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1074,7 +1086,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMacrosLocaleAtURL:
-+ (void)loadMacrosLocaleAtURL:(NSURL *)url;
+- (void)loadMacrosLocaleAtURL:(NSURL *)url;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/10/2002
@@ -1171,7 +1183,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexWithContentsOfFile:
-+ (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outError;
+- (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1209,7 +1221,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macrosIndexWithContentsOfFile:error:
-+ (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outError;
+- (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1260,7 +1272,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuForContext:ofCategory:inDomain:error:
-+ (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1312,7 +1324,7 @@ To Do List:
     return M;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuWithXMLElement:forContext:ofCategory:inDomain:error:
-+ (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1348,7 +1360,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuItemWithXMLElement:forContext:ofCategory:inDomain:error:
-+ (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1395,7 +1407,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void)initialize;
+- (void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1409,7 +1421,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ___insertMacro:
-+ (void)___insertMacro:(id)sender;
+- (void)___insertMacro:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1454,7 +1466,7 @@ To Do List:
 		}
 		if([key length])
 		{
-			[iTM2MacrosServer executeMacroWithKey:key forContext:context ofCategory:category inDomain:domain];
+			[SMS executeMacroWithKey:key forContext:context ofCategory:category inDomain:domain];
 			NSMenu * recentMenu = [self macroMenuForContext:context ofCategory:@"Recent" inDomain:domain error:nil];
 			int index = [recentMenu indexOfItemWithTitle:[sender title]];
 			if(index!=-1)
@@ -1492,7 +1504,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validate___insertMacro:
-+ (BOOL)validate___insertMacro:(id)sender;
+- (BOOL)validate___insertMacro:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1512,7 +1524,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMacrosSummaries
-+ (void)loadMacrosSummaries;
+- (void)loadMacrosSummaries;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/10/2002
@@ -1600,7 +1612,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMacrosSummaryAtPath:
-+ (void)loadMacrosSummaryAtPath:(NSString *)path;
+- (void)loadMacrosSummaryAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/10/2002
@@ -1685,7 +1697,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMacrosSummariesAtPath:
-+ (void)loadMacrosSummariesAtPath:(NSString *)path;
+- (void)loadMacrosSummariesAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/10/2002
@@ -1795,7 +1807,7 @@ To Do List:
 			R1.length = R2.location - R1.location;
 			NSString * category = [name substringWithRange:R1];
 			NSString * domain = [self domain];
-			return [iTM2MacrosServer macroMenuForContext:@"" ofCategory:category inDomain:domain error:nil];
+			return [SMS macroMenuForContext:@"" ofCategory:category inDomain:domain error:nil];
 		}
 	}
 //iTM2_END;
