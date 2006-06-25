@@ -84,18 +84,7 @@ extern NSString * const iTM2MacroToolTipKey;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroServer
 
-#define SMS [iTM2MacroServer sharedMacrosServer]
-@interface iTM2MacroServer: iTM2Object
-
-/*!
-	@method			sharedMacrosServer
-	@abstract		Abstract forthcoming.
-	@discussion		Discussion forthcoming.
-	@result			None.
-	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
-*/
-+ (void)sharedMacrosServer;
+@interface iTM2MacroServer: NSObject
 
 /*!
 	@method			updateUserMacrosHashTable
@@ -117,7 +106,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2006 jlaurens@users.sourceforge.net and others.
 */
-- (NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
++ (NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
 
 @end
 
@@ -189,7 +178,21 @@ extern NSString * const iTM2MacroToolTipKey;
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
 
-@interface iTM2MacrosServer: NSObject
+#import "iTM2Implementation.h"
+
+#define SMS [iTM2MacrosServer sharedMacrosServer]
+
+@interface iTM2MacrosServer: iTM2Object
+
+/*!
+	@method			sharedMacrosServer
+	@abstract		Abstract forthcoming.
+	@discussion		Discussion forthcoming.
+	@result			None.
+	@availability	iTM2.
+	@copyright		2005 jlaurens@users.sourceforge.net and others.
+*/
++ (id)sharedMacrosServer;
 
 /*!
 	@method			executeMacroWithKey:forContext:inCategory:ofDomain:
@@ -202,7 +205,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			macroActionForKey:context:inCategory:ofDomain:
@@ -240,7 +243,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			macroLocaleOfType:forKey:forContext:inCategory:ofDomain:

@@ -527,9 +527,9 @@ To Do List:
 
 
 @interface NSObject(RIEN)
-+ (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
-+ (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
-+ (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
 @end
 
 @interface iTM2MacrosServer(PRIVATE)
@@ -545,7 +545,7 @@ To Do List:
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (id)storageForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (id)storageForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			updateLocalesIndexForContext:ofCategory:inDomain:
@@ -558,7 +558,7 @@ To Do List:
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (void)updateLocalesIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (void)updateLocalesIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			updateActionsIndexForContext:ofCategory:inDomain:
@@ -570,7 +570,7 @@ To Do List:
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (void)updateActionsIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (void)updateActionsIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			indexWithContentsOfFile:error:
@@ -587,7 +587,7 @@ To Do List:
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outError;
+- (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outError;
 
 /*!
 	@method			macrosIndexWithContentsOfFile:error:
@@ -606,12 +606,13 @@ To Do List:
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outError;
+- (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outError;
 
-+ (void)loadMacrosSummaries;
-+ (void)loadMacrosSummaryAtPath:(NSString *)path;
-+ (void)loadMacrosSummariesAtPath:(NSString *)path;
-+ (void)loadMacrosLocaleAtURL:(NSURL *)url;
+- (void)loadMacrosSummaries;
+- (void)loadMacrosSummaryAtPath:(NSString *)path;
+- (void)loadMacrosSummariesAtPath:(NSString *)path;
+- (void)loadMacrosLocaleAtURL:(NSURL *)url;
+- (id)macrosServerStorage;
 
 @end
 
@@ -633,7 +634,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sharedMacrosServer
-+(void)sharedMacrosServer;
++ (id)sharedMacrosServer;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -643,6 +644,39 @@ To Do List:
 //iTM2_START;
 //iTM2_END;
     return _iTM2SharedMacrosServer;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
+- (id)init;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(_iTM2SharedMacrosServer)
+	{
+		[self dealloc];
+		return [_iTM2SharedMacrosServer retain];
+	}
+//iTM2_END;
+	else if(self = [super init])
+	{
+		[[self implementation] takeMetaValue:[NSMutableDictionary dictionary] forKey:@"MacrosServerStorage"];
+	}
+    return _iTM2SharedMacrosServer = self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macrosServerStorage
+- (id)macrosServerStorage;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithKey:forContext:ofCategory:inDomain:
 - (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
@@ -694,11 +728,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMutableDictionary * MD = [_iTM2MacroServerStorage objectForKey:domain];
+	NSMutableDictionary * MD = [[self macrosServerStorage] objectForKey:domain];
 	if(!MD)
 	{
 		MD = [NSMutableDictionary dictionary];
-		[_iTM2MacroServerStorage setObject:MD forKey:domain];
+		[[self macrosServerStorage] setObject:MD forKey:domain];
 	}
 	NSMutableDictionary * result = [MD objectForKey:category];
 	if(!result)
