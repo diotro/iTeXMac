@@ -1483,6 +1483,28 @@ static id _iTM2SpellCheckerHelper = nil;
 
 @implementation iTM2MainInstaller(SpellKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellKitCompleteInstallation
++ (void)load;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed Sep 15 21:07:40 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+    iTM2_INIT_POOL;
+//iTM2_START;
+	// before Tiger, the following poseAsClass: were performed in the iTM2SpellKitCompleteInstallation
+	// this broke NSTextView bindings in Tiger
+    if(![NSText instancesRespondToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
+	{
+		[NSText_iTM2SpellKit poseAsClass:[NSText class]];
+		[NSTextView_iTM2SpellKit poseAsClass:[NSTextView class]];
+		[NSSpellChecker_iTeXMac2 poseAsClass:[NSSpellChecker class]];
+	}
+//iTM2_START;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellKitCompleteInstallation
 + (void)iTM2SpellKitCompleteInstallation;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1503,12 +1525,15 @@ To Do List:
             [NSNumber numberWithBool:NO], iTM2UDContinuousSpellCheckingKey,
                 nil]];
 //iTM2_LOG(@"[SUD objectForKey:iTM2DisableMoreSpell] is:%@", [SUD objectForKey:@"iTM2DisableMoreSpell"]);
+#if 0
+	This is too late here: it breaks binding
     if(![NSText instancesRespondToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
 	{
 		[NSText_iTM2SpellKit poseAsClass:[NSText class]];
 		[NSTextView_iTM2SpellKit poseAsClass:[NSTextView class]];
 		[NSSpellChecker_iTeXMac2 poseAsClass:[NSSpellChecker class]];
 	}
+#endif
     _iTM2SpellCheckerHelper = [[iTM2SpellCheckerHelper alloc] initWithWindowNibName:@"iTM2SpellCheckerHelper"];
 	[[_iTM2SpellCheckerHelper window] setExcludedFromWindowsMenu:YES];// loads the nib as side effect...
     // installing the accessory view in the spell checker panel
