@@ -474,7 +474,7 @@ To Do List:
 		container = [[self window] contentView];
 	}
 	// inserting the new view
-	if(V = [new loadMainView])
+	if((V = [new mainView]) || (V = [new loadMainView]))
 	{
 		float deltaHeight = [V frame].size.height - [container frame].size.height;
 		float deltaWidth = [V frame].size.width - [container frame].size.width;
