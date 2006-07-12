@@ -12,18 +12,6 @@
 			buildConfigurationList = DC6BB86909474619004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				DC8A60CD088D72200016FAA2 /* PBXTargetDependency */,
 				DC892DA908FB9531007A4673 /* PBXTargetDependency */,
@@ -37,21 +25,6 @@
 			buildPhases = (
 				DC892C1A08FB10E9007A4673 /* Build & Install */,
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2TeXFoundation;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = framework;
-				iTM2_PLUGINS_FOLDER_PATH = "$(SYMROOT)/$(PRODUCT_NAME).$(WRAPPER_EXTENSION)/PlugIns";
-				iTM2_SOURCE_DIRECTORY = "$(SYMROOT)/$(PRODUCT_NAME).build/Engines";
-			};
 			comments = "This target will ask the iTM2TeXFoundationEngine project to build its \"All\" target\nThe engines project will in turn ask this project to install the engines in the proper location";
 			dependencies = (
 			);
@@ -64,21 +37,6 @@
 			buildPhases = (
 				DC892DA508FB951F007A4673 /* Install */,
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2TeXFoundation;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = framework;
-				iTM2_PLUGINS_FOLDER_PATH = "$(SYMROOT)/$(PRODUCT_NAME).$(WRAPPER_EXTENSION)/PlugIns";
-				iTM2_SOURCE_DIRECTORY = "$(SYMROOT)/$(PRODUCT_NAME).build/Engines";
-			};
 			comments = "This target is intended to the iTM2TeXFoundationEngines project.\nIn it \"All\" target, it will build its engines.";
 			dependencies = (
 			);
@@ -233,36 +191,6 @@
 		DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildStyle section */
-		014CEA440018CDF011CA2923 /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OBJROOT = "$(SYMROOT)";
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		014CEA450018CDF011CA2923 /* Deployment */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
-
 /* Begin PBXContainerItemProxy section */
 		DC1C6C6C090D9AA5000F4FDE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -359,6 +287,7 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Prepare iTM2Foundation-Info.plist"; sourceTree = "<group>"; };
 		DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXDocumentToolbar.h; sourceTree = "<group>"; };
 		DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXDocumentToolbar.m; sourceTree = "<group>"; };
 		DC05CBD60919FDFD0003E471 /* iTM2TeXProjectCommandKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXProjectCommandKit.h; sourceTree = "<group>"; };
@@ -571,6 +500,7 @@
 			children = (
 				DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */,
 				DC1C6B34090D983F000F4FDE /* Test TeX Application-Info.plist */,
+				DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */,
 				DC1C6B37090D98AB000F4FDE /* Test Application */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -837,29 +767,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/iTM2TeXFoundation;
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTM2TeXFoundation-Prefix.pch";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iTM2TeXFoundation-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x4C000000,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2TeXFoundation;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = framework;
-			};
 			dependencies = (
 				DCD2500B094EFDEB00346075 /* PBXTargetDependency */,
 				DC5D6CD10949A43200EBA96C /* PBXTargetDependency */,
@@ -881,58 +788,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					/Users/coder/iTeXMac/iTeXMac2/Developer/build,
-					/Users/coder/iTeXMac/iTeXMac2/Developer/iTM2TeXFoundation,
-				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				INFOPLIST_FILE = "Test TeX Application-Info.plist";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = TestTeXApplication;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				DC1C6C6D090D9AA5000F4FDE /* PBXTargetDependency */,
 			);
 			name = "Test TeX Application";
 			productName = "Test Application";
 			productReference = DC1C6B32090D983F000F4FDE /* TestTeXApplication.app */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>Test Application</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Test_Application</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.application";
 		};
 		DC5D6CB90949A3F100EBA96C /* Prepare iTM2Foundation */ = {
@@ -943,26 +804,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "Prepare iTM2Foundation-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "Prepare iTM2Foundation";
-				ZERO_LINK = YES;
-			};
 			comments = "This is the first example of cascading build\nThis target is a fake framework target\nIt only contains a run script phase that will call an external script to really build the framework if relevant.\nIt is necessary to have a product name\nbut the product name should not collide with a framework name\nunless there is serious risk of infinite looping...\nThe best zqy is to ensure thqt the fqke tqrget hqs q standard build directory";
 			dependencies = (
 				DCF2E5950952414E00EE54E2 /* PBXTargetDependency */,
@@ -970,27 +811,6 @@
 			name = "Prepare iTM2Foundation";
 			productName = "Prepare iTM2Foundation";
 			productReference = DC5D6CBA0949A3F100EBA96C /* Prepare iTM2Foundation.framework */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Prepare iTM2Foundation</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>FMWK</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.framework";
 		};
 		DC81AE6D08871B4600943C99 /* iTeXMac2 */ = {
@@ -1001,30 +821,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			comments = "The only purpose of this target is to define iTeXMac2 executable as side effect.\nDon't remove it.\n";
 			dependencies = (
 				DC993BA8088DF2FC00F8BCE1 /* PBXTargetDependency */,
@@ -1032,31 +828,6 @@
 			name = iTeXMac2;
 			productName = iTeXMac2;
 			productReference = DC81AE6E08871B4600943C99 /* iTeXMac2.app */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>iTeXMac2</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.iTeXMac2</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.application";
 		};
 		DCF2E57D095240C600EE54E2 /* iTeXMac2 Server */ = {
@@ -1069,22 +840,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/bin";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "iTeXMac2 Server";
-				ZERO_LINK = YES;
-			};
 			dependencies = (
 			);
 			name = "iTeXMac2 Server";
@@ -1098,12 +853,6 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB87509474619004B0A81 /* Build configuration list for PBXProject "iTM2TeXFoundation" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				014CEA440018CDF011CA2923 /* Development */,
-				014CEA450018CDF011CA2923 /* Deployment */,
-			);
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -1710,6 +1459,7 @@
 			baseConfigurationReference = DC3B41760A4ADC7300E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Prepare iTM2Foundation";
+				iTM2_INFOPLIST_FILE = "";
 			};
 			name = Development;
 		};

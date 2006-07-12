@@ -1096,9 +1096,11 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"Localization is not complete" forKey:@"TeX Project Menu Items"];
 //iTM2_END;
+	iTM2_RELEASE_POOL;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXProjectControllerCompleteInstallation

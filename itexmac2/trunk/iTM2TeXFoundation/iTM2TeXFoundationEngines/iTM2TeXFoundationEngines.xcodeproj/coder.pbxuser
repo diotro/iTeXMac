@@ -92,7 +92,6 @@
 	};
 	DC9DC47A094840B10079E1B3 /* Project object */ = {
 		activeBuildConfigurationName = Development;
-		activeBuildStyle = DC0EF8130948561D0018276F /* Development */;
 		activeExecutable = DC38658A0948B02100352215 /* build iTeXMac2 */;
 		activeTarget = DC9DC6E5094844DF0079E1B3 /* All */;
 		addToTargets = (
@@ -210,8 +209,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172758867;
-			PBXWorkspaceStateSaveDate = 172758867;
+			PBXPerProjectTemplateStateSaveDate = 174358819;
+			PBXWorkspaceStateSaveDate = 174358819;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBuildSettings = {
@@ -235,6 +234,13 @@
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRect = "{{0, 0}, {1195, 659}}";
 			sepNavWindowFrame = "{{15, 39}, {1234, 788}}";
+		};
+	};
+	DC9DC4A3094840CC0079E1B3 /* iTM2LaTeXMKWrapperKit.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {921, 1173}}";
+			sepNavSelRange = "{1481, 5}";
+			sepNavVisRect = "{{0, 328}, {921, 279}}";
 		};
 	};
 	DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */ = {

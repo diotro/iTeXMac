@@ -2347,7 +2347,7 @@ To Do List:
 //iTM2_START;
 	[super initialize];
 	NSArray * paths = [[NSBundle mainBundle] allPathsForResource:@"EnvironmentVariables" ofType:@"plist"];
-	NSEnumerator * E = [paths objectEnumerator];
+	NSEnumerator * E = [paths reverseObjectEnumerator];
 	NSString * path = nil;
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	while(path = [E nextObject])

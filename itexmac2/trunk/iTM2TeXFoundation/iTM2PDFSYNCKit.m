@@ -2213,15 +2213,16 @@ To Do List:
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
     unsigned modifierFlags = [event modifierFlags];
-    if((modifierFlags & NSCommandKeyMask) && ([event clickCount]>1))
-		[self pdfSynchronizeMouseDown:event];
-    else
-        [super mouseDown:event];
+    if((modifierFlags & NSCommandKeyMask) && ([event clickCount]>1) && [self pdfSynchronizeMouseDown:event])
+	{
+		return;
+	}
+    [super mouseDown:event];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
-- (void)pdfSynchronizeMouseDown:(NSEvent *)event
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)event
 /*"Description Forthcoming
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2231,6 +2232,10 @@ To Do List:
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
 	NSDocument * D = [[[self window] windowController] document];
+	if(!D)
+	{
+		return NO;
+	}
 	NSString * S = [self string];
 	unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:[[self layoutManager] glyphIndexForPoint:
 		[self convertPoint:[event locationInWindow] fromView:nil]

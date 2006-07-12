@@ -244,6 +244,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
+	[NSTextView_iTM2TextWatcher poseAsClass:[NSTextView class]];
 	[iTM2MileStone registerMileStone:@"!!!   No delimiter watching available, report BUG" forKey:@"iTM2TextWatcher"];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -258,7 +259,6 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {
 //iTM2_START;
-	[NSTextView_iTM2TextWatcher poseAsClass:[NSTextView class]];
 	[DNC addObserver:[iTM2TextWatcher class]
 		selector: @selector(textViewDidChangeSelectionNotified:)
 			name: NSTextViewDidChangeSelectionNotification

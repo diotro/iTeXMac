@@ -262,5 +262,5 @@ typedef struct
 @end
 
 @interface NSTextView(iTM2PDFSYNCKit)
-- (void)pdfSynchronizeMouseDown:(NSEvent *)event;
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)event;
 @end

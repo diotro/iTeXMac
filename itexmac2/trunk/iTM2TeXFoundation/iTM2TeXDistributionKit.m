@@ -63,9 +63,11 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To do list:
 "*/
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"The PATHs.plist is missing" forKey:@"PATHs and TeX Distributions"];
 //iTM2_END;
+	iTM2_RELEASE_POOL;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  iTM2TeXProjectTaskKitCompleteInstallation;
@@ -88,7 +90,7 @@ To do list:
 #else
 	id _iTM2PathsDictionary = [NSMutableDictionary dictionary];
 	NSEnumerator * E = [[[NSBundle mainBundle]
-		allPathsForResource: iTM2DistributionsComponent ofType: @"plist" inDirectory: nil] objectEnumerator];
+		allPathsForResource: iTM2DistributionsComponent ofType: @"plist" inDirectory: nil] reverseObjectEnumerator];
     NSString * path;
     while(path = [E nextObject])
     {
