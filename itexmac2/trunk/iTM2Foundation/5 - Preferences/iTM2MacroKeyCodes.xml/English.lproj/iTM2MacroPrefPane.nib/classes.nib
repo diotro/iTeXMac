@@ -1,0 +1,37 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {save = id; }; 
+            CLASS = iTM2MacroController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {stopKeyEditing = id; }; 
+            CLASS = iTM2MacroOutlineView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {"_KeyEquivalentView" = NSView; }; 
+            SUPERCLASS = NSOutlineView; 
+        }, 
+        {CLASS = iTM2MacroPrefPane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
+        {
+            ACTIONS = {}; 
+            CLASS = iTM2MacroTreeController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSTreeController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
