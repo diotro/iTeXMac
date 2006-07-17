@@ -204,7 +204,9 @@ To Do List:
 @implementation NSTextView_iTM2TextKit_Highlight
 + (void)load;
 {
+	iTM2_INIT_POOL;
 	[self poseAsClass:[NSTextView class]];
+	iTM2_RELEASE_POOL;
 	return;
 }
 - (void)didChangeText;
@@ -904,9 +906,11 @@ Version history: jlaurens@users.sourceforge.net
 To Do List: implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 //iTM2_START;
 	[iTM2AttributedString_0 poseAsClass:[NSAttributedString class]];
 //iTM2_END;
+	iTM2_RELEASE_POOL;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:

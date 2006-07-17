@@ -316,10 +316,12 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {//iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 //iTM2_START;
 	[self poseAsClass:[NSObject class]];
 	NSLog(@"%s, poseAsClass %#x", __PRETTY_FUNCTION__, self);
 //iTM2_END;
+	iTM2_RELEASE_POOL;
 }
 @end
 #endif
