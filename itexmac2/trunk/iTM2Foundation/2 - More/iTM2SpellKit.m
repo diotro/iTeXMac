@@ -2736,7 +2736,9 @@ To Do List:
 @implementation NSTextView__iTM2SpellKit_PRIVATE
 + (void)load;
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 	[self poseAsClass:[NSTextView class]];
+	iTM2_RELEASE_POOL;
 }
 - (void)showGuessPanel:(id)sender;
 {iTM2_DIAGNOSTIC;
@@ -2759,7 +2761,9 @@ To Do List:
 @implementation NSObject_iTM2SpellKit
 + (void)load;
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 	[self poseAsClass:[NSObject class]];
+	iTM2_RELEASE_POOL;
 	return;
 }
 - (id)autorelease;
