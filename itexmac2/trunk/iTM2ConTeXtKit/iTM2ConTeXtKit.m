@@ -1418,20 +1418,6 @@ To Do List:
 static id _iTM2ConTeXtModeForModeArray = nil;
 
 #define _TextStorage (iTM2TextStorage *)_TS
-#if 0
-@implementation NSNotificationCenter(ouam)
-+ (void)load;
-{
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(postNotificationName:object:userInfo:) replacement:@selector(swizzled_postNotificationName:object:userInfo:) forClass:self];
-}
-- (void)swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
-{
-	if([aName isEqual:NSPopUpButtonWillPopUpNotification])
-		NSLog(@"COUCOU");
-	[self swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo];
-}
-@end
-#endif
 
 @implementation NSTextStorage(ConTeXt)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  ConTeXtSectionMenu
