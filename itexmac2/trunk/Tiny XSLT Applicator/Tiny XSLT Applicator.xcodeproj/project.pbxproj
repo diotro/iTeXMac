@@ -44,7 +44,7 @@
 		08FB7796FE84155DC02AAC07 /* Tiny XSLT Applicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tiny XSLT Applicator.m"; sourceTree = "<group>"; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32A70AAB03705E1F00C91783 /* Tiny XSLT Applicator_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tiny XSLT Applicator_Prefix.pch"; sourceTree = "<group>"; };
-		8DD76FA10486AA7600D96B5E /* Tiny XSLT Applicator */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = "Tiny XSLT Applicator"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DD76FA10486AA7600D96B5E /* Tiny XSLT Applicator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Tiny XSLT Applicator"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* Tiny XSLT Applicator.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "Tiny XSLT Applicator.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
