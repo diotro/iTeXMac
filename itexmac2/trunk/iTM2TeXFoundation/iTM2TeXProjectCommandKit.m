@@ -2601,10 +2601,10 @@ To Do List: to be improved...
 		}
 	}
 	NSString * commandName = [self commandName];
-	[project takeContextValue:commandName forKey:@"iTM2TeXProjectLastCommandName"];
     if(project)
 	{
 #warning DEBUGGGGG: add a SUD default here, related to hidden and silent from the terminal window
+		[project takeContextValue:commandName forKey:@"iTM2TeXProjectLastCommandName"];
 		[project showTerminalInBackGroundIfNeeded:self];
 		if(iTM2DebugEnabled>100)
 		{
@@ -2652,7 +2652,7 @@ To Do List: to be improved...
     }
     else
     {
-        iTM2_LOG(@"No project");
+        [SDC openDocument:self];
     }
     return;
 }
