@@ -160,7 +160,6 @@
 		DCCF02F80A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F20A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif */; };
 		DCCF02F90A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F30A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif */; };
 		DCCF02FA0A5DC5C200B4B720 /* Aqua2_Remove.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */; };
-		DCCF03E30A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCF03E10A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib */; };
 		DCCF07AC0A62EF6400B4B720 /* iTM2MacroPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = DCCF07AA0A62EF6300B4B720 /* iTM2MacroPrefPane.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCCF07AD0A62EF6400B4B720 /* iTM2MacroPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCF07AB0A62EF6300B4B720 /* iTM2MacroPrefPane.m */; };
 		DCCF07B40A62EF7800B4B720 /* iTM2MacroPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCF07AE0A62EF7800B4B720 /* iTM2MacroPrefPane.nib */; };
@@ -613,7 +612,7 @@
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC007ED50A6476E7009236E8 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroPrefPane.strings; sourceTree = "<group>"; };
 		DC0086A20A65AC47009236E8 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
-		DC0086A90A65AC7E009236E8 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroKeyCodes.strings; sourceTree = "<group>"; };
+		DC0086A90A65AC7E009236E8 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
 		DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TreeKit.m; sourceTree = "<group>"; };
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
@@ -675,7 +674,7 @@
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
-		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98663A09EA733B00FF4BD3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DC98663B09EA733B00FF4BD3 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextCompletionKit.h; sourceTree = "<group>"; };
@@ -759,7 +758,6 @@
 		DCCF02F20A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Inactive.tif; sourceTree = "<group>"; };
 		DCCF02F30A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Pressed.tif; sourceTree = "<group>"; };
 		DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove.tif; sourceTree = "<group>"; };
-		DCCF03E20A5E704600B4B720 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MacroAction_insertMacro_.nib; sourceTree = "<group>"; };
 		DCCF07AA0A62EF6300B4B720 /* iTM2MacroPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroPrefPane.h; sourceTree = "<group>"; };
 		DCCF07AB0A62EF6300B4B720 /* iTM2MacroPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroPrefPane.m; sourceTree = "<group>"; };
 		DCCF07AF0A62EF7800B4B720 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MacroPrefPane.nib; sourceTree = "<group>"; };
@@ -1533,7 +1531,6 @@
 				DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */,
 				DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */,
 				DCF61C2A0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap */,
-				DCCF03E10A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib */,
 			);
 			path = "Core Resources";
 			sourceTree = "<group>";
@@ -2013,7 +2010,6 @@
 				DCCF02F80A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif in Resources */,
 				DCCF02F90A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif in Resources */,
 				DCCF02FA0A5DC5C200B4B720 /* Aqua2_Remove.tif in Resources */,
-				DCCF03E30A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib in Resources */,
 				DCCF07B40A62EF7800B4B720 /* iTM2MacroPrefPane.nib in Resources */,
 				DCCF08490A62FC9E00B4B720 /* iTM2MacroPrefPane.tiff in Resources */,
 				DC007ED60A6476E7009236E8 /* iTM2MacroPrefPane.strings in Resources */,
@@ -2495,7 +2491,7 @@
 		DC0086A80A65AC7E009236E8 /* iTM2MacroKeyCodes.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC0086A90A65AC7E009236E8 /* English */,
+				DC0086A90A65AC7E009236E8 /* iTM2MacroKeyCodes.xml */,
 			);
 			name = iTM2MacroKeyCodes.strings;
 			sourceTree = "<group>";
@@ -2610,14 +2606,6 @@
 				DCCD2E9309E141920003EEF9 /* French */,
 			);
 			name = Inspector.strings;
-			sourceTree = "<group>";
-		};
-		DCCF03E10A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCCF03E20A5E704600B4B720 /* English */,
-			);
-			name = iTM2MacroAction_insertMacro_.nib;
 			sourceTree = "<group>";
 		};
 		DCCF07AE0A62EF7800B4B720 /* iTM2MacroPrefPane.nib */ = {
