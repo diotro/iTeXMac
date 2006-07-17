@@ -197,11 +197,13 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 @implementation NSMenu_iTM2DEBUG
 + (void)load;
 {
+	iTM2_INIT_POOL;
 	if([SUD boolForKey:@"iTM2PatchPerformActionForItemAtIndex"])
 	{
 		[self poseAsClass:[NSMenu class]];
 		[NSApplication_iTM2DEBUG poseAsClass:[NSApplication class]];
 	}
+	iTM2_RELEASE_POOL;
 	return;
 }
 - (void)performActionForItemAtIndex:(int)index;

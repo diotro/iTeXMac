@@ -30,7 +30,7 @@
 - (id)init;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -50,7 +50,7 @@ To Do List:
 - (id)initWithParent:(id)aParent value:(id)anObject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -64,18 +64,36 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithParent:nonRetainedValue:
-- (id)initWithParent:(id)aParent nonRetainedValue:(id)anObject;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithParent:
+- (id)initWithParent:(id)aParent;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     if(self = [self init])
     {
-		[self setNonRetainedValue:anObject];
+		[self setValue:[NSMutableDictionary dictionary]];
+		[_Children autorelease];
+		_Children = [[NSMutableArray array] retain];
+		[self setParent:aParent];
+    }
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithParent:nonretainedValue:
+- (id)initWithParent:(id)aParent nonretainedValue:(id)anObject;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(self = [self init])
+    {
+		[self setNonretainedValue:anObject];
 		[_Children autorelease];
 		_Children = [[NSMutableArray array] retain];
 		[self setParent:aParent];
@@ -87,31 +105,52 @@ To Do List:
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
 	return ![theKey isEqualToString:@"value"]
-		&& ![theKey isEqualToString:@"nonRetainedValue"]
+		&& ![theKey isEqualToString:@"nonretainedValue"]
 		&& ![theKey isEqualToString:@"children"]
 		&& [super automaticallyNotifiesObserversForKey:theKey];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  copyWithZone:
+- (id)copyWithZone:(NSZone *)zone;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 2.0: Sat May 24 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = [[[self class] allocWithZone:zone] initWithParent:nil value:[self value]];
+	[result setNonretainedValue:[self nonretainedValue]];
+	int index = [self countOfChildren];
+	while(index--)
+	{
+		id child = [self objectInChildrenAtIndex:index];
+		[result insertObject:[[child copyWithZone:zone] autorelease] inChildrenAtIndex:0];
+	}
+//iTM2_END;
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 - (void)dealloc;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
-{
+{iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setParent:nil];
 	[_Value autorelease];
 	_Value = nil;
-	[_NonRetainedValue autorelease];
-	_NonRetainedValue = nil;
+	[_NonretainedValue autorelease];
+	_NonretainedValue = nil;
 	NSEnumerator * E = [_Children objectEnumerator];
 	id child;
 	while(child = [E nextObject])
@@ -128,7 +167,7 @@ To Do List:
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -140,7 +179,7 @@ To Do List:
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -155,42 +194,42 @@ To Do List:
 	[self didChangeValueForKey:@"value"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nonRetainedValue
-- (id)nonRetainedValue;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nonretainedValue
+- (id)nonretainedValue;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
 //iTM2_START;
-    return _NonRetainedValue;
+    return [_NonretainedValue nonretainedObjectValue];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setNonRetainedValue:
-- (void)setNonRetainedValue:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setNonretainedValue:
+- (void)setNonretainedValue:(id)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
 //iTM2_START;
-	if([_NonRetainedValue isEqual:argument])
+	if([_NonretainedValue isEqual:argument])
 	{
 		return;
 	}
-	[self willChangeValueForKey:@"nonRetainedValue"];
-	[_NonRetainedValue autorelease];
-	_NonRetainedValue = [[NSValue valueWithNonretainedObject:argument] retain];
-	[self didChangeValueForKey:@"nonRetainedValue"];
+	[self willChangeValueForKey:@"nonretainedValue"];
+	[_NonretainedValue autorelease];
+	_NonretainedValue = [[NSValue valueWithNonretainedObject:argument] retain];
+	[self didChangeValueForKey:@"nonretainedValue"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parent
 - (id)parent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -201,7 +240,7 @@ To Do List:
 - (void)setParent:(id)aNode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -219,12 +258,23 @@ To Do List:
 	}
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  children
+- (id)children;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 2.0: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+    return [[_Children copy] autorelease];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfChildren
 - (unsigned)countOfChildren;
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -236,7 +286,7 @@ To Do List:
 /*"Description Forthcoming.
 Default implementation returns the number of objects in the #{children} array.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -251,7 +301,7 @@ To Do List:
 - (id)objectInChildrenAtIndex:(unsigned) index;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -262,7 +312,7 @@ To Do List:
 - (unsigned)indexOfObjectInChildren:(id)anObject;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -275,7 +325,7 @@ To Do List:
 The data model of the receiver is modified.
 nil is returned when nothing is added, including when the key identifier is already in use.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -292,7 +342,7 @@ To Do List:
 - (void)removeObjectFromChildren:(id)anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -312,7 +362,7 @@ To Do List:
 - (void)insertObject:(id)node inChildrenAtIndex:(unsigned int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -329,7 +379,7 @@ To Do List:
 - (void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(id)node;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -349,7 +399,7 @@ To Do List:
 - (void)removeObjectFromChildrenAtIndex:(unsigned int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -368,7 +418,7 @@ To Do List:
 - (id)objectInChildrenWithValue:(id) anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -388,11 +438,11 @@ To Do List:
 	}
     return N;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInChildrenWithNonRetainedValue:
-- (id)objectInChildrenWithNonRetainedValue:(id) anObject;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInChildrenWithNonretainedValue:
+- (id)objectInChildrenWithNonretainedValue:(id) anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -402,12 +452,12 @@ To Do List:
 	if(anObject)
 	{
 		while(N = [E nextObject])
-			if([[N nonRetainedValue] isEqual:anObject])
+			if([[N nonretainedValue] isEqual:anObject])
 				break;// no return here due to a problem with intel gcc, unconfirmed
 	}
 	else
 	{
-		while((N = [E nextObject]) && [N nonRetainedValue])
+		while((N = [E nextObject]) && [N nonretainedValue])
 			;
 	}
     return N;
@@ -416,7 +466,7 @@ To Do List:
 - (id)deepObjectInChildrenWithValue:(id) anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
@@ -436,16 +486,16 @@ To Do List:
 	}
     return N;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deepObjectInChildrenWithNonRetainedValue:
-- (id)deepObjectInChildrenWithNonRetainedValue:(id) anObject;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deepObjectInChildrenWithNonretainedValue:
+- (id)deepObjectInChildrenWithNonretainedValue:(id) anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.4: Sat May 24 2003
+- for 2.0: Sat May 24 2003
 To Do List:
 "*/
 {
 //iTM2_START;
-	iTM2TreeNode * N = [self objectInChildrenWithNonRetainedValue:anObject];
+	iTM2TreeNode * N = [self objectInChildrenWithNonretainedValue:anObject];
 	if(N)
 	{
 		return N;
@@ -453,7 +503,55 @@ To Do List:
 	NSEnumerator * E = [_Children objectEnumerator];
 	while(N = [E nextObject])
 	{
-		if(N = [N deepObjectInChildrenWithNonRetainedValue:anObject])
+		if(N = [N deepObjectInChildrenWithNonretainedValue:anObject])
+		{
+			break;// no return here due to a problem with intel gcc, unconfirmed
+		}
+	}
+    return N;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInChildrenWithValue:forKeyPath:
+- (id)objectInChildrenWithValue:(id) anObject forKeyPath:(NSString *)path;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 2.0: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+	NSEnumerator * E = [_Children objectEnumerator];
+	iTM2TreeNode * N = nil;
+	if(anObject)
+	{
+		while(N = [E nextObject])
+			if([[N valueForKeyPath:path] isEqual:anObject])
+				break;// no return here due to a problem with intel gcc, unconfirmed
+	}
+	else
+	{
+		while((N = [E nextObject]) && [N value])
+			;
+	}
+    return N;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deepObjectInChildrenWithValue:forKeyPath:
+- (id)deepObjectInChildrenWithValue:(id) anObject forKeyPath:(NSString *)path;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 2.0: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+	iTM2TreeNode * N = [self objectInChildrenWithValue:anObject forKeyPath:path];
+	if(N)
+	{
+		return N;
+	}
+	NSEnumerator * E = [_Children objectEnumerator];
+	while(N = [E nextObject])
+	{
+		if(N = [N deepObjectInChildrenWithValue:anObject forKeyPath:path])
 		{
 			break;// no return here due to a problem with intel gcc, unconfirmed
 		}

@@ -122,6 +122,7 @@ To Do List:
 }
 @end
 
+#if 0
 @implementation NSPopUpButtonCell(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
 - (BOOL)isValid;
@@ -139,6 +140,7 @@ To Do List:
 	return result;
 }
 @end
+#endif
 
 @implementation NSControl(iTM2Validation)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
@@ -720,14 +722,15 @@ To Do List: Test, blinkering? don't call super ?
 #import <iTM2Foundation/iTM2InstallationKit.h>
 
 @implementation iTM2MainInstaller(iTM2ValidationKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ValidationKitCompleteInstallation
-+ (void)iTM2ValidationKitCompleteInstallation;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++ (void)load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 //iTM2_START;
 	[NSWindow_iTM2ValidationKit_Validation poseAsClass:[NSWindow class]];
 	[NSDocument_iTM2Validation poseAsClass:[NSDocument class]];// swizzling does not work
@@ -735,6 +738,7 @@ To Do List:
 	[NSTabView_iTM2ValidationKit poseAsClass:[NSTabView class]];
 	[NSToolbarItem_iTM2ValidationKit poseAsClass:[NSToolbarItem class]];
 //iTM2_END;
+	iTM2_RELEASE_POOL;
     return;
 }
 @end

@@ -33,6 +33,7 @@ extern NSString * const iTM2PathComponentsSeparator;
 	@method		createDeepDirectoryAtPath:attributes:error:
 	@abstract	creates a directory and the whole hierarchy if necessary. Returns YES if the file exists
 	@discussion The given path must be non void. If it does not start with a / character, it will be appended to the current directoy path.
+				The answer is YES if either the directory was successfully created or the directory was already existing.
 				If the answer is NO and there was an error, an explanation is returned.
 				If no error is returned, the specified directory do exist.
 				In the user info dictionary of the returned error, you will find the faulty path with the key @"iTM2DirectoryPath"

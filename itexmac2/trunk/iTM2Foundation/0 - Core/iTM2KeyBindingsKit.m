@@ -90,6 +90,22 @@ To Do List:
 @implementation iTM2KeyBindingsManager
 static NSMutableDictionary * _iTM2_KeyBindings_Dictionary = nil;
 static NSMutableDictionary * _iTM2_SelectorMap_Dictionary = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
++ (void)load
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+    iTM2_INIT_POOL;
+//iTM2_START;
+	[NSText_iTM2KeyBindingsKit poseAsClass:[NSText class]];
+	[NSWindow_iTM2KeyBindingsKit poseAsClass:[NSWindow class]];
+	[NSResponder_iTM2KeyStrokeKit poseAsClass:[NSResponder class]];
+//iTM2_START;
+    iTM2_RELEASE_POOL;
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initialize
 + (void)initialize
 /*"Description forthcoming.
@@ -117,9 +133,6 @@ To Do List:
         iTM2_KeyStroke_Unmapped = [[NSMutableArray array] retain];
         iTM2_KeyStroke_Events = [[NSMutableDictionary dictionary] retain];
         iTM2_KeyStroke_Timers = [[NSMutableDictionary dictionary] retain];
-		[NSText_iTM2KeyBindingsKit poseAsClass:[NSText class]];
-		[NSWindow_iTM2KeyBindingsKit poseAsClass:[NSWindow class]];
-		[NSResponder_iTM2KeyStrokeKit poseAsClass:[NSResponder class]];
         [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithFloat:5.0], iTM2KeyStrokeIntervalKey,
                             nil]];
@@ -228,7 +241,7 @@ To Do List:
 		[selectorMap addEntriesFromDictionary:[self selectorMapForIdentifier:shorterIdentifier]];
 	}
 	NSDictionary * D;
-	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2KeyBindingsExtension inDirectory:iTM2KeyBindingsComponent] objectEnumerator];
+	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2KeyBindingsExtension inDirectory:iTM2KeyBindingsComponent] reverseObjectEnumerator];
 	NSString * path;
 	while(path = [E nextObject])
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
@@ -239,7 +252,7 @@ To Do List:
 		{
 			iTM2_LOG(@"???  No key bindings at path: %@, please report incident", path);
 		}
-	E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2KeyBindingsComponent] objectEnumerator];
+	E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2KeyBindingsComponent] reverseObjectEnumerator];
 	while(path = [E nextObject])
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
 		{

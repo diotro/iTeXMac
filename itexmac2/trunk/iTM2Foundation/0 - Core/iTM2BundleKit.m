@@ -1099,8 +1099,8 @@ To Do List:
 		name = [name stringByDeletingPathExtension];
 	}
 	NSMutableArray * result = [NSMutableArray array];
-	[result addObjectsFromArray:[self pathsForBuiltInResource:name ofType:type inDirectory:subpath]];
 	[result addObjectsFromArray:[self pathsForSupportResource:name ofType:type inDirectory:subpath]];
+	[result addObjectsFromArray:[self pathsForBuiltInResource:name ofType:type inDirectory:subpath]];
 //iTM2_END;
     return result;
 }

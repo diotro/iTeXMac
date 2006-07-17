@@ -43,14 +43,22 @@
 				and the child items reflect the structure of this data, namely an array.
 */
 
-@interface iTM2TreeNode: NSObject
+@interface iTM2TreeNode: NSObject <NSCopying>
 {
 @private
 	id _Parent;
 	id _Value;
-	id _NonRetainedValue;
+	id _NonretainedValue;
 	id _Children;
 }
+
+/*!
+	@method		initWithParent:
+	@abstract	Initializer.
+	@discussion	The default value is a mutable dictionary.
+	@result		An object.
+*/
+- (id)initWithParent:(id)aParent;
 
 /*!
 	@method		initWithParent:value:
@@ -66,7 +74,7 @@
 	@discussion	Discussion forthcoming.
 	@result		An object.
 */
-- (id)initWithParent:(id)aParent nonRetainedValue:(id)anObject;
+- (id)initWithParent:(id)aParent nonretainedValue:(id)anObject;
 
 /*!
 	@method		parent
@@ -101,20 +109,28 @@
 - (void)setValue:(id)argument;
 
 /*!
-	@method		nonRetainedValue
+	@method		nonretainedValue
 	@abstract	The non retained represented object.
 	@discussion	Retained by the receiver.
 	@result		An object.
 */
-- (id)nonRetainedValue;
+- (id)nonretainedValue;
 
 /*!
-	@method		setNonRetainedValue:
+	@method		setNonretainedValue:
 	@abstract	set the non retained value.
 	@discussion	Put here whatever leaf value you want. This value must be held by someone else during the lifetime of the receiver.
 	@result		None.
 */
-- (void)setNonRetainedValue:(id)argument;
+- (void)setNonretainedValue:(id)argument;
+
+/*!
+	@method		children
+	@abstract	The children of the node.
+	@discussion	Read only array of the children of the node.
+	@result		An array.
+*/
+- (id)children;
 
 /*!
 	@method		countOfChildren
@@ -175,6 +191,17 @@
 - (void)removeObjectFromChildren:(id)anObject;
 
 /*!
+	@method		removeObjectFromChildrenAtIndex:
+	@abstract	Designated method to remove an object to the child items array.
+	@discussion	This methods preserves the front end hierarchy of objects and the underlying data model.
+				Once an object (iTMNode's instance in general) is removed, its parent is set to the nil if possible,
+				and its data is removed from the data hierarchy.
+				The overall consistency is preserved by asking the leaf of the receiver to do the real job through the message -removeOwnerChild:.
+	@result		A flag indicating wheether the object has really been removed.
+*/
+- (void)removeObjectFromChildrenAtIndex:(unsigned int)index;
+
+/*!
 	@method		indexOfObjectInChildren:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
@@ -199,12 +226,12 @@
 - (id)objectInChildrenWithValue:(id)anObject;
 
 /*!
-	@method		objectInChildrenWithNonRetainedValue:
+	@method		objectInChildrenWithNonretainedValue:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (id)objectInChildrenWithNonRetainedValue:(id)anObject;
+- (id)objectInChildrenWithNonretainedValue:(id)anObject;
 
 /*!
 	@method		deepObjectInChildrenWithValue:
@@ -215,12 +242,28 @@
 - (id)deepObjectInChildrenWithValue:(id)anObject;
 
 /*!
-	@method		deepObjectInChildrenWithNonRetainedValue:
+	@method		deepObjectInChildrenWithNonretainedValue:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (id)deepObjectInChildrenWithNonRetainedValue:(id)anObject;
+- (id)deepObjectInChildrenWithNonretainedValue:(id)anObject;
+
+/*!
+	@method		objectInChildrenWithValue:forKeyPath:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		a node.
+*/
+- (id)objectInChildrenWithValue:(id)anObject forKeyPath:(NSString *)path;
+
+/*!
+	@method		deepObjectInChildrenWithValue:forKeyPath:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		a node.
+*/
+- (id)deepObjectInChildrenWithValue:(id)anObject forKeyPath:(NSString *)path;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode

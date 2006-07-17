@@ -259,10 +259,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens@users.sourceforge.net and others.
 */
-+ (NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+- (NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 @end
 
-@interface iTM2GenericScriptButton: NSPopUpButton
-+ (NSString *)domain;//see the LaTeX kit for definitions... should be overriden by subclassers
-@end
