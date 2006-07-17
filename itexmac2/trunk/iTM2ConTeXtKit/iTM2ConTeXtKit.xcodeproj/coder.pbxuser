@@ -167,6 +167,8 @@
 		perUserProjectItems = {
 			DC0088580A66732A009236E8 /* PBXTextBookmark */ = DC0088580A66732A009236E8 /* PBXTextBookmark */;
 			DC00885B0A66732A009236E8 /* PBXTextBookmark */ = DC00885B0A66732A009236E8 /* PBXTextBookmark */;
+			DC00915C0A6B74F7009236E8 /* PBXTextBookmark */ = DC00915C0A6B74F7009236E8 /* PBXTextBookmark */;
+			DC00915D0A6B74F7009236E8 /* PBXTextBookmark */ = DC00915D0A6B74F7009236E8 /* PBXTextBookmark */;
 			DC20998D0A5C24DE003BC3D6 = DC20998D0A5C24DE003BC3D6 /* PBXTextBookmark */;
 			DC2099900A5C24DE003BC3D6 = DC2099900A5C24DE003BC3D6 /* PBXTextBookmark */;
 			DC99E87B0A25F55700F50752 = DC99E87B0A25F55700F50752 /* PBXTextBookmark */;
@@ -196,6 +198,26 @@
 		name = "Sun Jun 24 2001";
 		rLen = 15;
 		rLoc = 186;
+		rType = 0;
+		vrLen = 1820;
+		vrLoc = 0;
+	};
+	DC00915C0A6B74F7009236E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC545000939C37B0050770C /* iTM2ConTeXtPrefsKit.h */;
+		name = "hould be addressed";
+		rLen = 18;
+		rLoc = 1120;
+		rType = 0;
+		vrLen = 404;
+		vrLoc = 774;
+	};
+	DC00915D0A6B74F7009236E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF6D0AE092DD3B500E89725 /* iTM2ConTeXtKit.m */;
+		name = "iTM2ConTeXtKit.m: 2486";
+		rLen = 0;
+		rLoc = 95230;
 		rType = 0;
 		vrLen = 1820;
 		vrLoc = 0;
@@ -324,7 +346,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {820, 867}}";
 			sepNavSelRange = "{1120, 18}";
-			sepNavVisRect = "{{112, 265}, {686, 92}}";
+			sepNavVisRect = "{{134, 269}, {686, 92}}";
 			sepNavWindowFrame = "{{15, 12}, {1218, 815}}";
 		};
 	};
@@ -416,7 +438,7 @@
 	DCF6D0AE092DD3B500E89725 /* iTM2ConTeXtKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1548, 42262}}";
-			sepNavSelRange = "{186, 15}";
+			sepNavSelRange = "{95230, 0}";
 			sepNavVisRect = "{{0, 0}, {1195, 659}}";
 			sepNavWindowFrame = "{{14, 39}, {1234, 788}}";
 		};

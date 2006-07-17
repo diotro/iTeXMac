@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC0091490A6B0DE6009236E8</string>
+						<string>DC00915B0A6B74F6009236E8</string>
 						<key>history</key>
 						<array>
 							<string>DC00913D0A6B0C32009236E8</string>
@@ -373,7 +373,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC0091480A6B0DE6009236E8</string>
+										<string>DC00915A0A6B74F6009236E8</string>
 										<key>history</key>
 										<array>
 											<string>DC4AF45209124A9B0057E325</string>
@@ -625,7 +625,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC0091280A6B09F6009236E8</string>
 		<string>DC008FB80A6AE7C8009236E8</string>
 		<string>DC008FB90A6AE7C8009236E8</string>
 		<string>DC0084270A648106009236E8</string>
