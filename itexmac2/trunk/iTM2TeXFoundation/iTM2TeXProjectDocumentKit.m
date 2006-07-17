@@ -113,6 +113,8 @@ To Do List:
 }
 @end
 
+NSString * const iTM2TeXProjectBaseComponent = @"Base Projects.localized";
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectDocumentKit
 /*"Description forthcoming."*/
 @implementation iTM2TeXProjectDocument
@@ -358,8 +360,31 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
     return [self originalPropertyValueForKey:key fileKey:fileKey]?
 		:[super propertyValueForKey:key fileKey:iTM2TeXPDefaultKey];
+}
+#pragma mark =-=-=-=-=-  SAVE
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateBaseProjectsCompleteWriteToURL:ofType:error:
+- (BOOL)updateTeXBaseProjectsCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([absoluteURL isFileURL])
+	{
+		NSString * path = [absoluteURL path];
+		NSString * prefix = [[NSBundle mainBundle] pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
+		if([path hasPrefix:prefix])
+		{
+			[SPC updateTeXBaseProjectsNotified:nil];
+		}
+	}
+//iTM2_END;
+    return YES;
 }
 @end
 
@@ -1084,8 +1109,6 @@ To Do List:
 
 //#import <iTM2Foundation/iTM2PathUtilities.h>
 
-NSString * const iTM2TeXProjectBaseComponent = @"Base Projects.localized";
-
 @implementation iTM2MainInstaller(TeXProjectDocument)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
@@ -1153,12 +1176,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[[NSBundle mainBundle] pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
 	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:iTM2TeXProjectBaseComponent ofType:@""] reverseObjectEnumerator];
-	NSString * path;
+	NSString * path = nil;
 	while(path = [E nextObject])
 	{
 		NSEnumerator * e = [[DFM directoryContentsAtPath:path] objectEnumerator];
-		NSString * component;
+		NSString * component = nil;
 		NSString * requiredExtension = [SDC projectPathExtension];
 		while(component = [e nextObject])
 		{
@@ -1168,19 +1192,23 @@ To Do List:
 			}
 			else if([[component pathExtension] isEqualToString:requiredExtension])
 			{
-				NSString * type = [SDC typeFromFileExtension:[component pathExtension]];
-				id v = [SDC makeUntitledDocumentOfType:type error:nil];
-				NSString * name = [path stringByAppendingPathComponent:component];
-				NSURL * url = [NSURL fileURLWithPath:name];
-				[v setFileURL:url];
-				[v setFileType:type];
-				if([v readFromURL:url ofType:type error:nil])
+				NSString * core = [component stringByDeletingPathExtension];
+				if(![core hasSuffix:@"~"])// this is not a backup
 				{
-					[self addBaseProject:v];
-				}
-				else
-				{
-					iTM2_LOG(@"Could not open the project document:%@", name);
+					NSString * type = [SDC typeFromFileExtension:[component pathExtension]];
+					id v = [SDC makeUntitledDocumentOfType:type error:nil];
+					NSString * name = [path stringByAppendingPathComponent:component];
+					NSURL * url = [NSURL fileURLWithPath:name];
+					[v setFileURL:url];
+					[v setFileType:type];
+					if([v readFromURL:url ofType:type error:nil])
+					{
+						[self addBaseProject:v];
+					}
+					else
+					{
+						iTM2_LOG(@"Could not open the project document:%@", name);
+					}
 				}
 			}
 		}

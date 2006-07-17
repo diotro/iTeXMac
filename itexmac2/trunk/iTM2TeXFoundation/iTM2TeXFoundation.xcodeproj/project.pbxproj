@@ -1459,7 +1459,6 @@
 			baseConfigurationReference = DC3B41760A4ADC7300E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Prepare iTM2Foundation";
-				iTM2_INFOPLIST_FILE = "";
 			};
 			name = Development;
 		};

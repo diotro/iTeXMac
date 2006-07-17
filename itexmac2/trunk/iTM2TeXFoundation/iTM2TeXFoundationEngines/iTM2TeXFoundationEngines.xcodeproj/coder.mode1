@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -263,12 +261,14 @@
 								<string>DC9DC478094840B10079E1B3</string>
 								<string>DC9DC4CB0948410C0079E1B3</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DC0086050A655CD2009236E8</string>
+								<string>DC0086060A655CD2009236E8</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>16</integer>
+									<integer>15</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -372,9 +372,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCCF01AC0A5D7FF200B4B720</string>
+				<string>DC0086070A655CD2009236E8</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCCF01AD0A5D7FF200B4B720</string>
+				<string>DC0086080A655CD2009236E8</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -508,7 +508,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>DC9DC6EA094844F00079E1B3</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -555,7 +555,7 @@
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 141}, {1062, 204}}</string>
+								<string>{{0, 80}, {1062, 265}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -593,7 +593,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC9DC6EA094844F00079E1B3</string>
-				<string>DC5B6B570A4B752100F7DE47</string>
+				<string>DC0086090A655CD2009236E8</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

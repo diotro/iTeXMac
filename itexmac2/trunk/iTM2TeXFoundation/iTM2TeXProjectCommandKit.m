@@ -1441,8 +1441,11 @@ To Do List:
 			NSString * name;
 			while(name = [e nextObject])
 			{
-				[sender addItemWithTitle:[iTM2TeXPCommandPerformer localizedNameForName:name]];
-				[[sender lastItem] setRepresentedObject:name];
+				if(![name hasPrefix:@"."])
+				{
+					[sender addItemWithTitle:[iTM2TeXPCommandPerformer localizedNameForName:name]];
+					[[sender lastItem] setRepresentedObject:name];
+				}
 			}
 			[[sender menu] addItem:[NSMenuItem separatorItem]];
 		}
@@ -1450,6 +1453,7 @@ To Do List:
 		{
 			[[sender menu] removeItem:[sender lastItem]];
 		}
+		// validating and selecting the proper item
 		NSString * editedCommand = [self editedCommand];
 //iTM2_LOG(@"editedCommand is: %@", editedCommand);
 		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
@@ -1571,6 +1575,7 @@ To Do List:
 				iTM2_LOG(@"Starting to edit environment mode: %@", environmentMode);
 			}
 			[W setExcludedFromWindowsMenu:YES];
+			[W validateContent];
 //iTM2_LOG(@"BEFORE validateWindowContent, [WC document] is: %@", [WC document]);
             [NSApp beginSheet: W
                     modalForWindow: [self window]

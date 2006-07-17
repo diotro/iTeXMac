@@ -39,7 +39,7 @@ NSString * const iTM2TPFEEngineScriptsKey = @"EngineScripts";
 
 @interface iTM2TeXPCompileInspector(PRIVATE)
 - (id)editedEngine;
-- (void)setEditedEngine:(id)argument;
+- (void)setEditedEngine:(NSString *)argument;
 - (id)editedProject;
 - (void)setEditedProject:(id)argument;
 - (NSTabView *)tabView;
@@ -329,7 +329,7 @@ To Do List:
 	BOOL change = NO;
 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 	iTM2TeXProjectDocument * myTPD = [self editedProject];
-	NSString * name;
+	NSString * name = nil;
 	NSMutableArray * removeKeys = [[[[TPD engineScripts] allKeys] mutableCopy] autorelease];
 	[removeKeys removeObjectsInArray:[[myTPD engineScripts] allKeys]];
 	NSEnumerator * E = [[myTPD engineScripts] keyEnumerator];
@@ -360,10 +360,12 @@ To Do List:
 	removeKeys = [[[[TPD engineEnvironments] allKeys] mutableCopy] autorelease];
 	[removeKeys removeObjectsInArray:[[myTPD engineEnvironments] allKeys]];
 	E = [[myTPD engineEnvironments] keyEnumerator];
+	id old = nil;
+	id new = nil;
 	while(name = [E nextObject])
 	{
-		id old = [TPD environmentForEngineMode:name];
-		id new = [myTPD environmentForEngineMode:name];
+		old = [TPD environmentForEngineMode:name];
+		new = [myTPD environmentForEngineMode:name];
 		if(![new isEqual:old])
 		{
 			[TPD takeEnvironment:new forEngineMode:name];
@@ -385,12 +387,12 @@ To Do List:
 	}
 //iTM2_LOG(@"UPDATING THE ENVIRONMENTS: DONE");
 	E = [[myTPD engineWrappers] objectEnumerator];
-	iTM2CommandWrapper *  O;
+	iTM2CommandWrapper *  O = nil;
 	while(O = [E nextObject])
 	{
-		id new = [O model];
+		new = [O model];
 //iTM2_LOG(@"new is: %@, [O name] is: %@", new, [O name]);
-		id old = [TPD modelForEngineName:[O name]];
+		old = [TPD modelForEngineName:[O name]];
 		if(![old isEqual:new])
 		{
 			[TPD takeModel:new forEngineName:[O name]];
@@ -424,7 +426,7 @@ To Do List:
     return [self contextStringForKey:@"Compile Inspector:Edited Engine"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEditedEngine:
-- (void)setEditedEngine:(id)argument;
+- (void)setEditedEngine:(NSString *)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -496,9 +498,9 @@ To Do List:
 						[[sender lastItem] setTitle:MS];
 				}
 			}
-#warning MISSING LOCALE DEBUG
-            [sender addItemWithTitle:@"Other"];//LOCALIZED?
-            [[sender lastItem] setRepresentedObject:@"unknown"];
+//#warning MISSING LOCALE DEBUG
+//            [sender addItemWithTitle:@"Other"];//LOCALIZED?
+//            [[sender lastItem] setRepresentedObject:@"unknown"];
         }
 		int index = [sender indexOfItemWithRepresentedObject:[self editedEngine]];
 		if(index>=0 && index < [sender numberOfItems])
@@ -861,8 +863,11 @@ To Do List:
 		id C;
 		while(C = [[E nextObject] nonretainedObjectValue])
 		{
-			[sender addItemWithTitle:[C prettyEngineMode]];
-			[[sender lastItem] setRepresentedObject:[C engineMode]];
+			if(![[C engineMode] hasPrefix:@"."])
+			{
+				[sender addItemWithTitle:[C prettyEngineMode]];
+				[[sender lastItem] setRepresentedObject:[C engineMode]];
+			}
 		}
 		unsigned idx = [sender indexOfItemWithRepresentedObject:environmentMode];
 		[sender selectItemAtIndex:idx];
@@ -939,7 +944,7 @@ To Do List:
 //iTM2_LOG(@"new engine environmnt is: %@", new);
 		if([old count]>0? ![old isEqual:new]:[new count])
 		{
-			// There might be a problemm when upgrading if we add some keys to the dictionary
+			// There might be a problem when upgrading if we add some keys to the dictionary
 			[TPD takeEnvironment:new forEngineMode:environmentMode];
 			if(![[TPD environmentForEngineMode:environmentMode] isEqual:new])
 			{
@@ -1569,8 +1574,19 @@ To Do List:
         NSEnumerator * E = [[iTM2TeXPEngineInspector engineReferences] objectEnumerator];
 		id C;
 		while(C = [[E nextObject] nonretainedObjectValue])
+		{
             [MS addObjectsFromArray:[C inputFileExtensions]];
-		[MS minusSet:[NSSet setWithArray:allBuiltInEngineModes]];
+		}
+		NSMutableSet * ms = [NSMutableSet setWithArray:allBuiltInEngineModes];
+		E = [allBuiltInEngineModes objectEnumerator];
+		while(C = [E nextObject])
+		{
+			if([C isKindOfClass:[NSArray class]])
+			{
+				[ms addObjectsFromArray:C];
+			}
+		}
+		[MS minusSet:ms];
 		[allBuiltInEngineModes addObjectsFromArray:[MS allObjects]];
 	}
 //iTM2_END;
