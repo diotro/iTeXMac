@@ -12,19 +12,6 @@
 			buildConfigurationList = DC1E8AA509462DC40037B13F /* Build configuration list for PBXAggregateTarget "All" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				DC5D6E9E0949CEF900EBA96C /* PBXTargetDependency */,
 				DC8A6020088D6F950016FAA2 /* PBXTargetDependency */,
@@ -38,18 +25,6 @@
 			buildConfigurationList = DC1E8AB109462DC40037B13F /* Build configuration list for PBXAggregateTarget "Scripting Definition" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "Scripting Definition";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 			);
 			name = "Scripting Definition";
@@ -60,55 +35,18 @@
 			buildConfigurationList = DC1E8A9909462DC40037B13F /* Build configuration list for PBXAggregateTarget "Install iTM2Foundation" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2Foundation;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = framework;
-			};
 			dependencies = (
-				DC81B9D20889499B00943C99 /* PBXTargetDependency */,
 			);
 			name = "Install iTM2Foundation";
-			productName = "Install iTM2Foundation";
-		};
-		DCB2007D0858E57F003659F3 /* Install JAGUAR Support */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DC1E8A9509462DC40037B13F /* Build configuration list for PBXAggregateTarget "Install JAGUAR Support" */;
-			buildPhases = (
-				DCB2008E0858E658003659F3 /* Install in iTM2Foundation.framework/ */,
-			);
-			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-			};
-			dependencies = (
-				DCB200810858E59D003659F3 /* PBXTargetDependency */,
-			);
-			name = "Install JAGUAR Support";
 			productName = "Install iTM2Foundation";
 		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		DC007ED60A6476E7009236E8 /* iTM2MacroPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC007ED40A6476E7009236E8 /* iTM2MacroPrefPane.strings */; };
+		DC0086A30A65AC47009236E8 /* iTM2MacroKeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC0086A20A65AC47009236E8 /* iTM2MacroKeyCodes.xml */; };
+		DC0086AA0A65AC7E009236E8 /* iTM2MacroKeyCodes.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC0086A80A65AC7E009236E8 /* iTM2MacroKeyCodes.strings */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
 		DC13E6A2085587160063D5A5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -185,7 +123,6 @@
 		DC78634208CC29F400D4AA33 /* iTM2RepToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC78634008CC29F400D4AA33 /* iTM2RepToolbarDelegate.m */; };
 		DC8303F1086EA056004799EB /* iTM2AppleScriptKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC8303EE086EA056004799EB /* iTM2AppleScriptKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC8303F2086EA056004799EB /* iTM2AppleScriptKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8303EF086EA056004799EB /* iTM2AppleScriptKit.m */; };
-		DC8A65E6088DCBE20016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */; };
 		DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD53B0A3ABD37006C28A5 /* KeyBindings.resources.tgz */; };
 		DC8AD5400A3ABD38006C28A5 /* TextEditor.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD53D0A3ABD38006C28A5 /* TextEditor.resources.tgz */; };
 		DC90CE9E09976BBD00C79525 /* iTM2MacrosMenu.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */; };
@@ -197,15 +134,11 @@
 		DCB0A10D09AF01C300D2A37C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		DCB0A10E09AF01C300D2A37C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DCB0A10F09AF01C300D2A37C /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */; };
-		DCB200A90858E7B6003659F3 /* iTM2JAGUARSupportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F6060854B11C00F3EB8A /* iTM2JAGUARSupportKit.m */; };
-		DCB200AA0858E7B7003659F3 /* iTM2TextFinderKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F6080854B11C00F3EB8A /* iTM2TextFinderKit.m */; };
 		DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */ = {isa = PBXBuildFile; fileRef = DCB49C8709C5A3D600CF628D /* MoreFilesX.c */; };
 		DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */ = {isa = PBXBuildFile; fileRef = DCB49C8809C5A3D600CF628D /* MoreFilesX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */; };
 		DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
 		DCC7F34D0854A96000F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
-		DCC7F6830854B51200F3EB8A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		DCC7F6840854B51200F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		DCC7F8BE0854DCBC00F3EB8A /* command in Copy Command */ = {isa = PBXBuildFile; fileRef = DCC7F8B60854DC0F00F3EB8A /* command */; };
 		DCC7F8C10854DCD700F3EB8A /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B70854DC0F00F3EB8A /* README.rtf */; };
 		DCC7F8E10854DE7500F3EB8A /* command in Copy Command */ = {isa = PBXBuildFile; fileRef = DCC7F8B20854DC0F00F3EB8A /* command */; };
@@ -221,6 +154,17 @@
 		DCCDD0A208F46F0200DAF639 /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD0A108F46F0200DAF639 /* OgreKit.framework */; };
 		DCCDD0E008F46F1100DAF639 /* OgreKit.framework in Copy framework */ = {isa = PBXBuildFile; fileRef = DCCDD0A108F46F0200DAF639 /* OgreKit.framework */; };
 		DCCDD15A08F4723700DAF639 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */; };
+		DCCF02F50A5DC5C200B4B720 /* Aqua2_Add_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02EF0A5DC5C100B4B720 /* Aqua2_Add_Inactive.tif */; };
+		DCCF02F60A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F00A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif */; };
+		DCCF02F70A5DC5C200B4B720 /* Aqua2_Add.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F10A5DC5C200B4B720 /* Aqua2_Add.tif */; };
+		DCCF02F80A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F20A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif */; };
+		DCCF02F90A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F30A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif */; };
+		DCCF02FA0A5DC5C200B4B720 /* Aqua2_Remove.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */; };
+		DCCF03E30A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCF03E10A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib */; };
+		DCCF07AC0A62EF6400B4B720 /* iTM2MacroPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = DCCF07AA0A62EF6300B4B720 /* iTM2MacroPrefPane.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DCCF07AD0A62EF6400B4B720 /* iTM2MacroPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCF07AB0A62EF6300B4B720 /* iTM2MacroPrefPane.m */; };
+		DCCF07B40A62EF7800B4B720 /* iTM2MacroPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCF07AE0A62EF7800B4B720 /* iTM2MacroPrefPane.nib */; };
+		DCCF08490A62FC9E00B4B720 /* iTM2MacroPrefPane.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCCF08480A62FC9D00B4B720 /* iTM2MacroPrefPane.tiff */; };
 		DCD403F1099498B0006B91DF /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
 		DCD403F2099498B0006B91DF /* iTM2MacroKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD403EF099498B0006B91DF /* iTM2MacroKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCD403F3099498B0006B91DF /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
@@ -240,8 +184,6 @@
 		DCDC064209E690310038845F /* iTM2TextStyleInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063309E690310038845F /* iTM2TextStyleInspector.nib */; };
 		DCDC064309E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063509E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib */; };
 		DCDC068009E696450038845F /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCDC067E09E696440038845F /* Styles.resources.tgz */; };
-		DCE4B49209479B21006390BC /* iTM2TextFinder.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCC7F60C0854B11C00F3EB8A /* iTM2TextFinder.nib */; };
-		DCE4B49309479B21006390BC /* iTM2TextFinder.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCC7F60E0854B11C00F3EB8A /* iTM2TextFinder.strings */; };
 		DCF61C370854654B003F5F79 /* iTeXMac2.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B520854654B003F5F79 /* iTeXMac2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61C380854654B003F5F79 /* iTeXMac2.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B530854654B003F5F79 /* iTeXMac2.m */; };
 		DCF61C390854654B003F5F79 /* iTM2ApplicationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B540854654B003F5F79 /* iTM2ApplicationDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -394,35 +336,6 @@
 		DCFFC31108E28BC50011D2B7 /* iTM2PreferencesKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC66983808E0B554004FCA6D /* iTM2PreferencesKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildStyle section */
-		014CEA440018CDF011CA2923 /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				OBJROOT = "$(SYMROOT)";
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		014CEA450018CDF011CA2923 /* Deployment */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
-
 /* Begin PBXContainerItemProxy section */
 		DC5D6E9D0949CEF900EBA96C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -437,20 +350,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = DC6BC63C09490315008F8188;
 			remoteInfo = "Prepare OgreKit";
-		};
-		DC81B9CF0889498800943C99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = iTM2Foundation;
-		};
-		DC81B9D10889499B00943C99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB2007D0858E57F003659F3;
-			remoteInfo = "Install JAGUAR Support";
 		};
 		DC83042D086EADFF004799EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -515,12 +414,12 @@
 			remoteGlobalIDString = DCB200320858E250003659F3;
 			remoteInfo = "Install iTM2Foundation";
 		};
-		DCB200800858E59D003659F3 /* PBXContainerItemProxy */ = {
+		DCBEF0C70A5B2F42000EB417 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DCC7F67A0854B37C00F3EB8A;
-			remoteInfo = "JAGUAR Support";
+			remoteGlobalIDString = DC2CA7A50855D53C00128F14;
+			remoteInfo = All;
 		};
 		DCD7D69E0A43992D0096B1A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -712,6 +611,9 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		DC007ED50A6476E7009236E8 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroPrefPane.strings; sourceTree = "<group>"; };
+		DC0086A20A65AC47009236E8 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
+		DC0086A90A65AC7E009236E8 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroKeyCodes.strings; sourceTree = "<group>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
 		DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TreeKit.m; sourceTree = "<group>"; };
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
@@ -820,6 +722,7 @@
 		DCB49C8709C5A3D600CF628D /* MoreFilesX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MoreFilesX.c; sourceTree = "<group>"; };
 		DCB49C8809C5A3D600CF628D /* MoreFilesX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreFilesX.h; sourceTree = "<group>"; };
 		DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MoreFilesXReadMe.txt; sourceTree = "<group>"; };
+		DCBEF0BF0A5B2DDC000EB417 /* Test Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test Application-Prefix.pch"; sourceTree = "<group>"; };
 		DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextStorageKit.m; sourceTree = "<group>"; };
 		DCC7F34C0854A96000F3EB8A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		DCC7F6050854B11C00F3EB8A /* iTM2JAGUARSupportKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2JAGUARSupportKit.h; sourceTree = "<group>"; };
@@ -828,18 +731,17 @@
 		DCC7F6080854B11C00F3EB8A /* iTM2TextFinderKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextFinderKit.m; sourceTree = "<group>"; };
 		DCC7F60D0854B11C00F3EB8A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextFinder.nib; sourceTree = "<group>"; };
 		DCC7F60F0854B11C00F3EB8A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2TextFinder.strings; sourceTree = "<group>"; };
-		DCC7F67B0854B37C00F3EB8A /* iTM2JAGUARSupportKit.iTMx */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2JAGUARSupportKit.iTMx; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC7F6900854B61300F3EB8A /* JAGUAR-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "JAGUAR-Info.plist"; sourceTree = "<group>"; };
 		DCC7F6910854B61300F3EB8A /* JAGUAR-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JAGUAR-Prefix.pch"; sourceTree = "<group>"; };
 		DCC7F7F70854BBEE00F3EB8A /* iTM2Foundation Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2Foundation Test-Info.plist"; sourceTree = "<group>"; };
 		DCC7F7FA0854BBEE00F3EB8A /* Test Application-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test Application-main.m"; sourceTree = "<group>"; };
 		DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "External Text Editor.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC7F8B20854DC0F00F3EB8A /* command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = command; sourceTree = "<group>"; };
-		DCC7F8B30854DC0F00F3EB8A /* PDF-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "PDF-Info.plist"; sourceTree = "<group>"; };
+		DCC7F8B30854DC0F00F3EB8A /* External PDF Viewer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "External PDF Viewer-Info.plist"; sourceTree = "<group>"; };
 		DCC7F8B40854DC0F00F3EB8A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		DCC7F8B60854DC0F00F3EB8A /* command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = command; sourceTree = "<group>"; };
 		DCC7F8B70854DC0F00F3EB8A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
-		DCC7F8B80854DC0F00F3EB8A /* Text-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Text-Info.plist"; sourceTree = "<group>"; };
+		DCC7F8B80854DC0F00F3EB8A /* External Text Editor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "External Text Editor-Info.plist"; sourceTree = "<group>"; };
 		DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "External PDF Viewer.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC9FB6F087354CD003279C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2ExternalInspector.nib; sourceTree = "<group>"; };
 		DCC9FC2608742B59003279C2 /* iTM2SplitHorizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SplitHorizontal.png; sourceTree = "<group>"; };
@@ -851,16 +753,27 @@
 		DCCD2E9309E141920003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCDD0A108F46F0200DAF639 /* OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
+		DCCF02EF0A5DC5C100B4B720 /* Aqua2_Add_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Inactive.tif; sourceTree = "<group>"; };
+		DCCF02F00A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Pressed.tif; sourceTree = "<group>"; };
+		DCCF02F10A5DC5C200B4B720 /* Aqua2_Add.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add.tif; sourceTree = "<group>"; };
+		DCCF02F20A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Inactive.tif; sourceTree = "<group>"; };
+		DCCF02F30A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Pressed.tif; sourceTree = "<group>"; };
+		DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove.tif; sourceTree = "<group>"; };
+		DCCF03E20A5E704600B4B720 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MacroAction_insertMacro_.nib; sourceTree = "<group>"; };
+		DCCF07AA0A62EF6300B4B720 /* iTM2MacroPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroPrefPane.h; sourceTree = "<group>"; };
+		DCCF07AB0A62EF6300B4B720 /* iTM2MacroPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroPrefPane.m; sourceTree = "<group>"; };
+		DCCF07AF0A62EF7800B4B720 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MacroPrefPane.nib; sourceTree = "<group>"; };
+		DCCF08480A62FC9D00B4B720 /* iTM2MacroPrefPane.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MacroPrefPane.tiff; sourceTree = "<group>"; };
 		DCD403EF099498B0006B91DF /* iTM2MacroKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit.h; sourceTree = "<group>"; };
 		DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit.m; sourceTree = "<group>"; };
 		DCD404A60994B5CA006B91DF /* iTM2TextMacroKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextMacroKit.h; sourceTree = "<group>"; };
 		DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextMacroKit.m; sourceTree = "<group>"; };
 		DCD7D68B0A4398DD0096B1A9 /* alphax */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = alphax; sourceTree = "<group>"; };
-		DCD7D68C0A4398DD0096B1A9 /* AlphaX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "AlphaX-Info.plist"; sourceTree = "<group>"; };
+		DCD7D68C0A4398DD0096B1A9 /* Alpha X-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Alpha X-Info.plist"; sourceTree = "<group>"; };
 		DCD7D68D0A4398DD0096B1A9 /* bbedit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bbedit; sourceTree = "<group>"; };
 		DCD7D68E0A4398DD0096B1A9 /* bbedit lite */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "bbedit lite"; sourceTree = "<group>"; };
 		DCD7D68F0A4398DD0096B1A9 /* BBEdit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BBEdit-Info.plist"; sourceTree = "<group>"; };
-		DCD7D6900A4398DD0096B1A9 /* BBEditLite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BBEditLite-Info.plist"; sourceTree = "<group>"; };
+		DCD7D6900A4398DD0096B1A9 /* BBEdit Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BBEdit Lite-Info.plist"; sourceTree = "<group>"; };
 		DCD7D6910A4398DD0096B1A9 /* emacs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = emacs; sourceTree = "<group>"; };
 		DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Emacs-Info.plist"; sourceTree = "<group>"; };
 		DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Alpha X.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1094,16 +1007,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DCC7F6790854B37C00F3EB8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DCC7F6830854B51200F3EB8A /* Cocoa.framework in Frameworks */,
-				DCC7F6840854B51200F3EB8A /* Carbon.framework in Frameworks */,
-				DC8A65E6088DCBE20016FAA2 /* iTM2Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1111,7 +1014,6 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */,
-				DCC7F67B0854B37C00F3EB8A /* iTM2JAGUARSupportKit.iTMx */,
 				DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */,
 				DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */,
 				DC13E68B0855867D0063D5A5 /* Test Application.app */,
@@ -1241,6 +1143,8 @@
 			children = (
 				DC66983808E0B554004FCA6D /* iTM2PreferencesKit.h */,
 				DC66983908E0B554004FCA6D /* iTM2PreferencesKit.m */,
+				DCCF07AA0A62EF6300B4B720 /* iTM2MacroPrefPane.h */,
+				DCCF07AB0A62EF6300B4B720 /* iTM2MacroPrefPane.m */,
 				DC98663809EA733B00FF4BD3 /* Preferences Resources */,
 			);
 			path = "5 - Preferences";
@@ -1258,7 +1162,12 @@
 		DC98663809EA733B00FF4BD3 /* Preferences Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DC0086A20A65AC47009236E8 /* iTM2MacroKeyCodes.xml */,
+				DCCF08480A62FC9D00B4B720 /* iTM2MacroPrefPane.tiff */,
+				DC007ED40A6476E7009236E8 /* iTM2MacroPrefPane.strings */,
+				DC0086A80A65AC7E009236E8 /* iTM2MacroKeyCodes.strings */,
 				DC98663909EA733B00FF4BD3 /* iTM2PrefsController.nib */,
+				DCCF07AE0A62EF7800B4B720 /* iTM2MacroPrefPane.nib */,
 			);
 			path = "Preferences Resources";
 			sourceTree = "<group>";
@@ -1298,6 +1207,7 @@
 			isa = PBXGroup;
 			children = (
 				DC13E6A1085586E50063D5A5 /* Test Application-Info.plist */,
+				DCBEF0BF0A5B2DDC000EB417 /* Test Application-Prefix.pch */,
 				DCC7F7FA0854BBEE00F3EB8A /* Test Application-main.m */,
 				DC13E676085586540063D5A5 /* English.lproj */,
 			);
@@ -1318,7 +1228,7 @@
 			children = (
 				DCC7F8B20854DC0F00F3EB8A /* command */,
 				DCC7F8B40854DC0F00F3EB8A /* README.rtf */,
-				DCC7F8B30854DC0F00F3EB8A /* PDF-Info.plist */,
+				DCC7F8B30854DC0F00F3EB8A /* External PDF Viewer-Info.plist */,
 			);
 			path = PDF;
 			sourceTree = "<group>";
@@ -1328,13 +1238,13 @@
 			children = (
 				DCC7F8B70854DC0F00F3EB8A /* README.rtf */,
 				DCC7F8B60854DC0F00F3EB8A /* command */,
-				DCC7F8B80854DC0F00F3EB8A /* Text-Info.plist */,
+				DCC7F8B80854DC0F00F3EB8A /* External Text Editor-Info.plist */,
 				DCD7D68B0A4398DD0096B1A9 /* alphax */,
-				DCD7D68C0A4398DD0096B1A9 /* AlphaX-Info.plist */,
+				DCD7D68C0A4398DD0096B1A9 /* Alpha X-Info.plist */,
 				DCD7D68D0A4398DD0096B1A9 /* bbedit */,
 				DCD7D68E0A4398DD0096B1A9 /* bbedit lite */,
 				DCD7D68F0A4398DD0096B1A9 /* BBEdit-Info.plist */,
-				DCD7D6900A4398DD0096B1A9 /* BBEditLite-Info.plist */,
+				DCD7D6900A4398DD0096B1A9 /* BBEdit Lite-Info.plist */,
 				DCD7D6910A4398DD0096B1A9 /* emacs */,
 				DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */,
 			);
@@ -1587,6 +1497,12 @@
 				DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */,
 				DCDA12F40908E59B005E9B57 /* Toolbar.strings */,
 				DC25E2E809917C6600545F27 /* iTM2CreateMacroIndex.pl */,
+				DCCF02EF0A5DC5C100B4B720 /* Aqua2_Add_Inactive.tif */,
+				DCCF02F00A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif */,
+				DCCF02F10A5DC5C200B4B720 /* Aqua2_Add.tif */,
+				DCCF02F20A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif */,
+				DCCF02F30A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif */,
+				DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */,
 				DCF61C020854654B003F5F79 /* dimple_nib_aqua.tiff */,
 				DCF61C030854654B003F5F79 /* dimple_nib_grey_aqua.tiff */,
 				DCDA12830908CDF9005E9B57 /* missing_image.tiff */,
@@ -1617,6 +1533,7 @@
 				DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */,
 				DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */,
 				DCF61C2A0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap */,
+				DCCF03E10A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib */,
 			);
 			path = "Core Resources";
 			sourceTree = "<group>";
@@ -1698,6 +1615,7 @@
 				DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */,
 				DC99ECC80A284EC600F50752 /* Projects.h in Headers */,
 				DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */,
+				DCCF07AC0A62EF6400B4B720 /* iTM2MacroPrefPane.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1721,28 +1639,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTM2Foundation-Prefix.pch";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iTM2Foundation-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x4E000000,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2Foundation;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = framework;
-			};
 			dependencies = (
 				DC6BC653094903B2008F8188 /* PBXTargetDependency */,
 			);
@@ -1764,35 +1660,8 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = (
-					/Users/coder/iTeXMac2/iTeXMac2/build,
-					/Users/coder/iTeXMac/iTeXMac2/Developer/build,
-				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "Test Application";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
+				DCBEF0C80A5B2F42000EB417 /* PBXTargetDependency */,
 				DCB200530858E2B2003659F3 /* PBXTargetDependency */,
 				DC83042E086EADFF004799EB /* PBXTargetDependency */,
 				DC830430086EAE02004799EB /* PBXTargetDependency */,
@@ -1800,31 +1669,6 @@
 			name = "Test Application";
 			productName = "Test Application";
 			productReference = DC13E68B0855867D0063D5A5 /* Test Application.app */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>Test Application</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Test_Application</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.application";
 		};
 		DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */ = {
@@ -1838,51 +1682,11 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				INFOPLIST_FILE = "iTM2TaskKit Test-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "iTM2TaskKit Test";
-				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
-			};
 			dependencies = (
 			);
 			name = "iTM2TaskKit Test";
 			productName = "iTM2TaskKit Test";
 			productReference = DC25E42E0991F5F000545F27 /* iTM2TaskKit Test.octest */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.iTM2TaskKit Test</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>BNDL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DC2732CD09645D0A008B4D56 /* Prepare CamelBones */ = {
@@ -1893,52 +1697,11 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "Prepare OgreKit-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "Prepare OgreKit";
-				ZERO_LINK = YES;
-			};
 			dependencies = (
 			);
 			name = "Prepare CamelBones";
 			productName = "Prepare OgreKit";
 			productReference = DC2732D309645D0A008B4D56 /* OgreKit.framework */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Prepare OgreKit</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>FMWK</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.framework";
 		};
 		DC6698AA08E1289F004FCA6D /* iTM2PreferencePane */ = {
@@ -1952,59 +1715,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "iTM2PreferenceTemplate-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2PreferenceTemplate;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = prePane;
-			};
 			comments = "Unused stuff";
 			dependencies = (
 			);
 			name = iTM2PreferencePane;
 			productName = iTM2PreferenceTemplate;
 			productReference = DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>iTM2PreferenceTemplate</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.iTM2PreferenceTemplate</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DC6BC63C09490315008F8188 /* Prepare OgreKit */ = {
@@ -2015,52 +1731,11 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "Prepare OgreKit-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "Prepare OgreKit";
-				ZERO_LINK = YES;
-			};
 			dependencies = (
 			);
 			name = "Prepare OgreKit";
 			productName = "Prepare OgreKit";
 			productReference = DC6BC63D09490315008F8188 /* OgreKit.framework */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Prepare OgreKit</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>FMWK</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.framework";
 		};
 		DC951796088DED4B0011E823 /* iTeXMac2 */ = {
@@ -2071,61 +1746,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				DC993AD4088DF11700F8BCE1 /* PBXTargetDependency */,
 			);
 			name = iTeXMac2;
 			productName = iTeXMac2;
 			productReference = DC951797088DED4B0011E823 /* iTeXMac2.app */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>iTeXMac2</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.iTeXMac2</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.application";
 		};
 		DC99ECBD0A284EA800F50752 /* Project */ = {
@@ -2139,51 +1765,11 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				INFOPLIST_FILE = "Project-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Project;
-				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
-			};
 			dependencies = (
 			);
 			name = Project;
 			productName = Project;
 			productReference = DC99ECBE0A284EA800F50752 /* Project.octest */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Project</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>BNDL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DCB0A00909AEF96E00D2A37C /* Alias Test */ = {
@@ -2197,117 +1783,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				INFOPLIST_FILE = "Alias Test-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "Alias Test";
-				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
-			};
 			dependencies = (
 				DCB0A02A09AF015000D2A37C /* PBXTargetDependency */,
 			);
 			name = "Alias Test";
 			productName = "Alias Test";
 			productReference = DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Alias Test</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>BNDL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
-			productType = "com.apple.product-type.bundle";
-		};
-		DCC7F67A0854B37C00F3EB8A /* JAGUAR Support */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC1E8A9109462DC40037B13F /* Build configuration list for PBXNativeTarget "JAGUAR Support" */;
-			buildPhases = (
-				DCC7F6770854B37C00F3EB8A /* Resources */,
-				DCC7F6780854B37C00F3EB8A /* Sources */,
-				DCC7F6790854B37C00F3EB8A /* Frameworks */,
-			);
-			buildRules = (
-			);
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/build;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JAGUAR-Prefix.pch";
-				INFOPLIST_FILE = "JAGUAR-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-			};
-			dependencies = (
-				DC81B9D00889498800943C99 /* PBXTargetDependency */,
-			);
-			name = "JAGUAR Support";
-			productName = iTM2JAGUARSupportKit;
-			productReference = DCC7F67B0854B37C00F3EB8A /* iTM2JAGUARSupportKit.iTMx */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>iTM2JAGUARSupportKit</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.iTM2JAGUARSupportKit</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DCC7F8980854DB8C00F3EB8A /* External Text Editor */ = {
@@ -2319,32 +1800,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "External Text Editor";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
 			dependencies = (
 				DCD7D6E50A439AA60096B1A9 /* PBXTargetDependency */,
 				DCD7D6E30A439AA40096B1A9 /* PBXTargetDependency */,
@@ -2355,27 +1810,6 @@
 			name = "External Text Editor";
 			productName = "External Text Editor";
 			productReference = DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>External Text Editor</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.External_Text_Editor</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */ = {
@@ -2387,59 +1821,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "External Inspectors/PDF/PDF-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "External PDF Viewer";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
 			dependencies = (
 				DCB2004E0858E2AF003659F3 /* PBXTargetDependency */,
 			);
 			name = "External PDF Viewer";
 			productName = "External PDF Viewer";
 			productReference = DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>External PDF Viewer</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.External_PDF_Viewer</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DCD7D69C0A43992D0096B1A9 /* Alpha X */ = {
@@ -2450,59 +1837,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "External Text Editor";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
 			dependencies = (
 				DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */,
 			);
 			name = "Alpha X";
 			productName = "External Text Editor";
 			productReference = DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>External Text Editor</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.External_Text_Editor</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DCD7D6AB0A4399620096B1A9 /* BBEdit */ = {
@@ -2513,59 +1853,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "External Text Editor";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
 			dependencies = (
 				DCD7D6AC0A4399620096B1A9 /* PBXTargetDependency */,
 			);
 			name = BBEdit;
 			productName = "External Text Editor";
 			productReference = DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>External Text Editor</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.External_Text_Editor</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DCD7D6B90A4399790096B1A9 /* BBEdit Lite */ = {
@@ -2576,59 +1869,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "External Text Editor";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
 			dependencies = (
 				DCD7D6BA0A4399790096B1A9 /* PBXTargetDependency */,
 			);
 			name = "BBEdit Lite";
 			productName = "External Text Editor";
 			productReference = DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>External Text Editor</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.External_Text_Editor</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 		DCD7D6C90A4399990096B1A9 /* Emacs */ = {
@@ -2639,59 +1885,12 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "External Text Editor";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
 			dependencies = (
 				DCD7D6CA0A4399990096B1A9 /* PBXTargetDependency */,
 			);
 			name = Emacs;
 			productName = "External Text Editor";
 			productReference = DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>External Text Editor</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.External_Text_Editor</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2700,12 +1899,6 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC1E8AB909462DC40037B13F /* Build configuration list for PBXProject "iTM2Foundation" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				014CEA440018CDF011CA2923 /* Development */,
-				014CEA450018CDF011CA2923 /* Deployment */,
-			);
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* iTM2Foundation */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -2714,8 +1907,6 @@
 				DC6BC63C09490315008F8188 /* Prepare OgreKit */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
 				8DC2EF4F0486A6940098B216 /* iTM2Foundation */,
-				DCC7F67A0854B37C00F3EB8A /* JAGUAR Support */,
-				DCB2007D0858E57F003659F3 /* Install JAGUAR Support */,
 				DCB200320858E250003659F3 /* Install iTM2Foundation */,
 				DCD7D69C0A43992D0096B1A9 /* Alpha X */,
 				DCD7D6AB0A4399620096B1A9 /* BBEdit */,
@@ -2816,6 +2007,18 @@
 				DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */,
 				DC8AD5400A3ABD38006C28A5 /* TextEditor.resources.tgz in Resources */,
 				DC3B48F00A4B469E00E83ABA /* ARETemplates.resources.tgz in Resources */,
+				DCCF02F50A5DC5C200B4B720 /* Aqua2_Add_Inactive.tif in Resources */,
+				DCCF02F60A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif in Resources */,
+				DCCF02F70A5DC5C200B4B720 /* Aqua2_Add.tif in Resources */,
+				DCCF02F80A5DC5C200B4B720 /* Aqua2_Remove_Inactive.tif in Resources */,
+				DCCF02F90A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif in Resources */,
+				DCCF02FA0A5DC5C200B4B720 /* Aqua2_Remove.tif in Resources */,
+				DCCF03E30A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib in Resources */,
+				DCCF07B40A62EF7800B4B720 /* iTM2MacroPrefPane.nib in Resources */,
+				DCCF08490A62FC9E00B4B720 /* iTM2MacroPrefPane.tiff in Resources */,
+				DC007ED60A6476E7009236E8 /* iTM2MacroPrefPane.strings in Resources */,
+				DC0086A30A65AC47009236E8 /* iTM2MacroKeyCodes.xml in Resources */,
+				DC0086AA0A65AC7E009236E8 /* iTM2MacroKeyCodes.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2853,15 +2056,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DCC7F6770854B37C00F3EB8A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DCE4B49209479B21006390BC /* iTM2TextFinder.nib in Resources */,
-				DCE4B49309479B21006390BC /* iTM2TextFinder.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3018,20 +2212,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		DCB2008E0858E658003659F3 /* Install in iTM2Foundation.framework/ */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Install in iTM2Foundation.framework/";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "iTM2_INSTALLED_PRODUCT_NAME=\"${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\niTM2_FRAMEWORK_TARGET=\"iTM2Foundation.framework\"\necho \"warning: iTeXMac2 INFO, installing ${iTM2_INSTALLED_PRODUCT_NAME} in ${iTM2_FRAMEWORK_TARGET}\"\necho \"=-=-=-=-=-  REMOVING\"\necho \"=-=-=-=-=-  ${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/Resources/${iTM2_INSTALLED_PRODUCT_NAME}\"\nTRASH=\"${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/Resources/${iTM2_INSTALLED_PRODUCT_NAME}\"\nif [ -d \"${TRASH}\" ]\nthen\n\trm -Rf \"${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/Resources/${iTM2_INSTALLED_PRODUCT_NAME}\"\nelse\n\techo \"Nothing to remove...\"\nfi\necho \"=-=-=-=-=-  MOVING\"\necho \"=-=-=-=-=-  ${TARGET_BUILD_DIR}/${iTM2_INSTALLED_PRODUCT_NAME}\"\necho \"=-=-=-=-=-  TO\"\necho \"=-=-=-=-=-  ${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/Resources/\"\nif ! [ -w \"${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/Resources/\" ]\nthen\n\techo \"Destination not writable\"\nfi\ncp -Rf \"${TARGET_BUILD_DIR}/${iTM2_INSTALLED_PRODUCT_NAME}\" \"${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/Resources/\"\nif [ -d \"${TRASH}\" ]\nthen\n\techo \"Move complete...\"\nelse\n\techo \"BIG PROBLEM...\"\n\tls -al \"${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/\"\n\tls -al \"${TARGET_BUILD_DIR}/${iTM2_FRAMEWORK_TARGET}/Resources/\"\necho \"warning: iTeXMac2 INFO, installing ${iTM2_INSTALLED_PRODUCT_NAME} in ${iTM2_FRAMEWORK_TARGET}... FAILURE\"\n\texit 1\nfi\n#next line is necessary to avoid this plug-in in iTM2 itself\nrm -Rf \"${TARGET_BUILD_DIR}/${iTM2_INSTALLED_PRODUCT_NAME}\"\necho \"warning: iTeXMac2 INFO, installing ${iTM2_INSTALLED_PRODUCT_NAME} in ${iTM2_FRAMEWORK_TARGET}... DONE\"\n";
-		};
 		DCF61CF00854662D003F5F79 /* Merge the headers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3117,6 +2297,7 @@
 				DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */,
 				DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */,
 				DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */,
+				DCCF07AD0A62EF6400B4B720 /* iTM2MacroPrefPane.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3197,15 +2378,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DCC7F6780854B37C00F3EB8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DCB200A90858E7B6003659F3 /* iTM2JAGUARSupportKit.m in Sources */,
-				DCB200AA0858E7B7003659F3 /* iTM2TextFinderKit.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3218,16 +2390,6 @@
 			isa = PBXTargetDependency;
 			target = DC6BC63C09490315008F8188 /* Prepare OgreKit */;
 			targetProxy = DC6BC652094903B2008F8188 /* PBXContainerItemProxy */;
-		};
-		DC81B9D00889498800943C99 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
-			targetProxy = DC81B9CF0889498800943C99 /* PBXContainerItemProxy */;
-		};
-		DC81B9D20889499B00943C99 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB2007D0858E57F003659F3 /* Install JAGUAR Support */;
-			targetProxy = DC81B9D10889499B00943C99 /* PBXContainerItemProxy */;
 		};
 		DC83042E086EADFF004799EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3274,10 +2436,10 @@
 			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
 			targetProxy = DCB200520858E2B2003659F3 /* PBXContainerItemProxy */;
 		};
-		DCB200810858E59D003659F3 /* PBXTargetDependency */ = {
+		DCBEF0C80A5B2F42000EB417 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DCC7F67A0854B37C00F3EB8A /* JAGUAR Support */;
-			targetProxy = DCB200800858E59D003659F3 /* PBXContainerItemProxy */;
+			target = DC2CA7A50855D53C00128F14 /* All */;
+			targetProxy = DCBEF0C70A5B2F42000EB417 /* PBXContainerItemProxy */;
 		};
 		DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3322,6 +2484,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DC007ED40A6476E7009236E8 /* iTM2MacroPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC007ED50A6476E7009236E8 /* English */,
+			);
+			name = iTM2MacroPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		DC0086A80A65AC7E009236E8 /* iTM2MacroKeyCodes.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC0086A90A65AC7E009236E8 /* English */,
+			);
+			name = iTM2MacroKeyCodes.strings;
+			sourceTree = "<group>";
+		};
 		DC13E677085586540063D5A5 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3432,6 +2610,22 @@
 				DCCD2E9309E141920003EEF9 /* French */,
 			);
 			name = Inspector.strings;
+			sourceTree = "<group>";
+		};
+		DCCF03E10A5E704600B4B720 /* iTM2MacroAction_insertMacro_.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCCF03E20A5E704600B4B720 /* English */,
+			);
+			name = iTM2MacroAction_insertMacro_.nib;
+			sourceTree = "<group>";
+		};
+		DCCF07AE0A62EF7800B4B720 /* iTM2MacroPrefPane.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCCF07AF0A62EF7800B4B720 /* English */,
+			);
+			name = iTM2MacroPrefPane.nib;
 			sourceTree = "<group>";
 		};
 		DCDA12F40908E59B005E9B57 /* Toolbar.strings */ = {
@@ -3786,176 +2980,6 @@
 			};
 			name = Default;
 		};
-		DC1E8A9209462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JAGUAR-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				INFOPLIST_FILE = "JAGUAR-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		DC1E8A9309462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/build;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JAGUAR-Prefix.pch";
-				INFOPLIST_FILE = "JAGUAR-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC1E8A9409462DC40037B13F /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/build;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JAGUAR-Prefix.pch";
-				INFOPLIST_FILE = "JAGUAR-Info.plist";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-			};
-			name = Default;
-		};
-		DC1E8A9609462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		DC1E8A9709462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC1E8A9809462DC40037B13F /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2JAGUARSupportKit;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = iTMx;
-			};
-			name = Default;
-		};
 		DC1E8A9A09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4025,7 +3049,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "External Text Editor";
 			};
 			name = Development;
@@ -4034,7 +3058,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/Text-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "External Text Editor";
 			};
 			name = Deployment;
@@ -4073,7 +3097,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/PDF/PDF-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/PDF/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "External PDF Viewer";
 			};
 			name = Development;
@@ -4082,7 +3106,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/PDF/PDF-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/PDF/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "External PDF Viewer";
 			};
 			name = Deployment;
@@ -4186,7 +3210,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Prefix.pch";
 				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
 				PRODUCT_NAME = "Test Application";
 			};
@@ -4196,8 +3221,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Prefix.pch";
 				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
 				PRODUCT_NAME = "Test Application";
 			};
@@ -4460,16 +3485,8 @@
 		};
 		DC1E8ABC09462DC40037B13F /* Default */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
-				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = "$(PROJECT_DIR)/../build";
 			};
 			name = Default;
 		};
@@ -4836,7 +3853,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/AlphaX-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "Alpha X";
 			};
 			name = Development;
@@ -4845,7 +3862,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/AlphaX-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "Alpha X";
 			};
 			name = Deployment;
@@ -4884,7 +3901,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/BBEdit-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = BBEdit;
 			};
 			name = Development;
@@ -4893,7 +3910,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/BBEdit-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = BBEdit;
 			};
 			name = Deployment;
@@ -4932,7 +3949,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/BBEditLite-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "BBEdit Lite";
 			};
 			name = Development;
@@ -4941,7 +3958,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/BBEditLite-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "BBEdit Lite";
 			};
 			name = Deployment;
@@ -4980,7 +3997,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/Emacs-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = Emacs;
 			};
 			name = Development;
@@ -4989,7 +4006,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/Emacs-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = Emacs;
 			};
 			name = Deployment;
@@ -5033,26 +4050,6 @@
 				DC1E8A8E09462DC40037B13F /* Development */,
 				DC1E8A8F09462DC40037B13F /* Deployment */,
 				DC1E8A9009462DC40037B13F /* Default */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
-		};
-		DC1E8A9109462DC40037B13F /* Build configuration list for PBXNativeTarget "JAGUAR Support" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8A9209462DC40037B13F /* Development */,
-				DC1E8A9309462DC40037B13F /* Deployment */,
-				DC1E8A9409462DC40037B13F /* Default */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
-		};
-		DC1E8A9509462DC40037B13F /* Build configuration list for PBXAggregateTarget "Install JAGUAR Support" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8A9609462DC40037B13F /* Development */,
-				DC1E8A9709462DC40037B13F /* Deployment */,
-				DC1E8A9809462DC40037B13F /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
