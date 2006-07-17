@@ -31,9 +31,11 @@
 	@version		1
 */
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroServer
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroController
 
 #import "iTM2Implementation.h"
+
+#define SMC [iTM2MacroController sharedMacroController]
 
 /*!
     @class       iTM2MacroController
@@ -49,26 +51,6 @@
     @result     (description)
 */
 + (id)sharedMacroController;
-
-#if 0
-/*!
-    @method     storageTree
-    @abstract   The macro storage tree
-    @discussion Lazy initializer.
-    @result     The macro storage tree
-*/
-- (id)storageTree;
-
-/*!
-    @method     setStorageTree:
-    @abstract   Set the macro storage tree
-    @discussion Designated setter.
-				Cleans the running and source trees. They will be constructed from the new storage tree on demand.
-    @param      aTree
-    @result     None
-*/
-- (void)setStorageTree:(id)aTree;
-#endif
 
 /*!
     @method     runningTree
@@ -88,21 +70,24 @@
 - (void)setRunningTree:(id)aTree;
 
 /*!
-    @method     sourceTree
-    @abstract   The macro source tree
-    @discussion Lazy initializer.
-    @result     The macro source tree
+    @method     macroRunningNodeForID:context:ofCategory:inDomain:
+    @abstract   Abstract forthcoming
+    @discussion Primitive getter. The returned object will be asked for its name, action, ...
+    @param      ID
+    @param      context
+    @param      category
+    @param      domain
+    @result     a leaf macro tree node
 */
-- (id)sourceTree;
+- (id)macroRunningNodeForID:(NSString *)ID context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
-/*!
-    @method     setSourceTree:
-    @abstract   Set the macro source tree
-    @discussion Designated setter.
-    @param      aTree
-    @result     None
-*/
-- (void)setSourceTree:(id)aTree;
+- (id)menuTree;
+- (void)setMenuTree:(id)aTree;
+- (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 @end
 
+@interface iTM2GenericScriptButton: NSPopUpButton
++ (NSString *)domain;//see the LaTeX kit for definitions... should be overriden by subclassers
++ (NSString *)category;//see the LaTeX kit for definitions... should be overriden by subclassers
+@end
