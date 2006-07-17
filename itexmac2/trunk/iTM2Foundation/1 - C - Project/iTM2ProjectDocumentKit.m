@@ -1121,7 +1121,6 @@ orderFront:
 		[W orderFront:self];
 	}
 #endif
-	theEnd:;
  	NSMethodSignature * MS = [delegate methodSignatureForSelector:shouldCloseSelector];
 	if(MS)
 	{
@@ -7873,6 +7872,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(iTM2ProjectDocumentKit_swizzle_terminate:)replacement:@selector(terminate:)forClass:[self class]])
 	{
@@ -7887,6 +7887,7 @@ To Do List:
 	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2ProjectDocumentResponder"];
 	[iTM2MileStone registerMileStone:@"No project menu item localization available" forKey:@"iTM2LocalizedProjectMenuItems"];
 //iTM2_END;
+	iTM2_RELEASE_POOL;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _iTM2ProjectDocumentResponderDidFinishLaunching
