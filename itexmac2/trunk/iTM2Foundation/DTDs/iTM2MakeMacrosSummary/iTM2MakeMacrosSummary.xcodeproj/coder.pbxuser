@@ -2,7 +2,6 @@
 {
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Debug;
-		activeBuildStyle = 014CEA4F0018CE4811CA2923 /* Debug */;
 		activeExecutable = DC38C9C909F4D65300E37811 /* iTM2MakeMacrosSummary */;
 		activeTarget = 8DD76F960486AA7600D96B5E /* iTM2MakeMacrosSummary */;
 		breakpoints = (
@@ -70,8 +69,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172889083;
-			PBXWorkspaceStateSaveDate = 172889083;
+			PBXPerProjectTemplateStateSaveDate = 173753247;
+			PBXWorkspaceStateSaveDate = 173753247;
 		};
 		sourceControlManager = DC38C9D109F4D67600E37811 /* Source Control */;
 		userBuildSettings = {
