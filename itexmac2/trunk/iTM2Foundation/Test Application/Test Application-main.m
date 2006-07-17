@@ -61,3 +61,30 @@ int main(int argc, char *argv[])
 	return findMenu;
 }
 @end
+
+static id text = nil;
+@implementation NSApplication(O)
+- (BOOL)canEditText;
+{
+	return YES;
+}
+- (NSAttributedString *) text;
+{
+	if(!text)
+	{
+		text = [[NSMutableAttributedString alloc] initWithString:@"Binding test: this text view MUST be editable"];
+	}
+	return text;
+}
+- (void)setText:(NSAttributedString *) newText;
+{
+	if(!text)
+	{
+		text = [[NSMutableAttributedString alloc] initWithString:@"Binding test: this text view MUST be editable"];
+	}
+	[text beginEditing];
+	[text setString:(newText?[newText string]:@"")];
+	[text endEditing];
+	return;
+}
+@end
