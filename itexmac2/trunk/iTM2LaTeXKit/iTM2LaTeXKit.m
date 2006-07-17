@@ -522,7 +522,7 @@ To Do List:
 @implementation iTM2LaTeXScriptMathButton
 @end
 
-@implementation iTM2LaTeXScriptMiscButton
+@implementation iTM2LaTeXScriptMiscellaneousButton
 @end
 
 @implementation iTM2LaTeXScriptGraphicsButton
@@ -546,7 +546,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"Font_Series/Boldface" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"Font_Series-Boldface" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
@@ -557,7 +557,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"Font_Series/Italic" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"Font_Series-Italic" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
@@ -568,7 +568,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"text/underline" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"text-underline" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignCenter:
@@ -579,7 +579,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"text/center" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"text-center" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignRight:
@@ -590,7 +590,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"text/flushright" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"text-flushright" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignLeft:
@@ -601,7 +601,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"text/flushleft" forContext:@"" ofCategory:@"Text" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"text-flushleft" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subscript:
@@ -612,7 +612,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"math/subscript" forContext:@"" ofCategory:@"Math" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"math-subscript" forContext:@"Math" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
@@ -623,7 +623,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMS executeMacroWithKey:@"math/superscript" forContext:@"" ofCategory:@"Math" inDomain:@"LaTeX"];
+	[SMC executeMacroWithID:@"math-superscript" forContext:@"Math" ofCategory:@"LaTeX" inDomain:@"Text"];
     return;
 }
 #if 0

@@ -23,7 +23,7 @@
             SUPERCLASS = NSPopUpButton; 
         }, 
         {
-            CLASS = iTM2LaTeXScriptMiscButton; 
+            CLASS = iTM2LaTeXScriptMiscellaneousButton; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSPopUpButton; 
         }, 

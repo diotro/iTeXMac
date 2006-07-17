@@ -71,7 +71,7 @@ extern NSString * const iTM2LaTeXToolbarIdentifier;
 @interface iTM2LaTeXScriptMathButton: iTM2GenericScriptButton
 @end
 
-@interface iTM2LaTeXScriptMiscButton: iTM2GenericScriptButton
+@interface iTM2LaTeXScriptMiscellaneousButton: iTM2GenericScriptButton
 @end
 
 @interface iTM2LaTeXScriptGraphicsButton: iTM2GenericScriptButton
