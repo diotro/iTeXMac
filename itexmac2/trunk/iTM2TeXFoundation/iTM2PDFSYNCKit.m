@@ -2213,7 +2213,7 @@ To Do List:
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
     unsigned modifierFlags = [event modifierFlags];
-    if((modifierFlags & NSAlternate KeyMask) && ([event clickCount]>1) && [self pdfSynchronizeMouseDown:event])
+    if((modifierFlags & NSAlternateKeyMask) && ([event clickCount]>1) && [self pdfSynchronizeMouseDown:event])
 	{
 		return;
 	}
