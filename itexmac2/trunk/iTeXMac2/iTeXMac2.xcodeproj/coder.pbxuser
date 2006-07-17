@@ -2,7 +2,6 @@
 {
 	2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Development;
-		activeBuildStyle = 4A9504D0FFE6A4CB11CA0CBA /* Development */;
 		activeExecutable = DC520334088B1F3A00DE6E7F /* iTeXMac2 */;
 		activeTarget = 8D15AC270486D014006FF6A4 /* iTeXMac2 */;
 		addToTargets = (
@@ -146,8 +145,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172758853;
-			PBXWorkspaceStateSaveDate = 172758853;
+			PBXPerProjectTemplateStateSaveDate = 173898424;
+			PBXWorkspaceStateSaveDate = 173898424;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -393,10 +392,12 @@
 		isa = PBXSymbolicBreakpoint;
 		actions = (
 		);
+		breakpointStyle = 0;
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 1;
-		modificationTime = 172719505.371261;
+		location = Foundation;
+		modificationTime = 173661593.351108;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};

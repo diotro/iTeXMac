@@ -192,7 +192,9 @@ To Do List:
 @implementation NSGetCommand_iTM2
 + (void)load;
 {
+	iTM2_INIT_POOL;
 	[NSGetCommand_iTM2 poseAsClass:[NSGetCommand class]];
+	iTM2_RELEASE_POOL;
 }
 - (id)performDefaultImplementation;
 {

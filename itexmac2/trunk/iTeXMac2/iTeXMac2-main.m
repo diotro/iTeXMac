@@ -193,7 +193,9 @@ To Do List:
 @implementation NSApplication_DEBUG
 + (void)load;
 {iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
 	[self poseAsClass:[NSApplication class]];
+	iTM2_RELEASE_POOL;
 	return;
 }
 - (void)sendEvent:(NSEvent *)theEvent;

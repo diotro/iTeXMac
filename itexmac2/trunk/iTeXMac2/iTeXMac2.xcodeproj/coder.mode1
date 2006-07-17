@@ -259,15 +259,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>2A37F4AAFDCFA73011CA2CEA</string>
-								<string>DC3B3DB00A4ADADF00E83ABA</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>17</integer>
-									<integer>14</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -371,9 +369,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC2A7AF80A4C175B006864F4</string>
+				<string>DCCF01D30A5D801000B4B720</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC2A7AF90A4C175B006864F4</string>
+				<string>DCCF01D40A5D801000B4B720</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -507,8 +505,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>DCCF01DB0A5D801000B4B720</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC2A7B000A4C175C006864F4</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -555,7 +553,7 @@
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 136}, {1023, 323}}</string>
+								<string>{{0, 338}, {1023, 121}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -593,7 +591,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC69174E088BFB5600F00114</string>
-				<string>DC5B6A4A0A4B734300F7DE47</string>
+				<string>DCBEE7230A596029000EB417</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -635,8 +633,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {585, 253}}</string>
-											<string>{{585, 0}, {585, 253}}</string>
+											<string>{{0, 0}, {585, 360}}</string>
+											<string>{{585, 0}, {585, 360}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -651,8 +649,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1170, 253}}</string>
-											<string>{{0, 253}, {1170, 437}}</string>
+											<string>{{0, 0}, {1170, 360}}</string>
+											<string>{{0, 360}, {1170, 330}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -699,14 +697,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC2A7AFA0A4C175C006864F4</string>
+				<string>DCCF01D50A5D801000B4B720</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC2A7AFB0A4C175C006864F4</string>
-				<string>DC2A7AFC0A4C175C006864F4</string>
-				<string>DC2A7AFD0A4C175C006864F4</string>
-				<string>DC2A7AFE0A4C175C006864F4</string>
-				<string>DC2A7AFF0A4C175C006864F4</string>
-				<string>DC2A7B000A4C175C006864F4</string>
+				<string>DCCF01D60A5D801000B4B720</string>
+				<string>DCCF01D70A5D801000B4B720</string>
+				<string>DCCF01D80A5D801000B4B720</string>
+				<string>DCCF01D90A5D801000B4B720</string>
+				<string>DCCF01DA0A5D801000B4B720</string>
+				<string>DCCF01DB0A5D801000B4B720</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -715,7 +713,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -825,6 +823,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -860,7 +860,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC691935088C8CD600F00114</string>
-				<string>DC5B6BC50A4B784F00F7DE47</string>
+				<string>DCBEE72B0A596029000EB417</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>WindowString</key>
@@ -868,7 +868,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC691935088C8CD600F00114</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
