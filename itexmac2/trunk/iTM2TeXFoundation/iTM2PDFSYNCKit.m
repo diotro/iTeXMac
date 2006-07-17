@@ -2213,11 +2213,14 @@ To Do List:
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
     unsigned modifierFlags = [event modifierFlags];
-    if((modifierFlags & NSCommandKeyMask) && ([event clickCount]>1) && [self pdfSynchronizeMouseDown:event])
+    if((modifierFlags & NSAlternate KeyMask) && ([event clickCount]>1) && [self pdfSynchronizeMouseDown:event])
 	{
 		return;
 	}
-    [super mouseDown:event];
+	else
+	{
+		[super mouseDown:event];
+	}
 //iTM2_END;
     return;
 }
@@ -2244,12 +2247,12 @@ To Do List:
 	[S getLineStart: &start end:nil contentsEnd: &contentsEnd forRange:NSMakeRange(charIndex, 1)];
 	unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
 	unsigned column = charIndex - start;
-	[SDC displayPageForLine:line column:column source:[D fileName]
+	BOOL result = [SDC displayPageForLine:line column:column source:[D fileName]
 		withHint: [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil]
 				orderFront: [SUD boolForKey:@"iTM2PDFSYNCOrderFrontOutput"] force:YES];
 //iTM2_END;
-    return;
+    return result;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  jumpToOutput:
