@@ -12,18 +12,6 @@
 			buildConfigurationList = DC6BB80D09474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				DC8A60CD088D72200016FAA2 /* PBXTargetDependency */,
 			);
@@ -67,34 +55,6 @@
 		DCFE70EC090E77A400A36206 /* iTM2_Engine_mps2pdf in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf */; };
 		DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXBuildStyle section */
-		014CEA440018CDF011CA2923 /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OBJROOT = "$(SYMROOT)";
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		014CEA450018CDF011CA2923 /* Deployment */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				OBJROOT = "$(SYMROOT)";
-				SYMROOT = "$(SRCROOT)/../build";
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
 		DC8A60CC088D72200016FAA2 /* PBXContainerItemProxy */ = {
@@ -366,28 +326,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/build;
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iTM2MetaPostKit-Prefix.pch";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iTM2MetaPostKit-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x49000000,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2MetaPostKit;
-				SKIP_INSTALL = YES;
-			};
 			dependencies = (
 				DCBD7E4109491B7100E2ACC7 /* PBXTargetDependency */,
 			);
@@ -405,30 +343,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			comments = "The only purpose of this target is to define iTeXMac2 executable as side effect.\nDon't remove it.\n";
 			dependencies = (
 				DC993BA8088DF2FC00F8BCE1 /* PBXTargetDependency */,
@@ -436,31 +350,6 @@
 			name = iTeXMac2;
 			productName = iTeXMac2;
 			productReference = DC81AE6E08871B4600943C99 /* iTeXMac2.app */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>iTeXMac2</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.iTeXMac2</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.application";
 		};
 		DCBD7E3709491B4500E2ACC7 /* Prepare iTM2PDFKit */ = {
@@ -471,52 +360,11 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "Prepare iTM2PDFKit-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "Prepare iTM2PDFKit";
-				ZERO_LINK = YES;
-			};
 			dependencies = (
 			);
 			name = "Prepare iTM2PDFKit";
 			productName = "Prepare iTM2PDFKit";
 			productReference = DCBD7E3809491B4500E2ACC7 /* iTM2PDFKit.framework */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Prepare iTM2PDFKit</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>FMWK</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -525,12 +373,6 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB81509474616004B0A81 /* Build configuration list for PBXProject "iTM2MetaPostKit" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				014CEA440018CDF011CA2923 /* Development */,
-				014CEA450018CDF011CA2923 /* Deployment */,
-			);
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;

@@ -2,7 +2,6 @@
 {
 	0867D690FE84028FC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Development;
-		activeBuildStyle = 014CEA440018CDF011CA2923 /* Development */;
 		activeExecutable = DC5203AC088B1FB000DE6E7F /* iTeXMac2 */;
 		activeTarget = DC2CA78D0855D4F500128F14 /* All */;
 		addToTargets = (
@@ -104,8 +103,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 172758859;
-			PBXWorkspaceStateSaveDate = 172758859;
+			PBXPerProjectTemplateStateSaveDate = 173898432;
+			PBXWorkspaceStateSaveDate = 173898432;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBookmarkGroup = DC8A4281091108CA00F47F63 /* PBXBookmarkGroup */;
@@ -296,6 +295,7 @@
 	};
 	DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */ = {
 		isa = PBXSymbolicBreakpoint;
+		breakpointStyle = 0;
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 0;
