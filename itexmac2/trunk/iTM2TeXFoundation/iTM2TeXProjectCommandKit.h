@@ -482,7 +482,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 + (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
 
 /*!
-    @method     environmentDictionaryForBaseProject:
+    @method     environmentWithDictionary:forBaseProject:
     @abstract   The environement dictionary for the given base project
     @discussion See the -concreteEnvironmentDictionaryForProject: for details.
 				The default implementation just prepares the customized command shell scripts
@@ -493,10 +493,10 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project is a TeX base project
     @result     An NSDictionary instance.
 */
-+ (NSDictionary *)environmentDictionaryForBaseProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 
 /*!
-    @method     environmentDictionaryForProject:
+    @method     environmentWithDictionary:forProject:
     @discussion See the -concreteEnvironmentDictionaryForProject: for details.
 				The default implementation just prepares the customized command shell scripts.
 				All these shell scripts might be used by any of the commands.
@@ -505,7 +505,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project is a TeX project
     @result     An NSDictionary instance.
 */
-+ (NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     concreteEnvironmentDictionaryForProject:

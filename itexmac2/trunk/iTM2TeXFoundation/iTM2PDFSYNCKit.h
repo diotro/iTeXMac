@@ -31,7 +31,7 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
 @interface iTM2PDFDocument(iTM2PDFSYNCKit)
 
 /*! 
-    @method     synchronizeWithLocation:inPageAtIndex:withHint:
+    @method     synchronizeWithLocation:inPageAtIndex:withHint:orderFront:
     @abstract   Displays the source at the right location.
     @discussion The hint is an expected character, a word containing that character, a small phrase before and a small phrase after,
 				the point before, the point after.
@@ -41,9 +41,10 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
     @param      thePoint is a point
     @param      thePage is a 0 based page index
     @param      hint is a dictionary containing hints to help synchronizing
+    @param      yorn is a flag
     @result     None
 */
-- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint;
+- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 
 /*! 
     @method     displayPageForLine:column:source:withHint:orderFront:

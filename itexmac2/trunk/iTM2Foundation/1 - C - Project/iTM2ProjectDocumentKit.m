@@ -4830,6 +4830,7 @@ NSString * const iTM2ProjectCurrentDidChangeNotification = @"iTM2CurrentProjectD
 - (NSString *)projectName;
 - (void)setFileName:(NSString *)fileName;
 - (NSString *)projectDirName;
+- (void)setUpProject:(id)projectDocument;
 
 @end
 
@@ -6661,7 +6662,8 @@ To Do List:
 		{
 			// where shall I find this project document?
 			id projectDocument = [self newFarawayProjectForFileName:fileName display:display error:outError];
-			[SPC setProject:projectDocument forFileName:fileName];
+			[controller setUpProject:projectDocument];
+			[SPC setProject:projectDocument forFileName:fileName];//iTM2ProjectDocument
 			return projectDocument;
 		}
 		break;
@@ -8402,6 +8404,18 @@ To Do List:
 	[_ProjectDirName autorelease];
 	_ProjectDirName = nil;
 	[super dealloc];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUpProject:
+- (void)setUpProject:(id)projectDocument;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
 //iTM2_END;
 	return;
 }

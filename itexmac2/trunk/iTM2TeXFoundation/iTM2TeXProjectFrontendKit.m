@@ -96,7 +96,8 @@ To Do List:
 		NSString * master = [TPD absoluteFileNameForKey:[TPD masterFileKey]];
 		if([master length])
 		{
-			NSString * output = [[master stringByDeletingPathExtension] stringByAppendingPathExtension:[TPD outputFileExtension]];
+			master = [[master stringByDeletingPathExtension] stringByAppendingPathExtension:[TPD outputFileExtension]];
+			NSString * output = master;
 			NSURL * url = [NSURL fileURLWithPath:output];
 			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
 				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
@@ -104,6 +105,15 @@ To Do List:
 			url = [NSURL fileURLWithPath:output];
 			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
 				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+			NSString * projectFileName = [TPD fileName];
+			if([projectFileName belongsToFarawayProjectsDirectory])
+			{
+				output = [projectFileName stringByDeletingLastPathComponent];
+				output = [output stringByAppendingPathComponent:[master lastPathComponent]];
+				url = [NSURL fileURLWithPath:output];
+				if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
+					return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+			}
 		}
 	}
 	else if([source length])
@@ -1254,6 +1264,19 @@ typedef struct {
     } iTM2NewTeXProjectFlags;
 
 @implementation iTM2NewTeXProjectController
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUpProject:
+- (void)setUpProject:(id)projectDocument;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (08/29/2001):
+- 1.3:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[projectDocument setBaseProjectName:[self baseProjectName]];
+//iTM2_END;
+	return;
+}
 #pragma mark =-=-=-=-=-  ACCESSORS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileName
 - (NSString *)fileName;

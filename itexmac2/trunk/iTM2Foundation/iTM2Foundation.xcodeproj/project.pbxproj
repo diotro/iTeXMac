@@ -674,7 +674,7 @@
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
-		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98663A09EA733B00FF4BD3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DC98663B09EA733B00FF4BD3 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextCompletionKit.h; sourceTree = "<group>"; };

@@ -54,7 +54,7 @@ NSString * const iTM2TPFEEngineScriptsKey = @"EngineScripts";
 @interface iTM2TeXPCompilePerformer(PRIVATE)
 + (NSArray *)allBuiltInEngineModes;
 + (NSArray *)builtInEngineModes;
-+ (NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 @end
 
 @implementation iTM2TeXPCommandsInspector(Compile)
@@ -1683,8 +1683,8 @@ To Do List:
 //iTM2_END;
     return ED;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForBaseProject:
-+ (NSDictionary *)environmentDictionaryForBaseProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1705,8 +1705,8 @@ To Do List:
 	NSString * command = [self commandName];//@"Compile"
 	NSString * mode = [[project commandWrapperForName:command] scriptMode];
 	if([mode isEqual:iTM2TPFEVoidMode])
-		return [super environmentDictionaryForProject:project];
-    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentDictionaryForProject:project]];
+		return [super environmentWithDictionary:environment forProject:project];
+    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:environment forProject:project]];
 //iTM2_LOG(@"111-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 	mode = [[project commandWrapperForName:command] environmentMode];
 	if([mode isEqual:iTM2TPFEVoidMode])
@@ -1724,7 +1724,10 @@ To Do List:
 		while(O = [E nextObject])
 		{
 			NSString * key = [NSString stringWithFormat:@"iTM2_Compile_%@", O];
-			[ED takeValue:key forKey:key];
+			if(![ED valueForKey:key])
+			{
+				[ED takeValue:key forKey:key];
+			}
 		}
 	}
 	else
@@ -1739,14 +1742,23 @@ To Do List:
 //iTM2_LOG(@"222-key is: %@", key);
 //iTM2_LOG(@"222-CW is: %@", CW);
 			if([scriptMode isEqual:iTM2TPFEBaseMode])
+			{
 			// the script is one of the default iTM2 script
-				[ED takeValue:key forKey:key];
+				if(![ED valueForKey:key])
+				{
+					[ED takeValue:key forKey:key];
+				}
+			}
 			else if([scriptMode hasPrefix:@"iTM2_Engine_"])
+			{
 			// the script is one of the built in engines
 				[ED takeValue:scriptMode forKey:key];
+			}
 			else
+			{
 			// the script is one of the project customized scripts
 				[ED takeValue:[NSString stringWithFormat:@"iTM2_BaseEngine_%@", scriptMode] forKey:key];
+			}
 			[ED addEntriesFromDictionary:[project environmentForEngineMode:[CW environmentMode]]];
 //iTM2_LOG(@"222-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 		}
@@ -1756,8 +1768,8 @@ To Do List:
 //iTM2_END;
 	return ED;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForProject:
-+ (NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1777,7 +1789,7 @@ To Do List:
 	NSString * mode = [[project commandWrapperForName:command] scriptMode];
 	if([mode isEqual:iTM2TPFEVoidMode])
 		return [super environmentDictionaryForProject:project];
-    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentDictionaryForProject:project]];
+    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:environment forProject:project]];
 //iTM2_LOG(@"312-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 	mode = [[project commandWrapperForName:command] environmentMode];
 	if([mode isEqual:iTM2TPFEVoidMode])
@@ -1805,14 +1817,20 @@ To Do List:
 			NSString * scriptMode = [CW scriptMode];
 //iTM2_LOG(@"scriptMode is: %@, key is: %@, project is: %@", scriptMode, key, project);
 			if([scriptMode isEqual:iTM2TPFEBaseMode])
+			{
 			// the script is inherited from the bas project
 				;//[ED takeValue:key forKey:key];
+			}
 			else if([scriptMode hasPrefix:@"iTM2_Engine_"])
+			{
 			// the script is one of the built in engines
 				[ED takeValue:scriptMode forKey:key];
+			}
 			else
+			{
 			// the script is one of the project customized scripts
 				[ED takeValue:[NSString stringWithFormat:@"iTM2_Engine_%@", scriptMode] forKey:key];
+			}
 			[ED addEntriesFromDictionary:[project environmentForEngineMode:[CW environmentMode]]];
 		}
 	}

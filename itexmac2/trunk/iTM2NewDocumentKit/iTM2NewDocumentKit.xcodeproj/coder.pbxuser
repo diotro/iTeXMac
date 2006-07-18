@@ -12,7 +12,6 @@
 			DCDF58510A3A1F5E0099E562 /* iTM2NewDocumentKit.m:2650 */,
 			DC0874220A42DB4C0062ABE6 /* iTM2NewDocumentKit.m:1548 */,
 			DC08760D0A42E4C10062ABE6 /* iTM2NewDocumentKit.m:1363 */,
-			DCD3A89D0A39A59300B5EE0C /* iTM2NewDocumentKit.m:3156 */,
 		);
 		breakpointsGroup = DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DCDE977508EC808C00A7C892 /* Code sense */;
@@ -140,12 +139,21 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 173898435;
-			PBXWorkspaceStateSaveDate = 173898435;
+			PBXPerProjectTemplateStateSaveDate = 174932278;
+			PBXWorkspaceStateSaveDate = 174932278;
 		};
 		perUserProjectItems = {
-			DC2099A80A5C24DF003BC3D6 /* PBXTextBookmark */ = DC2099A80A5C24DF003BC3D6 /* PBXTextBookmark */;
-			DCCF01B70A5D7FF500B4B720 /* PBXTextBookmark */ = DCCF01B70A5D7FF500B4B720 /* PBXTextBookmark */;
+			DC2678170A6D413E001B9EC5 /* PBXTextBookmark */ = DC2678170A6D413E001B9EC5 /* PBXTextBookmark */;
+			DC26781B0A6D4165001B9EC5 /* PBXTextBookmark */ = DC26781B0A6D4165001B9EC5 /* PBXTextBookmark */;
+			DC2678450A6D44FD001B9EC5 /* PBXTextBookmark */ = DC2678450A6D44FD001B9EC5 /* PBXTextBookmark */;
+			DC26784B0A6D4576001B9EC5 /* PBXTextBookmark */ = DC26784B0A6D4576001B9EC5 /* PBXTextBookmark */;
+			DC2679710A6D4C77001B9EC5 /* PBXTextBookmark */ = DC2679710A6D4C77001B9EC5 /* PBXTextBookmark */;
+			DC2679940A6D7358001B9EC5 /* PBXTextBookmark */ = DC2679940A6D7358001B9EC5 /* PBXTextBookmark */;
+			DC2679AF0A6D77A0001B9EC5 /* PBXTextBookmark */ = DC2679AF0A6D77A0001B9EC5 /* PBXTextBookmark */;
+			DC2679BB0A6D7848001B9EC5 /* PBXTextBookmark */ = DC2679BB0A6D7848001B9EC5 /* PBXTextBookmark */;
+			DC2679D30A6D7E14001B9EC5 /* PBXTextBookmark */ = DC2679D30A6D7E14001B9EC5 /* PBXTextBookmark */;
+			DC4AB35F0A6C5F2B00531ADA = DC4AB35F0A6C5F2B00531ADA /* PBXTextBookmark */;
+			DCCF01B70A5D7FF500B4B720 = DCCF01B70A5D7FF500B4B720 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
@@ -163,7 +171,7 @@
 		hitCount = 1;
 		lineNumber = 1548;
 		location = iTM2NewDocumentKit;
-		modificationTime = 173145107.738997;
+		modificationTime = 174950505.62002;
 		state = 1;
 	};
 	DC08760D0A42E4C10062ABE6 /* iTM2NewDocumentKit.m:1363 */ = {
@@ -178,7 +186,7 @@
 		hitCount = 1;
 		lineNumber = 1363;
 		location = iTM2NewDocumentKit;
-		modificationTime = 173145107.739066;
+		modificationTime = 174950506.231134;
 		state = 1;
 	};
 	DC08762B0A42E7080062ABE6 /* iTM2NewDocumentKit.m:1436 */ = {
@@ -193,13 +201,93 @@
 		hitCount = 1;
 		lineNumber = 1436;
 		location = iTM2NewDocumentKit;
-		modificationTime = 173145107.739132;
+		modificationTime = 174950504.410576;
 		state = 1;
 	};
 	DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */ = {
 		activeExec = 0;
 	};
-	DC2099A80A5C24DF003BC3D6 /* PBXTextBookmark */ = {
+	DC2678170A6D413E001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC26781B0A6D4165001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC2678450A6D44FD001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC26784B0A6D4576001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC2679710A6D4C77001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC2679940A6D7358001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC2679AF0A6D77A0001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC2679BB0A6D7848001B9EC5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
+	DC2679D30A6D7E14001B9EC5 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
 		name = "iTM2NewDocumentKit.m: 3366";
@@ -249,6 +337,16 @@
 			sepNavWindowFrame = "{{61, 39}, {1144, 792}}";
 		};
 	};
+	DC4AB35F0A6C5F2B00531ADA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
+	};
 	DC5D70750949E27F00EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
 	};
@@ -295,7 +393,7 @@
 		hitCount = 1;
 		lineNumber = 3156;
 		location = iTM2NewDocumentKit;
-		modificationTime = 173145107.738899;
+		modificationTime = 174932321.697841;
 		state = 1;
 	};
 	DCDE975E08EC808300A7C892 /* iTeXMac2 */ = {
@@ -330,6 +428,8 @@
 		};
 		sourceDirectories = (
 		);
+		variableFormatDictionary = {
+		};
 	};
 	DCDE977408EC808C00A7C892 /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -355,7 +455,7 @@
 		hitCount = 1;
 		lineNumber = 2650;
 		location = iTM2NewDocumentKit;
-		modificationTime = 173145107.7392;
+		modificationTime = 174950505.017706;
 		state = 1;
 	};
 	DCE8742609352CC500037138 /* -[NSException raise] */ = {
@@ -366,7 +466,8 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 1;
-		modificationTime = 172197637.156177;
+		location = Foundation;
+		modificationTime = 174932307.413801;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};

@@ -1312,8 +1312,8 @@ DEFINECLASS(iTM2TeXPRenderPerformer, 30, 0)
 	return 20;
 }
 #if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForBaseProject:
-+ (NSDictionary *)environmentDictionaryForBaseProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1322,20 +1322,20 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id result;
-	id D = [super environmentDictionaryForBaseProject:project];
+	id D = [super environmentWithDictionary:forBaseProject:project];
 	result = [NSMutableDictionary dictionaryWithDictionary:D];
 	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
 	Class C;
 	while(C = (Class)[[E nextObject] nonretainedObjectValue])
 	{
 		if(C != self)
-			[result addEntriesFromDictionary:[C environmentDictionaryForBaseProject:project]];
+			[result addEntriesFromDictionary:[C environmentWithDictionary:forBaseProject:project]];
 	}
 //iTM2_END;
 	return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForProject:
-+ (NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1369,8 +1369,8 @@ To Do List:
 	return 20;
 }
 #if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForBaseProject:
-+ (NSDictionary *)environmentDictionaryForBaseProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1378,19 +1378,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id result = [NSMutableDictionary dictionaryWithDictionary:[super environmentDictionaryForBaseProject:project]];
+	id result = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:forBaseProject:project]];
 	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
 	Class C;
 	while(C = (Class)[[E nextObject] nonretainedObjectValue])
 	{
 		if((C != self) && (C != [iTM2TeXPCommandPerformer class]))
-			[result addEntriesFromDictionary:[C environmentDictionaryForBaseProject:project]];
+			[result addEntriesFromDictionary:[C environmentWithDictionary:forBaseProject:project]];
 	}
 //iTM2_END;
 	return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForProject:
-+ (NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1474,10 +1474,11 @@ To Do List:
 	}
 	else
 	{
-		[[iTM2TeXPCommandManager commandPerformerForName:@"Compile"]//very bad design...
+		NSString * commandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName"];
+		[[iTM2TeXPCommandManager commandPerformerForName:commandName]
 			performCommandForProject: TPD];
 		NSImage * I = [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"];
-		iTM2_LOG(@"[NSImage imageNamed:@\"stopTypesetCurrentProjectToolbarImage\"] is: %@", [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"]);
+//iTM2_LOG(@"[NSImage imageNamed:@\"stopTypesetCurrentProjectToolbarImage\"] is: %@", [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"]);
 		[sender setImage:I];
 	}
 //iTM2_END;
@@ -1604,6 +1605,7 @@ next:
 	[PB setMenu:M];
 	[PB insertItemWithTitle:@"" atIndex:0];// the title is the first item
 	[PB setPullsDown:YES];
+	[PB selectItem:nil];
 	[[B cell] setPopUpCell:[PB cell]];
 	return toolbarItem;
 }

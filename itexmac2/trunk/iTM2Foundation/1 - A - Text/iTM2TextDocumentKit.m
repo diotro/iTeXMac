@@ -508,7 +508,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * documentString = [[self textStorage] string];
+	NSTextStorage * TS = [self textStorage];
+	NSString * documentString = [TS string];
 	if([hint isKindOfClass:[NSDictionary class]])
 	{
 		NSMutableDictionary * matches = [NSMutableDictionary dictionary];

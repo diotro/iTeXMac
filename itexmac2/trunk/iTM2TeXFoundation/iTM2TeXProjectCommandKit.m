@@ -281,12 +281,16 @@ To Do List:
 	{
 		NSDictionary * D = [TPD commandEnvironments];
 		NSEnumerator * E = [D keyEnumerator];
-		NSString * commandName;
+		NSString * commandName = nil;
 		while(commandName = [E nextObject])
+		{
 			[TPD takeEnvironment:nil forCommandMode:commandName];
+		}
 		E = [newD keyEnumerator];
 		while(commandName = [E nextObject])
+		{
 			[TPD takeEnvironment:[newD objectForKey:commandName] forCommandMode:commandName];
+		}
 	}
 	else
 	{
@@ -299,10 +303,14 @@ To Do List:
 		NSEnumerator * E = [D keyEnumerator];
 		NSString * commandName;
 		while(commandName = [E nextObject])
+		{
 			[TPD takeScriptDescriptor:nil forCommandMode:commandName];
+		}
 		E = [newD keyEnumerator];
 		while(commandName = [E nextObject])
+		{
 			[TPD takeScriptDescriptor:[newD objectForKey:commandName] forCommandMode:commandName];
+		}
 	}
 	else
 	{
@@ -1181,7 +1189,7 @@ To Do List:
         iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 //iTM2_LOG(@"[TPD commandScripts] is: %@", [TPD commandScripts]);
         NSEnumerator * E = [[TPD commandScripts] keyEnumerator];
-        NSString * commandName;
+        NSString * commandName = nil;
         while(commandName = [E nextObject])
         {
             NSString * label = [[TPD scriptDescriptorForCommandMode:commandName] iVarLabel];
@@ -2627,12 +2635,16 @@ To Do List: to be improved...
 //iTM2_LOG(@"/\\/\\/\\/\\  2");
 		[TW setLaunchPath:iTM2_Launch];
 //iTM2_LOG(@"/\\/\\/\\/\\  3");
-		[TW replaceEnvironment:[SUD dictionaryForKey:iTM2EnvironmentVariablesKey]];
-        [TW mergeEnvironment: ([self concreteEnvironmentDictionaryForProject:project]?:[NSDictionary dictionary])];
+		NSDictionary * D = [SUD dictionaryForKey:iTM2EnvironmentVariablesKey];
+		[TW replaceEnvironment:D];
+		D = [self concreteEnvironmentDictionaryForProject:project]?:[NSDictionary dictionary];
+//iTM2_LOG(@"D is:%@",D);
+        [TW mergeEnvironment: D];
 //iTM2_LOG(@"[project commandEnvironmentDictionary] is: %@", [project commandEnvironmentDictionary]);
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
-		[TW mergeEnvironment:[[project baseProjectName] TeXProjectProperties]];
+		D = [[project baseProjectName] TeXProjectProperties];
+		[TW mergeEnvironment:D];
 		NSString * currentDirectory = [[TW environment] objectForKey:@"PWD"];
         [TW setCurrentDirectoryPath:(currentDirectory?:@"")];
 		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
@@ -2684,13 +2696,23 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:sender];
-	if(!TPD) TPD = [SPC currentTeXProject];
+    iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:sender]?:[SPC currentTeXProject];
 	[sender setTitle:[self menuItemTitleForProject:TPD]];
 	if([SPC isBaseProject:TPD])
 		return NO;
 	// selector  names like projectXXXXX: are catched here
-	NSString * commandName = [[self class] commandName];
+	NSString * lastCommandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName"];
+	NSString * commandName = [self commandName];
+	[sender setState:([lastCommandName isEqual:commandName]?NSMixedState:NSOffState)];
+	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];
+	if(!I)
+	{
+		NSString * path = [[NSBundle bundleForClass:self] pathForImageResource:@"iTeXMac2Mini"];
+		I = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
+		[I setName:@"iTeXMac2Mini"];
+	}
+	[sender setMixedStateImage:I];// this does not work yet, may be in leopard...
+//iTM2_LOG(@"I: %@, MSI: %@", I, [sender mixedStateImage]);
 	NSString * scriptMode = [[TPD commandWrapperForName:commandName] scriptMode];
 //iTM2_LOG(@"commandName is: %@, scriptMode is: %@", commandName, scriptMode);
 	if([scriptMode isEqual:iTM2TPFEVoidMode])
@@ -2768,8 +2790,8 @@ To Do List:
 //iTM2_END;
     return ED;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForBaseProject:
-+ (NSDictionary *)environmentDictionaryForBaseProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2777,7 +2799,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMutableDictionary * ED = [NSMutableDictionary dictionary];
+    NSMutableDictionary * ED = [[environment mutableCopy] autorelease];
 	NSString * command = [self commandName];
 	// This is the default engine for any command
 	NSString * key = [NSString stringWithFormat:@"iTM2_%@", command];//iTM2_Compile, iTM2_Index...
@@ -2790,11 +2812,11 @@ To Do List:
 	}
 	else if([mode isEqual:iTM2TPFEBaseMode])
 	{
-		[ED takeValue:[NSString stringWithFormat:@"iTM2_BaseCommand_%@", command] forKey:key];
+		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", command] forKey:key];
 	}
 	else
 	{
-		[ED takeValue:[NSString stringWithFormat:@"iTM2_BaseCommand_%@", mode] forKey:key];
+		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", mode] forKey:key];
 	}
 	mode = [CW environmentMode];
 	if(![mode isEqual:iTM2TPFEVoidMode] && ![mode isEqual:iTM2TPFEBaseMode])
@@ -2804,8 +2826,8 @@ To Do List:
 //iTM2_END;
     return ED;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentDictionaryForProject:
-+ (NSDictionary *)environmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
++ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2813,7 +2835,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMutableDictionary * ED = [NSMutableDictionary dictionary];
+    NSMutableDictionary * ED = [[environment mutableCopy] autorelease];
 	NSString * command = [self commandName];
 	// This is the default engine for any command
 	NSString * key = [NSString stringWithFormat:@"iTM2_%@", command];//iTM2_Compile, iTM2_Index...
@@ -2828,7 +2850,10 @@ To Do List:
 	}
 	else if([mode isEqual:iTM2TPFEBaseMode])
 	{
-		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", command] forKey:key];
+		if(![ED valueForKey:key])
+		{
+			[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", command] forKey:key];
+		}
 	}
 	else
 	{
@@ -2856,27 +2881,39 @@ To Do List:
 	NSMutableDictionary * result = [NSMutableDictionary dictionary];
 //iTM2_LOG(@"1-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
 	// base project related stuff
+	NSMutableArray * baseProjects = [NSMutableArray array];
 	id baseProject = [project baseProject];
-	if(baseProject)
+	while(baseProject && ![baseProjects containsObject:baseProject])
+	{
+		[baseProjects addObject:baseProject];
+		baseProject = [baseProject baseProject];
+	}
+	// basePProjects contains the stack of all the base projects ancestors of project
+	NSEnumerator * E = [baseProjects reverseObjectEnumerator];
+	while(baseProject = [E nextObject])
 	{
 		[result addEntriesFromDictionary:[self environmentScriptsForBaseProject:baseProject]];
-		NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
+//iTM2_LOG(@"result:%@",result);
+		NSEnumerator * e = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
 		Class C;
-		while(C = (Class)[[E nextObject] nonretainedObjectValue])
+		while(C = (Class)[[e nextObject] nonretainedObjectValue])
 		{
-			[result addEntriesFromDictionary:[C environmentDictionaryForBaseProject:baseProject]];
+			[result addEntriesFromDictionary:[C environmentWithDictionary:result forBaseProject:baseProject]];
+//iTM2_LOG(@"result:%@",result);
 //iTM2_LOG(@"2-iTM2_Compile_tex is: %@ from %@", [result objectForKey:@"iTM2_Compile_tex"], C);
 		}
 	}
 //iTM2_LOG(@"2-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
 	// project related stuff
 	[result addEntriesFromDictionary:[self environmentScriptsForProject:project]];
+//iTM2_LOG(@"result:%@",result);
 //iTM2_LOG(@"3-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
-	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
-	Class C;
+	E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
+	Class C = Nil;
 	while(C = (Class)[[E nextObject] nonretainedObjectValue])
 	{
-		[result addEntriesFromDictionary:[C environmentDictionaryForProject:project]];
+		[result addEntriesFromDictionary:[C environmentWithDictionary:result forProject:project]];
+//iTM2_LOG(@"result:%@",result);
 	}
 //iTM2_LOG(@"4-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
 	// more general stuff

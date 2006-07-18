@@ -43,7 +43,7 @@ Are they what was expected?"
     exit 1
 fi
 # the specific environment:
-if [ "${iTM2_Debug:-0}" != "0" ]
+if [ ${#iTM2_Debug} -gt 0 ]
 then
 	"${iTM2_CMD_Notify}" start comment
     "${iTM2_CMD_Notify}" echo "The $0 specific environment is:"
@@ -117,7 +117,7 @@ if [ ${#iTM2PREFIX} -gt 0 ]
 then
     PATH="$iTM2PREFIX:$PATH"
 fi
-if [ ${iTM2_Debug:-0} -gt 0 ]
+if [ ${#iTM2_Debug} -gt 0 ]
 then
 	"${iTM2_CMD_Notify}" comment "PATH is {$PATH}"
 fi
@@ -128,12 +128,12 @@ do
 	echo "${!iTM2SCRIPT}" > "${iTM2BinaryPATH}/${iTM2NAME}"
 	chmod u+x "${iTM2BinaryPATH}/${iTM2NAME}"
 	eval "${iTM2SCRIPT}=\"customized\""
-	if [ ${iTM2_Debug:-0} -gt 0 ]
+	if [ ${#iTM2_Debug} -gt 0 ]
 	then
 		"${iTM2_CMD_Notify}" comment "customized script ${iTM2SCRIPT}: {`which ${iTM2NAME}`}"
 	fi
 done
-if [ ${iTM2_Debug:-0} -gt 0 ]
+if [ ${#iTM2_Debug} -gt 0 ]
 then
 	"${iTM2_CMD_Notify}" comment "The environment is:
 `printenv`
@@ -152,12 +152,12 @@ then
     iTM2IndirectCommand="iTM2_${iTM2Command}"
     iTM2WrappedCommand="${!iTM2IndirectCommand}"
     iTM2CommandPath="`which "${iTM2WrappedCommand}"`"
-echo "the iTM2CommandPath is: ${iTM2CommandPath}"
+#echo "the iTM2CommandPath is: ${iTM2CommandPath}"
     if [ ! -x "${iTM2CommandPath}" ]
 	then
-echo "iTM2Command is: $iTM2Command"
-echo "iTM2IndirectCommand is: $iTM2IndirectCommand"
-echo "iTM2WrappedCommand is: $iTM2WrappedCommand"
+#echo "iTM2Command is: $iTM2Command"
+#echo "iTM2IndirectCommand is: $iTM2IndirectCommand"
+#echo "iTM2WrappedCommand is: $iTM2WrappedCommand"
 		oldIFS="$IFS"
 		IFS=":"
 		for COMPONENT in ${PATH}; do
@@ -176,7 +176,7 @@ echo "iTM2WrappedCommand is: $iTM2WrappedCommand"
 	fi
 	if [ ${#iTM2CommandPath} -gt 0 ]
 	then
-		if [ "${iTM2_RunSilently:-0}" = "0" ]
+		if [ ${#iTM2_RunSilently} -eq 0 ]
 		then
 				"${iTM2_CMD_Notify}" comment "running ${iTM2Command} (${iTM2WrappedCommand})"
 		fi
@@ -191,7 +191,7 @@ echo "iTM2WrappedCommand is: $iTM2WrappedCommand"
 		"${iTM2_CMD_Notify}" echo "iTM2WrappedCommand is \"${iTM2WrappedCommand}\""
 		"${iTM2_CMD_Notify}" stop error
 		status="1"
-		if [ "${iTM2_RunSilently:-0}" = "0" ]
+		if [ ${#iTM2_RunSilently} -gt 0 ]
 		then
 				"${iTM2_CMD_Notify}" error "the launch utility ends with `basename "$1"` Failed ($status)"
 		fi
@@ -200,13 +200,13 @@ echo "iTM2WrappedCommand is: $iTM2WrappedCommand"
 date "+END - DATE: %m/%d/%y%nTIME: %H:%M:%S"
     if [ "$status" = "0" ]
     then
-        if [ "${iTM2_RunSilently:-0}" = "0" ]
+        if [ ${#iTM2_RunSilently} -eq 0 ]
         then
                 "${iTM2_CMD_Notify}" comment "the launch utility ends with `basename "$1"` Complete"
         fi
         exit 0
     else
-        if [ "${iTM2_RunSilently:-0}" = "0" ]
+        if [ ${#iTM2_RunSilently} -eq 0 ]
         then
                 "${iTM2_CMD_Notify}" error "the launch utility ends with `basename "$1"` Failed ($status)"
         fi

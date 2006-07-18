@@ -77,6 +77,7 @@
 		DC35E56C091A17D700BF5635 /* bookmarkToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */; };
 		DC35E56D091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */; };
 		DC35E56E091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */; };
+		DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */; };
 		DC4AF2D209118F170057E325 /* showCurrentPLogToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */; };
 		DC4AF2D609118F170057E325 /* showCurrentPLogToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */; };
 		DC4AF31709119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF31609119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif */; };
@@ -305,6 +306,7 @@
 		DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typesetCurrentProjectToolbarImage.png; sourceTree = "<group>"; };
 		DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41760A4ADC7300E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTeXMac2Mini.png; sourceTree = "<group>"; };
 		DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentPLogToolbarImage.tif; sourceTree = "<group>"; };
 		DC4AF31609119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentProjectSettingsToolbarImage.tif; sourceTree = "<group>"; };
 		DC4AF394091225C20057E325 /* cautionTypesetToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = cautionTypesetToolbarImage.tif; sourceTree = "<group>"; };
@@ -705,6 +707,7 @@
 				DC90CF7C09978A1200C79525 /* iTM2ScriptRecent.png */,
 				DC90CF7D09978A1200C79525 /* iTM2ScriptText.png */,
 				DC90CF7E09978A1200C79525 /* iTM2ScriptUser.png */,
+				DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -929,6 +932,7 @@
 				DCAF9A4009D810A400AFD95F /* Styles.resources.tgz in Resources */,
 				DCCD2FDA09E17ED40003EEF9 /* Inspector.strings in Resources */,
 				DCD3A6650A38FA0400B5EE0C /* EnvironmentVariables.plist in Resources */,
+				DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

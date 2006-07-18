@@ -1788,6 +1788,8 @@ To Do List:
 			NSString * category = [self category];
 			NSString * domain = [self domain];
 			NSMenu * M = [[iTM2MacroController sharedMacroController] macroMenuForContext:context ofCategory:category inDomain:domain error:nil];
+			M = [[M deepCopy] autorelease];
+			// insert a void item for the title
 			[M insertItem:[[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease] atIndex:0];// for the title
 			return M;
 		}
@@ -1811,7 +1813,7 @@ To Do List:
 	NSView * superview = [self superview];
 	[self removeFromSuperviewWithoutNeedingDisplay];
 	[superview addSubview:self];
-	[self setMenu:[[[[self class] menu] deepCopy] autorelease]];
+	[self setMenu:[[self class] menu]];
 	[[self cell] setAutoenablesItems:YES];
 //iTM2_END;
     return;

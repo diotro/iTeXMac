@@ -128,12 +128,12 @@ then
 		iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -progname \"${iTM2_XeTeX_progname}\""
 	fi
 else
+	iTM2_XeTeX_fmt="`echo ${iTM2_XeTeX_fmt} | tr [:upper:] [:lower:]`"
 	if [ "${iTM2_XeTeX_USE_progname:-0}" != "0" ] && [ ${#iTM2_XeTeX_progname} -ne 0 ]
 	then
 		iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -progname \"${iTM2_XeTeX_progname}\""
 		if [ ${#iTM2_XeTeX_fmt} -gt 0 ]
 		then
-			iTM2_XeTeX_fmt="`echo ${iTM2_XeTeX_fmt} | tr [:upper:] [:lower:]`"
 			if [ "${iTM2_XeTeX_fmt}" == "plain" ]
 			then
 				iTM2_XeTeX_fmt="xetex"
@@ -141,7 +141,7 @@ else
 			then
 				iTM2_XeTeX_fmt="xe${iTM2_XeTeX_fmt}"
 			fi
-			iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -fmt \"${iTM2_XeTeX_fmt}\""
+			iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -fmt ${iTM2_XeTeX_fmt}"
 		fi
 	elif [ "${iTM2_XeTeX_fmt}" == "plain" ]
 	then
@@ -152,7 +152,7 @@ else
 		then
 			iTM2_XeTeX_fmt="xe${iTM2_XeTeX_fmt}"
 		fi
-		iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -progname \"${iTM2_XeTeX_fmt}\""
+		iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -progname ${iTM2_XeTeX_fmt}"
 	fi
 	if [ "${iTM2_XeTeX_USE_translate_file:-0}" != "0" ] && [ ${#iTM2_XeTeX_translate_file} -gt 0 ]
 	then

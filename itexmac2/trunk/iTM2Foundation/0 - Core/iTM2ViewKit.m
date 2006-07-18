@@ -64,7 +64,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return NSAlternateKeyMask;
+    return NSShiftKeyMask|NSAlternateKeyMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameCenter
 - (NSPoint)frameCenter;

@@ -587,6 +587,7 @@ extern NSString * const iTM2ToolbarProjectTerminalItemIdentifier;
 - (BOOL)documentIsMaster;
 - (BOOL)preferWrapper;
 - (id)availableProjects;
+- (void)setUpProject:(id)projectDocument;
 - (void)setAvailableProjects:(id) argument;
 /*!
     @method     validateCreationMode

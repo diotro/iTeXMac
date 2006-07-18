@@ -1680,8 +1680,8 @@ laSuite:
 	}
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:
-- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:orderFront:
+- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1699,7 +1699,7 @@ To Do List:
 	{
 		NSURL * absoluteURL = [NSURL fileURLWithPath:source];
 		id D = [SDC openDocumentWithContentsOfURL:absoluteURL display:NO error:nil];
-		[D displayLine:line column:column withHint:hint orderFront:YES];
+		[D displayLine:line column:column withHint:hint orderFront:yorn];
 		return;
 	}
 	if(iTM2DebugEnabled)
@@ -2002,7 +2002,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([theEvent clickCount] > 1)
+    if([theEvent clickCount] == 1)
 	{
 		unsigned int modifierFlags = [theEvent modifierFlags]
 			& (NSAlphaShiftKeyMask
@@ -2032,7 +2032,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[[[self window] windowController] document] synchronizeWithLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil] inPageAtIndex:[self tag]-1 withHint:nil];
+    [[[[self window] windowController] document] synchronizeWithLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil] inPageAtIndex:[self tag]-1 withHint:nil orderFront:(([theEvent modifierFlags] & NSAlternateKeyMask) == 0)];
 //iTM2_END;
     return;
 }
@@ -2213,7 +2213,7 @@ To Do List:
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
     unsigned modifierFlags = [event modifierFlags];
-    if((modifierFlags & NSAlternateKeyMask) && ([event clickCount]>1) && [self pdfSynchronizeMouseDown:event])
+    if((modifierFlags & NSCommandKeyMask) && ([event clickCount]==1) && [self pdfSynchronizeMouseDown:event])
 	{
 		return;
 	}
@@ -2250,7 +2250,7 @@ To Do List:
 	BOOL result = [SDC displayPageForLine:line column:column source:[D fileName]
 		withHint: [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil]
-				orderFront: [SUD boolForKey:@"iTM2PDFSYNCOrderFrontOutput"] force:YES];
+				orderFront: (([event modifierFlags] & NSAlternateKeyMask) == 0) force:YES];
 //iTM2_END;
     return result;
 }

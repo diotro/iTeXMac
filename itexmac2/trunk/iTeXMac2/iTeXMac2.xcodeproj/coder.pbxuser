@@ -145,8 +145,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 173898424;
-			PBXWorkspaceStateSaveDate = 173898424;
+			PBXPerProjectTemplateStateSaveDate = 174874449;
+			PBXWorkspaceStateSaveDate = 174874449;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -218,6 +218,8 @@
 		};
 		sourceDirectories = (
 		);
+		variableFormatDictionary = {
+		};
 	};
 	DC520343088B1F5B00DE6E7F /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -397,7 +399,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 173661593.351108;
+		modificationTime = 174874742.428596;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};

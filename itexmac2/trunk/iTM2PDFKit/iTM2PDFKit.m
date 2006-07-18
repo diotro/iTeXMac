@@ -161,9 +161,23 @@ To Do List:
 	PDFDocument * PDFDoc = nil;
 	NSData * PDFData = [NSData dataWithContentsOfURL:fileURL options:0 error:errorPtr];
 	PDFDoc = [[iTM2XtdPDFDocument alloc] initWithData:PDFData];
-	[self setPDFDocument:[PDFDoc autorelease]];
+	BOOL result = NO;
+	if(PDFDoc)
+	{
+		[self setPDFDocument:[PDFDoc autorelease]];
+		result = YES;
+	}
+	NSEnumerator * E = [[self windowControllers] objectEnumerator];
+	id WC = nil;
+	while(WC = [E nextObject])
+	{
+		if([WC respondsToSelector:@selector(setProgressIndicatorIsAnimated:)])
+		{
+			[WC setProgressIndicatorIsAnimated:!result];
+		}
+	}
 //iTM2_END;
-	return PDFData != nil;
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteWriteToURL:ofType:error:
 - (BOOL)dataCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
@@ -177,8 +191,8 @@ To Do List:
 //iTM2_END;
     return [[self PDFDocument] writeToURL:fileURL];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:
-- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:orderFront:
+- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -200,7 +214,7 @@ To Do List:
 			url = [NSURL fileURLWithPath:sourceBefore];
 			id document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 			[document getLine: &line column: &column forHint:hint];
-			if([document displayLine:line column:column withHint:hint orderFront:YES])
+			if([document displayLine:line column:column withHint:hint orderFront:yorn])
 				return;
 		}
 		if([sourceAfter length]
@@ -208,7 +222,7 @@ To Do List:
 		{
 			id document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:sourceAfter] display:NO error:nil];
 			[document getLine: &line column: &column forHint:hint];
-			if([document displayLine:line column:column withHint:hint orderFront:YES])
+			if([document displayLine:line column:column withHint:hint orderFront:yorn])
 				return;
 		}
 	}
@@ -244,7 +258,7 @@ To Do List:
 			}
 		}
 	}
-	if([matchDocument displayLine:line column:column withHint:hint orderFront:YES])
+	if([matchDocument displayLine:line column:column withHint:hint orderFront:yorn])
 	{
 		return;
 	}
@@ -254,7 +268,7 @@ To Do List:
 	{
 		unsigned int testLine = 0, testColumn = -1;// THESE MUST BE INITIALIZED THAT WAY
 		[matchDocument getLine: &testLine column: &testColumn forHint:hint];
-		if([matchDocument displayLine:line column:column withHint:hint orderFront:YES])
+		if([matchDocument displayLine:line column:column withHint:hint orderFront:yorn])
 		{
 			return;
 		}
@@ -649,6 +663,34 @@ To Do List:
 		return limit;
 //iTM2_END;
     return scale;
+}
+#pragma mark =-=-=-=-=-  PROGRESS INDICATOR
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  progressIndicatorIsAnimated
+- (BOOL)progressIndicatorIsAnimated;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [metaGETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProgressIndicatorIsAnimated:
+- (void)setProgressIndicatorIsAnimated:(BOOL)yorn;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self willChangeValueForKey:@"progressIndicatorIsAnimated"];
+	metaSETTER([NSNumber numberWithBool:yorn]);
+	[self didChangeValueForKey:@"progressIndicatorIsAnimated"];
+//iTM2_END;
+    return;
 }
 #pragma mark =-=-=-=-=-  DRAWER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _tabViewControlAction:
@@ -4080,7 +4122,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(([theEvent clickCount] > 1) && ([theEvent modifierFlags] & NSCommandKeyMask))
+    if(([theEvent clickCount] == 1) && ([theEvent modifierFlags] & NSCommandKeyMask))
     {
 		[self pdfSynchronizeMouseDown:theEvent];
 //iTM2_END;
@@ -4145,7 +4187,7 @@ To Do List:
 				[hint setObject:[NSValue valueWithRect:lineBounds] forKey:@"line bounds"];
 			}
 			[[[[self window] windowController] document]
-				synchronizeWithLocation: point inPageAtIndex: pageIndex withHint: hint];
+				synchronizeWithLocation: point inPageAtIndex: pageIndex withHint: hint orderFront:(([theEvent modifierFlags] & NSAlternateKeyMask) == 0)];
 		}
 	}
 //iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
