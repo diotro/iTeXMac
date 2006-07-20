@@ -41,7 +41,7 @@ int main(int argc, const char *argv[])
 	NSDictionary * environment = [processInfo environment];
 	NSDictionary * context = [NSDictionary dictionaryWithObjectsAndKeys:environment,iTM2ServerEnvironmentKey,arguments,iTM2ServerArgumentsKey,nil];
 	NSString * connectionID = [environment objectForKey:@"iTM2ConnectionID"];
-NSLog(@"connectionID is: %@", connectionID);
+//NSLog(@"connectionID is: %@", connectionID);
 	if(!connectionID)
 	{
 		NSEnumerator * E = [arguments objectEnumerator];
@@ -61,11 +61,11 @@ NSLog(@"connectionID is: %@", connectionID);
 			}
 		}
 	}
-NSLog(@"connectionID is: %@", connectionID);
+//NSLog(@"connectionID is: %@", connectionID);
 	NSDistantObject <iTM2Connection>  *rootProxy = (NSDistantObject <iTM2Connection> *)[NSConnection rootProxyForConnectionWithRegisteredName:connectionID host:nil];
 	if(rootProxy)
 	{
-NSLog(@"rootProxy is: %@", rootProxy);
+//NSLog(@"rootProxy is: %@", rootProxy);
 		[rootProxy setProtocolForProxy:@protocol(iTM2Connection)];
 		[rootProxy performProjectActionWithContext:context];
 		iTM2_RELEASE_POOL;
@@ -96,9 +96,9 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
         return YES;
     #endif
     iTM2_INIT_POOL;
-NSLog(@"Launching iTeXMac2");
+//NSLog(@"Launching iTeXMac2");
 	NSString * temporaryDirectory = [[[NSProcessInfo processInfo] environment] objectForKey:@"iTM2_TemporaryDirectory"];
-NSLog(@"temporaryDirectory is: %@", temporaryDirectory);
+//NSLog(@"temporaryDirectory is: %@", temporaryDirectory);
 	if([temporaryDirectory length])
 	{
 		// this program was launched by iTeXMac, either directly or through another script.
@@ -122,8 +122,8 @@ NSLog(@"temporaryDirectory is: %@", temporaryDirectory);
 	{
 		applicationPath = [D objectForKey:@"NSApplicationPath"];
 		NSBundle * applicationBundle = [NSBundle bundleWithPath:applicationPath];
-NSLog(@"applicationPath: %@", applicationPath);
-NSLog(@"bundleIdentifier: %@", [applicationBundle bundleIdentifier]);
+//NSLog(@"applicationPath: %@", applicationPath);
+//NSLog(@"bundleIdentifier: %@", [applicationBundle bundleIdentifier]);
         if([[applicationBundle bundleIdentifier] isEqualToString:iTeXMac2BundleIdentifier])
         {
             isRunning = YES;
