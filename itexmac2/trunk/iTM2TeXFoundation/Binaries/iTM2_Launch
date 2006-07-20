@@ -1,7 +1,7 @@
 #!/bin/bash -f
 # Note that this seems to be bash since 10.2.6
-# this is iTM2_Launch for iTeXMac2 2.0
-# © 2005 jlaurens AT users.sourceforge.net
+# this is iTM2_Launch for iTeXMac2 1.0
+# © 2006 jlaurens AT users.sourceforge.net
 # setting the link
 # iTM2_Lauch "command with arguments"
 # this should be called at least each time a project is open
@@ -18,14 +18,59 @@ if ! [ -w "${iTM2_Device}" ]
 then
     iTM2_Device="/dev/null"
 fi
-if [ ${iTM2_ProjectDidUpdate:-0} -eq 0 ]
+iTM2Command="$1"
+iTM2BinaryPATH=""
+iTM2PROJECT="$TWSProjectDirectory/$TWSProjectName"
+if [ -d "${iTM2PROJECT}" ]
+then
+	pushd "`dirname "${iTM2PROJECT}"`"
+	iTM2BinaryPATH="`pwd`/`basename "${iTM2PROJECT}"`/.iTM2"
+	if [ ! -w "${iTM2PROJECT}" ]
+	then
+		"${iTM2_CMD_Notify}" error "Project MUST BE writable (${iTM2PROJECT})"
+		exit -1
+	fi
+	if [ "${iTM2_XLR8:-0}" == "0" ] || [ ! -d "${iTM2BinaryPATH}" ]
+	then
+		rm -Rf "${iTM2BinaryPATH}"
+		mkdir -p "${iTM2BinaryPATH}"
+		chmod -R a+rwx "${iTM2BinaryPATH}"
+	fi
+	if [ ! -d "${iTM2BinaryPATH}" ]
+	then
+		iTM2BinaryPATH=".iTM2"
+		rm -Rf "${iTM2BinaryPATH}"
+		mkdir "${iTM2BinaryPATH}"
+		chmod -R a+rwx "${iTM2BinaryPATH}"
+	fi
+else
+    "${iTM2_CMD_Notify}" warning "Undefined project in $0, using the invisible folder named $PWD/.iTM2"
+	iTM2PROJECT=""
+	iTM2BinaryPATH=".iTM2"
+	rm -Rf "${iTM2BinaryPATH}"
+	mkdir "${iTM2BinaryPATH}"
+	chmod -R a+rwx "${iTM2BinaryPATH}"
+fi
+iTM2Cached="${iTM2BinaryPATH}/${iTM2Command}-cached"
+if [ "${iTM2_XLR8:-0}" != "0" ] && [ 0 -eq 1 ]
 then
 	"${iTM2_CMD_Notify}" echo "<second time/>"
 date "+SECOND - DATE: %m/%d/%y%nTIME: %H:%M:%S"
+	if [ -x "${iTM2Cached}" ]
+	then
+		"${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
+		eval "${iTM2Cached}"
+		"${iTM2_CMD_Notify}" echo "<That's all/>"
+		exit 0
+	else
+		"${iTM2_CMD_Notify}" echo "Nothing cached"
+	fi
+else
+	"${iTM2_CMD_Notify}" echo "<first time/>"
+date "+FIRST - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 fi
 "${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
 iTM2SHORT="0"
-iTM2BinaryPATH=""
 iTM2Link ()
 {
 	iTM2_TARGET="${iTM2BinaryPATH}/$iTM2SHORT"
@@ -64,35 +109,6 @@ if ! [ -d "${TWSProjectDirectory}" ]
 then
 	"${iTM2_CMD_Notify}" error "Missing directory at path: {${iTM2ProjectDirectory}}, do not expect a correct behaviour."
 fi
-iTM2PROJECT="$TWSProjectDirectory/$TWSProjectName"
-if [ -d "${iTM2PROJECT}" ]
-then
-	pushd "`dirname "${iTM2PROJECT}"`"
-	iTM2BinaryPATH="`basename "${iTM2PROJECT}"`/.iTM2"
-	if [ ! -w "${iTM2PROJECT}" ]
-	then
-		"${iTM2_CMD_Notify}" error "Project MUST BE writable (${iTM2PROJECT})"
-		exit -1
-	fi
-	rm -Rf "${iTM2BinaryPATH}"
-	mkdir "${iTM2BinaryPATH}"
-	chmod -R a+rwx "${iTM2BinaryPATH}"
-	if [ ! -d "${iTM2BinaryPATH}" ]
-	then
-		iTM2BinaryPATH=".iTM2"
-		rm -Rf "${iTM2BinaryPATH}"
-		mkdir "${iTM2BinaryPATH}"
-		chmod -R a+rwx "${iTM2BinaryPATH}"
-	fi
-else
-    "${iTM2_CMD_Notify}" warning "Undefined project in $0, using the invisible folder named $PWD/.iTM2"
-	iTM2PROJECT=""
-	iTM2BinaryPATH=".iTM2"
-	rm -Rf "${iTM2BinaryPATH}"
-	mkdir "${iTM2BinaryPATH}"
-	chmod -R a+rwx "${iTM2BinaryPATH}"
-fi
-chmod -R a+rwx "${iTM2BinaryPATH}"
 if [ ! -w "${PWD}" ]
 then
 	"${iTM2_CMD_Notify}" error "Current folder is not writable:
@@ -153,7 +169,6 @@ fi
 #"${iTM2_CMD_Notify}" comment "##### DIAGNOSTIC"
 if [ $# -gt 0 ]
 then
-    iTM2Command="$1"
     iTM2IndirectCommand="iTM2_${iTM2Command}"
     iTM2WrappedCommand="${!iTM2IndirectCommand}"
     iTM2CommandPath="`which "${iTM2WrappedCommand}"`"
@@ -185,6 +200,8 @@ then
 		then
 				"${iTM2_CMD_Notify}" comment "running ${iTM2Command} (${iTM2WrappedCommand})"
 		fi
+		echo "\"${iTM2CommandPath}\"" > "${iTM2Cached}"
+		chmod u+x "${iTM2Cached}"
 		"${iTM2CommandPath}"
 		status=$?
 	else

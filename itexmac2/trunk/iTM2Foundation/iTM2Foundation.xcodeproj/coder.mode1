@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEFB1450A6FA5B600D3EAA3</string>
+						<string>DCEFB6750A70303400D3EAA3</string>
 						<key>history</key>
 						<array>
 							<string>DC41AAAF0A6F9CB400B5E990</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEFB1460A6FA5B600D3EAA3</string>
+						<string>DCEFB6760A70303400D3EAA3</string>
 						<key>history</key>
 						<array>
 							<string>DC41AAB10A6F9CB400B5E990</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEFB1470A6FA5B600D3EAA3</string>
+						<string>DCEFB6770A70303400D3EAA3</string>
 						<key>history</key>
 						<array>
 							<string>DC41AAB20A6F9CB400B5E990</string>
@@ -324,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEFB1480A6FA5B600D3EAA3</string>
+						<string>DCEFB6780A70303400D3EAA3</string>
 						<key>history</key>
 						<array>
 							<string>DC41AAB30A6F9CB400B5E990</string>
@@ -357,6 +357,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -482,7 +484,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCEFB1440A6FA5B600D3EAA3</string>
+										<string>DCEFB6740A70303400D3EAA3</string>
 										<key>history</key>
 										<array>
 											<string>DCD7D6F60A439B6B0096B1A9</string>
@@ -741,7 +743,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCEFB1490A6FA5B600D3EAA3</string>
 		<string>DCEFB1400A6FA59100D3EAA3</string>
 		<string>DCEFB1410A6FA59100D3EAA3</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
@@ -751,9 +752,9 @@
 		<string>DC267DA10A6DACEA001B9EC5</string>
 		<string>DC267D9D0A6DACEA001B9EC5</string>
 		<string>DC89F3030A6EE815001272DD</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>5 66 1331 773 0 0 1440 878 </string>
@@ -982,7 +983,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2ProjectDocumentKit.m</string>
+										<string>&lt;No Editor&gt;</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>

@@ -231,6 +231,31 @@ To Do List:
 //iTM2_END;
     return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wasNotModified
+- (BOOL)wasNotModified;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [metaGETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setWasNotModified:
+- (void)setWasNotModified:(BOOL)yorn;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	metaSETTER([NSNumber numberWithBool:yorn]);
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  realMasterFileKey
 - (NSString *)realMasterFileKey;
 /*"Description forthcoming.

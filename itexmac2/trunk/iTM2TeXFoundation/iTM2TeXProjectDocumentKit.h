@@ -129,6 +129,23 @@ Don't assume that there will always be a default value.
 */
 - (void)setEOLString:(NSString *)EOL forFileKey:(NSString *)key;
 
+/*!
+    @method     wasNotModified
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @result     (description)
+*/
+- (BOOL)wasNotModified;
+
+/*!
+    @method     setWasNotModified:
+    @abstract   (brief description)
+    @discussion Set it to no if the project has been edited in such a way that commands' behaviours are affected.
+    @param      yorn (description)
+    @result     None.
+*/
+- (void)setWasNotModified:(BOOL)yorn;
+
 @end
 
 @interface iTM2TeXPFilesWindow: NSWindow

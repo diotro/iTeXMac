@@ -199,6 +199,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[(id)[self document] setWasNotModified:NO];
 	[[self document] saveDocument:self];
     [[self window] orderOut:self];
     return;
@@ -2647,6 +2648,14 @@ To Do List: to be improved...
 		[TW mergeEnvironment:D];
 		NSString * currentDirectory = [[TW environment] objectForKey:@"PWD"];
         [TW setCurrentDirectoryPath:(currentDirectory?:@"")];
+		if([project wasNotModified])
+		{
+			[TW setEnvironmentString:@"1" forKey:@"iTM2_XLR8"];// iTM2_Launch can use whatever he has cached
+		}
+		else
+		{
+			[project setWasNotModified:YES];// iTM2_Launch will be able to use whatever he has cached only next time
+		}
 		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
         [TW addArgument:commandName];
 		[TW prependPATHComponent:[project getTeXMFBinariesPath]];
