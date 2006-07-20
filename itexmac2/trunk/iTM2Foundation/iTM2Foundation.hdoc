@@ -28,6 +28,6 @@
 					You will find the basics of a document->inspectors design
 					A project wrapper management.
 					Key bindings management, and so on.
-					All these are not TeX related, except the syntax coloring, which is not good.
-	@copyright		2005 jlaurens@users.sourceforge.net and possibly others
+					All these are not TeX related, except possibly the syntax coloring.
+	@copyright		2005 jlaurens AT users.sourceforge.net and possibly others
 */

@@ -231,6 +231,7 @@
 			DC41A9100A6F905100B5E990 /* PBXTextBookmark */ = DC41A9100A6F905100B5E990 /* PBXTextBookmark */;
 			DC41A9110A6F90F600B5E990 /* PBXTextBookmark */ = DC41A9110A6F90F600B5E990 /* PBXTextBookmark */;
 			DC41A9120A6F90F600B5E990 /* PBXTextBookmark */ = DC41A9120A6F90F600B5E990 /* PBXTextBookmark */;
+			DC41A91A0A6F9B5400B5E990 /* PBXTextBookmark */ = DC41A91A0A6F9B5400B5E990 /* PBXTextBookmark */;
 			DC43E3B50933776C003C3C86 = DC43E3B50933776C003C3C86 /* PBXTextBookmark */;
 			DC43E3DE09344E34003C3C86 = DC43E3DE09344E34003C3C86 /* PBXTextBookmark */;
 			DC4AAD8D0A6BC6D100531ADA = DC4AAD8D0A6BC6D100531ADA /* PBXTextBookmark */;
@@ -414,7 +415,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1452, 51204}}";
 			sepNavSelRange = "{94900, 0}";
-			sepNavVisRect = "{{0, 44795}, {1147, 296}}";
+			sepNavVisRect = "{{0, 44591}, {1147, 561}}";
 			sepNavWindowFrame = "{{63, 74}, {1134, 746}}";
 		};
 	};
@@ -852,6 +853,16 @@
 		vrLen = 1294;
 		vrLoc = 1248;
 	};
+	DC41A91A0A6F9B5400B5E990 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
+		name = "iTM2_Launch: 21";
+		rLen = 0;
+		rLoc = 866;
+		rType = 0;
+		vrLen = 685;
+		vrLoc = 509;
+	};
 	DC43E3B50933776C003C3C86 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCC7F3F20854AC9200F3EB8A /* CompileFileExtensions.plist */;
@@ -1056,15 +1067,15 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1181, 3128}}";
 			sepNavSelRange = "{1835, 28}";
-			sepNavVisRect = "{{0, 344}, {1181, 655}}";
+			sepNavVisRect = "{{0, 345}, {1181, 655}}";
 			sepNavWindowFrame = "{{22, 10}, {1220, 784}}";
 		};
 	};
 	DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2556, 22610}}";
-			sepNavSelRange = "{38691, 0}";
-			sepNavVisRect = "{{0, 15360}, {1007, 272}}";
+			sepNavSelRange = "{55145, 0}";
+			sepNavVisRect = "{{0, 17068}, {1181, 655}}";
 			sepNavWindowFrame = "{{22, 10}, {1220, 784}}";
 		};
 	};
