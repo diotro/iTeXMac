@@ -72,8 +72,8 @@ To Do List:
 //iTM2_START;
     return iTM2TextInspectorType;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayLine:column:withHint:orderFront:
-- (BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayLine:column:length:withHint:orderFront:
+- (BOOL)displayLine:(unsigned int)line column:(unsigned int)column length:(unsigned int)length withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -93,9 +93,9 @@ To Do List:
 			NSDocument * D = [WC document];
 			if((D == self)
 				&& [[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
-					&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:)])
+					&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
 			{
-				[WC highlightAndScrollToVisibleLine:line column:column];
+				[WC highlightAndScrollToVisibleLine:line column:column length:length];
 				if(yorn)
 					[[WC window] makeKeyAndOrderFront:self];
 			}
@@ -105,9 +105,8 @@ To Do List:
 	}
 	return NO;
 }
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:forHint:
-- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:forHint:
+- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef length:(unsigned int *)lengthRef forHint:(NSDictionary *)hint;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -115,399 +114,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * documentString = [[self textStorage] string];
-	if([hint isKindOfClass:[NSDictionary class]])
+	if(lengthRef)
 	{
-		NSMutableDictionary * matches = [NSMutableDictionary dictionary];
-		NSNumber * N = [hint objectForKey:@"character index"];
-		if(N)
-		{
-			unsigned int characterIndex = [N unsignedIntValue];
-			NSString * pageString = [hint objectForKey:@"container"];
-			if(characterIndex<[pageString length])
-			{
-goThree:;// I will come here if the first attempt does not work
-				NSRange hereR = [pageString rangeOfWordAtIndex:characterIndex];
-				// hereR is the range of the word when the click occurred
-				if(hereR.length)
-				{
-					characterIndex -= hereR.location;// now characterIndex is an offset from the first character of the word!
-					NSString * hereWord = [pageString substringWithRange:hereR];
-					// hereWord is the word we clicked on
-					NSString * prevW1 = nil;
-					NSString * prevW2 = nil;
-					NSString * prevW3 = nil;
-					unsigned int index = hereR.location;
-					// looking for the previous word
-					if(index > 2)
-					{
-						index -= 2;
-placard:;
-						NSRange wordRange = [pageString rangeOfWordAtIndex:index];
-						if(wordRange.length)
-						{
-							prevW1 = [pageString substringWithRange:wordRange];
-							index = wordRange.location;
-							if(index > 2)
-							{
-								index -= 2;
-dracalp:
-								wordRange = [pageString rangeOfWordAtIndex:index];
-								if(wordRange.length)
-								{
-									prevW2 = [pageString substringWithRange:wordRange];
-									index = wordRange.location;
-									if(index > 2)
-									{
-										index -= 2;
-cardalp:
-										wordRange = [pageString rangeOfWordAtIndex:index];
-										if(wordRange.length)
-										{
-											prevW3 = [pageString substringWithRange:wordRange];
-										}
-										else if(index)
-										{
-											--index;
-											goto cardalp;
-										}
-									}
-								}
-								else if(index)
-								{
-									--index;
-									goto dracalp;
-								}
-							}
-						}
-						else if(index)
-						{
-							--index;
-							goto placard;
-						}
-					}
-					// now looking for the next words
-					NSString * nextW1 = nil;
-					NSString * nextW2 = nil;
-					NSString * nextW3 = nil;
-					index = NSMaxRange(hereR);
-					if(index+2 < [pageString length])
-					{
-						index += 2;
-tolebib:;
-						NSRange wordRange = [pageString rangeOfWordAtIndex:index];
-						if(wordRange.length)
-						{
-							nextW1 = [pageString substringWithRange:wordRange];
-							index = NSMaxRange(wordRange);
-							if(index+2 < [pageString length])
-							{
-								index += 2;
-bibelot:
-								wordRange = [pageString rangeOfWordAtIndex:index];
-								if(wordRange.length)
-								{
-									nextW2 = [pageString substringWithRange:wordRange];
-									index = NSMaxRange(wordRange);
-									if(index+2 < [pageString length])
-									{
-										index += 2;
-bolbite:
-										wordRange = [pageString rangeOfWordAtIndex:index];
-										if(wordRange.length)
-										{
-											nextW3 = [pageString substringWithRange:wordRange];
-										}
-										else if(index+1 < [pageString length])
-										{
-											++index;
-											goto bolbite;
-										}
-									}
-								}
-								else if(index+1 < [pageString length])
-								{
-									++index;
-									goto bibelot;
-								}
-							}
-						}
-						else if(index+1 < [pageString length])
-						{
-							++index;
-							goto tolebib;
-						}
-					}
-//iTM2_LOG(@"Search words: %@+%@+%@+%@+%@", prevW2, prevW1, hereWord, nextW1, nextW2);
-					NSRange charRange = [documentString rangeForLine:(lineRef? * lineRef:0) nextLine:nil];
-					if(!charRange.length)
-						charRange = NSMakeRange(0, [documentString length]);
-					unsigned charAnchor = charRange.location + charRange.length / 2;
-					NSRange searchR = charRange;
-					if(searchR.location > [pageString length])
-					{
-						searchR.length += [pageString length];
-						searchR.location -= [pageString length];
-					}
-					else
-					{
-						searchR.length += searchR.location;
-						searchR.location = 0;
-					}
-					if(NSMaxRange(searchR) + [pageString length] < [documentString length])
-					{
-						searchR.length += [pageString length];
-					}
-					else
-					{
-						searchR.length = [documentString length] - searchR.location;
-					}
-					// we are now looking for matches of the words above
-					// this is a weak match
-					// first we try to match the prevprevious, previous, here, next and nextNext word
-					// if we find only one match, that's okay
-					// if we find different matches, we will use the other words to choose
-					// if we find no match we will have to make another kind of guess
-					// objects are arrays of ranges of the here word
-					// keys are the weight of the ranges
-					unsigned int topSearchRange = NSMaxRange(searchR);
-					unsigned penalty = 1;
-					unsigned ytlanep = 1;
-					unsigned talpyne = 2;
-					hereR = NSMakeRange(NSNotFound, 0);
-					NSRange prevR3 = hereR;
-					NSRange prevR2 = hereR;
-					NSRange prevR1 = hereR;
-					NSRange nextR1 = hereR;
-					NSRange nextR2 = hereR;
-					NSRange nextR3 = hereR;
-					#undef MATCH(WORD, RANGE, LEVEL)\
-					if([WORD length])\
-						RANGE = [documentString rangeOfWord:WORD options:0L range:searchR];\
-					else\
-						ytlanep *= LEVEL * talpyne;\
-					if(RANGE.length)\
-					{\
-						searchR.location = NSMaxRange(RANGE);\
-						searchR.length = topSearchRange - searchR.location;\
-					}\
-					else\
-						penalty *= LEVEL * talpyne;
-					MATCH(prevW3, prevR3, 1);
-					MATCH(prevW2, prevR2, 2);
-					MATCH(prevW1, prevR1, 3);
-					hereR = [documentString rangeOfWord:hereWord options:0L range:searchR];
-					if(hereR.length)
-					{
-						searchR.location = NSMaxRange(hereR);
-						searchR.length = topSearchRange - searchR.location;
-					}
-					else
-						penalty *= 6 * talpyne;
-					MATCH(nextW1, nextR1, 3);
-					MATCH(nextW2, nextR2, 2);
-					MATCH(nextW3, nextR3, 1);
-match12345:
-// backwards search
-					unsigned top = MIN(topSearchRange, nextR3.location);
-					
-					searchR.location = NSMaxRange(nextR1);
-					if(searchR.location < nextR2.location)
-					{
-					searchR.length = nextR2.location - searchR.location;
-					NSRange R = [documentString rangeOfWord:nextW1 options:NSBackwardsSearch range:searchR];
-					if(R.length)
-					nextR1 = R;
-					}
-					searchR.location = NSMaxRange(hereR);
-					if(searchR.location < nextR1.location)
-					{
-					searchR.length = nextR1.location - searchR.location;
-					NSRange R = [documentString rangeOfWord:hereWord options:NSBackwardsSearch range:searchR];
-					if(R.length)
-					hereR = R;
-					}
-					searchR.location = NSMaxRange(prevR1);
-					if(searchR.location < hereR.location)
-					{
-					searchR.length = hereR.location - searchR.location;
-					NSRange R = [documentString rangeOfWord:prevW1 options:NSBackwardsSearch range:searchR];
-					if(R.length)
-					prevR1 = R;
-					}
-					searchR.location = NSMaxRange(prevR2);
-					if(searchR.location < prevR1.location)
-					{
-					searchR.length = prevR1.location - searchR.location;
-					NSRange R = [documentString rangeOfWord:prevW2 options:NSBackwardsSearch range:searchR];
-					if(R.length)
-					prevR2 = R;
-					}
-					N = [NSNumber numberWithUnsignedInt:NSMaxRange(nextR2) - prevR2.location];
-					NSArray * RA = [matches objectForKey:N];
-					if(!RA)
-					{
-					RA = [NSArray arrayWithObjects:
-					[NSMutableDictionary dictionary],
-					[NSMutableDictionary dictionary],
-					nil];
-					[matches setObject:RA forKey:N];//N is free now
-					}
-					unsigned int hereAnchor = hereR.location + hereR.length / 2;
-					if(hereAnchor < charAnchor)
-					{
-					NSMutableDictionary * afterMatches = [RA objectAtIndex:1];
-					N = [NSNumber numberWithUnsignedInt:((lineRef? * lineRef:0)? hereAnchor - charAnchor:0)];
-					NSMutableArray * mra = [afterMatches objectForKey:N];
-					if(!mra)
-					{
-					mra = [NSMutableArray array];
-					[afterMatches setObject:mra forKey:N];//N is free
-					}
-					[mra addObject:[NSValue valueWithRange:hereR]];
-					}
-					else
-					{
-					NSMutableDictionary * beforeMatches = [RA objectAtIndex:0];
-					N = [NSNumber numberWithUnsignedInt:((lineRef? * lineRef:0)? hereAnchor - charAnchor:0)];
-					NSMutableArray * mra = [beforeMatches objectForKey:N];
-					if(!mra)
-					{
-					mra = [NSMutableArray array];
-					[beforeMatches setObject:mra forKey:N];//N is free
-					}
-					[mra addObject:[NSValue valueWithRange:hereR]];
-					}
-					// then I try to find all the other beforeMatches alike
-					searchR.location = NSMaxRange(nextR2);
-					if(searchR.location < topSearchRange)
-					{
-					searchR.length = topSearchRange - searchR.location;
-					// finding all the other stuff...
-					prevR2 = [documentString rangeOfWord:prevW2 options:0L range:searchR];
-					if(prevR2.length)
-					{
-					searchR.location = NSMaxRange(prevR2);
-					searchR.length = topSearchRange - searchR.location;
-					if(searchR.length)
-					{
-					prevR1 = [documentString rangeOfWord:prevW1 options:0L range:searchR];
-					if(prevR1.length)
-					{
-					searchR.location = NSMaxRange(prevR1);
-					searchR.length = topSearchRange - searchR.location;
-					if(searchR.length)
-					{
-					hereR = [documentString rangeOfWord:hereWord options:0L range:searchR];
-					if(hereR.length)
-					{
-					searchR.location = NSMaxRange(hereR);
-					searchR.length = topSearchRange - searchR.location;
-					if(searchR.length)
-					{
-						nextR1 = [documentString rangeOfWord:nextW1 options:0L range:searchR];
-						if(nextR1.length)
-						{
-							searchR.location = NSMaxRange(nextR1);
-							searchR.length = topSearchRange - searchR.location;
-							if(searchR.length)
-							{
-								nextR2 = [documentString rangeOfWord:nextW2 options:0L range:searchR];
-								if(nextR2.length)
-								{
-									goto match12345;
-								}
-							}
-						}
-					}
-					}
-					}
-					}
-					}
-					}											
-					}
-					// no more matches available:
-					// do the job
-					if(![matches count])
-					return UINT_MAX;
-					NSEnumerator * E = [matches keyEnumerator];
-					unsigned int top = [[E nextObject] unsignedIntValue];
-					while(N = [E nextObject])
-					{
-					unsigned int newTop = [N unsignedIntValue];
-					if(newTop < top)
-					{
-					top = newTop;
-					}
-					}
-					top += 5;
-					NSMutableDictionary * beforeMatches = [NSMutableDictionary dictionary];
-					NSMutableDictionary * afterMatches = [NSMutableDictionary dictionary];
-					E = [matches keyEnumerator];
-					while(N = [E nextObject])
-					{
-					if([N unsignedIntValue] < top)
-					{
-					NSMutableDictionary * MD = [RA objectAtIndex:0];
-					[MD addEntriesFromDictionary:beforeMatches];
-					beforeMatches = MD;
-					MD = [RA objectAtIndex:1];
-					[MD addEntriesFromDictionary:afterMatches];
-					afterMatches = MD;
-					}
-					}
-					if([beforeMatches count])
-					{
-					N = [[[beforeMatches allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-					hereR = [[[beforeMatches objectForKey:N] objectAtIndex:0] rangeValue];
-					if(lineRef)
-					{
-					* lineRef = [documentString lineForRange:hereR];
-					charRange = [documentString rangeForLine:* lineRef nextLine:nil];
-					if(columnRef)
-					* columnRef = hereR.location + characterIndex - charRange.location;
-					}
-					else if(columnRef)
-					* columnRef = NSNotFound;
-					return [N unsignedIntValue];
-					}
-					else if([afterMatches count])
-					{
-						N = [[[afterMatches allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-						hereR = [[[afterMatches objectForKey:N] objectAtIndex:0] rangeValue];
-						if(lineRef)
-						{
-							* lineRef = [documentString lineForRange:hereR];
-							charRange = [documentString rangeForLine:* lineRef nextLine:nil];
-							if(columnRef)
-								* columnRef = hereR.location + characterIndex - charRange.location;
-						}
-						else if(columnRef)
-							* columnRef = NSNotFound;
-						return [N unsignedIntValue];
-						#warning PROBLEM WITH SYNC, USE THE PREVIOUS PAGE PLEASE
-					}
-				}
-				else if(characterIndex + 1 < [pageString length])
-				{
-					++characterIndex;
-					goto goThree;
-				}
-			}// pageString
-		}// character index
+		*lengthRef = 1;
 	}
-	return UINT_MAX;
-}
-#else
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:forHint:
-- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
 	NSTextStorage * TS = [self textStorage];
 	NSString * documentString = [TS string];
 	if([hint isKindOfClass:[NSDictionary class]])
@@ -970,7 +580,6 @@ match12345:
 	}
 	return UINT_MAX;
 }
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canAutoSave
 - (BOOL)canAutoSave;
 /*"Returns YES.
@@ -1826,8 +1435,8 @@ To Do List:
     [[self textView] breakTypingFlow];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:column:
-- (void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:column:length:
+- (void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column length:(unsigned int)length;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1835,7 +1444,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self textView] highlightAndScrollToVisibleLine:line column:column];
+	[[self textView] highlightAndScrollToVisibleLine:line column:column length:length];
     return;
 }
 #pragma mark =-=-=-=-=-  CODESET

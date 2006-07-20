@@ -89,16 +89,17 @@
 @interface NSDocument(iTM2DocumentControllerKit)
 
 /*!
-    @method		displayLine:column:withHint:orderFront:
+    @method		displayLine:column:length:withHint:orderFront:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		line: 1 based line index.
     @param		column: 1 based column index.
+    @param		length: number of characters to be selected
     @param		hint: dictionary containing hints.
     @param		yorn...
     @result		A document.
 */
-- (BOOL)displayLine:(unsigned int)line column:(unsigned int)column withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)displayLine:(unsigned int)line column:(unsigned int)column length:(unsigned int)length withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 
 /*!
     @method		displayPageForLine:column:source:withHint:orderFront:

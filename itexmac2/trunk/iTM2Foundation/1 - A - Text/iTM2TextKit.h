@@ -65,14 +65,15 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 - (void)highlightAndScrollToVisibleLine:(unsigned int)aLine;
 
 /*!
-	@method		highlightAndScrollToVisibleLine:column:
+	@method		highlightAndScrollToVisibleLine:column:length:
 	@abstract	Highlights and scrolls to visible the line and column with the given numbers.
 	@discussion	If the column number does not fit int the line range, the whole line is highlighted.
-	@param		aLine an integer.
+	@param		line an integer.
 	@param		column an integer.
+	@param		length an integer.
 	@result		None.
 */
-- (void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column;
+- (void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column length:(unsigned int)length;
 
 /*!
 	@method		highlightAndScrollToVisibleLineRange:

@@ -103,8 +103,8 @@ To Do List:
 @end
 
 @implementation NSText(iTM2TextKit_Highlight)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:
-- (void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:column:length:
+- (void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column length:(unsigned int)length;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -118,7 +118,7 @@ To Do List:
 		if((column != NSNotFound ) && (column < R.length + 1))
 		{
 			R.location += column;
-			R.length = 1;
+			R.length = MIN(R.length,length);
 		}
 		[self highlightAndScrollToVisibleRange:R];
 	}

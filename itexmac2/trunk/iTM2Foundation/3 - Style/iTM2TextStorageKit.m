@@ -40,6 +40,7 @@ typedef struct
 } iTM2ModeLineDef;
 
 NSString * const iTM2TextDefaultKey = @"default";// MUST BE LOWERCASE
+NSString * const iTM2TextWhitePrefixKey = @"_white_prefix";// MUST BE LOWERCASE
 NSString * const iTM2TextErrorKey = @"error";// MUST BE LOWERCASE TOO
 NSString * const iTM2TextSelectionKey = @"_selection";// MUST BE LOWERCASE TOO
 NSString * const iTM2TextInsertionKey = @"_insertion";// MUST BE LOWERCASE TOO
@@ -1884,7 +1885,6 @@ here:
 	}
     return;
 }
-#if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
 - (unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
 /*"This method will compute all the correct attributes.
@@ -1902,7 +1902,7 @@ To Do List:
     if(!previousMode || (previousMode == kiTM2TextUnknownSyntaxMode))
 		// The previous mode is an error (weak or strong): do nothing and propagate the error.
 		// Don't know yet what is the difference between both choices...
-        return previousMode;
+        return previousMode & kiTM2TextEndOfLineSyntaxMask;
 	// if the mode line is void, which corresponds to a void line, with only an EOL marker if it is not the last line
 	// no computation
     if(!_OriginalModeLine->_NumberOfSyntaxWords
@@ -1922,7 +1922,7 @@ To Do List:
     else if(!(_OriginalModeLine->_InvalidLocalRange).length
             || ((_OriginalModeLine->_InvalidLocalRange).location >= _OriginalModeLine->_ContentsLength))
 	// the attributes were already computed, so we just have to return the result previously computed and stored as the EOL mode
-        return _OriginalModeLine->_EOLMode;
+        return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode & kiTM2TextEndOfLineSyntaxMask);
 //iTM2_START;
 	// now, we are really going to compute the attributes validating the modes
     _iTM2InternalAssert(![self diagnostic], @"***  0 - STARTING:BIG PROBLEM IN VALIDATING THE MODE");
@@ -2124,333 +2124,9 @@ To Do List:
 	_iTM2InternalAssert(![self diagnostic], @"***  END2 :BIG PROBLEM IN VALIDATING THE MODE");
 //iTM2_END;
 //    [originalModeLine describe];
-    return _OriginalModeLine->_EOLMode;
+	return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode & kiTM2TextEndOfLineSyntaxMask);
     #undef workingML
 }
-#elif 1
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
-- (unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
-/*"This method will compute all the correct attributes.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Dec 12 22:44:56 GMT 2003
-To Do List: 
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    #undef _OriginalModeLine
-    #define _OriginalModeLine ((iTM2ModeLineDef *)originalModeLine)
-    if([self diagnostic])
-    {
-        iTM2_LOG(@"BIG PROBLEM BEFORE VALIDATING THE MODE");
-    }
-	// the previous mode is in general the mode of the last EOL character of the previous line
-	// The default value is kiTM2TextUnknownSyntaxMode, such that a zero value is an error and bypasses the whole method.
-    if(!previousMode)
-        return _OriginalModeLine->_EOLMode;
-	// if the mode line is void, which corresponds to a void line, with only an EOL marker if it is not the last line.
-    if(!_OriginalModeLine->_NumberOfSyntaxWords
-		|| !_OriginalModeLine->_ContentsLength)
-    {
-        return _OriginalModeLine->_EOLMode = [self EOLModeForPreviousMode:previousMode];
-    }
-	// did the previous mode change since the last time the attributes were computed?
-    if([originalModeLine previousMode] != previousMode)
-    {
-//NSLog(@"New previous mode, invalidating the whole line (old: %u <> new: %u)?", [originalModeLine previousMode], previousMode);
-		// the current syntax analyse is no longer valid
-        [originalModeLine invalidateLocalRange:NSMakeRange(0, 1)];
-        [originalModeLine setPreviousMode:previousMode];
-    }
-    else if(!(_OriginalModeLine->_InvalidLocalRange).length
-            || ((_OriginalModeLine->_InvalidLocalRange).location >= _OriginalModeLine->_ContentsLength))
-	// the attributes were already computed, so we just have to return the result previously computed and stored as the EOL mode
-        return _OriginalModeLine->_EOLMode;
-//iTM2_START;
-    if([self diagnostic])
-    {
-        iTM2_LOG(@"***  STARTING TO VALIDATE THE MODE");
-        iTM2_LOG(@"***  0 - STARTING: BIG PROBLEM IN VALIDATING THE MODE");
-    }
-    #undef IR
-    #define IR _OriginalModeLine->_InvalidLocalRange
-//iTM2_LOG(@"Working hard: local invalid range %@, previousMode: %u", NSStringFromRange(IR), previousMode);
-//[originalModeLine describe];
-//unsigned N = 0;
-    // From now on, IR.location < the length of the mode line there is some mode to fix
-    // the previousMode local variable is free now, it will contain the last mode actually recorded
-    #undef _ML
-    iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)[iTM2ModeLine modeLine];
-    #undef workingML
-    #define workingML ((iTM2ModeLine *)_ML)
-//[workingML describe];
-    // We start duplicating the good modes and mode wordLengths
-    unsigned syntaxWordIndex = 0;// Here, syntaxWordIndex < _OriginalModeLine->_NumberOfSyntaxWords
-    unsigned currentSyntaxWordOff7 = 0;// it is the offset of the syntax word at syntaxWordIndex syntaxWordIndex
-    //currentSyntaxWordOff7 = \sum_{i=0}^{syntaxWordIndex-1} [originalModeLine syntaxLengthAtIndex:i]
-    if([self diagnostic])
-    {
-        iTM2_LOG(@"***  1 : BIG PROBLEM IN VALIDATING THE MODE");
-    }
-    unsigned nextSyntaxWordOff7 = _OriginalModeLine->__SyntaxWordEnds[syntaxWordIndex];// it will be the offset of the syntax word at syntaxWordIndex syntaxWordIndex+1
-    //nextSyntaxWordOff7 = \sum_{i=0}^{syntaxWordIndex} [originalModeLine syntaxLengthAtIndex:i]
-    //nextSyntaxWordOff7 = currentSyntaxWordOff7 + [originalModeLine syntaxLengthAtIndex:syntaxWordIndex]
-    unsigned previousLength = 0;
-    // previousLength stores the length of the current syntax word
-    unsigned testigo = 0;// debugger to ensure that all chars are the same
-// We copy the valid original modes
-    if(currentSyntaxWordOff7<IR.location)
-    {
-        // the modes at the beginning of the line are good, at least in part!!!
-        // just copy the good part of them
-        copyValidOriginalMode:;
-        unsigned originalMode = _ML->__SyntaxWordModes[syntaxWordIndex];
-        if(nextSyntaxWordOff7<=IR.location)
-        {
-            // OK we can copy what is there.
-            if(originalMode==previousMode)
-            {
-                previousLength += _OriginalModeLine->__SyntaxWordLengths[syntaxWordIndex];
-            }
-            else
-            {
-                [workingML appendSyntaxMode:previousMode length:previousLength];
-                testigo += previousLength;
-                previousMode = originalMode;
-                previousLength = _OriginalModeLine->__SyntaxWordLengths[syntaxWordIndex];
-            }
-            if(++syntaxWordIndex<_OriginalModeLine->_NumberOfSyntaxWords)
-            {
-                currentSyntaxWordOff7 = nextSyntaxWordOff7;
-                nextSyntaxWordOff7 = _OriginalModeLine->__SyntaxWordEnds[syntaxWordIndex];
-                goto copyValidOriginalMode;
-            }
-            else
-            {
-				// You should never reach this part of the code because the invalid range has already been tested
-				// with the cached contents length
-				// if you reach this point, it means that the cached contents length and the total length of syntax words
-				// do not coincide, hence the inconsistency
-                iTM2_LOG(@"INCONSISTENCY");
-                [originalModeLine describe];
-                return [originalModeLine EOLMode];
-            }
-        }
-        else if(IR.location > currentSyntaxWordOff7)
-        {
-            // currentSyntaxWordOff7 < IR.location < nextSyntaxWordOff7
-			// valid modes are from currentSyntaxWordOff7 to IR.location - 1 included
-            if(originalMode==previousMode)
-            {
-                previousLength += IR.location - currentSyntaxWordOff7;
-            }
-            else
-            {
-                [workingML appendSyntaxMode:previousMode length:previousLength];
-                testigo += previousLength;
-                previousMode = originalMode;
-                previousLength = IR.location - currentSyntaxWordOff7;
-            }
-        }
-    }
-	if([self diagnostic])
-    {
-        iTM2_LOG(@"2-BIG PROBLEM IN VALIDATING THE MODE");
-    }
-    // HERE we have
-    // currentSyntaxWordOff7 <= IR.location < nextSyntaxWordOff7
-    // syntaxWordIndex < _OriginalModeLine->_NumberOfSyntaxWords
-    //
-    // NOW WE ARE FIXING THE ATTRIBUTES...
-    unsigned localLocation = IR.location;
-    // localLocation is the first syntaxWordIndex for which the mode is not yet fixed
-    unsigned globalLocation = _OriginalModeLine->_StartOff7 + localLocation;
-    unsigned topGlobalLocation = MIN(NSMaxRange(IR), _OriginalModeLine->_ContentsEndOff7);
-    //topGlobalLocation <= [originalModeLine startOffset] + [originalModeLine contentsLength];
-//NSLog(@"Fixing the modes\r(first unsaved mode syntaxWordIndex: %u, nextSyntaxWordOff7: %u, localLocation: %u, previousLength: %u)", syntaxWordIndex, nextSyntaxWordOff7, localLocation, previousLength);
-//[workingML describe];
-//NSLog(@"Looking for globalLocation: %u (?%u)", globalLocation, topGlobalLocation);
-    if(topGlobalLocation > [(NSTextStorage *)[self textStorage] length])
-    {
-        iTM2_LOG(@"Problem of length with: text length is: %i >? %i", [(NSTextStorage *)[self textStorage] length], topGlobalLocation);
-		[(id)_OriginalModeLine describe];
-        if([self diagnostic])
-        {
-            iTM2_LOG(@"BIG PROBLEM HERE TOO");
-        }
-    }
-    unsigned parsedMode = kiTM2TextUnknownSyntaxMode;
-    unsigned parsedLength = 0;
-    unsigned nextMode = kiTM2TextUnknownSyntaxMode;
-    // parsedLength is used as a cache
-    if(globalLocation < topGlobalLocation)
-    {
-		fixGlobalLocationMode:
-//NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, topGlobalLocation: %u", globalLocation, topGlobalLocation);
-		if([self diagnostic])
-		{
-			iTM2_LOG(@"3-BIG PROBLEM IN VALIDATING THE MODE");
-		}
-        parsedMode = iTM2TSModeForIndexFCT(globalLocation, previousMode, &parsedLength, &nextMode, topGlobalLocation);
-//NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
-//N+=length;
-#warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED
-        if(parsedMode == previousMode)
-        {
-            previousLength += parsedLength;
-        }
-        else
-        {
-            [workingML appendSyntaxMode:previousMode length:previousLength];
-            previousLength = parsedLength;
-            previousMode = parsedMode;
-        }
-		if(parsedLength)
-		{
-			globalLocation += parsedLength;
-			localLocation += parsedLength;
-			// now both locations correspond to nextMode if relevant
-			// currentSyntaxWordOff7 <= localLocation < nextSyntaxWordOff7?
-			skipOldSyntaxWords:
-			if(localLocation >= nextSyntaxWordOff7)
-			// I have parsed a syntax word that was (almost) there before
-			// It can happen because either the word has not changed, or has been extended
-			{
-				if(++syntaxWordIndex < _OriginalModeLine->_NumberOfSyntaxWords)
-				{
-					currentSyntaxWordOff7 = nextSyntaxWordOff7;
-					nextSyntaxWordOff7 = _OriginalModeLine->__SyntaxWordEnds[syntaxWordIndex];
-					goto skipOldSyntaxWords;
-				}
-				else
-				{
-				// nextSyntaxWordOff7 <= localLocation && syntaxWordIndex == _OriginalModeLine->_NumberOfSyntaxWords
-				// in that case, nextSyntaxWordOff7 is the contenstLength of the line and everything is done
-				// localLocation is exactly the contentsLength
-// [workingML describe];
-// NSLog(@"THIS IS THE END, previousMode: %u, previousLength: %u", previousMode, previousLength);
-					goto theEnd;
-				}
-			}
-			// Now we have
-			// currentSyntaxWordOff7 <= localLocation < nextSyntaxWordOff7
-			// syntaxWordIndex < _OriginalModeLine->_NumberOfSyntaxWords
-			if(globalLocation < topGlobalLocation)
-			{
-				if(nextMode)
-				{
-					// nextMode is the mode at globalLocation
-//++N;
-					[workingML appendSyntaxMode:previousMode length:previousLength];
-					++globalLocation;
-					++localLocation;
-					if(globalLocation < topGlobalLocation)
-					{
-						previousLength = 1;
-						previousMode = nextMode;
-						goto fixGlobalLocationMode;
-					}
-				}
-				else
-					goto fixGlobalLocationMode;
-			}
-		}
-    }
-	if([self diagnostic])
-    {
-        iTM2_LOG(@"4-BIG PROBLEM IN VALIDATING THE MODE");
-    }
-    // the end of this loop occurs when globalLocation>=topGlobalLocation
-    // which means [originalModeLine startOffset] + NSMaxRange(IR) <= globalLocation
-//NSLog(@"Modes fixed, syntaxWordIndex: %u, _OriginalModeLine->_NumberOfSyntaxWords: %u", syntaxWordIndex, _OriginalModeLine->_NumberOfSyntaxWords);
-//[workingML describe];
-    // now, we have
-    // currentSyntaxWordOff7 = '[originalModeLine offsetAtIndex:syntaxWordIndex]'
-    // nextSyntaxWordOff7 = currentSyntaxWordOff7 + [originalModeLine syntaxLengthAtIndex:syntaxWordIndex]
-    // currentSyntaxWordOff7 <= localLocation < nextSyntaxWordOff7
-    unsigned oldPreviousMode = (localLocation>currentSyntaxWordOff7)? [originalModeLine syntaxModeAtIndex:syntaxWordIndex]:
-        (syntaxWordIndex? [originalModeLine syntaxModeAtIndex:syntaxWordIndex-1]:[originalModeLine previousMode]);
-    if(oldPreviousMode == previousMode)
-    {
-//iTM2_LOG(@"Saving %u words (parsedMode = %u)", _OriginalModeLine->_NumberOfSyntaxWords - syntaxWordIndex, previousMode);
-        [workingML appendSyntaxMode:previousMode length:previousLength];
-        [workingML appendSyntaxMode:[originalModeLine syntaxModeAtIndex:syntaxWordIndex] length:nextSyntaxWordOff7 - localLocation];
-        previousLength = 0;
-        while(++syntaxWordIndex<_OriginalModeLine->_NumberOfSyntaxWords)
-            [workingML appendSyntaxMode:[originalModeLine syntaxModeAtIndex:syntaxWordIndex]
-				length: [originalModeLine syntaxLengthAtIndex:syntaxWordIndex]];
-    }
-    else if(globalLocation < [(NSTextStorage *)[self textStorage] length])
-    {
-//NSLog(@"ANOTHER LOOP");
-        // the previous mode has changed we must recompute the mode.
-        //topGlobalLocation = [originalModeLine startOffset] + nextLocalLocation;
-        topGlobalLocation = globalLocation + 1;
-		goto fixGlobalLocationMode;
-    }
-    theEnd:
-//NSLog(@"END OK: %u", previousLength);
-    [workingML appendSyntaxMode:previousMode length:previousLength];
-	if([workingML diagnostic])
-    {
-        iTM2_LOG(@"***  7<< - before swap : BIG PROBLEM IN VALIDATING THE MODE");
-    }
-	if([workingML contentsLength]!=[originalModeLine contentsLength])
-    {
-        iTM2_LOG(@"***  7< - before swap : BIG PROBLEM IN VALIDATING THE MODE %u != %u",
-								[workingML contentsLength], [originalModeLine contentsLength]);
-		unsigned start, end, contentsEnd;
-		[[[self textStorage] string] getLineStart:&start end:&end contentsEnd:&contentsEnd forRange:NSMakeRange([originalModeLine startOffset], 0)];
-		iTM2_LOG(@"start: %u, end: %u, contentsEnd: %u", start, end, contentsEnd);
-		iTM2_LOG(@"substring: %@", [[[self textStorage] string] substringWithRange:NSMakeRange(start, end - start)]);
-		[self diagnostic];
-    }
-    [originalModeLine swapContentsWithModeLine:workingML];
-	if([self diagnostic])
-    {
-        iTM2_LOG(@"***  7 - before END : BIG PROBLEM IN VALIDATING THE MODE");
-    }
-    _OriginalModeLine->_InvalidLocalRange = NSMakeRange(0, UINT_MAX);
-//NSLog(@"Number of modes really computed: %u/%u", N, [originalModeLine length]);
-    _OriginalModeLine->_EOLMode = [self EOLModeForPreviousMode:previousMode];
-//[originalModeLine describe];
-//iTM2_LOG(@"Worked hard: local invalid range %@, nextMode: %u", NSStringFromRange([originalModeLine invalidLocalRange]), previousMode);
-//iTM2_END;
-	if([self diagnostic])
-    {
-        iTM2_LOG(@"END: BIG PROBLEM IN VALIDATING THE MODE");
-    }
-//iTM2_END;
-//    [originalModeLine describe];
-    return _OriginalModeLine->_EOLMode;
-    #undef workingML
-}
-#else
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
-- (unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)mode;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Dec 12 22:44:56 GMT 2003
-To Do List: 
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(!mode)
-        return [originalModeLine EOLMode];
-    if([originalModeLine previousMode] != mode)
-    {
-        [originalModeLine invalidateLocalRange:NSMakeRange(0, 1)];
-        [originalModeLine setPreviousMode:mode];
-    }
-    mode = iTM2TSModeForIndexFCT(0, mode, nil, 1);
-    NSRange R;
-    R.location = [originalModeLine startOffset];
-    R.length = [(iTM2ModeLine *)originalModeLine length];
-    [_TextStorage setAttributes:[isa attributesForMode:mode] range:R];
-    [originalModeLine validateLocalRange:NSMakeRange(0, UINT_MAX)];
-    [originalModeLine setEOLMode:mode];
-    return mode;
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
 - (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 /*"Description forthcoming.
@@ -2491,7 +2167,7 @@ To Do List:
 //NSLog(@"Character: %@", [NSString stringWithCharacters:&argument length:1]);
 //NSLog(@"previousMode: %u", previousMode);
 //NSLog(@"result: %u", previousMode-1);
-    return kiTM2TextRegularSyntaxMode;
+    return kiTM2TextRegularSyntaxMode & kiTM2TextEndOfLineSyntaxMask;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COMMUNICATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= textStorageWillReplaceCharactersInRange:withString:
@@ -3848,7 +3524,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return _PreviousMode;
+    return _PreviousMode | kiTM2TextEndOfLineSyntaxMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setPreviousMode:
 - (void)setPreviousMode:(unsigned)argument;
@@ -3859,7 +3535,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    _PreviousMode = argument;
+    _PreviousMode = argument | kiTM2TextEndOfLineSyntaxMask;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLMode
@@ -3871,7 +3547,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return _EOLMode;
+    return _EOLMode | kiTM2TextEndOfLineSyntaxMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setEOLMode:
 - (void)setEOLMode:(unsigned)argument;
@@ -3882,7 +3558,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    _EOLMode = argument;
+    _EOLMode = argument | kiTM2TextEndOfLineSyntaxMask;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  hasNewLine
@@ -4504,6 +4180,10 @@ To Do List:
     NSDictionary * _selection = [NSDictionary dictionaryWithObjectsAndKeys:
         iTM2TextSelectionKey, iTM2TextModeAttributeName,
             nil];
+    NSDictionary * _whitePrefix = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont userFixedPitchFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        iTM2TextWhitePrefixKey, iTM2TextModeAttributeName,
+            nil];
     NSDictionary * _background = [NSDictionary dictionaryWithObjectsAndKeys:
         iTM2TextBackgroundKey, iTM2TextModeAttributeName,
             nil];
@@ -4512,7 +4192,8 @@ To Do List:
             nil];
     return [NSDictionary dictionaryWithObjectsAndKeys:
             regular, [regular objectForKey:iTM2TextModeAttributeName],
-            error,   [error   objectForKey:iTM2TextModeAttributeName], 
+            error,	[error   objectForKey:iTM2TextModeAttributeName], 
+            _whitePrefix,   [_whitePrefix   objectForKey:iTM2TextModeAttributeName], 
             _selection,   [_selection   objectForKey:iTM2TextModeAttributeName], 
             _insertion,   [_insertion   objectForKey:iTM2TextModeAttributeName], 
             _background,   [_background   objectForKey:iTM2TextModeAttributeName], nil];
@@ -4673,59 +4354,6 @@ To Do List:
 		}
     }
     return [NSDictionary dictionaryWithDictionary:MD];
-}
-@end
-
-@implementation NSCharacterSet(iTM2TextAttributesKit)
-static id _iTM2TextPTeXLetterCharacterSet = nil;
-static id _iTM2TextPTeXFileNameLetterCharacterSet = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-//iTM2_START;
-    if(!_iTM2TextPTeXLetterCharacterSet)
-    {
-        id set = [[[NSCharacterSet characterSetWithRange:NSMakeRange('a', 26)] mutableCopy] autorelease];
-        [set addCharactersInRange:NSMakeRange('A', 26)];
-        [set addCharactersInString:@"@"];
-        _iTM2TextPTeXLetterCharacterSet = [set copy];
-    }
-    if(!_iTM2TextPTeXFileNameLetterCharacterSet)
-    {
-        id set = [[_iTM2TextPTeXLetterCharacterSet mutableCopy] autorelease];
-        [set addCharactersInRange:NSMakeRange('A', 26)];
-        [set addCharactersInString:@"@_$^0123456789.-+*()[]/"];
-        _iTM2TextPTeXFileNameLetterCharacterSet = [set copy];
-    }
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXLetterCharacterSet;
-+ (NSCharacterSet *)TeXLetterCharacterSet;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _iTM2TextPTeXLetterCharacterSet;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
-+ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _iTM2TextPTeXFileNameLetterCharacterSet;
 }
 @end
 

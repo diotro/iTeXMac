@@ -74,7 +74,9 @@ extern NSString * const iTM2TextSyntaxParserVariantKey;
 
 enum
 {
-	kiTM2TextErrorSyntaxMask = 0xFF000000U// only 8 kinds or independent errors are allowed, 256 different situations
+	kiTM2TextErrorSyntaxMask = 0x7F000000U,// only 7 kinds or independent errors are allowed, 128 different situations
+	kiTM2TextEndOfLineSyntaxMask = 0x80000000U,// EOLs are used to propagate errors, information. If a previousMode has a kiTM2TextEndOfLineSyntaxMask bit set, it comes from the previous line EOL.
+	kiTM2TextModifiersSyntaxMask = 0xFF000000U
 };
 
 /*!
@@ -98,8 +100,9 @@ enum
 enum 
 {
     kiTM2TextErrorSyntaxMode = 0,
-    kiTM2TextRegularSyntaxMode = 1,
-	kiTM2TextUnknownSyntaxMode = UINT_MAX & ~kiTM2TextErrorSyntaxMask
+    kiTM2TextWhitePrefixSyntaxMode,
+    kiTM2TextRegularSyntaxMode,
+	kiTM2TextUnknownSyntaxMode = UINT_MAX & ~kiTM2TextModifiersSyntaxMask
 };
 
 /*!
@@ -195,24 +198,6 @@ enum
     @result     None
 */
 - (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
-
-@end
-
-@interface NSCharacterSet(iTM2TextStorageKit)
-
-/*!
-    @method     TeXLetterCharacterSet
-    @abstract   The TeX letters
-    @discussion Letters plus @ characters.
-*/
-+ (NSCharacterSet *)TeXLetterCharacterSet;
-
-/*!
-    @method     TeXFileNameLetterCharacterSet
-    @abstract   The TeX File Name letters
-    @discussion Letters and digits, plus some control characters.
-*/
-+ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
 
 @end
 
@@ -726,6 +711,7 @@ extern NSString * const iTM2TextSyntaxParserName;
 extern NSString * const iTM2TextModesAttributesExtension;
 extern NSString * const iTM2TextSymbolsAttributesExtension;
 extern NSString * const iTM2TextDefaultKey;
+extern NSString * const iTM2TextWhitePrefixKey;
 extern NSString * const iTM2TextErrorKey;
 extern NSString * const iTM2TextSelectionKey;
 extern NSString * const iTM2TextBackgroundKey;

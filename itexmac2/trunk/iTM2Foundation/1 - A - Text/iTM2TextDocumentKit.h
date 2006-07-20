@@ -138,16 +138,17 @@ extern NSString * const iTM2TextInspectorType;
 - (void)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding;
 
 /*!
-	@method			getLine:column:forHint:
+	@method			getLine:column:length:forHint:
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			lineRef points to a (valid) line number
 	@param			columnRef points to a column number
+	@param			lengthRef points to a length number
 	@result			The level of the match, the smaller the better
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef forHint:(NSDictionary *)hint;
+- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef length:(unsigned int *)lengthRef forHint:(NSDictionary *)hint;
 
 @end
 
@@ -200,14 +201,15 @@ extern NSString * const iTM2TextInspectorType;
 - (id)textView;
 
 /*!
-	@method		highlightAndScrollToVisibleLine:column:
+	@method		highlightAndScrollToVisibleLine:column:length:
 	@abstract	Abstract forthcoming.
 	@discussion The default implementation forwards the message to the text view.
 	@param		line is a line number
 	@param		column is a column number
+	@param		length is a length number
 	@result		None
 */
-- (void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column;
+- (void)highlightAndScrollToVisibleLine:(unsigned int)line column:(unsigned int)column length:(unsigned int)length;
 
 /*!
 	@method		EOL
