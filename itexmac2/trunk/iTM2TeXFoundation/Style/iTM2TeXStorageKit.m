@@ -1010,7 +1010,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     unsigned mode = [self syntaxModeAtIndex:aLocation longestEffectiveRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXRegularSyntaxMode:
@@ -1048,7 +1048,7 @@ To Do List:
                 return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode]];
         }
         default:
-            iTM2_LOG(@"Someone is asking for mode: %u (%u)", mode, switcher);
+            iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
 			if(aRangePtr)
 				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr) - aLocation);
             return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode]];
@@ -1092,7 +1092,7 @@ To Do List:
 #endif
     if(aRangePtr)
             *aRangePtr = r;
-	unsigned int switcher = mode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned int switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXRegularSyntaxMode:
@@ -1267,7 +1267,7 @@ To Do List:
                 return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode]];
         }
         default:
-            iTM2_LOG(@"Someone is asking for mode: %u", switcher);
+            iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
             return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode]];
     }
 }
