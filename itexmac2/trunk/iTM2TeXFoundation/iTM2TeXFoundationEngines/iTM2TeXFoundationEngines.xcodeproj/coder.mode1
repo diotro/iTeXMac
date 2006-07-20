@@ -185,48 +185,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC4AB1220A6C570800531ADA</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2_Engine_XeTeX</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC4AB1230A6C570800531ADA</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2_Engine_XeTeX</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC4AB3390A6C5F2900531ADA</string>
-						<key>history</key>
-						<array>
-							<string>DC4AB1130A6C552200531ADA</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1184, 671}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>107 77 1184 712 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -308,7 +267,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>5</integer>
+									<integer>3</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -414,9 +373,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC4AB1200A6C570800531ADA</string>
+				<string>DC89F2D50A6E76AE001272DD</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC4AB1210A6C570800531ADA</string>
+				<string>DC89F2D60A6E76AE001272DD</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -550,12 +509,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC4AB12D0A6C571B00531ADA</string>
-		<string>DC9DC6EA094844F00079E1B3</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>DC89F2DD0A6E76AE001272DD</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
-		<string>DC4AB1220A6C570800531ADA</string>
 	</array>
 	<key>WindowString</key>
 	<string>70 98 878 713 0 0 1440 878 </string>
@@ -679,8 +635,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {262, 179}}</string>
-											<string>{{262, 0}, {432, 179}}</string>
+											<string>{{0, 0}, {258, 197}}</string>
+											<string>{{258, 0}, {436, 197}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -695,8 +651,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 179}}</string>
-											<string>{{0, 179}, {694, 202}}</string>
+											<string>{{0, 0}, {694, 197}}</string>
+											<string>{{0, 197}, {694, 184}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -743,14 +699,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC4AB1270A6C571B00531ADA</string>
+				<string>DC89F2D70A6E76AE001272DD</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC4AB1280A6C571B00531ADA</string>
-				<string>DC4AB1290A6C571B00531ADA</string>
-				<string>DC4AB12A0A6C571B00531ADA</string>
-				<string>DC4AB12B0A6C571B00531ADA</string>
-				<string>DC4AB12C0A6C571B00531ADA</string>
-				<string>DC4AB12D0A6C571B00531ADA</string>
+				<string>DC89F2D80A6E76AE001272DD</string>
+				<string>DC89F2D90A6E76AE001272DD</string>
+				<string>DC89F2DA0A6E76AE001272DD</string>
+				<string>DC89F2DB0A6E76AE001272DD</string>
+				<string>DC89F2DC0A6E76AE001272DD</string>
+				<string>DC89F2DD0A6E76AE001272DD</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

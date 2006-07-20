@@ -1788,7 +1788,7 @@ To Do List:
 	NSString * command = [self commandName];//@"Compile"
 	NSString * mode = [[project commandWrapperForName:command] scriptMode];
 	if([mode isEqual:iTM2TPFEVoidMode])
-		return [super environmentDictionaryForProject:project];
+		return [super environmentWithDictionary:environment forProject:project];
     NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:environment forProject:project]];
 //iTM2_LOG(@"312-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 	mode = [[project commandWrapperForName:command] environmentMode];

@@ -567,7 +567,7 @@ To Do List: see the warning below
 			return;
 		}
 	}
-	[doc displayLine:line column:column withHint:nil orderFront:!dontOrderFront];
+	[doc displayLine:line column:column length:-1 withHint:nil orderFront:!dontOrderFront];
 	if(dontOrderFront)
 	{
 		[doc showWindowsBelowFront:self];

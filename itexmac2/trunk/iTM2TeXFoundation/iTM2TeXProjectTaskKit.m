@@ -47,6 +47,7 @@ NSString * const iTM2LogPageNumberAttributeName = @"iTM2: page";
 NSString * const iTM2LogLineTypeAttributeName = @"iTM2: type";
 NSString * const iTM2LogLinkLineAttributeName = @"iTM2: link line";
 NSString * const iTM2LogLinkColumnAttributeName = @"iTM2: link column";
+NSString * const iTM2LogLinkLengthAttributeName = @"iTM2: link length";
 NSString * const iTM2LogLinkPageAttributeName = @"iTM2: link page";
 NSString * const iTM2LogLinkFileAttributeName = @"iTM2: link file";
 
@@ -589,10 +590,13 @@ To Do List:
 	id N = [TS attribute:iTM2LogLinkLineAttributeName atIndex:charIndex effectiveRange:nil];
 	if(N)
 	{
-		int line = [N intValue];
+		unsigned int line = [N unsignedIntValue];
 		N = [TS attribute:iTM2LogLinkColumnAttributeName atIndex:charIndex effectiveRange:nil];
+		unsigned int column = (N? [N intValue]: -1);
+		N = [TS attribute:iTM2LogLinkLengthAttributeName atIndex:charIndex effectiveRange:nil];
+		unsigned int length = (N? [N intValue]: -1);
 		[[SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:NO error:nil]
-			displayLine: line column: (N? [N intValue]: -1) withHint:nil orderFront:YES];
+			displayLine:line column:column length:length withHint:nil orderFront:YES];
 	}
 	else
 	{

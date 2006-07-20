@@ -588,8 +588,8 @@ To Do List:
     [INC postNotificationName:iTM2PDFSyncParsedNotificationName object:self];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forLocation:withHint:inPageAtIndex:
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:source:forLocation:withHint:inPageAtIndex:
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr length:(unsigned int *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -1692,14 +1692,15 @@ To Do List:
     NSString * source = @"";
     unsigned int line = 0;
     unsigned int column = -1;
-    [[self synchronizer] getLine: &line column: &column source: &source forLocation:thePoint withHint:hint inPageAtIndex:thePage];
+    unsigned int length = 1;
+    [[self synchronizer] getLine:&line column:&column length:&length source:&source forLocation:thePoint withHint:hint inPageAtIndex:thePage];
 //NSLog(@"point: %@ page: %u", NSStringFromPoint(thePoint) , thePage);
 //NSLog(@"line: %u source: %@", line, source);
     if([source length])
 	{
 		NSURL * absoluteURL = [NSURL fileURLWithPath:source];
 		id D = [SDC openDocumentWithContentsOfURL:absoluteURL display:NO error:nil];
-		[D displayLine:line column:column withHint:hint orderFront:yorn];
+		[D displayLine:line column:column length:length withHint:hint orderFront:yorn];
 		return;
 	}
 	if(iTM2DebugEnabled)

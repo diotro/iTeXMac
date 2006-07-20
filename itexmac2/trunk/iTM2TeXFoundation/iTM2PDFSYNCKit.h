@@ -128,17 +128,18 @@ typedef struct
 - (NSDictionary *)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
 
 /*! 
-    @method     getLine:column:source:forLocation:withHint:inPageAtIndex:
+    @method     getLine:column:length:source:forLocation:withHint:inPageAtIndex:
     @abstract   Translates a source information into an output information.
     @discussion These are the methods for synchronization.
     @param      linePtr points to an integer location where the line number will be stored.
     @param      columnPtr points to an integer location where the column number should be stored.
+    @param      lengthPtr points to an integer location where the length number should be stored.
     @param      sourcePtr is a pointer where the source full path should be stored.
     @param      page is a page number.
     @param      point is the point of the PDF.
     @result     a flag, NO if no PDFSYNCH info where available, YES othewise. A NO return value does not mean that the receiver is using DVI.
 */
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr length:(unsigned int *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 - (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 
 /*! 

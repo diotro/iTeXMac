@@ -316,8 +316,10 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"iTM2TeXParser");
     if(!_iTM2TeXModeForModeArray)
+	{
         _iTM2TeXModeForModeArray = [[NSArray arrayWithObjects:
-			iTM2TextErrorKey, iTM2TextDefaultKey, @"command", @"command", @"command", @"comment", @"comment", @"mark", @"math", @"group", @"group", @"delimiter", @"subscript", @"subscript", @"subscript", @"superscript", @"superscript", @"superscript", @"input", @"cellSeparator", nil] retain];
+			iTM2TextErrorKey, iTM2TextWhitePrefixKey, iTM2TextDefaultKey, @"command", @"command", @"command", @"comment", @"comment", @"mark", @"math", @"group", @"group", @"delimiter", @"subscript", @"subscript", @"subscript", @"superscript", @"superscript", @"superscript", @"input", @"cellSeparator", nil] retain];
+	}
 	iTM2_RELEASE_POOL;
     return;
 }
@@ -426,6 +428,15 @@ To Do List:
 //    if(previousMode != ( previousMode & ~kiTM2TeXErrorSyntaxMask))
 //        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXErrorSyntaxMask);
 //iTM2_LOG(@"C'est %.1S qui s'y colle", &theChar);
+	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
+	if(previousMode & kiTM2TextEndOfLineSyntaxMask)
+	{
+		// this is the first character of the line
+		if(theChar == ' ')
+		{
+			return kiTM2TeXWhitePrefixSyntaxMode | previousError;
+		}
+	}
 	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
     if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
     {
@@ -439,6 +450,9 @@ To Do List:
 			break;
             case kiTM2TeXBeginCommandSyntaxMode:
                 result = kiTM2TeXCommandSyntaxMode;
+			break;
+			case kiTM2TeXWhitePrefixSyntaxMode:
+                result = kiTM2TeXRegularSyntaxMode;
 			break;
             case kiTM2TeXCommentSyntaxMode:
                 result = previousMode;
@@ -459,37 +473,56 @@ To Do List:
                 result = kiTM2TeXRegularSyntaxMode;
         }
 		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2TeXModeForModeArray objectAtIndex:result & ~kiTM2TeXErrorSyntaxMask]])
-			return result | (previousMode & kiTM2TeXErrorSyntaxMask);
+			return result | previousError;
 		else
 		{
 //iTM2_LOG(@"AN ERROR OCCURRED");
-			return result | kiTM2TeXErrorFontSyntaxMask | (previousMode & kiTM2TeXErrorSyntaxSyntaxMask);
+			return result | kiTM2TeXErrorFontSyntaxMask | previousError;
 		}
     }
     else
     {
         switch(theChar)
         {
+            case ' ':
+                switch(switcher)
+                {
+                    case kiTM2TeXErrorSyntaxMode:
+                    case kiTM2TeXWhitePrefixSyntaxMode:
+                    case kiTM2TeXRegularSyntaxMode:
+                    case kiTM2TeXCommentSyntaxMode:
+                    case kiTM2TeXMarkSyntaxMode:
+                    case kiTM2TeXUnknownSyntaxMode:
+                        return previousMode;
+                    case kiTM2TeXBeginCommandSyntaxMode:
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
+                    case kiTM2TeXBeginCommentSyntaxMode:
+                        return kiTM2TeXCommentSyntaxMode | previousError;
+                    default:
+                        return kiTM2TeXRegularSyntaxMode | previousError;
+                }
+    
             case '\\':
                 switch(switcher)
                 {
                     case kiTM2TeXRegularSyntaxMode:
                     case kiTM2TeXShortCommandSyntaxMode:
                     case kiTM2TeXCommandSyntaxMode:
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     case kiTM2TeXDollarSyntaxMode:
                     case kiTM2TeXDelimiterSyntaxMode:
                     case kiTM2TeXInputSyntaxMode:
                     case kiTM2TeXErrorSyntaxMode:
-                        return kiTM2TeXBeginCommandSyntaxMode;
+                        return kiTM2TeXBeginCommandSyntaxMode | previousError;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     default:
-                        return kiTM2TeXBeginCommandSyntaxMode;
+                        return kiTM2TeXBeginCommandSyntaxMode | previousError;
                 }
     
             case '{':
@@ -497,34 +530,36 @@ To Do List:
                 {
                     case kiTM2TeXRegularSyntaxMode:
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXBeginGroupSyntaxMode;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
+                        return kiTM2TeXBeginGroupSyntaxMode | previousError;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     default:
-                        return kiTM2TeXBeginGroupSyntaxMode;
+                        return kiTM2TeXBeginGroupSyntaxMode | previousError;
                 }
 
             case '}':
                 switch(switcher)
                 {
                     case kiTM2TeXRegularSyntaxMode:
-                        return kiTM2TeXEndGroupSyntaxMode;
+                        return kiTM2TeXEndGroupSyntaxMode | previousError;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXEndGroupSyntaxMode;
+                        return kiTM2TeXEndGroupSyntaxMode | previousError;
                 }
 
             case '(':
@@ -534,72 +569,76 @@ To Do List:
                 switch(switcher)
                 {
                     case kiTM2TeXRegularSyntaxMode:
-                        return kiTM2TeXDelimiterSyntaxMode;
+                        return kiTM2TeXDelimiterSyntaxMode | previousError;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXDelimiterSyntaxMode;
+                        return kiTM2TeXDelimiterSyntaxMode | previousError;
                 }
     
             case '$':
                 switch(switcher)
                 {
                     case kiTM2TeXRegularSyntaxMode:
-                        return kiTM2TeXDollarSyntaxMode;
+                        return kiTM2TeXDollarSyntaxMode | previousError;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXDollarSyntaxMode;
+                        return kiTM2TeXDollarSyntaxMode | previousError;
                 }
     
             case '%':
                 switch(switcher)
                 {
                     case kiTM2TeXRegularSyntaxMode:
-                        return kiTM2TeXBeginCommentSyntaxMode;
+                        return kiTM2TeXBeginCommentSyntaxMode | previousError;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXBeginCommentSyntaxMode;
+                        return kiTM2TeXBeginCommentSyntaxMode | previousError;
                 }
             
             case '&':
                 switch(switcher)
                 {
                     case kiTM2TeXRegularSyntaxMode:
-                        return kiTM2TeXCellSeparatorSyntaxMode;
+                        return kiTM2TeXCellSeparatorSyntaxMode | previousError;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXCellSeparatorSyntaxMode;
+                        return kiTM2TeXCellSeparatorSyntaxMode | previousError;
                 }
             
             case '!':
@@ -608,56 +647,59 @@ To Do List:
                     case kiTM2TeXRegularSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXMarkSyntaxMode;
+                        return kiTM2TeXMarkSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXRegularSyntaxMode;
+                        return kiTM2TeXRegularSyntaxMode | previousError;
                 }
             
             case '^':
                 switch(switcher)
                 {
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
                     case kiTM2TeXBeginSubscriptSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXBeginSuperscriptSyntaxMode;
+                        return kiTM2TeXBeginSuperscriptSyntaxMode | previousError;
                 }
 
             case '_':
                 switch(switcher)
                 {
                     case kiTM2TeXBeginCommandSyntaxMode:
-                        return kiTM2TeXShortCommandSyntaxMode;
+                        return kiTM2TeXShortCommandSyntaxMode | previousError;
                     case kiTM2TeXBeginCommentSyntaxMode:
-                        return kiTM2TeXCommentSyntaxMode;
+                        return kiTM2TeXCommentSyntaxMode | previousError;
                     case kiTM2TeXCommentSyntaxMode:
                     case kiTM2TeXMarkSyntaxMode:
                         return previousMode;
                     case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
                     case kiTM2TeXBeginSubscriptSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
                     case kiTM2TeXInputSyntaxMode:
-                        return kiTM2TeXErrorSyntaxMode;
+                        return kiTM2TeXErrorSyntaxMode | previousError;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
-                        return kiTM2TeXBeginSubscriptSyntaxMode;
+                        return kiTM2TeXBeginSubscriptSyntaxMode | previousError;
                 }
             
             default:
@@ -688,16 +730,17 @@ To Do List:
                     case kiTM2TeXInputSyntaxMode:
                         result = kiTM2TeXRegularSyntaxMode;
                     break;
+                    case kiTM2TeXWhitePrefixSyntaxMode:
                     default:
                         result = kiTM2TeXRegularSyntaxMode;
                 }
 //NSLog(@"mode returned: %u", result);
                 if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2TeXModeForModeArray objectAtIndex:result & ~kiTM2TeXErrorSyntaxMask]])
-                    return result | (previousMode & kiTM2TeXErrorSyntaxMask);
+                    return result | previousError;
                 else
 				{
 //iTM2_LOG(@"AN ERROR OCCURRED");
-                    return result | kiTM2TeXErrorSyntaxMask;
+                    return result | kiTM2TeXErrorSyntaxMask | previousError;
 				}
             }
         }
@@ -866,7 +909,7 @@ To Do List:
 //NSLog(@"Character: %@", [NSString stringWithCharacters: &argument length:1]);
 //NSLog(@"previousMode: %u", previousMode);
 //NSLog(@"result: %u", previousMode-1);
-    return kiTM2TeXRegularSyntaxMode;
+    return kiTM2TeXRegularSyntaxMode & kiTM2TeXEndOfLineSyntaxMask;// beware, you must use the kiTM2TextEndOfLineSyntaxMask
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
@@ -878,7 +921,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     unsigned mode = [self syntaxModeAtIndex:aLocation longestRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXRegularSyntaxMode:
@@ -916,7 +959,7 @@ To Do List:
                 return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode]];
         }
         default:
-            iTM2_LOG(@"Someone is asking for mode: %u (%u)", mode, switcher);
+            iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
 			if(aRangePtr)
 				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr) - aLocation);
             return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode]];
@@ -1231,8 +1274,8 @@ To Do List:
 @end
 
 @implementation NSCharacterSet(iTM2TeXStorageKit)
-static id _iTM2TextPTeXLetterCharacterSet = nil;
-static id _iTM2TextPTeXFileNameLetterCharacterSet = nil;
+static id _iTM2TeXPTeXLetterCharacterSet = nil;
+static id _iTM2TeXPTeXFileNameLetterCharacterSet = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming.
@@ -1243,19 +1286,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
 //iTM2_START;
-    if(!_iTM2TextPTeXLetterCharacterSet)
+    if(!_iTM2TeXPTeXLetterCharacterSet)
     {
         id set = [[[NSCharacterSet characterSetWithRange:NSMakeRange('a', 26)] mutableCopy] autorelease];
         [set addCharactersInRange:NSMakeRange('A', 26)];
         [set addCharactersInString:@"@"];
-        _iTM2TextPTeXLetterCharacterSet = [set copy];
+        _iTM2TeXPTeXLetterCharacterSet = [set copy];
     }
-    if(!_iTM2TextPTeXFileNameLetterCharacterSet)
+    if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
     {
-        id set = [[_iTM2TextPTeXLetterCharacterSet mutableCopy] autorelease];
+        id set = [[_iTM2TeXPTeXLetterCharacterSet mutableCopy] autorelease];
         [set addCharactersInRange:NSMakeRange('A', 26)];
         [set addCharactersInString:@"_$^0123456789.-+*()[]/"];
-        _iTM2TextPTeXFileNameLetterCharacterSet = [set copy];
+        _iTM2TeXPTeXFileNameLetterCharacterSet = [set copy];
     }
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -1269,7 +1312,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return _iTM2TextPTeXLetterCharacterSet;
+    return _iTM2TeXPTeXLetterCharacterSet;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
 + (NSCharacterSet *)TeXFileNameLetterCharacterSet;
@@ -1279,7 +1322,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return _iTM2TextPTeXFileNameLetterCharacterSet;
+    return _iTM2TeXPTeXFileNameLetterCharacterSet;
 }
 @end
 

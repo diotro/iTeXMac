@@ -37,34 +37,37 @@ extern NSString * const iTM2Text2ndSymbolColorAttributeName;
 enum
 {
 	kiTM2TeXErrorSyntaxMask = kiTM2TextErrorSyntaxMask,
-	kiTM2TeXErrorFontSyntaxMask = 1 << 24,// 24, up to 31
+	kiTM2TeXModifiersSyntaxMask = kiTM2TextModifiersSyntaxMask,
+	kiTM2TeXEndOfLineSyntaxMask = kiTM2TextEndOfLineSyntaxMask,
+	kiTM2TeXErrorFontSyntaxMask = 1 << 24,// 24, up to 30
 	kiTM2TeXErrorSyntaxSyntaxMask = 1 << 25
 };
 
 typedef enum _iTM2TeXInputMode 
 {
     kiTM2TeXErrorSyntaxMode = kiTM2TextErrorSyntaxMode,
+    kiTM2TeXWhitePrefixSyntaxMode = kiTM2TextWhitePrefixSyntaxMode,
     kiTM2TeXRegularSyntaxMode = kiTM2TextRegularSyntaxMode,
-    kiTM2TeXBeginCommandSyntaxMode = 2,
-    kiTM2TeXCommandSyntaxMode = 3,
-    kiTM2TeXShortCommandSyntaxMode = 4,
-    kiTM2TeXBeginCommentSyntaxMode = 5,
-    kiTM2TeXCommentSyntaxMode = 6,
-    kiTM2TeXMarkSyntaxMode = 7,
-    kiTM2TeXDollarSyntaxMode = 8,
-    kiTM2TeXBeginGroupSyntaxMode = 9,
-    kiTM2TeXEndGroupSyntaxMode = 10,
-    kiTM2TeXDelimiterSyntaxMode = 11,
-    kiTM2TeXBeginSubscriptSyntaxMode = 12,
-    kiTM2TeXShortSubscriptSyntaxMode = 13,
-    kiTM2TeXSubscriptSyntaxMode = 14,
-    kiTM2TeXBeginSuperscriptSyntaxMode = 15,
-    kiTM2TeXShortSuperscriptSyntaxMode = 16,
-    kiTM2TeXSuperscriptSyntaxMode = 17,
-    kiTM2TeXInputSyntaxMode = 18,
-    kiTM2TeXCellSeparatorSyntaxMode = 19,
+    kiTM2TeXBeginCommandSyntaxMode = 3,
+    kiTM2TeXCommandSyntaxMode,
+    kiTM2TeXShortCommandSyntaxMode,
+    kiTM2TeXBeginCommentSyntaxMode,
+    kiTM2TeXCommentSyntaxMode,
+    kiTM2TeXMarkSyntaxMode,
+    kiTM2TeXDollarSyntaxMode,
+    kiTM2TeXBeginGroupSyntaxMode,
+    kiTM2TeXEndGroupSyntaxMode,
+    kiTM2TeXDelimiterSyntaxMode,
+    kiTM2TeXBeginSubscriptSyntaxMode,
+    kiTM2TeXShortSubscriptSyntaxMode,
+    kiTM2TeXSubscriptSyntaxMode,
+    kiTM2TeXBeginSuperscriptSyntaxMode,
+    kiTM2TeXShortSuperscriptSyntaxMode,
+    kiTM2TeXSuperscriptSyntaxMode,
+    kiTM2TeXInputSyntaxMode,
+    kiTM2TeXCellSeparatorSyntaxMode,
 	kiTM2TeXUnknownSyntaxMode = kiTM2TextUnknownSyntaxMode
-} iTM2TeXInputMode;
+} iTM2TeXInputMode;// don't change the order unless you know what you are doing
 
 /*!
     @class	iTM2TeXParser
