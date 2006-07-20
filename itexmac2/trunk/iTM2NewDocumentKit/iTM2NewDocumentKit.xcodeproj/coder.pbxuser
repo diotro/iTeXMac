@@ -144,8 +144,8 @@
 			PBXWorkspaceStateSaveDate = 175086555;
 		};
 		perUserProjectItems = {
-			DC267DB10A6E3759001B9EC5 = DC267DB10A6E3759001B9EC5 /* PBXTextBookmark */;
-			DC89F3BD0A6F224B001272DD = DC89F3BD0A6F224B001272DD /* PBXTextBookmark */;
+			DC41AAD50A6F9CB600B5E990 /* PBXTextBookmark */ = DC41AAD50A6F9CB600B5E990 /* PBXTextBookmark */;
+			DC89F3BD0A6F224B001272DD /* PBXTextBookmark */ = DC89F3BD0A6F224B001272DD /* PBXTextBookmark */;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
@@ -199,16 +199,6 @@
 	DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */ = {
 		activeExec = 0;
 	};
-	DC267DB10A6E3759001B9EC5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3366";
-		rLen = 0;
-		rLoc = 109938;
-		rType = 0;
-		vrLen = 1550;
-		vrLoc = 70483;
-	};
 	DC2CA6BE0855D0CE00128F14 /* iTM2NewDocumentKit-Prefix.pch */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1145, 639}}";
@@ -248,6 +238,16 @@
 			sepNavVisRect = "{{0, 0}, {1105, 663}}";
 			sepNavWindowFrame = "{{61, 39}, {1144, 792}}";
 		};
+	};
+	DC41AAD50A6F9CB600B5E990 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 3366";
+		rLen = 0;
+		rLoc = 109938;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 70483;
 	};
 	DC5D70750949E27F00EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;

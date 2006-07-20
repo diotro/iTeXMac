@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -381,9 +379,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC89F36C0A6F1144001272DD</string>
+				<string>DC41AAC60A6F9CB600B5E990</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC89F36D0A6F1144001272DD</string>
+				<string>DC41AAC70A6F9CB600B5E990</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -517,9 +515,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC89F3750A6F1144001272DD</string>
+		<string>DC41AACE0A6F9CB600B5E990</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC8A64A8088DBEB50016FAA2</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -644,8 +641,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {499, 361}}</string>
-											<string>{{499, 0}, {731, 361}}</string>
+											<string>{{0, 0}, {496, 361}}</string>
+											<string>{{496, 0}, {734, 361}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -708,14 +705,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC89F36F0A6F1144001272DD</string>
+				<string>DC41AAC80A6F9CB600B5E990</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC89F3700A6F1144001272DD</string>
-				<string>DC89F3710A6F1144001272DD</string>
-				<string>DC89F3720A6F1144001272DD</string>
-				<string>DC89F3730A6F1144001272DD</string>
-				<string>DC89F3740A6F1144001272DD</string>
-				<string>DC89F3750A6F1144001272DD</string>
+				<string>DC41AAC90A6F9CB600B5E990</string>
+				<string>DC41AACA0A6F9CB600B5E990</string>
+				<string>DC41AACB0A6F9CB600B5E990</string>
+				<string>DC41AACC0A6F9CB600B5E990</string>
+				<string>DC41AACD0A6F9CB600B5E990</string>
+				<string>DC41AACE0A6F9CB600B5E990</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

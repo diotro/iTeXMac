@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3BD0A6F224B001272DD</string>
+						<string>DC41AAD50A6F9CB600B5E990</string>
 						<key>history</key>
 						<array>
-							<string>DC267DB10A6E3759001B9EC5</string>
+							<string>DC89F3BD0A6F224B001272DD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -237,8 +237,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -413,9 +411,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC89F2C00A6E76AE001272DD</string>
+				<string>DC41AAD30A6F9CB600B5E990</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC89F2C10A6E76AE001272DD</string>
+				<string>DC41AAD40A6F9CB600B5E990</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -549,7 +547,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC89F2C90A6E76AE001272DD</string>
+		<string>DC41AADC0A6F9CB600B5E990</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2NewDocumentKit/iTM2NewDocumentKit.xcodeproj</string>
 		<string>DCD7D1870A43732F0096B1A9</string>
@@ -676,8 +674,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {150, 378}}</string>
-											<string>{{150, 0}, {938, 378}}</string>
+											<string>{{0, 0}, {150, 383}}</string>
+											<string>{{150, 0}, {938, 383}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -692,8 +690,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1088, 378}}</string>
-											<string>{{0, 378}, {1088, 360}}</string>
+											<string>{{0, 0}, {1088, 383}}</string>
+											<string>{{0, 383}, {1088, 355}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -740,14 +738,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC89F2C30A6E76AE001272DD</string>
+				<string>DC41AAD60A6F9CB600B5E990</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC89F2C40A6E76AE001272DD</string>
-				<string>DC89F2C50A6E76AE001272DD</string>
-				<string>DC89F2C60A6E76AE001272DD</string>
-				<string>DC89F2C70A6E76AE001272DD</string>
-				<string>DC89F2C80A6E76AE001272DD</string>
-				<string>DC89F2C90A6E76AE001272DD</string>
+				<string>DC41AAD70A6F9CB600B5E990</string>
+				<string>DC41AAD80A6F9CB600B5E990</string>
+				<string>DC41AAD90A6F9CB600B5E990</string>
+				<string>DC41AADA0A6F9CB600B5E990</string>
+				<string>DC41AADB0A6F9CB600B5E990</string>
+				<string>DC41AADC0A6F9CB600B5E990</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

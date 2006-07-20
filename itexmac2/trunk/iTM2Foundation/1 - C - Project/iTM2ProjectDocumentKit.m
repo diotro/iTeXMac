@@ -7537,7 +7537,16 @@ To Do List:
 	if([absoluteURL isFileURL])
 	{
 		NSString * path = [absoluteURL path];
-		NSString * enclosing = [path enclosingWrapperFileName];
+		NSString * enclosing = [path enclosingProjectFileName];
+		if([enclosing length])
+		{
+			return;
+		}
+		if([SWS isWrapperPackageAtPath:path] && [path belongsToFarawayProjectsDirectory])
+		{
+			return;
+		}
+		enclosing = [path enclosingWrapperFileName];
 		if([enclosing length])
 		{
 			NSArray * enclosed = [enclosing enclosedProjectFileNames];
