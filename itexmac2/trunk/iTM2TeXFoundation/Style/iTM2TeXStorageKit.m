@@ -925,6 +925,7 @@ To Do List:
     switch(switcher)
     {
         case kiTM2TeXRegularSyntaxMode:
+        case kiTM2TextWhitePrefixSyntaxMode:
         case kiTM2TeXCommandSyntaxMode:
         case kiTM2TeXCommentSyntaxMode:
         case kiTM2TeXMarkSyntaxMode:
@@ -1014,6 +1015,7 @@ To Do List:
     switch(switcher)
     {
         case kiTM2TeXRegularSyntaxMode:
+        case kiTM2TextWhitePrefixSyntaxMode:
         case kiTM2TeXCommandSyntaxMode:
         case kiTM2TeXCommentSyntaxMode:
         case kiTM2TeXMarkSyntaxMode:
@@ -1116,6 +1118,7 @@ To Do List:
             }
             return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommandSyntaxMode]];
         }
+        case kiTM2TextWhitePrefixSyntaxMode:
         case kiTM2TeXBeginGroupSyntaxMode:
         case kiTM2TeXEndGroupSyntaxMode:
         case kiTM2TeXCommentSyntaxMode:
