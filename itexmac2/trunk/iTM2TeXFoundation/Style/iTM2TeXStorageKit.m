@@ -909,7 +909,7 @@ To Do List:
 //NSLog(@"Character: %@", [NSString stringWithCharacters: &argument length:1]);
 //NSLog(@"previousMode: %u", previousMode);
 //NSLog(@"result: %u", previousMode-1);
-    return kiTM2TeXRegularSyntaxMode & kiTM2TeXEndOfLineSyntaxMask;// beware, you must use the kiTM2TextEndOfLineSyntaxMask
+    return kiTM2TeXRegularSyntaxMode | kiTM2TeXEndOfLineSyntaxMask;// beware, you must use the kiTM2TextEndOfLineSyntaxMask
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;

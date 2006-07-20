@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3B50A6F2228001272DD</string>
+						<string>DC41A9050A6F905100B5E990</string>
 						<key>history</key>
 						<array>
-							<string>DC89F3AA0A6F1F11001272DD</string>
+							<string>DC89F3B50A6F2228001272DD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -244,10 +244,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3B60A6F2229001272DD</string>
+						<string>DC41A9060A6F905100B5E990</string>
 						<key>history</key>
 						<array>
-							<string>DC89F3050A6EE815001272DD</string>
+							<string>DC89F3B60A6F2229001272DD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -284,10 +284,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3B70A6F2229001272DD</string>
+						<string>DC41A9070A6F905100B5E990</string>
 						<key>history</key>
 						<array>
-							<string>DC1A153E0A6E3E2000470BA3</string>
+							<string>DC89F3B70A6F2229001272DD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -324,10 +324,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3B80A6F2229001272DD</string>
+						<string>DC41A9080A6F905100B5E990</string>
 						<key>history</key>
 						<array>
-							<string>DC1A153F0A6E3E2000470BA3</string>
+							<string>DC89F3B80A6F2229001272DD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -364,10 +364,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3B90A6F2229001272DD</string>
+						<string>DC41A9090A6F905100B5E990</string>
 						<key>history</key>
 						<array>
-							<string>DC1A15400A6E3E2000470BA3</string>
+							<string>DC89F3B90A6F2229001272DD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -404,10 +404,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3BA0A6F2229001272DD</string>
+						<string>DC41A90A0A6F905100B5E990</string>
 						<key>history</key>
 						<array>
-							<string>DC1A15410A6E3E2000470BA3</string>
+							<string>DC89F3BA0A6F2229001272DD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -564,7 +564,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC89F3B40A6F2228001272DD</string>
+										<string>DC41A9040A6F905100B5E990</string>
 										<key>history</key>
 										<array>
 											<string>DCD7D6F60A439B6B0096B1A9</string>
@@ -597,7 +597,7 @@
 											<string>DC007EEB0A647C9E009236E8</string>
 											<string>DC007EEE0A647C9E009236E8</string>
 											<string>DC26793B0A6D487E001B9EC5</string>
-											<string>DC89F3A60A6F1F11001272DD</string>
+											<string>DC89F3B40A6F2228001272DD</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -689,9 +689,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC89EFC40A6E5C5D001272DD</string>
+				<string>DC41A8CB0A6F885000B5E990</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC89EFC50A6E5C5D001272DD</string>
+				<string>DC41A8CC0A6F885000B5E990</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -825,21 +825,16 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC89F39D0A6F15BF001272DD</string>
-		<string>DC89F39E0A6F15BF001272DD</string>
-		<string>DC993BD1088DF33900F8BCE1</string>
-		<string>DC89EFD20A6E5C5D001272DD</string>
+		<string>DC41A8060A6F7C6400B5E990</string>
+		<string>DCD7D7160A439D000096B1A9</string>
 		<string>DC267DA50A6DACEA001B9EC5</string>
 		<string>DC267DA10A6DACEA001B9EC5</string>
 		<string>DC267D9D0A6DACEA001B9EC5</string>
 		<string>DC2679410A6D487E001B9EC5</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DC89F3030A6EE815001272DD</string>
-		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DC89F3A80A6F1F11001272DD</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
-		<string>DCD7D7160A439D000096B1A9</string>
 	</array>
 	<key>WindowString</key>
 	<string>5 66 1331 773 0 0 1440 878 </string>
@@ -965,8 +960,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {509, 408}}</string>
-											<string>{{509, 0}, {643, 408}}</string>
+											<string>{{0, 0}, {506, 411}}</string>
+											<string>{{506, 0}, {646, 411}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -981,8 +976,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1152, 408}}</string>
-											<string>{{0, 408}, {1152, 374}}</string>
+											<string>{{0, 0}, {1152, 411}}</string>
+											<string>{{0, 411}, {1152, 371}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -1029,14 +1024,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC89EFCC0A6E5C5D001272DD</string>
+				<string>DC41A8000A6F7C6400B5E990</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC89EFCD0A6E5C5D001272DD</string>
-				<string>DC89EFCE0A6E5C5D001272DD</string>
-				<string>DC89EFCF0A6E5C5D001272DD</string>
-				<string>DC89EFD00A6E5C5D001272DD</string>
-				<string>DC89EFD10A6E5C5D001272DD</string>
-				<string>DC89EFD20A6E5C5D001272DD</string>
+				<string>DC41A8010A6F7C6400B5E990</string>
+				<string>DC41A8020A6F7C6400B5E990</string>
+				<string>DC41A8030A6F7C6400B5E990</string>
+				<string>DC41A8040A6F7C6400B5E990</string>
+				<string>DC41A8050A6F7C6400B5E990</string>
+				<string>DC41A8060A6F7C6400B5E990</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -1370,7 +1365,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DCD7D7160A439D000096B1A9</string>
-				<string>DC89F3B10A6F1F11001272DD</string>
+				<string>DC41A8080A6F7C6400B5E990</string>
 				<string>1C78EAB2065D492600B07095</string>
 				<string>1CD052920623707200166675</string>
 			</array>
@@ -1381,7 +1376,7 @@
 			<key>WindowToolGUID</key>
 			<string>DCD7D7160A439D000096B1A9</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

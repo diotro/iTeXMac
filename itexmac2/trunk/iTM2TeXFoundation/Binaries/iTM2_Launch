@@ -18,6 +18,11 @@ if ! [ -w "${iTM2_Device}" ]
 then
     iTM2_Device="/dev/null"
 fi
+if [ ${iTM2_ProjectDidUpdate:-0} -eq 0 ]
+then
+	"${iTM2_CMD_Notify}" echo "<second time/>"
+date "+SECOND - DATE: %m/%d/%y%nTIME: %H:%M:%S"
+fi
 "${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
 iTM2SHORT="0"
 iTM2BinaryPATH=""
