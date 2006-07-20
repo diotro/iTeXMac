@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -371,9 +369,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC2671E00A6C6078001B9EC5</string>
+				<string>DC89F2A60A6E76AE001272DD</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC2671E10A6C6078001B9EC5</string>
+				<string>DC89F2A70A6E76AE001272DD</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -507,13 +505,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC2671EB0A6C6078001B9EC5</string>
-		<string>DC2671EC0A6C6078001B9EC5</string>
-		<string>DC691935088C8CD600F00114</string>
-		<string>DC2671E90A6C6078001B9EC5</string>
+		<string>DC89F2AE0A6E76AE001272DD</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
-		<string>DC69174E088BFB5600F00114</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
@@ -538,7 +531,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>iTM2TextDocumentKit.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -704,14 +697,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC2671E30A6C6078001B9EC5</string>
+				<string>DC89F2A80A6E76AE001272DD</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC2671E40A6C6078001B9EC5</string>
-				<string>DC2671E50A6C6078001B9EC5</string>
-				<string>DC2671E60A6C6078001B9EC5</string>
-				<string>DC2671E70A6C6078001B9EC5</string>
-				<string>DC2671E80A6C6078001B9EC5</string>
-				<string>DC2671E90A6C6078001B9EC5</string>
+				<string>DC89F2A90A6E76AE001272DD</string>
+				<string>DC89F2AA0A6E76AE001272DD</string>
+				<string>DC89F2AB0A6E76AE001272DD</string>
+				<string>DC89F2AC0A6E76AE001272DD</string>
+				<string>DC89F2AD0A6E76AE001272DD</string>
+				<string>DC89F2AE0A6E76AE001272DD</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

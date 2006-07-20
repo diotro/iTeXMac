@@ -385,9 +385,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC4AB3470A6C5F2A00531ADA</string>
+				<string>DC89F2B30A6E76AE001272DD</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC4AB3480A6C5F2A00531ADA</string>
+				<string>DC89F2B40A6E76AE001272DD</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -521,7 +521,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC4AB34F0A6C5F2A00531ADA</string>
+		<string>DC89F2BB0A6E76AE001272DD</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj</string>
 	</array>
@@ -649,8 +649,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {404, 363}}</string>
-											<string>{{404, 0}, {876, 363}}</string>
+											<string>{{0, 0}, {399, 379}}</string>
+											<string>{{399, 0}, {881, 379}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -665,8 +665,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1280, 363}}</string>
-											<string>{{0, 363}, {1280, 368}}</string>
+											<string>{{0, 0}, {1280, 379}}</string>
+											<string>{{0, 379}, {1280, 352}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -713,14 +713,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC4AB3490A6C5F2A00531ADA</string>
+				<string>DC89F2B50A6E76AE001272DD</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC4AB34A0A6C5F2A00531ADA</string>
-				<string>DC4AB34B0A6C5F2A00531ADA</string>
-				<string>DC4AB34C0A6C5F2A00531ADA</string>
-				<string>DC4AB34D0A6C5F2A00531ADA</string>
-				<string>DC4AB34E0A6C5F2A00531ADA</string>
-				<string>DC4AB34F0A6C5F2A00531ADA</string>
+				<string>DC89F2B60A6E76AE001272DD</string>
+				<string>DC89F2B70A6E76AE001272DD</string>
+				<string>DC89F2B80A6E76AE001272DD</string>
+				<string>DC89F2B90A6E76AE001272DD</string>
+				<string>DC89F2BA0A6E76AE001272DD</string>
+				<string>DC89F2BB0A6E76AE001272DD</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

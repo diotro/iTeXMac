@@ -92,8 +92,8 @@ extern NSString * const iTM2LaTeXToolbarIdentifier;
 typedef enum _iTM2LaTeXInputMode 
 {
     kiTM2LaTeXIncludeSyntaxMode = 1000,
-    kiTM2LaTeXIncludegraphicsSyntaxMode = 1001,
-    kiTM2LaTeXURLSyntaxMode = 1002,
+    kiTM2LaTeXIncludegraphicsSyntaxMode,
+    kiTM2LaTeXURLSyntaxMode,// keep that order
 	kiTM2LaTeXUnknownSyntaxMode = kiTM2TeXUnknownSyntaxMode
 } iTM2LaTeXInputMode;
 

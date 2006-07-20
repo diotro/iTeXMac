@@ -2691,7 +2691,7 @@ To Do List:
 		case kiTM2LaTeXURLSyntaxMode:
 		if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
 		{
-			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher - 1000]])
+			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher - kiTM2LaTeXIncludeSyntaxMode]])
 				return previousMode;
 			else
 			{

@@ -204,6 +204,7 @@ To Do List:
     NSString * sourceAfter = @"";
     unsigned int line = 0;
     unsigned int column = -1;
+	unsigned int length = 1;
 	NSURL * url = nil;
 	id synchronizer = [self synchronizer];
     if([synchronizer getLine: &line column: &column sourceBefore: &sourceBefore sourceAfter: &sourceAfter forLocation:thePoint withHint:hint inPageAtIndex:thePage])
@@ -213,16 +214,16 @@ To Do List:
 		{
 			url = [NSURL fileURLWithPath:sourceBefore];
 			id document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
-			[document getLine: &line column: &column forHint:hint];
-			if([document displayLine:line column:column withHint:hint orderFront:yorn])
+			[document getLine: &line column: &column length:&length forHint:hint];
+			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
 		}
 		if([sourceAfter length]
 			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceAfter pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
 			id document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:sourceAfter] display:NO error:nil];
-			[document getLine: &line column: &column forHint:hint];
-			if([document displayLine:line column:column withHint:hint orderFront:yorn])
+			[document getLine: &line column: &column length:&length forHint:hint];
+			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
 		}
 	}
@@ -246,19 +247,20 @@ To Do List:
 		}
 		if([document isKindOfClass:[iTM2TextDocument class]])
 		{
-			unsigned int testLine = 0, testColumn = -1;// THESE MUST BE INITIALIZED THAT WAY
-			unsigned int testMatch = [document getLine: &testLine column: &testColumn forHint:hint];
+			unsigned int testLine = 0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
+			unsigned int testMatch = [document getLine:&testLine column:&testColumn length:&testLength forHint:hint];
 			if(testMatch<matchLevel)
 			{
 				matchLevel = testMatch;
 				line = testLine;
 				column = testColumn;
+				length = testLength;
 				sourceBefore = source;
 				matchDocument = document;
 			}
 		}
 	}
-	if([matchDocument displayLine:line column:column withHint:hint orderFront:yorn])
+	if([matchDocument displayLine:line column:column length:length withHint:hint orderFront:yorn])
 	{
 		return;
 	}
@@ -266,9 +268,9 @@ To Do List:
 		display: NO error: nil];
 	if([matchDocument isKindOfClass:[iTM2TextDocument class]])
 	{
-		unsigned int testLine = 0, testColumn = -1;// THESE MUST BE INITIALIZED THAT WAY
-		[matchDocument getLine: &testLine column: &testColumn forHint:hint];
-		if([matchDocument displayLine:line column:column withHint:hint orderFront:yorn])
+		unsigned int testLine = 0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
+		[matchDocument getLine:&testLine column:&testColumn length:&testLength forHint:hint];
+		if([matchDocument displayLine:line column:column length:length withHint:hint orderFront:yorn])
 		{
 			return;
 		}

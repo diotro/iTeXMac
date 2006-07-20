@@ -139,11 +139,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 174873756;
-			PBXWorkspaceStateSaveDate = 174873756;
+			PBXPerProjectTemplateStateSaveDate = 175004623;
+			PBXWorkspaceStateSaveDate = 175004623;
 		};
 		perUserProjectItems = {
-			DC008F240A6ADEF2009236E8 /* PBXTextBookmark */ = DC008F240A6ADEF2009236E8 /* PBXTextBookmark */;
+			DC008F240A6ADEF2009236E8 = DC008F240A6ADEF2009236E8 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
