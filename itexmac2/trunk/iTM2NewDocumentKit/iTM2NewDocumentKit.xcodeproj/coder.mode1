@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC89F3830A6F13A3001272DD</string>
+						<string>DC89F3BD0A6F224B001272DD</string>
 						<key>history</key>
 						<array>
 							<string>DC267DB10A6E3759001B9EC5</string>
@@ -237,6 +237,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
