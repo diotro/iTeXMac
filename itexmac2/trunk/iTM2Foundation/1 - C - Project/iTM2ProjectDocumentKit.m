@@ -3952,7 +3952,12 @@ To Do List:
 //iTM2_LOG(@"::::DIRECTORY:%@", [[[self document] fileName] stringByDeletingLastPathComponent]);
 	NSString * directory = [[self document] fileName];
 	directory = [directory stringByDeletingLastPathComponent];
-	directory = [directory stringByStrippingFarawayProjectsDirectory];
+	if([iTM2EventObserver isAlternateKeyDown] && [directory belongsToFarawayProjectsDirectory])
+	{
+		directory = [directory enclosingWrapperFileName];
+		directory = [directory stringByDeletingLastPathComponent];
+		directory = [directory stringByStrippingFarawayProjectsDirectory];
+	}
     [OP beginSheetForDirectory:directory
         file:nil types:nil modalForWindow:[self window]
             modalDelegate:self didEndSelector:@selector(openPanelDidImportDocument:returnCode:contextInfo:)
@@ -9243,14 +9248,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * projects = [NSMutableArray array];
-	NSString * projectPathExtension = [SDC projectPathExtension];
-	NSString * file = nil;
 	NSDirectoryEnumerator *dirEnum = [DFM enumeratorAtPath:self];
+	NSString * file = nil;
 	while (file = [dirEnum nextObject])
 	{
 		file = [self stringByAppendingPathComponent:file];
 		file = [file stringByStandardizingPath];
-		if ([SWS isProjectPackageAtPath:file])
+		if([SWS isProjectPackageAtPath:file])
 		{
 			[projects addObject:file];
 		}
@@ -9268,13 +9272,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * projects = [NSMutableArray array];
-	NSString * projectPathExtension = [SDC projectPathExtension];
-	NSString * file = nil;
 	NSArray * contents = [DFM directoryContentsAtPath:self];
 	NSEnumerator *E = [contents objectEnumerator];
+	NSString * file = nil;
 	while (file = [E nextObject])
 	{
-		if ([[file pathExtension] isEqualToString:projectPathExtension])
+		if([SWS isProjectPackageAtPath:file])
 		{
 			file = [self stringByAppendingPathComponent:file];
 			file = [file stringByStandardizingPath];
