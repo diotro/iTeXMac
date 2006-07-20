@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -375,9 +373,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC89F2D50A6E76AE001272DD</string>
+				<string>DC41AAA40A6F9C6D00B5E990</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC89F2D60A6E76AE001272DD</string>
+				<string>DC41AAA50A6F9C6D00B5E990</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -511,7 +509,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC89F2DD0A6E76AE001272DD</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>DC41AA820A6F9C6A00B5E990</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 	</array>
@@ -637,8 +636,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {258, 197}}</string>
-											<string>{{258, 0}, {436, 197}}</string>
+											<string>{{0, 0}, {256, 199}}</string>
+											<string>{{256, 0}, {438, 199}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -653,8 +652,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 197}}</string>
-											<string>{{0, 197}, {694, 184}}</string>
+											<string>{{0, 0}, {694, 199}}</string>
+											<string>{{0, 199}, {694, 182}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -701,14 +700,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC89F2D70A6E76AE001272DD</string>
+				<string>DC41AA7C0A6F9C6A00B5E990</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC89F2D80A6E76AE001272DD</string>
-				<string>DC89F2D90A6E76AE001272DD</string>
-				<string>DC89F2DA0A6E76AE001272DD</string>
-				<string>DC89F2DB0A6E76AE001272DD</string>
-				<string>DC89F2DC0A6E76AE001272DD</string>
-				<string>DC89F2DD0A6E76AE001272DD</string>
+				<string>DC41AA7D0A6F9C6A00B5E990</string>
+				<string>DC41AA7E0A6F9C6A00B5E990</string>
+				<string>DC41AA7F0A6F9C6A00B5E990</string>
+				<string>DC41AA800A6F9C6A00B5E990</string>
+				<string>DC41AA810A6F9C6A00B5E990</string>
+				<string>DC41AA820A6F9C6A00B5E990</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -740,7 +739,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string></string>
+										<string>iTM2LaTeXKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -798,8 +797,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC4AB1170A6C568400531ADA</string>
-				<string>DC4AB1180A6C568400531ADA</string>
+				<string>DC41AA9B0A6F9C6A00B5E990</string>
+				<string>DC41AA9C0A6F9C6A00B5E990</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>

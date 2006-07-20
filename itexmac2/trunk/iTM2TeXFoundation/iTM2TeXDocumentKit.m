@@ -220,7 +220,7 @@ To Do List: include the tetex path...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent * )event
 /*"Description Forthcoming
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List:
 "*/
@@ -274,7 +274,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
 - (void)insertUnderscore:(id)sender;
 /*"Tabs are inserted only at the beginning of the line.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -298,7 +298,7 @@ To Do List: Nothing at first glance.
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertHat:
 - (void)insertHat:(id)sender;
 /*"Inserting a smart hat. Problem with dead keys.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -334,7 +334,7 @@ To Do List: Nothing at first glance.
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
 - (void)insertControl:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -359,7 +359,7 @@ To Do List: Nothing at first glance.
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertDollar:
 - (void)insertDollar:(id)sender;
 /*"Tabs are inserted only at the beginning of the line.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -376,7 +376,7 @@ To Do List: Nothing at first glance.
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBrace:
 - (void)insertOpenBrace:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -397,7 +397,7 @@ To Do List: Nothing at first glance.
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenParenthesis:
 - (void)insertOpenParenthesis:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -414,7 +414,7 @@ To Do List: Nothing at first glance.
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBracket:
 - (void)insertOpenBracket:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -453,7 +453,7 @@ To Do List: Nothing at first glance.
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertTabAnchor:
 - (void)insertTabAnchor:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -931,7 +931,7 @@ NSString * const iTM2TeXSmartSelectionKey = @"iTM2-Text: Smart Selection";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
 + (void)initialize;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: implement some kind of balance range for range
 "*/
@@ -944,7 +944,7 @@ To Do List: implement some kind of balance range for range
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
 - (NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: implement some kind of balance range for range
 "*/
@@ -958,7 +958,7 @@ To Do List: implement some kind of balance range for range
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartDoubleClickAtIndex:
 - (NSRange)smartDoubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List:
 "*/

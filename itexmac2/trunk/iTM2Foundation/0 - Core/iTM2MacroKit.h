@@ -93,7 +93,7 @@ extern NSString * const iTM2MacroToolTipKey;
 					This just launches a task.
 	@result			None.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 //+ (void)updateUserMacrosHashTable;
 
@@ -104,7 +104,7 @@ extern NSString * const iTM2MacroToolTipKey;
 					The file is just an XML file with an embedded DTD.
 	@result			None.
 	@availability	iTM2.
-	@copyright		2006 jlaurens@users.sourceforge.net and others.
+	@copyright		2006 jlaurens AT users.sourceforge.net and others.
 */
 + (NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
 
@@ -175,7 +175,7 @@ extern NSString * const iTM2MacroToolTipKey;
 					The user defined macros (category "Custom") are less numerous and will be managed on the fly with a slightly different strategy.
 					Assuming that they are all user defined, we do not need tooltips nor cached macros index.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 
 #import "iTM2Implementation.h"
@@ -190,7 +190,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@discussion		Discussion forthcoming.
 	@result			None.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 + (id)sharedMacrosServer;
 
@@ -203,7 +203,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@param			domain
 	@result			a flag.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
@@ -241,7 +241,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@param			domain
 	@result			a path.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
@@ -257,7 +257,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@param			domain
 	@result			a name.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 

@@ -1922,7 +1922,7 @@ To Do List:
     else if(!(_OriginalModeLine->_InvalidLocalRange).length
             || ((_OriginalModeLine->_InvalidLocalRange).location >= _OriginalModeLine->_ContentsLength))
 	// the attributes were already computed, so we just have to return the result previously computed and stored as the EOL mode
-        return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode & kiTM2TextEndOfLineSyntaxMask);
+        return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode | kiTM2TextEndOfLineSyntaxMask);
 //iTM2_START;
 	// now, we are really going to compute the attributes validating the modes
     _iTM2InternalAssert(![self diagnostic], @"***  0 - STARTING:BIG PROBLEM IN VALIDATING THE MODE");
@@ -2124,7 +2124,7 @@ To Do List:
 	_iTM2InternalAssert(![self diagnostic], @"***  END2 :BIG PROBLEM IN VALIDATING THE MODE");
 //iTM2_END;
 //    [originalModeLine describe];
-	return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode & kiTM2TextEndOfLineSyntaxMask);
+	return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode | kiTM2TextEndOfLineSyntaxMask);
     #undef workingML
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
@@ -2167,7 +2167,7 @@ To Do List:
 //NSLog(@"Character: %@", [NSString stringWithCharacters:&argument length:1]);
 //NSLog(@"previousMode: %u", previousMode);
 //NSLog(@"result: %u", previousMode-1);
-    return kiTM2TextRegularSyntaxMode & kiTM2TextEndOfLineSyntaxMask;
+    return kiTM2TextRegularSyntaxMode | kiTM2TextEndOfLineSyntaxMask;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COMMUNICATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= textStorageWillReplaceCharactersInRange:withString:

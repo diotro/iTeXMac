@@ -541,7 +541,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  bold:
 - (void)bold:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -552,7 +552,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
 - (void)italic:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -563,7 +563,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
 - (void)underline:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -574,7 +574,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignCenter:
 - (void)alignCenter:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -585,7 +585,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignRight:
 - (void)alignRight:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -596,7 +596,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignLeft:
 - (void)alignLeft:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -607,7 +607,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subscript:
 - (void)subscript:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -618,7 +618,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
 - (void)superscript:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -630,7 +630,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  turnOffKerning:
 - (void)turnOffKerning:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -641,7 +641,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tightenKerning:
 - (void)tightenKerning:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -652,7 +652,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loosenKerning:
 - (void)loosenKerning:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -662,7 +662,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  useStandardKerning:
 - (void)useStandardKerning:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -673,7 +673,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  turnOffLigatures:
 - (void)turnOffLigatures:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -684,7 +684,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  useStandardLigatures:
 - (void)useStandardLigatures:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -695,7 +695,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  useAllLigatures:
 - (void)useAllLigatures:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -706,7 +706,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  raiseBaseline:
 - (void)raiseBaseline:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -717,7 +717,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  lowerBaseline:
 - (void)lowerBaseline:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -728,7 +728,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  toggleTraditionalCharacterShape:
 - (void)toggleTraditionalCharacterShape:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -741,7 +741,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignJustified:
 - (void)alignJustified:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 To Do List:
 "*/
 {
@@ -752,7 +752,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeLaTeXEnvironment:
 - (void) completeLaTeXEnvironment: (id) sender;
 /*"Desription Forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - 1.3: 02/03/2003
 To Do List:
 "*/
@@ -777,7 +777,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
 - (void)insertControl:(id)sender;
 /*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
@@ -1394,7 +1394,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent * )event
 /*"Description Forthcoming
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List:
 "*/

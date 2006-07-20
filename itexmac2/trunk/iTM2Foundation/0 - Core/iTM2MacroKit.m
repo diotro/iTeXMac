@@ -543,7 +543,7 @@ To Do List:
 	@param			domain
 	@result			None.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (id)storageForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
@@ -556,7 +556,7 @@ To Do List:
 	@param			domain
 	@result			a path.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (void)updateLocalesIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
@@ -568,7 +568,7 @@ To Do List:
 	@param			domain
 	@result			a path.
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (void)updateActionsIndexForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
@@ -585,7 +585,7 @@ To Do List:
 	@param			outError
 	@result			A hash...
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outError;
 
@@ -604,7 +604,7 @@ To Do List:
 	@param			outError
 	@result			A hash...
 	@availability	iTM2.
-	@copyright		2005 jlaurens@users.sourceforge.net and others.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outError;
 

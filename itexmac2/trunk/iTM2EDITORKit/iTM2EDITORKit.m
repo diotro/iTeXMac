@@ -4,7 +4,7 @@
 //
 //  @version Subversion: $Id$ 
 //
-//  Created by jlaurens@users.sourceforge.net on Sun Jun 24 2001.
+//  Created by jlaurens AT users.sourceforge.net on Sun Jun 24 2001.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
@@ -29,7 +29,7 @@ NSString * const iTM2EDITORToolbarIdentifier = @"iTM2 EDITOR Toolbar: Tiger";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
 + (NSString *)inspectorMode;
 /*"Description Forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - 2.0: Fri Sep 05 2003
 To Do List:
 "*/
@@ -41,7 +41,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
 - (void)windowDidLoad;
 /*"Description Forthcoming.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - 2.0: Fri Sep 05 2003
 To Do List:
 "*/
@@ -54,7 +54,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
 - (BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - 2.0: Fri May 21 07:52:07 GMT 2004
 To Do List:
 "*/

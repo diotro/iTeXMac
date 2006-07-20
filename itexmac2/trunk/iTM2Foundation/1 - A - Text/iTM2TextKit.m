@@ -868,7 +868,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:
 - (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/15/2006
 To Do List: implement some kind of balance range for range
 "*/
@@ -901,7 +901,7 @@ To Do List: implement some kind of balance range for range
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/15/2006
 To Do List: implement some kind of balance range for range
 "*/
@@ -916,7 +916,7 @@ To Do List: implement some kind of balance range for range
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
 - (NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/15/2006
 To Do List: implement some kind of balance range for range
 "*/

@@ -1,7 +1,7 @@
 #!/bin/bash -f
 # Note that this seems to be bash since 10.2.6
 # this is iTM2_Launch for iTeXMac2 2.0
-# © 2005 jlaurens@users.sourceforge.net
+# © 2005 jlaurens AT users.sourceforge.net
 # setting the link
 # iTM2_Lauch "command with arguments"
 # this should be called at least each time a project is open

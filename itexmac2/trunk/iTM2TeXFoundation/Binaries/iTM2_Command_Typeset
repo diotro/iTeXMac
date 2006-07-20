@@ -1,10 +1,10 @@
 #!/bin/sh -f
 # this is iTM2_Command_Typeset for iTeXMac2 1.4
-# © 2004 jlaurens@users.sourceforge.net
+# © 2004 jlaurens AT users.sourceforge.net
 iTM2_Typeset_version="1.0"
 iTM2_Typeset_USAGE="Welcome to `basename "$0"` version ${iTM2_Typeset_version}
 This is iTeXMac2 built in script to typeset
-© 2004 jlaurens@users.sourceforge.net
+© 2004 jlaurens AT users.sourceforge.net
 Usage: `basename "$0"` options input where options are
        -h, --help: print this message and return.
        -i input, --input input: input is the input file.
@@ -39,7 +39,7 @@ if [ "${iTM2_Typeset_RunSilently:-0}" = "0" ]
 then
         "$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_Typeset_version}
 This is iTeXMac2 built in script to typeset
-© 2005 jlaurens@users.sourceforge.net"
+© 2005 jlaurens AT users.sourceforge.net"
 fi
 if [ "${iTM2_IS_TYPESETTING:-0}" != "0" ]
 then

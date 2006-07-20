@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC41A9050A6F905100B5E990</string>
+						<string>DC41AA9E0A6F9C6D00B5E990</string>
 						<key>history</key>
 						<array>
 							<string>DC89F3B50A6F2228001272DD</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC41A9060A6F905100B5E990</string>
+						<string>DC41AA9F0A6F9C6D00B5E990</string>
 						<key>history</key>
 						<array>
 							<string>DC89F3B60A6F2229001272DD</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC41A9070A6F905100B5E990</string>
+						<string>DC41AAA00A6F9C6D00B5E990</string>
 						<key>history</key>
 						<array>
 							<string>DC89F3B70A6F2229001272DD</string>
@@ -324,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC41A9080A6F905100B5E990</string>
+						<string>DC41AAA10A6F9C6D00B5E990</string>
 						<key>history</key>
 						<array>
 							<string>DC89F3B80A6F2229001272DD</string>
@@ -364,7 +364,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC41A9090A6F905100B5E990</string>
+						<string>DC41AAA20A6F9C6D00B5E990</string>
 						<key>history</key>
 						<array>
 							<string>DC89F3B90A6F2229001272DD</string>
@@ -404,7 +404,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC41A90A0A6F905100B5E990</string>
+						<string>DC41AAA30A6F9C6D00B5E990</string>
 						<key>history</key>
 						<array>
 							<string>DC89F3BA0A6F2229001272DD</string>
@@ -437,8 +437,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -564,7 +562,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC41A9040A6F905100B5E990</string>
+										<string>DC41AA9D0A6F9C6D00B5E990</string>
 										<key>history</key>
 										<array>
 											<string>DCD7D6F60A439B6B0096B1A9</string>
@@ -827,14 +825,14 @@
 	<array>
 		<string>DC41A8060A6F7C6400B5E990</string>
 		<string>DCD7D7160A439D000096B1A9</string>
+		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DC267DA50A6DACEA001B9EC5</string>
 		<string>DC267DA10A6DACEA001B9EC5</string>
 		<string>DC267D9D0A6DACEA001B9EC5</string>
 		<string>DC2679410A6D487E001B9EC5</string>
 		<string>DC89F3030A6EE815001272DD</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DC89F3A80A6F1F11001272DD</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>5 66 1331 773 0 0 1440 878 </string>

@@ -2267,7 +2267,7 @@ static id MACRO_ACTIONS = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent * )event
 /*"Description Forthcoming
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List:
 "*/
@@ -2302,7 +2302,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editColumn:row:withEvent:select:
 - (void)editColumn:(int)column row:(int)row withEvent:(NSEvent *)theEvent select:(BOOL)select;
 /*"Description Forthcoming
-Version history: jlaurens@users.sourceforge.net
+Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List:
 "*/

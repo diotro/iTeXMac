@@ -486,7 +486,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 46";
 		rLen = 0;
-		rLoc = 1710;
+		rLoc = 1713;
 		rType = 0;
 		vrLen = 738;
 		vrLoc = 1301;
@@ -670,7 +670,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 46";
 		rLen = 0;
-		rLoc = 1710;
+		rLoc = 1713;
 		rType = 0;
 		vrLen = 738;
 		vrLoc = 1301;
@@ -690,7 +690,7 @@
 		fRef = DC99EA0D088315BD007AF81F /* iTM2_Command_Typeset */;
 		name = "iTM2_Command_Typeset: 90";
 		rLen = 0;
-		rLoc = 2631;
+		rLoc = 2640;
 		rType = 0;
 		vrLen = 681;
 		vrLoc = 2261;
@@ -700,7 +700,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 46";
 		rLen = 0;
-		rLoc = 1710;
+		rLoc = 1713;
 		rType = 0;
 		vrLen = 738;
 		vrLoc = 1301;
@@ -710,7 +710,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 46";
 		rLen = 0;
-		rLoc = 1710;
+		rLoc = 1713;
 		rType = 0;
 		vrLen = 738;
 		vrLoc = 1301;
@@ -730,7 +730,7 @@
 		fRef = DC99EA0D088315BD007AF81F /* iTM2_Command_Typeset */;
 		name = "iTM2_Command_Typeset: 90";
 		rLen = 0;
-		rLoc = 2631;
+		rLoc = 2640;
 		rType = 0;
 		vrLen = 681;
 		vrLoc = 2261;
@@ -740,7 +740,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 21";
 		rLen = 0;
-		rLoc = 866;
+		rLoc = 869;
 		rType = 0;
 		vrLen = 685;
 		vrLoc = 509;
@@ -791,7 +791,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 21";
 		rLen = 0;
-		rLoc = 866;
+		rLoc = 869;
 		rType = 0;
 		vrLen = 685;
 		vrLoc = 509;
@@ -838,7 +838,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 21";
 		rLen = 0;
-		rLoc = 866;
+		rLoc = 869;
 		rType = 0;
 		vrLen = 685;
 		vrLoc = 509;
@@ -858,7 +858,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "iTM2_Launch: 21";
 		rLen = 0;
-		rLoc = 866;
+		rLoc = 869;
 		rType = 0;
 		vrLen = 685;
 		vrLoc = 509;
@@ -908,7 +908,7 @@
 		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
 		name = "[ ${#iTM2_Debug} -gt 0 ]";
 		rLen = 24;
-		rLoc = 1688;
+		rLoc = 1691;
 		rType = 0;
 		vrLen = 789;
 		vrLoc = 1301;
@@ -1385,7 +1385,7 @@
 	DC99EA14088315BD007AF81F /* iTM2_Launch */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1076, 3791}}";
-			sepNavSelRange = "{866, 0}";
+			sepNavSelRange = "{869, 0}";
 			sepNavVisRect = "{{0, 170}, {913, 404}}";
 			sepNavWindowFrame = "{{22, 10}, {1220, 784}}";
 		};

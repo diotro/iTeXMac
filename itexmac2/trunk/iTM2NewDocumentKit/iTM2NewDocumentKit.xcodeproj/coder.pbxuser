@@ -12,6 +12,7 @@
 			DCDF58510A3A1F5E0099E562 /* iTM2NewDocumentKit.m:2650 */,
 			DC0874220A42DB4C0062ABE6 /* iTM2NewDocumentKit.m:1548 */,
 			DC08760D0A42E4C10062ABE6 /* iTM2NewDocumentKit.m:1363 */,
+			DCD3A89D0A39A59300B5EE0C /* iTM2NewDocumentKit.m:3156 */,
 		);
 		breakpointsGroup = DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DCDE977508EC808C00A7C892 /* Code sense */;
@@ -139,12 +140,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 175011488;
-			PBXWorkspaceStateSaveDate = 175011488;
+			PBXPerProjectTemplateStateSaveDate = 175086555;
+			PBXWorkspaceStateSaveDate = 175086555;
 		};
 		perUserProjectItems = {
-			DC267DB10A6E3759001B9EC5 /* PBXTextBookmark */ = DC267DB10A6E3759001B9EC5 /* PBXTextBookmark */;
-			DC89F3BD0A6F224B001272DD /* PBXTextBookmark */ = DC89F3BD0A6F224B001272DD /* PBXTextBookmark */;
+			DC267DB10A6E3759001B9EC5 = DC267DB10A6E3759001B9EC5 /* PBXTextBookmark */;
+			DC89F3BD0A6F224B001272DD = DC89F3BD0A6F224B001272DD /* PBXTextBookmark */;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
