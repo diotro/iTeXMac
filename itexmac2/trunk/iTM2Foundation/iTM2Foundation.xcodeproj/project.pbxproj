@@ -45,8 +45,6 @@
 /* Begin PBXBuildFile section */
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC007ED60A6476E7009236E8 /* iTM2MacroPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC007ED40A6476E7009236E8 /* iTM2MacroPrefPane.strings */; };
-		DC0086A30A65AC47009236E8 /* iTM2MacroKeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC0086A20A65AC47009236E8 /* iTM2MacroKeyCodes.xml */; };
-		DC0086AA0A65AC7E009236E8 /* iTM2MacroKeyCodes.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC0086A80A65AC7E009236E8 /* iTM2MacroKeyCodes.strings */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
 		DC13E6A2085587160063D5A5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -611,8 +609,6 @@
 		8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC007ED50A6476E7009236E8 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroPrefPane.strings; sourceTree = "<group>"; };
-		DC0086A20A65AC47009236E8 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
-		DC0086A90A65AC7E009236E8 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
 		DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TreeKit.m; sourceTree = "<group>"; };
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
@@ -638,6 +634,8 @@
 		DC25E50C0991FA7600545F27 /* iTM2TaskKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TaskKit.h; sourceTree = "<group>"; };
 		DC25E50D0991FA7600545F27 /* iTM2TaskKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TaskKit.m; sourceTree = "<group>"; };
 		DC2732D309645D0A008B4D56 /* OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OgreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC2D65490A985D4D006BED13 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
+		DC2D654E0A985D91006BED13 /* iTM2KeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2KeyCodes.xml; sourceTree = "<group>"; };
 		DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC3B48EF0A4B469E00E83ABA /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/ARETemplates.resources.tgz; sourceTree = "<group>"; };
@@ -1160,10 +1158,10 @@
 		DC98663809EA733B00FF4BD3 /* Preferences Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DC0086A20A65AC47009236E8 /* iTM2MacroKeyCodes.xml */,
+				DC2D65490A985D4D006BED13 /* iTM2MacroKeyCodes.xml */,
+				DC2D654E0A985D91006BED13 /* iTM2KeyCodes.xml */,
 				DCCF08480A62FC9D00B4B720 /* iTM2MacroPrefPane.tiff */,
 				DC007ED40A6476E7009236E8 /* iTM2MacroPrefPane.strings */,
-				DC0086A80A65AC7E009236E8 /* iTM2MacroKeyCodes.strings */,
 				DC98663909EA733B00FF4BD3 /* iTM2PrefsController.nib */,
 				DCCF07AE0A62EF7800B4B720 /* iTM2MacroPrefPane.nib */,
 			);
@@ -2013,8 +2011,6 @@
 				DCCF07B40A62EF7800B4B720 /* iTM2MacroPrefPane.nib in Resources */,
 				DCCF08490A62FC9E00B4B720 /* iTM2MacroPrefPane.tiff in Resources */,
 				DC007ED60A6476E7009236E8 /* iTM2MacroPrefPane.strings in Resources */,
-				DC0086A30A65AC47009236E8 /* iTM2MacroKeyCodes.xml in Resources */,
-				DC0086AA0A65AC7E009236E8 /* iTM2MacroKeyCodes.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2486,14 +2482,6 @@
 				DC007ED50A6476E7009236E8 /* English */,
 			);
 			name = iTM2MacroPrefPane.strings;
-			sourceTree = "<group>";
-		};
-		DC0086A80A65AC7E009236E8 /* iTM2MacroKeyCodes.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC0086A90A65AC7E009236E8 /* iTM2MacroKeyCodes.xml */,
-			);
-			name = iTM2MacroKeyCodes.strings;
 			sourceTree = "<group>";
 		};
 		DC13E677085586540063D5A5 /* Credits.rtf */ = {

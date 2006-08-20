@@ -46,7 +46,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 
 @interface iTM2MacroController(PRIVATE)
 - (id)macroActionForName:(NSString *)actionName;
-- (NSString *)prettyNameForKeyCode:(NSNumber *) keyCode;
+- (NSString *)prettyNameForKeyCodeNumber:(NSNumber *) keyCode;
 - (NSArray *)macroKeyCodePrettyNames;
 - (void)setMacroKeyCodePrettyNames:(NSArray *)macroKeyNames;
 - (NSArray *)macroKeyCodes;
@@ -357,38 +357,30 @@ To Do List:
 	if(macroKeyCode)
 	{
 		NSMutableString * result = [NSMutableString string];
-		if(isCommand)
-		{
-			[result appendString:[NSString stringWithUTF8String:"⌘"]];
-		}
 		if(isShift)
 		{
 			[result appendString:[NSString stringWithUTF8String:"⇧"]];
+		}
+		if(isControl)
+		{
+			[result appendString:[NSString stringWithUTF8String:" ctrl "]];
 		}
 		if(isAlternate)
 		{
 			[result appendString:[NSString stringWithUTF8String:"⌥"]];
 		}
-		if([result length])
+		if(isCommand)
 		{
-			[result appendString:@" "];
+			[result appendString:[NSString stringWithUTF8String:"⌘"]];
 		}
 		if(isFunction)
 		{
-			[result appendString:[NSString stringWithUTF8String:"fn "]];
+			[result appendString:[NSString stringWithUTF8String:" fn "]];
 		}
-		if(isControl)
-		{
-			[result appendString:[NSString stringWithUTF8String:"ctrl"]];
-		}
-		unichar code = [macroKeyCode intValue];
-		NSString * macroKey = [NSString stringWithCharacters:&code length:1];
-		if(![macroKey length])
-		{
-			macroKey = [[iTM2MacroController sharedMacroController] prettyNameForKeyCode:macroKeyCode];
-		}
+		NSString * macroKey = [[iTM2MacroController sharedMacroController] prettyNameForKeyCodeNumber:macroKeyCode];
 		[result appendString:macroKey];
-		_prettyString = [result copy];
+		[result replaceOccurrencesOfString:@"  " withString:@" " options:0 range:NSMakeRange(0,[result length])];
+		_prettyString = [[result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] copy];
 	}
 	else
 	{
@@ -2123,7 +2115,7 @@ static id MACRO_ACTIONS = nil;
 		}
 		else
 		{
-			NSArray * nodes = [doc nodesForXPath:@"/*/KEY" error:&localError];
+			NSArray * nodes = [doc nodesForXPath:@"/*/NAME" error:&localError];
 			if(localError)
 			{
 				[SDC presentError:localError];
@@ -2154,7 +2146,7 @@ static id MACRO_ACTIONS = nil;
 	}
 	return MFKs;
 }
-- (NSString *)prettyNameForKeyCode:(NSNumber *) keyCode;
+- (NSString *)prettyNameForKeyCodeNumber:(NSNumber *) keyCode;
 {
 	int intCode = [keyCode intValue];
 	NSString * key = [NSString stringWithFormat:(intCode>0xFF?@"%#x":@"%0#4x"),intCode];
@@ -2183,14 +2175,34 @@ static id MACRO_ACTIONS = nil;
 @end
 
 @interface iTM2MacroKeyEquivalentWindow: NSWindow
+{
+	iTM2MacroKeyStroke * macroKeyStroke;
+}
 @end
 
 @implementation iTM2MacroKeyEquivalentWindow
+- (void)dealloc;
+{
+	[macroKeyStroke autorelease];
+	macroKeyStroke = nil;
+	[super dealloc];
+	return;
+}
 - (BOOL)canBecomeKeyWindow;
 {
 	return YES;
 }
-- (void)keyDown:(NSEvent *)theEvent
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
+{
+	unsigned int modifierFlags = [theEvent modifierFlags];
+	if(modifierFlags&NSDeviceIndependentModifierFlagsMask)
+	{
+		[self keyDown:theEvent];
+		return YES;
+	}
+	return [super performKeyEquivalent:theEvent];
+}
+- (void)XflagsChanged:(NSEvent *)theEvent
 {
 	unsigned int modifierFlags = [theEvent modifierFlags];
 	NSControl * C = nil;
@@ -2218,6 +2230,39 @@ static id MACRO_ACTIONS = nil;
 	{
 		C = [[self contentView] viewWithTag:5];
 		[C performClick:theEvent];
+	}
+	return;
+}
+- (void)keyDown:(NSEvent *)theEvent
+{
+	NSString * charactersIgnoringModifiers = [theEvent charactersIgnoringModifiers];
+	if([charactersIgnoringModifiers length])
+	{
+		charactersIgnoringModifiers = [charactersIgnoringModifiers substringToIndex:1];
+		unichar uchar = [charactersIgnoringModifiers characterAtIndex:0];
+		if(uchar>='a' && uchar<='z')
+		{
+			charactersIgnoringModifiers = [charactersIgnoringModifiers uppercaseString];
+		}
+		unsigned int modifierFlags = [theEvent modifierFlags];
+		if((uchar == '\r' || uchar == '\n') && !(modifierFlags&NSDeviceIndependentModifierFlagsMask))
+		{
+			[super keyDown:theEvent];
+			return;
+		}
+		id C = nil;
+		C = [[self contentView] viewWithTag:1];
+		[C setState:(modifierFlags & NSCommandKeyMask?NSOnState:NSOffState)];
+		C = [[self contentView] viewWithTag:2];
+		[C setState:(modifierFlags & NSShiftKeyMask?NSOnState:NSOffState)];
+		C = [[self contentView] viewWithTag:3];
+		[C setState:(modifierFlags & NSAlternateKeyMask?NSOnState:NSOffState)];
+		C = [[self contentView] viewWithTag:4];
+		[C setState:(modifierFlags & NSControlKeyMask?NSOnState:NSOffState)];
+		C = [[self contentView] viewWithTag:5];
+		[C setState:(modifierFlags & NSFunctionKeyMask?NSOnState:NSOffState)];
+		C = [[self contentView] viewWithTag:6];
+		[C setStringValue:charactersIgnoringModifiers];
 	}
 	return;
 }
@@ -2326,7 +2371,59 @@ To Do List:
 //		[W setFrameOrigin:cellFrame.origin];
 //		[W setFrameTopLeftPoint:aPoint];
 		[W makeKeyAndOrderFront:self];
+		// It is not possible to catch all the events because it is not like a mouse down
+		// there is a problem when we switch apps
+#if 0
+		BOOL keepOn = YES;
+		NSString * charactersIgnoringModifiers = @"";
+		NSEvent * theEvent = nil;
+		do
+		{
+			if(theEvent = [W nextEventMatchingMask: NSKeyDownMask])
+			{
+				charactersIgnoringModifiers = [theEvent charactersIgnoringModifiers];
+				if([charactersIgnoringModifiers isEqual:@"W"])
+				{
+					keepOn = NO;
+				}
+			}
+			else if(theEvent = [W nextEventMatchingMask: NSFlagsChangedMask])
+			{
+				;
+			}
+			else
+			{
+				continue;
+			}
+			unsigned int modifierFlags = [theEvent modifierFlags];
+			NSMutableString * result = [NSMutableString string];
+			if(modifierFlags & NSShiftKeyMask)
+			{
+				[result appendString:@"shift "];
+			}
+			if(modifierFlags & NSControlKeyMask)
+			{
+				[result appendString:@"ctrl "];
+			}
+			if(modifierFlags & NSAlternateKeyMask)
+			{
+				[result appendString:@"alt "];
+			}
+			if(modifierFlags & NSCommandKeyMask)
+			{
+				[result appendString:@"cmd "];
+			}
+			if(modifierFlags & NSFunctionKeyMask)
+			{
+				[result appendString:@"fn "];
+			}
+			[result appendString:charactersIgnoringModifiers];
+			NSLog(result);
+        }
+		while(keepOn);
+#else
 		[NSApp runModalForWindow:W];
+#endif
 		[[self window] removeChildWindow:W];
 		[W setContentView:oldContentView];
 		[W release];
@@ -2447,7 +2544,7 @@ static id _iTM2MacroTreeController = nil;
 		id N = nil;
 		while(N = [E nextObject])
 		{
-			[transformedValue addObject:((N = [SMC prettyNameForKeyCode:N])?N:[NSNull null])];
+			[transformedValue addObject:((N = [SMC prettyNameForKeyCodeNumber:N])?N:[NSNull null])];
 		}
 		return transformedValue;
 	}
@@ -2466,7 +2563,7 @@ static id _iTM2MacroTreeController = nil;
 			NSNumber * N = nil;
 			while(N = [E nextObject])
 			{
-				if([name isEqual:[SMC prettyNameForKeyCode:N]])
+				if([name isEqual:[SMC prettyNameForKeyCodeNumber:N]])
 				{
 					[reverseTransformedValue addObject:N];
 					break;
@@ -2485,7 +2582,7 @@ static id _iTM2MacroTreeController = nil;
 {
 	if([value isKindOfClass:[NSNumber class]])
 	{
-		return [SMC prettyNameForKeyCode:value];
+		return [SMC prettyNameForKeyCodeNumber:value];
 	}
     return nil;
 }
@@ -2497,7 +2594,7 @@ static id _iTM2MacroTreeController = nil;
 		NSNumber * N = nil;
 		while(N = [E nextObject])
 		{
-			if([value isEqual:[SMC prettyNameForKeyCode:N]])
+			if([value isEqual:[SMC prettyNameForKeyCodeNumber:N]])
 			{
 				return N;
 			}
