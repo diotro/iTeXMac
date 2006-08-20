@@ -27,7 +27,6 @@
         }, 
         {CLASS = iTM2MacroPrefPane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
         {
-            ACTIONS = {}; 
             CLASS = iTM2MacroTreeController; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSTreeController; 
