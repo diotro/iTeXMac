@@ -601,3 +601,55 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 @interface iTM2KeyBindingsResponder: iTM2AutoInstallResponder
 - (IBAction)toggleNoKeyBindings:(id)irrelevant;
 @end
+
+#import <iTM2Foundation/iTM2Implementation.h>
+/*
+    @class		the key codes controller
+    @abstract	Translate key codes into names and localized names.
+    @discussion	Discussion forthcoming.
+*/
+@interface iTM2KeyCodesController: iTM2Object
+
+/*
+    @method     sharedController
+    @abstract	The shared key codes controller.
+    @discussion	Discussion forthcoming.
+    @param	    None
+    @result     A controller
+*/
++ (id)sharedController;
+
+@end
+
+@interface iTM2KeyCodesController(methods)
+
+/*!
+    @method     keyCodeForName:
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      name (description)
+    @result     (description)
+*/
+- (unsigned int)keyCodeForName:(NSString *)name;
+
+/*!
+    @method     nameForKeyCode:
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      code (description)
+    @result     (description)
+*/
+- (NSString *)nameForKeyCode:(unsigned int)code;
+
+/*!
+    @method     localizedNameForCodeName:
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      codeName (description)
+    @result     (description)
+*/
+- (NSString *)localizedNameForCodeName:(NSString *)codeName;
+
+@end
+
+#define KCC [iTM2KeyCodesController sharedController]

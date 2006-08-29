@@ -2277,6 +2277,111 @@ To Do List:
 }
 @end
 
+@interface _iTM2KeyCodesController: iTM2KeyCodesController
+{
+	id keyCodes;
+}
+@end
+
+@implementation iTM2KeyCodesController
++ (id)sharedController;
+{
+	static id controller = nil;
+	return controller?:(controller = [[_iTM2KeyCodesController alloc] init]);
+}
+@end
+
+@implementation _iTM2KeyCodesController
+- (id)init;
+{
+	if(self = [super init])
+	{
+		keyCodes = [[NSMutableDictionary dictionary] retain];
+		NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"iTM2KeyCodes" ofType:@"xml"];
+		if([RA count])
+		{
+			NSString * path = [RA objectAtIndex:0];
+			NSURL * url = [NSURL fileURLWithPath:path];
+			NSError * localError = nil;
+			NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
+			if(localError)
+			{
+				[SDC presentError:localError];
+			}
+			else
+			{
+				NSArray * nodes = [doc nodesForXPath:@"/*/KEY" error:&localError];
+				if(localError)
+				{
+					[SDC presentError:localError];
+				}
+				else
+				{
+					NSEnumerator * E = [nodes objectEnumerator];
+					id node = nil;
+					while(node = [E nextObject])
+					{
+						NSString * KEY = [node stringValue];//case sensitive
+						if([KEY length])
+						{
+							if(node = [node attributeForName:@"CODE"])
+							{
+								NSString * stringCode = [node stringValue];
+								NSScanner * scanner = [NSScanner scannerWithString:stringCode];
+								unsigned int code = 0;
+								if([scanner scanHexInt:&code])
+								{
+									NSNumber * codeValue = [NSNumber numberWithUnsignedInt:code];
+									[keyCodes setObject:codeValue forKey:KEY];
+								}
+							}
+						}
+					}
+					iTM2_LOG(@"availableKeyCodes are: %@", keyCodes);
+				}
+			}
+		}
+	}
+	return self;
+}
+- (void)release;
+{
+	[keyCodes release];
+	keyCodes = nil;
+	[super release];
+	return;
+}
+- (unsigned int)keyCodeForName:(NSString *)name;
+{
+	NSNumber * N = [keyCodes objectForKey:name];
+	if(N)
+	{
+		return [N unsignedIntValue];
+	}
+	if([name length])
+	{
+		return [name characterAtIndex:0];
+	}
+	return 0;
+}
+- (NSString *)nameForKeyCode:(unsigned int) code;
+{
+	NSNumber * N = [NSNumber numberWithUnsignedInt:code];
+	NSArray * keys = [keyCodes allKeysForObject:N];
+	if([keys count])
+	{
+		return [keys lastObject];
+	}
+	unichar c = code;
+	return [NSString stringWithCharacters:&c length:1];
+}
+- (NSString *)localizedNameForCodeName:(NSString *)codeName;
+{
+	NSString * result = NSLocalizedStringWithDefaultValue(codeName, @"iTM2KeyCodes", [NSBundle bundleForClass:[self class]], @"NO LOCALIZATION", "");
+	return [result isEqual:@"NO LOCALIZATION"]?codeName:result;
+}
+@end
+
 #if 0
 @interface MyWindow: NSWindow
 @end
