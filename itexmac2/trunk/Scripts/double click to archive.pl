@@ -143,4 +143,20 @@ while(my $FILE = shift(@CANDIDATES))
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
+$UNCOMPRESSED="gimp related sources";
+$COMPRESSED="gimp.tgz";
+@CANDIDATES=split('\0', `find "$DIRECTORY" -regex ".*/$UNCOMPRESSED" -print0`);
+while(my $FILE = shift(@CANDIDATES))
+{
+    print "Compressing $FILE\n";
+    my $old_dir = getcwd;
+    my $new_dir = $old_dir;
+    $FILE  =~ m|(.*)/.*|;
+    print $new_dir."\n";
+    chdir $1;
+    print getcwd."\n";
+    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    chdir $old_dir;
+    print "Compressing $FILE... DONE\n";
+}
 print "warning: iTeXMac2 INFO Compressing some folders in $DIRECTORY... DONE\n";
