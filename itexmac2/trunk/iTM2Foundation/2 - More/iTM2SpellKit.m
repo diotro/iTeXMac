@@ -422,7 +422,10 @@ To Do List:
 //iTM2_START;
     BOOL old = [self isContinuousSpellCheckingEnabled];
     if(old != flag)
+	{
         [super setContinuousSpellCheckingEnabled:flag];
+		[self takeContextBool:[self isContinuousSpellCheckingEnabled] forKey:iTM2UDContinuousSpellCheckingKey];
+	}
 //iTM2_END;
     return;
 }
@@ -435,9 +438,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL old = [self isContinuousSpellCheckingEnabled];
-    [self takeContextBool:!old forKey:iTM2UDContinuousSpellCheckingKey];
-    [self setContinuousSpellCheckingEnabled:[self contextBoolForKey:iTM2UDContinuousSpellCheckingKey]];
+    [super toggleContinuousSpellChecking:sender];
+	BOOL yorn = [self isContinuousSpellCheckingEnabled];
+	[self takeContextBool:yorn forKey:iTM2UDContinuousSpellCheckingKey];
 //iTM2_END;
     return;
 }

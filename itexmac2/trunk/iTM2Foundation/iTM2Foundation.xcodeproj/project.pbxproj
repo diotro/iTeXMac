@@ -127,7 +127,6 @@
 		DC90CE9E09976BBD00C79525 /* iTM2MacrosMenu.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */; };
 		DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */; };
-		DC99ECC80A284EC600F50752 /* Projects.h in Headers */ = {isa = PBXBuildFile; fileRef = DC99ECC60A284EC600F50752 /* Projects.h */; };
 		DCB0A01709AEF98E00D2A37C /* Alias.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB0A01609AEF98E00D2A37C /* Alias.m */; };
 		DCB0A10D09AF01C300D2A37C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		DCB0A10E09AF01C300D2A37C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -187,8 +186,6 @@
 		DCF61C3C0854654B003F5F79 /* iTM2BundleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B570854654B003F5F79 /* iTM2BundleKit.m */; };
 		DCF61C3D0854654B003F5F79 /* iTM2ButtonKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B580854654B003F5F79 /* iTM2ButtonKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61C3E0854654B003F5F79 /* iTM2ButtonKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B590854654B003F5F79 /* iTM2ButtonKit.m */; };
-		DCF61C3F0854654B003F5F79 /* iTM2CompatibilityChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B5A0854654B003F5F79 /* iTM2CompatibilityChecker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCF61C400854654B003F5F79 /* iTM2CompatibilityChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B5B0854654B003F5F79 /* iTM2CompatibilityChecker.m */; };
 		DCF61C410854654B003F5F79 /* iTM2ContextKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B5C0854654B003F5F79 /* iTM2ContextKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61C420854654B003F5F79 /* iTM2ContextKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B5D0854654B003F5F79 /* iTM2ContextKit.m */; };
 		DCF61C450854654B003F5F79 /* iTM2DocumentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B600854654B003F5F79 /* iTM2DocumentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1261,16 +1258,18 @@
 				DCF61B670854654B003F5F79 /* iTM2ImageKit.m */,
 				DCF61B640854654B003F5F79 /* iTM2FileManagerKit.h */,
 				DCF61B650854654B003F5F79 /* iTM2FileManagerKit.m */,
+				DCF61B750854654B003F5F79 /* iTM2PathUtilities.h */,
+				DCF61B760854654B003F5F79 /* iTM2PathUtilities.m */,
+				DCF61B680854654B003F5F79 /* iTM2Implementation.h */,
+				DCF61B690854654B003F5F79 /* iTM2Implementation.m */,
+				DCF61B700854654B003F5F79 /* iTM2NotificationKit.h */,
+				DCF61B710854654B003F5F79 /* iTM2NotificationKit.m */,
 				DCF61B560854654B003F5F79 /* iTM2BundleKit.h */,
 				DCF61B570854654B003F5F79 /* iTM2BundleKit.m */,
 				DCF61B6A0854654B003F5F79 /* iTM2InstallationKit.h */,
 				DCF61B6B0854654B003F5F79 /* iTM2InstallationKit.m */,
 				DCF61B5A0854654B003F5F79 /* iTM2CompatibilityChecker.h */,
 				DCF61B5B0854654B003F5F79 /* iTM2CompatibilityChecker.m */,
-				DCF61B700854654B003F5F79 /* iTM2NotificationKit.h */,
-				DCF61B710854654B003F5F79 /* iTM2NotificationKit.m */,
-				DCF61B680854654B003F5F79 /* iTM2Implementation.h */,
-				DCF61B690854654B003F5F79 /* iTM2Implementation.m */,
 				DCF61B720854654B003F5F79 /* iTM2ObjectServer.h */,
 				DCF61B730854654B003F5F79 /* iTM2ObjectServer.m */,
 				DCF61B7B0854654B003F5F79 /* iTM2UserDefaultsKit.h */,
@@ -1285,6 +1284,8 @@
 				DCF61D18085469AF003F5F79 /* iTM2DocumentControllerKit.m */,
 				DCF61B810854654B003F5F79 /* iTM2WindowKit.h */,
 				DCF61B820854654B003F5F79 /* iTM2WindowKit.m */,
+				DCF61BAE0854654B003F5F79 /* iTM2AutoKit.h */,
+				DCF61BAF0854654B003F5F79 /* iTM2AutoKit.m */,
 				DCF61B600854654B003F5F79 /* iTM2DocumentKit.h */,
 				DCF61B610854654B003F5F79 /* iTM2DocumentKit.m */,
 				DCF61B620854654B003F5F79 /* iTM2EventKit.h */,
@@ -1295,8 +1296,6 @@
 				DCF61B6D0854654B003F5F79 /* iTM2KeyBindingsKit.m */,
 				DCF61B6E0854654B003F5F79 /* iTM2MenuKit.h */,
 				DCF61B6F0854654B003F5F79 /* iTM2MenuKit.m */,
-				DCF61B750854654B003F5F79 /* iTM2PathUtilities.h */,
-				DCF61B760854654B003F5F79 /* iTM2PathUtilities.m */,
 				DCF61B770854654B003F5F79 /* iTM2ResponderKit.h */,
 				DCF61B780854654B003F5F79 /* iTM2ResponderKit.m */,
 				DCF61B7F0854654B003F5F79 /* iTM2ViewKit.h */,
@@ -1396,8 +1395,6 @@
 				DCF61BB10854654B003F5F79 /* iTM2HelpKit.m */,
 				DCF61BBE0854654B003F5F79 /* iTM2TextFieldKit.h */,
 				DCF61BBF0854654B003F5F79 /* iTM2TextFieldKit.m */,
-				DCF61BAE0854654B003F5F79 /* iTM2AutoKit.h */,
-				DCF61BAF0854654B003F5F79 /* iTM2AutoKit.m */,
 				DCF61BB20854654B003F5F79 /* iTM2MiscKit.h */,
 				DCF61BB30854654B003F5F79 /* iTM2MiscKit.m */,
 				DCF61BB60854654B003F5F79 /* iTM2Responders.h */,
@@ -1534,7 +1531,6 @@
 				DCF61C390854654B003F5F79 /* iTM2ApplicationDelegate.h in Headers */,
 				DCF61C3B0854654B003F5F79 /* iTM2BundleKit.h in Headers */,
 				DCF61C3D0854654B003F5F79 /* iTM2ButtonKit.h in Headers */,
-				DCF61C3F0854654B003F5F79 /* iTM2CompatibilityChecker.h in Headers */,
 				DCF61C410854654B003F5F79 /* iTM2ContextKit.h in Headers */,
 				DCF61C450854654B003F5F79 /* iTM2DocumentKit.h in Headers */,
 				DCF61C470854654B003F5F79 /* iTM2EventKit.h in Headers */,
@@ -1598,7 +1594,6 @@
 				DCD404A90994B5CA006B91DF /* iTM2TextMacroKit.h in Headers */,
 				DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */,
 				DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */,
-				DC99ECC80A284EC600F50752 /* Projects.h in Headers */,
 				DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2218,7 +2213,6 @@
 				DCF61C3A0854654B003F5F79 /* iTM2ApplicationDelegate.m in Sources */,
 				DCF61C3C0854654B003F5F79 /* iTM2BundleKit.m in Sources */,
 				DCF61C3E0854654B003F5F79 /* iTM2ButtonKit.m in Sources */,
-				DCF61C400854654B003F5F79 /* iTM2CompatibilityChecker.m in Sources */,
 				DCF61C420854654B003F5F79 /* iTM2ContextKit.m in Sources */,
 				DCF61C460854654B003F5F79 /* iTM2DocumentKit.m in Sources */,
 				DCF61C480854654B003F5F79 /* iTM2EventKit.m in Sources */,

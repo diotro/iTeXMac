@@ -69,9 +69,16 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSObject(iTM2Validation)
 
+typedef enum _iTM2ValidationStatus
+{
+    iTM2ValidationStatusNO   =  0,
+    iTM2ValidationStatusYES    =  1,    
+    iTM2ValidationStatusUnkonwn = 2
+} iTM2ValidationStatus;
+
 @interface NSObject(iTM2Validation)
 - (BOOL)validateUserInterfaceItem:(id)sender;
-+ (BOOL)target:(id)target validateUserInterfaceItem:(id)sender;
++ (iTM2ValidationStatus)target:(id)target validateUserInterfaceItem:(id)sender;
 - (IBAction)noop:(id)sender;// do nothing: message catcher
 - (BOOL)validateNoop:(id)sender;// always return NO such that the sender is not enabled...
 @end

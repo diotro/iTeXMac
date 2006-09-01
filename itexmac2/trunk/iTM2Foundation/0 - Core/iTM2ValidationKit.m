@@ -25,7 +25,6 @@
 #import <objc/objc.h>
 #import <objc/objc-class.h>
 #import <objc/objc-runtime.h>
-
 #ifdef __iTM2_AUTO_VALIDATION_OFF__
 #warning Auto validation is OFF, undefine the __iTM2_AUTO_VALIDATION_OFF__ preprocessor macro
 @implementation NSObject(iTM2Validation)
@@ -36,14 +35,13 @@
 - (BOOL)isValid;{return YES;}
 - (NSWindow *)window;{return nil;}
 - (BOOL)validateUserInterfaceItem:(id)sender;{return YES;}
-+ (BOOL)target:(id)validatorTarget validateUserInterfaceItem:(id)sender;{return YES;}
++ (iTM2ValidationStatus)target:(id)validatorTarget validateUserInterfaceItem:(id)sender;{return YES;}
 - (BOOL)validateMenuItem:(id <NSMenuItem>)sender;{return YES;}
 + (BOOL)validateMenuItem:(id <NSMenuItem>)sender;{return YES;}
 @end
 #else
 
 static const char * iTM2ValidationANSICapitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSControl(iTM2Validation)
 /*"Description forthcoming."*/
 @implementation NSCell(iTM2Validation)
@@ -516,7 +514,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"sender is: %@", sender);
-    return [isa target:self validateUserInterfaceItem:sender] || [super validateMenuItem:(id) sender];
+    return ([isa target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusYES) || [super validateMenuItem:(id) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowsContents
 - (BOOL)validateWindowsContents;
@@ -564,8 +562,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"sender is: %@", sender);
-    return [isa target:self validateUserInterfaceItem:sender] || [super validateMenuItem:(id) sender];
+//iTM2_LOG(@"sender is: %@ (action: %@, target: %@)", sender, NSStringFromSelector([sender action]), [sender target]);
+    return ([isa target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusYES) || [super validateMenuItem:(id) sender];
 }
 @end
 
@@ -604,10 +602,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [isa target:self validateUserInterfaceItem:(id) sender];
+	return [isa target:self validateUserInterfaceItem:(id) sender]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= target:validateUserInterfaceItem:
-+ (BOOL)target:(id)validatorTarget validateUserInterfaceItem:(id)sender;
++ (iTM2ValidationStatus)target:(id)validatorTarget validateUserInterfaceItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -615,13 +613,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+    if(!validatorTarget)
+        return iTM2ValidationStatusNO;
     const char * selectorName = sel_getName([sender action]);
     int length = strlen(selectorName);
     if(!length)
-        return NO;
+        return iTM2ValidationStatusNO;
     char * name = malloc(strlen(selectorName)+9);
     if(!name)
-        return NO;
+        return iTM2ValidationStatusUnkonwn;
     strcpy(name, "validate");
     strcpy(name+8, selectorName);
     if((name[8]>='a') && (name[8]<='z'))
@@ -631,16 +631,14 @@ To Do List:
     free(name);
     name = nil;
     if(!validatorAction)
-        return YES;
-    if(!validatorTarget)
-        return NO;
+        return iTM2ValidationStatusUnkonwn;
     Method validatorMethod = ((id)validatorTarget == (id)(validatorTarget->isa)? class_getClassMethod((id)(validatorTarget->isa), validatorAction): class_getInstanceMethod((id)(validatorTarget->isa), validatorAction));
     if(!validatorMethod)
-        return YES;
+        return iTM2ValidationStatusUnkonwn;
 //iTM2_END;
 	id result = objc_msgSend(validatorTarget, validatorAction, sender);
 //iTM2_LOG(@"%@: %#x", NSStringFromSelector(validatorAction), result);
-	return (int)result & 0xFF;//BOOL
+	return (int)result & 0xFF?iTM2ValidationStatusYES:iTM2ValidationStatusNO;//BOOL
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
 - (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
@@ -651,7 +649,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return ([sender action] && [isa target:self validateUserInterfaceItem:sender]) || [sender submenu];
+    return ([sender action] && ([isa target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusYES)) || [sender submenu];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
 + (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
@@ -662,8 +660,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return ([sender action] && [self target:self validateUserInterfaceItem:sender]) || [sender hasSubmenu];
+    return ([sender action] && ([self target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusYES)) || [sender hasSubmenu];
 }
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ValidationSwizzle_validateMenuItem:
 - (BOOL)iTM2ValidationSwizzle_validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
@@ -675,6 +674,7 @@ To Do List:
 //iTM2_START;
     return [isa target:self validateUserInterfaceItem:sender] || [self iTM2ValidationSwizzle_validateMenuItem:(id <NSMenuItem>) sender];
 }
+#endif
 @end
 
 @interface NSTabView_iTM2ValidationKit : NSTabView
@@ -743,7 +743,7 @@ To Do List:
 }
 @end
 //__iTM2_AUTO_VALIDATION_OFF__
-#endif
+
 #if 0
 @interface NSTextFinderButton_DEBUG: NSButton
 @end
@@ -763,7 +763,7 @@ To Do List:
 	{
         id validator = [NSApp targetForAction:@selector(performFindPanelAction:) to:[[NSApp mainWindow] firstResponder] from:self];
 		if(validator)
-			[self setEnabled:[isa target:validator validateUserInterfaceItem:(id)self]];
+			[self setEnabled:([isa target:validator validateUserInterfaceItem:(id)self]>0)];
 		[self setTarget:validator];
 		iTM2_LOG(@"validator is: %@", validator);
 	}
@@ -773,6 +773,8 @@ To Do List:
     return YES;
 }
 @end
+#endif
+
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSView(Validate)
 

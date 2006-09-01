@@ -2261,22 +2261,6 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
-
-@implementation iTM2TextInspector(iTM2KeyBindingsKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
-- (BOOL)handlesKeyBindings;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return YES;
-}
-@end
-
 @interface _iTM2KeyCodesController: iTM2KeyCodesController
 {
 	id keyCodes;

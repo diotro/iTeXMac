@@ -68,7 +68,7 @@ void iTM2_LOG(NSString *fmt, ...)
 }
 #endif
 
-#import <iTM2Foundation/iTM2DocumentControllerKit.h>
+//#import <iTM2Foundation/iTM2DocumentControllerKit.h>
 
 @implementation iTM2Application
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
@@ -85,7 +85,8 @@ To Do List:
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithInt:0], iTM2CurrentVersionNumberKey,
                                 nil]];
-	[[[iTM2DocumentController alloc] init] autorelease];
+	Class C = NSClassFromString(@"iTM2DocumentController");// trick to avoid file dependency
+	[[[C alloc] init] autorelease];// creates the document controller
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
