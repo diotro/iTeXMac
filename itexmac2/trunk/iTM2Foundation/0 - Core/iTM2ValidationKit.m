@@ -649,7 +649,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return ([sender action] && ([isa target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusYES)) || [sender submenu];
+	if([sender action] == @selector(projectEditUsingRepresentedInspectorMode:))
+	{
+iTM2_LOG(@"COUCOU");}
+    return ([sender action] && ([isa target:self validateUserInterfaceItem:sender] != iTM2ValidationStatusNO)) || [sender submenu];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
 + (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
