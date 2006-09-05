@@ -447,11 +447,14 @@ To Do List:
     if([argument conformsToProtocol:@protocol(NSMenuItem)])
         argument = [argument representedObject];
 // this new part concerns the new macro design. 2006
-	if([argument isKindOfClass:[NSArray class]])
+    if([argument isKindOfClass:[NSString class]])
 	{
+        argument = [argument componentsBySeparatingPlaceholders];
 		NSMutableArray * MRA = [NSMutableArray array];
-		NSEnumerator * E = [argument objectEnumerator];
+		NSEnumerator * E;
 		NSMutableString * MS;
+here:
+		E = [argument objectEnumerator];
 		while(MS = [E nextObject])
 		{
 			if([MS isKindOfClass:[NSString class]])
@@ -477,6 +480,10 @@ To Do List:
 		}
 		[self insertStringArray:MRA];
 		return;
+	}
+	if([argument isKindOfClass:[NSArray class]])
+	{
+		goto here;
 	}
     if([argument isKindOfClass:[NSString class]])
         argument = [[[iTM2TextMacro alloc] initWithString:argument] autorelease];

@@ -27,7 +27,7 @@
 */
 
 //
-#import "iTM2ApplicationDelegate.h"
+#import <iTM2Foundation/iTM2ApplicationDelegate.h>
 #import <iTM2Foundation/iTM2DocumentControllerKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 

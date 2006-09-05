@@ -23,9 +23,9 @@
 */
 
 //
-#import "NSTextStorage_iTeXMac2.h"
+#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 #import <iTM2Foundation/iTM2StringKit.h>
-#import "NSObject_iTeXMac2.h"
+#import <iTM2Foundation/NSObject_iTeXMac2.h>
 
 @interface NSObject(NSTextStorage_iTeXMac2)
 - (NSTextView *)mainTextView;

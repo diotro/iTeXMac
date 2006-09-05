@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2TextFinderKit.h"
+#import <iTM2Foundation/iTM2TextFinderKit.h>
 #import <iTM2Foundation/iTM2Foundation.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextFinder

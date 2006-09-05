@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2JAGUARSupportKit.h"
+#import <iTM2Foundation/iTM2JAGUARSupportKit.h>
 #import <iTM2Foundation/iTM2Foundation.h>
 int iTM2DebugEnabled_FLAGS = 0;
 
@@ -69,7 +69,7 @@ typedef enum {
     iTM2FindPanelActionReplaceAllInSelection = 8
 } iTM2FindPanelAction;
 
-#import "iTM2TextFinderKit.h"
+#import <iTM2Foundation/iTM2TextFinderKit.h>
 
 @implementation NSTextView(iTM2JAGUARSupportKit)
 - (void)setUsesFindPanel:(BOOL)yorn;

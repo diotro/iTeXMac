@@ -178,7 +178,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 
-#import "iTM2Implementation.h"
+#import <iTM2Foundation/iTM2Implementation.h>
 
 #define SMS [iTM2MacrosServer sharedMacrosServer]
 

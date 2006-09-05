@@ -22,11 +22,11 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2RepToolbarDelegate.h"
-#import "iTM2HelpKit.h"
-#import "iTM2ButtonKit.h"
-#import "iTM2MenuKit.h"
-#import "iTM2TextFieldKit.h"
+#import <iTM2Foundation/iTM2RepToolbarDelegate.h>
+#import <iTM2Foundation/iTM2HelpKit.h>
+#import <iTM2Foundation/iTM2ButtonKit.h>
+#import <iTM2Foundation/iTM2MenuKit.h>
+#import <iTM2Foundation/iTM2TextFieldKit.h>
 
 NSString * const iTM2ToolbarMagnificationFieldItemIdentifier = @"takeMagnificationFromField:";
 NSString * const iTM2ToolbarMagnificationSetItemIdentifier = @"Magnification";

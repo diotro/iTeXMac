@@ -22,7 +22,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "NSObject_iTeXMac2.h"
+#import <iTM2Foundation/NSObject_iTeXMac2.h>
 
 @interface NSObject(iTM2Scripting_Private)
 - (NSRange)rangeValue;

@@ -108,7 +108,7 @@ static NSString * const iTM2ProjectContextKeyedFilesKey = @"FileContexts";
 #define iVarContextTypes modelValueForKey:iTM2ContextTypesKey ofType:iTM2ProjectMetaType
 #define iVarContextExtensions modelValueForKey:iTM2ContextExtensionsKey ofType:iTM2ProjectMetaType
 
-#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
+//#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 
@@ -4655,9 +4655,9 @@ To Do List:
 	}
 	else
 	{
-		[self takeContextValue:@"/" forKey:iTM2ProjectAbsolutePathKey];
-		[self takeContextValue:@"/" forKey:iTM2ProjectRelativePathKey];
-		[self takeContextValue:@"/" forKey:iTM2ProjectFileKeyKey];
+		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectAbsolutePathKey];
+		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectRelativePathKey];
+		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectFileKeyKey];
 	}
 //iTM2_END;
     return;
@@ -8565,7 +8565,7 @@ To Do List:
 	if(iTM2DebugEnabled && (_ToggleProjectMode == iTM2ToggleNewProjectMode))
 	{
 		NSString * name = [_NewProjectName stringByStandardizingPath];
-		NSString * absolutePath = [name hasPrefix:@"/"]? name:
+		NSString * absolutePath = [name hasPrefix:iTM2PathComponentsSeparator]? name:
 					[[[self projectDirName] stringByAppendingPathComponent:name] stringByStandardizingPath];
 		if([DFM fileExistsAtPath:absolutePath isDirectory:nil])
 			goto more;

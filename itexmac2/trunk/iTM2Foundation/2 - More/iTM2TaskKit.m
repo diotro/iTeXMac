@@ -18,7 +18,7 @@
   to the actual developper team.
 */
 
-#import "iTM2TaskKit.h"
+#import <iTM2Foundation/iTM2TaskKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
@@ -1920,7 +1920,7 @@ To Do List:
         NSString * oldPATH = [[self environment] objectForKey:iTM2TaskPATHKey];
         NSMutableArray * oldPCs = [[[(oldPATH? oldPATH:@"") componentsSeparatedByString:@":"] mutableCopy] autorelease];
         [oldPCs removeObject:path];
-		if(![path hasPrefix:@"/"] && ![path hasPrefix:@"."])
+		if(![path hasPrefix:iTM2PathComponentsSeparator] && ![path hasPrefix:@"."])
 		{
 			path = [@"." stringByAppendingPathComponent:path];
 			[oldPCs removeObject:path];

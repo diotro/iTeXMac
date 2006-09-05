@@ -22,12 +22,12 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2PreferencesKit.h"
-#import "iTM2Implementation.h"
-#import "iTM2BundleKit.h"
-#import "iTM2RuntimeBrowser.h"
-#import "iTM2ViewKit.h"
-#import "iTM2ValidationKit.h"
+#import <iTM2Foundation/iTM2PreferencesKit.h>
+#import <iTM2Foundation/iTM2Implementation.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/iTM2ViewKit.h>
+#import <iTM2Foundation/iTM2ValidationKit.h>
 
 NSString * const iTM2LastPreferencePaneIdentifier = @"iTM2LastPreferencePaneIdentifier";
 
@@ -507,7 +507,7 @@ To Do List:
 @end
 
 #pragma mark -
-#import "iTM2ResponderKit.h"
+#import <iTM2Foundation/iTM2ResponderKit.h>
 
 @implementation iTM2SharedResponder(PreferencesKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= showPreferences:
@@ -526,7 +526,7 @@ To Do List:
 @end
 
 #pragma mark -
-#import "iTM2BundleKit.h"
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 @implementation NSPreferencePane(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load

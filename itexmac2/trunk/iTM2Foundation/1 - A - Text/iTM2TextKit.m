@@ -27,6 +27,7 @@
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2EventKit.h>
 #import <iTM2Foundation/iTM2ValidationKit.h>
+#import <iTM2Foundation/iTM2PathUtilities.h>
 
 NSString * const iTM2StartPlaceholder = @"__(";
 NSString * const iTM2StopPlaceholder = @")__";
@@ -48,7 +49,7 @@ To Do List:
 //iTM2_START;
 #warning THIS IS BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGY!!!!!!!!!!!!! MAKE IT A SEPARATE RESPONDER
     NSString * S = [[self string] substringWithRange:[self selectedRange]];
-	if([S hasPrefix:@"/"])
+	if([S hasPrefix:iTM2PathComponentsSeparator])
 	{
     NSURL * url = [NSURL fileURLWithPath:S];
 		if(![SDC openDocumentWithContentsOfURL:url display:YES] 
@@ -865,6 +866,58 @@ To Do List:
 @end
 
 @implementation NSString(iTM2Placeholder)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= componentsBySplittingAtPlaceholders
+- (NSArray *)componentsBySeparatingPlaceholders;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 
+To Do List: ?
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * result = [NSMutableArray array];
+	NSArray * ra = [self componentsSeparatedByString:iTM2StartPlaceholder];
+	NSEnumerator * E = [ra objectEnumerator];
+	NSString * component;
+	unsigned int count;
+	if(component = [E nextObject])
+	{
+		// the odd component is not expected to contain any iTM2StopPlaceholder
+		// if we are to find some of them, we replace by a tab anchor
+		if([component length])
+		{
+			ra = [component componentsSeparatedByString:iTM2StopPlaceholder];
+			component = [ra componentsJoinedByString:iTM2TextTabAnchorKey];
+			[result addObject:component];
+		}
+		while(component = [E nextObject])
+		{
+			ra = [component componentsSeparatedByString:iTM2StopPlaceholder];
+			if(count = [ra count])// count is expected to be 2
+			{
+				component = [ra objectAtIndex:0];
+				component = [iTM2StartPlaceholder stringByAppendingString:component];
+				component = [component stringByAppendingString:iTM2StopPlaceholder];
+				[result addObject:component];
+				ra = [ra subarrayWithRange:NSMakeRange(1,count-1)];
+				component = [ra componentsJoinedByString:iTM2TextTabAnchorKey];
+				if([component length])
+				{
+					[result addObject:component];
+				}
+				// loop
+			}
+			else
+			{
+				// I am missing a iTM2StopPlaceholder
+				[result addObject:iTM2TextTabAnchorKey];
+				break;
+			}
+		}
+	}
+//iTM2_END;
+	return result;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:
 - (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two

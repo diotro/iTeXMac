@@ -22,12 +22,12 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2PDFToolbarDelegate.h"
-#import "iTM2PDFViewKit.h"
-#import "iTM2HelpKit.h"
-#import "iTM2ButtonKit.h"
-#import "iTM2TextFieldKit.h"
-#import "iTM2ViewKit.h"
+#import <iTM2Foundation/iTM2PDFToolbarDelegate.h>
+#import <iTM2Foundation/iTM2PDFViewKit.h>
+#import <iTM2Foundation/iTM2HelpKit.h>
+#import <iTM2Foundation/iTM2ButtonKit.h>
+#import <iTM2Foundation/iTM2TextFieldKit.h>
+#import <iTM2Foundation/iTM2ViewKit.h>
 
 NSString * const iTM2ToolbarNavigationFieldItemIdentifier = @"AtNavigation";
 NSString * const iTM2ToolbarNavigationSetItemIdentifier = @"Navigation";

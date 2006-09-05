@@ -23,8 +23,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const iTM2PathComponentsSeparator;
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 
 @interface NSFileManager(iTeXMac2)

@@ -2382,7 +2382,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFPrintKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 NSString * const iTM2PDFToolbarIdentifier = @"iTM2 PDF Toolbar: Default";
-#import "iTM2PDFToolbarDelegate.h"
+#import <iTM2Foundation/iTM2PDFToolbarDelegate.h>
 
 @implementation iTM2MainInstaller(PDFDocumentKitInspectorToolbar)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFKitInspectorToolbarCompleteInstallation

@@ -33,7 +33,7 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroController
 
-#import "iTM2Implementation.h"
+#import <iTM2Foundation/iTM2Implementation.h>
 
 #define SMC [iTM2MacroController sharedMacroController]
 

@@ -23,6 +23,7 @@
 
 #import <iTM2Foundation/iTM2TextCompletionKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 
 NSString * const iTM2CompletionsDirectoryName = @"Completions.localized";

@@ -18,6 +18,7 @@
 //  to the actual developper team.
 */
 
+extern NSString * const iTM2PathComponentsSeparator;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
 /*"Description forthcoming."*/

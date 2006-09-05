@@ -23,7 +23,7 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
 
-#import "iTM2TreeKit.h"
+#import <iTM2Foundation/iTM2TreeKit.h>
 #define iTM2_DIAGNOSTIC
 @implementation iTM2TreeNode
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init

@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition (percentage actually done) ") 
 */
 
-#import "iTM2DistributedObjectKit.h"
+#import <iTM2Foundation/iTM2DistributedObjectKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 

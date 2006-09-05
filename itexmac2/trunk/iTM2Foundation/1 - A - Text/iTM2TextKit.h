@@ -212,6 +212,16 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 */
 - (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
 
+/*!
+	@method		componentsBySeparatingPlaceholders
+	@abstract	Abstract forthcoming.
+	@discussion	Turns the receiver into a list of strings, each one being a placeholder (enclosed in a "__(" ")__" pair)
+			or contains no place holder at all. Placeholders are not allowed inside placeholders, "__(" and ")__" are added to ensure that.
+	@param		None.
+    @result     An array of strings
+*/
+- (NSArray *)componentsBySeparatingPlaceholders;
+
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit

@@ -25,6 +25,7 @@
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/iTM2PathUtilities.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2AppleScriptLauncher
 /*"Description forthcoming."*/
@@ -41,7 +42,7 @@ To Do List:
 //iTM2_LOG(@"trying to launch a script %@", sender);
     if([sender isKindOfClass:[NSString class]])
     {
-		NSString * path = [sender hasPrefix:@"~"] || [sender hasPrefix:@"/"]?
+		NSString * path = [sender hasPrefix:@"~"] || [sender hasPrefix:iTM2PathComponentsSeparator]?
 			[sender stringByStandardizingPath]
 			: [[[NSBundle mainBundle] pathsForSupportResource:sender ofType:@"scpt" inDirectory:@"Scripts" domains:NSAllDomainsMask] lastObject];
 		NSDictionary * errorInfo;

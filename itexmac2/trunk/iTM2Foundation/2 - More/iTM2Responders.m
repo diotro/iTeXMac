@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2Responders.h"
+#import <iTM2Foundation/iTM2Responders.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2Responders  
 
@@ -33,7 +33,7 @@
 #import <iTM2Foundation/iTM2ProjectDocumentKit.h>
 #import <iTM2Foundation/iTM2StringFormatKit.h>
 #import <iTM2Foundation/iTM2ResponderKit.h>
-#import <iTM2Foundation/iTM2CompatibilityChecker.h>
+//#import <iTM2Foundation/iTM2CompatibilityChecker.h>
 
 #import <iTM2Foundation/iTM2PDFViewKit.h>
 #import <iTM2Foundation/iTM2TextFieldKit.h>

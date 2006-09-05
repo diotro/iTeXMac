@@ -23,6 +23,7 @@
 
 #import <iTM2Foundation/iTM2MacroKit.h>
 
+#import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2TaskKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>

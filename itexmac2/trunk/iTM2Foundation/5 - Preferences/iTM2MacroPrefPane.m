@@ -774,7 +774,7 @@ To Do List:
 					path = [components lastObject];
 					components = [path pathComponents];
 					NSEnumerator * e = [components objectEnumerator];
-					NSString * component = [e nextObject];// @"/"
+					NSString * component = [e nextObject];// iTM2PathComponentsSeparator
 					component = [e nextObject];// domain: text, pdf, project
 					component = [e nextObject];// category: latex, plain, context...
 					components = [e allObjects];// everything else

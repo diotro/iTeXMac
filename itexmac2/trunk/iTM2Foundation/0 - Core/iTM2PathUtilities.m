@@ -23,6 +23,8 @@
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 
+NSString * const iTM2PathComponentsSeparator = @"/";
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
 /*"Description forthcoming."*/
 @implementation NSString(iTM2PathUtilities)
@@ -230,7 +232,7 @@ To Do List:
 		else if([component isEqual:@".."])
 		{
 			component = [components objectAtIndex:index-1];
-			if(![component isEqual:@"/"])
+			if(![component isEqual:iTM2PathComponentsSeparator])
 			{
 				[components removeObjectAtIndex:index];// the object at index is the first unread, if any
 				[components removeObjectAtIndex:--index];// the object at index is now the first unread, if any
@@ -353,6 +355,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if([path hasPrefix:iTM2PathComponentsSeparator])
+	{
+		return path;
+	}
 	NSURL * baseURL = [NSURL fileURLWithPath:base];
 	path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSURL * fileURL = [NSURL URLWithString:path relativeToURL:baseURL];

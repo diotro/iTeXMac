@@ -26,7 +26,7 @@
 #import <iTM2Foundation/iTM2ValidationKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
-#import "NSTextStorage_iTeXMac2.h"
+#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 
 #warning ARE THESE CONSTANTS USED...
 NSString * const iTM2CurrentLineKey = @"CurrentLine";

@@ -965,7 +965,7 @@ To Do List:
 - (void)recordCurrentContext;
 @end
 
-#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
+//#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
 
 @implementation iTM2TextInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType

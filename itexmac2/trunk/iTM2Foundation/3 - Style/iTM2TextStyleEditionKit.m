@@ -33,7 +33,7 @@
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
-#import <iTM2Foundation/iTM2CompatibilityChecker.h>
+//#import <iTM2Foundation/iTM2CompatibilityChecker.h>
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2WindowKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>

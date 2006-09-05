@@ -598,7 +598,7 @@ NSString * const iTM2OpenQuicklyLimitKey = @"iTM2:OpenQuicklyLimit";
 NSString * const iTM2OpenQuicklyCachedKey = @"iTM2:OpenQuicklyCached";
 
 #import <iTM2Foundation/iTM2MenuKit.h>
-#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
+//#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
 
 @interface NSMenu(DocumentController)
 - (unsigned int)_completeWithDirectoryContentsAtPath:(NSString *)cdp forDepth:(unsigned int)depth limit:(unsigned int)limit;

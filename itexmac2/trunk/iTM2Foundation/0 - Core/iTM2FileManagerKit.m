@@ -26,8 +26,6 @@
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 #import <iTM2Foundation/MoreFilesX.h>
 
-NSString * const iTM2PathComponentsSeparator = @"/";
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
 @interface NSFileManager(PRIVATE)
