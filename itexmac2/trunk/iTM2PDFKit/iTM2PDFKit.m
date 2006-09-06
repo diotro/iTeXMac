@@ -509,6 +509,7 @@ To Do List:
 - (void)updateOutlineTable;
 - (void)updateSearchTable;
 - (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
+- (void)setProgressIndicatorIsAnimated:(BOOL)yorn;
 @end
 
 @interface NSObject(PRIVATE_STUFF)
@@ -2626,17 +2627,32 @@ To Do List:
             NSValue * V;
 //				[starDimple setScalesWhenResized:YES];
 			NSRect fromRect = NSZeroRect;
+			NSShadow* theShadow = [[[NSShadow alloc] init] autorelease]; 
 			fromRect.size = [starDimple size];
 //				fromRect = [self convertRect:fromRect fromView:nil];
 			NSRect inRect = [self convertRect:fromRect toPage:page];
 			if(inRect.size.width>[starDimple size].width)
 			{
 				inRect.size = [starDimple size];
+				// Use a partially transparent color for shapes that overlap.
+				[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.4]];
+			}
+			else
+			{
+				// Use a partially transparent color for shapes that overlap.
+				[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.4*inRect.size.width/[starDimple size].width]];
 			}
 			inRect.size.width  /= 2;
 			inRect.size.height /= 2;
+			inRect = NSIntegralRect(inRect);
+			inRect.size.width = MAX(inRect.size.width,inRect.size.height);
+			inRect.size.height = inRect.size.width;
 			NSPoint origin = NSMakePoint(-inRect.size.width/2, -inRect.size.height/2);
 			BOOL testForCharacter = YES;
+			[theShadow setShadowOffset:NSMakeSize(0,-inRect.size.height*0.5)]; 
+			[theShadow setShadowBlurRadius:inRect.size.height*0.5]; 
+			[NSGraphicsContext saveGraphicsState]; 
+			[theShadow set];
 			while(V = [E nextObject])
 			{
 				[V getValue: &locationRecord];
@@ -2676,6 +2692,9 @@ To Do List:
 				}
 				inRect.size.width  *= 0.75;
 				inRect.size.height *= 0.75;
+				inRect = NSIntegralRect(inRect);
+				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
+				inRect.size.height = inRect.size.width;
 				NSPoint origin;
 				origin.x = - inRect.size.width/2;
 				origin.y = - inRect.size.height/2;
@@ -2722,6 +2741,9 @@ To Do List:
 #endif
 				inRect.size.width  *= 0.75;
 				inRect.size.height *= 0.75;
+				inRect = NSIntegralRect(inRect);
+				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
+				inRect.size.height = inRect.size.width;
 				NSPoint origin;
 				origin.x = - inRect.size.width/2;
 				origin.y = - inRect.size.height/2;
@@ -2743,6 +2765,7 @@ To Do List:
 					}
 				}
             }
+			[NSGraphicsContext restoreGraphicsState];
 		}
     }
 //iTM2_END;

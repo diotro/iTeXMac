@@ -5322,6 +5322,9 @@ To Do List:
 	NSValue * documentValue = [NSValue valueWithNonretainedObject:document];
 	iTM2ProjectDocument * projectDocument;
 	NSValue * projectValue;
+#warning: SIGTRAP here:coder:20060906
+//iTM2_LOG(@"CACHED_PROJECTS:%@",CACHED_PROJECTS);
+//iTM2_LOG(@"documentValue:%@",documentValue);
     if(projectValue = [CACHED_PROJECTS objectForKey:documentValue])
 	{
 		if(projectDocument = [projectValue nonretainedObjectValue])
@@ -5573,7 +5576,17 @@ To Do List:
 //iTM2_START;
 	if([projectDocument isKindOfClass:[iTM2ProjectDocument class]])
 	{
+		// testing consistency
+		// we are not authorized to register a project document with the same name as a previously registered document
+		NSEnumerator * E = [PROJECTS objectEnumerator];
+		id P;
+		NSString * FN = [projectDocument fileName];
+		while(P = (id)[[E nextObject] nonretainedObjectValue])
+		{
+			NSAssert1(![[P fileName] isEqual:FN],@"You cannot register 2 different project documents with that file name:\n%@",FN);
+		}
 		[PROJECTS addObject:[NSValue valueWithNonretainedObject:projectDocument]];
+		[self setProject:projectDocument forDocument:projectDocument];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"project:%@", projectDocument);
@@ -5694,6 +5707,35 @@ To Do List:
 		else
 		{
 			return nil;
+		}
+	}
+	if(projectDocument = [SDC documentForURL:url])
+	{
+		NSString * key = [projectDocument keyForFileName:fileName];
+		if([key length])
+		{
+			if(display)
+			{
+				[projectDocument makeWindowControllers];
+				[projectDocument showWindows];
+			}
+			return projectDocument;
+		}
+		else
+		{
+			key = [projectDocument recordedKeyForFileName:fileName];
+			// ok this project once had this file name on its own
+			if([key length])
+			{
+				[projectDocument setFileName:fileName forKey:key makeRelative:YES];
+				key = [projectDocument newKeyForFileName:fileName];// ensure that the file name is registered.
+				if(display)
+				{
+					[projectDocument makeWindowControllers];
+					[projectDocument showWindows];
+				}
+				return projectDocument;
+			}
 		}
 	}
 	NSString * typeName = [SDC typeForContentsOfURL:url error:outError];
@@ -8181,8 +8223,8 @@ To Do List:
 	iTM2_LOG(@"*** BIG UNEXPECTED PROBLEM");
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateProjectEditDocumentUsingRepresentedInspectorMode:
-- (BOOL)validateProjectEditDocumentUsingRepresentedInspectorMode:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateProjectEditUsingRepresentedInspectorMode:
+- (BOOL)validateProjectEditUsingRepresentedInspectorMode:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004

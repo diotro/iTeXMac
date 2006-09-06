@@ -82,11 +82,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * documentString = [[self textStorage] string];
+	if(!documentString)
+	{
+		documentString = [self stringRepresentation];
+	}
 	if(line && (line <= [documentString numberOfLines]))
 	{
 		NSEnumerator * E = [[[NSApp windows]
 			sortedArrayUsingSelector: @selector(compareUsingLevel:)] objectEnumerator];
 		NSWindow * W;
+		iTM2TextInspector * WC;
 		while(W = [E nextObject])
 		{
 			iTM2TextInspector * WC = (iTM2TextInspector *)[W windowController];
@@ -98,6 +103,34 @@ To Do List:
 				[WC highlightAndScrollToVisibleLine:line column:column length:length];
 				if(yorn)
 					[[WC window] makeKeyAndOrderFront:self];
+				while(W = [E nextObject])
+				{
+					WC = (iTM2TextInspector *)[W windowController];
+					D = [WC document];
+					if((D == self)
+						&& [[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
+							&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+					{
+						[WC highlightAndScrollToVisibleLine:line column:column length:length];
+						if(yorn)
+							[[WC window] makeKeyAndOrderFront:self];
+						
+					}
+				}
+				return YES;
+			}
+		}
+		if(yorn)
+		{
+			[self makeWindowControllers];
+			E = [[self windowControllers] objectEnumerator];
+			while(WC = [E nextObject])
+			{
+				if([WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+				{
+					[[WC window] makeKeyAndOrderFront:self];
+					[WC highlightAndScrollToVisibleLine:line column:column length:length];
+				}
 			}
 		}
 	//iTM2_END;

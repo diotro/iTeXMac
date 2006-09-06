@@ -2320,7 +2320,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSTextView * TV = [self textView];
-	if([notification object] == TV && [self contextBoolForKey:iTM2PDFSyncFollowFocusKey])
+	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
+	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync"]];
+	NSNumber * N = [cd objectForKey:@"FollowFocus"];
+	if(([notification object] == TV) && [N respondsToSelector:@selector(boolValue)] && [N boolValue])
 	{
 		NSDocument * D = [self document];
 		NSString * S = [TV string];
