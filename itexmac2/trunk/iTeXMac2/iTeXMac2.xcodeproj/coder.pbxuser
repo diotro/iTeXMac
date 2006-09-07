@@ -151,6 +151,7 @@
 		perUserProjectItems = {
 			DCF308DA0AADC22D0088479F /* PBXBookmark */ = DCF308DA0AADC22D0088479F /* PBXBookmark */;
 			DCF30CFA0AAEEF8F0088479F /* PBXTextBookmark */ = DCF30CFA0AAEEF8F0088479F /* PBXTextBookmark */;
+			DCF30DB80AAF77030088479F /* PBXTextBookmark */ = DCF30DB80AAF77030088479F /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -335,7 +336,7 @@
 	DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1580, 10030}}";
-			sepNavSelRange = "{3829, 40}";
+			sepNavSelRange = "{24954, 0}";
 			sepNavVisRect = "{{0, 1001}, {1112, 554}}";
 			sepNavWindowFrame = "{{14, 143}, {1151, 683}}";
 		};
@@ -420,6 +421,16 @@
 		rType = 0;
 		vrLen = 1619;
 		vrLoc = 2750;
+	};
+	DCF30DB80AAF77030088479F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
+		name = "iTM2WindowsMenuKit.m: 590";
+		rLen = 0;
+		rLoc = 24954;
+		rType = 0;
+		vrLen = 1619;
+		vrLoc = 2751;
 	};
 	DCF929730948EC0E00EE2F46 /* Prepare LaTeX Symbols PlugIn */ = {
 		activeExec = 0;

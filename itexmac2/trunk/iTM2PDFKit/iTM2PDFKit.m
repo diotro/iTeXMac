@@ -2640,17 +2640,17 @@ To Do List:
 			else
 			{
 				// Use a partially transparent color for shapes that overlap.
-				[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.4*inRect.size.width/[starDimple size].width]];
+				[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.5*inRect.size.width/[starDimple size].width]];
 			}
-			inRect.size.width  /= 2;
-			inRect.size.height /= 2;
+			inRect.size.width  /= 3;
+			inRect.size.height /= 3;
 			inRect = NSIntegralRect(inRect);
 			inRect.size.width = MAX(inRect.size.width,inRect.size.height);
 			inRect.size.height = inRect.size.width;
 			NSPoint origin = NSMakePoint(-inRect.size.width/2, -inRect.size.height/2);
 			BOOL testForCharacter = YES;
-			[theShadow setShadowOffset:NSMakeSize(0,-inRect.size.height*0.5)]; 
-			[theShadow setShadowBlurRadius:inRect.size.height*0.5]; 
+			[theShadow setShadowOffset:NSMakeSize(0,-inRect.size.height*0.25)]; 
+			[theShadow setShadowBlurRadius:inRect.size.height*0.15]; 
 			[NSGraphicsContext saveGraphicsState]; 
 			[theShadow set];
 			while(V = [E nextObject])
@@ -2667,13 +2667,13 @@ To Do List:
 				{
 					inRect.origin.x = P.x + origin.x;
 					inRect.origin.y = P.y + origin.y;
-					[starDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.5];
+					[starDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
 				}
 				else if(displayBulletsMode & kiTM2PDFSYNCDisplayBuiltInBullets)
 				{
 					inRect.origin.x = P.x + origin.x;
 					inRect.origin.y = P.y + origin.y;
-					[builtInDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.5];
+					[builtInDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
 				}
 				nextWhile:;
 			}
@@ -2690,8 +2690,8 @@ To Do List:
 				{
 					inRect.size = [syncDimple size];
 				}
-				inRect.size.width  *= 0.75;
-				inRect.size.height *= 0.75;
+				inRect.size.width  *= 0.25;
+				inRect.size.height *= 0.25;
 				inRect = NSIntegralRect(inRect);
 				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
 				inRect.size.height = inRect.size.width;
@@ -2712,14 +2712,14 @@ To Do List:
 					syncPoint = [V pointValue];
 					inRect.origin.x = syncPoint.x + origin.x;
 					inRect.origin.y = syncPoint.y + origin.y;
-					[matchDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
+					[matchDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.4];
 				}
 				origin.x = - inRect.size.width/2;
 				origin.y = - inRect.size.height/2;
 				syncPoint = [_SyncDestination point];
 				inRect.origin.x = syncPoint.x + origin.x;
 				inRect.origin.y = syncPoint.y + origin.y;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.4];
             }
             if(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
             {
@@ -2739,8 +2739,8 @@ To Do List:
 					inRect.size.width = inRect.size.height;
 				}
 #endif
-				inRect.size.width  *= 0.75;
-				inRect.size.height *= 0.75;
+				inRect.size.width  *= 0.25;
+				inRect.size.height *= 0.25;
 				inRect = NSIntegralRect(inRect);
 				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
 				inRect.size.height = inRect.size.width;
@@ -2757,7 +2757,7 @@ To Do List:
 						NSPoint syncPoint = [destination point];
 						inRect.origin.x = syncPoint.x + origin.x;
 						inRect.origin.y = syncPoint.y + origin.y;
-						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
+						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.4];
 					}
 					else
 					{
