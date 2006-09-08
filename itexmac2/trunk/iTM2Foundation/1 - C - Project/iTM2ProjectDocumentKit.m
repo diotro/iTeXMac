@@ -1653,6 +1653,7 @@ To Do List:
 	{
 		result = @".";
 		[cachedKeys setObject:result forKey:fileName];
+		return result;
 	}
 	// Here begins the hard work
 	NSArray * Ks = [self allKeys];
@@ -7457,16 +7458,23 @@ To Do List:
 		id result = nil;
 #warning got an EXC_BAD_ACCESS in one of the following lines
 		id implementation = [projectDocument implementation];
-		id O = [implementation iVarContextKeyedFiles];
-		O = [O valueForKey:fileKey];
-		if(result = [O valueForKey:aKey])
+		result = [implementation iVarContextKeyedFiles];
+		result = [result valueForKey:fileKey];
+		if(result = [result valueForKey:aKey])
 			return result;
 		NSString * extensionKey = [[self originalFileName] pathExtension];
 		if([extensionKey length])
+		{
+#warning got an EXC_BAD_ACCESS in one of the following lines
+			result = [implementation iVarContextExtensions];
+			result = [result valueForKey:extensionKey];
 			if(result = [[[implementation iVarContextExtensions] valueForKey:extensionKey] valueForKey:aKey])
 				return result;
+		}
 		NSString * type = [self fileType];
-		if(result = [[[implementation iVarContextTypes] valueForKey:type] valueForKey:aKey])
+		result = [implementation iVarContextTypes];
+		result = [result valueForKey:type];
+		if(result = [result valueForKey:aKey])
 			return result;
 	}
     return [super contextValueForKey:aKey];
