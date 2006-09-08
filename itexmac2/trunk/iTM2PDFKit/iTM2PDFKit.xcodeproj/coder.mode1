@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE409680AB0EBAA00FB432D</string>
+						<string>DCE409D90AB1819A00FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCE409300AB0E8AC00FB432D</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE409690AB0EBAA00FB432D</string>
+						<string>DCE409DA0AB1819A00FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCF30FC80AB0C51D0088479F</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE4096A0AB0EBAA00FB432D</string>
+						<string>DCE409DB0AB1819A00FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCF30FC90AB0C51D0088479F</string>
@@ -317,6 +317,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -443,7 +445,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE409670AB0EBAA00FB432D</string>
+										<string>DCE409D80AB1819A00FB432D</string>
 										<key>history</key>
 										<array>
 											<string>DC4EF0750A3E1EC400E264F0</string>
@@ -656,11 +658,11 @@
 		<string>DCE409570AB0EAF700FB432D</string>
 		<string>DCF30D150AAF31C00088479F</string>
 		<string>DCF30D2E0AAF38B20088479F</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DC09A036088BE9470028F810</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
 		<string>DCF30DFC0AAF8C0C0088479F</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>116 35 1118 739 0 0 1440 878 </string>
@@ -884,12 +886,14 @@
 							<key>Dock</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2PDFKit.m</string>
+										<string>iTM2TeXProjectTaskKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -910,8 +914,6 @@
 							<string>339pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

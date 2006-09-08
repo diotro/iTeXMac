@@ -98,6 +98,7 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
 - (NSString *)farawayFileNameForKey:(NSString *)key;// different from absoluteFileNameForKey: for faraway projects
 - (void)_removeKey:(NSString *)key;
+- (BOOL)projectDirectoryContainsPath:(NSString *)absolutePath;
 
 @end
 
@@ -345,7 +346,7 @@ To Do List:
 	while(key = [E nextObject])
 	{
 		NSString * path = [self absoluteFileNameForKey:key];
-		if(![DFM fileExistsAtPath:path])
+		if(![DFM fileExistsAtPath:path])// traverse the linck
 		{
 			path = [self fileNameForRecordedKey:key];
 			if([DFM fileExistsAtPath:path])
@@ -1504,6 +1505,10 @@ To Do List:
 	}
 	result = [dirName stringByAppendingPathComponent:end];
 	result = [result stringByStandardizingPath];
+#warning DEBUG
+if(![DFM fileExistsAtPath:result])
+{
+iTM2_LOG(@"PROBLEM with %@",result);}
 	return result;// does it exist? I don't care, the client will decide
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFileNamesForKeys:
@@ -1864,8 +1869,11 @@ To Do List:
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordedKeyForFileName:
 - (NSString *)recordedKeyForFileName:(NSString *)fileName;
-/*"Description forthcoming.
-Developer note:all the docs open here are .texp files.
+/*"The purpose of this method is to find out what is the file name previously represented by the key.
+If some file has been moved around, we can loose its full path.
+If the project has been duplicated but not the whole folder, things are partially broken.
+Developer note:all the docs opened here are .texp files.
+WE DO NOT change the state of the project. Clients of the method will make their own decisions.
 Those files are filtered out and won't be open by the posed as class document controller.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1901,6 +1909,7 @@ To Do List:
 			}
 			if([DFM fileExistsAtPath:target])
 			{
+				// clean the alias
 				// it is certainly a duplicate file
 				if([DFM removeFileAtPath:source handler:NULL])
 				{
@@ -1910,12 +1919,13 @@ To Do List:
 				{
 					iTM2_LOG(@"WARNING(1): COULD NOT REMOVE FILE AT PATH:\n%@", source);
 				}
-				return nil;
+				return @"";
 			}
 			return key;
 		}
 		else if([target length] && ![DFM fileExistsAtPath:target])
 		{
+			// clean the alias
 			if([DFM removeFileAtPath:source handler:NULL])
 			{
 				iTM2_LOG(@"Information: there was an alias pointing to nothing at\n%@", source);
@@ -1928,7 +1938,7 @@ To Do List:
 	}
 	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
 	DE = [DFM enumeratorAtPath:subdirectory];
-	// subdirectory is free now
+	// subdirectory variable is free now
 	while(key = [DE nextObject])
 	{
 		key = [K isEqual:@"project"]?@".":K;
@@ -1945,6 +1955,7 @@ To Do List:
 			}
 			if([DFM fileExistsAtPath:target])
 			{
+				// clean the soft link
 				// it is certainly a duplicate file
 				if(![DFM removeFileAtPath:source handler:NULL])
 				{
@@ -2419,6 +2430,36 @@ To Do List:
 //iTM2_END;
 	return;
 }
+#pragma mark =-=-=-=-=-  UTILITY
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectDirectoryContainsPath:
+- (BOOL)projectDirectoryContainsPath:(NSString *)absolutePath;
+/*"Returns the contextInfo of its document.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3:07/26/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * projectName = [self fileName];
+	if([projectName length])
+	{ 
+		NSArray * dirComponents = [projectName pathComponents];
+		NSArray * pathComponents = [absolutePath pathComponents];
+		unsigned int count = [dirComponents count];
+		if(count < [pathComponents count])
+		{
+			NSRange R = NSMakeRange(0,count-1);
+			dirComponents = [dirComponents subarrayWithRange:R];
+			pathComponents = [pathComponents subarrayWithRange:R];
+			if([dirComponents isEqual:pathComponents])
+			{
+				return YES;
+			}
+		}
+	}
+//iTM2_END;
+	return NO;
+}
 #pragma mark =-=-=-=-=-  OPEN SUBDOCUMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSubdocumentWithContentsOfURL:context:display:outError:
 - (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outError;
@@ -2574,8 +2615,10 @@ To Do List:
 		}
 	}
 	// I must open a new document
-	NSString * absoluteFileName = [[self absoluteFileNameForKey:key] stringByResolvingSymlinksAndFinderAliasesInPath];// finder alias support?
-	NSString * farawayFileName = [[self farawayFileNameForKey:key] stringByResolvingSymlinksAndFinderAliasesInPath];// finder alias support?
+	NSString * absoluteFileName = [self absoluteFileNameForKey:key];
+	absoluteFileName = [absoluteFileName stringByResolvingSymlinksAndFinderAliasesInPath];// finder alias support?
+	NSString * farawayFileName = [self farawayFileNameForKey:key];
+	farawayFileName = [farawayFileName stringByResolvingSymlinksAndFinderAliasesInPath];// finder alias support?
 	NSURL * fileURL = nil;
 	BOOL onceMore = YES;
 onceMore:
@@ -2597,7 +2640,7 @@ absoluteFileNameIsChosen:
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Which one do you want?", NSLocalizedDescriptionKey,
 				[NSString stringWithFormat:@"1:%@\nor\n2:%@",absoluteFileName, farawayFileName], NSLocalizedFailureReasonErrorKey,
-				@"1 will be chosen unless you remove it.", NSLocalizedRecoverySuggestionErrorKey,
+				@"1 will be chosen unless you remove it now from the Finder.", NSLocalizedRecoverySuggestionErrorKey,
 					nil];
 			[self presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3 userInfo:dict]];
 			if(onceMore)
@@ -2626,9 +2669,21 @@ absoluteFileNameIsChosen:
 		NSString * recorded = [self fileNameForRecordedKey:key];
 		if([DFM fileExistsAtPath:recorded])
 		{
-			[self setFileName:recorded forKey:key makeRelative:YES];
-			fileURL = [NSURL fileURLWithPath:recorded];
-			return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
+			if([self projectDirectoryContainsPath:recorded])
+			{
+				[self setFileName:recorded forKey:key makeRelative:YES];
+				fileURL = [NSURL fileURLWithPath:recorded];
+				return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
+			}
+			else
+			{
+				// make a copy of the file
+				if([DFM copyPath:recorded toPath:absoluteFileName handler:NULL])
+				{
+					fileURL = [NSURL fileURLWithPath:absoluteFileName];
+					return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
+				}
+			}
 		}
 		if([farawayFileName isEqual:absoluteFileName])
 		{
@@ -5419,7 +5474,7 @@ To Do List:
 	NSString * fileName = [document fileName];
 	[self setProject:projectDocument forFileName:fileName];
 	NSAssert3((!projectDocument || [[projectDocument keyForFileName:fileName] length]),
-		@"..........  INCONSISTENCY:unexpected behaviour, report bug 3131 in %s, %@, %@", __PRETTY_FUNCTION__, projectDocument, fileName);
+		@"..........  INCONSISTENCY:unexpected behaviour, report bug 3131 in %s,\nproject:\n%@\nfileName:\n%@", __PRETTY_FUNCTION__, projectDocument, fileName);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:forFileName:

@@ -1485,7 +1485,7 @@ To Do List:
 	if([DFM fileExistsAtPath:pdfsyncPath])
 	{
 		NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
-		if(![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
+		if(pdfDate && ![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
 		{
 			iTM2_LOG(@"ERROR: Unexpected problem: could not change the file modification date...");
 		}

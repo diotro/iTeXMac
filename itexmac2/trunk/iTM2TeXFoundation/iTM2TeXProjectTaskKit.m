@@ -565,6 +565,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![[textView window] isKeyWindow])
+	{
+		return NO;
+	}
 	NSTextStorage * TS = [[textView layoutManager] textStorage];
 	NSString * path = [TS attribute:iTM2LogLinkFileAttributeName atIndex:charIndex effectiveRange:nil];
 	if(!path)
