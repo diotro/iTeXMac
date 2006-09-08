@@ -2567,6 +2567,7 @@ To Do List:
 		}
 		NSImage * starDimple = [NSImage imageGreenDimple];
 		NSImage * builtInDimple = [NSImage imageBlueDimple];
+		NSImage * plusDimple = [NSImage imageGreyDimple];
 		unsigned int pageIndex = [[page document] indexForPage:page];
         if([SUD boolForKey:iTM2PDFSyncShowRecordNumberKey])
 		{
@@ -2657,7 +2658,7 @@ To Do List:
 			{
 				[V getValue: &locationRecord];
 				NSPoint P = NSMakePoint(locationRecord.x, locationRecord.y);
-				if(testForCharacter && ([page characterIndexNearPoint:P]<0))
+				if(testForCharacter && !locationRecord.plus && ([page characterIndexNearPoint:P]<0))
 				{
 					// don't draw;
 //iTM2_LOG(@"$$$$  This point does not seem to point to a character: %@", NSStringFromPoint(P));
@@ -2673,7 +2674,7 @@ To Do List:
 				{
 					inRect.origin.x = P.x + origin.x;
 					inRect.origin.y = P.y + origin.y;
-					[builtInDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
+					[(locationRecord.plus?plusDimple:builtInDimple) drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
 				}
 				nextWhile:;
 			}

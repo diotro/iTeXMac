@@ -328,7 +328,7 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  FIX PROJECT CONSISTENCY
 // this is where things are cleaned
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixSubdocumentsFileNames
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateSubdocumentsFileNames
 - (void)updateSubdocumentsFileNames;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -350,6 +350,7 @@ To Do List:
 			path = [self fileNameForRecordedKey:key];
 			if([DFM fileExistsAtPath:path])
 			{
+				iTM2_LOG(@"The file <%@> will now point to <%@>",[self relativeFileNameForKey:key],path);
 				[self setFileName:path forKey:key makeRelative:YES];
 			}
 		}
@@ -7711,7 +7712,15 @@ To Do List:
 	// A - is it an already open document?
 	if(D = [self documentForURL:absoluteURL])
 	{
-		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outError];
+#warning There was a problem: there is a document but it cannot be opened
+		id D1 = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outError];
+		if(D1)
+		{
+			return D1;
+		}
+		[D makeWindowControllers];
+		[D makeKeyAndOrderFront:self];
+		return D;
 	}
 	BOOL isDirectory = NO;
 	if(![DFM fileExistsAtPath:fileName isDirectory:&isDirectory])

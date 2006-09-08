@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF30DB80AAF77030088479F</string>
+						<string>DCF30FB00AB0C5100088479F</string>
 						<key>history</key>
 						<array>
 							<string>DCF308DA0AADC22D0088479F</string>
@@ -554,10 +554,10 @@
 		<string>DC691935088C8CD600F00114</string>
 		<string>DCF30D020AAEEF8F0088479F</string>
 		<string>DC69174E088BFB5600F00114</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DCF30CF80AAEEF8F0088479F</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>74 208 991 610 0 0 1440 878 </string>
@@ -784,7 +784,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2ValidationKit.m</string>
+										<string>iTM2TeXProjectFrontendKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>

@@ -91,6 +91,7 @@ typedef struct
     float x;
     float y;
     BOOL star;
+    BOOL plus;
 } iTM2SynchronizationLocationRecord;
 
 typedef struct

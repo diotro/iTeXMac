@@ -449,6 +449,7 @@ To Do List:
     else if([S scanString:@"p" intoString:nil])
     {
         locationRecord.star = [S scanString:@"*" intoString:nil];
+        locationRecord.plus = [S scanString:@"+" intoString:nil];
         // here we are expected to read something like
         // #1 #2 #3
         // where #1 is the order of the record
@@ -465,7 +466,7 @@ To Do List:
                     firstPoint.y = locationRecord.y;
 //NSLog(@"The first point is: %@", NSStringFromPoint(firstPoint));
                 }
-                locationRecord.x/=65536;//65781.76;
+                locationRecord.x/=65781.76;//65781.76;
                 locationRecord.y/=65781.76;//65781.76;
                 locationRecord.x+=offset.x;
                 locationRecord.y+=offset.y;

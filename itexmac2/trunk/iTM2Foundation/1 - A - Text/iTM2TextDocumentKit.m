@@ -764,18 +764,32 @@ To Do List: ...
     if([[[NSApp mainWindow] windowController] document] == self)
     {
         NSPrintInfo * PI = [self printInfo];
-        NSPrintOperation * PO = [NSPrintOperation
-                printOperationWithView: [[[NSApp mainWindow] windowController] textView] printInfo:PI];
+		NSView * view = [[[NSApp mainWindow] windowController] textView];
+        NSPrintOperation * PO = [NSPrintOperation printOperationWithView:view printInfo:PI];
         [PI setHorizontalPagination:NSFitPagination];
         [PI setVerticallyCentered:NO];
         [PO setShowPanels:YES];
-        [PO runOperation];
+	/* Do the print operation, with panels that are document-modal to a specific window.  didRunSelector should have the following signature:
+- (void)printOperationDidRun:(NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(void *)contextInfo;
+*/
+		[PO runOperationModalForWindow:[view window] delegate:self didRunSelector:@selector(iTM2TextPrintOperationDidRun:success:contextInfo:) contextInfo:nil];
     }
     else
     {
-    #warning sheet for typesetting!!!
         [super printDocument:aSender];
     }
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TextPrintOperationDidRun:success:contextInfo:
+- (void)iTM2TextPrintOperationDidRun:(NSPrintOperation *)printOperation success:(BOOL)success contextInfo:(void *)irrelevant;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (07/17/2001)
+- 2 : Wed Oct 01 2003
+To Do List: ...
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateChangeCount:
