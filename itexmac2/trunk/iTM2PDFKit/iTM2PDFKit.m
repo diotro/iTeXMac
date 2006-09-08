@@ -2233,6 +2233,8 @@ To Do List:
 //iTM2_START;
 	if([[sender currentEditor] isEqual:[[sender window] firstResponder]])
 		return YES;
+	if(![[sender window] isEqual:[self window]])
+		return YES;
 	PDFPage * page = [_pdfView currentPage];
 	PDFDocument * document = [page document];
 	unsigned int pageCount = [document indexForPage:page];
@@ -2290,7 +2292,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if([[sender currentEditor] isEqual:[[sender window] firstResponder]])
-			return YES;
+		return YES;
+	if(![[sender window] isEqual:[self window]])
+		return YES;
 	[sender setFloatValue:[_pdfView scaleFactor]];
 	NSNumberFormatter * NF = [sender formatter];
 	NSSize oldSize = [sender frame].size;
@@ -2346,6 +2350,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![[sender window] isEqual:[self window]])
+		return YES;
 	BOOL isEnabled = NO;
 	if([_pdfView canGoBack])
 	{
@@ -2387,6 +2393,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![[sender window] isEqual:[self window]])
+		return YES;
 	if(![sender selectSegmentWithTag:[self toolMode]])
 	{
 		[self setToolMode:kiTM2MoveToolMode];

@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE409FF0AB18BA800FB432D</string>
+						<string>DCE40A040AB18DBF00FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCE409830AB170A400FB432D</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE40A000AB18BA800FB432D</string>
+						<string>DCE40A050AB18DBF00FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCE409850AB170A400FB432D</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE40A010AB18BA800FB432D</string>
+						<string>DCE40A060AB18DBF00FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCE4083E0AB0D66900FB432D</string>
@@ -447,7 +447,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE409FE0AB18BA800FB432D</string>
+										<string>DCE40A030AB18DBF00FB432D</string>
 										<key>history</key>
 										<array>
 											<string>DCD7D6F70A439B6B0096B1A9</string>
@@ -746,7 +746,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCE40A020AB18BA800FB432D</string>
 		<string>DCE408380AB0C77F00FB432D</string>
 		<string>DCE408390AB0C77F00FB432D</string>
 		<string>DCE408330AB0C77F00FB432D</string>
@@ -758,8 +757,8 @@
 		<string>DCE4084B0AB0D7EE00FB432D</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DCE408470AB0D7EE00FB432D</string>
-		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DC993AC6088DF04D00F8BCE1</string>
 	</array>
 	<key>WindowString</key>
 	<string>124 -86 1048 836 0 0 1440 878 </string>
@@ -778,8 +777,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -802,6 +799,8 @@
 							<string>211pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
