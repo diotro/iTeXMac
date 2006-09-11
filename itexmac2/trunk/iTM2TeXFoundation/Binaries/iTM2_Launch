@@ -3,7 +3,7 @@
 # this is iTM2_Launch for iTeXMac2 1.0
 # © 2006 jlaurens AT users.sourceforge.net
 # setting the link
-# iTM2_Lauch "command with arguments"
+# iTM2_Launch "command with arguments"
 # this should be called at least each time a project is open
 # preferrably each time we execute something against a project
 # this script does not care about the file extension!
@@ -51,6 +51,7 @@ else
 	mkdir "${iTM2BinaryPATH}"
 	chmod -R a+rwx "${iTM2BinaryPATH}"
 fi
+date "+MIDDLE - DATE(4): %m/%d/%y%nTIME: %H:%M:%S"
 iTM2Cached="${iTM2BinaryPATH}/${iTM2Command}-cached"
 if [ "${iTM2_XLR8:-0}" != "0" ] && [ 0 -eq 1 ]
 then
@@ -69,7 +70,9 @@ else
 	"${iTM2_CMD_Notify}" echo "<first time/>"
 date "+FIRST - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 fi
+date "+MIDDLE - DATE(3.1): %m/%d/%y%nTIME: %H:%M:%S"
 "${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
+date "+MIDDLE - DATE(3.0): %m/%d/%y%nTIME: %H:%M:%S"
 iTM2SHORT="0"
 iTM2Link ()
 {
@@ -82,7 +85,9 @@ iTM2Link ()
 		iTM2SHORT=`expr $iTM2SHORT + 1`
     fi
 }
+date "+MIDDLE - DATE(2): %m/%d/%y%nTIME: %H:%M:%S"
 "${iTM2_CMD_Notify}" comment "Welcome to iTeXMac2 launch utility version ${iTM2_LAUNCH_VERSION}"
+date "+MIDDLE - DATE(1): %m/%d/%y%nTIME: %H:%M:%S"
 if [ "${TWSMaster}" == "" ]
 then
     "${iTM2_CMD_Notify}" error "Undefined TWSMaster in $0
@@ -93,6 +98,7 @@ Are they what was expected?"
     exit 1
 fi
 # the specific environment:
+date "+MIDDLE - DATE(0): %m/%d/%y%nTIME: %H:%M:%S"
 if [ ${#iTM2_Debug} -gt 0 ]
 then
 	"${iTM2_CMD_Notify}" start comment

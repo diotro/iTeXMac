@@ -7,6 +7,8 @@
 		<string>ltx</string>
 		<string>pdf</string>
 	</array>
+	<string>ins</string>
+	<string>dtx</string>
 	<string>dvi</string>
 	<string>ps</string>
 	<string>eps</string>

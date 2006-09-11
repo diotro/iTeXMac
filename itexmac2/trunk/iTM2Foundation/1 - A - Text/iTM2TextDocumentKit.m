@@ -682,13 +682,18 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 		{
 			unichar c = [argument characterAtIndex:idx];
 //NSLog(@"character %@ at %i", [NSString stringWithCharacters:&c length:1], idx);
-			id D = [[NSString stringWithCharacters:&c length:1] dataUsingEncoding:saveEncoding allowLossyConversion:NO];
-			if([(NSString *)D length])
+			NSString * S = [NSString stringWithCharacters:&c length:1];
+			D = [S dataUsingEncoding:saveEncoding allowLossyConversion:NO];
+			if([D length])
 			{
+				// the current character has no problem of encoding
 				if(length>1)
 				{
+					// there was problems before
 					if(idx>=length)
+					{
 						[MRArng addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
+					}
 					else
 					{
 						iTM2_LOG(@"Warning: Character problem 1");
@@ -697,16 +702,20 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 				else if(length == 1)
 				{
 					if(idx>=length)
+					{
 						[MRAidx addObject:[NSNumber numberWithInt:idx-length]];
+					}
 					else
 					{
 						iTM2_LOG(@"Warning: Character problem 2");
 					}
 				}
+				// no more pending problems
 				length = 0;
 			}
 			else
 			{
+				// this character is problematic
 				iTM2_LOG(@"Warning: Character problem 3");
 				++length;
 			}
@@ -718,7 +727,9 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 			if(idx>=length)
 				[MRArng addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
 			else
-				NSLog(@"%@ %#x, problem 3", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self);
+			{
+				iTM2_LOG(@"WARNING: Character problem 4");
+			}
 		}
 		else if(length == 1)
 		{
@@ -726,14 +737,47 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 				[MRAidx addObject:[NSNumber numberWithInt:idx-length]];
 			else
 			{
-				iTM2_LOG(@"WARNING: Character problem 4");
+				iTM2_LOG(@"WARNING: Character problem 5");
 			}
+		}
+		// which range is the smallest?
+		NSRange toBeVisibleRange;
+		if([MRAidx count])
+		{
+			idx = [[MRAidx objectAtIndex:0] intValue];
+			if([MRArng count])
+			{
+				toBeVisibleRange = [[MRArng objectAtIndex:0] rangeValue];
+				if(idx<toBeVisibleRange.location)
+				{
+					toBeVisibleRange = NSMakeRange(idx,1);
+				}
+			}
+			else
+			{
+				toBeVisibleRange = NSMakeRange(idx,1);
+			}
+		}
+		else if([MRArng count])
+		{
+			toBeVisibleRange = [[MRArng objectAtIndex:0] rangeValue];
+		}
+		else
+		{
+			iTM2_LOG(@"I could not find the character encoding problem");
+			return;
 		}
 		NSEnumerator * E = [[self windowControllers] objectEnumerator];
 		id WC;
 		while(WC = [E nextObject])
+		{
 			if([WC isKindOfClass:[iTM2TextInspector class]])
-				[[WC textView] secondaryHighlightAtIndices:MRAidx lengths:MRArng];
+			{
+				NSTextView * TV = [WC textView];
+				[TV secondaryHighlightAtIndices:MRAidx lengths:MRArng];
+				[TV scrollRangeToVisible:toBeVisibleRange];
+			}
+		}
 		[self postNotificationWithStatus:
 			[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The highlighted characters can not be properly encoded using %@.", TABLE, BUNDLE, ""), [NSString localizedNameOfStringEncoding:saveEncoding]]
 				object: [self frontWindow]];

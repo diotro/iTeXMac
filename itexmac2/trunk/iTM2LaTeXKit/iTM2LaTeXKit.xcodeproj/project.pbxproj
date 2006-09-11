@@ -14,9 +14,32 @@
 			);
 			dependencies = (
 				DC1C6963090D1C5D000F4FDE /* PBXTargetDependency */,
+				DCE418320AB621B100FB432D /* PBXTargetDependency */,
 			);
 			name = All;
 			productName = All;
+		};
+		DCE417D80AB61DEE00FB432D /* Install Engines */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DCE417D90AB61E0D00FB432D /* Build configuration list for PBXAggregateTarget "Install Engines" */;
+			buildPhases = (
+				DCE417D70AB61DEE00FB432D /* Install */,
+			);
+			dependencies = (
+			);
+			name = "Install Engines";
+			productName = "Install Engines";
+		};
+		DCE417E20AB61E7400FB432D /* Build & Install Engines */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DCE417E80AB61EB200FB432D /* Build configuration list for PBXAggregateTarget "Build & Install Engines" */;
+			buildPhases = (
+				DCE417E10AB61E7400FB432D /* Build & Install */,
+			);
+			dependencies = (
+			);
+			name = "Build & Install Engines";
+			productName = Build;
 		};
 /* End PBXAggregateTarget section */
 
@@ -75,6 +98,20 @@
 			remoteGlobalIDString = DC9E4F310858A8A300A86BED;
 			remoteInfo = All;
 		};
+		DCE417DF0AB61E3400FB432D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCE417D80AB61DEE00FB432D;
+			remoteInfo = "Install Engines";
+		};
+		DCE418310AB621B100FB432D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCE417E20AB61E7400FB432D;
+			remoteInfo = "Build & Install Engines";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -101,7 +138,7 @@
 		DC7471240884604700C264BB /* iTM2Bookmarks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Bookmarks.png; sourceTree = "<group>"; };
 		DC7471250884604700C264BB /* iTM2Labels.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Labels.png; sourceTree = "<group>"; };
 		DC7471260884604700C264BB /* iTM2Sections.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Sections.png; sourceTree = "<group>"; };
-		DC81AD260887161F00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AD260887161F00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A61D9088D7DDF0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A61DA088D7DDF0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC90D02609978AFF00C79525 /* iTM2ScriptColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptColor.png; sourceTree = "<group>"; };
@@ -310,6 +347,7 @@
 			);
 			dependencies = (
 				DC5D6FF70949E01000EBA96C /* PBXTargetDependency */,
+				DCE417E00AB61E3400FB432D /* PBXTargetDependency */,
 			);
 			name = iTM2LaTeXKit;
 			productName = iTM2LaTeXFoundation;
@@ -360,6 +398,8 @@
 			targets = (
 				DC5D6FE80949DFAE00EBA96C /* Prepare iTM2TeXFoundation */,
 				DC2741E7090CE39000C2D1D2 /* iTM2LaTeXKit */,
+				DCE417E20AB61E7400FB432D /* Build & Install Engines */,
+				DCE417D80AB61DEE00FB432D /* Install Engines */,
 				DC9E4F310858A8A300A86BED /* All */,
 				DC81AD250887161F00943C99 /* iTeXMac2 */,
 			);
@@ -486,6 +526,34 @@
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2LaTeXKit\n";
 		};
+		DCE417D70AB61DEE00FB432D /* Install */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Install;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2SynchronizeEngines.sh iTM2LaTeXKit iTM2LaTeXKitEngines\nexit 0";
+		};
+		DCE417E10AB61E7400FB432D /* Build & Install */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build & Install";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FULL_PRODUCT_NAME=\"${PRODUCT_NAME}Engines\"\necho \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed\"\nif [ ${#BUILD_STYLE} -eq 0 ]\nthen\n\tBUILD_STYLE=\"Development\"\n\techo \"warning: iTeXMac2 INFO, default ${BUILD_STYLE} build style used\"\nfi\nxcodebuild -project \"${FULL_PRODUCT_NAME}/${FULL_PRODUCT_NAME}.xcodeproj\" -target \"All\" -configuration \"${CONFIGURATION}\" clean build\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... FAILED with error $?\"\n\texit 1\nelse\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... DONE\"\n\texit 0\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -514,6 +582,16 @@
 			isa = PBXTargetDependency;
 			target = DC9E4F310858A8A300A86BED /* All */;
 			targetProxy = DC993AF0088DF20100F8BCE1 /* PBXContainerItemProxy */;
+		};
+		DCE417E00AB61E3400FB432D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCE417D80AB61DEE00FB432D /* Install Engines */;
+			targetProxy = DCE417DF0AB61E3400FB432D /* PBXContainerItemProxy */;
+		};
+		DCE418320AB621B100FB432D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCE417E20AB61E7400FB432D /* Build & Install Engines */;
+			targetProxy = DCE418310AB621B100FB432D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -855,6 +933,64 @@
 			};
 			name = Default;
 		};
+		DCE417DA0AB61E0D00FB432D /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Install Engines";
+			};
+			name = Development;
+		};
+		DCE417DB0AB61E0D00FB432D /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = "Install Engines";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DCE417DC0AB61E0D00FB432D /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Install Engines";
+			};
+			name = Default;
+		};
+		DCE417E90AB61EB200FB432D /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Build;
+			};
+			name = Development;
+		};
+		DCE417EA0AB61EB200FB432D /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = Build;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DCE417EB0AB61EB200FB432D /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = Build;
+			};
+			name = Default;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -904,6 +1040,26 @@
 				DC6BB7EE09474615004B0A81 /* Development */,
 				DC6BB7EF09474615004B0A81 /* Deployment */,
 				DC6BB7F009474615004B0A81 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DCE417D90AB61E0D00FB432D /* Build configuration list for PBXAggregateTarget "Install Engines" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCE417DA0AB61E0D00FB432D /* Development */,
+				DCE417DB0AB61E0D00FB432D /* Deployment */,
+				DCE417DC0AB61E0D00FB432D /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DCE417E80AB61EB200FB432D /* Build configuration list for PBXAggregateTarget "Build & Install Engines" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCE417E90AB61EB200FB432D /* Development */,
+				DCE417EA0AB61EB200FB432D /* Deployment */,
+				DCE417EB0AB61EB200FB432D /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;

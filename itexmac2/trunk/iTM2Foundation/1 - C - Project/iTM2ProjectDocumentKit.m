@@ -1508,7 +1508,7 @@ To Do List:
 #warning DEBUG
 if(![DFM fileExistsAtPath:result])
 {
-iTM2_LOG(@"PROBLEM with %@",result);}
+iTM2_LOG(@"PROBLEM with missing %@",result);}
 	return result;// does it exist? I don't care, the client will decide
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFileNamesForKeys:

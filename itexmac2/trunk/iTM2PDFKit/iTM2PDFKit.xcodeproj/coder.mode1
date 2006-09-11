@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE40A230AB1907D00FB432D</string>
+						<string>DCE40ABF0AB40F3900FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCE40A160AB18F3B00FB432D</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE40A240AB1907D00FB432D</string>
+						<string>DCE40AC00AB40F3900FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCF30FC80AB0C51D0088479F</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE40A250AB1907D00FB432D</string>
+						<string>DCE40AC10AB40F3900FB432D</string>
 						<key>history</key>
 						<array>
 							<string>DCF30FC90AB0C51D0088479F</string>
@@ -317,6 +317,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -442,7 +444,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE40A220AB1907D00FB432D</string>
+										<string>DCE40ABE0AB40F3900FB432D</string>
 										<key>history</key>
 										<array>
 											<string>DC4EF0750A3E1EC400E264F0</string>
@@ -651,15 +653,15 @@
 	<array>
 		<string>DCE4095C0AB0EAF700FB432D</string>
 		<string>DCE4095D0AB0EAF700FB432D</string>
-		<string>DC691A76088CFF8900F00114</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DCE409570AB0EAF700FB432D</string>
 		<string>DCF30D150AAF31C00088479F</string>
 		<string>DCF30D2E0AAF38B20088479F</string>
 		<string>DC09A036088BE9470028F810</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
+		<string>DC691A76088CFF8900F00114</string>
 		<string>DCF30DFC0AAF8C0C0088479F</string>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>116 35 1118 739 0 0 1440 878 </string>
@@ -865,7 +867,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -975,6 +977,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -1018,7 +1022,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC691A76088CFF8900F00114</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

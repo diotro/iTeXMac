@@ -202,14 +202,6 @@
 		DC9DC49A094840CC0079E1B3 /* iTM2DvipsWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DvipsWrapperKit.m; sourceTree = "<group>"; };
 		DC9DC49B094840CC0079E1B3 /* stock-hchain-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stock-hchain-24.png"; sourceTree = "<group>"; };
 		DC9DC49C094840CC0079E1B3 /* stock-hchain-broken-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stock-hchain-broken-24.png"; sourceTree = "<group>"; };
-		DC9DC49F094840CC0079E1B3 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2LaTeXMK.nib; sourceTree = "<group>"; };
-		DC9DC4A0094840CC0079E1B3 /* installInBundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = installInBundle; sourceTree = "<group>"; };
-		DC9DC4A1094840CC0079E1B3 /* iTM2_Setup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Setup; sourceTree = "<group>"; };
-		DC9DC4A2094840CC0079E1B3 /* iTM2LaTeXMKWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LaTeXMKWrapperKit.h; sourceTree = "<group>"; };
-		DC9DC4A3094840CC0079E1B3 /* iTM2LaTeXMKWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXMKWrapperKit.m; sourceTree = "<group>"; };
-		DC9DC4A4094840CC0079E1B3 /* LaTeXMK-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "LaTeXMK-Info.plist"; sourceTree = "<group>"; };
-		DC9DC4A5094840CC0079E1B3 /* latexmk.tgz */ = {isa = PBXFileReference; lastKnownFileType = file; path = latexmk.tgz; sourceTree = "<group>"; };
-		DC9DC4A6094840CC0079E1B3 /* latexmk.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = latexmk.txt; sourceTree = "<group>"; };
 		DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pstopdf; sourceTree = "<group>"; };
 		DC9DC4AF094840CC0079E1B3 /* iTM2PStoPDFWrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2PStoPDFWrapper-Info.plist"; sourceTree = "<group>"; };
 		DC9DC4B0094840CC0079E1B3 /* iTM2PStoPDFWrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2PStoPDFWrapper-Prefix.pch"; sourceTree = "<group>"; };
@@ -320,7 +312,6 @@
 				DC9DC4B3094840CC0079E1B3 /* TeX */,
 				DC9DC482094840CB0079E1B3 /* dvipdfm */,
 				DC9DC48F094840CC0079E1B3 /* dvips */,
-				DC9DC49D094840CC0079E1B3 /* LaTeXMK */,
 				DC9DC4A7094840CC0079E1B3 /* pstopdf */,
 				DC9DC4C8094840ED0079E1B3 /* External Frameworks and Libraries */,
 				DC9DC4CB0948410C0079E1B3 /* Products */,
@@ -355,21 +346,6 @@
 				DC9DC49A094840CC0079E1B3 /* iTM2DvipsWrapperKit.m */,
 			);
 			path = dvips;
-			sourceTree = "<group>";
-		};
-		DC9DC49D094840CC0079E1B3 /* LaTeXMK */ = {
-			isa = PBXGroup;
-			children = (
-				DC9DC49E094840CC0079E1B3 /* iTM2LaTeXMK.nib */,
-				DC9DC4A0094840CC0079E1B3 /* installInBundle */,
-				DC9DC4A1094840CC0079E1B3 /* iTM2_Setup */,
-				DC9DC4A2094840CC0079E1B3 /* iTM2LaTeXMKWrapperKit.h */,
-				DC9DC4A3094840CC0079E1B3 /* iTM2LaTeXMKWrapperKit.m */,
-				DC9DC4A4094840CC0079E1B3 /* LaTeXMK-Info.plist */,
-				DC9DC4A5094840CC0079E1B3 /* latexmk.tgz */,
-				DC9DC4A6094840CC0079E1B3 /* latexmk.txt */,
-			);
-			path = LaTeXMK;
 			sourceTree = "<group>";
 		};
 		DC9DC4A7094840CC0079E1B3 /* pstopdf */ = {
@@ -833,14 +809,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC9DC49E094840CC0079E1B3 /* iTM2LaTeXMK.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC9DC49F094840CC0079E1B3 /* English */,
-			);
-			name = iTM2LaTeXMK.nib;
-			sourceTree = "<group>";
-		};
 		DCCD2DB309E06C450003EEF9 /* Engine.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

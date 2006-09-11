@@ -714,6 +714,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_LOG(@"I am currently deallocating %@",[[[self fileName] copy] autorelease]);
 	[self willDealloc];
     [DNC removeObserver:self];
     [DNC removeObserver:nil name:nil object:self];
@@ -1311,7 +1312,9 @@ To Do List:
 		iTM2_LOG(@"typeName:%@", typeName);
 	}
 	if(outError)
+	{
 		*outError = nil;
+	}
 	NSError * localError = nil;
 	[self readContextFromURL:absoluteURL ofType:typeName error:&localError];
 	if(localError)

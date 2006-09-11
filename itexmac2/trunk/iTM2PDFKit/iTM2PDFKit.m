@@ -4156,8 +4156,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(([theEvent clickCount] == 1) && ([theEvent modifierFlags] & NSCommandKeyMask))
+    if(([theEvent clickCount] > 0) && ([theEvent modifierFlags] & NSCommandKeyMask))
     {
+		// wait for a second click?
 		[self pdfSynchronizeMouseDown:theEvent];
 //iTM2_END;
 		return;
@@ -4221,7 +4222,7 @@ To Do List:
 				[hint setObject:[NSValue valueWithRect:lineBounds] forKey:@"line bounds"];
 			}
 			[[[[self window] windowController] document]
-				synchronizeWithLocation: point inPageAtIndex: pageIndex withHint: hint orderFront:(([theEvent modifierFlags] & NSAlternateKeyMask) == 0)];
+				synchronizeWithLocation: point inPageAtIndex: pageIndex withHint: hint orderFront:([theEvent clickCount] > 1)];
 		}
 	}
 //iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
