@@ -1,0 +1,249 @@
+// !$*UTF8*$!
+{
+	DC0EF842094856570018276F /* LaTeX Installer */ = {
+		activeExec = 0;
+	};
+	DC0EF94A094899550018276F /* Install in iTM2LaTeXKit */ = {
+		activeExec = 0;
+	};
+	DC3865880948B02100352215 /* build iTeXMac2 */ = {
+		activeExec = 0;
+		executables = (
+			DC38658A0948B02100352215 /* build iTeXMac2 */,
+		);
+	};
+	DC38658A0948B02100352215 /* build iTeXMac2 */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "build iTeXMac2";
+		sourceDirectories = (
+		);
+	};
+	DC38659F0948B0D100352215 /* iTeXMac */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		launchableReference = DC3865A00948B0D100352215 /* iTeXMac2.app */;
+		libgmallocEnabled = 0;
+		name = iTeXMac;
+		sourceDirectories = (
+		);
+	};
+	DC3865A00948B0D100352215 /* iTeXMac2.app */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = wrapper.application;
+		name = iTeXMac2.app;
+		path = /Users/coder/iTeXMac/iTeXMac2/Developer/build/iTeXMac2.app;
+		sourceTree = "<absolute>";
+	};
+	DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1105, 663}}";
+			sepNavSelRange = "{134, 0}";
+			sepNavVisRect = "{{0, 0}, {1105, 663}}";
+			sepNavWindowFrame = "{{61, 39}, {1144, 792}}";
+		};
+	};
+	DC5D6D0E0949A97100EBA96C /* Prepare iTM2LaTeXKit */ = {
+		activeExec = 0;
+	};
+	DC99EC7D0A27C6B800F50752 /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = "Project Breakpoints";
+		objects = (
+		);
+	};
+	DC9DC47A094840B10079E1B3 /* Project object */ = {
+		activeBuildConfigurationName = Development;
+		activeExecutable = DC38658A0948B02100352215 /* build iTeXMac2 */;
+		activeTarget = DC9DC6E5094844DF0079E1B3 /* All */;
+		addToTargets = (
+			DC0EF842094856570018276F /* LaTeX Installer */,
+		);
+		breakpoints = (
+		);
+		breakpointsGroup = DC99EC7D0A27C6B800F50752 /* XCBreakpointsBucket */;
+		codeSenseManager = DC9DC47F094840B10079E1B3 /* Code sense */;
+		executables = (
+			DC38658A0948B02100352215 /* build iTeXMac2 */,
+			DC38659F0948B0D100352215 /* iTeXMac */,
+		);
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					210,
+					20,
+					110,
+					109,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					57.5835,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					258,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.XCSCMDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					234,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_SCM_ColumnID,
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					78,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 179708807;
+			PBXWorkspaceStateSaveDate = 179708807;
+		};
+		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
+		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;
+		userBuildSettings = {
+		};
+	};
+	DC9DC47E094840B10079E1B3 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 1;
+		scmConfiguration = {
+		};
+		scmType = scm.subversion;
+	};
+	DC9DC47F094840B10079E1B3 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = text.script.sh;
+		name = iTM2_Engine_PDFTeX;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXEngines/TeX/iTM2_Engine_PDFTeX;
+		sourceTree = "<absolute>";
+	};
+	DC9DC6E5094844DF0079E1B3 /* All */ = {
+		activeExec = 0;
+	};
+	DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */ = {
+		isa = PBXBookmarkGroup;
+		children = (
+			DCE415B30AB606AB00FB432D /* PBXBookmark */,
+		);
+		name = Root;
+	};
+	DCE415B30AB606AB00FB432D /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
+	};
+}
