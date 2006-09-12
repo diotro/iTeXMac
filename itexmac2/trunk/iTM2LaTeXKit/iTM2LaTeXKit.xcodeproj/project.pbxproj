@@ -552,7 +552,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "FULL_PRODUCT_NAME=\"${PRODUCT_NAME}Engines\"\necho \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed\"\nif [ ${#BUILD_STYLE} -eq 0 ]\nthen\n\tBUILD_STYLE=\"Development\"\n\techo \"warning: iTeXMac2 INFO, default ${BUILD_STYLE} build style used\"\nfi\nxcodebuild -project \"${FULL_PRODUCT_NAME}/${FULL_PRODUCT_NAME}.xcodeproj\" -target \"All\" -configuration \"${CONFIGURATION}\" clean build\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... FAILED with error $?\"\n\texit 1\nelse\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... DONE\"\n\texit 0\nfi\n";
+			shellScript = "FULL_PRODUCT_NAME=\"${PROJECT_NAME}Engines\"\necho \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed\"\nif [ ${#BUILD_STYLE} -eq 0 ]\nthen\n\tBUILD_STYLE=\"Development\"\n\techo \"warning: iTeXMac2 INFO, default ${BUILD_STYLE} build style used\"\nfi\nxcodebuild -project \"${FULL_PRODUCT_NAME}/${FULL_PRODUCT_NAME}.xcodeproj\" -target \"All\" -configuration \"${CONFIGURATION}\" clean build\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... FAILED with error $?\"\n\texit 1\nelse\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... DONE\"\n\texit 0\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
