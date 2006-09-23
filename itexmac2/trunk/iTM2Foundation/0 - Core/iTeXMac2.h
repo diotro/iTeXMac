@@ -130,9 +130,9 @@ else\
 }
 
 #define iTM2_REPORTERROR(TAG, STRING, UNDERLYING)\
-[NSApp presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:TAG\
+[NSApp presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:(int)TAG\
 		userInfo:(UNDERLYING?\
-			[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@\n%@",(STRING),[UNDERLYING localizedDescription]],NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
+			[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@\n%@",(STRING),[(NSError *)UNDERLYING localizedDescription]],NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
 				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])]]
 
 

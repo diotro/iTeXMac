@@ -41,8 +41,7 @@ extern NSString * const iTM2TPFEBaseMode;
 extern NSString * const TWSShellEnvironmentWrapperKey;
 extern NSString * const TWSShellEnvironmentMasterKey;
 extern NSString * const TWSShellEnvironmentFrontKey;
-extern NSString * const TWSShellEnvironmentProjectNameKey;
-extern NSString * const TWSShellEnvironmentProjectDirectoryKey;
+extern NSString * const TWSShellEnvironmentProjectKey;
 
 extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 

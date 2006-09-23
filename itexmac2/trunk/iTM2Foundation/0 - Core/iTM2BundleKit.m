@@ -332,7 +332,6 @@ To Do List:
 //iTM2_START;
 	NSString * binaryDirectory = [self temporaryBinaryDirectory];
 	NSString * link = [binaryDirectory stringByAppendingPathComponent:[executable lastPathComponent]];// no stringByStandardizingPath please
-#warning BUG with fileExistsAtPath:isDirectory:
 	if([DFM fileExistsAtPath:link isDirectory:nil] && (![DFM isDeletableFileAtPath:link] || ![DFM removeFileAtPath:link handler:nil]))
 	{
 		if(errorRef)

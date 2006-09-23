@@ -1,6 +1,6 @@
 #!/bin/sh
-# this is iTM2_Clean for iTeXMac2 1.4
-# © 2004 jlaurens@users.sourceforge.net
+# this is iTM2_Clean for iTeXMac2 2.0
+# © 2006 jlaurens@users.sourceforge.net
 iTM2_Clean_Version="0.0"
 if [ "${iTM2ISCLEANING:-0}" -gt 0 ]
 then
@@ -10,13 +10,13 @@ else
     iTM2ISCLEANING=1
 fi
 iTM2_Clean_RunSilently="${iTM2_RunSilently}"
-iTM2_CLEAN_USAGE="Welcome to `basename "$0"` version $iTM2_Clean_Version
+iTM2_CLEAN_USAGE="Welcome to $(basename "$0") version $iTM2_Clean_Version
 This is iTeXMac2 built in script to clean
-Unfortunately I do not know how to clean: override the default behaviour
-© 2005 jlaurens@users.sourceforge.net."
+Unfortunately I do not know how YET to clean: override the default behaviour
+© 2006 jlaurens@users.sourceforge.net."
 "$iTM2_CMD_Notify" comment "$iTM2_CLEAN_USAGE"
 if [ "${iTM2_Clean_RunSilently:-1}" -eq 0 ]
 then
-        "$iTM2_CMD_Notify" error "`basename "$0"` complete"
+        "$iTM2_CMD_Notify" error "$(basename "$0") complete"
 fi
-exit
+exit 0

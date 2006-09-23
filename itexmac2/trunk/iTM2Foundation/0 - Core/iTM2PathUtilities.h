@@ -43,20 +43,20 @@ extern NSString * const iTM2PathComponentsSeparator;
 /*!
 	@method		isEqualToFileName:
 	@abstract	Abstract forthcoming.
-	@discussion Compares the lower case versions of both the receiver and the argument..
+	@discussion Compares the lower case versions of both the receiver and the argument...
 	@param		A file name.
 	@result		yorn. 
 */
 - (BOOL)isEqualToFileName:(NSString *)otherFileName;
 
 /*!
-	@method		isContainedInDirectory:
+	@method		belongsToDirectory:
 	@abstract	Abstract forthcoming.
-	@discussion Compares the lower case versions of both the receiver and the argument..
+	@discussion Discussion forthcoming...
 	@param		A file name.
 	@result		yorn. 
 */
-- (BOOL)isContainedInDirectory:(NSString *)fileName;
+- (BOOL)belongsToDirectory:(NSString *)fileName;
 
 /*!
 	@method		absolutePathWithPath:base:

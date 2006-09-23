@@ -2335,7 +2335,7 @@ To Do List:
 		mandatoryDirectory = [mandatoryProject fileName];
 		mandatoryDirectory = [mandatoryDirectory stringByDeletingLastPathComponent];
 		mandatoryDirectory = [mandatoryDirectory stringByStandardizingPath];
-		if([filename isContainedInDirectory:mandatoryDirectory])
+		if([filename belongsToDirectory:mandatoryDirectory])
 		{
 			return YES;
 		}

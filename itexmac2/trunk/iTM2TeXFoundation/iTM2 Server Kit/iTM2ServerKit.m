@@ -341,7 +341,7 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -350,7 +350,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerProjectKey])
 		{
 			argument = [E nextObject];
-			argument = [NSString absolutePathWithPath:argument base:PWD];
+			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
 			return argument;
 		}
 	}
@@ -367,7 +367,7 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -376,7 +376,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerFileKey])
 		{
 			argument = [E nextObject];
-			argument = [NSString absolutePathWithPath:argument base:PWD];
+			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
 			return argument;
 		}
 	}
@@ -393,7 +393,7 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
 	NSMutableArray * RA = [NSMutableArray array];
 	NSString * argument = [self getFileNameFromContext:context];
 	if([argument length])
@@ -416,7 +416,7 @@ To Do List: see the warning below
 				else
 				{
 					argument = [E nextObject];
-					argument = [NSString absolutePathWithPath:argument base:PWD];
+					argument = [NSString absolutePathWithPath:argument base:masterDirectory];
 					[RA addObject:argument];
 				}
 			}
@@ -435,7 +435,7 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * PWD = [environment objectForKey:@"PWD"];
+	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -444,7 +444,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerSourceKey])
 		{
 			argument = [E nextObject];
-			argument = [NSString absolutePathWithPath:argument base:PWD];
+			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
 			return argument;
 		}
 	}
@@ -684,6 +684,62 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePerformedWithContext:
 + (void)updatePerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"arguments: %@", arguments);
+#else
+    NSString * projectName = [self getProjectNameFromContext:context];
+    NSArray * fileNames = [self getFileNamesFromContext:context];
+	NSError * localError = nil;
+	NSString * fileName;
+	NSEnumerator * E = [fileNames objectEnumerator];
+	while(fileName = [E nextObject])
+	{
+		NSURL * url = [NSURL fileURLWithPath:fileName];
+		NSDocument * document = [SDC documentForURL:url];
+		if(document)
+		{
+			[document updateIfNeeded];
+			[document showWindowsBelowFront:self];
+		}
+		else
+		{
+			iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+			if(!PD)
+			{
+				PD = [SPC projectForFileName:projectName];
+				if(!PD)
+				{
+					NSURL * url = [NSURL fileURLWithPath:projectName];
+					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					if(localError)
+					{
+						[SDC presentError:localError];
+						return;
+					}
+				}
+				[PD newKeyForFileName:fileName];
+			}
+			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
+			{
+				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
+			}
+			document = [SDC documentForURL:url];
+		}
+	}
+#warning NYI: -all not supported
+#endif
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= markerrorPerformedWithContext:
++ (void)markerrorPerformedWithContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

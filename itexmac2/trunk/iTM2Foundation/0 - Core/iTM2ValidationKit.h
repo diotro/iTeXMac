@@ -65,7 +65,9 @@
 
 @interface NSToolbar(iTM2Validation)
 - (NSWindow *)window;
+- (BOOL)validateContent;
 @end
+
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSObject(iTM2Validation)
 

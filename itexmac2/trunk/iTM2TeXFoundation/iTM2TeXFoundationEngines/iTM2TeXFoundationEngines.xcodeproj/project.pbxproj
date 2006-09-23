@@ -177,7 +177,7 @@
 
 /* Begin PBXFileReference section */
 		DC0EF843094856570018276F /* dvipdfm wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvipdfm wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC0EF8A9094858D00018276F /* dvips target.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvips target.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0EF8A9094858D00018276F /* dvips wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvips wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0EF91809485D730018276F /* pstopdf wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "pstopdf wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC3865890948B02100352215 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
@@ -391,7 +391,7 @@
 			children = (
 				DC9DC71B09484CB90079E1B3 /* TeX Engines.iTM2 */,
 				DC0EF843094856570018276F /* dvipdfm wrapper.iTM2 */,
-				DC0EF8A9094858D00018276F /* dvips target.iTM2 */,
+				DC0EF8A9094858D00018276F /* dvips wrapper.iTM2 */,
 				DC0EF91809485D730018276F /* pstopdf wrapper.iTM2 */,
 				DC3865890948B02100352215 /* iTeXMac2.app */,
 				DC5D6D0F0949A97100EBA96C /* Prepare iTM2TeXFoundation.framework */,
@@ -497,7 +497,7 @@
 			);
 			name = "dvips wrapper";
 			productName = "dvips target";
-			productReference = DC0EF8A9094858D00018276F /* dvips target.iTM2 */;
+			productReference = DC0EF8A9094858D00018276F /* dvips wrapper.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
 		DC0EF91709485D730018276F /* pstopdf wrapper */ = {
@@ -925,7 +925,7 @@
 			buildSettings = {
 				GCC_PREFIX_HEADER = "dvips/iTM2DvipsWrapper-Prefix.pch";
 				INFOPLIST_FILE = "dvips/iTM2DvipsWrapper-Info.plist";
-				PRODUCT_NAME = "dvips target";
+				PRODUCT_NAME = "dvips wrapper";
 			};
 			name = Development;
 		};

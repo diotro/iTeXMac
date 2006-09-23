@@ -19,15 +19,16 @@ then
     iTM2_Device="/dev/null"
 fi
 iTM2Command="$1"
+# Sanity check: TWSMaster must be a readable file, no condition on TWSFront, TWSProject, TWSWrapper
+
 iTM2BinaryPATH=""
-iTM2PROJECT="$TWSProjectDirectory/$TWSProjectName"
-if [ -d "${iTM2PROJECT}" ]
+if [ -d "${TWSProject}" ]
 then
-	pushd "`dirname "${iTM2PROJECT}"`"
-	iTM2BinaryPATH="`pwd`/`basename "${iTM2PROJECT}"`/.iTM2"
-	if [ ! -w "${iTM2PROJECT}" ]
+	pushd "$(dirname "${TWSProject}")"
+	iTM2BinaryPATH="$(basename "${TWSProject}")/.iTM2"
+	if [ ! -w "${TWSProject}" ]
 	then
-		"${iTM2_CMD_Notify}" error "Project MUST BE writable (${iTM2PROJECT})"
+		"${iTM2_CMD_Notify}" error "Project MUST BE writable (${TWSProject})"
 		exit -1
 	fi
 	if [ "${iTM2_XLR8:-0}" == "0" ] || [ ! -d "${iTM2BinaryPATH}" ]
@@ -44,19 +45,19 @@ then
 		chmod -R a+rwx "${iTM2BinaryPATH}"
 	fi
 else
-    "${iTM2_CMD_Notify}" warning "Undefined project in $0, using the invisible folder named $PWD/.iTM2"
-	iTM2PROJECT=""
+    "${iTM2_CMD_Notify}" warning "Undefined project in $0, using the invisible folder named ${TWSMaster}/.iTM2"
+	TWSProject=""# project is neutralized
 	iTM2BinaryPATH=".iTM2"
 	rm -Rf "${iTM2BinaryPATH}"
 	mkdir "${iTM2BinaryPATH}"
-	chmod -R a+rwx "${iTM2BinaryPATH}"
+	chmod -R u+rwx "${iTM2BinaryPATH}"
 fi
-date "+MIDDLE - DATE(4): %m/%d/%y%nTIME: %H:%M:%S"
+#date "+MIDDLE - DATE(4): %m/%d/%y%nTIME: %H:%M:%S"
 iTM2Cached="${iTM2BinaryPATH}/${iTM2Command}-cached"
 if [ "${iTM2_XLR8:-0}" != "0" ] && [ 0 -eq 1 ]
 then
 	"${iTM2_CMD_Notify}" echo "<second time/>"
-date "+SECOND - DATE: %m/%d/%y%nTIME: %H:%M:%S"
+#date "+SECOND - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 	if [ -x "${iTM2Cached}" ]
 	then
 		"${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
@@ -68,36 +69,36 @@ date "+SECOND - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 	fi
 else
 	"${iTM2_CMD_Notify}" echo "<first time/>"
-date "+FIRST - DATE: %m/%d/%y%nTIME: %H:%M:%S"
+#date "+FIRST - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 fi
-date "+MIDDLE - DATE(3.1): %m/%d/%y%nTIME: %H:%M:%S"
+#date "+MIDDLE - DATE(3.1): %m/%d/%y%nTIME: %H:%M:%S"
 "${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
-date "+MIDDLE - DATE(3.0): %m/%d/%y%nTIME: %H:%M:%S"
+#date "+MIDDLE - DATE(3.0): %m/%d/%y%nTIME: %H:%M:%S"
 iTM2SHORT="0"
 iTM2Link ()
 {
 	iTM2_TARGET="${iTM2BinaryPATH}/$iTM2SHORT"
-    rm -Rf "$iTM2_TARGET"
+    rm -Rf "${iTM2_TARGET}"
     if ( [ -d "$1" ] ) && ( [ -d "$1/bin" ] )
     then
 		ln -s "$1" "${iTM2_TARGET}"
-		iTM2PREFIX="$iTM2PREFIX:$iTM2_TARGET/bin";
-		iTM2SHORT=`expr $iTM2SHORT + 1`
+		iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/bin";
+		iTM2SHORT=$(expr ${iTM2SHORT} + 1)
     fi
 }
-date "+MIDDLE - DATE(2): %m/%d/%y%nTIME: %H:%M:%S"
+#date "+MIDDLE - DATE(2): %m/%d/%y%nTIME: %H:%M:%S"
 "${iTM2_CMD_Notify}" comment "Welcome to iTeXMac2 launch utility version ${iTM2_LAUNCH_VERSION}"
 date "+MIDDLE - DATE(1): %m/%d/%y%nTIME: %H:%M:%S"
-if [ "${TWSMaster}" == "" ]
+if [ ${#TWSMaster} -eq 0 ]
 then
     "${iTM2_CMD_Notify}" error "Undefined TWSMaster in $0
 You MUST specify a master document, from the project settings panel
 Here are the environment variables
-`printenv`
+$(printenv)
 Are they what was expected?"
     exit 1
 fi
-# the specific environment:
+# the specific environment: (this is time consuming when debugging)
 date "+MIDDLE - DATE(0): %m/%d/%y%nTIME: %H:%M:%S"
 if [ ${#iTM2_Debug} -gt 0 ]
 then
@@ -111,17 +112,6 @@ then
 fi
 date "+MIDDLE - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 # the binary path:
-if ! [ -d "${TWSProjectDirectory}" ]
-then
-	"${iTM2_CMD_Notify}" error "Missing directory at path: {${iTM2ProjectDirectory}}, do not expect a correct behaviour."
-fi
-if [ ! -w "${PWD}" ]
-then
-	"${iTM2_CMD_Notify}" error "Current folder is not writable:
-$PWD,
-copy your source in a writable location"
-	exit -1
-fi
 iTM2PREFIX=".:${iTM2BinaryPATH}"
 iTM2SHORT="0"
 iTM2Link "${iTM2_HOME}/Library/TeX"
@@ -137,8 +127,8 @@ then
 	iTM2Link "/Network/Library/TeX"
 	iTM2Link "/Network/Library/Application Support/iTeXMac2"
 fi
-iTM2_BUILTIN_EXECUTABLE_PATH="`dirname "$0"`"
-iTM2Link "`dirname "$iTM2_BUILTIN_EXECUTABLE_PATH"`"
+iTM2_BUILTIN_EXECUTABLE_PATH="$(dirname "$0")"
+iTM2Link "$(dirname "$iTM2_BUILTIN_EXECUTABLE_PATH")"
 # Now we are setting the PATH variable
 if [ ${#iTM2PREFIX} -gt 0 ]
 then
@@ -157,15 +147,15 @@ do
 	eval "${iTM2SCRIPT}=\"customized\""
 	if [ ${#iTM2_Debug} -gt 0 ]
 	then
-		"${iTM2_CMD_Notify}" comment "customized script ${iTM2SCRIPT}: {`which ${iTM2NAME}`}"
+		"${iTM2_CMD_Notify}" comment "customized script ${iTM2SCRIPT}: {$(which ${iTM2NAME})}"
 	fi
 done
 if [ ${#iTM2_Debug} -gt 0 ]
 then
 	"${iTM2_CMD_Notify}" comment "The environment is:
-`printenv`
+$(printenv)
 The binaries are (${iTM2BinaryPATH}):
-`ls -al "${iTM2BinaryPATH}"`"
+$(ls -al "${iTM2BinaryPATH}")"
 fi
 #"${iTM2_CMD_Notify}" comment "##### DIAGNOSTIC"
 #printenv
@@ -177,8 +167,12 @@ if [ $# -gt 0 ]
 then
     iTM2IndirectCommand="iTM2_${iTM2Command}"
     iTM2WrappedCommand="${!iTM2IndirectCommand}"
-    iTM2CommandPath="`which "${iTM2WrappedCommand}"`"
+#echo "! iTM2WrappedCommand: ${iTM2WrappedCommand}"
+    iTM2CommandPath="$(which "${iTM2WrappedCommand}")"
+#echo "! iTM2CommandPath: ${iTM2CommandPath}"
+#echo "! PATH: ${PATH}"
 #echo "the iTM2CommandPath is: ${iTM2CommandPath}"
+# This is a bug, the which command does not work and I must do the work by myself
     if [ ! -x "${iTM2CommandPath}" ]
 	then
 #echo "iTM2Command is: $iTM2Command"
@@ -200,9 +194,9 @@ then
 			fi
 		done
 	fi
-	if [ ${#iTM2CommandPath} -gt 0 ]
+	if [ -x "${iTM2CommandPath}" ]
 	then
-		if [ ${#iTM2_RunSilently} -eq 0 ]
+		if [ "${iTM2_RunSilently:-0}" == "0" ]
 		then
 				"${iTM2_CMD_Notify}" comment "running ${iTM2Command} (${iTM2WrappedCommand})"
 		fi
@@ -218,27 +212,27 @@ then
 		"${iTM2_CMD_Notify}" echo "iTM2IndirectCommand is \"${iTM2IndirectCommand}\""
 		"${iTM2_CMD_Notify}" echo "iTM2WrappedCommand is \"${iTM2WrappedCommand}\""
 		"${iTM2_CMD_Notify}" stop error
-		status="1"
-		if [ ${#iTM2_RunSilently} -gt 0 ]
+		status=1
+		if [ "${iTM2_RunSilently:-0}" != "0" ]
 		then
-				"${iTM2_CMD_Notify}" error "the launch utility ends with `basename "$1"` Failed ($status)"
+				"${iTM2_CMD_Notify}" error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
 		fi
-		exit 1
+		exit $iTM2_Status
 	fi
 date "+END - DATE: %m/%d/%y%nTIME: %H:%M:%S"
-    if [ "$status" = "0" ]
+    if [ "${iTM2_Status}" == "0" ]
     then
-        if [ ${#iTM2_RunSilently} -eq 0 ]
+        if [ "${iTM2_RunSilently:-0}" != "0" ]
         then
-                "${iTM2_CMD_Notify}" comment "the launch utility ends with `basename "$1"` Complete"
+                "${iTM2_CMD_Notify}" comment "the launch utility ends with $(basename "$1") Complete"
         fi
         exit 0
     else
-        if [ ${#iTM2_RunSilently} -eq 0 ]
+        if [ "${iTM2_RunSilently:-0}" != "0" ]
         then
-                "${iTM2_CMD_Notify}" error "the launch utility ends with `basename "$1"` Failed ($status)"
+                "${iTM2_CMD_Notify}" error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
         fi
-        exit 1
+        exit $iTM2_Status
     fi
 else
 	exit 2

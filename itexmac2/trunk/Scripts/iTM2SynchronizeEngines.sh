@@ -11,14 +11,14 @@ FULL_PRODUCT_NAME="${BASE_PRODUCT_NAME}.framework"
 ENGINES_REPOSITORY="${2}"
 if [ ${#ENGINES_REPOSITORY} -eq 0 ]
 then
-    echo "warning: iTeXMac2 ERROR, Usage is \"iTM2SynchronizeEngines.sh framework_name engines_name\""
+    echo "warning: iTeXMac2 ERROR, Usage is \"iTM2SynchronizeEngines.sh framework_name engines_subdirectory\""
     exit -2
 fi
 pushd "${ENGINES_REPOSITORY}"
-ENGINES_REPOSITORY="`pwd`"
+ENGINES_REPOSITORY="$(pwd)"
 popd
-pushd "`dirname "$0"`"/..
-SRC_TREE_ROOT="`pwd`"
+pushd "$(dirname "$0")"/..
+SRC_TREE_ROOT="$(pwd)"
 echo "iTM2 tree root: ${SRC_TREE_ROOT}"
 FULL_PRODUCT_DIR="${SRC_TREE_ROOT}/build"
 echo "warning: iTeXMac2 INFO, Synchronize plug-ins for ${FULL_PRODUCT_NAME}..."
@@ -34,11 +34,11 @@ then
 	fi
 fi
 pushd "${ENGINES_REPOSITORY}"
-echo "warning: iTeXMac2 INFO, list of engines in `pwd`..."
+echo "warning: iTeXMac2 INFO, list of engines in $(pwd)..."
 # copier tout ce qui se termine par iTM2
 IFS='
 '
-iTM2_TARGETS="`find . -regex ".*/build/[^/]*\.iTM2" -print`"
+iTM2_TARGETS="$(find . -regex ".*/build/[^/]*\.iTM2" -print)"
 popd
 echo "...${iTM2_TARGETS}"
 for iTM2_VAR in ${iTM2_TARGETS}
@@ -56,7 +56,7 @@ done
 # copier tout ce qui se termine par prefPane
 IFS='
 '
-iTM2_TARGETS="`find . -regex ".*/build/[^/]*\.prefPane" -print`"
+iTM2_TARGETS="$(find . -regex ".*/build/[^/]*\.prefPane" -print)"
 for iTM2_VAR in ${iTM2_TARGETS}
 do
 	rm -Rf "${iTM2_PLUGINS_FOLDER_PATH}/${iTM2_VAR}"

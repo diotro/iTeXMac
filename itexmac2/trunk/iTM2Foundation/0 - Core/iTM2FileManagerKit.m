@@ -336,6 +336,7 @@ To Do List:
 //iTM2_END;
 	return NO;
 }
+#if 0
 #warning *** DEBUGGING PURPOSE ONLY, to be removed
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
@@ -374,6 +375,7 @@ To Do List:
 	}
 	return [self swizzled_removeFileAtPath:path handler:handler];
 }
+#endif
 @end
 
 @interface NSFileManager(_iTM2ExtendedAttributes)

@@ -59,7 +59,7 @@ To Do List:
 }
 @end
 
-@implementation iTM2MainDocExtractor(iTM2LaTeXDocExtractor)
+@implementation iTM2MainInstaller(iTM2LaTeXDocExtractor)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2LaTeXDocExtractorCompleteInstallation
 + (void)iTM2LaTeXDocExtractorCompleteInstallation;
 /*"Description forthcoming.

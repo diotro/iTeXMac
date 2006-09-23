@@ -23,11 +23,6 @@
 
 #import "iTM2LaTeXInstallerWrapperKit.h"
 
-NSString * const iTM2LaTeXInstaller_use_output = @"iTM2_pstopdf_use_output";// "0" (default) or "1"(bool)
-NSString * const iTM2LaTeXInstaller_output = @"iTM2_pstopdf_output";//-o ""
-NSString * const iTM2LaTeXInstaller_write_to_log = @"iTM2_pstopdf_write_to_log";//-l
-NSString * const iTM2LaTeXInstaller_progress_message = @"iTM2_pstopdf_progress_message";// -p
-
 @implementation iTM2EngineLaTeXInstaller
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
 + (NSString *)engineMode;

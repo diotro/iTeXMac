@@ -700,6 +700,41 @@ To Do List:
 }
 @end
 
+@implementation NSToolbar(iTM2Validation)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  window
+- (NSWindow *)window;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return _window;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateContent
+- (BOOL)validateContent;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * items = [self items];
+	NSEnumerator * E = [items objectENumerator];
+	NSToolbarItem * item = nil;
+	while(item = [E nextObject])
+	{
+		[item validate];
+	}
+//iTM2_END;
+	return YES;
+}
+@end
+
+
 @interface NSToolbarItem_iTM2ValidationKit: NSToolbarItem
 @end
 @implementation NSToolbarItem_iTM2ValidationKit

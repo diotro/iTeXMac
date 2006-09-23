@@ -41,7 +41,7 @@ NSString * iTM2ProjectLocalizedAddCurrentDocumentName = nil;
 @implementation iTM2ProjectDocument(WindowMenuKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateWindowsSubmenu:
 - (void)updateWindowsSubmenu:(NSMenu *)M;
-/*"Description forthcoming.
+/*"Update the windows submenu with inspectors and registered documents
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
 To Do List:
@@ -97,46 +97,6 @@ To Do List:
 			[MD setObject:S forKey:FN];
 	}
 	NSArray * sortedKeys = [[MD allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-#if 0
-	// adding the master document
-	NSString * key = [self masterFileKey];
-	[M addItem:[NSMenuItem separatorItem]];
-	[M addItemWithTitle:_iTM2ProjectLocalizedMasterName action:NULL keyEquivalent:@""];
-	if([key length])
-	{
-		S = [self relativeFileNameForKey:key];
-		NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
-					initWithTitle: S
-						action: @selector(projectEditDocumentUsingRepresentedObject:) keyEquivalent: @""] autorelease];
-		[MI setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
-		[M addItem:MI];
-		[MI setTarget:nil];
-		[MI setRepresentedObject:[MD objectForKey:S]];	
-	}
-	else
-	{
-		// get the list of file documents
-		NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
-					initWithTitle: _iTM2ProjectLocalizedChooseMasterName
-						action: NULL keyEquivalent: @""] autorelease];
-		[M addItem:MI];
-		NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-		[M setSubmenu:M forItem:MI];
-		E = [sortedKeys objectEnumerator];
-		while(S = [E nextObject])
-		{
-			NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle: S
-							action: @selector(projectChooseMasterUsingRepresentedObject:) keyEquivalent: @""] autorelease];
-			[M addItem:MI];
-			[MI setTarget:nil];
-			[MI setRepresentedObject:[MD objectForKey:S]];	
-		}
-		if(![M numberOfItems])
-		{
-			[M addItemWithTitle:iTM2ProjectLocalizedNoDocumentName action:NULL keyEquivalent:@""];
-		}
-	}
-#endif
 	// adding the documents
 	if(![NSApp targetForAction:@selector(projectEditDocumentUsingRepresentedObject:)])
 	{
@@ -252,7 +212,15 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateWindowsMenu:
 + (void)updateWindowsMenu:(id)irrelevant;
-/*"Description forthcoming.
+/*"We patch the windows submenu.
+The overall structure is the same except that documents are organized differently.
+Widndows are collected according to the project they are related to.
+In general:
+project name, with a submenu
+indented list of windows
+menu separator
+If an external project is used containing only one documents (except the project itself), we just use the standard menu item.
+Those items are collected at the end of the window list.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
@@ -347,7 +315,7 @@ To Do List:
 				{
 					id key = [NSValue valueWithNonretainedObject:PD];
 					NSMutableArray * mra = [projectRefsToProjectDocumentsMenuItems objectForKey:key];
-                    [MI setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+					[MI setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
 					if(mra)
 						[mra addObject:MI];
 					else
@@ -461,10 +429,41 @@ To Do List:
 			[projectRefsToProjectWindowsMenuItems removeObjectForKey:V];
 			[projectRefsToProjectDocumentsMenuItems removeObjectForKey:V];
 		}
+		else if([[PD allKeys] count]<3 && [[PD fileName] belongsToFarawayProjectsDirectory])
+		{
+			NSValue * V = [MI representedObject]?:[NSValue valueWithNonretainedObject:nil];// hum, bad error management here
+			NSArray * subs1 = [projectRefsToProjectWindowsMenuItems objectForKey:V];
+			NSArray * subs2 = [projectRefsToProjectDocumentsMenuItems objectForKey:V];// no documents are expected at first, but things might change
+			if([subs1 count] + [subs2 count]>1)
+			{
+				NSEnumerator * e = [[subs2 sortedArrayUsingSelector:@selector(compareUsingTitle:)] reverseObjectEnumerator];
+				NSMenuItem * mi;
+				while(mi = [e nextObject])
+				{
+//iTM2_LOG(@"=-=-=-=-=-  inserted document mi is: %@", mi);
+					[windowsMenu insertItem:mi atIndex:insertIndex];
+					[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+				}
+				e = [[subs1 sortedArrayUsingSelector:@selector(compareUsingTitle:)] reverseObjectEnumerator];
+				while(mi = [e nextObject])
+				{
+//iTM2_LOG(@"=-=-=-=-=-  inserted project item mi is: %@", mi);
+					[windowsMenu insertItem:mi atIndex:insertIndex];
+					[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+				}
+//iTM2_LOG(@"=-=-=-=-=-  inserted project MI is: %@", MI);
+				[windowsMenu insertItem:MI atIndex:insertIndex];
+				[windowsMenu insertItem:[NSMenuItem separatorItem] atIndex:insertIndex];
+				[projectRefsToProjectWindowsMenuItems removeObjectForKey:V];
+				[projectRefsToProjectDocumentsMenuItems removeObjectForKey:V];
+			}
+		}
 		else
 		{
 			NSValue * V = [MI representedObject]?:[NSValue valueWithNonretainedObject:nil];// hum, bad error management here
-			NSEnumerator * e = [[[projectRefsToProjectDocumentsMenuItems objectForKey:V] sortedArrayUsingSelector:@selector(compareUsingTitle:)] reverseObjectEnumerator];
+			NSEnumerator * e = [[[projectRefsToProjectDocumentsMenuItems objectForKey:V]
+									sortedArrayUsingSelector:@selector(compareUsingTitle:)]
+										reverseObjectEnumerator];
 			NSMenuItem * mi;
 			while(mi = [e nextObject])
 			{
@@ -511,6 +510,7 @@ To Do List:
 			while(MI = [e nextObject])
 			{
 	//iTM2_LOG(@"=-=-=-=-=-  inserted DOCUMENTS item MI is: %@", MI);
+				[MI setIndentationLevel:0];
 				[windowsMenu insertItem:MI atIndex:insertIndex];
 			}
 		}

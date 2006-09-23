@@ -1067,32 +1067,27 @@ To Do List:
 	{
 		[sender removeAllItems];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Insert Special Environment Variable", @"Commands", myBUNDLE, "Description forthcoming")];
-		[[sender lastItem] setEnabled:NO];
-		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentProjectNameKey, @"Commands", myBUNDLE, "Description forthcoming")];
-		[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
-		[[sender lastItem] setEnabled:YES];
-		[[sender lastItem] setTarget:self];
-		[[sender lastItem] setRepresentedObject:TWSShellEnvironmentProjectNameKey];
-		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentProjectDirectoryKey, @"Commands", myBUNDLE, "Description forthcoming")];
-		[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
-		[[sender lastItem] setEnabled:YES];
-		[[sender lastItem] setTarget:self];
-		[[sender lastItem] setRepresentedObject:TWSShellEnvironmentProjectDirectoryKey];
+			[[sender lastItem] setEnabled:NO];
+		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentProjectKey, @"Commands", myBUNDLE, "Description forthcoming")];
+			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
+			[[sender lastItem] setEnabled:YES];
+			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentProjectKey];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentMasterKey, @"Commands", myBUNDLE, "Description forthcoming")];
-		[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
-		[[sender lastItem] setEnabled:YES];
-		[[sender lastItem] setTarget:self];
-		[[sender lastItem] setRepresentedObject:TWSShellEnvironmentMasterKey];
+			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
+			[[sender lastItem] setEnabled:YES];
+			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentMasterKey];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentFrontKey, @"Commands", myBUNDLE, "Description forthcoming")];
-		[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
-		[[sender lastItem] setEnabled:YES];
-		[[sender lastItem] setTarget:self];
-		[[sender lastItem] setRepresentedObject:TWSShellEnvironmentFrontKey];
+			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
+			[[sender lastItem] setEnabled:YES];
+			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentFrontKey];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentWrapperKey, @"Commands", myBUNDLE, "Description forthcoming")];
-		[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
-		[[sender lastItem] setEnabled:YES];
-		[[sender lastItem] setTarget:self];
-		[[sender lastItem] setRepresentedObject:TWSShellEnvironmentWrapperKey];
+			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
+			[[sender lastItem] setEnabled:YES];
+			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentWrapperKey];
 	}
     return YES;
 }
@@ -1311,7 +1306,7 @@ To Do List:
 		NSString * project = nil;
 		while(project = [E nextObject])
 		{
-			if([fileName isContainedInDirectory:[project stringByDeletingLastPathComponent]])
+			if([fileName belongsToDirectory:[project stringByDeletingLastPathComponent]])
 			{
 				[self setCreationMode:iTM2ToggleOldProjectMode];
 				break;

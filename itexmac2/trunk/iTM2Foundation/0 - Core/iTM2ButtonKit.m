@@ -1459,7 +1459,6 @@ To Do List:
 	[super initialize];
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithFloat:0.75], @"iTM2MixedButtonDelay",
-		[NSNumber numberWithFloat:0.25], @"iTM2DoubleClickDelay",
 			nil]];
 	return;
 }
@@ -1573,7 +1572,7 @@ To Do List:
 	if([self isDoubleValid])
 	{
 		NSDate * topDate = [NSDate dateWithTimeIntervalSinceNow:[SUD floatForKey:@"iTM2MixedButtonDelay"]];
-		NSDate * clickDate = [NSDate dateWithTimeIntervalSinceNow:[SUD floatForKey:@"iTM2DoubleClickDelay"]];
+		NSDate * clickDate = [NSDate dateWithTimeIntervalSinceNow:[SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"]];
 		NSEvent * E;
 nextMouseUp:
 		if(E = [NSApp nextEventMatchingMask:NSLeftMouseUpMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:YES])

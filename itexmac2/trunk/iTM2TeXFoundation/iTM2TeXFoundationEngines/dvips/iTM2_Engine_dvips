@@ -1,15 +1,15 @@
 #!/bin/sh -f
 # this is iTM2_dvips wrapper
-# © 2005 jlaurens@users.sourceforge.net
+# © 2006 jlaurens@users.sourceforge.net
 iTM2_dvips_Engine_Version=1.0
 iTM2DVIPSMEngineUsage()
 {
-iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_dvips_Engine_Version}
+iTM2_USAGE="Welcome to $(basename "$0") version ${iTM2_dvips_Engine_Version}
 This is iTeXMac2 built in script to wrap the dvips engine
-(`which "$0"`)
-© 2005 jlaurens@users.sourceforge.net
-Usage: `basename "$0"` with environment variables
-	TWSMaster: the main input file
+($(which dvips))
+© 2006 jlaurens@users.sourceforge.net
+Usage: $(basename "$0") with environment variables
+	TWSMaster: the main input file (actually \"${TWSMaster}\")
 	iTM2_dvips_multiple_copies: 1 or 0,
 	iTM2_dvips_num_copies: NUM (1 is default),
 	iTM2_dvips_collated_copies: 1 or 0,
@@ -71,11 +71,10 @@ Usage: `basename "$0"` with environment variables
 	iTM2_dvips_USE_more_arguments: 1 or 0,
 	iTM2_dvips_more_arguments: \"\""
 echo "$iTM2_USAGE"
-exit 0
 }
-"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_dvips_Engine_Version}
+"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_dvips_Engine_Version}
 This is iTeXMac2 built in script to wrap the dvips engine
-© 2005 jlaurens@users.sourceforge.net"
+© 2006 jlaurens@users.sourceforge.net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" start comment
@@ -87,40 +86,40 @@ then
 	"$iTM2_CMD_Notify" stop comment
 fi
 iTM2_dvips_Engine="dvips"
-iTM2_dvips_EnginePath="`which "${iTM2_dvips_Engine}"`"
+iTM2_dvips_EnginePath="$(which "${iTM2_dvips_Engine}")"
 if ! [ -x "${iTM2_dvips_EnginePath}" ]
 then
 	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_dvips_Engine}."
 	iTM2DVIPDFMEngineUsage
 fi
+pushd "$(dirname "${TWSMaster}")"
+iTM2_PWD="$(pwd)"
+iTM2_INPUT="$(basename "${TWSMaster}")"
 if ! [ -r "${TWSMaster}" ]
 then
-    TWSMaster="${TWSMaster}.dvi"
-    if ! [ -r "${TWSMaster}" ]
+    iTM2_INPUT="${iTM2_INPUT%.*}.dvi"
+    if ! [ -r "${iTM2_INPUT}" ]
     then
-        "$iTM2_CMD_Notify" error "No readable file at ${TWSMaster}."
+        "$iTM2_CMD_Notify" error "No readable file at ${iTM2_PWD}/${iTM2_INPUT}."
         iTM2DVIPSMEngineUsage
+		popd
+		exit 1
     fi
 fi
-"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
-pushd "$(dirname "${TWSMaster}")"
-INPUT_DIRECTORY="${PWD}"
-popd
-INPUT="$(basename "${TWSMaster}")"
-iTM2_dvips_Arguments=""
 #output
 if [ "${iTM2_dvips_USE_output:-0}" != "0" ] && [ ${#iTM2_dvips_output} -gt 0 ]
 then
 	OUTPUT="${iTM2_dvips_output}"
 else
-    OUTPUT="${INPUT}"
+    OUTPUT="${iTM2_INPUT}"
 fi
 #if OUTPUT has a dvi extension, remove it
 EXTENSION="${OUTPUT##*.}"
-if [ "$(echo ${EXTENSION}|tr '[A-Z]' '[a-z]')" == "dvi" ]
+if [ "$(echo ${EXTENSION}|tr [:upper:] [:lower:])" == "dvi" ]
 then
     OUTPUT="${OUTPUT%.*}"
 fi
+iTM2_dvips_Arguments=""
 #copies
 if [ "${iTM2_dvips_multiple_copies:-0}" != "0" ] && [ ${iTM2_dvips_num_copies} -gt 0 ]
 then
@@ -203,7 +202,7 @@ then
 	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -t"
 fi
 #postscript
-#if OUTPUT dos not has a ps or an eps extension, add it
+#if OUTPUT does not have a ps or an eps extension, add it
 REQUIRED_EXTENSION="ps"
 case ${iTM2_dvips_generate_epsf} in
 	-1)
@@ -357,13 +356,23 @@ if [ "${iTM2_dvips_USE_more_arguments:-0}" != "0" ] && [ ${#iTM2_dvips_more_argu
 then
 	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} ${iTM2_dvips_more_arguments}"
 fi
-pushd "${INPUT_DIRECTORY}"
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} \"${INPUT}\""
-${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} "${INPUT}"
+"$iTM2_CMD_Notify" comment "Performing  ${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} \"${iTM2_INPUT}\""
+"${iTM2_dvips_EnginePath}" ${iTM2_dvips_Arguments} "${iTM2_INPUT}"
+iTM2_Status="$?"
 popd
-echo "master is: ${INPUT_DIRECTORY}/${OUTPUT%.*}"
-iTM2_Command_Compile --master "${INPUT_DIRECTORY}/${OUTPUT%.*}" --switch ps
-if [ "${iTM2_Debug:-0}" != "0" ]
+if [ "${iTM2_Status}" != "0" ]
+then
+	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	exit ${iTM2_Status}
+fi
+echo "master is: ${iTM2_PWD}/${OUTPUT%.*}"
+iTM2_Command_Compile --master "${iTM2_PWD}/${OUTPUT%.*}" --switch ps
+iTM2_Status="$?"
+if [ "${iTM2_Status}" != "0" ]
+then
+	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	exit ${iTM2_Status}
+elif [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" comment "$0 complete."
 fi

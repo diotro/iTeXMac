@@ -110,6 +110,8 @@ To Do List:
 @implementation iTM2TeXWindow
 @end
 
+#import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
+
 @implementation iTM2TeXEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
 - (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;

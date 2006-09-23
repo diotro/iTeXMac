@@ -322,8 +322,8 @@ To Do List:
 	return [otherFileName respondsToSelector:@selector(lowercaseString)]
 		&& [[self lowercaseString] isEqual:[otherFileName lowercaseString]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContainedInDirectory:
-- (BOOL)isContainedInDirectory:(NSString *)dirName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  belongsToDirectory:
+- (BOOL)belongsToDirectory:(NSString *)dirName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03

@@ -2026,8 +2026,7 @@ To Do List:
 NSString * const TWSShellEnvironmentWrapperKey = @"TWSWrapper";
 NSString * const TWSShellEnvironmentMasterKey = @"TWSMaster";
 NSString * const TWSShellEnvironmentFrontKey = @"TWSFront";
-NSString * const TWSShellEnvironmentProjectNameKey = @"TWSProjectName";
-NSString * const TWSShellEnvironmentProjectDirectoryKey = @"TWSProjectDirectory";
+NSString * const TWSShellEnvironmentProjectKey = @"TWSProject";
 
 @implementation iTM2MainInstaller(TeXPCommandManager)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXPCommandManager
@@ -2646,7 +2645,8 @@ To Do List: to be improved...
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
 		D = [[project baseProjectName] TeXProjectProperties];
 		[TW mergeEnvironment:D];
-		NSString * currentDirectory = [[TW environment] objectForKey:@"PWD"];
+		NSString * currentDirectory = [[TW environment] objectForKey:TWSShellEnvironmentProjectKey];
+		currentDirectory = [currentDirectory stringByDeletingLastPathComponent];
         [TW setCurrentDirectoryPath:(currentDirectory?:@"")];
 		if([project wasNotModified])
 		{
@@ -2658,6 +2658,7 @@ To Do List: to be improved...
 		}
 		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
         [TW addArgument:commandName];
+		[TW setEnvironmentString:[NSString farawayProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
 		[TW prependPATHComponent:[project getTeXMFBinariesPath]];
 		[TW prependPATHComponent:[project getGhostScriptBinariesPath]];
 		[TW prependPATHComponent:[project getPATHPrefix]];
@@ -2972,10 +2973,8 @@ blablabla:
 		}
 	}
 	NSString * master = [project absoluteFileNameForKey:MFK];
-    [result takeValue:[master lastPathComponent] forKey:TWSShellEnvironmentMasterKey];
-    [result takeValue:[master stringByDeletingLastPathComponent] forKey:@"PWD"];
-    [result takeValue:[[project fileName] stringByDeletingLastPathComponent] forKey:TWSShellEnvironmentProjectDirectoryKey];
-    [result takeValue:[[project fileName] lastPathComponent] forKey:TWSShellEnvironmentProjectNameKey];
+    [result takeValue:master forKey:TWSShellEnvironmentMasterKey];
+    [result takeValue:[project fileName] forKey:TWSShellEnvironmentProjectKey];
     [result takeValue:[NSNumber numberWithInt:iTM2DebugEnabled] forKey:@"iTM2_Debug"];
 //iTM2_LOG(@"=+=+=+=+=  -2-");
 	if(iTM2DebugEnabled>100)

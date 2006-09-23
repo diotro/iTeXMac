@@ -1,41 +1,59 @@
 #!/bin/sh -f
 # this is iTM2_Engine_LaTeXInstaller wrapper
-# © 2005 jlaurens@users.sourceforge.net
+# © 2006 jlaurens@users.sourceforge.net
 iTM2_Engine_LaTeXInstaller_Version=1.0
 iTM2LaTeXInstallerEngineUsage()
 {
 iTM2_USAGE="Welcome to $(basename "$0") version ${iTM2_Engine_LaTeXInstaller_Version}
 This is iTeXMac2 built in script to wrap the LaTeX Installer engine
 ($(which "$0"))
-© 2005 jlaurens@users.sourceforge.net
+© 2006 jlaurens@users.sourceforge.net
 Usage: $(basename "$0") with environment variables
 	TWSMaster: the main input file, with an \"ins\" path extension"
 echo "$iTM2_USAGE"
-exit 0
 }
 "$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_Engine_LaTeXInstaller_Version}
 This is iTeXMac2 built in script to wrap the LaTeX Installation engine
-© 2005 jlaurens@users.sourceforge.net"
+© 2006 jlaurens@users.sourceforge.net"
 iTM2_LaTeXInstaller_Engine="latex"
 iTM2_LaTeXInstaller_EnginePath="$(which "${iTM2_LaTeXInstaller_Engine}")"
 if ! [ -x "${iTM2_LaTeXInstaller_EnginePath}" ]
 then
 	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_LaTeXInstaller_Engine}."
-	iTM2DVIPDFMEngineUsage
+	iTM2LaTeXInstallerEngineUsage
+	exit 1
 fi
-"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
-pushd "$(dirname "${TWSMaster}")"
-INPUT_DIRECTORY="${PWD}"
-INPUT="$(basename "${TWSMaster}")"
-EXTENSION="${INPUT##*.}"
+# removing the faraway project directory if any, first remove the trailing /'s
+iTM2_temp="${iTM2_Faraway_Projects_Directory}"
+iTM2_Faraway_Projects_Directory="$(echo ${iTM2_Faraway_Projects_Directory} | sed -e 's/\/$//')"
+while [ ${#iTM2_temp} -gt ${#iTM2_Faraway_Projects_Directory} ]
+do
+	iTM2_temp="${iTM2_Faraway_Projects_Directory}"
+	iTM2_Faraway_Projects_Directory="$(echo "${iTM2_Faraway_Projects_Directory}" | sed -e 's/\/$//')"
+done
+iTM2_temp="${TWSProjectDirectory#${iTM2_Faraway_Projects_Directory}}"
+if [ ${#iTM2_temp} -lt ${#TWSProjectDirectory} ]
+then
+	TWSProjectDirectory="${iTM2_temp%/*.texd}"
+fi
+"$iTM2_CMD_Notify" comment "TWSProjectDirectory is: ${TWSProjectDirectory}"
+if ! [ -d "${TWSProjectDirectory}" ]
+then
+	"$iTM2_CMD_Notify" error "Missing directory ${TWSProjectDirectory}."
+	exit 2
+fi
+pushd "${TWSProjectDirectory}"
+EXTENSION="${TWSMaster##*.}"
 EXTENSION="$(echo "${EXTENSION}" | tr 'INS' 'ins')"
 if [ "${EXTENSION}" != "ins" ]
 then
+	"$iTM2_CMD_Notify" error "Master must end with \"ins\"."
 	popd
-	exit 1
+	exit 2
 fi
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_LaTeXInstaller_EnginePath} \"${INPUT}\""
-${iTM2_LaTeXInstaller_EnginePath} "${INPUT}"
+"$iTM2_CMD_Notify" comment "Performing  ${iTM2_LaTeXInstaller_EnginePath} \"${TWSMaster}\""
+"$iTM2_CMD_Notify" comment "Current directory is: $(pwd)"
+${iTM2_LaTeXInstaller_EnginePath} "${TWSMaster}"
 popd
 if [ "${iTM2_Debug:-0}" != "0" ]
 then

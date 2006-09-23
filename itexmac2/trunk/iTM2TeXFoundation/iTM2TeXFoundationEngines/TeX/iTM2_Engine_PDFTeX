@@ -1,61 +1,63 @@
 #!/bin/sh -f
 # this is iTM2_Engine_PDFTeX for iTeXMac2 2.0
-# © 2005 jlaurens@users.sourceforge.net
+# © 2006 jlaurens AT users DOT sourceforge DOT net
 # This is a pdfeTeX 3.141592-1.20a-2.2 (Web2C 7.5.3) wrapper
 iTM2_PDFTeX_Engine_Version=1.0
 iTM2PDFTeXEngineUsage()
 {
-iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_PDFTeX_Engine_Version}
+iTM2_Usage="Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the pdftex engine
-(`which "$0"`)
-© 2005 jlaurens@users.sourceforge.net
-Usage: `basename "$0"` with environment variables
-	TWSMaster: the main input file
-	iTM2_Continuous_Compile: 1 or 0
-	iTM2_USE_output_directory: 1 or 0 (common)
+($(which pdftex))
+© 2006 jlaurens@users.sourceforge.net
+Usage: $(basename "$0") with environment variables
+	TWSMaster: the main input file (actually \"${TWSMaster}\")
+	TWSProject: the project file, if any, full path, unused
+	TWSWrapper: the wrapper file, if any, full path, unused
+	iTM2_Continuous_Compile: 1 or void
+	iTM2_USE_output_directory: 1 or void (common)
 	iTM2_output_directory: the common output directory
-	iTM2_PDFTeX_ini: 1 or 0, be initex, for dumping formats
-	iTM2_PDFTeX_mltex: 1 or 0, enable MLTeX extensions such as \charsubdef
-	iTM2_PDFTeX_enc: 1 or 0,
+	iTM2_PDFTeX_ini: 1 or void, be initex, for dumping formats
+	iTM2_PDFTeX_mltex: 1 or void, enable MLTeX extensions such as \charsubdef
+	iTM2_PDFTeX_enc: 1 or void,
 	iTM2_PDFTeX_MoreArgument:
-	iTM2_PDFTeX_mktex: 1 or 0,
-	iTM2_PDFTeX_USE_output_directory: 1 or 0
+	iTM2_PDFTeX_mktex: 1 or void,
+	iTM2_PDFTeX_USE_output_directory: 1 or void
 	iTM2_PDFTeX_output_directory:
 	iTM2_PDFTeX_output_format: \"pdf\" or \"dvi\"
 	iTM2_PDFTeX_fmt: = FMTNAME, use the value instead of program name or a %& line
-	iTM2_PDFTeX_parse_first_line: 1 or 0, parse of the first line of the input file
-	iTM2_PDFTeX_USE_progname: 1 or 0,
+	iTM2_PDFTeX_parse_first_line: 1 or void, parse of the first line of the input file
+	iTM2_PDFTeX_USE_progname: 1 or void,
 	iTM2_PDFTeX_progname: = STRING, set program (and fmt) name to STRING
-	iTM2_PDFTeX_USE_jobname: 1 or 0,
+	iTM2_PDFTeX_USE_jobname: 1 or void,
 	iTM2_PDFTeX_jobname: = STRING, set the job name to STRING
-	iTM2_PDFTeX_shell_escape: 1 or 0, enable \write18{SHELL COMMAND}
-	iTM2_PDFTeX_PDFSYNC: 1 or 0,
-	iTM2_PDFTeX_src_specials: 1 or 0, insert source specials into the DVI file
-	iTM2_PDFTeX_src_specials_where_no_cr: 1 or 0,
-	iTM2_PDFTeX_src_specials_where_no_display: 1 or 0,
-	iTM2_PDFTeX_src_specials_where_no_hbox: 1 or 0,
-	iTM2_PDFTeX_src_specials_where_no_parent: 1 or 0,
-	iTM2_PDFTeX_src_specials_where_no_par: 1 or 0,
-	iTM2_PDFTeX_src_specials_where_no_math: 1 or 0,
-	iTM2_PDFTeX_src_specials_where_no_vbox: 1 or 0,
-	iTM2_PDFTeX_USE_output_comment: 1 or 0,
+	iTM2_PDFTeX_shell_escape: 1 or void, enable \write18{SHELL COMMAND}
+	iTM2_PDFTeX_PDFSYNC: 1 or void,
+	iTM2_PDFTeX_src_specials: 1 or void, insert source specials into the DVI file
+	iTM2_PDFTeX_src_specials_where_no_cr: 1 or void,
+	iTM2_PDFTeX_src_specials_where_no_display: 1 or void,
+	iTM2_PDFTeX_src_specials_where_no_hbox: 1 or void,
+	iTM2_PDFTeX_src_specials_where_no_parent: 1 or void,
+	iTM2_PDFTeX_src_specials_where_no_par: 1 or void,
+	iTM2_PDFTeX_src_specials_where_no_math: 1 or void,
+	iTM2_PDFTeX_src_specials_where_no_vbox: 1 or void,
+	iTM2_PDFTeX_USE_output_comment: 1 or void,
 	iTM2_PDFTeX_output_comment:
-	iTM2_PDFTeX_USE_translate_file: 1 or 0,
-	iTM2_PDFTeX_translate_file := TCXNAME, use the TCX file TCXNAME
-	iTM2_PDFTeX_PARSE_translate_file: 1 or 0,
-	iTM2_PDFTeX_recorder: 1 or 0, enable filename recorder
-	iTM2_PDFTeX_file_line_error: 1 or 0, print file:line:error style messages
-	iTM2_PDFTeX_halt_on_error: 1 or 0,
+	iTM2_PDFTeX_USE_translate_file: 1 or void,
+	iTM2_PDFTeX_translate_file : = TCXNAME, use the TCX file TCXNAME
+	iTM2_PDFTeX_PARSE_translate_file: 1 or void,
+	iTM2_PDFTeX_recorder: 1 or void, enable filename recorder
+	iTM2_PDFTeX_file_line_error: 1 or void, print file:line:error style messages
+	iTM2_PDFTeX_halt_on_error: 1 or void,
 	iTM2_PDFTeX_interaction: batchmode/nonstopmode/scrollmode/errorstopmode, set interaction mode
-	iTM2_PDFTeX_kpathsea_debug:
+	iTM2_PDFTeX_kpathsea_debug: 1 or void
 	iTM2_PDFTeX_MoreArgument: more arguments"
-echo "$iTM2_USAGE"
-exit 0
+	echo "$iTM2_Usage"
 }
-"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_PDFTeX_Engine_Version}
-This is iTeXMac2 built in script to wrap the pdftex engine
-© 2005 jlaurens@users.sourceforge.net"
-if [ "${iTM2_Debug:-0}" != "0" ]
+"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
+This is iTeXMac2 built in script to wrap the pdftex engine at
+$(which pdftex)
+© 2006 jlaurens@users.sourceforge.net"
+if [ ${#iTM2_Debug} -gt 0 ]
 then
 	"$iTM2_CMD_Notify" start comment
 	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
@@ -65,42 +67,16 @@ then
 	done
 	"$iTM2_CMD_Notify" stop comment
 fi
-
+# the engine part
 iTM2_PDFTeX_Engine="pdftex"
-iTM2_PDFTeX_EnginePath="`which "${iTM2_PDFTeX_Engine}"`"
+iTM2_PDFTeX_EnginePath="$(which "${iTM2_PDFTeX_Engine}")"
 if ! [ -x "${iTM2_PDFTeX_EnginePath}" ]
 then
 	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_PDFTeX_Engine}."
 	iTM2PDFTeXEngineUsage
+	exit 1
 fi
-EXTENSION="$(basename ${TWSMaster})"
-EXTENSION="${EXTENSION##*.}"
-if [ ${#EXTENSION} -ne 0 ]
-then
-	EXTENSION="$(echo "${EXTENSION}" | tr 'TEX' 'tex')"
-	if [ "${EXTENSION}" != "tex" ]
-	then
-		TWSMaster="${TWSMaster%.*}.tex"
-	fi
-fi
-if ! [ -r "${TWSMaster}" ]
-then
-	"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster} (in $(pwd) / ${PWD})."
-	iTM2PDFTeXEngineUsage
-fi
-"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
-pushd "$(dirname "${TWSMaster}")"
-INPUT_DIRECTORY="${PWD}"
-popd
-INPUT="$(basename "${TWSMaster}")"
 iTM2_PDFTeX_Arguments=""
-if [ "${iTM2_PDFTeX_USE_jobname:-0}" != "0" ] && [ ${#iTM2_PDFTeX_jobname} -ne 0 ]
-then
-	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -jobname \"${iTM2_PDFTeX_jobname}\""
-	OUTPUT="${iTM2_PDFTeX_jobname}"
-else
-	OUTPUT="${INPUT%.*}"
-fi
 if [ "${iTM2_PDFTeX_ini:-0}" != "0" ]
 then
 	iTM2_PDFTeX_Arguments="-ini"
@@ -121,7 +97,7 @@ then
 else
 	if [ "${iTM2_PDFTeX_output_format:-pdf}" == "dvi" ]
 	then
-		iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -output-format ${iTM2_PDFTeX_output_format}"
+		iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -output-format ${iTM2_PDFTeX_output_format:-pdf}"
 		if [ "${iTM2_PDFTeX_USE_output_comment:-0}" != "0" ] && [ ${#iTM2_PDFTeX_output_comment} -ne 0 ]
 		then
 			iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -output-comment \"${iTM2_PDFTeX_output_comment}\""
@@ -183,15 +159,15 @@ else
 					iTM2_SRC_SPECIALS="vbox"
 				fi
 			fi
-			if [ "${iTM2_PDFTeX_src_specials_no_parent:-0}" == "0" ]
-			then
-				if [ ${#iTM2_SRC_SPECIALS} -gt 0 ]
-				then
-					iTM2_SRC_SPECIALS="${iTM2_SRC_SPECIALS},parent"
-				else
-					iTM2_SRC_SPECIALS="parent"
-				fi
-			fi
+#			if [ "${iTM2_PDFTeX_src_specials_no_parent:-0}" == "0" ]
+#			then
+#				if [ ${#iTM2_SRC_SPECIALS} -gt 0 ]
+#				then
+#					iTM2_SRC_SPECIALS="${iTM2_SRC_SPECIALS},parent"
+#				else
+#					iTM2_SRC_SPECIALS="parent"
+#				fi
+#			fi
 			if [ ${#iTM2_SRC_SPECIALS} -gt 0 ]
 			then
 				iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -src-specials=${iTM2_SRC_SPECIALS}"
@@ -210,11 +186,11 @@ fi
 if [ "${iTM2_PDFTeX_USE_output_directory:-0}" != "0" ] && [ ${#iTM2_PDFTeX_output_directory} -ne 0 ]
 then
 	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -output-directory \"${iTM2_PDFTeX_output_directory}\""
-elif [ "${iTM2_PDFTeX_USE_output_directory:-0}" != "0" ] && [ ${#iTM2_PDFTeX_output_directory} -ne 0 ]
+elif [ "${iTM2_USE_output_directory:-0}" != "0" ] && [ ${#iTM2_output_directory} -ne 0 ]
 then
-	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -output-directory \"${iTM2_PDFTeX_output_directory}\""
+	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -output-directory \"${iTM2_output_directory}\""
 fi
-iTM2_PDFTeX_fmt="`echo ${iTM2_PDFTeX_fmt} | tr [:upper:] [:lower:]`"
+iTM2_PDFTeX_fmt="$(echo ${iTM2_PDFTeX_fmt} | tr [:upper:] [:lower:])"
 if [ "${iTM2_PDFTeX_parse_first_line:-0}" != "0" ]
 then
 	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -parse-first-line"
@@ -290,27 +266,92 @@ if [ "${iTM2_PDFTeX_kpathsea_debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" error "-kpathsea-debug no yet supported."
 fi
-if [ ${#iTM2_PDFTeX_interaction} -gt 0 ] && [ "${iTM2_ContinuousCompile:-0}" == "0" ]
+if [ "${iTM2_PDFTeX_interaction:-0}" != "0" ] && [ "${iTM2_ContinuousCompile:-0}" == "0" ]
 then
 	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -interaction ${iTM2_PDFTeX_interaction}"
 fi
 if [ "${iTM2_PDFTeX_USE_MoreArgument:-0}" != "0" ] && [ ${#iTM2_PDFTeX_MoreArgument} -ne 0 ]
 then
-	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} \"${iTM2_PDFTeX_MoreArgument}\""
+	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} ${iTM2_PDFTeX_MoreArgument}"
 fi
-pushd "${INPUT_DIRECTORY}"
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${INPUT}\""
-${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} "${INPUT}"
-popd
+# the file name part
+EXTENSION="$(basename ${TWSMaster})"
+EXTENSION="${EXTENSION##*.}"
+if [ ${#EXTENSION} -ne 0 ]
+then
+	EXTENSION="$(echo "${EXTENSION}" | tr [:upper:] [:lower:])"
+	if [ "${EXTENSION}" != "tex" ] && [ "${EXTENSION}" != "dtx" ] && [ "${EXTENSION}" != "ins" ] && [ "${EXTENSION}" != "ltx" ]
+	then
+		TWSMaster="${TWSMaster%.*}.tex"
+	fi
+fi
+if ! [ -r "${TWSMaster}" ]
+then
+	"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster} (in $(pwd))."
+	iTM2PDFTeXEngineUsage
+	exit 2
+fi
+"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
+TWSMasterBase="$(basename "${TWSMaster}")"
+if [ "${iTM2_PDFTeX_USE_jobname:-0}" != "0" ] && [ ${#iTM2_PDFTeX_jobname} -ne 0 ]
+then
+	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -jobname \"${iTM2_PDFTeX_jobname}\""
+	OUTPUT="${iTM2_PDFTeX_jobname}"
+else
+	OUTPUT="${TWSMasterBase%.*}"
+fi
+# working directory?
+if [ ${#TWSProject} -gt 0 ]
+then
+	iTM2_PWD="$(dirname "${TWSProject}")"
+	iTM2_PWD_Real="${iTM2_PWD##*Projects.put_aside}"
+	iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
+	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
+	then
+		if [ ${#TEXINPUTS} -gt 0 ]
+		then
+			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
+		else
+			export TEXINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
+		then
+			ln -sf "{TWSMaster}" "${iTM2_PWD}"
+		fi
+	fi
+else
+	iTM2_PWD="$(dirname "${TWSMaster}")"
+	iTM2_PWD_Real="${iTM2_PWD}"
+fi
+pushd "${iTM2_PWD}"
+"$iTM2_CMD_Notify" comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
+"${iTM2_PDFTeX_EnginePath}" ${iTM2_PDFTeX_Arguments} "${TWSMasterBase}"
+iTM2_Status="$?"
+if [ "${iTM2_Status}" != "0" ]
+then
+	popd
+	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	exit ${iTM2_Status}
+fi
 if [ "${iTM2_PDFTeX_output_format:-pdf}" == "dvi" ] # no external viewer supported...
 then
-	"$iTM2_CMD_Notify" comment "Swicthing to a dvi to ps filter for ${INPUT_DIRECTORY}/${OUTPUT%.*}"
-	iTM2_Command_Compile --master "${INPUT_DIRECTORY}/${OUTPUT%.*}" --switch dvi
-else
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${INPUT_DIRECTORY}/${OUTPUT%.*}.pdf" -project "${TWSProjectDirectory}/${TWSProjectName}"
+	"$iTM2_CMD_Notify" comment "Swicthing to a dvi to ps filter for ${iTM2_PWD}/${OUTPUT%.*}"
+	iTM2_Command_Compile --master "${iTM2_PWD}/${OUTPUT%.*}" --switch dvi
 fi
-if [ "${iTM2_Debug:-0}" != "0" ]
+OUTPUT="${OUTPUT%.*}.pdf"
+if [ -s "${OUTPUT}" ]
+then	
+	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ] && [ -w "${iTM2_PWD_Real}" ]
+	then
+		mv -f "${OUTPUT}" "${iTM2_PWD_Real}"
+	fi
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+else
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+fi
+if [ ${#iTM2_Debug} -gt 0 ]
 then
 	"$iTM2_CMD_Notify" comment "$0 complete."
 fi
+popd
 exit 0

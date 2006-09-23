@@ -87,7 +87,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObjects:@"tex", @"ltx", @"dvi", @"pdf", nil];
+    return [NSArray arrayWithObjects:@"tex", @"ltx", @"ins", @"pdf", nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
 + (NSDictionary *)defaultShellEnvironment;
@@ -940,7 +940,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObjects:@"tex", @"ltx", @"dvi", @"pdf", nil];
+    return [NSArray arrayWithObjects:@"tex", @"ltx", @"ins", @"pdf", nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
 + (NSDictionary *)defaultShellEnvironment;
@@ -1841,7 +1841,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSArray arrayWithObjects:@"tex", @"ltx", @"dvi", @"pdf", nil];
+    return [NSArray arrayWithObjects:@"tex", @"ltx", @"ins", @"pdf", nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
 + (NSDictionary *)defaultShellEnvironment;

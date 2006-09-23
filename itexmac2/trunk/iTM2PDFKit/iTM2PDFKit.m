@@ -36,6 +36,44 @@ NSString * const iTM2MultiplePDFDocumentType = @"Multiple PDF Document";// bewar
 - (void)calcControlSize;
 @end
 
+@interface iTM2PDFKitInspector(PRIVATE)
+- (iTM2ToolMode)toolMode;
+- (void)setToolMode:(iTM2ToolMode)argument;
+- (NSRect)documentViewVisibleRect;
+- (void)setDocumentViewVisibleRect:(NSRect)argument;
+- (unsigned int)documentViewVisiblePageNumber;
+- (void)setDocumentViewVisiblePageNumber:(unsigned int)argument;
+- (NSColor *)backgroundColor;
+- (void)setBackgroundColor:(NSColor *)argument;
+- (int)displayBox;
+- (void)setDisplayBox:(int)argument;
+- (PDFDisplayMode)displayMode;
+- (void)setDisplayMode:(PDFDisplayMode)argument;
+- (float)greekingThreshold;
+- (void)setGreekingThreshold:(float)argument;
+- (float)scaleFactor;
+- (void)setScaleFactor:(float)argument;
+- (BOOL)shouldAntiAlias;
+- (void)setShouldAntiAlias:(BOOL)argument;
+- (BOOL)autoScales;
+- (void)setAutoScales:(BOOL)argument;
+- (BOOL)displaysAsBook;
+- (void)setDisplaysAsBook:(BOOL)argument;
+- (BOOL)displaysPageBreaks;
+- (void)setDisplaysPageBreaks:(BOOL)argument;
+- (NSMutableArray *)PDFSearchResults;
+- (void)updatePDFOutlineInformation;
+- (NSMutableArray *)PDFThumbnails;
+- (iTM2TreeNode *)PDFOutlines;
+- (void)setPDFOutlines:(iTM2TreeNode *)argument;
+- (void)updateTabView;
+- (void)updateThumbnailTable;
+- (void)updateOutlineTable;
+- (void)updateSearchTable;
+- (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
+- (void)setProgressIndicatorIsAnimated:(BOOL)yorn;
+@end
+
 @implementation iTM2PDFDocument(Cluster)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
@@ -474,44 +512,6 @@ To Do List:
 }
 @end
 
-@interface iTM2PDFKitInspector(PRIVATE)
-- (iTM2ToolMode)toolMode;
-- (void)setToolMode:(iTM2ToolMode)argument;
-- (NSRect)documentViewVisibleRect;
-- (void)setDocumentViewVisibleRect:(NSRect)argument;
-- (unsigned int)documentViewVisiblePageNumber;
-- (void)setDocumentViewVisiblePageNumber:(unsigned int)argument;
-- (NSColor *)backgroundColor;
-- (void)setBackgroundColor:(NSColor *)argument;
-- (int)displayBox;
-- (void)setDisplayBox:(int)argument;
-- (PDFDisplayMode)displayMode;
-- (void)setDisplayMode:(PDFDisplayMode)argument;
-- (float)greekingThreshold;
-- (void)setGreekingThreshold:(float)argument;
-- (float)scaleFactor;
-- (void)setScaleFactor:(float)argument;
-- (BOOL)shouldAntiAlias;
-- (void)setShouldAntiAlias:(BOOL)argument;
-- (BOOL)autoScales;
-- (void)setAutoScales:(BOOL)argument;
-- (BOOL)displaysAsBook;
-- (void)setDisplaysAsBook:(BOOL)argument;
-- (BOOL)displaysPageBreaks;
-- (void)setDisplaysPageBreaks:(BOOL)argument;
-- (NSMutableArray *)PDFSearchResults;
-- (void)updatePDFOutlineInformation;
-- (NSMutableArray *)PDFThumbnails;
-- (iTM2TreeNode *)PDFOutlines;
-- (void)setPDFOutlines:(iTM2TreeNode *)argument;
-- (void)updateTabView;
-- (void)updateThumbnailTable;
-- (void)updateOutlineTable;
-- (void)updateSearchTable;
-- (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
-- (void)setProgressIndicatorIsAnimated:(BOOL)yorn;
-@end
-
 @interface NSObject(PRIVATE_STUFF)
 - (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)point withHint:(NSDictionary *)hint;
 - (void)scrollSynchronizationPointToVisible:(id)sender;
@@ -818,155 +818,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-#pragma mark =-=-=-=-=-  SEARCHING
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSearchResults
-- (NSMutableArray *)PDFSearchResults;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id result = metaGETTER;
-	if(!result)
-	{
-		metaSETTER([NSMutableArray arrayWithCapacity:10]);
-		result = metaGETTER;
-	}
-//iTM2_END;
-    return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doSearchField:
-- (void)doSearchField:(id)sender;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	unsigned int index = [_tabViewControl segmentCount];
-	while(index--)
-		[_tabViewControl setSelected:NO forSegment:index];
-	[_pdfTabView selectTabViewItemWithIdentifier:@""];
-	PDFDocument * doc = [_pdfView document];
-    if ([doc isFinding])
-		[doc cancelFindString];
-	[[self PDFSearchResults] setArray:[NSArray array]];
-    [_searchTable reloadData];
-	[doc setDelegate:self];
-    [doc beginFindString:[sender stringValue] withOptions:NSCaseInsensitiveSearch];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didMatchString:
-- (void)didMatchString:(PDFSelection *)instance
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [[self PDFSearchResults] addObject:[[instance copy] autorelease]];
-	[_searchCountText setStringValue: [NSString stringWithFormat:
-		NSLocalizedStringFromTableInBundle(@"Found %i match(es)", @"iTM2PDFKit", [self classBundle], ""),
-		[[self PDFSearchResults] count]]];
-    [_searchTable reloadData];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidBeginDocumentFind:
-- (void)documentDidBeginDocumentFind:(NSNotification *)notification;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[_searchCountText setStringValue:@""];
-	[_searchProgress startAnimation:self];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidEndDocumentFind:
-- (void)documentDidEndDocumentFind:(NSNotification *)notification;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[_searchProgress stopAnimation:self];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [(aTableView == _searchTable? [self PDFSearchResults]:[self PDFThumbnails]) count];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)theColumn row:(int)rowIndex;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	if ([[theColumn identifier] isEqualToString:@"text"])
-	{
-		PDFSelection * selection = [[self PDFSearchResults] objectAtIndex:rowIndex];
-		return [[[_pdfView document] outlineItemForSelection:selection] label];// cache?
-	}
-	else if ([[theColumn identifier] isEqualToString:@"thumbnail"])
-	{
-		NSImage * I = [[self PDFThumbnails] objectAtIndex:rowIndex];
-		if([I isEqual:[NSImage imageGenericImageDocument]])
-		{
-			[self renderInBackroundThumbnailAtIndex:rowIndex];
-		}
-		return I;
-	}
-	else if ([[theColumn identifier] isEqualToString:@"page"])
-	{
-		PDFPage * page;
-		unsigned int physicalPageIndex;
-		if(aTableView == _searchTable)
-		{
-			PDFSelection * selection = [[self PDFSearchResults] objectAtIndex:rowIndex];
-			page = [[selection pages] objectAtIndex:0];
-			physicalPageIndex = [[page document] indexForPage:page] + 1;
-		}
-		else if(aTableView == _thumbnailTable)
-		{
-			physicalPageIndex = rowIndex + 1;
-			page = [[_pdfView document] pageAtIndex:rowIndex];
-		}
-		else
-			return nil;
-		NSString * label = [page label];
-		unsigned int logicalPageIndex = [label intValue];
-		if(physicalPageIndex == logicalPageIndex)
-			return label;
-		NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:label] autorelease];
-		[MAS appendAttributedString: [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
-		return MAS;
-	}
-	return nil;
-}
 static NSMutableDictionary * _iTM2PDFRenderInBackgroundThumbnails = nil;
 static BOOL _iTM2PDFThreadedRenderInBackgroundThumbnails = NO;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  renderInBackroundThumbnailAtIndex:
@@ -1088,6 +939,276 @@ loop:
 	[NSThread exit];
 	return;
 }
+#pragma mark =-=-=-=-=-  SEARCHING
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSearchResults
+- (NSMutableArray *)PDFSearchResults;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = metaGETTER;
+	if(!result)
+	{
+		metaSETTER([NSMutableArray arrayWithCapacity:30]);
+		result = metaGETTER;
+	}
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doSearchField:
+- (void)doSearchField:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned int index = [_tabViewControl segmentCount];
+	while(index--)
+		[_tabViewControl setSelected:NO forSegment:index];
+	[_pdfTabView selectTabViewItemWithIdentifier:@""];
+	PDFDocument * doc = [_pdfView document];
+    if ([doc isFinding])
+		[doc cancelFindString];
+	[[self PDFSearchResults] setArray:[NSArray array]];
+    [_searchTable reloadData];
+	[doc setDelegate:self];
+    [doc beginFindString:[sender stringValue] withOptions:NSCaseInsensitiveSearch];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didMatchString:
+- (void)didMatchString:(PDFSelection *)selection
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	selection = [[selection copy] autorelease];
+	[[self PDFSearchResults] addObject:selection];
+	PDFPage * page = [[selection pages] objectAtIndex:0];
+	unsigned int physicalPageIndex = [[page document] indexForPage:page] + 1;
+	NSString * label = [page label];
+	unsigned int logicalPageIndex = [label intValue];
+	if(physicalPageIndex == logicalPageIndex)
+	{
+		[[self PDFSearchResults] addObject:[[label copy] autorelease]];
+	}
+	else
+	{
+		NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:label] autorelease];
+		[MAS appendAttributedString: [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+		[[self PDFSearchResults] addObject:[[MAS copy] autorelease]];
+	}
+	PDFOutline * outline = [[page document] outlineItemForSelection:selection];
+	if(outline)
+	{
+		label = [outline label];// cache?
+		[[self PDFSearchResults] addObject:[[label copy] autorelease]];
+	}
+	else
+	{
+		[[self PDFSearchResults] addObject:[NSNull null]];
+	}
+	[_searchCountText setStringValue: [NSString stringWithFormat:
+		NSLocalizedStringFromTableInBundle(@"Found %i match(es)", @"iTM2PDFKit", [self classBundle], ""),
+		[[self PDFSearchResults] count]]];
+    [_searchTable reloadData];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidBeginDocumentFind:
+- (void)documentDidBeginDocumentFind:(NSNotification *)notification;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[_searchCountText setStringValue:@""];
+	[_searchProgress startAnimation:self];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidEndDocumentFind:
+- (void)documentDidEndDocumentFind:(NSNotification *)notification;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[_searchProgress stopAnimation:self];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return aTableView == _searchTable? [[self PDFSearchResults] count]/3:[[self PDFThumbnails] count];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)theColumn row:(int)rowIndex;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	if ([[theColumn identifier] isEqualToString:@"text"])
+	{
+		id result = [[self PDFSearchResults] objectAtIndex:3*rowIndex+2];
+		if(![result isEqual:[NSNull null]])
+		{
+			return result;
+		}
+		// there is no chapter
+		// I will display characters instead
+		// how many characters should I display?
+		// What is the width of the table column
+		NSCell * C = [theColumn dataCellForRow:rowIndex];
+		if([C type] == NSTextCellType)
+		{
+			// how many characters should I display in this cell?
+			NSFont * F = [C font];
+			PDFSelection * selection = [[self PDFSearchResults] objectAtIndex:3*rowIndex];
+			NSString * selectionString = [selection string];
+			NSDictionary * attributes = [NSDictionary dictionaryWithObject:F forKey:NSFontAttributeName];
+			F = [SFM convertFont:F toHaveTrait:NSBoldFontMask];// used later to outline the selection
+			float w = [selectionString sizeWithAttributes:attributes].width;
+			if([theColumn width]>w)
+			{
+				float W = [theColumn width] - w;
+				w = [@"m" sizeWithAttributes:attributes].width;
+				unsigned int n = W/w;
+				PDFSelection * otherSelection = [[selection copy] autorelease];
+				[otherSelection extendSelectionAtEnd:n+1];
+				NSString * suffix = [otherSelection string];// as placeholder before being the result
+				unsigned int contentsEnd;
+				[suffix getLineStart:nil end:nil contentsEnd:&contentsEnd
+					forRange:NSMakeRange(0,1)];
+				otherSelection = [[selection copy] autorelease];
+				[otherSelection extendSelectionAtStart:n+1];
+				NSString * prefix = [otherSelection string];
+				unsigned int start;
+				[prefix getLineStart:&start end:nil contentsEnd:nil
+					forRange:NSMakeRange([prefix length] - [selectionString length],1)];
+				// the purpose is to find the longest chain with width <= W, and the max number of chars before and after, the most balanced
+				// in general, we have n/2 characters before, the searched string and n/2 characters after
+				// do we have less than n/2 characters before
+				n /= 2;
+				++n;
+				if([prefix length] - [selectionString length] - start <= n)
+				{
+					prefix = [prefix substringWithRange:NSMakeRange(start,[prefix length] - [selectionString length] - start)];
+					// I want to add X chars to the right such that
+					// [prefix length] - [selectionString length] - start + X = 2*n
+					// X = 2*n - [prefix length] + [selectionString length] + start
+					// There are actually contentsEnd - [selectionString length] characters available from suffix (after the selection)
+					if(2*n - [prefix length] + [selectionString length] + start < contentsEnd - [selectionString length])
+					{
+						suffix = [suffix substringWithRange:NSMakeRange(0,[selectionString length] + 2*n - [prefix length] + start)];
+						suffix = [suffix stringByAppendingString:[NSString stringWithUTF8String:"…"]];
+					}
+					else//if(2*n - [prefix length] + [selectionString length] + start >= contentsEnd - [selectionString length])
+					{
+						suffix = [suffix substringWithRange:NSMakeRange(0,contentsEnd)];
+					}
+				}
+				else//if([prefix length] - [selectionString length] - start > n)
+				{
+					// I want to add n
+					if(n < contentsEnd - [selectionString length])
+					{
+						prefix = [prefix substringWithRange:NSMakeRange([prefix length] - [selectionString length] - n,n)];
+						prefix = [[NSString stringWithUTF8String:"…"] stringByAppendingString:prefix];
+						suffix = [suffix substringWithRange:NSMakeRange(0,[selectionString length]+n)];
+						suffix = [suffix stringByAppendingString:[NSString stringWithUTF8String:"…"]];
+					}
+					else//if(n >= contentsEnd - [selectionString length])
+					{
+						suffix = [suffix substringWithRange:NSMakeRange(0,contentsEnd)];
+						// I can put more characters in the prefix, less than 2*n - contentsEnd + [selectionString length]
+						if(2*n - contentsEnd + [selectionString length] < [prefix length] - [selectionString length] - start)
+						{
+							prefix = [prefix substringWithRange:NSMakeRange(contentsEnd - 2*n,2*n - contentsEnd + [selectionString length])];
+							prefix = [[NSString stringWithUTF8String:"…"] stringByAppendingString:prefix];
+						}
+						else
+						{
+							prefix = [prefix substringWithRange:NSMakeRange(start,[prefix length] - [selectionString length] - start)];
+							prefix = [[NSString stringWithUTF8String:"…"] stringByAppendingString:prefix];
+						}
+					}
+				}
+				suffix = [prefix stringByAppendingString:suffix];
+				NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:suffix attributes:attributes] autorelease];
+				[MAS addAttribute:NSFontAttributeName value:F range:NSMakeRange([prefix length],[selectionString length])];
+				[[self PDFSearchResults] replaceObjectAtIndex:3*rowIndex+2 withObject:[[MAS copy] autorelease]];
+				return [[self PDFSearchResults] objectAtIndex:3*rowIndex+2];
+			}
+			else
+			{
+				[[self PDFSearchResults] replaceObjectAtIndex:3*rowIndex+2 withObject:@""];
+			}
+		}
+		else
+		{
+			[[self PDFSearchResults] replaceObjectAtIndex:3*rowIndex+2 withObject:@""];
+		}
+		return @"";
+	}
+	else if ([[theColumn identifier] isEqualToString:@"thumbnail"])
+	{
+		NSImage * I = [[self PDFThumbnails] objectAtIndex:rowIndex];
+		if([I isEqual:[NSImage imageGenericImageDocument]])
+		{
+			[self renderInBackroundThumbnailAtIndex:rowIndex];
+		}
+		return I;
+	}
+	else if ([[theColumn identifier] isEqualToString:@"page"])
+	{
+		if(aTableView == _searchTable)
+		{
+			return [[self PDFSearchResults] objectAtIndex:3*rowIndex+1];
+		}
+		else if(aTableView == _thumbnailTable)
+		{
+			unsigned int physicalPageIndex = rowIndex + 1;
+			PDFPage * page = [[_pdfView document] pageAtIndex:rowIndex];
+			NSString * label = [page label];
+			unsigned int logicalPageIndex = [label intValue];
+			if(physicalPageIndex == logicalPageIndex)
+			{
+				return label;
+			}
+			NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:label] autorelease];
+			[MAS appendAttributedString: [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+			return MAS;
+		}
+		else
+			return nil;
+	}
+	return nil;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
 - (void)tableViewSelectionDidChange:(NSNotification *)notification;
 /*"Description Forthcoming.
@@ -1104,7 +1225,7 @@ To Do List:
     {
 		if(TV == _searchTable)
 		{
-			[_pdfView setCurrentSelection:[[self PDFSearchResults] objectAtIndex:rowIndex]];
+			[_pdfView setCurrentSelection:[[self PDFSearchResults] objectAtIndex:3*rowIndex]];
 			[_pdfView scrollSelectionToVisible:self];
 		}
 		else if(TV == _thumbnailTable)
@@ -1766,21 +1887,30 @@ To Do List:
 //iTM2_START;
 	NSAssert(_toolbarBackForwardView, @"Missing _toolbarBackForwardView connection...");
 	NSAssert(_toolbarToolModeView, @"Missing _toolbarToolModeView connection...");
-	[_toolbarBackForwardView setSegmentCount:2];
-	[_toolbarBackForwardView setImage:[NSImage imageBackAdorn] forSegment:0];
-	[_toolbarBackForwardView setImage:[NSImage imageForwardAdorn] forSegment:1];
-	[_toolbarBackForwardView setAction:@selector(goBackForward:)];
-	[_toolbarBackForwardView setTarget:self];
-	[[_toolbarBackForwardView cell] setTrackingMode:NSSegmentSwitchTrackingMomentary];
-	[_toolbarBackForwardView setFrameSize:[[_toolbarBackForwardView cell] cellSize]];
-	[_toolbarToolModeView setSegmentCount:4];
-	[_toolbarToolModeView setImage:[NSImage imageMoveToolAdorn] forSegment:0];
-	[_toolbarToolModeView setImage:[NSImage imageTextToolAdorn] forSegment:1];
-	[_toolbarToolModeView setImage:[NSImage imageSelectToolAdorn] forSegment:2];
-	[_toolbarToolModeView setImage:[NSImage imageAnnotateTool1AdornDisclosure] forSegment:3];
-	[_toolbarToolModeView setFrameSize:[[_toolbarToolModeView cell] cellSize]];
-	[_toolbarToolModeView setAction:NULL];
-	[_toolbarToolModeView setTarget:nil];
+	NSSegmentedCell * segmentedCell = [_toolbarBackForwardView cell];
+	[segmentedCell setTrackingMode:NSSegmentSwitchTrackingSelectOne];
+	[segmentedCell setSegmentCount:2];
+	[segmentedCell setImage:[NSImage imageBackAdorn] forSegment:0];
+	[segmentedCell setImage:[NSImage imageForwardAdorn] forSegment:1];
+	[segmentedCell setAction:@selector(goBackForward:)];
+	[segmentedCell setTarget:self];
+	[_toolbarBackForwardView setFrameSize:[segmentedCell cellSize]];
+	//
+	segmentedCell = [_toolbarToolModeView cell];
+	[segmentedCell setTrackingMode:NSSegmentSwitchTrackingSelectOne];
+	[segmentedCell setSegmentCount:4];
+	[segmentedCell setImage:[NSImage imageMoveToolAdorn] forSegment:kiTM2MoveToolMode];
+	[segmentedCell setTag:kiTM2MoveToolMode forSegment:kiTM2MoveToolMode];
+	[segmentedCell setImage:[NSImage imageTextToolAdorn] forSegment:kiTM2TextToolMode];
+	[segmentedCell setTag:kiTM2TextToolMode forSegment:kiTM2TextToolMode];
+	[segmentedCell setImage:[NSImage imageSelectToolAdorn] forSegment:kiTM2SelectToolMode];
+	[segmentedCell setTag:kiTM2SelectToolMode forSegment:kiTM2SelectToolMode];
+	[segmentedCell setImage:[NSImage imageAnnotateTool1AdornDisclosure] forSegment:kiTM2AnnotateToolMode];
+	[segmentedCell setTag:kiTM2AnnotateToolMode forSegment:kiTM2AnnotateToolMode];
+	[segmentedCell setAction:NULL];
+	[segmentedCell setTarget:nil];
+	[_toolbarToolModeView setFrameSize:[segmentedCell cellSize]];
+	//
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2PDFKitToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
 	if([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration"])
@@ -2379,7 +2509,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setToolMode:[[sender cell] tagForSegment:[sender selectedSegment]]];
+	NSSegmentedCell * cell = [sender cell];
+	iTM2ToolMode toolMode = [cell tagForSegment:[sender selectedSegment]];
+	[self setToolMode:toolMode];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -2395,17 +2527,12 @@ To Do List:
 //iTM2_START;
 	if(![[sender window] isEqual:[self window]])
 		return YES;
-	if(![sender selectSegmentWithTag:[self toolMode]])
+	iTM2ToolMode toolMode = [self toolMode];
+	if(![sender selectSegmentWithTag:toolMode])
 	{
 		[self setToolMode:kiTM2MoveToolMode];
 		[sender selectSegmentWithTag:[self toolMode]];
 	}
-	int segment = [sender segmentCount];
-	while(segment--)
-	{
-		[sender setEnabled: ([[sender cell] tagForSegment:segment] != kiTM2AnnotateToolMode) forSegment:segment];
-	}
-	[sender setEnabled:YES];
 //iTM2_END;
     return YES;
 }
@@ -4147,7 +4274,7 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -4159,6 +4286,12 @@ To Do List:
     if(([theEvent clickCount] > 0) && ([theEvent modifierFlags] & NSCommandKeyMask))
     {
 		// wait for a second click?
+#if 0
+		if(theEvent = [[self window] nextEventMatchingMask:NSLeftMouseDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:100] inMode:NSEventTrackingRunLoopMode dequeue:YES])
+		{
+		@"com.apple.mouse.doubleClickThreshold";
+		}
+#endif
 		[self pdfSynchronizeMouseDown:theEvent];
 //iTM2_END;
 		return;
