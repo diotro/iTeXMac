@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC469BB60AC5DAA900F0CA29</string>
+						<string>DC469BC90AC5E49100F0CA29</string>
 						<key>history</key>
 						<array>
 							<string>DC4696480AC484EC00F0CA29</string>
@@ -237,8 +237,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -322,7 +320,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 692}, {287, 512}}</string>
+							<string>{{0, 608}, {287, 512}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -369,7 +367,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC469BB50AC5DAA900F0CA29</string>
+										<string>DC469BC80AC5E49100F0CA29</string>
 										<key>history</key>
 										<array>
 											<string>DCD7D6F70A439B6B0096B1A9</string>
@@ -673,9 +671,9 @@
 		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DC4693F40AC44D7100F0CA29</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DC4696980AC491FF00F0CA29</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>11 260 1272 571 0 0 1440 878 </string>
