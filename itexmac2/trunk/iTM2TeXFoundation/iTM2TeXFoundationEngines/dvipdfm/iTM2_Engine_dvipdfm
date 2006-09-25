@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_dvipdfm wrapper
 # © 2005 jlaurens@users.sourceforge.net
 iTM2_dvipdfm_Engine_Version=1.0
@@ -35,24 +35,24 @@ Usage: `basename "$0"` with environment variables
 echo "$iTM2_USAGE"
 exit 0
 }
-"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_dvipdfm_Engine_Version}
+"${iTM2_CMD_Notify}" notify comment "Welcome to `basename "$0"` version ${iTM2_dvipdfm_Engine_Version}
 This is iTeXMac2 built in script to wrap the dvipdfm engine
 © 2005 jlaurens@users.sourceforge.net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" start comment
-	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
 	for iTM2VAR in ${!iTM2_dvipdfm_*}
 	do
-		"$iTM2_CMD_Notify" echo "${iTM2VAR} is: ${!iTM2VAR}"
+		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
 	done
-	"$iTM2_CMD_Notify" stop comment
+	"${iTM2_CMD_Notify}" notify stop comment
 fi
 iTM2_dvipdfm_Engine="dvipdfm"
 iTM2_dvipdfm_EnginePath="`which "${iTM2_dvipdfm_Engine}"`"
 if ! [ -x "${iTM2_dvipdfm_EnginePath}" ]
 then
-	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_dvipdfm_Engine}."
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_dvipdfm_Engine}."
 	iTM2DVIPDFMEngineUsage
 fi
 if ! [ -r "${TWSMaster}" ]
@@ -60,11 +60,11 @@ then
 	TWSMaster="${TWSMaster}.dvi"
 	if ! [ -r "${TWSMaster}" ]
 	then
-		"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster}."
+		"${iTM2_CMD_Notify}" notify error "No readable file at ${TWSMaster}."
 		iTM2DVIPDFMEngineUsage
 	fi
 fi
-"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
+"${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
 iTM2_dvipdfm_Arguments=""
 if [ "${iTM2_dvipdfm_landscape:-0}" != "0" ]
 then
@@ -125,12 +125,12 @@ iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -z ${iTM2_dvipdfm_compression_
 TARGET_DIRECTORY="$(dirname "${TWSMaster}")"
 pushd "${TARGET_DIRECTORY}"
 TARGET="$(basename "${TWSMaster}")"
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_dvipdfm_EnginePath} ${iTM2_dvipdfm_Arguments} \"${TARGET}\""
+"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_dvipdfm_EnginePath} ${iTM2_dvipdfm_Arguments} \"${TARGET}\""
 ${iTM2_dvipdfm_EnginePath} ${iTM2_dvipdfm_Arguments} "${TARGET}"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" comment "$0 complete."
+	"${iTM2_CMD_Notify}" notify comment "$0 complete."
 fi
-"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${PWD}/${TARGET%.*}.pdf" -project "${TWSProjectDirectory}/${TWSProjectName}"
+iTeXMac2 update -file "${PWD}/${TARGET%.*}.pdf" -project "${TWSProjectDirectory}/${TWSProjectName}"
 popd
 exit

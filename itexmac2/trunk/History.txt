@@ -1,3 +1,4 @@
 This file is used to track down the subversion number
 
-Sep 25 01:15:54 GMT 2006: better synchronization to be used with continuous typesetting mode
+Mon Sep 25 01:15:54 GMT 2006: better synchronization to be used with continuous typesetting mode
+Mon Sep 25 13:13:51 GMT 2006: FIFO replaced by iTeXMac2 server, changes in various places

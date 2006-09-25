@@ -108,36 +108,23 @@
 			PBXWorkspaceStateSaveDate = 180748646;
 		};
 		perUserProjectItems = {
-			DC00B2FC09D213F0007D6AD9 = DC00B2FC09D213F0007D6AD9 /* PBXTextBookmark */;
-			DC43E3FB09344FCC003C3C86 = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
-			DC6659720A3F60DE00076617 = DC6659720A3F60DE00076617 /* PBXBookmark */;
-			DC99E7A80A2456E600F50752 = DC99E7A80A2456E600F50752 /* PBXTextBookmark */;
-			DC99E7A90A2456E600F50752 = DC99E7A90A2456E600F50752 /* PBXBookmark */;
-			DC99E7AA0A2456E600F50752 = DC99E7AA0A2456E600F50752 /* PBXBookmark */;
-			DC99E7AB0A2456E600F50752 = DC99E7AB0A2456E600F50752 /* PBXBookmark */;
-			DC99E7AD0A2456E600F50752 = DC99E7AD0A2456E600F50752 /* PBXTextBookmark */;
-			DC99E7AE0A2456E600F50752 = DC99E7AE0A2456E600F50752 /* PBXBookmark */;
-			DC99E7B00A2456E600F50752 = DC99E7B00A2456E600F50752 /* PBXBookmark */;
-			DC99E7B10A2456E600F50752 = DC99E7B10A2456E600F50752 /* PBXBookmark */;
-			DCC541840935A0E50050770C = DCC541840935A0E50050770C /* PBXTextBookmark */;
-			DCC5426909373DE00050770C = DCC5426909373DE00050770C /* PBXTextBookmark */;
-			DCC544BB0937AA500050770C = DCC544BB0937AA500050770C /* PBXTextBookmark */;
-			DCC544BC0937AA500050770C = DCC544BC0937AA500050770C /* PBXTextBookmark */;
+			DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
+			DC99E7A80A2456E600F50752 /* PBXTextBookmark */ = DC99E7A80A2456E600F50752 /* PBXTextBookmark */;
+			DC99E7A90A2456E600F50752 /* PBXBookmark */ = DC99E7A90A2456E600F50752 /* PBXBookmark */;
+			DC99E7AA0A2456E600F50752 /* PBXBookmark */ = DC99E7AA0A2456E600F50752 /* PBXBookmark */;
+			DC99E7AB0A2456E600F50752 /* PBXBookmark */ = DC99E7AB0A2456E600F50752 /* PBXBookmark */;
+			DC99E7AD0A2456E600F50752 /* PBXTextBookmark */ = DC99E7AD0A2456E600F50752 /* PBXTextBookmark */;
+			DC99E7AE0A2456E600F50752 /* PBXBookmark */ = DC99E7AE0A2456E600F50752 /* PBXBookmark */;
+			DC99E7B00A2456E600F50752 /* PBXBookmark */ = DC99E7B00A2456E600F50752 /* PBXBookmark */;
+			DC99E7B10A2456E600F50752 /* PBXBookmark */ = DC99E7B10A2456E600F50752 /* PBXBookmark */;
+			DCC541840935A0E50050770C /* PBXTextBookmark */ = DCC541840935A0E50050770C /* PBXTextBookmark */;
+			DCC544BB0937AA500050770C /* PBXTextBookmark */ = DCC544BB0937AA500050770C /* PBXTextBookmark */;
+			DCC544BC0937AA500050770C /* PBXTextBookmark */ = DCC544BC0937AA500050770C /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
 			OBJROOT = "$(SYMROOT)";
 		};
-	};
-	DC00B2FC09D213F0007D6AD9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */;
-		name = "iTM2_Engine_texexec: 177";
-		rLen = 0;
-		rLoc = 6611;
-		rType = 0;
-		vrLen = 1256;
-		vrLoc = 6065;
 	};
 	DC2CA78D0855D4F500128F14 /* All */ = {
 		activeExec = 0;
@@ -208,9 +195,9 @@
 	};
 	DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1212, 3686}}";
-			sepNavSelRange = "{6611, 0}";
-			sepNavVisRect = "{{0, 3095}, {658, 519}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1036, 4777}}";
+			sepNavSelRange = "{8018, 0}";
+			sepNavVisRect = "{{0, 2910}, {658, 183}}";
 			sepNavWindowFrame = "{{15, 12}, {1218, 815}}";
 		};
 	};
@@ -254,15 +241,6 @@
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRect = "{{0, 0}, {658, 183}}";
 		};
-	};
-	DC6659720A3F60DE00076617 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC6659730A3F60DE00076617;
-	};
-	DC6659730A3F60DE00076617 = {
-		isa = PBXFileReference;
-		lastKnownFileType = folder;
-		sourceTree = "<group>";
 	};
 	DC81AE6D08871B4600943C99 /* build iTeXMac2 */ = {
 		activeExec = 0;
@@ -356,7 +334,7 @@
 	};
 	DC99EBC30A27C5B500F50752 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
-		name = "Project Breakpoints";
+		name = iTM2ConTeXtEngines;
 		objects = (
 			DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */,
 		);
@@ -370,16 +348,6 @@
 		rType = 0;
 		vrLen = 282;
 		vrLoc = 5299;
-	};
-	DCC5426909373DE00050770C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */;
-		name = "";
-		rLen = 0;
-		rLoc = 77;
-		rType = 0;
-		vrLen = 250;
-		vrLoc = 0;
 	};
 	DCC544BB0937AA500050770C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is alphax shell script for iTeXMac 1.3 version 0.1
 # © 2003 jlaurens@users.sourceforge.net
 base="/Applications/Alpha/Tools/alphac"

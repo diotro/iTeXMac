@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # this is iTM2_Bibliography for iTeXMac2 1.4
 # ¬© 2004jlaurens@users.sourceforge.net
 # the purpose of this script is to make the bibliography
@@ -6,14 +6,14 @@
 # If you plan to use this script, it would be fair to echo the original author jlaurens@users.sourceforge.net and the product iTeXMac2
 # 01/08/04 the .aux was not dropped down before calling bibtex
 iTM2_Bibliography_Version="1.0"
-iTM2_BIBLIOGRAPHY_USAGE="Welcome to `basename "$0"` version  $iTM2_Bibliography_Version
+iTM2_BIBLIOGRAPHY_USAGE="Welcome to $(basename "$0") version  $iTM2_Bibliography_Version
 This is iTeXMac2 built in script to make the bibliography with BibTeX
 © 2005 jlaurens@users.sourceforge.net
-Usage: `basename "$0"` options input where options are
+Usage: $(basename "$0") options input where options are
        -h, --help: print this message and return.
        -e command, --engine command: replace bibtex by command.
            all other options are ignored.
-           example: `basename "$0"` --engine \"bibtex -terse\"
+           example: $(basename "$0") --engine \"bibtex -terse\"
        -q, --quiet: runs silently.
        -x, --minXReferences: the minimum number of cross references.
        -v, --verbose: does nothing special yet.
@@ -24,26 +24,36 @@ iTM2BibEngine=""
 IFS='
 '
 #"
-if [ ${iTM2_Debug:-0} -gt 0 ]
+if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	iTM2_Bibliography_RunSilently="${iTM2_Debug}"
+	iTM2_CMD_Notify="iTM2_CMD_Gobble"
 else
 	iTM2_Bibliography_RunSilently="${iTM2_RunSilently}"
+fi
+if [ "${iTM2_Bibliography_RunSilently:-0}" != "0" ]
+then
+	iTM2_CMD_Notify="iTM2_CMD_Gobble"
+else
+	if [ "${iTM2_CMD_Notify:-0}" == "0" ]
+	then
+		iTM2_CMD_Notify="~/Library"
+	fi
 fi
 while [ $# -gt 0 ]
 do
 	case $1 in
 		-h|--help)
-				"$iTM2_CMD_Notify" comment "$iTM2_BIBLIOGRAPHY_USAGE"
+				"${iTM2_CMD_Notify}" notify comment "$iTM2_BIBLIOGRAPHY_USAGE"
 		;;
 		-e|--engine)
 			shift 1
 			if [ $# -gt 0 ]
 			then
 				iTM2BibEngine="$1"
-				"$iTM2_CMD_Notify" comment "iTM2: engine: $iTM2BibEngine"
+				"${iTM2_CMD_Notify}" notify comment "iTM2: engine: $iTM2BibEngine"
 			else
-				"$iTM2_CMD_Notify" comment "$iTM2_BIBLIOGRAPHY_USAGE"
+				"${iTM2_CMD_Notify}" notify comment "$iTM2_BIBLIOGRAPHY_USAGE"
 			fi
 		;;
 		-q|--quiet)
@@ -55,7 +65,7 @@ do
                         then
 							iTM2_Bibliography_MinXReferences="$1"
                         else
-							"$iTM2_CMD_Notify" comment "$iTM2_BIBLIOGRAPHY_USAGE"
+							"${iTM2_CMD_Notify}" notify comment "$iTM2_BIBLIOGRAPHY_USAGE"
                         fi
 		;;
 		-a|--all)
@@ -71,7 +81,7 @@ do
 			fi
 			if [ -d ${1} ]
 			then
-				iTM2BibTargets="$iTM2BibTargets`ls -1 -R $1`"
+				iTM2BibTargets="$iTM2BibTargets$(ls -1 -R $1)"
 			else
 				iTM2BibTargets="$iTM2BibTargets$1"
 			fi
@@ -80,7 +90,7 @@ do
 done
 if [ "${iTM2_Bibliography_RunSilently:-1}" -eq 0 ]
 then
-        "$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version $iTM2BibVersion
+        "${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version $iTM2BibVersion
 This is iTeXMac2 built in script to make the bibliography with BibTeX or another engine
 ¬© 2005 jlaurens@users.sourceforge.net."
 fi
@@ -104,10 +114,10 @@ if [ ${#iTM2BibTargets} -eq 0 ]
 then
 	if [ ${#TWSMaster} -eq 0 ]
 	then
-		iTM2BibTargets="`ls -1 -R *`$IFS"
+		iTM2BibTargets="$(ls -1 -R *)$IFS"
 	elif [ "${iTM2BibAll:-0}" -gt 0 ]
 	then
-		iTM2BibTargets="`dirname ${TWSMaster}|ls -1 -R`$IFS"
+		iTM2BibTargets="$(dirname ${TWSMaster}|ls -1 -R)$IFS"
 	else
 		iTM2BibTargets="${TWSMaster%.*}.aux"
 	fi
@@ -121,36 +131,36 @@ do
 		then
 			iTM2BibVar="${iTM2BibCurrent}/${iTM2BibVar}"
 		fi
-			"$iTM2_CMD_Notify" comment "Making the bibliography of: ${iTM2BibVar}"
+			"${iTM2_CMD_Notify}" notify comment "Making the bibliography of: ${iTM2BibVar}"
 		if [ -e "${iTM2BibVar}" ]
 		then
 			if [ "${iTM2BibVar%.*}.tex" -nt "${iTM2BibVar}" ]
 			then
-				"$iTM2_CMD_Notify" warning "The LaTeX source file ${iTM2BibVar%.*}.tex is newer than ${iTM2BibVar}.
+				"${iTM2_CMD_Notify}" notify warning "The LaTeX source file ${iTM2BibVar%.*}.tex is newer than ${iTM2BibVar}.
 LaTeX bibliography ${iTM2BibVar%.*}.bbl not updated: Please compile first"
 			elif [ "${iTM2BibVar}" -nt "${iTM2BibVar%.*}.bbl" ]
 			then
 				iTM2_BbCommand="${iTM2BibEngine} \"${iTM2BibVar%.*}\""
-				"$iTM2_CMD_Notify" comment "${iTM2_BbCommand}"
+				"${iTM2_CMD_Notify}" notify comment "${iTM2_BbCommand}"
 				eval "${iTM2_BbCommand}"
 				if [ "$?" != "0" ]
 				then
 					status=1
 				fi
 #touch "${iTM2BibVar%.*}.bbl"
-				"$iTM2_CMD_Notify" comment "LaTeX bibliography ${iTM2BibVar%.*}.bbl updated";
+				"${iTM2_CMD_Notify}" notify comment "LaTeX bibliography ${iTM2BibVar%.*}.bbl updated";
 			else
-				"$iTM2_CMD_Notify" comment "LaTeX bibliography ${iTM2BibVar%.*}.bbl is already up to date";
+				"${iTM2_CMD_Notify}" notify comment "LaTeX bibliography ${iTM2BibVar%.*}.bbl is already up to date";
 			fi
 			if [ "${status:0}" != "0" ]
 			then
-				"$iTM2_CMD_Notify" comment "FAILED";
+				"${iTM2_CMD_Notify}" notify comment "FAILED";
 			else
-				"$iTM2_CMD_Notify" comment "OK";
+				"${iTM2_CMD_Notify}" notify comment "OK";
 			fi
 		fi
 	else
-		iTM2BibVar1="`dirname ${iTM2BibVar}`/`basename ${iTM2BibVar} ":"`"
+		iTM2BibVar1="$(dirname ${iTM2BibVar})/$(basename ${iTM2BibVar} ":")"
 		if [ "${iTM2BibVar}" == "${iTM2BibVar1}:" ]
 		then
 #			echo "this is a directory"
@@ -161,6 +171,6 @@ LaTeX bibliography ${iTM2BibVar%.*}.bbl not updated: Please compile first"
 done
 if [ "${iTM2_Bibliography_RunSilently:-1}" == "0" ]
 then
-        "$iTM2_CMD_Notify" comment "`basename "$0"` complete"
+        "${iTM2_CMD_Notify}" notify comment "$(basename "$0") complete"
 fi
 exit $status

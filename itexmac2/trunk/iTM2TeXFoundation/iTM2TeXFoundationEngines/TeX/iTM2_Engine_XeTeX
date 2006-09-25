@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Engine_XeTeX for iTeXMac2 2.0
 # © 2006 jlaurens@users.sourceforge.net
 # This is a XeTeX 3.14159-2.1-0.88 (Web2C 7.5.2) wrapper
@@ -48,27 +48,27 @@ Usage: $(basename "$0") with environment variables
 	iTM2_XeTeX_interaction: batchmode/nonstopmode/scrollmode/errorstopmode, set interaction mode
 	iTM2_XeTeX_kpathsea_debug:
 	iTM2_XeTeX_MoreArgument: more arguments"
-"$iTM2_CMD_Notify" echo "$iTM2_USAGE"
+"${iTM2_CMD_Notify}" notify echo "$iTM2_USAGE"
 }
-"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_XeTeX_Engine_Version}
+"${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_XeTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the XeTeX engine
 © 2006 jlaurens@users.sourceforge.net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" start comment
-	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
 	for iTM2VAR in ${!iTM2_XeTeX_*}
 	do
 		echo "${iTM2VAR} is: ${!iTM2VAR}"
 	done
-	"$iTM2_CMD_Notify" stop comment
+	"${iTM2_CMD_Notify}" notify stop comment
 fi
 
 iTM2_XeTeX_Engine="xetex"
 iTM2_XeTeX_EnginePath="$(which "${iTM2_XeTeX_Engine}")"
 if ! [ -x "${iTM2_XeTeX_EnginePath}" ]
 then
-	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_XeTeX_Engine}."
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_XeTeX_Engine}."
 	iTM2TeXEngineUsage
 	exit 1
 fi
@@ -159,7 +159,7 @@ then
 fi
 if [ "${iTM2_XeTeX_kpathsea_debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" error "-kpathsea-debug no yet supported."
+	"${iTM2_CMD_Notify}" notify error "-kpathsea-debug no yet supported."
 fi
 if [ ${#iTM2_XeTeX_interaction} -gt 0 ]
 then
@@ -182,11 +182,11 @@ then
 fi
 if ! [ -r "${TWSMaster}" ]
 then
-	"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster} (in $(pwd))."
+	"${iTM2_CMD_Notify}" notify error "No readable file at ${TWSMaster} (in $(pwd))."
 	iTM2TeXEngineUsage
 	exit 2
 fi
-"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
+"${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
 if [ "${iTM2_XeTeX_USE_jobname:-0}" != "0" ] && [ ${#iTM2_XeTeX_jobname} -ne 0 ]
 then
 	iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -jobname \"${iTM2_XeTeX_jobname}\""
@@ -194,51 +194,21 @@ then
 else
 	OUTPUT="${TWSMasterBase%.*}"
 fi
-# working directory?
-if [ ${#TWSProject} -gt 0 ]
-then
-	iTM2_PWD="$(dirname "${TWSProject}")"
-	iTM2_PWD_Real="${iTM2_PWD##*Projects.put_aside}"
-	iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
-	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
-	then
-		iTM2_PWD_Real="$(dirname "${TWSMaster}")"
-		if [ ${#TEXINPUTS} -gt 0 ]
-		then
-			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
-		else
-			export TEXINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#MPINPUTS} -gt 0 ]
-		then
-			export MPINPUTS=".:${iTM2_PWD_Real}:${MPINPUTS}:"
-		else
-			export MPINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
-		then
-			ln -sf "{TWSMaster}" "${iTM2_PWD}"
-		fi
-	fi
-else
-	iTM2_PWD_Real="$(dirname "${TWSMaster}")"
-	iTM2_PWD="${iTM2_PWD_Real}"
-fi
 pushd "${iTM2_PWD}"
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_XeTeX_EnginePath} ${iTM2_XeTeX_Arguments} \"${TWSMasterBase}\""
+"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_XeTeX_EnginePath} ${iTM2_XeTeX_Arguments} \"${TWSMasterBase}\""
 "${iTM2_XeTeX_EnginePath}" ${iTM2_XeTeX_Arguments} "${TWSMasterBase}"
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
 #	popd// bug in xetex
-	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
-	"$iTM2_CMD_Notify" error "WARNING: this might be a xetex bug, if there is no error"
+	"${iTM2_CMD_Notify}" notify error "$0 FAILED(${iTM2_Status})."
+	"${iTM2_CMD_Notify}" notify error "WARNING: this might be a xetex bug, if there is no error"
 #	exit ${iTM2_Status}
 fi
 OUTPUT="${OUTPUT%.*}.log"
 if [ -s "${OUTPUT}" ]
 then	
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
+	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
 fi
 OUTPUT="${OUTPUT%.*}.pdf"
 if [ -s "${OUTPUT}" ]
@@ -247,13 +217,13 @@ then
 	then
 		mv -f "${OUTPUT}" "${iTM2_PWD_Real}"
 	fi
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 else
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 fi
 if [ "${iTM2_Debug}" != "0" ]
 then
-	"$iTM2_CMD_Notify" comment "$0 complete."
+	"${iTM2_CMD_Notify}" notify comment "$0 complete."
 fi
 popd
 exit ${iTM2_Status}

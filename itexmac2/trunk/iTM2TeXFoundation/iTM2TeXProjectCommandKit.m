@@ -2611,6 +2611,7 @@ To Do List: to be improved...
 	NSString * commandName = [self commandName];
     if(project)
 	{
+		iTM2TaskController * TC = [project taskController];
 #warning DEBUGGGGG: add a SUD default here, related to hidden and silent from the terminal window
 		[project takeContextValue:commandName forKey:@"iTM2TeXProjectLastCommandName"];
 		[project showTerminalInBackGroundIfNeeded:self];
@@ -2650,13 +2651,22 @@ To Do List: to be improved...
         [TW setCurrentDirectoryPath:(currentDirectory?:@"")];
 		if([project wasNotModified])
 		{
-			[TW setEnvironmentString:@"1" forKey:@"iTM2_XLR8"];// iTM2_Launch can use whatever he has cached
+			[TW setEnvironmentString:@"1" forKey:@"iTM2_XLR8"];// iTM2_Launch can use whatever he has cached, NYI
 		}
 		else
 		{
 			[project setWasNotModified:YES];// iTM2_Launch will be able to use whatever he has cached only next time
 		}
-		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
+		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Gobble"] forKey:@"iTM2_CMD_Gobble"];
+		if([TC isMute])
+		{
+			[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Gobble"] forKey:@"iTM2_CMD_Notify"];
+		}
+		else
+		{
+			[TW setEnvironmentString:iTeXMac2 forKey:@"iTM2_CMD_Notify"];
+		}
+//		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
         [TW addArgument:commandName];
 		[TW setEnvironmentString:[NSString farawayProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
 		[TW prependPATHComponent:[project getTeXMFBinariesPath]];
@@ -2670,7 +2680,7 @@ To Do List: to be improved...
 					interruptCallback: NULL
 						userInfo: [[NSDictionary dictionaryWithObject:[NSValue valueWithNonretainedObject:project] forKey:@"ProjectRef"] retain]];
         [project smartShowTerminal:self];
-        [[project taskController] restartWithTaskWrapper:TW];
+        [TC restartWithTaskWrapper:TW];
     }
     else
     {

@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Engine_PDFTeX for iTeXMac2 2.0
 # © 2006 jlaurens AT users DOT sourceforge DOT net
 # This is a pdfeTeX 3.141592-1.20a-2.2 (Web2C 7.5.3) wrapper
@@ -53,26 +53,26 @@ Usage: $(basename "$0") with environment variables
 	iTM2_PDFTeX_MoreArgument: more arguments"
 	echo "$iTM2_Usage"
 }
-"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
+"${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the pdftex engine at
 $(which pdftex)
 © 2006 jlaurens@users.sourceforge.net"
 if [ "${iTM2_Debug}" != "0" ]
 then
-	"$iTM2_CMD_Notify" start comment
-	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
 	for iTM2VAR in ${!iTM2_PDFTeX_*}
 	do
-		"$iTM2_CMD_Notify" echo "${iTM2VAR} is: ${!iTM2VAR}"
+		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
 	done
-	"$iTM2_CMD_Notify" stop comment
+	"${iTM2_CMD_Notify}" notify stop comment
 fi
 # the engine part
 iTM2_PDFTeX_Engine="pdftex"
 iTM2_PDFTeX_EnginePath="$(which "${iTM2_PDFTeX_Engine}")"
 if ! [ -x "${iTM2_PDFTeX_EnginePath}" ]
 then
-	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_PDFTeX_Engine}."
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_PDFTeX_Engine}."
 	iTM2PDFTeXEngineUsage
 	exit 1
 fi
@@ -179,7 +179,7 @@ else
 		iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -output-format pdf"
 		if [ "${iTM2_PDFTeX_PDFSYNC:-0}" != "0" ]
 		then
-			"$iTM2_CMD_Notify" error "PDFSYNC no yet supported"
+			"${iTM2_CMD_Notify}" notify error "PDFSYNC no yet supported"
 		fi
 	fi
 fi
@@ -264,7 +264,7 @@ then
 fi
 if [ "${iTM2_PDFTeX_kpathsea_debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" error "-kpathsea-debug no yet supported."
+	"${iTM2_CMD_Notify}" notify error "-kpathsea-debug no yet supported."
 fi
 if [ "${iTM2_PDFTeX_interaction:-0}" != "0" ] && [ "${iTM2_ContinuousCompile:-0}" == "0" ]
 then
@@ -275,8 +275,9 @@ then
 	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} ${iTM2_PDFTeX_MoreArgument}"
 fi
 # the file name part
-EXTENSION="$(basename ${TWSMaster})"
-EXTENSION="${EXTENSION##*.}"
+TWSMasterBase="$(basename "${TWSMaster}")"
+iTeXMac2 notify warning "EXISTS? $(kpsewhich "${TWSMasterBase}")"
+EXTENSION="${TWSMasterBase##*.}"
 if [ ${#EXTENSION} -ne 0 ]
 then
 	EXTENSION="$(echo "${EXTENSION}" | tr [:upper:] [:lower:])"
@@ -287,12 +288,11 @@ then
 fi
 if ! [ -r "${TWSMaster}" ]
 then
-	"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster} (in $(pwd))."
+	"${iTM2_CMD_Notify}" notify error "No readable file at ${TWSMaster} (in $(pwd))."
 	iTM2PDFTeXEngineUsage
 	exit 2
 fi
-"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
-TWSMasterBase="$(basename "${TWSMaster}")"
+"${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
 if [ "${iTM2_PDFTeX_USE_jobname:-0}" != "0" ] && [ ${#iTM2_PDFTeX_jobname} -ne 0 ]
 then
 	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -jobname \"${iTM2_PDFTeX_jobname}\""
@@ -300,55 +300,25 @@ then
 else
 	OUTPUT="${TWSMasterBase%.*}"
 fi
-# working directory?
-if [ ${#TWSProject} -gt 0 ]
-then
-	iTM2_PWD="$(dirname "${TWSProject}")"
-	iTM2_PWD_Real="${iTM2_PWD##*Projects.put_aside}"
-	iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
-	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
-	then
-		iTM2_PWD_Real="$(dirname "${TWSMaster}")"
-		if [ ${#TEXINPUTS} -gt 0 ]
-		then
-			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
-		else
-			export TEXINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#MPINPUTS} -gt 0 ]
-		then
-			export MPINPUTS=".:${iTM2_PWD_Real}:${MPINPUTS}:"
-		else
-			export MPINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
-		then
-			ln -sf "{TWSMaster}" "${iTM2_PWD}"
-		fi
-	fi
-else
-	iTM2_PWD_Real="$(dirname "${TWSMaster}")"
-	iTM2_PWD="${iTM2_PWD_Real}"
-fi
 pushd "${iTM2_PWD}"
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
+"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
 "${iTM2_PDFTeX_EnginePath}" ${iTM2_PDFTeX_Arguments} "${TWSMasterBase}"
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
 	popd
-	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	"${iTM2_CMD_Notify}" notify error "$0 FAILED(${iTM2_Status})."
 	exit ${iTM2_Status}
 fi
 if [ "${iTM2_PDFTeX_output_format:-pdf}" == "dvi" ] # no external viewer supported...
 then
-	"$iTM2_CMD_Notify" comment "Swicthing to a dvi to ps filter for ${iTM2_PWD}/${OUTPUT%.*}"
+	"${iTM2_CMD_Notify}" notify comment "Swicthing to a dvi to ps filter for ${iTM2_PWD}/${OUTPUT%.*}"
 	iTM2_Command_Compile --master "${iTM2_PWD}/${OUTPUT%.*}" --switch dvi
 fi
 OUTPUT="${OUTPUT%.*}.log"
 if [ -s "${OUTPUT}" ]
 then	
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
+	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
 fi
 OUTPUT="${OUTPUT%.*}.pdf"
 if [ -s "${OUTPUT}" ]
@@ -357,13 +327,13 @@ then
 	then
 		mv -f "${OUTPUT}" "${iTM2_PWD_Real}"
 	fi
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 else
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 fi
 if [ "${iTM2_Debug}" != "0" ]
 then
-	"$iTM2_CMD_Notify" comment "$0 complete."
+	"${iTM2_CMD_Notify}" notify comment "$0 complete."
 fi
 popd
 exit 0

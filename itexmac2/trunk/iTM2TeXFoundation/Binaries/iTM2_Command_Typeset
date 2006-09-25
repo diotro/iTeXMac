@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Command_Typeset for iTeXMac2 1.4
 # © 2004 jlaurens AT users.sourceforge.net
 iTM2_Typeset_version="1.0"
@@ -16,54 +16,48 @@ while [ $# -gt 0 ]
 do
 	case $1 in
 		-h|--help)
-			"$iTM2_CMD_Notify" comment "$iTM2_Typeset_USAGE"
+			"${iTM2_CMD_Notify}" notify comment "$iTM2_Typeset_USAGE"
 		;;
 		-i|--input)
                         shift 1
                         if [ $# -gt 0 ]
                         then
-                                iTM2_Typeset_Input="$1"
+                                TWSMaster="$1"
                         else
-								"$iTM2_CMD_Notify" comment "$iTM2_Typeset_USAGE"
+								"${iTM2_CMD_Notify}" notify comment "$iTM2_Typeset_USAGE"
                         fi
 		;;
 		-q|--quiet)
 			iTM2_Typeset_RunSilently="YES"
 		;;
 		*)
-			"$iTM2_CMD_Notify" warning "$iTM2_Typeset_USAGE"
+			"${iTM2_CMD_Notify}" notify warning "$iTM2_Typeset_USAGE"
 	esac
 	shift 1
 done
 if [ "${iTM2_Typeset_RunSilently:-0}" = "0" ]
 then
-        "$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_Typeset_version}
+        "${iTM2_CMD_Notify}" notify comment "Welcome to `basename "$0"` version ${iTM2_Typeset_version}
 This is iTeXMac2 built in script to typeset
 © 2005 jlaurens AT users.sourceforge.net"
 fi
 if [ "${iTM2_IS_TYPESETTING:-0}" != "0" ]
 then
-    "$iTM2_CMD_Notify" error "Recursive call forbidden (`basename "$0"`)"
+    "${iTM2_CMD_Notify}" notify error "Recursive call forbidden (`basename "$0"`)"
     exit 1
 else
     export iTM2_IS_TYPESETTING=1
 fi
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" start comment
-	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
 	for iTM2VAR in ${!iTM2_Typeset*}
 	do
 		echo "${iTM2VAR} is: ${!iTM2VAR}"
 	done
-	"$iTM2_CMD_Notify" stop comment
+	"${iTM2_CMD_Notify}" notify stop comment
 fi
-if [ ${#iTM2_Typeset_Input} -eq 0 ]
-then
-    iTM2_Typeset_Input="${TWSMaster}"
-fi
-iTM2_Old_Input="${TWSMaster}"
-TWSMaster="${iTM2_Typeset_Input}"
 case "${iTM2_Typeset_Mode}" in
     plain)
         iTM2_Command_Compile
@@ -81,7 +75,7 @@ case "${iTM2_Typeset_Mode}" in
         iTM2_Command_Compile
     ;;
     latex-complete)
-        "$iTM2_CMD_Notify" warning "THE COMPLETE LATEX MODE IS NOT YET IMPLEMENTED, BOOK MODE USED INSTEAD"
+        "${iTM2_CMD_Notify}" notify warning "THE COMPLETE LATEX MODE IS NOT YET IMPLEMENTED, BOOK MODE USED INSTEAD"
         iTM2_Command_Compile
         iTM2_Command_Bibliography
         iTM2_Command_Index
@@ -90,15 +84,14 @@ case "${iTM2_Typeset_Mode}" in
         iTM2_Command_Compile
     ;;
     *)
-        "$iTM2_CMD_Notify" warning "Unknown mode: ${iTM2_Typeset_Mode}"
+        "${iTM2_CMD_Notify}" notify warning "Unknown mode: ${iTM2_Typeset_Mode}"
         iTM2_Command_Compile
     ;;
 esac
 status=$?
-TWSMaster="${iTM2_Old_Input}"
 #conclusion?
 if [ "${iTM2_Typeset_RunSilently:-0}" == "0" ]
 then
-        "$iTM2_CMD_Notify" comment "`basename "$0"` complete"
+        "${iTM2_CMD_Notify}" notify comment "`basename "$0"` complete"
 fi
 exit $status

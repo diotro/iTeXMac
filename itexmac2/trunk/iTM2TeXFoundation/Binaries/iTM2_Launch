@@ -1,4 +1,4 @@
-#!/bin/bash -f
+#!/usr/bin/env bash
 # Note that this seems to be bash since 10.2.6
 # this is iTM2_Launch for iTeXMac2 1.0
 # © 2006 jlaurens AT users.sourceforge.net
@@ -12,7 +12,7 @@
 # long names and spaces problems are solved here.
 #
 #iTM2_CMD_Notify comment "iTM2: STARTING $0"
-date "+START - DATE: %m/%d/%y%nTIME: %H:%M:%S"
+"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify echo "$(date "+START - DATE: %m/%d/%y - TIME: %H:%M:%S")"
 iTM2_LAUNCH_VERSION=1
 if ! [ -w "${iTM2_Device}" ]
 then
@@ -20,7 +20,6 @@ then
 fi
 iTM2Command="$1"
 # Sanity check: TWSMaster must be a readable file, no condition on TWSFront, TWSProject, TWSWrapper
-
 iTM2BinaryPATH=""
 if [ -d "${TWSProject}" ]
 then
@@ -28,7 +27,7 @@ then
 	iTM2BinaryPATH="$(basename "${TWSProject}")/.iTM2"
 	if [ ! -w "${TWSProject}" ]
 	then
-		"${iTM2_CMD_Notify}" error "Project MUST BE writable (${TWSProject})"
+		"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify error "Project MUST BE writable (${TWSProject})"
 		exit -1
 	fi
 	if [ "${iTM2_XLR8:-0}" == "0" ] || [ ! -d "${iTM2BinaryPATH}" ]
@@ -45,39 +44,17 @@ then
 		chmod -R a+rwx "${iTM2BinaryPATH}"
 	fi
 else
-    "${iTM2_CMD_Notify}" warning "Undefined project in $0, using the invisible folder named ${TWSMaster}/.iTM2"
+    "${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify warning "Undefined project in $0, using the invisible folder named ${TWSMaster}/.iTM2"
 	TWSProject=""# project is neutralized
 	iTM2BinaryPATH=".iTM2"
 	rm -Rf "${iTM2BinaryPATH}"
 	mkdir "${iTM2BinaryPATH}"
 	chmod -R u+rwx "${iTM2BinaryPATH}"
 fi
-#date "+MIDDLE - DATE(4): %m/%d/%y%nTIME: %H:%M:%S"
-iTM2Cached="${iTM2BinaryPATH}/${iTM2Command}-cached"
-if [ "${iTM2_XLR8:-0}" != "0" ] && [ 0 -eq 1 ]
-then
-	"${iTM2_CMD_Notify}" echo "<second time/>"
-#date "+SECOND - DATE: %m/%d/%y%nTIME: %H:%M:%S"
-	if [ -x "${iTM2Cached}" ]
-	then
-		"${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
-		eval "${iTM2Cached}"
-		"${iTM2_CMD_Notify}" echo "<That's all/>"
-		exit 0
-	else
-		"${iTM2_CMD_Notify}" echo "Nothing cached"
-	fi
-else
-	"${iTM2_CMD_Notify}" echo "<first time/>"
-#date "+FIRST - DATE: %m/%d/%y%nTIME: %H:%M:%S"
-fi
-#date "+MIDDLE - DATE(3.1): %m/%d/%y%nTIME: %H:%M:%S"
-"${iTM2_CMD_Notify}" echo "<iTM2TaskStarted/>"
-#date "+MIDDLE - DATE(3.0): %m/%d/%y%nTIME: %H:%M:%S"
 iTM2SHORT="0"
 iTM2Link ()
 {
-	iTM2_TARGET="${iTM2BinaryPATH}/$iTM2SHORT"
+	local iTM2_TARGET="${iTM2BinaryPATH}/$iTM2SHORT"
     rm -Rf "${iTM2_TARGET}"
     if ( [ -d "$1" ] ) && ( [ -d "$1/bin" ] )
     then
@@ -86,34 +63,8 @@ iTM2Link ()
 		iTM2SHORT=$(expr ${iTM2SHORT} + 1)
     fi
 }
-#date "+MIDDLE - DATE(2): %m/%d/%y%nTIME: %H:%M:%S"
-"${iTM2_CMD_Notify}" comment "Welcome to iTeXMac2 launch utility version ${iTM2_LAUNCH_VERSION}"
-date "+MIDDLE - DATE(1): %m/%d/%y%nTIME: %H:%M:%S"
-if [ ${#TWSMaster} -eq 0 ]
-then
-    "${iTM2_CMD_Notify}" error "Undefined TWSMaster in $0
-You MUST specify a master document, from the project settings panel
-Here are the environment variables
-$(printenv)
-Are they what was expected?"
-    exit 1
-fi
-# the specific environment: (this is time consuming when debugging)
-date "+MIDDLE - DATE(0): %m/%d/%y%nTIME: %H:%M:%S"
-if [ "${iTM2_Debug:-0}" != "0" ]
-then
-	"${iTM2_CMD_Notify}" start comment
-    "${iTM2_CMD_Notify}" echo "The $0 specific environment is:"
-	for iTM2VAR in ${!iTM2*}
-	do
-		"${iTM2_CMD_Notify}" echo "${iTM2VAR} is: ${!iTM2VAR}"
-	done
-	"${iTM2_CMD_Notify}" stop comment
-fi
-date "+MIDDLE - DATE: %m/%d/%y%nTIME: %H:%M:%S"
 # the binary path:
 iTM2PREFIX=".:${iTM2BinaryPATH}"
-iTM2SHORT="0"
 iTM2Link "${iTM2_HOME}/Library/TeX"
 iTM2Link "${iTM2_HOME}/Library/Application Support/iTeXMac2"
 if [ ${#iTM2_TemporaryDirectory} -gt 0 ]
@@ -136,7 +87,45 @@ then
 fi
 if [ "${iTM2_Debug}" != "0" ]
 then
-	"${iTM2_CMD_Notify}" comment "PATH is {$PATH}"
+	"${iTM2_CMD_Notify}" notify comment "PATH is {$PATH}"
+fi
+iTM2Cached="${iTM2BinaryPATH}/${iTM2Command}-cached"
+if [ "${iTM2_XLR8:-0}" != "0" ] && [ 0 -eq 1 ]
+then
+	"${iTM2_CMD_Notify}" notify echo "<second time/>"
+	if [ -x "${iTM2Cached}" ]
+	then
+		"${iTM2_CMD_Notify}" notify echo "<iTM2TaskStarted/>"
+		eval "${iTM2Cached}"
+		"${iTM2_CMD_Notify}" notify echo "<That's all/>"
+		exit 0
+	else
+		"${iTM2_CMD_Notify}" notify echo "Nothing cached"
+	fi
+else
+	"${iTM2_CMD_Notify}" notify echo "<first time/>"
+fi
+"${iTM2_CMD_Notify}" notify echo "<iTM2TaskStarted/>"
+"${iTM2_CMD_Notify}" notify comment "Welcome to iTeXMac2 launch utility version ${iTM2_LAUNCH_VERSION}"
+if [ ${#TWSMaster} -eq 0 ]
+then
+    "${iTM2_CMD_Notify}" notify error "Undefined TWSMaster in $0
+You MUST specify a master document, from the project settings panel
+Here are the environment variables
+$(printenv)
+Are they what was expected?"
+    exit 1
+fi
+# the specific environment: (this is time consuming when debugging)
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"${iTM2_CMD_Notify}" notify start comment
+    "${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
+	for iTM2VAR in ${!iTM2*}
+	do
+		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
+	done
+	"${iTM2_CMD_Notify}" notify stop comment
 fi
 # Then, let us transform scripts stored into environment variables into real shell scripts.
 for iTM2SCRIPT in ${!iTM2_ShellScript_*}
@@ -147,22 +136,65 @@ do
 	eval "${iTM2SCRIPT}=\"customized\""
 	if [ "${iTM2_Debug}" != "0" ]
 	then
-		"${iTM2_CMD_Notify}" comment "customized script ${iTM2SCRIPT}: {$(which ${iTM2NAME})}"
+		"${iTM2_CMD_Notify}" notify comment "customized script ${iTM2SCRIPT}: {$(which ${iTM2NAME})}"
 	fi
 done
 if [ "${iTM2_Debug}" != "0" ]
 then
-	"${iTM2_CMD_Notify}" comment "The environment is:
+	"${iTM2_CMD_Notify}" notify comment "The environment is:
 $(printenv)
 The binaries are (${iTM2BinaryPATH}):
 $(ls -al "${iTM2BinaryPATH}")"
 fi
-#"${iTM2_CMD_Notify}" comment "##### DIAGNOSTIC"
-#printenv
-#which ls
-#which iTeXMac2
-#which iTM2_Launch
-#"${iTM2_CMD_Notify}" comment "##### DIAGNOSTIC"
+# working directory?
+if [ ${#TWSProject} -gt 0 ]
+then
+	export iTM2_PWD="$(dirname "${TWSProject}")"
+	iTM2_PWD_Real="${iTM2_PWD##*Projects.put_aside}"
+	export iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
+	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
+	then
+		export iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+		if [ ${#TEXINPUTS} -gt 0 ]
+		then
+			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
+		else
+			export TEXINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#MPINPUTS} -gt 0 ]
+		then
+			export MPINPUTS=".:${iTM2_PWD_Real}:${MPINPUTS}:"
+		else
+			export MPINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#MFINPUTS} -gt 0 ]
+		then
+			export MFINPUTS=".:${iTM2_PWD_Real}:${MFINPUTS}:"
+		else
+			export MFINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#BIBINPUTS} -gt 0 ]
+		then
+			export BIBINPUTS=".:${iTM2_PWD_Real}:${BIBINPUTS}:"
+		else
+			export BIBINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#BSTINPUTS} -gt 0 ]
+		then
+			export BSTINPUTS=".:${iTM2_PWD_Real}:${BSTINPUTS}:"
+		else
+			export BSTINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
+		then
+			ln -sf "{TWSMaster}" "${iTM2_PWD}"
+		fi
+	fi
+else
+	export iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+	export iTM2_PWD="${iTM2_PWD_Real}"
+fi
+#"${iTM2_CMD_Notify}" notify comment "##### DIAGNOSTIC"
 if [ $# -gt 0 ]
 then
     iTM2IndirectCommand="iTM2_${iTM2Command}"
@@ -198,7 +230,7 @@ then
 	then
 		if [ "${iTM2_RunSilently:-0}" == "0" ]
 		then
-				"${iTM2_CMD_Notify}" comment "running ${iTM2Command} (${iTM2WrappedCommand})"
+				"${iTM2_CMD_Notify}" notify comment "running ${iTM2Command} (${iTM2WrappedCommand})"
 		fi
 		echo "\"${iTM2CommandPath}\"" > "${iTM2Cached}"
 		chmod u+x "${iTM2Cached}"
@@ -206,34 +238,37 @@ then
 		status=$?
 	else
 		IFS="${oldIFS}"
-		"${iTM2_CMD_Notify}" start error
-		"${iTM2_CMD_Notify}" echo "No \"${iTM2Command}\" command is available neither built in nor customized"
-		"${iTM2_CMD_Notify}" echo "iTM2Command is \"${iTM2Command}\""
-		"${iTM2_CMD_Notify}" echo "iTM2IndirectCommand is \"${iTM2IndirectCommand}\""
-		"${iTM2_CMD_Notify}" echo "iTM2WrappedCommand is \"${iTM2WrappedCommand}\""
-		"${iTM2_CMD_Notify}" stop error
+		"${iTM2_CMD_Notify}" notify start error
+		"${iTM2_CMD_Notify}" notify echo "No \"${iTM2Command}\" command is available neither built in nor customized"
+		"${iTM2_CMD_Notify}" notify echo "iTM2Command is \"${iTM2Command}\""
+		"${iTM2_CMD_Notify}" notify echo "iTM2IndirectCommand is \"${iTM2IndirectCommand}\""
+		"${iTM2_CMD_Notify}" notify echo "iTM2WrappedCommand is \"${iTM2WrappedCommand}\""
+		"${iTM2_CMD_Notify}" notify stop error
 		status=1
 		if [ "${iTM2_RunSilently:-0}" != "0" ]
 		then
-				"${iTM2_CMD_Notify}" error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
+				"${iTM2_CMD_Notify}" notify error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
 		fi
+		iTeXMac2 notify echo "$(date "+END - DATE: %m/%d/%y - TIME: %H:%M:%S")"
 		exit $iTM2_Status
 	fi
-date "+END - DATE: %m/%d/%y%nTIME: %H:%M:%S"
     if [ "${iTM2_Status}" == "0" ]
     then
         if [ "${iTM2_RunSilently:-0}" != "0" ]
         then
-                "${iTM2_CMD_Notify}" comment "the launch utility ends with $(basename "$1") Complete"
+                "${iTM2_CMD_Notify}" notify comment "the launch utility ends with $(basename "$1") Complete"
         fi
+		iTeXMac2 notify echo "$(date "+END - DATE: %m/%d/%y - TIME: %H:%M:%S")"
         exit 0
     else
         if [ "${iTM2_RunSilently:-0}" != "0" ]
         then
-                "${iTM2_CMD_Notify}" error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
+                "${iTM2_CMD_Notify}" notify error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
         fi
+		iTeXMac2 notify echo "$(date "+END - DATE: %m/%d/%y - TIME: %H:%M:%S")"
         exit $iTM2_Status
     fi
 else
+	iTeXMac2 notify echo "$(date "+END - DATE: %m/%d/%y - TIME: %H:%M:%S")"
 	exit 2
 fi

@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Special for iTeXMac2 1.4
 # © 2004 jlaurens@users.sourceforge.net
 iTM2_Special_version="1.0"
@@ -14,9 +14,9 @@ iTM2_SPECIAL_USAGE="Welcome to `basename "$0"` version $iTM2_Special_version
 This is iTeXMac2 built in script to special
 Unfortunately I do not know how to special: override the default behaviour
 © 2005 jlaurens@users.sourceforge.net"
-"$iTM2_CMD_Notify" comment "$iTM2_SPECIAL_USAGE"
+"${iTM2_CMD_Notify}" notify comment "$iTM2_SPECIAL_USAGE"
 if [ "${iTM2_Special_RunSilently:-1}" -eq 0 ]
 then
-        "$iTM2_CMD_Notify" comment "`basename "$0"` complete"
+        "${iTM2_CMD_Notify}" notify comment "`basename "$0"` complete"
 fi
 exit

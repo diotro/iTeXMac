@@ -524,10 +524,9 @@
 		<string>DC469CC80AC6043500F0CA29</string>
 		<string>DC469CC90AC6043500F0CA29</string>
 		<string>DCBEC51C088DD36400F8BF85</string>
-		<string>DC469C700AC6015800F0CA29</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj</string>
 		<string>DC8A64A8088DBEB50016FAA2</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DC469C700AC6015800F0CA29</string>
 	</array>
 	<key>WindowString</key>
 	<string>448 141 1030 737 0 0 1440 878 </string>
@@ -622,7 +621,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC8A64A8088DBEB50016FAA2</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -733,7 +732,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

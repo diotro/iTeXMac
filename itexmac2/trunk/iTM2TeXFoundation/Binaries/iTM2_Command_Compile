@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # this is iTM2_Command_Compile for iTeXMac2
 # © 2006 jlaurens@users.sourceforge.net
 iTM2_Compile_version="1.0"
@@ -17,17 +17,17 @@ while [ $# -gt 0 ]
 do
 	case $1 in
 		-h|--help)
-			"${iTM2_CMD_Notify}" echo "${iTM2_COMPILE_USAGE}"
+			"${iTM2_CMD_Notify}" notify echo "${iTM2_COMPILE_USAGE}"
 			exit
 		;;
 		-m|--master)
                         shift 1
                         if [ $# -gt 0 ]
                         then
-							iTM2_Compile_Master="$1"
+							TWSMaster="$1"
                         else
-							"${iTM2_CMD_Notify}" echo "Missing a master document"
-							"${iTM2_CMD_Notify}" echo "${iTM2_COMPILE_USAGE}"
+							"${iTM2_CMD_Notify}" notify echo "Missing a master document"
+							"${iTM2_CMD_Notify}" notify echo "${iTM2_COMPILE_USAGE}"
 							exit 1
                         fi
 		;;
@@ -37,8 +37,8 @@ do
                         then
 							iTM2_Compile_Switch="$1"
                         else
-							"${iTM2_CMD_Notify}" echo "Missing a switcher document"
-							"${iTM2_CMD_Notify}" echo "${iTM2_COMPILE_USAGE}"
+							"${iTM2_CMD_Notify}" notify echo "Missing a switcher document"
+							"${iTM2_CMD_Notify}" notify echo "${iTM2_COMPILE_USAGE}"
 							exit 2
                         fi
 		;;
@@ -46,23 +46,18 @@ do
 			iTM2_Compile_RunSilently="YES"
 		;;
 		*)
-            "${iTM2_CMD_Notify}" echo "Unknown option..."
-			"${iTM2_CMD_Notify}" echo "${iTM2_COMPILE_USAGE}"
+            "${iTM2_CMD_Notify}" notify echo "Unknown option..."
+			"${iTM2_CMD_Notify}" notify echo "${iTM2_COMPILE_USAGE}"
 			exit 3
 	esac
 	shift 1
 done
 if [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
 then
-        "${iTM2_CMD_Notify}" echo "Welcome to iTeXMac2 compile switcher $(basename "$0") version ${iTM2_Compile_version}
+        "${iTM2_CMD_Notify}" notify echo "Welcome to iTeXMac2 compile switcher $(basename "$0") version ${iTM2_Compile_version}
 This is the built in shell script to compile
 © 2006 jlaurens@users.sourceforge.net
 compiling TWSMaster (${TWSMaster})"
-fi
-if [ ${#iTM2_Compile_Master} -gt 0 ]
-then
-	iTM2_Old_Master="${TWSMaster}"
-	TWSMaster="${iTM2_Compile_Master}"
 fi
 iTM2_Compile_INPUT="$(basename "${TWSMaster}")"
 iTM2_Compile_Extension="$(echo "${iTM2_Compile_INPUT##*.}" | tr [:upper:] [:lower:])"
@@ -71,7 +66,7 @@ then
 	iTM2_Compile_Extension="${iTM2_Compile_Switch}"
 	if [ ${#iTM2_Compile_Extension} -eq 0 ]
 	then
-		"${iTM2_CMD_Notify}" error  "Missing a master file name with an extension, or an extension switcher...
+		"${iTM2_CMD_Notify}" notify error  "Missing a master file name with an extension, or an extension switcher...
 Did you give your project a master file?
 ${iTM2_COMPILE_USAGE}"
 		exit 5
@@ -84,9 +79,9 @@ iTM2_Compile_EnginePath="$(which "${iTM2_Compile_Wrapped}")"
 # the iTM2_Compile_EnginePath now contains the full path of the command to launch, or something weird if there is no command
 if [ ! -x "${iTM2_Compile_EnginePath}" ]
 then
-	"${iTM2_CMD_Notify}" echo "pwd is $(pwd)"
-	"${iTM2_CMD_Notify}" echo "PATH is ${PATH}"
-	"${iTM2_CMD_Notify}" echo "Looking for \"${iTM2_Compile_Wrapped}\" (from ${iTM2_Compile_Engine})"
+	"${iTM2_CMD_Notify}" notify echo "pwd is $(pwd)"
+	"${iTM2_CMD_Notify}" notify echo "PATH is ${PATH}"
+	"${iTM2_CMD_Notify}" notify echo "Looking for \"${iTM2_Compile_Wrapped}\" (from ${iTM2_Compile_Engine})"
 	oldIFS="$IFS"
 	IFS=":"
 	# there were an error concerning a missing 'x' flag
@@ -95,13 +90,13 @@ then
 		if [ ${#COMPONENT} -gt 0 ]
 		then
 			iTM2_Compile_EnginePath="${COMPONENT}/${iTM2_Compile_Wrapped}"
-"${iTM2_CMD_Notify}" echo "Testing ${iTM2_Compile_EnginePath}"
+"${iTM2_CMD_Notify}" notify echo "Testing ${iTM2_Compile_EnginePath}"
 			if [ -x "${iTM2_Compile_EnginePath}" ] && ! [ -d "${iTM2_Compile_EnginePath}" ]
 			then
 				break
 			elif [ -e "${iTM2_Compile_EnginePath}" ]
 			then
-				"${iTM2_CMD_Notify}" error "${iTM2_Compile_EnginePath} should really be executable, report BUG!"
+				"${iTM2_CMD_Notify}" notify error "${iTM2_Compile_EnginePath} should really be executable, report BUG!"
 				exit 1
 			else
 				iTM2_Compile_EnginePath=""
@@ -114,36 +109,32 @@ if [ -x "${iTM2_Compile_EnginePath}" ]
 then
         if [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
         then
-			"${iTM2_CMD_Notify}" echo "switching to ${iTM2_Compile_EnginePath}"
+			"${iTM2_CMD_Notify}" notify echo "switching to ${iTM2_Compile_EnginePath}"
         fi
         "${iTM2_Compile_EnginePath}"
 		iTM2_Status=$?
-		if [ ${#iTM2_Old_Master} -gt 0 ]
-		then
-			TWSMaster="${iTM2_Old_Master}"
-		fi
 		if [ "${iTM2_Status}" != "0" ]
 		then
-				"${iTM2_CMD_Notify}" error "The built in compile switcher ends with $(basename "$0") FAILED(${iTM2_Status})"
+				"${iTM2_CMD_Notify}" notify error "The built in compile switcher ends with $(basename "$0") FAILED(${iTM2_Status})"
 				exit ${iTM2_Status}
 		elif [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
 		then
-				"${iTM2_CMD_Notify}" echo "The built in compile switcher ends with $(basename "$0") complete"
+				"${iTM2_CMD_Notify}" notify echo "The built in compile switcher ends with $(basename "$0") complete"
 				exit 0
 		fi
 		
 else
-		"${iTM2_CMD_Notify}" error "Could not manage the extension ${iTM2_Compile_Extension}, no switcher found."
-		"${iTM2_CMD_Notify}" error "Go to the project settings panel, select advanced settings and the compile tab view."
-		"${iTM2_CMD_Notify}" error "Select the ${iTM2_Compile_Extension} file extension and choose an appropriate action."
-		"${iTM2_CMD_Notify}" error "For exotic extension (not listed), define your own iTM2_Compile_${iTM2_Compile_Extension} command."
+		"${iTM2_CMD_Notify}" notify error "Could not manage the extension ${iTM2_Compile_Extension}, no switcher found."
+		"${iTM2_CMD_Notify}" notify error "Go to the project settings panel, select advanced settings and the compile tab view."
+		"${iTM2_CMD_Notify}" notify error "Select the ${iTM2_Compile_Extension} file extension and choose an appropriate action."
+		"${iTM2_CMD_Notify}" notify error "For exotic extension (not listed), define your own iTM2_Compile_${iTM2_Compile_Extension} command."
 		oldIFS="$IFS"
 		IFS=":"
 		for COMPONENT in ${PATH}
 		do
 			if [ ${#COMPONENT} -gt 0 ]
 			then
-				"${iTM2_CMD_Notify}" echo "Available files at ${COMPONENT} are"
+				"${iTM2_CMD_Notify}" notify echo "Available files at ${COMPONENT} are"
 				ls -1 "${COMPONENT}"
 			fi
 		done

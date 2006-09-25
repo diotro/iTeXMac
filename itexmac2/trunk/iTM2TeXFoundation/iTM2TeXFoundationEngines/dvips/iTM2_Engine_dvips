@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_dvips wrapper
 # © 2006 jlaurens@users.sourceforge.net
 iTM2_dvips_Engine_Version=1.0
@@ -72,24 +72,24 @@ Usage: $(basename "$0") with environment variables
 	iTM2_dvips_more_arguments: \"\""
 echo "$iTM2_USAGE"
 }
-"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_dvips_Engine_Version}
+"${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_dvips_Engine_Version}
 This is iTeXMac2 built in script to wrap the dvips engine
 © 2006 jlaurens@users.sourceforge.net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" start comment
-	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
 	for iTM2VAR in ${!iTM2_dvips_*}
 	do
-		"$iTM2_CMD_Notify" echo "${iTM2VAR} is: ${!iTM2VAR}"
+		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
 	done
-	"$iTM2_CMD_Notify" stop comment
+	"${iTM2_CMD_Notify}" notify stop comment
 fi
 iTM2_dvips_Engine="dvips"
 iTM2_dvips_EnginePath="$(which "${iTM2_dvips_Engine}")"
 if ! [ -x "${iTM2_dvips_EnginePath}" ]
 then
-	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_dvips_Engine}."
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_dvips_Engine}."
 	iTM2DVIPDFMEngineUsage
 fi
 pushd "$(dirname "${TWSMaster}")"
@@ -100,7 +100,7 @@ then
     iTM2_INPUT="${iTM2_INPUT%.*}.dvi"
     if ! [ -r "${iTM2_INPUT}" ]
     then
-        "$iTM2_CMD_Notify" error "No readable file at ${iTM2_PWD}/${iTM2_INPUT}."
+        "${iTM2_CMD_Notify}" notify error "No readable file at ${iTM2_PWD}/${iTM2_INPUT}."
         iTM2DVIPSMEngineUsage
 		popd
 		exit 1
@@ -356,13 +356,13 @@ if [ "${iTM2_dvips_USE_more_arguments:-0}" != "0" ] && [ ${#iTM2_dvips_more_argu
 then
 	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} ${iTM2_dvips_more_arguments}"
 fi
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} \"${iTM2_INPUT}\""
+"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} \"${iTM2_INPUT}\""
 "${iTM2_dvips_EnginePath}" ${iTM2_dvips_Arguments} "${iTM2_INPUT}"
 iTM2_Status="$?"
 popd
 if [ "${iTM2_Status}" != "0" ]
 then
-	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	"${iTM2_CMD_Notify}" notify error "$0 FAILED(${iTM2_Status})."
 	exit ${iTM2_Status}
 fi
 echo "master is: ${iTM2_PWD}/${OUTPUT%.*}"
@@ -370,10 +370,10 @@ iTM2_Command_Compile --master "${iTM2_PWD}/${OUTPUT%.*}" --switch ps
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
-	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	"${iTM2_CMD_Notify}" notify error "$0 FAILED(${iTM2_Status})."
 	exit ${iTM2_Status}
 elif [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" comment "$0 complete."
+	"${iTM2_CMD_Notify}" notify comment "$0 complete."
 fi
 exit 0

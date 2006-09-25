@@ -187,6 +187,7 @@
 		DCC7F4C80854ACD700F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C70854ACD700F3EB8A /* Carbon.framework */; };
 		DCCD2FDA09E17ED40003EEF9 /* Inspector.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2FD809E17ED40003EEF9 /* Inspector.strings */; };
 		DCD3A6650A38FA0400B5EE0C /* EnvironmentVariables.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCD3A6640A38FA0400B5EE0C /* EnvironmentVariables.plist */; };
+		DCE5C29D0AC7C3E00054C760 /* iTM2_Gobble in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCE5C2990AC7C3C40054C760 /* iTM2_Gobble */; };
 		DCF2E5890952410900EE54E2 /* iTM2Server-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC99EA48088315BD007AF81F /* iTM2Server-main.m */; };
 		DCF2E58C0952411100EE54E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
@@ -277,6 +278,7 @@
 				DC99EA9C0883165E007AF81F /* iTM2_Command_Typeset in Copy Binaries */,
 				DC99EAA30883165E007AF81F /* iTM2_Launch in Copy Binaries */,
 				DC99EAA40883165E007AF81F /* iTM2_Notify in Copy Binaries */,
+				DCE5C29D0AC7C3E00054C760 /* iTM2_Gobble in Copy Binaries */,
 			);
 			name = "Copy Binaries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,6 +446,7 @@
 		DCCD2FD909E17ED40003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCD2FFB09E180760003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCD3A6640A38FA0400B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
+		DCE5C2990AC7C3C40054C760 /* iTM2_Gobble */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Gobble; sourceTree = "<group>"; };
 		DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "iTeXMac2 Server"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -596,6 +599,7 @@
 				DC99EA0D088315BD007AF81F /* iTM2_Command_Typeset */,
 				DC99EA14088315BD007AF81F /* iTM2_Launch */,
 				DC99EA16088315BD007AF81F /* iTM2_Notify */,
+				DCE5C2990AC7C3C40054C760 /* iTM2_Gobble */,
 			);
 			path = Binaries;
 			sourceTree = "<group>";

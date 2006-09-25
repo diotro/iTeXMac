@@ -52,6 +52,12 @@
 				  This panel is only suitable for compile engine.
                 
 */
+
+extern NSString * const TWSShellEnvironmentWrapperKey;
+extern NSString * const TWSShellEnvironmentMasterKey;
+extern NSString * const TWSShellEnvironmentFrontKey;
+extern NSString * const TWSShellEnvironmentProjectKey;
+
 @interface iTM2TeXPCommandsInspector: iTM2Inspector
 @end
 @interface iTM2TeXPXtdCommandsInspector: iTM2TeXPCommandsInspector

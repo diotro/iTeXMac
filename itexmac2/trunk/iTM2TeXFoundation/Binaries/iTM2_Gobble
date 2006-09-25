@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Gobble for iTeXMac2 2.0 and above
 # © 2006 jlaurens@users.sourceforge.net
 # iTM2_Gobble purpose is to do nothing.

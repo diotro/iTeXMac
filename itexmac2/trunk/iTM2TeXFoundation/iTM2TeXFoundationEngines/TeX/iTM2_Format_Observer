@@ -1,4 +1,4 @@
-#!/bin/bash -f
+#!/usr/bin/env bash
 # this is iTM2_Format_Observer for iTeXMac2 2.0
 # © 2004 jlaurens@users.sourceforge.net
 # no doc yet

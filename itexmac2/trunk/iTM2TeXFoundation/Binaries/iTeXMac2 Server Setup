@@ -1,6 +1,6 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Server_Setup for iTeXMac2 2.0
-# © 2005 jlaurens@users.sourceforge.net
+# © 2006 jlaurens@users.sourceforge.net
 # setting the links
 # iTM2_Server_Setup "path to iTeXMac2 server binary" "iTeXMac2" "path to the iTeXMac2.app" "iTeXMac2.app"
 # this is expected to be the very first setup script to perform
@@ -31,7 +31,7 @@ then
     ln -s "${iTM2_SERVER_PATH}" "${iTM2_APPLICATION_NAME}"
     echo "link to ${iTM2_SERVER_PATH} installed"
 else
-    echo "No application server to linck, is it EXPECTED?" >> "$iTM2_LOG.log"
+    echo "No application server to link, is it EXPECTED?" >> "$iTM2_LOG.log"
 fi
 if [ ${#iTM2_APPLICATION_BUNDLE_PATH} -gt 0 ]
 then
@@ -40,15 +40,15 @@ then
     echo "link to ${iTM2_APPLICATION_BUNDLE_PATH} installed" >> "$iTM2_LOG.log"
 fi
 echo "This is $0, ${iTM2_APPLICATION_NAME} should be properly set up
-`ls -l`"
-echo "`pwd`"
+$(ls -l)"
+echo "$(pwd)"
 if [ ${#iTM2_TemporaryDirectory} -eq 0 ]
 then
 	echo "Missing temporary directory"
     exit 1
 fi
 cd "${iTM2_TemporaryDirectory}"
-echo "the temporary directory is: `pwd`"
+echo "the temporary directory is: $(pwd)"
 if [ ${#iTM2_APPLICATION_BUNDLE_PATH} -gt 0 ]
 then
     rm -f "${iTM2_APPLICATION_NAME}.app" >> "$iTM2_LOG.log"
@@ -72,9 +72,9 @@ else
     echo "No server to linck with, is it EXPECTED?" >> "$iTM2_LOG.log"
 fi
 echo "This is $0, ${iTM2_APPLICATION_NAME} should be properly set up
-`ls -l`"
-echo "`pwd`"
-if [ ${iTM2_Debug:-0} -gt 0 ]
+$(ls -l)"
+echo "$(pwd)"
+if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"${iTM2_TemporaryDirectory}/bin/${iTM2_APPLICATION_NAME}" notify -comment "${iTM2_APPLICATION_NAME} should be properly set up"
 fi

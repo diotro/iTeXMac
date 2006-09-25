@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_pstopdf wrapper
 # © 2005 jlaurens@users.sourceforge.net
 iTM2_pstopdf_Engine_Version=1.0
@@ -16,28 +16,28 @@ Usage: $(basename "$0") with environment variables
 	iTM2_pstopdf_progress_message: 1 or 0"
 echo "$iTM2_USAGE"
 }
-"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_pstopdf_Engine_Version}
+"${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_pstopdf_Engine_Version}
 This is iTeXMac2 built in script to wrap the pstopdf engine
 © 2005 jlaurens@users.sourceforge.net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" start comment
-	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
 	for iTM2VAR in ${!iTM2_pstopdf_*}
 	do
-		"$iTM2_CMD_Notify" echo "${iTM2VAR} is: ${!iTM2VAR}"
+		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
 	done
-	"$iTM2_CMD_Notify" stop comment
+	"${iTM2_CMD_Notify}" notify stop comment
 fi
 iTM2_pstopdf_Engine="pstopdf"
 iTM2_pstopdf_EnginePath="$(which "${iTM2_pstopdf_Engine}")"
 if ! [ -x "${iTM2_pstopdf_EnginePath}" ]
 then
-	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_pstopdf_Engine}."
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_pstopdf_Engine}."
 	iTM2DVIPDFMEngineUsage
 	exit 1
 fi
-"$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
+"${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
 pushd "$(dirname "${TWSMaster}")"
 INPUT_DIRECTORY="${PWD}"
 INPUT="$(basename "${TWSMaster}")"
@@ -51,7 +51,7 @@ then
         INPUT="${BASE_INPUT}.eps"
         if ! [ -r "${INPUT}" ]
         then
-            "$iTM2_CMD_Notify" error "No readable file at ${INPUT}."
+            "${iTM2_CMD_Notify}" notify error "No readable file at ${INPUT}."
             iTM2DVIPDFMEngineUsage
 			exit 2
         fi
@@ -77,19 +77,19 @@ then
     OUTPUT="${OUTPUT}.pdf"
 fi
 iTM2_pstopdf_Arguments="${iTM2_pstopdf_Arguments} -o ${OUTPUT}"
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_pstopdf_EnginePath} ${iTM2_pstopdf_Arguments} \"${INPUT}\""
+"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_pstopdf_EnginePath} ${iTM2_pstopdf_Arguments} \"${INPUT}\""
 "${iTM2_pstopdf_EnginePath}" ${iTM2_pstopdf_Arguments} "${INPUT}"
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
 	popd
-	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	"${iTM2_CMD_Notify}" notify error "$0 FAILED(${iTM2_Status})."
 	exit ${iTM2_Status}
 fi
 popd
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
-	"$iTM2_CMD_Notify" comment "$0 complete."
+	"${iTM2_CMD_Notify}" notify comment "$0 complete."
 fi
-"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${INPUT_DIRECTORY}/${OUTPUT}" -project "${TWSProject}"
+iTeXMac2 update -file "${INPUT_DIRECTORY}/${OUTPUT}" -project "${TWSProject}"
 exit 0

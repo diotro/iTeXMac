@@ -589,22 +589,25 @@ To Do List:
 	id document = [self document];
 	if([notification object] == document)
 	{
+		[self setPDFOutlines:nil];
+		[[self PDFThumbnails] setArray:[NSArray array]];
+		[[self PDFSearchResults] setArray:[NSArray array]];
 		PDFDocument * doc = [_pdfView document];
 		if(doc)
 		{
 			// store the geometry:
 			[self setScaleFactor:[_pdfView scaleFactor]];
-			[self setDocumentViewVisibleRect:[[_pdfView documentView] visibleRect]];
+			PDFPage * page = [_pdfView currentPage];
+			[self setDocumentViewVisiblePageNumber:[doc indexForPage:page]];
 			[doc setDelegate:nil];
+			[self setDocumentViewVisibleRect:[[_pdfView documentView] visibleRect]];
 		}
+		[doc setDelegate:nil];
 		doc = [document PDFDocument];
 		[_pdfView setDocument:doc];
 //		[_pdfView setNeedsDisplay:YES];
-iTM2_LOG(@"UPDATE");
+iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
 		[doc setDelegate:self];
-		[self setPDFOutlines:nil];
-		[[self PDFThumbnails] setArray:[NSArray array]];
-		[[self PDFSearchResults] setArray:[NSArray array]];
 		if([_drawer state] == NSDrawerOpenState)
 			[self updateTabView];
 		[self contextDidChange];
@@ -1609,9 +1612,9 @@ To Do List:
 	[V setAutoScales:[self autoScales]];
 //iTM2_LOG(@"[V autoScales]: %@", ([V autoScales]? @"Y": @"N"));
 	[V setNeedsDisplay:YES];
-	if(V = [V documentView])
+	if([V documentView])
 	{
-#if 1
+#if 0
 		// I don't remember why it was timed, an EXC_BAD_ACCESS somewhere
 		[NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timedSynchronizeDocumentView:) userInfo:[NSValue valueWithRect:[self documentViewVisibleRect]] repeats:NO];
 #else
@@ -2780,6 +2783,19 @@ To Do List:
 				inRect.origin.x = syncPoint.x - inRect.size.width/2;
 				inRect.origin.y = syncPoint.y - inRect.size.height/2;
 				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
+				inRect.origin.x = NSMinX(bounds)+inRect.size.width/2;
+				inRect.origin.y = syncPoint.y - inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				inRect.origin.x = NSMaxX(bounds)-3*inRect.size.width/2;
+				inRect.origin.y = syncPoint.y - inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				inRect.origin.x = syncPoint.x - inRect.size.width/2;
+				inRect.origin.y = NSMinY(bounds)+inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				inRect.origin.x = syncPoint.x - inRect.size.width/2;
+				inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
             }
         }
         else
@@ -2894,6 +2910,19 @@ To Do List:
 				inRect.origin.x = syncPoint.x + origin.x;
 				inRect.origin.y = syncPoint.y + origin.y;
 				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
+				inRect.origin.x = NSMinX(bounds)+inRect.size.width/2;
+				inRect.origin.y = syncPoint.y - inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				inRect.origin.x = NSMaxX(bounds)-3*inRect.size.width/2;
+				inRect.origin.y = syncPoint.y - inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				inRect.origin.x = syncPoint.x - inRect.size.width/2;
+				inRect.origin.y = NSMinY(bounds)+inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				inRect.origin.x = syncPoint.x - inRect.size.width/2;
+				inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
             }
             if(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
             {
@@ -2931,6 +2960,19 @@ To Do List:
 						NSPoint syncPoint = [destination point];
 						inRect.origin.x = syncPoint.x + origin.x;
 						inRect.origin.y = syncPoint.y + origin.y;
+						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+						NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
+						inRect.origin.x = NSMinX(bounds)+inRect.size.width/2;
+						inRect.origin.y = syncPoint.y - inRect.size.height/2;
+						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+						inRect.origin.x = NSMaxX(bounds)-3*inRect.size.width/2;
+						inRect.origin.y = syncPoint.y - inRect.size.height/2;
+						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+						inRect.origin.x = syncPoint.x - inRect.size.width/2;
+						inRect.origin.y = NSMinY(bounds)+inRect.size.height/2;
+						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+						inRect.origin.x = syncPoint.x - inRect.size.width/2;
+						inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
 						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
 					}
 					else

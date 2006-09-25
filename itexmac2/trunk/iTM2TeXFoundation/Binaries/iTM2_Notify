@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Notify for iTeXMac2 2.0 and above
 # © 2005 jlaurens@users.sourceforge.net
 # iTM2_Notify purpose is to send an informational comment to iTeXMac2.
@@ -14,10 +14,10 @@
 # I was using echo "blah" > /dev/stderr and it caused problems on tiger...
 #
 iTM2_NOTIFY_VERSION=1
-iTM2_NOTIFY_USAGE="Welcome to `basename "$0"` version  $iTM2_NOTIFY_VERSION
+iTM2_NOTIFY_USAGE="Welcome to $(basename "$0") version  ${iTM2_NOTIFY_VERSION}
 This is iTeXMac2 built in script to send informational comments to iTeXMac2
 © 2005 jlaurens@users.sourceforge.net
-Usage: `basename "$0"` options verb object, where options, verbs and objects are
+Usage: $(basename "$0") options verb object, where options, verbs and objects are
        -h, --help: print this message and return.
        -d device, --device device: the optional communication channel used: a fifo namely a ?/FIFO overriding the iTM2_Device environment variable.
        The options given may override some environment variables.
@@ -44,9 +44,9 @@ do
 			if [ $# -gt 0 ]
 			then
 				iTM2_Device="$1"
-				echo "iTM2_Notify: device: $iTM2_Device"
+				echo "iTM2_Notify: device: ${iTM2_Device}"
 			else
-				echo "iTM2_Notify: ! `basename "$0"` error, missing device name"
+				echo "iTM2_Notify: ! $(basename "$0") error, missing device name"
 				exit 19
 			fi
 		;;
@@ -56,6 +56,13 @@ do
 	esac
 	shift 1
 done
+if [ "$1" != "notify" ]
+then
+	echo "$iTM2_NOTIFY_USAGE"
+	exit 1
+else
+	shift 1
+fi
 while [ $# -gt 0 ]
 do
 	case $1 in
@@ -63,9 +70,9 @@ do
             shift 1
 			if [ $# -gt 0 ]
 			then
-                echo "$1" > ${iTM2_Device}
+                echo "$1" > "${iTM2_Device}"
 			else
-                echo "iTM2: ! `basename "$0"` error, don't know what to echo"
+                echo "iTM2: ! $(basename "$0") error, don't know what to echo"
 				exit 18
 			fi
 		;;
@@ -75,24 +82,24 @@ do
 			then
                 case $1 in
                     comment)
-                        echo "<iTM2Comment>" > ${iTM2_Device}
+                        echo "<iTM2Comment>" > "${iTM2_Device}"
                     ;;
                     warning)
-                        echo "<iTM2Warning>" > ${iTM2_Device}
+                        echo "<iTM2Warning>" > "${iTM2_Device}"
                     ;;
                     error)
-                        echo "<iTM2Error>" > ${iTM2_Device}
+                        echo "<iTM2Error>" > "${iTM2_Device}"
                     ;;
                     applescript)
-                        echo "<iTM2AppleScript>" > ${iTM2_Device}
+                        echo "<iTM2AppleScript>" > "${iTM2_Device}"
                     ;;
                     *)
-                        echo "iTM2: ! `basename "$0"` error, don't know how to start $1"
+                        echo "iTM2: ! $(basename "$0") error, don't know how to start $1"
                         exit 13
                     ;;
                 esac
 			else
-                echo "iTM2: ! `basename "$0"` error, don't know what to start"
+                echo "iTM2: ! $(basename "$0") error, don't know what to start"
 				exit 12
 			fi
 		;;
@@ -102,24 +109,24 @@ do
 			then
                 case $1 in
                     comment)
-                        echo "</iTM2Comment>" > ${iTM2_Device}
+                        echo "</iTM2Comment>" > "${iTM2_Device}"
                     ;;
                     warning)
-                        echo "</iTM2Warning>" > ${iTM2_Device}
+                        echo "</iTM2Warning>" > "${iTM2_Device}"
                     ;;
                     error)
-                        echo "</iTM2Error>" > ${iTM2_Device}
+                        echo "</iTM2Error>" > "${iTM2_Device}"
                     ;;
                     applescript)
-                        echo "</iTM2AppleScript>" > ${iTM2_Device}
+                        echo "</iTM2AppleScript>" > "${iTM2_Device}"
                     ;;
                     *)
-                        echo "iTM2: ! `basename "$0"` error, don't know how to stop $1"
+                        echo "iTM2: ! $(basename "$0") error, don't know how to stop $1"
                         exit 7
                     ;;
                 esac
 			else
-                echo "iTM2: ! `basename "$0"` error, don't know what to stop"
+                echo "iTM2: ! $(basename "$0") error, don't know what to stop"
 				exit 6
 			fi
 		;;
@@ -127,9 +134,9 @@ do
             shift 1
 			if [ $# -gt 0 ]
 			then
-                echo "<iTM2Comment>$1${IFS}</iTM2Comment>" > ${iTM2_Device}
+                echo "<iTM2Comment>$1${IFS}</iTM2Comment>" > "${iTM2_Device}"
 			else
-                echo "iTM2: ! `basename "$0"` error, don't know what to comment"
+                echo "iTM2: ! $(basename "$0") error, don't know what to comment"
 				exit 5
 			fi
 		;;
@@ -137,9 +144,9 @@ do
             shift 1
 			if [ $# -gt 0 ]
 			then
-                echo "<iTM2Warning>$1${IFS}</iTM2Warning>" > ${iTM2_Device}
+                echo "<iTM2Warning>$1${IFS}</iTM2Warning>" > "${iTM2_Device}"
 			else
-                echo "iTM2: ! `basename "$0"` error, don't know what to warning"
+                echo "iTM2: ! $(basename "$0") error, don't know what to warning"
 				exit 4
 			fi
 		;;
@@ -147,9 +154,9 @@ do
             shift 1
 			if [ $# -gt 0 ]
 			then
-                echo "<iTM2Error>$1${IFS}</iTM2Error>" > ${iTM2_Device}
+                echo "<iTM2Error>$1${IFS}</iTM2Error>" > "${iTM2_Device}"
 			else
-                echo "iTM2: ! `basename "$0"` error, don't know what to error"
+                echo "iTM2: ! $(basename "$0") error, don't know what to error"
 				exit 3
 			fi
 		;;
@@ -157,14 +164,14 @@ do
             shift 1
 			if [ $# -gt 0 ]
 			then
-                echo "<iTM2AppleScript>$1${IFS}</iTM2AppleScript>" > ${iTM2_Device}
+                echo "<iTM2AppleScript>$1${IFS}</iTM2AppleScript>" > "${iTM2_Device}"
 			else
-                echo "iTM2: ! `basename "$0"` error, don't know what to applescript"
+                echo "iTM2: ! $(basename "$0") error, don't know what to applescript"
 				exit 2
 			fi
 		;;
 		*)
-            echo "iTM2: ! `basename "$0"` error, don't know how to $1"
+            echo "iTM2: ! $(basename "$0") error, don't know how to $1"
             exit 1
 		;;
 	esac

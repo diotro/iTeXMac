@@ -38,11 +38,6 @@ extern NSString * const iTM2TPFEFilePropertiesKey;
 extern NSString * const iTM2TPFEVoidMode;
 extern NSString * const iTM2TPFEBaseMode;
 
-extern NSString * const TWSShellEnvironmentWrapperKey;
-extern NSString * const TWSShellEnvironmentMasterKey;
-extern NSString * const TWSShellEnvironmentFrontKey;
-extern NSString * const TWSShellEnvironmentProjectKey;
-
 extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectFrontendKit

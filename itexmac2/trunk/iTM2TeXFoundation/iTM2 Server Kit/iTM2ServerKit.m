@@ -24,6 +24,7 @@
 #import "iTM2ServerKit.h"
 #import <iTM2TeXFoundation/iTM2ServerKeys.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
+#import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
 
 NSString * const iTM2ServerAllKey = @"-all";
 NSString * const iTM2ServerFileKey = @"-file";
@@ -141,7 +142,7 @@ To Do List: see the warning below
 		k = @"iTM2_APPLICATION_BUNDLE_NAME";
 		if([P length])
 			[environment setObject:P forKey:k];
-		P = @"iTeXMac2";//[[NSBundle mainBundle] bundleName];
+		P = iTeXMac2;//[[NSBundle mainBundle] bundleName];
 		k = @"iTM2_APPLICATION_NAME";
 		if([P length])
 			[environment setObject:P forKey:k];
@@ -223,6 +224,7 @@ To Do List: see the warning below
     }
     [[SDC documents] makeObjectsPerformSelector:@selector(revertToSaved:) withObject:nil];
 #endif
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptConversationWithID:
@@ -251,8 +253,10 @@ To Do List: see the warning below
 		NSString * temporaryDirectory = [environment objectForKey:@"iTM2_TemporaryDirectory"];
 		if([temporaryDirectory isKindOfClass:[NSString class]])
 		{
+//iTM2_END;
 			return [temporaryDirectory isEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
 		}
+//iTM2_END;
 		return !temporaryDirectory;
 	}
 //iTM2_END;
@@ -296,6 +300,7 @@ To Do List: see the warning below
 		}
 		else
 		{
+//iTM2_END;
 			return argument;
 		}
 	}
@@ -314,9 +319,15 @@ To Do List: see the warning below
 iTM2_LOG(@"context is: %@", context);
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
 	if(![self acceptConversationWithID:[environment objectForKey:iTM2ServerConversationIDKey]])
+	{
+//iTM2_END;
 		return;
+	}
 	if(![self acceptNotificationWithEnvironment:environment])
+	{
+//iTM2_END;
 		return;
+	}
 	NSString * verb = [self getVerbFromContext:context];
 	NSString * S = [verb stringByAppendingString:@"PerformedWithContext:"];
 	SEL cmd = NSSelectorFromString(S);
@@ -331,6 +342,7 @@ iTM2_LOG(@"context is: %@", context);
 //iTM2_END;
     return;
 }
+#pragma mark =-=-=-=-=-  Getters
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getProjectNameFromContext:
 + (NSString *)getProjectNameFromContext:(NSDictionary *)context;
 /*"This is the answer to the notification sent by the former "e_Helper" tool.
@@ -340,8 +352,6 @@ To Do List: see the warning below
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -349,13 +359,15 @@ To Do List: see the warning below
 	{
 		if([argument isEqual:iTM2ServerProjectKey])
 		{
-			argument = [E nextObject];
-			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
+			argument = [E nextObject];// the project name is absolute
+//iTM2_END;
 			return argument;
 		}
 	}
+	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
+	argument = [environment objectForKey:TWSShellEnvironmentProjectKey];
 //iTM2_END;
-    return nil;
+    return argument;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getFileNameFromContext:
 + (NSString *)getFileNameFromContext:(NSDictionary *)context;
@@ -367,7 +379,8 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
+	NSString * masterDirectory = [environment objectForKey:TWSShellEnvironmentMasterKey];
+	masterDirectory = [masterDirectory stringByDeletingLastPathComponent];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -377,6 +390,7 @@ To Do List: see the warning below
 		{
 			argument = [E nextObject];
 			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
+//iTM2_END;
 			return argument;
 		}
 	}
@@ -393,7 +407,8 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
+	NSString * masterDirectory = [environment objectForKey:TWSShellEnvironmentMasterKey];
+	masterDirectory = [masterDirectory stringByDeletingLastPathComponent];
 	NSMutableArray * RA = [NSMutableArray array];
 	NSString * argument = [self getFileNameFromContext:context];
 	if([argument length])
@@ -411,6 +426,7 @@ To Do List: see the warning below
 			{
 				if([argument hasPrefix:@"-"])
 				{
+//iTM2_END;
 					return RA;
 				}
 				else
@@ -435,7 +451,8 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * masterDirectory = [environment objectForKey:@"TWSMasterDirectory"];
+	NSString * masterDirectory = [environment objectForKey:TWSShellEnvironmentMasterKey];
+	masterDirectory = [masterDirectory stringByDeletingLastPathComponent];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -445,6 +462,7 @@ To Do List: see the warning below
 		{
 			argument = [E nextObject];
 			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
+//iTM2_END;
 			return argument;
 		}
 	}
@@ -468,6 +486,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerLineKey])
 		{
 			argument = [E nextObject];
+//iTM2_END;
 			return argument?[argument intValue]:NSNotFound;
 		}
 	}
@@ -491,6 +510,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerColumnKey])
 		{
 			argument = [E nextObject];
+//iTM2_END;
 			return argument?[argument intValue]:NSNotFound;
 		}
 	}
@@ -513,393 +533,14 @@ To Do List: see the warning below
 	{
 		if([argument isEqual:iTM2ServerDontOrderFrontKey])
 		{
+//iTM2_END;
 			return YES;
 		}
 	}
 //iTM2_END;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= editPerformedWithContext:
-+ (void)editPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"context: %@", context);
-#else
-    NSString * fileName = [self getFileNameFromContext:context];
-	if(![fileName length])
-	{
-		iTM2_REPORTERROR(1,@"Error in iTeXMac2 server invocation: the \"edit\" verb requires a \"-file foo\".",nil);
-	}
-	NSURL * url = [NSURL fileURLWithPath:fileName];
-	NSError * localError = nil;
-	unsigned int line = [self getLineFromContext:context];
-	unsigned int column = [self getColumnFromContext:context];
-	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
-	id doc = [SDC documentForURL:url];
-	if(doc)
-	{
-		[doc updateIfNeeded];
-	}
-	else
-	{
-		NSString * projectName = [self getProjectNameFromContext:context];
-		if([projectName length])
-		{
-			url = [NSURL fileURLWithPath:projectName];
-			id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-			if(localError)
-			{
-				[SDC presentError:localError];
-				return;
-			}
-			[projectDocument newKeyForFileName:fileName save:YES];
-		}
-		doc = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-		if(localError)
-		{
-			[SDC presentError:localError];
-			return;
-		}
-	}
-	[doc displayLine:line column:column length:-1 withHint:nil orderFront:!dontOrderFront];
-	if(dontOrderFront)
-	{
-		[doc showWindowsBelowFront:self];
-	}
-#endif
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openPerformedWithContext:
-+ (void)openPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"context: %@", context);
-#else
-    NSString * projectName = [self getProjectNameFromContext:context];
-    NSString * fileName = [self getFileNameFromContext:context];
-	NSURL * url = nil;
-	NSError * localError = nil;
-	if([projectName length])
-	{
-		url = [NSURL fileURLWithPath:projectName];
-		id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-		if(localError)
-		{
-			[SDC presentError:localError];
-			return;
-		}
-		if([fileName length])
-		{
-			[projectDocument newKeyForFileName:fileName save:YES];
-			url = [NSURL fileURLWithPath:fileName];
-			[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-			if(localError)
-			{
-				[SDC presentError:localError];
-				return;
-			}
-			return;
-		}
-	}
-	else
-	{
-		url = [NSURL fileURLWithPath:fileName];
-		[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-		if(localError)
-		{
-			[SDC presentError:localError];
-			return;
-		}
-	}
-#endif
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPerformedWithContext:
-+ (void)displayPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by main as server tool.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"arguments: %@", arguments);
-#else
-    NSString * fileName = [self getFileNameFromContext:context];
-	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
-	id doc = [SDC documentForURL:fileURL];
-	if(!doc)
-	{
-		iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-		NSError * localError = nil;
-		if(!PD)
-		{
-			NSString * projectName = [self getProjectNameFromContext:context];
-			if([projectName length])
-			{
-				PD = [SPC projectForFileName:projectName];
-				if(!PD)
-				{
-					NSURL * url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:NO error:&localError];
-					if(localError)
-					{
-						[SDC presentError:localError];
-						return;
-					}
-					[PD newKeyForFileName:fileName save:YES];
-					[PD makeDefaultInspector];
-					[PD showWindowsBelowFront:self];
-				}
-			}
-		}
-		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
-	}
-	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
-	unsigned int line = [self getLineFromContext:context];
-	unsigned int column = [self getColumnFromContext:context];
-    NSString * sourceName = [self getSourceNameFromContext:context];
-	NSDictionary * arguments = [context objectForKey:iTM2ServerArgumentsKey];
-	[doc displayPageForLine:line column:column source:sourceName
-					withHint:arguments orderFront:!dontOrderFront force:YES];// or NO? a SUD here?
-	if(dontOrderFront)
-	{
-		[doc showWindowsBelowFront:self];
-	}
-#endif
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePerformedWithContext:
-+ (void)updatePerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"arguments: %@", arguments);
-#else
-    NSString * projectName = [self getProjectNameFromContext:context];
-    NSArray * fileNames = [self getFileNamesFromContext:context];
-	NSError * localError = nil;
-	NSString * fileName;
-	NSEnumerator * E = [fileNames objectEnumerator];
-	if([self getDontOrderFrontFromContext:context])
-	{
-		// just register the document for the project
-		// update the contents if the document is on screen
-		while(fileName = [E nextObject])
-		{
-			NSURL * url = [NSURL fileURLWithPath:fileName];
-			NSDocument * document = [SDC documentForURL:url];
-			if(document)
-			{
-				[document updateIfNeeded];
-			}
-			else
-			{
-				iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-				if(!PD)
-				{
-					PD = [SPC projectForFileName:projectName];
-					if(!PD)
-					{
-						NSURL * url = [NSURL fileURLWithPath:projectName];
-						PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-						if(localError)
-						{
-							[SDC presentError:localError];
-							return;
-						}
-					}
-					[PD newKeyForFileName:fileName];
-				}
-			}
-		}
-		return;
-	}
-	while(fileName = [E nextObject])
-	{
-		NSURL * url = [NSURL fileURLWithPath:fileName];
-		NSDocument * document = [SDC documentForURL:url];
-		if(document)
-		{
-			[document updateIfNeeded];
-			[document showWindowsBelowFront:self];
-		}
-		else
-		{
-			iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-			if(!PD)
-			{
-				PD = [SPC projectForFileName:projectName];
-				if(!PD)
-				{
-					NSURL * url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-					if(localError)
-					{
-						[SDC presentError:localError];
-						return;
-					}
-				}
-				[PD newKeyForFileName:fileName];
-			}
-			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-			if(localError)
-			{
-				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
-			}
-			document = [SDC documentForURL:url];
-		}
-	}
-#warning NYI: -all not supported
-#endif
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= markerrorPerformedWithContext:
-+ (void)markerrorPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"arguments: %@", arguments);
-#else
-    NSString * projectName = [self getProjectNameFromContext:context];
-    NSArray * fileNames = [self getFileNamesFromContext:context];
-	NSError * localError = nil;
-	NSString * fileName;
-	NSEnumerator * E = [fileNames objectEnumerator];
-	while(fileName = [E nextObject])
-	{
-		NSURL * url = [NSURL fileURLWithPath:fileName];
-		NSDocument * document = [SDC documentForURL:url];
-		if(document)
-		{
-			[document updateIfNeeded];
-			[document showWindowsBelowFront:self];
-		}
-		else
-		{
-			iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-			if(!PD)
-			{
-				PD = [SPC projectForFileName:projectName];
-				if(!PD)
-				{
-					NSURL * url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-					if(localError)
-					{
-						[SDC presentError:localError];
-						return;
-					}
-				}
-				[PD newKeyForFileName:fileName];
-			}
-			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-			if(localError)
-			{
-				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
-			}
-			document = [SDC documentForURL:url];
-		}
-	}
-#warning NYI: -all not supported
-#endif
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= insertPerformedWithContext:
-+ (void)insertPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: see the warning below
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"context: %@", context);
-#else
-    iTM2_LOG(@"context: %@", context);
-	
-#warning NYI: -all not supported
-#endif
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= helpPerformedWithContext:
-+ (void)helpPerformedWithContext:(NSDictionary *)context;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"context: %@", context);
-#else
-    iTM2_LOG(@"context: %@", context);
-#endif
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applescriptPerformedWithContext:
-+ (void)applescriptPerformedWithContext:(NSDictionary *)context;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if __iTM2_Server_Test__
-    iTM2_LOG(@"arguments: %@", arguments);
-#endif
-	NSString * sourceName = [self getSourceNameFromContext:context];
-    NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithSource:sourceName] autorelease];
-    if(AS)
-    {
-        NSDictionary * errorInfo = nil;
-        [AS executeAndReturnError: &errorInfo];
-        if(errorInfo)
-        {
-            NSMutableString * MS = [NSMutableString stringWithString:@"\n! AppleScript execution error:\n"];
-            NSString * message;
-            if(message = [errorInfo objectForKey:NSAppleScriptErrorAppName])
-                [MS appendFormat:@"! Application: %@\n", message];
-            if(message = [errorInfo objectForKey:NSAppleScriptErrorMessage])
-                [MS appendFormat:@"! Reason: %@\n", message];
-            if(message = [errorInfo objectForKey:NSAppleScriptErrorNumber])
-                [MS appendFormat:@"! Error number: %@\n", message];
-            if(message = [errorInfo objectForKey:NSAppleScriptErrorBriefMessage])
-                [MS appendFormat:@"! Brief reason: %@\n", message];
-            if(message = [errorInfo objectForKey:NSAppleScriptErrorRange])
-                [MS appendFormat:@"! Error range: %@\n", message];
-            iTM2_LOG(MS);
-        }
-    }
-//iTM2_END;
-    return;
-}
+#pragma mark =-=-=-=-=-  typesetting responders
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= compilePerformedWithContext:
 + (void)compilePerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
@@ -1030,6 +671,469 @@ To Do List:
 //iTM2_END;
     return;
 }
+#pragma mark =-=-=-=-=-  verb responders
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applescriptPerformedWithContext:
++ (void)applescriptPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"arguments: %@", arguments);
+#endif
+	NSString * sourceName = [self getSourceNameFromContext:context];
+    NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithSource:sourceName] autorelease];
+    if(AS)
+    {
+        NSDictionary * errorInfo = nil;
+        [AS executeAndReturnError: &errorInfo];
+        if(errorInfo)
+        {
+            NSMutableString * MS = [NSMutableString stringWithString:@"\n! AppleScript execution error:\n"];
+            NSString * message;
+            if(message = [errorInfo objectForKey:NSAppleScriptErrorAppName])
+                [MS appendFormat:@"! Application: %@\n", message];
+            if(message = [errorInfo objectForKey:NSAppleScriptErrorMessage])
+                [MS appendFormat:@"! Reason: %@\n", message];
+            if(message = [errorInfo objectForKey:NSAppleScriptErrorNumber])
+                [MS appendFormat:@"! Error number: %@\n", message];
+            if(message = [errorInfo objectForKey:NSAppleScriptErrorBriefMessage])
+                [MS appendFormat:@"! Brief reason: %@\n", message];
+            if(message = [errorInfo objectForKey:NSAppleScriptErrorRange])
+                [MS appendFormat:@"! Error range: %@\n", message];
+            iTM2_LOG(MS);
+        }
+    }
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPerformedWithContext:
++ (void)displayPerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by main as server tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"arguments: %@", arguments);
+#else
+    NSString * fileName = [self getFileNameFromContext:context];
+	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
+	id doc = [SDC documentForURL:fileURL];
+	if(!doc)
+	{
+		iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+		NSError * localError = nil;
+		if(!PD)
+		{
+			NSString * projectName = [self getProjectNameFromContext:context];
+			if([projectName length])
+			{
+				PD = [SPC projectForFileName:projectName];
+				if(!PD)
+				{
+					NSURL * url = [NSURL fileURLWithPath:projectName];
+					PD = [SDC openDocumentWithContentsOfURL:url display:NO error:&localError];
+					if(localError)
+					{
+						[SDC presentError:localError];
+//iTM2_END;
+						return;
+					}
+					[PD newKeyForFileName:fileName save:YES];
+					[PD makeDefaultInspector];
+					[PD showWindowsBelowFront:self];
+				}
+			}
+		}
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
+	}
+	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
+	unsigned int line = [self getLineFromContext:context];
+	unsigned int column = [self getColumnFromContext:context];
+    NSString * sourceName = [self getSourceNameFromContext:context];
+	NSDictionary * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	[doc displayPageForLine:line column:column source:sourceName
+					withHint:arguments orderFront:!dontOrderFront force:YES];// or NO? a SUD here?
+	if(dontOrderFront)
+	{
+		[doc showWindowsBelowFront:self];
+	}
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= editPerformedWithContext:
++ (void)editPerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"context: %@", context);
+#else
+    NSString * fileName = [self getFileNameFromContext:context];
+	if(![fileName length])
+	{
+		iTM2_REPORTERROR(1,@"Error in iTeXMac2 server invocation: the \"edit\" verb requires a \"-file foo\".",nil);
+	}
+	NSURL * url = [NSURL fileURLWithPath:fileName];
+	NSError * localError = nil;
+	unsigned int line = [self getLineFromContext:context];
+	unsigned int column = [self getColumnFromContext:context];
+	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
+	id doc = [SDC documentForURL:url];
+	if(doc)
+	{
+		[doc updateIfNeeded];
+	}
+	else
+	{
+		NSString * projectName = [self getProjectNameFromContext:context];
+		if([projectName length])
+		{
+			url = [NSURL fileURLWithPath:projectName];
+			id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
+			{
+				[SDC presentError:localError];
+//iTM2_END;
+				return;
+			}
+			[projectDocument newKeyForFileName:fileName save:YES];
+		}
+		doc = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		if(localError)
+		{
+			[SDC presentError:localError];
+//iTM2_END;
+			return;
+		}
+	}
+	[doc displayLine:line column:column length:-1 withHint:nil orderFront:!dontOrderFront];
+	if(dontOrderFront)
+	{
+		[doc showWindowsBelowFront:self];
+	}
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= helpPerformedWithContext:
++ (void)helpPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"context: %@", context);
+#else
+    iTM2_LOG(@"context: %@", context);
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= insertPerformedWithContext:
++ (void)insertPerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"context: %@", context);
+#else
+    iTM2_LOG(@"context: %@", context);
+	
+#warning NYI: -all not supported
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= markerrorPerformedWithContext:
++ (void)markerrorPerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"arguments: %@", arguments);
+#else
+    NSString * projectName = [self getProjectNameFromContext:context];
+    NSArray * fileNames = [self getFileNamesFromContext:context];
+	NSError * localError = nil;
+	NSString * fileName;
+	NSEnumerator * E = [fileNames objectEnumerator];
+	while(fileName = [E nextObject])
+	{
+		NSURL * url = [NSURL fileURLWithPath:fileName];
+		NSDocument * document = [SDC documentForURL:url];
+		if(document)
+		{
+			[document updateIfNeeded];
+			[document showWindowsBelowFront:self];
+		}
+		else
+		{
+			iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+			if(!PD)
+			{
+				PD = [SPC projectForFileName:projectName];
+				if(!PD)
+				{
+					NSURL * url = [NSURL fileURLWithPath:projectName];
+					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					if(localError)
+					{
+						[SDC presentError:localError];
+//iTM2_END;
+						return;
+					}
+				}
+				[PD newKeyForFileName:fileName];
+			}
+			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
+			{
+				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
+			}
+			document = [SDC documentForURL:url];
+		}
+	}
+#warning NYI: -all not supported
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= notifyPerformedWithContext:
++ (void)notifyPerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List: None
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSString * projectName = [self getProjectNameFromContext:context];
+	iTM2ProjectDocument * PD = [SPC projectForFileName:projectName];
+	if(!PD)
+	{
+//iTM2_END;
+		return;
+	}
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	argument = [E nextObject];// ignore "notify"
+	argument = [E nextObject];// next verb
+	if([argument isEqual:@"start"])
+	{
+		if([argument isEqual:@"comment"] || [argument isEqual:@"warning"] || [argument isEqual:@"error"] || [argument isEqual:@"applescript"])
+		{
+			argument = [NSString stringWithFormat:@"<%@>",argument];
+		}
+		else
+		{
+//iTM2_END;
+			return;
+		}
+	}
+	else if([argument isEqual:@"stop"])
+	{
+		if([argument isEqual:@"comment"] || [argument isEqual:@"warning"] || [argument isEqual:@"error"] || [argument isEqual:@"applescript"])
+		{
+			argument = [NSString stringWithFormat:@"</%@>\n",argument];
+		}
+		else
+		{
+//iTM2_END;
+			return;
+		}
+	}
+	else if([argument isEqual:@"echo"])
+	{
+		argument = [NSString stringWithFormat:@"%@\n",[E nextObject]];
+	}
+	else if([argument isEqual:@"comment"] || [argument isEqual:@"warning"] || [argument isEqual:@"error"] || [argument isEqual:@"applescript"])
+	{
+		argument = [NSString stringWithFormat:@"<%@>%@</%@>\n",argument,[E nextObject],argument];
+	}
+	else
+	{
+//iTM2_END;
+		return;
+	}
+	iTM2TaskController * TC = [PD taskController];
+	[TC logCustom:argument];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openPerformedWithContext:
++ (void)openPerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the former "e_Helper" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"context: %@", context);
+#else
+    NSString * projectName = [self getProjectNameFromContext:context];
+    NSString * fileName = [self getFileNameFromContext:context];
+	NSURL * url = nil;
+	NSError * localError = nil;
+	if([projectName length])
+	{
+		url = [NSURL fileURLWithPath:projectName];
+		id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		if(localError)
+		{
+			[SDC presentError:localError];
+//iTM2_END;
+			return;
+		}
+		if([fileName length])
+		{
+			[projectDocument newKeyForFileName:fileName save:YES];
+			url = [NSURL fileURLWithPath:fileName];
+			[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
+			{
+				[SDC presentError:localError];
+//iTM2_END;
+				return;
+			}
+//iTM2_END;
+			return;
+		}
+	}
+	else
+	{
+		url = [NSURL fileURLWithPath:fileName];
+		[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		if(localError)
+		{
+			[SDC presentError:localError];
+//iTM2_END;
+			return;
+		}
+	}
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePerformedWithContext:
++ (void)updatePerformedWithContext:(NSDictionary *)context;
+/*"This is the answer to the notification sent by the "iTeXMac2_Update" tool.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"arguments: %@", arguments);
+#else
+    NSString * projectName = [self getProjectNameFromContext:context];
+    NSArray * fileNames = [self getFileNamesFromContext:context];
+	NSError * localError = nil;
+	NSString * fileName;
+	NSEnumerator * E = [fileNames objectEnumerator];
+	if([self getDontOrderFrontFromContext:context])
+	{
+		// just register the document for the project
+		// update the contents if the document is on screen
+		while(fileName = [E nextObject])
+		{
+			NSURL * url = [NSURL fileURLWithPath:fileName];
+			NSDocument * document = [SDC documentForURL:url];
+			if(document)
+			{
+				[document updateIfNeeded];
+			}
+			else
+			{
+				iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+				if(!PD)
+				{
+					PD = [SPC projectForFileName:projectName];
+					if(!PD)
+					{
+						NSURL * url = [NSURL fileURLWithPath:projectName];
+						PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+						if(localError)
+						{
+							[SDC presentError:localError];
+//iTM2_END;
+							return;
+						}
+					}
+					[PD newKeyForFileName:fileName];
+				}
+			}
+		}
+//iTM2_END;
+		return;
+	}
+	while(fileName = [E nextObject])
+	{
+		NSURL * url = [NSURL fileURLWithPath:fileName];
+		NSDocument * document = [SDC documentForURL:url];
+		if(document)
+		{
+			[document updateIfNeeded];
+			[document showWindowsBelowFront:self];
+		}
+		else
+		{
+			iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+			if(!PD)
+			{
+				PD = [SPC projectForFileName:projectName];
+				if(!PD)
+				{
+					NSURL * url = [NSURL fileURLWithPath:projectName];
+					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					if(localError)
+					{
+						[SDC presentError:localError];
+//iTM2_END;
+						return;
+					}
+				}
+				[PD newKeyForFileName:fileName];
+			}
+			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			if(localError)
+			{
+				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
+			}
+			document = [SDC documentForURL:url];
+		}
+	}
+#warning NYI: -all not supported
+#endif
+//iTM2_END;
+    return;
+}
 @end
 
 @implementation iTM2ConnectionRoot(iTM2ServerKit)
@@ -1052,11 +1156,11 @@ To Do List:
 @end
 @implementation iTM2URLHandlerCommand
 - (id)performDefaultImplementation
-{
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
     NSString *urlString = [self directParameter];
-    
     NSLog(@"url = %@", urlString);
-
+//iTM2_END;
     return nil;
 }
 @end

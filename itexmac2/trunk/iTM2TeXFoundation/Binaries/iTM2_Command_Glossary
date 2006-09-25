@@ -1,4 +1,4 @@
-#!/bin/sh -f
+#!/usr/bin/env bash
 # this is iTM2_Glossary for iTeXMac2
 # © 2005 jlaurens@users.sourceforge.net
 iTM2_Glossary_Version="1.0"
@@ -32,16 +32,16 @@ while [ $# -gt 0 ]
 do
 	case $1 in
 		-h|--help)
-			"$iTM2_CMD_Notify" comment "$iTM2_GLOSSARY_USAGE"
+			"${iTM2_CMD_Notify}" notify comment "$iTM2_GLOSSARY_USAGE"
 		;;
 		-e|--engine)
 			shift 1
 			if [ $# -gt 0 ]
 			then
 				iTM2_Glossary_Engine="$1"
-				"$iTM2_CMD_Notify" comment "engine: $iTM2_Glossary_Engine"
+				"${iTM2_CMD_Notify}" notify comment "engine: $iTM2_Glossary_Engine"
 			else
-				"$iTM2_CMD_Notify" comment "$iTM2_GLOSSARY_USAGE"
+				"${iTM2_CMD_Notify}" notify comment "$iTM2_GLOSSARY_USAGE"
 			fi
 		;;
 		-q|--quiet)
@@ -101,7 +101,7 @@ do
 done
 if [ "${iTM2_Glossary_RunSilently:-1}" -eq 0 ]
 then
-        "$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version $iTM2_Glossary_Version
+        "${iTM2_CMD_Notify}" notify comment "Welcome to `basename "$0"` version $iTM2_Glossary_Version
 This is iTeXMac2 built in script to make the glossary with MakeIndex or another engine
 © 2005 jlaurens@users.sourceforge.net"
 fi
@@ -149,25 +149,25 @@ for iTM2_Glossary_Var in ${iTM2_Glossary_Targets}; do
 		then
 			iTM2_Glossary_Var="${iTM2_Glossary_Current}/${iTM2_Glossary_Var}"
 		fi
-                "$iTM2_CMD_Notify" comment "Making the glossary of: ${iTM2_Glossary_Var}"
+                "${iTM2_CMD_Notify}" notify comment "Making the glossary of: ${iTM2_Glossary_Var}"
 		if [ -e "${iTM2_Glossary_Var}" ]
 		then
-            "$iTM2_CMD_Notify" start comment
+            "${iTM2_CMD_Notify}" notify start comment
 			if [ "${iTM2_Glossary_Var%.*}.tex" -nt "${iTM2_Glossary_Var}" ]
 			then
-				"$iTM2_CMD_Notify" echo "The LaTeX source file ${iTM2_Glossary_Var%.*}.tex is newer than ${iTM2_Glossary_Var}.
+				"${iTM2_CMD_Notify}" notify echo "The LaTeX source file ${iTM2_Glossary_Var%.*}.tex is newer than ${iTM2_Glossary_Var}.
 LaTeX glossary ${iTM2_Glossary_Var%.*}.idx not updated: Please compile first."
 			elif [ "${iTM2_Glossary_Var}" -nt "${iTM2_Glossary_Var%.*}.glo" ]
 			then
 				iTM2_GloCommand="${iTM2_Glossary_Engine} ${iTM2_Glossary_Var%.*}"
-				"$iTM2_CMD_Notify" echo "${iTM2_GloCommand}"
+				"${iTM2_CMD_Notify}" notify echo "${iTM2_GloCommand}"
 				eval "${iTM2_GloCommand}"
 #touch "${iTM2_Glossary_Var%.*}.idx"
-				"$iTM2_CMD_Notify" echo "LaTeX glossary ${iTM2_Glossary_Var%.*}.glo updated";
+				"${iTM2_CMD_Notify}" notify echo "LaTeX glossary ${iTM2_Glossary_Var%.*}.glo updated";
 			else
-				"$iTM2_CMD_Notify" echo "LaTeX glossary ${iTM2_Glossary_Var%.*}.glo is already up to date";
+				"${iTM2_CMD_Notify}" notify echo "LaTeX glossary ${iTM2_Glossary_Var%.*}.glo is already up to date";
 			fi
-            "$iTM2_CMD_Notify" stop comment
+            "${iTM2_CMD_Notify}" notify stop comment
 		fi
 	else
 		iTM2_Glossary_Var1="`dirname ${iTM2_Glossary_Var}`/`basename ${iTM2_Glossary_Var} ":"`"
@@ -181,7 +181,7 @@ LaTeX glossary ${iTM2_Glossary_Var%.*}.idx not updated: Please compile first."
 done
 if [ "${iTM2_Glossary_RunSilently:-1}" -eq 0 ]
 then
-        "$iTM2_CMD_Notify" comment "`basename "$0"` complete"
+        "${iTM2_CMD_Notify}" notify comment "`basename "$0"` complete"
 fi
 exit
 
