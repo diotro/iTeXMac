@@ -29,14 +29,6 @@ NSString * iTM2ProjectLocalizedAddDocumentName = nil;
 NSString * iTM2ProjectLocalizedAddCurrentDocumentName = nil;
 
 #import "iTM2WindowsMenuKit.h"
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-//#import <iTM2Foundation/iTM2JAGUARSupportKit.h>
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
-#import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2MenuKit.h>
-#import <iTM2Foundation/iTM2WindowKit.h>
-#import <iTM2Foundation/iTM2DocumentKit.h>
 
 @implementation iTM2ProjectDocument(WindowMenuKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateWindowsSubmenu:

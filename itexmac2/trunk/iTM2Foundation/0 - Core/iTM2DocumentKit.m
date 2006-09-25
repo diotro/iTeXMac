@@ -3613,7 +3613,7 @@ To Do List:
 		NSAssert([fileName length], @"Inconsistency on fileName, PLEASE report bug...");
         [task setCurrentDirectoryPath:[fileName stringByDeletingLastPathComponent]];
         NSMutableDictionary * processEnvironment = [[[[NSProcessInfo processInfo] environment] mutableCopy] autorelease];
-		[processEnvironment addEntriesFromDictionary:[self environmentForExternalHelper]];
+		[processEnvironment addEntriesFromDictionary:[[self document] environmentForExternalHelper]];
 		[processEnvironment addEntriesFromDictionary:environment];
 		[processEnvironment setObject:[NSString stringWithFormat:@":%@:%@",
                         [self contextValueForKey:iTM2PATHPrefixKey],

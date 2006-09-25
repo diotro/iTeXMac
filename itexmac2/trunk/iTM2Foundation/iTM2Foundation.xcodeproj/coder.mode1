@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCFEA5AE0AC87DBF0014A771</string>
+						<string>DCFEA5E60AC883FF0014A771</string>
 						<key>history</key>
 						<array>
 							<string>DCFEA58D0AC87ADF0014A771</string>
@@ -241,14 +241,6 @@
 						<string>DCFEA5B00AC87DBF0014A771</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>iTM2TeXProjectDocumentKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCFEA5B30AC87DBF0014A771</string>
-						<key>history</key>
-						<array>
-							<string>DCFEA5B10AC87DBF0014A771</string>
-						</array>
 					</dict>
 					<key>SplitCount</key>
 					<string>1</string>
@@ -284,7 +276,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCFEA5B80AC87DBF0014A771</string>
+						<string>DCFEA5E70AC883FF0014A771</string>
 						<key>history</key>
 						<array>
 							<string>DCFEA5B70AC87DBF0014A771</string>
@@ -324,7 +316,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCFEA5B90AC87DBF0014A771</string>
+						<string>DCFEA5E80AC883FF0014A771</string>
 						<key>history</key>
 						<array>
 							<string>DCFEA5750AC877C60014A771</string>
@@ -364,7 +356,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCFEA5BA0AC87DBF0014A771</string>
+						<string>DCFEA5E90AC883FF0014A771</string>
 						<key>history</key>
 						<array>
 							<string>DCE5C60B0AC849890054C760</string>
@@ -404,7 +396,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCFEA5BB0AC87DBF0014A771</string>
+						<string>DCFEA5EA0AC883FF0014A771</string>
 						<key>history</key>
 						<array>
 							<string>DCE5C60C0AC849890054C760</string>
@@ -562,7 +554,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCFEA5AB0AC87DBF0014A771</string>
+										<string>DCFEA5E50AC883FF0014A771</string>
 										<key>history</key>
 										<array>
 											<string>DCD7D6F70A439B6B0096B1A9</string>

@@ -143,11 +143,11 @@
 			PBXWorkspaceStateSaveDate = 180904468;
 		};
 		perUserProjectItems = {
-			DC008F240A6ADEF2009236E8 = DC008F240A6ADEF2009236E8 /* PBXTextBookmark */;
-			DC8033900ABECAB50087FC8F = DC8033900ABECAB50087FC8F /* PBXBookmark */;
-			DCD7B8000AA8F6FB0042AA60 = DCD7B8000AA8F6FB0042AA60 /* PBXBookmark */;
-			DCD7B8020AA8F6FB0042AA60 = DCD7B8020AA8F6FB0042AA60 /* PBXBookmark */;
-			DCDDA40E0ABC654C0034A4B9 = DCDDA40E0ABC654C0034A4B9 /* PBXBookmark */;
+			DC008F240A6ADEF2009236E8 /* PBXTextBookmark */ = DC008F240A6ADEF2009236E8 /* PBXTextBookmark */;
+			DC8033900ABECAB50087FC8F /* PBXBookmark */ = DC8033900ABECAB50087FC8F /* PBXBookmark */;
+			DCD7B8000AA8F6FB0042AA60 /* PBXBookmark */ = DCD7B8000AA8F6FB0042AA60 /* PBXBookmark */;
+			DCD7B8020AA8F6FB0042AA60 /* PBXBookmark */ = DCD7B8020AA8F6FB0042AA60 /* PBXBookmark */;
+			DCFEA5EB0AC884010014A771 /* PBXBookmark */ = DCFEA5EB0AC884010014A771 /* PBXBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -261,7 +261,7 @@
 	};
 	DC99EC710A27C69D00F50752 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
-		name = "Project Breakpoints";
+		name = iTM2LaTeXKit;
 		objects = (
 			DCD3D325088EA6DB009ED7E0 /* -[NSException raise] */,
 		);
@@ -321,14 +321,14 @@
 		isa = PBXBookmark;
 		fRef = DC90D02909978AFF00C79525 /* iTM2ScriptRecent.png */;
 	};
-	DCDDA40E0ABC654C0034A4B9 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC90D27C0997E63C00C79525 /* iTM2ScriptMiscellaneous.png */;
-	};
 	DCE417D80AB61DEE00FB432D /* Install Engines */ = {
 		activeExec = 0;
 	};
 	DCE417E20AB61E7400FB432D /* Build & Install Engines */ = {
 		activeExec = 0;
+	};
+	DCFEA5EB0AC884010014A771 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DC90D27C0997E63C00C79525 /* iTM2ScriptMiscellaneous.png */;
 	};
 }

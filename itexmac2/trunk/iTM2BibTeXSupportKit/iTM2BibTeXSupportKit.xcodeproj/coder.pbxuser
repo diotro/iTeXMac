@@ -9,6 +9,7 @@
 		breakpoints = (
 			DCD3D356088EA709009ED7E0 /* -[NSException raise] */,
 		);
+		breakpointsGroup = DCFEA5E00AC883FE0014A771 /* XCBreakpointsBucket */;
 		codeSenseManager = DC52042B088B1FD200DE6E7F /* Code sense */;
 		executables = (
 			DC52037C088B1FAC00DE6E7F /* iTeXMac2 */,
@@ -209,5 +210,12 @@
 		modificationTime = 171877190.173517;
 		state = 1;
 		symbolName = "-[NSException raise]";
+	};
+	DCFEA5E00AC883FE0014A771 /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = iTM2BibTeXSupportKit;
+		objects = (
+			DCD3D356088EA709009ED7E0 /* -[NSException raise] */,
+		);
 	};
 }

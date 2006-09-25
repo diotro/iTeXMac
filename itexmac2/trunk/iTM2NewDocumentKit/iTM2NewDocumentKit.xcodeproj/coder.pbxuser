@@ -143,11 +143,8 @@
 			PBXWorkspaceStateSaveDate = 180904476;
 		};
 		perUserProjectItems = {
-			DC41AAD50A6F9CB600B5E990 = DC41AAD50A6F9CB600B5E990 /* PBXTextBookmark */;
-			DC89F3BD0A6F224B001272DD = DC89F3BD0A6F224B001272DD /* PBXTextBookmark */;
-			DCFEA3430AC8682A0014A771 /* PBXTextBookmark */ = DCFEA3430AC8682A0014A771 /* PBXTextBookmark */;
-			DCFEA34F0AC868ED0014A771 /* PBXTextBookmark */ = DCFEA34F0AC868ED0014A771 /* PBXTextBookmark */;
-			DCFEA5600AC876340014A771 /* PBXTextBookmark */ = DCFEA5600AC876340014A771 /* PBXTextBookmark */;
+			DC41AAD50A6F9CB600B5E990 /* PBXTextBookmark */ = DC41AAD50A6F9CB600B5E990 /* PBXTextBookmark */;
+			DCFEA6080AC884030014A771 /* PBXTextBookmark */ = DCFEA6080AC884030014A771 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
@@ -260,16 +257,6 @@
 			DCDE975E08EC808300A7C892 /* iTeXMac2 */,
 		);
 	};
-	DC89F3BD0A6F224B001272DD /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3366";
-		rLen = 0;
-		rLoc = 109935;
-		rType = 0;
-		vrLen = 1550;
-		vrLoc = 70483;
-	};
 	DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
 		name = iTM2NewDocumentKit;
@@ -375,27 +362,7 @@
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
-	DCFEA3430AC8682A0014A771 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3366";
-		rLen = 0;
-		rLoc = 109935;
-		rType = 0;
-		vrLen = 1550;
-		vrLoc = 70484;
-	};
-	DCFEA34F0AC868ED0014A771 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3366";
-		rLen = 0;
-		rLoc = 109935;
-		rType = 0;
-		vrLen = 1550;
-		vrLoc = 70484;
-	};
-	DCFEA5600AC876340014A771 /* PBXTextBookmark */ = {
+	DCFEA6080AC884030014A771 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
 		name = "iTM2NewDocumentKit.m: 3366";

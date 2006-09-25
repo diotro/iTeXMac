@@ -3754,7 +3754,7 @@ To Do List:
 			unsigned int maxOff7 = [document characterOffsetForPageAtIndex:min+1];
 			unsigned int minOff7 = [document characterOffsetForPageAtIndex:min];
 			if(minOff7 == NSNotFound)
-				return;
+				return NO;
 			PDFPage * page = [[self document] pageAtIndex:min];
 			if(maxOff7 == NSNotFound)
 				maxOff7 = minOff7 + [page numberOfCharacters];

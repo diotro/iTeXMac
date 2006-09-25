@@ -261,7 +261,7 @@
 	};
 	DC99EC6A0A27C69600F50752 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
-		name = "Project Breakpoints";
+		name = iTM2MetaPostKit;
 		objects = (
 			DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */,
 		);

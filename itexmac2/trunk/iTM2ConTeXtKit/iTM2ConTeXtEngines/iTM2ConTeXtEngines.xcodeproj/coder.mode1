@@ -309,13 +309,15 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>&lt;No Editor&gt;</string>
+								<string></string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
+										<key>PBXProjectModuleLabel</key>
+										<string></string>
 										<key>history</key>
 										<array>
 											<string>DCC541840935A0E50050770C</string>
@@ -390,9 +392,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC469F9F0AC7C17D00F0CA29</string>
+				<string>DCFEA5E10AC883FF0014A771</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC469FA00AC7C17D00F0CA29</string>
+				<string>DCFEA5E20AC883FF0014A771</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -540,8 +542,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC099B36088B331B0028F810</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>136 168 1057 710 0 0 1440 878 </string>

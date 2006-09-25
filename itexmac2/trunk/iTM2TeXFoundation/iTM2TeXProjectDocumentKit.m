@@ -1395,6 +1395,8 @@ To Do List:
 }
 @end
 
+#import <iTM2TeXFoundation/iTM2TeXDocumentKit.h>
+
 @implementation iTM2TeXDocument(TeXProjectDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentForExternalHelper
 - (NSDictionary *)environmentForExternalHelper;
@@ -1406,8 +1408,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:self];
-	NSString *key = [TPD keyForFileName:[self fileName]];
-	NSString * codeset = [TPD originalPropertyValueForKey:key fileKey:fileKey];
+	NSString * fileKey = [TPD keyForFileName:[self fileName]];
+	NSString * codeset = [TPD originalPropertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey];
 //iTM2_END;
     return [codeset length]?[NSDictionary dictionaryWithObjectsAndKeys:
 		codeset,TWSStringEncodingFileKey,

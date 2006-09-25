@@ -213,10 +213,8 @@
 			PBXWorkspaceStateSaveDate = 180904484;
 		};
 		perUserProjectItems = {
-			DCE5C43F0AC7EDAE0054C760 = DCE5C43F0AC7EDAE0054C760 /* PBXBookmark */;
-			DCE5C6090AC849880054C760 = DCE5C6090AC849880054C760 /* PBXTextBookmark */;
-			DCFEA3230AC864240014A771 /* PBXTextBookmark */ = DCFEA3230AC864240014A771 /* PBXTextBookmark */;
-			DCFEA5BC0AC87DC00014A771 /* PBXTextBookmark */ = DCFEA5BC0AC87DC00014A771 /* PBXTextBookmark */;
+			DCE5C6090AC849880054C760 /* PBXTextBookmark */ = DCE5C6090AC849880054C760 /* PBXTextBookmark */;
+			DCFEA6150AC884040014A771 /* PBXTextBookmark */ = DCFEA6150AC884040014A771 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;
@@ -272,7 +270,7 @@
 			sepNavIntBoundsRect = "{{0, 0}, {1036, 5780}}";
 			sepNavSelRange = "{9938, 0}";
 			sepNavVisRect = "{{0, 4658}, {1023, 745}}";
-			sepNavWindowFrame = "{{0, 3}, {1062, 874}}";
+			sepNavWindowFrame = "{{0, 4}, {1062, 874}}";
 		};
 	};
 	DC9DC4BF094840CC0079E1B3 /* iTM2_Engine_TeX */ = {
@@ -340,10 +338,6 @@
 		isa = PBXBookmark;
 		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
 	};
-	DCE5C43F0AC7EDAE0054C760 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-	};
 	DCE5C6090AC849880054C760 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
@@ -354,17 +348,7 @@
 		vrLen = 1642;
 		vrLoc = 9763;
 	};
-	DCFEA3230AC864240014A771 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-		name = "iTM2_Engine_PDFTeX: 279";
-		rLen = 0;
-		rLoc = 9938;
-		rType = 0;
-		vrLen = 1620;
-		vrLoc = 9763;
-	};
-	DCFEA5BC0AC87DC00014A771 /* PBXTextBookmark */ = {
+	DCFEA6150AC884040014A771 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
 		name = "iTM2_Engine_PDFTeX: 279";
