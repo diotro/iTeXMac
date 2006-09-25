@@ -57,7 +57,7 @@ Usage: $(basename "$0") with environment variables
 This is iTeXMac2 built in script to wrap the pdftex engine at
 $(which pdftex)
 © 2006 jlaurens@users.sourceforge.net"
-if [ ${#iTM2_Debug} -gt 0 ]
+if [ "${iTM2_Debug}" != "0" ]
 then
 	"$iTM2_CMD_Notify" start comment
 	"$iTM2_CMD_Notify" echo "The $0 specific environment is:"
@@ -308,11 +308,18 @@ then
 	iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
 	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
 	then
+		iTM2_PWD_Real="$(dirname "${TWSMaster}")"
 		if [ ${#TEXINPUTS} -gt 0 ]
 		then
 			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
 		else
 			export TEXINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#MPINPUTS} -gt 0 ]
+		then
+			export MPINPUTS=".:${iTM2_PWD_Real}:${MPINPUTS}:"
+		else
+			export MPINPUTS=".:${iTM2_PWD_Real}:"
 		fi
 		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
 		then
@@ -320,8 +327,8 @@ then
 		fi
 	fi
 else
-	iTM2_PWD="$(dirname "${TWSMaster}")"
-	iTM2_PWD_Real="${iTM2_PWD}"
+	iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+	iTM2_PWD="${iTM2_PWD_Real}"
 fi
 pushd "${iTM2_PWD}"
 "$iTM2_CMD_Notify" comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
@@ -338,6 +345,11 @@ then
 	"$iTM2_CMD_Notify" comment "Swicthing to a dvi to ps filter for ${iTM2_PWD}/${OUTPUT%.*}"
 	iTM2_Command_Compile --master "${iTM2_PWD}/${OUTPUT%.*}" --switch dvi
 fi
+OUTPUT="${OUTPUT%.*}.log"
+if [ -s "${OUTPUT}" ]
+then	
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
+fi
 OUTPUT="${OUTPUT%.*}.pdf"
 if [ -s "${OUTPUT}" ]
 then	
@@ -349,7 +361,7 @@ then
 else
 	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 fi
-if [ ${#iTM2_Debug} -gt 0 ]
+if [ "${iTM2_Debug}" != "0" ]
 then
 	"$iTM2_CMD_Notify" comment "$0 complete."
 fi

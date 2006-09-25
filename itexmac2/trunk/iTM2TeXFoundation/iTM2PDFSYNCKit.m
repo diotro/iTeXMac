@@ -1598,6 +1598,7 @@ To Do List:
 //iTM2_START;
 	NSEnumerator * E = [[NSApp windows] objectEnumerator];
 	NSWindow * W;
+	NSDictionary * destinations = nil;
 	while(W = [E nextObject])
 		if(([[W windowController] document] == self) && [W isVisible])
 			goto laSuite;
@@ -1606,9 +1607,9 @@ To Do List:
 laSuite:
 	if([SRCE hasPrefix:@"/"])
 		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory:[[self fileName] stringByDeletingLastPathComponent]];
+	BOOL result = NO;
 //NSLog(@"line: %u column: %u source: %@", l, c, SRCE);
     [IMPLEMENTATION takeMetaValue:nil forKey:@"_Invocation"];
-	BOOL result = NO;
 	// external viewers are prominent
 	E = [[NSApp windows] objectEnumerator];
 	while(W = [E nextObject])
@@ -1623,12 +1624,11 @@ laSuite:
 				([SRCE length]? SRCE:@""), @"source", nil]];
 		}
 	}
-	NSDictionary * destinations = [[self synchronizer] destinationsForLine:l column:c inSource:SRCE];
 //NSLog(@"SYNCHRONIZING");
-	if(destinations)
+	if(destinations = [[self synchronizer] destinationsForLine:l column:c inSource:SRCE])
 	{
-		E = [[NSApp windows] objectEnumerator];
 		BOOL result = NO;
+		E = [[NSApp windows] objectEnumerator];
 		while(W = [E nextObject])
 		{
 			iTM2PDFInspector * WC = [W windowController];
@@ -1637,20 +1637,27 @@ laSuite:
 				&& [WC respondsToSelector:@selector(canSynchronizeOutput)]
 					&& [WC canSynchronizeOutput])
 			{
-				[WC synchronizeWithDestinations:destinations hint:hint];// after the window has been loaded
-				if(yorn)
+				if([WC synchronizeWithDestinations:destinations hint:hint])// after the window has been loaded
 				{
-					if(force)
-						[[WC window] makeKeyAndOrderFront:self];
-					else if(![WC isKindOfClass:[iTM2ExternalInspector class]])
-						[[WC window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
+					if(yorn)
+					{
+						if(force)
+							[[WC window] makeKeyAndOrderFront:self];
+						else if(![WC isKindOfClass:[iTM2ExternalInspector class]])
+							[[WC window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
+					}
+					result = YES;
 				}
-				result = YES;
 			}
+		}
+		if(result)
+		{
+			return result;
 		}
 	}
 	else if(l != NSNotFound)
 	{
+		BOOL result = NO;
 		E = [[NSApp windows] objectEnumerator];
 		while(W = [E nextObject])
 		{
@@ -1660,10 +1667,12 @@ laSuite:
 				&& [WC respondsToSelector:@selector(canSynchronizeOutput)]
 					&& [WC canSynchronizeOutput])
 			{
-				[WC synchronizeWithDestinations:destinations hint:hint];
-				if(yorn && (force || ![WC isKindOfClass:[iTM2ExternalInspector class]]))
-					[[WC window] makeKeyAndOrderFront:self];
-				result = YES;
+				if([WC synchronizeWithDestinations:destinations hint:hint])
+				{
+					if(yorn && (force || ![WC isKindOfClass:[iTM2ExternalInspector class]]))
+						[[WC window] makeKeyAndOrderFront:self];
+					result = YES;
+				}
 			}
 		}
 		if([self synchronizer])
@@ -1676,6 +1685,10 @@ laSuite:
 			[_Invocation setArgument: &c atIndex:3];
 			[_Invocation setArgument: &SRCE atIndex:4];
 			[IMPLEMENTATION takeMetaValue:_Invocation forKey:@"_Invocation"];
+		}
+		if(result)
+		{
+			return result;
 		}
 //NSLog(@"DELAYED SYNCHRONIZATION %@", _Invocation);
 	}
@@ -1780,7 +1793,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
-- (void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1790,8 +1803,7 @@ To Do List:
 //iTM2_START;
 //NSLog
 //NSLog(@"dpn");
-    [[self album] synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint];
-    return;
+    return [[self album] synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint];
 }
 @end
 
@@ -1800,7 +1812,7 @@ To Do List:
 @implementation iTM2PDFAlbumView(SYNCKit)
 /*"Description forthcoming."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
-- (void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1832,7 +1844,7 @@ To Do List:
 				synchronizationPoint: [[synchPoints objectAtIndex:0] pointValue]
 					withHint: hint];
 			[self scrollSynchronizationPointToVisible:self];
-			return;
+			return YES;
 		}
 	}
 	NSMutableDictionary * MDs = [[[destinations objectForKey:@"before"] mutableCopy] autorelease];
@@ -1859,12 +1871,13 @@ To Do List:
 				synchronizationPoint: [[synchPoints objectAtIndex:0] pointValue]
 					withHint: hint];
 			[self scrollSynchronizationPointToVisible:self];
-			return;
+			return YES;
 		}
 	}
 	iTM2_LOG(@"....  Unable to synchronize");
 //iTM2_END;
-    return;
+    return NO
+	;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint: 
 - (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
@@ -2215,8 +2228,11 @@ To Do List:
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
     unsigned modifierFlags = [event modifierFlags];
-    if((modifierFlags & NSCommandKeyMask) && ([event clickCount]==1) && [self pdfSynchronizeMouseDown:event])
+    if(((modifierFlags & NSDeviceIndependentModifierFlagsMask)==NSCommandKeyMask)
+		&& ([event clickCount]==1)
+			&& [self pdfSynchronizeMouseDown:event])
 	{
+#warning WAIT FOR left mouseUp:????
 		return;
 	}
 	else
@@ -2242,17 +2258,19 @@ To Do List:
 		return NO;
 	}
 	NSString * S = [self string];
-	unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:[[self layoutManager] glyphIndexForPoint:
-		[self convertPoint:[event locationInWindow] fromView:nil]
-			inTextContainer: [self textContainer]]];
+	NSPoint hitPoint = [event locationInWindow];
+	hitPoint = [self convertPoint:hitPoint fromView:nil];
+	NSLayoutManager * LM = [self layoutManager];
+	unsigned int glyphIndex = [LM glyphIndexForPoint:hitPoint inTextContainer: [self textContainer]];
+	unsigned charIndex = [LM characterIndexForGlyphAtIndex:glyphIndex];
 	unsigned start, contentsEnd;
 	[S getLineStart: &start end:nil contentsEnd: &contentsEnd forRange:NSMakeRange(charIndex, 1)];
 	unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
 	unsigned column = charIndex - start;
-	BOOL result = [SDC displayPageForLine:line column:column source:[D fileName]
-		withHint: [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil]
-				orderFront: (([event modifierFlags] & NSAlternateKeyMask) == 0) force:YES];
+	NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
+	BOOL result = [SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
+			orderFront:(([event modifierFlags] & NSAlternateKeyMask) == 0) force:YES];
 //iTM2_END;
     return result;
 }
@@ -2333,10 +2351,25 @@ To Do List:
 		[S getLineStart: &start end:nil contentsEnd: &contentsEnd forRange:NSMakeRange(charIndex, 0)];
 		unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
 		unsigned column = charIndex - start;
-		[SDC displayPageForLine:line column:column source:[D fileName]
-			withHint: [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil]
-					orderFront: NO force: NO];// side effect: text document opens pdf document as when focus is on
+		NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
+				[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
+		if(![SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
+			orderFront: NO force: NO])// side effect: text document opens pdf document as when focus is on
+		{
+			// second chance to follow focus: from the visible start of the line
+			NSLayoutManager * LM = [TV layoutManager];
+			NSRange range = NSMakeRange(charIndex,1);
+			range = [LM lineFragmentCharacterRangeForCharacterRange:range withoutAdditionalLayout:YES];
+			if(range.location<charIndex)
+			{
+				charIndex = range.location;
+				column = charIndex - start;
+				hint = [NSDictionary dictionaryWithObjectsAndKeys:
+					[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
+				[SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
+					orderFront: NO force: NO];
+			}
+		}
 	}
 //iTM2_END;
     return;

@@ -180,6 +180,21 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 
 @end
 
+@interface NSLayoutManager(iTM2TextKit)
+
+/*!
+	@method		lineFragmentCharacterRangeForCharacterRange:
+	@abstract	The character range of the line fragment containing the given character range
+	@discussion	The given charater range corresponds to visible lines (taking auto wrapping into account)
+				This methods returns the whole range of characters of these line fragments.
+	@param		aCharacterRange is a character range. This must be a consistent character range.
+	@param		yorn is a flag.
+	@result		None
+*/
+- (NSRange)lineFragmentCharacterRangeForCharacterRange:(NSRange)aCharacterRange withoutAdditionalLayout:(BOOL)yorn;
+
+@end
+
 @interface NSColor(iTM2TextKit)
 
 /*!
@@ -216,7 +231,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@method		componentsBySeparatingPlaceholders
 	@abstract	Abstract forthcoming.
 	@discussion	Turns the receiver into a list of strings, each one being a placeholder (enclosed in a "__(" ")__" pair)
-			or contains no place holder at all. Placeholders are not allowed inside placeholders, "__(" and ")__" are added to ensure that.
+				or contains no place holder at all. Placeholders are not allowed inside placeholders, "__(" and ")__" are added to ensure that.
 	@param		None.
     @result     An array of strings
 */

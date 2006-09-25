@@ -261,7 +261,7 @@ typedef struct
 - (IBAction)scrollSynchronizationPointToVisible:(id)sender;
 - (BOOL)validateScrollSynchronizationPointToVisible:(id)sender;
 - (void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
-- (void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 @end
 
 @interface NSTextView(iTM2PDFSYNCKit)

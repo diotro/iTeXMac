@@ -244,6 +244,7 @@ To Do List:
     unsigned int column = -1;
 	unsigned int length = 1;
 	NSURL * url = nil;
+	id document = nil;
 	id synchronizer = [self synchronizer];
     if([synchronizer getLine: &line column: &column sourceBefore: &sourceBefore sourceAfter: &sourceAfter forLocation:thePoint withHint:hint inPageAtIndex:thePage])
 	{
@@ -251,7 +252,7 @@ To Do List:
 			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceBefore pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
 			url = [NSURL fileURLWithPath:sourceBefore];
-			id document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
+			document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 			[document getLine: &line column: &column length:&length forHint:hint];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
@@ -259,7 +260,7 @@ To Do List:
 		if([sourceAfter length]
 			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceAfter pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
-			id document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:sourceAfter] display:NO error:nil];
+			document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:sourceAfter] display:NO error:nil];
 			[document getLine: &line column: &column length:&length forHint:hint];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
@@ -274,7 +275,7 @@ To Do List:
 	while(key = [E nextObject])
 	{
 		NSString * source = [PD absoluteFileNameForKey:key];
-		id document = [PD subdocumentForKey:key];
+		document = [PD subdocumentForKey:key];
 		if(!document)
 		{
 			if([source length] && [[SDC documentClassForType:[SDC typeFromFileExtension:[source pathExtension]]]
@@ -302,13 +303,15 @@ To Do List:
 	{
 		return;
 	}
-	matchDocument = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:[[[self fileName] stringByDeletingPathExtension] stringByAppendingPathExtension:@"tex"]]
-		display: NO error: nil];
+	NSString * path = [self fileName];
+	path = [path stringByDeletingPathExtension];
+	path = [path stringByAppendingPathExtension:@"tex"];
+	matchDocument = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display: NO error: nil];
 	if([matchDocument isKindOfClass:[iTM2TextDocument class]])
 	{
 		unsigned int testLine = 0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
 		[matchDocument getLine:&testLine column:&testColumn length:&testLength forHint:hint];
-		if([matchDocument displayLine:line column:column length:length withHint:hint orderFront:yorn])
+		if([matchDocument displayLine:testLine column:testColumn length:testLength withHint:hint orderFront:yorn])
 		{
 			return;
 		}
@@ -322,6 +325,22 @@ To Do List:
 - (BOOL)validateSaveDocument:(id)sender;
 {
 	return [self isDocumentEdited];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
+- (void)updateIfNeeded;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Jan 18 22:21:11 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([self needsToUpdate])
+	{
+		[self saveContext:nil];
+		[self readFromURL:[self fileURL] ofType:[self fileType] error:nil];
+	}
+    return;
 }
 @end
 
@@ -580,7 +599,8 @@ To Do List:
 		}
 		doc = [document PDFDocument];
 		[_pdfView setDocument:doc];
-		[_pdfView setNeedsDisplay:YES];
+//		[_pdfView setNeedsDisplay:YES];
+iTM2_LOG(@"UPDATE");
 		[doc setDelegate:self];
 		[self setPDFOutlines:nil];
 		[[self PDFThumbnails] setArray:[NSArray array]];
@@ -1529,7 +1549,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
-- (void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1539,8 +1559,7 @@ To Do List:
 //iTM2_START;
 //NSLog
 //NSLog(@"dpn");
-    [[self album] synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint];
-    return;
+    return [[self album] synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint];
 }
 #define GETTER [[self contextValueForKey:@"iTM2PDFKit"] valueForKey:iTM2KeyFromSelector(_cmd)]
 #define SETTER(argument) id __D = [[[self contextDictionaryForKey:@"iTM2PDFKit"] mutableCopy] autorelease];\
@@ -1590,10 +1609,20 @@ To Do List:
 	[V setAutoScales:[self autoScales]];
 //iTM2_LOG(@"[V autoScales]: %@", ([V autoScales]? @"Y": @"N"));
 	[V setNeedsDisplay:YES];
-	V = [V documentView];
-	if(V)
+	if(V = [V documentView])
 	{
-		[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(timedSynchronizeDocumentView:) userInfo:[NSValue valueWithRect:[self documentViewVisibleRect]] repeats:NO];
+#if 1
+		// I don't remember why it was timed, an EXC_BAD_ACCESS somewhere
+		[NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timedSynchronizeDocumentView:) userInfo:[NSValue valueWithRect:[self documentViewVisibleRect]] repeats:NO];
+#else
+		unsigned int pageIndex = [self documentViewVisiblePageNumber];
+		PDFDocument * doc = [V document];
+		if(pageIndex < [doc pageCount])
+		{
+			[V goToPage:[doc pageAtIndex:pageIndex]];
+			[[V documentView] scrollRectToVisible:[self documentViewVisibleRect]];
+		}
+#endif
 	}
 	else
 	{
@@ -2739,10 +2768,10 @@ To Do List:
             if((displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets) && [[_SyncDestination page] isEqual:page])
             {
 				NSImage * syncDimple = [NSImage imageRedDimple];
-//				[starDimple setScalesWhenResized:YES];
 				NSRect fromRect = NSZeroRect;
 				fromRect.size = [syncDimple size];
-				NSRect inRect = [self convertRect:fromRect toPage:page];
+				NSRect inRect = [self convertRect:fromRect fromView:nil];
+				inRect = [self convertRect:inRect toPage:page];
 				if(inRect.size.width>[syncDimple size].width)
 				{
 					inRect.size = [syncDimple size];
@@ -2850,12 +2879,21 @@ To Do List:
 					inRect.origin.y = syncPoint.y + origin.y;
 					[matchDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.4];
 				}
+				inRect = [self convertRect:fromRect fromView:nil];
+				inRect = [self convertRect:inRect toPage:page];
+				if(inRect.size.width>[syncDimple size].width)
+				{
+					inRect.size = [syncDimple size];
+				}
+				inRect = NSIntegralRect(inRect);
+				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
+				inRect.size.height = inRect.size.width;
 				origin.x = - inRect.size.width/2;
 				origin.y = - inRect.size.height/2;
 				syncPoint = [_SyncDestination point];
 				inRect.origin.x = syncPoint.x + origin.x;
 				inRect.origin.y = syncPoint.y + origin.y;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.4];
+				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
             }
             if(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
             {
@@ -2893,7 +2931,7 @@ To Do List:
 						NSPoint syncPoint = [destination point];
 						inRect.origin.x = syncPoint.x + origin.x;
 						inRect.origin.y = syncPoint.y + origin.y;
-						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.4];
+						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
 					}
 					else
 					{
@@ -3442,18 +3480,18 @@ To Do List:
 @end
 
 @interface iTM2PDFKitView(SyncHRONIZE)
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations;
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex;
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex;
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
 - (void)scrollSynchronizationPointToVisible:(id)sender;
-- (void)__synchronizeWithStoredDestinationsAndHints:(id)irrelevant;
+- (BOOL)__synchronizeWithStoredDestinationsAndHints:(id)irrelevant;
 @end
 
 @implementation iTM2PDFKitView(SyncHRONIZE)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -3517,10 +3555,10 @@ To Do List:
 #endif
 #endif
 //iTM2_END;
-	return;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:here:index:
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -3531,10 +3569,10 @@ To Do List:
 	NSParameterAssert(hit);
 //iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations: %@", destinations);
 //iTM2_END;
-	return;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:index:
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -3546,10 +3584,10 @@ To Do List:
 	NSParameterAssert(hit);
 //iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations: %@", destinations);
 //iTM2_END;
-	return;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:here:after:index:
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -3561,10 +3599,10 @@ To Do List:
 	NSParameterAssert(after);
 //iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations: %@", destinations);
 //iTM2_END;
-	return;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:after:index:
-- (void)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -3953,11 +3991,12 @@ quelquepart:
 				_SyncDestinations = [[NSArray arrayWithObject:hitDestination] retain];
 				//[self scrollDestinationToVisible:hitDestination];// no go to, it does not work well...
 				[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
+				return YES;
 			}
 		}
 	}
 //iTM2_END;
-	return;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __threadedSynchronizeWithStoredDestinationsAndHints:
 - (void)__threadedSynchronizeWithStoredDestinationsAndHints:(id)irrelevant;
@@ -3976,13 +4015,14 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __synchronizeWithStoredDestinationsAndHints:
-- (void)__synchronizeWithStoredDestinationsAndHints:(id)irrelevant;
+- (BOOL)__synchronizeWithStoredDestinationsAndHints:(id)irrelevant;
 /*"Description Forthcoming. NOT THREADED (problems)
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+	BOOL result = NO;
 startAgain:;
 	iTM2_INIT_POOL;
 //iTM2_START;
@@ -3991,10 +4031,15 @@ startAgain:;
 	NSMutableArray * syncStack = [[self implementation] metaValueForKey:@"_SynchronizationStack"];
 	if([syncStack count]>1)
 	{
-		NSDictionary * hint = [(id)[[syncStack lastObject] pointerValue] autorelease];
+		NSDictionary * hint = [[[syncStack lastObject] nonretainedObjectValue] autorelease];
 		[syncStack removeLastObject];
-		NSDictionary * destinations = [(id)[[syncStack lastObject] pointerValue] autorelease];
-		[syncStack setArray:[NSArray array]];
+		NSDictionary * destinations = [[[syncStack lastObject] nonretainedObjectValue] autorelease];
+		[syncStack removeLastObject];
+		while([syncStack count])
+		{
+			[[[syncStack lastObject] nonretainedObjectValue] autorelease];
+			[syncStack removeLastObject];
+		}
 		[L unlock];
 		[L release];
 		L = nil;
@@ -4018,17 +4063,17 @@ startAgain:;
 					{
 						if([afterWord length])
 						{
-							[self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord after:afterWord index:localHitIndex];
+							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord after:afterWord index:localHitIndex];
 						}
 						else
 						{
-							[self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord index:localHitIndex];
+							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord index:localHitIndex];
 						}
 					}
 #if 0
 					else
 					{
-						[self _synchronizeWithDestinations:destinations];
+						result = [self _synchronizeWithDestinations:destinations];
 					}
 #endif
 				}
@@ -4036,49 +4081,47 @@ startAgain:;
 				{
 					if([afterWord length])
 					{
-						[self _synchronizeWithDestinations:destinations here:hereWord after:afterWord index:localHitIndex];
+						result = [self _synchronizeWithDestinations:destinations here:hereWord after:afterWord index:localHitIndex];
 					}
 					else
 					{
-						[self _synchronizeWithDestinations:destinations here:hereWord index:localHitIndex];
+						result = [self _synchronizeWithDestinations:destinations here:hereWord index:localHitIndex];
 					}
 				}
 				else if(destinations)
 				{
-					[self _synchronizeWithDestinations:destinations];
+					result = [self _synchronizeWithDestinations:destinations];
 				}
 			}
 			else if(destinations)
 			{
 				// the hint seems inconsistent, this is the standard synchronization process...
-				[self _synchronizeWithDestinations:destinations];
+				result = [self _synchronizeWithDestinations:destinations];
 			}
 		}
 		else if(destinations)
 		{
 			// no hint given, this is the standard stuff
-			[self _synchronizeWithDestinations:destinations];
+			result = [self _synchronizeWithDestinations:destinations];
 		}
-		else
+		if(result)
 		{
-//iTM2_END;
-			iTM2_RELEASE_POOL;
-			return;
+			[self setNeedsDisplay:YES];
 		}
-		[self setNeedsDisplay:YES];
 		iTM2_RELEASE_POOL;
 		goto startAgain;
 	}
+theEnd:
 	[syncStack setArray:[NSArray array]];
 	[L unlock];
 	[L release];
 	L = nil;
 //iTM2_END;
 	iTM2_RELEASE_POOL;
-	return;
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
-- (void)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4095,18 +4138,19 @@ To Do List:
 		[[self implementation] takeMetaValue:syncStack forKey:@"_SynchronizationStack"];
 	}
 	[destinations retain];
-	[syncStack addObject:[NSValue valueWithPointer:destinations]];
+	[syncStack addObject:[NSValue valueWithNonretainedObject:destinations]];
 	[hint retain];
-	[syncStack addObject:[NSValue valueWithPointer:hint]];
+	[syncStack addObject:[NSValue valueWithNonretainedObject:hint]];
 	[L unlock];
 	#if 0
 	[NSThread detachNewThreadSelector: @selector(__threadedSynchronizeWithStoredDestinationsAndHints:)
 		toTarget: self withObject: nil];
+	return YES;
 	#else
-	[self __synchronizeWithStoredDestinationsAndHints:nil];
+	return [self __synchronizeWithStoredDestinationsAndHints:nil];
 	#endif
 //iTM2_END;
-	return;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint:
 - (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)point withHint:(NSDictionary *)hint;

@@ -1,0 +1,3 @@
+This file is used to track down the subversion number
+
+Sep 25 01:15:54 GMT 2006: better synchronization to be used with continuous typesetting mode

@@ -502,7 +502,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue:([[self document] fileName]?:([[self document] displayName]?:@""))];
+	NSString * fileName = [[self document] fileName];
+	if([fileName belongsToFarawayProjectsDirectory])
+	{
+		fileName = [fileName stringByStrippingFarawayProjectsDirectory];
+	}
+    [sender setStringValue:([fileName length]?fileName:([[self document] displayName]?:@""))];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseMainFile:

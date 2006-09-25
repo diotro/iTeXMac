@@ -4352,7 +4352,7 @@ To Do List:
 //iTM2_LOG(@"::::DIRECTORY:%@", [[[self document] fileName] stringByDeletingLastPathComponent]);
 	NSString * directory = [[self document] fileName];
 	directory = [directory stringByDeletingLastPathComponent];
-	if([iTM2EventObserver isAlternateKeyDown] && [directory belongsToFarawayProjectsDirectory])
+	if(![iTM2EventObserver isAlternateKeyDown] && [directory belongsToFarawayProjectsDirectory])
 	{
 		directory = [directory enclosingWrapperFileName];
 		directory = [directory stringByDeletingLastPathComponent];

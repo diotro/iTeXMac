@@ -32,7 +32,7 @@ NSString * const iTM2ServerColumnKey = @"-column";
 NSString * const iTM2ServerLineKey = @"-line";
 NSString * const iTM2ServerSourceKey = @"-source";
 NSString * const iTM2ServerProjectKey = @"-project";
-NSString * const iTM2ServerDontOrderFrontKey = @"DontOrderFront";
+NSString * const iTM2ServerDontOrderFrontKey = @"-dontorderfront";
 
 NSString * const iTM2ProcessInfoEnvironmentKey = @"iTM2ProcessInfoEnvironment";
 
@@ -699,6 +699,40 @@ To Do List: see the warning below
 	NSError * localError = nil;
 	NSString * fileName;
 	NSEnumerator * E = [fileNames objectEnumerator];
+	if([self getDontOrderFrontFromContext:context])
+	{
+		// just register the document for the project
+		// update the contents if the document is on screen
+		while(fileName = [E nextObject])
+		{
+			NSURL * url = [NSURL fileURLWithPath:fileName];
+			NSDocument * document = [SDC documentForURL:url];
+			if(document)
+			{
+				[document updateIfNeeded];
+			}
+			else
+			{
+				iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+				if(!PD)
+				{
+					PD = [SPC projectForFileName:projectName];
+					if(!PD)
+					{
+						NSURL * url = [NSURL fileURLWithPath:projectName];
+						PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+						if(localError)
+						{
+							[SDC presentError:localError];
+							return;
+						}
+					}
+					[PD newKeyForFileName:fileName];
+				}
+			}
+		}
+		return;
+	}
 	while(fileName = [E nextObject])
 	{
 		NSURL * url = [NSURL fileURLWithPath:fileName];

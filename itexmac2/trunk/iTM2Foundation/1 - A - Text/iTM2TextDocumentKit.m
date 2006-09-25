@@ -153,6 +153,10 @@ To Do List:
 	}
 	NSTextStorage * TS = [self textStorage];
 	NSString * documentString = [TS string];
+	if(!documentString)
+	{
+		documentString = [self stringRepresentation];
+	}
 	if([hint isKindOfClass:[NSDictionary class]])
 	{
 		NSMutableDictionary * matches = [NSMutableDictionary dictionary];

@@ -174,11 +174,98 @@ if [ "${iTM2_TeXExec_USE_TXC_passon:-0}" != "0" ] && [ ${#iTM2_TeXExec_TXC_passo
 then
     iTM2_TeXExec_Arguments="${iTM2_TeXExec_Arguments} ${iTM2_TeXExec_USE_TXC_passon}"
 fi
-TARGET_DIRECTORY="$(dirname "${TWSMaster}")"
-pushd "${TARGET_DIRECTORY}"
-TARGET="$(basename "${TWSMaster}")"
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} \"${TARGET}\""
-${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} "${TARGET}"
+# the file name part
+TWSMasterBase="$(basename "${TWSMaster}")"
+EXTENSION="${TWSMasterBase##*.}"
+if [ ${#EXTENSION} -ne 0 ]
+then
+	EXTENSION="$(echo "${EXTENSION}" | tr [:upper:] [:lower:])"
+	if [ "${EXTENSION}" != "tex" ] && [ "${EXTENSION}" != "dtx" ] && [ "${EXTENSION}" != "ins" ] && [ "${EXTENSION}" != "ltx" ]
+	then
+		TWSMaster="${TWSMaster%.*}.tex"
+	fi
+fi
+if ! [ -r "${TWSMaster}" ]
+then
+	"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster} (in $(pwd))."
+	iTM2TeXEngineUsage
+	exit 2
+fi
+if [ "${iTM2_TeXExec_USE_result:-0}" != "0" ] && [ ${#iTM2_TeXExec_result} -ne 0 ]
+then
+	OUTPUT="${iTM2_TeXExec_result%.*}"
+else
+	OUTPUT="${TWSMasterBase%.*}"
+fi
+# working directory?
+if [ ${#TWSProject} -gt 0 ]
+then
+	iTM2_PWD="$(dirname "${TWSProject}")"
+	iTM2_PWD_Real="${iTM2_PWD##*Projects.put_aside}"
+	iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
+	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
+	then
+		iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+		if [ ${#TEXINPUTS} -gt 0 ]
+		then
+			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
+		else
+			export TEXINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#MPINPUTS} -gt 0 ]
+		then
+			export MPINPUTS=".:${iTM2_PWD_Real}:${MPINPUTS}:"
+		else
+			export MPINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
+		then
+			ln -sf "{TWSMaster}" "${iTM2_PWD}"
+		fi
+	fi
+else
+	iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+	iTM2_PWD="${iTM2_PWD_Real}"
+fi
+pushd "${iTM2_PWD}"
+"$iTM2_CMD_Notify" comment "Performing  ${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} \"${TWSMasterBase%}\""
+${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} "${TWSMasterBase%}"
+iTM2_Status="$?"
+if [ "${iTM2_Status}" != "0" ]
+then
+	popd
+	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	exit ${iTM2_Status}
+fi
+OUTPUT="${OUTPUT%.*}.log"
+if [ -s "${OUTPUT}" ]
+then	
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}"
+fi
+OUTPUT="${OUTPUT%.*}.pdf"
+if [ -s "${OUTPUT}" ]
+then	
+	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ] && [ -w "${iTM2_PWD_Real}" ]
+	then
+		mv -f "${OUTPUT}" "${iTM2_PWD_Real}"
+	fi
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+else
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+fi
+if [ "${iTM2_Status}" != "0" ]
+then
+	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	popd
+	exit ${iTM2_Status}
+elif [ "${iTM2_Debug}" != "0" ]
+then
+	"${iTM2_CMD_Notify}" comment "$0 complete."
+fi
+popd
+exit
+
+
 popd
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
@@ -186,8 +273,8 @@ then
 fi
 if [ "${iTM2_TeXExec_USE_result:-0}" != "0" ] && [ ${#iTM2_TeXExec_result} -ne 0 ]
 then
-    "${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${PWD}/${iTM2_TeXExec_result%.*}.pdf" -project "${TWSProjectDirectory}/${TWSProjectName}"
+    "${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${iTM2_TeXExec_result%.*}.pdf" -project "${TWSProject}"
 else
-    "${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${PWD}/${TWSMaster%.*}.pdf" -project "${TWSProjectDirectory}/${TWSProjectName}"
+    "${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${TWSMaster%.*}.pdf" -project "${TWSProject}"
 fi
 exit

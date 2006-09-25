@@ -485,6 +485,35 @@ To Do List:
 }
 @end
 
+@implementation NSLayoutManager(iTM2TextKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lineFragmentCharacterRangeForCharacterRange:withoutAdditionalLayout:
+- (NSRange)lineFragmentCharacterRangeForCharacterRange:(NSRange)range withoutAdditionalLayout:(BOOL)yorn;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon Jan 10 21:45:41 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	range = [self glyphRangeForCharacterRange:range actualCharacterRange:nil];
+	unsigned int index = NSMaxRange(range) - 1;
+	if(index>range.location)
+	{
+		[self lineFragmentUsedRectForGlyphAtIndex:range.location effectiveRange:&range withoutAdditionalLayout:yorn];
+		NSRange range1;
+		[self lineFragmentUsedRectForGlyphAtIndex:index effectiveRange:&range1 withoutAdditionalLayout:yorn];
+//iTM2_END;
+		return NSUnionRange(range,range1);
+	}
+	else
+	{
+		[self lineFragmentUsedRectForGlyphAtIndex:range.location effectiveRange:&range withoutAdditionalLayout:yorn];
+//iTM2_END;
+		return range;
+	}
+}
+@end
+
 @implementation NSColor(iTM2TextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textRangeHighlightColor
 + (NSColor *)textRangeHighlightColor;

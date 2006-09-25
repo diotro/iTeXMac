@@ -53,7 +53,7 @@ Usage: $(basename "$0") with environment variables
 "${iTM2_CMD_Notify}" comment "Welcome to $(basename "$0") version ${iTM2_TeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the tex engine
 © 2006 jlaurens@users.sourceforge.net"
-if [ ${#iTM2_Debug} -gt 0 ]
+if [ "${iTM2_Debug}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" start comment
 	"${iTM2_CMD_Notify}" echo "The $0 specific environment is:"
@@ -235,8 +235,8 @@ then
 	fi
 fi
 # the file name part
-EXTENSION="$(basename ${TWSMaster})"
-EXTENSION="${EXTENSION##*.}"
+TWSMasterBase="$(basename "${TWSMaster}")"
+EXTENSION="${TWSMasterBase##*.}"
 if [ ${#EXTENSION} -ne 0 ]
 then
 	EXTENSION="$(echo "${EXTENSION}" | tr [:upper:] [:lower:])"
@@ -251,7 +251,6 @@ then
 	iTM2TeXEngineUsage
 	exit 2
 fi
-TWSMasterBase="$(basename "${TWSMaster}")"
 if [ "${iTM2_TeX_USE_jobname:-0}" != "0" ] && [ ${#iTM2_TeX_jobname} -ne 0 ]
 then
 	iTM2_TeX_Arguments="${iTM2_TeX_Arguments} -jobname \"${iTM2_TeX_jobname}\""
@@ -267,11 +266,18 @@ then
 	iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
 	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
 	then
+		iTM2_PWD_Real="$(dirname "${TWSMaster}")"
 		if [ ${#TEXINPUTS} -gt 0 ]
 		then
 			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
 		else
 			export TEXINPUTS=".:${iTM2_PWD_Real}:"
+		fi
+		if [ ${#MPINPUTS} -gt 0 ]
+		then
+			export MPINPUTS=".:${iTM2_PWD_Real}:${MPINPUTS}:"
+		else
+			export MPINPUTS=".:${iTM2_PWD_Real}:"
 		fi
 		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
 		then
@@ -279,8 +285,8 @@ then
 		fi
 	fi
 else
-	iTM2_PWD="$(dirname "${TWSMaster}")"
-	iTM2_PWD_Real="${iTM2_PWD}"
+	iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+	iTM2_PWD="${iTM2_PWD_Real}"
 fi
 pushd "${iTM2_PWD}"
 "${iTM2_CMD_Notify}" comment "Performing  ${iTM2_TeX_EnginePath} ${iTM2_TeX_Arguments} \"${TARGET}\""
@@ -307,6 +313,11 @@ then
 		"${iTM2_TemporaryDirectory}/bin/iTeXMac2" markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 	fi
 fi
+OUTPUT="${OUTPUT%.*}.log"
+if [ -s "${OUTPUT}" ]
+then	
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
+fi
 OUTPUT="${OUTPUT%.*}.pdf"
 if [ -s "${OUTPUT}" ]
 then	
@@ -323,7 +334,7 @@ then
 	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
 	popd
 	exit ${iTM2_Status}
-elif [ ${#iTM2_Debug} -gt 0 ]
+elif [ "${iTM2_Debug}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" comment "$0 complete."
 fi

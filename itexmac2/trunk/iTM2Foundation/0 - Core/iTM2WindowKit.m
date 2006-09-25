@@ -185,6 +185,7 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"THIS IS A PATCHED METHOD");
 	[super setDocumentEdited:flag];
+	// got a EXC_BAD_ACCESS here when the pdf update call to context did change was not timed
 	[INC postNotificationName:iTM2DocumentEditedStatusNotification object:self];
     return;
 }
