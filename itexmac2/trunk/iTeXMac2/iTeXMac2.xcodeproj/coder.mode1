@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC31F68B0AC88F7500FF576B</string>
+						<string>DC31F6C20AC898FE00FF576B</string>
 						<key>history</key>
 						<array>
 							<string>DC31F67B0AC88F6600FF576B</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC31F68C0AC88F7500FF576B</string>
+						<string>DC31F6C30AC898FE00FF576B</string>
 						<key>history</key>
 						<array>
 							<string>DCFEA5D60AC883FE0014A771</string>
@@ -343,18 +343,19 @@
 								<string>DCB93A5107D6FFC1005E5B38</string>
 								<string>DC28D63D0855B69A00D4CA66</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DC31F6A30AC897EC00FF576B</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>3</integer>
-									<integer>2</integer>
-									<integer>0</integer>
+									<integer>48</integer>
+									<integer>33</integer>
+									<integer>25</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {310, 551}}</string>
+							<string>{{0, 351}, {310, 551}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -596,9 +597,9 @@
 		<string>DC31F6870AC88F6600FF576B</string>
 		<string>DCF30CF80AAEEF8F0088479F</string>
 		<string>DC31F6790AC88F6600FF576B</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 		<string>DC69174E088BFB5600F00114</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>74 208 991 610 0 0 1440 878 </string>
@@ -617,8 +618,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -641,10 +640,12 @@
 							<string>253pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 406}, {1151, 53}}</string>
+								<string>{{0, 231}, {1151, 228}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
