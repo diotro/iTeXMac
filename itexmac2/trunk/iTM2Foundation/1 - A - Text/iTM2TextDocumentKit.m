@@ -96,25 +96,42 @@ To Do List:
 		{
 			iTM2TextInspector * WC = (iTM2TextInspector *)[W windowController];
 			NSDocument * D = [WC document];
-			if((D == self)
-				&& [[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
-					&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+			if(D == self)
 			{
-				[WC highlightAndScrollToVisibleLine:line column:column length:length];
-				if(yorn)
-					[[WC window] makeKeyAndOrderFront:self];
+				if(yorn && [WC isKindOfClass:[iTM2ExternalInspector class]])
+				{
+					[(iTM2ExternalInspector *)WC switchToExternalHelperWithEnvironment: [NSDictionary dictionaryWithObjectsAndKeys:
+						[self fileName], @"file",
+						[NSNumber numberWithInt:line], @"line",
+						[NSNumber numberWithInt:column], @"column", nil]];
+				}
+				else if([[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
+					&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+				{
+					[WC highlightAndScrollToVisibleLine:line column:column length:length];
+					if(yorn)
+						[[WC window] makeKeyAndOrderFront:self];
+				}
 				while(W = [E nextObject])
 				{
-					WC = (iTM2TextInspector *)[W windowController];
-					D = [WC document];
-					if((D == self)
-						&& [[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
-							&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+					iTM2TextInspector * WC = (iTM2TextInspector *)[W windowController];
+					NSDocument * D = [WC document];
+					if(D == self)
 					{
-						[WC highlightAndScrollToVisibleLine:line column:column length:length];
-						if(yorn)
-							[[WC window] makeKeyAndOrderFront:self];
-						
+						if(yorn && [WC isKindOfClass:[iTM2ExternalInspector class]])
+						{
+							[(iTM2ExternalInspector *)WC switchToExternalHelperWithEnvironment: [NSDictionary dictionaryWithObjectsAndKeys:
+								[self fileName], @"file",
+								[NSNumber numberWithInt:line], @"line",
+								[NSNumber numberWithInt:column], @"column", nil]];
+						}
+						else if([[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
+							&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+						{
+							[WC highlightAndScrollToVisibleLine:line column:column length:length];
+							if(yorn)
+								[[WC window] makeKeyAndOrderFront:self];
+						}
 					}
 				}
 				return YES;
@@ -126,7 +143,14 @@ To Do List:
 			E = [[self windowControllers] objectEnumerator];
 			while(WC = [E nextObject])
 			{
-				if([WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+				if([WC isKindOfClass:[iTM2ExternalInspector class]])
+				{
+					[(iTM2ExternalInspector *)WC switchToExternalHelperWithEnvironment: [NSDictionary dictionaryWithObjectsAndKeys:
+						[self fileName], @"file",
+						[NSNumber numberWithInt:line], @"line",
+						[NSNumber numberWithInt:column], @"column", nil]];
+				}
+				else if([WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
 				{
 					[[WC window] makeKeyAndOrderFront:self];
 					[WC highlightAndScrollToVisibleLine:line column:column length:length];

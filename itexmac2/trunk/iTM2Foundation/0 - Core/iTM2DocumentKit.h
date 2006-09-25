@@ -245,6 +245,15 @@ extern NSString * const iTM2InspectorTable;
 */
 - (void)showWindowsBelowFront:(id)sender;
 
+/*!
+    @method		environmentForExternalHelper
+    @abstract	The dictionary for the external helper.
+    @discussion	Discussion Forthcoming.
+    @param		None.
+    @result		None.
+*/
+- (NSDictionary *)environmentForExternalHelper;
+
 @end
 
 /*!

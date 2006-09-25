@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # this is iTM2_Format_Observer for iTeXMac2 2.0
-# © 2004 jlaurens@users.sourceforge.net
+# © 2004 jlaurens AT users DOT sourceforge DOT net
 # no doc yet
 iTM2_WEB2C="`kpsewhich pdflatex.fmt`"
 cd "`dirname ${iTM2_WEB2C}`"

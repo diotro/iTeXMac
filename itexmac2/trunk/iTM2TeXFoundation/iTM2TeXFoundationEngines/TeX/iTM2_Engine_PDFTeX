@@ -8,7 +8,7 @@ iTM2PDFTeXEngineUsage()
 iTM2_Usage="Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the pdftex engine
 ($(which pdftex))
-© 2006 jlaurens@users.sourceforge.net
+© 2006 jlaurens AT users DOT sourceforge DOT net
 Usage: $(basename "$0") with environment variables
 	TWSMaster: the main input file (actually \"${TWSMaster}\")
 	TWSProject: the project file, if any, full path, unused
@@ -56,7 +56,7 @@ Usage: $(basename "$0") with environment variables
 "${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the pdftex engine at
 $(which pdftex)
-© 2006 jlaurens@users.sourceforge.net"
+© 2006 jlaurens AT users DOT sourceforge DOT net"
 if [ "${iTM2_Debug}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify start comment

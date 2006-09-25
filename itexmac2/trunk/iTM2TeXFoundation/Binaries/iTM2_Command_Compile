@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # this is iTM2_Command_Compile for iTeXMac2
-# © 2006 jlaurens@users.sourceforge.net
+# © 2006 jlaurens AT users DOT sourceforge DOT net
 iTM2_Compile_version="1.0"
 iTM2_COMPILE_USAGE="This is iTeXMac2 compile switcher version $iTM2_Compile_version
-© 2006 jlaurens@users.sourceforge.net
+© 2006 jlaurens AT users DOT sourceforge DOT net
 Usage: $(basename "$0") options input where options are
        -h, --help: print this message and return.
        -m master, --master master: master is the name of the main input file.
@@ -56,7 +56,7 @@ if [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
 then
         "${iTM2_CMD_Notify}" notify echo "Welcome to iTeXMac2 compile switcher $(basename "$0") version ${iTM2_Compile_version}
 This is the built in shell script to compile
-© 2006 jlaurens@users.sourceforge.net
+© 2006 jlaurens AT users DOT sourceforge DOT net
 compiling TWSMaster (${TWSMaster})"
 fi
 iTM2_Compile_INPUT="$(basename "${TWSMaster}")"

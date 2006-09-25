@@ -639,6 +639,17 @@ To do list:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentForExternalHelper
+- (NSDictionary *)environmentForExternalHelper;
+/*"Description Forthcoming.
+Version History: Originally created by RK, huge corrections by JL.
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil;
+}
 @end
 
 @interface iTM2Document(PRIVATE)
@@ -3602,6 +3613,7 @@ To Do List:
 		NSAssert([fileName length], @"Inconsistency on fileName, PLEASE report bug...");
         [task setCurrentDirectoryPath:[fileName stringByDeletingLastPathComponent]];
         NSMutableDictionary * processEnvironment = [[[[NSProcessInfo processInfo] environment] mutableCopy] autorelease];
+		[processEnvironment addEntriesFromDictionary:[self environmentForExternalHelper]];
 		[processEnvironment addEntriesFromDictionary:environment];
 		[processEnvironment setObject:[NSString stringWithFormat:@":%@:%@",
                         [self contextValueForKey:iTM2PATHPrefixKey],

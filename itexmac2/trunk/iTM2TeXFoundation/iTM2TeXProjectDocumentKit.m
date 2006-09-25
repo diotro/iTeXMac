@@ -1394,3 +1394,23 @@ To Do List:
     return [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] isEqualToString:iTM2TeXWrapperPathExtension];
 }
 @end
+
+@implementation iTM2TeXDocument(TeXProjectDocumentKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentForExternalHelper
+- (NSDictionary *)environmentForExternalHelper;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TeXProjectDocument * TPD = [SPC projectForSource:self];
+	NSString *key = [TPD keyForFileName:[self fileName]];
+	NSString * codeset = [TPD originalPropertyValueForKey:key fileKey:fileKey];
+//iTM2_END;
+    return [codeset length]?[NSDictionary dictionaryWithObjectsAndKeys:
+		codeset,TWSStringEncodingFileKey,
+			nil]:[NSDictionary dictionary];
+}
+@end

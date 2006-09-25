@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # this is iTM2_Notify for iTeXMac2 2.0 and above
-# © 2005 jlaurens@users.sourceforge.net
+# © 2005 jlaurens AT users DOT sourceforge DOT net
 # iTM2_Notify purpose is to send an informational comment to iTeXMac2.
 # when different instances of the app are running at the same time,
 # or when the same app runs different tasks at the same time.
@@ -16,7 +16,7 @@
 iTM2_NOTIFY_VERSION=1
 iTM2_NOTIFY_USAGE="Welcome to $(basename "$0") version  ${iTM2_NOTIFY_VERSION}
 This is iTeXMac2 built in script to send informational comments to iTeXMac2
-© 2005 jlaurens@users.sourceforge.net
+© 2005 jlaurens AT users DOT sourceforge DOT net
 Usage: $(basename "$0") options verb object, where options, verbs and objects are
        -h, --help: print this message and return.
        -d device, --device device: the optional communication channel used: a fifo namely a ?/FIFO overriding the iTM2_Device environment variable.

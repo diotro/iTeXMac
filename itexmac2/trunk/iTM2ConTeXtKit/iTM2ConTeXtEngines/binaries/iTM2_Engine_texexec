@@ -1,6 +1,6 @@
 #!/bin/sh -f
 # this is iTM2_Engine_TeXExec for iTeXMac2 2.0
-# © 2005 jlaurens@users.sourceforge.net
+# © 2005 jlaurens AT users DOT sourceforge DOT net
 # This is a TeXExec 5.2.4 - ConTeXt / PRAGMA ADE 1997-2005 wrapper
 iTM2_TeXExec_Engine_Version=1.0
 iTM2_Debug="1"
@@ -9,7 +9,7 @@ iTM2TeXEngineUsage()
 iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_TeXExec_Engine_Version}
 This is iTeXMac2 built in script to wrap the TeXExec engine
 (`which "$0"`)
-© 2004 jlaurens@users.sourceforge.net
+© 2004 jlaurens AT users DOT sourceforge DOT net
 Usage: `basename "$0"` with environment variables
 	TWSMaster: the main input file
 	TWSFront: the front file
@@ -90,7 +90,7 @@ exit 0
 }
 "$iTM2_CMD_Notify" echo "Welcome to `basename "$0"` version ${iTM2_TeXExec_Engine_Version}
 This is iTeXMac2 built in script to wrap the TeXExec engine
-© 2005 jlaurens@users.sourceforge.net"
+© 2005 jlaurens AT users DOT sourceforge DOT net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" start comment

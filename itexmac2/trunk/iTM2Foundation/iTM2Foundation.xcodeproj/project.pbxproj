@@ -183,6 +183,7 @@
 		DCDC064209E690310038845F /* iTM2TextStyleInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063309E690310038845F /* iTM2TextStyleInspector.nib */; };
 		DCDC064309E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063509E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib */; };
 		DCDC068009E696450038845F /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCDC067E09E696440038845F /* Styles.resources.tgz */; };
+		DCE5C5990AC824F80054C760 /* textwrangler in Copy Command */ = {isa = PBXBuildFile; fileRef = DCE5C5970AC824CB0054C760 /* textwrangler */; };
 		DCF61C370854654B003F5F79 /* iTeXMac2.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B520854654B003F5F79 /* iTeXMac2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61C380854654B003F5F79 /* iTeXMac2.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B530854654B003F5F79 /* iTeXMac2.m */; };
 		DCF61C390854654B003F5F79 /* iTM2ApplicationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B540854654B003F5F79 /* iTM2ApplicationDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -474,6 +475,20 @@
 			remoteGlobalIDString = DCD7D69C0A43992D0096B1A9;
 			remoteInfo = "Alpha X";
 		};
+		DCE5C5740AC823940054C760 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB200320858E250003659F3;
+			remoteInfo = "Install iTM2Foundation";
+		};
+		DCE5C5A00AC825EA0054C760 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCE5C5720AC823940054C760;
+			remoteInfo = TextWrangler;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -596,6 +611,17 @@
 			dstSubfolderSpec = 6;
 			files = (
 				DCD7D6DB0A4399F30096B1A9 /* emacs in Copy Command */,
+			);
+			name = "Copy Command";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCE5C5750AC823940054C760 /* Copy Command */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				DCE5C5990AC824F80054C760 /* textwrangler in Copy Command */,
 			);
 			name = "Copy Command";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -792,6 +818,9 @@
 		DCDC063D09E690310038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TextSyntaxParserAttributesInspector.nib; sourceTree = "<group>"; };
 		DCDC067F09E696440038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
 		DCDC068109E696520038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
+		DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextWrangler.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCE5C5880AC823950054C760 /* TextWrangler-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.xml; path = "TextWrangler-Info.plist"; sourceTree = "<group>"; };
+		DCE5C5970AC824CB0054C760 /* textwrangler */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textwrangler; sourceTree = "<group>"; };
 		DCF61B520854654B003F5F79 /* iTeXMac2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTeXMac2.h; sourceTree = "<group>"; };
 		DCF61B530854654B003F5F79 /* iTeXMac2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTeXMac2.m; sourceTree = "<group>"; };
 		DCF61B540854654B003F5F79 /* iTM2ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ApplicationDelegate.h; sourceTree = "<group>"; };
@@ -1025,6 +1054,7 @@
 				DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */,
 				DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */,
 				DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */,
+				DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1238,11 +1268,13 @@
 				DCD7D68B0A4398DD0096B1A9 /* alphax */,
 				DCD7D68C0A4398DD0096B1A9 /* Alpha X-Info.plist */,
 				DCD7D68D0A4398DD0096B1A9 /* bbedit */,
-				DCD7D68E0A4398DD0096B1A9 /* bbedit lite */,
 				DCD7D68F0A4398DD0096B1A9 /* BBEdit-Info.plist */,
+				DCD7D68E0A4398DD0096B1A9 /* bbedit lite */,
 				DCD7D6900A4398DD0096B1A9 /* BBEdit Lite-Info.plist */,
 				DCD7D6910A4398DD0096B1A9 /* emacs */,
 				DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */,
+				DCE5C5970AC824CB0054C760 /* textwrangler */,
+				DCE5C5880AC823950054C760 /* TextWrangler-Info.plist */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -1800,6 +1832,7 @@
 				DCD7D6E30A439AA40096B1A9 /* PBXTargetDependency */,
 				DCD7D6DF0A439A9F0096B1A9 /* PBXTargetDependency */,
 				DCD7D6E10A439AA20096B1A9 /* PBXTargetDependency */,
+				DCE5C5A10AC825EA0054C760 /* PBXTargetDependency */,
 				DCB200460858E2A5003659F3 /* PBXTargetDependency */,
 			);
 			name = "External Text Editor";
@@ -1888,6 +1921,22 @@
 			productReference = DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
+		DCE5C5720AC823940054C760 /* TextWrangler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCE5C5770AC823940054C760 /* Build configuration list for PBXNativeTarget "TextWrangler" */;
+			buildPhases = (
+				DCE5C5750AC823940054C760 /* Copy Command */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCE5C5730AC823940054C760 /* PBXTargetDependency */,
+			);
+			name = TextWrangler;
+			productName = "External Text Editor";
+			productReference = DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1907,6 +1956,7 @@
 				DCD7D6AB0A4399620096B1A9 /* BBEdit */,
 				DCD7D6B90A4399790096B1A9 /* BBEdit Lite */,
 				DCD7D6C90A4399990096B1A9 /* Emacs */,
+				DCE5C5720AC823940054C760 /* TextWrangler */,
 				DCC7F8980854DB8C00F3EB8A /* External Text Editor */,
 				DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */,
 				DC2CA7A50855D53C00128F14 /* All */,
@@ -2474,6 +2524,16 @@
 			isa = PBXTargetDependency;
 			target = DCD7D69C0A43992D0096B1A9 /* Alpha X */;
 			targetProxy = DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCE5C5730AC823940054C760 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
+			targetProxy = DCE5C5740AC823940054C760 /* PBXContainerItemProxy */;
+		};
+		DCE5C5A10AC825EA0054C760 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCE5C5720AC823940054C760 /* TextWrangler */;
+			targetProxy = DCE5C5A00AC825EA0054C760 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4027,6 +4087,54 @@
 			};
 			name = Default;
 		};
+		DCE5C5780AC823940054C760 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "External Inspectors/Text/TextWrangler-Info.plist";
+				PRODUCT_NAME = TextWrangler;
+			};
+			name = Development;
+		};
+		DCE5C5790AC823940054C760 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "External Inspectors/Text/TextWrangler-Info.plist";
+				PRODUCT_NAME = TextWrangler;
+			};
+			name = Deployment;
+		};
+		DCE5C57A0AC823940054C760 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/External Inspectors/Text/Emacs-Info copy.plist";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Emacs;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
+			};
+			name = Default;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4216,6 +4324,16 @@
 				DCD7D6D00A4399990096B1A9 /* Development */,
 				DCD7D6D10A4399990096B1A9 /* Deployment */,
 				DCD7D6D20A4399990096B1A9 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		DCE5C5770AC823940054C760 /* Build configuration list for PBXNativeTarget "TextWrangler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCE5C5780AC823940054C760 /* Development */,
+				DCE5C5790AC823940054C760 /* Deployment */,
+				DCE5C57A0AC823940054C760 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;

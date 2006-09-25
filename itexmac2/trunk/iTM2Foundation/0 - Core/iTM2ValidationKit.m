@@ -723,7 +723,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSArray * items = [self items];
-	NSEnumerator * E = [items objectENumerator];
+	NSEnumerator * E = [items objectEnumerator];
 	NSToolbarItem * item = nil;
 	while(item = [E nextObject])
 	{

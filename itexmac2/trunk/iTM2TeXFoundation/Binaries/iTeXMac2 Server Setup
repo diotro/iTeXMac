@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # this is iTM2_Server_Setup for iTeXMac2 2.0
-# © 2006 jlaurens@users.sourceforge.net
+# © 2006 jlaurens AT users DOT sourceforge DOT net
 # setting the links
 # iTM2_Server_Setup "path to iTeXMac2 server binary" "iTeXMac2" "path to the iTeXMac2.app" "iTeXMac2.app"
 # this is expected to be the very first setup script to perform

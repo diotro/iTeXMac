@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # this is iTM2_Index for iTeXMac2
-# © 2004 jlaurens@users.sourceforge.net
+# © 2004 jlaurens AT users DOT sourceforge DOT net
 iTM2_Index_Version="1.1"
 iTM2_INDEX_USAGE="Welcome to `basename "$0"` version ${iTM2_Index_Version}
 This is iTeXMac2 built in script to make the index with MakeIndex
-© 2005 jlaurens@users.sourceforge.net
+© 2005 jlaurens AT users DOT sourceforge DOT net
 Usage: `basename "$0"` options input where options are
        -h, --help: print this message and return.
        -c, --compressIntermediateBlanks: By default, blanks in the index key are retained.
@@ -104,7 +104,7 @@ if [ "${iTM2_Index_RunSilently:-1}" -eq 0 ]
 then
         "${iTM2_CMD_Notify}" notify error "Welcome to `basename "$0"` version $iTM2_Index_Version
 This is iTeXMac2 built in script to make the index with MakeIndex or another engine
-© 2005 jlaurens@users.sourceforge.net"
+© 2005 jlaurens AT users DOT sourceforge DOT net"
 fi
 if [ ${#iTM2_Index_Engine} == 0 ]
 then

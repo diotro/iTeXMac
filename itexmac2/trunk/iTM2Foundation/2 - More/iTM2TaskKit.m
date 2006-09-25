@@ -1334,24 +1334,57 @@ To Do List:
 //iTM2_LOG(@"_CurrentWrapper is: %@", _CurrentWrapper);
 	if(![self isMute])
 	{
+		NSFileHandle * FH = nil;
+		NSData * D = nil;
+		NSString * string = nil;
 		// got an exception here: *** -[NSNullFileHandle fileHandleForReading]:selector not recognized [self = 0x14a1070]
 		id IO = [_CurrentTask standardOutput];
 		if([IO respondsToSelector:@selector(fileHandleForReading)])
 		{
-			[self _logOutputData:[[IO fileHandleForReading] readDataToEndOfFile]];
+			FH = [IO fileHandleForReading];
+			D = [FH readDataToEndOfFile];
+			string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+			if([D length] && ![string length])
+			{
+				string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+				iTM2_LOG(@"Output encoding problem.");
+			}
+			[self logOutput:string];
 		}
 		else if([IO respondsToSelector:@selector(readDataToEndOfFile)])
 		{
-			[self _logOutputData:[IO readDataToEndOfFile]];
+			D = [IO readDataToEndOfFile];
+			string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+			if([D length] && ![string length])
+			{
+				string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+				iTM2_LOG(@"Output encoding problem.");
+			}
+			[self logOutput:string];
 		}
 		IO = [_CurrentTask standardError];
 		if([IO respondsToSelector:@selector(fileHandleForReading)])
 		{
-			[self _logErrorData:[[IO fileHandleForReading] readDataToEndOfFile]];
+			FH = [IO fileHandleForReading];
+			D = [FH readDataToEndOfFile];
+			string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+			if([D length] && ![string length])
+			{
+				string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+				iTM2_LOG(@"Output encoding problem.");
+			}
+			[self logError:string];
 		}
 		else if([IO respondsToSelector:@selector(readDataToEndOfFile)])
 		{
-			[self _logErrorData:[IO readDataToEndOfFile]];
+			D = [IO readDataToEndOfFile];
+			string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+			if([D length] && ![string length])
+			{
+				string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+				iTM2_LOG(@"Output encoding problem.");
+			}
+			[self logError:string];
 		}
 	}
     [_CurrentWrapper taskDidTerminate:self];
@@ -1420,8 +1453,26 @@ To Do List:
 			[_CurrentTask waitUntilExit];
 			if(![self isMute])
 			{
-				[self _logOutputData:[[[_CurrentTask standardOutput] fileHandleForReading] readDataToEndOfFile]];
-				[self _logErrorData:[[[_CurrentTask standardError] fileHandleForReading] readDataToEndOfFile]];
+				NSPipe * pipe = [_CurrentTask standardOutput];
+				NSFileHandle * FH = [pipe fileHandleForReading];
+				NSData * D = [FH readDataToEndOfFile];
+				NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+				if([D length] && ![string length])
+				{
+					string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+					iTM2_LOG(@"Output encoding problem.");
+				}
+				[self logOutput:string];
+				pipe = [_CurrentTask standardError];
+				FH = [pipe fileHandleForReading];
+				D = [FH readDataToEndOfFile];
+				string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+				if([D length] && ![string length])
+				{
+					string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+					iTM2_LOG(@"Output encoding problem.");
+				}
+				[self logError:string];
 			}
 		}
 		[_CurrentTask release];

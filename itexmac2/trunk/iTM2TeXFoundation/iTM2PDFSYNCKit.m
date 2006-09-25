@@ -2359,15 +2359,18 @@ To Do List:
 			// second chance to follow focus: from the visible start of the line
 			NSLayoutManager * LM = [TV layoutManager];
 			NSRange range = NSMakeRange(charIndex,1);
-			range = [LM lineFragmentCharacterRangeForCharacterRange:range withoutAdditionalLayout:YES];
-			if(range.location<charIndex)
+			if(charIndex < [S length])
 			{
-				charIndex = range.location;
-				column = charIndex - start;
-				hint = [NSDictionary dictionaryWithObjectsAndKeys:
-					[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
-				[SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
-					orderFront: NO force: NO];
+				range = [LM lineFragmentCharacterRangeForCharacterRange:range withoutAdditionalLayout:YES];
+				if(range.location<charIndex)
+				{
+					charIndex = range.location;
+					column = charIndex - start;
+					hint = [NSDictionary dictionaryWithObjectsAndKeys:
+						[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
+					[SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
+						orderFront: NO force: NO];
+				}
 			}
 		}
 	}

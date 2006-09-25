@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE5C5400AC806CF0054C760</string>
+						<string>DCE5C60E0AC8498A0054C760</string>
 						<key>history</key>
 						<array>
 							<string>DCE5C52E0AC806490054C760</string>
@@ -237,6 +237,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -362,7 +364,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE5C53F0AC806CF0054C760</string>
+										<string>DCE5C60D0AC8498A0054C760</string>
 										<key>history</key>
 										<array>
 											<string>DCF30F080AAFAE6E0088479F</string>
@@ -580,8 +582,8 @@
 		<string>DC09A036088BE9470028F810</string>
 		<string>DCE5C5390AC806490054C760</string>
 		<string>DCE5C52C0AC806490054C760</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>111 98 1252 756 0 0 1440 878 </string>

@@ -577,18 +577,38 @@ To Do List:
 	}
 	if(![path hasPrefix:@"/"])
 	{
-		NSString * dirname = [[self document] directoryName];
+		iTM2TeXProjectDocument * TPD = (id)[self document];
+		NSString * dirname = [TPD directoryName];
 		NSString * otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
 		if(![DFM fileExistsAtPath:otherName])
 		{
-			iTM2TeXProjectDocument * TPD = (id)[self document];
-			dirname = [[TPD absoluteFileNameForKey:[TPD masterFileKey]] stringByDeletingLastPathComponent];
+			dirname = [[TPD directoryName] stringByStrippingFarawayProjectsDirectory];
 			otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
 			if(![DFM fileExistsAtPath:otherName])
 			{
-				return NO;
+				dirname = [TPD masterFileKey];// won't work if the master file key is Front Document related
+				dirname = [TPD absoluteFileNameForKey:dirname];
+				dirname = [dirname stringByDeletingLastPathComponent];
+				otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
+				if(![DFM fileExistsAtPath:otherName])
+				{
+					// list all the subdocuments of the project and open the one with the same last path component
+					NSArray * allKeys = [TPD allKeys];
+					NSEnumerator * E = [allKeys objectEnumerator];
+					NSString * key = nil;
+					while(key = [E nextObject])
+					{
+						otherName = [TPD absoluteFileNameForKey:key];
+						if([[otherName lastPathComponent] isEqual:path])
+						{
+							goto resolved;
+						}
+					}
+					return NO;
+				}
 			}
 		}
+resolved:
 		path = otherName;
 	}
 	id N = [TS attribute:iTM2LogLinkLineAttributeName atIndex:charIndex effectiveRange:nil];

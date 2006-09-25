@@ -1,20 +1,20 @@
 #!/bin/sh -f
 # this is iTM2_Engine_LaTeXDocExtractor wrapper
-# © 2006 jlaurens@users.sourceforge.net
+# © 2006 jlaurens AT users DOT sourceforge DOT net
 iTM2_Engine_LaTeXDocExtractor_Version=1.0
 iTM2LaTeXDocExtractorEngineUsage()
 {
 iTM2_USAGE="Welcome to $(basename "$0") version ${iTM2_Engine_LaTeXDocExtractor_Version}
 This is iTeXMac2 built in script to wrap the LaTeX Documentation Extractor engine
 ($(which "$0"))
-© 2006 jlaurens@users.sourceforge.net
+© 2006 jlaurens AT users DOT sourceforge DOT net
 Usage: $(basename "$0") with environment variables
 	TWSMaster: the main input file, with an \"ins\" path extension"
 echo "$iTM2_USAGE"
 }
 "$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_Engine_LaTeXDocExtractor_Version}
 This is iTeXMac2 built in script to wrap the LaTeX Installation engine
-© 2006 jlaurens@users.sourceforge.net"
+© 2006 jlaurens AT users DOT sourceforge DOT net"
 iTM2_LaTeXDocExtractor_Engine="latex"
 iTM2_LaTeXDocExtractor_EnginePath="$(which "${iTM2_LaTeXDocExtractor_Engine}")"
 if ! [ -x "${iTM2_LaTeXDocExtractor_EnginePath}" ]

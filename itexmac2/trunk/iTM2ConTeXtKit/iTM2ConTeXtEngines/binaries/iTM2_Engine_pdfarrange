@@ -1,6 +1,6 @@
 #!/bin/sh -f
 # this is iTM2_Engine_TeXExec for iTeXMac2 2.0
-# © 2004 jlaurens@users.sourceforge.net
+# © 2004 jlaurens AT users DOT sourceforge DOT net
 # This is a TeXExec 5.0 - ConTeXt / PRAGMA ADE 1997-2004 wrapper
 echo "THIS IS TEXEXEC WRAPPER; NOT YET IMPLEMENTED, SORRY"
 exit

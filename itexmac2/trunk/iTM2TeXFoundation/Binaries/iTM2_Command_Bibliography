@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # this is iTM2_Bibliography for iTeXMac2 1.4
-# ¬© 2004jlaurens@users.sourceforge.net
+# © 2004jlaurens AT users DOT sourceforge DOT net
 # the purpose of this script is to make the bibliography
 # this script is distributed under the GPL
-# If you plan to use this script, it would be fair to echo the original author jlaurens@users.sourceforge.net and the product iTeXMac2
+# If you plan to use this script, it would be fair to echo the original author jlaurens AT users DOT sourceforge DOT net and the product iTeXMac2
 # 01/08/04 the .aux was not dropped down before calling bibtex
 iTM2_Bibliography_Version="1.0"
 iTM2_BIBLIOGRAPHY_USAGE="Welcome to $(basename "$0") version  $iTM2_Bibliography_Version
 This is iTeXMac2 built in script to make the bibliography with BibTeX
-© 2005 jlaurens@users.sourceforge.net
+© 2005 jlaurens AT users DOT sourceforge DOT net
 Usage: $(basename "$0") options input where options are
        -h, --help: print this message and return.
        -e command, --engine command: replace bibtex by command.
@@ -92,7 +92,7 @@ if [ "${iTM2_Bibliography_RunSilently:-1}" -eq 0 ]
 then
         "${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version $iTM2BibVersion
 This is iTeXMac2 built in script to make the bibliography with BibTeX or another engine
-¬© 2005 jlaurens@users.sourceforge.net."
+© 2005 jlaurens AT users DOT sourceforge DOT net."
 fi
 if [ ${#iTM2BibEngine} == 0 ]
 then

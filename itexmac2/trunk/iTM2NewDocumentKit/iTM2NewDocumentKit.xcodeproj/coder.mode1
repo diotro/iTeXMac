@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC41AAD50A6F9CB600B5E990</string>
+						<string>DCFEA5600AC876340014A771</string>
 						<key>history</key>
 						<array>
-							<string>DC89F3BD0A6F224B001272DD</string>
+							<string>DC41AAD50A6F9CB600B5E990</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -411,9 +411,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC41AAD30A6F9CB600B5E990</string>
+				<string>DCFEA3410AC8682A0014A771</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC41AAD40A6F9CB600B5E990</string>
+				<string>DCFEA3420AC8682A0014A771</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -547,7 +547,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC41AADC0A6F9CB600B5E990</string>
+		<string>DCFEA34A0AC8682A0014A771</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2NewDocumentKit/iTM2NewDocumentKit.xcodeproj</string>
 		<string>DCD7D1870A43732F0096B1A9</string>
@@ -674,8 +674,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {150, 383}}</string>
-											<string>{{150, 0}, {938, 383}}</string>
+											<string>{{0, 0}, {150, 385}}</string>
+											<string>{{150, 0}, {938, 385}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -690,8 +690,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1088, 383}}</string>
-											<string>{{0, 383}, {1088, 355}}</string>
+											<string>{{0, 0}, {1088, 385}}</string>
+											<string>{{0, 385}, {1088, 353}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -738,14 +738,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC41AAD60A6F9CB600B5E990</string>
+				<string>DCFEA3440AC8682A0014A771</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC41AAD70A6F9CB600B5E990</string>
-				<string>DC41AAD80A6F9CB600B5E990</string>
-				<string>DC41AAD90A6F9CB600B5E990</string>
-				<string>DC41AADA0A6F9CB600B5E990</string>
-				<string>DC41AADB0A6F9CB600B5E990</string>
-				<string>DC41AADC0A6F9CB600B5E990</string>
+				<string>DCFEA3450AC8682A0014A771</string>
+				<string>DCFEA3460AC8682A0014A771</string>
+				<string>DCFEA3470AC8682A0014A771</string>
+				<string>DCFEA3480AC8682A0014A771</string>
+				<string>DCFEA3490AC8682A0014A771</string>
+				<string>DCFEA34A0AC8682A0014A771</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
