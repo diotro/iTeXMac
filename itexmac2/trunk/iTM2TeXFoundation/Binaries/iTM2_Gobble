@@ -1,0 +1,6 @@
+#!/bin/sh -f
+# this is iTM2_Gobble for iTeXMac2 2.0 and above
+# © 2006 jlaurens@users.sourceforge.net
+# iTM2_Gobble purpose is to do nothing.
+# It is a noop replacement of iTM2_Notify...
+exit 0
