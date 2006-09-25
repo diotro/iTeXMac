@@ -589,6 +589,15 @@ Not strongly tested. Be coutious when using it.
 - (NSEnumerator *)inspectorsEnumerator;
 
 /*! 
+    @method     allInspectors
+    @abstract   The list of all the task inspectors of the receiver.
+    @discussion Description Forthcoming.
+    @param      None.
+    @result     An array of inspectors.
+*/
+- (NSArray *)allInspectors;
+
+/*! 
     @method     addTaskWrapper:
     @abstract   Add a new task wrapper to the stack.
     @discussion If there is no task currently running, the first available task is launched.
@@ -678,6 +687,48 @@ Not strongly tested. Be coutious when using it.
     @result     None
 */
 - (void)clean;
+
+/*!
+    @method     logOutput:
+    @abstract   Displays the result of the standard output pipe.
+    @discussion When the task controller receives some data as output, it asks its inspectors to display it.
+    @param      The string to display.
+*/
+- (void)logOutput:(NSString *)argument;
+
+/*!
+    @method     outputDidTerminate
+    @abstract   No more output.
+    @discussion No task running and no output available.
+    @param      None.
+    @result     None.
+*/
+- (void)outputDidTerminate;
+
+/*!
+    @method     logError:
+    @abstract   Displays the result of the standard error pipe.
+    @discussion When the task controller receives some data as error, it asks its inspectors to display it.
+    @param      The string to display.
+*/
+- (void)logError:(NSString *)argument;
+
+/*!
+    @method     errorDidTerminate
+    @abstract   No more error.
+    @discussion No task running and no error available.
+    @param      None.
+    @result     None.
+*/
+- (void)errorDidTerminate;
+
+/*!
+    @method     logCustom:
+    @abstract   Displays the result of the iTeXMac2 fifo pipe or else.
+    @discussion When the task controller receives some data as output, it asks its inspectors to display it.
+    @param      The string to display.
+*/
+- (void)logCustom:(NSString *)argument;
 
 /*! 
     @method     waitUntilExit

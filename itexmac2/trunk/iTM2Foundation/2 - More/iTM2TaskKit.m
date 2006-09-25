@@ -382,34 +382,6 @@ To Do List:
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TaskController
 
-@interface iTM2TaskController(PRIVATE)
-
-/*!
-    @method     _logOutputData:
-    @abstract   Displays the result of the standard output pipe.
-    @discussion When the task controller receives some data as output, it asks its interface to display it.
-    @param      The string to display.
-*/
-- (void)_logErrorData:(NSData *)argument;
-
-/*!
-    @method     _logOutputData:
-    @abstract   Displays the result of the standard output pipe.
-    @discussion When the task controller receives some data as error, it asks its interface to display it.
-    @param      The string to display.
-*/
-- (void)_logOutputData:(NSData *)argument;
-
-/*!
-    @method     _logCustomData:
-    @abstract   Displays the result of the standard custom file handle.
-    @discussion When the task controller receives some data as error, it asks its interface to display it.
-    @param      The string to display.
-*/
-- (void)_logCustomData:(NSData *)D;
-
-@end
-
 #import	"iTM2BundleKit.h"
 #import	<sys/fcntl.h>
 #import	<sys/stat.h>
@@ -485,7 +457,7 @@ To Do List:
 //iTM2_START;
 printf("%s %#x\n", __PRETTY_FUNCTION__, self);
     [DNC removeObserver:self];
-    [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(setTaskController:) withObject:nil];
+    [[self allInspectors] makeObjectsPerformSelector:@selector(setTaskController:) withObject:nil];
     [_Inspectors release];
     _Inspectors = nil;
     [_FHGC release];
@@ -663,6 +635,23 @@ To Do List:
     while(O = [[E nextObject] nonretainedObjectValue])
         [MRA addObject:O];
     return [MRA objectEnumerator];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allInspectors
+- (NSArray *)allInspectors;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#warning the inspectors are nonretainedObjectValue!!!
+    NSMutableArray * MRA = [NSMutableArray array];
+    NSEnumerator * E = [_Inspectors objectEnumerator];
+    id O;
+    while(O = [[E nextObject] nonretainedObjectValue])
+        [MRA addObject:O];
+    return [[MRA copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addTaskWrapper:
 - (void)addTaskWrapper:(id <iTM2TaskWrapper>)argument;
@@ -938,7 +927,7 @@ To Do List:
             else
                 break;
         }
-        iTM2_LOG(@"No FIFO available: communication of shell scripts with iTeXMac2 is compromised...");
+        iTM2_LOG(@"No FIFO available: communication of shell scripts with iTeXMac2 through FIFO is compromised...");
         theEnd:
         iTM2_RELEASE_POOL;
     }
@@ -949,7 +938,7 @@ To Do List:
                 object: _CurrentTask];
 
 //iTM2_LOG(@"3");
-    [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(taskWillLaunch)];
+    [[self allInspectors] makeObjectsPerformSelector:@selector(taskWillLaunch)];
     
     if(!_Output)
         _Output = [[NSMutableString string] retain];
@@ -1046,7 +1035,7 @@ To Do List:
     [_Output setString:[NSString string]];
     [_Custom setString:[NSString string]];
     [_Error setString:[NSString string]];
-    [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(cleanLog:) withObject:self];
+    [[self allInspectors] makeObjectsPerformSelector:@selector(cleanLog:) withObject:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= output
@@ -1096,16 +1085,22 @@ To Do List:
 	}
     NSFileHandle * FH = [aNotification object];
     NSData * D = [FH availableData];
-    [self _logOutputData:D];
+	NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+	if([D length] && ![string length])
+	{
+		string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+		iTM2_LOG(@"Output encoding problem.");
+	}
+    [self logOutput:string];
     if([_CurrentTask isRunning] || [D length])
         [FH waitForDataInBackgroundAndNotify];
     else
-        [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(outputDidTerminate) withObject:nil];
+        [[self allInspectors] makeObjectsPerformSelector:@selector(outputDidTerminate) withObject:nil];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _logOutputData:
-- (void)_logOutputData:(NSData *)D;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logOutput:
+- (void)logOutput:(NSString *)string;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1113,18 +1108,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
-    if([D length] && ![string length])
-    {
-        string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
-        NSLog(@"%@ %#x output encoding problem.", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self);
-    }
-//NSLog(@"output string: %@", string);
     if([string length]>0)
     {
         [_Output appendString:string];
-//NSLog(@"[[self inspectorsEnumerator] allObjects]:%@", [[self inspectorsEnumerator] allObjects]);
-        [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(logOutput:) withObject:string];
+//NSLog(@"[self allInspectors]:%@", [self allInspectors]);
+        [[self allInspectors] makeObjectsPerformSelector:_cmd withObject:string];
     }
 //iTM2_END;
     return;
@@ -1167,7 +1155,13 @@ In this example, the value ``0000011682'' translates to 11,682 4K pages, or appr
 #endif
     if(_CustomReadFileHandle == FH)
     {
-        [self _logCustomData:D];
+		NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+		if([D length] && ![string length])
+		{
+			string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+			iTM2_LOG(@"Output encoding problem.");
+		}
+        [self logCustom:string];
     }
     if([_CurrentTask isRunning] || [D length])
     {
@@ -1176,7 +1170,7 @@ In this example, the value ``0000011682'' translates to 11,682 4K pages, or appr
     }
     if(_CustomReadFileHandle == FH)
     {
-        [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(customDidTerminate) withObject:nil];
+        [[self allInspectors] makeObjectsPerformSelector:@selector(customDidTerminate) withObject:nil];
         _CustomReadFileHandle = nil;
     }
     [_FHGC removeObject:FH];
@@ -1186,8 +1180,8 @@ In this example, the value ``0000011682'' translates to 11,682 4K pages, or appr
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _logCustomData:
-- (void)_logCustomData:(NSData *)D;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logCustom:
+- (void)logCustom:(NSString *)string;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1195,12 +1189,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
-    if([D length] && ![string length])
-    {
-        string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
-        iTM2_LOG(@"Output encoding problem.");
-    }
     if([string length]>0)
     {
         NSMutableString * buffer = [[self implementation] metaValueForKey:@"_CustomBuffer"];
@@ -1215,10 +1203,10 @@ To Do List:
         NSRange searchRange;
         if(buffer)
         {
-            CurrentModeOn:
+CurrentModeOn:
 //iTM2_LOG(@"CurrentModeOn");
             searchRange = NSMakeRange(R.location, newLength - R.location);
-            if([_Custom rangeOfString:@"</iTM2AppleScript>" options:NSAnchoredSearch range:searchRange].length)
+            if([_Custom rangeOfString:@"</applescript>" options:NSAnchoredSearch range:searchRange].length)
             {
                 // we found the end of the applescript
 //iTM2_LOG(@"APPLESCRIPTING: ----\n%@\n----", buffer);
@@ -1240,16 +1228,16 @@ To Do List:
         else
         {
             // no apple script pending...
-            CurrentModeOff:
+CurrentModeOff:
 //iTM2_LOG(@"CurrentModeOff");
             searchRange = NSMakeRange(R.location, newLength - R.location);
             // R.location now points to the beginning of the next line
-            if([_Custom rangeOfString:@"<iTM2AppleScript>" options:NSAnchoredSearch range:searchRange].length)
+            if([_Custom rangeOfString:@"<applescript>" options:NSAnchoredSearch range:searchRange].length)
             {
                 //Ok we are starting an apple script
                 // the rest of the line is ignored
                 [_Custom getLineStart:nil end:&R.location contentsEnd:nil forRange:R];
-                searchRange.location += [@"<iTM2AppleScript>" length];
+                searchRange.location += [@"<applescript>" length];
                 searchRange.length = R.location - searchRange.location;
                 buffer = [NSMutableString stringWithString:[_Custom substringWithRange:searchRange]];
                 goto CurrentModeOn;
@@ -1278,8 +1266,8 @@ To Do List:
             }
         }
     }
-//NSLog(@"[[self inspectorsEnumerator] allObjects]:%@", [[self inspectorsEnumerator] allObjects]);
-    [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(logCustom:) withObject:string];
+//NSLog(@"[self allInspectors]:%@", [self allInspectors]);
+    [[self allInspectors] makeObjectsPerformSelector:_cmd withObject:string];
 //iTM2_END;
     return;
 }
@@ -1294,16 +1282,22 @@ To Do List:
 //iTM2_START;
     NSFileHandle * FH = [aNotification object];
     NSData * D = [FH availableData];
-    [self _logErrorData:D];
+	NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+	if([D length] && ![string length])
+	{
+		string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+		iTM2_LOG(@"Output encoding problem.");
+	}
+    [self logError:string];
     if([_CurrentTask isRunning] || [D length])
         [FH waitForDataInBackgroundAndNotify];
     else
-        [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(errorDidTerminate) withObject:nil];
+        [[self allInspectors] makeObjectsPerformSelector:@selector(errorDidTerminate) withObject:nil];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _logErrorData:
-- (void)_logErrorData:(NSData *)D;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logError:
+- (void)logError:(NSString *)string;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1311,17 +1305,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
-    if([D length] && ![string length])
-    {
-        string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
-        NSLog(@"%@ %#x error encoding problem.", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self);
-    }
     if([string length]>0)
     {
 //NSLog(@"error string: %@", string);
         [_Error appendString:string];
-        [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(logError:) withObject:string];
+        [[self allInspectors] makeObjectsPerformSelector:_cmd withObject:string];
 //NSLog(@"[self error]:%@", [self error]);
     }
     return;
@@ -1367,7 +1355,7 @@ To Do List:
 		}
 	}
     [_CurrentWrapper taskDidTerminate:self];
-    [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(taskDidTerminate)];
+    [[self allInspectors] makeObjectsPerformSelector:@selector(taskDidTerminate)];
     [_CurrentTask release];
     _CurrentTask = nil;
     [_CurrentWrapper release];
@@ -1405,12 +1393,12 @@ To Do List:
                 [MS appendFormat:@"! Brief reason:%@\n", message];
             if(message = [errorInfo objectForKey:NSAppleScriptErrorRange])
                 [MS appendFormat:@"! Error range:%@\n", message];
-            [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(logCustom:) withObject:MS];
+            [[self allInspectors] makeObjectsPerformSelector:@selector(logCustom:) withObject:MS];
         }
     }
     else
     {
-        [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(logCustom:) withObject:@"\n!  Bad script\n"];
+        [[self allInspectors] makeObjectsPerformSelector:@selector(logCustom:) withObject:@"\n!  Bad script\n"];
     }
 //iTM2_END;
     return;
@@ -1472,14 +1460,14 @@ To Do List:
     if([_CurrentTask isRunning] && [aCommand length])
     {
         NSLog(@"Executing: %@", aCommand);
-        [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(logInput:) withObject:aCommand];
+        [[self allInspectors] makeObjectsPerformSelector:@selector(logInput:) withObject:aCommand];
         [[[_CurrentTask standardInput] fileHandleForWriting] writeData:
             [aCommand dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES]];
         if(![aCommand hasSuffix:@"\n"])
         {
             [[[_CurrentTask standardInput] fileHandleForWriting] writeData:
                 [@"\n" dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES]];
-            [[[self inspectorsEnumerator] allObjects] makeObjectsPerformSelector:@selector(logInput:) withObject:@"\n"];
+            [[self allInspectors] makeObjectsPerformSelector:@selector(logInput:) withObject:@"\n"];
         }
     }
     else
