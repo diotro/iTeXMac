@@ -875,48 +875,7 @@ To Do List: see the warning below
 #if __iTM2_Server_Test__
     iTM2_LOG(@"arguments: %@", arguments);
 #else
-    NSString * projectName = [self getProjectNameFromContext:context];
-    NSArray * fileNames = [self getFileNamesFromContext:context];
-	NSError * localError = nil;
-	NSString * fileName;
-	NSEnumerator * E = [fileNames objectEnumerator];
-	while(fileName = [E nextObject])
-	{
-		NSURL * url = [NSURL fileURLWithPath:fileName];
-		NSDocument * document = [SDC documentForURL:url];
-		if(document)
-		{
-			[document updateIfNeeded];
-			[document showWindowsBelowFront:self];
-		}
-		else
-		{
-			iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
-			if(!PD)
-			{
-				PD = [SPC projectForFileName:projectName];
-				if(!PD)
-				{
-					NSURL * url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-					if(localError)
-					{
-						[SDC presentError:localError];
-//iTM2_END;
-						return;
-					}
-				}
-				[PD newKeyForFileName:fileName];
-			}
-			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-			if(localError)
-			{
-				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
-			}
-			document = [SDC documentForURL:url];
-		}
-	}
-#warning NYI: -all not supported
+#warning NYI
 #endif
 //iTM2_END;
     return;
