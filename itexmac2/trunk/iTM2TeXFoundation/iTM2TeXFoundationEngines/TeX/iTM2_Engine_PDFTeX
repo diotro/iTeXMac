@@ -330,6 +330,16 @@ then
 	iTeXMac2 update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 else
 	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	OUTPUT="${OUTPUT%.*}.aux"
+	if [ -s "${OUTPUT}" ]
+	then
+		rm -f "${OUTPUT}"
+	fi
+	OUTPUT="${OUTPUT%.*}.out"
+	if [ -s "${OUTPUT}" ]
+	then
+		rm -f "${OUTPUT}"
+	fi
 fi
 if [ "${iTM2_Debug}" != "0" ]
 then
