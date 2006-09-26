@@ -506,6 +506,9 @@ To Do List:
 	if([fileName belongsToFarawayProjectsDirectory])
 	{
 		fileName = [fileName stringByStrippingFarawayProjectsDirectory];
+		fileName = [fileName stringByDeletingLastPathComponent];
+		fileName = [fileName stringByDeletingPathExtension];
+		fileName = [@"..." stringByAppendingPathComponent:fileName];
 	}
     [sender setStringValue:([fileName length]?fileName:([[self document] displayName]?:@""))];
     return YES;
