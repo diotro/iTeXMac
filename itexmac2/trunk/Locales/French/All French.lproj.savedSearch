@@ -11,33 +11,16 @@
 		<key>AnyAttributeContains</key>
 		<string>French.lproj</string>
 		<key>CurrentFolderPath</key>
-		<array>
-			<string>/Users/coder/iTeXMac/iTeXMac2/Developer</string>
-		</array>
+		<array/>
 		<key>FXCriteriaSlices</key>
-		<array>
-			<dict>
-				<key>FXSliceKind</key>
-				<string>Skin</string>
-				<key>Value</key>
-				<string>KI**</string>
-			</dict>
-			<dict>
-				<key>FXSliceKind</key>
-				<string>Slsv</string>
-				<key>Value</key>
-				<string>DA**</string>
-			</dict>
-		</array>
+		<array/>
 		<key>FXScope</key>
 		<integer>1396925286</integer>
 		<key>FXScopeArrayOfPaths</key>
-		<array>
-			<string>/Users/coder/iTeXMac/iTeXMac2/Developer</string>
-		</array>
+		<array/>
 	</dict>
 	<key>Version</key>
-	<string>10.4.4</string>
+	<string>10.4.6</string>
 	<key>ViewOptions</key>
 	<dict>
 		<key>GroupViewOptions</key>
@@ -52,23 +35,23 @@
 			</dict>
 		</dict>
 		<key>SidebarWidth</key>
-		<integer>180</integer>
+		<integer>173</integer>
 		<key>ToolbarVisible</key>
 		<true/>
 		<key>ViewHeight</key>
-		<integer>523</integer>
+		<integer>705</integer>
 		<key>ViewStyle</key>
 		<string>qrsb</string>
 		<key>WindowBounds</key>
 		<dict>
 			<key>bottom</key>
-			<integer>791</integer>
+			<integer>784</integer>
 			<key>left</key>
-			<integer>154</integer>
+			<integer>5</integer>
 			<key>right</key>
-			<integer>1066</integer>
+			<integer>1101</integer>
 			<key>top</key>
-			<integer>268</integer>
+			<integer>79</integer>
 		</dict>
 	</dict>
 </dict>
