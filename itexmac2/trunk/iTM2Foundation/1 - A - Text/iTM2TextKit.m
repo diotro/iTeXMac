@@ -558,7 +558,7 @@ To Do List:
 			selectedRange.length = 0;
 		}
 	}
-	else if([selectedString isEqual:tabAnchor])
+	else if([selectedString isEqualToString:tabAnchor])
 	{
 		[self insertText:@""];
 		selectedRange.length = 0;
@@ -683,7 +683,7 @@ To Do List:
 			selectedRange.length = 0;
 		}
 	}
-	else if([selectedString isEqual:tabAnchor])
+	else if([selectedString isEqualToString:tabAnchor])
 	{
 		[self insertText:@""];
 		selectedRange.length = 0;

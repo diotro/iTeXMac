@@ -7,7 +7,6 @@
 		addToTargets = (
 		);
 		breakpoints = (
-			DCD3D325088EA6DB009ED7E0 /* -[NSException raise] */,
 		);
 		breakpointsGroup = DC99EC710A27C69D00F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DC52042D088B1FD300DE6E7F /* Code sense */;
@@ -139,12 +138,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 180904468;
-			PBXWorkspaceStateSaveDate = 180904468;
+			PBXPerProjectTemplateStateSaveDate = 180999218;
+			PBXWorkspaceStateSaveDate = 180999218;
 		};
 		perUserProjectItems = {
 			DC008F240A6ADEF2009236E8 /* PBXTextBookmark */ = DC008F240A6ADEF2009236E8 /* PBXTextBookmark */;
-			DC8033900ABECAB50087FC8F /* PBXBookmark */ = DC8033900ABECAB50087FC8F /* PBXBookmark */;
+			DC128B1B0AC9EA850090D8C2 /* PBXBookmark */ = DC128B1B0AC9EA850090D8C2 /* PBXBookmark */;
 			DCD7B8000AA8F6FB0042AA60 /* PBXBookmark */ = DCD7B8000AA8F6FB0042AA60 /* PBXBookmark */;
 			DCD7B8020AA8F6FB0042AA60 /* PBXBookmark */ = DCD7B8020AA8F6FB0042AA60 /* PBXBookmark */;
 			DCFEA5EB0AC884010014A771 /* PBXBookmark */ = DCFEA5EB0AC884010014A771 /* PBXBookmark */;
@@ -162,6 +161,10 @@
 		rType = 0;
 		vrLen = 557;
 		vrLoc = 0;
+	};
+	DC128B1B0AC9EA850090D8C2 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DC90D27C0997E63C00C79525 /* iTM2ScriptMiscellaneous.png */;
 	};
 	DC2741E7090CE39000C2D1D2 /* iTM2LaTeXKit */ = {
 		activeExec = 0;
@@ -233,10 +236,6 @@
 	DC5D6FE80949DFAE00EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
 	};
-	DC8033900ABECAB50087FC8F /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC90D27C0997E63C00C79525 /* iTM2ScriptMiscellaneous.png */;
-	};
 	DC81AD250887161F00943C99 /* iTeXMac2 */ = {
 		activeExec = 0;
 		executables = (
@@ -263,7 +262,6 @@
 		isa = XCBreakpointsBucket;
 		name = iTM2LaTeXKit;
 		objects = (
-			DCD3D325088EA6DB009ED7E0 /* -[NSException raise] */,
 		);
 	};
 	DC9E4F310858A8A300A86BED /* All */ = {
@@ -299,19 +297,6 @@
 			sepNavVisRect = "{{0, 0}, {1103, 617}}";
 			sepNavWindowFrame = "{{38, 60}, {1142, 746}}";
 		};
-	};
-	DCD3D325088EA6DB009ED7E0 /* -[NSException raise] */ = {
-		isa = PBXSymbolicBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		delayBeforeContinue = 0;
-		hitCount = 1;
-		location = Foundation;
-		modificationTime = 180269901.145981;
-		state = 1;
-		symbolName = "-[NSException raise]";
 	};
 	DCD7B8000AA8F6FB0042AA60 /* PBXBookmark */ = {
 		isa = PBXBookmark;

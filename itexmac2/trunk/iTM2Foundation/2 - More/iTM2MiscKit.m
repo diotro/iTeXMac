@@ -186,7 +186,7 @@ To Do List:
                 if(SCD)
                 {
                     NSString * classSuiteName = [SCD suiteName];
-                    if(![suiteName isEqual:classSuiteName])
+                    if(![suiteName isEqualToString:classSuiteName])
                     {
                         NSString * newSuperclass = [NSString stringWithFormat:@"%@.%@", classSuiteName, [SCD className]];
                         NSLog(@"New Superclass %@ for class: %@", newSuperclass, K);

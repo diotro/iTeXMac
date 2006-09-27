@@ -129,7 +129,7 @@ To Do List:
 	++R.location;
 	--R.length;
 	NSString * command = [S substringWithRange:R];
-	if([command isEqual:@"input"])
+	if([command isEqualToString:@"input"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])

@@ -100,7 +100,6 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
 - (NSString *)farawayFileNameForKey:(NSString *)key;// different from absoluteFileNameForKey: for faraway projects
 - (void)_removeKey:(NSString *)key;
-- (BOOL)projectDirectoryContainsPath:(NSString *)absolutePath;
 
 @end
 
@@ -217,7 +216,7 @@ To Do List:
 		path = [path stringByAppendingPathComponent:iTM2ProjectInfoComponent];
 		path = [path stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
 		fileURL = [NSURL fileURLWithPath:path];
-		if(![[fileURL path] isEqual:[url path]])
+		if(![[fileURL path] pathIsEqual:[url path]])
 		{
 			iTM2_LOG(@"THIS IS NOT THE SAME PATH:\n%@\n%@\n%@\n%@", fileURL, url, [fileURL path], [url path]);
 		}
@@ -274,7 +273,7 @@ To Do List:
 	if([projectName length])
 		return projectName;
     projectName = [[[self fileName] lastPathComponent] stringByDeletingPathExtension];
-	return [[projectName lowercaseString] isEqual:@"project"]? @"":projectName;
+	return [[projectName lowercaseString] isEqualToString:@"project"]? @"":projectName;
 }
 #warning DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileURL:
@@ -386,7 +385,7 @@ To Do List:
 	NSString * key = nil;
 	while(key = [E nextObject])
 	{
-		if(![key isEqual:@"."])
+		if(![key isEqualToString:@"."])
 		{
 			NSString * recorded = [self fileNameForRecordedKey:key];
 			NSString * absolute = [self absoluteFileNameForKey:key];
@@ -399,7 +398,7 @@ To Do List:
 	}
 	NSString * enclosingDirectory = [NSString enclosingDirectoryForFileNames:fileNames];
 	NSString * projectDirectory = [projectFileName stringByDeletingLastPathComponent];
-	if(![enclosingDirectory isEqualToFileName:projectDirectory])
+	if(![enclosingDirectory pathIsEqual:projectDirectory])
 	{
 		// some file names have moved;
 		// we try to move the project to that folder
@@ -425,7 +424,7 @@ To Do List:
 	{
 		NSString * recorded = [self fileNameForRecordedKey:key];
 		NSString * absolute = [self absoluteFileNameForKey:key];
-		if([recorded length] && ![recorded isEqual:absolute])
+		if([recorded length] && ![recorded pathIsEqual:absolute])
 		{
 			[self setFileName:recorded forKey:key makeRelative:YES];
 		}
@@ -467,13 +466,13 @@ To Do List:
 	BOOL shouldSave = NO;
 	NSString * name = nil;
 	NSArray * RA = nil;
-	if([[self previousFileNameForKey:@"project"] isEqual:projectFileName])
+	if([[self previousFileNameForKey:@"project"] pathIsEqual:projectFileName])
 	{
 		// the project was already there last time it was saved
 		E = [allKeys objectEnumerator];
 		while(key = [E nextObject])
 		{
-			if(![key isEqual:@"."] && ![key isEqual:@"project"])
+			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 			{// those keys are for the project itself: simply ignore them
 				name = [self absoluteFileNameForKey:key];
 				if(![DFM fileExistsAtPath:name])
@@ -514,7 +513,7 @@ To Do List:
 		E = [allKeys objectEnumerator];
 		while(key = [E nextObject])
 		{
-			if(![key isEqual:@"."] && ![key isEqual:@"project"])
+			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 			{// those keys are for the project itself: simply ignore them
 				NSString * name = [self previousFileNameForKey:key];
 				if(![DFM fileExistsAtPath:name])
@@ -567,7 +566,7 @@ To Do List:
 	NSArray * commonComponents = nil;
 	while(key = [E nextObject])
 	{
-		if(![key isEqual:@"."] && ![key isEqual:@"project"])
+		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 		{
 			name = [self farawayFileNameForKey:key];
 			if(![DFM fileExistsAtPath:name])// we exclude files in the faraway folder
@@ -576,7 +575,7 @@ To Do List:
 				commonComponents = [name pathComponents];
 				while(key = [E nextObject])
 				{
-					if(![key isEqual:@"."] && ![key isEqual:@"project"])
+					if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 					{
 						name = [self farawayFileNameForKey:key];
 						if(![DFM fileExistsAtPath:name])// we exclude files in the faraway folder
@@ -616,12 +615,12 @@ To Do List:
 	E = [allKeys objectEnumerator];
 	while(key = [E nextObject])
 	{
-		if(![key isEqual:@"."] && ![key isEqual:@"project"])
+		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 		{
 			name = [self relativeFileNameForKey:key];
 			name = [name lastPathComponent];
 			name = [name stringByDeletingPathExtension];
-			if([name isEqual:requiredCore])
+			if([name pathIsEqual:requiredCore])
 			{
 				// I just have to move the project, not rename it
 				// so let us move the project + wrapper around and update the file keys/path binding
@@ -634,7 +633,7 @@ To Do List:
 	E = [allKeys objectEnumerator];
 	while(key = [E nextObject])
 	{
-		if(![key isEqual:@"."] && ![key isEqual:@"project"])
+		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 		{
 			name = [self relativeFileNameForKey:key];
 			name = [name lastPathComponent];
@@ -718,7 +717,7 @@ moveTheProject:
 	E = [allKeys objectEnumerator];
 	while(key = [E nextObject])
 	{
-		if(![key isEqual:@"."] && ![key isEqual:@"project"])
+		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 		{
 			name = [self farawayFileNameForKey:key];
 			if(![DFM fileExistsAtPath:name])
@@ -784,13 +783,13 @@ To Do List:
 		previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
 		actualProjectDirectory = [self fileName];
 		actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
-		if([actualProjectDirectory isEqual:previousProjectDirectory])
+		if([actualProjectDirectory pathIsEqual:previousProjectDirectory])
 		{
 			// simply list the registered files and see if things were inadvertantly broken...
 			E = [allKeys objectEnumerator];
 			while(key = [E nextObject])
 			{
-				if(![key isEqual:@"."] && ![key isEqual:@"project"])
+				if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 				{
 					NSString * name = [self absoluteFileNameForKey:key];
 					if(![DFM fileExistsAtPath:name])
@@ -814,7 +813,7 @@ To Do List:
 			E = [[self allKeys] objectEnumerator];
 			while(key = [E nextObject])
 			{
-				if(![key isEqual:@"."] && ![key isEqual:@"project"])
+				if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 				{
 					name = [self previousFileNameForKey:key];
 					if([DFM fileExistsAtPath:name])
@@ -849,7 +848,7 @@ To Do List:
 			required = [required stringByDeletingPathExtension];
 			required = [required stringByAppendingPathExtension:[projectFileName pathExtension]];
 			required = [[projectFileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:required];
-			if(![required isEqualToFileName:projectFileName])
+			if(![required pathIsEqual:projectFileName])
 			{
 				if([DFM movePath:projectFileName toPath:required handler:nil])
 				{
@@ -875,13 +874,13 @@ To Do List:
 	previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
 	actualProjectDirectory = [self fileName];
 	actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
-	if([actualProjectDirectory isEqual:previousProjectDirectory])
+	if([actualProjectDirectory pathIsEqual:previousProjectDirectory])
 	{
 		// simply list the registered files and see if things were inadvertantly broken...
 		E = [allKeys objectEnumerator];
 		while(key = [E nextObject])
 		{
-			if(![key isEqual:@"."] && ![key isEqual:@"project"])
+			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 			{
 				NSString * name = [self absoluteFileNameForKey:key];
 				if(![DFM fileExistsAtPath:name])
@@ -905,7 +904,7 @@ To Do List:
 		E = [[self allKeys] objectEnumerator];
 		while(key = [E nextObject])
 		{
-			if(![key isEqual:@"."] && ![key isEqual:@"project"])
+			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 			{
 				name = [self previousFileNameForKey:key];
 				if([DFM fileExistsAtPath:name])
@@ -1658,7 +1657,7 @@ To Do List:
 	NSEnumerator * E = [[self subdocuments] objectEnumerator];
 	NSDocument * D;
 	while(D = [E nextObject])
-		if([[D fileName] isEqualToFileName:fileName] || [[D originalFileName] isEqualToFileName:fileName])
+		if([[D fileName] pathIsEqual:fileName] || [[D originalFileName] pathIsEqual:fileName])
 			return D;
     return nil;
 }
@@ -1788,7 +1787,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([key isEqual:@"project"])
+	if([key isEqualToString:@"project"])
 	{
 		key = @".";
 	}
@@ -1912,11 +1911,11 @@ To Do List:
 	NSString * new = makeRelativeFlag? [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName] :fileName;
 //iTM2_LOG(@"old: %@", old);
 //iTM2_LOG(@"new: %@", new);
-	if(![old isEqual:new])
+	if(![old pathIsEqual:new])
 	{
 		[[self keyedFileNames] takeValue:new forKey:key];
 		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
-		NSAssert3([key isEqual:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %s, %@ != %@"),__PRETTY_FUNCTION__, key, [self keyForFileName:fileName]);
+		NSAssert3([key isEqualToString:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %s, %@ != %@"),__PRETTY_FUNCTION__, key, [self keyForFileName:fileName]);
 		[self keysDidChange];
 	}
     return;
@@ -1974,12 +1973,49 @@ To Do List:
 	// Is it me?
 	NSString * path = [self fileName];
 	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
-	if([path isEqual:fileName])
+	path = [path stringByStandardizingPath];
+	if([path pathIsEqual:fileName])
 	{
 		result = @".";
 		[cachedKeys setObject:result forKey:fileName];
 		return result;
 	}
+	else
+	{
+iTM2_LOG(@"isEqualToString?...%@",([path isEqualToString:fileName]?@"YES":@"NO"));
+iTM2_LOG(@"compare?...-1,0,1:%i",[path compare:fileName]);
+iTM2_LOG(@"URL isEqual?...%@",([[NSURL fileURLWithPath:path] isEqual:[NSURL fileURLWithPath:fileName]]?@"YES":@"NO"));
+		NSArray * RA1 = [path pathComponents];
+		NSEnumerator * E1 = [RA1 objectEnumerator];
+		NSArray * RA2 = [fileName pathComponents];
+		NSEnumerator * E2 = [RA2 objectEnumerator];
+		NSString * component1 = nil;
+		NSString * component2 = nil;
+		while(component1 = [E1 nextObject])
+		{
+			component2 = [E2 nextObject];
+			if(![component1 isEqual:component2])
+			{
+				iTM2_LOG(@"Different components:%@<>%@",component1,component2);
+				if([component1 length]==[component2 length])
+				{
+					int index = [component1 length];
+					while(index--)
+					{
+						iTM2_LOG(@"%i %i %i",index,[component1 characterAtIndex:index],[component2 characterAtIndex:index]);
+					}
+				}
+				else
+				{
+					iTM2_LOG(@"Length:%u<>%u",[component1 length],[component2 length]);
+				}
+				goto next;
+			}
+		}
+iTM2_LOG(@"EACH COMPONENTS ARE THE SAME...");
+next:
+iTM2_LOG(@"fileName:%@",fileName);
+iTM2_LOG(@"path:%@",path);}
 	// Here begins the hard work
 	NSArray * Ks = [self allKeys];
 //iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
@@ -1990,7 +2026,7 @@ To Do List:
 	while(result = [E nextObject])
 	{
 		path = [self absoluteFileNameForKey:result];
-		if([path isEqualToString:fileName])
+		if([path pathIsEqual:fileName])
 		{
 			[cachedKeys setObject:result forKey:fileName];
 			return result;
@@ -2007,7 +2043,7 @@ To Do List:
 			path = [self farawayFileNameForKey:result];
 //iTM2_LOG(@"path  is: %@", path);
 //iTM2_LOG(@"fileName: %@", fileName);
-			if([path isEqualToString:fileName])
+			if([path pathIsEqual:fileName])
 			{
 				[cachedKeys setObject:result forKey:fileName];
 				return result;
@@ -2086,7 +2122,7 @@ To Do List:
 		while(dirName = [e nextObject])
 		{
 			relativeName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
-			if([name isEqual:projectName])
+			if([name pathIsEqual:projectName])
 			{
 				result = @".";
 				[cachedKeys takeValue:result forKey:fileName];
@@ -2171,7 +2207,7 @@ To Do List:
 		while(dirName = [e nextObject])
 		{
 			relativeName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
-			if([name isEqual:projectName])
+			if([name pathIsEqual:projectName])
 			{
 				result = @".";
 				[cachedKeys takeValue:result forKey:fileName];
@@ -2218,18 +2254,18 @@ To Do List:
 	NSString * target = nil;
 	while(K = [DE nextObject])
 	{
-		key = [K isEqual:@"project"]?@".":K;
+		key = [K isEqualToString:@"project"]?@".":K;
 		source = [subdirectory stringByAppendingPathComponent:key];
 		NSURL * url = [NSURL fileURLWithPath:source];
 		NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
 		target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
-		if([target isEqual:fileName])
+		if([target pathIsEqual:fileName])
 		{
 			// OK, this alias points to the given named file.
 			// the file was just moved around
 			// is it this key available
 			target = [self absoluteFileNameForKey:key];
-			if([target isEqual:fileName])
+			if([target pathIsEqual:fileName])
 			{
 				return key;
 			}
@@ -2267,15 +2303,15 @@ To Do List:
 	// subdirectory variable is free now
 	while(K = [DE nextObject])
 	{
-		key = [K isEqual:@"project"]?@".":K;
+		key = [K isEqualToString:@"project"]?@".":K;
 		source = [subdirectory stringByAppendingPathComponent:key];
 		target = [DFM pathContentOfSymbolicLinkAtPath:source];
-		if([target isEqual:fileName])
+		if([target pathIsEqual:fileName])
 		{
 			// OK, this soft link points to the given named file.
 			// is it this key available
 			target = [self absoluteFileNameForKey:key];
-			if([target isEqual:fileName])
+			if([target pathIsEqual:fileName])
 			{
 				return key;
 			}
@@ -2308,7 +2344,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * key = [argument isEqual:@"project"]?@".":argument;
+	NSString * key = [argument isEqualToString:@"project"]?@".":argument;
 	NSString * projectFileName = [self fileName];
 	projectFileName = [projectFileName stringByStandardizingPath];
 	NSString * subdirectory = [projectFileName stringByAppendingPathComponent:[SPC finderAliasesSubdirectory]];
@@ -2348,7 +2384,7 @@ To Do List:
 	{
 		// is this key already registered?
 		NSString * alreadyFileName = [self absoluteFileNameForKey:key];
-		NSAssert(![alreadyFileName isEqual:fileName], @"You missed something JL... Shame on u");
+		NSAssert(![alreadyFileName pathIsEqual:fileName], @"You missed something JL... Shame on u");
 		if([alreadyFileName length])
 		{
 			// yes it is
@@ -2421,7 +2457,7 @@ To Do List:
 		{
 			[self saveDocument:nil];
 		}
-		NSAssert1([key isEqual:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %s"),__PRETTY_FUNCTION__);
+		NSAssert1([key isEqualToString:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %s"),__PRETTY_FUNCTION__);
 		return key;
 	}
 	// it is not an already registered file name, as far as I could guess...
@@ -2439,9 +2475,9 @@ To Do List:
 	NSString * relativeName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
 	[[self keyedFileNames] takeValue:relativeName forKey:key];
 	[self setFileName:relativeName forKey:key makeRelative:NO];
-	if(![key isEqual:[self keyForFileName:fileName]])
+	if(![key isEqualToString:[self keyForFileName:fileName]])
 		[self keyForFileName:fileName];
-	NSAssert2([key isEqual:[self keyForFileName:fileName]], @"***  ERROR:[self keyForFileName:...] is %@ instead of %@", [self keyForFileName:fileName], key);
+	NSAssert2([key isEqualToString:[self keyForFileName:fileName]], @"***  ERROR:[self keyForFileName:...] is %@ instead of %@", [self keyForFileName:fileName], key);
 	[self updateChangeCount:NSChangeDone];
 	NSEnumerator * E = [[self windowControllers] objectEnumerator];
 	id WC;
@@ -2478,7 +2514,7 @@ To Do List:
 //iTM2_START;
 	[self _recordHandleToFileName:fileName];
 	NSString * myFileName = [self fileName];
-	if(![fileName isEqual:myFileName])
+	if(![fileName pathIsEqual:myFileName])
 	{
 		[self _recordHandleToFileName:myFileName];
 	}
@@ -2497,7 +2533,7 @@ To Do List:
 	NSString * K = [self keyForFileName:fileName];
 	if([K length])
 	{
-		NSString * key = [K isEqual:@"."]?@"project":K;
+		NSString * key = [K isEqualToString:@"."]?@"project":K;
 		NSString * subdirectory = [self fileName];
 		if(![DFM isWritableFileAtPath:subdirectory])
 		{
@@ -2550,7 +2586,7 @@ To Do List:
 					{
 						aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
 						NSString * target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
-						NSAssert2([target isEqualToFileName:[fileName stringByResolvingSymlinksAndFinderAliasesInPath]],@"Error unexpected difference\n%@\nvs\n%@ (report bug)", fileName, target);
+						NSAssert2([target pathIsEqual:[fileName stringByResolvingSymlinksAndFinderAliasesInPath]],@"Error unexpected difference\n%@\nvs\n%@ (report bug)", fileName, target);
 					}
 				}
 			}
@@ -2754,7 +2790,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([fileName isEqualToString:[self fileName]])
+	if([fileName pathIsEqual:[self fileName]])
 	{
 		iTM2_LOG(@"I ignore:%@, it is the project", fileName);            
 	}
@@ -2773,36 +2809,6 @@ To Do List:
 	}
 //iTM2_END;
 	return;
-}
-#pragma mark =-=-=-=-=-  UTILITY
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectDirectoryContainsPath:
-- (BOOL)projectDirectoryContainsPath:(NSString *)absolutePath;
-/*"Returns the contextInfo of its document.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3:07/26/2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * projectName = [self fileName];
-	if([projectName length])
-	{ 
-		NSArray * dirComponents = [projectName pathComponents];
-		NSArray * pathComponents = [absolutePath pathComponents];
-		unsigned int count = [dirComponents count];
-		if(count < [pathComponents count])
-		{
-			NSRange R = NSMakeRange(0,count-1);
-			dirComponents = [dirComponents subarrayWithRange:R];
-			pathComponents = [pathComponents subarrayWithRange:R];
-			if([dirComponents isEqual:pathComponents])
-			{
-				return YES;
-			}
-		}
-	}
-//iTM2_END;
-	return NO;
 }
 #pragma mark =-=-=-=-=-  OPEN SUBDOCUMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSubdocumentWithContentsOfURL:context:display:outError:
@@ -2837,7 +2843,7 @@ To Do List:
 		return nil;
 	}
 	fileName = [fileName stringByResolvingSymlinksInPath];// and finder aliases?
-	if([fileName isEqual:[self wrapperName]])
+	if([fileName pathIsEqual:[self wrapperName]])
 	{
 		return self;// we should not get there!
 	}
@@ -2852,7 +2858,7 @@ To Do List:
 		{
 			NSString * docName = [url path];
 			docName = [docName stringByResolvingSymlinksAndFinderAliasesInPath];
-			if([docName isEqual:fileName])
+			if([docName pathIsEqual:fileName])
 			{
 tahiti:
 				if(display)
@@ -2879,7 +2885,7 @@ tahiti:
 		NSString * typeName = [SDC typeFromFileExtension:[fileName pathExtension]];
 		if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outError])
 		{
-			if([typeName isEqual:iTM2WildcardDocumentType])
+			if([typeName isEqualToString:iTM2WildcardDocumentType])
 			{
 				// this kind of documents can be managed by external helpers
 				if(display)
@@ -2948,7 +2954,7 @@ To Do List:
 	while(D = [E nextObject])
 	{
 		id P = [D project];// now the project should be properly set. reentrant problem here?
-		if([P isEqual:self] && [key isEqual:[self keyForFileName:[D fileName]]])
+		if([P isEqual:self] && [key isEqualToString:[self keyForFileName:[D fileName]]])
 		{
 			if(display)
 			{
@@ -2968,7 +2974,7 @@ To Do List:
 onceMore:
 	if([DFM fileExistsAtPath:absoluteFileName])
 	{
-		if([farawayFileName isEqual:absoluteFileName])
+		if([farawayFileName pathIsEqual:absoluteFileName])
 		{
 			// both are the same, this is the expected situation.
 absoluteFileNameIsChosen:
@@ -3013,7 +3019,7 @@ absoluteFileNameIsChosen:
 		NSString * recorded = [self fileNameForRecordedKey:key];
 		if([DFM fileExistsAtPath:recorded])
 		{
-			if([self projectDirectoryContainsPath:recorded])
+			if([recorded belongsToDirectory:[[self fileName] stringByDeletingLastPathComponent]])
 			{
 				[self setFileName:recorded forKey:key makeRelative:YES];
 				fileURL = [NSURL fileURLWithPath:recorded];
@@ -3029,7 +3035,7 @@ absoluteFileNameIsChosen:
 				}
 			}
 		}
-		if([farawayFileName isEqual:absoluteFileName])
+		if([farawayFileName pathIsEqual:absoluteFileName])
 		{
 			// problem: no file available
 			iTM2_OUTERROR(2,([NSString stringWithFormat:@"No file at\n%@",absoluteFileName]),(outError?*outError:nil));
@@ -3828,7 +3834,7 @@ To Do List:
 	NSString * wpe = [SDC wrapperPathExtension];
 	oneMoreTime:
 	fileName = [fileName stringByDeletingLastPathComponent];
-	if([[fileName pathExtension] isEqualToString:wpe])
+	if([[fileName pathExtension] pathIsEqual:wpe])
 		return fileName;
 	else if([fileName length]>[wpe length])
 		goto oneMoreTime;
@@ -4115,13 +4121,13 @@ To Do List:
     int top = [fileKeys count];
     if(!row)
     {
-        return [[tableColumn identifier] isEqual:@"icon"]? nil:NSLocalizedStringFromTableInBundle(@"Default", iTM2ProjectTable, myBUNDLE, "");  
+        return [[tableColumn identifier] isEqualToString:@"icon"]? nil:NSLocalizedStringFromTableInBundle(@"Default", iTM2ProjectTable, myBUNDLE, "");  
     }
     else if(row>0 && row<top)
     {
         iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
 		NSString * key = [fileKeys objectAtIndex:row];
-		if([[tableColumn identifier] isEqual:iTM2PDTableViewPathIdentifier])
+		if([[tableColumn identifier] isEqualToString:iTM2PDTableViewPathIdentifier])
 		{
 			return [projectDocument relativeFileNameForKey:key];
 		}
@@ -4146,7 +4152,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// object is expected to be a relative path
-    if(![[tableColumn identifier] isEqual:iTM2PDTableViewPathIdentifier])
+    if(![[tableColumn identifier] isEqualToString:iTM2PDTableViewPathIdentifier])
 		return;
     NSArray * fileKeys = [self orderedFileKeys];
     int top = [fileKeys count];
@@ -4216,7 +4222,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[aTableColumn identifier] isEqual:iTM2PDTableViewPathIdentifier])
+	if([[aTableColumn identifier] isEqualToString:iTM2PDTableViewPathIdentifier])
 	{
 		if(rowIndex)
 		{
@@ -4260,7 +4266,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [iTM2EventObserver isAlternateKeyDown] && [[tableColumn identifier] isEqual:iTM2PDTableViewPathIdentifier] && (row>0);
+	return [iTM2EventObserver isAlternateKeyDown] && [[tableColumn identifier] isEqualToString:iTM2PDTableViewPathIdentifier] && (row>0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _tableViewDoubleAction:
 - (IBAction)_tableViewDoubleAction:(id)sender;
@@ -4376,12 +4382,12 @@ To Do List:
 //iTM2_START;
 	iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
 	NSString * name = [projectDocument fileName];
-	if([name isEqual:filename])
+	if([name pathIsEqual:filename])
 	{
 		return NO;
 	}
 	name = [name enclosingWrapperFileName];
-	if([name isEqual:filename])
+	if([name pathIsEqual:filename])
 	{
 		return NO;
 	}
@@ -4422,20 +4428,15 @@ To Do List:
 		NSMutableArray * copiables = [NSMutableArray array];
         while(fileName = [E nextObject])
 		{
-			NSArray * fileNameComponents = [fileName pathComponents];
-			if([fileNameComponents count] > R.length)
+			if([fileName belongsToDirectory:dirName])
 			{
-				if([components isEqual:[fileNameComponents subarrayWithRange:R]])
-				{
-					[projectDocument addFileName:fileName];
-				}
-				else
+				if(![fileName pathIsEqual:dirName])
 				{
 					[copiables addObject:fileName];
 					[FNs removeObject:fileName];
 				}
 			}
-			else if(![fileName isEqual:dirName])
+			else
 			{
 				[copiables addObject:fileName];
 				[FNs removeObject:fileName];
@@ -4610,8 +4611,8 @@ To Do List:
             [projectDocument updateChangeCount:NSChangeDone];
 			NSString * fileKey = [fileKeys objectAtIndex:index];
 			NSString * fullPath = [projectDocument absoluteFileNameForKey:fileKey];
-			if(![fullPath isEqual:[projectDocument fileName]]// don't recycle the project
-				&& ![fullPath isEqual:dirName]// nor its containing directory!!!
+			if(![fullPath pathIsEqual:[projectDocument fileName]]// don't recycle the project
+				&& ![fullPath pathIsEqual:dirName]// nor its containing directory!!!
 					&& [DFM fileExistsAtPath:fullPath isDirectory:nil])
 			{
 				// if the file belongs to another project it should not be recycled
@@ -4847,7 +4848,7 @@ To Do List:
         if([oldRelative length])
 		{
 			NSString * newRelative = [sender stringValue];
-			if([newRelative isEqual:oldRelative])
+			if([newRelative pathIsEqual:oldRelative])
 				return;
 			iTM2ProjectDocument * projectDocument = [self document];
 			NSString * dirName = [[projectDocument fileName] stringByDeletingLastPathComponent];
@@ -5381,7 +5382,7 @@ To Do List:
 			{
 				extension = [content pathExtension];
 				type = [SDC typeFromFileExtension:extension];
-				if([type isEqual:projectType])
+				if([type isEqualToString:projectType])
 				{
 					NSString * P = [path stringByAppendingPathComponent:content];
 					[paths addObject:P];
@@ -5393,7 +5394,7 @@ To Do List:
 			{
 				extension = [content pathExtension];
 				type = [SDC typeFromFileExtension:extension];
-				if([type isEqual:wrapperType])
+				if([type isEqualToString:wrapperType])
 				{
 					NSString * P = [farawayPath stringByAppendingPathComponent:content];
 					[paths addObject:P];
@@ -5492,7 +5493,7 @@ To Do List:
 		{
 			NSString * extension = [content pathExtension];
 			NSString * type = [SDC typeFromFileExtension:extension];
-			if([type isEqual:projectType] || [type isEqual:wrapperType])
+			if([type isEqualToString:projectType] || [type isEqualToString:wrapperType])
 			{
 				NSString * path = [dirName stringByAppendingPathComponent:content];
 				[result addObject:path];
@@ -5586,8 +5587,8 @@ To Do List:
 		while(content = [E nextObject])
 		{
 			NSString * extension = [content pathExtension];
-			if([[SDC typeFromFileExtension:extension] isEqual:projectType]
-				|| [[SDC typeFromFileExtension:extension] isEqual:wrapperType])
+			if([[SDC typeFromFileExtension:extension] isEqualToString:projectType]
+				|| [[SDC typeFromFileExtension:extension] isEqualToString:wrapperType])
 			{
 				NSString * path = [dirName stringByAppendingPathComponent:content];
 				[contents setObject:[NSMutableArray arrayWithObject:content] forKey:path];
@@ -5781,7 +5782,7 @@ To Do List:
 	NSString * name = fileName;
 	if(projectDocument = [self newProjectForFileNameRef:&name display:YES error:nil])
 	{
-		if(![name isEqual:fileName])
+		if(![name pathIsEqual:fileName])
 		{
 			// ensure the containing directory exists
 			[DFM createDeepDirectoryAtPath:[name stringByDeletingLastPathComponent] attributes:nil error:nil];
@@ -5896,9 +5897,9 @@ To Do List:
 	{
 		if([projectDocument isKindOfClass:[iTM2ProjectDocument class]])
 		{
-			if([projectDocument keyForFileName:fileName] || [[projectDocument fileName] isEqual:fileName])
+			if([projectDocument keyForFileName:fileName] || [[projectDocument fileName] pathIsEqual:fileName])
 				goto theEnd1;
-			else if([[projectDocument wrapperName] isEqual:fileName])
+			else if([[projectDocument wrapperName] pathIsEqual:fileName])
 				goto theEnd2;
 		}
 	}
@@ -5906,9 +5907,9 @@ To Do List:
 // this is redundant
     E = [[self projects] objectEnumerator];
     while(projectDocument = [E nextObject])
-        if([projectDocument keyForFileName:fileName] || [[projectDocument fileName] isEqual:fileName])
+        if([projectDocument keyForFileName:fileName] || [[projectDocument fileName] pathIsEqual:fileName])
             goto theEnd1;
-        else if([[projectDocument wrapperName] isEqual:fileName])
+        else if([[projectDocument wrapperName] pathIsEqual:fileName])
             goto theEnd2;
         else if(iTM2DebugEnabled>10)
         {
@@ -5983,7 +5984,7 @@ To Do List:
 		NSString * FN = [projectDocument fileName];
 		while(P = (id)[[E nextObject] nonretainedObjectValue])
 		{
-			NSAssert1(![[P fileName] isEqual:FN],@"You cannot register 2 different project documents with that file name:\n%@",FN);
+			NSAssert1(![[P fileName] pathIsEqual:FN],@"You cannot register 2 different project documents with that file name:\n%@",FN);
 		}
 		[PROJECTS addObject:[NSValue valueWithNonretainedObject:projectDocument]];
 		[self setProject:projectDocument forDocument:projectDocument];
@@ -6079,7 +6080,7 @@ To Do List:
 	if([projectAbsolutePathHint isKindOfClass:[NSString class]]
 		&& [SWS isProjectPackageAtPath:projectAbsolutePathHint])
 	{
-		NSAssert(![projectAbsolutePathHint isEqual:fileName], @"Recursive call catched... THIS IS A BIG BUG - 1");
+		NSAssert(![projectAbsolutePathHint pathIsEqual:fileName], @"Recursive call catched... THIS IS A BIG BUG - 1");
 		url = [NSURL fileURLWithPath:projectAbsolutePathHint];
 	}
 	else
@@ -6087,7 +6088,7 @@ To Do List:
 		NSString * projectRelativePathHint = [contextDictionary objectForKey:iTM2ProjectRelativePathKey];
 		NSString * pathGuessFromRelativeHint = nil;// project absolute path
 		if([projectRelativePathHint isKindOfClass:[NSString class]]
-			&& [[projectRelativePathHint pathExtension] isEqual:[SDC projectPathExtension]])
+			&& [[projectRelativePathHint pathExtension] pathIsEqual:[SDC projectPathExtension]])
 		{
 			// the document once had a project, or is a copy/move of a document that once had a project
 			// we assume that it still belongs to a project...
@@ -6213,7 +6214,7 @@ To Do List:
 	if(!isDirectory)
 	{
 		NSString * standardProjectName = [projectName stringByStandardizingPath];
-		if([standardProjectName isEqual:projectName] || ![DFM fileExistsAtPath:standardProjectName isDirectory:&isDirectory])
+		if([standardProjectName pathIsEqual:projectName] || ![DFM fileExistsAtPath:standardProjectName isDirectory:&isDirectory])
 		{
 			return nil;
 		}
@@ -6510,11 +6511,11 @@ To Do List:
 			{
 				break;
 			}
-			else if([[projectDocument fileName] isEqual:fileName])
+			else if([[projectDocument fileName] pathIsEqual:fileName])
 			{
 				[projectDocument newKeyForFileName:fileName];
 			}
-			else if([[projectDocument wrapperName] isEqual:fileName])
+			else if([[projectDocument wrapperName] pathIsEqual:fileName])
 			{
 				break;
 			}
@@ -6641,7 +6642,7 @@ To Do List:
 				{
 					[projectDocument newKeyForFileName:fileName];
 					[projectDocument saveDocument:nil];
-					if([fileName isEqual:wrapperName])
+					if([fileName pathIsEqual:wrapperName])
 						* fileNameRef = projectName;
 					return projectName;
 				}
@@ -6718,7 +6719,7 @@ scanDirectoryContent:
 	NSMutableArray * secondaryCandidates = [NSMutableArray array];
 	while(component = [E nextObject])
 	{
-		if([[SDC typeFromFileExtension:[component pathExtension]] isEqual:projectDocumentType])
+		if([[SDC typeFromFileExtension:[component pathExtension]] pathIsEqual:projectDocumentType])
 		{
 			finished = YES;
 			NSString * projectName = [dirName stringByAppendingPathComponent:component];
@@ -6977,7 +6978,7 @@ To Do List:
 	while(W = [E nextObject])
 	{
 		controller = [W windowController];
-		if([controller isKindOfClass:[self newProjectPanelControllerClass]] && [[controller fileName] isEqual:fileName])
+		if([controller isKindOfClass:[self newProjectPanelControllerClass]] && [[controller fileName] pathIsEqual:fileName])
 			return nil;
 	}
 //iTM2_LOG(@"fileName is:%@", fileName);
@@ -7018,7 +7019,7 @@ To Do List:
 			if([SWS isWrapperPackageAtPath:projectDirName])
 			{
 				// we must change the name
-				if(![dirName isEqualToString:projectDirName])
+				if(![dirName pathIsEqual:projectDirName])
 				{
 					NSString * component = [fileName lastPathComponent];
 					* fileNameRef = [projectDirName stringByAppendingPathComponent:component];
@@ -7074,7 +7075,7 @@ To Do List:
 			projectDirName = [projectDirName stringByDeletingLastPathComponent];
 			if([projectWrapperName length])
 			{
-				if(![dirName isEqualToString:projectDirName])
+				if(![dirName pathIsEqual:projectDirName])
 				{
 					// we must change the name
 					NSString * component = [fileName lastPathComponent];
@@ -7204,7 +7205,7 @@ To Do List:
 //iTM2_LOG(*fileNameRef);
 	// nil is returned for project file names...
 	NSString * projectDocumentType = [SDC projectDocumentType];
-	[[SDC typeFromFileExtension:[*fileNameRef pathExtension]] isEqual:projectDocumentType]
+	[[SDC typeFromFileExtension:[*fileNameRef pathExtension]] isEqualToString:projectDocumentType]
 	|| ![SDC documentClassForType:projectDocumentType]
 	|| (projectDocument = [self getOpenProjectForFileName:*fileNameRef])
 	|| (projectDocument = [self getProjectInWrapperForFileNameRef:fileNameRef display:display error:outError])
@@ -7275,7 +7276,7 @@ To Do List:
 //iTM2_LOG(@"Not yet cached");
 	NSEnumerator * E = [[self baseProjects] objectEnumerator];
 	while(P = [E nextObject])
-		if([[P projectName] isEqual:projectName])
+		if([[P projectName] pathIsEqual:projectName])
 		{
 			NSValue * V = [NSValue valueWithNonretainedObject:P];
 			[CACHED_BASE_PROJECTS takeValue:V forKey:projectName];
@@ -7286,10 +7287,9 @@ To Do List:
 			return P;
 		}
 	NSString * lower = [projectName lowercaseString];
-	if([projectName isEqual:lower])
+	if([projectName isEqualToString:lower])
 		return nil;
-	P = [self baseProjectWithName:lower];
-	if(P)
+	if(P = [self baseProjectWithName:lower])
 	{
 		NSValue * V = [NSValue valueWithNonretainedObject:P];
 		[CACHED_BASE_PROJECTS takeValue:V forKey:projectName];
@@ -7657,7 +7657,7 @@ To Do List:
 #warning ERROR POSSIBLE: display NO
 		newPD = [SPC newProjectForFileNameRef:&name display:NO error:nil];
 		[super setFileURL:[NSURL fileURLWithPath:name]];
-		if(![name isEqual:newFileName])
+		if(![name pathIsEqual:newFileName])
 		{
 		#warning THERE MIGHT BE A PROBLEM HERE
 			iTM2_LOG(@"----  BE EXTREMELY CAREFUL: writeSafelyToURL will be used");
@@ -8178,7 +8178,7 @@ To Do List:
 		NSString * subpath;
 		while(subpath = [E nextObject])
 		{
-			if([[subpath pathExtension] isEqual:[self projectPathExtension]])
+			if([[subpath pathExtension] pathIsEqual:[self projectPathExtension]])
 				[subpaths addObject:subpath];
 		}
 		if([subpaths count] == 1)
@@ -8204,7 +8204,7 @@ To Do List:
 			subpath = [fileName stringByAppendingPathComponent:subpath];
 			url = [NSURL fileURLWithPath:subpath];
 			NSDictionary * dict = [NSDictionary dictionaryWithContentsOfURL:url];
-			if([[dict objectForKey:@"isa"] isEqual:iTM2ProjectInfoType])
+			if([[dict objectForKey:@"isa"] isEqualToString:iTM2ProjectInfoType])
 			{
 				// yes this is a former project.
 				// fileName should return to the old path extension
@@ -8910,7 +8910,7 @@ To Do List:
 	_ProjectDirName = [fileName copy];
 	_IsAlreadyDirectoryWrapper = NO;
 	loop:
-	if([[fileName pathExtension] isEqual:[SDC wrapperPathExtension]])
+	if([[fileName pathExtension] pathIsEqual:[SDC wrapperPathExtension]])
 	{
 		_IsAlreadyDirectoryWrapper = YES;
 		[_ProjectDirName autorelease];
@@ -9228,7 +9228,7 @@ To Do List:
 	if([senderString length])
 	{
 		NSString * new = [senderString stringByAppendingPathExtension:[SDC projectPathExtension]];
-		if(![new isEqual:_NewProjectName])
+		if(![new pathIsEqual:_NewProjectName])
 		{
 			[_NewProjectName autorelease];
 			_NewProjectName = [new copy];
@@ -9583,7 +9583,7 @@ To Do List:
 	{
 		NSString * src = [self fileName];
 		NSString * dest = fullDocumentPath;
-		if([src isEqual:dest])
+		if([src pathIsEqual:dest])
 		{
 			iTM2_LOG(@"*** WARNING:You gave twice the same name! (%@)", src);
 			return YES;
@@ -9610,7 +9610,7 @@ To Do List:
 	{
 		NSString * src = [self fileName];
 		NSString * dest = fullDocumentPath;
-		if([src isEqual:dest])
+		if([src pathIsEqual:dest])
 		{
 			iTM2_LOG(@"*** WARNING:You gave twice the same name! (%@)", src);
 			return YES;
@@ -9669,18 +9669,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * farawayProjectsDirectory = [NSString farawayProjectsDirectory];
-	NSArray * components = [farawayProjectsDirectory pathComponents];
-	NSArray * myComponents = [self pathComponents];
-	if([myComponents count] > [components count])
-	{
 //iTM2_END;
-		NSRange range = NSMakeRange(0,[components count]);
-		myComponents = [myComponents subarrayWithRange:range];
-		return [components isEqual:myComponents];
-	}
-//iTM2_END;
-	return NO;
+	return [self belongsToDirectory:[NSString farawayProjectsDirectory]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringByStrippingFarawayProjectsDirectory
 - (NSString *)stringByStrippingFarawayProjectsDirectory;
@@ -9696,14 +9686,21 @@ To Do List:
 	NSArray * myComponents = [self pathComponents];
 	if([myComponents count] > [components count])
 	{
-		NSRange range = NSMakeRange(0,[components count]);
-		if([components isEqual:[myComponents subarrayWithRange:range]])
+		NSEnumerator * myE = [myComponents objectEnumerator];
+		NSEnumerator * E = [components objectEnumerator];
+		NSString * component = nil;
+		while(component = [E nextObject])
 		{
-			range = NSMakeRange([components count],[myComponents count]-[components count]);
-			myComponents = [myComponents subarrayWithRange:range];
-//iTM2_END;
-			return [[NSOpenStepRootDirectory()stringByAppendingPathComponent:[NSString pathWithComponents:myComponents]] stringByStandardizingPath];
+			if(![component pathIsEqual:[myE nextObject]])
+			{
+				return self;
+			}
 		}
+		NSRange range = NSMakeRange([components count],[myComponents count]-[components count]);
+		myComponents = [myComponents subarrayWithRange:range];
+//iTM2_END;
+		return [[NSOpenStepRootDirectory()stringByAppendingPathComponent:[NSString pathWithComponents:myComponents]]
+					stringByStandardizingPath];
 	}
 //iTM2_END;
 	return self;
@@ -9771,7 +9768,7 @@ To Do List:
 	NSString * extension;
 up:
 	extension = [fileName pathExtension];
-	if([extension isEqual:requiredExtension])
+	if([extension pathIsEqual:requiredExtension])
 	{
 //iTM2_END;
 		return fileName;
@@ -9801,7 +9798,7 @@ To Do List:
 	NSString * extension;
 up:
 	extension = [fileName pathExtension];
-	if([extension isEqual:requiredExtension])
+	if([extension pathIsEqual:requiredExtension])
 	{
 //iTM2_END;
 		return fileName;
@@ -9855,7 +9852,7 @@ To Do List:
 			}
 		}
 		[I release];
-		return [[fullPath pathExtension] isEqual:iTM2ProjectPathExtension];
+		return [[fullPath pathExtension] pathIsEqual:iTM2ProjectPathExtension];
 	}
 //iTM2_END;
     return NO;
@@ -9894,7 +9891,7 @@ To Do List:
 			}
 		}
 		[I release];
-		return [[fullPath pathExtension] isEqual:iTM2WrapperPathExtension];
+		return [[fullPath pathExtension] pathIsEqual:iTM2WrapperPathExtension];
 	}
 //iTM2_END;
     return NO;

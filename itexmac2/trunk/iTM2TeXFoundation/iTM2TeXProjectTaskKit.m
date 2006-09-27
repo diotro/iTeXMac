@@ -599,7 +599,7 @@ To Do List:
 					while(key = [E nextObject])
 					{
 						otherName = [TPD absoluteFileNameForKey:key];
-						if([[otherName lastPathComponent] isEqual:path])
+						if([[otherName lastPathComponent] pathIsEqual:path])
 						{
 							goto resolved;
 						}
@@ -996,7 +996,7 @@ To Do List:
             break;
     }
 	NSString * oldStyle = [self contextValueForKey:iTM2TPFELogParserKey];
-	if(![newStyle isEqual:oldStyle])
+	if(![newStyle isEqualToString:oldStyle])
 	{
 		[self takeContextValue:newStyle forKey:iTM2TPFELogParserKey];
 		[[self document] updateChangeCount:NSChangeDone];

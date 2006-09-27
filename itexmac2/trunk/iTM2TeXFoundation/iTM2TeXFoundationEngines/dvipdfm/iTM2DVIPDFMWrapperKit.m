@@ -135,13 +135,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * unit = [self modelValueForKey:iTM2Dvipdfm_x_offset_unit];
-	if([unit isEqual:@"bp"])
+	if([unit isEqualToString:@"bp"])
 		return 0;
-	else if([unit isEqual:@"pt"])
+	else if([unit isEqualToString:@"pt"])
 		return 1;
-	else if([unit isEqual:@"in"])
+	else if([unit isEqualToString:@"in"])
 		return 2;
-	else if([unit isEqual:@"cm"])
+	else if([unit isEqualToString:@"cm"])
 		return 3;
     return 2;
 }
@@ -174,13 +174,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * unit = [self modelValueForKey:iTM2Dvipdfm_y_offset_unit];
-	if([unit isEqual:@"bp"])
+	if([unit isEqualToString:@"bp"])
 		return 0;
-	else if([unit isEqual:@"pt"])
+	else if([unit isEqualToString:@"pt"])
 		return 1;
-	else if([unit isEqual:@"in"])
+	else if([unit isEqualToString:@"in"])
 		return 2;
-	else if([unit isEqual:@"cm"])
+	else if([unit isEqualToString:@"cm"])
 		return 3;
     return 2;
 }
@@ -231,9 +231,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * level = [self modelValueForKey:iTM2Dvipdfm_verbosity_level];
-	if([level isEqual:@"v"])
+	if([level isEqualToString:@"v"])
 		return 1;
-	else if([level isEqual:@"vv"])
+	else if([level isEqualToString:@"vv"])
 		return 2;
     return 0;
 }

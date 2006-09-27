@@ -113,30 +113,27 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 180904479;
-			PBXWorkspaceStateSaveDate = 180904479;
+			PBXPerProjectTemplateStateSaveDate = 180999225;
+			PBXWorkspaceStateSaveDate = 180999225;
 		};
 		perUserProjectItems = {
+			DC128B050AC9EA810090D8C2 /* PBXBookmark */ = DC128B050AC9EA810090D8C2 /* PBXBookmark */;
 			DC264C490986353C00109CD2 /* PBXTextBookmark */ = DC264C490986353C00109CD2 /* PBXTextBookmark */;
-			DC469F220AC7BD5100F0CA29 /* PBXTextBookmark */ = DC469F220AC7BD5100F0CA29 /* PBXTextBookmark */;
-			DC469F230AC7BD5100F0CA29 /* PBXTextBookmark */ = DC469F230AC7BD5100F0CA29 /* PBXTextBookmark */;
 			DC469F310AC7BDEE00F0CA29 /* PBXTextBookmark */ = DC469F310AC7BDEE00F0CA29 /* PBXTextBookmark */;
 			DC469F330AC7BDEE00F0CA29 /* PBXTextBookmark */ = DC469F330AC7BDEE00F0CA29 /* PBXTextBookmark */;
-			DC469F950AC7C17500F0CA29 /* PBXBookmark */ = DC469F950AC7C17500F0CA29 /* PBXBookmark */;
-			DC469F970AC7C17500F0CA29 /* PBXTextBookmark */ = DC469F970AC7C17500F0CA29 /* PBXTextBookmark */;
 			DC469F980AC7C17500F0CA29 /* PBXBookmark */ = DC469F980AC7C17500F0CA29 /* PBXBookmark */;
 			DCC544C90937B2780050770C /* PBXBookmark */ = DCC544C90937B2780050770C /* PBXBookmark */;
 			DCD23DF70AC321C600CCA453 /* PBXBookmark */ = DCD23DF70AC321C600CCA453 /* PBXBookmark */;
 			DCD23DF80AC321C600CCA453 /* PBXBookmark */ = DCD23DF80AC321C600CCA453 /* PBXBookmark */;
-			DCE5C60D0AC8498A0054C760 /* PBXTextBookmark */ = DCE5C60D0AC8498A0054C760 /* PBXTextBookmark */;
-			DCE5C60E0AC8498A0054C760 /* PBXTextBookmark */ = DCE5C60E0AC8498A0054C760 /* PBXTextBookmark */;
 			DCF30F080AAFAE6E0088479F /* PBXTextBookmark */ = DCF30F080AAFAE6E0088479F /* PBXTextBookmark */;
-			DCFEA6090AC884040014A771 /* PBXTextBookmark */ = DCFEA6090AC884040014A771 /* PBXTextBookmark */;
-			DCFEA60C0AC884040014A771 /* PBXTextBookmark */ = DCFEA60C0AC884040014A771 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520430088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
 		};
+	};
+	DC128B050AC9EA810090D8C2 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DC0C1B3308FF02E200C46507 /* template.pdf */;
 	};
 	DC264C490986353C00109CD2 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -160,7 +157,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2636, 118388}}";
 			sepNavSelRange = "{228856, 0}";
-			sepNavVisRect = "{{0, 50142}, {1002, 563}}";
+			sepNavVisRect = "{{0, 50144}, {1002, 563}}";
 			sepNavWindowFrame = "{{114, 50}, {1134, 801}}";
 		};
 	};
@@ -195,26 +192,6 @@
 			sepNavWindowFrame = "{{107, 60}, {1151, 683}}";
 		};
 	};
-	DC469F220AC7BD5100F0CA29 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCD23DFA0AC321C600CCA453 /* iTM2MacroKit.m */;
-		name = "iTM2MacroKit.m: 1603";
-		rLen = 0;
-		rLoc = 57533;
-		rType = 0;
-		vrLen = 986;
-		vrLoc = 56547;
-	};
-	DC469F230AC7BD5100F0CA29 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCD23DFA0AC321C600CCA453 /* iTM2MacroKit.m */;
-		name = "iTM2MacroKit.m: 1603";
-		rLen = 0;
-		rLoc = 57533;
-		rType = 0;
-		vrLen = 986;
-		vrLoc = 56547;
-	};
 	DC469F310AC7BDEE00F0CA29 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCCF07AB0A62EF6300B4B720 /* iTM2MacroPrefPane.m */;
@@ -234,20 +211,6 @@
 		rType = 0;
 		vrLen = 1635;
 		vrLoc = 0;
-	};
-	DC469F950AC7C17500F0CA29 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC0C1B3308FF02E200C46507 /* template.pdf */;
-	};
-	DC469F970AC7C17500F0CA29 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 1597";
-		rLen = 0;
-		rLoc = 53834;
-		rType = 0;
-		vrLen = 1337;
-		vrLoc = 52868;
 	};
 	DC469F980AC7C17500F0CA29 /* PBXBookmark */ = {
 		isa = PBXBookmark;
@@ -362,49 +325,9 @@
 		isa = PBXBookmark;
 		fRef = DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */;
 	};
-	DCD23DFA0AC321C600CCA453 /* iTM2MacroKit.m */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.objc;
-		name = iTM2MacroKit.m;
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/0 - Core/iTM2MacroKit.m";
-		sourceTree = "<absolute>";
-	};
 	DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */ = {
 		uiCtxt = {
 			sepNavWindowFrame = "{{42, 22}, {1220, 784}}";
-		};
-	};
-	DCE5C60D0AC8498A0054C760 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 6964";
-		rLen = 0;
-		rLoc = 228856;
-		rType = 0;
-		vrLen = 1665;
-		vrLoc = 102977;
-	};
-	DCE5C60E0AC8498A0054C760 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCE5C60F0AC8498A0054C760 /* PDFPage.h */;
-		name = kPDFDisplayBoxCropBox;
-		rLen = 21;
-		rLoc = 397;
-		rType = 0;
-		vrLen = 1541;
-		vrLoc = 0;
-	};
-	DCE5C60F0AC8498A0054C760 /* PDFPage.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = PDFPage.h;
-		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/PDFKit.framework/Versions/A/Headers/PDFPage.h;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1043, 2074}}";
-			sepNavSelRange = "{397, 21}";
-			sepNavVisRect = "{{0, 0}, {1043, 745}}";
-			sepNavWindowFrame = "{{15, 4}, {1082, 874}}";
 		};
 	};
 	DCF30F080AAFAE6E0088479F /* PBXTextBookmark */ = {
@@ -416,31 +339,5 @@
 		rType = 0;
 		vrLen = 774;
 		vrLoc = 0;
-	};
-	DCFEA6090AC884040014A771 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 6964";
-		rLen = 0;
-		rLoc = 228856;
-		rType = 0;
-		vrLen = 1665;
-		vrLoc = 102977;
-	};
-	DCFEA60C0AC884040014A771 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCFEA60D0AC884040014A771 /* PDFPage.h */;
-		name = kPDFDisplayBoxCropBox;
-		rLen = 21;
-		rLoc = 397;
-		rType = 0;
-		vrLen = 1541;
-		vrLoc = 0;
-	};
-	DCFEA60D0AC884040014A771 /* PDFPage.h */ = {
-		isa = PBXFileReference;
-		name = PDFPage.h;
-		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/PDFKit.framework/Versions/A/Headers/PDFPage.h;
-		sourceTree = "<absolute>";
 	};
 }

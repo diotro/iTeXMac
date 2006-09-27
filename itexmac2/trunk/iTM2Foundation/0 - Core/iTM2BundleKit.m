@@ -609,7 +609,7 @@ To Do List:
 	NSString * component;
 	while(component = [DE nextObject])
 	{
-		if([[[component pathExtension] lowercaseString] isEqual:[aType lowercaseString]])
+		if([[component pathExtension] pathIsEqual:aType])
 		{
 			component = [[path stringByAppendingPathComponent:component] stringByResolvingSymlinksAndFinderAliasesInPath];
 			[result addObject:component];
@@ -634,7 +634,7 @@ To Do List:
 		if([aPath isEqual:[[NSBundle mainBundle] bundlePath]])
 			return [NSBundle mainBundle];
 		NSString * extension = [aPath pathExtension];
-		if([extension isEqual:[self plugInPathExtension]] || [extension isEqual:@"framework"])
+		if([extension pathIsEqual:[self plugInPathExtension]] || [extension isEqualToString:@"framework"])
 			return [NSBundle bundleWithPath:aPath];
 		NSBundle * B = [NSBundle bundleWithPath:aPath];
 		if([[B infoDictionary] count])
@@ -845,7 +845,7 @@ To Do List:
 	{
 		[result addObjectsFromArray:[B pathsForSupportResource:name ofType:type inDirectory:subpath]];
 	}
-	if([type isEqual:@"localized"])
+	if([type isEqualToString:@"localized"])
 	{
 		// from preview 13 to 14, folders in the application support directory now are localizable
 		// if I am looking for a .localized folder and I just find a not localized one,
@@ -920,7 +920,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName isEqualToString:name] && [pathExtension isEqualToString:type])
+						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
 							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 						}
@@ -939,7 +939,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName isEqualToString:name] && [pathExtension isEqualToString:type])
+						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
 							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 						}
@@ -958,7 +958,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName isEqualToString:name] && [pathExtension isEqualToString:type])
+						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
 							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 						}
@@ -980,7 +980,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName isEqualToString:name])
+						if([lastName pathIsEqual:name])
 						{
 							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 						}
@@ -999,7 +999,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName isEqualToString:name])
+						if([lastName pathIsEqual:name])
 						{
 							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 						}
@@ -1018,7 +1018,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName isEqualToString:name])
+						if([lastName pathIsEqual:name])
 						{
 							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 						}
@@ -1040,7 +1040,7 @@ To Do List:
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
-					if([lastName isEqualToString:name])
+					if([lastName pathIsEqual:name])
 					{
 						[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 					}
@@ -1056,7 +1056,7 @@ To Do List:
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
-					if([lastName isEqualToString:name])
+					if([lastName pathIsEqual:name])
 					{
 						[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 					}
@@ -1072,7 +1072,7 @@ To Do List:
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
-					if([lastName isEqualToString:name])
+					if([lastName pathIsEqual:name])
 					{
 						[result addObject:[path stringByAppendingPathComponent:lastComponent]];
 					}
@@ -1127,7 +1127,7 @@ To Do List:
 //iTM2_START;
 	NSBundle * bundle = [NSBundle bundleForClass:aClass];
 	NSString * candidate = [bundle localizedStringForKey:key value:@"___" table:tableName];
-	if([candidate isEqual:@"___"])
+	if([candidate isEqualToString:@"___"])
 	{
 		Class superclass = [aClass superclass];
 		if(aClass == superclass)

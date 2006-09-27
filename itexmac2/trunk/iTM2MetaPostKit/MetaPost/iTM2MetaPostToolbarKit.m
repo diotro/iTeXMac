@@ -259,7 +259,7 @@ To Do List:
 		[toolbarItem setTarget:nil];
 	}
     #if 0
-    if ([itemIdent isEqual:SaveDocToolbarItemIdentifier])
+    if ([itemIdent isEqualToString:SaveDocToolbarItemIdentifier])
 	{
 		toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdent] autorelease];
 		
@@ -275,7 +275,7 @@ To Do List:
 		[toolbarItem setTarget:self];
 		[toolbarItem setAction:@selector(saveDocument:)];
     }
-	else if([itemIdent isEqual:SearchDocToolbarItemIdentifier])
+	else if([itemIdent isEqualToString:SearchDocToolbarItemIdentifier])
 	{
 			// NSToolbarItem doens't normally autovalidate items that hold custom views, but we want this guy to be disabled when there is no text to search.
 			toolbarItem = [[[ValidatedViewToolbarItem alloc] initWithItemIdentifier:itemIdent] autorelease];
@@ -442,7 +442,7 @@ To Do List:
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
     // added is found by referencing the @"item" key in the userInfo 
     NSToolbarItem * removedItem = [[notif userInfo] objectForKey:@"item"];
-	if([[removedItem itemIdentifier] isEqual:iTM2ToolbarPageItemIdentifier])
+	if([[removedItem itemIdentifier] isEqualToString:iTM2ToolbarPageItemIdentifier])
 	{
 		[IMPLEMENTATION takeMetaValue:nil forKey:@"toolbar page field"];
 	}

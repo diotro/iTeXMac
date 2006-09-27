@@ -97,7 +97,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super setAttributes: (NSDictionary *) dictionary forMode: (NSString *) mode];
-    if([mode isEqual:@"command"])
+    if([mode isEqualToString:@"command"])
     {
         [_CachedSymbolsAttributes release];
         _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
@@ -771,7 +771,7 @@ To Do List:
 				++end;
 			if(end == start+5)
 			{
-				if([@"input" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"input" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 				{
 					if(lengthRef)
 						* lengthRef = end - start;

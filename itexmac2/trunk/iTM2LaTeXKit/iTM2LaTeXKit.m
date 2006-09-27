@@ -816,7 +816,7 @@ To Do List:
 	++R.location;
 	--R.length;
 	NSString * command = [S substringWithRange:R];
-	if([command isEqual:@"include"])
+	if([command isEqualToString:@"include"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])
@@ -846,7 +846,7 @@ To Do List:
 			return;
 		}
 	}
-	else if([command isEqual:@"includegraphics"])
+	else if([command isEqualToString:@"includegraphics"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])
@@ -876,7 +876,7 @@ To Do List:
 			return;
 		}
 	}
-	else if([command isEqual:@"url"])
+	else if([command isEqualToString:@"url"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])
@@ -1530,7 +1530,7 @@ faaa:
                 [nameStack addObject:otherName];
                 goto faaa;
             }
-            if(![otherName isEqual:[nameStack lastObject]])
+            if(![otherName isEqualToString:[nameStack lastObject]])
                 goto bail;
             if([nameStack count]>1)
             {
@@ -1559,7 +1559,7 @@ fakarava:
             }
             if(isOpening)
             {
-                if(![otherName isEqual:[nameStack lastObject]])
+                if(![otherName isEqualToString:[nameStack lastObject]])
                 {
                     [self postNotificationWithToolTip:
                         [NSString stringWithFormat:
@@ -1606,7 +1606,7 @@ huahine:
             rightAnchor = NSMaxRange(R);
             goto huahine;
         }
-        if(![otherName isEqual:[nameStack lastObject]])
+        if(![otherName isEqualToString:[nameStack lastObject]])
             goto bail;
         if([nameStack count]>1)
         {
@@ -1646,7 +1646,7 @@ taiao:
         leftAnchor = R.location;
         if(isOpening)
         {
-            if(![otherName isEqual:[nameStack lastObject]])
+            if(![otherName isEqualToString:[nameStack lastObject]])
             {
                 [self postNotificationWithToolTip:
                     [NSString stringWithFormat:
@@ -1718,7 +1718,7 @@ To Do List:
             rightAnchor = NSMaxRange(R);
             goto huahine;
         }
-        else if(![otherName isEqual:[nameStack lastObject]])
+        else if(![otherName isEqualToString:[nameStack lastObject]])
         // a closing environment which is not the current environment
         {
             if(index<=R.location)
@@ -1762,7 +1762,7 @@ To Do List:
         leftAnchor = R.location;
         if(isOpening)
         {
-            if(![otherName isEqual:[nameStack lastObject]])
+            if(![otherName isEqualToString:[nameStack lastObject]])
             {
                 [self postNotificationWithToolTip:
                     [NSString stringWithFormat:
@@ -1993,7 +1993,7 @@ static id _iTM2LaTeXModeForModeArray = nil;
 }
 - (void)swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
 {
-	if([aName isEqual:NSPopUpButtonWillPopUpNotification])
+	if([aName isEqualToString:NSPopUpButtonWillPopUpNotification])
 		NSLog(@"COUCOU");
 	[self swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo];
 }
@@ -2730,7 +2730,7 @@ To Do List:
 				++end;
 			if(end == start+15)
 			{
-				if([@"includegraphics" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 				{
 					if(lengthRef)
 						* lengthRef = end - start;
@@ -2746,7 +2746,7 @@ To Do List:
 			}
 			else if(end == start+7)
 			{
-				if([@"include" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 				{
 					if(lengthRef)
 						* lengthRef = end - start;
@@ -2762,7 +2762,7 @@ To Do List:
 			}
 			else if(end == start+3)
 			{
-				if([@"url" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 				{
 					if(lengthRef)
 						* lengthRef = end - start;
@@ -2789,17 +2789,17 @@ To Do List:
 				++end;
 			if(end == start+15)
 			{
-				if([@"includegraphics" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 					*nextModeRef = kiTM2LaTeXIncludegraphicsSyntaxMode;
 			}
 			else if(end == start+7)
 			{
-				if([@"include" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 					*nextModeRef = kiTM2LaTeXIncludeSyntaxMode;
 			}
 			else if(end == start+3)
 			{
-				if([@"url" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 					*nextModeRef = kiTM2LaTeXURLSyntaxMode;
 			}
 		}

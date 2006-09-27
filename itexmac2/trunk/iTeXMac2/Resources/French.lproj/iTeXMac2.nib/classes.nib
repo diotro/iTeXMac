@@ -138,6 +138,7 @@
                 toggleShowsInvisibles = id; 
                 toggleSmartInsert = id; 
                 toggleSmartSelection = id; 
+                toggleSmartUndo = id; 
                 toggleSmartUpdate = id; 
                 toggleSyncAllBullets = id; 
                 toggleSyncFocusBullet = id; 

@@ -122,7 +122,7 @@ To Do List:
     id document;
     while(document = [E nextObject])
     {
-        if(([document class] == C) && ([[document syntaxParserVariant] isEqual:variant]))
+        if(([document class] == C) && ([[document syntaxParserVariant] isEqualToString:variant]))
         {
 			if([SDC shouldCreateUI])
 			{
@@ -171,7 +171,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    if([[variant lowercaseString] isEqual:iTM2TextDefaultVariant])
+    if([[variant lowercaseString] isEqualToString:iTM2TextDefaultVariant])
         return;
     // Only local variant can be removed.
     // If there is something at path:
@@ -190,7 +190,7 @@ To Do List:
 //iTM2_START;
     if(![variant length])
         return NO;
-    if([[variant lowercaseString] isEqual:iTM2TextDefaultVariant])
+    if([[variant lowercaseString] isEqualToString:iTM2TextDefaultVariant])
         return NO;
 //iTM2_LOG(@"Variant is: %@ (%@)", variant, iTM2TextDefaultVariant);
     // Only local variant can be removed.
@@ -1678,7 +1678,7 @@ To Do List:
         {
             NSDictionary * d = [SP attributesAtIndex:range.location effectiveRange:&range];
             NSString * m = [d objectForKey:iTM2TextModeAttributeName];
-            if([m isEqual:mode])
+            if([m isEqualToString:mode])
                 goto next;
             else
 			{
@@ -2545,7 +2545,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * name = [sender stringValue];
-    if(![[self variant] isEqual:name])
+    if(![[self variant] isEqualToString:name])
     {
         if(![[[iTM2TextSyntaxParser syntaxParserVariantsForStyle:[self style]] allKeys] containsObject:[name lowercaseString]])
         {

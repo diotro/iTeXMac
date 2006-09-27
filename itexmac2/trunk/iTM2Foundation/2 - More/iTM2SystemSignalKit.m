@@ -126,11 +126,11 @@ To Do List:
     struct sigaction sa;
     sa.sa_handler = &iTM2SystemSignalKit_SigActionHandler;
     sa.sa_flags = 0;
-    if([aName isEqual:iTM2SystemSignalSIGUSR1Notification])
+    if([aName isEqualToString:iTM2SystemSignalSIGUSR1Notification])
     {
         return SIGUSR1;
     }
-    else if([aName isEqual:iTM2SystemSignalSIGUSR2Notification])
+    else if([aName isEqualToString:iTM2SystemSignalSIGUSR2Notification])
     {
         return SIGUSR2;
     }

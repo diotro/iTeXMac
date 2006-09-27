@@ -23,6 +23,7 @@
 
 #import <stdio.h>
 #import <iTM2Foundation/iTM2DocumentKit.h>
+#import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
@@ -2426,7 +2427,7 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"path is:%@", path);
 	// is it an expected path?
-	if(![[[path pathExtension] lowercaseString] isEqual:[[NSBundle plugInPathExtension] lowercaseString]])
+	if(![[path pathExtension] pathIsEqual:[NSBundle plugInPathExtension]])
 		return NO;
 	NSBundle * B = [NSBundle bundleWithPath:path];
 	NSString * externalDocumentClassName = [[B infoDictionary] objectForKey:@"iTM2ExternalDocumentClass"];

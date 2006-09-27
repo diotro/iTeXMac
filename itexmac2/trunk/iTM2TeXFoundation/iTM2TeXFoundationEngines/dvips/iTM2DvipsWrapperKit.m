@@ -296,13 +296,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * unit = [self xOffsetUnitModel];
-	if([unit isEqual:@"bp"])
+	if([unit isEqualToString:@"bp"])
 		return 0;
-	else if([unit isEqual:@"pt"])
+	else if([unit isEqualToString:@"pt"])
 		return 1;
-	else if([unit isEqual:@"in"])
+	else if([unit isEqualToString:@"in"])
 		return 2;
-	else if([unit isEqual:@"cm"])
+	else if([unit isEqualToString:@"cm"])
 		return 3;
     return 2;
 }
@@ -335,13 +335,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * unit = [self yOffsetUnitModel];
-	if([unit isEqual:@"bp"])
+	if([unit isEqualToString:@"bp"])
 		return 0;
-	else if([unit isEqual:@"pt"])
+	else if([unit isEqualToString:@"pt"])
 		return 1;
-	else if([unit isEqual:@"in"])
+	else if([unit isEqualToString:@"in"])
 		return 2;
-	else if([unit isEqual:@"cm"])
+	else if([unit isEqualToString:@"cm"])
 		return 3;
     return 2;
 }
@@ -417,13 +417,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * unit = [self paperWidthUnitModel];
-	if([unit isEqual:@"bp"])
+	if([unit isEqualToString:@"bp"])
 		return 0;
-	else if([unit isEqual:@"pt"])
+	else if([unit isEqualToString:@"pt"])
 		return 1;
-	else if([unit isEqual:@"in"])
+	else if([unit isEqualToString:@"in"])
 		return 2;
-	else if([unit isEqual:@"cm"])
+	else if([unit isEqualToString:@"cm"])
 		return 3;
     return 2;
 }
@@ -456,13 +456,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * unit = [self paperHeightUnitModel];
-	if([unit isEqual:@"bp"])
+	if([unit isEqualToString:@"bp"])
 		return 0;
-	else if([unit isEqual:@"pt"])
+	else if([unit isEqualToString:@"pt"])
 		return 1;
-	else if([unit isEqual:@"in"])
+	else if([unit isEqualToString:@"in"])
 		return 2;
-	else if([unit isEqual:@"cm"])
+	else if([unit isEqualToString:@"cm"])
 		return 3;
     return 2;
 }

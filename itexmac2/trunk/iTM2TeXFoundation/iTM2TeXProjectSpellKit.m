@@ -168,7 +168,7 @@ To Do List:
     // then removes the spelling context files that are not in the actual list
     E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
     while (mode = [E nextObject])
-        if([[mode pathExtension] isEqualToString:TWSSpellExtension]
+        if([[mode pathExtension] pathIsEqual:TWSSpellExtension]
             && ![[[self spellContexts] allKeys] containsObject:[mode stringByDeletingPathExtension]])
 		[DFM removeFileAtPath:[directoryName stringByAppendingPathComponent:mode] handler:nil];
 //iTM2_END;
@@ -191,7 +191,7 @@ To Do List:
     while (file = [E nextObject])
     {
 		NSString * extension = [file pathExtension];
-        if([extension isEqualToString:TWSSpellExtension])
+        if([extension pathIsEqual:TWSSpellExtension])
         {
             iTM2SpellContext * SC = [[[iTM2SpellContext allocWithZone:[self zone]] init] autorelease];
 			NSString * path = [directoryName stringByAppendingPathComponent:file];

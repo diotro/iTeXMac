@@ -43,11 +43,24 @@ extern NSString * const iTM2PathComponentsSeparator;
 /*!
 	@method		isEqualToFileName:
 	@abstract	Abstract forthcoming.
-	@discussion Compares the lower case versions of both the receiver and the argument...
+	@discussion Compares the lower case versions of both the receiver and the argument... Please use the pathIsEqual: method instead
 	@param		A file name.
 	@result		yorn. 
 */
 - (BOOL)isEqualToFileName:(NSString *)otherFileName;
+
+/*!
+	@method		pathIsEqual:
+	@abstract	Abstract forthcoming.
+	@discussion Compares the lower case versions of both the receiver and the argument...
+				Use the compare: method to take into account unicode character decomposition.
+				This method is necessary because until build 150, accented characters in paths would lead to inconsistency problems
+				an exception raised in setProject:forFileName: method.
+				Should replace the isEqualToFileName:
+	@param		A file name.
+	@result		yorn. 
+*/
+- (BOOL)pathIsEqual:(NSString *)otherPath;
 
 /*!
 	@method		belongsToDirectory:

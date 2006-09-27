@@ -167,7 +167,7 @@ To Do List:
         self = [self stringByStandardizingPath];
         self = [self stringByResolvingFinderAliasesInPath];
     }
-    while((--firewall>0) && ![temp isEqualToString:self]);
+    while((--firewall>0) && ![temp pathIsEqual:self]);
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByAbbreviatingWithDotsRelativeToDirectory:
@@ -188,7 +188,7 @@ To Do List:
         int commonIdx = 0, index = 0;
         int bound = MIN([components count], [pathComponents count]);
         while((commonIdx < bound) &&
-            [[components objectAtIndex:commonIdx] isEqualToString:[pathComponents objectAtIndex:commonIdx]])
+            [[components objectAtIndex:commonIdx] pathIsEqual:[pathComponents objectAtIndex:commonIdx]])
                 ++commonIdx;
         index = commonIdx;
         self = [NSString string];
@@ -225,14 +225,14 @@ To Do List:
 	while(index<[components count])
 	{
 		NSString * component = [components objectAtIndex:index];
-		if([component isEqual:@"."])
+		if([component isEqualToString:@"."])
 		{
 			[components removeObjectAtIndex:index];
 		}
-		else if([component isEqual:@".."])
+		else if([component isEqualToString:@".."])
 		{
 			component = [components objectAtIndex:index-1];
-			if(![component isEqual:iTM2PathComponentsSeparator])
+			if(![component isEqualToString:iTM2PathComponentsSeparator])
 			{
 				[components removeObjectAtIndex:index];// the object at index is the first unread, if any
 				[components removeObjectAtIndex:--index];// the object at index is now the first unread, if any
@@ -319,8 +319,20 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [otherFileName respondsToSelector:@selector(lowercaseString)]
-		&& [[self lowercaseString] isEqual:[otherFileName lowercaseString]];
+	return [self pathIsEqual:otherFileName];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathIsEqual:
+- (BOOL)pathIsEqual:(NSString *)otherPath;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [otherPath respondsToSelector:@selector(lowercaseString)]
+		&& ([[self lowercaseString] compare:[otherPath lowercaseString]] == NSOrderedSame);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  belongsToDirectory:
 - (BOOL)belongsToDirectory:(NSString *)dirName;
@@ -336,15 +348,20 @@ To Do List:
 	NSArray * itsComponents = [dirName pathComponents];
 	NSEnumerator * itsE = [itsComponents objectEnumerator];
 	NSString * component = nil;
-	while(component = [itsE nextObject])
+	if(component = [itsE nextObject])
 	{
-		if(![component isEqualToFileName:[myE nextObject]])
+		do
 		{
-			return NO;
+			if(![component pathIsEqual:[myE nextObject]])
+			{
+				return NO;
+			}
 		}
+		while(component = [itsE nextObject]);
+		return YES;
 	}
 //iTM2_END;
-	return YES;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absolutePathWithPath:base:
 + (NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;

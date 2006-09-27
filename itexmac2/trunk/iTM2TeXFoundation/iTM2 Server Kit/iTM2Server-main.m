@@ -47,12 +47,12 @@ int main(int argc, const char *argv[])
 		NSEnumerator * E = [arguments objectEnumerator];
 		while(connectionID = [E nextObject])
 		{
-			if([connectionID isEqual:iTM2ServerConnectionIDKey])
+			if([connectionID isEqualToString:iTM2ServerConnectionIDKey])
 			{
 				connectionID = [E nextObject];
 				break;
 			}
-			else if([connectionID isEqual:@"-debug"])
+			else if([connectionID isEqualToString:@"-debug"])
 			{
 				NSLog(@"Build Test fullfilled");
 				iTeXMac2Usage(argc, argv);

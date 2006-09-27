@@ -284,7 +284,7 @@ To Do List:
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
     // added is found by referencing the @"item" key in the userInfo 
     NSToolbarItem * removedItem = [[notif userInfo] objectForKey:@"item"];
-	if([[removedItem itemIdentifier] isEqual:iTM2ToolbarPageItemIdentifier])
+	if([[removedItem itemIdentifier] isEqualToString:iTM2ToolbarPageItemIdentifier])
 	{
 		[IMPLEMENTATION takeMetaValue:nil forKey:@"toolbar page field"];
 	}

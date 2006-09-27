@@ -275,9 +275,9 @@ To Do List:
 //iTM2_LOG(@"+=+=+=+=+=+=+=+=+=+=  component: %@", component);
 		if([component hasPrefix:@"."])
 			continue;
-		if([[component pathExtension] isEqual:@"templateDescription"])
+		if([[component pathExtension] pathIsEqual:@"templateDescription"])
 			continue;
-		if([[component pathExtension] isEqual:@"templateImage"])
+		if([[component pathExtension] pathIsEqual:@"templateImage"])
 			continue;
 		if([component hasPrefix:@"."])
 			continue;
@@ -1002,7 +1002,7 @@ To Do List:
 		if([DFM fileExistsAtPath:filename isDirectory:nil])
 		{
 			NSString * target = [dirname stringByAppendingPathComponent:[filename lastPathComponent]];
-			if([target isEqual:filename])
+			if([target pathIsEqual:filename])
 				continue;
 			else if([DFM fileExistsAtPath:target isDirectory:nil])
 			{
@@ -1289,7 +1289,7 @@ To Do List:
 			while(path = [DE nextObject])
 			{
 				convertedPath = [self convertedString:path withDictionary:filter];
-				if(![convertedPath isEqualToFileName:path])
+				if(![convertedPath pathIsEqual:path])
 				{
 					path = [targetName stringByAppendingPathComponent:path];
 					path = [path stringByStandardizingPath];
@@ -1420,7 +1420,7 @@ To Do List:
 			while(path = [DE nextObject])
 			{
 				convertedPath = [self convertedString:path withDictionary:filter];
-				if(![convertedPath isEqual:path])
+				if(![convertedPath pathIsEqual:path])
 				{
 					path = [targetName stringByAppendingPathComponent:path];
 					path = [path stringByStandardizingPath];
@@ -1459,7 +1459,7 @@ To Do List:
 						NSString * originalPath = [document fileName];
 						NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
-						if(![convertedPath isEqual:originalPath])
+						if(![convertedPath pathIsEqual:originalPath])
 						{
 							[PD setFileName:convertedPath forKey:key makeRelative:YES];
 							[document setFileName:convertedPath];
@@ -1482,7 +1482,7 @@ To Do List:
 						NSString * originalPath = [PD absoluteFileNameForKey:key];
 						NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
 						NSURL * url = [NSURL fileURLWithPath:convertedPath];
-						if(![convertedPath isEqualToFileName:originalPath])
+						if(![convertedPath pathIsEqual:originalPath])
 						{
 							[PD setFileName:convertedPath forKey:key makeRelative:YES];// do this before...
 						}
@@ -1614,7 +1614,7 @@ To Do List:
 				{
 					path = [path stringByStandardizingPath];
 					NSString * convertedPath = [self convertedString:path withDictionary:filter];
-					if(![convertedPath isEqual:path])
+					if(![convertedPath pathIsEqual:path])
 					{
 						if(![DFM movePath:path toPath:convertedPath handler:NULL])
 						{
@@ -1653,7 +1653,7 @@ To Do List:
 									withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
 							}
-							if(![convertedPath isEqual:originalPath])
+							if(![convertedPath pathIsEqual:originalPath])
 							{
 								if([DFM movePath:originalPath toPath:convertedPath handler:NULL])
 								{
@@ -1693,7 +1693,7 @@ To Do List:
 													withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]]];
 								}
 							}
-							if(![convertedPath isEqual:originalPath])
+							if(![convertedPath pathIsEqual:originalPath])
 							{
 								if(document)
 								{
@@ -1812,7 +1812,7 @@ To Do List:
 		newCore = [newCore stringByDeletingPathExtension];
 		newCore = [newCore stringByAppendingPathExtension:originalExtension];
 	}
-	if([[SDC typeFromFileExtension:[targetName pathExtension]] isEqual:iTM2TeXDocumentType])
+	if([[SDC typeFromFileExtension:[targetName pathExtension]] isEqualToString:iTM2TeXDocumentType])
 	{
 		NSDictionary * filter = [NSDictionary dictionaryWithObject:	@"-" forKey:@" "];
 		newCore = [self convertedString:newCore withDictionary:filter];
@@ -1941,7 +1941,7 @@ To Do List:
 					old = [targetName stringByAppendingPathComponent:old];
 					old = [old stringByStandardizingPath];
 					new = [self convertedString:old withDictionary:filter];
-					if(![old isEqual:new])
+					if(![old pathIsEqual:new])
 					{
 						if(![DFM movePath:old toPath:new handler:NULL])
 						{
@@ -1950,7 +1950,7 @@ To Do List:
 					}
 					NSURL * url = [NSURL fileURLWithPath:old];
 					NSError * localError = nil;
-					if([[SDC typeForContentsOfURL:url error:&localError] isEqual:iTM2TeXDocumentType])
+					if([[SDC typeForContentsOfURL:url error:&localError] isEqualToString:iTM2TeXDocumentType])
 					{
 						id document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 						NSTextStorage * TS = [document textStorage];
@@ -2168,7 +2168,7 @@ To Do List:
 		NSEnumerator * E = [[DFM directoryContentsAtPath:path] objectEnumerator];
 		NSString * component;
 		while(component = [E nextObject])
-			if([[SDC typeFromFileExtension:[component pathExtension]] isEqual:NSPDFPboardType])
+			if([[SDC typeFromFileExtension:[component pathExtension]] isEqualToString:NSPDFPboardType])
 			{
 				I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:[path stringByAppendingPathComponent:component]] autorelease];
 				goto xonrupt;
@@ -2294,7 +2294,7 @@ To Do List:
 			filename = [filename stringByAppendingPathExtension:requiredPathExtension];
 		}
 	}
-	if([[SDC typeFromFileExtension:[filename pathExtension]] isEqual:iTM2TeXDocumentType])
+	if([[SDC typeFromFileExtension:[filename pathExtension]] isEqualToString:iTM2TeXDocumentType])
 	{
 		NSDictionary *filter = [NSDictionary dictionaryWithObject:@"-" forKey:@" "];
 		filename = [self convertedString:filename withDictionary:filter];
@@ -2775,7 +2775,7 @@ To Do List:
 //iTM2_START;
 	NSString * new = [[sender selectedItem] representedObject];
 	NSString * old = [self oldProjectName];
-	if([old isEqual:new])
+	if([old isEqualToString:new])
 	{
 		return;
 	}
@@ -3182,7 +3182,7 @@ To Do List:
 	while(index--)
 	{
 		iTM2NewDocumentTreeNode * child = [self objectInChildrenAtIndex:index];
-		if([prettyName isEqual:[child prettyNameValue]])
+		if([prettyName isEqualToString:[child prettyNameValue]])
 		{
 			return child;
 		}

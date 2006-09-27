@@ -364,9 +364,9 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 						else
 						{
 							NSString * P = [NSString stringWithUTF8String: (char *) path];
-							if([[P pathExtension] isEqual:@"texd"])
+							if([[P pathExtension] pathIsEqual:@"texd"])
 								[wrappers addObject:P];
-							else if([[P pathExtension] isEqual:@"texp"])
+							else if([[P pathExtension] pathIsEqual:@"texp"])
 								[projects addObject:P];
 							else
 							{
@@ -378,7 +378,7 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 									NSEnumerator * E = [[DFM directoryContentsAtPath:P] objectEnumerator];
 									NSString * p;
 									while(p = [E nextObject])
-										if([[p pathExtension] isEqual:@"texp"])
+										if([[p pathExtension] pathIsEqual:@"texp"])
 											[mra addObject:p];
 									[(([mra count] == 1)? folders:others) addObject:P];
 								}

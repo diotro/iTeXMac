@@ -802,7 +802,7 @@ To Do List:
 	++R.location;
 	--R.length;
 	NSString * command = [S substringWithRange:R];
-	if([command isEqual:@"include"])
+	if([command isEqualToString:@"include"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])
@@ -832,7 +832,7 @@ To Do List:
 			return;
 		}
 	}
-	else if([command isEqual:@"includegraphics"])
+	else if([command isEqualToString:@"includegraphics"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])
@@ -862,7 +862,7 @@ To Do List:
 			return;
 		}
 	}
-	else if([command isEqual:@"url"])
+	else if([command isEqualToString:@"url"])
 	{
 		unsigned start = NSMaxRange(R);
 		if(start < [S length])
@@ -2062,7 +2062,7 @@ To Do List:
 				++end;
 			if(end == start+15)
 			{
-				if([@"includegraphics" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 				{
 					if(lengthRef)
 						* lengthRef = end - start;
@@ -2078,7 +2078,7 @@ To Do List:
 			}
 			else if(end == start+7)
 			{
-				if([@"include" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 				{
 					if(lengthRef)
 						* lengthRef = end - start;
@@ -2094,7 +2094,7 @@ To Do List:
 			}
 			else if(end == start+3)
 			{
-				if([@"url" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 				{
 					if(lengthRef)
 						* lengthRef = end - start;
@@ -2121,17 +2121,17 @@ To Do List:
 				++end;
 			if(end == start+15)
 			{
-				if([@"includegraphics" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 					*nextModeRef = kiTM2ConTeXtIncludegraphicsSyntaxMode;
 			}
 			else if(end == start+7)
 			{
-				if([@"include" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 					*nextModeRef = kiTM2ConTeXtIncludeSyntaxMode;
 			}
 			else if(end == start+3)
 			{
-				if([@"url" isEqual:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
 					*nextModeRef = kiTM2ConTeXtURLSyntaxMode;
 			}
 		}

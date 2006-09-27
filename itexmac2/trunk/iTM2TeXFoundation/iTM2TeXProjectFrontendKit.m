@@ -187,7 +187,7 @@ To Do List:
 	NSEnumerator * E = [[self commandWrappers] objectEnumerator];
 	id result;
 	while(result = [E nextObject])
-		if([name isEqual:[result name]])
+		if([name isEqualToString:[result name]])
 			return result;
 	if(![name length])
 	{
@@ -663,12 +663,12 @@ To Do List:
 	// void -> void
 	// base -> base or command name
 	// other -> everything
-	if([scriptMode isEqual:iTM2TPFEVoidMode])
-		return [environmentMode isEqual:iTM2TPFEVoidMode];
+	if([scriptMode isEqualToString:iTM2TPFEVoidMode])
+		return [environmentMode isEqualToString:iTM2TPFEVoidMode];
 //iTM2_LOG(@"environmentMode is:%@", environmentMode);
 //iTM2_LOG(@"commandName is:%@", commandName);
-	if([scriptMode isEqual:iTM2TPFEBaseMode])
-		return [environmentMode isEqual:iTM2TPFEBaseMode] || [environmentMode isEqual:commandName];
+	if([scriptMode isEqualToString:iTM2TPFEBaseMode])
+		return [environmentMode isEqualToString:iTM2TPFEBaseMode] || [environmentMode isEqualToString:commandName];
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applyCommandConsistencyRules
@@ -2629,7 +2629,7 @@ To Do List:
 @implementation NSString(iTM2TeXProjectFrontendKit)
 - (BOOL)iTM2_boolValue;
 {iTM2_DIAGNOSTIC;
-	return [[self lowercaseString] isEqual:@"yes"];
+	return [[self lowercaseString] isEqualToString:@"yes"];
 }
 @end
 
@@ -2999,7 +2999,7 @@ To Do List:
 		NSString * name = [url path];
 		if(result = [SPC newProjectForFileNameRef:&name display:NO error:nil])
 		{
-			if(![name isEqual:[self fileName]])
+			if(![name pathIsEqual:[self fileName]])
 				[self setFileURL:[NSURL fileURLWithPath:name]];// weird code, this is possobly due to a cocoa weird behaviour
 		}
 		else

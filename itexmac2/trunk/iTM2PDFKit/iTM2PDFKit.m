@@ -354,7 +354,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([type isEqual:iTM2MultiplePDFDocumentType])
+	if([type isEqualToString:iTM2MultiplePDFDocumentType])
 	{
 		iTM2MultiplePDFDocument * doc = [[[iTM2MultiplePDFDocument allocWithZone:[self zone]] initWithURL:[NSURL fileURLWithPath:fileName]] autorelease];
 		[self setPDFDocument:doc];

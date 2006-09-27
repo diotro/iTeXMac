@@ -105,7 +105,7 @@ To Do List:
 						[NSNumber numberWithInt:line], @"line",
 						[NSNumber numberWithInt:column], @"column", nil]];
 				}
-				else if([[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
+				else if([[[WC class] inspectorType] isEqualToString:[[D class] inspectorType]]
 					&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
 				{
 					[WC highlightAndScrollToVisibleLine:line column:column length:length];
@@ -125,7 +125,7 @@ To Do List:
 								[NSNumber numberWithInt:line], @"line",
 								[NSNumber numberWithInt:column], @"column", nil]];
 						}
-						else if([[[WC class] inspectorType] isEqual:[[D class] inspectorType]]
+						else if([[[WC class] inspectorType] isEqualToString:[[D class] inspectorType]]
 							&& [WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
 						{
 							[WC highlightAndScrollToVisibleLine:line column:column length:length];

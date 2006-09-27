@@ -145,7 +145,7 @@ To Do List:
 	while(category = [DE nextObject])
 	{
 		NSString * subpath = [path stringByAppendingPathComponent:category];
-		if([[category pathExtension] isEqual:iTM2CompletionsExtension])
+		if([[category pathExtension] pathIsEqual:iTM2CompletionsExtension])
 		{
 			if(RA = [self completionsWithContentsOfURL:[NSURL fileURLWithPath:subpath] error:&localError])
 			{
@@ -163,7 +163,7 @@ To Do List:
 			while(context = [de nextObject])
 			{
 				subpath = [subpath stringByAppendingPathComponent:context];
-				if([[context pathExtension] isEqual:iTM2CompletionsExtension])
+				if([[context pathExtension] pathIsEqual:iTM2CompletionsExtension])
 				{
 					if(RA = [self completionsWithContentsOfURL:[NSURL fileURLWithPath:subpath] error:&localError])
 					{
@@ -180,7 +180,7 @@ To Do List:
 					NSString * relativePath = nil;
 					while(relativePath = [subde nextObject])
 					{
-						if([[relativePath pathExtension] isEqual:iTM2CompletionsExtension])
+						if([[relativePath pathExtension] pathIsEqual:iTM2CompletionsExtension])
 						{
 							NSString * fullPath = [subpath stringByAppendingPathComponent:relativePath];
 							if(RA = [self completionsWithContentsOfURL:[NSURL fileURLWithPath:fullPath] error:&localError])
@@ -333,7 +333,7 @@ To Do List:
 		if([candidate  length] >= partialWordLength)
 		{
 			NSString * substring = [candidate substringWithRange:R];
-			if([substring isEqual:partialWord])
+			if([substring isEqualToString:partialWord])
 			{
 				[result addObject:substring];
 			}

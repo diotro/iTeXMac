@@ -128,7 +128,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[element name] isEqual:@"M"])
+	if([[element name] isEqualToString:@"M"])
 	{
 		NSEnumerator * E = [[element children] objectEnumerator];
 		NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
@@ -140,25 +140,25 @@ To Do List:
 		if(child = [E nextObject])
 		{
 			NSString * name = [child name];
-			if([name isEqual:@"T"])
+			if([name isEqualToString:@"T"])
 			{
 				title = [child stringValue];
 			}
 			else
 			{
-				if([name isEqual:@"D"])
+				if([name isEqualToString:@"D"])
 				{
 					domain = [child stringValue];
 					child = [E nextObject];
 					name = [child name];
 				}
-				if([name isEqual:@"C"])
+				if([name isEqualToString:@"C"])
 				{
 					category = [child stringValue];
 					child = [E nextObject];
 					name = [child name];
 				}
-				if([name isEqual:@"K"])
+				if([name isEqualToString:@"K"])
 				{
 					key = [child stringValue];// we must have a key,
 				}
@@ -192,7 +192,7 @@ To Do List:
 		[MI setSubmenu:M];
 		return MI;
 	}
-	else if([[element name] isEqual:@"I"])
+	else if([[element name] isEqualToString:@"I"])
 	{
 		NSEnumerator * E = [[element children] objectEnumerator];
 		id child;
@@ -202,19 +202,19 @@ To Do List:
 		if(child = [E nextObject])
 		{
 			NSString * name = [child name];
-			if([name isEqual:@"D"])
+			if([name isEqualToString:@"D"])
 			{
 				domain = [child stringValue];
 				child = [E nextObject];
 				name = [child name];
 			}
-			if([name isEqual:@"C"])
+			if([name isEqualToString:@"C"])
 			{
 				category = [child stringValue];
 				child = [E nextObject];
 				name = [child name];
 			}
-			if([name isEqual:@"K"])
+			if([name isEqualToString:@"K"])
 			{
 				key = [child stringValue];
 			}
@@ -225,7 +225,7 @@ To Do List:
 		[MI setRepresentedObject:[NSArray arrayWithObjects:domain, category, key, nil]];
 		return MI;
 	}
-	else if([[element name] isEqual:@"S"])
+	else if([[element name] isEqualToString:@"S"])
 		return [NSMenuItem separatorItem];
 //iTM2_END;
 	return nil;
@@ -1134,12 +1134,12 @@ To Do List:
 	if(node = [node nextNode])
 	{
 		NSString * name = [node name];
-		if([name isEqual:@"LIST"])
+		if([name isEqualToString:@"LIST"])
 		{
 			if(node = [node nextNode])
 			{
 				NSString * name = [node name];
-				if([name isEqual:@"ITEM"])
+				if([name isEqualToString:@"ITEM"])
 				{
 					NSMutableDictionary * D = [NSMutableDictionary dictionary];
 					id keyAttribute = [node attributeForName:@"KEY"];
@@ -1147,19 +1147,19 @@ To Do List:
 					while(node = [node nextNode])
 					{
 						NSString * name = [node name];
-						if([name isEqual:@"NAME"])
+						if([name isEqualToString:@"NAME"])
 						{
 							[D setObject:[node stringValue] forKey:@"Name"];
 						}
-						else if([name isEqual:@"DESC"])
+						else if([name isEqualToString:@"DESC"])
 						{
 							[D setObject:[node stringValue] forKey:@"Description"];
 						}
-						else if([name isEqual:@"TIP"])
+						else if([name isEqualToString:@"TIP"])
 						{
 							[D setObject:[node stringValue] forKey:@"Tooltip"];
 						}
-						else if([name isEqual:@"ITEM"])
+						else if([name isEqualToString:@"ITEM"])
 						{
 							[locales setObject:D forKey:K];
 							D = [NSMutableDictionary dictionary];
@@ -1195,7 +1195,7 @@ To Do List:
 	{
 		// parse the doc
 		NSXMLElement * element = [xmlDoc rootElement];
-		if([[element name] isEqual:@"LIST"])
+		if([[element name] isEqualToString:@"LIST"])
 		{
 			NSString * prefixKey = [[element attributeForName:@"KEY"] stringValue]?:@"";
 			NSMutableDictionary * result = [NSMutableDictionary dictionary];
@@ -1232,7 +1232,7 @@ To Do List:
 	else if(xmlDoc)
 	{
 		NSXMLElement * element = [xmlDoc rootElement];
-		if([[element name] isEqual:@"LIST"])
+		if([[element name] isEqualToString:@"LIST"])
 		{
 			NSString * base = [path stringByDeletingPathExtension];
 			NSMutableDictionary * result = [NSMutableDictionary dictionary];
@@ -1493,22 +1493,22 @@ To Do List:
 	if(node = [node nextNode])
 	{
 		NSString * name = [node name];
-		if([name isEqual:@"LIST"])
+		if([name isEqualToString:@"LIST"])
 		{
 			while(node = [node nextNode])
 			{
 				NSString * name = [node name];
-				if([name isEqual:@"ITEM"])
+				if([name isEqualToString:@"ITEM"])
 				{
 					id keyAttribute = [node attributeForName:@"KEY"];
 					[URLs setObject:URL forKey:[keyAttribute stringValue]];
 				}
-				else if([name isEqual:@"CUTS"])
+				else if([name isEqualToString:@"CUTS"])
 				{
 					while(node = [node nextNode])
 					{
 						NSString * name = [node name];
-						if([name isEqual:@"CUT"])
+						if([name isEqualToString:@"CUT"])
 						{
 							id keyAttribute = [node attributeForName:@"KEY"];
 							id cutAttribute = [node attributeForName:@"CUT"];

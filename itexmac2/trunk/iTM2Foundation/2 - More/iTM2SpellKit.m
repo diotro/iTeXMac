@@ -249,7 +249,7 @@ To Do List:
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
             isa, NSStringFromSelector(_cmd), argument];
-    else if(![argument isEqual:ivarLanguage])
+    else if(![argument isEqualToString:ivarLanguage])
     {
 
 //iTM2_LOG(@"THE LANGUAGE HAS CHANGED FROM %@ to %@", ivarLanguage, argument);
@@ -709,7 +709,7 @@ To Do List:
     id result = [[self spellContexts] objectForKey:mode];
     if(!result)
     {
-		if([mode isEqual:TWSSpellDefaultContextMode])
+		if([mode isEqualToString:TWSSpellDefaultContextMode])
 		{
 			iTM2SpellContext * SC = [[[iTM2SpellContext allocWithZone:
 				[[iTM2SpellContextController defaultSpellContextController] zone]]
@@ -1421,7 +1421,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int index = [iVarIgnoredWords indexOfObject:oldArgument];
-    if((index != -1) && ![oldArgument isEqual:newArgument])
+    if((index != -1) && ![oldArgument isEqualToString:newArgument])
     {
         [iVarIgnoredWords replaceObjectAtIndex:index withObject:newArgument];
         [iVarIgnoredWords sortUsingSelector:@selector(compare:)];
@@ -2171,7 +2171,7 @@ To Do List:
     NSString * oldMode = [[self currentText] spellContextMode];
 //NSLog(@"new mode: %@", newMode);
 //NSLog(@"old mode: %@", oldMode);
-    if(![TWSSpellDefaultContextMode isEqual:oldMode])
+    if(![TWSSpellDefaultContextMode isEqualToString:oldMode])
     {
         // synchronisation is critical here because we make an intensive use of side effects.
         // we must also force the cocoa spell checker to change the spell document tag.
@@ -2221,7 +2221,7 @@ To Do List:
         NSString * contextMode;
         while(contextMode = [E nextObject])
         {
-            if(![contextMode isEqual:TWSSpellDefaultContextMode])
+            if(![contextMode isEqualToString:TWSSpellDefaultContextMode])
             {
         //NSLog(@"title: %@", title);
                 MI = (NSMenuItem *)[M addItemWithTitle:contextMode action:@selector(takeSpellingModeFromRepresentedObject:) keyEquivalent:@""];
@@ -2295,7 +2295,7 @@ To Do List:
     NSString * newMode = [sender representedObject];
 //NSLog(@"new mode: %@", newMode);
 //NSLog(@"old mode: %@", oldMode);
-    if(![newMode isEqual:oldMode])
+    if(![newMode isEqualToString:oldMode])
     {
         // synchronisation is critical here because we make an intensive use of side effects.
         // we must also force the cocoa spell checker to change the spell document tag.

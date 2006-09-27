@@ -22,6 +22,7 @@
 */
 
 #import <iTM2Foundation/iTM2DocumentControllerKit.h>
+#import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
@@ -692,9 +693,9 @@ To Do List: retain?
 	aFullPath = [[SUD stringForKey:iTM2NavLastRootDirectory] stringByStandardizingPath];
 //iTM2_LOG(@"aFullPath is: %@", aFullPath);
 //iTM2_LOG(@"[self title] is:%@", [self title]);
-    if([[self title] isEqual:aFullPath])
+    if([[self title] pathIsEqual:aFullPath])
         return;
-    if([cdp isEqual:aFullPath] || [DFM changeCurrentDirectoryPath:aFullPath])
+    if([cdp pathIsEqual:aFullPath] || [DFM changeCurrentDirectoryPath:aFullPath])
     {
         [self setTitle:aFullPath];
         [self _completeWithDirectoryContentsAtPath:aFullPath forDepth:[SUD integerForKey:iTM2OpenQuicklyDepthKey]
@@ -761,15 +762,15 @@ To Do List: retain?
             goto oneMoreTime;
 
         NSString * extension = [[O pathExtension] lowercaseString];
-        if([extension isEqual:@"tex"] || [extension isEqual:@"texp"] || [extension isEqual:@"texd"])
+        if([extension isEqualToString:@"tex"] || [extension isEqualToString:@"texp"] || [extension isEqualToString:@"texd"])
         {
             [textFiles addObject:O];
         }
-        else if([extension isEqual:@"pdf"] || [extension isEqual:@"dvi"])
+        else if([extension isEqualToString:@"pdf"] || [extension isEqualToString:@"dvi"])
         {
             [gfxFiles addObject:O];
         }
-        else if([O isEqual:@"CVS"])
+        else if([O isEqualToString:@"CVS"])
 			goto oneMoreTime;
         else if([O length])
         {

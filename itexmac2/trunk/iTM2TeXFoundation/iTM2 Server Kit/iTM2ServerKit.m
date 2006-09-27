@@ -254,7 +254,7 @@ To Do List: see the warning below
 		if([temporaryDirectory isKindOfClass:[NSString class]])
 		{
 //iTM2_END;
-			return [temporaryDirectory isEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
+			return [temporaryDirectory pathIsEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
 		}
 //iTM2_END;
 		return !temporaryDirectory;
@@ -290,11 +290,11 @@ To Do List: see the warning below
     NSString * argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerConversationIDKey])
+		if([argument isEqualToString:iTM2ServerConversationIDKey])
 		{
 			argument = [E nextObject];
 		}
-		else if([argument isEqual:iTM2ServerConnectionIDKey])
+		else if([argument isEqualToString:iTM2ServerConnectionIDKey])
 		{
 			argument = [E nextObject];
 		}
@@ -357,7 +357,7 @@ To Do List: see the warning below
     NSString * argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerProjectKey])
+		if([argument isEqualToString:iTM2ServerProjectKey])
 		{
 			argument = [E nextObject];// the project name is absolute
 //iTM2_END;
@@ -386,7 +386,7 @@ To Do List: see the warning below
     NSString * argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerFileKey])
+		if([argument isEqualToString:iTM2ServerFileKey])
 		{
 			argument = [E nextObject];
 			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
@@ -420,7 +420,7 @@ To Do List: see the warning below
     argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerFilesKey])
+		if([argument isEqualToString:iTM2ServerFilesKey])
 		{
 			while(argument = [E nextObject])
 			{
@@ -458,7 +458,7 @@ To Do List: see the warning below
     NSString * argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerSourceKey])
+		if([argument isEqualToString:iTM2ServerSourceKey])
 		{
 			argument = [E nextObject];
 			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
@@ -483,7 +483,7 @@ To Do List: see the warning below
     NSString * argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerLineKey])
+		if([argument isEqualToString:iTM2ServerLineKey])
 		{
 			argument = [E nextObject];
 //iTM2_END;
@@ -507,7 +507,7 @@ To Do List: see the warning below
     NSString * argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerColumnKey])
+		if([argument isEqualToString:iTM2ServerColumnKey])
 		{
 			argument = [E nextObject];
 //iTM2_END;
@@ -531,7 +531,7 @@ To Do List: see the warning below
     NSString * argument = [E nextObject];// ignore $0
 	while(argument = [E nextObject])
 	{
-		if([argument isEqual:iTM2ServerDontOrderFrontKey])
+		if([argument isEqualToString:iTM2ServerDontOrderFrontKey])
 		{
 //iTM2_END;
 			return YES;
@@ -890,7 +890,7 @@ To Do List: None
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * projectName = [self getProjectNameFromContext:context];
-	iTM2ProjectDocument * PD = [SPC projectForFileName:projectName];
+	iTM2TeXProjectDocument * PD = [SPC projectForFileName:projectName];
 	if(!PD)
 	{
 //iTM2_END;
@@ -901,9 +901,9 @@ To Do List: None
     NSString * argument = [E nextObject];// ignore $0
 	argument = [E nextObject];// ignore "notify"
 	argument = [E nextObject];// next verb
-	if([argument isEqual:@"start"])
+	if([argument isEqualToString:@"start"])
 	{
-		if([argument isEqual:@"comment"] || [argument isEqual:@"warning"] || [argument isEqual:@"error"] || [argument isEqual:@"applescript"])
+		if([argument isEqualToString:@"comment"] || [argument isEqualToString:@"warning"] || [argument isEqualToString:@"error"] || [argument isEqualToString:@"applescript"])
 		{
 			argument = [NSString stringWithFormat:@"<%@>",argument];
 		}
@@ -913,9 +913,9 @@ To Do List: None
 			return;
 		}
 	}
-	else if([argument isEqual:@"stop"])
+	else if([argument isEqualToString:@"stop"])
 	{
-		if([argument isEqual:@"comment"] || [argument isEqual:@"warning"] || [argument isEqual:@"error"] || [argument isEqual:@"applescript"])
+		if([argument isEqualToString:@"comment"] || [argument isEqualToString:@"warning"] || [argument isEqualToString:@"error"] || [argument isEqualToString:@"applescript"])
 		{
 			argument = [NSString stringWithFormat:@"</%@>\n",argument];
 		}
@@ -925,11 +925,11 @@ To Do List: None
 			return;
 		}
 	}
-	else if([argument isEqual:@"echo"])
+	else if([argument isEqualToString:@"echo"])
 	{
 		argument = [NSString stringWithFormat:@"%@\n",[E nextObject]];
 	}
-	else if([argument isEqual:@"comment"] || [argument isEqual:@"warning"] || [argument isEqual:@"error"] || [argument isEqual:@"applescript"])
+	else if([argument isEqualToString:@"comment"] || [argument isEqualToString:@"warning"] || [argument isEqualToString:@"error"] || [argument isEqualToString:@"applescript"])
 	{
 		argument = [NSString stringWithFormat:@"<%@>%@</%@>\n",argument,[E nextObject],argument];
 	}

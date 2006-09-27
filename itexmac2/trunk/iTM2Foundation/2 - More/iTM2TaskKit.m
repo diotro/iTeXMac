@@ -1751,7 +1751,7 @@ To Do List:
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
             __PRETTY_FUNCTION__, argument];
-    else if(![argument isEqual:iVarLaunchPath])
+    else if(![argument pathIsEqual:iVarLaunchPath])
         [IMPLEMENTATION takeMetaValue:[[argument copy] autorelease] forKey:iTM2TaskLaunchPathKey];
     return;
 }
@@ -2002,7 +2002,7 @@ To Do List:
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
             __PRETTY_FUNCTION__, argument];
-    else if(![argument isEqual:iVarCurrentDirectoryPath])
+    else if(![argument pathIsEqual:iVarCurrentDirectoryPath])
         [IMPLEMENTATION takeMetaValue:[[argument copy] autorelease] forKey:iTM2TaskCurrentDirectoryPathKey];
     return;
 }

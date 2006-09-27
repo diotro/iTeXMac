@@ -1326,7 +1326,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender selectCellWithTag: ([[self modelValueForKey:iTM2PDFTeX_output_format] isEqual:@"pdf"]? 0:1)];
+	[sender selectCellWithTag: ([[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"pdf"]? 0:1)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecials:
@@ -1351,7 +1351,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [sender setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqual:@"dvi"]
+    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
 			&& ![self modelFlagForKey:iTM2PDFTeX_ini];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecialsWhere:
@@ -1392,7 +1392,7 @@ To Do List:
 	[[sender cellWithTag:4] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_par]? NSOnState:NSOffState)];
 	[[sender cellWithTag:5] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_math]? NSOnState:NSOffState)];
 	[[sender cellWithTag:6] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_vbox]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqual:@"dvi"]
+    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
 		&& [self modelFlagForKey:iTM2PDFTeX_src_specials] && ![self modelFlagForKey:iTM2PDFTeX_ini];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputComment:
@@ -1417,7 +1417,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_output_comment]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqual:@"dvi"]
+    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
 			&& ![self modelFlagForKey:iTM2PDFTeX_ini];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputComment:
@@ -1445,7 +1445,7 @@ To Do List:
 //iTM2_LOG(@"[self modelValueForKey:iTM2PDFTeX_USE_output_comment]: %@", [self modelValueForKey:iTM2PDFTeX_USE_output_comment]);
 //iTM2_LOG(@"clas: %@", [[self modelValueForKey:iTM2PDFTeX_USE_output_comment] class]);
     return [self modelFlagForKey:iTM2PDFTeX_USE_output_comment]
-		&& [[self modelValueForKey:iTM2PDFTeX_output_format] isEqual:@"dvi"]
+		&& [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
 			&& ![self modelFlagForKey:iTM2PDFTeX_ini];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePdfSync:
@@ -1470,7 +1470,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [sender setState: ([self modelFlagForKey:iTM2PDFTeX_pdfsync]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqual:@"pdf"];
+    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"pdf"];
 }
 #pragma mark =-=-=-=-=-  INI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:

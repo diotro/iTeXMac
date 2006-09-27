@@ -144,7 +144,7 @@ To Do List:
     if([path length])
     {
         NSString * resolved = [path stringByResolvingSymlinksAndFinderAliasesInPath];
-        if([[[DM fileAttributesAtPath:resolved traverseLink:NO] objectForKey:NSFileType] isEqual:NSFileTypeSymbolicLink])
+        if([[[DM fileAttributesAtPath:resolved traverseLink:NO] objectForKey:NSFileType] isEqualToString:NSFileTypeSymbolicLink])
         {
             resolved = [@"/private" stringByAppendingPathComponent:resolved];
         }
@@ -279,7 +279,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * key = [IMPLEMENTATION modelValueForKey:TWSMasterFileKey ofType:iTM2TeXProjectInfoType];
-	if([key isEqual:@"...iTM2FrontDocument"])
+	if([key isEqualToString:@"...iTM2FrontDocument"])
 	{
 		// get the front most document of the project
 		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
@@ -319,7 +319,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([key isEqual:@"...iTM2FrontDocument"] || [self relativeFileNameForKey:key])
+	if([key isEqualToString:@"...iTM2FrontDocument"] || [self relativeFileNameForKey:key])
 	{
 		[IMPLEMENTATION takeModelValue:key forKey:TWSMasterFileKey ofType:iTM2TeXProjectInfoType];
 	}
@@ -613,7 +613,7 @@ To Do List:
     iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
     NSString * oldK = [project realMasterFileKey];
     NSString * newK = [sender representedString];
-    if(![oldK isEqual:newK])
+    if(![oldK isEqualToString:newK])
     {
         [project setMasterFileKey:newK];
         [project updateChangeCount:NSChangeDone];
@@ -647,7 +647,7 @@ To Do List:
 			return;
 		}
 		NSString * newRelative = [sender stringValue];
-		if([newRelative isEqual:oldRelative])
+		if([newRelative pathIsEqual:oldRelative])
 		{
 			return;
 		}
@@ -687,7 +687,7 @@ To Do List:
 		{
 			return;
 		}
-		if([old isEqual:new])
+		if([old pathIsEqual:new])
 		{
 			return;
 		}
@@ -1223,7 +1223,7 @@ To Do List:
 			{
 				// do nothing, this is can't be a base project
 			}
-			else if([[component pathExtension] isEqualToString:requiredExtension])
+			else if([[component pathExtension] pathIsEqual:requiredExtension])
 			{
 				NSString * core = [component stringByDeletingPathExtension];
 				if(![core hasSuffix:@"~"])// this is not a backup
@@ -1382,7 +1382,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [fullPath length] && [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] isEqualToString:iTM2TeXProjectPathExtension];
+    return [fullPath length] && [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] pathIsEqual:iTM2TeXProjectPathExtension];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isTeXWrapperPackageAtPath:
 - (BOOL)isTeXWrapperPackageAtPath:(NSString *) fullPath;
@@ -1394,7 +1394,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] isEqualToString:iTM2TeXWrapperPathExtension];
+    return [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] pathIsEqual:iTM2TeXWrapperPathExtension];
 }
 @end
 

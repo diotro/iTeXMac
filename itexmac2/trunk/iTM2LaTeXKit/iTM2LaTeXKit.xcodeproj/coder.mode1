@@ -316,12 +316,12 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCFEA5EB0AC884010014A771</string>
+										<string>DC128B1B0AC9EA850090D8C2</string>
 										<key>history</key>
 										<array>
 											<string>DC008F240A6ADEF2009236E8</string>
 											<string>DCD7B8000AA8F6FB0042AA60</string>
-											<string>DC8033900ABECAB50087FC8F</string>
+											<string>DCFEA5EB0AC884010014A771</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -383,9 +383,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCFEA5EC0AC884010014A771</string>
+				<string>DC128B1C0AC9EA850090D8C2</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCFEA5ED0AC884010014A771</string>
+				<string>DC128B1D0AC9EA850090D8C2</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -519,9 +519,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCFEA5F40AC884010014A771</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DC128A580AC9D4880090D8C2</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>44 43 1147 715 0 0 1440 878 </string>
@@ -709,14 +709,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCFEA5EE0AC884010014A771</string>
+				<string>DC128A520AC9D4880090D8C2</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCFEA5EF0AC884010014A771</string>
-				<string>DCFEA5F00AC884010014A771</string>
-				<string>DCFEA5F10AC884010014A771</string>
-				<string>DCFEA5F20AC884010014A771</string>
-				<string>DCFEA5F30AC884010014A771</string>
-				<string>DCFEA5F40AC884010014A771</string>
+				<string>DC128A530AC9D4880090D8C2</string>
+				<string>DC128A540AC9D4880090D8C2</string>
+				<string>DC128A550AC9D4880090D8C2</string>
+				<string>DC128A560AC9D4880090D8C2</string>
+				<string>DC128A570AC9D4880090D8C2</string>
+				<string>DC128A580AC9D4880090D8C2</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -725,7 +725,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

@@ -95,7 +95,7 @@ To do list:
     while(path = [E nextObject])
     {
         NSDictionary * D = [NSDictionary dictionaryWithContentsOfFile:path];
-        if([D count] && ![[D objectForKey:@"isa"] isEqual:iTM2DistributionSDictionaryKey])
+        if([D count] && ![[D objectForKey:@"isa"] pathIsEqual:iTM2DistributionSDictionaryKey])
             [_iTM2PathsDictionary addEntriesFromDictionary:D];
 		else if(iTM2DebugEnabled)
 		{
@@ -334,11 +334,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [self TeXMFBinariesDistribution];
-	if([distribution isEqual:iTM2DistributionDefault])
+	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
 		return [[self class] defaultTeXMFBinariesPath];
 	}
-	else if([distribution isEqual:iTM2DistributionCustom])
+	else if([distribution isEqualToString:iTM2DistributionCustom])
 	{
 		return [self TeXMFBinariesPath];
 	}
@@ -360,11 +360,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [self TeXMFDistribution];
-	if([distribution isEqual:iTM2DistributionDefault])
+	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
 		return [[self class] defaultTeXMFPath];
 	}
-	else if([distribution isEqual:iTM2DistributionCustom])
+	else if([distribution isEqualToString:iTM2DistributionCustom])
 	{
 		return [self TeXMFPath];
 	}
@@ -386,11 +386,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [self GhostScriptBinariesDistribution];
-	if([distribution isEqual:iTM2DistributionDefault])
+	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
 		return [[self class] defaultGhostScriptBinariesPath];
 	}
-	else if([distribution isEqual:iTM2DistributionCustom])
+	else if([distribution isEqualToString:iTM2DistributionCustom])
 	{
 		return [self GhostScriptBinariesPath];
 	}
@@ -488,9 +488,9 @@ To Do List:
 //iTM2_START;
 	// testing the distributions
 #if 0
-	if(([[self TeXMFDistribution] isEqual:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self TeXMFPath]])
-		&& ([[self TeXMFBinariesDistribution] isEqual:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self TeXMFBinariesPath]])
-		&& ([[self GhostScriptBinariesDistribution] isEqual:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self GhostScriptBinariesPath]]))
+	if(([[self TeXMFDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self TeXMFPath]])
+		&& ([[self TeXMFBinariesDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self TeXMFBinariesPath]])
+		&& ([[self GhostScriptBinariesDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self GhostScriptBinariesPath]]))
 	{
 		return;
 	}
@@ -498,15 +498,15 @@ To Do List:
 	// the same code splitted for debugging purpose
 	NSString * distribution = [self TeXMFDistribution];
 	NSString * path = [self TeXMFPath];
-	if(![distribution isEqual:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
+	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return;
 	distribution = [self TeXMFBinariesDistribution];
 	path = [self TeXMFBinariesPath];
-	if(![distribution isEqual:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
+	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return;
 	distribution = [self GhostScriptBinariesDistribution];
 	path = [self GhostScriptBinariesPath];
-	if(![distribution isEqual:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
+	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return;
 #endif
 	[self performSelector:@selector(notifyUncompleteDistributionWarning:) withObject:nil afterDelay:0.01];
@@ -713,7 +713,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	NSString * PDFTeXLogHeader = [SUD objectForKey:iTM2PDFTEXLogHeaderKey];
 	while(P = [E nextObject])
 	{
-		if([[P pathExtension] isEqual:@"fmt"])
+		if([[P pathExtension] pathIsEqual:@"fmt"])
 		{
 			NSString * fullPath = [path stringByAppendingPathComponent:P];
 			NSString * linkTarget = [DFM pathContentOfSymbolicLinkAtPath:fullPath];
@@ -750,7 +750,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	NSString * P;
 	NSMutableArray * bases = [NSMutableArray array];
 	while(P = [E nextObject])
-		if([[P pathExtension] isEqual:@"base"])
+		if([[P pathExtension] pathIsEqual:@"base"])
 			[bases addObject:[P stringByDeletingPathExtension]];
 	return bases;
 }
@@ -770,7 +770,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	NSString * P;
 	NSMutableArray * mems = [NSMutableArray array];
 	while(P = [E nextObject])
-		if([[P pathExtension] isEqual:@"mem"])
+		if([[P pathExtension] pathIsEqual:@"mem"])
 			[mems addObject:[P stringByDeletingPathExtension]];
 	return mems;
 }
@@ -798,19 +798,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [[self document] TeXMFBinariesDistribution];
-	if([distribution isEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
 	}
-	else if([distribution isEqual:iTM2DistributionFinkIntel])
+	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
 		return iTM2DistributionFink;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
 	{
 		return iTM2DistributionTeXLiveCD;
 	}
@@ -829,10 +829,10 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [[self document] TeXMFBinariesDistribution];
 //iTM2_END;
-    return [distribution isEqual:iTM2DistributiongwTeXIntel]
-		|| [distribution isEqual:iTM2DistributionFinkIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
+    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
 - (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
@@ -845,19 +845,19 @@ To Do List:
 //iTM2_START;
 	id doc = [self document];
 	NSString * distribution = [doc TeXMFBinariesDistribution];
-	if([distribution isEqual:iTM2DistributiongwTeX])
+	if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
 		[doc setTeXMFBinariesDistribution:iTM2DistributiongwTeXIntel];
 	}
-	else if([distribution isEqual:iTM2DistributionFink])
+	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
 		[doc setTeXMFBinariesDistribution:iTM2DistributionFinkIntel];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLive])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 	{
 		[doc setTeXMFBinariesDistribution:iTM2DistributionTeXLiveIntel];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 	{
 		[doc setTeXMFBinariesDistribution:iTM2DistributionTeXLiveCDIntel];
 	}
@@ -874,19 +874,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [[self document] GhostScriptBinariesDistribution];
-	if([distribution isEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
 	}
-	else if([distribution isEqual:iTM2DistributionFinkIntel])
+	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
 		return iTM2DistributionFink;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
 	{
 		return iTM2DistributionTeXLiveCD;
 	}
@@ -905,10 +905,10 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [[self document] GhostScriptBinariesDistribution];
 //iTM2_END;
-    return [distribution isEqual:iTM2DistributiongwTeXIntel]
-		|| [distribution isEqual:iTM2DistributionFinkIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
+    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
 - (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
@@ -921,19 +921,19 @@ To Do List:
 //iTM2_START;
 	id doc = [self document];
 	NSString * distribution = [doc GhostScriptBinariesDistribution];
-	if([distribution isEqual:iTM2DistributiongwTeX])
+	if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
 		[doc setGhostScriptBinariesDistribution:iTM2DistributiongwTeXIntel];
 	}
-	else if([distribution isEqual:iTM2DistributionFink])
+	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
 		[doc setGhostScriptBinariesDistribution:iTM2DistributionFinkIntel];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLive])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 	{
 		[doc setGhostScriptBinariesDistribution:iTM2DistributionTeXLiveIntel];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 	{
 		[doc setGhostScriptBinariesDistribution:iTM2DistributionTeXLiveCDIntel];
 	}
@@ -984,7 +984,7 @@ To Do List:
 	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
 	NSString * old = [environment objectForKey:iTM2DistributionOutputDirectoryKey];
 	NSString * new = [sender stringValue];
-	if(![old isEqual:new])
+	if(![old pathIsEqual:new])
 	{
 		[environment setObject:new forKey:iTM2DistributionOutputDirectoryKey];
 		[[self document] updateChangeCount:NSChangeDone];
@@ -1060,7 +1060,7 @@ To Do List:
 	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
 	NSString * old = [environment objectForKey:iTM2DistributionPATHPrefixKey];
 	NSString * new = [sender stringValue];
-	if(![old isEqual:new])
+	if(![old pathIsEqual:new])
 	{
 		[environment setObject:new forKey:iTM2DistributionPATHPrefixKey];
 		[[self document] updateChangeCount:NSChangeDone];
@@ -1132,7 +1132,7 @@ To Do List:
 	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
 	NSString * old = [environment objectForKey:iTM2DistributionPATHSuffixKey];
 	NSString * new = [sender stringValue];
-	if(![old isEqual:new])
+	if(![old pathIsEqual:new])
 	{
 		[environment setObject:new forKey:iTM2DistributionPATHSuffixKey];
 		[[self document] updateChangeCount:NSChangeDone];
@@ -1177,7 +1177,7 @@ To Do List:
 	{
 		NSString * new = [sender representedObject];
 		NSString * old = [[self document] TeXMFDistribution];
-		if(![old isEqual:new])
+		if(![old pathIsEqual:new])
 		{
 			[[self document] setTeXMFDistribution:new];
 			[[self document] updateChangeCount:NSChangeDone];
@@ -1202,21 +1202,21 @@ To Do List:
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
-		else if([distribution isEqual:iTM2DistributionDefault])
+		else if([distribution pathIsEqual:iTM2DistributionDefault])
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
-		else if([distribution isEqual:iTM2DistributionBuiltIn])
+		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
-		else if([distribution isEqual:iTM2DistributiongwTeX])
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
-		else if([distribution isEqual:iTM2DistributionFink])
+		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
-		else if([distribution isEqual:iTM2DistributionTeXLive])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
-		else if([distribution isEqual:iTM2DistributionCustom])
+		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
-		else if([distribution isEqual:iTM2DistributionOther])
+		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
 		return YES;
 	}
@@ -1251,7 +1251,7 @@ To Do List:
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	id new = [sender stringValue];
-	if(![[TPD TeXMFPath] isEqual:new])
+	if(![[TPD TeXMFPath] pathIsEqual:new])
 	{
 		[TPD setTeXMFPath:new];
 		[TPD updateChangeCount:NSChangeDone];
@@ -1274,7 +1274,7 @@ To Do List:
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[sender setStringValue:[TPD getTeXMFPath]];
 //iTM2_END;
-	return [[TPD TeXMFDistribution] isEqual:iTM2DistributionCustom];
+	return [[TPD TeXMFDistribution] pathIsEqual:iTM2DistributionCustom];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesDistributionFromPopUp:
 - (IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
@@ -1294,7 +1294,7 @@ To Do List:
 		[[self document] setTeXMFBinariesDistribution:[sender representedObject]];
 		[self setTeXMFBinariesDistributionIntel:isIntel];
 		NSString * new = [[self document] TeXMFBinariesDistribution];
-		if(![old isEqual:new])
+		if(![old pathIsEqual:new])
 		{
 			[[self document] updateChangeCount:NSChangeDone];
 			[self validateWindowContent];
@@ -1318,21 +1318,21 @@ To Do List:
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
-		else if([distribution isEqual:iTM2DistributionDefault])
+		else if([distribution pathIsEqual:iTM2DistributionDefault])
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
-		else if([distribution isEqual:iTM2DistributionBuiltIn])
+		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
-		else if([distribution isEqual:iTM2DistributiongwTeX])
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
-		else if([distribution isEqual:iTM2DistributionFink])
+		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
-		else if([distribution isEqual:iTM2DistributionTeXLive])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
-		else if([distribution isEqual:iTM2DistributionCustom])
+		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
-		else if([distribution isEqual:iTM2DistributionOther])
+		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
 		return YES;
 	}
@@ -1367,7 +1367,7 @@ To Do List:
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	id new = [sender stringValue];
-	if(![[TPD TeXMFBinariesPath] isEqual:new])
+	if(![[TPD TeXMFBinariesPath] pathIsEqual:new])
 	{
 		[TPD setTeXMFBinariesPath:new];
 		[TPD updateChangeCount:NSChangeDone];
@@ -1390,7 +1390,7 @@ To Do List:
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[sender setStringValue:[TPD getTeXMFBinariesPath]];
 //iTM2_END;
-	return [[TPD TeXMFBinariesDistribution] isEqual:iTM2DistributionCustom];
+	return [[TPD TeXMFBinariesDistribution] pathIsEqual:iTM2DistributionCustom];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTeXMFBinariesCPUType:
 - (IBAction)toggleTeXMFBinariesCPUType:(id)sender;
@@ -1423,7 +1423,7 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[(id)[self document] TeXMFBinariesDistribution] isEqual:iTM2DistributionCustom])
+	if([[(id)[self document] TeXMFBinariesDistribution] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;
@@ -1450,7 +1450,7 @@ To Do List:
 		[[self document] setGhostScriptBinariesDistribution:[sender representedObject]];
 		[self setGhostScriptBinariesDistributionIntel:isIntel];
 		NSString * new = [[self document] GhostScriptBinariesDistribution];
-		if(![old isEqual:new])
+		if(![old pathIsEqual:new])
 		{
 			[[self document] updateChangeCount:NSChangeDone];
 			[self validateWindowContent];
@@ -1474,21 +1474,21 @@ To Do List:
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
-		else if([distribution isEqual:iTM2DistributionDefault])
+		else if([distribution pathIsEqual:iTM2DistributionDefault])
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
-		else if([distribution isEqual:iTM2DistributionBuiltIn])
+		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
-		else if([distribution isEqual:iTM2DistributiongwTeX])
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
-		else if([distribution isEqual:iTM2DistributionFink])
+		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
-		else if([distribution isEqual:iTM2DistributionTeXLive])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
-		else if([distribution isEqual:iTM2DistributionCustom])
+		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
-		else if([distribution isEqual:iTM2DistributionOther])
+		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
 		return YES;
 	}
@@ -1523,7 +1523,7 @@ To Do List:
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	id new = [sender stringValue];
-	if(![[TPD GhostScriptBinariesPath] isEqual:new])
+	if(![[TPD GhostScriptBinariesPath] pathIsEqual:new])
 	{
 		[TPD setGhostScriptBinariesPath:new];
 		[TPD updateChangeCount:NSChangeDone];
@@ -1546,7 +1546,7 @@ To Do List:
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[sender setStringValue:[TPD getGhostScriptBinariesPath]];
 //iTM2_END;
-	return [[TPD GhostScriptBinariesDistribution] isEqual:iTM2DistributionCustom];
+	return [[TPD GhostScriptBinariesDistribution] pathIsEqual:iTM2DistributionCustom];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleGhostScriptBinariesCPUType:
 - (IBAction)toggleGhostScriptBinariesCPUType:(id)sender;
@@ -1579,7 +1579,7 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[(id)[self document] GhostScriptBinariesDistribution] isEqual:iTM2DistributionCustom])
+	if([[(id)[self document] GhostScriptBinariesDistribution] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;
@@ -1764,15 +1764,15 @@ To Do List:
 		return nil;
 	NSString * key = [names objectAtIndex:row];
 	NSString * identifier = [tableColumn identifier];
-	if([identifier isEqual:@"used"])
+	if([identifier isEqualToString:@"used"])
 	{
-		return [NSNumber numberWithBool:[[key pathExtension] isEqual:@""]];
+		return [NSNumber numberWithBool:[[key pathExtension] isEqualToString:@""]];
 	}
-	else if([identifier isEqual:@"name"])
+	else if([identifier isEqualToString:@"name"])
 	{
 		return [key stringByDeletingPathExtension];
 	}
-	else if([identifier isEqual:@"value"])
+	else if([identifier isEqualToString:@"value"])
 	{
 		return [[self environmentVariables] objectForKey:key];
 	}
@@ -1789,20 +1789,20 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * key = [[self orderedEnvironmentVariableNames] objectAtIndex:row];
-	if([[tableColumn identifier] isEqual:@"used"])
+	if([[tableColumn identifier] isEqualToString:@"used"])
 	{
 		NSString * newKey = [[key pathExtension] length]?
 			[key stringByDeletingPathExtension]:[key stringByAppendingPathExtension:@"unused"];
 		[[self orderedEnvironmentVariableNames] replaceObjectAtIndex:row withObject:newKey];
-		if(![newKey isEqual:key])
+		if(![newKey isEqualToString:key])
 		{
 			[[self environmentVariables] setObject: ([[self environmentVariables] objectForKey:key]?:@"") forKey:newKey];
 			[[self environmentVariables] removeObjectForKey:key];
 		}
 	}
-	else if([[tableColumn identifier] isEqual:@"name"])
+	else if([[tableColumn identifier] isEqualToString:@"name"])
 	{
-		if([object isEqual:@"PATH"])
+		if([object isEqualToString:@"PATH"])
 			goto abort;
 		NSString * pathExtension = [key pathExtension];
 		NSString * newKey = [pathExtension length]?
@@ -1816,7 +1816,7 @@ To Do List:
 		[[self environmentVariables] setObject: ([[self environmentVariables] objectForKey:key]?:@"") forKey:newKey];
 		[[self environmentVariables] removeObjectForKey:key];
 	}
-	else if([[tableColumn identifier] isEqual:@"value"])
+	else if([[tableColumn identifier] isEqualToString:@"value"])
 	{
 		[[self environmentVariables] setObject:object forKey:key];
 	}
@@ -2209,19 +2209,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-	if([distribution isEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
 	}
-	else if([distribution isEqual:iTM2DistributionFinkIntel])
+	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
 		return iTM2DistributionFink;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
 	{
 		return iTM2DistributionTeXLiveCD;
 	}
@@ -2240,10 +2240,10 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
 //iTM2_END;
-    return [distribution isEqual:iTM2DistributiongwTeXIntel]
-		|| [distribution isEqual:iTM2DistributionFinkIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
+    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
 - (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
@@ -2255,19 +2255,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-	if([distribution isEqual:iTM2DistributiongwTeX])
+	if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
 		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFBinaries];
 	}
-	else if([distribution isEqual:iTM2DistributionFink])
+	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
 		[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionTeXMFBinaries];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLive])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 	{
 		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFBinaries];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 	{
 		[SUD setObject:iTM2DistributionTeXLiveCDIntel forKey:iTM2DistributionTeXMFBinaries];
 	}
@@ -2284,19 +2284,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
-	if([distribution isEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
 	}
-	else if([distribution isEqual:iTM2DistributionFinkIntel])
+	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
 		return iTM2DistributionFink;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
 	{
 		return iTM2DistributionTeXLiveCD;
 	}
@@ -2315,10 +2315,10 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
 //iTM2_END;
-    return [distribution isEqual:iTM2DistributiongwTeXIntel]
-		|| [distribution isEqual:iTM2DistributionFinkIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution isEqual:iTM2DistributionTeXLiveCDIntel];
+    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
 - (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
@@ -2330,19 +2330,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
-	if([distribution isEqual:iTM2DistributiongwTeX])
+	if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
 		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionGhostScriptBinaries];
 	}
-	else if([distribution isEqual:iTM2DistributionFink])
+	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
 		[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionGhostScriptBinaries];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLive])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 	{
 		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionGhostScriptBinaries];
 	}
-	else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 	{
 		[SUD setObject:iTM2DistributionTeXLiveCDIntel forKey:iTM2DistributionGhostScriptBinaries];
 	}
@@ -2364,7 +2364,7 @@ To Do List:
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
 		id new = [sender representedObject];
-		if(![[SUD stringForKey:iTM2DistributionTeXMF] isEqual:new])
+		if(![[SUD stringForKey:iTM2DistributionTeXMF] pathIsEqual:new])
 		{
 			[SUD setObject:new forKey:iTM2DistributionTeXMF];
 			[[self mainView] validateWindowContent];
@@ -2388,21 +2388,21 @@ To Do List:
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
-		else if([distribution isEqual:iTM2DistributionDefault])
+		else if([distribution pathIsEqual:iTM2DistributionDefault])
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
-		else if([distribution isEqual:iTM2DistributionBuiltIn])
+		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
-		else if([distribution isEqual:iTM2DistributiongwTeX])
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
-		else if([distribution isEqual:iTM2DistributionFink])
+		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
-		else if([distribution isEqual:iTM2DistributionTeXLive])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
-		else if([distribution isEqual:iTM2DistributionOther])
+		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
-		else if([distribution isEqual:iTM2DistributionCustom])
+		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
 		return YES;
 	}
@@ -2437,7 +2437,7 @@ To Do List:
 //iTM2_START;
 	id new = [sender stringValue];
 	NSString * key = [iTM2DistributionDomainTeXMF stringByAppendingPathExtension:[SUD stringForKey:iTM2DistributionTeXMF]];
-	if(![[SUD stringForKey:key] isEqual:new])
+	if(![[SUD stringForKey:key] pathIsEqual:new])
 	{
 		[SUD setObject:new forKey:key];
 		[[self mainView] validateWindowContent];
@@ -2464,7 +2464,7 @@ To Do List:
 	else
 		[sender setAttributedStringValue:[[[NSAttributedString allocWithZone:[self zone]] initWithString: path
 			attributes: [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName]] autorelease]];
-	if([distribution isEqual:iTM2DistributionCustom])
+	if([distribution pathIsEqual:iTM2DistributionCustom])
 		return YES;
 	if(sender == [[sender window] firstResponder])
 		[[sender window] makeFirstResponder:nil];
@@ -2489,7 +2489,7 @@ To Do List:
 		[SUD setObject:[sender representedObject] forKey:iTM2DistributionTeXMFBinaries];
 		[self setTeXMFBinariesDistributionIntel:isIntel];
 		id new = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-		if(![old isEqual:new])
+		if(![old pathIsEqual:new])
 		{
 			[[self mainView] validateWindowContent];
 		}
@@ -2512,21 +2512,21 @@ To Do List:
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
-		else if([distribution isEqual:iTM2DistributionDefault])
+		else if([distribution pathIsEqual:iTM2DistributionDefault])
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
-		else if([distribution isEqual:iTM2DistributionBuiltIn])
+		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
-		else if([distribution isEqual:iTM2DistributiongwTeX])
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
-		else if([distribution isEqual:iTM2DistributionFink])
+		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
-		else if([distribution isEqual:iTM2DistributionTeXLive])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
-		else if([distribution isEqual:iTM2DistributionOther])
+		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
-		else if([distribution isEqual:iTM2DistributionCustom])
+		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
 		return YES;
 	}
@@ -2561,7 +2561,7 @@ To Do List:
 //iTM2_START;
 	id new = [sender stringValue];
 	NSString * key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:[SUD stringForKey:iTM2DistributionTeXMFBinaries]];
-	if(![[SUD stringForKey:key] isEqual:new])
+	if(![[SUD stringForKey:key] pathIsEqual:new])
 	{
 		[SUD setObject:new forKey:key];
 		[[self mainView] validateWindowContent];
@@ -2588,7 +2588,7 @@ To Do List:
 	else
 		[sender setAttributedStringValue:[[[NSAttributedString allocWithZone:[self zone]] initWithString: path
 			attributes: [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName]] autorelease]];
-	if([distribution isEqual:iTM2DistributionCustom])
+	if([distribution pathIsEqual:iTM2DistributionCustom])
 		return YES;
 	if(sender == [[sender window] firstResponder])
 		[[sender window] makeFirstResponder:nil];
@@ -2613,7 +2613,7 @@ To Do List:
 		[SUD setObject:[sender representedObject] forKey:iTM2DistributionGhostScriptBinaries];
 		[self setTeXMFBinariesDistributionIntel:isIntel];
 		id new = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
-		if(![old isEqual:new])
+		if(![old pathIsEqual:new])
 		{
 			[[self mainView] validateWindowContent];
 		}
@@ -2636,21 +2636,21 @@ To Do List:
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
-		else if([distribution isEqual:iTM2DistributionDefault])
+		else if([distribution pathIsEqual:iTM2DistributionDefault])
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
-		else if([distribution isEqual:iTM2DistributionBuiltIn])
+		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
-		else if([distribution isEqual:iTM2DistributiongwTeX])
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
-		else if([distribution isEqual:iTM2DistributionFink])
+		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
-		else if([distribution isEqual:iTM2DistributionTeXLive])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution isEqual:iTM2DistributionTeXLiveCD])
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
-		else if([distribution isEqual:iTM2DistributionOther])
+		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
-		else if([distribution isEqual:iTM2DistributionCustom])
+		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
 		return YES;
 	}
@@ -2685,7 +2685,7 @@ To Do List:
 //iTM2_START;
 	id new = [sender stringValue];
 	NSString * key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:[SUD stringForKey:iTM2DistributionGhostScriptBinaries]];
-	if(![[SUD stringForKey:key] isEqual:new])
+	if(![[SUD stringForKey:key] pathIsEqual:new])
 	{
 		[SUD setObject:new forKey:key];
 		[[self mainView] validateWindowContent];
@@ -2712,7 +2712,7 @@ To Do List:
 	else
 		[sender setAttributedStringValue:[[[NSAttributedString allocWithZone:[self zone]] initWithString: path
 			attributes: [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName]] autorelease]];
-	if([distribution isEqual:iTM2DistributionCustom])
+	if([distribution pathIsEqual:iTM2DistributionCustom])
 		return YES;
 	if(sender == [[sender window] firstResponder])
 		[[sender window] makeFirstResponder:nil];
@@ -2748,7 +2748,7 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[SUD stringForKey:iTM2DistributionTeXMFBinaries] isEqual:iTM2DistributionCustom])
+	if([[SUD stringForKey:iTM2DistributionTeXMFBinaries] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;
@@ -2786,7 +2786,7 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[SUD stringForKey:iTM2DistributionGhostScriptBinaries] isEqual:iTM2DistributionCustom])
+	if([[SUD stringForKey:iTM2DistributionGhostScriptBinaries] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;

@@ -363,11 +363,11 @@ To Do List:
 	{
 		NSString * option = [self modelValueForKey:iTM2TeXPIndexSeparateStartKey];
 		int index = 3;
-		if([option isEqual:@"any"])
+		if([option isEqualToString:@"any"])
 			index = 0;
-		else if([option isEqual:@"odd"])
+		else if([option isEqualToString:@"odd"])
 			index = 1;
-		else if([option isEqual:@"even"])
+		else if([option isEqualToString:@"even"])
 			index = 2;
 		[sender selectItemAtIndex:index];
 		return [[self modelValueForKey:iTM2TeXPIndexIsSeparateKey] boolValue];
@@ -396,7 +396,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * option = [self modelValueForKey:iTM2TeXPIndexSeparateStartKey];
-	BOOL enabled = !([option isEqual:@"any"] || [option isEqual:@"odd"] || [option isEqual:@"even"]);
+	BOOL enabled = !([option isEqualToString:@"any"] || [option isEqualToString:@"odd"] || [option isEqualToString:@"even"]);
     [sender setIntValue:[option intValue]];
     return [[self modelValueForKey:iTM2TeXPIndexIsSeparateKey] boolValue] && enabled;
 }
@@ -787,11 +787,11 @@ To Do List:
 	{
 		NSString * option = [self modelValueForKey:iTM2TeXPGlossarySeparateStartKey];
 		int index = 3;
-		if([option isEqual:@"any"])
+		if([option isEqualToString:@"any"])
 			index = 0;
-		else if([option isEqual:@"odd"])
+		else if([option isEqualToString:@"odd"])
 			index = 1;
-		else if([option isEqual:@"even"])
+		else if([option isEqualToString:@"even"])
 			index = 2;
 		[sender selectItemAtIndex:index];
 		return [[self modelValueForKey:iTM2TeXPGlossaryIsSeparateKey] boolValue];
@@ -820,7 +820,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * option = [self modelValueForKey:iTM2TeXPGlossarySeparateStartKey];
-	BOOL enabled = !([option isEqual:@"any"] || [option isEqual:@"odd"] || [option isEqual:@"even"]);
+	BOOL enabled = !([option isEqualToString:@"any"] || [option isEqualToString:@"odd"] || [option isEqualToString:@"even"]);
     [sender setIntValue:[option intValue]];
     return [[self modelValueForKey:iTM2TeXPGlossaryIsSeparateKey] boolValue] && enabled;
 }

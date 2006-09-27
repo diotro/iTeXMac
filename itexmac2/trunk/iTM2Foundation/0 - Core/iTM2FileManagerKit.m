@@ -360,7 +360,7 @@ To Do List:
 - (BOOL)swizzled_removeFileAtPath:(NSString *)path handler:handler;
 {
 //iTM2_LOG(@"path: %@", path);
-	if([[path lastPathComponent] isEqual:@"CV.tex"])
+	if([[path lastPathComponent] pathIsEqual:@"CV.tex"])
 	{
 		BOOL isAlias = NO;
 		NSError * localError = nil;

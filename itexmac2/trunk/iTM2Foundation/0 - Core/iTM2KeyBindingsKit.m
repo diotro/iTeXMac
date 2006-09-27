@@ -649,12 +649,12 @@ To Do List:
                         (flags & NSAlternateKeyMask? @"~": @""),
                         (flags & NSShiftKeyMask? @"$": @""),
                         [NSString stringWithCharacters:&U length:1]];
-            if([key isEqual:_DEC])
+            if([key isEqualToString:_DEC])
             {
                 [self toggleDeepEscape:self];
                 return YES;
             }
-            else if([key isEqual:_EC])
+            else if([key isEqualToString:_EC])
             {
                 [self toggleEscape:self];
                 return YES;
@@ -664,12 +664,12 @@ To Do List:
                         (flags & NSCommandKeyMask? @"@": @""),
                         (flags & NSControlKeyMask? @"^": @""),
                         [NSString stringWithCharacters:&U length:1]];
-            if([key isEqual:_DEC])
+            if([key isEqualToString:_DEC])
             {
                 [self toggleDeepEscape:self];
                 return YES;
             }
-            else if([key isEqual:_EC])
+            else if([key isEqualToString:_EC])
             {
                 [self toggleEscape:self];
                 return YES;
@@ -703,12 +703,12 @@ To Do List:
                     (flags & NSAlternateKeyMask? @"~": @""),
                     (flags & NSShiftKeyMask? @"$": @""),
                     [NSString stringWithCharacters:&U length:1]];
-        if([key isEqual:_DEC])
+        if([key isEqualToString:_DEC])
         {
             [self toggleDeepEscape:self];
             return YES;
         }
-        else if([key isEqual:_EC])
+        else if([key isEqualToString:_EC])
         {
             [self toggleEscape:self];
             return YES;
@@ -718,12 +718,12 @@ To Do List:
                     (flags & NSCommandKeyMask? @"@": @""),
                     (flags & NSControlKeyMask? @"^": @""),
                     [NSString stringWithCharacters:&U length:1]];
-        if([key isEqual:_DEC])
+        if([key isEqualToString:_DEC])
         {
             [self toggleDeepEscape:self];
             return YES;
         }
-        else if([key isEqual:_EC])
+        else if([key isEqualToString:_EC])
         {
             [self toggleEscape:self];
             return YES;
@@ -2362,7 +2362,7 @@ To Do List:
 - (NSString *)localizedNameForCodeName:(NSString *)codeName;
 {
 	NSString * result = NSLocalizedStringWithDefaultValue(codeName, @"iTM2KeyCodes", [NSBundle bundleForClass:[self class]], @"NO LOCALIZATION", "");
-	return [result isEqual:@"NO LOCALIZATION"]?codeName:result;
+	return [result isEqualToString:@"NO LOCALIZATION"]?codeName:result;
 }
 @end
 
@@ -2411,7 +2411,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_LOG(@"[self title]:%@", [self title]);
-	if([[self title] isEqual:@"Find"])
+	if([[self title] isEqualToString:@"Find"])
 	{
 		iTM2_LOG(@"aResponder: %@", aResponder);
 		BOOL result = [super makeFirstResponder:(NSResponder *)aResponder];

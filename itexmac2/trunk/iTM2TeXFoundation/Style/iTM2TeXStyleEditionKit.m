@@ -107,18 +107,18 @@ To Do List:
     NSEnumerator * E = [[self windowControllers] objectEnumerator];
     id WC;
     while(WC = [E nextObject])
-        if([[[WC class] inspectorMode] isEqual:iTM2DefaultInspectorMode])
+        if([[[WC class] inspectorMode] isEqualToString:iTM2DefaultInspectorMode])
 		{
 			while(WC = [E nextObject])
-				if([[[WC class] inspectorMode] isEqual:iTM2XtdTeXParserSymbolsInspectorMode])
+				if([[[WC class] inspectorMode] isEqualToString:iTM2XtdTeXParserSymbolsInspectorMode])
 					return;
 			[self  inspectorAddedWithMode:iTM2XtdTeXParserSymbolsInspectorMode];
 			return;
 		}
-		else if([[[WC class] inspectorMode] isEqual:iTM2XtdTeXParserSymbolsInspectorMode])
+		else if([[[WC class] inspectorMode] isEqualToString:iTM2XtdTeXParserSymbolsInspectorMode])
 		{
 			while(WC = [E nextObject])
-				if([[[WC class] inspectorMode] isEqual:iTM2DefaultInspectorMode])
+				if([[[WC class] inspectorMode] isEqualToString:iTM2DefaultInspectorMode])
 					return;
 			[self  inspectorAddedWithMode:iTM2DefaultInspectorMode];
 			return;
@@ -1187,7 +1187,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id identifier = [tableColumn identifier];
-    if([identifier isEqual:iTM2TextAttributesCommandIdentifier])
+    if([identifier isEqualToString:iTM2TextAttributesCommandIdentifier])
     {
         return ((row >= 0) && (row < [self numberOfRowsInTableView:tv]))?
             [[_CustomKeysSets objectForKey:[self currentSetKey]] objectAtIndex:row]: nil;
@@ -1220,7 +1220,7 @@ To Do List:
 //iTM2_START;
     if([self currentSets] != _CustomSymbolsSets)
         return NO;
-    if([[tableColumn identifier] isEqual:iTM2TextAttributesSymbolIdentifier])
+    if([[tableColumn identifier] isEqualToString:iTM2TextAttributesSymbolIdentifier])
     {
         NSMutableAttributedString * AS = [self symbolAtRow:row];
         if([AS length])
@@ -1430,7 +1430,7 @@ To Do List:
     {
         NSString * K = [_Ks objectAtIndex:row];
 //iTM2_LOG(@"K: %@", K);
-        if([[tableColumn identifier] isEqual:iTM2TextAttributesCommandIdentifier])
+        if([[tableColumn identifier] isEqualToString:iTM2TextAttributesCommandIdentifier])
         {
             if(![_Ks containsObject:object])
             {

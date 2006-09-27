@@ -27,7 +27,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -43,7 +43,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -59,7 +59,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -75,7 +75,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -91,7 +91,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -107,7 +107,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -123,7 +123,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -139,7 +139,7 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }
@@ -155,7 +155,23 @@ while(my $FILE = shift(@CANDIDATES))
     print $new_dir."\n";
     chdir $1;
     print getcwd."\n";
-    `rm -f $COMPRESSED;tar -czf $COMPRESSED "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
+    chdir $old_dir;
+    print "Compressing $FILE... DONE\n";
+}
+$UNCOMPRESSED="Localize iTeXMac2.pages";
+$COMPRESSED="LocalizeiTeXMac2.tgz";
+@CANDIDATES=split('\0', `find "$DIRECTORY" -regex ".*/$UNCOMPRESSED" -print0`);
+while(my $FILE = shift(@CANDIDATES))
+{
+    print "Compressing $FILE\n";
+    my $old_dir = getcwd;
+    my $new_dir = $old_dir;
+    $FILE  =~ m|(.*)/.*|;
+    print $new_dir."\n";
+    chdir $1;
+    print getcwd."\n";
+    `rm -f "$COMPRESSED";tar -czf "$COMPRESSED" "$UNCOMPRESSED";rm -Rf "$UNCOMPRESSED"`;
     chdir $old_dir;
     print "Compressing $FILE... DONE\n";
 }

@@ -525,7 +525,7 @@ To Do List:
 	iTM2TeXPEngineWrapper * CW = [TPD engineWrapperForName:[self editedEngine]];
 	NSString * oldMode = [CW scriptMode];
 	NSString * newMode = [(id)[sender selectedItem] representedString];
-	if(![newMode isEqual:oldMode])
+	if(![newMode isEqualToString:oldMode])
 	{
 		[CW setEnvironmentMode:newMode];
 		[CW setScriptMode:newMode];
@@ -829,7 +829,7 @@ To Do List:
 			// the script mode is one of the built in engines
 			// the environment must be eponym
 			return [representedObject isEqualToString:scriptMode];
-		else if([representedObject isEqual:iTM2TPFEVoidMode])
+		else if([representedObject isEqualToString:iTM2TPFEVoidMode])
 		{
 			// the script mode is one of the custom engines
 			// the environment can be either void or eponym with one of the built in engines
@@ -1410,7 +1410,7 @@ To Do List:
 	NSEnumerator * E = [[self engineWrappers] objectEnumerator];
 	id result;
 	while(result = [E nextObject])
-		if([name isEqual:[result name]])
+		if([name isEqualToString:[result name]])
 			return result;
 	iTM2_LOG(@"NO ENGINE WRAPPER FOR NAME: %@ ([self engineWrappers] are: %@), may be you need to update", name, [self engineWrappers]);
 	return nil;
@@ -1704,12 +1704,12 @@ To Do List:
 	//   If the shell script is void, nothing is done
 	NSString * command = [self commandName];//@"Compile"
 	NSString * mode = [[project commandWrapperForName:command] scriptMode];
-	if([mode isEqual:iTM2TPFEVoidMode])
+	if([mode isEqualToString:iTM2TPFEVoidMode])
 		return [super environmentWithDictionary:environment forProject:project];
     NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:environment forProject:project]];
 //iTM2_LOG(@"111-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 	mode = [[project commandWrapperForName:command] environmentMode];
-	if([mode isEqual:iTM2TPFEVoidMode])
+	if([mode isEqualToString:iTM2TPFEVoidMode])
 	{
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
@@ -1717,7 +1717,7 @@ To Do List:
 			[ED takeValue:[NSString stringWithFormat:@"iTM2_DoNothing"]
 				forKey: [NSString stringWithFormat:@"iTM2_Compile_%@", O]];
 	}
-	else if([mode isEqual:iTM2TPFEBaseMode])
+	else if([mode isEqualToString:iTM2TPFEBaseMode])
 	{
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
@@ -1741,7 +1741,7 @@ To Do List:
 			NSString * scriptMode = [CW scriptMode];
 //iTM2_LOG(@"222-key is: %@", key);
 //iTM2_LOG(@"222-CW is: %@", CW);
-			if([scriptMode isEqual:iTM2TPFEBaseMode])
+			if([scriptMode isEqualToString:iTM2TPFEBaseMode])
 			{
 			// the script is one of the default iTM2 script
 				if(![ED valueForKey:key])
@@ -1787,12 +1787,12 @@ To Do List:
 	//   If the shell script is void, nothing is done
 	NSString * command = [self commandName];//@"Compile"
 	NSString * mode = [[project commandWrapperForName:command] scriptMode];
-	if([mode isEqual:iTM2TPFEVoidMode])
+	if([mode isEqualToString:iTM2TPFEVoidMode])
 		return [super environmentWithDictionary:environment forProject:project];
     NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:environment forProject:project]];
 //iTM2_LOG(@"312-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 	mode = [[project commandWrapperForName:command] environmentMode];
-	if([mode isEqual:iTM2TPFEVoidMode])
+	if([mode isEqualToString:iTM2TPFEVoidMode])
 	{
 //iTM2_LOG(@"313-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
@@ -1801,7 +1801,7 @@ To Do List:
 			[ED takeValue:[NSString stringWithFormat:@"iTM2_DoNothing"]
 				forKey: [NSString stringWithFormat:@"iTM2_Compile_%@", O]];
 	}
-	else if([mode isEqual:iTM2TPFEBaseMode])
+	else if([mode isEqualToString:iTM2TPFEBaseMode])
 	{
 //iTM2_LOG(@"314-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 	}
@@ -1816,7 +1816,7 @@ To Do List:
 			iTM2TeXPEngineWrapper * CW = [project engineWrapperForName:O];
 			NSString * scriptMode = [CW scriptMode];
 //iTM2_LOG(@"scriptMode is: %@, key is: %@, project is: %@", scriptMode, key, project);
-			if([scriptMode isEqual:iTM2TPFEBaseMode])
+			if([scriptMode isEqualToString:iTM2TPFEBaseMode])
 			{
 			// the script is inherited from the bas project
 				;//[ED takeValue:key forKey:key];
@@ -2000,7 +2000,7 @@ To Do List:
     NSEnumerator * E = [[self engineReferences] objectEnumerator];
 	Class C;
 	while(C = [[E nextObject] nonretainedObjectValue])
-		if([[C engineMode] isEqual:action])
+		if([[C engineMode] isEqualToString:action])
 			return C;
     return Nil;
 }

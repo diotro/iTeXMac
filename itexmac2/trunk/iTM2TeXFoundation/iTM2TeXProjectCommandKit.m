@@ -227,7 +227,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[isa inspectorVariant] isEqual:[iTM2TeXPCommandsInspector inspectorVariant]])
+	if([[isa inspectorVariant] isEqualToString:[iTM2TeXPCommandsInspector inspectorVariant]])
 	{
 		// we can switch
 		id doc = [self document];
@@ -368,7 +368,7 @@ To Do List:
         }
     newBPN = shortestName;
     tahaa:
-    if(![[TPD baseProjectName] isEqualToString:newBPN])
+    if(![[TPD baseProjectName] pathIsEqual:newBPN])
     {
         [TPD setBaseProjectName:newBPN];
         [TPD updateChangeCount:NSChangeDone];
@@ -1112,13 +1112,13 @@ To Do List:
     NSString * commandName = [self editedCommand];
 	iTM2CommandWrapper * CW = [TPD commandWrapperForName:commandName];
 	id old = [CW environmentMode];
-	if(![old isEqual:iTM2TPFEBaseMode])
+	if(![old isEqualToString:iTM2TPFEBaseMode])
 	{
 		[CW setEnvironmentMode:iTM2TPFEBaseMode];
 		[TPD updateChangeCount:NSChangeDone];
 	}
 	old = [CW scriptMode];
-	if(![old isEqual:iTM2TPFEBaseMode])
+	if(![old isEqualToString:iTM2TPFEBaseMode])
 	{
 		[CW setScriptMode:iTM2TPFEBaseMode];
 		[TPD updateChangeCount:NSChangeDone];
@@ -1157,7 +1157,7 @@ To Do List:
 	iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
 	NSString * oldMode = [CW scriptMode];
 	NSString * newMode = [(id)[sender selectedItem] representedString];
-	if(![newMode isEqual:oldMode])
+	if(![newMode isEqualToString:oldMode])
 	{
 		[CW setEnvironmentMode:newMode];
 		[CW setScriptMode:newMode];
@@ -1268,7 +1268,7 @@ To Do List:
 	NSString * scriptMode = [(id)sender representedString];
     [TPD takeScriptDescriptor:nil forCommandMode:scriptMode];
 	iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
-	if([[CW scriptMode] isEqual:scriptMode])
+	if([[CW scriptMode] isEqualToString:scriptMode])
 		[CW setScriptMode:iTM2TPFEBaseMode];
     [TPD updateChangeCount:NSChangeDone];
     [self validateWindowContent];
@@ -1285,7 +1285,7 @@ To Do List:
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 	NSString * scriptMode = [[TPD commandWrapperForName:[self editedCommand]] scriptMode];
-	if(![SPC isBaseProject:TPD] && [scriptMode isEqual:iTM2TPFEBaseMode])
+	if(![SPC isBaseProject:TPD] && [scriptMode isEqualToString:iTM2TPFEBaseMode])
 	{
 		unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
 		BOOL option = (modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask);
@@ -1294,8 +1294,8 @@ To Do List:
 		TPD = (iTM2TeXProjectDocument *)[TPD baseProject];
 		scriptMode = [[TPD commandWrapperForName:[self editedCommand]] scriptMode];
 		if([[[TPD commandScripts] allKeys] containsObject:scriptMode]
-			&& ![scriptMode isEqual:iTM2TPFEBaseMode]
-				&& ![scriptMode isEqual:iTM2TPFEVoidMode])
+			&& ![scriptMode isEqualToString:iTM2TPFEBaseMode]
+				&& ![scriptMode isEqualToString:iTM2TPFEVoidMode])
 		{
 			[TPD makeWindowControllers];// will create a ghost window and add an entry in the windows menu
 			id inspector = [TPD inspectorAddedWithMode:[[self class] inspectorMode]];
@@ -1343,7 +1343,7 @@ To Do List:
     iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 	iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
     NSString * scriptMode = [CW scriptMode];
-	if(![SPC isBaseProject:TPD] && [scriptMode isEqual:iTM2TPFEBaseMode])
+	if(![SPC isBaseProject:TPD] && [scriptMode isEqualToString:iTM2TPFEBaseMode])
 	{
 		unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
 		BOOL option = (modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask);
@@ -1353,8 +1353,8 @@ To Do List:
 		CW = [TPD commandWrapperForName:[self editedCommand]];
 		scriptMode = [CW scriptMode];
 		return [[[TPD commandScripts] allKeys] containsObject:scriptMode]
-			&& ![scriptMode isEqual:iTM2TPFEBaseMode]
-				&& ![scriptMode isEqual:iTM2TPFEVoidMode];
+			&& ![scriptMode isEqualToString:iTM2TPFEBaseMode]
+				&& ![scriptMode isEqualToString:iTM2TPFEVoidMode];
 	}
     return [[[TPD commandScripts] allKeys] containsObject:scriptMode];
 }
@@ -1374,7 +1374,7 @@ To Do List:
         iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
         id old = [TPD scriptDescriptorForCommandMode:scriptMode];
         id new = [WC scriptDescriptor];
-        if(![old isEqual:new])
+        if(![old isEqualToString:new])
         {
             [TPD takeScriptDescriptor:new forCommandMode:scriptMode];
             [TPD updateChangeCount:NSChangeDone];
@@ -1467,7 +1467,7 @@ To Do List:
 //iTM2_LOG(@"editedCommand is: %@", editedCommand);
 		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 		iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
-		if([[[CW name] lowercaseString] isEqual:@"special"])
+		if([[[CW name] lowercaseString] isEqualToString:@"special"])
 		{
 			NSString * scriptMode = [CW scriptMode];
 			// special action: inherited base script means inherited base options
@@ -1552,7 +1552,7 @@ To Do List:
         iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 		iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
 		NSString * environmentMode = [CW environmentMode];
-		if([environmentMode isEqual:iTM2TPFEBaseMode] && ![SPC isBaseProject:TPD])
+		if([environmentMode isEqualToString:iTM2TPFEBaseMode] && ![SPC isBaseProject:TPD])
 		{
 			unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
 			if((modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask))
@@ -1560,7 +1560,7 @@ To Do List:
 				TPD = (iTM2TeXProjectDocument *)[TPD baseProject];
 				CW = [TPD commandWrapperForName:editedCommand];
 				environmentMode = [CW environmentMode];
-				if(![environmentMode isEqual:iTM2TPFEBaseMode] && ![environmentMode isEqual:iTM2TPFEVoidMode])
+				if(![environmentMode isEqualToString:iTM2TPFEBaseMode] && ![environmentMode isEqualToString:iTM2TPFEVoidMode])
 				{
 					[TPD makeWindowControllers];// will create a ghost window and add an entry in the windows menu
 					id inspector = [TPD inspectorAddedWithMode:[[self class] inspectorMode]];
@@ -1651,8 +1651,8 @@ To Do List:
 	if(![environmentMode length] || [environmentMode isEqualToString:iTM2TPFEVoidMode])
 		return NO;
 	else if([SPC isBaseProject:TPD])
-		return ![environmentMode isEqual:iTM2TPFEBaseMode];
-	else if([environmentMode isEqual:iTM2TPFEBaseMode])
+		return ![environmentMode isEqualToString:iTM2TPFEBaseMode];
+	else if([environmentMode isEqualToString:iTM2TPFEBaseMode])
 	{
 		unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
 		return (modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask);
@@ -1660,7 +1660,7 @@ To Do List:
 	else
 	{
 		NSString * scriptMode = [CW scriptMode];
-		if([[[CW name] lowercaseString] isEqual:@"special"])
+		if([[[CW name] lowercaseString] isEqualToString:@"special"])
 			return NO;
 		else if([scriptMode isEqualToString:iTM2TPFEBaseMode])
 			return [environmentMode isEqualToString:[[[TPD baseProject] commandWrapperForName:editedCommand] environmentMode]]
@@ -1876,7 +1876,7 @@ To Do List:
 	NSString * result = [[self implementation] modelValueForKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
 	if(![result length])
 	{
-		[[self implementation] takeModelValue: ([[[self name] lowercaseString] isEqual:@"special"]? iTM2TPFEVoidMode: iTM2TPFEBaseMode)
+		[[self implementation] takeModelValue: ([[[self name] lowercaseString] isEqualToString:@"special"]? iTM2TPFEVoidMode: iTM2TPFEBaseMode)
 			forKey: iTM2TPFEEnvironmentModeKey ofType: iTM2MainType];
 		result = [[self implementation] modelValueForKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
 	}
@@ -1904,7 +1904,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	return [rhs isKindOfClass:[self class]]?
-		[[self name] isEqual:[rhs name]] && [[self project] isEqual:[rhs project]] && [[self model] isEqual:[rhs model]]:
+		[[self name] isEqualToString:[rhs name]] && [[self project] isEqual:[rhs project]] && [[self model] isEqual:[rhs model]]:
 		[super isEqual:rhs];
 }
 @end
@@ -1919,7 +1919,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[[self name] lowercaseString] isEqual:@"special"])
+	if([[[self name] lowercaseString] isEqualToString:@"special"])
 	{
 		// special action: inherited base script means inherited base options
 		// in all other cases, no options
@@ -2337,7 +2337,7 @@ To Do List:
 	{
 		NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
 		while(result = [[E nextObject] nonretainedObjectValue])
-			if([name isEqual:[result commandName]])
+			if([name isEqualToString:[result commandName]])
 				return result;
 	}
     return result;
@@ -2723,7 +2723,7 @@ To Do List:
 	// selector  names like projectXXXXX: are catched here
 	NSString * lastCommandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName"];
 	NSString * commandName = [self commandName];
-	[sender setState:([lastCommandName isEqual:commandName]?NSMixedState:NSOffState)];
+	[sender setState:([lastCommandName isEqualToString:commandName]?NSMixedState:NSOffState)];
 	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];
 	if(!I)
 	{
@@ -2735,16 +2735,16 @@ To Do List:
 //iTM2_LOG(@"I: %@, MSI: %@", I, [sender mixedStateImage]);
 	NSString * scriptMode = [[TPD commandWrapperForName:commandName] scriptMode];
 //iTM2_LOG(@"commandName is: %@, scriptMode is: %@", commandName, scriptMode);
-	if([scriptMode isEqual:iTM2TPFEVoidMode])
+	if([scriptMode isEqualToString:iTM2TPFEVoidMode])
 		return NO;
-	else if([scriptMode isEqual:iTM2TPFEBaseMode])
+	else if([scriptMode isEqualToString:iTM2TPFEBaseMode])
 	{
 		TPD = [TPD baseProject];
 		iTM2CommandWrapper * commandWrapper = [TPD commandWrapperForName:commandName];
 		scriptMode = [commandWrapper scriptMode];
-		if([scriptMode isEqual:iTM2TPFEVoidMode])
+		if([scriptMode isEqualToString:iTM2TPFEVoidMode])
 			return NO;
-		else if([scriptMode isEqual:iTM2TPFEBaseMode])
+		else if([scriptMode isEqualToString:iTM2TPFEBaseMode])
 		{
 			return YES;
 		}
@@ -2825,12 +2825,12 @@ To Do List:
 	NSString * key = [NSString stringWithFormat:@"iTM2_%@", command];//iTM2_Compile, iTM2_Index...
 	iTM2CommandWrapper * CW = [project commandWrapperForName:command];
 	NSString * mode = [CW scriptMode];
-	if([mode isEqual:iTM2TPFEVoidMode])
+	if([mode isEqualToString:iTM2TPFEVoidMode])
 	{
 		[ED takeValue:@"iTM2_Command_DoNothing" forKey:key];
 		return ED;
 	}
-	else if([mode isEqual:iTM2TPFEBaseMode])
+	else if([mode isEqualToString:iTM2TPFEBaseMode])
 	{
 		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", command] forKey:key];
 	}
@@ -2839,7 +2839,7 @@ To Do List:
 		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", mode] forKey:key];
 	}
 	mode = [CW environmentMode];
-	if(![mode isEqual:iTM2TPFEVoidMode] && ![mode isEqual:iTM2TPFEBaseMode])
+	if(![mode isEqualToString:iTM2TPFEVoidMode] && ![mode isEqualToString:iTM2TPFEBaseMode])
 	{
 		[ED addEntriesFromDictionary:[project environmentForCommandMode:mode]];
 	}
@@ -2863,12 +2863,12 @@ To Do List:
 	iTM2CommandWrapper * CW = [project commandWrapperForName:command];
 	NSString * mode = [CW scriptMode];
 //iTM2_LOG(@"the mode is: %@", mode);
-	if([mode isEqual:iTM2TPFEVoidMode])
+	if([mode isEqualToString:iTM2TPFEVoidMode])
 	{
 		[ED takeValue:@"iTM2_Command_DoNothing" forKey:key];
 		return ED;
 	}
-	else if([mode isEqual:iTM2TPFEBaseMode])
+	else if([mode isEqualToString:iTM2TPFEBaseMode])
 	{
 		if(![ED valueForKey:key])
 		{
@@ -2881,7 +2881,7 @@ To Do List:
 	}
 	mode = [CW environmentMode];
 //iTM2_LOG(@"31-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
-	if(![mode isEqual:iTM2TPFEVoidMode] && ![mode isEqual:iTM2TPFEBaseMode])
+	if(![mode isEqualToString:iTM2TPFEVoidMode] && ![mode isEqualToString:iTM2TPFEBaseMode])
 	{
 		[ED addEntriesFromDictionary:[project environmentForCommandMode:mode]];
 	}
@@ -2962,7 +2962,7 @@ blablabla:
 	}
     [result takeValue:[project relativeFileNameForKey:[project keyForFileName:[CD fileName]]] forKey:TWSShellEnvironmentFrontKey];
 	NSString * MFK = [project masterFileKey];
-	if([MFK isEqual:@"...iTM2FrontDocument"])
+	if([MFK isEqualToString:@"...iTM2FrontDocument"])
 	{
 		MFK = [project keyForFileName:[CD fileName]];
 	}
