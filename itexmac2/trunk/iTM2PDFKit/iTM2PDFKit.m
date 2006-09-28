@@ -1918,16 +1918,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSAssert(_toolbarBackForwardView, @"Missing _toolbarBackForwardView connection...");
-	NSAssert(_toolbarToolModeView, @"Missing _toolbarToolModeView connection...");
 	NSSegmentedCell * segmentedCell = [_toolbarBackForwardView cell];
-	[segmentedCell setTrackingMode:NSSegmentSwitchTrackingSelectOne];
-	[segmentedCell setSegmentCount:2];
-	[segmentedCell setImage:[NSImage imageBackAdorn] forSegment:0];
-	[segmentedCell setImage:[NSImage imageForwardAdorn] forSegment:1];
 	[segmentedCell setAction:@selector(goBackForward:)];
 	[segmentedCell setTarget:self];
-	[_toolbarBackForwardView setFrameSize:[segmentedCell cellSize]];
 	//
+	NSAssert(_toolbarToolModeView, @"Missing _toolbarToolModeView connection...");
 	segmentedCell = [_toolbarToolModeView cell];
 	[segmentedCell setTrackingMode:NSSegmentSwitchTrackingSelectOne];
 	[segmentedCell setSegmentCount:4];
