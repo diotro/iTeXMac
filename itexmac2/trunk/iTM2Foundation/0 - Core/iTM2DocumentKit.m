@@ -3528,8 +3528,8 @@ To Do List:
 }
 @end
 
-NSString * const iTM2UDSmartUndoKey = @"iTM2UDSmartUndo";
-NSString * const iTM2UDLevelsOfUndoKey = @"iTM2UDLevelsOfUndo";
+NSString * const iTM2UDSmartUndoKey = @"iTM2SmartUndo";
+NSString * const iTM2UDLevelsOfUndoKey = @"iTM2LevelsOfUndo";
 
 @interface iTM2UndoManager(PRIVATE)
 - (void)undoPastSaveSheetDidEnd:(NSWindow *) unused returnCode:(int) returnCode irrelevantInfo:(void *) irrelevant;
