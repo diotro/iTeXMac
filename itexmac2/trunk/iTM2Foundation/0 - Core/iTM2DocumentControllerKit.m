@@ -57,7 +57,23 @@ To Do List:
 }
 @end
 
+NSString * const iTM2AutosavingDelayKey = @"iTM2AutosavingDelay";
+
 @implementation iTM2DocumentController
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
++ (void)initialize;
+/*"Designated intializer.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[super initialize];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+		[NSNumber numberWithFloat:120],iTM2AutosavingDelayKey,nil]];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
 - (id)init;
 /*"Designated intializer.
@@ -70,6 +86,7 @@ To Do List:
     if(self = [super init])
     {
         [self initImplementation];
+		[self setAutosavingDelay:[SUD floatForKey:iTM2AutosavingDelayKey]];
     }
     return self;
 }

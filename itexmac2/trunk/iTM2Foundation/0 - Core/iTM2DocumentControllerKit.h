@@ -21,6 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
+extern NSString * const iTM2AutosavingDelayKey;
+
 /*! 
 	@class		iTM2DocumentController
     @abstract   You are expected to use this document controller.
