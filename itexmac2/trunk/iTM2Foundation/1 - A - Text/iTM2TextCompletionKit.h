@@ -34,7 +34,7 @@ extern NSString * const iTM2CompletionsExtension;
 @interface iTM2CompletionsServer: NSObject
 
 + (void)reloadCompletionsAtPath:(NSString *)path;
-+ (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
++ (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
 + (void)addCompletions:(NSArray *)completions forContext:(NSString *)context ofCategory:(NSString *)category;
 + (id)storageForContext:(NSString *)context ofCategory:(NSString *)category;
 

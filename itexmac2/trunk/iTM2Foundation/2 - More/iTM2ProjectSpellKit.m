@@ -105,7 +105,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromURL:ofType:error:
-- (void)spellKitCompleteDidReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
+- (void)spellKitCompleteDidReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -131,7 +131,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareSpellKitMetaCompleteWriteToURL:ofType:error:
-- (BOOL)prepareSpellKitMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outError;
+- (BOOL)prepareSpellKitMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Fri Feb 20 13:19:00 GMT 2004

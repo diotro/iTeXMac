@@ -280,7 +280,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionsWithContentsOfURL:error:
-+ (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
++ (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -288,8 +288,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeOptionsNone error:outError] autorelease];
-	NSArray * nodes = [doc nodesForXPath:@"//STRING" error:outError];
+	NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeOptionsNone error:outErrorPtr] autorelease];
+	NSArray * nodes = [doc nodesForXPath:@"//STRING" error:outErrorPtr];
 	NSEnumerator * E = [nodes objectEnumerator];
 	id node;
 	NSMutableArray * result = [NSMutableArray array];

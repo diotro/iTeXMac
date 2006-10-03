@@ -58,13 +58,13 @@ extern NSString * const iTM2PDFStickModeKey;
 	@discussion		Just forwards the message to the -readImageRepresentationFromFile:ofType: method.
 	@param			fileName
 	@param			type
-	@param			outError
+	@param			outErrorPtr
 	@result			yorn
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
-- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 @end
 
 @interface iTM2PDFWindow: NSWindow

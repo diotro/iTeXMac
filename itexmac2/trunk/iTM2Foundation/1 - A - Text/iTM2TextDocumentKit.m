@@ -1063,7 +1063,7 @@ To do list: ASK!!!
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1076,7 +1076,7 @@ To Do List:
 		iTM2_LOG(@"iTM2TextDocument fileURL: %@", absoluteURL);
 		iTM2_LOG(@"iTM2TextDocument type: %@", typeName);
 	}
-    return [super readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError];
+    return [super readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr];
 }
 @end
 

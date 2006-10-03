@@ -961,7 +961,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfModelOfType:error:
-- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outError;
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -969,9 +969,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(outError)
+	if(outErrorPtr)
 	{
-		*outError = nil;
+		*outErrorPtr = nil;
 	}
     NSString * errorString = nil;
 	id PL = [self modelOfType:type];
@@ -1083,7 +1083,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadModelValueOfDataRepresentation:ofType:error:
-- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1100,9 +1100,9 @@ To Do List:
                 format: &format errorDescription: &errorString];
         if(errorString)
         {
-			if(outError)
+			if(outErrorPtr)
 			{
-				*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+				*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"NSPropertyListSerialization error string:'%@'", errorString]
 						forKey:NSLocalizedDescriptionKey]];
 			}

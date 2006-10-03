@@ -4531,7 +4531,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= modesAttributesWithVariant:error:
-+ (NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)outError;
++ (NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -4551,7 +4551,7 @@ To Do List:
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
 			[modesAttributes addEntriesFromDictionary:[[self class] modesAttributesWithContentsOfFile:
-				[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent] error:outError]];
+				[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent] error:outErrorPtr]];
 		}
 	}
     variant = [variant lowercaseString];
@@ -4566,7 +4566,7 @@ To Do List:
 			if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 			{
 				NSString * path = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
-				NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:path error:outError];
+				NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:path error:outErrorPtr];
 				[modesAttributes addEntriesFromDictionary:D];
 			}
 		}
@@ -4579,7 +4579,7 @@ To Do List:
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
 			NSString * path = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
-			NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:path error:outError];
+			NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:path error:outErrorPtr];
 			[modesAttributes addEntriesFromDictionary:D];
 		}
 	}
@@ -4642,7 +4642,7 @@ To Do List:
     return [NSArray arrayWithArray:otherStylePaths];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modesAttributesWithContentsOfFile:error:
-+ (NSDictionary *)modesAttributesWithContentsOfFile:(NSString *)fileName error:(NSError **)outError;
++ (NSDictionary *)modesAttributesWithContentsOfFile:(NSString *)fileName error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4650,7 +4650,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSData * D = [NSData dataWithContentsOfFile:fileName options:0 error:outError];
+    NSData * D = [NSData dataWithContentsOfFile:fileName options:0 error:outErrorPtr];
     NSMutableDictionary * MD = [NSMutableDictionary dictionary];
     if([D length])
     {
@@ -4673,7 +4673,7 @@ To Do List:
     return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeModesAttributes:toFile:error:
-+ (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outError;
++ (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4689,7 +4689,7 @@ To Do List:
     [KA finishEncoding];
 //iTM2_LOG(@"MD is: %@", MD);
 //iTM2_END;
-    return [MD writeToFile:fileName options:NSAtomicWrite error:outError];
+    return [MD writeToFile:fileName options:NSAtomicWrite error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  character:isMemberOfCoveredCharacterSetForMode:
 - (BOOL)character:(unichar)theChar isMemberOfCoveredCharacterSetForMode:(NSString *)mode;

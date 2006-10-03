@@ -290,7 +290,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     result forthcoming
 */
-- (BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outError;
+- (BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 
 /*! 
     @method     projectCompleteWillClose
@@ -597,10 +597,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				Be sure the data model is consistent with your modifications in a prepare...WriteToFile:ofType: method
     @param      fileURL is a file URL
     @param      type is a type
-    @param      outError points to an NSError instance if non void.
+    @param      outErrorPtr points to an NSError instance if non void.
     @result     yorn
 */
-- (BOOL)projectCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)projectCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 
 /*! 
     @method     projectCompleteReadFromURL:ofType:error:
@@ -609,10 +609,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				Be sure the data model is consistent with your modifications in a prepare...WriteToFile:ofType: method
     @param      fileName is a file name
     @param      type is a type
-    @param      outError points to an error instance
+    @param      outErrorPtr points to an error instance
     @result     yorn
 */
-- (BOOL)projectCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)projectCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 
 /*! 
     @method     saveContext:
@@ -667,7 +667,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outError;
+- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outErrorPtr;
 
 /*! 
     @method     openSubdocumentForKey:display:error:
@@ -677,7 +677,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outError;
+- (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outErrorPtr;
 
 @end
 
@@ -981,14 +981,14 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				The only purpose of these methods is just to break recursivity.
     @param      fileNameRef is a pointer to a file name
     @param      display
-    @param      outError
+    @param      outErrorPtr
     @result     A project.
 */
-- (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
+- (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 - (void)willGetNewProjectForFileNameRef:(NSString **)fileNameRef;
 - (void)didGetNewProjectForFileNameRef:(NSString **)fileNameRef;
 - (BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef;
-- (id)newFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)newFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
     @method     getProjectFromPanelForFileNameRef:display:error:
@@ -1005,10 +1005,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				except when there is an error.
     @param      fileNameRef is a pointer to a file name
     @param      display is a flag to indicate if the UI is required
-    @param      outError is a pointer to an NSError instance
+    @param      outErrorPtr is a pointer to an NSError instance
     @result     project document.
 */
-- (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
+- (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
     @method		baseProjects

@@ -60,7 +60,7 @@
 @end
 
 @interface NSDocumentController(iTM2JAGUARSupportKit)
-- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outError;
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)displayDocument error:(NSError **)outErrorPtr;
 @end
 
 #endif

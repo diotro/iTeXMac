@@ -1848,7 +1848,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithSyntaxParserVariant:error:
-- (id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)outError;
+- (id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)outErrorPtr;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1871,7 +1871,7 @@ To Do List:
 					stringByAppendingPathExtension: iTM2TextStyleExtension]
 						stringByAppendingPathComponent: [self syntaxParserVariant]]
 							stringByAppendingPathExtension: iTM2TextVariantExtension]];
-		[self readFromURL:[self fileURL] ofType:[self fileType] error:outError];
+		[self readFromURL:[self fileURL] ofType:[self fileType] error:outErrorPtr];
     }
 //iTM2_END;
     return self;
@@ -2044,7 +2044,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) type;
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2064,7 +2064,7 @@ To Do List:
 //iTM2_LOG(@"WC is: %@", WC);
         if([WC respondsToSelector:@selector(readFromURL:ofType:error:)])
 		{
-			result = result && [WC readFromURL:absoluteURL ofType:typeName error:outError];// only the last error will be recorded
+			result = result && [WC readFromURL:absoluteURL ofType:typeName error:outErrorPtr];// only the last error will be recorded
 		}
 	}
 //iTM2_END;
@@ -2218,7 +2218,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) type;
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"For the revert to saved.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2248,7 +2248,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
 //- (BOOL) writeToFile: (NSString *) fileName ofType: (NSString *) type;
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2263,7 +2263,7 @@ To Do List:
 	NSString * fileName = [absoluteURL path];
     NSString * stylePath = [fileName stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
 	iTM2TextSyntaxParserAttributesServer * AS = [self attributesServer];
-	if(![[AS class] writeModesAttributes:[AS modesAttributes] toFile:stylePath error:outError])
+	if(![[AS class] writeModesAttributes:[AS modesAttributes] toFile:stylePath error:outErrorPtr])
 	{
 		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Could not write the modes attributes at path:%@", stylePath]),nil);
 //iTM2_END;

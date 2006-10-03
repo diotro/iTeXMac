@@ -85,20 +85,20 @@ extern NSString * const TWSSpellDefaultContextMode;
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		The fileURL.
-    @param		outError.
+    @param		outErrorPtr.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
-- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
 
 /*!
     @method		writeFromURL:error:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		The fileURL.
-    @param		outError.
+    @param		outErrorPtr.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
-- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
 
 /*!
     @method		loadPropertyListRepresentation:

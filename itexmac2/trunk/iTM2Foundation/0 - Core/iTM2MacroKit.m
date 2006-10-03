@@ -85,7 +85,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macrosMenuAtPath:error:
-+ (NSMenu *)macrosMenuAtPath:(NSString *)file error:(NSError **)outError;
++ (NSMenu *)macrosMenuAtPath:(NSString *)file error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/02/2006
@@ -101,10 +101,10 @@ To Do List:
     }
 	NSXMLDocument *xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:furl
             options:NSXMLNodePreserveCDATA
-            error:outError] autorelease];
+            error:outErrorPtr] autorelease];
     if (!xmlDoc)  {
-		if(outError && !(*outError))
-			*outError = [NSError errorWithDomain:@"iTeXMac2.script.macrosMenuAtPath:error:" code:1 userInfo:
+		if(outErrorPtr && !(*outErrorPtr))
+			*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script.macrosMenuAtPath:error:" code:1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 					@"File is missing a DOMAIN title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -114,13 +114,13 @@ To Do List:
 						nil]];
 		return nil;
 	}
-	NSMenu * M = [[[self _macrosMenuItemWithXMLElement:[xmlDoc rootElement] error:outError] submenu] retain];
+	NSMenu * M = [[[self _macrosMenuItemWithXMLElement:[xmlDoc rootElement] error:outErrorPtr] submenu] retain];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return [M autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _macrosMenuItemWithXMLElement:error:
-+ (NSMenuItem *)_macrosMenuItemWithXMLElement:(NSXMLElement *)element error:(NSError **)outError;
++ (NSMenuItem *)_macrosMenuItemWithXMLElement:(NSXMLElement *)element error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/02/2006
@@ -164,8 +164,8 @@ To Do List:
 				}
 				else
 				{
-					if(outError)
-						*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemWithXMLElement:error:" code:1 userInfo:
+					if(outErrorPtr)
+						*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemWithXMLElement:error:" code:1 userInfo:
 							[NSDictionary dictionaryWithObjectsAndKeys:
 								@"File not conforming to its DTD", NSLocalizedDescriptionKey,// NSString
 								@"File is missing a K", NSLocalizedFailureReasonErrorKey,// NSString
@@ -178,7 +178,7 @@ To Do List:
 			}
 			while(child = [E nextObject])
 			{
-				NSMenuItem * mi = [self _macrosMenuItemWithXMLElement:child error:outError];
+				NSMenuItem * mi = [self _macrosMenuItemWithXMLElement:child error:outErrorPtr];
 				if(mi)
 				{
 					[M addItem:mi];
@@ -231,7 +231,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macrosMenuAtPath:error:
-+ (NSMenu *)___macrosMenuAtPath:(NSString *)path error:(NSError **)outError;
++ (NSMenu *)___macrosMenuAtPath:(NSString *)path error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/02/2006
@@ -242,20 +242,20 @@ To Do List:
 //iTM2_START;
 	// open the file as a string file
 	unsigned int encoding;
-	NSString * S = [NSString stringWithContentsOfFile:path usedEncoding:&encoding error:outError];
-	if(![S length] || (outError && !(*outError)))
+	NSString * S = [NSString stringWithContentsOfFile:path usedEncoding:&encoding error:outErrorPtr];
+	if(![S length] || (outErrorPtr && !(*outErrorPtr)))
 		return nil;
 	unsigned end, contentsEnd;
 	[S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:NSMakeRange(0, 0)];
 	NSString * recordSeparator = [S substringWithRange:NSMakeRange(0, (contentsEnd? :end))];
 	NSEnumerator * E = [[S componentsSeparatedByString:recordSeparator] objectEnumerator];
-	NSMenu * M = [[self _macrosMenuFromEnumerator:E error:outError] retain];
+	NSMenu * M = [[self _macrosMenuFromEnumerator:E error:outErrorPtr] retain];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return [M autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _macrosMenuItemFromEnumerator:error:
-+ (NSMenuItem *)_macrosMenuItemFromEnumerator:(NSEnumerator *)enumerator error:(NSError **)outError;
++ (NSMenuItem *)_macrosMenuItemFromEnumerator:(NSEnumerator *)enumerator error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/02/2006
@@ -271,7 +271,7 @@ To Do List:
 		{
 			if([record isEqualToString:@"SUBMENU"])
 			{
-				NSMenu * M = [self _macrosMenuFromEnumerator:enumerator error:outError];
+				NSMenu * M = [self _macrosMenuFromEnumerator:enumerator error:outErrorPtr];
 				if(M)
 				{
 					NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:NULL keyEquivalent:@""] autorelease];
@@ -289,8 +289,8 @@ To Do List:
 					domain = [enumerator nextObject];
 					if(!domain)
 					{
-						if(outError)
-							*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:1 userInfo:
+						if(outErrorPtr)
+							*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:1 userInfo:
 								[NSDictionary dictionaryWithObjectsAndKeys:
 									@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 									@"File is missing a DOMAIN title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -307,8 +307,8 @@ To Do List:
 					category = [enumerator nextObject];
 					if(!category)
 					{
-						if(outError)
-							*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:1 userInfo:
+						if(outErrorPtr)
+							*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:1 userInfo:
 								[NSDictionary dictionaryWithObjectsAndKeys:
 									@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 									@"File is missing a CATEGORY title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -329,8 +329,8 @@ To Do List:
 						[MI setRepresentedObject:[NSArray arrayWithObjects:domain, category, key, nil]];
 						return MI;
 					}
-					if(outError)
-						*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:2 userInfo:
+					if(outErrorPtr)
+						*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:2 userInfo:
 							[NSDictionary dictionaryWithObjectsAndKeys:
 								@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 								@"File is missing a KEY title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -340,8 +340,8 @@ To Do List:
 									nil]];
 					return nil;
 				}
-				if(outError)
-					*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:3 userInfo:
+				if(outErrorPtr)
+					*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:3 userInfo:
 						[NSDictionary dictionaryWithObjectsAndKeys:
 							@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 							@"File is missing a KEY record", NSLocalizedFailureReasonErrorKey,// NSString
@@ -354,8 +354,8 @@ To Do List:
 		}
 		else
 		{
-			if(outError)
-				*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:4 userInfo:
+			if(outErrorPtr)
+				*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:4 userInfo:
 					[NSDictionary dictionaryWithObjectsAndKeys:
 						@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 						@"File is missing an ITEM content", NSLocalizedFailureReasonErrorKey,// NSString
@@ -368,8 +368,8 @@ To Do List:
 	}
 	else
 	{
-		if(outError)
-			*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:5 userInfo:
+		if(outErrorPtr)
+			*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuItemFromEnumerator:error:" code:5 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 					@"File is missing an ITEM title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -383,7 +383,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _macrosMenuFromEnumerator:error:
-+ (NSMenu *)_macrosMenuFromEnumerator:(NSEnumerator *)enumerator error:(NSError **)outError;
++ (NSMenu *)_macrosMenuFromEnumerator:(NSEnumerator *)enumerator error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/02/2006
@@ -397,7 +397,7 @@ To Do List:
 	{
 		if([S isEqualToString:@"ITEM"])
 		{
-			NSMenuItem * MI = [self _macrosMenuItemFromEnumerator:enumerator error:outError];
+			NSMenuItem * MI = [self _macrosMenuItemFromEnumerator:enumerator error:outErrorPtr];
 			if(MI)
 			{
 				[M addItem:MI];
@@ -406,7 +406,7 @@ nextITEM:
 				{
 					if([S isEqualToString:@"ITEM"])
 					{
-						if(MI = [self _macrosMenuItemFromEnumerator:enumerator error:outError])
+						if(MI = [self _macrosMenuItemFromEnumerator:enumerator error:outErrorPtr])
 						{
 							[M addItem:MI];
 						}
@@ -425,8 +425,8 @@ nextITEM:
 					}
 					else
 					{
-						if(outError)
-							*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:2 userInfo:
+						if(outErrorPtr)
+							*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:2 userInfo:
 								[NSDictionary dictionaryWithObjectsAndKeys:
 									@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 									@"File is missing an ITEM title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -440,8 +440,8 @@ nextITEM:
 				}
 				else
 				{
-					if(outError)
-						*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:3 userInfo:
+					if(outErrorPtr)
+						*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:3 userInfo:
 							[NSDictionary dictionaryWithObjectsAndKeys:
 								@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 								@"File is missing an ITEM title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -459,8 +459,8 @@ nextITEM:
 		}
 		else
 		{
-			if(outError)
-				*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:2 userInfo:
+			if(outErrorPtr)
+				*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:2 userInfo:
 					[NSDictionary dictionaryWithObjectsAndKeys:
 						@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 						@"File is missing an ITEM title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -473,8 +473,8 @@ nextITEM:
 	}
 	else
 	{
-		if(outError)
-			*outError = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:1 userInfo:
+		if(outErrorPtr)
+			*outErrorPtr = [NSError errorWithDomain:@"iTeXMac2.script._macrosMenuFromEnumerator:error:" code:1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					@"File not conforming to its definition", NSLocalizedDescriptionKey,// NSString
 					@"File is missing an ITEM title", NSLocalizedFailureReasonErrorKey,// NSString
@@ -528,9 +528,9 @@ To Do List:
 
 
 @interface NSObject(RIEN)
-- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
-- (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
-- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
+- (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
+- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
 @end
 
 @interface iTM2MacrosServer(PRIVATE)
@@ -583,12 +583,12 @@ To Do List:
 					The keys are the key attributes of the ITEM eventually prepended by
 					the key attribute of the LIST root element as a common prefix to all the keys.
 	@param			path
-	@param			outError
+	@param			outErrorPtr
 	@result			A hash...
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
-- (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outError;
+- (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outErrorPtr;
 
 /*!
 	@method			macrosIndexWithContentsOfFile:error:
@@ -602,12 +602,12 @@ To Do List:
 					The keys are the key attributes of the ITEM eventually prepended by
 					the key attribute of the LIST root element as a common prefix to all the keys.
 	@param			path
-	@param			outError
+	@param			outErrorPtr
 	@result			A hash...
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
-- (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outError;
+- (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outErrorPtr;
 
 - (void)loadMacrosSummaries;
 - (void)loadMacrosSummaryAtPath:(NSString *)path;
@@ -1177,7 +1177,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexWithContentsOfFile:
-- (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outError;
+- (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1185,9 +1185,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	*outError = nil;
-	NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:outError] autorelease];
-	if(*outError)
+	*outErrorPtr = nil;
+	NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:outErrorPtr] autorelease];
+	if(*outErrorPtr)
 	{
 		return nil;
 	}
@@ -1215,7 +1215,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macrosIndexWithContentsOfFile:error:
-- (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outError;
+- (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1223,9 +1223,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	* outError = nil;
-	NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:outError] autorelease];
-	if(* outError)
+	* outErrorPtr = nil;
+	NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:outErrorPtr] autorelease];
+	if(* outErrorPtr)
 	{
 		return nil;
 	}
@@ -1249,9 +1249,9 @@ To Do List:
 			}
 			return result;
 		}
-		else if(outError)
+		else if(outErrorPtr)
 		{
-			*outError = [NSError errorWithDomain:@"iTM2MacrosKit" code:2 userInfo:
+			*outErrorPtr = [NSError errorWithDomain:@"iTM2MacrosKit" code:2 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					@"Bad file format", NSLocalizedDescriptionKey,
 					@"The root element must be a LIST node", NSLocalizedFailureReasonErrorKey,
@@ -1266,7 +1266,7 @@ To Do List:
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuWithXMLElement:forContext:ofCategory:inDomain:error:
-- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1286,7 +1286,7 @@ To Do List:
 			id child = [element childAtIndex:0];
 			do
 			{
-				NSMenuItem * MI = [self macroMenuItemWithXMLElement:child forContext:context ofCategory:category inDomain:domain error:outError];
+				NSMenuItem * MI = [self macroMenuItemWithXMLElement:child forContext:context ofCategory:category inDomain:domain error:outErrorPtr];
 				if(MI)
 					[M addItem:MI];
 			}
@@ -1302,7 +1302,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuItemWithXMLElement:forContext:ofCategory:inDomain:error:
-- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outError;
+- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1337,7 +1337,7 @@ To Do List:
 		}
 		[MI setToolTip:toolTip];
 		id list = [[element elementsForName:@"LIST"] lastObject];
-		NSMenu * M = [self macroMenuWithXMLElement:list forContext:context ofCategory:category inDomain:domain error:outError];
+		NSMenu * M = [self macroMenuWithXMLElement:list forContext:context ofCategory:category inDomain:domain error:outErrorPtr];
 		[MI setSubmenu:M];
 		return MI;
 	}

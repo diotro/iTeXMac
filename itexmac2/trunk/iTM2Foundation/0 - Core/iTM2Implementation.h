@@ -402,10 +402,10 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@abstract	A data representation of the model value for the given type.
 	@discussion	Returns a property list serialized object with the appropriate format.
 	@param  	type is a type
-	@param  	outError is an NSError instance pointer
+	@param  	outErrorPtr is an NSError instance pointer
 	@result 	a data object
 */
-- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outError;
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outErrorPtr;
 - (NSData *)dataRepresentationOfModelOfType:(NSString *)type;//Deprecated, use the above method
 
 /*!
@@ -414,10 +414,10 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description never forthcoming.
 	@param  	data is a data
 	@param  	type is a key
-	@param  	outError is an NSError instance pointer
+	@param  	outErrorPtr is an NSError instance pointer
 	@result 	A flag indicating whther things have been done or not.
 */
-- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outErrorPtr;
 - (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;//Deprecated, use the above method
 
 /*!

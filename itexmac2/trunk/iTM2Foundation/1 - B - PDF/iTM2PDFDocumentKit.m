@@ -174,7 +174,7 @@ To Do List:
         [NSString stringWithFormat:@"%@ (%@ %@)", [super displayName], [NSString stringWithUTF8String:"⇠"], [original lastPathComponent]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Erase the cached core file name, root file name and identifier.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -197,7 +197,7 @@ To Do List:
         return NO;
     BOOL result = NO;
     NS_DURING
-    result = [super readFromURL:absoluteURL ofType:typeName error:outError];
+    result = [super readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
     NS_HANDLER
     iTM2_LOG(@"*** ERROR in file reading, catched exception %@", [localException reason]);
     result = NO;
@@ -207,7 +207,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
-- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -216,10 +216,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"--------------------------- IT IS EXPECTED SOMETHING ELSE");
-	return [self readImageRepresentationFromURL:fileURL ofType:type error:outError];
+	return [self readImageRepresentationFromURL:fileURL ofType:type error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newTryToReadImageRepresentationFromURL:ofType:error:
-+ (BOOL)newTryToReadImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
++ (BOOL)newTryToReadImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -228,10 +228,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_STOP;
-    return [[SDC documentForURL:fileURL] readImageRepresentationFromURL:fileURL ofType:type error:outError]; 
+    return [[SDC documentForURL:fileURL] readImageRepresentationFromURL:fileURL ofType:type error:outErrorPtr]; 
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readImageRepresentationFromURL:ofType:error:
-- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -239,7 +239,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSData * data = [NSData dataWithContentsOfURL:fileURL options:0 error:outError];
+    NSData * data = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
     [self setDataRepresentation:data];
     Class C = [NSImageRep imageRepClassForData:data];
     if(C)
@@ -305,7 +305,7 @@ To Do List:
             [I setTarget:[self class]];
             [I setArgument:&fileURL atIndex:2];
             [I setArgument:&type atIndex:3];
-            [I setArgument:&outError atIndex:4];
+            [I setArgument:&outErrorPtr atIndex:4];
             _TIM = [NSTimer scheduledTimerWithTimeInterval:retryInterval invocation:I repeats:NO];
             [IMPLEMENTATION takeMetaValue:_TIM forKey:@" _TIM"];
             iTM2_LOG(@"Problem in reading the PDF data (try %i), Next try in %f seconds", _FW, retryCount, retryInterval);

@@ -25,6 +25,7 @@
 
 @interface NSCursor(iTeXMac2)
 + (NSCursor *)fingerCursor;
+#warning Use Panther cursors instead
 + (NSCursor *)handCursor;
 + (NSCursor *)zoomInCursor;
 + (NSCursor *)zoomOutCursor;

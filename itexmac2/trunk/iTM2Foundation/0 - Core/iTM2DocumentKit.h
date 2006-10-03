@@ -190,8 +190,8 @@ extern NSString * const iTM2InspectorTable;
 */
 + (id)contextDictionaryFromFile:(NSString *)fullDocumentPath;
 
-- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError;
-- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError;
+- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
+- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
 
 /*!
     @method		needsToUpdate
@@ -316,10 +316,10 @@ extern NSString * const iTM2InspectorTable;
 				You should use this method instead of the standard -addWindowController: route,
 				because it takes care of inspector management.
     @param		The mode.
-    @param		The outError is an NSError instance pointer.
+    @param		The outErrorPtr is an NSError instance pointer.
     @result		an inspector.
 */
-- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outError;
+- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outErrorPtr;
 
 /*!
     @method		replaceInspectorMode:variant:

@@ -90,7 +90,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
-- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -98,7 +98,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSData * D = [NSData dataWithContentsOfURL:fileURL options:0 error:outError];
+    NSData * D = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
     if([D length])
     {
         NSString * errorString = nil;
@@ -170,7 +170,7 @@ To Do List:
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:error:
-- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outError;
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -199,7 +199,7 @@ To Do List:
     }
 //NSLog(@"data: %@", result);
 //iTM2_END;
-    return [D writeToURL:fileURL options:NSAtomicWrite error:outError];
+    return [D writeToURL:fileURL options:NSAtomicWrite error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
 - (void)dealloc;

@@ -62,7 +62,7 @@
     @parameter	error.
     @result		None.
 */
-- (void)spellKitCompleteDidReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
+- (void)spellKitCompleteDidReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 
 @end
 
