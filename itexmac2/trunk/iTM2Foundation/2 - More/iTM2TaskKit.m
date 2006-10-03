@@ -1180,6 +1180,19 @@ In this example, the value ``0000011682'' translates to 11,682 4K pages, or appr
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputDidTerminate
+- (void)outputDidTerminate;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self allInspectors] makeObjectsPerformSelector:_cmd withObject:nil];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logCustom:
 - (void)logCustom:(NSString *)string;
 /*"Description Forthcoming.
@@ -1312,6 +1325,19 @@ To Do List:
         [[self allInspectors] makeObjectsPerformSelector:_cmd withObject:string];
 //NSLog(@"[self error]:%@", [self error]);
     }
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  errorDidTerminate
+- (void)errorDidTerminate;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
+- for 1.3: Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self allInspectors] makeObjectsPerformSelector:_cmd withObject:nil];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _currentTaskDidTerminate:
