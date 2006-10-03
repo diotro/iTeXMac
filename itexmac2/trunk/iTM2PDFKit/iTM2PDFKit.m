@@ -1,5 +1,5 @@
 /*
-//  iTM2PDFKit.h
+//  iTM2PDFKit.m
 //  iTeXMac2
 //
 //  @version Subversion: $Id$ 
@@ -20,7 +20,7 @@
 //  to the actual developper team.
 */
 
-#import "iTM2PDFKit.h"
+#import <iTM2PDFKit/iTM2PDFKit.h>
 #import <objc/objc-class.h>
 
 NSString * const iTM2PDFKitInspectorMode = @"Tiger";
@@ -72,6 +72,7 @@ NSString * const iTM2MultiplePDFDocumentType = @"Multiple PDF Document";// bewar
 - (void)updateSearchTable;
 - (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
 - (void)setProgressIndicatorIsAnimated:(BOOL)yorn;
+- (NSAttributedString *)getContextualStringFromSelection:(PDFSelection *)instance;
 @end
 
 @implementation iTM2PDFDocument(Cluster)
@@ -218,7 +219,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteWriteToURL:ofType:error:
-- (BOOL)dataCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)dataCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -998,6 +999,7 @@ To Do List:
     if ([doc isFinding])
 		[doc cancelFindString];
 	[[self PDFSearchResults] setArray:[NSArray array]];
+	[[self implementation] takeMetaValue:[NSDate dateWithTimeIntervalSinceNow: 0.0] forKey:@"_searchTime"];
     [_searchTable reloadData];
 	[doc setDelegate:self];
     [doc beginFindString:[sender stringValue] withOptions:NSCaseInsensitiveSearch];
@@ -1037,41 +1039,137 @@ To Do List:
 	}
 	else
 	{
-		[[self PDFSearchResults] addObject:[NSNull null]];
+		[[self PDFSearchResults] addObject:[self getContextualStringFromSelection:selection]];
 	}
+	unsigned int count = [[self PDFSearchResults] count]/3;
 	[_searchCountText setStringValue: [NSString stringWithFormat:
-		NSLocalizedStringFromTableInBundle(@"Found %i match(es)", @"iTM2PDFKit", [self classBundle], ""),
-		[[self PDFSearchResults] count]]];
-    [_searchTable reloadData];
+		NSLocalizedStringFromTableInBundle(@"Found %i match(es)", @"iTM2PDFKit", [self classBundle], ""),count]];
+	NSDate * _searchTime = [[self implementation] metaValueForKey:@"_searchTime"];
+	NSDate * newTime = [NSDate date];
+	if (([newTime timeIntervalSinceDate: _searchTime] > 1.0) || (count == 1))
+	{
+		// Force a reload.
+		[_searchTable reloadData];
+		
+		[[self implementation] takeMetaValue:newTime forKey:@"_searchTime"];
+		
+		// Handle found first search result.
+		if (count == 1)
+		{
+			// Select first item (search result) in table view.
+			[_searchTable selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
+		}
+	}
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidBeginDocumentFind:
-- (void)documentDidBeginDocumentFind:(NSNotification *)notification;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
+// ------------------------------------------------------------------------------------------------------------ startFind
+
+- (void) documentDidBeginDocumentFind: (NSNotification *) notification;
+{
+	// Empty arrays.
+	[[self PDFSearchResults] removeAllObjects];
+	
+	// Clear search results table.
+	[_searchTable reloadData];
+	
+	// Note start time.
+	[[self implementation] takeMetaValue:[NSDate dateWithTimeIntervalSinceNow: 0.0] forKey:@"_searchTime"];
 	[_searchCountText setStringValue:@""];
 	[_searchProgress startAnimation:self];
-//iTM2_END;
+}
+
+// copyright PDFKitLinker2
+- (void) documentDidEndDocumentFind: (NSNotification *) notification;
+{
+	// Force a reload.
+	[_searchProgress stopAnimation:self];
+	[[self implementation] takeMetaValue:nil forKey:@"_searchTime"];
+	[_searchTable reloadData];
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidEndDocumentFind:
-- (void)documentDidEndDocumentFind:(NSNotification *)notification;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[_searchProgress stopAnimation:self];
-//iTM2_END;
-	return;
+// ------------------------------------------------------------------------------------- getContextualStringFromSelection
+- (NSAttributedString *) getContextualStringFromSelection: (PDFSelection *) instance
+{
+	NSMutableAttributedString	*attributedSample;
+	NSString					*searchString;
+	NSMutableString				*sample;
+	NSString					*rawSample;
+	unsigned int				count;
+	unsigned int				i;
+	unichar						ellipse = 0x2026;
+	NSRange						searchRange;
+	NSRange						foundRange;
+	NSMutableParagraphStyle		*paragraphStyle = NULL;
+	
+	// Get search string.
+	searchString = [instance string];
+	#define PREFIX_LENGTH 16
+	#define POSTFIX_LENGTH 64
+	// Extend selection.
+	[instance extendSelectionAtStart: PREFIX_LENGTH];
+	[instance extendSelectionAtEnd: POSTFIX_LENGTH];
+	
+	// Get string from sample.
+	rawSample = [instance string];
+	count = [rawSample length];
+	
+	// String to hold non-<CR> characters from rawSample.
+	sample = [NSMutableString stringWithCapacity: count + PREFIX_LENGTH + POSTFIX_LENGTH];
+	[sample setString: [NSString stringWithCharacters: &ellipse length: 1]];
+	
+	// Keep all characters except <LF>.
+	for (i = 0; i < count; i++)
+	{
+		unichar		oneChar;
+		
+		oneChar = [rawSample characterAtIndex: i];
+		if (oneChar == 0x000A)
+			[sample appendString: @" "];
+		else
+			[sample appendString: [NSString stringWithCharacters: &oneChar length: 1]];
+	}
+	
+	// Follow with elipses.
+	[sample appendString: [NSString stringWithCharacters: &ellipse length: 1]];
+	
+	// Finally, create attributed string.
+ 	attributedSample = [[NSMutableAttributedString alloc] initWithString: sample];
+	
+	// Find instances of search string and "bold" them.
+	searchRange.location = 0;
+	searchRange.length = [sample length];
+	do
+	{
+		// Search for the string.
+		foundRange = [sample rangeOfString: searchString options: NSCaseInsensitiveSearch range: searchRange];
+		
+		// Did we find it?
+		if (foundRange.location != NSNotFound)
+		{
+			// Bold the text range where the search term was found.
+			[attributedSample setAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [NSFont boldSystemFontOfSize: 
+					[NSFont systemFontSize]], NSFontAttributeName, NULL] range: foundRange];
+			
+			// Advance the search range.
+			searchRange.location = foundRange.location + foundRange.length;
+			searchRange.length = [sample length] - searchRange.location;
+		}
+	}
+	while (foundRange.location != NSNotFound);
+	
+	// Create paragraph style that indicates truncation style.
+	paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+	[paragraphStyle setLineBreakMode: NSLineBreakByTruncatingTail];
+	
+	// Add paragraph style.
+    [attributedSample addAttributes: [[NSMutableDictionary alloc] initWithObjectsAndKeys: 
+			paragraphStyle, NSParagraphStyleAttributeName, NULL] range: NSMakeRange(0, [attributedSample length])];
+	
+	// Clean.
+	[paragraphStyle release];
+	
+	return attributedSample;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
@@ -1097,106 +1195,7 @@ To Do List:
 //iTM2_END;
 	if ([[theColumn identifier] isEqualToString:@"text"])
 	{
-		id result = [[self PDFSearchResults] objectAtIndex:3*rowIndex+2];
-		if(![result isEqual:[NSNull null]])
-		{
-			return result;
-		}
-		// there is no chapter
-		// I will display characters instead
-		// how many characters should I display?
-		// What is the width of the table column
-		NSCell * C = [theColumn dataCellForRow:rowIndex];
-		if([C type] == NSTextCellType)
-		{
-			// how many characters should I display in this cell?
-			NSFont * F = [C font];
-			PDFSelection * selection = [[self PDFSearchResults] objectAtIndex:3*rowIndex];
-			NSString * selectionString = [selection string];
-			NSDictionary * attributes = [NSDictionary dictionaryWithObject:F forKey:NSFontAttributeName];
-			F = [SFM convertFont:F toHaveTrait:NSBoldFontMask];// used later to outline the selection
-			float w = [selectionString sizeWithAttributes:attributes].width;
-			if([theColumn width]>w)
-			{
-				float W = [theColumn width] - w;
-				w = [@"m" sizeWithAttributes:attributes].width;
-				unsigned int n = W/w;
-				PDFSelection * otherSelection = [[selection copy] autorelease];
-				[otherSelection extendSelectionAtEnd:n+1];
-				NSString * suffix = [otherSelection string];// as placeholder before being the result
-				unsigned int contentsEnd;
-				[suffix getLineStart:nil end:nil contentsEnd:&contentsEnd
-					forRange:NSMakeRange(0,1)];
-				otherSelection = [[selection copy] autorelease];
-				[otherSelection extendSelectionAtStart:n+1];
-				NSString * prefix = [otherSelection string];
-				unsigned int start;
-				[prefix getLineStart:&start end:nil contentsEnd:nil
-					forRange:NSMakeRange([prefix length] - [selectionString length],1)];
-				// the purpose is to find the longest chain with width <= W, and the max number of chars before and after, the most balanced
-				// in general, we have n/2 characters before, the searched string and n/2 characters after
-				// do we have less than n/2 characters before
-				n /= 2;
-				++n;
-				if([prefix length] - [selectionString length] - start <= n)
-				{
-					prefix = [prefix substringWithRange:NSMakeRange(start,[prefix length] - [selectionString length] - start)];
-					// I want to add X chars to the right such that
-					// [prefix length] - [selectionString length] - start + X = 2*n
-					// X = 2*n - [prefix length] + [selectionString length] + start
-					// There are actually contentsEnd - [selectionString length] characters available from suffix (after the selection)
-					if(2*n - [prefix length] + [selectionString length] + start < contentsEnd - [selectionString length])
-					{
-						suffix = [suffix substringWithRange:NSMakeRange(0,[selectionString length] + 2*n - [prefix length] + start)];
-						suffix = [suffix stringByAppendingString:[NSString stringWithUTF8String:"…"]];
-					}
-					else//if(2*n - [prefix length] + [selectionString length] + start >= contentsEnd - [selectionString length])
-					{
-						suffix = [suffix substringWithRange:NSMakeRange(0,contentsEnd)];
-					}
-				}
-				else//if([prefix length] - [selectionString length] - start > n)
-				{
-					// I want to add n
-					if(n < contentsEnd - [selectionString length])
-					{
-						prefix = [prefix substringWithRange:NSMakeRange([prefix length] - [selectionString length] - n,n)];
-						prefix = [[NSString stringWithUTF8String:"…"] stringByAppendingString:prefix];
-						suffix = [suffix substringWithRange:NSMakeRange(0,[selectionString length]+n)];
-						suffix = [suffix stringByAppendingString:[NSString stringWithUTF8String:"…"]];
-					}
-					else//if(n >= contentsEnd - [selectionString length])
-					{
-						suffix = [suffix substringWithRange:NSMakeRange(0,contentsEnd)];
-						// I can put more characters in the prefix, less than 2*n - contentsEnd + [selectionString length]
-						if(2*n - contentsEnd + [selectionString length] < [prefix length] - [selectionString length] - start)
-						{
-							prefix = [prefix substringWithRange:NSMakeRange(contentsEnd - 2*n,2*n - contentsEnd + [selectionString length])];
-							prefix = [[NSString stringWithUTF8String:"…"] stringByAppendingString:prefix];
-						}
-						else
-						{
-							prefix = [prefix substringWithRange:NSMakeRange(start,[prefix length] - [selectionString length] - start)];
-							prefix = [[NSString stringWithUTF8String:"…"] stringByAppendingString:prefix];
-						}
-					}
-				}
-				suffix = [prefix stringByAppendingString:suffix];
-				NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:suffix attributes:attributes] autorelease];
-				[MAS addAttribute:NSFontAttributeName value:F range:NSMakeRange([prefix length],[selectionString length])];
-				[[self PDFSearchResults] replaceObjectAtIndex:3*rowIndex+2 withObject:[[MAS copy] autorelease]];
-				return [[self PDFSearchResults] objectAtIndex:3*rowIndex+2];
-			}
-			else
-			{
-				[[self PDFSearchResults] replaceObjectAtIndex:3*rowIndex+2 withObject:@""];
-			}
-		}
-		else
-		{
-			[[self PDFSearchResults] replaceObjectAtIndex:3*rowIndex+2 withObject:@""];
-		}
-		return @"";
+		return [[self PDFSearchResults] objectAtIndex:3*rowIndex+2];
 	}
 	else if ([[theColumn identifier] isEqualToString:@"thumbnail"])
 	{
