@@ -149,11 +149,11 @@ enum
 				We do not rely on resource index but on resource name. The resource name is expected to be the key of the dictionary.
 	@param		space is either a space name or a number wrapping the resource identifier.
 	@param		path is the location where things should be stored.
-	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
+	@param		outErrorPtr is the reference of an NSError object. Will contain error description on return, if any.
 	@result		an NSDictionary. All the keys are NSString's (less than 255 characters in UTF8 representation)
 				and the corresponding values are NSData objects. 
 */
-- (NSDictionary *)extendedFileAttributesInSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+- (NSDictionary *)extendedFileAttributesInSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
 
 /*!
 	@method		extendedFileAttribute:inSpace:atPath:error:
@@ -162,10 +162,10 @@ enum
 	@param		attributeName is the attribute name.
 	@param		space is either a space name or a number wrapping the resource identifier.
 	@param		path is the location where things should be stored.
-	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
+	@param		outErrorPtr is the reference of an NSError object. Will contain error description on return, if any.
 	@result		an NSData objects. 
 */
-- (NSData *)extendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+- (NSData *)extendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
 
 /*!
 	@method		removeExtendedFileAttribute:inSpace:atPath:traverseLink:error:
@@ -174,10 +174,10 @@ enum
 	@param		attributeName is the attribute name.
 	@param		space is either a space name or a number wrapping the resource identifier.
 	@param		path is the location where things should be stored.
-	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
+	@param		outErrorPtr is the reference of an NSError object. Will contain error description on return, if any.
 	@result		a flag indicating success or failure.
 */
-- (BOOL)removeExtendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+- (BOOL)removeExtendedFileAttribute:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
 
 /*!
 	@method		addExtendedFileAttribute:value:inSpace:atPath:error:
@@ -187,10 +187,10 @@ enum
 	@param		value is the new data.
 	@param		space is either a space name or a number wrapping the resource identifier.
 	@param		path is the location where things should be stored.
-	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
+	@param		outErrorPtr is the reference of an NSError object. Will contain error description on return, if any.
 	@result		a flag indicating success or failure.
 */
-- (BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+- (BOOL)addExtendedFileAttribute:(NSString *)attributeName value:(NSData *)D inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
 
 /*!
 	@method		changeExtendedFileAttributes:inSpace:atPath:error:
@@ -199,10 +199,10 @@ enum
 	@param		attributes are gathered in a dictionary which keys are NSString identifiers and values are NSData objects.
 	@param		space is either a space name or a number wrapping the resource identifier.
 	@param		path is the location where things should be stored.
-	@param		outError is the reference of an NSError object. Will contain error description on return, if any.
+	@param		outErrorPtr is the reference of an NSError object. Will contain error description on return, if any.
 	@result		a flag indicating success or failure. 
 */
-- (BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes inSpace:(id)space atPath:(NSString *)path error:(NSError **)outError;
+- (BOOL)changeExtendedFileAttributes:(NSDictionary *)attributes inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSFileManager(iTeXMac2)
