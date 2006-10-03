@@ -69,7 +69,7 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
 @interface iTM2ProjectDocument(FrontendKit_PRIVATE)
 - (void)canCloseAllSubdocumentsWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
-- (BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 - (void)dissimulateWindows;
 - (void)exposeWindows;
 - (NSString *)recordedKeyForFileName:(NSString *)fileName;// only use the links or finder aliases
@@ -153,7 +153,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
-- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -162,9 +162,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"fileURL is %@",fileURL);
-	if(outError)
+	if(outErrorPtr)
 	{
-		*outError = nil;
+		*outErrorPtr = nil;
 	}
 	NSParameterAssert(fileURL);
 	NSString * component = [iTM2ProjectInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
@@ -180,18 +180,18 @@ To Do List:
 	}
 	NSData * D = [NSData dataWithContentsOfURL:fileURL];
 //iTM2_END;
-    if([IMPLEMENTATION loadModelValueOfDataRepresentation:D ofType:iTM2ProjectInfoType error:outError])
+    if([IMPLEMENTATION loadModelValueOfDataRepresentation:D ofType:iTM2ProjectInfoType error:outErrorPtr])
 	{
 		return YES;
 	}
 	else
 	{
-		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Problem loading data at\n%@", fileURL]), (outError?*outError:nil));
+		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Problem loading data at\n%@", fileURL]), (outErrorPtr?*outErrorPtr:nil));
 		return NO;
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteWriteToURL:ofType:error:
-- (BOOL)dataCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)dataCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -199,13 +199,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(outError)
+	if(outErrorPtr)
 	{
-		*outError = nil;
+		*outErrorPtr = nil;
 	}
 	NSParameterAssert(fileURL);
 	[IMPLEMENTATION takeModelValue:iTM2ProjectInfoType forKey:@"isa" ofType:iTM2ProjectInfoType];
-    NSData * D = [IMPLEMENTATION dataRepresentationOfModelOfType:iTM2ProjectInfoType error:outError];
+    NSData * D = [IMPLEMENTATION dataRepresentationOfModelOfType:iTM2ProjectInfoType error:outErrorPtr];
 //iTM2_LOG(@"[IMPLEMENTATION modelOfType:iTM2ProjectInfoType]:%@",[IMPLEMENTATION modelOfType:iTM2ProjectInfoType]);
 	if(D)
 	{
@@ -228,8 +228,8 @@ To Do List:
 #endif
 //iTM2_LOG(@"fileURL: %@",fileURL);
 //iTM2_LOG(@"path: %@",[fileURL path]);
-		if([D writeToURL:fileURL options:NSAtomicWrite error:outError])
-//		if([D writeToURL:fileURL options:0 error:outError])
+		if([D writeToURL:fileURL options:NSAtomicWrite error:outErrorPtr])
+//		if([D writeToURL:fileURL options:0 error:outErrorPtr])
 		{
 //RL fileiTM2_LOG(@"SAVED: %@",[NSDictionary dictionaryWithContentsOfURL:fileURL]);
 			[self recordHandleToFileName:path];
@@ -237,13 +237,13 @@ To Do List:
 		}
 		else
 		{
-			iTM2_OUTERROR(2,([NSString stringWithFormat:@"Could not write %@ to\n%@", iTM2ProjectInfoType, fileURL]), (outError?*outError:nil));
+			iTM2_OUTERROR(2,([NSString stringWithFormat:@"Could not write %@ to\n%@", iTM2ProjectInfoType, fileURL]), (outErrorPtr?*outErrorPtr:nil));
 			return NO;
 		}
 	}
 	else
 	{
-		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Could create data for\n%@", iTM2ProjectInfoType]), (outError?*outError:nil));
+		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Could create data for\n%@", iTM2ProjectInfoType]), (outErrorPtr?*outErrorPtr:nil));
 		return NO;
 	}
 }
@@ -2811,8 +2811,8 @@ To Do List:
 	return;
 }
 #pragma mark =-=-=-=-=-  OPEN SUBDOCUMENT
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSubdocumentWithContentsOfURL:context:display:outError:
-- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outError;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSubdocumentWithContentsOfURL:context:display:outErrorPtr:
+- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outErrorPtr;
 /*"Returns the contextInfo of its document.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3:07/26/2003
@@ -2820,8 +2820,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(outError)
-		* outError = nil;
+	if(outErrorPtr)
+		* outErrorPtr = nil;
 	if([fileURL isEqual:[self fileURL]])
 	{
 		if(display)
@@ -2883,7 +2883,7 @@ tahiti:
 	{
 		// Is it a document managed by iTeXMac2? Some document might need an external helper
 		NSString * typeName = [SDC typeFromFileExtension:[fileName pathExtension]];
-		if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outError])
+		if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outErrorPtr])
 		{
 			if([typeName isEqualToString:iTM2WildcardDocumentType])
 			{
@@ -2902,15 +2902,15 @@ tahiti:
 			goto tahiti;
 		}
 //iTM2_LOG(@"INFO:Could open document %@", fileName);
-		if(outError)
+		if(outErrorPtr)
 		{
-			iTM2_OUTERROR(1,([NSString stringWithFormat:@"Cocoa could not create document at\n%@", fileURL]),*outError);
+			iTM2_OUTERROR(1,([NSString stringWithFormat:@"Cocoa could not create document at\n%@", fileURL]),*outErrorPtr);
 		}
 		return nil;
 	}
 	// is it an already registered document that changed its name?
 	NSString * typeName = [SDC typeFromFileExtension:[fileName pathExtension]];
-    if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outError])
+    if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outErrorPtr])
     {
         [self addSubdocument:doc];
 //iTM2_LOG(@"self:%@, has documents:%@", self, [self subdocuments]);
@@ -2923,8 +2923,8 @@ tahiti:
 //iTM2_END;
     return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSubdocumentForKey:display:outError:
-- (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outError;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSubdocumentForKey:display:outErrorPtr:
+- (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outErrorPtr;
 /*"Description forthhcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3:07/26/2003
@@ -2932,9 +2932,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(outError)
+	if(outErrorPtr)
 	{
-		* outError = nil;
+		* outErrorPtr = nil;
 	}
 	// is it a document already open by the project
 	id SD = [self subdocumentForKey:key];
@@ -2979,7 +2979,7 @@ onceMore:
 			// both are the same, this is the expected situation.
 absoluteFileNameIsChosen:
 			fileURL = [NSURL fileURLWithPath:absoluteFileName];
-			return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
+			return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
 		}
 		else if([DFM fileExistsAtPath:farawayFileName])
 		{
@@ -2989,8 +2989,7 @@ absoluteFileNameIsChosen:
 			[NSApp activateIgnoringOtherApps:YES];
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Which one do you want?", NSLocalizedDescriptionKey,
-				[NSString stringWithFormat:@"1:%@\nor\n2:%@",absoluteFileName, farawayFileName], NSLocalizedFailureReasonErrorKey,
-				@"1 will be chosen unless you remove it now from the Finder.", NSLocalizedRecoverySuggestionErrorKey,
+				[NSString stringWithFormat:@"1:%@\nor\n2:%@\n1 will be chosen unless you remove it now from the Finder.", absoluteFileName, farawayFileName], NSLocalizedRecoverySuggestionErrorKey,
 					nil];
 			[self presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3 userInfo:dict]];
 			if(onceMore)
@@ -3012,7 +3011,7 @@ absoluteFileNameIsChosen:
 	{
 		// I also choose the absolute file name.
 		fileURL = [NSURL fileURLWithPath:farawayFileName];
-		return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
+		return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
 	}
 	else if([absoluteFileName length])
 	{
@@ -3023,7 +3022,7 @@ absoluteFileNameIsChosen:
 			{
 				[self setFileName:recorded forKey:key makeRelative:YES];
 				fileURL = [NSURL fileURLWithPath:recorded];
-				return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
+				return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
 			}
 			else
 			{
@@ -3031,19 +3030,19 @@ absoluteFileNameIsChosen:
 				if([DFM copyPath:recorded toPath:absoluteFileName handler:NULL])
 				{
 					fileURL = [NSURL fileURLWithPath:absoluteFileName];
-					return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outError];
+					return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
 				}
 			}
 		}
 		if([farawayFileName pathIsEqual:absoluteFileName])
 		{
 			// problem: no file available
-			iTM2_OUTERROR(2,([NSString stringWithFormat:@"No file at\n%@",absoluteFileName]),(outError?*outError:nil));
+			iTM2_OUTERROR(2,([NSString stringWithFormat:@"No file at\n%@",absoluteFileName]),(outErrorPtr?*outErrorPtr:nil));
 		}
 		else
 		{
 			// problem: no files available
-			iTM2_OUTERROR(1,([NSString stringWithFormat:@"No file at\n%@\nnor\n%@",absoluteFileName,farawayFileName]),(outError?*outError:nil));
+			iTM2_OUTERROR(1,([NSString stringWithFormat:@"No file at\n%@\nnor\n%@",absoluteFileName,farawayFileName]),(outErrorPtr?*outErrorPtr:nil));
 		}
 	}
 	// else the key does not correspond to a file, it has certainly been removed and we've been asked for a scorie.
@@ -3203,7 +3202,7 @@ To Do List:
 //- (BOOL)writeToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName originalFile:(NSString *)fullOriginalDocumentPath saveOperation:(NSSaveOperationType)saveOperation;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeSafelyToURL:ofType:forSaveOperation:error:
 //- (BOOL)writeWithBackupToFile:(NSString *)fullProjectPath ofType:(NSString *)docType saveOperation:(NSSaveOperationType)saveOperation;
-- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError
+- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outErrorPtr
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3226,12 +3225,12 @@ To Do List:
 	{
 		iTM2_LOG(@"*** TEST: what the hell, I want to change the current directory to %@", fullProjectPath);
 	}
-	BOOL result = [super writeSafelyToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation error:outError];
+	BOOL result = [super writeSafelyToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation error:outErrorPtr];
 	if(!result)
 	{
-		iTM2_LOG(@"WHAT CAN I DO, no save possible...%@", (outError?*outError:@"NOTHING"));
+		iTM2_LOG(@"WHAT CAN I DO, no save possible...%@", (outErrorPtr?*outErrorPtr:@"NOTHING"));
 	}
-	if(![DFM changeFileAttributes:[self fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteURL error:outError] atPath:fullProjectPath])
+	if(![DFM changeFileAttributes:[self fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteURL error:outErrorPtr] atPath:fullProjectPath])
 	{
 		iTM2_LOG(@"*** ERROR: could not change the file attributes at path:%@", fullProjectPath);
 	}
@@ -3266,7 +3265,7 @@ To Do List:
 		{
 			if([D isDocumentEdited])
 			{
-				if([D writeSafelyToURL:[D fileURL] ofType:[D fileType] forSaveOperation:saveOperation error:outError])
+				if([D writeSafelyToURL:[D fileURL] ofType:[D fileType] forSaveOperation:saveOperation error:outErrorPtr])
 				{
 					[D updateChangeCount:NSChangeCleared];
 				}
@@ -3299,7 +3298,7 @@ To Do List:
 			}
 			if([D isDocumentEdited])
 			{
-				if([D writeSafelyToURL:[D fileURL] ofType:[D fileType] forSaveOperation:saveOperation error:outError])
+				if([D writeSafelyToURL:[D fileURL] ofType:[D fileType] forSaveOperation:saveOperation error:outErrorPtr])
 				{
 					[D updateChangeCount:NSChangeCleared];
 				}
@@ -3325,7 +3324,7 @@ To Do List:
 				NSString * fullPath = [fullProjectPath stringByAppendingPathComponent:relativePath];
 				[DFM createDeepDirectoryAtPath:[fullPath stringByDeletingLastPathComponent] attributes:nil error:nil];
 				NSURL * url = [NSURL fileURLWithPath:fullPath];
-				if(![D writeSafelyToURL:url ofType:[D fileType] forSaveOperation:saveOperation error:outError])
+				if(![D writeSafelyToURL:url ofType:[D fileType] forSaveOperation:saveOperation error:outErrorPtr])
 				{
 					iTM2_LOG(@"*** FAILURE: document for key %@ could not be saved", K);
 					result = NO;
@@ -3390,7 +3389,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectMetaCompleteWriteToURL:ofType:error:
-- (BOOL)projectMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)projectMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3401,12 +3400,12 @@ To Do List:
 	NSString * fileName = [fileURL path];
     NSString * FN = [fileName stringByAppendingPathComponent:TWSFrontendComponent];
 	FN = [FN stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
-	if(![DFM createDeepDirectoryAtPath:FN attributes:nil error:outError])
+	if(![DFM createDeepDirectoryAtPath:FN attributes:nil error:outErrorPtr])
 		return NO;
     FN = [FN stringByAppendingPathComponent:iTM2ProjectMetaInfoComponent];
     FN = [FN stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
 	NSData * D = [IMPLEMENTATION dataRepresentationOfModelOfType:iTM2ProjectMetaType];
-	if(D && ![D writeToURL:[NSURL fileURLWithPath:FN] options:NSAtomicWrite error:outError])
+	if(D && ![D writeToURL:[NSURL fileURLWithPath:FN] options:NSAtomicWrite error:outErrorPtr])
 	{
 		iTM2_LOG(@"Could not write front end data to %@", FN);
 	}
@@ -3418,7 +3417,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareProjectMetaCompleteWriteToURL:ofType:error:
-- (BOOL)prepareProjectMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)prepareProjectMetaCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3426,7 +3425,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//	[self prepareFrontendCompleteWriteToURL:fileURL ofType:type error:outError];// create the frontend dedicated directory inside the project
+//	[self prepareFrontendCompleteWriteToURL:fileURL ofType:type error:outErrorPtr];// create the frontend dedicated directory inside the project
 	NSMutableArray * mra = [NSMutableArray array];
 	NSEnumerator * E = [[self subdocuments] objectEnumerator];
 	id D;
@@ -3448,7 +3447,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareFrontendCompleteWriteToURL:ofType:error:
-- (BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -3498,9 +3497,9 @@ To Do List:
 			}
 			if(![DFM removeFileAtPath:fileName handler:nil])
 			{
-				if(outError)
+				if(outErrorPtr)
 				{
-					*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
+					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
 						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove\n%@\nDon't be surprised if things don't work as expected...", fileNamePutAside] forKey:NSLocalizedDescriptionKey]];
 				}
 				else
@@ -3533,7 +3532,7 @@ Zatsoquet:
 	}
 	else
 	{
-		if(![DFM createDeepDirectoryAtPath:fileName attributes:nil error:outError])
+		if(![DFM createDeepDirectoryAtPath:fileName attributes:nil error:outErrorPtr])
 		{
 			iTM2_LOG(@"Could not create directory at %@", fileName);
 			if([DFM fileExistsAtPath:[fileURL path] isDirectory:&isDir])
@@ -3547,7 +3546,7 @@ Zatsoquet:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteReadFromURL:ofType:error:
-- (BOOL)projectCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)projectCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3590,7 +3589,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteWriteToURL:ofType:error:
-- (BOOL)projectCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outError;
+- (BOOL)projectCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3605,7 +3604,7 @@ To Do List:
     FN = [fileName stringByAppendingPathComponent:FN];
 	NSURL * url = [NSURL fileURLWithPath:FN];
 	NSData * D = [IMPLEMENTATION dataRepresentationOfModelOfType:iTM2ProjectFrontendType];
-    return !D || [D writeToURL:url options:NSAtomicWrite error:outError];
+    return !D || [D writeToURL:url options:NSAtomicWrite error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveAllSubdocumentsWithDelegate:didSaveSelector:contextInfo:
 - (void)saveAllSubdocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
@@ -3673,13 +3672,13 @@ To Do List:
 		[UM enableUndoRegistration];
 	NSURL * fileURL = [self fileURL];
 	NSString * filetype = [self fileType];
-	NSError ** outError = nil;
+	NSError ** outErrorPtr = nil;
     NSMethodSignature * sig0 = [self methodSignatureForSelector:@selector(writeToURL:ofType:error:)];
     NSInvocation * I = [[NSInvocation invocationWithMethodSignature:sig0] retain];
     [I setTarget:self];
     [I setArgument:&fileURL atIndex:2];
     [I setArgument:&filetype atIndex:3];
-    [I setArgument:&outError atIndex:4];
+    [I setArgument:&outErrorPtr atIndex:4];
     NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"MetaCompleteWriteToURL:ofType:error:" signature:sig0 inherited:YES] objectEnumerator];
     SEL selector;
     while(selector = (SEL)[[E nextObject] pointerValue])
@@ -5210,14 +5209,14 @@ NSString * const iTM2ProjectCurrentDidChangeNotification = @"iTM2CurrentProjectD
     @param      None
     @result     a Project document
 */
-- (id)getProjectForFarawayFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
-- (id)getContextProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
-- (id)getFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)getProjectForFarawayFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)getContextProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)getFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 - (id)getOpenProjectForFileName:(NSString *)fileName;
 - (id)getBaseProjectForFileName:(NSString *)fileName;
-- (NSString *)getProjectNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outError;
-- (id)getProjectInWrapperForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
-- (id)getProjectInHierarchyForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (NSString *)getProjectNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
+- (id)getProjectInWrapperForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)getProjectInHierarchyForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 - (Class)newProjectPanelControllerClass;
 @end
 
@@ -6058,7 +6057,7 @@ To Do List:
     return [[TWSFrontendComponent stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"Soft Links"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextProjectForFileName:display:error:
-- (id)getContextProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)getContextProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -6139,8 +6138,8 @@ To Do List:
 			}
 		}
 	}
-	NSString * typeName = [SDC typeForContentsOfURL:url error:outError];
-	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outError])
+	NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
+	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
 	{
 		[projectDocument fixProjectConsistency];
 		NSString * key = [projectDocument keyForFileName:fileName];
@@ -6178,7 +6177,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPrimaryFarawayProjectForFileName:display:error:
-- (id)getPrimaryFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)getPrimaryFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -6221,9 +6220,9 @@ To Do List:
 		projectName = standardProjectName;
 	}
 	NSURL * url = [NSURL fileURLWithPath:projectName];
-	NSString * typeName = [SDC typeForContentsOfURL:url error:outError];
+	NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
 	iTM2ProjectDocument * projectDocument = nil;
-	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outError])
+	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
 	{
 		[projectDocument fixProjectConsistency];
 		[SDC addDocument:projectDocument];// register the project document as side effect
@@ -6242,7 +6241,7 @@ To Do List:
 	projectName = [projectName stringByAppendingPathExtension:[SDC projectPathExtension]];
 	projectName = [farawayProjectsDirectory stringByAppendingPathComponent:projectName];
 	url = [NSURL fileURLWithPath:projectName];
-	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outError])
+	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
 	{
 		[projectDocument fixProjectConsistency];
 		[SDC addDocument:projectDocument];// register the project document as side effect
@@ -6258,7 +6257,7 @@ To Do List:
     return projectDocument;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getSecondaryFarawayProjectForFileName:display:error:
-- (id)getSecondaryFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)getSecondaryFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -6286,7 +6285,7 @@ To Do List:
 		wrapperName = [farawayProjectsDirectory stringByAppendingPathComponent:component];
 		if([SWS isWrapperPackageAtPath:wrapperName])
 		{
-			projectName = [self getProjectNameInWrapperForFileNameRef:&wrapperName error:outError];
+			projectName = [self getProjectNameInWrapperForFileNameRef:&wrapperName error:outErrorPtr];
 			if(projectName)
 			{
 				if(projectURL = [NSURL fileURLWithPath:projectName])
@@ -6305,7 +6304,7 @@ To Do List:
 					}
 					else if([DFM fileExistsAtPath:projectName isDirectory:&isDirectory])
 					{
-						if(isDirectory && (projectDocument = [SDC makeDocumentWithContentsOfURL:projectURL ofType:typeName error:outError]))
+						if(isDirectory && (projectDocument = [SDC makeDocumentWithContentsOfURL:projectURL ofType:typeName error:outErrorPtr]))
 						{
 							if([[projectDocument keyForFileName:fileName] length])
 							{
@@ -6364,8 +6363,8 @@ clean:
 			wrapperName = [projectName enclosingWrapperFileName];
 			if(![DFM removeFileAtPath:wrapperName handler:NULL])
 			{
-				if(outError)
-					* outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+				if(outErrorPtr)
+					* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove the wrapper directory at\n%@\nPlease, do it for me.", wrapperName]
 						forKey:NSLocalizedDescriptionKey]];
 			}
@@ -6389,8 +6388,8 @@ clean:
 	{
 //iTM2_LOG(@"WE have found our project", [SDC documents]);
 		// we found only one project that declares the fileName: it is the good one
-		if(outError)
-			* outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+		if(outErrorPtr)
+			* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects for:\n%@", fileName]
 				forKey:NSLocalizedDescriptionKey]];
 		projectDocument = [secondaryOpenCandidates objectAtIndex:0];
@@ -6408,7 +6407,7 @@ clean:
 		[SPC setProject:projectDocument forFileName:fileName];
 		projectName = [projectDocument fileName];
 		projectURL = [NSURL fileURLWithPath:projectName];
-		projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outError];
+		projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outErrorPtr];
 		goto clean;
 	}
 	else if([primaryCandidates count])
@@ -6424,7 +6423,7 @@ clean:
 		[SPC setProject:projectDocument forFileName:fileName];
 		projectName = [projectDocument fileName];
 		projectURL = [NSURL fileURLWithPath:projectName];
-		projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outError];
+		projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outErrorPtr];
 		goto clean;
 	}
 	else if([secondaryCandidates count])
@@ -6440,7 +6439,7 @@ clean:
 	return projectDocument;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getFarawayProjectForFileName:display:error:
-- (id)getFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)getFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -6450,18 +6449,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2ProjectDocument * projectDocument = [self getProjectForFarawayFileName:fileName display:display error:outError];
+	iTM2ProjectDocument * projectDocument = [self getProjectForFarawayFileName:fileName display:display error:outErrorPtr];
 	if(projectDocument)
 		return projectDocument;
-	else if(projectDocument = [self getPrimaryFarawayProjectForFileName:fileName display:display error:outError])
+	else if(projectDocument = [self getPrimaryFarawayProjectForFileName:fileName display:display error:outErrorPtr])
 		return projectDocument;
-	else if(projectDocument = [self getSecondaryFarawayProjectForFileName:fileName display:display error:outError])
+	else if(projectDocument = [self getSecondaryFarawayProjectForFileName:fileName display:display error:outErrorPtr])
 		return projectDocument;
 //iTM2_END;
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getProjectForFarawayFileName:display:error:
-- (id)getProjectForFarawayFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)getProjectForFarawayFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -6480,7 +6479,7 @@ To Do List:
 		path = [path stringByAppendingPathComponent:iTM2ProjectComponent];
 		path = [path stringByAppendingPathExtension:[SDC projectPathExtension]];
 		NSURL * url = [NSURL fileURLWithPath:path];
-		id projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outError];
+		id projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
 		[projectDocument fixProjectConsistency];
 		[SPC setProject:projectDocument forFileName:fileName];
 		return projectDocument;
@@ -6554,7 +6553,7 @@ To Do List:
     return [BASE_PROJECTS objectForKey:fileName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getProjectNameInWrapperForFileNameRef:error:
-- (NSString *)getProjectNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outError;
+- (NSString *)getProjectNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -6597,9 +6596,9 @@ To Do List:
 				{
 					return projectName;
 				}
-				if(outError)
+				if(outErrorPtr)
 				{
-					*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects in the wrapper directory at\n%@\nChoosing the last one.", wrapperName] forKey:NSLocalizedDescriptionKey]];
 				}
 				return nil;
@@ -6625,14 +6624,14 @@ To Do List:
 					}
 				}
 				url = [NSURL fileURLWithPath:projectName];
-				if([DFM createDeepDirectoryAtPath:projectName attributes:nil error:outError])
+				if([DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr])
 				{
-					projectDocument = [SDC openDocumentWithContentsOfURL:url display:NO error:outError];
+					projectDocument = [SDC openDocumentWithContentsOfURL:url display:NO error:outErrorPtr];
 					[projectDocument fixProjectConsistency];
 				}
 				else
 				{
-					projectDocument = [SDC makeUntitledDocumentOfType:[SDC projectPathExtension] error:outError];
+					projectDocument = [SDC makeUntitledDocumentOfType:[SDC projectPathExtension] error:outErrorPtr];
 					[projectDocument setFileURL:url];
 					[projectDocument setFileType:[SDC projectDocumentType]];
 					[projectDocument fixProjectConsistency];
@@ -6648,9 +6647,9 @@ To Do List:
 				}
 				else
 				{
-					if(outError)
+					if(outErrorPtr)
 					{
-						*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+						*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.", wrapperName] forKey:NSLocalizedDescriptionKey]];
 					}
 					return nil;
@@ -6659,9 +6658,9 @@ To Do List:
 		}
 		else
 		{
-			if(outError)
+			if(outErrorPtr)
 			{
-				*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+				*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"ERROR:There might be a link at %@:it is no yet supported by iTeXMac2", fileName]
 						forKey:NSLocalizedDescriptionKey]];
 			}
@@ -6672,7 +6671,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getProjectInWrapperForFileNameRef:display:error:
-- (id)getProjectInWrapperForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
+- (id)getProjectInWrapperForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -6683,11 +6682,11 @@ To Do List:
 	if(!fileNameRef)
 		return nil;
 	NSString * fileName = [*fileNameRef stringByStandardizingPath];
-	NSString * projectName = [self getProjectNameInWrapperForFileNameRef:fileNameRef error:outError];
+	NSString * projectName = [self getProjectNameInWrapperForFileNameRef:fileNameRef error:outErrorPtr];
 	if([projectName length])
 	{
 		NSURL * url = [NSURL fileURLWithPath:projectName];
-		iTM2ProjectDocument * projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outError];
+		iTM2ProjectDocument * projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
 		[projectDocument fixProjectConsistency];
 		[projectDocument newKeyForFileName:fileName];
 		[SPC setProject:projectDocument forFileName:fileName];
@@ -6697,7 +6696,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getProjectInHierarchyForFileName:display:error:
-- (id)getProjectInHierarchyForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)getProjectInHierarchyForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -6727,7 +6726,7 @@ scanDirectoryContent:
 			projectDocument = [SDC documentForURL:url];
 			if(!projectDocument)
 			{
-				projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:[SDC projectDocumentType] error:outError];
+				projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:[SDC projectDocumentType] error:outErrorPtr];
 			}
 			if([[projectDocument keyForFileName:fileName] length])
 				[candidates addObject:projectDocument];
@@ -6781,7 +6780,7 @@ scanDirectoryContent:
 		projectDocument = [secondaryCandidates objectAtIndex:0];
 		[SDC addDocument:projectDocument];
 		projectURL = [projectDocument fileURL];
-		if(projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outError])
+		if(projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outErrorPtr])
 		{
 			[SPC setProject:projectDocument forFileName:fileName];
 			return projectDocument;
@@ -6806,7 +6805,7 @@ scanDirectoryContent:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newFarawayProjectForFileName:display:error:
-- (id)newFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outError;
+- (id)newFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -6817,7 +6816,7 @@ To Do List:
 	// create an faraway project
 	NSString * farawayProjectsDirectory = [NSString farawayProjectsDirectory];
 	NSString * typeName = [SDC projectDocumentType];
-	iTM2ProjectDocument * projectDocument = [SDC makeUntitledDocumentOfType:typeName error:outError];
+	iTM2ProjectDocument * projectDocument = [SDC makeUntitledDocumentOfType:typeName error:outErrorPtr];
 	if(projectDocument)
 	{
 		NSString * component = [fileName lastPathComponent];
@@ -6841,25 +6840,25 @@ To Do List:
 								forKey:NSLocalizedDescriptionKey]]];
 					if([DFM fileExistsAtPath:farawayWrapperName isDirectory:nil])
 					{
-						if(outError)
+						if(outErrorPtr)
 						{
-							*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+							*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
 								userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"You did not remove file at\n%@\nNo project created...", farawayWrapperName]
 										forKey:NSLocalizedDescriptionKey]];
 						}
 						return nil;
 					}
 createWrapper:
-					if(![DFM createDeepDirectoryAtPath:farawayWrapperName attributes:nil error:outError])
+					if(![DFM createDeepDirectoryAtPath:farawayWrapperName attributes:nil error:outErrorPtr])
 					{
 						[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
 								userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create folder at\n%@\nPlease do it for me now and click OK", farawayWrapperName]
 									forKey:NSLocalizedDescriptionKey]]];
 						if(![DFM fileExistsAtPath:farawayWrapperName isDirectory:&isDirectory] || !isDirectory)
 						{
-							if(outError)
+							if(outErrorPtr)
 							{
-								*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+								*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
 									userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"You did not create folder at\n%@\nNo project created", farawayWrapperName]
 										forKey:NSLocalizedDescriptionKey]];
 							}
@@ -6875,9 +6874,9 @@ createWrapper:
 		}
 		NSString * projectName = [farawayWrapperName stringByAppendingPathComponent:coreName];
 		projectName = [projectName stringByAppendingPathExtension:[SDC projectPathExtension]];
-		if(![DFM createDeepDirectoryAtPath:projectName attributes:nil error:outError] && outError && *outError)
+		if(![DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr] && outErrorPtr && *outErrorPtr)
 		{
-			[SDC presentError:*outError];
+			[SDC presentError:*outErrorPtr];
 		}
 		NSURL * url = [NSURL fileURLWithPath:projectName];
 //iTM2_LOG(@"url: %@", url);
@@ -6942,7 +6941,7 @@ To Do List:
     return [iTM2NewProjectController class];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getProjectFromPanelForFileNameRef:display:error:
-- (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
+- (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -6961,7 +6960,7 @@ To Do List:
 	if(![DFM isWritableFileAtPath:dirName])
 	{
 		// no need to go further
-		id projectDocument = [self newFarawayProjectForFileName:fileName display:display error:outError];
+		id projectDocument = [self newFarawayProjectForFileName:fileName display:display error:outErrorPtr];
 		[SPC setProject:projectDocument forFileName:fileName];
 		return projectDocument;
 	}
@@ -7041,13 +7040,13 @@ To Do List:
 			id projectDocument = nil;
 			NSURL * absoluteURL = [NSURL fileURLWithPath:projectName];
 			NSString * typeName = [SDC typeFromFileExtension:[projectName pathExtension]];
-			if([SWS isProjectPackageAtPath:projectName] || [DFM createDeepDirectoryAtPath:projectName attributes:nil error:outError])
+			if([SWS isProjectPackageAtPath:projectName] || [DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr])
 			{
-				projectDocument = [SDC openDocumentWithContentsOfURL:absoluteURL display:NO error:outError];
+				projectDocument = [SDC openDocumentWithContentsOfURL:absoluteURL display:NO error:outErrorPtr];
 			}
 			else
 			{
-				projectDocument = [[[SDC makeUntitledDocumentOfType:typeName error:outError] retain] autorelease];
+				projectDocument = [[[SDC makeUntitledDocumentOfType:typeName error:outErrorPtr] retain] autorelease];
 				[projectDocument setFileURL:absoluteURL];
 				[projectDocument saveDocument:self];
 				[SDC addDocument:projectDocument];
@@ -7109,7 +7108,7 @@ To Do List:
 		case iTM2ToggleStandaloneMode:
 		{
 			// where shall I find this project document?
-			id projectDocument = [self newFarawayProjectForFileName:fileName display:display error:outError];
+			id projectDocument = [self newFarawayProjectForFileName:fileName display:display error:outErrorPtr];
 			[controller setUpProject:projectDocument];
 			[SPC setProject:projectDocument forFileName:fileName];//iTM2ProjectDocument
 			return projectDocument;
@@ -7176,7 +7175,7 @@ To Do List:
 	return fileNameRef && ![REENTRANT_PROJECT containsObject:*fileNameRef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newProjectForFileNameRef:display:error:
-- (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outError;
+- (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -7208,10 +7207,10 @@ To Do List:
 	[[SDC typeFromFileExtension:[*fileNameRef pathExtension]] isEqualToString:projectDocumentType]
 	|| ![SDC documentClassForType:projectDocumentType]
 	|| (projectDocument = [self getOpenProjectForFileName:*fileNameRef])
-	|| (projectDocument = [self getProjectInWrapperForFileNameRef:fileNameRef display:display error:outError])
-	|| (projectDocument = [self getProjectInHierarchyForFileName:*fileNameRef display:display error:outError])
-	|| (projectDocument = [self getFarawayProjectForFileName:*fileNameRef display:display error:outError])
-	|| (projectDocument = [self getProjectFromPanelForFileNameRef:fileNameRef display:display error:outError]);
+	|| (projectDocument = [self getProjectInWrapperForFileNameRef:fileNameRef display:display error:outErrorPtr])
+	|| (projectDocument = [self getProjectInHierarchyForFileName:*fileNameRef display:display error:outErrorPtr])
+	|| (projectDocument = [self getFarawayProjectForFileName:*fileNameRef display:display error:outErrorPtr])
+	|| (projectDocument = [self getProjectFromPanelForFileNameRef:fileNameRef display:display error:outErrorPtr]);
 	[self setProject:projectDocument forFileName:*fileNameRef];
 	[self didGetNewProjectForFileNameRef:fileNameRef];
 	return projectDocument;
@@ -8084,7 +8083,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openDocumentWithContentsOfURL:display:error:
-- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)display error:(NSError **)outError;
+- (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"This one is responsible of the management of the project, including the wrapper.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3:07/26/2003
@@ -8092,16 +8091,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(outError)
-		*outError = nil;
+	if(outErrorPtr)
+		*outErrorPtr = nil;
 	if(![absoluteURL isFileURL])
 	{// I only catch file URLs
-		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outError];
+		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 	}
 	NSString * fileName = [[absoluteURL path] stringByStandardizingPath];// not a link!
 	if(![fileName length])
 	{
-		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outError];
+		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 	}
 	if([[fileName pathComponents] containsObject:@".Trash"])
 	{
@@ -8123,7 +8122,7 @@ To Do List:
 	if(D = [self documentForURL:absoluteURL])
 	{
 #warning There was a problem: there is a document but it cannot be opened
-		id D1 = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outError];
+		id D1 = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 		if(D1)
 		{
 			return D1;
@@ -8143,7 +8142,7 @@ To Do List:
 		// B - is it a wrapper document?
 	if([SWS isWrapperPackageAtPath:fileName])
 	{
-		NSString * projectName = [SPC getProjectNameInWrapperForFileNameRef:&fileName error:outError];
+		NSString * projectName = [SPC getProjectNameInWrapperForFileNameRef:&fileName error:outErrorPtr];
 		if([projectName length])
 		{
 			NSAssert1(![SWS isWrapperPackageAtPath:projectName], @"%@\nshould not be a wrapper package.", projectName);
@@ -8151,7 +8150,7 @@ To Do List:
 			// get an embedded project
 			NSURL * url = [NSURL fileURLWithPath:projectName];
 			NSAssert1(![url isEqual:absoluteURL], @"What is this project name:<%@>", projectName);
-			return [self openDocumentWithContentsOfURL:url display:display error:outError];
+			return [self openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
 		}
 		else
 		{
@@ -8166,7 +8165,7 @@ To Do List:
 	else if([SWS isProjectPackageAtPath:fileName])
 	{
 #warning WE DO NOT MANAGE read access yet?
-		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outError];
+		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 	}
 	else if(isDirectory)
 	{
@@ -8186,7 +8185,7 @@ To Do List:
 			subpath = [subpaths lastObject];
 			subpath = [fileName stringByAppendingPathComponent:subpath];
 			url = [NSURL fileURLWithPath:subpath];
-			return [self openDocumentWithContentsOfURL:url display:display error:outError];
+			return [self openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
 		}
 		else if([subpaths count])
 		{
@@ -8228,30 +8227,30 @@ To Do List:
 	if(projectDocument)
     {
 //iTM2_LOG(@"1");
-		return [projectDocument openSubdocumentWithContentsOfURL:absoluteURL context:nil display:display error:outError];
+		return [projectDocument openSubdocumentWithContentsOfURL:absoluteURL context:nil display:display error:outErrorPtr];
     }
 	// Did the file stored project information in its context?
-	if(projectDocument = [SPC getContextProjectForFileName:fileName display:display error:outError])
+	if(projectDocument = [SPC getContextProjectForFileName:fileName display:display error:outErrorPtr])
     {
 //iTM2_LOG(@"1");
-		return [projectDocument openSubdocumentWithContentsOfURL:absoluteURL context:nil display:display error:outError];
+		return [projectDocument openSubdocumentWithContentsOfURL:absoluteURL context:nil display:display error:outErrorPtr];
     }
 	//I needed to know if the document did not want a project,
 #warning NYI:MISSING WORK HERE
 	// Do I have to create a project, opening another file?
 	NSString * name = [[fileName copy] autorelease];
 	// What about documents in read only folders?
-    if(projectDocument = [SPC newProjectForFileNameRef:&name display:display error:outError])
+    if(projectDocument = [SPC newProjectForFileNameRef:&name display:display error:outErrorPtr])
     {
 		url = [NSURL fileURLWithPath:name];// beware:the name, not the fileName!
-		return [projectDocument openSubdocumentWithContentsOfURL:url context:nil display:display error:outError];
+		return [projectDocument openSubdocumentWithContentsOfURL:url context:nil display:display error:outErrorPtr];
     }
     else
     {
 //iTM2_LOG(@"4");
 //iTM2_END;
 		url = [NSURL fileURLWithPath:fileName];
-		id doc = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outError];
+		id doc = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
         return doc;
     }
 }
@@ -9571,7 +9570,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeSafelyToURL:ofType:forSaveOperation:error:
-- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError
+- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outErrorPtr
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Mar 30 15:52:06 GMT 2005
