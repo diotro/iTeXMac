@@ -422,7 +422,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareCommandFrontendCompleteWriteToURL:ofType:error:
-- (BOOL)prepareCommandFrontendCompleteWriteToURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
+- (BOOL)prepareCommandFrontendCompleteWriteToURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

@@ -273,7 +273,7 @@ To Do List:
     return [result length]? result: @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"For the revert to saved.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -441,7 +441,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -536,7 +536,7 @@ To Do List:
         }
     }
     if(success)
-        [self readFromURL:absoluteURL ofType:typeName error:outError];
+        [self readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
     return success;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillLoad
