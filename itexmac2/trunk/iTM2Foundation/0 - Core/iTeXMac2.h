@@ -107,9 +107,9 @@ extern int iTM2DebugEnabled;
 #define myBUNDLE [self classBundle]
 
 #define iTM2_OUTERROR(TAG, STRING, UNDERLYING)\
-if(outError)\
+if(outErrorPtr)\
 {\
-	*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:TAG\
+	*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:STRING,NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
 				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])];\
