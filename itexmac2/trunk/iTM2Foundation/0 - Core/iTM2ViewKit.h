@@ -46,6 +46,8 @@
 - (void)removeSubviewsWithoutNeedingDisplay;
 - (NSPoint)absoluteFocus;
 - (NSControl *)controlWithAction:(SEL)action;
+- (NSArray *)subviewsWhichClassInheritsFromClass:(Class) aClass;
+- (NSView *)superviewMemberOfClass:(Class) aClass;
 /*"Overriden methods"*/
 @end
 

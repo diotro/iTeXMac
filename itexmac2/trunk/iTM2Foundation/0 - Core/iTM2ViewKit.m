@@ -332,6 +332,41 @@ To Do List:
 			break;
     return result;
 }
+- (NSArray *)subviewsWhichClassInheritsFromClass:(Class) aClass;
+{
+	NSMutableArray * result = [NSMutableArray array];
+	NSArray * subviews = [self subviews];
+	NSEnumerator * E = [subviews objectEnumerator];
+	NSView * subview = nil;
+	while(subview = [E nextObject])
+	{
+		if([subview isKindOfClass:aClass])
+		{
+			[result addObject:subview];
+		}
+		else
+		{
+			[result addObjectsFromArray:[subview subviewsWhichClassInheritsFromClass:aClass]];
+		}
+	}
+	return result;
+}
+- (NSView *)superviewMemberOfClass:(Class) aClass;
+{
+	NSView * superview = nil;
+	while(superview = [self superview])
+	{
+		if([superview isKindOfClass:aClass])
+		{
+			return superview;
+		}
+		else
+		{
+			self = superview;
+		}
+	}
+	return nil;
+}
 @end
 
 @implementation NSControl(iTM2ViewKit)
