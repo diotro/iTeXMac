@@ -451,7 +451,7 @@ To Do List:
 	return [[MD copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= printInfoCompleteReadFromURL:ofType:error:
-- (BOOL)printInfoCompleteReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outError;
+- (BOOL)printInfoCompleteReadFromURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -566,7 +566,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= readContextFromURL:ofType:error:
-- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError **)outError;
+- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -598,7 +598,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= writeContextToURL:ofType:error:
-- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outError;
+- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -857,7 +857,7 @@ To Do List:
 	return [self inspectorAddedWithMode:mode error:nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorAddedWithMode:error:
-- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outError;
+- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1310,7 +1310,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1323,9 +1323,9 @@ To Do List:
 		iTM2_LOG(@"absoluteURL:%@", absoluteURL);
 		iTM2_LOG(@"typeName:%@", typeName);
 	}
-	if(outError)
+	if(outErrorPtr)
 	{
-		*outError = nil;
+		*outErrorPtr = nil;
 	}
 	NSError * localError = nil;
 	[self readContextFromURL:absoluteURL ofType:typeName error:&localError];
@@ -1334,7 +1334,7 @@ To Do List:
 		[SDC presentError:localError];
 		localError = nil;
 	}
-	[super readFromURL:absoluteURL ofType:typeName error:outError];
+	[super readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
     [I setTarget:self];
@@ -1603,7 +1603,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
 //- (BOOL) writeToFile:(NSString *) fullDocumentPath ofType:(NSString *) typeName originalFile:(NSString *) fullOriginalDocumentPath saveOperation:(NSSaveOperationType) saveOperation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -1619,7 +1619,7 @@ To Do List:
 		NSLog(@"typeName:%@", typeName);
 		NSLog(@"saveOperation:%i", saveOperation);
 		NSLog(@"absoluteOriginalContentsURL:%@", absoluteOriginalContentsURL);
-		NSLog(@"error: %#x", outError);
+		NSLog(@"error: %#x", outErrorPtr);
 		NSLog(@"Directory exists:%@", ([DFM fileExistsAtPath:[[absoluteURL path] stringByDeletingLastPathComponent]]? @"YES":@"NO"));
 	}
 	[self willSave];
@@ -1674,9 +1674,9 @@ To Do List:
 			}
 			else
 			{
-				if(outError)
+				if(outErrorPtr)
 				{
-					*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath]
 							forKey:NSLocalizedDescriptionKey]];
 				}
@@ -1702,9 +1702,9 @@ To Do List:
 			if(![DFM fileExistsAtPath:fullDocumentPath isDirectory:nil]
 				&& ![DFM createDirectoryAtPath:fullDocumentPath attributes:nil])
 			{
-				if(outError)
+				if(outErrorPtr)
 				{
-					*outError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create a directory at\n%@", fullDocumentPath]
 							forKey:NSLocalizedDescriptionKey]];
 				}
@@ -1718,7 +1718,7 @@ To Do List:
 			if([D length])
 			{
 				NSString * path = [fullDocumentPath stringByAppendingPathComponent:@"..namedfork/rsrc"];
-				[D writeToFile:path options:NSAtomicWrite error:outError];
+				[D writeToFile:path options:NSAtomicWrite error:outErrorPtr];
 			}
 		}
 	}
@@ -1729,7 +1729,7 @@ To Do List:
     [I setArgument:&typeName atIndex:3];
     [I setArgument:&saveOperation atIndex:4];
     [I setArgument:&absoluteOriginalContentsURL atIndex:5];
-    [I setArgument:&outError atIndex:6];
+    [I setArgument:&outErrorPtr atIndex:6];
     NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:sig0 inherited:YES] objectEnumerator];
     SEL selector;
     while(selector = (SEL)[[E nextObject] pointerValue])
@@ -1745,11 +1745,11 @@ To Do List:
 		if(!R)
 		{
 			iTM2_LOG(@"FAILURE: %@\absoluteURL:%@\ntypeName:%@\nsaveOperation:%@\nabsoluteOriginalContentsURL:%@\nerror: %@",
-				NSStringFromSelector(selector), absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, outError);
+				NSStringFromSelector(selector), absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, *outErrorPtr);
 		}
         result = result && R;
     }
-	result = result && [self writeToURL:absoluteURL ofType:typeName error:outError];
+	result = result && [self writeToURL:absoluteURL ofType:typeName error:outErrorPtr];
     if(result)
     {
         if(saveOperation == NSSaveOperation || saveOperation == NSSaveAsOperation)
@@ -1763,7 +1763,7 @@ To Do List:
 		[I setArgument:&typeName atIndex:3];
 		[I setArgument:&saveOperation atIndex:4];
 		[I setArgument:&absoluteOriginalContentsURL atIndex:5];
-		[I setArgument:&outError atIndex:6];
+		[I setArgument:&outErrorPtr atIndex:6];
 		NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:sig0 inherited:YES] objectEnumerator];
 		SEL selector;
 		while(selector = (SEL)[[E nextObject] pointerValue])
@@ -1786,7 +1786,7 @@ To Do List:
 	if(!result)
 	{
 		iTM2_LOG(@"FAILURE \absoluteURL:%@\ntypeName:%@\nsaveOperation:%@\nabsoluteOriginalContentsURL:%@\nerror: %@",
-			absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, outError);
+			absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, *outErrorPtr);
 	}
 //iTM2_END;
 //iTM2_LOG(@"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -2104,7 +2104,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileAttributesToWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError;
+- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
 /*"From Developer/Documentation/Cocoa/TasksAndConcepts/ProgrammingTopics/Documents/Tasks/SavingHFSTypeCodes.html.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3:09/11/2003
@@ -2113,7 +2113,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSMutableDictionary * newAttributes = [NSMutableDictionary dictionaryWithDictionary:
-        [super fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outError]];
+        [super fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr]];
     NSDictionary *infoPlist = [[NSBundle mainBundle] infoDictionary];
     // First, set creatorCode to the HFS creator code for the application,
     // if it exists.
