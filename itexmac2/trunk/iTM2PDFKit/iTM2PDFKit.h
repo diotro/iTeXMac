@@ -82,6 +82,7 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
     IBOutlet NSSegmentedControl *_toolbarBackForwardView;
     IBOutlet NSPopUpButton *_toolbarDisplayBoxView;
 }
+- (PDFView *)pdfView;
 @end
 
 @interface iTM2PDFKitResponder: iTM2AutoInstallResponder
@@ -94,6 +95,17 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
 - (PDFDocument *)PDFDocument;
 - (void)setPDFDocument:(id)PDFDoc;
 @end
+
+typedef int iTM2PDFAreaOfInterest;
+enum
+{
+    kiTM2PDFZoomInArea = 1<<26, 
+    kiTM2PDFSelectArea = 1<<27, 
+    kiTM2PDFSelectLeftArea = 1<<28, 
+    kiTM2PDFSelectRightArea = 1<<29, 
+    kiTM2PDFSelectTopArea = 1<<30, 
+    kiTM2PDFSelectBottomArea = 1<<31
+};
 
 @interface iTM2PDFKitView: PDFView
 {
@@ -109,6 +121,8 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
 - (void)scrollDestinationToVisible:(PDFDestination *)destination;
 - (void)zoomToFit:(id)sender;
 - (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (iTM2ToolMode)toolMode;
+- (void)setToolMode:(iTM2ToolMode)argument;
 @end
 
 @interface PDFPage(iTM2SYNCKit)

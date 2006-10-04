@@ -23,10 +23,10 @@
 	<string>446.1</string>
 	<key>IBOpenObjects</key>
 	<array>
+		<integer>40</integer>
+		<integer>370</integer>
 		<integer>36</integer>
 		<integer>5</integer>
-		<integer>370</integer>
-		<integer>40</integer>
 	</array>
 	<key>IBSystem Version</key>
 	<string>8J2135a</string>

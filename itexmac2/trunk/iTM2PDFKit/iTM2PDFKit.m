@@ -541,6 +541,18 @@ To Do List:
 #import <AppKit/NSSegmentedCell.h>
 
 @implementation iTM2PDFKitWindow
+- (void)flagsChanged:(NSEvent *)theEvent;
+{
+	NSArray * subviews = [[self contentView] subviewsWhichClassInheritsFromClass:[PDFView class]];
+	NSEnumerator * E = [subviews objectEnumerator];
+	NSView * subview;
+	while(subview = [E nextObject])
+	{
+		[self invalidateCursorRectsForView:subview];
+	}
+	[super flagsChanged:theEvent];
+	return;
+}
 @end
 
 @implementation iTM2PDFKitInspector
@@ -593,20 +605,20 @@ To Do List:
 		[self setPDFOutlines:nil];
 		[[self PDFThumbnails] setArray:[NSArray array]];
 		[[self PDFSearchResults] setArray:[NSArray array]];
-		PDFDocument * doc = [_pdfView document];
+		PDFDocument * doc = [[self pdfView] document];
 		if(doc)
 		{
 			// store the geometry:
-			[self setScaleFactor:[_pdfView scaleFactor]];
-			PDFPage * page = [_pdfView currentPage];
+			[self setScaleFactor:[[self pdfView] scaleFactor]];
+			PDFPage * page = [[self pdfView] currentPage];
 			[self setDocumentViewVisiblePageNumber:[doc indexForPage:page]];
 			[doc setDelegate:nil];
-			[self setDocumentViewVisibleRect:[[_pdfView documentView] visibleRect]];
+			[self setDocumentViewVisibleRect:[[[self pdfView] documentView] visibleRect]];
 		}
 		[doc setDelegate:nil];
 		doc = [document PDFDocument];
-		[_pdfView setDocument:doc];
-//		[_pdfView setNeedsDisplay:YES];
+		[[self pdfView] setDocument:doc];
+//		[[self pdfView] setNeedsDisplay:YES];
 iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
 		[doc setDelegate:self];
 		if([_drawer state] == NSDrawerOpenState)
@@ -618,6 +630,17 @@ iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  album
 - (id)album;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [self pdfView];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfView
+- (PDFView *)pdfView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -644,11 +667,11 @@ To Do List:
 	[_tabViewControl setAction:@selector(_tabViewControlAction:)];
 	[_tabViewControl setTarget:self];
 	[[_tabViewControl cell] setTrackingMode:NSSegmentSwitchTrackingSelectOne];
-	[DNC addObserver:self selector:@selector(PDFViewPageChangedNotified:)  name:PDFViewPageChangedNotification  object:_pdfView];
-	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:_pdfView];
+	[DNC addObserver:self selector:@selector(PDFViewPageChangedNotified:)  name:PDFViewPageChangedNotification  object:[self pdfView]];
+	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:[self pdfView]];
 	PDFDocument * doc = [[self document] PDFDocument];
-	[_pdfView setDocument:doc];
-	[_pdfView setDelegate:self];
+	[[self pdfView] setDocument:doc];
+	[[self pdfView] setDelegate:self];
 	[doc setDelegate:self];
 	[self setPDFOutlines:nil];
 	[_outlinesView setTarget:self];
@@ -729,7 +752,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	PDFDocument * doc = [_pdfView document];
+	PDFDocument * doc = [[self pdfView] document];
     if ([doc isFinding])
 		[doc cancelFindString];
 	[_pdfTabView selectTabViewItemWithIdentifier: ([sender selectedSegment]? @"2":@"1")];
@@ -834,7 +857,7 @@ To Do List:
 //iTM2_START;
 	if(![[self PDFThumbnails] count])
 	{
-		unsigned index = [[_pdfView document] pageCount];
+		unsigned index = [[[self pdfView] document] pageCount];
 		while(index--)
 			[[self PDFThumbnails] addObject:[NSImage imageGenericImageDocument]];
 	}
@@ -916,7 +939,7 @@ loop:
 					{
 						unsigned int pageIndex = [N unsignedIntValue];
 						PDFView * pdfView = nil;
-						object_getInstanceVariable(inspector, "_pdfView", (void **)&pdfView);
+						object_getInstanceVariable(inspector, "[self pdfView]", (void **)&pdfView);
 						PDFDocument * doc = [pdfView document];
 						if(pageIndex < [doc pageCount])
 						{
@@ -995,7 +1018,7 @@ To Do List:
 	while(index--)
 		[_tabViewControl setSelected:NO forSegment:index];
 	[_pdfTabView selectTabViewItemWithIdentifier:@""];
-	PDFDocument * doc = [_pdfView document];
+	PDFDocument * doc = [[self pdfView] document];
     if ([doc isFinding])
 		[doc cancelFindString];
 	[[self PDFSearchResults] setArray:[NSArray array]];
@@ -1215,7 +1238,7 @@ To Do List:
 		else if(aTableView == _thumbnailTable)
 		{
 			unsigned int physicalPageIndex = rowIndex + 1;
-			PDFPage * page = [[_pdfView document] pageAtIndex:rowIndex];
+			PDFPage * page = [[[self pdfView] document] pageAtIndex:rowIndex];
 			NSString * label = [page label];
 			unsigned int logicalPageIndex = [label intValue];
 			if(physicalPageIndex == logicalPageIndex)
@@ -1247,13 +1270,13 @@ To Do List:
     {
 		if(TV == _searchTable)
 		{
-			[_pdfView setCurrentSelection:[[self PDFSearchResults] objectAtIndex:3*rowIndex]];
-			[_pdfView scrollSelectionToVisible:self];
+			[[self pdfView] setCurrentSelection:[[self PDFSearchResults] objectAtIndex:3*rowIndex]];
+			[[self pdfView] scrollSelectionToVisible:self];
 		}
 		else if(TV == _thumbnailTable)
 		{
-			PDFPage * page = [[_pdfView document] pageAtIndex:rowIndex];
-			[_pdfView goToPage:page];
+			PDFPage * page = [[[self pdfView] document] pageAtIndex:rowIndex];
+			[[self pdfView] goToPage:page];
 		}
     }
 	return;
@@ -1362,7 +1385,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [_pdfView goToDestination:[[[sender itemAtRow:[sender selectedRow]] representedObject] destination]];
+    [[self pdfView] goToDestination:[[[sender itemAtRow:[sender selectedRow]] representedObject] destination]];
 //iTM2_END;
 	return;
 }
@@ -1375,10 +1398,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	PDFDocument * doc = [_pdfView document];
+	PDFDocument * doc = [[self pdfView] document];
     if (![doc outlineRoot])
         return;
-    unsigned int newPageIndex = [doc indexForPage:[_pdfView currentPage]];
+    unsigned int newPageIndex = [doc indexForPage:[[self pdfView] currentPage]];
 	int row = [_outlinesView numberOfRows];
     while (row--)
     {
@@ -1403,7 +1426,7 @@ To Do List:
 //iTM2_START;
 	if(![self PDFOutlines])
 	{
-		PDFOutline * OLR = [[_pdfView document] outlineRoot];
+		PDFOutline * OLR = [[[self pdfView] document] outlineRoot];
 		[self setPDFOutlines:[[[iTM2TreeNode allocWithZone:[self zone]] initWithParent:nil value:OLR] autorelease]];
 		[[self PDFOutlines] setCountOfChildren:[OLR numberOfChildren]];
 		[_tabViewControl setEnabled: ([[self PDFOutlines] countOfChildren]>0) forSegment:1];
@@ -1423,7 +1446,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[[[self window] toolbar] validateVisibleItems];
-	PDFPage * page = [_pdfView currentPage];
+	PDFPage * page = [[self pdfView] currentPage];
 	[self setDocumentViewVisiblePageNumber:[[page document] indexForPage:page]];
 	[self updatePDFOutlineInformation];
 //iTM2_END;
@@ -1516,12 +1539,12 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolMode
 - (iTM2ToolMode)toolMode;
 {
-	return [metaGETTER intValue];
+	return [[self pdfView] toolMode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolMode:
 - (void)setToolMode:(iTM2ToolMode)argument;
 {
-	metaSETTER([NSNumber numberWithInt: (int)argument]);
+	[[self pdfView] setToolMode:argument];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canSynchronizeOutput
@@ -1547,7 +1570,7 @@ To Do List:
 //iTM2_START;
 //NSLog
 //NSLog(@"dpn");
-    [_pdfView takeCurrentPhysicalPage:page synchronizationPoint:P withHint:hint];
+    [[self pdfView] takeCurrentPhysicalPage:page synchronizationPoint:P withHint:hint];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
@@ -1579,7 +1602,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"[self contextDictionary] is: %@", [self contextDictionary]);
-	[self setDocumentViewVisibleRect:[[_pdfView documentView] visibleRect]];
+	[self setDocumentViewVisibleRect:[[[self pdfView] documentView] visibleRect]];
 //iTM2_START;
 	return;
 }
@@ -1594,7 +1617,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	PDFView * V = _pdfView;
+	PDFView * V = [self pdfView];
 	[V setBackgroundColor:[self backgroundColor]];
 //iTM2_LOG(@"[V backgroundColor]: %@", [V backgroundColor]);
 	[V setDisplayMode:[self displayMode]];
@@ -1637,7 +1660,7 @@ To Do List:
 - (void)timedSynchronizeDocumentView:(NSTimer *)timer;
 {
 //iTM2_START;
-	PDFView * V = _pdfView;
+	PDFView * V = [self pdfView];
 	unsigned int pageIndex = [self documentViewVisiblePageNumber];
 	PDFDocument * doc = [V document];
 	if(pageIndex < [doc pageCount])
@@ -1830,7 +1853,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[_pdfView scrollSynchronizationPointToVisible:sender];
+	[[self pdfView] scrollSynchronizationPointToVisible:sender];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
@@ -2087,7 +2110,7 @@ To Do List:
 		}
 		else
 		{
-			[F setFloatValue:[_pdfView scaleFactor]];
+			[F setFloatValue:[[self pdfView] scaleFactor]];
 		}
 		[F setFrameSize:NSMakeSize([[NF stringForObjectValue:[NSNumber numberWithFloat:[F floatValue]]]
 						sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
@@ -2120,7 +2143,7 @@ To Do List:
 								[[F cell] font], NSFontAttributeName, nil]].width+8, 22)];
 		if(willBeInserted)
 		{
-			PDFPage * page = [_pdfView currentPage];
+			PDFPage * page = [[self pdfView] currentPage];
 			PDFDocument * document = [page document];
 			unsigned int pageCount = [document indexForPage:page];
 			[F setIntValue:pageCount+1];
@@ -2328,11 +2351,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	PDFPage * currentPage = [_pdfView currentPage];
+	PDFPage * currentPage = [[self pdfView] currentPage];
 	int rotation = [currentPage rotation];
 	rotation -= 90;
 	[currentPage setRotation:rotation];
-	[_pdfView setNeedsDisplay:YES];
+	[[self pdfView] setNeedsDisplay:YES];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -2346,11 +2369,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	PDFPage * currentPage = [_pdfView currentPage];
+	PDFPage * currentPage = [[self pdfView] currentPage];
 	int rotation = [currentPage rotation];
 	rotation += 90;
 	[currentPage setRotation:rotation];
-	[_pdfView setNeedsDisplay:YES];
+	[[self pdfView] setNeedsDisplay:YES];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -2369,11 +2392,11 @@ To Do List:
 		n = 0;
 	else
 		--n;
-	PDFPage * page = [_pdfView currentPage];
+	PDFPage * page = [[self pdfView] currentPage];
 	PDFDocument * document = [page document];
 	unsigned int pageCount = [document pageCount];
 	if(n<pageCount)
-		[_pdfView goToPage:[document pageAtIndex:n]];
+		[[self pdfView] goToPage:[document pageAtIndex:n]];
 //iTM2_END;
 	[self validateWindowContent];
     return;
@@ -2391,7 +2414,7 @@ To Do List:
 		return YES;
 	if(![[sender window] isEqual:[self window]])
 		return YES;
-	PDFPage * page = [_pdfView currentPage];
+	PDFPage * page = [[self pdfView] currentPage];
 	PDFDocument * document = [page document];
 	unsigned int pageCount = [document indexForPage:page];
 	[sender setIntValue:pageCount+1];
@@ -2433,7 +2456,7 @@ To Do List:
 	float newScale = [sender floatValue];
 	if(newScale <= 0)
 		newScale = 1;
-    [_pdfView setScaleFactor:newScale];
+    [[self pdfView] setScaleFactor:newScale];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -2451,7 +2474,7 @@ To Do List:
 		return YES;
 	if(![[sender window] isEqual:[self window]])
 		return YES;
-	[sender setFloatValue:[_pdfView scaleFactor]];
+	[sender setFloatValue:[[self pdfView] scaleFactor]];
 	NSNumberFormatter * NF = [sender formatter];
 	NSSize oldSize = [sender frame].size;
 	float width = 8 + MAX(
@@ -2487,11 +2510,11 @@ To Do List:
 //iTM2_START;
 	if([sender selectedSegment])
 	{
-		[_pdfView goForward:sender];
+		[[self pdfView] goForward:sender];
 	}
 	else
 	{
-		[_pdfView goBack:sender];
+		[[self pdfView] goBack:sender];
 	}
 	[self validateWindowContent];
 //iTM2_END;
@@ -2509,14 +2532,14 @@ To Do List:
 	if(![[sender window] isEqual:[self window]])
 		return YES;
 	BOOL isEnabled = NO;
-	if([_pdfView canGoBack])
+	if([[self pdfView] canGoBack])
 	{
 		[sender setEnabled:YES forSegment:0];
 		isEnabled = YES;
 	}
 	else
 		[sender setEnabled:NO forSegment:0];
-	if([_pdfView canGoForward])
+	if([[self pdfView] canGoForward])
 	{
 		[sender setEnabled:YES forSegment:1];
 		isEnabled = YES;
@@ -2564,6 +2587,51 @@ To Do List:
 }
 @end
 
+@interface iTM2PDFKitView(PRIVATE)
+- (BOOL)trackZoomIn:(NSEvent *)theEvent;
+- (BOOL)trackMove:(NSEvent *)theEvent;
+@end
+
+@interface __iTM2PDFZoominView:NSView
+@end
+
+@interface __iTM2PDFKitSelectView:NSView
+{
+@private
+	BOOL _active;
+	BOOL _tracking;
+	NSView * _subview;// retained as subviews array member
+	NSImage * _cachedShadow;
+}
+- (id)initWithFrame:(NSRect)frameRect;
+- (NSRect)selectionRect;
+- (void)setSelectionRect:(NSRect)aRect;
+- (void)_expandSelectionRectToContainWholeGlyphsInPage:(PDFPage *)page;
+- (void)trackSelectionModify:(NSEvent *)theEvent boundary:(unsigned int)mask inRect:(NSRect)bounds;
+- (void)trackSelectionCreate:(NSEvent *)theEvent inRect:(NSRect)bounds;
+- (void)trackSelectionDrag:(NSEvent *)theEvent inRect:(NSRect)bounds;
+- (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *) theEvent;
+- (void)setCursorForAreaOfInterest: (PDFAreaOfInterest) area;
+- (void)scrollSelectionToVisible:(id)sender;
+@end
+
+@interface __iTM2PDFPrintView:NSView
+{
+@public
+	NSPDFImageRep * representation;
+}
+@end
+
+@interface _PDFFilePromiseController:NSObject
+{
+@private
+	NSString * _name;
+	NSData * _data;
+	NSString * _label;
+}
+- (id)initWithName:(NSString *)name data:(NSData *)data label:(NSString *)label;
+@end
+
 @implementation iTM2PDFKitView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 + (void)initialize;
@@ -2598,6 +2666,9 @@ To Do List:
 	if(self = [super initWithFrame:rect])
 	{
 		[self initImplementation];
+		__iTM2PDFKitSelectView * V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
+		[[self documentView] addSubview:V];
+		[V setHidden:[self toolMode]==kiTM2SelectToolMode];
 	}
 //iTM2_END;
     return self;
@@ -2614,6 +2685,9 @@ To Do List:
 	if(self = [super initWithCoder:aDecoder])
 	{
 		[self initImplementation];
+		__iTM2PDFKitSelectView * V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
+		[[self documentView] addSubview:V];
+		[V setHidden:[self toolMode]==kiTM2SelectToolMode];
 	}
 //iTM2_END;
     return self;
@@ -2629,6 +2703,23 @@ To Do List:
 //iTM2_START;
 	[self deallocImplementation];
 	[super dealloc];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromNib
+- (void)awakeFromNib;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([[self superclass] instancesRespondToSelector:_cmd])
+	{
+		[super performSelector:_cmd];
+	}
+	[self setToolMode:[self contextIntegerForKey:@"iTM2PDFKitToolMode"]];
 //iTM2_END;
     return;
 }
@@ -3004,6 +3095,279 @@ To Do List:
 //iTM2_START;
 //iTM2_END;
     return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCursorForAreaOfInterest:
+- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0:
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(area&kiTM2PDFZoomInArea)
+	{
+		[[NSCursor zoomInCursor] set];
+//iTM2_END;
+		return;
+	}
+	NSArray * subviews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
+	if([subviews count])
+	{
+		__iTM2PDFKitSelectView * subview = [subviews lastObject];
+		if(![subview isHiddenOrHasHiddenAncestor])
+		{
+			[subview setCursorForAreaOfInterest:area];
+//iTM2_END;
+			return;
+		}
+	}
+	switch([self toolMode])
+	{
+		case kiTM2MoveToolMode:
+			[[NSCursor openHandCursor] set];
+			return;
+		case kiTM2SelectToolMode:
+			[[NSCursor crosshairCursor] set];
+			return;
+		default:
+			[super setCursorForAreaOfInterest: area];
+			return;
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  areaOfInterestForMouse:
+- (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *)theEvent;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0:
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned int modifierFlags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+	if(modifierFlags&NSCommandKeyMask)
+	{
+		if(modifierFlags&(NSShiftKeyMask|NSAlternateKeyMask))
+		{
+//iTM2_END;
+			return [super areaOfInterestForMouse:theEvent] | kiTM2PDFZoomInArea;
+		}
+		return kPDFNoArea;
+	}
+	NSArray * subviews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
+	if([subviews count])
+	{
+		__iTM2PDFKitSelectView * subview = [subviews lastObject];
+		if(![subview isHiddenOrHasHiddenAncestor])
+		{
+//iTM2_END;
+			return [super areaOfInterestForMouse:theEvent] | [subview areaOfInterestForMouse:theEvent];
+		}
+	}
+//iTM2_END;
+	return [super areaOfInterestForMouse:theEvent];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  trackZoomIn:
+- (BOOL)trackZoomIn:(NSEvent *)theEvent;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0:
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned int modifierFlags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+	NSView * documentView = [self documentView];
+	if(NSIsEmptyRect([documentView bounds]) || ([theEvent clickCount] != 1) || (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask) == 0))
+	{
+		return NO;
+	}
+	float timeInterval = [[NSUserDefaults standardUserDefaults] floatForKey:@"com.apple.mouse.doubleClickThreshold"];
+	if(theEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:NO])
+	{
+		return NO;
+	}
+	[NSEvent startPeriodicEventsAfterDelay:0 withPeriod:0.1];/* Force a refresh */
+	NSView * rootView = [[[NSView allocWithZone:[self zone]] initWithFrame:[self frame]] autorelease];
+	[[self superview] replaceSubview:self with:rootView];
+	[rootView addSubview:self];
+	NSView * zoomView = [[[__iTM2PDFZoominView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * clipView = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	[rootView addSubview:zoomView];
+	[zoomView addSubview:clipView];
+	PDFView * pdfViewZoomed = [[[PDFView allocWithZone:[self zone]] initWithFrame:NSMakeRect(0,0,1000,1000)] autorelease];
+	[pdfViewZoomed setDocument:[self document]];
+	[pdfViewZoomed setScaleFactor:[self scaleFactor]];
+	[pdfViewZoomed setDisplayMode:[self displayMode]];
+	[pdfViewZoomed setDisplaysPageBreaks:[self displaysPageBreaks]];
+	[pdfViewZoomed setDisplayBox:[self displayBox]];
+	[pdfViewZoomed setDisplaysAsBook:[self displaysAsBook]];
+	[pdfViewZoomed setShouldAntiAlias:[self shouldAntiAlias]];
+	[pdfViewZoomed setGreekingThreshold:[self greekingThreshold]];
+	[pdfViewZoomed setBackgroundColor:[self backgroundColor]];
+	[clipView addSubview:pdfViewZoomed];
+	NSView * documentViewZoomed = [pdfViewZoomed documentView];
+	NSPoint windowFocus, clipFocus, focus, focusZoomed;
+	NSRect boundsInWindow, R1,R2, R3;
+	NSSize size;
+	float scale, scaleFactor;
+	//
+next:
+	/* The bounds where the focus should live in window coordinates */
+	boundsInWindow = [documentView visibleRect];
+	boundsInWindow = [documentView convertRect:boundsInWindow toView:nil];
+	/* The windowFocus, constrained to boundsInWindow */
+	windowFocus = [[self window] mouseLocationOutsideOfEventStream];
+	if(windowFocus.x<=NSMinX(boundsInWindow))
+	{
+		windowFocus.x = NSMinX(boundsInWindow)+0.05;
+	}
+	else if(windowFocus.x>=NSMaxX(boundsInWindow))
+	{
+		windowFocus.x = NSMaxX(boundsInWindow)-0.05;
+	}
+	if(windowFocus.y<=NSMinY(boundsInWindow))
+	{
+		windowFocus.y = NSMinY(boundsInWindow)+0.05;
+	}
+	else if(windowFocus.y>=NSMaxY(boundsInWindow))
+	{
+		windowFocus.y = NSMaxY(boundsInWindow)-0.05;
+	}
+	/* Placing the zoomView */
+	R1 = NSZeroRect;
+	R1.origin = windowFocus;
+	if(theEvent) modifierFlags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+	scale = 2;
+	if(modifierFlags & NSShiftKeyMask)scale*=2;
+	if(modifierFlags & NSAlternateKeyMask)scale*=2;
+	scaleFactor = scale * [self scaleFactor];
+	if([pdfViewZoomed scaleFactor] != scaleFactor) [pdfViewZoomed setScaleFactor:scaleFactor];
+	size = modifierFlags & NSCommandKeyMask? NSMakeSize(160,90):NSMakeSize(100,75);
+	R1 = NSInsetRect(R1,-size.width,-size.height);
+	if(NSMaxX(R1)>NSMaxX(boundsInWindow))
+	{
+		R1.origin.x-=NSMaxX(R1)-NSMaxX(boundsInWindow);
+	}
+	if(NSMinX(R1)<NSMinX(boundsInWindow))
+	{
+		R1.origin.x=NSMinX(boundsInWindow);
+		R1.size.width += MIN(0,NSWidth(boundsInWindow)-NSWidth(R1));
+	}
+	if(NSMaxY(R1)>NSMaxY(boundsInWindow))
+	{
+		R1.origin.y-=NSMaxY(R1)-NSMaxY(boundsInWindow);
+	}
+	if(NSMinY(R1)<NSMinY(boundsInWindow))
+	{
+		R1.origin.y=NSMinY(boundsInWindow);
+		R1.size.height += MIN(0,NSHeight(boundsInWindow)-NSHeight(R1));
+	}
+	R1 = [rootView convertRect:R1 fromView:nil];
+	R2 = NSInsetRect(R1,-10,-10);
+	[zoomView setFrame:R2];
+	R1 = [zoomView convertRect:R1 fromView:rootView];
+	[clipView setFrame:R1];
+	/* The focus */
+	focus = [documentView convertPoint:windowFocus fromView:nil];
+	/* The focusZoomed: if documentView and documentViewZoomed are proportional, this works */
+	focusZoomed.x = NSMidX([documentViewZoomed bounds])
+			+(focus.x-NSMidX([documentView bounds]))*[documentViewZoomed bounds].size.width/[documentView bounds].size.width;
+	focusZoomed.y = NSMidY([documentViewZoomed bounds])
+			+(focus.y-NSMidY([documentView bounds]))*[documentViewZoomed bounds].size.height/[documentView bounds].size.height;
+	/* The windowFocus in clip coordinates*/
+	clipFocus = [clipView convertPoint:windowFocus fromView:nil];
+	/* clipFocus and focus are the same point in different coordinate systems, focusZoomed will also be later */
+	/* Now place the pdfViewZoomed and its document view at the proper location in the clipView */
+	R1 = [clipView bounds];
+	NSAssert((NSPointInRect(clipFocus,R1)),@"ERROR");
+	R2.origin = R1.origin;
+	R2.size = NSMakeSize(clipFocus.x-R1.origin.x,clipFocus.y-R1.origin.y);
+	R2 = [clipView convertRect:R2 toView:documentViewZoomed];
+	R2 = NSOffsetRect(R2,focusZoomed.x-NSMaxX(R2),focusZoomed.y-NSMaxY(R2));
+	R3.origin = clipFocus;
+	R3.size = NSMakeSize(NSMaxX(R1)-clipFocus.x,NSMaxY(R1)-clipFocus.y);
+	R3 = [clipView convertRect:R3 toView:documentViewZoomed];
+	R3 = NSOffsetRect(R3,focusZoomed.x-NSMinX(R3),focusZoomed.y-NSMinY(R3));
+	R2 = NSUnionRect(R2,R3);
+	[documentViewZoomed scrollRectToVisible:R2];
+	R2 = [clipView convertRect:R2 fromView:documentViewZoomed];
+	R3 = [pdfViewZoomed frame];
+	R3 = NSOffsetRect(R3,R1.origin.x-R2.origin.x,R1.origin.y-R2.origin.y);
+	[pdfViewZoomed setFrame:R3];
+	[rootView display];
+	if(theEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:YES])
+	{
+		[NSEvent stopPeriodicEvents];/* No longer need to refresh */
+		[[rootView superview] replaceSubview:rootView with:self];
+		[[self superview] setNeedsDisplay:YES];
+//iTM2_END;
+		return YES;
+	}
+	theEvent = [[self window] nextEventMatchingMask:NSLeftMouseDraggedMask|NSFlagsChangedMask|NSScrollWheelMask|NSPeriodicMask];
+	NSSize scrollSize = NSZeroSize;
+	R1 = [documentView bounds];
+	R2 = [documentView visibleRect];
+#define SCROLL_STEP 8
+	if(windowFocus.x<NSMinX(boundsInWindow)+10)
+	{
+		scrollSize.width = MAX(-SCROLL_STEP,NSMinX(R1)-NSMinX(R2));
+	}
+	else if(windowFocus.x>NSMaxX(boundsInWindow)-10)
+	{
+		scrollSize.width = MIN(SCROLL_STEP,NSMaxX(R1)-NSMaxX(R2));
+	}
+	if(windowFocus.y<NSMinY(boundsInWindow)+10)
+	{
+		scrollSize.height = MAX(-SCROLL_STEP,NSMinY(R1)-NSMinY(R2));
+	}
+	else if(windowFocus.y>NSMaxY(boundsInWindow)-10)
+	{
+		scrollSize.height = MIN(SCROLL_STEP,NSMaxY(R1)-NSMaxY(R2));
+	}
+	if(!NSEqualSizes(scrollSize,NSZeroSize))
+	{
+		R2 = NSOffsetRect(R2,scrollSize.width/scale,scrollSize.height/scale);
+		[documentView scrollRectToVisible:R2];
+	}
+	goto next;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolMode
+- (iTM2ToolMode)toolMode;
+{
+	return [metaGETTER intValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolMode:
+- (void)setToolMode:(iTM2ToolMode)argument;
+{
+	NSNumber * oldContainer = metaGETTER;
+	iTM2ToolMode old = [oldContainer intValue];
+	if(old==argument && oldContainer)
+	{
+		return;
+	}
+	[self takeContextInteger:argument forKey:@"iTM2PDFKitToolMode"];
+	NSArray * selectViews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
+	NSEnumerator * E = [selectViews objectEnumerator];
+	NSView * subview;
+	if(kiTM2SelectToolMode == argument)
+	{
+		while(subview = [E nextObject])
+		{
+			[subview setHidden:NO];
+		}
+	}
+	else
+	{
+		while(subview = [E nextObject])
+		{
+			[subview setHidden:YES];
+		}
+	}
+	metaSETTER([NSNumber numberWithInt:argument]);
+	return;
 }
 @end
 
@@ -3514,6 +3878,10 @@ To Do List:
 	return nil;
 }
 @end
+
+#define SCROLL_LAYER 10
+#define SCROLL_DIMEN 100
+#define SCROLL_COEFF 1.1
 
 @interface iTM2PDFKitView(SyncHRONIZE)
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations;
@@ -4147,7 +4515,6 @@ startAgain:;
 		iTM2_RELEASE_POOL;
 		goto startAgain;
 	}
-theEnd:
 	[syncStack setArray:[NSArray array]];
 	[L unlock];
 	[L release];
@@ -4354,6 +4721,219 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  trackMove:
+- (BOOL)trackMove:(NSEvent *)theEvent;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: Thu Jul 17 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#warning BUGGY with respect to what I was expecting
+	NSWindow * window = [self window];
+	NSView * documentView = [self documentView];
+	NSClipView * clipView = [[documentView enclosingScrollView] contentView];
+	NSPoint oldOrigin = [clipView bounds].origin;
+	oldOrigin = [documentView convertPoint:oldOrigin fromView:clipView];
+	NSPoint anchor = [theEvent locationInWindow];
+	NSPoint point,location,newOrigin;
+	NSSize scrollOffset;
+	NSRect noScrollRect,visibleRect;
+	float f,g;
+	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+	NSRect bounds = [documentView bounds];
+	BOOL scroll;
+mainLoop:
+	[[NSCursor closedHandCursor] set];
+	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
+	if([theEvent type] == NSLeftMouseUp)
+	{
+		return YES;
+	}
+	// should I auto scroll?
+	visibleRect = [self visibleRect];
+	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	scroll = NO;
+	scrollOffset = NSZeroSize;
+	location = [window mouseLocationOutsideOfEventStream];
+	location = [self convertPoint:location fromView:nil];	
+	if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+	{
+		point = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
+		point = [window convertScreenToBase:point];
+		point = [self convertPoint:point fromView:nil];
+		point.x -= NSMaxX(noScrollRect);
+		g/=point.x;
+		scrollOffset.width=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+	{
+		point = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
+		point = [window convertScreenToBase:point];
+		point = [self convertPoint:point fromView:nil];
+		point.x -= NSMinX(noScrollRect);
+		g/=-point.x;
+		scrollOffset.width=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+	{
+		point = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
+		point = [window convertScreenToBase:point];
+		point = [self convertPoint:point fromView:nil];
+		point.y -= NSMaxY(noScrollRect);
+		g/=point.y;
+		scrollOffset.height=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+	{
+		point = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
+		point = [window convertScreenToBase:point];
+		point = [self convertPoint:point fromView:nil];
+		point.y -= NSMinY(noScrollRect);
+		g/=-point.y;
+		scrollOffset.height=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	// do scroll
+	point = [documentView convertPoint:anchor fromView:nil];
+	location = [window mouseLocationOutsideOfEventStream];
+	location = [documentView convertPoint:location fromView:nil];
+	location.x = oldOrigin.x + point.x - location.x;
+	location.y = oldOrigin.y + point.y - location.y;
+	[documentView scrollPoint:location];
+	newOrigin = [clipView bounds].origin;
+	newOrigin = [documentView convertPoint:newOrigin fromView:clipView];
+	if(NSEqualPoints(oldOrigin,newOrigin))
+	{
+		anchor = [window mouseLocationOutsideOfEventStream];
+	}
+	if(scroll)
+	{
+		scrollOffset = [self convertSize:scrollOffset toView:nil];
+		anchor.x-=scrollOffset.width;
+		anchor.y-=scrollOffset.height;
+		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
+						location:[window mouseLocationOutsideOfEventStream]
+							modifierFlags:0
+								timestamp:0
+									windowNumber:[window windowNumber]
+										context:nil
+											subtype:0
+												data1:0
+													data2:0];
+		[window postEvent:theEvent atStart:NO];
+	}
+	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
+	if([theEvent type] == NSLeftMouseUp)
+	{
+		return YES;
+	}
+	goto mainLoop;
+	
+	
+#if 0
+	NSRect visibleRect, noScrollRect, bounds;
+	NSPoint scrollOffset = NSMakePoint(10,10);
+	NSPoint anchor = [theEvent locationInWindow];/* immutable */
+	NSPoint locationAnchor = [documentView convertPoint:anchor fromView:nil];
+	NSPoint newPoint, location;
+	BOOL scroll = NO;
+	float f,g;
+	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+	bounds = [documentView bounds];
+mainLoop:
+	[[NSCursor closedHandCursor] set];
+	visibleRect = [documentView visibleRect];
+	location = [window mouseLocationOutsideOfEventStream];
+	location = [documentView convertPoint:location fromView:nil];
+	// if the location is near the boundary of the visible rect, scroll
+	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	scroll = NO;
+	scrollOffset = NSZeroPoint;
+	if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+	{
+		newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
+		newPoint = [window convertScreenToBase:newPoint];
+		newPoint = [documentView convertPoint:newPoint fromView:nil];
+		newPoint.x -= NSMaxX(noScrollRect);
+		g/=newPoint.x;
+		scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+	{
+		newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
+		newPoint = [window convertScreenToBase:newPoint];
+		newPoint = [documentView convertPoint:newPoint fromView:nil];
+		newPoint.x -= NSMinX(noScrollRect);
+		g/=-newPoint.x;
+		scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+	{
+		newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
+		newPoint = [window convertScreenToBase:newPoint];
+		newPoint = [documentView convertPoint:newPoint fromView:nil];
+		newPoint.y -= NSMaxY(noScrollRect);
+		g/=newPoint.y;
+		scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+	{
+		newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
+		newPoint = [window convertScreenToBase:newPoint];
+		newPoint = [documentView convertPoint:newPoint fromView:nil];
+		newPoint.y -= NSMinY(noScrollRect);
+		g/=-newPoint.y;
+		scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = YES;
+	}
+	if(scroll)
+	{
+		visibleRect = NSOffsetRect(visibleRect,scrollOffset.x,scrollOffset.y);
+		[documentView scrollRectToVisible:visibleRect];
+NSLog(@"+");
+NSLog(NSStringFromPoint(locationAnchor));
+NSLog(NSStringFromPoint(location));
+NSLog(NSStringFromRect(anchorRect));
+NSLog(NSStringFromRect(visibleRect));
+	}
+	else
+	{
+		visibleRect = NSOffsetRect(anchorRect,locationAnchor.x-location.x,locationAnchor.y-location.y);
+NSLog(@"-");
+NSLog(NSStringFromPoint(locationAnchor));
+NSLog(NSStringFromPoint(location));
+NSLog(NSStringFromRect(anchorRect));
+NSLog(NSStringFromRect(visibleRect));
+		[documentView scrollRectToVisible:visibleRect];
+	}
+	anchorRect = visibleRect;
+	locationAnchor = [window mouseLocationOutsideOfEventStream];
+	locationAnchor = [documentView convertPoint:locationAnchor fromView:nil];
+	if(scroll)
+	{
+		location = [window mouseLocationOutsideOfEventStream];
+		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
+						location:location
+							modifierFlags:0
+								timestamp:0
+									windowNumber:[window windowNumber]
+										context:nil
+											subtype:0
+												data1:0
+													data2:0];
+		[window postEvent:theEvent atStart:NO];
+	}
+	goto mainLoop;
+#endif
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
@@ -4363,18 +4943,31 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(([theEvent clickCount] > 0) && ([theEvent modifierFlags] & NSCommandKeyMask))
-    {
-		// wait for a second click?
-#if 0
-		if(theEvent = [[self window] nextEventMatchingMask:NSLeftMouseDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:100] inMode:NSEventTrackingRunLoopMode dequeue:YES])
+    if([theEvent clickCount] > 0)
+	{
+		if([theEvent modifierFlags] & NSCommandKeyMask)
 		{
-		@"com.apple.mouse.doubleClickThreshold";
-		}
-#endif
-		[self pdfSynchronizeMouseDown:theEvent];
+			// wait for a second click?
+			if(![self trackZoomIn:theEvent])
+			{
+				[self pdfSynchronizeMouseDown:theEvent];
+			}
 //iTM2_END;
-		return;
+			return;
+		}
+		switch([self toolMode])
+		{
+			case kiTM2MoveToolMode:
+				if(![self trackMove:theEvent])
+					[super mouseDown:theEvent];
+				break;
+			case kiTM2SelectToolMode:
+				iTM2_LOG(@"ERROR(minor): The iTM2PDFKitView is not expected to receive a mouseDown: message in kiTM2SelectToolMode...");
+				break;
+			case kiTM2TextToolMode:
+			case kiTM2AnnotateToolMode:
+				[super mouseDown:theEvent];
+		}
 	}
 //iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
     [super mouseDown:theEvent];
@@ -4384,6 +4977,170 @@ To Do List:
 @end
 
 @implementation PDFView(iTM2SynchronizationKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolMode
+- (iTM2ToolMode)toolMode;
+{
+	return kiTM2SelectToolMode;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolMode:
+- (void)setToolMode:(iTM2ToolMode)argument;
+{
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= zoomToFit:
+- (void)zoomToFit:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jan  5 17:41:55 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// get the current page
+	PDFPage * P = [self currentPage];
+	NSRect bounds = [P boundsForBox:kPDFDisplayBoxMediaBox];
+	NSRect frame = [self convertRect:bounds fromPage:P];
+	float expectedWidth = [self frame].size.width;
+	float actualWidth = frame.size.width;
+	if(actualWidth == 0)
+		return;
+	float widthCorrection = expectedWidth/actualWidth;
+	float expectedHeight = [self frame].size.height;
+	float actualHeight = frame.size.height;
+	if(actualHeight == 0)
+		return;
+	float heightCorrection = expectedHeight/actualHeight;
+	[self setScaleFactor:MIN(widthCorrection, heightCorrection) * [self scaleFactor] * 0.85];
+	[self goToPage:P];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:
+- (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P;
+/*"O based.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollDestinationToVisible:
+- (void)scrollDestinationToVisible:(PDFDestination *)destination;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if 1
+	PDFPage * page;
+	page = [destination page];
+	[self goToPage:page];
+	int characterIndex = [page characterIndexNearPoint:[destination point]];
+	NSRect characterBounds = NSZeroRect;
+	characterBounds.origin = [destination point];
+	if(characterIndex>=0)
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+	NSView * V = [self documentView];
+	characterBounds = [self convertRect:[self convertRect:characterBounds fromPage:page] toView:V];
+	NSPoint destinationPoint = [self convertPoint:[self convertPoint:[destination point] fromPage:page] toView:V];
+	PDFSelection * selection = [page selectionForRange:NSMakeRange(0, [page numberOfCharacters])];
+	NSRect pageBounds = NSZeroRect;
+	if(selection)
+		pageBounds = [self convertRect:[self convertRect:[selection boundsForPage:page] fromPage:page] toView:V];
+	else
+		pageBounds = [self convertRect:[self convertRect:[page boundsForBox:kPDFDisplayBoxMediaBox] fromPage:page] toView:V];
+	NSRect lineBounds = NSZeroRect;
+	if(selection = [page selectionForLineAtPoint:[destination point]])
+		lineBounds = [self convertRect:[self convertRect:[selection boundsForPage:page] fromPage:page] toView:V];
+	else
+	{
+		lineBounds.origin = destinationPoint;
+		lineBounds = NSInsetRect(lineBounds, - 32, - 32);
+	}
+	NSRect wordBounds = lineBounds;
+	if(selection = [page selectionForWordAtPoint:[destination point]])
+		wordBounds = [self convertRect:[self convertRect:[selection boundsForPage:page] fromPage:page] toView:V];
+	NSRect visibleDocumentRect = [V visibleRect];
+	if(!NSContainsRect(visibleDocumentRect, NSInsetRect(wordBounds, -32, -16)))
+	{
+		// then cover the maximum range of lineBounds and pageBounds
+		if(NSMaxY(pageBounds) < NSMidY(lineBounds) + visibleDocumentRect.size.height/2 + 16)
+			visibleDocumentRect.origin.y = NSMaxY(pageBounds) + 16 - visibleDocumentRect.size.height;
+		else if(NSMidY(lineBounds) - visibleDocumentRect.size.height/2 - 16 < NSMinY(pageBounds))
+			visibleDocumentRect.origin.y = NSMinY(pageBounds) - 16;
+		else
+			visibleDocumentRect.origin.y = NSMidY(lineBounds) - visibleDocumentRect.size.height/2;
+		if(!NSContainsRect(visibleDocumentRect, NSInsetRect(wordBounds, -32, -16)))
+		{
+			if(visibleDocumentRect.size.width<wordBounds.size.width + 32)
+				visibleDocumentRect.origin.x = NSMidX(characterBounds) - visibleDocumentRect.size.width/2;
+			else if(NSMaxX(visibleDocumentRect) < NSMaxX(wordBounds) + 16)
+				visibleDocumentRect.origin.x = NSMaxX(wordBounds) + 16 - visibleDocumentRect.size.width;
+			else
+				visibleDocumentRect.origin.x = NSMinX(wordBounds) - 16;
+		}
+		[V scrollRectToVisible:visibleDocumentRect];
+	}
+#else
+	PDFPage * page = [destination page];
+	NSPoint P1 = [destination point];
+	int index = [page characterIndexAtPoint:P1];
+	if(index < 0)
+	{
+		P1.x += 5;
+		P1.y += 5;
+		index = [page characterIndexAtPoint:P1];
+		if(index < 0)
+		{
+			P1.x -= 10;
+			index = [page characterIndexAtPoint:P1];
+			if(index < 0)
+			{
+				P1.y -= 10;
+				index = [page characterIndexAtPoint:P1];
+				if(index < 0)
+				{
+					P1.x += 10;
+					index = [page characterIndexAtPoint:P1];
+					if(index < 0)
+					{
+						return;
+					}
+				}
+			}
+		}
+	}
+	PDFSelection * currentSelection = [self currentSelection];
+	PDFSelection * selection = [page selectionForRange:NSMakeRange(index, 1)];
+	[self setCurrentSelection:selection];
+	[self scrollSelectionToVisible:self];
+	if(iTM2DebugEnabled<10)
+#if 1
+	// this one to avoid cocoa sending some NSException
+	[self performSelector:@selector(setCurrentSelection:) withObject:currentSelection afterDelay:0.01];
+#else
+	[self setCurrentSelection:currentSelection];
+#endif
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
+- (void)scrollSynchronizationPointToVisible:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
 - (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
@@ -4441,6 +5198,1337 @@ To Do List:
 //iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
 //iTM2_END;
 	return;
+}
+@end
+
+@implementation __iTM2PDFZoominView
+- (void)drawRect:(NSRect)aRect;
+{
+	[[NSGraphicsContext currentContext] saveGraphicsState];
+	NSRect rect = [self bounds];
+	rect = NSIntersectionRect(rect,aRect);
+	rect = NSInsetRect(rect,10.005,10.005);
+	NSBezierPath * path = [NSBezierPath bezierPathWithRect:aRect];
+	[path appendBezierPathWithRect:rect];
+	[path setWindingRule:NSEvenOddWindingRule];
+	[path addClip];
+	[[NSColor blueColor] set];
+	NSShadow* theShadow = [[NSShadow alloc] init];
+	[theShadow setShadowOffset:NSMakeSize(0,([self isFlipped]?2:-2))]; 
+	[theShadow setShadowBlurRadius:8.0]; 
+	[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:1]]; 
+	[theShadow set];
+	path = [NSBezierPath bezierPathWithRect:rect];
+	[path fill];
+	[[NSGraphicsContext currentContext] restoreGraphicsState];
+	return;
+}
+@end
+
+@implementation __iTM2PDFKitSelectView
+// these three are for cursor rects
+- (id)initWithFrame:(NSRect)frameRect;
+{
+	if(self = [super initWithFrame:frameRect])
+	{
+		[self setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+		_active = NO;
+		_tracking = NO;
+		// _subview tracks the selection rect
+		[_subview removeFromSuperviewWithoutNeedingDisplay];
+		_subview = [[[NSView allocWithZone:[self zone]] initWithFrame:frameRect] autorelease];
+		[_subview setAutoresizingMask:NSViewMinXMargin|NSViewWidthSizable|NSViewMaxXMargin|NSViewMinYMargin|NSViewHeightSizable|NSViewMaxYMargin];
+		[self addSubview:_subview];
+		[_subview setHidden:YES];
+	}
+	return self;
+}
+- (void)dealloc;
+{
+	[_cachedShadow release];
+	_cachedShadow = nil;
+	[super dealloc];
+	return;
+}
+- (NSRect)selectionRect;
+{
+	return [_subview frame];
+}
+- (void)setBoundsOrigin:(NSPoint)newOrigin;
+{
+	[super setBoundsOrigin:newOrigin];
+	[_cachedShadow release];
+	_cachedShadow = nil;
+	return;
+}
+- (void)setBoundsSize:(NSSize)newSize;
+{
+	[super setBoundsSize:newSize];
+	[_cachedShadow release];
+	_cachedShadow = nil;
+	return;
+}
+- (void)setBoundsRotation:(float)angle;
+{
+	[super setBoundsRotation:angle];
+	[_cachedShadow release];
+	_cachedShadow = nil;
+	return;
+}
+- (void)setSelectionRect:(NSRect)aRect;
+{
+	// selection rect post processing
+	if(aRect.size.width<1.11 || aRect.size.height<1.11)
+	{
+		_active = NO;
+	}
+	else
+	{
+		_active = YES;
+		[_subview setFrame:aRect];
+		[_cachedShadow release];
+		_cachedShadow = nil;
+	}
+	[self setNeedsDisplay:YES];
+	return;
+}
+- (BOOL)acceptsFirstResponder
+{
+	return [[self superview] acceptsFirstResponder];
+}
+- (BOOL)becomeFirstResponder;
+{
+	return [[self superview] becomeFirstResponder];
+}
+- (BOOL)resignFirstResponder;
+{
+	return [[self superview] resignFirstResponder];
+}
+- (void)drawRect:(NSRect)aRect;
+{
+	[[NSGraphicsContext currentContext] saveGraphicsState];
+	if(_active)
+	{
+		//[[NSGraphicsContext currentContext] setCompositingOperation:(NSCompositingOperation)operation;
+		NSBezierPath * path = [NSBezierPath bezierPathWithRect:aRect];
+		[path setLineWidth:1.0];
+		//float lineDash[] = {2.0,3.0};
+		//[path setLineDash:lineDash count:2 phase:0.0];
+		NSRect selectionRect = [self selectionRect];
+		selectionRect = NSInsetRect(selectionRect,0.005,0.005);// necessary to have a good clipping region
+		selectionRect = NSIntersectionRect(selectionRect,aRect);
+		[path appendBezierPathWithRect:selectionRect];
+		[path setWindingRule:NSEvenOddWindingRule];
+		[path addClip];
+		selectionRect = [self selectionRect];
+		aRect = NSUnionRect(aRect,selectionRect);
+		aRect = NSInsetRect(aRect,-10,-10);
+		path = [NSBezierPath bezierPathWithRect:aRect];
+		NSColor * C = [NSColor colorWithCalibratedRed:0.71 green:0.84 blue:1.0 alpha:0.3];
+		[C set];
+		[path fill];
+		path = [NSBezierPath bezierPathWithRect:selectionRect];
+		NSShadow* theShadow = [[NSShadow alloc] init]; 
+		[theShadow setShadowOffset:NSMakeSize(0, ([self isFlipped]?2:-2))]; 
+		[theShadow setShadowBlurRadius:8.0]; 
+		[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:1]]; 
+		[theShadow set];
+		[path fill];
+#if 0
+		if(!_cachedShadow)
+		{
+			_cachedShadow = [[NSImage allocWithZone:[self zone]] initWithSize:[self bounds].size];
+			[_cachedShadow lockFocus];
+			path = [NSBezierPath bezierPathWithRect:selectionRect];
+			[path fill];
+			[_cachedShadow unlockFocus];
+		}
+		_cachedShadow
+		NSShadow* theShadow = [[NSShadow alloc] init]; 
+		[theShadow setShadowOffset:NSMakeSize(0, ([self isFlipped]?2:-2))]; 
+		[theShadow setShadowBlurRadius:8.0]; 
+		[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:1]]; 
+		[theShadow set];
+#endif
+	//	[path stroke];
+	//	[NSBezierPath strokeRect:selectionRect];
+	}
+	else if(_tracking)
+	{
+		//[[NSGraphicsContext currentContext] setCompositingOperation:(NSCompositingOperation)operation;
+		NSBezierPath * path = [NSBezierPath bezierPathWithRect:aRect];
+		NSColor * C = [NSColor colorWithCalibratedRed:0.71 green:0.84 blue:1.0 alpha:0.3];
+		[C set];
+		[path fill];
+	//	[path stroke];
+	//	[NSBezierPath strokeRect:selectionRect];
+	}
+	else if([SUD boolForKey:@"ShowPDFCharacterBounds"])
+	{
+		NSPoint center = NSMakePoint(NSMidX(aRect),NSMidY(aRect));
+		PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
+		PDFPage * page = [pdfView pageForPoint:[pdfView convertPoint:center fromView:self] nearest:NO];
+		[[NSColor blueColor] set];
+		NSRect R;
+		if(page)
+		{
+			unsigned int index	= [page numberOfCharacters];
+			while(index--)
+			{
+				R = [page characterBoundsAtIndex:index];
+				R = [pdfView convertRect:R fromPage:page];
+				R = [self convertRect:R fromView:pdfView];
+				R = NSIntersectionRect(R,aRect);
+				if(!NSIsEmptyRect(R)) [NSBezierPath strokeRect:R];
+			}
+		}
+	}
+	[[NSGraphicsContext currentContext] restoreGraphicsState];
+	return;
+}
+- (NSView *)hitTest:(NSPoint)aPoint
+{
+	// accept only one type of events, this allows to keep the pdfView contextual menu while selecting
+	NSEvent * theEvent = [[self window] currentEvent];
+	unsigned int theModifiers = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+	return (theModifiers & NSControlKeyMask) || ([theEvent type] != NSLeftMouseDown)?nil:[super hitTest:aPoint];
+}
+- (BOOL)dragSelection:(NSEvent *)theEvent;
+{
+	unsigned int modifierFlags = ([theEvent modifierFlags] ^ NSCommandKeyMask) & NSDeviceIndependentModifierFlagsMask;
+	if(modifierFlags & NSAlternateKeyMask)
+	{
+		NSRect selectionRect = [self selectionRect];
+		if(NSIsEmptyRect(selectionRect))
+		{
+			return NO;
+		}
+		NSPoint dragPosition = [theEvent locationInWindow];
+		dragPosition = [self convertPoint:dragPosition fromView:nil];
+		if(NSPointInRect(dragPosition,selectionRect))
+		{
+			dragPosition=selectionRect.origin;
+			NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+			[pasteboard declareTypes:[NSArray arrayWithObject:NSPDFPboardType]
+					owner:nil];
+			PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
+			selectionRect = [self convertRect:selectionRect toView:pdfView];
+			NSImage * dragImage = nil;
+			NSPoint point = NSMakePoint(NSMidX(selectionRect),NSMidY(selectionRect));
+			PDFPage * page = [pdfView pageForPoint:point nearest:NO];
+			if(page)
+			{
+				selectionRect = [pdfView convertRect:selectionRect toPage:page];
+				NSString * path = [[[[self window] windowController] document] fileName];
+				NSData * data = [[[NSData allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+				NSPDFImageRep * imageRep = [[[NSPDFImageRep allocWithZone:[self zone]] initWithData:data] autorelease];
+				PDFDocument * document = [page document];
+				int currentPage = [document indexForPage:page];
+				[imageRep setCurrentPage:currentPage];
+				NSRect pageBounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
+				NSRect repBounds = [imageRep bounds];
+				if(NSIsEmptyRect(repBounds))
+				{
+					return NO;
+				}
+				// convert the selectionRect to the __iTM2PDFPrintView coordinates
+				// the new selectionRect should be to the repBounds like the old one was to the page bounds
+				selectionRect.origin.x = repBounds.origin.x + (selectionRect.origin.x - pageBounds.origin.x) * pageBounds.size.width/repBounds.size.width;
+				selectionRect.origin.y = repBounds.origin.y + (selectionRect.origin.y - pageBounds.origin.y) * pageBounds.size.height/repBounds.size.height;
+				selectionRect.size.width *= pageBounds.size.width/repBounds.size.width;
+				selectionRect.size.height *= pageBounds.size.height/repBounds.size.height;
+				__iTM2PDFPrintView * view = [[[__iTM2PDFPrintView allocWithZone:[self zone]] initWithFrame:repBounds] autorelease];
+				view->representation = imageRep;
+				NSData * pdfData = [view dataWithPDFInsideRect:selectionRect];
+				//NSData * pdfData = [view dataWithPDFInsideRect:repBounds];
+				view->representation = nil;
+				if(modifierFlags & NSShiftKeyMask)
+				{
+					dragPosition = [theEvent locationInWindow];
+					dragPosition = [self convertPoint:dragPosition fromView:nil];
+					dragPosition.x -= 16;
+					dragPosition.y -= 16;
+					selectionRect.origin = dragPosition;
+					selectionRect.size = NSMakeSize(32,32);
+					NSString * name = [[[[self window] windowController] document] fileName];
+					NSString * label = [page label];
+					id FPC = [[[_PDFFilePromiseController allocWithZone:[self zone]] initWithName:name data:pdfData label:label] autorelease];
+					return [self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"pdf"] fromRect:selectionRect source:FPC slideBack:YES event:theEvent];
+				}
+				else
+				{
+					[pasteboard setData:pdfData forType:NSPDFPboardType];
+					NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithData:pdfData] autorelease];
+					selectionRect = [self selectionRect];
+					[I setSize:selectionRect.size];
+					[I setScalesWhenResized:YES];
+					dragImage = [[[NSImage allocWithZone:[self zone]] initWithSize:selectionRect.size] autorelease];
+					[dragImage lockFocus];
+					[I compositeToPoint:NSZeroPoint operation:NSCompositeCopy fraction:0.5];
+					[dragImage unlockFocus];
+					[self dragImage:dragImage 
+							at:dragPosition
+							offset:NSZeroSize
+							event:theEvent
+							pasteboard:pasteboard
+							source:self
+							slideBack:YES];
+					return YES;
+				}
+			}
+		}
+	}
+	return NO;
+}
+#define TOP 1
+#define BOTTOM 2
+#define LEFT 4
+#define RIGHT 8
+- (void)mouseDown:(NSEvent *)theEvent;
+{
+	if([[[self window] firstResponder] isEqual:self])
+	{
+		if([self dragSelection:theEvent])
+		{
+			return;
+		}
+		// is it a drag operation to an external destination
+		NSPoint mouseLoc = [theEvent locationInWindow];
+		PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
+		PDFPage * page = [pdfView pageForPoint:[pdfView convertPoint:mouseLoc fromView:nil] nearest:NO];
+		if(!page)
+		{
+			return;
+		}
+		_tracking = YES;// while tracking the drawRect: does not behave the same
+		NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
+		bounds = [pdfView convertRect:bounds fromPage:page];
+		bounds = [self convertRect:bounds fromView:pdfView];
+		// where did the hit occur?
+		PDFAreaOfInterest area = [self areaOfInterestForMouse:theEvent];// extended
+		if(area & kiTM2PDFSelectTopArea)
+		{
+			if(area & kiTM2PDFSelectLeftArea)
+			{
+				[self trackSelectionModify:theEvent boundary:TOP|LEFT inRect:bounds];
+			}
+			else if(area & kiTM2PDFSelectRightArea)
+			{
+				[self trackSelectionModify:theEvent boundary:TOP|RIGHT inRect:bounds];
+			}
+			else 
+			{
+				[self trackSelectionModify:theEvent boundary:TOP inRect:bounds];
+			}
+		}
+		else if(area & kiTM2PDFSelectBottomArea)
+		{
+			if(area & kiTM2PDFSelectLeftArea)
+			{
+				[self trackSelectionModify:theEvent boundary:BOTTOM|LEFT inRect:bounds];
+			}
+			else if(area & kiTM2PDFSelectRightArea)
+			{
+				[self trackSelectionModify:theEvent boundary:BOTTOM|RIGHT inRect:bounds];
+			}
+			else 
+			{
+				[self trackSelectionModify:theEvent boundary:BOTTOM inRect:bounds];
+			}
+		}
+		else
+		{
+			if(area & kiTM2PDFSelectLeftArea)
+			{
+				[self trackSelectionModify:theEvent boundary:LEFT inRect:bounds];
+			}
+			else if(area & kiTM2PDFSelectRightArea)
+			{
+				[self trackSelectionModify:theEvent boundary:RIGHT inRect:bounds];
+			}
+			else
+			{
+				if(area & kiTM2PDFSelectArea)
+				{
+					[self trackSelectionDrag:theEvent inRect:bounds];
+				}
+				else
+				{
+					[self trackSelectionCreate:theEvent inRect:bounds];
+					[self _expandSelectionRectToContainWholeGlyphsInPage:page];
+				}
+			}
+		}
+		[pdfView discardCursorRects];
+		_tracking = NO;// while tracking the drawRect: does not behave the same
+	}
+	else
+	{
+		[super mouseDown:theEvent];
+	}
+	return;
+}
+- (void)_expandSelectionRectToContainWholeGlyphsInPage:(PDFPage *)page;
+{
+	if(!page)
+	{
+		return;
+	}
+	PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
+	NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
+	NSRect selectionRect = [self selectionRect];
+	selectionRect = [self convertRect:selectionRect toView:pdfView];
+	selectionRect = [pdfView convertRect:selectionRect toPage:page];
+	NSRect xtdSelectionRect = selectionRect;
+	NSRect characterBounds;
+	int characterIndex;
+	NSPoint currentPoint = selectionRect.origin;
+leftSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if(NSMaxY(characterBounds)<NSMaxY(selectionRect))
+		{
+			xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+			currentPoint.y = MIN(NSMaxY(characterBounds)+1,NSMaxY(selectionRect));
+			goto leftSide;
+		}
+		xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+		currentPoint.y = NSMaxY(selectionRect);
+		goto topSide;
+	}
+	currentPoint.y += 5;
+	if(currentPoint.y<=NSMaxY(selectionRect))
+	{
+		goto leftSide;
+	}
+	currentPoint.y = NSMaxY(selectionRect);
+topSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if(NSMaxX(characterBounds)<NSMaxX(selectionRect))
+		{
+			xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+			currentPoint.x = MIN(NSMaxX(characterBounds)+1,NSMaxX(selectionRect));
+			goto topSide;
+		}
+		xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+		currentPoint.x = NSMaxX(selectionRect);
+		goto rightSide;
+	}
+	currentPoint.x += 5;
+	if(currentPoint.x<NSMaxX(selectionRect))
+	{
+		goto topSide;
+	}
+	currentPoint.x = NSMaxX(selectionRect);
+rightSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if(NSMinY(characterBounds)>NSMinY(selectionRect))
+		{
+			xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+			currentPoint.y = MAX(NSMinY(characterBounds)-1,NSMinY(selectionRect));
+			goto rightSide;
+		}
+		xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+		currentPoint.y = NSMinY(selectionRect);
+		goto bottomSide;
+	}
+	currentPoint.y -= 5;
+	if(currentPoint.y>NSMinY(selectionRect))
+	{
+		goto rightSide;
+	}
+	currentPoint.y = NSMinY(selectionRect);
+bottomSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if(NSMinX(characterBounds)>NSMinX(selectionRect))
+		{
+			xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+			currentPoint.x = MAX(NSMinX(characterBounds)-1,NSMinX(selectionRect));
+			goto bottomSide;
+		}
+		xtdSelectionRect = NSUnionRect(characterBounds,xtdSelectionRect);
+		goto theEnd;
+	}
+	currentPoint.x -= 5;
+	if(currentPoint.x>NSMinX(selectionRect))
+	{
+		goto bottomSide;
+	}
+theEnd:
+	xtdSelectionRect = [pdfView convertRect:xtdSelectionRect fromPage:page];
+	xtdSelectionRect = [self convertRect:xtdSelectionRect fromView:pdfView];
+	[self setSelectionRect:xtdSelectionRect];
+	return;
+}
+#if 0
+- (void)_expandSelectionRectToContainWholeGlyphsInPage:(PDFPage *)page;
+{
+	return;
+	if(!page)
+	{
+		return;
+	}
+	PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
+	NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
+	NSRect selectionRect = [self selectionRect];
+	selectionRect = [self convertRect:selectionRect toView:pdfView];
+	selectionRect = [pdfView convertRect:selectionRect toPage:page];
+	NSRect characterBounds;
+	int characterIndex;
+	NSPoint currentPoint = selectionRect.origin;
+leftSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if(NSMinX(characterBounds)<NSMinX(selectionRect))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint = selectionRect.origin;
+			goto leftSide;
+		}
+		if(NSMaxY(characterBounds)<NSMaxY(selectionRect))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint.y = MIN(NSMaxY(characterBounds)+1,NSMaxY(selectionRect));
+			goto leftSide;
+		}
+		selectionRect = NSUnionRect(characterBounds,selectionRect);
+		currentPoint.y = NSMaxY(selectionRect);
+		goto topSide;
+	}
+	currentPoint.y += 5;
+	if(currentPoint.y<=NSMaxY(selectionRect))
+	{
+		goto leftSide;
+	}
+	currentPoint.y = NSMaxY(selectionRect)-0.1;
+topSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if((NSMinX(characterBounds)<NSMinX(selectionRect))
+			|| (NSMaxY(characterBounds)>NSMaxY(selectionRect)))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint = selectionRect.origin;
+			goto leftSide;
+		}
+		if(NSMaxX(characterBounds)<NSMaxX(selectionRect))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint.x = MIN(NSMaxX(characterBounds)+1,NSMaxX(selectionRect));
+			goto topSide;
+		}
+		selectionRect = NSUnionRect(characterBounds,selectionRect);
+		currentPoint.x = NSMaxX(selectionRect);
+		goto rightSide;
+	}
+	currentPoint.x += 5;
+	if(currentPoint.x<NSMaxX(selectionRect))
+	{
+		goto topSide;
+	}
+	currentPoint.x = NSMaxX(selectionRect);
+rightSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if((NSMinX(characterBounds)<NSMinX(selectionRect))
+			|| (NSMaxY(characterBounds)>NSMaxY(selectionRect))
+				|| (NSMaxX(characterBounds)>NSMaxX(selectionRect)))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint = selectionRect.origin;
+			goto leftSide;
+		}
+		if(NSMinY(characterBounds)>NSMinY(selectionRect))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint.y = MAX(NSMinY(characterBounds)-1,NSMinY(selectionRect));
+			goto rightSide;
+		}
+		selectionRect = NSUnionRect(characterBounds,selectionRect);
+		currentPoint.y = NSMinY(selectionRect);
+		goto bottomSide;
+	}
+	currentPoint.y -= 5;
+	if(currentPoint.y>NSMinY(selectionRect))
+	{
+		goto rightSide;
+	}
+	currentPoint.y = NSMinY(selectionRect);
+bottomSide:
+	characterIndex = [page characterIndexAtPoint:currentPoint];
+	if(characterIndex>=0)
+	{
+		characterBounds = [page characterBoundsAtIndex:characterIndex];
+		characterBounds = NSIntersectionRect(characterBounds,bounds);
+		if((NSMinX(characterBounds)<NSMinX(selectionRect))
+			|| (NSMaxY(characterBounds)>NSMaxY(selectionRect))
+				|| (NSMaxX(characterBounds)>NSMaxX(selectionRect))
+					|| (NSMinY(characterBounds)<NSMinY(selectionRect)))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint = selectionRect.origin;
+			goto leftSide;
+		}
+		if(NSMinX(characterBounds)>NSMinX(selectionRect))
+		{
+			selectionRect = NSUnionRect(characterBounds,selectionRect);
+			currentPoint.x = MAX(NSMinX(characterBounds)-1,NSMinX(selectionRect));
+			goto bottomSide;
+		}
+		selectionRect = NSUnionRect(characterBounds,selectionRect);
+		goto theEnd;
+	}
+	currentPoint.x -= 5;
+	if(currentPoint.x>NSMinX(selectionRect))
+	{
+		goto bottomSide;
+	}
+theEnd:
+	selectionRect = [pdfView convertRect:selectionRect fromPage:page];
+	selectionRect = [self convertRect:selectionRect fromView:pdfView];
+	[self setSelectionRect:selectionRect];
+	return;
+}
+#endif
+- (void)trackSelectionModify:(NSEvent *)theEvent boundary:(unsigned int)mask inRect:(NSRect)bounds;
+{
+	if(!mask)
+	{
+		return;
+	}
+	NSRect selectionRect = [self selectionRect];
+	NSPoint selectionAnchor;
+	NSRect pointBounds = bounds;
+	if(mask & LEFT)
+	{
+		pointBounds.origin.x = NSMinX(bounds);
+		pointBounds.size.width = MAX(0,NSMaxX(selectionRect) - NSMinX(pointBounds));
+		selectionAnchor.x = NSMinX(selectionRect);// left point
+	}
+	else if(mask & RIGHT)
+	{
+		pointBounds.origin.x = NSMinX(selectionRect);
+		pointBounds.size.width = MAX(0,NSMaxX(bounds) - NSMinX(pointBounds));
+		selectionAnchor.x = NSMaxX(selectionRect);// right point
+	}
+	else
+	{
+		pointBounds.origin.x = NSMinX(selectionRect);
+		pointBounds.size.width = NSWidth(selectionRect);
+		selectionAnchor.x = NSMidX(selectionRect);// unused
+	}
+	if(mask & BOTTOM)
+	{
+		pointBounds.origin.y = NSMinY(bounds);
+		pointBounds.size.height = MAX(0,NSMaxY(selectionRect) - NSMinY(pointBounds));
+		selectionAnchor.y = NSMinY(selectionRect);// bottom point
+	}
+	else if(mask & TOP)
+	{
+		pointBounds.origin.y = NSMinY(selectionRect);
+		pointBounds.size.height = MAX(0,NSMaxY(bounds) - NSMinY(pointBounds));
+		selectionAnchor.y = NSMaxY(selectionRect);// top point
+	}
+	else
+	{
+		pointBounds.origin.y = NSMinY(selectionRect);
+		pointBounds.size.height = NSHeight(selectionRect);
+		selectionAnchor.y = NSMidX(selectionRect);// unused
+	}
+	if(NSIsEmptyRect(pointBounds))
+	{
+		return;
+	}
+	NSWindow * window = [self window];
+	NSRect visibleRect, noScrollRect;
+	NSPoint scrollOffset = NSMakePoint(10,10);
+	NSPoint anchor = [theEvent locationInWindow];/* immutable */
+	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
+	NSPoint newPoint, location;
+	BOOL scroll = NO;
+	float f,g;
+	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+mainLoop:
+	[[NSCursor closedHandCursor] set];
+	visibleRect = [self visibleRect];
+	location = [window mouseLocationOutsideOfEventStream];
+	location = [self convertPoint:location fromView:nil];
+	// if the location is near the boundary of the visible rect, scroll
+	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	scroll = NO;
+	scrollOffset = NSZeroPoint;
+	if(selectionRect.size.width>0)
+	{
+		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		{
+			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.x -= NSMaxX(noScrollRect);
+			g/=newPoint.x;
+			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		{
+			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.x -= NSMinX(noScrollRect);
+			g/=-newPoint.x;
+			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+	}
+	if(selectionRect.size.height>0)
+	{
+		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		{
+			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.y -= NSMaxY(noScrollRect);
+			g/=newPoint.y;
+			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		{
+			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.y -= NSMinY(noScrollRect);
+			g/=-newPoint.y;
+			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+	}
+	visibleRect = NSOffsetRect(visibleRect,scrollOffset.x,scrollOffset.y);
+	[self scrollRectToVisible:visibleRect];
+	// project the location in the visible rectangle
+	newPoint.x = selectionAnchor.x + location.x - locationAnchor.x;
+	newPoint.y = selectionAnchor.y + location.y - locationAnchor.y;
+	if(newPoint.x < (f=NSMinX(visibleRect)))
+	{
+		newPoint.x = f;
+	}
+	else if(newPoint.x > (f=NSMaxX(visibleRect)))
+	{
+		newPoint.x = f;
+	}
+	if(newPoint.y < (f=NSMinY(visibleRect)))
+	{
+		newPoint.y = f;
+	}
+	else if(newPoint.y > (f=NSMaxY(visibleRect)))
+	{
+		newPoint.y = f;
+	}
+	if(newPoint.x < (f=NSMinX(pointBounds)))
+	{
+		newPoint.x = f;
+	}
+	else if(newPoint.x > (f=NSMaxX(pointBounds)))
+	{
+		newPoint.x = f;
+	}
+	if(newPoint.y < (f=NSMinY(pointBounds)))
+	{
+		newPoint.y = f;
+	}
+	else if(newPoint.y > (f=NSMaxY(pointBounds)))
+	{
+		newPoint.y = f;
+	}
+	if(mask & LEFT)
+	{
+		selectionRect.size.width = MAX(0,NSMaxX(selectionRect) - newPoint.x);
+		selectionRect.origin.x = newPoint.x;
+	}
+	else if(mask & RIGHT)
+	{
+		selectionRect.size.width = MAX(0,newPoint.x - NSMinX(selectionRect));
+	}
+	if(mask & BOTTOM)
+	{
+		selectionRect.size.height = MAX(0,NSMaxY(selectionRect) - newPoint.y);
+		selectionRect.origin.y = newPoint.y;
+	}
+	else if(mask & TOP)
+	{
+		selectionRect.size.height = MAX(0,newPoint.y - NSMinY(selectionRect));
+	}
+	[self setSelectionRect:selectionRect];
+	if(scroll)
+	{
+		location = [window mouseLocationOutsideOfEventStream];
+		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
+						location:location
+							modifierFlags:0
+								timestamp:0
+									windowNumber:[window windowNumber]
+										context:nil
+											subtype:0
+												data1:0
+													data2:0];
+		[window postEvent:theEvent atStart:NO];
+	}
+	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
+	if([theEvent type] == NSLeftMouseUp)
+	{
+		return;
+	}
+	goto mainLoop;
+}
+- (void)trackSelectionCreate:(NSEvent *)theEvent inRect:(NSRect)bounds;
+{
+	if(NSIsEmptyRect(bounds))
+	{
+		return;
+	}
+	NSRect selectionRect = [self selectionRect];
+	NSWindow * window = [self window];
+	NSRect visibleRect, noScrollRect;
+	NSPoint scrollOffset = NSMakePoint(10,10);
+	NSPoint anchor = [theEvent locationInWindow];/* immutable */
+	NSRect locationAnchorRect = NSZeroRect;
+	locationAnchorRect.origin = [self convertPoint:anchor fromView:nil];
+	locationAnchorRect = NSInsetRect(locationAnchorRect,-1,-1);
+	NSPoint newPoint, location;
+	BOOL scroll = NO;
+	float f,g;
+	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+mainLoop:
+	[[NSCursor crosshairCursor] set];
+	visibleRect = [self visibleRect];
+	location = [window mouseLocationOutsideOfEventStream];
+	location = [self convertPoint:location fromView:nil];
+	// if the location is near the boundary of the visible rect, scroll
+	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	scroll = NO;
+	scrollOffset = NSZeroPoint;
+	if(selectionRect.size.width>0)
+	{
+		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		{
+			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.x -= NSMaxX(noScrollRect);
+			g/=newPoint.x;
+			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		{
+			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.x -= NSMinX(noScrollRect);
+			g/=-newPoint.x;
+			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+	}
+	if(selectionRect.size.height>0)
+	{
+		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		{
+			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.y -= NSMaxY(noScrollRect);
+			g/=newPoint.y;
+			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		{
+			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.y -= NSMinY(noScrollRect);
+			g/=-newPoint.y;
+			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+	}
+	visibleRect = NSOffsetRect(visibleRect,scrollOffset.x,scrollOffset.y);
+	[self scrollRectToVisible:visibleRect];
+	// project the location in the visible rectangle
+	newPoint = location;
+	if(newPoint.x < (f=NSMinX(visibleRect)))
+	{
+		newPoint.x = f;
+	}
+	else if(newPoint.x > (f=NSMaxX(visibleRect)))
+	{
+		newPoint.x = f;
+	}
+	if(newPoint.y < (f=NSMinY(visibleRect)))
+	{
+		newPoint.y = f;
+	}
+	else if(newPoint.y > (f=NSMaxY(visibleRect)))
+	{
+		newPoint.y = f;
+	}
+	if(newPoint.x < (f=NSMinX(bounds)))
+	{
+		newPoint.x = f;
+	}
+	else if(newPoint.x > (f=NSMaxX(bounds)))
+	{
+		newPoint.x = f;
+	}
+	if(newPoint.y < (f=NSMinY(bounds)))
+	{
+		newPoint.y = f;
+	}
+	else if(newPoint.y > (f=NSMaxY(bounds)))
+	{
+		newPoint.y = f;
+	}
+	selectionRect = NSZeroRect;
+	selectionRect.origin = newPoint;
+	selectionRect = NSInsetRect(selectionRect,-1,-1);
+	selectionRect = NSUnionRect(locationAnchorRect,selectionRect);
+	selectionRect = NSInsetRect(selectionRect,1,1);
+	[self setSelectionRect:selectionRect];
+	if(scroll)
+	{
+		location = [window mouseLocationOutsideOfEventStream];
+		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
+						location:location
+							modifierFlags:0
+								timestamp:0
+									windowNumber:[window windowNumber]
+										context:nil
+											subtype:0
+												data1:0
+													data2:0];
+		[window postEvent:theEvent atStart:NO];
+	}
+	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
+	if([theEvent type] == NSLeftMouseUp)
+	{
+		return;
+	}
+	goto mainLoop;
+}
+- (void)trackSelectionDrag:(NSEvent *)theEvent inRect:(NSRect)bounds;
+{
+	NSRect selectionRect = [self selectionRect];
+	NSPoint selectionAnchor = selectionRect.origin;
+	NSRect pointBounds = bounds;
+	pointBounds.size.width = MAX(0,NSWidth(bounds) - NSWidth(selectionRect));
+	pointBounds.size.height = MAX(0,NSHeight(bounds) - NSHeight(selectionRect));
+	NSWindow * window = [self window];
+	NSRect visibleRect, noScrollRect;
+	NSPoint scrollOffset = NSMakePoint(10,10);
+	NSPoint anchor = [theEvent locationInWindow];/* immutable */
+	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
+	NSPoint newPoint, location;
+	BOOL scroll = NO;
+	float f,g;
+	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+mainLoop:
+	[[NSCursor closedHandCursor] set];
+	visibleRect = [self visibleRect];
+	location = [window mouseLocationOutsideOfEventStream];
+	location = [self convertPoint:location fromView:nil];
+	// if the location is near the boundary of the visible rect, scroll
+	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	scroll = NO;
+	scrollOffset = NSZeroPoint;
+	if(selectionRect.size.width>0)
+	{
+		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		{
+			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.x -= NSMaxX(noScrollRect);
+			g/=newPoint.x;
+			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		{
+			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.x -= NSMinX(noScrollRect);
+			g/=-newPoint.x;
+			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+	}
+	if(selectionRect.size.height>0)
+	{
+		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		{
+			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.y -= NSMaxY(noScrollRect);
+			g/=newPoint.y;
+			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		{
+			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
+			newPoint = [window convertScreenToBase:newPoint];
+			newPoint = [self convertPoint:newPoint fromView:nil];
+			newPoint.y -= NSMinY(noScrollRect);
+			g/=-newPoint.y;
+			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+			scroll = YES;
+		}
+	}
+	visibleRect = NSOffsetRect(visibleRect,scrollOffset.x,scrollOffset.y);
+	[self scrollRectToVisible:visibleRect];
+	// project the location in the visible rectangle
+	newPoint.x = selectionAnchor.x + location.x - locationAnchor.x;
+	newPoint.y = selectionAnchor.y + location.y - locationAnchor.y;
+	if(newPoint.x < (f=NSMinX(visibleRect)))
+	{
+		newPoint.x = f;
+	}
+	else if(newPoint.x > (f=NSMaxX(visibleRect)-NSWidth(selectionRect)))
+	{
+		newPoint.x = f;
+	}
+	if(newPoint.y < (f=NSMinY(visibleRect)))
+	{
+		newPoint.y = f;
+	}
+	else if(newPoint.y > (f=NSMaxY(visibleRect)-NSHeight(selectionRect)))
+	{
+		newPoint.y = f;
+	}
+	if(newPoint.x < (f=NSMinX(pointBounds)))
+	{
+		newPoint.x = f;
+	}
+	else if(newPoint.x > (f=NSMaxX(pointBounds)))
+	{
+		newPoint.x = f;
+	}
+	if(newPoint.y < (f=NSMinY(pointBounds)))
+	{
+		newPoint.y = f;
+	}
+	else if(newPoint.y > (f=NSMaxY(pointBounds)))
+	{
+		newPoint.y = f;
+	}
+	selectionRect.origin = newPoint;
+	[self setSelectionRect:selectionRect];
+	if(scroll)
+	{
+		location = [window mouseLocationOutsideOfEventStream];
+		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
+						location:location
+							modifierFlags:0
+								timestamp:0
+									windowNumber:[window windowNumber]
+										context:nil
+											subtype:0
+												data1:0
+													data2:0];
+		[window postEvent:theEvent atStart:NO];
+	}
+	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
+	if([theEvent type] == NSLeftMouseUp)
+	{
+		return;
+	}
+	goto mainLoop;
+}
+- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area
+{
+	if([self isHiddenOrHasHiddenAncestor])
+	{
+		return;
+	}
+	if(area&kPDFPageArea)
+	{
+		if(area&kiTM2PDFSelectArea)
+		{
+			[[NSCursor openHandCursor] set];
+		}
+		else if(area&kiTM2PDFSelectLeftArea)
+		{
+			if(area&kiTM2PDFSelectTopArea)
+			{
+				[[NSCursor resizeTopLeftCursor] set];
+			}
+			else if(area&kiTM2PDFSelectBottomArea)
+			{
+				[[NSCursor resizeBottomLeftCursor] set];
+			}
+			else
+			{
+				[[NSCursor resizeLeftRightCursor] set];
+			}
+		}
+		else if(area&kiTM2PDFSelectRightArea)
+		{
+			if(area&kiTM2PDFSelectTopArea)
+			{
+				[[NSCursor resizeTopRightCursor] set];
+			}
+			else if(area&kiTM2PDFSelectBottomArea)
+			{
+				[[NSCursor resizeBottomRightCursor] set];
+			}
+			else
+			{
+				[[NSCursor resizeLeftRightCursor] set];
+			}
+		}
+		else if(area&kiTM2PDFSelectTopArea || area&kiTM2PDFSelectBottomArea)
+		{
+			[[NSCursor resizeUpDownCursor] set];
+		}
+		else
+		{
+			[[NSCursor crosshairCursor] set];
+		}
+	}
+	else
+	{
+		[[NSCursor arrowCursor] set];
+	}
+	return;
+}
+- (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *) theEvent;
+{
+	if(!_active)
+	{
+		return kPDFNoArea;
+	}
+	NSPoint viewMouse = [[NSApp currentEvent] locationInWindow];
+	viewMouse = [self convertPoint: viewMouse fromView: NULL];
+	NSRect selectionRect = [self selectionRect];
+	NSRect rect = selectionRect;
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return kiTM2PDFSelectArea;
+	}
+	#define AREA_LAYER 10
+	rect.size.width = AREA_LAYER;
+	rect.origin.x -= AREA_LAYER;
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return kiTM2PDFSelectLeftArea;
+	}
+	rect = selectionRect;
+	rect.size.width = AREA_LAYER;
+	rect.origin.x = NSMaxX(selectionRect);
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return kiTM2PDFSelectRightArea;
+	}
+	rect = selectionRect;
+	rect.size.height = AREA_LAYER;
+	rect.origin.y -= AREA_LAYER;
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return [self isFlipped]?kiTM2PDFSelectTopArea:kiTM2PDFSelectBottomArea;
+	}
+	rect = selectionRect;
+	rect.size.height = AREA_LAYER;
+	rect.origin.y = NSMaxY(selectionRect);
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return [self isFlipped]?kiTM2PDFSelectBottomArea:kiTM2PDFSelectTopArea;
+	}
+	rect = selectionRect;
+	rect.size.width = AREA_LAYER;
+	rect.size.height = AREA_LAYER;
+	rect.origin.x = NSMaxX(selectionRect);
+	rect.origin.y = NSMaxY(selectionRect);
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return kiTM2PDFSelectRightArea|([self isFlipped]?kiTM2PDFSelectBottomArea:kiTM2PDFSelectTopArea);
+	}
+	rect = selectionRect;
+	rect.size.width = AREA_LAYER;
+	rect.size.height = AREA_LAYER;
+	rect.origin.x -= AREA_LAYER;
+	rect.origin.y = NSMaxY(selectionRect);
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return kiTM2PDFSelectLeftArea|([self isFlipped]?kiTM2PDFSelectBottomArea:kiTM2PDFSelectTopArea);
+	}
+	rect = selectionRect;
+	rect.size.width = AREA_LAYER;
+	rect.size.height = AREA_LAYER;
+	rect.origin.x = NSMaxX(selectionRect);
+	rect.origin.y -= AREA_LAYER;
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return kiTM2PDFSelectRightArea|([self isFlipped]?kiTM2PDFSelectTopArea:kiTM2PDFSelectBottomArea);
+	}
+	rect = selectionRect;
+	rect.size.width = AREA_LAYER;
+	rect.size.height = AREA_LAYER;
+	rect.origin.x -= AREA_LAYER;
+	rect.origin.y -= AREA_LAYER;
+	if([self mouse:viewMouse inRect:rect])
+	{
+		return kiTM2PDFSelectLeftArea|([self isFlipped]?kiTM2PDFSelectTopArea:kiTM2PDFSelectBottomArea);
+	}
+	#undef AREA_LAYER
+	return kPDFNoArea;
+}
+- (void)copy:(id)sender;
+{
+	NSRect selectionRect = [self selectionRect];
+	if(NSIsEmptyRect(selectionRect))
+	{
+		return;
+	}
+	NSPasteboard *pb = [NSPasteboard generalPasteboard];
+	NSArray *types = [NSArray arrayWithObjects:NSPDFPboardType, nil];
+	[pb declareTypes:types owner:self];
+	PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
+	selectionRect = [self convertRect:selectionRect toView:pdfView];
+	NSData * pdfData;
+	if([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
+	{
+		pdfData = [pdfView dataWithPDFInsideRect:selectionRect];// with blank background
+	}
+	else
+	{
+		PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
+		NSRect selectionRect = [self selectionRect];
+		selectionRect = [self convertRect:selectionRect toView:pdfView];
+		NSPoint point = NSMakePoint(NSMidX(selectionRect),NSMidY(selectionRect));
+		PDFPage * page = [pdfView pageForPoint:point nearest:NO];
+		if(page)
+		{
+			selectionRect = [pdfView convertRect:selectionRect toPage:page];
+			NSString * path = [[[[self window] windowController] document] fileName];
+			NSData * data = [[[NSData allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			NSPDFImageRep * imageRep = [[[NSPDFImageRep allocWithZone:[self zone]] initWithData:data] autorelease];
+			PDFDocument * document = [page document];
+			int currentPage = [document indexForPage:page];
+			[imageRep setCurrentPage:currentPage];
+			NSRect pageBounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
+			NSRect repBounds = [imageRep bounds];
+			if(NSIsEmptyRect(repBounds))
+			{
+				return;
+			}
+			// convert the selectionRect to the __iTM2PDFPrintView coordinates
+			// the new selectionRect should be to the repBounds like the old one was to the page bounds
+			selectionRect.origin.x = repBounds.origin.x + (selectionRect.origin.x - pageBounds.origin.x) * pageBounds.size.width/repBounds.size.width;
+			selectionRect.origin.y = repBounds.origin.y + (selectionRect.origin.y - pageBounds.origin.y) * pageBounds.size.height/repBounds.size.height;
+			selectionRect.size.width *= pageBounds.size.width/repBounds.size.width;
+			selectionRect.size.height *= pageBounds.size.height/repBounds.size.height;
+			__iTM2PDFPrintView * view = [[[__iTM2PDFPrintView allocWithZone:[self zone]] initWithFrame:repBounds] autorelease];
+			view->representation = imageRep;
+			pdfData = [view dataWithPDFInsideRect:selectionRect];
+		}
+	}
+	[pb setData:pdfData forType:NSPDFPboardType];
+	return;
+}
+- (void)centerSelectionInVisibleArea:(id)sender;
+{
+	[self scrollSelectionToVisible:sender];
+	return;
+}
+- (void)scrollSelectionToVisible:(id)sender;
+{
+	[self scrollRectToVisible:[self selectionRect]];
+	return;
+}
+@end
+
+@implementation __iTM2PDFPrintView
+- (void)drawRect:(NSRect)aRect;
+{
+	[representation drawAtPoint:NSZeroPoint];
+	return;
+}
+@end
+
+@implementation _PDFFilePromiseController
+- (id)initWithName:(NSString *)name data:(NSData *)data label:(NSString *)label;
+{
+	if(self = [super init])
+	{
+		[_name autorelease];
+		_name = [name copy];
+		[_data autorelease];
+		_data = [data retain];
+		[_label autorelease];
+		_label = [label copy];
+	}
+	return self;
+}
+- (void)dealloc;
+{
+	[_name autorelease];
+	_name = nil;
+	[_data autorelease];
+	_data = nil;
+	[_label autorelease];
+	_label = nil;
+	[super dealloc];
+	return;
+}
+- (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination;
+{
+	if(![dropDestination isFileURL])
+	{
+		return [NSArray array];
+	}
+	NSString * destination = [dropDestination path];
+	NSString * coreName = _name;
+	coreName = [coreName lastPathComponent];
+	coreName = [coreName stringByDeletingPathExtension];
+	// this is he core name
+	unsigned int index = 0;
+	while(YES)
+	{
+		NSString * name = [coreName stringByAppendingFormat:@"[%@-%i].pdf",_label,++index];
+		NSString * path = [destination stringByAppendingPathComponent:name];
+		if(![[NSFileManager defaultManager] fileExistsAtPath:path])
+		{
+			return [_data writeToFile:path options:NSAtomicWrite error:nil]?
+				[NSArray arrayWithObject:name]:[NSArray array];
+		}
+	}
 }
 @end
 
@@ -4623,163 +6711,6 @@ To Do List:
 }
 @end
 
-@implementation PDFView(iTM2SyncKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= zoomToFit:
-- (void)zoomToFit:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// get the current page
-	PDFPage * P = [self currentPage];
-	NSRect bounds = [P boundsForBox:kPDFDisplayBoxMediaBox];
-	NSRect frame = [self convertRect:bounds fromPage:P];
-	float expectedWidth = [self frame].size.width;
-	float actualWidth = frame.size.width;
-	if(actualWidth == 0)
-		return;
-	float widthCorrection = expectedWidth/actualWidth;
-	float expectedHeight = [self frame].size.height;
-	float actualHeight = frame.size.height;
-	if(actualHeight == 0)
-		return;
-	float heightCorrection = expectedHeight/actualHeight;
-	[self setScaleFactor:MIN(widthCorrection, heightCorrection) * [self scaleFactor] * 0.85];
-	[self goToPage:P];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:
-- (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P;
-/*"O based.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return NO;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollDestinationToVisible:
-- (void)scrollDestinationToVisible:(PDFDestination *)destination;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#if 1
-	PDFPage * page;
-	page = [destination page];
-	[self goToPage:page];
-	int characterIndex = [page characterIndexNearPoint:[destination point]];
-	NSRect characterBounds = NSZeroRect;
-	characterBounds.origin = [destination point];
-	if(characterIndex>=0)
-		characterBounds = [page characterBoundsAtIndex:characterIndex];
-	NSView * V = [self documentView];
-	characterBounds = [self convertRect:[self convertRect:characterBounds fromPage:page] toView:V];
-	NSPoint destinationPoint = [self convertPoint:[self convertPoint:[destination point] fromPage:page] toView:V];
-	PDFSelection * selection = [page selectionForRange:NSMakeRange(0, [page numberOfCharacters])];
-	NSRect pageBounds = NSZeroRect;
-	if(selection)
-		pageBounds = [self convertRect:[self convertRect:[selection boundsForPage:page] fromPage:page] toView:V];
-	else
-		pageBounds = [self convertRect:[self convertRect:[page boundsForBox:kPDFDisplayBoxMediaBox] fromPage:page] toView:V];
-	NSRect lineBounds = NSZeroRect;
-	if(selection = [page selectionForLineAtPoint:[destination point]])
-		lineBounds = [self convertRect:[self convertRect:[selection boundsForPage:page] fromPage:page] toView:V];
-	else
-	{
-		lineBounds.origin = destinationPoint;
-		lineBounds = NSInsetRect(lineBounds, - 32, - 32);
-	}
-	NSRect wordBounds = lineBounds;
-	if(selection = [page selectionForWordAtPoint:[destination point]])
-		wordBounds = [self convertRect:[self convertRect:[selection boundsForPage:page] fromPage:page] toView:V];
-	NSRect visibleDocumentRect = [V visibleRect];
-	if(!NSContainsRect(visibleDocumentRect, NSInsetRect(wordBounds, -32, -16)))
-	{
-		// then cover the maximum range of lineBounds and pageBounds
-		if(NSMaxY(pageBounds) < NSMidY(lineBounds) + visibleDocumentRect.size.height/2 + 16)
-			visibleDocumentRect.origin.y = NSMaxY(pageBounds) + 16 - visibleDocumentRect.size.height;
-		else if(NSMidY(lineBounds) - visibleDocumentRect.size.height/2 - 16 < NSMinY(pageBounds))
-			visibleDocumentRect.origin.y = NSMinY(pageBounds) - 16;
-		else
-			visibleDocumentRect.origin.y = NSMidY(lineBounds) - visibleDocumentRect.size.height/2;
-		if(!NSContainsRect(visibleDocumentRect, NSInsetRect(wordBounds, -32, -16)))
-		{
-			if(visibleDocumentRect.size.width<wordBounds.size.width + 32)
-				visibleDocumentRect.origin.x = NSMidX(characterBounds) - visibleDocumentRect.size.width/2;
-			else if(NSMaxX(visibleDocumentRect) < NSMaxX(wordBounds) + 16)
-				visibleDocumentRect.origin.x = NSMaxX(wordBounds) + 16 - visibleDocumentRect.size.width;
-			else
-				visibleDocumentRect.origin.x = NSMinX(wordBounds) - 16;
-		}
-		[V scrollRectToVisible:visibleDocumentRect];
-	}
-#else
-	PDFPage * page = [destination page];
-	NSPoint P1 = [destination point];
-	int index = [page characterIndexAtPoint:P1];
-	if(index < 0)
-	{
-		P1.x += 5;
-		P1.y += 5;
-		index = [page characterIndexAtPoint:P1];
-		if(index < 0)
-		{
-			P1.x -= 10;
-			index = [page characterIndexAtPoint:P1];
-			if(index < 0)
-			{
-				P1.y -= 10;
-				index = [page characterIndexAtPoint:P1];
-				if(index < 0)
-				{
-					P1.x += 10;
-					index = [page characterIndexAtPoint:P1];
-					if(index < 0)
-					{
-						return;
-					}
-				}
-			}
-		}
-	}
-	PDFSelection * currentSelection = [self currentSelection];
-	PDFSelection * selection = [page selectionForRange:NSMakeRange(index, 1)];
-	[self setCurrentSelection:selection];
-	[self scrollSelectionToVisible:self];
-	if(iTM2DebugEnabled<10)
-#if 1
-	// this one to avoid cocoa sending some NSException
-	[self performSelector:@selector(setCurrentSelection:) withObject:currentSelection afterDelay:0.01];
-#else
-	[self setCurrentSelection:currentSelection];
-#endif
-#endif
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
-- (void)scrollSynchronizationPointToVisible:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return;
-}
-@end
-
 NSString * const iTM2PDFKitKeyBindingsIdentifier = @"PDF2";
 
 @implementation iTM2PDFKitInspector(iTM2KeyStrokeKit)
@@ -4876,7 +6807,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[_pdfView setScaleFactor:1.0];
+	[[self pdfView] setScaleFactor:1.0];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -4891,7 +6822,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [_pdfView scaleFactor] != 1.0;
+    return [[self pdfView] scaleFactor] != 1.0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomIn:
 - (void)doZoomIn:(id)sender;
@@ -4905,7 +6836,7 @@ To Do List:
     int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor"]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
-		[_pdfView setScaleFactor:n / 100.0 * [_pdfView scaleFactor]];
+		[[self pdfView] setScaleFactor:n / 100.0 * [[self pdfView] scaleFactor]];
     [[self window] flushKeyStrokeEvents:self];
 	[self validateWindowContent];
 //iTM2_END;
@@ -4923,7 +6854,7 @@ To Do List:
     int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor"]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
-		[_pdfView setScaleFactor:100 * [_pdfView scaleFactor] / n];
+		[[self pdfView] setScaleFactor:100 * [[self pdfView] scaleFactor] / n];
     [[self window] flushKeyStrokeEvents:self];
 	[self validateWindowContent];
 //iTM2_END;
@@ -4939,7 +6870,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// get the current page
-	[_pdfView zoomToFit:sender];
+	[[self pdfView] zoomToFit:sender];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -4971,14 +6902,14 @@ To Do List:
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(!n)
 		return;
-	PDFPage * page = [_pdfView currentPage];
+	PDFPage * page = [[self pdfView] currentPage];
 	PDFDocument * document = [page document];
 	unsigned int index = [document indexForPage:page];
 	if(n>index)
 		index = 0;
 	else
 		index -= n;
-	[_pdfView goToPage:[document pageAtIndex:index]];
+	[[self pdfView] goToPage:[document pageAtIndex:index]];
     [[self window] flushKeyStrokeEvents:self];
 	[self validateWindowContent];
 //iTM2_END;
@@ -4997,7 +6928,7 @@ To Do List:
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(!n)
 		return;
-	PDFPage * page = [_pdfView currentPage];
+	PDFPage * page = [[self pdfView] currentPage];
 	PDFDocument * document = [page document];
 	unsigned int index = [document indexForPage:page];
 	unsigned int pageCount = [document pageCount];
@@ -5006,7 +6937,7 @@ To Do List:
 		index += n;
 	else
 		index = pageCount - 1;
-	[_pdfView goToPage:[document pageAtIndex:index]];
+	[[self pdfView] goToPage:[document pageAtIndex:index]];
     [[self window] flushKeyStrokeEvents:self];
 	[self validateWindowContent];
 //iTM2_END;
@@ -5021,7 +6952,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [_pdfView goForward:sender];
+    [[self pdfView] goForward:sender];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -5035,7 +6966,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [_pdfView goBack:sender];
+    [[self pdfView] goBack:sender];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -5051,7 +6982,7 @@ To Do List:
 //iTM2_START;
     int n = 100;
     [[[self window] keyStrokes] getIntegerTrailer: &n];
-    [_pdfView setScaleFactor:n/100.0];
+    [[self pdfView] setScaleFactor:n/100.0];
     [[self window] flushKeyStrokeEvents:self];
 	[self validateWindowContent];
 //iTM2_END;
@@ -5071,11 +7002,11 @@ To Do List:
 		return;
 	if(n<1)
 		n = 1;
-	PDFPage * page = [_pdfView currentPage];
+	PDFPage * page = [[self pdfView] currentPage];
 	PDFDocument * document = [page document];
 	unsigned int pageCount = [document pageCount];
 	if(--n<pageCount)
-		[_pdfView goToPage:[document pageAtIndex:n]];
+		[[self pdfView] goToPage:[document pageAtIndex:n]];
     [[self window] flushKeyStrokeEvents:self];
 	[self validateWindowContent];
 //iTM2_END;
