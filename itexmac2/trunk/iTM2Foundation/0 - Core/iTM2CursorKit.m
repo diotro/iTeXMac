@@ -26,6 +26,9 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSCursor(iTeXMac2)
 /*"Description forthcoming."*/
+@interface NSCursor(iTeXMac2_PRIVATE)
++ (NSCursor *)iTM2_cursorForSelector:(SEL)aSelector;
+@end
 @implementation NSCursor(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fingerCursor
 + (NSCursor *)fingerCursor;
@@ -258,6 +261,72 @@ To Do List:
             cursor = [[NSCursor IBeamCursor] retain];
         }
 	}
+//iTM2_END;
+    return cursor;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_cursorForSelector:
++ (NSCursor *)iTM2_cursorForSelector:(SEL)aSelector;
+{
+	NSString * name = NSStringFromSelector(aSelector);
+	NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:name];
+	if(path)
+	{
+//iTM2_END;
+		return [[[NSCursor allocWithZone:[self zone]] initWithImage:
+				[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
+					hotSpot: NSMakePoint(7, 7)] autorelease];
+	}
+	else
+	{
+		iTM2_LOG(@"Could not create %@...",name);
+		return [NSCursor arrowCursor];
+	}
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  resizeTopLeftCursor
++ (NSCursor *)resizeTopLeftCursor;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSCursor * cursor = nil;
+    if(!cursor)
+    {
+		cursor = [[self iTM2_cursorForSelector:_cmd] retain];
+    }
+//iTM2_END;
+    return cursor;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  resizeTopRightCursor
++ (NSCursor *)resizeTopRightCursor;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSCursor * cursor = nil;
+    if(!cursor)
+    {
+		cursor = [[self iTM2_cursorForSelector:_cmd] retain];
+    }
+//iTM2_END;
+    return cursor;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  resizeBottomLeftCursor
++ (NSCursor *)resizeBottomLeftCursor;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSCursor * cursor = nil;
+    if(!cursor)
+    {
+		cursor = [[self iTM2_cursorForSelector:_cmd] retain];
+    }
+//iTM2_END;
+    return cursor;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  resizeBottomRightCursor
++ (NSCursor *)resizeBottomRightCursor;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSCursor * cursor = nil;
+    if(!cursor)
+    {
+		cursor = [[self iTM2_cursorForSelector:_cmd] retain];
+    }
 //iTM2_END;
     return cursor;
 }
