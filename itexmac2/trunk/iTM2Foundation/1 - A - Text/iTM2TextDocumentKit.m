@@ -1003,35 +1003,38 @@ To Do List:
     return [[self stringFormatter] isStringEncodingHardCoded];
 }
 #warning THE STRING ENCODING MUST BE REVISITED WITH LATEST CODE...
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:
-- (void)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)stringEncoding;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
+- (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
 To do list: ASK!!!
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[self stringFormatter] setStringEncoding:stringEncoding];
-    [self revertToSavedFromFile:[self fileName] ofType:[self fileType]];
-    return;
+    [[self stringFormatter] setStringEncoding:encoding];
+	NSURL * absoluteURL = [self fileURL];
+	NSString * typeName = [self fileType];
+    return [self revertToContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:
-- (void)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)stringEncoding;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:error:
+- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
 To do list: ASK!!!
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([self stringEncoding] != stringEncoding)
+    if([self stringEncoding] != encoding)
     {
         if([self isDocumentEdited])
         {
             NSWindow * docWindow = [NSApp mainWindow];
+			BOOL success = NO;
             if(self != [[docWindow windowController] document])
                 docWindow = nil;
             NSBeginAlertSheet(
-                [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Reverting to %@ string encoding.", TABLE, BUNDLE, "Sheet title"), [NSString localizedNameOfStringEncoding:stringEncoding]],
+                [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Reverting to %@ string encoding.", TABLE, BUNDLE, "Sheet title"),
+					[NSString localizedNameOfStringEncoding:encoding]],
                 NSLocalizedStringFromTableInBundle(@"Revert", TABLE, BUNDLE, "Button title"),
                 NSLocalizedStringFromTableInBundle(@"Cancel", TABLE, BUNDLE, ""),
                 nil,
@@ -1039,15 +1042,19 @@ To do list: ASK!!!
                 self,
                 NULL,
                 @selector(revertWithStringEncodingSheetDidDismiss:returnCode:contextInfo:),
-                [[NSDictionary dictionaryWithObject:
-                    [NSNumber numberWithUnsignedInt:stringEncoding] forKey:iTM2StringEncodingKey] retain],// will be released below
+                [[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithUnsignedInt:encoding],iTM2StringEncodingKey,
+					[NSValue valueWithPointer:outErrorPtr],@"outErrorPtr",
+					[NSValue valueWithPointer:&success],@"successPtr",
+						nil] retain],// will be released below
                 NSLocalizedStringFromTableInBundle(@"\"%@\" has been edited.  Are you sure you want to revert to saved?", TABLE, BUNDLE, ""),
                 [self fileName]);
+			return success;
         }
         else
-            [self _revertDocumentToSavedWithStringEncoding:stringEncoding];
+            return [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
     }
-    return;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertWithStringEncodingSheetDidDismiss:returnCode:contextInfo:
 - (void)revertWithStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo;
@@ -1058,8 +1065,28 @@ To do list: ASK!!!
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [contextInfo autorelease];// was retained before
+	NSError ** outErrorPtr = [(NSValue *)[contextInfo objectForKey:@"outErrorPtr"] pointerValue];
+	BOOL * successPtr = [(NSValue *)[contextInfo objectForKey:@"successPtr"] pointerValue];
+	unsigned int encoding = [(NSNumber *)[contextInfo objectForKey:iTM2StringEncodingKey] unsignedIntValue];
     if(returnCode == NSAlertDefaultReturn)
-        [self _revertDocumentToSavedWithStringEncoding:[(NSNumber *)[contextInfo objectForKey:iTM2StringEncodingKey] unsignedIntValue]];
+	{
+		BOOL success = [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
+        if(successPtr)
+		{
+			*successPtr = success;
+		}
+	}
+	else
+	{
+        if(successPtr)
+		{
+			*successPtr = NO;
+		}
+        if(outErrorPtr)
+		{
+			*outErrorPtr = nil;// no need to put an out error because the user cancelled the action...
+		}
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
@@ -1654,7 +1681,11 @@ To Do List:
 	unsigned int encoding = [stringEncodingInfo unsignedIntValue];
 	if(NSAlertDefaultReturn == returnCode)
 	{
-		[[self document] revertDocumentToSavedWithStringEncoding:encoding];
+		NSError * outError = nil;
+		if(![[self document] revertDocumentToSavedWithStringEncoding:encoding error:&outError])
+		{
+			[NSApp presentError:outError];
+		}
 		return;
 	}
     if([[[self textStorage] string] canBeConvertedToEncoding:encoding])
