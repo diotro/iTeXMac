@@ -23,6 +23,9 @@
 */
 #warning DEBUGGGGGGGGGGGGGGGG
 #define __iTM2_BUG_TRACKING__ 1
+#ifdef __iTM2_BUG_TRACKING__
+	#warning DEBUGGGGGGGGGGGGGGGG
+#endif
 #ifdef __iTM2_NO_XTD_SPELL__
 #warning *** NO XTD SPELL
 #else

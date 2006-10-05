@@ -47,8 +47,9 @@ truc = [NSObject self];
 object->isa==truc->isa && truc != object
 */
 
-void iTM2Beep();
-void iTM2Beep()
+void iTM2Beep(void);
+
+void iTM2Beep(void)
 {
 #if __iTM2_BUG_TRACKING__
 #warning *** BUG TRACKING

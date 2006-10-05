@@ -1712,7 +1712,6 @@ To Do List:
 					{
 					//iTM2_END;
 						id sender = ([(id)[self controlView] action] == [self action]?(id)[self controlView]:self);
-						#warning IS THERE A PROBLEM WITH LITTLE ENDIANS
 						result = (int)(objc_msgSend(validatorTarget, validatorAction, sender)) & 0xFF;//BOOL
 						[self setEnabled:result];
 					}

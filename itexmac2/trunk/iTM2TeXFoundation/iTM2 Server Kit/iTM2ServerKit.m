@@ -111,8 +111,8 @@ To Do List: see the warning below
         selector: @selector(performProjectActionWithContextNotified:)
             name: iTM2ServerPerformProjectActionWithContextNotification
                 object: nil
-                    suspensionBehavior: NSNotificationSuspensionBehaviorDeliverImmediately];
-	#warning THIS SHOULD ONLY OCCUR WITH USER DEFAULT SETTINGS
+                    suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
+#warning THIS SHOULD ONLY OCCUR WITH USER DEFAULT SETTINGS
     [[iTM2SystemSignalNotificationCenter defaultCenter] addObserver: self
         selector: @selector(sytemSignalSIGUSR1Notified:)
             name: iTM2SystemSignalSIGUSR1Notification

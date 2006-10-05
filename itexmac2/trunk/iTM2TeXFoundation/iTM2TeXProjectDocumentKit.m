@@ -329,8 +329,8 @@ To Do List:
 	}
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingStringForFileKey:
-- (NSString *)stringEncodingStringForFileKey:(NSString *) fileKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingNameForFileKey:
+- (NSString *)stringEncodingNameForFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -852,7 +852,7 @@ To Do List:
 			NSString * stringEncoding = [project originalPropertyValueForKey:TWSStringEncodingFileKey fileKey:K];
 			if(stringEncoding)
 			{
-				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding([iTM2StringFormatController coreFoundationStringEncodingFromString:stringEncoding]);
+				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding([iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncoding]);
 				int idx = [sender indexOfItemWithTag:encoding];
 				if(idx<0)
 				{
@@ -870,8 +870,8 @@ To Do List:
 			}
 			else
 			{
-				stringEncoding = [project stringEncodingStringForFileKey:K];
-				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding([iTM2StringFormatController coreFoundationStringEncodingFromString:stringEncoding]);
+				stringEncoding = [project stringEncodingNameForFileKey:K];
+				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding([iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncoding]);
 				NSString * title = [NSString localizedNameOfStringEncoding:encoding];
 				if(![title length])
 					title = [NSString stringWithFormat:@"%d", encoding];
@@ -912,7 +912,7 @@ To Do List:
 	{
 		NSString * K = [fileKeys objectAtIndex:row];
 		unsigned int new = CFStringConvertNSStringEncodingToEncoding([sender tag]);
-		unsigned int old = [iTM2StringFormatController coreFoundationStringEncodingFromString:[project originalPropertyValueForKey:TWSStringEncodingFileKey fileKey:K]];
+		unsigned int old = [iTM2StringFormatController coreFoundationStringEncodingWithName:[project originalPropertyValueForKey:TWSStringEncodingFileKey fileKey:K]];
 		if(new != old)
 		{
 			id D = [SDC documentForFileName:[project absoluteFileNameForKey:K]];
@@ -1318,9 +1318,10 @@ To Do List:
 	{
 		NSString * FN = [D fileName];
 		NSString * key = [P keyForFileName:FN];
-		NSString * name = [P stringEncodingStringForFileKey:key];
-		CFStringEncoding encoding = [iTM2StringFormatController coreFoundationStringEncodingFromString:name];
+		NSString * name = [P stringEncodingNameForFileKey:key];
+		CFStringEncoding encoding = [iTM2StringFormatController coreFoundationStringEncodingWithName:name];
 		return CFStringConvertEncodingToNSStringEncoding(encoding);
+		[NSString stringEncodingWithName:name];
 	}
     return [super stringEncoding];
 }

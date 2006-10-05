@@ -1474,7 +1474,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning CACHE SOME VALUE TO SPEED THE LIMIT
 //NSLog(@"Computing the line idx for location: %u", location);
     // this is the idx for which the mode line realizes
     // offset[idx] <= location < offset[idx] + end[idx]
@@ -1812,9 +1811,8 @@ ValidateNextModeLine:;
 		if(mode && (mode != kiTM2TextUnknownSyntaxMode))
 		{
 			[self validateModesUpTo:first];
-			#warning NO FIREWALL YET
-//			int firewall = 543;
-			if(++first<last)
+			int firewall = 543;
+			if(++first<last && --firewall)
 				goto ValidateNextModeLine;
 		}
     }

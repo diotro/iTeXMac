@@ -3303,6 +3303,7 @@ next:
 		[NSEvent stopPeriodicEvents];/* No longer need to refresh */
 		[[rootView superview] replaceSubview:rootView with:self];
 		[[self superview] setNeedsDisplay:YES];
+		[[self window] discardCursorRects];
 //iTM2_END;
 		return YES;
 	}
@@ -4749,6 +4750,7 @@ mainLoop:
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
 	if([theEvent type] == NSLeftMouseUp)
 	{
+		[self discardCursorRects];
 		return YES;
 	}
 	// should I auto scroll?
@@ -5493,9 +5495,10 @@ To Do List:
 			return;
 		}
 		// is it a drag operation to an external destination
-		NSPoint mouseLoc = [theEvent locationInWindow];
 		PDFView * pdfView = (PDFView *)[self superviewMemberOfClass:[PDFView class]];
-		PDFPage * page = [pdfView pageForPoint:[pdfView convertPoint:mouseLoc fromView:nil] nearest:NO];
+		NSPoint mouseLoc = [theEvent locationInWindow];
+		mouseLoc = [pdfView convertPoint:mouseLoc fromView:nil];
+		PDFPage * page = [pdfView pageForPoint:mouseLoc nearest:NO];
 		if(!page)
 		{
 			return;
@@ -5559,7 +5562,7 @@ To Do List:
 				}
 			}
 		}
-		[pdfView discardCursorRects];
+		[[self window] discardCursorRects];
 		_tracking = NO;// while tracking the drawRect: does not behave the same
 	}
 	else

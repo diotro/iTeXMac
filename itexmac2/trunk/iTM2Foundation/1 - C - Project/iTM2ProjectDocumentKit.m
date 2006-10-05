@@ -275,7 +275,6 @@ To Do List:
     projectName = [[[self fileName] lastPathComponent] stringByDeletingPathExtension];
 	return [[projectName lowercaseString] isEqualToString:@"project"]? @"":projectName;
 }
-#warning DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileURL:
 - (void)setFileURL:(NSURL*)url;
 /*"Projects are no close documents!!!
@@ -1799,10 +1798,6 @@ To Do List:
 	NSString * end = [self relativeFileNameForKey:key];
 	NSString * result = [base stringByAppendingPathComponent:end];
 	result = [result stringByStandardizingPath];
-#warning DEBUG
-if(![DFM fileExistsAtPath:result])
-{
-iTM2_LOG(@"Possible PROBLEM with missing %@",result);}
 //iTM2_END;
 	return result;// does it exist? I don't care, the client will decide
 }
@@ -1828,10 +1823,6 @@ To Do List:
 	}
 	NSString * result = [base stringByAppendingPathComponent:end];
 	result = [result stringByStandardizingPath];
-#warning DEBUG
-if(![DFM fileExistsAtPath:result])
-{
-iTM2_LOG(@"PROBLEM with missing %@",result);}
 //iTM2_END;
 	return result;// does it exist? I don't care, the client will decide
 }
@@ -3470,11 +3461,9 @@ To Do List:
 			goto Zatsoquet;
 		}
 #if 1
-#warning THIS IS DEBUG CODE
 		[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nwas unexpected and will be recycled", fileName] forKey:NSLocalizedDescriptionKey]]];
-		[SWS selectFile:fileName inFileViewerRootedAtPath:[fileName lastPathComponent]];
-#endif
+		[SWS selectFile:fileName inFileViewerRootedAtPath:[fileName stringByDeletingLastPathComponent]];
 		// it is not a directory: recycle it.
 		int tag;
 		if([SWS performFileOperation:NSWorkspaceRecycleOperation source:[fileName stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[fileName lastPathComponent]] tag:&tag])
@@ -4423,7 +4412,6 @@ To Do List:
 		}
 		dirName = [dirName stringByDeletingLastPathComponent];
 		NSArray * components = [dirName pathComponents];
-		NSRange R = NSMakeRange(0, [components count]);
 		NSMutableArray * copiables = [NSMutableArray array];
         while(fileName = [E nextObject])
 		{
@@ -4853,7 +4841,6 @@ To Do List:
 			NSString * dirName = [[projectDocument fileName] stringByDeletingLastPathComponent];
 			NSString * new = [dirName stringByAppendingPathComponent:newRelative];
 			NSString * key = [projectDocument keyForFileName:new];
-#warning REPORT AN ERROR
 			if([key length])
 			{
 				iTM2_REPORTERROR(1,([NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The name %@ is already used.", iTM2ProjectTable, myBUNDLE, ""),
@@ -4994,7 +4981,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning MISSING BETTER DESIGN, automagically create a new project?
     return [self hasProject]? [SPC projectForDocument:self]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wrapper
@@ -5936,7 +5922,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning THERE MIGHT BE A REALLY BIG PROBLEM WHEN CREATING NEW DOCUMENTS:the filename is void!!!
+#warning THERE MIGHT BE A REALLY BIG PROBLEM WHEN CREATING NEW DOCUMENTS:the filename is void!!! Use the autosave?
 //NSLog(@"source:%@", source);
 	[[source retain] autorelease];
     if([source isKindOfClass:[NSString class]])

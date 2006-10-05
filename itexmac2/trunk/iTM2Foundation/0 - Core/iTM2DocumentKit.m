@@ -3549,7 +3549,7 @@ To do list:
 //iTM2_START;
     [super initialize];
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithInt:0], iTM2UDLevelsOfUndoKey,
+            [NSNumber numberWithUnsignedInt:0], iTM2UDLevelsOfUndoKey,// nothing else!
             [NSNumber numberWithBool:YES], iTM2UDSmartUndoKey,
                 nil]];
 //iTM2_END;

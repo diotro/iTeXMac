@@ -60,8 +60,6 @@ To Do List:
 @end
 
 @implementation iTM2StartupController
-#warning <<<<  HUNTING
-#ifndef HUNTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
 + (void)initialize;
 /*"Registers some defaults: initialize iTM2DefaultsController.
@@ -241,6 +239,4 @@ To Do List: Nothing at first glance
 	[super windowDidLoad];
     return;
 }
-#warning >>>>  HUNTING
-#endif
 @end

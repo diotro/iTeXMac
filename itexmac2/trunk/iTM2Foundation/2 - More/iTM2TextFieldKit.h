@@ -20,12 +20,6 @@
 
 #import <iTM2Foundation/iTM2ResponderKit.h>
 
-extern NSString * const iTM2CurrentLineKey;
-extern NSString * const iTM2LastLineKey;
-extern NSString * const iTM2CurrentColumnKey;
-extern NSString * const iTM2LastColumnKey;
-
-
 @interface iTM2LineField : NSTextField
 {
 @private

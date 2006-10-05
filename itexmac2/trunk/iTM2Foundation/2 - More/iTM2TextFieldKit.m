@@ -28,12 +28,6 @@
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 
-#warning ARE THESE CONSTANTS USED...
-NSString * const iTM2CurrentLineKey = @"CurrentLine";
-NSString * const iTM2LastLineKey = @"LastLine";
-NSString * const iTM2CurrentColumnKey = @"CurrentColumn";
-NSString * const iTM2LastColumnKey = @"LastColumn";
-
 @interface iTM2LineField(PRIVATE)
 - (void)updateFrame;
 @end
@@ -434,11 +428,13 @@ To Do List:
 			}
 			return NO;
 		}
+#if 0
 #warning DEBUGGGG
 		else
 		{
 			iTM2_LOG(@"Object is: %@(%@)", *obj, [*obj class]);
 		}
+#endif
 	}
 //iTM2_END;
 	return result;
@@ -540,7 +536,6 @@ To Do List:
         [self setAttributedStringForNil:string];
         [self setMinimum:[NSDecimalNumber zero]];
         [self setMaximum:[NSDecimalNumber notANumber]];
-        #warning YES or NO?
         [self setAllowsFloats:YES];
         [self setHasThousandSeparators:NO];
     }
@@ -588,7 +583,7 @@ To Do List:
 proposedSelectedRange: (NSRangePointer) proposedSelRangePtr
 originalString: (NSString *) origString
 originalSelectedRange: (NSRange) origSelRange
-errorDescription: (NSString **) error;
+errorDescription: (NSString **) errorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -600,13 +595,13 @@ To Do List: I don't know if it is really needed, test...
     id anObject;
     NSString * localError;
     BOOL result;
-    if(!error)
-        error = &localError;
-    result = [self getObjectValue:&anObject forString:*partialStringPtr errorDescription:error];
+    if(!errorPtr)
+        errorPtr = &localError;
+    result = [self getObjectValue:&anObject forString:*partialStringPtr errorDescription:errorPtr];
     if(!result)
     {
         *partialStringPtr = [[origString copy] autorelease];
-	*proposedSelRangePtr = origSelRange;
+		*proposedSelRangePtr = origSelRange;
     }
     return result;
 }

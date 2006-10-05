@@ -61,6 +61,30 @@ NSString * iTM2EOLDefaultFormat = nil;
 @end
 
 @implementation NSString(iTM2StringFormatController)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameOfStringEncoding:
++ (NSString *)nameOfStringEncoding:(NSStringEncoding)encoding;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	encoding = CFStringConvertNSStringEncodingToEncoding(encoding);
+//iTM2_END;
+	return (NSString *)CFStringConvertEncodingToIANACharSetName(encoding);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingWithName:
++ (NSStringEncoding)stringEncodingWithName:(NSString *)name;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	CFStringEncoding encoding = [iTM2StringFormatController coreFoundationStringEncodingWithName:name];
+//iTM2_END;
+	return CFStringConvertEncodingToNSStringEncoding(encoding);
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedNameOfEOL:
 + (NSString *)localizedNameOfEOL:(iTM2EOL)LE;
 /*"Description Forthcoming.
@@ -173,7 +197,7 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression alloc] initWithString:
+        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression allocWithZone:[self zone]] initWithString:
                             NSLocalizedStringFromTableInBundle(@"inputenc", ARETABLE, BUNDLE, "")] autorelease];
 //NSLog(@"ARE: %@", ARE);
         NSArray * Rs = [self allRangesOfRegularExpression:ARE options:iTM2AREAdvancedMask range:NSMakeRange(0, MIN(4096, [self length]))];
@@ -213,7 +237,7 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression alloc] initWithString:
+        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression allocWithZone:[self zone]] initWithString:
                     NSLocalizedStringFromTableInBundle(@"regime", ARETABLE, BUNDLE, "")] autorelease];
 //NSLog(@"ARE: %@", ARE);
         NSArray * Rs = [self allRangesOfRegularExpression:ARE options:iTM2AREAdvancedMask range:NSMakeRange(0, MIN(4096, [self length]))];
@@ -247,7 +271,7 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression alloc] initWithString:
+        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression allocWithZone:[self zone]] initWithString:
                     NSLocalizedStringFromTableInBundle(@"emacs", ARETABLE, BUNDLE, "")] autorelease];
 //NSLog(@"ARE: %@", ARE);
         unsigned contentsEnd;
@@ -282,7 +306,9 @@ To Do List: Nothing
         headerStringEncodingString = [self stringForCommentedKey:iTM2StringEncodingHeaderKey forRange:NSMakeRange(0, 0) effectiveRange:nil inHeader:YES];
     }
 	if(stringEncodingRef)
-		* stringEncodingRef = [[iTM2StringFormatController stringEncodingFromString:headerStringEncodingString] unsignedIntValue];
+	{
+		* stringEncodingRef = [NSString stringEncodingWithName:headerStringEncodingString];
+	}
 	if(rangeRef)
 		* rangeRef = R;
     return;
@@ -458,8 +484,8 @@ To Do List:
                 [myBUNDLE pathForResource:@"iTM2StringEncodings" ofType:@"plist"]];
 
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= coreFoundationStringEncodingFromString:
-+ (CFStringEncoding)coreFoundationStringEncodingFromString:(NSString *)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= coreFoundationStringEncodingWithName:
++ (CFStringEncoding)coreFoundationStringEncodingWithName:(NSString *)argument;
 /*"Yellow box string encoding returned. Core Foundation string encodings constants used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -467,10 +493,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSScanner * S = [NSScanner scannerWithString:argument];
-    CFStringEncoding result = kCFStringEncodingInvalidId;
 	if(![argument length])
+	{
+		return kCFStringEncodingInvalidId;
+	}
+	argument = [NSString stringWithFormat:@" %@ ",argument];
+	argument = [argument stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	CFStringEncoding result = CFStringConvertIANACharSetNameToEncoding((CFStringRef)argument);
+    if(result != kCFStringEncodingInvalidId)
+	{
 		return result;
+	}
+    NSScanner * S = [NSScanner scannerWithString:argument];
     [S setCaseSensitive:NO];
     // a Core Foundation number
     if([S scanInt:(int*)&result])
@@ -511,7 +545,33 @@ To Do List:
 		}
 		else if([S scanString:@"16" intoString:nil])
 		{
-			result = kCFStringEncodingUnicode;
+			if([S scanString:@"b" intoString:nil])
+			{
+				result = kCFStringEncodingUTF16BE;
+			}
+			else if([S scanString:@"l" intoString:nil])
+			{
+				result = kCFStringEncodingUTF16LE;
+			}
+			else
+			{
+				result = kCFStringEncodingUTF16;
+			}
+		}
+		else if([S scanString:@"32" intoString:nil])
+		{
+			if([S scanString:@"b" intoString:nil])
+			{
+				result = kCFStringEncodingUTF32BE;
+			}
+			else if([S scanString:@"l" intoString:nil])
+			{
+				result = kCFStringEncodingUTF32LE;
+			}
+			else
+			{
+				result = kCFStringEncodingUTF32;
+			}
 		}
 		else
 		{
@@ -657,8 +717,12 @@ To Do List:
                     case 7: result = kCFStringEncodingISOLatin7;	break;
                     case 8: result = kCFStringEncodingISOLatin8;	break;
                     case 9: result = kCFStringEncodingISOLatin9;	break;
+#if 0
 #warning THIS IS A BUG IN CFStringEncodingExt.h, iso latin 10, before panther?
                     case 10: result = 0x0210;	break;
+#else
+                    case 10: result = kCFStringEncodingISOLatin10;	break;
+#endif
                 }
             else if([S scanString:@"cyrillic" intoString:nil])
                 result = kCFStringEncodingISOLatinCyrillic;
@@ -868,26 +932,8 @@ To Do List:
         NSLog(@"Unrecognized encoding string name: <%@>", argument);
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringEncodingFromString:
-+ (NSNumber *)stringEncodingFromString:(NSString *)argument;
-/*"Yellow box string encoding returned. Core Foundation string encodings constants used.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    CFStringEncoding result = [self coreFoundationStringEncodingFromString:argument];
-    if(result != kCFStringEncodingInvalidId)
-    {
-        result = CFStringConvertEncodingToNSStringEncoding(result);
-        return [NSNumber numberWithUnsignedInt:result];
-    }
-    else
-        return nil;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= nameOfCoreFoundationStringEncoding:
-+ (NSString *)nameOfCoreFoundationStringEncoding:(CFStringEncoding)argument;
++ (NSString *)nameOfCoreFoundationStringEncoding:(CFStringEncoding)encoding;
 /*"Yellow box string encoding returned. Core Foundation string encodings constants used.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -895,14 +941,30 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    switch(argument)
+	NSString * result = (NSString *)CFStringConvertEncodingToIANACharSetName(encoding);
+	if([result length])
+	{
+		return result;
+	}
+    switch(encoding)
     {
         case kCFStringEncodingMacRoman:
         return @"mac roman";
         case kCFStringEncodingUnicode:
-        return @"utf16";
+        //case kCFStringEncodingUTF16:
+        return @"utf-16";
+        case kCFStringEncodingUTF16BE:
+        return @"utf-16BE";
+        case kCFStringEncodingUTF16LE:
+        return @"utf-16LE";
+        case kCFStringEncodingUTF32:
+        return @"utf-32";
+        case kCFStringEncodingUTF32BE:
+        return @"utf-32BE";
+        case kCFStringEncodingUTF32LE:
+        return @"utf-32LE";
         case kCFStringEncodingUTF8:
-        return @"utf8";
+        return @"utf-8";
         case kCFStringEncodingMacJapanese:
         return @"Mac Japanese";
         case kCFStringEncodingMacChineseTrad:
@@ -1153,8 +1215,12 @@ To Do List:
         return @"EBCDIC US";
         case kCFStringEncodingEBCDIC_CP037:
         return @"EBCDIC CP037";
+#if 0
 #warning THIS IS A BUG IN CFStringEncodingExt.h
         case 0x0210:
+        return @"ISO Latin 10";
+#endif
+        case kCFStringEncodingISOLatin10:
         return @"ISO Latin 10";
         case 0x0A08:
         return @"KOI8 U";
@@ -1291,31 +1357,52 @@ To Do List:
     NSStringEncoding usedStringEncoding = 0;
     BOOL canStringEncoding = NO;
     NSString * hardStringEncodingString = @"";
-    // testing for UTF16 and UTF8 encodings
-    char byteOrder [6] = {'0','0','0','0','0','0'};
-    if([docData length]>=6)
+    // testing for UTF32, UTF16 and UTF8 encodings, see http://unicode.org/faq/utf_bom.html#22
+    char byteOrder [8] = {'0','0','0','0','0','0','0','0'};
+    if([docData length]>=8)
+        memmove(byteOrder, [docData bytes], 8);
+    else if([docData length]>=6)
         memmove(byteOrder, [docData bytes], 6);
     else if([docData length]>=4)
         memmove(byteOrder, [docData bytes], 4);
-    if(!strncmp(byteOrder, "FFFE", 4) || !strncmp(byteOrder, "FEFF", 4))
+    if(!strncmp(byteOrder, "\0\0\0\0FEFF", 8))
     {
-        usedStringEncoding = NSUnicodeStringEncoding;
-        string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+        usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32BE);
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
+    }
+    else if(!strncmp(byteOrder, "FFFE\0\0\0\0", 4))
+    {
+        usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32LE);
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
+    }
+    else if(!strncmp(byteOrder, "FFFE", 4))
+    {
+        usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF16LE);
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
+    }
+    else if(!strncmp(byteOrder, "FEFF", 4))
+    {
+        usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF16BE);
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
     }
     else if(!strncmp(byteOrder, "EFBBBF", 6))
     {
-        usedStringEncoding = NSUTF8StringEncoding;
-        string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+        usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
     }
     else if([self contextBoolForKey:iTM2StringEncodingIsAutoKey])
     {
+		// guess the string from the file contents
         NSStringEncoding preferredStringEncoding = [self stringEncoding];
         if(![[NSString localizedNameOfStringEncoding:preferredStringEncoding] length])
         {
-            preferredStringEncoding = kCFStringEncodingMacRoman;
+            preferredStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
             [SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
         }
-        string = [[[NSString alloc] initWithData:docData encoding:preferredStringEncoding] autorelease];
+		#define HEADER_LIMIT 8*125
+		NSRange range = NSMakeRange(0,MIN(HEADER_LIMIT,[docData length]));
+		NSData * headerData = [docData subdataWithRange:range];
+        string = [[[NSString allocWithZone:[self zone]] initWithData:headerData encoding:preferredStringEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange;
 		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
@@ -1323,33 +1410,37 @@ To Do List:
         if(hardCodedStringEncoding && [[NSString localizedNameOfStringEncoding:hardCodedStringEncoding] length] &&
             (hardCodedStringEncoding != preferredStringEncoding))
         {
-            string = [[[NSString alloc] initWithData:docData encoding:hardCodedStringEncoding] autorelease];
             usedStringEncoding = hardCodedStringEncoding;
+            string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
         }
         else
         {
             usedStringEncoding = preferredStringEncoding;
+			if([docData length]>HEADER_LIMIT)
+			{
+				string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
+			}
         }
     }
     else if(usedStringEncoding = [self stringEncoding])
     {
         if(![[NSString localizedNameOfStringEncoding:usedStringEncoding] length])
         {
-            usedStringEncoding = NSMacOSRomanStringEncoding;
+            usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
         }
 		else
 		{
 			iTM2_LOG(@"Reading data with encoding: %@", [NSString localizedNameOfStringEncoding:usedStringEncoding]);
 		}
-        string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
 		if(!string)
 		{
-            usedStringEncoding = NSMacOSRomanStringEncoding;
-			string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+            usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
+			string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
 			if(!string)
 			{
 				usedStringEncoding = NSASCIIStringEncoding;
-				string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+				string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
 			}
 		}
         canStringEncoding = YES;
@@ -1359,10 +1450,10 @@ To Do List:
         usedStringEncoding = [SUD integerForKey:iTM2StringEncodingPreferredKey];
         if(![[NSString localizedNameOfStringEncoding:usedStringEncoding] length])
         {
-            usedStringEncoding = NSMacOSRomanStringEncoding;
+            usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
             [SUD setInteger:usedStringEncoding forKey:iTM2StringEncodingPreferredKey];
         }
-        string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange;
 		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
@@ -1376,11 +1467,11 @@ To Do List:
 	{
 		iTM2_LOG(@"Problem with the stringEncoding, report BUG 0213");
 		usedStringEncoding = NSMacOSRomanStringEncoding;
-        string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
 		if(!string)
 		{
             usedStringEncoding = NSASCIIStringEncoding;
-			string = [[[NSString alloc] initWithData:docData encoding:usedStringEncoding] autorelease];
+			string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
 		}
         canStringEncoding = YES;
 		[self takeContextBool:NO forKey:iTM2StringEncodingIsAutoKey];
@@ -1677,7 +1768,7 @@ abacab:;
 		{
 			if([(NSString *)O length])
 			{
-				int encoding = [self coreFoundationStringEncodingFromString:O];
+				unsigned encoding = [self coreFoundationStringEncodingWithName:O];
 				if(encoding == kCFStringEncodingInvalidId)
 					encoding = [O intValue];
 				else
@@ -2194,8 +2285,8 @@ To Do List:
         [_ActualStringEncodings autorelease];
         _ActualStringEncodings = [[NSMutableArray array] retain];
     }
-    [[[[availableTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter alloc] init] autorelease]];
-    [[[[actualTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter alloc] init] autorelease]];
+    [[[[availableTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter allocWithZone:[self zone]] init] autorelease]];
+    [[[[actualTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter allocWithZone:[self zone]] init] autorelease]];
     [actualTableView registerForDraggedTypes:[NSArray arrayWithObject:iTM2DraggingStringEncodingPboardType]];
     [availableTableView setDoubleAction:@selector(addSelection:)];
     [actualTableView reloadData];
@@ -2410,9 +2501,9 @@ To Do List:
     }
     else if([obj isKindOfClass:[NSString class]] && [(NSString *)obj length])
     {
-		result = [NSString localizedNameOfStringEncoding:
-			CFStringConvertEncodingToNSStringEncoding(
-				[iTM2StringFormatController coreFoundationStringEncodingFromString:obj])];
+		unsigned encoding = [iTM2StringFormatController coreFoundationStringEncodingWithName:obj];
+		encoding = CFStringConvertEncodingToNSStringEncoding(encosing);
+		result = [NSString localizedNameOfStringEncoding:encoding];
     }
     if(![result length])
         result = [NSString stringWithUTF8String:"―"];

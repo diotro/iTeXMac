@@ -1298,8 +1298,7 @@ To Do List:
     }
     if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
     {
-        id set = [[_iTM2TeXPTeXLetterCharacterSet mutableCopy] autorelease];
-        [set addCharactersInRange:NSMakeRange('A', 26)];
+        id set = [[[NSCharacterSet letterCharacterSet] mutableCopy] autorelease];
         [set addCharactersInString:@"_$^0123456789.-+*()[]/"];
         _iTM2TeXPTeXFileNameLetterCharacterSet = [set copy];
     }

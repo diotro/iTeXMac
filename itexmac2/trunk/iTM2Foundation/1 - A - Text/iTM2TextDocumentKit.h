@@ -129,13 +129,14 @@ extern NSString * const iTM2TextInspectorType;
 - (void)setStringEncoding:(NSStringEncoding)argument;
 
 /*!
-	@method		revertDocumentToSavedWithStringEncoding:
+	@method		revertDocumentToSavedWithStringEncoding:error:
 	@abstract	Abstract forthcoming.
 	@discussion Description forthcoming.
 	@param		encoding is the encoding
-	@result		None
+	@param		outErrorPtr a pointer to an NSError instance.
+	@result		yorn
 */
-- (void)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding;
+- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
 
 /*!
 	@method			getLine:column:length:forHint:

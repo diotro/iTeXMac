@@ -75,8 +75,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 + (NSArray *)supportedStringEncodings;
 + (NSString *)terminationStringForEOL:(iTM2EOL)EOL;
 + (iTM2EOL)EOLForTerminationString:(NSString *)terminationString;
-+ (CFStringEncoding)coreFoundationStringEncodingFromString:(NSString *)argument;
-+ (NSNumber *)stringEncodingFromString:(NSString *)argument;
++ (CFStringEncoding)coreFoundationStringEncodingWithName:(NSString *)argument;
 + (NSString *)nameOfCoreFoundationStringEncoding:(CFStringEncoding)argument;
 + (NSString *)nameOfEOL:(iTM2EOL)LE;
 + (NSArray *)availableStringEncodings;// NSStringEncodings
@@ -167,7 +166,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@discussion This can be hard coded in the data model itself.
 				It is used to convert the string representation into a data representation.
 	@param		None
-	@result		An NSString instance owned by the receiver.
+	@result		A cocoa string encoding, not a core foundation one.
 */
 - (NSStringEncoding)stringEncoding;
 
@@ -175,7 +174,7 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 	@method		setStringEncoding:
 	@abstract	Sets the string encoding of the receiver.
 	@discussion Description forthcoming.
-	@param		None
+	@param		A cocoa string encoding, not a core foundation one
 	@result		None
 */
 - (void)setStringEncoding:(NSStringEncoding)argument;
@@ -219,6 +218,24 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 @end
 
 @interface NSString(iTM2StringFormatController)
+
+/*!
+	@method		nameOfStringEncoding:
+	@abstract	The IANA name of the given given cocoa string encoding...
+	@discussion Description forthcoming.
+	@param		A cocoa string encoding, not a cor foundation one
+	@result		None
+*/
++ (NSString *)nameOfStringEncoding:(NSStringEncoding)encoding;
+
+/*!
+	@method		stringEncodingWithName:
+	@abstract	The cocoa string encoding given its name
+	@discussion Description forthcoming.
+	@param		A IANA string encoding name
+	@result		a cocoa string encoding not a core foundation one.
+*/
++ (NSStringEncoding)stringEncodingWithName:(NSString *)name;
 
 /*!
 	@method		localizedNameOfEOL:

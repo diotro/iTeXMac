@@ -393,8 +393,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR,-2*VR.size.width/5, 0), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = 2*VR.size.width/5;
+	scrollPosition.x -= scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollPageRight:
@@ -406,8 +413,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR, 2*VR.size.width/5, 0), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = 2*VR.size.width/5;
+	scrollPosition.x += scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollPageUp:
@@ -419,9 +433,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    #warning flipped ?
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR, 0,2*VR.size.height/5), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = 2*VR.size.height/5;
+	scrollPosition.y -= [self isFlipped]? scrollAmount:-scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollPageDown:
@@ -433,9 +453,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    #warning flipped ?
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR, 0, -2*VR.size.height/5), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = 2*VR.size.height/5;
+	scrollPosition.y += [self isFlipped]? scrollAmount:-scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollCharacterLeft:
@@ -447,8 +473,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR,-MAX(VR.size.width/50, 16), 0), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = MAX(VR.size.width/50, 16);
+	scrollPosition.x -= scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollCharacterRight:
@@ -460,8 +493,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR, MAX(VR.size.width/50, 16), 0), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = MAX(VR.size.width/50, 16);
+	scrollPosition.x += scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollLineUp:
@@ -473,8 +513,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR, 0, MAX(16, VR.size.height/50)), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = MAX(VR.size.height/50, 16);
+	scrollPosition.y -= [self isFlipped]? scrollAmount:-scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scrollLineDown:
@@ -486,8 +533,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRect VR = [[self enclosingScrollView] documentVisibleRect];
-    [[[self enclosingScrollView] documentView] scrollRectToVisible:NSIntersectionRect(NSOffsetRect(VR, 0, -MAX(16, VR.size.height/50)), [self frame])];
+	NSScrollView * SV = [self enclosingScrollView];
+	NSClipView * CV = [SV contentView];
+	NSPoint scrollPosition = [CV  bounds].origin;
+	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
+    NSRect VR = [SV documentVisibleRect];
+	float scrollAmount = MAX(VR.size.height/50, 16);
+	scrollPosition.y += [self isFlipped]? scrollAmount:-scrollAmount;
+	[self scrollPoint:scrollPosition];
+//iTM2_END;
     return;
 }
 @end

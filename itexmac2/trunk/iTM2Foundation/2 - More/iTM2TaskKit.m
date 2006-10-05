@@ -628,12 +628,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning the inspectors are nonretainedObjectValue!!!
     NSMutableArray * MRA = [NSMutableArray array];
     NSEnumerator * E = [_Inspectors objectEnumerator];
     id O;
     while(O = [[E nextObject] nonretainedObjectValue])
+	{
         [MRA addObject:O];
+	}
     return [MRA objectEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allInspectors
@@ -645,12 +646,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning the inspectors are nonretainedObjectValue!!!
     NSMutableArray * MRA = [NSMutableArray array];
     NSEnumerator * E = [_Inspectors objectEnumerator];
     id O;
     while(O = [[E nextObject] nonretainedObjectValue])
+	{
         [MRA addObject:O];
+	}
     return [[MRA copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addTaskWrapper:
@@ -756,7 +758,7 @@ To Do List:
     NSMutableArray * _Wrappers = [[self implementation] metaValueForKey:@"_Wrappers"];
     if(![_Wrappers count])
     {
-#warning CLEAN THE FIFO!!!???
+//#warning CLEAN THE FIFO!!!???
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"Nothing to start.");
@@ -1020,7 +1022,7 @@ To Do List:
         [self removeTaskWrapper:[_Wrappers lastObject]];
     [self clean];
     _CustomReadFileHandle = nil;// not retained, only garbage collected
-#warning THE FIFO SHOULD BE CHANGED HERE
+//#warning THE FIFO SHOULD BE CHANGED HERE
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clean
@@ -1126,7 +1128,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning NSException catching?
+//#warning NSException catching?
     NSFileHandle * FH = [notification object];
     NSData * D;
 	NS_DURING
@@ -1592,7 +1594,6 @@ To Do List:
 //NSLog(@"DEALLOCING A TASK WRAPPER: %#x", self);
     [self cleanInvocations];
     [super dealloc];
-#warning DEBUGGGGGGGGGG
 //iTM2_END;
     return;
 }

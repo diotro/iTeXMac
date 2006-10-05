@@ -87,7 +87,7 @@ extern NSString * const iTM2TeXProjectPathExtension;
 - (void)setMasterFileKey:(NSString *)key;
 
 /*! 
-    @method     stringEncodingStringForFileKey:
+    @method     stringEncodingNameForFileKey:
     @abstract   The string encoding for the given key.
     @discussion If no string encoding is available in the stored data model, a default value is deduced from the language.
 The ISO 3166 standard and IANA Assigned Character Set Names should be used to describe the string encoding.
@@ -95,7 +95,7 @@ Don't assume that there will always be a default value.
     @param      key is a key
     @result     a string encoding.
 */
-- (NSString *)stringEncodingStringForFileKey:(NSString *)key;
+- (NSString *)stringEncodingNameForFileKey:(NSString *)key;
 
 /*! 
     @method     setStringEncodingString:forFileKey:

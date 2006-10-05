@@ -154,14 +154,13 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 180999212;
-			PBXWorkspaceStateSaveDate = 180999212;
+			PBXPerProjectTemplateStateSaveDate = 181743130;
+			PBXWorkspaceStateSaveDate = 181743130;
 		};
 		perUserProjectItems = {
-			DC128AEA0AC9EA7A0090D8C2 /* PBXTextBookmark */ = DC128AEA0AC9EA7A0090D8C2 /* PBXTextBookmark */;
-			DC128AEC0AC9EA7A0090D8C2 /* PBXTextBookmark */ = DC128AEC0AC9EA7A0090D8C2 /* PBXTextBookmark */;
-			DC31FE180AC9B8F000FF576B /* PBXTextBookmark */ = DC31FE180AC9B8F000FF576B /* PBXTextBookmark */;
-			DC31FE190AC9B8F000FF576B /* PBXTextBookmark */ = DC31FE190AC9B8F000FF576B /* PBXTextBookmark */;
+			DC11A2D40AD52E2D00D825E7 /* PBXTextBookmark */ = DC11A2D40AD52E2D00D825E7 /* PBXTextBookmark */;
+			DC66E58D0AD257550060B6A9 = DC66E58D0AD257550060B6A9 /* PBXTextBookmark */;
+			DC91564F0ACB134600129CD6 = DC91564F0ACB134600129CD6 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -173,23 +172,7 @@
 			DC520334088B1F3A00DE6E7F /* iTeXMac2 */,
 		);
 	};
-	DC128AEA0AC9EA7A0090D8C2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC128AEB0AC9EA7A0090D8C2 /* iTM2PDFKit.m */;
-		name = "(null): 6964";
-		rLen = 0;
-		rLoc = 228859;
-		rType = 0;
-		vrLen = 1410;
-		vrLoc = 129959;
-	};
-	DC128AEB0AC9EA7A0090D8C2 /* iTM2PDFKit.m */ = {
-		isa = PBXFileReference;
-		name = iTM2PDFKit.m;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.m;
-		sourceTree = "<absolute>";
-	};
-	DC128AEC0AC9EA7A0090D8C2 /* PBXTextBookmark */ = {
+	DC11A2D40AD52E2D00D825E7 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
 		name = "iTM2WindowsMenuKit.m: 582";
@@ -212,19 +195,6 @@
 	};
 	DC25E1D00990C4E200545F27 /* TEST */ = {
 		activeExec = 0;
-	};
-	DC31F67C0AC88F6600FF576B /* iTM2PDFKit.m */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.objc;
-		name = iTM2PDFKit.m;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.m;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {2636, 118388}}";
-			sepNavSelRange = "{228859, 0}";
-			sepNavVisRect = "{{0, 63376}, {1043, 745}}";
-			sepNavWindowFrame = "{{15, 4}, {1082, 874}}";
-		};
 	};
 	DC31FE060AC9B84900FF576B /* -[NSException raise] */ = {
 		isa = PBXSymbolicBreakpoint;
@@ -290,26 +260,6 @@
 		modificationTime = 180992237.130745;
 		state = 1;
 		symbolName = "-[NSException raise]";
-	};
-	DC31FE180AC9B8F000FF576B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC31F67C0AC88F6600FF576B /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 6964";
-		rLen = 0;
-		rLoc = 228859;
-		rType = 0;
-		vrLen = 1410;
-		vrLoc = 129959;
-	};
-	DC31FE190AC9B8F000FF576B /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
-		name = "iTM2WindowsMenuKit.m: 582";
-		rLen = 0;
-		rLoc = 25113;
-		rType = 0;
-		vrLen = 851;
-		vrLoc = 4609;
 	};
 	DC35E911091AD9B700BF5635 /* iTeXMac2.sdef */ = {
 		uiCtxt = {
@@ -441,6 +391,16 @@
 			sepNavWindowFrame = "{{101, 38}, {1093, 697}}";
 		};
 	};
+	DC66E58D0AD257550060B6A9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
+		name = "iTM2WindowsMenuKit.m: 582";
+		rLen = 0;
+		rLoc = 25113;
+		rType = 0;
+		vrLen = 851;
+		vrLoc = 4609;
+	};
 	DC6BC59A0948FB3E008F8188 /* Prepare iTM2LaTeXKit */ = {
 		activeExec = 0;
 	};
@@ -475,7 +435,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1580, 9894}}";
 			sepNavSelRange = "{25113, 0}";
-			sepNavVisRect = "{{0, 1668}, {1112, 554}}";
+			sepNavVisRect = "{{0, 1673}, {1112, 554}}";
 			sepNavWindowFrame = "{{14, 143}, {1151, 683}}";
 		};
 	};
@@ -484,6 +444,16 @@
 	};
 	DC81D83008840CF60086F2EB /* All */ = {
 		activeExec = 0;
+	};
+	DC91564F0ACB134600129CD6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
+		name = "iTM2WindowsMenuKit.m: 582";
+		rLen = 0;
+		rLoc = 25113;
+		rType = 0;
+		vrLen = 851;
+		vrLoc = 4609;
 	};
 	DCAF9B1E09D8137900AFD95F /* French */ = {
 		uiCtxt = {

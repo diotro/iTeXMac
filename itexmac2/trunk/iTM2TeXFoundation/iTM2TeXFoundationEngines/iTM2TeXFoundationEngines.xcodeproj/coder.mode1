@@ -190,46 +190,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>DC66E4E10AD250F10060B6A9</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2ProjectDocumentKit.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC66E4E20AD250F10060B6A9</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2ProjectDocumentKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC66E4E30AD250F10060B6A9</string>
-						<key>history</key>
-						<array>
-							<string>DC66E4CE0AD250970060B6A9</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1197, 707}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>15 124 1197 748 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>DC128DC80AC9FCFC0090D8C2</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2_Engine_PDFTeX</string>
@@ -244,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC66E4E50AD250F10060B6A9</string>
+						<string>DC66E5890AD2573E0060B6A9</string>
 						<key>history</key>
 						<array>
 							<string>DC12917C0ACAF0F20090D8C2</string>
@@ -350,18 +310,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>3</integer>
-									<integer>1</integer>
-									<integer>0</integer>
-								</array>
-								<array>
-									<integer>4</integer>
-									<integer>1</integer>
-									<integer>0</integer>
-								</array>
-								<array>
-									<integer>5</integer>
-									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -602,11 +550,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>DC31FDCF0AC9B36F00FF576B</string>
 		<string>DC9DC6EA094844F00079E1B3</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 		<string>DC128DC80AC9FCFC0090D8C2</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>DC66E4E10AD250F10060B6A9</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>403 163 878 571 0 0 1440 878 </string>
@@ -1125,7 +1073,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC31FDCF0AC9B36F00FF576B</string>
-				<string>DC31FDD00AC9B36F00FF576B</string>
+				<string>DC66E5860AD257390060B6A9</string>
 				<string>1C78EAB2065D492600B07095</string>
 				<string>1CD052920623707200166675</string>
 			</array>

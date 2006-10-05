@@ -275,7 +275,9 @@ To Do List:
 		{
 			NSString * identifier = [pane prefPaneIdentifier];
 			if([identifier length])
+			{
 				[MD setObject:pane forKey:identifier];
+			}
 			else
 			{
 				iTM2_LOG(@"No identifier available for pane: %@", pane);

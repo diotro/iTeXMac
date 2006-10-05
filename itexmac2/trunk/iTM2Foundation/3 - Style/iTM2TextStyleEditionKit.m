@@ -1982,8 +1982,9 @@ To Do List:
             goto save;
         else
         {
-#warning DEBUGGGGGGGINNNNNGGGGGGG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 #if 0
+#warning DEBUGGGGGGGINNNNNGGGGGGG =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+#else
             if(![[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation
                 source: [stylePath stringByDeletingLastPathComponent]
                     destination: @""

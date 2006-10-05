@@ -33,7 +33,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-
 #include "regguts.h"
 #include <libc.h>
 
