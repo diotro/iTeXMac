@@ -1,6 +1,6 @@
 #!/bin/sh
-# iTM2SynchronizeHDCrashReporter
-PRODUCT_NAME=HDCrashReporter
+# iTM2SynchronizeOgreKit
+PRODUCT_NAME=OgreKit
 echo "warning: iTeXMac2 INFO, Importing frameworks from ${PRODUCT_NAME}"
 pushd "`dirname "$0"`/.."
 echo "iTM2 tree root: `pwd`"
@@ -28,6 +28,6 @@ then
 	exit 0
 else
 	echo "warning: iTeXMac2 ERROR, Importing frameworks from ${CANDIDATE}... FAILED"
-	echo "warning: iTeXMac2 ERROR, RUN the Scripts/BuildHDCrashReporter.command by double clicking"
+	echo "warning: iTeXMac2 ERROR, RUN the Scripts/BuildOgreKit.terminal by double clicking"
 	exit -1
 fi

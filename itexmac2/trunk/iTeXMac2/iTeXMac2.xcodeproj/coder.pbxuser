@@ -5,6 +5,7 @@
 		activeExecutable = DC520334088B1F3A00DE6E7F /* iTeXMac2 */;
 		activeTarget = 8D15AC270486D014006FF6A4 /* iTeXMac2 */;
 		addToTargets = (
+			8D15AC270486D014006FF6A4 /* iTeXMac2 */,
 		);
 		breakpoints = (
 			DC31FE060AC9B84900FF576B /* -[NSException raise] */,
@@ -154,11 +155,13 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 181812020;
-			PBXWorkspaceStateSaveDate = 181812020;
+			PBXPerProjectTemplateStateSaveDate = 181838554;
+			PBXWorkspaceStateSaveDate = 181838554;
 		};
 		perUserProjectItems = {
-			DC84FEE70AD5D1CB00C6FCAA /* PBXTextBookmark */ = DC84FEE70AD5D1CB00C6FCAA /* PBXTextBookmark */;
+			DC0D4F070AD6C7770024D73F /* PBXTextBookmark */ = DC0D4F070AD6C7770024D73F /* PBXTextBookmark */;
+			DC0D4F550AD6D17A0024D73F /* PBXTextBookmark */ = DC0D4F550AD6D17A0024D73F /* PBXTextBookmark */;
+			DC0D4F560AD6D17A0024D73F /* PBXTextBookmark */ = DC0D4F560AD6D17A0024D73F /* PBXTextBookmark */;
 			DC958B9F0AD694CF0092F69A /* PBXTextBookmark */ = DC958B9F0AD694CF0092F69A /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
@@ -170,6 +173,39 @@
 		executables = (
 			DC520334088B1F3A00DE6E7F /* iTeXMac2 */,
 		);
+	};
+	DC0D4EC70AD6C39C0024D73F /* Prepare HDCrashReporter */ = {
+		activeExec = 0;
+	};
+	DC0D4F070AD6C7770024D73F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 97";
+		rLen = 0;
+		rLoc = 3300;
+		rType = 0;
+		vrLen = 1030;
+		vrLoc = 2464;
+	};
+	DC0D4F550AD6D17A0024D73F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 196";
+		rLen = 0;
+		rLoc = 6466;
+		rType = 0;
+		vrLen = 1803;
+		vrLoc = 4163;
+	};
+	DC0D4F560AD6D17A0024D73F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
+		name = "iTM2WindowsMenuKit.m: 582";
+		rLen = 0;
+		rLoc = 25113;
+		rType = 0;
+		vrLen = 851;
+		vrLoc = 4609;
 	};
 	DC24D4660952F5F200647943 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
@@ -192,9 +228,9 @@
 		breakpointStyle = 1;
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
-		hitCount = 21;
+		hitCount = 1;
 		location = Foundation;
-		modificationTime = 180992742.514033;
+		modificationTime = 181848353.278251;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -207,7 +243,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 180992236.190873;
+		modificationTime = 181848353.4894;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -220,7 +256,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 180992236.656083;
+		modificationTime = 181848353.600765;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -233,7 +269,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 180992236.659285;
+		modificationTime = 181848353.600932;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -246,7 +282,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 180992237.130745;
+		modificationTime = 181848353.721768;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -367,9 +403,9 @@
 	DC5D13860855B6DE003786EF /* English */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1054, 583}}";
-			sepNavSelRange = "{464, 0}";
+			sepNavSelRange = "{395, 70}";
 			sepNavVisRect = "{{0, 0}, {1054, 583}}";
-			sepNavWindowFrame = "{{65, 88}, {1093, 697}}";
+			sepNavWindowFrame = "{{382, -39}, {1093, 697}}";
 		};
 	};
 	DC5D13880855B6DE003786EF /* English */ = {
@@ -424,16 +460,6 @@
 	DC81D83008840CF60086F2EB /* All */ = {
 		activeExec = 0;
 	};
-	DC84FEE70AD5D1CB00C6FCAA /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
-		name = "iTM2WindowsMenuKit.m: 582";
-		rLen = 0;
-		rLoc = 25113;
-		rType = 0;
-		vrLen = 851;
-		vrLoc = 4609;
-	};
 	DC958B9F0AD694CF0092F69A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
@@ -443,6 +469,14 @@
 		rType = 0;
 		vrLen = 851;
 		vrLoc = 4609;
+	};
+	DCAF9B1D09D8137900AFD95F /* French */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1287, 733}}";
+			sepNavSelRange = "{164, 0}";
+			sepNavVisRect = "{{0, 0}, {1287, 733}}";
+			sepNavWindowFrame = "{{38, 5}, {1326, 847}}";
+		};
 	};
 	DCAF9B1E09D8137900AFD95F /* French */ = {
 		uiCtxt = {
@@ -462,17 +496,17 @@
 	};
 	DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {961, 30056}}";
-			sepNavSelRange = "{45184, 0}";
-			sepNavVisRect = "{{0, 29441}, {961, 615}}";
+			sepNavIntBoundsRect = "{{0, 0}, {961, 30124}}";
+			sepNavSelRange = "{45598, 0}";
+			sepNavVisRect = "{{0, 29428}, {961, 615}}";
 			sepNavWindowFrame = "{{-4, 88}, {1000, 744}}";
 		};
 	};
 	DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1300, 6324}}";
-			sepNavSelRange = "{281, 0}";
-			sepNavVisRect = "{{0, 102}, {1095, 617}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1300, 6545}}";
+			sepNavSelRange = "{3853, 23}";
+			sepNavVisRect = "{{0, 1818}, {1054, 325}}";
 			sepNavWindowFrame = "{{91, 86}, {1134, 746}}";
 		};
 	};

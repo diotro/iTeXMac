@@ -664,7 +664,7 @@
 		DC25E4500991F88F00545F27 /* Task-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Task-Prefix.pch"; sourceTree = "<group>"; };
 		DC25E50C0991FA7600545F27 /* iTM2TaskKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TaskKit.h; sourceTree = "<group>"; };
 		DC25E50D0991FA7600545F27 /* iTM2TaskKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TaskKit.m; sourceTree = "<group>"; };
-		DC2732D309645D0A008B4D56 /* OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OgreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC2732D309645D0A008B4D56 /* OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OgreKit.framework; path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/build/OgreKit.framework; sourceTree = "<absolute>"; };
 		DC2B47360AD2D2930039FCBA /* iTM2DocumentPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DocumentPrefPane.h; sourceTree = "<group>"; };
 		DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DocumentPrefPane.m; sourceTree = "<group>"; };
 		DC2B477B0AD2EED70039FCBA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2DocumentPrefPane.strings; sourceTree = "<group>"; };
@@ -1059,7 +1059,6 @@
 				DC951797088DED4B0011E823 /* iTeXMac2.app */,
 				DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */,
 				DC6BC63D09490315008F8188 /* OgreKit.framework */,
-				DC2732D309645D0A008B4D56 /* OgreKit.framework */,
 				DC25E42E0991F5F000545F27 /* iTM2TaskKit Test.octest */,
 				DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */,
 				DC99ECBE0A284EA800F50752 /* Project.octest */,
@@ -3736,7 +3735,7 @@
 		};
 		DC6BC64009490316008F8188 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = OgreKit;
 			};
@@ -3752,6 +3751,7 @@
 		};
 		DC6BC64209490316008F8188 /* Default */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3769,7 +3769,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = OgreKit;
-				SYMROOT = build;
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = YES;
 			};

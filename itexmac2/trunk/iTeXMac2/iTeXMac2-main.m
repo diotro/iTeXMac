@@ -74,6 +74,7 @@ To Do List:
 }
 @end
 #import <OgreKit/OgreKit.h>
+#import <HDCrashReporter/crashReporter.h>
 @interface NSObject(OgreKit)
 - (void)setShouldHackFindMenu:(BOOL)yorn;
 - (void)setUseStylesInFindPanel:(BOOL)yorn;
@@ -85,7 +86,8 @@ To Do List:
 	NSMenuItem * mi = [[self mainMenu] deepItemWithAction:@selector(OgreFindMenuItemAction:)];
 	if(mi)
 	{
-		NSMenu * menu = [[[textFinder findMenu] copy] autorelease];
+		NSMenu * menu = [textFinder findMenu];
+		menu = [[menu copy] autorelease];
 		[mi setAction:NULL];
 		[[mi menu] setSubmenu:menu forItem:mi];
 	}
@@ -93,7 +95,6 @@ To Do List:
 	{
 		iTM2_LOG(@"No OgreKit panel installed because there is no menu item with action OgreFindMenuItemAction: in %@", [self mainMenu]);
 	}
-	[textFinder setShouldHackFindMenu:NO];
 	return;
 }
 - (void)ogreKitShouldUseStylesInFindPanel:(id)textFinder
@@ -102,13 +103,23 @@ To Do List:
 }
 - (void)OgreKit_DidFinishLaunching;
 {
-	if([[OgreTextFinder alloc] init])// beware of the bug
+	id textFinder = [[OgreTextFinder alloc] init];
+	if(textFinder)// beware of the bug
 	{
+		[textFinder setShouldHackFindMenu:NO];
 		iTM2_LOG(@"OgreKit Properly installed");
 	}
 	else
 	{
 		iTM2_LOG(@"OgreKit not installed");
+	}
+	return;
+}
+- (void)HDCrashReporter_DidFinishLaunching;
+{
+	if ([HDCrashReporter newCrashLogExists])
+	{
+		[HDCrashReporter doCrashSubmitting];
 	}
 	return;
 }
