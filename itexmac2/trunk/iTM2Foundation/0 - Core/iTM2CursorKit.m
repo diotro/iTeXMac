@@ -55,31 +55,6 @@ To Do List:
     }
     return cursor;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handCursor
-+ (NSCursor *)handCursor;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Jan 23 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    static NSCursor * cursor = nil;
-    if(!cursor)
-    {
-        NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:@"iTM2HandCursor"];
-        if(path)
-            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:
-                    [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
-                        hotSpot: NSMakePoint(7, 7)];
-        else
-        {
-            iTM2_LOG(@"Could not create hand cursor...");
-            cursor = [[NSCursor arrowCursor] retain];
-        }
-    }
-    return cursor;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomInCursor
 + (NSCursor *)zoomInCursor;
 /*"Description forthcoming.
