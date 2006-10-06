@@ -26,7 +26,7 @@
 
 NSString * const iTM2TeXProjectInfoType = @"info";// = iTM2ProjectInfoType
 
-NSString * const iTM2TeXProjectInfoComponent = @"Info";// = iTM2ProjectInfoComponent
+NSString * const iTM2TeXProjectInfoComponent = @"Info";// = iTM2ProjectInfoComponent, unused
 
 NSString * const iTM2TeXProjectTable = @"TeX Project";
 
@@ -507,7 +507,7 @@ To Do List:
 	{
 		fileName = [fileName stringByStrippingFarawayProjectsDirectory];
 		fileName = [fileName stringByDeletingLastPathComponent];
-		fileName = [fileName stringByDeletingPathExtension];
+		fileName = [fileName stringByDeletingLastPathComponent];
 		fileName = [@"..." stringByAppendingPathComponent:fileName];
 	}
     [sender setStringValue:([fileName length]?fileName:([[self document] displayName]?:@""))];
@@ -849,29 +849,32 @@ To Do List:
 					[M removeItem:MI];
 			}
 			[M cleanSeparators];
-			NSString * stringEncoding = [project originalPropertyValueForKey:TWSStringEncodingFileKey fileKey:K];
-			if(stringEncoding)
+			NSString * stringEncodingName = [project originalPropertyValueForKey:TWSStringEncodingFileKey fileKey:K];
+			id document;
+			if(stringEncodingName)
 			{
-				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding([iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncoding]);
+				NSStringEncoding encoding = [NSString stringEncodingWithName:stringEncodingName];
 				int idx = [sender indexOfItemWithTag:encoding];
 				if(idx<0)
 				{
-					// the stringEncoding is not in the list:add it and select it
+					// the stringEncodingName is not in the list:add it and select it
 					NSString * title = [NSString stringWithFormat:iTM2StringEncodingMissingFormat, [NSString localizedNameOfStringEncoding:encoding]];
 					MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:action keyEquivalent:[NSString string]] autorelease];
 					[MI setTag:encoding];
 					[MI setTarget:nil];
 					[M insertItem:MI atIndex:0];
 					[sender selectItemAtIndex:0];
-					return YES;
+					// to change the codeset, the document must be open
 				}
 				else
+				{
 					[sender selectItem:(id <NSMenuItem>)(idx>=0 && idx<[sender numberOfItems]? [sender itemAtIndex:idx]:nil)];
+				}
 			}
 			else
 			{
-				stringEncoding = [project stringEncodingNameForFileKey:K];
-				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding([iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncoding]);
+				stringEncodingName = [project stringEncodingNameForFileKey:K];
+				NSStringEncoding encoding = [NSString stringEncodingWithName:stringEncodingName];
 				NSString * title = [NSString localizedNameOfStringEncoding:encoding];
 				if(![title length])
 					title = [NSString stringWithFormat:@"%d", encoding];
@@ -884,8 +887,15 @@ To Do List:
 				// Got once an exception for the next line:
 				// Invalid parameter not satisfying: (index >= 0) && (index < (_itemArray ? CFArrayGetCount((CFArrayRef)_itemArray) : 0))
 				[sender selectItemAtIndex:0];
-				return YES;
 			}
+			// to change the codeset, the document must be open
+			// the encoding must not be automatically guessed when it is hard coded
+			if(!(document = [project subdocumentForKey:K]))
+			{
+				return NO;
+			}
+			BOOL isAuto = [document contextBoolForKey:iTM2StringEncodingIsAutoKey];
+			return ![document isStringEncodingHardCoded] || !isAuto;
 		}
         else
 		{
@@ -982,7 +992,7 @@ To Do List:
             {
                 unsigned idx = [sender indexOfItemWithTag:[iTM2StringFormatController EOLForTerminationString:EOLString]];
                 [sender selectItem:(id <NSMenuItem>)(idx<[sender numberOfItems]? [sender itemAtIndex:idx]:nil)];
-                return YES;
+				return [project subdocumentForKey:K] != nil;
             }
             else
             {
@@ -995,7 +1005,7 @@ To Do List:
 				[[sender menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
 				[[sender menu] insertItem:MI atIndex:0];
 				[sender selectItemAtIndex:0];
-				return YES;
+				return [project subdocumentForKey:K] != nil;
             }
         }
         else

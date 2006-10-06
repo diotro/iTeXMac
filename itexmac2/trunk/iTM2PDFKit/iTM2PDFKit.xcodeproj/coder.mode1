@@ -190,46 +190,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>DCF4384E0AD2A14300CB4C3C</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2PDFKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DCF4384F0AD2A14300CB4C3C</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2PDFKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC11A2E50AD52E2E00D825E7</string>
-						<key>history</key>
-						<array>
-							<string>DC2B53540AD51F720039FCBA</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1134, 704}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>15 83 1134 745 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>DCF4384A0AD2A14300CB4C3C</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2PDFKit.m</string>
@@ -244,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC11A2E60AD52E2E00D825E7</string>
+						<string>DC958B9B0AD694C50092F69A</string>
 						<key>history</key>
 						<array>
-							<string>DC2B53550AD51F720039FCBA</string>
+							<string>DC84FEF90AD5D1CC00C6FCAA</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -264,6 +224,46 @@
 				<false/>
 				<key>RubberWindowFrame</key>
 				<string>114 60 1326 791 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>DCF4384E0AD2A14300CB4C3C</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>iTM2PDFKit.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCF4384F0AD2A14300CB4C3C</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>iTM2PDFKit.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DC958B9C0AD694C50092F69A</string>
+						<key>history</key>
+						<array>
+							<string>DC84FEFA0AD5D1CC00C6FCAA</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1134, 704}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>15 83 1134 745 0 0 1440 878 </string>
 			</dict>
 		</dict>
 	</array>
@@ -402,7 +402,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC11A2E20AD52E2E00D825E7</string>
+										<string>DC958B9A0AD694C50092F69A</string>
 										<key>history</key>
 										<array>
 											<string>DCF30F080AAFAE6E0088479F</string>
@@ -411,7 +411,7 @@
 											<string>DCF4383F0AD2A14300CB4C3C</string>
 											<string>DC2B4CF20AD47FED0039FCBA</string>
 											<string>DC2B4D1B0AD483C50039FCBA</string>
-											<string>DC2B53530AD51F720039FCBA</string>
+											<string>DC9588F20AD644B20092F69A</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -479,9 +479,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC11A2E30AD52E2E00D825E7</string>
+				<string>DC9588F50AD644B20092F69A</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC11A2E40AD52E2E00D825E7</string>
+				<string>DC9588F60AD644B20092F69A</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -615,13 +615,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC11A2ED0AD52E2E00D825E7</string>
-		<string>DCF438360AD29FEF00CB4C3C</string>
-		<string>1C0AD2B3069F1EA900FABCE6</string>
-		<string>DCF4384A0AD2A14300CB4C3C</string>
 		<string>DCF4384E0AD2A14300CB4C3C</string>
+		<string>DCF4384A0AD2A14300CB4C3C</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>55 122 1252 756 0 0 1440 878 </string>
@@ -640,14 +637,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2PDFKit.m</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -703,7 +698,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC09A036088BE9470028F810</string>
-				<string>DC2B47A50AD2F2680039FCBA</string>
+				<string>DC11A51F0AD58F2100D825E7</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -714,7 +709,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC09A036088BE9470028F810</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -825,7 +820,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -848,7 +843,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string></string>
+										<string>&lt;No Editor&gt;</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -906,8 +901,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC2B4A9D0AD4008D0039FCBA</string>
-				<string>DC2B4A9E0AD4008D0039FCBA</string>
+				<string>DC9588F90AD644B20092F69A</string>
+				<string>DC9588FA0AD644B20092F69A</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>
@@ -916,7 +911,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
@@ -1076,7 +1071,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C0AD2B3069F1EA900FABCE6</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -1161,7 +1156,7 @@
 			<key>WindowToolGUID</key>
 			<string>DCF438360AD29FEF00CB4C3C</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

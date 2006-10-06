@@ -819,6 +819,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+#warning THIS MUST BE REVISITED: it should not be necessary to have a window controller to have a text storage
     return [[[self frontWindow] windowController] textStorage];
 }
 #pragma mark =-=-=-=-=-=-=-=  PRINTING

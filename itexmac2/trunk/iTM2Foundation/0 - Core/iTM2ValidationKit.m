@@ -649,9 +649,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([sender action] == @selector(projectEditUsingRepresentedInspectorMode:))
-	{
-iTM2_LOG(@"COUCOU");}
     return ([sender action] && ([isa target:self validateUserInterfaceItem:sender] != iTM2ValidationStatusNO)) || [sender submenu];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:

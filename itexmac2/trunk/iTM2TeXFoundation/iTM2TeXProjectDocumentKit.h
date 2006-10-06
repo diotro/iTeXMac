@@ -45,6 +45,8 @@ extern NSString * const TWSMasterFileKey;
 extern NSString * const TWSStringEncodingFileKey;
 extern NSString * const TWSEOLFileKey;
 
+extern NSString * const iTM2TeXPDefaultKey;
+
 extern NSString * iTM2ProjectLocalizedMasterName;
 
 /*!

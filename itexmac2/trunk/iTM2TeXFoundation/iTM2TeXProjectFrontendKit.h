@@ -35,6 +35,8 @@ extern NSString * const iTM2TeXProjectExtendedInspectorVariant;
 
 extern NSString * const iTM2TPFEFilePropertiesKey;
 
+extern NSString * const iTM2TPFEBaseProjectNameKey;
+
 extern NSString * const iTM2TPFEVoidMode;
 extern NSString * const iTM2TPFEBaseMode;
 

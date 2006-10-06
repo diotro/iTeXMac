@@ -154,13 +154,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 181743130;
-			PBXWorkspaceStateSaveDate = 181743130;
+			PBXPerProjectTemplateStateSaveDate = 181812020;
+			PBXWorkspaceStateSaveDate = 181812020;
 		};
 		perUserProjectItems = {
-			DC11A2D40AD52E2D00D825E7 /* PBXTextBookmark */ = DC11A2D40AD52E2D00D825E7 /* PBXTextBookmark */;
-			DC66E58D0AD257550060B6A9 = DC66E58D0AD257550060B6A9 /* PBXTextBookmark */;
-			DC91564F0ACB134600129CD6 = DC91564F0ACB134600129CD6 /* PBXTextBookmark */;
+			DC84FEE70AD5D1CB00C6FCAA /* PBXTextBookmark */ = DC84FEE70AD5D1CB00C6FCAA /* PBXTextBookmark */;
+			DC958B9F0AD694CF0092F69A /* PBXTextBookmark */ = DC958B9F0AD694CF0092F69A /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -171,16 +170,6 @@
 		executables = (
 			DC520334088B1F3A00DE6E7F /* iTeXMac2 */,
 		);
-	};
-	DC11A2D40AD52E2D00D825E7 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
-		name = "iTM2WindowsMenuKit.m: 582";
-		rLen = 0;
-		rLoc = 25113;
-		rType = 0;
-		vrLen = 851;
-		vrLoc = 4609;
 	};
 	DC24D4660952F5F200647943 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
@@ -391,16 +380,6 @@
 			sepNavWindowFrame = "{{101, 38}, {1093, 697}}";
 		};
 	};
-	DC66E58D0AD257550060B6A9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
-		name = "iTM2WindowsMenuKit.m: 582";
-		rLen = 0;
-		rLoc = 25113;
-		rType = 0;
-		vrLen = 851;
-		vrLoc = 4609;
-	};
 	DC6BC59A0948FB3E008F8188 /* Prepare iTM2LaTeXKit */ = {
 		activeExec = 0;
 	};
@@ -445,7 +424,17 @@
 	DC81D83008840CF60086F2EB /* All */ = {
 		activeExec = 0;
 	};
-	DC91564F0ACB134600129CD6 /* PBXTextBookmark */ = {
+	DC84FEE70AD5D1CB00C6FCAA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
+		name = "iTM2WindowsMenuKit.m: 582";
+		rLen = 0;
+		rLoc = 25113;
+		rType = 0;
+		vrLen = 851;
+		vrLoc = 4609;
+	};
+	DC958B9F0AD694CF0092F69A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
 		name = "iTM2WindowsMenuKit.m: 582";

@@ -2162,7 +2162,6 @@ To Do List:
 //iTM2_START;
     [sender setState: ([SUD boolForKey:iTM2DistributionUsePATHSuffixKey]? NSOnState:NSOffState)];
 //iTM2_END;
-#warning DEBUGGGG
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePATHSuffixFromStringValue:

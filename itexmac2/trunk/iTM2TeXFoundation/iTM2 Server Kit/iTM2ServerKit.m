@@ -316,7 +316,7 @@ To Do List: see the warning below
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"context is: %@", context);
+//iTM2_LOG(@"context is: %@", context);
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
 	if(![self acceptConversationWithID:[environment objectForKey:iTM2ServerConversationIDKey]])
 	{

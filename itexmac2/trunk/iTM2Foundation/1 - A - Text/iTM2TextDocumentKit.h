@@ -49,7 +49,7 @@ extern NSString * const iTM2TextInspectorType;
 	@method		textStorage
 	@abstract	The text storage.
 	@discussion	Forwards the message to its inspector.
-	@result		For AppleScript™ support.
+	@result		For AppleScript™ support at least.
 */
 - (id)textStorage;
 
@@ -160,6 +160,13 @@ extern NSString * const iTM2TextInspectorType;
 */
 
 @interface iTM2TextInspector: iTM2Inspector
+
+/*!
+	@method		synchronizeWithDocument
+	@abstract	This is where the inspector receives its text storage.
+	@result		None.
+*/
+- (void)synchronizeWithDocument;
 
 /*!
 	@method		textStorage

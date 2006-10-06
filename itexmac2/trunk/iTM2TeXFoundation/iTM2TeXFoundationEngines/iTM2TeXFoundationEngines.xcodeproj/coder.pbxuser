@@ -12,16 +12,6 @@
 	DC0EF94A094899550018276F /* Install in iTM2TeXFoundation */ = {
 		activeExec = 0;
 	};
-	DC12917C0ACAF0F20090D8C2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-		name = "iTM2_Engine_PDFTeX: 10";
-		rLen = 0;
-		rLoc = 389;
-		rType = 0;
-		vrLen = 1091;
-		vrLoc = 4635;
-	};
 	DC31FE070AC9B87900FF576B /* -[NSException raise] */ = {
 		isa = PBXSymbolicBreakpoint;
 		actions = (
@@ -106,16 +96,6 @@
 	};
 	DC5D6D0E0949A97100EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
-	};
-	DC66E5890AD2573E0060B6A9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-		name = "iTM2_Engine_PDFTeX: 133";
-		rLen = 0;
-		rLoc = 5074;
-		rType = 0;
-		vrLen = 1084;
-		vrLoc = 4635;
 	};
 	DC99EC7D0A27C6B800F50752 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
@@ -244,12 +224,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 181555324;
-			PBXWorkspaceStateSaveDate = 181555324;
-		};
-		perUserProjectItems = {
-			DC12917C0ACAF0F20090D8C2 /* PBXTextBookmark */ = DC12917C0ACAF0F20090D8C2 /* PBXTextBookmark */;
-			DC66E5890AD2573E0060B6A9 /* PBXTextBookmark */ = DC66E5890AD2573E0060B6A9 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 181774832;
+			PBXWorkspaceStateSaveDate = 181774832;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;

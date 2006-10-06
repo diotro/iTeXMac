@@ -31,8 +31,6 @@ NSString * const iTM2TaskTerminalIsHiddenKey = @"TaskTerminalIsHidden";
 
 NSString * const iTM2TeXPTaskInspectorSplitViewFactorsKey = @"iTM2TeXPTaskInspectorSplitViewFactors";
 
-#warning DEBUGGG
-
 NSString * const iTM2UDLogDrawsTextBackgroundKey = @"iTM2UDLogDrawsTextBackground";
 
 NSString * const iTM2UDLogTextBackgroundColorKey = @"iTM2UDLogTextBackgroundColor";

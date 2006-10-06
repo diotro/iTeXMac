@@ -1206,12 +1206,21 @@ To Do List:
 	if(returnCode == NSOKButton)
 	{
 		NSString * fileName = [panel filename];
-		[self createInMandatoryProjectNewDocumentWithName:fileName]
-		|| [self createNewWrapperAndProjectWithName:fileName]// create a new wrapper and the new included project, if relevant
-		|| [self createNewWrapperWithName:fileName]// create a new wrapper assuming that the included project will come for free
-		|| [self createInNewProjectNewDocumentWithName:fileName]// create a new project if relevant, but no wrapper
-		|| [self createInOldProjectNewDocumentWithName:fileName]// just insert the main file in the project if relevant
-		|| [self createNewStandaloneDocumentWithName:fileName];// just create the standalone document if relevant
+		if(![DFM fileExistsAtPath:fileName isDirectory:nil]
+			|| [SWS performFileOperation:NSWorkspaceRecycleOperation source:[fileName stringByDeletingLastPathComponent] destination:nil files:[NSArray arrayWithObject:[fileName lastPathComponent]] tag:nil])
+		{
+			[self createInMandatoryProjectNewDocumentWithName:fileName]
+			|| [self createNewWrapperAndProjectWithName:fileName]// create a new wrapper and the new included project, if relevant
+			|| [self createNewWrapperWithName:fileName]// create a new wrapper assuming that the included project will come for free
+			|| [self createInNewProjectNewDocumentWithName:fileName]// create a new project if relevant, but no wrapper
+			|| [self createInOldProjectNewDocumentWithName:fileName]// just insert the main file in the project if relevant
+			|| [self createNewStandaloneDocumentWithName:fileName];// just create the standalone document if relevant
+		}
+		else
+		{
+			iTM2_REPORTERROR(1,@"There is already a file I can't remove",nil);
+			[SWS selectFile:fileName inFileViewerRootedAtPath:[fileName stringByDeletingLastPathComponent]];
+		}
 	}
 	[[self window] orderOut:self];// the run modal is dangerous:don't autorelease
 	[_iTM2NewDocumentAssistant performSelector:@selector(description) withObject:nil afterDelay:10];// delayed retain release...
@@ -2044,31 +2053,135 @@ To Do List:
 			}
 			else
 			{
+iTM2_LOG(@"BEFORE now is:%@",[NSDate date]);
 				// then create a standalone project...
 				NSError * localError = nil;
+				// if there is a project for the original file, duplicate it?
+				// at least duplicate what is inside the project
+				NSString ** sourceNameRef = &sourceName;
+				NSString * sourceProjectFileName = [SPC getProjectFileNameInWrapperForFileNameRef:sourceNameRef error:nil];
+				if(![sourceProjectFileName length])
+				{
+					NSArray * array = [SPC getProjectFileNamesInHierarchyForFileName:sourceName error:nil];
+					if([array count])
+					{
+						sourceProjectFileName = [array objectAtIndex:0];
+					}
+				}
+				NSString * codeset = nil;
+				NSString * baseProjectName = nil;
+				if([sourceProjectFileName length])
+				{
+iTM2_LOG(@"(1) now is:%@",[NSDate date]);
+					NSURL * projectURL = [NSURL fileURLWithPath:sourceProjectFileName];
+					NSURL * url = [iTM2ProjectDocument projectInfoURLFromFileURL:projectURL create:NO error:nil];
+					NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeOptionsNone error:nil] autorelease];
+					NSString * projectDirName = [sourceProjectFileName stringByDeletingLastPathComponent];
+					NSString * relativeFilename = [sourceName stringByAbbreviatingWithDotsRelativeToDirectory:projectDirName];
+					NSString * xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/string[text()=\"%@\"]/preceding-sibling::*[last()]/text()",TWSKeyedFilesKey,relativeFilename];
+					NSArray * nodes = [doc nodesForXPath:xpath error:nil];
+					NSXMLNode * node = [nodes lastObject];
+					NSString * key = [node stringValue];
+					xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/key[text()=\"%@\"]/following-sibling::*[1]/key[text()=\"codeset\"]/following-sibling::*[1]/text()",TWSKeyedPropertiesKey,key];
+					nodes = [doc nodesForXPath:xpath error:nil];
+					NSString * s;
+					if(node = [nodes lastObject])
+					{
+						s = [node stringValue];
+						if([s length])
+						{
+							codeset = s;
+						}
+					}
+					if(![codeset length])
+					{
+						xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/string[text()=\"%@\"]/preceding-sibling::*[last()]/text()",TWSKeyedFilesKey,iTM2TeXPDefaultKey];
+						nodes = [doc nodesForXPath:xpath error:nil];
+						node = [nodes lastObject];
+						key = [node stringValue];
+						xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/key[text()=\"%@\"]/following-sibling::*[1]/key[text()=\"codeset\"]/following-sibling::*[1]/text()",TWSKeyedPropertiesKey,key];
+						nodes = [doc nodesForXPath:xpath error:nil];
+						node = [nodes lastObject];
+						if(node = [nodes lastObject])
+						{
+							s = [node stringValue];
+							if([s length])
+							{
+								codeset = s;
+							}
+						}
+					}
+					if(![codeset length])
+					{
+						xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/string[text()=\"%@\"]/preceding-sibling::*[last()]/text()",TWSKeyedFilesKey,@"."];
+						nodes = [doc nodesForXPath:xpath error:nil];
+						node = [nodes lastObject];
+						key = [node stringValue];
+						xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/key[text()=\"%@\"]/following-sibling::*[1]/key[text()=\"codeset\"]/following-sibling::*[1]/text()",TWSKeyedPropertiesKey,key];
+						nodes = [doc nodesForXPath:xpath error:nil];
+						if(node = [nodes lastObject])
+						{
+							s = [node stringValue];
+							if([s length])
+							{
+								codeset = s;
+							}
+						}
+					}
+					// base project name
+					url = [iTM2ProjectDocument projectFrontendInfoURLFromFileURL:projectURL create:NO error:nil];
+					doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeOptionsNone error:nil] autorelease];
+					xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/text()",iTM2TPFEBaseProjectNameKey];
+					nodes = [doc nodesForXPath:xpath error:nil];
+					if(node = [nodes lastObject])
+					{
+						s = [node stringValue];
+						if([s length])
+						{
+							baseProjectName = s;
+						}
+					}
+iTM2_LOG(@"(2) now is:%@",[NSDate date]);
+				}
 				id projectDocument = [SPC newFarawayProjectForFileName:targetName display:NO error:&localError];
 				if(localError)
 				{
 					[SDC presentError:localError];
 				}
+				if([baseProjectName length])
+				{
+					[projectDocument setBaseProjectName:baseProjectName];
+				}
+iTM2_LOG(@"(3) now is:%@",[NSDate date]);
 				[SPC setProject:projectDocument forFileName:targetName];// targetName is no longer linked to an old project
+				NSString * fileKey = [projectDocument keyForFileName:targetName];
+				if([codeset length])
+				{
+					[projectDocument setStringEncodingString:codeset forFileKey:fileKey];
+				}
 				NSURL * url = [NSURL fileURLWithPath:targetName];
-				id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
+				id document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
+iTM2_LOG(@"(4) now is:%@",[NSDate date]);
 				if([document isKindOfClass:[iTM2TextDocument class]])
 				{
-					NSTextStorage * TS = [document textStorage];
-					NSString * old = [TS string];
+					NSString * old = [document stringRepresentation];
 					NSDictionary *filter = [self filterForProjectName:projectName];
 					NSString * new = [self convertedString:old withDictionary:filter];
-					[TS beginEditing];
-					[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
-					[TS endEditing];
+					[document setStringRepresentation:new];
 				}
+iTM2_LOG(@"(4.5) now is:%@",[NSDate date]);
 				[document saveDocument:self];
+				[document makeWindowControllers];
+				[document showWindows];
+iTM2_LOG(@"(5) now is:%@",[NSDate date]);
 				[[document undoManager] removeAllActions];
+iTM2_LOG(@"(6) now is:%@",[NSDate date]);
 				[projectDocument makeWindowControllers];
+iTM2_LOG(@"(7) now is:%@",[NSDate date]);
 				[projectDocument showWindows];
+iTM2_LOG(@"(8) now is:%@",[NSDate date]);
 				[projectDocument saveDocument:self];
+iTM2_LOG(@"AFTER now is:%@",[NSDate date]);
 			}
 		}
 		else

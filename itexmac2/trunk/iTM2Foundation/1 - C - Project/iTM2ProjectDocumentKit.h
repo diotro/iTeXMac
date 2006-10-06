@@ -48,9 +48,9 @@ extern NSString * const iTM2ProjectFrontendType;
 
 extern NSString * const iTM2ProjectNoneKey;
 
-extern NSString * const iTM2TWSKeyedFilesKey;
-extern NSString * const iTM2TWSKeyedPropertiesKey;
-extern NSString * const iTM2TWSFrontendComponent;
+extern NSString * const TWSKeyedFilesKey;
+extern NSString * const TWSKeyedPropertiesKey;
+extern NSString * const TWSFrontendComponent;
 
 extern NSString * const iTM2ProjectDefaultKey;
 
@@ -108,7 +108,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 @interface iTM2ProjectDocument: iTM2Document
 
 /*! 
-    @method     projectInfoURLFromURL:create:error:
+    @method     projectInfoURLFromFileURL:create:error:
     @abstract   The URL of the project info dictionary at  the given URL.
     @discussion This iis just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
     @param      url is the project url
@@ -116,10 +116,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      outErrorPtr will point to an NSError if there was a problem
     @result     nil if the given url is not a file url.
 */
-+ (NSURL *)projectInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
++ (NSURL *)projectInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     projectFrontendInfoURLFromURL:create:error:
+    @method     projectFrontendInfoURLFromFileURL:create:error:
     @abstract   The URL of the project frontend info dictionary strating at the given URL.
     @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
     @param      url is the project url
@@ -127,10 +127,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      outErrorPtr will point to an NSError if there was a problem
     @result     nil if the given url is not a file url.
 */
-+ (NSURL *)projectFrontendInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
++ (NSURL *)projectFrontendInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     projectMetaInfoURLFromURL:create:error:
+    @method     projectMetaInfoURLFromFileURL:create:error:
     @abstract   The URL of the project meta info dictionary strating at the given URL.
     @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
     @param      url is the project url
@@ -138,7 +138,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      outErrorPtr will point to an NSError if there was a problem
     @result     nil if the given url is not a file url.
 */
-+ (NSURL *)projectMetaInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
++ (NSURL *)projectMetaInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*! 
     @method     projectName
@@ -1044,14 +1044,24 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
-    @method		getProjectNameInWrapperForFileNameRef:error:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param		fileNameRef
+    @method		getProjectFileNameInWrapperForFileNameRef:error:
+    @abstract   Abstract Forthcoming.
+    @discussion Discussion Forthcoming.
+    @param		fileName
     @param		outErrorPtr
-    @result		A full path name
+    @result		An array of project file names
 */
-- (NSString *)getProjectNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
+- (NSString *)getProjectFileNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
+
+/*! 
+    @method		getProjectFileNamesInHierarchyForFileName:error:
+    @abstract   Abstract Forthcoming.
+    @discussion Discussion Forthcoming.
+    @param		fileName
+    @param		outErrorPtr
+    @result		An array of project file names
+*/
+- (NSArray *)getProjectFileNamesInHierarchyForFileName:(NSString *)fileName error:(NSError **)outErrorPtr;
 
 /*! 
     @method		baseProjects

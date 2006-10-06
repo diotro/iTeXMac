@@ -149,7 +149,6 @@ To Do List:
             NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:commandAttributes];// If the command attributes are good...
             [MD addEntriesFromDictionary:symbolAttributes];
             NSColor * symbolColor = [symbolAttributes objectForKey:iTM2Text2ndSymbolColorAttributeName];
-            #warning DEBUG
             if(iTM2DebugEnabled > 999999 && !symbolColor)
             {
                 iTM2_LOG(@"no 2nd color for symbol: %@", symbol);

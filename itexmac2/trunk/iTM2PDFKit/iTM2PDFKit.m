@@ -619,7 +619,7 @@ To Do List:
 		doc = [document PDFDocument];
 		[[self pdfView] setDocument:doc];
 //		[[self pdfView] setNeedsDisplay:YES];
-iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
+//iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
 		[doc setDelegate:self];
 		if([_drawer state] == NSDrawerOpenState)
 			[self updateTabView];
@@ -5393,7 +5393,7 @@ To Do List:
 	// accept only one type of events, this allows to keep the pdfView contextual menu while selecting
 	NSEvent * theEvent = [[self window] currentEvent];
 	unsigned int theModifiers = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
-	return (theModifiers & NSControlKeyMask) || ([theEvent type] != NSLeftMouseDown)?nil:[super hitTest:aPoint];
+	return (theModifiers & NSControlKeyMask) || (theModifiers & NSCommandKeyMask) || ([theEvent type] != NSLeftMouseDown)?nil:[super hitTest:aPoint];
 }
 - (BOOL)dragSelection:(NSEvent *)theEvent;
 {
