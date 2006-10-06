@@ -155,14 +155,16 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 181838554;
-			PBXWorkspaceStateSaveDate = 181838554;
+			PBXPerProjectTemplateStateSaveDate = 181852113;
+			PBXWorkspaceStateSaveDate = 181852113;
 		};
 		perUserProjectItems = {
-			DC0D4F070AD6C7770024D73F /* PBXTextBookmark */ = DC0D4F070AD6C7770024D73F /* PBXTextBookmark */;
-			DC0D4F550AD6D17A0024D73F /* PBXTextBookmark */ = DC0D4F550AD6D17A0024D73F /* PBXTextBookmark */;
-			DC0D4F560AD6D17A0024D73F /* PBXTextBookmark */ = DC0D4F560AD6D17A0024D73F /* PBXTextBookmark */;
-			DC958B9F0AD694CF0092F69A /* PBXTextBookmark */ = DC958B9F0AD694CF0092F69A /* PBXTextBookmark */;
+			DC0D4F070AD6C7770024D73F = DC0D4F070AD6C7770024D73F /* PBXTextBookmark */;
+			DC0D4F550AD6D17A0024D73F = DC0D4F550AD6D17A0024D73F /* PBXTextBookmark */;
+			DC0D4F560AD6D17A0024D73F = DC0D4F560AD6D17A0024D73F /* PBXTextBookmark */;
+			DC7E4C460AD6D7FB00202CF2 /* PBXTextBookmark */ = DC7E4C460AD6D7FB00202CF2 /* PBXTextBookmark */;
+			DC7E4C470AD6D7FB00202CF2 /* PBXTextBookmark */ = DC7E4C470AD6D7FB00202CF2 /* PBXTextBookmark */;
+			DC958B9F0AD694CF0092F69A = DC958B9F0AD694CF0092F69A /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -454,6 +456,26 @@
 			sepNavWindowFrame = "{{14, 143}, {1151, 683}}";
 		};
 	};
+	DC7E4C460AD6D7FB00202CF2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 195";
+		rLen = 0;
+		rLoc = 6466;
+		rType = 0;
+		vrLen = 1788;
+		vrLoc = 4152;
+	};
+	DC7E4C470AD6D7FB00202CF2 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
+		name = "iTM2WindowsMenuKit.m: 582";
+		rLen = 0;
+		rLoc = 25113;
+		rType = 0;
+		vrLen = 851;
+		vrLoc = 4609;
+	};
 	DC81B1260887DAD200943C99 /* Install iTeXMac2 */ = {
 		activeExec = 0;
 	};
@@ -505,8 +527,8 @@
 	DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1300, 6545}}";
-			sepNavSelRange = "{3853, 23}";
-			sepNavVisRect = "{{0, 1818}, {1054, 325}}";
+			sepNavSelRange = "{6466, 0}";
+			sepNavVisRect = "{{0, 2397}, {1095, 617}}";
 			sepNavWindowFrame = "{{91, 86}, {1134, 746}}";
 		};
 	};

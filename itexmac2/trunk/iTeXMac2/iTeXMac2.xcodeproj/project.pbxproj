@@ -138,6 +138,8 @@
 		DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */; };
 		DC72F9EE08E5961100D81CEB /* iTeXMac2 Help in Resources */ = {isa = PBXBuildFile; fileRef = DC72F9EA08E5961100D81CEB /* iTeXMac2 Help */; };
 		DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */; };
+		DC7E483B0AD6D7D000202CF2 /* HDCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */; };
+		DC7E4C1D0AD6D7F300202CF2 /* HDCrashReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC0D4EF90AD6C63F0024D73F /* HDCrashReporter.framework */; };
 		DC89306C08FC2DDA007A4673 /* iTM2MetaPostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */; };
 		DC89307008FC2DED007A4673 /* iTM2MetaPostKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */; };
 		DC8A6186088D7C580016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */; };
@@ -164,7 +166,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DC0D4EC70AD6C39C0024D73F /* Prepare HDCrashReporter */;
+			remoteGlobalIDString = DC0D4EC70AD6C39C0024D73F;
 			remoteInfo = "Prepare HDCrashReporter";
 		};
 		DC6BC5D50948FCCD008F8188 /* PBXContainerItemProxy */ = {
@@ -247,6 +249,7 @@
 				DC01A94D08FE777A00BFF6EF /* iTM2PDFKit.framework in Copy Frameworks */,
 				DC89307008FC2DED007A4673 /* iTM2MetaPostKit.framework in Copy Frameworks */,
 				DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */,
+				DC7E4C1D0AD6D7F300202CF2 /* HDCrashReporter.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,7 +261,6 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2PDFKit.framework; path = ../build/iTM2PDFKit.framework; sourceTree = SOURCE_ROOT; };
-		DC0D4ECD0AD6C39C0024D73F /* HDCrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HDCrashReporter.framework; path = /Users/coder/build/HDCrashReporter.framework; sourceTree = "<absolute>"; };
 		DC0D4EF90AD6C63F0024D73F /* HDCrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HDCrashReporter.framework; path = ../build/HDCrashReporter.framework; sourceTree = SOURCE_ROOT; };
 		DC1C6D0F090E1C96000F4FDE /* iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2NewDocumentKit.framework; path = ../build/iTM2NewDocumentKit.framework; sourceTree = SOURCE_ROOT; };
 		DC2740DD090CDE9500C2D1D2 /* 4HF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 4HF.icns; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 		DC74C82107D8532800E10C57 /* iTM2StartupDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupDocument.h; sourceTree = "<group>"; };
 		DC781BAC07F9B8DA00FCD972 /* iTM2WindowsMenuKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2WindowsMenuKit.h; sourceTree = "<group>"; };
 		DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2WindowsMenuKit.m; sourceTree = "<group>"; };
+		DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HDCrashReporter.framework; path = ../../../build/HDCrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2MetaPostKit.framework; path = ../build/iTM2MetaPostKit.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
@@ -405,6 +408,7 @@
 				DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */,
 				DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */,
 				DC0D4EFE0AD6C6400024D73F /* HDCrashReporter.framework in Frameworks */,
+				DC7E483B0AD6D7D000202CF2 /* HDCrashReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +463,7 @@
 				DC6BC5E90948FD59008F8188 /* Prepare iTM2NewDocumentKit.framework */,
 				DC6BC5F40948FD8B008F8188 /* Prepare iTM2ConTeXtKit.framework */,
 				DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */,
+				DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -672,7 +677,7 @@
 			);
 			name = "Prepare HDCrashReporter";
 			productName = "Prepare LaTeX Kit";
-			productReference = DC0D4ECD0AD6C39C0024D73F /* HDCrashReporter.framework */;
+			productReference = DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DC6BC59A0948FB3E008F8188 /* Prepare iTM2LaTeXKit */ = {
