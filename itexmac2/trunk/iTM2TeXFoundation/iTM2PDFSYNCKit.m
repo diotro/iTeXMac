@@ -1504,7 +1504,6 @@ To Do List:
 //iTM2_START;
     //things should be done only when the receiver is using the built in viewer
     // does a PDFSYNC info exist?
-#warning USE THE SETTINGS
     if([self contextBoolForKey:iTM2PDFNoSynchronizationKey])
 	{
         [self replaceSynchronizer:nil];
@@ -1642,9 +1641,13 @@ laSuite:
 					if(yorn)
 					{
 						if(force)
+						{
 							[[WC window] makeKeyAndOrderFront:self];
+						}
 						else if(![WC isKindOfClass:[iTM2ExternalInspector class]])
+						{
 							[[WC window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
+						}
 					}
 					result = YES;
 				}
@@ -1670,7 +1673,13 @@ laSuite:
 				if([WC synchronizeWithDestinations:destinations hint:hint])
 				{
 					if(yorn && (force || ![WC isKindOfClass:[iTM2ExternalInspector class]]))
+					{
 						[[WC window] makeKeyAndOrderFront:self];
+					}
+					else
+					{
+						[[WC window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
+					}
 					result = YES;
 				}
 			}
