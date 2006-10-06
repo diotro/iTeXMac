@@ -1813,7 +1813,9 @@ ValidateNextModeLine:;
 			[self validateModesUpTo:first];
 			int firewall = 543;
 			if(++first<last && --firewall)
+			{
 				goto ValidateNextModeLine;
+			}
 		}
     }
     _iTM2InternalAssert(![self diagnostic], @"=====  |=:( Qui m'a foutu un bordel pareil...............");
@@ -2010,7 +2012,7 @@ To Do List:
         parsedMode = iTM2TSModeForIndexFCT(globalLocation, previousMode, &parsedLength, &nextMode, topGlobalLocation);
 //NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
 //N+=length;
-#warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED
+#warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED (1)
         if(parsedMode == previousMode)
         {
             previousLength += parsedLength;
@@ -2344,7 +2346,7 @@ To Do List:
 				parsedMode = iTM2TSModeForIndexFCT(globalLocation, previousMode, &parsedLength, &nextMode, newContentsEnd);
 		//NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
 		//N+=length;
-		#warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED
+#warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED (2)
 				if(parsedMode == previousMode)
 				{
 					previousLength += parsedLength;
@@ -3070,7 +3072,6 @@ To Do List:
         _EOLMode = kiTM2TextUnknownSyntaxMode;
     }
     //NSLog(@"DEBUG initWithString: END");
-#warning DEBUGGG
 //[self describe];
     return self;
 }
@@ -3998,7 +3999,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning THIS IS ACTUALLY BUGGY
+#warning THIS IS ACTUALLY BUGGY, really? it seems to work well...
     // preparation for simple cases
     if(!deleteRange.length)
     // nothing to remove
@@ -4142,7 +4143,6 @@ propriano:
 
 NSString * const iTM2TextStyleComponent = @"Styles.localized";
 
-#warning I AM MISSING A DOCUMENT TO OPEN THESE FILES.
 NSString * const iTM2TextStyleExtension = @"iTM2-Style";
 NSString * const iTM2TextVariantExtension = @"iTM2-Variant";
 NSString * const iTM2TextAttributesModesComponent = @"modes";

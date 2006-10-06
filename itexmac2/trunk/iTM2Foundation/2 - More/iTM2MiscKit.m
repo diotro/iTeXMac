@@ -112,7 +112,7 @@ To Do List:
             //	when they're over that rectangle.
             for (rectIndex = 0; rectIndex < rectCount; ++rectIndex)
             {
-                [self addCursorRect:NSIntersectionRect (rects[rectIndex], [self visibleRect]) cursor:[NSCursor fingerCursor]];
+                [self addCursorRect:NSIntersectionRect (rects[rectIndex], [self visibleRect]) cursor:[NSCursor pointingHandCursor]];
             }
         }
     }

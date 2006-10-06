@@ -36,8 +36,8 @@ NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 /*" This class is registered as the delegate of the iTeXMac2 NSApplication object. We do various stuff here, e.g. registering factory defaults, etc.
 "*/
 @implementation iTM2ApplicationDelegate
-#warning <<<<  HUNTING
 #ifndef HUNTING
+#warning <<<<  HUNTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
 + (void)initialize;
 /*"Registers some defaults: initialize iTM2DefaultsController.

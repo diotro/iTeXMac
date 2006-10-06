@@ -301,7 +301,6 @@ To Do List:
 
     BOOL shouldInsertSeparatorItem = NO;
     int shouldInsertSeparatorIndex = [menu numberOfItems];
-    #warning missing items!!!
     menuItem = [[NSApp mainMenu] deepItemWithAction:@selector(toggleStickToWidth:)];
     E = [[[menuItem menu] itemArray] objectEnumerator];
     id MI;

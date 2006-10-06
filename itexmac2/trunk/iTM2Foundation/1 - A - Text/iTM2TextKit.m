@@ -79,7 +79,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     // find what is the name of the current environment...
-#warning ************  breakUndoCoalescing
     NSUndoManager * UM = [self undoManager];
     if(UM && ![UM isUndoing] && ![UM isRedoing])
     {
@@ -304,8 +303,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    // find what is the name of the current environment...
-#warning ************  breakUndoCoalescing
 	if([self respondsToSelector:@selector(breakUndoCoalescing)])
 		[self breakUndoCoalescing];
 	else

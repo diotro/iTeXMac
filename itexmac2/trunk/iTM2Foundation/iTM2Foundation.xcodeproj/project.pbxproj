@@ -322,9 +322,6 @@
 		DCF61CD50854654B003F5F79 /* iTM2TextInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C1E0854654B003F5F79 /* iTM2TextInspector.nib */; };
 		DCF61CD60854654B003F5F79 /* iTM2VoidInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C200854654B003F5F79 /* iTM2VoidInspector.nib */; };
 		DCF61CD80854654B003F5F79 /* NSFindPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C240854654B003F5F79 /* NSFindPanel.nib */; };
-		DCF61CDA0854654B003F5F79 /* iTM2CrossHair.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C270854654B003F5F79 /* iTM2CrossHair.tiff */; };
-		DCF61CDB0854654B003F5F79 /* iTM2FingerCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C280854654B003F5F79 /* iTM2FingerCursor.tiff */; };
-		DCF61CDC0854654B003F5F79 /* iTM2HandCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C290854654B003F5F79 /* iTM2HandCursor.tiff */; };
 		DCF61CDD0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C2A0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap */; };
 		DCF61CDE0854654B003F5F79 /* iTM2Lock.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C2B0854654B003F5F79 /* iTM2Lock.tiff */; };
 		DCF61CDF0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C2C0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff */; };
@@ -979,9 +976,6 @@
 		DCF61C1F0854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextInspector.nib; sourceTree = "<group>"; };
 		DCF61C210854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2VoidInspector.nib; sourceTree = "<group>"; };
 		DCF61C250854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/NSFindPanel.nib; sourceTree = "<group>"; };
-		DCF61C270854654B003F5F79 /* iTM2CrossHair.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2CrossHair.tiff; sourceTree = "<group>"; };
-		DCF61C280854654B003F5F79 /* iTM2FingerCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2FingerCursor.tiff; sourceTree = "<group>"; };
-		DCF61C290854654B003F5F79 /* iTM2HandCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2HandCursor.tiff; sourceTree = "<group>"; };
 		DCF61C2A0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2KeyStrokeSelectors.selectorMap; sourceTree = "<group>"; };
 		DCF61C2B0854654B003F5F79 /* iTM2Lock.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2Lock.tiff; sourceTree = "<group>"; };
 		DCF61C2C0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ReadOnlyPencil.tiff; sourceTree = "<group>"; };
@@ -1563,9 +1557,6 @@
 				DCF61C320854654B003F5F79 /* status-available.tiff */,
 				DCF61C330854654B003F5F79 /* status-away.tiff */,
 				DCF61C340854654B003F5F79 /* status-idle.tiff */,
-				DCF61C270854654B003F5F79 /* iTM2CrossHair.tiff */,
-				DCF61C280854654B003F5F79 /* iTM2FingerCursor.tiff */,
-				DCF61C290854654B003F5F79 /* iTM2HandCursor.tiff */,
 				DC2B4AB90AD405920039FCBA /* resizeBottomLeftCursor.png */,
 				DC2B4ABA0AD405920039FCBA /* resizeBottomRightCursor.png */,
 				DC2B4ABB0AD405920039FCBA /* resizeTopLeftCursor.png */,
@@ -2036,9 +2027,6 @@
 				DCF61CD50854654B003F5F79 /* iTM2TextInspector.nib in Resources */,
 				DCF61CD60854654B003F5F79 /* iTM2VoidInspector.nib in Resources */,
 				DCF61CD80854654B003F5F79 /* NSFindPanel.nib in Resources */,
-				DCF61CDA0854654B003F5F79 /* iTM2CrossHair.tiff in Resources */,
-				DCF61CDB0854654B003F5F79 /* iTM2FingerCursor.tiff in Resources */,
-				DCF61CDC0854654B003F5F79 /* iTM2HandCursor.tiff in Resources */,
 				DCF61CDD0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap in Resources */,
 				DCF61CDE0854654B003F5F79 /* iTM2Lock.tiff in Resources */,
 				DCF61CDF0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff in Resources */,

@@ -108,6 +108,39 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 @interface iTM2ProjectDocument: iTM2Document
 
 /*! 
+    @method     projectInfoURLFromURL:create:error:
+    @abstract   The URL of the project info dictionary at  the given URL.
+    @discussion This iis just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
+    @param      url is the project url
+    @param      if yorn, the return value (if any) can safely be used to write
+    @param      outErrorPtr will point to an NSError if there was a problem
+    @result     nil if the given url is not a file url.
+*/
++ (NSURL *)projectInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+
+/*! 
+    @method     projectFrontendInfoURLFromURL:create:error:
+    @abstract   The URL of the project frontend info dictionary strating at the given URL.
+    @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
+    @param      url is the project url
+    @param      if yorn, the return value (if any) can safely be used to write
+    @param      outErrorPtr will point to an NSError if there was a problem
+    @result     nil if the given url is not a file url.
+*/
++ (NSURL *)projectFrontendInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+
+/*! 
+    @method     projectMetaInfoURLFromURL:create:error:
+    @abstract   The URL of the project meta info dictionary strating at the given URL.
+    @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
+    @param      url is the project url
+    @param      if yorn, the return value (if any) can safely be used to write
+    @param      outErrorPtr will point to an NSError if there was a problem
+    @result     nil if the given url is not a file url.
+*/
++ (NSURL *)projectMetaInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+
+/*! 
     @method     projectName
     @abstract   The project name of the receiver.
     @discussion If the receiver has a consistent wrapper file name,
@@ -1011,6 +1044,16 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
+    @method		getProjectNameInWrapperForFileNameRef:error:
+    @abstract   Abstract forthcoming.
+    @discussion Discussion forthcoming.
+    @param		fileNameRef
+    @param		outErrorPtr
+    @result		A full path name
+*/
+- (NSString *)getProjectNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
+
+/*! 
     @method		baseProjects
     @abstract   The base projects owned by the project controller.
     @discussion The keys are the file names, the values are the projects.
@@ -1384,7 +1427,7 @@ extern NSString * const iTM2WrapperInspectorType;
 /*!
     @method		enclosedProjectFileNames
     @abstract	The enclosed project names of the receiver.
-    @discussion	Return an array of project paths in the receiver as directory.
+    @discussion	Return an array of project paths in the receiver as directory (relative paths!).
 				If the receiver is not a directory, or if it does not contain any project, nothing is returned.
 				The project are returned, how deep they can be.
 				But, links are not followed (a priori to avoid problems of recursivity)

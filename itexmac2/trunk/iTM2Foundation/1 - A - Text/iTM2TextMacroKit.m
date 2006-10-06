@@ -500,7 +500,7 @@ here:
         return;
     }
 //    NSString * S = [self string];
-    #warning macro insertion is not compatible with indentation
+#warning macro insertion is not compatible with indentation
     #if 0
     NSRange oldSelectedRange = [self selectedRange];
     {

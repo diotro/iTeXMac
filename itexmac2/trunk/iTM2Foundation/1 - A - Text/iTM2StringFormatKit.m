@@ -2501,12 +2501,13 @@ To Do List:
     }
     else if([obj isKindOfClass:[NSString class]] && [(NSString *)obj length])
     {
-		unsigned encoding = [iTM2StringFormatController coreFoundationStringEncodingWithName:obj];
-		encoding = CFStringConvertEncodingToNSStringEncoding(encosing);
+		unsigned encoding = [NSString stringEncodingWithName:obj];
 		result = [NSString localizedNameOfStringEncoding:encoding];
     }
     if(![result length])
+	{
         result = [NSString stringWithUTF8String:"―"];
+	}
     return result;
 }
 @end

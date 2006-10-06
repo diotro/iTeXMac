@@ -331,8 +331,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [otherPath respondsToSelector:@selector(lowercaseString)]
-		&& ([[self lowercaseString] compare:[otherPath lowercaseString]] == NSOrderedSame);
+
+	if([otherPath respondsToSelector:@selector(lowercaseString)])
+	{
+		self = [self lowercaseString];
+		self = [self stringByStandardizingPath];
+		otherPath = [otherPath lowercaseString];
+		otherPath = [otherPath stringByStandardizingPath];
+		return [self compare:otherPath] == NSOrderedSame;
+	}
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  belongsToDirectory:
 - (BOOL)belongsToDirectory:(NSString *)dirName;
@@ -381,6 +389,27 @@ To Do List:
 	NSURL * fileURL = [NSURL URLWithString:path relativeToURL:baseURL];
 //iTM2_END;
 	return [fileURL path];
+}
+@end
+
+@implementation NSURL(iTM2PathUtilities)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileURL:
+- (BOOL)isEqualToFileURL:(NSURL *)otherURL;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	if([self isFileURL] && [otherURL isFileURL])
+	{
+		NSString * myPath = [self path];
+		NSString * otherPath = [otherURL path];
+		return [myPath pathIsEqual:otherPath];
+	}
+	return NO;
 }
 @end
 

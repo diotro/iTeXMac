@@ -309,7 +309,7 @@ To Do List:
         NSString * dirName = [[[SDC currentDocument] fileName] stringByDeletingLastPathComponent];
         NSString * helperIdentifier = identifier;
         NSString * key;
-        shorter:
+shorter:
         key = [[dirName stringByAppendingPathComponent:helperIdentifier] stringByStandardizingPath];
         if(!(result = [NSDictionary dictionaryWithContentsOfFile:key]))
         {
@@ -332,7 +332,7 @@ To Do List:
         // these are absolute paths (or relative to absolute locations...)
         NSString * key = [identifier stringByStandardizingPath];
         NSString * helperKey = key;
-        otherShorter:
+otherShorter:
         if(result = [self getKeyBindingsForIdentifier:key])
             return result;
         if(!(result = [NSDictionary dictionaryWithContentsOfFile:key]))
@@ -823,7 +823,6 @@ To Do List:
                     id V = [[self currentKeyBindings] objectForKey:@"complete"];
                     if([V respondsToSelector:@selector(boolValue)] && [V boolValue])
                     {
-                        #warning IS cleanSelectionCache: NECESSARY???
                         if([C respondsToSelector:@selector(cleanSelectionCache:)])
                             [C cleanSelectionCache:self];
                         return YES;

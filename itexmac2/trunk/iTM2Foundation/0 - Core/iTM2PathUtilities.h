@@ -83,6 +83,20 @@ extern NSString * const iTM2PathComponentsSeparator;
 
 @end
 
+@interface NSURL(iTM2PathUtilities)
+
+/*!
+	@method		isEqualToFileURL:base:
+	@abstract	Abstract forthcoming.
+	@discussion Discussion forthcoming.
+	@param		url
+	@result		No if on of the urls is not a file url, otherwise compares the paths using pathIsEqual:. 
+*/
+- (BOOL)isEqualToFileURL:(NSURL *)otherURL;
+
+@end
+
+
 /*! 
     @const		iTM2PATHDomainX11BinariesKey
     @abstract   Description Forthcoming.
@@ -102,4 +116,5 @@ extern NSString * const iTM2PATHSuffixKey;
 
 @interface iTM2PATHServer: NSObject
 @end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PathUtilities

@@ -2044,7 +2044,7 @@ To Do List:
     else if(flags & [[self class] zoomOutKeyMask])
         [self addCursorRect:[self visibleRect] cursor:[NSCursor zoomOutCursor]];
     else
-        [self addCursorRect:[self visibleRect] cursor:[NSCursor handCursor]];
+        [self addCursorRect:[self visibleRect] cursor:[NSCursor openHandCursor]];
     return;
 }
 #pragma mark =-=-=-=-=-  OTHER

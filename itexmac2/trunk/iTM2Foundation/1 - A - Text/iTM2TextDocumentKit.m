@@ -199,8 +199,6 @@ goThree:;// I will come here if the first attempt does not work
 					characterIndex -= hereR.location;// now characterIndex is an offset from the first character of the word!
 					NSString * hereWord = [pageString substringWithRange:hereR];
 					// hereWord is the word we clicked on
-					unsigned penalty = 1;
-					unsigned ytlanep = 1;
 					NSString * prevW1 = nil;
 					NSString * prevW2 = nil;
 					NSString * prevW3 = nil;
@@ -1002,7 +1000,6 @@ To Do List:
 //iTM2_START;
     return [[self stringFormatter] isStringEncodingHardCoded];
 }
-#warning THE STRING ENCODING MUST BE REVISITED WITH LATEST CODE...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
 - (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.

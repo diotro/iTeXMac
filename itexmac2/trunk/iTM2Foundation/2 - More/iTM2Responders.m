@@ -138,7 +138,6 @@ To Do List:
     [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
 	id album = [[self PDFInspector] album];
     [album setMagnificationWithDisplayMode:iTM2PDFDisplayModeFixed stickMode:0];// unused stick mode
-	#warning HERE OR IN THE ALBUM
     [self takeContextFloat:[album magnification] forKey:iTM2PDFCurrentMagnificationKey];
     return;
 }
@@ -170,7 +169,6 @@ To Do List:
     [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
 	id album = [[self PDFInspector] album];
     [album setMagnificationWithDisplayMode:iTM2PDFDisplayModeStick stickMode:[sender tag]];
-	#warning HERE OR IN THE ALBUM
     [self takeContextFloat:[album magnification] forKey:iTM2PDFCurrentMagnificationKey];
     return;
 }
@@ -359,7 +357,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self takeContextInteger:[sender tag] forKey:iTM2PDFPageLayoutModeKey];
-    #warning bad design: CLOSING THE CODE
     [[[self PDFInspector] album] setPageLayout:[sender tag]];
     return;
 }

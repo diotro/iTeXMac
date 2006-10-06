@@ -21,7 +21,6 @@
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
 */
-#warning DEBUGGGGGGGGGGGGGGGG
 #define __iTM2_BUG_TRACKING__ 1
 #ifdef __iTM2_BUG_TRACKING__
 	#warning DEBUGGGGGGGGGGGGGGGG
@@ -537,7 +536,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning DEBUGGGG
     [DNC removeObserver:self name:[notification name] object:nil];
     [self _writeToUserDefaults];
 //iTM2_END;
@@ -552,7 +550,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning DEBUGGGG
     [SCH _1stResponderMightHaveChanged:nil];
     iTM2SpellContextController * controller = [self defaultSpellContextController];
     NSArray * newModes = [[controller spellContextModesEnumerator] allObjects];
@@ -2540,8 +2537,8 @@ To Do List:
 @end
 
 @implementation NSSpellChecker_iTeXMac2
-#warning DEBUG
 #if 0
+#warning DEBUG
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setLanguage:
 - (BOOL)setLanguage:(NSString *)language;
 /*"Description forthcoming.

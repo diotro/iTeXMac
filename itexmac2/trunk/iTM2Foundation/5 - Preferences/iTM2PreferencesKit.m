@@ -142,7 +142,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"INFO: Loading the pref panes...START");
-#warning ERROR availablePlugInPathsAtPath has changed
 	NSBundle * mainBundle = [NSBundle mainBundle];
 	NSMutableArray * paths = [NSMutableArray array];
 	[paths addObjectsFromArray:[[mainBundle class] availablePlugInPathsAtPath:

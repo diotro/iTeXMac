@@ -109,44 +109,6 @@ extern NSString * const iTM2MacroToolTipKey;
 + (NSMenu *)macrosMenuAtPath:(NSString *)path error:(NSError **)error;
 
 
-/*!
-	@method			macroActionForKey:context:inCategory:ofDomain:
-	@abstract		The localized dscription of the macro action is stored.
-	@discussion		The information is initially available in 2 kinds of locations.
-					1 - directly in the index files named iTM2MacrosIndex in the various
-					.../Macros/domain/category
-					folders available in the built in bundles.
-					These files are standalone xml document containing a key -> path map to indicate where the macro are defined.
-					If the path begins with a "./", it is relative to the containing .../Macros/domain/category folder.
-					If the path begins with a "/" it is absolute.
-					This design makes it possible to use other schemes (URLs).
-					Other schemes are not yet supported and will be ignored by iTM2.
-					Using a relative name authorizes to change the category name in a simple way.
-					Whenn these files will be parsed, the full path will eventually be reconstructed and used.
-					2 - indirectly in the various
-					.../Application\ Support/iTeXMac2/Macros/domain/category
-					folders available in the various domain either local, network or user defined.
-					This information will be extracted at run time such that only full path will be available.
-					The order in which these files are parsed is very important because it defines the overriding rules.
-					For bundles, embedded frameworks then plugins then the resource folder are scanned.
-					For system domains, the main bundle then the network then local then user domain are scanned.
-					For each system domain, the plugins are scanned before the Application\ Support subfolder.
-					Finer grain order is left undefined which means that
-					if 2 iTeXMac2 plugins in the same folder define a macro with exactly the same domain, category and key triple,
-					which one is chosen is not defined and may change after an upgrade.
-					Each category/domain pair defines a unique name space.
-					The information is initialized lazily.
-					When the receiver is requested for the file name, it looks in its cached information for the answer.
-					If the answer is not available, it updateContainerFileNamesForContext:ofCategory:inDomain:.
-	@param			key
-	@param			category
-	@param			domain
-	@result			a path.
-	@availability	iTM2.
-	@copyright		2005 jlaurens AT users.sourceforge.net and others.
-*/
-- (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
-
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroServer
@@ -261,6 +223,44 @@ extern NSString * const iTM2MacroToolTipKey;
 	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
 - (NSString *)macroLocaleOfType:(NSString *)type forKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+
+/*!
+	@method			macroActionForKey:context:inCategory:ofDomain:
+	@abstract		The localized dscription of the macro action is stored.
+	@discussion		The information is initially available in 2 kinds of locations.
+					1 - directly in the index files named iTM2MacrosIndex in the various
+					.../Macros/domain/category
+					folders available in the built in bundles.
+					These files are standalone xml document containing a key -> path map to indicate where the macro are defined.
+					If the path begins with a "./", it is relative to the containing .../Macros/domain/category folder.
+					If the path begins with a "/" it is absolute.
+					This design makes it possible to use other schemes (URLs).
+					Other schemes are not yet supported and will be ignored by iTM2.
+					Using a relative name authorizes to change the category name in a simple way.
+					Whenn these files will be parsed, the full path will eventually be reconstructed and used.
+					2 - indirectly in the various
+					.../Application\ Support/iTeXMac2/Macros/domain/category
+					folders available in the various domain either local, network or user defined.
+					This information will be extracted at run time such that only full path will be available.
+					The order in which these files are parsed is very important because it defines the overriding rules.
+					For bundles, embedded frameworks then plugins then the resource folder are scanned.
+					For system domains, the main bundle then the network then local then user domain are scanned.
+					For each system domain, the plugins are scanned before the Application\ Support subfolder.
+					Finer grain order is left undefined which means that
+					if 2 iTeXMac2 plugins in the same folder define a macro with exactly the same domain, category and key triple,
+					which one is chosen is not defined and may change after an upgrade.
+					Each category/domain pair defines a unique name space.
+					The information is initialized lazily.
+					When the receiver is requested for the file name, it looks in its cached information for the answer.
+					If the answer is not available, it updateContainerFileNamesForContext:ofCategory:inDomain:.
+	@param			key
+	@param			category
+	@param			domain
+	@result			a path.
+	@availability	iTM2.
+	@copyright		2005 jlaurens AT users.sourceforge.net and others.
+*/
+- (id)macroActionForKey:(NSString *)key context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 @end
 

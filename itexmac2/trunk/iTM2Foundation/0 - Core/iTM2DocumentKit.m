@@ -1658,7 +1658,7 @@ To Do List:
 //iTM2_LOG(@"INFO: %@ does not exist", fullDocumentPath);
 				if(!isOriginalDirectory)
 				{
-#warning EXPECTED warning on next line
+#warning EXPECTED warning on next line, SAFE, the header is not included
 					if([[fullDocumentPath pathExtension] isEqual:[SDC projectPathExtension]])
 					{
 						iTM2_LOG(@"**** ERROR: copying a file to a project wrapper...");
@@ -1745,7 +1745,7 @@ To Do List:
 		if(!R)
 		{
 			iTM2_LOG(@"FAILURE: %@\absoluteURL:%@\ntypeName:%@\nsaveOperation:%@\nabsoluteOriginalContentsURL:%@\nerror: %@",
-				NSStringFromSelector(selector), absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, *outErrorPtr);
+				NSStringFromSelector(selector), absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
 		}
         result = result && R;
     }
@@ -1786,7 +1786,7 @@ To Do List:
 	if(!result)
 	{
 		iTM2_LOG(@"FAILURE \absoluteURL:%@\ntypeName:%@\nsaveOperation:%@\nabsoluteOriginalContentsURL:%@\nerror: %@",
-			absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, *outErrorPtr);
+			absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
 	}
 //iTM2_END;
 //iTM2_LOG(@"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
