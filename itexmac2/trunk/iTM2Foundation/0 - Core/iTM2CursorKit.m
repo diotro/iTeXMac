@@ -30,31 +30,6 @@
 + (NSCursor *)iTM2_cursorForSelector:(SEL)aSelector;
 @end
 @implementation NSCursor(iTeXMac2)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fingerCursor
-+ (NSCursor *)fingerCursor;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Jan 23 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    static NSCursor * cursor = nil;
-    if(!cursor)
-    {
-        NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:@"iTM2FingerCursor"];
-        if(path)
-            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:
-                    [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
-                        hotSpot: NSMakePoint(6.5, 2)];
-        else
-        {
-            iTM2_LOG(@"Could not create hand cursor...");
-            cursor = [[NSCursor arrowCursor] retain];
-        }
-    }
-    return cursor;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomInCursor
 + (NSCursor *)zoomInCursor;
 /*"Description forthcoming.
