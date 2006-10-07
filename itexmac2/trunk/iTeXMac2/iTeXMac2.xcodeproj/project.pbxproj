@@ -344,7 +344,7 @@
 		DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2ConTeXtKit.framework; path = ../build/iTM2ConTeXtKit.framework; sourceTree = SOURCE_ROOT; };
 		DC4F6A32085A2E33004868B8 /* iTeXMac2.CMPlugIn */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTeXMac2.CMPlugIn; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC4F6A33085A2E33004868B8 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC4F6A33085A2E33004868B8 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5B67660A4B625E00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
 		DC5B67670A4B625E00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B67680A4B625E00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 		DC74C82107D8532800E10C57 /* iTM2StartupDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupDocument.h; sourceTree = "<group>"; };
 		DC781BAC07F9B8DA00FCD972 /* iTM2WindowsMenuKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2WindowsMenuKit.h; sourceTree = "<group>"; };
 		DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2WindowsMenuKit.m; sourceTree = "<group>"; };
-		DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HDCrashReporter.framework; path = ../../../build/HDCrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HDCrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2MetaPostKit.framework; path = ../build/iTM2MetaPostKit.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
@@ -1109,7 +1109,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"warning: iTeXMac2 diagnostic for 'x'ecutable files.\"\npushd \"${TARGET_BUILD_DIR}\"\nTARGETS=\"`find . -regex \".*/bin/[^/\\.][^/]*\" -print`\"\necho \"TARGETS are: ${TARGETS}\\n..............................\"\nIFS='\n'\nfor ITEM in ${TARGETS}\ndo\n\tif [ -x \"${ITEM}\" ]\n\tthen\n\t\techo \"'x'ecutable: <${ITEM}>\"\n\telse\n\t\techo \"warning: ERROR, ${ITEM} is not 'x'ecutable.\"\n\t\techo \"warning: iTeXMac2 diagnostic for 'x'ecutable files... FAILED\"\n\t\texit 1\n\tfi\ndone\necho \"warning: iTeXMac2 diagnostic for 'x'ecutable files... DONE\"\n";
+			shellScript = ../Scripts/iTM2CheckExecutable.sh;
 		};
 		DCF9297A0948EC2100EE2F46 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
