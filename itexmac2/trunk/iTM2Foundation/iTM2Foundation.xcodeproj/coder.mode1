@@ -255,28 +255,25 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>0867D691FE84028FC02AAC07</string>
-								<string>DCF61B510854654B003F5F79</string>
-								<string>DCF61B830854654B003F5F79</string>
-								<string>DCF61BAA0854654B003F5F79</string>
-								<string>DCF61BAD0854654B003F5F79</string>
+								<string>DCC7F8B00854DC0F00F3EB8A</string>
+								<string>DCC7F8B50854DC0F00F3EB8A</string>
 								<string>0867D69AFE84028FC02AAC07</string>
 								<string>1058C7B0FEA5585E11CA2CBB</string>
 								<string>DCCDD15908F4723700DAF639</string>
 								<string>1058C7B2FEA5585E11CA2CBB</string>
 								<string>0867D69BFE84028FC02AAC07</string>
-								<string>034768DFFF38A50411DB9C8B</string>
-								<string>8DC2EF5B0486A6940098B216</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>159</integer>
+									<integer>61</integer>
+									<integer>56</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 2301}, {287, 737}}</string>
+							<string>{{0, 657}, {287, 737}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -311,13 +308,19 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>&lt;No Editor&gt;</string>
+								<string>Alpha X-Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
+										<key>PBXProjectModuleLabel</key>
+										<string>Alpha X-Info.plist</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>DC92632A0AD99EF7009C6094</string>
 										<key>history</key>
 										<array>
 											<string>DCD7B7A90AA8EC4B0042AA60</string>
@@ -334,6 +337,7 @@
 											<string>DC11A32D0AD537C700D825E7</string>
 											<string>DC9587D60AD640070092F69A</string>
 											<string>DCC2BC3C0AD69B43009E7354</string>
+											<string>DC92631C0AD99E14009C6094</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -410,9 +414,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC0D4D130AD6A2D20024D73F</string>
+				<string>DC92631E0AD99E14009C6094</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC0D4D140AD6A2D20024D73F</string>
+				<string>DC92631F0AD99E14009C6094</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -546,13 +550,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC0D4E5D0AD6B6CB0024D73F</string>
-		<string>DC0D4E5E0AD6B6CB0024D73F</string>
-		<string>DC993BD1088DF33900F8BCE1</string>
-		<string>DC993AC6088DF04D00F8BCE1</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC0D4D0D0AD6A2CA0024D73F</string>
-		<string>DCD7D7160A439D000096B1A9</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

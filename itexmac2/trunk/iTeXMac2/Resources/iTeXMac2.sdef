@@ -19,16 +19,16 @@
 			</property>
 			<responds-to name="replace">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="find">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="select">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="insert">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 		</class>
 		<command name="insert macro" code="iTM3ISTM" description="Insert some macro.">
 			<cocoa name="iTM2InsertMacroScriptCommand" class="iTM2InsertMacroScriptCommand"/>
@@ -112,7 +112,7 @@
 		<cocoa name="URL Handler"/>
 		<command name="GetURL" code="GURLGURL" description="Catch the given URL">
 			<cocoa name="GetURL" class="iTM2URLHandlerCommand"/>
-                        <direct-parameter type="text" optional="no" description="The URL to be reached."/>
+			<direct-parameter description="The URL to be reached." type="text"/>
 		</command>
 	</suite>
 	<suite name="iTeXMac2 Suite" code="iTM2" description="iTeXMac2 Scripting suite">
@@ -124,25 +124,25 @@
 			</element>
 			<responds-to name="Index">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="Bibliography">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="Compile">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="Typeset">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="Glossary">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="Special">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 			<responds-to name="Stop">
 				<cocoa method="method:"/>
-                        </responds-to>
+			</responds-to>
 		</class>
 		<class name="TeX document" code="TXDQ" description="TeX source document." inherits="NSCoreSuite.document">
 			<cocoa class="iTM2TeXDocument"/>

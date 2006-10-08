@@ -3,12 +3,12 @@
 # XCode 2.2 compliant, version 1
 echo "warning: iTeXMac2 diagnostic for 'x'ecutable files."
 pushd "${TARGET_BUILD_DIR}"
-echo "warning: Removing the 'x'ecutable bit from all the files with a path extension not in a bin directory."
+echo "warning: Removing the 'x'ecutable bit from all the files with a path extension, not in a bin directory nor a *.build directory."
 # thx Andrew Moore
-find . -type f -perm -0001 -regex ".*/[^\/]*\.[^\/]*" -not -regex ".*/bin/.*" -exec chmod a-x {} \; -print
+find . -type f -perm -0001 -regex ".*/[^\/]*\.[^\/]*" -not -regex ".*/bin/.*" -not -regex ".*\.build/.*" -exec chmod a-x {} \; -print
 echo "warning: checking the 'x'ecutable bit of all the files in a bin directory."
 TARGETS="`find . -regex ".*/bin/[^/\.][^/]*" -print`"
-echo "TARGETS are: ${TARGETS}\n.............................."
+echo "TARGETS are: ${TARGETS}"
 IFS='
 '
 for ITEM in ${TARGETS}

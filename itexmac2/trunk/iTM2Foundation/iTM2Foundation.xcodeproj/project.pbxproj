@@ -664,7 +664,6 @@
 		DC25E4500991F88F00545F27 /* Task-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Task-Prefix.pch"; sourceTree = "<group>"; };
 		DC25E50C0991FA7600545F27 /* iTM2TaskKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TaskKit.h; sourceTree = "<group>"; };
 		DC25E50D0991FA7600545F27 /* iTM2TaskKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TaskKit.m; sourceTree = "<group>"; };
-		DC2732D309645D0A008B4D56 /* OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OgreKit.framework; path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/build/OgreKit.framework; sourceTree = "<absolute>"; };
 		DC2B47360AD2D2930039FCBA /* iTM2DocumentPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DocumentPrefPane.h; sourceTree = "<group>"; };
 		DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DocumentPrefPane.m; sourceTree = "<group>"; };
 		DC2B477B0AD2EED70039FCBA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2DocumentPrefPane.strings; sourceTree = "<group>"; };
@@ -714,6 +713,7 @@
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
+		DC92625D0AD99CD2009C6094 /* OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OgreKit.framework; path = build/OgreKit.framework; sourceTree = "<group>"; };
 		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextCompletionKit.h; sourceTree = "<group>"; };
 		DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextCompletionKit.m; sourceTree = "<group>"; };
@@ -1067,6 +1067,7 @@
 				DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */,
 				DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */,
 				DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */,
+				DC92625D0AD99CD2009C6094 /* OgreKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1747,7 +1748,7 @@
 			);
 			name = "Prepare CamelBones";
 			productName = "Prepare OgreKit";
-			productReference = DC2732D309645D0A008B4D56 /* OgreKit.framework */;
+			productReference = DC92625D0AD99CD2009C6094 /* OgreKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DC6698AA08E1289F004FCA6D /* iTM2PreferencePane */ = {
@@ -3961,7 +3962,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "$(SRCROOT)/External Inspectors/Text/AlphaX-Info.plist";
+				INFOPLIST_FILE = "External Inspectors/Text/Alpha X-Info.plist";
 				LIBRARY_STYLE = BUNDLE;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (

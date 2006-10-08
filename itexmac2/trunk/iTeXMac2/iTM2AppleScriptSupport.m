@@ -26,6 +26,11 @@
 #import "iTM2AppleScriptSupport.h"
 
 @implementation NSApplication(iTM2AppleScriptSupport)
+#if 0
+-countOf<Key> and -objectIn<Key>AtIndex:. Optionally, you can also implement -get<Key>:range: to improve performance.
+If the to-many related objects are mutable, and the -<key> method does not return an NSMutableArray, you must also implement -insertObject:in<Key>AtIndex: and -removeObjectFrom<Key>AtIndex:
+#endif
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projects
 - (NSArray *)projects;// get the project documents of application "iTeXMac2"
 /*"Description forthcoming.
@@ -51,6 +56,33 @@ To Do List:
 //iTM2_END;
 	return;
 }
+#else
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projects
+- (NSArray *)projects;// get the project documents of application "iTeXMac2"
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [SPC projects];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertInProjects:
+- (void)insertInProjects:(id)argument;// make new project document
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[SDC addDocument:argument];
+//iTM2_END;
+	return;
+}
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedTeXDocuments:
 - (id)orderedTeXDocuments;
 /*"Description Forthcoming.
