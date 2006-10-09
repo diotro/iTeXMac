@@ -4449,6 +4449,8 @@ To Do List:
 	}
     if(NSOKButton == returnCode)
     {
+		// Always copy to the close location, not the faraway project location...
+		// Always copy stuff that do not belong to the faraway folder
 		NSMutableArray * FNs = [[[sheet filenames] mutableCopy] autorelease];
         NSEnumerator * E = [FNs objectEnumerator];
         NSString * fileName = nil;
@@ -4463,15 +4465,9 @@ To Do List:
 		NSMutableArray * copiables = [NSMutableArray array];
         while(fileName = [E nextObject])
 		{
-			if([fileName belongsToDirectory:dirName])
-			{
-				if(![fileName pathIsEqual:dirName])
-				{
-					[copiables addObject:fileName];
-					[FNs removeObject:fileName];
-				}
-			}
-			else
+			if(![fileName belongsToDirectory:dirName] &&
+				![dirName belongsToFarawayProjectsDirectory] &&
+					![fileName pathIsEqual:dirName])
 			{
 				[copiables addObject:fileName];
 				[FNs removeObject:fileName];
@@ -4481,7 +4477,7 @@ To Do List:
 		{
 			int code = NSRunAlertPanel(
 			NSLocalizedStringFromTableInBundle(@"Project Documents Panel",iTM2ProjectTable,myBUNDLE,""),
-			NSLocalizedStringFromTableInBundle(@"Copy the faraway documents in the project?",iTM2ProjectTable,myBUNDLE,""),
+			NSLocalizedStringFromTableInBundle(@"Copy the documents in the project folder?",iTM2ProjectTable,myBUNDLE,""),
 			NSLocalizedStringFromTableInBundle(@"Yes",iTM2ProjectTable,myBUNDLE,""),
 			nil,
 			NSLocalizedStringFromTableInBundle(@"No",iTM2ProjectTable,myBUNDLE,"")
