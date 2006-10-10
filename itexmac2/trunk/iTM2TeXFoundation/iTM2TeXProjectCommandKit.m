@@ -1374,7 +1374,7 @@ To Do List:
         iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
         id old = [TPD scriptDescriptorForCommandMode:scriptMode];
         id new = [WC scriptDescriptor];
-        if(![old isEqualToString:new])
+        if(![old isEqual:new])
         {
             [TPD takeScriptDescriptor:new forCommandMode:scriptMode];
             [TPD updateChangeCount:NSChangeDone];
