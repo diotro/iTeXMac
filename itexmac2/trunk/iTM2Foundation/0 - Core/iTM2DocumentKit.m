@@ -3678,9 +3678,9 @@ To Do List:
 							[processEnvironment objectForKey:@"PATH"]]  forKey:@"PATH"];
 		[processEnvironment setObject:[[[self document] fileName] lastPathComponent]  forKey:@"file"];
         [task setEnvironment:processEnvironment];
-        [task setStandardInput:[NSPipe pipe]];
-        [task setStandardOutput:[NSPipe pipe]];
-        [task setStandardError:[NSPipe pipe]];
+        [task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
+        [task setStandardOutput:[NSFileHandle fileHandleWithNullDevice]];
+        [task setStandardError:[NSFileHandle fileHandleWithNullDevice]];
 		[[self implementation] takeMetaValue:task forKey:@"task"];
         [DNC addObserver:self
             selector:@selector(_taskDidTerminate:) name:NSTaskDidTerminateNotification object:task];
