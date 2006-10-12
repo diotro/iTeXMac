@@ -1612,8 +1612,51 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	// Prepare the background
+	// only file URLs are supported
+	if(![absoluteURL isFileURL])
+	{
+		iTM2_OUTERROR(1,(@"Only file URLs are supported for writing to."),nil);
+		return NO;
+	}
+	NSString * fullDocumentPath = [absoluteURL path];
+	NSString * fullOriginalDocumentPath = nil;
+	if(absoluteOriginalContentsURL && ![absoluteOriginalContentsURL isFileURL])
+	{
+		iTM2_OUTERROR(1,(@"Only file URLs are supported for original contents."),nil);
+		// do not return
+	}
+	else
+	{
+		fullOriginalDocumentPath = [absoluteOriginalContentsURL path];
+	}
+	// is there something at the target URL?
+	// The problem is that I don't know what to do in such a situation because I don't know for sure whether the cocoa framework
+	// tries to override an existing file with the user permission
+	// In order to be safe, recycle the target url to the trash
+	NSString * dirName;
+	NSString * baseName;
+	NSArray * files;
+	int tag = 0;
+	if([DFM fileExistsAtPath:fullDocumentPath isDirectory:nil])
+	{
+		// try to recycle it
+		dirName = [fullDocumentPath stringByDeletingLastPathComponent];
+		baseName = [fullDocumentPath lastPathComponent];
+		files = [NSArray arrayWithObject:baseName];
+		if([SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName destination:@"" files:files tag:&tag])
+		{
+			iTM2_LOG(@"Recycling\n%@...", fullDocumentPath);
+		}
+		else
+		{
+			iTM2_OUTERROR(tag,(@"Could not recycle already existing file at save location."),nil);
+			iTM2_LOG(@"**** WARNING: Don't be surprised if things don't work as expected...");
+			return NO;
+		}
+	}
 //iTM2_LOG(@"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-//if(iTM2DebugEnabled>999)
+	if(iTM2DebugEnabled>99)
 	{
 		iTM2_LOG(@"absoluteURL:%@", absoluteURL);
 		NSLog(@"typeName:%@", typeName);
@@ -1623,102 +1666,80 @@ To Do List:
 		NSLog(@"Directory exists:%@", ([DFM fileExistsAtPath:[[absoluteURL path] stringByDeletingLastPathComponent]]? @"YES":@"NO"));
 	}
 	[self willSave];
-    // just duplicate the project file:respect the others.
+    // just duplicate the orginal content if it is not a file: respect the third parties that will certainly write things inside the folder.
     // question are the resource forks respected?
     BOOL result = YES;
-	NSString * fullDocumentPath = [absoluteURL path];
-	NSString * fullOriginalDocumentPath = [absoluteOriginalContentsURL path];
-    if(![fullDocumentPath isEqualToString:fullOriginalDocumentPath])
+    if(![fullDocumentPath pathIsEqual:fullOriginalDocumentPath])
     {
-		BOOL isOriginalDirectory = NO;
-        if([DFM fileExistsAtPath:fullOriginalDocumentPath isDirectory:&isOriginalDirectory])
-		{
-//iTM2_LOG(@"INFO: %@ %@", fullOriginalDocumentPath, (isOriginalDirectory?@"is a directory":@"is NOT a directory"));
-			BOOL isDirectory = NO;
-			if([DFM fileExistsAtPath:fullDocumentPath isDirectory:&isDirectory])
-			{
-//iTM2_LOG(@"INFO: %@ %@", fullDocumentPath, (isDirectory?@"is a directory":@"is NOT a directory"));
-				if((isOriginalDirectory && !isDirectory) || (!isOriginalDirectory && isDirectory))
-				{
-					iTM2_LOG(@"**** ERROR: copying a directory/file to a file/directory...");
-				}
-				int tag;
-				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:[fullDocumentPath stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[fullDocumentPath lastPathComponent]] tag:&tag])
-				{
-					iTM2_LOG(@"Recycling\n%@...", fullDocumentPath);
-				}
-				else
-				{
-					iTM2_LOG(@"**** WARNING: Don't be surprised if things don't work as expected...");
-				}
-			}
-#if 1
-			else
-			{
-//iTM2_LOG(@"INFO: %@ does not exist", fullDocumentPath);
-				if(!isOriginalDirectory)
-				{
-#warning EXPECTED warning on next line, SAFE, the header is not included
-					if([[fullDocumentPath pathExtension] isEqual:[SDC projectPathExtension]])
-					{
-						iTM2_LOG(@"**** ERROR: copying a file to a project wrapper...");
-					}
-				}
-			}
-#endif
-			if([DFM copyPath:fullOriginalDocumentPath toPath:fullDocumentPath handler:nil])
-			{
-				iTM2_LOG(@"Copied from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
-				[[[NSDate date] description] writeToFile:[fullDocumentPath stringByAppendingPathComponent:@"DATE"]
-									atomically:NO encoding:NSUTF8StringEncoding error:nil];
-			}
-			else
-			{
-				if(outErrorPtr)
-				{
-					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
-						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath]
-							forKey:NSLocalizedDescriptionKey]];
-				}
-				iTM2_LOG(@"FAILURE: Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
-				result = NO;
-			}
-		}
+		// only copy original contents if this is a directory and the expected destination is a wrapper package
 		NSNumber * myLSTypeIsPackage = [IMPLEMENTATION metaValueForKey:@"LSTypeIsPackage"];
         if(!myLSTypeIsPackage || ![[self fileType] isEqual:typeName])
 		{
+			// either this is the first time we save or the given type is not the same as the recever's one (it has changed somehow)
 			NSEnumerator * E = [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDocumentTypes"] objectEnumerator];
 			NSDictionary * dico;
 			while(dico = [E nextObject])
+			{
 				if([[dico objectForKey:@"CFBundleTypeName"] isEqualToString:typeName])
 				{
 					myLSTypeIsPackage = [dico objectForKey:@"LSTypeIsPackage"];
 					[IMPLEMENTATION takeMetaValue:myLSTypeIsPackage forKey:@"LSTypeIsPackage"];
 					break;
 				}
+			}
 		}
 		if([myLSTypeIsPackage boolValue])
 		{
+			// I must create a directory at the expected location, either by copying a directory or not...
+			fullOriginalDocumentPath = [fullOriginalDocumentPath stringByResolvingSymlinksAndFinderAliasesInPath];
+			BOOL isOriginalDirectory = NO;
+			if([DFM fileExistsAtPath:fullOriginalDocumentPath isDirectory:&isOriginalDirectory])
+			{
+				// there might be something to copy
+				if(isOriginalDirectory)
+				{
+					// the receiver must be a package and not a flat file
+					if([DFM copyPath:fullOriginalDocumentPath toPath:fullDocumentPath handler:self])
+					{
+						//iTM2_LOG(@"Copied from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
+						dirName = [fullDocumentPath stringByAppendingPathComponent:@"DATE"];
+						NSString * date = [[NSDate date] description];
+						// no matter if it fails
+						[date writeToFile:dirName atomically:NO encoding:NSUTF8StringEncoding error:nil];
+					}
+					else
+					{
+						iTM2_OUTERROR(3,([NSString stringWithFormat:@"Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath]),nil);
+						iTM2_LOG(@"****  FAILURE: Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
+						result = NO;
+					}
+				}
+				else
+				{
+					// this is an unexpected situation, notice the user in the log and ignore the original contents
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
+						absoluteOriginalContentsURL:%@\n[self fileType]:%@",absoluteOriginalContentsURL,[self fileType]]),nil);
+					iTM2_LOG(@"**** CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
+						absoluteOriginalContentsURL:%@\n[self fileType]:%@",absoluteOriginalContentsURL,[self fileType]);
+				}
+			}
 			if(![DFM fileExistsAtPath:fullDocumentPath isDirectory:nil]
 				&& ![DFM createDirectoryAtPath:fullDocumentPath attributes:nil])
 			{
-				if(outErrorPtr)
-				{
-					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
-						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create a directory at\n%@", fullDocumentPath]
-							forKey:NSLocalizedDescriptionKey]];
-				}
-				iTM2_LOG(@"FAILURE: Could not create a directory at\n%@", fullDocumentPath);            
-				result = NO;
+				iTM2_OUTERROR(4,([NSString stringWithFormat:@"Could not create a directory at\n%@", fullDocumentPath]),nil);
+				dirName = [fullDocumentPath stringByDeletingLastPathComponent];
+				iTM2_LOG(@"FILE OPERATION FAILURE: Could not create a directory at\n%@(can write?%@)", fullDocumentPath,([DFM isWritableFileAtPath:dirName]?@"Y":@"N"));            
+				return NO;
 			}
 		}
 		else if([SUD boolForKey:@"iTM2PreserveResourceFork"])
 		{
-			NSData * D = [NSData dataWithContentsOfFile:[fullOriginalDocumentPath stringByAppendingPathComponent:@"..namedfork/rsrc"]];
+			baseName = [fullOriginalDocumentPath stringByAppendingPathComponent:@"..namedfork/rsrc"];
+			NSData * D = [NSData dataWithContentsOfFile:baseName];
 			if([D length])
 			{
-				NSString * path = [fullDocumentPath stringByAppendingPathComponent:@"..namedfork/rsrc"];
-				[D writeToFile:path options:NSAtomicWrite error:outErrorPtr];
+				baseName = [fullDocumentPath stringByAppendingPathComponent:@"..namedfork/rsrc"];
+				[D writeToFile:baseName options:NSAtomicWrite error:outErrorPtr];
 			}
 		}
 	}
@@ -1744,8 +1765,8 @@ To Do List:
         [I getReturnValue:&R];
 		if(!R)
 		{
-			iTM2_LOG(@"FAILURE: %@\absoluteURL:%@\ntypeName:%@\nsaveOperation:%@\nabsoluteOriginalContentsURL:%@\nerror: %@",
-				NSStringFromSelector(selector), absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
+			iTM2_LOG(@"FAILURE: %@\absoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %@",
+				NSStringFromSelector(selector), absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
 		}
         result = result && R;
     }
@@ -1785,12 +1806,33 @@ To Do List:
 	}
 	if(!result)
 	{
-		iTM2_LOG(@"FAILURE \absoluteURL:%@\ntypeName:%@\nsaveOperation:%@\nabsoluteOriginalContentsURL:%@\nerror: %@",
-			absoluteURL, typeName, (saveOperation >1?@"save to":(saveOperation?@"save as":@"save")), absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
+		iTM2_LOG(@"FAILURE \absoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %@",
+			absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
 	}
 //iTM2_END;
 //iTM2_LOG(@"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileManager:shouldProceedAfterError:
+-(BOOL)fileManager:(NSFileManager *)manager shouldProceedAfterError:(NSDictionary *)errorInfo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	if([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError"])
+	{
+		return NO;
+	}
+//iTM2_START;
+    int result = NSRunCriticalAlertPanel([[NSBundle mainBundle] bundleName], @"File operation error:\
+            %@ with file: %@", @"Proceed Anyway", @"Cancel",  NULL, 
+            [errorInfo objectForKey:@"Error"], 
+            [errorInfo objectForKey:@"Path"]);
+	iTM2_LOG(@"**** FILE MANAGER OPERATION ERROR: %@", errorInfo);
+//iTM2_END;
+    return (result == NSAlertDefaultReturn);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
 - (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
