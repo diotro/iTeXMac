@@ -1763,9 +1763,9 @@
 	<string>iTM2Application</string>
 	<key>OSAScriptingDefinition</key>
 	<string>iTeXMac2.sdef</string>
-<key>crashReporterEmail</key>
-<string>jlaurens@users.sourceforge.net</string>
-<key>crashReporterCompanyName</key>
-<string>Laurens'Tribune</string>
+	<key>crashReporterEmail</key>
+	<string>jlaurens@users.sourceforge.net</string>
+	<key>crashReporterCompanyName</key>
+	<string>Laurens'Tribune</string>
 </dict>
 </plist>

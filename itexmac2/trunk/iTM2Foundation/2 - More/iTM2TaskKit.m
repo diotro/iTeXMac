@@ -768,6 +768,10 @@ To Do List:
 //iTM2_LOG(@"Standalone: autorelease");
 			[self autorelease];
 		}
+		if([_CurrentTask isRunning])
+		{
+			[_CurrentTask terminate];
+		}
 		[_CurrentTask release];
 		_CurrentTask = nil;
 		[_CurrentWrapper release];
@@ -776,7 +780,9 @@ To Do List:
     }
 //iTM2_LOG(@"2");
     if([_CurrentTask isRunning])
+	{
         [_CurrentTask terminate];
+	}
     NSFileHandle * FH;
     if(FH = [[_CurrentTask standardOutput] fileHandleForReading])
         [DNC removeObserver:self name:NSFileHandleDataAvailableNotification object:FH];
@@ -831,13 +837,13 @@ To Do List:
 	}
 //iTM2_LOG(@"1");
 	// standard input
-    if([self isDeaf])
-        [_CurrentTask setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
-	else
-        [_CurrentTask setStandardInput:[NSPipe pipe]];
+	[_CurrentTask setStandardInput:([self isDeaf]?
+		[NSFileHandle fileHandleWithNullDevice]:
+			[NSPipe pipe])];
 //iTM2_LOG(@"2");
     
 #if 0
+	This was tested, but does not work properly
     [_CustomWriteFileHandle release];
     _CustomWriteFileHandle = nil;
     
@@ -897,7 +903,10 @@ To Do List:
     iTM2Beep();
     iTM2_LOG(@"There is no custom pipe available... iTeXMac2 will not completely work as expected");
     followMe:
-#else
+#elif 0
+	this was tested and raised problems for "temporary ... unsvailable" NSException
+	The garbage collector is not well implemented because it does not remove the FH when exception are raised
+	The _FHGC _NGC pair should be replaced by a dictionary
     if(!_CustomReadFileHandle)
     {
         iTM2_INIT_POOL;
@@ -1081,23 +1090,25 @@ Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"FH: %@", [aNotification object]);
-	}
+//iTM2_START;
     NSFileHandle * FH = [aNotification object];
     NSData * D = [FH availableData];
-	NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
-	if([D length] && ![string length])
+	if([D length])
 	{
-		string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
-		iTM2_LOG(@"Output encoding problem.");
+		NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+		if(![string length])
+		{
+			string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+			iTM2_LOG(@"Output encoding problem.");
+		}
+		[self logOutput:string];
+		[FH waitForDataInBackgroundAndNotify];
 	}
-    [self logOutput:string];
-    if([_CurrentTask isRunning] || [D length])
-        [FH waitForDataInBackgroundAndNotify];
     else
+	{
+		[DNC removeObserver:self name:[aNotification name] object:self];
         [[self allInspectors] makeObjectsPerformSelector:@selector(outputDidTerminate) withObject:nil];
+	}
 //iTM2_END;
     return;
 }
@@ -1297,17 +1308,22 @@ To Do List:
 //iTM2_START;
     NSFileHandle * FH = [aNotification object];
     NSData * D = [FH availableData];
-	NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
-	if([D length] && ![string length])
+	if([D length])
 	{
-		string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
-		iTM2_LOG(@"Output encoding problem.");
+		NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+		if(![string length])
+		{
+			string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+			iTM2_LOG(@"Output encoding problem.");
+		}
+		[self logError:string];
+		[FH waitForDataInBackgroundAndNotify];
 	}
-    [self logError:string];
-    if([_CurrentTask isRunning] || [D length])
-        [FH waitForDataInBackgroundAndNotify];
     else
+	{
+		[DNC removeObserver:self name:[aNotification name] object:self];
         [[self allInspectors] makeObjectsPerformSelector:@selector(errorDidTerminate) withObject:nil];
+	}
 //iTM2_END;
     return;
 }

@@ -123,24 +123,24 @@
 		DC55F5B1092AA17B00713576 /* iTM2_Engine_pdfcopy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pdfcopy; sourceTree = "<group>"; };
 		DC55F5B2092AA17B00713576 /* iTM2_Engine_pdfselect */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pdfselect; sourceTree = "<group>"; };
 		DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_texexec; sourceTree = "<group>"; };
-		DC55F613092AA3F300713576 /* TeXExec-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TeXExec-Prefix.pch"; sourceTree = "<group>"; };
+		DC55F613092AA3F300713576 /* TeXExec wrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TeXExec wrapper-Prefix.pch"; sourceTree = "<group>"; };
 		DC55F614092AA3F300713576 /* iTM2PDFToolsWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PDFToolsWrapperKit.m; sourceTree = "<group>"; };
 		DC55F615092AA3F300713576 /* iTM2TeXExecWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXExecWrapperKit.h; sourceTree = "<group>"; };
 		DC55F616092AA3F300713576 /* iTM2TeXExecWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXExecWrapperKit.m; sourceTree = "<group>"; };
-		DC55F617092AA3F300713576 /* TeXExec-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TeXExec-Info.plist"; sourceTree = "<group>"; };
+		DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TeXExec wrapper-Info.plist"; sourceTree = "<group>"; };
 		DC5B69D70A4B6E5C00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
 		DC5B69D80A4B6E5C00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69D90A4B6E5C00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5B69DA0A4B6E5C00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		DC5B69DB0A4B6E5C00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69DC0A4B6E5C00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit. */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2ConTeXtKit."; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC5D6CDE0949A48100EBA96C /* iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2ConTeXtKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5D6CDF0949A48100EBA96C /* Prepare iTM2ConTeXtKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Prepare iTM2ConTeXtKit-Info.plist"; sourceTree = "<group>"; };
 		DC618FEE093C7BCF0044795A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
 		DC618FF0093C7BCF0044795A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineTeXExec.nib; sourceTree = "<group>"; };
-		DC81AE6E08871B4600943C99 /* iTeXMac2. */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
-		DC9815CF092A2FBE0011D8DA /* TeXexec wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TeXexec wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC9815CF092A2FBE0011D8DA /* TeXExec wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TeXExec wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC99E78E0A2456C800F50752 /* Aqua2_Add.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add.tif; sourceTree = "<group>"; };
 		DC99E78F0A2456C800F50752 /* Aqua2_Add_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Pressed.tif; sourceTree = "<group>"; };
 		DC99E7900A2456C800F50752 /* Aqua2_Remove.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove.tif; sourceTree = "<group>"; };
@@ -180,9 +180,9 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC81AE6E08871B4600943C99 /* iTeXMac2. */,
-				DC9815CF092A2FBE0011D8DA /* TeXexec wrapper.iTM2 */,
-				DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit. */,
+				DC81AE6E08871B4600943C99 /* iTeXMac2.app */,
+				DC9815CF092A2FBE0011D8DA /* TeXExec wrapper.iTM2 */,
+				DC5D6CDE0949A48100EBA96C /* iTM2ConTeXtKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,11 +190,11 @@
 		0867D691FE84028FC02AAC07 /* iTM2ConTeXtEngines */ = {
 			isa = PBXGroup;
 			children = (
-				DC55F613092AA3F300713576 /* TeXExec-Prefix.pch */,
+				DC55F613092AA3F300713576 /* TeXExec wrapper-Prefix.pch */,
 				DC55F614092AA3F300713576 /* iTM2PDFToolsWrapperKit.m */,
 				DC55F615092AA3F300713576 /* iTM2TeXExecWrapperKit.h */,
 				DC55F616092AA3F300713576 /* iTM2TeXExecWrapperKit.m */,
-				DC55F617092AA3F300713576 /* TeXExec-Info.plist */,
+				DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */,
 				DC55F5AE092AA17B00713576 /* binaries */,
 				DC618FE8093C7BCF0044795A /* Resources */,
 				DC99E78D0A2456C800F50752 /* Images */,
@@ -310,12 +310,12 @@
 			);
 			name = "Prepare iTM2ConTeXtKit";
 			productName = "Prepare iTM2ConTeXtKit";
-			productReference = DC5D6CDE0949A48100EBA96C /* Prepare iTM2ConTeXtKit. */;
+			productReference = DC5D6CDE0949A48100EBA96C /* iTM2ConTeXtKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DC81AE6D08871B4600943C99 /* build iTeXMac2 */ = {
+		DC81AE6D08871B4600943C99 /* iTeXMac2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DC6BB7A509474611004B0A81 /* Build configuration list for PBXNativeTarget "build iTeXMac2" */;
+			buildConfigurationList = DC6BB7A509474611004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */;
 			buildPhases = (
 				DC81AE7308871B5400943C99 /* Really build iTeXMac2 */,
 			);
@@ -325,9 +325,9 @@
 			dependencies = (
 				DC892DC208FB9BB0007A4673 /* PBXTargetDependency */,
 			);
-			name = "build iTeXMac2";
+			name = iTeXMac2;
 			productName = iTeXMac2;
-			productReference = DC81AE6E08871B4600943C99 /* iTeXMac2. */;
+			productReference = DC81AE6E08871B4600943C99 /* iTeXMac2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DC9815C3092A2FBE0011D8DA /* TeXExec wrapper */ = {
@@ -346,7 +346,7 @@
 			);
 			name = "TeXExec wrapper";
 			productName = dvipdfm;
-			productReference = DC9815CF092A2FBE0011D8DA /* TeXexec wrapper.iTM2 */;
+			productReference = DC9815CF092A2FBE0011D8DA /* TeXExec wrapper.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -364,7 +364,7 @@
 				DC9815C3092A2FBE0011D8DA /* TeXExec wrapper */,
 				DC892D8B08FB92CF007A4673 /* Install in ConTeXt Kit */,
 				DC2CA78D0855D4F500128F14 /* All */,
-				DC81AE6D08871B4600943C99 /* build iTeXMac2 */,
+				DC81AE6D08871B4600943C99 /* iTeXMac2 */,
 			);
 		};
 /* End PBXProject section */
@@ -435,7 +435,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
+			shellScript = "../../Scripts/iTM2BuildiTeXMac2.sh\n";
 		};
 		DC892D8C08FB92CF007A4673 /* Install Engines */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -514,7 +514,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41E50A4ADF6900E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "Prepare iTM2ConTeXtKit";
+				GCC_PREFIX_HEADER = "";
+				PRODUCT_NAME = iTM2ConTeXtKit;
+				SYMROOT = "$(PROJECT_DIR)/build";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Development;
 		};
@@ -522,34 +525,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41E40A4ADF6900E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "Prepare iTM2ConTeXtKit";
+				GCC_PREFIX_HEADER = "";
+				PRODUCT_NAME = iTM2ConTeXtKit;
+				SYMROOT = "$(PROJECT_DIR)/build";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Deployment;
-		};
-		DC5D6CE30949A48200EBA96C /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "Prepare iTM2ConTeXtKit";
-				SYMROOT = build;
-				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = YES;
-			};
-			name = Default;
 		};
 		DC6BB79A09474611004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -559,10 +540,8 @@
 					"$(SYMROOT)",
 					"$(PROJECT_DIR)/../../build",
 				);
-				GCC_PREFIX_HEADER = "TeXExec-Prefix.pch";
-				INFOPLIST_FILE = "TeXexec-Info.plist";
-				PRODUCT_NAME = "TeXexec wrapper";
-				SYMROOT = build;
+				PRODUCT_NAME = "TeXExec wrapper";
+				SYMROOT = "$(PROJECT_DIR)/build";
 			};
 			name = Development;
 		};
@@ -574,45 +553,10 @@
 					"$(SYMROOT)",
 					"$(PROJECT_DIR)/../../build",
 				);
-				GCC_PREFIX_HEADER = "TeXExec-Prefix.pch";
-				INFOPLIST_FILE = "TeXexec-Info.plist";
-				PRODUCT_NAME = "TeXexec wrapper";
-				SYMROOT = build;
+				PRODUCT_NAME = "TeXExec wrapper";
+				SYMROOT = "$(PROJECT_DIR)/build";
 			};
 			name = Deployment;
-		};
-		DC6BB79C09474611004B0A81 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)/../../build",
-				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TeXExec-Prefix.pch";
-				INFOPLIST_FILE = "TeXexec-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				LIBRARY_STYLE = BUNDLE;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "TeXexec wrapper";
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(PROJECT_DIR)/build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
-			name = Default;
 		};
 		DC6BB79E09474611004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -661,22 +605,6 @@
 			};
 			name = Deployment;
 		};
-		DC6BB7A009474611004B0A81 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2ConTeXtKit;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
-		};
 		DC6BB7A209474611004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -724,27 +652,14 @@
 			};
 			name = Deployment;
 		};
-		DC6BB7A409474611004B0A81 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
-		};
 		DC6BB7A609474611004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41E50A4ADF6900E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				GCC_PREFIX_HEADER = "";
 				PRODUCT_NAME = iTeXMac2;
+				SYMROOT = "$(PROJECT_DIR)/../../build";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Development;
 		};
@@ -752,37 +667,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41E40A4ADF6900E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				GCC_PREFIX_HEADER = "";
 				PRODUCT_NAME = iTeXMac2;
+				SYMROOT = "$(PROJECT_DIR)/../../build";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Deployment;
-		};
-		DC6BB7A809474611004B0A81 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "";
-				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTeXMac2;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
 		};
 		DC6BB7AA09474611004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -812,19 +702,6 @@
 			};
 			name = Deployment;
 		};
-		DC6BB7AC09474611004B0A81 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)/../../build",
-				);
-				PRODUCT_NAME = iTM2ConTeXtEngines;
-				SYMROOT = ../../build;
-				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
-			};
-			name = Default;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -833,60 +710,54 @@
 			buildConfigurations = (
 				DC5D6CE10949A48200EBA96C /* Development */,
 				DC5D6CE20949A48200EBA96C /* Deployment */,
-				DC5D6CE30949A48200EBA96C /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		DC6BB79909474611004B0A81 /* Build configuration list for PBXNativeTarget "TeXExec wrapper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC6BB79A09474611004B0A81 /* Development */,
 				DC6BB79B09474611004B0A81 /* Deployment */,
-				DC6BB79C09474611004B0A81 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		DC6BB79D09474611004B0A81 /* Build configuration list for PBXAggregateTarget "Install in ConTeXt Kit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC6BB79E09474611004B0A81 /* Development */,
 				DC6BB79F09474611004B0A81 /* Deployment */,
-				DC6BB7A009474611004B0A81 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		DC6BB7A109474611004B0A81 /* Build configuration list for PBXAggregateTarget "All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC6BB7A209474611004B0A81 /* Development */,
 				DC6BB7A309474611004B0A81 /* Deployment */,
-				DC6BB7A409474611004B0A81 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
-		DC6BB7A509474611004B0A81 /* Build configuration list for PBXNativeTarget "build iTeXMac2" */ = {
+		DC6BB7A509474611004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC6BB7A609474611004B0A81 /* Development */,
 				DC6BB7A709474611004B0A81 /* Deployment */,
-				DC6BB7A809474611004B0A81 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		DC6BB7A909474611004B0A81 /* Build configuration list for PBXProject "iTM2ConTeXtEngines" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC6BB7AA09474611004B0A81 /* Development */,
 				DC6BB7AB09474611004B0A81 /* Deployment */,
-				DC6BB7AC09474611004B0A81 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
 	};

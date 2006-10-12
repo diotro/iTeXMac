@@ -3,7 +3,7 @@
 	089C1669FE841209C02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Development;
 		activeExecutable = DC520395088B1FAE00DE6E7F /* iTeXMac2 */;
-		activeTarget = DC81AD250887161F00943C99 /* iTeXMac2 */;
+		activeTarget = DC43E38D09337285003C3C86 /* Build & Install Engines */;
 		addToTargets = (
 		);
 		breakpoints = (
@@ -161,8 +161,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 181812023;
-			PBXWorkspaceStateSaveDate = 181812023;
+			PBXPerProjectTemplateStateSaveDate = 182303716;
+			PBXWorkspaceStateSaveDate = 182303716;
 		};
 		perUserProjectItems = {
 			DC99E87B0A25F55700F50752 /* PBXTextBookmark */ = DC99E87B0A25F55700F50752 /* PBXTextBookmark */;

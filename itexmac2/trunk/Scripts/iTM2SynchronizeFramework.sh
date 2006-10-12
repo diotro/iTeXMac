@@ -7,7 +7,7 @@ then
     echo "warning: iTeXMac2 ERROR, Usage is \"iTM2SynchronizeFramework.sh framework_name\""
     exit -1
 fi
-FULL_PRODUCT_NAME="${BASE_PRODUCT_NAME}.framework"
+FULL_PRODUCT_NAME="${BASE_PRODUCT_NAME}.${WRAPPER_EXTENSION}"
 pushd "`dirname "$0"`"/..
 SRC_TREE_ROOT="`pwd`"
 echo "iTM2 tree root: ${SRC_TREE_ROOT}"
@@ -21,6 +21,11 @@ then
 	then
 		echo "warning: iTeXMac2 INFO, ${FULL_PRODUCT_NAME} already available"
 		echo "warning: iTeXMac2 INFO, Synchronizing ${FULL_PRODUCT_NAME}... DONE"
+		if [ -L "${SYMROOT}/${FULL_PRODUCT_NAME}" ] || ! [ -d "${SYMROOT}/${FULL_PRODUCT_NAME}" ]
+		then
+			rm -f "${SYMROOT}/${FULL_PRODUCT_NAME}"
+			ln -s "${FULL_PRODUCT_DIR}/${FULL_PRODUCT_NAME}" "${SYMROOT}"
+		fi
 		exit 0
 	fi
 	echo "warning: iTeXMac2 INFO, corrupted ${FULL_PRODUCT_DIR}/${FULL_PRODUCT_NAME}"
@@ -37,6 +42,11 @@ then
 elif [ -L "${FULL_PRODUCT_DIR}/${FULL_PRODUCT_NAME}/${BASE_PRODUCT_NAME}" ]
 then
 	echo "warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... SUCCEEDED"
+	if [ -L "${SYMROOT}/${FULL_PRODUCT_NAME}" ] || ! [ -d "${SYMROOT}/${FULL_PRODUCT_NAME}" ]
+	then
+		rm -f "${SYMROOT}/${FULL_PRODUCT_NAME}"
+		ln -s "${FULL_PRODUCT_DIR}/${FULL_PRODUCT_NAME}" "${SYMROOT}"
+	fi
 	exit 0
 else
 	echo "warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... FAILED with missing Link"

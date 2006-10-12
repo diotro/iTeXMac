@@ -14,6 +14,7 @@ then
     echo "warning: iTeXMac2 ERROR, Usage is \"iTM2SynchronizeEngines.sh framework_name engines_subdirectory\""
     exit -2
 fi
+echo "warning: iTeXMac2 INFO, Installing plug-ins from ${ENGINES_REPOSITORY}"
 pushd "${ENGINES_REPOSITORY}"
 ENGINES_REPOSITORY="$(pwd)"
 popd
@@ -40,7 +41,7 @@ IFS='
 '
 iTM2_TARGETS="$(find . -regex ".*/build/[^/]*\.iTM2" -print)"
 popd
-echo "...${iTM2_TARGETS}"
+echo "...${iTM2_TARGETS},"
 for iTM2_VAR in ${iTM2_TARGETS}
 do
 	rm -Rf "${iTM2_PLUGINS_FOLDER_PATH}/${iTM2_VAR}"

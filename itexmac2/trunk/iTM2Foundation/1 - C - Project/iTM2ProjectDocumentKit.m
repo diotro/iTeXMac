@@ -1334,7 +1334,7 @@ To Do List:
 	if(!document || (document == self)|| [document isKindOfClass:[iTM2WrapperDocument class]]|| [document isKindOfClass:[iTM2ProjectDocument class]])
 		return;
 	id projectDocument = [SPC projectForFileName:[document fileName]];
-	NSAssert3(!projectDocument || (projectDocument == self),@"The document\n%@\ncannot be assigned to project\n%@\nbecause it already belongs to another project\n%@",[document fileName],[self fileName],[projectDocument fileName]);
+	NSAssert3(!projectDocument || (projectDocument == self),@"The document <%@> cannot be assigned to project <%@> because it already belongs to another project <%@>",[document fileName],[self fileName],[projectDocument fileName]);
 	[self newKeyForFileName:[document fileName]];
 //iTM2_LOG(@"[self keyForFileName:[document fileName]]:<%@>",[self keyForFileName:[document fileName]]);
 	[SDC removeDocument:[[document retain] autorelease]];// remove first
@@ -3273,7 +3273,7 @@ To Do List:
 		NSLog(@"The current directory is %@",oldDirectoryPath);
 		return NO;
 	}
-	#if 1
+	#if 0
 	else
 	{
 		NSLog(@"----------  fullProjectPath: %@",fullProjectPath);
@@ -5868,6 +5868,7 @@ To Do List:
 	NSParameterAssert((!projectDocument || [SPC isProject:projectDocument]));
 	NSValue * projectValue = [NSValue valueWithNonretainedObject:projectDocument];
 	fileName = [fileName stringByStandardizingPath];
+	fileName = [fileName lowercaseString];
 	[CACHED_PROJECTS setObject:projectValue forKey:fileName];
 	NSAssert3((projectDocument == [self projectForFileName:fileName]),
 		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %s",__PRETTY_FUNCTION__,projectDocument,fileName);
@@ -5885,6 +5886,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	fileName = [fileName stringByStandardizingPath];
+	fileName = [fileName lowercaseString];
     if(![fileName length])
         return nil;
 	if(iTM2DebugEnabled>99999)

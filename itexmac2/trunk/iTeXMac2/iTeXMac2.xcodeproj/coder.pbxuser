@@ -155,12 +155,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 182034792;
-			PBXWorkspaceStateSaveDate = 182034792;
-		};
-		perUserProjectItems = {
-			DC579D160AD867E300D36CFF = DC579D160AD867E300D36CFF /* PBXTextBookmark */;
-			DC579D5D0AD86D8000D36CFF = DC579D5D0AD86D8000D36CFF /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 182302856;
+			PBXWorkspaceStateSaveDate = 182302856;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -198,7 +194,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 181848353.278251;
+		modificationTime = 182303142.41031;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -211,7 +207,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 181848353.4894;
+		modificationTime = 182303142.61936;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -224,7 +220,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 181848353.600765;
+		modificationTime = 182303142.731282;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -237,7 +233,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 181848353.600932;
+		modificationTime = 182303142.840897;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -250,7 +246,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 181848353.721768;
+		modificationTime = 182303142.841069;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -270,7 +266,7 @@
 	DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {705, 368}}";
-			sepNavSelRange = "{635, 49}";
+			sepNavSelRange = "{635, 19}";
 			sepNavVisRect = "{{0, 0}, {705, 368}}";
 			sepNavWindowFrame = "{{664, 381}, {744, 497}}";
 		};
@@ -319,26 +315,6 @@
 	DC520344088B1F5B00DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
-	};
-	DC579D160AD867E300D36CFF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
-		name = "iTM2WindowsMenuKit.m: 582";
-		rLen = 0;
-		rLoc = 25113;
-		rType = 0;
-		vrLen = 851;
-		vrLoc = 4609;
-	};
-	DC579D5D0AD86D8000D36CFF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
-		name = "iTM2WindowsMenuKit.m: 582";
-		rLen = 0;
-		rLoc = 25113;
-		rType = 0;
-		vrLen = 851;
-		vrLoc = 4609;
 	};
 	DC5B67660A4B625E00F7DE47 /* Framework */ = {
 		uiCtxt = {
@@ -421,9 +397,9 @@
 	};
 	DC74C82007D8532800E10C57 /* iTeXMac2-Prefix.pch */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1010, 703}}";
-			sepNavSelRange = "{271, 0}";
-			sepNavVisRect = "{{0, 0}, {1010, 703}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1110, 221}}";
+			sepNavSelRange = "{132, 40}";
+			sepNavVisRect = "{{0, 0}, {1110, 221}}";
 			sepNavWindowFrame = "{{15, -5}, {1049, 832}}";
 		};
 	};
@@ -475,7 +451,7 @@
 	DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {961, 30124}}";
-			sepNavSelRange = "{45598, 0}";
+			sepNavSelRange = "{45452, 150}";
 			sepNavVisRect = "{{0, 29509}, {961, 615}}";
 			sepNavWindowFrame = "{{-4, 88}, {1000, 744}}";
 		};
@@ -498,9 +474,9 @@
 	};
 	DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1532, 4760}}";
-			sepNavSelRange = "{1794, 0}";
-			sepNavVisRect = "{{0, 250}, {1181, 655}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1181, 4636}}";
+			sepNavSelRange = "{3089, 0}";
+			sepNavVisRect = "{{0, 2641}, {1181, 655}}";
 			sepNavWindowFrame = "{{38, 22}, {1220, 784}}";
 		};
 	};
@@ -512,9 +488,9 @@
 	};
 	DCFFA6CD0855B7C900607AAA /* iTeXMac2CMPlugIn.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1095, 12478}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 2444}, {1095, 687}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1524, 12393}}";
+			sepNavSelRange = "{14873, 0}";
+			sepNavVisRect = "{{0, 6358}, {1110, 221}}";
 			sepNavWindowFrame = "{{38, 5}, {1134, 801}}";
 		};
 	};

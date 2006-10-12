@@ -32,6 +32,7 @@
 #import <iTM2Foundation/iTM2PDFDocumentKit.h>
 #import <iTM2Foundation/iTM2PDFViewKit.h>
 #import <iTM2Foundation/iTM2ValidationKit.h>
+#import <iTM2Foundation/iTM2PathUtilities.h>
 
 //#import <unistd.h>
 //#import <fcntl.h>
@@ -126,6 +127,52 @@ To Do List:
     [INC removeObserver:self];
     [super dealloc];
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithContentsOfURL:ofType:error:
+- (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([typeName isEqual:NSPostScriptPboardType])
+	{
+		if([absoluteURL isFileURL])
+		{
+			NSString * path = [absoluteURL path];
+			NSString * pdfPath = [path stringByDeletingPathExtension];
+			pdfPath = [pdfPath stringByAppendingPathExtension:@"pdf"];
+			NSAssert(![pdfPath pathIsEqual:path],@"Bad type name for a postscript file.");
+			if([DFM fileExistsAtPath:pdfPath])
+			{
+				NSDictionary * attributes = [DFM fileAttributesAtPath:path traverseLink:YES];
+				NSDate * date = [attributes fileModificationDate];
+				attributes = [DFM fileAttributesAtPath:pdfPath traverseLink:YES];
+				NSDate * pdfDate = [attributes fileModificationDate];
+				if([pdfDate compare:date] == NSOrderedDescending)
+				{
+					absoluteURL = [NSURL fileURLWithPath:pdfPath];
+					if(typeName = [SDC typeForContentsOfURL:absoluteURL error:outErrorPtr])
+					{
+						return [self initWithContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr];
+					}
+					else
+					{
+						return nil;
+					}					
+				}
+			}
+			// I should recreate a PDF file from scratch
+			// do I use epstopdf or the tool inside apple?
+			
+		}
+		[self autorelease];
+		return nil;
+	}
+//iTM2_END;
+	return [super initWithContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= imageRepresentation
 - (id)imageRepresentation;

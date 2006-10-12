@@ -10,7 +10,7 @@
 	<dict>
 		<key>CurrentFolderPath</key>
 		<array>
-			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2</string>
+			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG</string>
 		</array>
 		<key>FXCriteriaSlices</key>
 		<array>
@@ -27,11 +27,11 @@
 		<integer>1396925286</integer>
 		<key>FXScopeArrayOfPaths</key>
 		<array>
-			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2</string>
+			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG</string>
 		</array>
 	</dict>
 	<key>Version</key>
-	<string>10.4.3</string>
+	<string>10.4.6</string>
 	<key>ViewOptions</key>
 	<dict>
 		<key>GroupViewOptions</key>

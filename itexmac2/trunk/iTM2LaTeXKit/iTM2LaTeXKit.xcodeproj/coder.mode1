@@ -259,13 +259,16 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>089C166AFE841209C02AAC07</string>
+								<string>08FB77AFFE84173DC02AAC07</string>
+								<string>32C88E010371C26100C91783</string>
+								<string>089C167CFE841241C02AAC07</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>22</integer>
+									<integer>24</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -316,12 +319,12 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC958BE60AD696200092F69A</string>
+										<string>DCB7D8B40ADE25250084DE9D</string>
 										<key>history</key>
 										<array>
 											<string>DC008F240A6ADEF2009236E8</string>
 											<string>DCD7B8000AA8F6FB0042AA60</string>
-											<string>DC84FEEE0AD5D1CC00C6FCAA</string>
+											<string>DC9799560ADE206700CDF259</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -383,9 +386,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC9587550AD63B480092F69A</string>
+				<string>DCB7D8B50ADE25250084DE9D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC9587560AD63B480092F69A</string>
+				<string>DCB7D8B60ADE25250084DE9D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -519,7 +522,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>44 43 1147 715 0 0 1440 878 </string>

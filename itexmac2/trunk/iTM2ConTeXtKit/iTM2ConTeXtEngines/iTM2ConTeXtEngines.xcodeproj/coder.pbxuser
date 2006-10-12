@@ -2,8 +2,8 @@
 {
 	0867D690FE84028FC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Development;
-		activeExecutable = DC892D1708FB1E60007A4673 /* iTeXMac2 */;
-		activeTarget = DC2CA78D0855D4F500128F14 /* All */;
+		activeExecutable = DC5203AC088B1FB000DE6E7F /* iTeXMac2 */;
+		activeTarget = DC81AE6D08871B4600943C99 /* iTeXMac2 */;
 		addToTargets = (
 		);
 		breakpoints = (
@@ -12,8 +12,7 @@
 		breakpointsGroup = DC99EBC30A27C5B500F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DC52042F088B1FD300DE6E7F /* Code sense */;
 		executables = (
-			DC5203AC088B1FB000DE6E7F /* build iTeXMac2 */,
-			DC892D1708FB1E60007A4673 /* iTeXMac2 */,
+			DC5203AC088B1FB000DE6E7F /* iTeXMac2 */,
 		);
 		perUserDictionary = {
 			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
@@ -104,11 +103,16 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 181812021;
-			PBXWorkspaceStateSaveDate = 181812021;
+			PBXPerProjectTemplateStateSaveDate = 182303706;
+			PBXWorkspaceStateSaveDate = 182303706;
 		};
 		perUserProjectItems = {
 			DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
+			DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */;
+			DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */;
+			DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */ = DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */;
+			DC9798040ADDB86800CDF259 /* PBXTextBookmark */ = DC9798040ADDB86800CDF259 /* PBXTextBookmark */;
+			DC9799030ADDBCDA00CDF259 /* PBXTextBookmark */ = DC9799030ADDBCDA00CDF259 /* PBXTextBookmark */;
 			DC99E7A80A2456E600F50752 /* PBXTextBookmark */ = DC99E7A80A2456E600F50752 /* PBXTextBookmark */;
 			DC99E7A90A2456E600F50752 /* PBXBookmark */ = DC99E7A90A2456E600F50752 /* PBXBookmark */;
 			DC99E7AA0A2456E600F50752 /* PBXBookmark */ = DC99E7AA0A2456E600F50752 /* PBXBookmark */;
@@ -139,7 +143,7 @@
 		vrLen = 238;
 		vrLoc = 5332;
 	};
-	DC5203AC088B1FB000DE6E7F /* build iTeXMac2 */ = {
+	DC5203AC088B1FB000DE6E7F /* iTeXMac2 */ = {
 		isa = PBXExecutable;
 		activeArgIndex = 0;
 		activeArgIndices = (
@@ -174,7 +178,7 @@
 		executableSystemSymbolLevel = 0;
 		executableUserSymbolLevel = 0;
 		libgmallocEnabled = 0;
-		name = "build iTeXMac2";
+		name = iTeXMac2;
 		savedGlobals = {
 		};
 		sourceDirectories = (
@@ -201,7 +205,7 @@
 			sepNavWindowFrame = "{{15, 12}, {1218, 815}}";
 		};
 	};
-	DC55F613092AA3F300713576 /* TeXExec-Prefix.pch */ = {
+	DC55F613092AA3F300713576 /* TeXExec wrapper-Prefix.pch */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1109, 228}}";
 			sepNavSelRange = "{146, 40}";
@@ -232,6 +236,14 @@
 			sepNavWindowFrame = "{{15, 12}, {1218, 815}}";
 		};
 	};
+	DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {908, 493}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {658, 183}}";
+			sepNavWindowFrame = "{{15, 183}, {1210, 690}}";
+		};
+	};
 	DC5D6CDD0949A48100EBA96C /* Prepare iTM2ConTeXtKit */ = {
 		activeExec = 0;
 	};
@@ -242,48 +254,64 @@
 			sepNavVisRect = "{{0, 0}, {658, 183}}";
 		};
 	};
-	DC81AE6D08871B4600943C99 /* build iTeXMac2 */ = {
+	DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F613092AA3F300713576 /* TeXExec wrapper-Prefix.pch */;
+		name = "#import <iTM2Foundation/iTeXMac2.h>";
+		rLen = 40;
+		rLoc = 146;
+		rType = 0;
+		vrLen = 318;
+		vrLoc = 0;
+	};
+	DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F613092AA3F300713576 /* TeXExec wrapper-Prefix.pch */;
+		name = "#import <iTM2Foundation/iTeXMac2.h>";
+		rLen = 40;
+		rLoc = 146;
+		rType = 0;
+		vrLen = 318;
+		vrLoc = 0;
+	};
+	DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
+		name = "TeXExec wrapper-Info.plist: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 391;
+		vrLoc = 0;
+	};
+	DC81AE6D08871B4600943C99 /* iTeXMac2 */ = {
 		activeExec = 0;
 		executables = (
-			DC5203AC088B1FB000DE6E7F /* build iTeXMac2 */,
+			DC5203AC088B1FB000DE6E7F /* iTeXMac2 */,
 		);
-	};
-	DC892D1708FB1E60007A4673 /* iTeXMac2 */ = {
-		isa = PBXExecutable;
-		activeArgIndex = 2147483647;
-		activeArgIndices = (
-		);
-		argumentStrings = (
-		);
-		autoAttachOnCrash = 1;
-		configStateDict = {
-		};
-		customDataFormattersEnabled = 1;
-		debuggerPlugin = GDBDebugging;
-		disassemblyDisplayState = 0;
-		dylibVariantSuffix = "";
-		enableDebugStr = 1;
-		environmentEntries = (
-		);
-		executableSystemSymbolLevel = 0;
-		executableUserSymbolLevel = 0;
-		launchableReference = DC892D1808FB1E60007A4673 /* iTeXMac2.app */;
-		libgmallocEnabled = 0;
-		name = iTeXMac2;
-		savedGlobals = {
-		};
-		sourceDirectories = (
-		);
-	};
-	DC892D1808FB1E60007A4673 /* iTeXMac2.app */ = {
-		isa = PBXFileReference;
-		explicitFileType = wrapper.application;
-		name = iTeXMac2.app;
-		path = ../../build/iTeXMac2.app;
-		sourceTree = "<group>";
 	};
 	DC892D8B08FB92CF007A4673 /* Install in ConTeXt Kit */ = {
 		activeExec = 0;
+	};
+	DC9798040ADDB86800CDF259 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
+		name = "TeXExec wrapper-Info.plist: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 391;
+		vrLoc = 0;
+	};
+	DC9799030ADDBCDA00CDF259 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
+		name = "TeXExec wrapper-Info.plist: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 391;
+		vrLoc = 0;
 	};
 	DC9815C3092A2FBE0011D8DA /* TeXExec wrapper */ = {
 		activeExec = 0;
@@ -371,11 +399,14 @@
 	};
 	DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */ = {
 		isa = PBXSymbolicBreakpoint;
+		actions = (
+		);
 		breakpointStyle = 0;
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
-		hitCount = 0;
-		modificationTime = 0;
+		hitCount = 1;
+		location = Foundation;
+		modificationTime = 182295987.882573;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
