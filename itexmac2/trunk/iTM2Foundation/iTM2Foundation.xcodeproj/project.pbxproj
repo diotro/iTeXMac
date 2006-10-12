@@ -426,6 +426,13 @@
 			remoteGlobalIDString = DCB200320858E250003659F3;
 			remoteInfo = "Install iTM2Foundation";
 		};
+		DCB7DEC10ADE4CF50084DE9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB7DE9F0ADE49DE0084DE9D /* TextMate */;
+			remoteInfo = TextMate;
+		};
 		DCBEF0C70A5B2F42000EB417 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1894,6 +1901,7 @@
 				DCD7D6DF0A439A9F0096B1A9 /* PBXTargetDependency */,
 				DCD7D6E10A439AA20096B1A9 /* PBXTargetDependency */,
 				DCE5C5A10AC825EA0054C760 /* PBXTargetDependency */,
+				DCB7DEC20ADE4CF50084DE9D /* PBXTargetDependency */,
 				DCB200460858E2A5003659F3 /* PBXTargetDependency */,
 			);
 			name = "External Text Editor";
@@ -2017,10 +2025,10 @@
 				DCD7D6AB0A4399620096B1A9 /* BBEdit */,
 				DCD7D6B90A4399790096B1A9 /* BBEdit Lite */,
 				DCD7D6C90A4399990096B1A9 /* Emacs */,
+				DCB7DE9F0ADE49DE0084DE9D /* TextMate */,
 				DCE5C5720AC823940054C760 /* TextWrangler */,
 				DCC7F8980854DB8C00F3EB8A /* External Text Editor */,
 				DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */,
-				DCB7DE9F0ADE49DE0084DE9D /* TextMate */,
 				DC2CA7A50855D53C00128F14 /* All */,
 				DC13E68A0855867D0063D5A5 /* Test Application */,
 				DC951796088DED4B0011E823 /* iTeXMac2 */,
@@ -2551,6 +2559,11 @@
 			isa = PBXTargetDependency;
 			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
 			targetProxy = DCB7DEA10ADE49DE0084DE9D /* PBXContainerItemProxy */;
+		};
+		DCB7DEC20ADE4CF50084DE9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB7DE9F0ADE49DE0084DE9D /* TextMate */;
+			targetProxy = DCB7DEC10ADE4CF50084DE9D /* PBXContainerItemProxy */;
 		};
 		DCBEF0C80A5B2F42000EB417 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

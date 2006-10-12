@@ -221,8 +221,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -255,17 +253,19 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>0867D691FE84028FC02AAC07</string>
+								<string>DCC7F8B00854DC0F00F3EB8A</string>
+								<string>DCC7F8B50854DC0F00F3EB8A</string>
 								<string>1C37FBAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>36</integer>
-									<integer>29</integer>
+									<integer>55</integer>
+									<integer>46</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {287, 737}}</string>
+							<string>{{0, 470}, {287, 737}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -295,12 +295,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2DocumentKit.m</string>
+								<string>TextMate-Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -308,11 +310,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2DocumentKit.m</string>
+										<string>TextMate-Info.plist</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCB7DDC60ADE47D80084DE9D</string>
+										<string>DCB7DED00ADE4D190084DE9D</string>
 										<key>history</key>
 										<array>
 											<string>DCD7B7A90AA8EC4B0042AA60</string>
@@ -331,6 +333,12 @@
 											<string>DCC2BC3C0AD69B43009E7354</string>
 											<string>DC6D9A590ADD630A003B0F9B</string>
 											<string>DC97994F0ADE206500CDF259</string>
+											<string>DCB7DEC50ADE4D190084DE9D</string>
+											<string>DCB7DEC60ADE4D190084DE9D</string>
+											<string>DCB7DEC70ADE4D190084DE9D</string>
+											<string>DCB7DEC80ADE4D190084DE9D</string>
+											<string>DCB7DEC90ADE4D190084DE9D</string>
+											<string>DCB7DECA0ADE4D190084DE9D</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -351,6 +359,11 @@
 											<string>DC11A3300AD537C700D825E7</string>
 											<string>DC9587D80AD640070092F69A</string>
 											<string>DC6D9A5B0ADD630A003B0F9B</string>
+											<string>DCB7DECB0ADE4D190084DE9D</string>
+											<string>DCB7DECC0ADE4D190084DE9D</string>
+											<string>DCB7DECD0ADE4D190084DE9D</string>
+											<string>DCB7DECE0ADE4D190084DE9D</string>
+											<string>DCB7DECF0ADE4D190084DE9D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -408,9 +421,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCB7D8A00ADE24D20084DE9D</string>
+				<string>DCB7DED10ADE4D190084DE9D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCB7D8A10ADE24D20084DE9D</string>
+				<string>DCB7DED20ADE4D190084DE9D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -544,12 +557,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCB7D8BD0ADE252C0084DE9D</string>
-		<string>DCB7D8BE0ADE252C0084DE9D</string>
-		<string>DC993BD1088DF33900F8BCE1</string>
-		<string>DCB7D89C0ADE24CC0084DE9D</string>
+		<string>DCB7DE940ADE48600084DE9D</string>
 		<string>DCD7D7160A439D000096B1A9</string>
-		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
@@ -677,8 +686,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {446, 411}}</string>
-											<string>{{446, 0}, {706, 411}}</string>
+											<string>{{0, 0}, {444, 411}}</string>
+											<string>{{444, 0}, {708, 411}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -741,14 +750,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCB7D8960ADE24CC0084DE9D</string>
+				<string>DCB7DE8E0ADE48600084DE9D</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCB7D8970ADE24CC0084DE9D</string>
-				<string>DCB7D8980ADE24CC0084DE9D</string>
-				<string>DCB7D8990ADE24CC0084DE9D</string>
-				<string>DCB7D89A0ADE24CC0084DE9D</string>
-				<string>DCB7D89B0ADE24CC0084DE9D</string>
-				<string>DCB7D89C0ADE24CC0084DE9D</string>
+				<string>DCB7DE8F0ADE48600084DE9D</string>
+				<string>DCB7DE900ADE48600084DE9D</string>
+				<string>DCB7DE910ADE48600084DE9D</string>
+				<string>DCB7DE920ADE48600084DE9D</string>
+				<string>DCB7DE930ADE48600084DE9D</string>
+				<string>DCB7DE940ADE48600084DE9D</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -1082,7 +1091,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DCD7D7160A439D000096B1A9</string>
-				<string>DCB7D89E0ADE24CC0084DE9D</string>
+				<string>DCB7DE960ADE48600084DE9D</string>
 				<string>1C78EAB2065D492600B07095</string>
 				<string>1CD052920623707200166675</string>
 			</array>
@@ -1093,7 +1102,7 @@
 			<key>WindowToolGUID</key>
 			<string>DCD7D7160A439D000096B1A9</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
