@@ -18,6 +18,7 @@ then
 	echo "warning: iTeXMac2 ERROR, Missing ${PRODUCT_NAME}?.zip in ${PROJECT_DIR}/../../${PRODUCT_NAME} zip archive"
 	echo "warning: iTeXMac2 ERROR, You are expected to download there an REPORTER zipped archive"
 	echo "warning: iTeXMac2 ERROR, connect to http://www.profcast.com/developers/downloads/HDCrashReporter.zip"
+	echo "warning: iTeXMac2 ERROR, OR launch the DownloadHDCrashReporter.command in the HDCrashReporter folder"
 	exit 1
 fi
 for TEMP in ${REPORTER_ZIP}

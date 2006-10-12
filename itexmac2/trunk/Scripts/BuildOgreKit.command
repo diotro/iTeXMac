@@ -15,7 +15,7 @@ IFS='
 OGREKIT_TGZ=`find "${PROJECT_DIR}/../OgreKit" -regex ".*/${PRODUCT_NAME}[0-9_]*\.tar\.gz" -print`
 if [ ${#OGREKIT_TGZ} -eq 0 ]
 then
-	echo "warning: iTeXMac2 ERROR, Missing ${PRODUCT_NAME}?.tar.gz in ${PROJECT_DIR}/../../OgreKit Tarball"
+	echo "warning: iTeXMac2 ERROR, Missing ${PRODUCT_NAME}?.tar.gz in ${PROJECT_DIR}"
 	echo "warning: iTeXMac2 ERROR, You are expected to download there an OgreKit tarball"
 	echo "warning: iTeXMac2 ERROR, connect to http://www8.ocn.ne.jp/~sonoisa/OgreKit/#Download"
 	exit 1
