@@ -143,6 +143,7 @@
 		DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */ = {isa = PBXBuildFile; fileRef = DCB49C8709C5A3D600CF628D /* MoreFilesX.c */; };
 		DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */ = {isa = PBXBuildFile; fileRef = DCB49C8809C5A3D600CF628D /* MoreFilesX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */; };
+		DCB7DEB40ADE4A0F0084DE9D /* textmate in Copy Command */ = {isa = PBXBuildFile; fileRef = DCB7DE860ADE47FB0084DE9D /* textmate */; };
 		DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
 		DCC62E610A9A70B300073E93 /* iTM2MacroKeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */; };
 		DCC7F34D0854A96000F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
@@ -418,6 +419,13 @@
 			remoteGlobalIDString = DCB200320858E250003659F3;
 			remoteInfo = "Install iTM2Foundation";
 		};
+		DCB7DEA10ADE49DE0084DE9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB200320858E250003659F3;
+			remoteInfo = "Install iTM2Foundation";
+		};
 		DCBEF0C70A5B2F42000EB417 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -531,6 +539,17 @@
 				DC25E2EA09917C7100545F27 /* iTM2CreateMacroIndex.pl in Copy Binaries */,
 			);
 			name = "Copy Binaries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCB7DEA20ADE49DE0084DE9D /* Copy Command */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				DCB7DEB40ADE4A0F0084DE9D /* textmate in Copy Command */,
+			);
+			name = "Copy Command";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DCC7F8BC0854DCA600F3EB8A /* Copy Command */ = {
@@ -714,7 +733,7 @@
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
-		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextCompletionKit.h; sourceTree = "<group>"; };
 		DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextCompletionKit.m; sourceTree = "<group>"; };
 		DC99ECBE0A284EA800F50752 /* Project.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Project.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -759,6 +778,9 @@
 		DCB49C8709C5A3D600CF628D /* MoreFilesX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MoreFilesX.c; sourceTree = "<group>"; };
 		DCB49C8809C5A3D600CF628D /* MoreFilesX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreFilesX.h; sourceTree = "<group>"; };
 		DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MoreFilesXReadMe.txt; sourceTree = "<group>"; };
+		DCB7DE860ADE47FB0084DE9D /* textmate */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = textmate; sourceTree = "<group>"; };
+		DCB7DE870ADE47FB0084DE9D /* TextMate-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TextMate-Info.plist"; sourceTree = "<group>"; };
+		DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextMate.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCBEF0BF0A5B2DDC000EB417 /* Test Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test Application-Prefix.pch"; sourceTree = "<group>"; };
 		DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextStorageKit.m; sourceTree = "<group>"; };
 		DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
@@ -1068,6 +1090,7 @@
 				DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */,
 				DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */,
 				DC815F360ADC4DBE00AFCED2 /* Prepare CamelBones.framework */,
+				DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1293,6 +1316,8 @@
 				DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */,
 				DCE5C5970AC824CB0054C760 /* textwrangler */,
 				DCE5C5880AC823950054C760 /* TextWrangler-Info.plist */,
+				DCB7DE860ADE47FB0084DE9D /* textmate */,
+				DCB7DE870ADE47FB0084DE9D /* TextMate-Info.plist */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -1838,6 +1863,22 @@
 			productReference = DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		DCB7DE9F0ADE49DE0084DE9D /* TextMate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCB7DEA40ADE49DE0084DE9D /* Build configuration list for PBXNativeTarget "TextMate" */;
+			buildPhases = (
+				DCB7DEA20ADE49DE0084DE9D /* Copy Command */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCB7DEA00ADE49DE0084DE9D /* PBXTargetDependency */,
+			);
+			name = TextMate;
+			productName = "External Text Editor";
+			productReference = DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */;
+			productType = "com.apple.product-type.bundle";
+		};
 		DCC7F8980854DB8C00F3EB8A /* External Text Editor */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC1E8A9D09462DC40037B13F /* Build configuration list for PBXNativeTarget "External Text Editor" */;
@@ -1979,6 +2020,7 @@
 				DCE5C5720AC823940054C760 /* TextWrangler */,
 				DCC7F8980854DB8C00F3EB8A /* External Text Editor */,
 				DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */,
+				DCB7DE9F0ADE49DE0084DE9D /* TextMate */,
 				DC2CA7A50855D53C00128F14 /* All */,
 				DC13E68A0855867D0063D5A5 /* Test Application */,
 				DC951796088DED4B0011E823 /* iTeXMac2 */,
@@ -2504,6 +2546,11 @@
 			isa = PBXTargetDependency;
 			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
 			targetProxy = DCB200520858E2B2003659F3 /* PBXContainerItemProxy */;
+		};
+		DCB7DEA00ADE49DE0084DE9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
+			targetProxy = DCB7DEA10ADE49DE0084DE9D /* PBXContainerItemProxy */;
 		};
 		DCBEF0C80A5B2F42000EB417 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3540,6 +3587,24 @@
 			};
 			name = Deployment;
 		};
+		DCB7DEA50ADE49DE0084DE9D /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
+				PRODUCT_NAME = TextMate;
+			};
+			name = Development;
+		};
+		DCB7DEA60ADE49DE0084DE9D /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
+				PRODUCT_NAME = TextMate;
+			};
+			name = Deployment;
+		};
 		DCD7D6A40A43992D0096B1A9 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
@@ -3764,6 +3829,15 @@
 			buildConfigurations = (
 				DCB0A00E09AEF96F00D2A37C /* Development */,
 				DCB0A00F09AEF96F00D2A37C /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		DCB7DEA40ADE49DE0084DE9D /* Build configuration list for PBXNativeTarget "TextMate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCB7DEA50ADE49DE0084DE9D /* Development */,
+				DCB7DEA60ADE49DE0084DE9D /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

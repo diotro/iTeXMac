@@ -185,168 +185,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC8165460ADC588A00AFCED2</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2TaskKit.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC8165470ADC588A00AFCED2</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2TaskKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCB7DDB00ADE3B5F0084DE9D</string>
-						<key>history</key>
-						<array>
-							<string>DC9799500ADE206500CDF259</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1142, 649}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>79 143 1142 690 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC29F3DB0ADC695F00EFB41C</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>NSFileHandle.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC29F3DC0ADC695F00EFB41C</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>NSFileHandle.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCB7DDB10ADE3B5F0084DE9D</string>
-						<key>history</key>
-						<array>
-							<string>DC9799510ADE206500CDF259</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1210, 593}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>84 176 1210 634 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC29F3BF0ADC669B00EFB41C</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>NSTask.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC29F3C00ADC669B00EFB41C</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>NSTask.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCB7DDB20ADE3B5F0084DE9D</string>
-						<key>history</key>
-						<array>
-							<string>DC9799530ADE206500CDF259</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1210, 593}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>61 197 1210 634 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC29F38D0ADC642900EFB41C</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2TaskKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC29F38E0ADC642900EFB41C</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2TaskKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCB7DDB30ADE3B5F0084DE9D</string>
-						<key>history</key>
-						<array>
-							<string>DC9799550ADE206500CDF259</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1142, 735}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>15 63 1142 776 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -473,7 +312,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCB7DDAF0ADE3B5F0084DE9D</string>
+										<string>DCB7DDC60ADE47D80084DE9D</string>
 										<key>history</key>
 										<array>
 											<string>DCD7B7A90AA8EC4B0042AA60</string>
@@ -709,14 +548,10 @@
 		<string>DCB7D8BE0ADE252C0084DE9D</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
 		<string>DCB7D89C0ADE24CC0084DE9D</string>
-		<string>DC29F38D0ADC642900EFB41C</string>
-		<string>DC29F3BF0ADC669B00EFB41C</string>
 		<string>DCD7D7160A439D000096B1A9</string>
-		<string>DC29F3DB0ADC695F00EFB41C</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DC993AC6088DF04D00F8BCE1</string>
-		<string>DC8165460ADC588A00AFCED2</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>11 35 1396 796 0 0 1440 878 </string>
