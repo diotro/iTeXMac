@@ -29,6 +29,9 @@ NSString * const iTM2PDFKitDocumentDidChangeNotification = @"iTM2_PDFDocumentDid
 
 NSString * const iTM2MultiplePDFDocumentType = @"Multiple PDF Document";// beware, this MUST appear in the target file...
 
+NSString * const iTM2PDFKitScaleFactorKey = @"iTM2PDFKitScaleFactor";
+NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
+
 @interface iTM2ShadowedImageCell: NSImageCell
 @end
 
@@ -39,6 +42,8 @@ NSString * const iTM2MultiplePDFDocumentType = @"Multiple PDF Document";// bewar
 @interface iTM2PDFKitInspector(PRIVATE)
 - (iTM2ToolMode)toolMode;
 - (void)setToolMode:(iTM2ToolMode)argument;
+- (NSPoint)documentViewVisibleRectCenter;
+- (void)setDocumentViewVisibleRectCenter:(NSPoint)argument;
 - (NSRect)documentViewVisibleRect;
 - (void)setDocumentViewVisibleRect:(NSRect)argument;
 - (unsigned int)documentViewVisiblePageNumber;
@@ -606,23 +611,29 @@ To Do List:
 		[[self PDFThumbnails] setArray:[NSArray array]];
 		[[self PDFSearchResults] setArray:[NSArray array]];
 		PDFDocument * doc = [[self pdfView] document];
+		PDFView * myPDFView = [self pdfView];
 		if(doc)
 		{
 			// store the geometry:
-			[self setScaleFactor:[[self pdfView] scaleFactor]];
-			PDFPage * page = [[self pdfView] currentPage];
+			[self setScaleFactor:[myPDFView scaleFactor]];
+			PDFPage * page = [myPDFView currentPage];
 			[self setDocumentViewVisiblePageNumber:[doc indexForPage:page]];
 			[doc setDelegate:nil];
-			[self setDocumentViewVisibleRect:[[[self pdfView] documentView] visibleRect]];
+			NSRect visibleRect = [[myPDFView documentView] visibleRect];
+			[self setDocumentViewVisibleRect:visibleRect];
+			NSPoint center = NSMakePoint(NSMidX(visibleRect),NSMidY(visibleRect));
+			[self setDocumentViewVisibleRectCenter:center];
 		}
 		[doc setDelegate:nil];
 		doc = [document PDFDocument];
-		[[self pdfView] setDocument:doc];
+		[myPDFView setDocument:doc];
 //		[[self pdfView] setNeedsDisplay:YES];
 //iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
 		[doc setDelegate:self];
 		if([_drawer state] == NSDrawerOpenState)
+		{
 			[self updateTabView];
+		}
 		[self contextDidChange];
 	}
 //iTM2_END;
@@ -693,6 +704,7 @@ To Do List:
 	[column setDataCell:newCell];
 	#endif
 	[_searchCountText setStringValue:@""];
+	[self contextDidChange];
 //iTM2_END;
     return;
 }
@@ -707,10 +719,19 @@ To Do List:
 //iTM2_START;
 	float limit = MIN(0.1, MAX([SUD floatForKey:@"iTM2PDFMinScaleLimit"], 0));
 	if(scale<limit)
-		return limit;
-	limit = MAX([SUD floatForKey:@"iTM2PDFMinScaleLimit"], 10.0);
-	if(scale>limit)
-		return limit;
+	{
+		scale = limit;
+	}
+	else
+	{
+		limit = MAX([SUD floatForKey:@"iTM2PDFMinScaleLimit"], 10.0);
+		if(scale>limit)
+		{
+			scale = limit;
+		}
+	}
+	[self takeContextFloat:scale forKey:iTM2PDFKitScaleFactorKey];
+	[self performSelector:@selector(validateWindowContent) withObject:nil afterDelay:0];
 //iTM2_END;
     return scale;
 }
@@ -1602,7 +1623,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"[self contextDictionary] is: %@", [self contextDictionary]);
-	[self setDocumentViewVisibleRect:[[[self pdfView] documentView] visibleRect]];
+	NSRect visibleRect = [[[self pdfView] documentView] visibleRect];
+	[self setDocumentViewVisibleRect:visibleRect];
+	NSPoint center = NSMakePoint(NSMidX(visibleRect),NSMidY(visibleRect));
+	[self setDocumentViewVisibleRectCenter:center];
 //iTM2_START;
 	return;
 }
@@ -1634,20 +1658,25 @@ To Do List:
 	[V setAutoScales:[self autoScales]];
 //iTM2_LOG(@"[V autoScales]: %@", ([V autoScales]? @"Y": @"N"));
 	[V setNeedsDisplay:YES];
-	if([V documentView])
+	NSView * docView = [V documentView];
+	if(docView)
 	{
-#if 0
-		// I don't remember why it was timed, an EXC_BAD_ACCESS somewhere
-		[NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timedSynchronizeDocumentView:) userInfo:[NSValue valueWithRect:[self documentViewVisibleRect]] repeats:NO];
-#else
 		unsigned int pageIndex = [self documentViewVisiblePageNumber];
 		PDFDocument * doc = [V document];
 		if(pageIndex < [doc pageCount])
 		{
 			[V goToPage:[doc pageAtIndex:pageIndex]];
-			[[V documentView] scrollRectToVisible:[self documentViewVisibleRect]];
+			NSRect visibleRect = [docView visibleRect];
+			NSPoint center = [self documentViewVisibleRectCenter];
+NSLog(NSStringFromPoint(center));
+			visibleRect.origin.x -= NSMidX(visibleRect) - center.x;
+			visibleRect.origin.y -= NSMidY(visibleRect) - center.y;
+			//[docView scrollRectToVisible:visibleRect];
+NSLog(NSStringFromRect(visibleRect));
+			visibleRect = [self documentViewVisibleRect];
+NSLog(NSStringFromRect(visibleRect));
+			[docView scrollRectToVisible:visibleRect];
 		}
-#endif
 	}
 	else
 	{
@@ -1656,19 +1685,15 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedSynchronizeDocumentView:
-- (void)timedSynchronizeDocumentView:(NSTimer *)timer;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentViewVisibleRectCenter
+- (NSPoint)documentViewVisibleRectCenter;
 {
-//iTM2_START;
-	PDFView * V = [self pdfView];
-	unsigned int pageIndex = [self documentViewVisiblePageNumber];
-	PDFDocument * doc = [V document];
-	if(pageIndex < [doc pageCount])
-	{
-		[V goToPage:[doc pageAtIndex:pageIndex]];
-		[[V documentView] scrollRectToVisible:[self documentViewVisibleRect]];
-	}
-//iTM2_END;
+	return NSPointFromString(GETTER);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDocumentViewVisibleRectCenter:
+- (void)setDocumentViewVisibleRectCenter:(NSPoint)argument;
+{
+	SETTER(NSStringFromPoint(argument));
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentViewVisibleRect
@@ -2590,6 +2615,7 @@ To Do List:
 @interface iTM2PDFKitView(PRIVATE)
 - (BOOL)trackZoomIn:(NSEvent *)theEvent;
 - (BOOL)trackMove:(NSEvent *)theEvent;
+- (void)setupView;
 @end
 
 @interface __iTM2PDFZoominView:NSView
@@ -2654,6 +2680,23 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupView
+- (void)setupView;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self initImplementation];
+	__iTM2PDFKitSelectView * V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
+	[[self documentView] addSubview:V];
+	[V setHidden:[self toolMode]==kiTM2SelectToolMode];
+	[self setAllowsDragging:NO];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
 - (id)initWithFrame:(NSRect)rect;
 /*"Description Forthcoming.
@@ -2665,10 +2708,7 @@ To Do List:
 //iTM2_START;
 	if(self = [super initWithFrame:rect])
 	{
-		[self initImplementation];
-		__iTM2PDFKitSelectView * V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
-		[[self documentView] addSubview:V];
-		[V setHidden:[self toolMode]==kiTM2SelectToolMode];
+		[self setupView];
 	}
 //iTM2_END;
     return self;
@@ -2684,10 +2724,7 @@ To Do List:
 //iTM2_START;
 	if(self = [super initWithCoder:aDecoder])
 	{
-		[self initImplementation];
-		__iTM2PDFKitSelectView * V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
-		[[self documentView] addSubview:V];
-		[V setHidden:[self toolMode]==kiTM2SelectToolMode];
+		[self setupView];
 	}
 //iTM2_END;
     return self;
@@ -2701,6 +2738,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[DNC removeObserver:self];
 	[self deallocImplementation];
 	[super dealloc];
 //iTM2_END;
@@ -2717,7 +2755,7 @@ To Do List:
 //iTM2_START;
 	if([[self superclass] instancesRespondToSelector:_cmd])
 	{
-		[super performSelector:_cmd];
+		[super awakeFromNib];
 	}
 	[self setToolMode:[self contextIntegerForKey:@"iTM2PDFKitToolMode"]];
 //iTM2_END;
@@ -2760,10 +2798,10 @@ To Do List:
 	id oldDocument = [self document];
 	if(document != oldDocument)
 	{
-		[_SyncDestination autorelease];// this destination points to the document
-		_SyncDestination = nil;// it must be updated
-		[_SyncPointValues autorelease];// this destination points to the document
-		_SyncPointValues = nil;// it must be updated
+		[_SyncDestination autorelease];
+		_SyncDestination = nil;
+		[_SyncPointValues autorelease];
+		_SyncPointValues = nil;
 		[_SyncDestinations autorelease];
 		_SyncDestinations = nil;
 		[super setDocument:document];// raise if the document has no pages
@@ -3104,7 +3142,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+iTM2_START;
 	if(area&kiTM2PDFZoomInArea)
 	{
 		[[NSCursor zoomInCursor] set];
@@ -3181,11 +3219,6 @@ To Do List:
 	unsigned int modifierFlags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
 	NSView * documentView = [self documentView];
 	if(NSIsEmptyRect([documentView bounds]) || ([theEvent clickCount] != 1) || (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask) == 0))
-	{
-		return NO;
-	}
-	float timeInterval = [[NSUserDefaults standardUserDefaults] floatForKey:@"com.apple.mouse.doubleClickThreshold"];
-	if(theEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:NO])
 	{
 		return NO;
 	}
@@ -3302,6 +3335,7 @@ next:
 	{
 		[NSEvent stopPeriodicEvents];/* No longer need to refresh */
 		[[rootView superview] replaceSubview:rootView with:self];
+		[[self window] makeFirstResponder:self];
 		[[self superview] setNeedsDisplay:YES];
 		[[self window] discardCursorRects];
 //iTM2_END;
@@ -4947,10 +4981,45 @@ To Do List:
 //iTM2_START;
     if([theEvent clickCount] > 0)
 	{
-		if([theEvent modifierFlags] & NSCommandKeyMask)
+		unsigned int modifierFlags = [theEvent modifierFlags];
+		if(modifierFlags & NSCommandKeyMask)
 		{
-			// wait for a second click?
-			if(![self trackZoomIn:theEvent])
+			if(modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask))
+			{
+				float timeInterval = [[NSUserDefaults standardUserDefaults] floatForKey:@"com.apple.mouse.doubleClickThreshold"];
+				NSEvent * otherEvent;
+				if(otherEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:NO])
+				{
+					int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey]>0?: 1.259921049895);
+					if(n>0)
+					{
+						float zoom = (modifierFlags & NSShiftKeyMask)?n/100.0:100.0/n;
+						NSView * docView = [self documentView];
+						NSPoint oldHit = [theEvent locationInWindow];
+						oldHit = [docView convertPoint:oldHit fromView:nil];
+						NSRect oldBounds = [docView bounds];
+						NSRect oldVisible = [docView visibleRect];
+						[self setScaleFactor:zoom*[self scaleFactor]];
+						NSRect newBounds = [docView bounds];
+						NSRect newVisible = [docView visibleRect];
+						NSPoint newHit;
+						newHit.x = NSMidX(newBounds)+(oldHit.x-NSMidX(oldBounds))*newBounds.size.width/oldBounds.size.width;
+						newHit.y = NSMidY(newBounds)+(oldHit.y-NSMidY(oldBounds))*newBounds.size.height/oldBounds.size.height;
+						NSPoint expectedHit;
+						expectedHit.x = NSMidX(newVisible)+(oldHit.x-NSMidX(oldVisible))*newVisible.size.width/oldVisible.size.width;
+						expectedHit.y = NSMidY(newVisible)+(oldHit.y-NSMidY(oldVisible))*newVisible.size.height/oldVisible.size.height;
+						newVisible.origin.x-=expectedHit.x-newHit.x;
+						newVisible.origin.y-=expectedHit.y-newHit.y;
+						[docView scrollRectToVisible:newVisible];
+						[self validateWindowContent];
+					}
+				}
+				else if(![self trackZoomIn:theEvent])
+				{
+					[super mouseDown:theEvent];
+				}
+			}
+			else
 			{
 				[self pdfSynchronizeMouseDown:theEvent];
 			}
@@ -5238,7 +5307,7 @@ To Do List:
 		_tracking = NO;
 		// _subview tracks the selection rect
 		[_subview removeFromSuperviewWithoutNeedingDisplay];
-		_subview = [[[NSView allocWithZone:[self zone]] initWithFrame:frameRect] autorelease];
+		_subview = [[[NSView allocWithZone:[self zone]] initWithFrame:NSMakeRect(1234567,1234567,1234567,1234567)] autorelease];// faraway rect
 		[_subview setAutoresizingMask:NSViewMinXMargin|NSViewWidthSizable|NSViewMaxXMargin|NSViewMinYMargin|NSViewHeightSizable|NSViewMaxYMargin];
 		[self addSubview:_subview];
 		[_subview setHidden:YES];
@@ -6274,8 +6343,9 @@ mainLoop:
 	}
 	goto mainLoop;
 }
-- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area
+- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area;
 {
+iTM2_START;
 	if([self isHiddenOrHasHiddenAncestor])
 	{
 		return;
@@ -6836,7 +6906,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor"]>0?: 1.259921049895);
+    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
 		[[self pdfView] setScaleFactor:n / 100.0 * [[self pdfView] scaleFactor]];
@@ -6854,7 +6924,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor"]>0?: 1.259921049895);
+    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
 		[[self pdfView] setScaleFactor:100 * [[self pdfView] scaleFactor] / n];
