@@ -1257,6 +1257,10 @@ To Do List:
 				}
 			}
 		}
+		if([inspectorMode hasPrefix:@"."])
+		{
+			goto here;
+		}
 		NSString * inspectorVariant = [D objectForKey:@"variant"];
 		NSString * inspectorType = nil;
 		if(![inspectorVariant hasPrefix:@"."])
@@ -2892,7 +2896,7 @@ To Do List:
 //iTM2_START;
     return [NSString stringWithFormat:@"%@.%@.%@", [isa inspectorType], [isa inspectorMode], [self inspectorVariant]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWindowBelowFront
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWindowBelowFront:
 - (void)showWindowBelowFront:(id)sender;
 /*"Description Forthcoming.
 Version History: Originally created by RK, huge corrections by JL.
