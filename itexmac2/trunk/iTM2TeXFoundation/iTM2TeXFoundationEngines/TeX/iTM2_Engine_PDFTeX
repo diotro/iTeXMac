@@ -301,6 +301,11 @@ else
 	OUTPUT="${TWSMasterBase%.*}"
 fi
 pushd "${iTM2_PWD}"
+iTM2_DOT_PDFSYNC="${TWSMasterBase%.*}.pdfsync"
+if [ -f "${iTM2_DOT_PDFSYNC}" ]
+then
+	rm -f "${iTM2_DOT_PDFSYNC}"
+fi
 "${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
 "${iTM2_PDFTeX_EnginePath}" ${iTM2_PDFTeX_Arguments} "${TWSMasterBase}"
 iTM2_Status="$?"
