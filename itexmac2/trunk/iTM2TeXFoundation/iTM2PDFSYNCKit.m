@@ -1479,15 +1479,37 @@ To Do List:
 //iTM2_START;
 	// the filename is not really the final filename...
 	NSString * FN = [self fileName];
-	NSString * pdfsyncPath = [[[FN stringByDeletingPathExtension]
-								stringByAppendingPathExtension: iTM2PDFSYNCExtension]
-										stringByResolvingSymlinksAndFinderAliasesInPath];
+	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
+	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension: iTM2PDFSYNCExtension];
+	pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
 	if([DFM fileExistsAtPath:pdfsyncPath])
 	{
 		NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
 		if(pdfDate && ![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
 		{
 			iTM2_LOG(@"ERROR: Unexpected problem: could not change the file modification date...");
+		}
+	}
+	else
+	{
+		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
+		NSString * dirName = [PD fileName];
+		if([dirName belongsToFarawayProjectsDirectory])
+		{
+			NSString * K = [PD keyForFileName:FN];
+			NSString * relativeName = [PD relativeFileNameForKey:K];
+			pdfsyncPath = [relativeName stringByDeletingPathExtension];
+			pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
+			pdfsyncPath = [dirName stringByAppendingPathComponent:pdfsyncPath];
+			pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
+			if([DFM fileExistsAtPath:pdfsyncPath])
+			{
+				NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
+				if(pdfDate && ![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
+				{
+					iTM2_LOG(@"ERROR: Unexpected problem: could not change the file modification date...");
+				}
+			}
 		}
 	}
 //iTM2_END;
@@ -1521,9 +1543,32 @@ To Do List:
 	return;
     laSuite:;
 	NSString * FN = [self fileName];
-	NSString * pdfsyncPath = [[[FN stringByDeletingPathExtension]
-									stringByAppendingPathExtension: iTM2PDFSYNCExtension]
-											stringByResolvingSymlinksAndFinderAliasesInPath];
+	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
+	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension: iTM2PDFSYNCExtension];
+	pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
+	if(![DFM fileExistsAtPath:pdfsyncPath isDirectory:nil])
+	{
+		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
+		NSString * dirName = [PD fileName];
+		if([dirName belongsToFarawayProjectsDirectory])
+		{
+			dirName = [dirName stringByDeletingLastPathComponent];
+			NSString * K = [PD keyForFileName:FN];
+			NSString * relativeName = [PD relativeFileNameForKey:K];
+			pdfsyncPath = [relativeName stringByDeletingPathExtension];
+			pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
+			pdfsyncPath = [dirName stringByAppendingPathComponent:pdfsyncPath];
+			pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
+			if(![DFM fileExistsAtPath:pdfsyncPath])
+			{
+				return;
+			}
+		}
+		else
+		{
+			return;
+		}
+	}
 	NSDate * pdfsyncDate = [[DFM fileAttributesAtPath:pdfsyncPath traverseLink:NO] fileModificationDate];
 	if(!pdfsyncDate)
 	{
@@ -1597,6 +1642,7 @@ To Do List:
 //iTM2_START;
 	NSEnumerator * E = [[NSApp windows] objectEnumerator];
 	NSWindow * W;
+	id WC;
 	NSDictionary * destinations = nil;
 	while(W = [E nextObject])
 		if(([[W windowController] document] == self) && [W isVisible])
@@ -1613,7 +1659,7 @@ laSuite:
 	E = [[NSApp windows] objectEnumerator];
 	while(W = [E nextObject])
 	{
-		iTM2ExternalInspector * WC = [W windowController];
+		WC = [W windowController];
 		if(([WC document] == self) && force && [WC isKindOfClass:[iTM2ExternalInspector class]])
 		{
 			result = result || [WC switchToExternalHelperWithEnvironment: [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1630,7 +1676,7 @@ laSuite:
 		E = [[NSApp windows] objectEnumerator];
 		while(W = [E nextObject])
 		{
-			iTM2PDFInspector * WC = [W windowController];
+			WC = [W windowController];
 //iTM2_LOG(@"[WC document]: %@, [WC class]: %@", [WC document], [WC class]);
 			if(([WC document] == self)
 				&& [WC respondsToSelector:@selector(canSynchronizeOutput)]
@@ -1660,7 +1706,7 @@ laSuite:
 	}
 	else if(l != NSNotFound)
 	{
-		BOOL result = NO;
+		result = NO;
 		E = [[NSApp windows] objectEnumerator];
 		while(W = [E nextObject])
 		{
@@ -1684,7 +1730,7 @@ laSuite:
 				}
 			}
 		}
-		if([self synchronizer])
+		if(!result && [self synchronizer])
 		{
 			NSInvocation * _Invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:_cmd]];
 			[_Invocation retainArguments];
@@ -2036,7 +2082,8 @@ To Do List:
 				|NSCommandKeyMask
 				|NSNumericPadKeyMask
 				|NSHelpKeyMask
-				|NSFunctionKeyMask);
+				|NSFunctionKeyMask
+				|NSDeviceIndependentModifierFlagsMask);
 		if((modifierFlags == NSCommandKeyMask) || !modifierFlags)
 		{
 			[self pdfSynchronizeMouseDown:theEvent];
