@@ -3955,6 +3955,7 @@ To Do List:
 @end
 
 NSString * const iTM2PDTableViewPathIdentifier = @"path";
+NSString * const iTM2PDTableViewTypeIdentifier = @"type";
 
 @implementation iTM2SubdocumentsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
@@ -4169,6 +4170,11 @@ To Do List:
 			return [projectDocument relativeFileNameForKey:key];
 		}
         NSString * absoluteName = [projectDocument absoluteFileNameForKey:key];
+		if([[tableColumn identifier] isEqualToString:iTM2PDTableViewTypeIdentifier])
+		{
+			NSURL * inAbsoluteURL = [NSURL fileURLWithPath:absoluteName];
+			return [SDC typeForContentsOfURL:inAbsoluteURL error:nil];
+		}
 		if([DFM fileExistsAtPath:absoluteName isDirectory:nil])
 		{
 			return [SWS iconForFile:absoluteName];
