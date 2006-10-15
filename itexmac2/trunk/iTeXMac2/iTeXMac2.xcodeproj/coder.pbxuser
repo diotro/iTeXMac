@@ -155,8 +155,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 182302856;
-			PBXWorkspaceStateSaveDate = 182302856;
+			PBXPerProjectTemplateStateSaveDate = 182624995;
+			PBXWorkspaceStateSaveDate = 182624995;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -374,9 +374,9 @@
 	};
 	DC5D13880855B6DE003786EF /* English */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1054, 568}}";
+			sepNavIntBoundsRect = "{{0, 0}, {908, 212}}";
 			sepNavSelRange = "{311, 0}";
-			sepNavVisRect = "{{0, 0}, {1054, 568}}";
+			sepNavVisRect = "{{0, 0}, {618, 212}}";
 			sepNavWindowFrame = "{{101, 38}, {1093, 697}}";
 		};
 	};
@@ -434,9 +434,9 @@
 	};
 	DCAF9B1E09D8137900AFD95F /* French */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1103, 2983}}";
+			sepNavIntBoundsRect = "{{0, 0}, {908, 2669}}";
 			sepNavSelRange = "{5504, 0}";
-			sepNavVisRect = "{{0, 2280}, {1103, 703}}";
+			sepNavVisRect = "{{0, 633}, {618, 401}}";
 			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
 		};
 	};
@@ -485,6 +485,20 @@
 	};
 	DCFD96CE0858F4490034D83E /* TeX CM PlugIn */ = {
 		activeExec = 0;
+	};
+	DCFFA6C80855B7C900607AAA /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {756, 401}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {618, 401}}";
+		};
+	};
+	DCFFA6CC0855B7C900607AAA /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {908, 401}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {618, 401}}";
+		};
 	};
 	DCFFA6CD0855B7C900607AAA /* iTeXMac2CMPlugIn.m */ = {
 		uiCtxt = {
