@@ -8074,8 +8074,10 @@ To Do List:
 	{
 		NSString * path = [absoluteURL path];
 		NSString * enclosing = [path enclosingProjectFileName];
-		if([enclosing length])
+		if([enclosing length] && ![path pathIsEqual:enclosing])
 		{
+			absoluteURL = [NSURL fileURLWithPath:enclosing];// we replace the file by its enclosing project
+			[super noteNewRecentDocumentURL:absoluteURL];
 			return;
 		}
 		if([SWS isWrapperPackageAtPath:path] && [path belongsToFarawayProjectsDirectory])
