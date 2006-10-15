@@ -42,8 +42,6 @@ NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
 @interface iTM2PDFKitInspector(PRIVATE)
 - (iTM2ToolMode)toolMode;
 - (void)setToolMode:(iTM2ToolMode)argument;
-- (NSPoint)documentViewVisibleRectCenter;
-- (void)setDocumentViewVisibleRectCenter:(NSPoint)argument;
 - (NSRect)documentViewVisibleRect;
 - (void)setDocumentViewVisibleRect:(NSRect)argument;
 - (unsigned int)documentViewVisiblePageNumber;
@@ -67,6 +65,7 @@ NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
 - (BOOL)displaysPageBreaks;
 - (void)setDisplaysPageBreaks:(BOOL)argument;
 - (NSMutableArray *)PDFSearchResults;
+- (NSMutableArray *)PDFOutlineStack;
 - (void)updatePDFOutlineInformation;
 - (NSMutableArray *)PDFThumbnails;
 - (iTM2TreeNode *)PDFOutlines;
@@ -187,6 +186,7 @@ To Do List:
     if(![PDFDoc isEqual:metaGETTER])
     {
         metaSETTER(PDFDoc);
+		[self replaceSynchronizer:nil];
         [INC postNotificationName:iTM2PDFKitDocumentDidChangeNotification object:self userInfo:nil];
     }
     return;
@@ -610,30 +610,28 @@ To Do List:
 		[self setPDFOutlines:nil];
 		[[self PDFThumbnails] setArray:[NSArray array]];
 		[[self PDFSearchResults] setArray:[NSArray array]];
-		PDFDocument * doc = [[self pdfView] document];
-		PDFView * myPDFView = [self pdfView];
+		PDFView * pdfView = [self pdfView];
+		PDFDocument * doc = [pdfView document];
 		if(doc)
 		{
 			// store the geometry:
-			[self setScaleFactor:[myPDFView scaleFactor]];
-			PDFPage * page = [myPDFView currentPage];
+			[self setScaleFactor:[pdfView scaleFactor]];
+			PDFPage * page = [pdfView currentPage];
 			[self setDocumentViewVisiblePageNumber:[doc indexForPage:page]];
 			[doc setDelegate:nil];
-			NSRect visibleRect = [[myPDFView documentView] visibleRect];
+			NSView * documentView = [pdfView documentView];
+			NSRect visibleRect = [documentView visibleRect];
+			visibleRect = [documentView absoluteRectWithRect:visibleRect];
 			[self setDocumentViewVisibleRect:visibleRect];
-			NSPoint center = NSMakePoint(NSMidX(visibleRect),NSMidY(visibleRect));
-			[self setDocumentViewVisibleRectCenter:center];
 		}
 		[doc setDelegate:nil];
 		doc = [document PDFDocument];
-		[myPDFView setDocument:doc];
+		[pdfView setDocument:doc];
 //		[[self pdfView] setNeedsDisplay:YES];
 //iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
 		[doc setDelegate:self];
 		if([_drawer state] == NSDrawerOpenState)
-		{
 			[self updateTabView];
-		}
 		[self contextDidChange];
 	}
 //iTM2_END;
@@ -672,12 +670,6 @@ To Do List:
 //iTM2_START;
 	NSAssert(_pdfTabView, @"Missing _pdfTabView connection...");
 	NSAssert(_tabViewControl, @"Missing _tabViewControl connection...");
-	[_tabViewControl setSegmentCount:2];
-	[_tabViewControl setImage:[NSImage imageThumbnailViewAdorn] forSegment:0];
-	[_tabViewControl setImage:[NSImage imageTOCViewAdorn] forSegment:1];
-	[_tabViewControl setAction:@selector(_tabViewControlAction:)];
-	[_tabViewControl setTarget:self];
-	[[_tabViewControl cell] setTrackingMode:NSSegmentSwitchTrackingSelectOne];
 	[DNC addObserver:self selector:@selector(PDFViewPageChangedNotified:)  name:PDFViewPageChangedNotification  object:[self pdfView]];
 	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:[self pdfView]];
 	PDFDocument * doc = [[self document] PDFDocument];
@@ -708,7 +700,7 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewWillChangeScaleFactor:r toScale:
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewWillChangeScaleFactor:toScale:
 - (float)PDFViewWillChangeScaleFactor:(PDFView *)sender toScale:(float)scale;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1008,6 +1000,24 @@ loop:
 	return;
 }
 #pragma mark =-=-=-=-=-  SEARCHING
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFOutlineStack
+- (NSMutableArray *)PDFOutlineStack;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = metaGETTER;
+	if(!result)
+	{
+		metaSETTER([NSMutableArray arrayWithCapacity:30]);
+		result = metaGETTER;
+	}
+//iTM2_END;
+    return result;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSearchResults
 - (NSMutableArray *)PDFSearchResults;
 /*"Description Forthcoming.
@@ -1042,6 +1052,7 @@ To Do List:
 	PDFDocument * doc = [[self pdfView] document];
     if ([doc isFinding])
 		[doc cancelFindString];
+	[[self PDFOutlineStack] setArray:[NSArray array]];
 	[[self PDFSearchResults] setArray:[NSArray array]];
 	[[self implementation] takeMetaValue:[NSDate dateWithTimeIntervalSinceNow: 0.0] forKey:@"_searchTime"];
     [_searchTable reloadData];
@@ -1079,7 +1090,15 @@ To Do List:
 	if(outline)
 	{
 		label = [outline label];// cache?
-		[[self PDFSearchResults] addObject:[[label copy] autorelease]];
+		if([label isEqual:[[self PDFOutlineStack] lastObject]])
+		{
+			[[self PDFSearchResults] addObject:[self getContextualStringFromSelection:selection]];
+		}
+		else
+		{
+			[[self PDFOutlineStack] addObject:[[label copy] autorelease]];
+			[[self PDFSearchResults] addObject:[[self PDFOutlineStack] lastObject]];
+		}
 	}
 	else
 	{
@@ -1129,6 +1148,7 @@ To Do List:
 	// Force a reload.
 	[_searchProgress stopAnimation:self];
 	[[self implementation] takeMetaValue:nil forKey:@"_searchTime"];
+	[[self PDFOutlineStack] setArray:[NSArray array]];
 	[_searchTable reloadData];
 	return;
 }
@@ -1623,10 +1643,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"[self contextDictionary] is: %@", [self contextDictionary]);
-	NSRect visibleRect = [[[self pdfView] documentView] visibleRect];
+	NSView * documentView = [[self pdfView] documentView];
+	NSRect visibleRect = [documentView visibleRect];
+	visibleRect = [documentView absoluteRectWithRect:visibleRect];
 	[self setDocumentViewVisibleRect:visibleRect];
-	NSPoint center = NSMakePoint(NSMidX(visibleRect),NSMidY(visibleRect));
-	[self setDocumentViewVisibleRectCenter:center];
 //iTM2_START;
 	return;
 }
@@ -1666,16 +1686,13 @@ To Do List:
 		if(pageIndex < [doc pageCount])
 		{
 			[V goToPage:[doc pageAtIndex:pageIndex]];
-			NSRect visibleRect = [docView visibleRect];
-			NSPoint center = [self documentViewVisibleRectCenter];
-NSLog(NSStringFromPoint(center));
-			visibleRect.origin.x -= NSMidX(visibleRect) - center.x;
-			visibleRect.origin.y -= NSMidY(visibleRect) - center.y;
-			//[docView scrollRectToVisible:visibleRect];
-NSLog(NSStringFromRect(visibleRect));
-			visibleRect = [self documentViewVisibleRect];
-NSLog(NSStringFromRect(visibleRect));
+			[[self window] disableFlushWindow];
+			NSRect visibleRect = [self documentViewVisibleRect];
+			visibleRect = [docView rectWithAbsoluteRect:visibleRect];
 			[docView scrollRectToVisible:visibleRect];
+			[V display];
+			[[self window] enableFlushWindow];
+			[NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timedSynchronizeDocumentView:) userInfo:[NSValue valueWithRect:visibleRect] repeats:NO];
 		}
 	}
 	else
@@ -1685,15 +1702,21 @@ NSLog(NSStringFromRect(visibleRect));
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentViewVisibleRectCenter
-- (NSPoint)documentViewVisibleRectCenter;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedSynchronizeDocumentView:
+- (void)timedSynchronizeDocumentView:(NSTimer *)timer;
 {
-	return NSPointFromString(GETTER);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDocumentViewVisibleRectCenter:
-- (void)setDocumentViewVisibleRectCenter:(NSPoint)argument;
-{
-	SETTER(NSStringFromPoint(argument));
+//iTM2_START;
+	NSValue * value = [timer userInfo];
+	if(!value)
+	{
+		return;
+	}
+	PDFView * V = [self pdfView];
+	[[self window] disableFlushWindow];
+	[[V documentView] scrollRectToVisible:[value rectValue]];
+	[V display];
+	[[self window] enableFlushWindow];
+//iTM2_END;
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentViewVisibleRect
@@ -2659,7 +2682,7 @@ To Do List:
 @end
 
 @implementation iTM2PDFKitView
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2738,7 +2761,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[DNC removeObserver:self];
 	[self deallocImplementation];
 	[super dealloc];
 //iTM2_END;
@@ -2805,6 +2827,21 @@ To Do List:
 		[_SyncDestinations autorelease];
 		_SyncDestinations = nil;
 		[super setDocument:document];// raise if the document has no pages
+#if 0
+#warning Trick to workaround a bug: the PDFView document view is not properly set up
+iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
+		NSRect frame = [self frame];
+		NSRect smallerFrame = NSInsetRect(frame,5,5);
+		[self setFrame:smallerFrame];
+iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
+		[self setFrame:frame];
+iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
+		NSWindow * W = [self window];
+		frame = [W frame];
+		smallerFrame = NSInsetRect(frame,-1,-1);
+		[W setFrame:smallerFrame display:NO animate:NO];
+		[W setFrame:frame display:YES animate:NO];
+#endif
 	}
 //iTM2_END;
     return;
@@ -2843,6 +2880,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSValue * V;
+	NSEnumerator * E;
+	NSMutableDictionary * SLs;
+	iTM2SynchronizationLocationRecord locationRecord;
+	unsigned int displayBulletsMode;
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
 	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync"]];
 	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
@@ -2861,9 +2903,8 @@ To Do List:
 		unsigned int pageIndex = [[page document] indexForPage:page];
         if([SUD boolForKey:iTM2PDFSyncShowRecordNumberKey])
 		{
-			NSMutableDictionary * SLs = (NSMutableDictionary*)[syncer synchronizationLocationsForPageIndex:pageIndex];
-            NSEnumerator * E = [SLs keyEnumerator];
-            iTM2SynchronizationLocationRecord locationRecord;
+			SLs = (NSMutableDictionary*)[syncer synchronizationLocationsForPageIndex:pageIndex];
+            E = [SLs keyEnumerator];
             NSDictionary * D = [NSDictionary dictionaryWithObjectsAndKeys:
                 [NSFont systemFontOfSize:8], NSFontAttributeName,
                 [NSColor purpleColor], NSForegroundColorAttributeName, nil];
@@ -2881,7 +2922,7 @@ To Do List:
 			id K;
             while(K = [E nextObject])
             {
-                NSValue * V = [SLs objectForKey:K];
+                V = [SLs objectForKey:K];
                 [V getValue: &locationRecord];
                 NSPoint P = NSMakePoint(locationRecord.x, locationRecord.y);
 				inRect.origin.x = P.x + origin.x;
@@ -2889,49 +2930,11 @@ To Do List:
 				[starDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.3];
 				[[NSString stringWithFormat:@"%@", K] drawAtPoint:P withAttributes:D];
             }
-			N = [cd objectForKey:@"DisplayBullets"];
-			unsigned int displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
-            if((displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets) && [[_SyncDestination page] isEqual:page])
-            {
-				NSImage * syncDimple = [NSImage imageRedDimple];
-				NSRect fromRect = NSZeroRect;
-				fromRect.size = [syncDimple size];
-				NSRect inRect = [self convertRect:fromRect fromView:nil];
-				inRect = [self convertRect:inRect toPage:page];
-				if(inRect.size.width>[syncDimple size].width)
-				{
-					inRect.size = [syncDimple size];
-				}
-				NSPoint syncPoint = [_SyncDestination point];
-				inRect.origin.x = syncPoint.x - inRect.size.width/2;
-				inRect.origin.y = syncPoint.y - inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
-				inRect.origin.x = NSMinX(bounds)+inRect.size.width/2;
-				inRect.origin.y = syncPoint.y - inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				inRect.origin.x = NSMaxX(bounds)-3*inRect.size.width/2;
-				inRect.origin.y = syncPoint.y - inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				inRect.origin.x = syncPoint.x - inRect.size.width/2;
-				inRect.origin.y = NSMinY(bounds)+inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				inRect.origin.x = syncPoint.x - inRect.size.width/2;
-				inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-            }
         }
         else
         {
-			N = [cd objectForKey:@"DisplayBullets"];
-			unsigned int displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
-			NSMutableDictionary * SLs = (NSMutableDictionary *)[syncer synchronizationLocationsForPageIndex:pageIndex];
-            NSEnumerator * E = [SLs objectEnumerator];
-            iTM2SynchronizationLocationRecord locationRecord;
-            NSValue * V;
-//				[starDimple setScalesWhenResized:YES];
+			NSShadow * theShadow = [[[NSShadow alloc] init] autorelease]; 
 			NSRect fromRect = NSZeroRect;
-			NSShadow* theShadow = [[[NSShadow alloc] init] autorelease]; 
 			fromRect.size = [starDimple size];
 //				fromRect = [self convertRect:fromRect fromView:nil];
 			NSRect inRect = [self convertRect:fromRect toPage:page];
@@ -2957,6 +2960,11 @@ To Do List:
 			[theShadow setShadowBlurRadius:inRect.size.height*0.15]; 
 			[NSGraphicsContext saveGraphicsState]; 
 			[theShadow set];
+			N = [cd objectForKey:@"DisplayBullets"];
+			displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
+			SLs = (NSMutableDictionary *)[syncer synchronizationLocationsForPageIndex:pageIndex];
+            E = [SLs objectEnumerator];
+//				[starDimple setScalesWhenResized:YES];
 			while(V = [E nextObject])
 			{
 				[V getValue: &locationRecord];
@@ -3010,7 +3018,6 @@ To Do List:
 					matchDimple = temp;
 				}
 				NSEnumerator * E = [_SyncPointValues objectEnumerator];
-				NSValue * V;
 				while(V = [E nextObject])
 				{
 					syncPoint = [V pointValue];
@@ -3047,66 +3054,134 @@ To Do List:
 				inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
 				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
             }
-            if(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
-            {
-				NSImage * syncDimple = [NSImage imageRedDimple];
-//				[starDimple setScalesWhenResized:YES];
-				NSRect fromRect = NSZeroRect;
-				fromRect.size = [syncDimple size];
-//				fromRect = [self convertRect:fromRect fromView:nil];
-				NSRect inRect = [self convertRect:fromRect toPage:page];
-				if(inRect.size.width>[syncDimple size].width)
-				{
-					inRect.size = [syncDimple size];
-				}
-#if 0
-				if(inRect.size.width > 1.2*inRect.size.height)
-				{
-					inRect.size.width = inRect.size.height;
-				}
-#endif
-				inRect.size.width  *= 0.25;
-				inRect.size.height *= 0.25;
-				inRect = NSIntegralRect(inRect);
-				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
-				inRect.size.height = inRect.size.width;
-				NSPoint origin;
-				origin.x = - inRect.size.width/2;
-				origin.y = - inRect.size.height/2;
-				NSEnumerator * E = [_SyncDestinations objectEnumerator];
-				PDFDestination * destination;
-				while(destination = [E nextObject])
-				{
-					if([[destination page] isEqual:page])
-					{
-//iTM2_LOG(@"----     destination on that page: %@", destination);
-						NSPoint syncPoint = [destination point];
-						inRect.origin.x = syncPoint.x + origin.x;
-						inRect.origin.y = syncPoint.y + origin.y;
-						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-						NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
-						inRect.origin.x = NSMinX(bounds)+inRect.size.width/2;
-						inRect.origin.y = syncPoint.y - inRect.size.height/2;
-						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-						inRect.origin.x = NSMaxX(bounds)-3*inRect.size.width/2;
-						inRect.origin.y = syncPoint.y - inRect.size.height/2;
-						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-						inRect.origin.x = syncPoint.x - inRect.size.width/2;
-						inRect.origin.y = NSMinY(bounds)+inRect.size.height/2;
-						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-						inRect.origin.x = syncPoint.x - inRect.size.width/2;
-						inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
-						[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-					}
-					else
-					{
-//iTM2_LOG(@"----     destination NOT on that page: %@", destination);
-					}
-				}
-            }
 			[NSGraphicsContext restoreGraphicsState];
 		}
     }
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusCompleteDrawPage:
+- (void)focusCompleteDrawPage:(PDFPage *)page;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(!_SyncDestination)
+	{
+		if([_SyncDestinations count])
+		{
+			_SyncDestination = [[_SyncDestinations lastObject] retain];
+		}
+		else
+		{
+			return;
+		}
+	}
+	unsigned int displayBulletsMode;
+	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
+	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync"]];
+	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
+    if([N respondsToSelector:@selector(boolValue)]? [N boolValue]: NO)
+    {
+		N = [cd objectForKey:@"DisplayBullets"];
+		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
+		if(!(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets))
+		{
+			return;
+		}
+		if(![[_SyncDestination page] isEqual:page])
+		{
+			return;
+		}
+		NSShadow * theShadow = [[[NSShadow alloc] init] autorelease]; 
+		NSRect fromRect = NSZeroRect;
+		NSImage * syncDimple = [NSImage imageRedDimple];
+		fromRect.size = [syncDimple size];
+//				fromRect = [self convertRect:fromRect fromView:nil];
+		NSRect inRect = [self convertRect:fromRect toPage:page];
+		if(inRect.size.width>[syncDimple size].width)
+		{
+			inRect.size = [syncDimple size];
+			// Use a partially transparent color for shapes that overlap.
+			[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.4]];
+		}
+		else
+		{
+			// Use a partially transparent color for shapes that overlap.
+			[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.5*inRect.size.width/[syncDimple size].width]];
+		}
+		inRect.size.width  /= 3;
+		inRect.size.height /= 3;
+		inRect = NSIntegralRect(inRect);
+		inRect.size.width = MAX(inRect.size.width,inRect.size.height);
+		inRect.size.height = inRect.size.width;
+		[theShadow setShadowOffset:NSMakeSize(0,-inRect.size.height*0.25)]; 
+		[theShadow setShadowBlurRadius:inRect.size.height*0.15]; 
+		[NSGraphicsContext saveGraphicsState]; 
+		[theShadow set];
+		N = [cd objectForKey:@"DisplayBullets"];
+		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
+		if(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
+		{
+//				[syncDimple setScalesWhenResized:YES];
+			NSRect fromRect = NSZeroRect;
+			fromRect.size = [syncDimple size];
+//				fromRect = [self convertRect:fromRect fromView:nil];
+			NSRect inRect = [self convertRect:fromRect toPage:page];
+			if(inRect.size.width>[syncDimple size].width)
+			{
+				inRect.size = [syncDimple size];
+			}
+			inRect.size.width  *= 0.25;
+			inRect.size.height *= 0.25;
+			inRect = NSIntegralRect(inRect);
+			inRect.size.width = MAX(inRect.size.width,inRect.size.height);
+			inRect.size.height = inRect.size.width;
+			NSPoint origin;
+			origin.x = - inRect.size.width/2;
+			origin.y = - inRect.size.height/2;
+			NSEnumerator * E = [_SyncDestinations objectEnumerator];
+			PDFDestination * destination;
+			while(destination = [E nextObject])
+			{
+				if([[destination page] isEqual:page])
+				{
+//iTM2_LOG(@"----     destination on that page: %@", destination);
+					NSPoint syncPoint = [destination point];
+					inRect.origin.x = syncPoint.x + origin.x;
+					inRect.origin.y = syncPoint.y + origin.y;
+					[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+					[[[NSColor redColor] colorWithAlphaComponent:0.2] set];
+					NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
+					NSPoint point1 = NSMakePoint(NSMidX(inRect),NSMidY(inRect));
+					NSPoint point2 = point1;
+					point1.x = NSMinX(bounds);
+					point2.x = NSMaxX(bounds);
+					NSBezierPath * path = [NSBezierPath bezierPath];
+					[path moveToPoint:point1];
+					[path lineToPoint:point2];
+					point1 = NSMakePoint(NSMidX(inRect),NSMidY(inRect));
+					point2 = point1;
+					point1.y = NSMinY(bounds);
+					point2.y = NSMaxY(bounds);
+					[path moveToPoint:point1];
+					[path lineToPoint:point2];
+					float array[2] = {1.5,9.25};
+					[path setLineDash:array count:2 phase:0.0];
+					[path stroke];
+					[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				}
+				else
+				{
+//iTM2_LOG(@"----     destination NOT on that page: %@", destination);
+				}
+			}
+		}
+		[NSGraphicsContext restoreGraphicsState];
+	}
 //iTM2_END;
 	return;
 }
@@ -3142,7 +3217,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	if(area&kiTM2PDFZoomInArea)
 	{
 		[[NSCursor zoomInCursor] set];
@@ -3278,7 +3353,7 @@ next:
 	if(modifierFlags & NSAlternateKeyMask)scale*=2;
 	scaleFactor = scale * [self scaleFactor];
 	if([pdfViewZoomed scaleFactor] != scaleFactor) [pdfViewZoomed setScaleFactor:scaleFactor];
-	size = modifierFlags & NSCommandKeyMask? NSMakeSize(160,90):NSMakeSize(100,75);
+	size = modifierFlags & NSCommandKeyMask? NSMakeSize(176,99):NSMakeSize(100,75);
 	R1 = NSInsetRect(R1,-size.width,-size.height);
 	if(NSMaxX(R1)>NSMaxX(boundsInWindow))
 	{
@@ -3345,7 +3420,7 @@ next:
 	NSSize scrollSize = NSZeroSize;
 	R1 = [documentView bounds];
 	R2 = [documentView visibleRect];
-#define SCROLL_STEP 8
+#define SCROLL_STEP 16
 	if(windowFocus.x<NSMinX(boundsInWindow)+10)
 	{
 		scrollSize.width = MAX(-SCROLL_STEP,NSMinX(R1)-NSMinX(R2));
@@ -3381,6 +3456,7 @@ next:
 	iTM2ToolMode old = [oldContainer intValue];
 	if(old==argument && oldContainer)
 	{
+//iTM2_STOP;
 		return;
 	}
 	[self takeContextInteger:argument forKey:@"iTM2PDFKitToolMode"];
@@ -3402,12 +3478,13 @@ next:
 		}
 	}
 	metaSETTER([NSNumber numberWithInt:argument]);
+//iTM2_STOP;
 	return;
 }
 @end
 
 @implementation iTM2XtdPDFDocument
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionOfWord:options:range:
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
 - (void)dealloc;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -5307,7 +5384,7 @@ To Do List:
 		_tracking = NO;
 		// _subview tracks the selection rect
 		[_subview removeFromSuperviewWithoutNeedingDisplay];
-		_subview = [[[NSView allocWithZone:[self zone]] initWithFrame:NSMakeRect(1234567,1234567,1234567,1234567)] autorelease];// faraway rect
+		_subview = [[[NSView allocWithZone:[self zone]] initWithFrame:NSMakeRect(0,0,1,1)] autorelease];// faraway rect
 		[_subview setAutoresizingMask:NSViewMinXMargin|NSViewWidthSizable|NSViewMaxXMargin|NSViewMinYMargin|NSViewHeightSizable|NSViewMaxYMargin];
 		[self addSubview:_subview];
 		[_subview setHidden:YES];
@@ -6343,9 +6420,8 @@ mainLoop:
 	}
 	goto mainLoop;
 }
-- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area;
+- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area
 {
-iTM2_START;
 	if([self isHiddenOrHasHiddenAncestor])
 	{
 		return;

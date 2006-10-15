@@ -128,7 +128,7 @@ To Do List:
 		result = [manager contextValueForKey:aKey];
 	else
 		result = [SUD contextValueForKey:aKey];
-	if(iTM2DebugEnabled && !result)
+	if(iTM2DebugEnabled>999 && !result)
 	{
 		iTM2_LOG(@"SUD is: %@", SUD);
 	}

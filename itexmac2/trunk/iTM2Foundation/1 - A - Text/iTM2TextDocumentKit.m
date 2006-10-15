@@ -137,24 +137,28 @@ To Do List:
 				return YES;
 			}
 		}
-		if(yorn)
+		[self makeWindowControllers];
+		E = [[self windowControllers] objectEnumerator];
+		while(WC = [E nextObject])
 		{
-			[self makeWindowControllers];
-			E = [[self windowControllers] objectEnumerator];
-			while(WC = [E nextObject])
+			if([WC isKindOfClass:[iTM2ExternalInspector class]])
 			{
-				if([WC isKindOfClass:[iTM2ExternalInspector class]])
-				{
-					[(iTM2ExternalInspector *)WC switchToExternalHelperWithEnvironment: [NSDictionary dictionaryWithObjectsAndKeys:
-						[self fileName], @"file",
-						[NSNumber numberWithInt:line], @"line",
-						[NSNumber numberWithInt:column], @"column", nil]];
-				}
-				else if([WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+				[(iTM2ExternalInspector *)WC switchToExternalHelperWithEnvironment: [NSDictionary dictionaryWithObjectsAndKeys:
+					[self fileName], @"file",
+					[NSNumber numberWithInt:line], @"line",
+					[NSNumber numberWithInt:column], @"column", nil]];
+			}
+			else if([WC respondsToSelector:@selector(highlightAndScrollToVisibleLine:column:length:)])
+			{
+				if(yorn)
 				{
 					[[WC window] makeKeyAndOrderFront:self];
-					[WC highlightAndScrollToVisibleLine:line column:column length:length];
 				}
+				else
+				{
+					[WC showWindowBelowFront:self];
+				}
+				[WC highlightAndScrollToVisibleLine:line column:column length:length];
 			}
 		}
 	//iTM2_END;
