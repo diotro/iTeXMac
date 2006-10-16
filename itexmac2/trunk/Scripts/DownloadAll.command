@@ -1,5 +1,5 @@
 #!/bin/sh
 # DownloadAll
 # XCode 2.2 compliant, version 1
-./DownloadHDCrashReporter
-./DownloadOgreKit
+"$(dirname "$0")/DownloadHDCrashReporter.command"
+"$(dirname "$0")/DownloadOgreKit.command"
