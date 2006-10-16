@@ -1,8 +1,8 @@
 //
-//  iTM2StartupDocument.h
+//  iTM2HelpSupport.h
 //  iTeXMac2
 //
-//  @version Subversion: $Id$ 
+//  @version Subversion: $Id: iTM2StartupDocument.h 31 2006-06-12 20:38:14Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Sep 11 2001.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
@@ -23,10 +23,6 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 //
 
-
-#import <Cocoa/Cocoa.h>
-
-@interface iTM2StartupDocument : NSDocument
-{
-}
+@interface iTM2Application(iTM2HelpSupport)
+- (IBAction)mailForHelp:(id)sender;
 @end

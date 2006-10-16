@@ -52,91 +52,11 @@
 		DC0D4EFE0AD6C6400024D73F /* HDCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0D4EF90AD6C63F0024D73F /* HDCrashReporter.framework */; };
 		DC1C6D10090E1C96000F4FDE /* iTM2NewDocumentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC1C6D0F090E1C96000F4FDE /* iTM2NewDocumentKit.framework */; };
 		DC1C6D12090E1CA5000F4FDE /* iTM2NewDocumentKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC1C6D0F090E1C96000F4FDE /* iTM2NewDocumentKit.framework */; };
-		DC209E410AE2BAB400A125CD /* NewDocuments.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC209E3F0AE2BAB400A125CD /* NewDocuments.resources.tgz */; };
-		DC274126090CDE9500C2D1D2 /* 4HF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740DD090CDE9500C2D1D2 /* 4HF.icns */; };
-		DC274127090CDE9500C2D1D2 /* AUX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740DE090CDE9500C2D1D2 /* AUX.icns */; };
-		DC274128090CDE9500C2D1D2 /* BBL.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740DF090CDE9500C2D1D2 /* BBL.icns */; };
-		DC274129090CDE9500C2D1D2 /* BIB.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E0090CDE9500C2D1D2 /* BIB.icns */; };
-		DC27412A090CDE9500C2D1D2 /* BLG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E1090CDE9500C2D1D2 /* BLG.icns */; };
-		DC27412B090CDE9500C2D1D2 /* BST.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E2090CDE9500C2D1D2 /* BST.icns */; };
-		DC27412C090CDE9500C2D1D2 /* CFG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E3090CDE9500C2D1D2 /* CFG.icns */; };
-		DC27412D090CDE9500C2D1D2 /* CLO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E4090CDE9500C2D1D2 /* CLO.icns */; };
-		DC27412E090CDE9500C2D1D2 /* CLS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E5090CDE9500C2D1D2 /* CLS.icns */; };
-		DC27412F090CDE9500C2D1D2 /* CNF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E6090CDE9500C2D1D2 /* CNF.icns */; };
-		DC274130090CDE9500C2D1D2 /* CPA.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E7090CDE9500C2D1D2 /* CPA.icns */; };
-		DC274131090CDE9500C2D1D2 /* CSF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E8090CDE9500C2D1D2 /* CSF.icns */; };
-		DC274132090CDE9500C2D1D2 /* DAT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740E9090CDE9500C2D1D2 /* DAT.icns */; };
-		DC274133090CDE9500C2D1D2 /* DEF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740EA090CDE9500C2D1D2 /* DEF.icns */; };
-		DC274134090CDE9500C2D1D2 /* DIZ.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740EB090CDE9500C2D1D2 /* DIZ.icns */; };
-		DC274135090CDE9500C2D1D2 /* DTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740EC090CDE9500C2D1D2 /* DTX.icns */; };
-		DC274136090CDE9500C2D1D2 /* ENC.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740ED090CDE9500C2D1D2 /* ENC.icns */; };
-		DC274137090CDE9500C2D1D2 /* ETX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740EE090CDE9500C2D1D2 /* ETX.icns */; };
-		DC274138090CDE9500C2D1D2 /* FD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740EF090CDE9500C2D1D2 /* FD.icns */; };
-		DC274139090CDE9500C2D1D2 /* FMT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F0090CDE9500C2D1D2 /* FMT.icns */; };
-		DC27413A090CDE9500C2D1D2 /* FO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F1090CDE9500C2D1D2 /* FO.icns */; };
-		DC27413B090CDE9500C2D1D2 /* HTF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F2090CDE9500C2D1D2 /* HTF.icns */; };
-		DC27413C090CDE9500C2D1D2 /* IDX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F3090CDE9500C2D1D2 /* IDX.icns */; };
-		DC27413D090CDE9500C2D1D2 /* ILG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F4090CDE9500C2D1D2 /* ILG.icns */; };
-		DC27413E090CDE9500C2D1D2 /* IND.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F5090CDE9500C2D1D2 /* IND.icns */; };
-		DC27413F090CDE9500C2D1D2 /* INI.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F6090CDE9500C2D1D2 /* INI.icns */; };
-		DC274140090CDE9500C2D1D2 /* INL.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F7090CDE9500C2D1D2 /* INL.icns */; };
-		DC274141090CDE9500C2D1D2 /* INS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F8090CDE9500C2D1D2 /* INS.icns */; };
-		DC274142090CDE9500C2D1D2 /* IST.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740F9090CDE9500C2D1D2 /* IST.icns */; };
-		DC274143090CDE9500C2D1D2 /* iTeXMac2.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740FA090CDE9500C2D1D2 /* iTeXMac2.icns */; };
-		DC274144090CDE9500C2D1D2 /* LCO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740FB090CDE9500C2D1D2 /* LCO.icns */; };
-		DC274145090CDE9500C2D1D2 /* LDF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740FC090CDE9500C2D1D2 /* LDF.icns */; };
-		DC274146090CDE9500C2D1D2 /* LH.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740FD090CDE9500C2D1D2 /* LH.icns */; };
-		DC274147090CDE9500C2D1D2 /* LIS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740FE090CDE9500C2D1D2 /* LIS.icns */; };
-		DC274148090CDE9500C2D1D2 /* LOF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC2740FF090CDE9500C2D1D2 /* LOF.icns */; };
-		DC274149090CDE9500C2D1D2 /* LOG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274100090CDE9500C2D1D2 /* LOG.icns */; };
-		DC27414A090CDE9500C2D1D2 /* LOT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274101090CDE9500C2D1D2 /* LOT.icns */; };
-		DC27414B090CDE9500C2D1D2 /* LTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274102090CDE9500C2D1D2 /* LTX.icns */; };
-		DC27414C090CDE9500C2D1D2 /* MAP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274103090CDE9500C2D1D2 /* MAP.icns */; };
-		DC27414D090CDE9500C2D1D2 /* MEM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274104090CDE9500C2D1D2 /* MEM.icns */; };
-		DC27414E090CDE9500C2D1D2 /* MF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274105090CDE9500C2D1D2 /* MF.icns */; };
-		DC27414F090CDE9500C2D1D2 /* MFT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274106090CDE9500C2D1D2 /* MFT.icns */; };
-		DC274150090CDE9500C2D1D2 /* MLD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274107090CDE9500C2D1D2 /* MLD.icns */; };
-		DC274151090CDE9500C2D1D2 /* MP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274108090CDE9500C2D1D2 /* MP.icns */; };
-		DC274152090CDE9500C2D1D2 /* MPS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274109090CDE9500C2D1D2 /* MPS.icns */; };
-		DC274153090CDE9500C2D1D2 /* MPX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27410A090CDE9500C2D1D2 /* MPX.icns */; };
-		DC274154090CDE9500C2D1D2 /* MTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27410B090CDE9500C2D1D2 /* MTX.icns */; };
-		DC274155090CDE9500C2D1D2 /* OCP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27410C090CDE9500C2D1D2 /* OCP.icns */; };
-		DC274156090CDE9500C2D1D2 /* OPT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27410D090CDE9500C2D1D2 /* OPT.icns */; };
-		DC274157090CDE9500C2D1D2 /* ORI.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27410E090CDE9500C2D1D2 /* ORI.icns */; };
-		DC274158090CDE9500C2D1D2 /* OTF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27410F090CDE9500C2D1D2 /* OTF.icns */; };
-		DC274159090CDE9500C2D1D2 /* OTP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274110090CDE9500C2D1D2 /* OTP.icns */; };
-		DC27415A090CDE9500C2D1D2 /* OVF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274111090CDE9500C2D1D2 /* OVF.icns */; };
-		DC27415B090CDE9500C2D1D2 /* OVP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274112090CDE9500C2D1D2 /* OVP.icns */; };
-		DC27415C090CDE9500C2D1D2 /* PFM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274113090CDE9500C2D1D2 /* PFM.icns */; };
-		DC27415D090CDE9500C2D1D2 /* PK.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274114090CDE9500C2D1D2 /* PK.icns */; };
-		DC27415E090CDE9500C2D1D2 /* POOL.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274115090CDE9500C2D1D2 /* POOL.icns */; };
-		DC27415F090CDE9500C2D1D2 /* PRO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274116090CDE9500C2D1D2 /* PRO.icns */; };
-		DC274160090CDE9500C2D1D2 /* PST.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274117090CDE9500C2D1D2 /* PST.icns */; };
-		DC274161090CDE9500C2D1D2 /* RTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274118090CDE9500C2D1D2 /* RTX.icns */; };
-		DC274162090CDE9500C2D1D2 /* SFD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274119090CDE9500C2D1D2 /* SFD.icns */; };
-		DC274163090CDE9500C2D1D2 /* STD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27411A090CDE9500C2D1D2 /* STD.icns */; };
-		DC274164090CDE9500C2D1D2 /* STY.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27411B090CDE9500C2D1D2 /* STY.icns */; };
-		DC274165090CDE9500C2D1D2 /* T2.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27411C090CDE9500C2D1D2 /* T2.icns */; };
-		DC274166090CDE9500C2D1D2 /* TCX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27411D090CDE9500C2D1D2 /* TCX.icns */; };
-		DC274167090CDE9500C2D1D2 /* TEX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27411E090CDE9500C2D1D2 /* TEX.icns */; };
-		DC274168090CDE9500C2D1D2 /* TEXD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC27411F090CDE9500C2D1D2 /* TEXD.icns */; };
-		DC274169090CDE9500C2D1D2 /* TEXP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274120090CDE9500C2D1D2 /* TEXP.icns */; };
-		DC27416A090CDE9500C2D1D2 /* TFM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274121090CDE9500C2D1D2 /* TFM.icns */; };
-		DC27416B090CDE9500C2D1D2 /* TOC.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274122090CDE9500C2D1D2 /* TOC.icns */; };
-		DC27416C090CDE9500C2D1D2 /* TSS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274123090CDE9500C2D1D2 /* TSS.icns */; };
-		DC27416D090CDE9500C2D1D2 /* VF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274124090CDE9500C2D1D2 /* VF.icns */; };
-		DC27416E090CDE9500C2D1D2 /* XPM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC274125090CDE9500C2D1D2 /* XPM.icns */; };
 		DC27432D090CF64400C2D1D2 /* iTM2LaTeXKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC27432C090CF64400C2D1D2 /* iTM2LaTeXKit.framework */; };
 		DC274355090CFED900C2D1D2 /* iTM2LaTeXKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC27432C090CF64400C2D1D2 /* iTM2LaTeXKit.framework */; };
-		DC28D6440855B69A00D4CA66 /* PDF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC28D63F0855B69A00D4CA66 /* PDF.icns */; };
-		DC35E913091AD9B700BF5635 /* iTeXMac2.sdef in Resources */ = {isa = PBXBuildFile; fileRef = DC35E911091AD9B700BF5635 /* iTeXMac2.sdef */; };
-		DC35E914091AD9B700BF5635 /* iTM2.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC35E912091AD9B700BF5635 /* iTM2.icns */; };
 		DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */; };
 		DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */; };
-		DC5D13890855B6DE003786EF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC5D13850855B6DE003786EF /* Credits.rtf */; };
-		DC5D138A0855B6DE003786EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC5D13870855B6DE003786EF /* InfoPlist.strings */; };
 		DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */; };
-		DC72F9EE08E5961100D81CEB /* iTeXMac2 Help in Resources */ = {isa = PBXBuildFile; fileRef = DC72F9EA08E5961100D81CEB /* iTeXMac2 Help */; };
 		DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */; };
 		DC7E483B0AD6D7D000202CF2 /* HDCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */; };
 		DC7E4C1D0AD6D7F300202CF2 /* HDCrashReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC0D4EF90AD6C63F0024D73F /* HDCrashReporter.framework */; };
@@ -146,8 +66,10 @@
 		DC8A6187088D7C580016FAA2 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC8A635E088D917D0016FAA2 /* iTM2Foundation.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */; };
 		DC8A635F088D917D0016FAA2 /* iTM2TeXFoundation.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */; };
-		DC919AF70855B71000095DE8 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC919AF10855B71000095DE8 /* iTeXMac2.nib */; };
-		DC919AF90855B71000095DE8 /* iTM2StartupDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC919AF50855B71000095DE8 /* iTM2StartupDocument.nib */; };
+		DCA37D7E0AE391AD00874F9E /* iTM2HelpSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */; };
+		DCA37D7F0AE391AD00874F9E /* iTM2HelpSupport.h in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */; };
+		DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA60AE3939100874F9E /* AddressBook.framework */; };
+		DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA70AE3939100874F9E /* Message.framework */; };
 		DCB7543808EDA67300A6819D /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCB93A7907D701AF005E5B38 /* iTeXMac2-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */; };
 		DCB93A8607D702A5005E5B38 /* iTM2StartupDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A8407D702A5005E5B38 /* iTM2StartupDocument.m */; };
@@ -249,6 +171,7 @@
 				DC89307008FC2DED007A4673 /* iTM2MetaPostKit.framework in Copy Frameworks */,
 				DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */,
 				DC7E4C1D0AD6D7F300202CF2 /* HDCrashReporter.framework in Copy Frameworks */,
+				DCA37D7F0AE391AD00874F9E /* iTM2HelpSupport.h in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,85 +185,7 @@
 		DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2PDFKit.framework; path = ../build/iTM2PDFKit.framework; sourceTree = SOURCE_ROOT; };
 		DC0D4EF90AD6C63F0024D73F /* HDCrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HDCrashReporter.framework; path = ../build/HDCrashReporter.framework; sourceTree = SOURCE_ROOT; };
 		DC1C6D0F090E1C96000F4FDE /* iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2NewDocumentKit.framework; path = ../build/iTM2NewDocumentKit.framework; sourceTree = SOURCE_ROOT; };
-		DC209E400AE2BAB400A125CD /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
-		DC209E420AE2BABE00A125CD /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
-		DC2740DD090CDE9500C2D1D2 /* 4HF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 4HF.icns; sourceTree = "<group>"; };
-		DC2740DE090CDE9500C2D1D2 /* AUX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AUX.icns; sourceTree = "<group>"; };
-		DC2740DF090CDE9500C2D1D2 /* BBL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BBL.icns; sourceTree = "<group>"; };
-		DC2740E0090CDE9500C2D1D2 /* BIB.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BIB.icns; sourceTree = "<group>"; };
-		DC2740E1090CDE9500C2D1D2 /* BLG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BLG.icns; sourceTree = "<group>"; };
-		DC2740E2090CDE9500C2D1D2 /* BST.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BST.icns; sourceTree = "<group>"; };
-		DC2740E3090CDE9500C2D1D2 /* CFG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CFG.icns; sourceTree = "<group>"; };
-		DC2740E4090CDE9500C2D1D2 /* CLO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CLO.icns; sourceTree = "<group>"; };
-		DC2740E5090CDE9500C2D1D2 /* CLS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CLS.icns; sourceTree = "<group>"; };
-		DC2740E6090CDE9500C2D1D2 /* CNF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CNF.icns; sourceTree = "<group>"; };
-		DC2740E7090CDE9500C2D1D2 /* CPA.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CPA.icns; sourceTree = "<group>"; };
-		DC2740E8090CDE9500C2D1D2 /* CSF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CSF.icns; sourceTree = "<group>"; };
-		DC2740E9090CDE9500C2D1D2 /* DAT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DAT.icns; sourceTree = "<group>"; };
-		DC2740EA090CDE9500C2D1D2 /* DEF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DEF.icns; sourceTree = "<group>"; };
-		DC2740EB090CDE9500C2D1D2 /* DIZ.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DIZ.icns; sourceTree = "<group>"; };
-		DC2740EC090CDE9500C2D1D2 /* DTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DTX.icns; sourceTree = "<group>"; };
-		DC2740ED090CDE9500C2D1D2 /* ENC.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ENC.icns; sourceTree = "<group>"; };
-		DC2740EE090CDE9500C2D1D2 /* ETX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ETX.icns; sourceTree = "<group>"; };
-		DC2740EF090CDE9500C2D1D2 /* FD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = FD.icns; sourceTree = "<group>"; };
-		DC2740F0090CDE9500C2D1D2 /* FMT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = FMT.icns; sourceTree = "<group>"; };
-		DC2740F1090CDE9500C2D1D2 /* FO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = FO.icns; sourceTree = "<group>"; };
-		DC2740F2090CDE9500C2D1D2 /* HTF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HTF.icns; sourceTree = "<group>"; };
-		DC2740F3090CDE9500C2D1D2 /* IDX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IDX.icns; sourceTree = "<group>"; };
-		DC2740F4090CDE9500C2D1D2 /* ILG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ILG.icns; sourceTree = "<group>"; };
-		DC2740F5090CDE9500C2D1D2 /* IND.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IND.icns; sourceTree = "<group>"; };
-		DC2740F6090CDE9500C2D1D2 /* INI.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = INI.icns; sourceTree = "<group>"; };
-		DC2740F7090CDE9500C2D1D2 /* INL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = INL.icns; sourceTree = "<group>"; };
-		DC2740F8090CDE9500C2D1D2 /* INS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = INS.icns; sourceTree = "<group>"; };
-		DC2740F9090CDE9500C2D1D2 /* IST.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IST.icns; sourceTree = "<group>"; };
-		DC2740FA090CDE9500C2D1D2 /* iTeXMac2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iTeXMac2.icns; sourceTree = "<group>"; };
-		DC2740FB090CDE9500C2D1D2 /* LCO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LCO.icns; sourceTree = "<group>"; };
-		DC2740FC090CDE9500C2D1D2 /* LDF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LDF.icns; sourceTree = "<group>"; };
-		DC2740FD090CDE9500C2D1D2 /* LH.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LH.icns; sourceTree = "<group>"; };
-		DC2740FE090CDE9500C2D1D2 /* LIS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LIS.icns; sourceTree = "<group>"; };
-		DC2740FF090CDE9500C2D1D2 /* LOF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LOF.icns; sourceTree = "<group>"; };
-		DC274100090CDE9500C2D1D2 /* LOG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LOG.icns; sourceTree = "<group>"; };
-		DC274101090CDE9500C2D1D2 /* LOT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LOT.icns; sourceTree = "<group>"; };
-		DC274102090CDE9500C2D1D2 /* LTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LTX.icns; sourceTree = "<group>"; };
-		DC274103090CDE9500C2D1D2 /* MAP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MAP.icns; sourceTree = "<group>"; };
-		DC274104090CDE9500C2D1D2 /* MEM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MEM.icns; sourceTree = "<group>"; };
-		DC274105090CDE9500C2D1D2 /* MF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MF.icns; sourceTree = "<group>"; };
-		DC274106090CDE9500C2D1D2 /* MFT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MFT.icns; sourceTree = "<group>"; };
-		DC274107090CDE9500C2D1D2 /* MLD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MLD.icns; sourceTree = "<group>"; };
-		DC274108090CDE9500C2D1D2 /* MP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MP.icns; sourceTree = "<group>"; };
-		DC274109090CDE9500C2D1D2 /* MPS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MPS.icns; sourceTree = "<group>"; };
-		DC27410A090CDE9500C2D1D2 /* MPX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MPX.icns; sourceTree = "<group>"; };
-		DC27410B090CDE9500C2D1D2 /* MTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MTX.icns; sourceTree = "<group>"; };
-		DC27410C090CDE9500C2D1D2 /* OCP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OCP.icns; sourceTree = "<group>"; };
-		DC27410D090CDE9500C2D1D2 /* OPT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OPT.icns; sourceTree = "<group>"; };
-		DC27410E090CDE9500C2D1D2 /* ORI.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ORI.icns; sourceTree = "<group>"; };
-		DC27410F090CDE9500C2D1D2 /* OTF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OTF.icns; sourceTree = "<group>"; };
-		DC274110090CDE9500C2D1D2 /* OTP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OTP.icns; sourceTree = "<group>"; };
-		DC274111090CDE9500C2D1D2 /* OVF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OVF.icns; sourceTree = "<group>"; };
-		DC274112090CDE9500C2D1D2 /* OVP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OVP.icns; sourceTree = "<group>"; };
-		DC274113090CDE9500C2D1D2 /* PFM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PFM.icns; sourceTree = "<group>"; };
-		DC274114090CDE9500C2D1D2 /* PK.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PK.icns; sourceTree = "<group>"; };
-		DC274115090CDE9500C2D1D2 /* POOL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = POOL.icns; sourceTree = "<group>"; };
-		DC274116090CDE9500C2D1D2 /* PRO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PRO.icns; sourceTree = "<group>"; };
-		DC274117090CDE9500C2D1D2 /* PST.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PST.icns; sourceTree = "<group>"; };
-		DC274118090CDE9500C2D1D2 /* RTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RTX.icns; sourceTree = "<group>"; };
-		DC274119090CDE9500C2D1D2 /* SFD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SFD.icns; sourceTree = "<group>"; };
-		DC27411A090CDE9500C2D1D2 /* STD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = STD.icns; sourceTree = "<group>"; };
-		DC27411B090CDE9500C2D1D2 /* STY.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = STY.icns; sourceTree = "<group>"; };
-		DC27411C090CDE9500C2D1D2 /* T2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = T2.icns; sourceTree = "<group>"; };
-		DC27411D090CDE9500C2D1D2 /* TCX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TCX.icns; sourceTree = "<group>"; };
-		DC27411E090CDE9500C2D1D2 /* TEX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TEX.icns; sourceTree = "<group>"; };
-		DC27411F090CDE9500C2D1D2 /* TEXD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TEXD.icns; sourceTree = "<group>"; };
-		DC274120090CDE9500C2D1D2 /* TEXP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TEXP.icns; sourceTree = "<group>"; };
-		DC274121090CDE9500C2D1D2 /* TFM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TFM.icns; sourceTree = "<group>"; };
-		DC274122090CDE9500C2D1D2 /* TOC.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TOC.icns; sourceTree = "<group>"; };
-		DC274123090CDE9500C2D1D2 /* TSS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TSS.icns; sourceTree = "<group>"; };
-		DC274124090CDE9500C2D1D2 /* VF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VF.icns; sourceTree = "<group>"; };
-		DC274125090CDE9500C2D1D2 /* XPM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XPM.icns; sourceTree = "<group>"; };
 		DC27432C090CF64400C2D1D2 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
-		DC28D63F0855B69A00D4CA66 /* PDF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PDF.icns; sourceTree = "<group>"; };
-		DC35E911091AD9B700BF5635 /* iTeXMac2.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = iTeXMac2.sdef; sourceTree = "<group>"; };
-		DC35E912091AD9B700BF5635 /* iTM2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iTM2.icns; sourceTree = "<group>"; };
 		DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2ConTeXtKit.framework; path = ../build/iTM2ConTeXtKit.framework; sourceTree = SOURCE_ROOT; };
@@ -352,15 +197,12 @@
 		DC5B67690A4B625E00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		DC5B676A0A4B625E00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B676B0A4B625E00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5D13860855B6DE003786EF /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
-		DC5D13880855B6DE003786EF /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC6BC59B0948FB3E008F8188 /* Prepare iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2LaTeXKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC5DE0948FCEC008F8188 /* Prepare iTM2MetaPostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2MetaPostKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC5E90948FD59008F8188 /* Prepare iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2NewDocumentKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC5F40948FD8B008F8188 /* Prepare iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2ConTeXtKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2BibTeXSupportKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptKit.framework; path = /System/Library/Frameworks/AppleScriptKit.framework; sourceTree = "<absolute>"; };
-		DC72F9EB08E5961100D81CEB /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = "English.lproj/iTeXMac2 Help"; sourceTree = "<group>"; };
 		DC74C82007D8532800E10C57 /* iTeXMac2-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTeXMac2-Prefix.pch"; sourceTree = "<group>"; };
 		DC74C82107D8532800E10C57 /* iTM2StartupDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupDocument.h; sourceTree = "<group>"; };
 		DC781BAC07F9B8DA00FCD972 /* iTM2WindowsMenuKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2WindowsMenuKit.h; sourceTree = "<group>"; };
@@ -369,13 +211,10 @@
 		DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2MetaPostKit.framework; path = ../build/iTM2MetaPostKit.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
-		DC919AF60855B71000095DE8 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2StartupDocument.nib; sourceTree = "<group>"; };
-		DCAF9B1D09D8137900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = French.lproj/Credits.rtf; sourceTree = "<group>"; };
-		DCAF9B1E09D8137900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCAF9B2109D8137900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
-		DCAF9B2209D8137900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2StartupDocument.nib; sourceTree = "<group>"; };
-		DCAF9B2509D8139600AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = folder; name = French; path = "French.lproj/iTeXMac2 Help"; sourceTree = "<group>"; };
-		DCAF9B4109D8306800AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
+		DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2HelpSupport.m; sourceTree = "<group>"; };
+		DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2HelpSupport.h; sourceTree = "<group>"; };
+		DCA37DA60AE3939100874F9E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
+		DCA37DA70AE3939100874F9E /* Message.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Message.framework; path = /System/Library/Frameworks/Message.framework; sourceTree = "<absolute>"; };
 		DCB7543708EDA67300A6819D /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DCB93A4607D6FFAA005E5B38 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTeXMac2-Info.plist"; sourceTree = "<group>"; };
@@ -408,6 +247,8 @@
 				DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */,
 				DC0D4EFE0AD6C6400024D73F /* HDCrashReporter.framework in Frameworks */,
 				DC7E483B0AD6D7D000202CF2 /* HDCrashReporter.framework in Frameworks */,
+				DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */,
+				DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +269,8 @@
 			children = (
 				DCB93D2F07D70F95005E5B38 /* Carbon.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				DCA37DA60AE3939100874F9E /* AddressBook.framework */,
+				DCA37DA70AE3939100874F9E /* Message.framework */,
 				DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */,
 				DCB7543708EDA67300A6819D /* OgreKit.framework */,
 				DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */,
@@ -488,103 +331,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DC2740DC090CDE6B00C2D1D2 /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-				DC2740DD090CDE9500C2D1D2 /* 4HF.icns */,
-				DC2740DE090CDE9500C2D1D2 /* AUX.icns */,
-				DC2740DF090CDE9500C2D1D2 /* BBL.icns */,
-				DC2740E0090CDE9500C2D1D2 /* BIB.icns */,
-				DC2740E1090CDE9500C2D1D2 /* BLG.icns */,
-				DC2740E2090CDE9500C2D1D2 /* BST.icns */,
-				DC2740E3090CDE9500C2D1D2 /* CFG.icns */,
-				DC2740E4090CDE9500C2D1D2 /* CLO.icns */,
-				DC2740E5090CDE9500C2D1D2 /* CLS.icns */,
-				DC2740E6090CDE9500C2D1D2 /* CNF.icns */,
-				DC2740E7090CDE9500C2D1D2 /* CPA.icns */,
-				DC2740E8090CDE9500C2D1D2 /* CSF.icns */,
-				DC2740E9090CDE9500C2D1D2 /* DAT.icns */,
-				DC2740EA090CDE9500C2D1D2 /* DEF.icns */,
-				DC2740EB090CDE9500C2D1D2 /* DIZ.icns */,
-				DC2740EC090CDE9500C2D1D2 /* DTX.icns */,
-				DC2740ED090CDE9500C2D1D2 /* ENC.icns */,
-				DC2740EE090CDE9500C2D1D2 /* ETX.icns */,
-				DC2740EF090CDE9500C2D1D2 /* FD.icns */,
-				DC2740F0090CDE9500C2D1D2 /* FMT.icns */,
-				DC2740F1090CDE9500C2D1D2 /* FO.icns */,
-				DC2740F2090CDE9500C2D1D2 /* HTF.icns */,
-				DC2740F3090CDE9500C2D1D2 /* IDX.icns */,
-				DC2740F4090CDE9500C2D1D2 /* ILG.icns */,
-				DC2740F5090CDE9500C2D1D2 /* IND.icns */,
-				DC2740F6090CDE9500C2D1D2 /* INI.icns */,
-				DC2740F7090CDE9500C2D1D2 /* INL.icns */,
-				DC2740F8090CDE9500C2D1D2 /* INS.icns */,
-				DC2740F9090CDE9500C2D1D2 /* IST.icns */,
-				DC2740FA090CDE9500C2D1D2 /* iTeXMac2.icns */,
-				DC35E912091AD9B700BF5635 /* iTM2.icns */,
-				DC2740FB090CDE9500C2D1D2 /* LCO.icns */,
-				DC2740FC090CDE9500C2D1D2 /* LDF.icns */,
-				DC2740FD090CDE9500C2D1D2 /* LH.icns */,
-				DC2740FE090CDE9500C2D1D2 /* LIS.icns */,
-				DC2740FF090CDE9500C2D1D2 /* LOF.icns */,
-				DC274100090CDE9500C2D1D2 /* LOG.icns */,
-				DC274101090CDE9500C2D1D2 /* LOT.icns */,
-				DC274102090CDE9500C2D1D2 /* LTX.icns */,
-				DC274103090CDE9500C2D1D2 /* MAP.icns */,
-				DC274104090CDE9500C2D1D2 /* MEM.icns */,
-				DC274105090CDE9500C2D1D2 /* MF.icns */,
-				DC274106090CDE9500C2D1D2 /* MFT.icns */,
-				DC274107090CDE9500C2D1D2 /* MLD.icns */,
-				DC274108090CDE9500C2D1D2 /* MP.icns */,
-				DC274109090CDE9500C2D1D2 /* MPS.icns */,
-				DC27410A090CDE9500C2D1D2 /* MPX.icns */,
-				DC27410B090CDE9500C2D1D2 /* MTX.icns */,
-				DC27410C090CDE9500C2D1D2 /* OCP.icns */,
-				DC27410D090CDE9500C2D1D2 /* OPT.icns */,
-				DC27410E090CDE9500C2D1D2 /* ORI.icns */,
-				DC27410F090CDE9500C2D1D2 /* OTF.icns */,
-				DC274110090CDE9500C2D1D2 /* OTP.icns */,
-				DC274111090CDE9500C2D1D2 /* OVF.icns */,
-				DC274112090CDE9500C2D1D2 /* OVP.icns */,
-				DC274113090CDE9500C2D1D2 /* PFM.icns */,
-				DC274114090CDE9500C2D1D2 /* PK.icns */,
-				DC274115090CDE9500C2D1D2 /* POOL.icns */,
-				DC274116090CDE9500C2D1D2 /* PRO.icns */,
-				DC274117090CDE9500C2D1D2 /* PST.icns */,
-				DC274118090CDE9500C2D1D2 /* RTX.icns */,
-				DC274119090CDE9500C2D1D2 /* SFD.icns */,
-				DC27411A090CDE9500C2D1D2 /* STD.icns */,
-				DC27411B090CDE9500C2D1D2 /* STY.icns */,
-				DC27411C090CDE9500C2D1D2 /* T2.icns */,
-				DC27411D090CDE9500C2D1D2 /* TCX.icns */,
-				DC27411E090CDE9500C2D1D2 /* TEX.icns */,
-				DC27411F090CDE9500C2D1D2 /* TEXD.icns */,
-				DC274120090CDE9500C2D1D2 /* TEXP.icns */,
-				DC274121090CDE9500C2D1D2 /* TFM.icns */,
-				DC274122090CDE9500C2D1D2 /* TOC.icns */,
-				DC274123090CDE9500C2D1D2 /* TSS.icns */,
-				DC274124090CDE9500C2D1D2 /* VF.icns */,
-				DC274125090CDE9500C2D1D2 /* XPM.icns */,
-				DC28D63F0855B69A00D4CA66 /* PDF.icns */,
-			);
-			path = Icons;
-			sourceTree = "<group>";
-		};
-		DC28D63D0855B69A00D4CA66 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				DC209E3F0AE2BAB400A125CD /* NewDocuments.resources.tgz */,
-				DC72F9EA08E5961100D81CEB /* iTeXMac2 Help */,
-				DC5D13850855B6DE003786EF /* Credits.rtf */,
-				DC5D13870855B6DE003786EF /* InfoPlist.strings */,
-				DC919AF10855B71000095DE8 /* iTeXMac2.nib */,
-				DC919AF50855B71000095DE8 /* iTM2StartupDocument.nib */,
-				DC35E911091AD9B700BF5635 /* iTeXMac2.sdef */,
-				DC2740DC090CDE6B00C2D1D2 /* Icons */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		DC3B3DB00A4ADADF00E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -613,7 +359,8 @@
 				DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */,
 				DCCE70A4091B58D200960441 /* iTM2AppleScriptSupport.h */,
 				DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */,
-				DC28D63D0855B69A00D4CA66 /* Resources */,
+				DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */,
+				DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */,
 				DCFFA6C60855B7C900607AAA /* iTeXMac2 CM PlugIn */,
 			);
 			name = iTeXMac2;
@@ -817,88 +564,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC5D138A0855B6DE003786EF /* InfoPlist.strings in Resources */,
-				DC28D6440855B69A00D4CA66 /* PDF.icns in Resources */,
-				DC5D13890855B6DE003786EF /* Credits.rtf in Resources */,
-				DC919AF70855B71000095DE8 /* iTeXMac2.nib in Resources */,
-				DC919AF90855B71000095DE8 /* iTM2StartupDocument.nib in Resources */,
-				DC72F9EE08E5961100D81CEB /* iTeXMac2 Help in Resources */,
-				DC274126090CDE9500C2D1D2 /* 4HF.icns in Resources */,
-				DC274127090CDE9500C2D1D2 /* AUX.icns in Resources */,
-				DC274128090CDE9500C2D1D2 /* BBL.icns in Resources */,
-				DC274129090CDE9500C2D1D2 /* BIB.icns in Resources */,
-				DC27412A090CDE9500C2D1D2 /* BLG.icns in Resources */,
-				DC27412B090CDE9500C2D1D2 /* BST.icns in Resources */,
-				DC27412C090CDE9500C2D1D2 /* CFG.icns in Resources */,
-				DC27412D090CDE9500C2D1D2 /* CLO.icns in Resources */,
-				DC27412E090CDE9500C2D1D2 /* CLS.icns in Resources */,
-				DC27412F090CDE9500C2D1D2 /* CNF.icns in Resources */,
-				DC274130090CDE9500C2D1D2 /* CPA.icns in Resources */,
-				DC274131090CDE9500C2D1D2 /* CSF.icns in Resources */,
-				DC274132090CDE9500C2D1D2 /* DAT.icns in Resources */,
-				DC274133090CDE9500C2D1D2 /* DEF.icns in Resources */,
-				DC274134090CDE9500C2D1D2 /* DIZ.icns in Resources */,
-				DC274135090CDE9500C2D1D2 /* DTX.icns in Resources */,
-				DC274136090CDE9500C2D1D2 /* ENC.icns in Resources */,
-				DC274137090CDE9500C2D1D2 /* ETX.icns in Resources */,
-				DC274138090CDE9500C2D1D2 /* FD.icns in Resources */,
-				DC274139090CDE9500C2D1D2 /* FMT.icns in Resources */,
-				DC27413A090CDE9500C2D1D2 /* FO.icns in Resources */,
-				DC27413B090CDE9500C2D1D2 /* HTF.icns in Resources */,
-				DC27413C090CDE9500C2D1D2 /* IDX.icns in Resources */,
-				DC27413D090CDE9500C2D1D2 /* ILG.icns in Resources */,
-				DC27413E090CDE9500C2D1D2 /* IND.icns in Resources */,
-				DC27413F090CDE9500C2D1D2 /* INI.icns in Resources */,
-				DC274140090CDE9500C2D1D2 /* INL.icns in Resources */,
-				DC274141090CDE9500C2D1D2 /* INS.icns in Resources */,
-				DC274142090CDE9500C2D1D2 /* IST.icns in Resources */,
-				DC274143090CDE9500C2D1D2 /* iTeXMac2.icns in Resources */,
-				DC274144090CDE9500C2D1D2 /* LCO.icns in Resources */,
-				DC274145090CDE9500C2D1D2 /* LDF.icns in Resources */,
-				DC274146090CDE9500C2D1D2 /* LH.icns in Resources */,
-				DC274147090CDE9500C2D1D2 /* LIS.icns in Resources */,
-				DC274148090CDE9500C2D1D2 /* LOF.icns in Resources */,
-				DC274149090CDE9500C2D1D2 /* LOG.icns in Resources */,
-				DC27414A090CDE9500C2D1D2 /* LOT.icns in Resources */,
-				DC27414B090CDE9500C2D1D2 /* LTX.icns in Resources */,
-				DC27414C090CDE9500C2D1D2 /* MAP.icns in Resources */,
-				DC27414D090CDE9500C2D1D2 /* MEM.icns in Resources */,
-				DC27414E090CDE9500C2D1D2 /* MF.icns in Resources */,
-				DC27414F090CDE9500C2D1D2 /* MFT.icns in Resources */,
-				DC274150090CDE9500C2D1D2 /* MLD.icns in Resources */,
-				DC274151090CDE9500C2D1D2 /* MP.icns in Resources */,
-				DC274152090CDE9500C2D1D2 /* MPS.icns in Resources */,
-				DC274153090CDE9500C2D1D2 /* MPX.icns in Resources */,
-				DC274154090CDE9500C2D1D2 /* MTX.icns in Resources */,
-				DC274155090CDE9500C2D1D2 /* OCP.icns in Resources */,
-				DC274156090CDE9500C2D1D2 /* OPT.icns in Resources */,
-				DC274157090CDE9500C2D1D2 /* ORI.icns in Resources */,
-				DC274158090CDE9500C2D1D2 /* OTF.icns in Resources */,
-				DC274159090CDE9500C2D1D2 /* OTP.icns in Resources */,
-				DC27415A090CDE9500C2D1D2 /* OVF.icns in Resources */,
-				DC27415B090CDE9500C2D1D2 /* OVP.icns in Resources */,
-				DC27415C090CDE9500C2D1D2 /* PFM.icns in Resources */,
-				DC27415D090CDE9500C2D1D2 /* PK.icns in Resources */,
-				DC27415E090CDE9500C2D1D2 /* POOL.icns in Resources */,
-				DC27415F090CDE9500C2D1D2 /* PRO.icns in Resources */,
-				DC274160090CDE9500C2D1D2 /* PST.icns in Resources */,
-				DC274161090CDE9500C2D1D2 /* RTX.icns in Resources */,
-				DC274162090CDE9500C2D1D2 /* SFD.icns in Resources */,
-				DC274163090CDE9500C2D1D2 /* STD.icns in Resources */,
-				DC274164090CDE9500C2D1D2 /* STY.icns in Resources */,
-				DC274165090CDE9500C2D1D2 /* T2.icns in Resources */,
-				DC274166090CDE9500C2D1D2 /* TCX.icns in Resources */,
-				DC274167090CDE9500C2D1D2 /* TEX.icns in Resources */,
-				DC274168090CDE9500C2D1D2 /* TEXD.icns in Resources */,
-				DC274169090CDE9500C2D1D2 /* TEXP.icns in Resources */,
-				DC27416A090CDE9500C2D1D2 /* TFM.icns in Resources */,
-				DC27416B090CDE9500C2D1D2 /* TOC.icns in Resources */,
-				DC27416C090CDE9500C2D1D2 /* TSS.icns in Resources */,
-				DC27416D090CDE9500C2D1D2 /* VF.icns in Resources */,
-				DC27416E090CDE9500C2D1D2 /* XPM.icns in Resources */,
-				DC35E913091AD9B700BF5635 /* iTeXMac2.sdef in Resources */,
-				DC35E914091AD9B700BF5635 /* iTM2.icns in Resources */,
-				DC209E410AE2BAB400A125CD /* NewDocuments.resources.tgz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1134,6 +799,7 @@
 				DCB93A8607D702A5005E5B38 /* iTM2StartupDocument.m in Sources */,
 				DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */,
 				DCCE70A7091B58D200960441 /* iTM2AppleScriptSupport.m in Sources */,
+				DCA37D7E0AE391AD00874F9E /* iTM2HelpSupport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,60 +867,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC209E3F0AE2BAB400A125CD /* NewDocuments.resources.tgz */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC209E400AE2BAB400A125CD /* English */,
-				DC209E420AE2BABE00A125CD /* French */,
-			);
-			name = NewDocuments.resources.tgz;
-			sourceTree = "<group>";
-		};
-		DC5D13850855B6DE003786EF /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC5D13860855B6DE003786EF /* English */,
-				DCAF9B1D09D8137900AFD95F /* French */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		DC5D13870855B6DE003786EF /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC5D13880855B6DE003786EF /* English */,
-				DCAF9B1E09D8137900AFD95F /* French */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DC72F9EA08E5961100D81CEB /* iTeXMac2 Help */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC72F9EB08E5961100D81CEB /* English */,
-				DCAF9B2509D8139600AFD95F /* French */,
-			);
-			name = "iTeXMac2 Help";
-			sourceTree = "<group>";
-		};
-		DC919AF10855B71000095DE8 /* iTeXMac2.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9B4109D8306800AFD95F /* English */,
-				DCAF9B2109D8137900AFD95F /* French */,
-			);
-			name = iTeXMac2.nib;
-			sourceTree = "<group>";
-		};
-		DC919AF50855B71000095DE8 /* iTM2StartupDocument.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC919AF60855B71000095DE8 /* English */,
-				DCAF9B2209D8137900AFD95F /* French */,
-			);
-			name = iTM2StartupDocument.nib;
-			sourceTree = "<group>";
-		};
 		DCFFA6C70855B7C900607AAA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

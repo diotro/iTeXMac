@@ -4,8 +4,11 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+    #import <Message/NSMailDelivery.h>
+    #import <AddressBook/AddressBook.h>
     #import <iTM2Foundation/iTeXMac2.h>
     #import <iTM2Foundation/iTM2Foundation.h>
     #import <iTM2TeXFoundation/iTM2TeXFoundation.h>
 	#import <OgreKit/OgreKit.h>
+	#import <HDCrashReporter/crashReporter.h>
 #endif
