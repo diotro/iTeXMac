@@ -455,7 +455,7 @@ To Do List:
     id TPD = (iTM2TeXProjectDocument *)[self document];
     NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
 //iTM2_LOG(@"variant chosen is: %@", variant);
-    if([variant isEqualToString:@"_"])
+    if([variant isEqualToString:iTM2TeXPDefaultKey])
         variant = @"";
     NSDictionary * oldTPPs = [[TPD baseProjectName] TeXProjectProperties];
     if([variant isEqualToString:[[oldTPPs iVarVariant] lowercaseString]])
@@ -546,7 +546,7 @@ To Do List:
                         forKey: variant];
                 else
 #warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:@"_"];
+                    [MD takeValue:@"None" forKey:iTM2TeXPDefaultKey];
             }
             else
             {
@@ -561,7 +561,7 @@ To Do List:
         }
         NSString * variant = [Ps iVarVariant];
 //iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:@"_")];
+        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2TeXPDefaultKey)];
         if(idx == -1)
         {
 			if([sender numberOfItems])
@@ -802,7 +802,7 @@ To Do List:
 //iTM2_START;
     NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
 //iTM2_LOG(@"variant chosen is: %@", variant);
-    if([variant isEqualToString:@"_"])
+    if([variant isEqualToString:iTM2TeXPDefaultKey])
         variant = @"";
     id TPD = (iTM2TeXProjectDocument *)[self document];
     NSString * oldBPN = [TPD baseProjectName];
@@ -891,7 +891,7 @@ To Do List:
                         forKey: variant];
                 else
 #warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:@"_"];
+                    [MD takeValue:@"None" forKey:iTM2TeXPDefaultKey];
             }
             else
             {
@@ -906,7 +906,7 @@ To Do List:
         }
         NSString * variant = [Ps iVarVariant];
 //iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:@"_")];
+        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2TeXPDefaultKey)];
         if(idx == -1)
         {
             NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", variant];

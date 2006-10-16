@@ -69,6 +69,28 @@ extern NSString * const iTM2AutosavingDelayKey;
 */
 - (NSDictionary *)typeFromFileExtensionDictionary;
 
+/*!
+    @method		localizedTypeForContentsOfURL:error:
+    @abstract	A localized name of document type.
+    @discussion	Plug-ins support. The localized name is retrived from the various InfoPlist.strings files available.
+				If the document type is not supported by the application, or has no localized entry,
+				we use the NSWorkspace to find an application opening the file and retrieve the appropriate info from the app bundle.
+				Something can be returned, even if typeForContentsOfURL:error: returns nil.
+    @param		inAbsoluteURL, only file URL's are supported.
+    @param		outErrorPtr.
+    @result		A localized document type name owned by the receiver.
+*/
+- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outErrorPtr;
+
+/*!
+    @method		localizedDocumentTypesDictionary
+    @abstract	A type to localized type dictionary.
+    @discussion	Plug-ins support. See localizedTypeForContentsOfURL:error:.
+    @param		None.
+    @result		A dictionary.
+*/
+- (NSDictionary *)localizedDocumentTypesDictionary;
+
 @end
 
 @interface NSDocumentController(iTeXMac2)

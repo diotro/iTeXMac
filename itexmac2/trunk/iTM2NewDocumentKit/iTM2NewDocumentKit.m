@@ -369,7 +369,7 @@ To Do List:
 //iTM2_START;
 	id result = [metaGETTER nonretainedObjectValue];
 	if([SPC isProject:result])
-		return result;
+		return [[result retain] autorelease];
 	metaSETTER(nil);
 //iTM2_END;
 	return nil;
@@ -1898,9 +1898,13 @@ To Do List:
 	{
 		return NO;
 	}
-	NSString * sourceName = [self standaloneFileName];
 	NSString * oldProjectName = [self oldProjectName];
-	if([SWS isWrapperPackageAtPath:oldProjectName])
+	if(![oldProjectName length])
+	{
+		return NO;//<< this is a bug
+	}
+	NSString * sourceName = [self standaloneFileName];
+	if([SWS isWrapperPackageAtPath:oldProjectName])// Crash Log Report
 	{
 		NSArray * enclosed = [oldProjectName enclosedProjectFileNames];
 		if(![enclosed count] && ![SWS isProjectPackageAtPath:oldProjectName])
@@ -2942,13 +2946,22 @@ To Do List:
 		}
 		if([sender numberOfItems]>0)
 		{
-			int index = [sender indexOfItemWithRepresentedObject:oldProjectName];
-			if(index<0)
+			int index = 0;
+			if(![oldProjectName length])
 			{
-				// the old project oldProjectName, if any, is not listed in the available projects
-				index = 0;// a better choice?
 				oldProjectName = [[sender itemAtIndex:index] representedObject];
 				[self setOldProjectName:oldProjectName];
+			}
+			else
+			{
+				index = [sender indexOfItemWithRepresentedObject:oldProjectName];
+				if(index<0)
+				{
+					// the old project oldProjectName, if any, is not listed in the available projects
+					index = 0;// a better choice?
+					oldProjectName = [[sender itemAtIndex:index] representedObject];
+					[self setOldProjectName:oldProjectName];
+				}
 			}
 			[sender selectItemAtIndex:index];
 			return [self selectedTemplateCanInsertInOldProject]

@@ -318,6 +318,7 @@ To Do List:
 		NSString * className;
 		NSString * documentType;
 		NSDictionary * d;
+		NSString * localizedType;
 		NSEnumerator * E = [[NSBundle allFrameworks] objectEnumerator];
 		while(B = [E nextObject])
 		{
@@ -331,6 +332,11 @@ To Do List:
 						&& NSClassFromString(className))
 				{
 					[fromFrameworks setObject:className forKey:documentType];
+					localizedType = [[B localizedInfoDictionary] objectForKey:documentType];
+					if([localizedType length])
+					{
+						[(id)[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
+					}
 				}
 				else
 				{
@@ -351,6 +357,11 @@ To Do List:
 					&& NSClassFromString(className))
 			{
 				[fromMainBundle setObject:className forKey:documentType];
+				localizedType = [[B localizedInfoDictionary] objectForKey:documentType];
+				if([localizedType length])
+				{
+					[[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
+				}
 			}
 			else
 			{
@@ -370,7 +381,14 @@ To Do List:
 				{
 					Class oldC = [fromMainBundle objectForKey:documentType];
 					if(!oldC || [C isSubclassOfClass:oldC])
+					{
 						[fromMainBundle setObject:className forKey:documentType];
+						localizedType = [[B localizedInfoDictionary] objectForKey:documentType];
+						if([localizedType length])
+						{
+							[[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
+						}
+					}
 				}
 			}
 		}
@@ -400,6 +418,11 @@ To Do List:
 							if([documentClass isSubclassOfClass:documentClassFromMainBundle])
 							{
 								[fromPlugIns setObject:className forKey:documentType];
+								localizedType = [[B localizedInfoDictionary] objectForKey:documentType];
+								if([localizedType length])
+								{
+									[[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
+								}
 							}
 							else
 							{
@@ -557,6 +580,215 @@ To Do List:
 			[super typeFromFileExtension:fileNameExtensionOrHFSFileType]);
 }
 #endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedDocumentTypesDictionary
+- (NSDictionary *)localizedDocumentTypesDictionary;
+/*"On n'est jamais si bien servi que par soi-meme
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableDictionary * D = metaGETTER;
+	if(!D)
+	{
+		D = [NSMutableDictionary dictionary];
+		metaSETTER(D);
+		D = metaGETTER;
+		if(D)
+		{
+			[self documentClassNameForTypeDictionary];// initialize as side effect
+//iTM2_LOG(@"localizedDocumentTypesDictionary:%@",D);
+		}
+	}
+//iTM2_END;
+    return D;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedTypeForContentsOfURL:error:
+- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outErrorPtr;
+/*"On n'est jamais si bien servi que par soi-meme
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_LOG(@"fileNameExtension is: %@", fileNameExtension);
+	if([inAbsoluteURL isFileURL])
+	{
+		id localizedDocumentTypesDictionary = [self localizedDocumentTypesDictionary];
+		NSString * documentType = [SDC typeForContentsOfURL:inAbsoluteURL error:outErrorPtr];
+		if([documentType length])
+		{
+			NSString * localizedType = [localizedDocumentTypesDictionary objectForKey:documentType];
+			if([localizedType length])
+			{
+				return localizedType;
+			}
+		}
+		// the application relies on others to provide a localized string
+		NSString * fullPath = [inAbsoluteURL path];
+		NSString * applicationName = nil;
+		NSString * type = nil;
+		NSString * infoPath = nil;
+		NSMutableArray * allApplications = nil;
+		NSURL * url;
+		if([SWS getInfoForFile:fullPath application:&applicationName type:&type])
+		{
+nextApplication:
+			infoPath = [applicationName stringByAppendingPathComponent:@"Contents"];
+			infoPath = [infoPath stringByAppendingPathComponent:@"Info.plist"];
+			url = [NSURL fileURLWithPath:infoPath];
+			NSXMLDocument * doc = [[[NSXMLDocument allocWithZone:[self zone]]
+						initWithContentsOfURL:url options:0 error:outErrorPtr] autorelease];
+			if(doc)
+			{
+				// this is a cocoa app or bundle, very cool
+				NSString * extension = [fullPath pathExtension];
+				extension = [extension lowercaseString];
+				NSXMLElement * rootElement = [doc rootElement];
+//				/*
+//					...
+//					<plist version="1.0">							//plist
+//					<dict>											//dict
+//						<key>CFBundleDevelopmentRegion</key>
+//						<string>English</string>
+//						<key>CFBundleDocumentTypes</key>			//key[text()=\"CFBundleDocumentTypes\"
+//						<array>										//following-sibling::*[1]
+//							<dict>									//dict
+//								<key>CFBundleTypeExtensions</key>	//key[text()=\"CFBundleTypeExtensions\"
+//								<array>								//following-sibling::*[1]
+//									<string>EXTENSION</string>		//string[text()="EXTENSION"]<--node
+//								</array>
+//								<key>CFBundleTypeMIMETypes</key>
+//								<array>
+//									<string>text/plain</string>
+//								</array>
+//								<key>CFBundleTypeName</key>
+//								<string>Wildcard Document</string>
+//								...
+//							</dict>
+//						</array>
+//					</dict>
+//					</plist>
+//				*/
+				NSString * xpath = [NSString stringWithFormat:@"following-sibling::*[1]/string[text()=\"%@\"]",extension];
+				xpath = [@"following-sibling::*[1]/dict/key[text()=\"CFBundleTypeExtensions\"]" stringByAppendingPathComponent:xpath];
+				xpath = [@"/plist/dict/key[text()=\"CFBundleDocumentTypes\"]" stringByAppendingPathComponent:xpath];
+				NSArray * nodes = [rootElement nodesForXPath:xpath error:nil];
+				if([nodes count])
+				{
+					NSXMLNode * node = [nodes objectAtIndex:0];
+					// get the document type as declared in the plist file
+					//
+					xpath = @"../../key[text()=\"CFBundleTypeName\"]/following-sibling::*[1]";
+					nodes = [node nodesForXPath:xpath error:nil];
+					if([nodes count])
+					{
+						node = [nodes objectAtIndex:0];
+						type = [node stringValue];
+						NSBundle * B = [NSBundle bundleWithPath:applicationName];
+						NSDictionary * dico = [B localizedInfoDictionary];
+						NSString * localizedType = [dico objectForKey:type];
+						if([localizedType length])
+						{
+							[localizedDocumentTypesDictionary setObject:localizedType forKey:documentType];
+							return localizedType;
+						}
+					}
+				}
+			}
+		}
+		if(!allApplications)
+		{
+			NSArray * allCandidates = (NSMutableArray *)LSCopyApplicationURLsForURL((CFURLRef)inAbsoluteURL,kLSRolesAll);
+			[allCandidates autorelease];
+			NSString * userApplicationsPrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"Applications"];
+			userApplicationsPrefix = [userApplicationsPrefix lowercaseString];
+			NSMutableArray * forbiddenApplications = [NSMutableArray arrayWithCapacity:2];
+			applicationName = [applicationName lastPathComponent];
+			applicationName = [applicationName lowercaseString];
+			[forbiddenApplications addObject:applicationName];
+			NSBundle * B = [NSBundle mainBundle];
+			applicationName = [B bundlePath];
+			applicationName = [applicationName lastPathComponent];
+			applicationName = [applicationName lowercaseString];
+			[forbiddenApplications addObject:applicationName];
+			unsigned int count = [allCandidates count];
+			allApplications = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * localApplications = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * networkApplications = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * userApplications = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * otherApplications = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * volumeApplications = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * localApplicationsApple = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * networkApplicationsApple = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * userApplicationsApple = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * otherApplicationsApple = [NSMutableArray arrayWithCapacity:count];
+			NSMutableArray * volumeApplicationsApple = [NSMutableArray arrayWithCapacity:count];
+			NSEnumerator * E = [allCandidates objectEnumerator];
+			while(url = [E nextObject])
+			{
+				if([url isFileURL])
+				{
+					applicationName = [url path];
+					applicationName = [applicationName lowercaseString];
+					if([forbiddenApplications containsObject:[applicationName lastPathComponent]])
+					{
+					}
+					else
+					{
+						NSMutableArray * applications;
+						B = [NSBundle bundleWithPath:applicationName];
+						NSString * identifier = [B bundleIdentifier];
+						if([applicationName hasPrefix:@"/network"])
+						{
+							applications = [identifier hasPrefix:@"com.apple."]?networkApplicationsApple:networkApplications;
+						}
+						else if([applicationName hasPrefix:@"/applications"])
+						{
+							applications = [identifier hasPrefix:@"com.apple."]?localApplicationsApple:localApplications;
+						}
+						else if([applicationName hasPrefix:@"/volumes"])
+						{
+							applications = [identifier hasPrefix:@"com.apple."]?volumeApplicationsApple:volumeApplications;
+						}
+						else if([applicationName hasPrefix:userApplicationsPrefix])
+						{
+							applications = [identifier hasPrefix:@"com.apple."]?userApplicationsApple:userApplications;
+						}
+						else
+						{
+							applications = [identifier hasPrefix:@"com.apple."]?otherApplicationsApple:otherApplications;
+						}
+						[applications addObject:applicationName];
+					}
+				}
+			}
+			[allApplications addObjectsFromArray:localApplicationsApple];
+			[allApplications addObjectsFromArray:networkApplicationsApple];
+			[allApplications addObjectsFromArray:userApplicationsApple];
+			[allApplications addObjectsFromArray:otherApplicationsApple];
+			[allApplications addObjectsFromArray:volumeApplicationsApple];
+			[allApplications addObjectsFromArray:localApplications];
+			[allApplications addObjectsFromArray:networkApplications];
+			[allApplications addObjectsFromArray:userApplications];
+			[allApplications addObjectsFromArray:otherApplications];
+			[allApplications addObjectsFromArray:volumeApplications];
+//iTM2_LOG(@"allApplications are:%@",allApplications);
+		}
+		if([allApplications count])
+		{
+			applicationName = [allApplications objectAtIndex:0];
+			[allApplications removeObjectAtIndex:0];
+			goto nextApplication;
+		}
+		[localizedDocumentTypesDictionary setObject:documentType forKey:documentType];
+		return documentType;
+	}
+	iTM2_OUTERROR(1,(@"Only file url's are supported."),nil);
+	return nil;
+}
 @end
 
 @implementation NSDocument(iTM2DocumentControllerKit)

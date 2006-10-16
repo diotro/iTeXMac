@@ -2,20 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleName</key>
-	<string>iTeXMac2</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© Laurens'Tribune, 2006</string>
 	<key>TeX Document</key>
 	<string>Document TeX</string>
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>NSHumanReadableCopyright</key>
-	<string>© Laurens'Tribune, 2005</string>
-	<key>CFBundleName</key>
-	<string>iTeXMac2</string>
 	<key>(La)TeX configuration</key>
 	<string>Configuration (La)TeX</string>
 	<key>Definitions (La)TeX </key>
@@ -27,7 +17,7 @@
 	<key>BibTeX bibliography style</key>
 	<string>Style de bibliographie BibTeX</string>
 	<key>BibTeX log</key>
-	<string>log BibTeX</string>
+	<string>Rapport d'exécution BibTeX</string>
 	<key>BibTeX resource</key>
 	<string>Ressource BibTeX</string>
 	<key>BibTeX sorting order</key>
@@ -55,7 +45,7 @@
 	<key>LaTeX list of table</key>
 	<string>Liste des tableaux LaTeX</string>
 	<key>LaTeX log file (or other)</key>
-	<string>Fichier log LaTeX (ou autre)</string>
+	<string>Rapport d'exécution LaTeX (ou autre)</string>
 	<key>LaTeX minitoc resource</key>
 	<string>Ressource minitoc LaTeX</string>
 	<key>LaTeX ntheorem resource</key>
@@ -77,9 +67,9 @@
 	<key>MakeIndex input</key>
 	<string>Entrée de MakeIndex</string>
 	<key>MakeIndex log</key>
-	<string>Fichier log de MakeIndex</string>
+	<string>Rapport d'exécution de MakeIndex</string>
 	<key>MakeIndex output</key>
-	<string>Sortie de MakeIndex</string>
+	<string>Résultat de MakeIndex</string>
 	<key>MakeIndex style</key>
 	<string>Style de MakeIndex</string>
 	<key>MetaFont format</key>
@@ -117,7 +107,7 @@
 	<key>TeX font encoding</key>
 	<string>Encodage de caractères TeX</string>
 	<key>TeX font map</key>
-	<string>Carte de fonte TeX</string>
+	<string>Correspondance de fonte TeX</string>
 	<key>TeX font metrics</key>
 	<string>Métriques de fontes TeX</string>
 	<key>TeX font resource</key>
@@ -141,7 +131,7 @@
 	<key>Wildcard Document</key>
 	<string>Document Joker</string>
 	<key>XeTeX output</key>
-	<string>Sortie XeTeX</string>
+	<string>Résultat de XeTeX</string>
 	<key>iTeXMac2 Plug-In</key>
 	<string>Extension pour iTeXMac2</string>
 	<key>iTeXMac2 Style</key>
@@ -150,7 +140,5 @@
 	<string>Symboles de syntaxe iTeXMac2</string>
 	<key>iTeXMac2 Style Variant</key>
 	<string>Variante de style de syntaxe iTeXMac2</string>
-</dict>
-</plist>
 </dict>
 </plist>

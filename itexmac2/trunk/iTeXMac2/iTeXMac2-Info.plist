@@ -74,10 +74,14 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
 			<true/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.tug.tex</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TeXDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
@@ -102,6 +106,10 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
@@ -128,9 +136,13 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<true/>
 			<key>LSIsAppleDefaultForType</key>
+			<true/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.texp</string>
+			</array>
+			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TeXProjectDocument</string>
@@ -156,9 +168,13 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<true/>
 			<key>LSIsAppleDefaultForType</key>
+			<true/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.texd</string>
+			</array>
+			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TeXWrapperDocument</string>
@@ -180,9 +196,13 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<true/>
 			<key>LSIsAppleDefaultForType</key>
+			<true/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.texcmplugin</string>
+			</array>
+			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>NSDocumentClass</key>
 			<string>iTM2InstallDocument</string>
@@ -204,9 +224,13 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.iTM2-Style</string>
+			</array>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2InstallDocument</string>
@@ -228,9 +252,13 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.iTM2-Variant</string>
+			</array>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2InstallDocument</string>
@@ -252,9 +280,13 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.iTM2-Symbols</string>
+			</array>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2InstallDocument</string>
@@ -276,9 +308,13 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<true/>
 			<key>LSIsAppleDefaultForType</key>
+			<true/>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.plugin</string>
+			</array>
+			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>NSDocumentClass</key>
 			<string>iTM2InstallDocument</string>
@@ -296,9 +332,9 @@
 			<string>MetaPost Document</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2MetaPostDocument</string>
@@ -336,9 +372,9 @@
 			<string>MetaPost Macro File</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -356,9 +392,9 @@
 			<string>BibTeX auxiliary file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -376,9 +412,9 @@
 			<string>BibTeX bibliography</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -396,9 +432,9 @@
 			<string>BibTeX log</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -416,9 +452,9 @@
 			<string>BibTeX bibliography style</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -436,9 +472,9 @@
 			<string>BibTeX sorting order</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -456,9 +492,9 @@
 			<string>BibTeX resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -476,9 +512,9 @@
 			<string>MakeIndex log</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -496,9 +532,9 @@
 			<string>MakeIndex input</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -516,9 +552,9 @@
 			<string>MakeIndex output</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -536,9 +572,9 @@
 			<string>MakeIndex style</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -556,9 +592,9 @@
 			<string>LaTeX class options</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -576,9 +612,9 @@
 			<string>LaTeX class</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -596,9 +632,9 @@
 			<string>LaTeX package</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -616,9 +652,9 @@
 			<string>LaTeX auxiliary file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -636,9 +672,9 @@
 			<string>LaTeX list of figures</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -656,9 +692,9 @@
 			<string>LaTeX log file (or other)</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -676,9 +712,9 @@
 			<string>LaTeX list of table</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -696,9 +732,9 @@
 			<string>LaTeX source</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -716,9 +752,9 @@
 			<string>LaTeX table of contents</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -736,9 +772,9 @@
 			<string>LaTeX installation</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -756,9 +792,9 @@
 			<string>LaTeX package source</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -776,9 +812,9 @@
 			<string>LaTeX resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -796,9 +832,9 @@
 			<string>LaTeX koma-script resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -816,9 +852,9 @@
 			<string>LaTeX language resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -836,9 +872,9 @@
 			<string>LaTeX titlesec resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -856,9 +892,9 @@
 			<string>LaTeX minitoc resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -876,9 +912,9 @@
 			<string>LaTeX ntheorem resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -896,9 +932,9 @@
 			<string>LaTeX revtex resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -916,9 +952,9 @@
 			<string>(La)TeX definitions</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -936,9 +972,9 @@
 			<string>(La)TeX configuration</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -956,9 +992,9 @@
 			<string>LaTeX font definition</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -976,9 +1012,9 @@
 			<string>TeX4ht resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -996,9 +1032,9 @@
 			<string>TeX4ht font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1016,9 +1052,9 @@
 			<string>PSTricks resource file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1036,9 +1072,9 @@
 			<string>ConTeXt resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1056,9 +1092,9 @@
 			<string>ConTeXt resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1076,9 +1112,9 @@
 			<string>MetaPost resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1096,9 +1132,9 @@
 			<string>MetaPost resource for ConTeXt</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1116,9 +1152,9 @@
 			<string>MetaPost resource for ConTeXt</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1136,9 +1172,9 @@
 			<string>Omega font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1156,9 +1192,9 @@
 			<string>Omega font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1176,9 +1212,9 @@
 			<string>Omega resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1196,9 +1232,9 @@
 			<string>Omega font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1216,9 +1252,9 @@
 			<string>Omega virtual font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1236,9 +1272,9 @@
 			<string>Configuration file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1256,9 +1292,9 @@
 			<string>TeX resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1276,9 +1312,9 @@
 			<string>TeX resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1296,9 +1332,9 @@
 			<string>TeX resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1316,9 +1352,9 @@
 			<string>TeX resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1336,9 +1372,9 @@
 			<string>TeX resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1356,9 +1392,9 @@
 			<string>TeX format</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1376,9 +1412,9 @@
 			<string>TeX font encoding</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1396,9 +1432,9 @@
 			<string>TeX font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1416,9 +1452,9 @@
 			<string>TeX font metrics</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1436,9 +1472,9 @@
 			<string>TeX virtual font</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1474,9 +1510,9 @@
 			<string>TeX font translation table</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1494,9 +1530,9 @@
 			<string>TeX font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1514,9 +1550,9 @@
 			<string>TeX font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1534,9 +1570,9 @@
 			<string>TeX font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1554,9 +1590,9 @@
 			<string>TeX font resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1574,9 +1610,9 @@
 			<string>TeX dvips resource</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1594,9 +1630,9 @@
 			<string>Web2c configuration file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1614,9 +1650,9 @@
 			<string>MetaFont source</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1634,9 +1670,9 @@
 			<string>MetaFont format</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2WildcardDocument</string>
@@ -1654,9 +1690,9 @@
 			<string>XeTeX output</string>
 			<key>CFBundleTypeRole</key>
 			<string>None</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>NSDocument</string>
@@ -1674,11 +1710,9 @@
 			<string>TeXUtil Document</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSIsAppleDefaultForType</key>
+			<false/>
 			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>LSIsAppleDefaultForType</key>
-			<false/>
-			<key>LSIsAppleDefaultForType</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1696,9 +1730,9 @@
 			<string>TeXUtil Document</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1716,9 +1750,9 @@
 			<string>TeXUtil Document</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -1742,10 +1776,6 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>iTM2</string>
-	<key>CFBundleVersion</key>
-	<string>2.0 preview (build __(REVISION)__)</string>
-	<key>LSHasLocalizedDisplayName</key>
-	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -1755,6 +1785,10 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>2.0 preview (build __(REVISION)__)</string>
+	<key>LSHasLocalizedDisplayName</key>
+	<true/>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSMainNibFile</key>
@@ -1763,9 +1797,9 @@
 	<string>iTM2Application</string>
 	<key>OSAScriptingDefinition</key>
 	<string>iTeXMac2.sdef</string>
-	<key>crashReporterEmail</key>
-	<string>jlaurens@users.sourceforge.net</string>
 	<key>crashReporterCompanyName</key>
 	<string>Laurens'Tribune</string>
+	<key>crashReporterEmail</key>
+	<string>jlaurens@users.sourceforge.net</string>
 </dict>
 </plist>

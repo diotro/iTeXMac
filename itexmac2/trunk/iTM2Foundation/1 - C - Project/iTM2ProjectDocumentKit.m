@@ -4173,7 +4173,7 @@ To Do List:
 		if([[tableColumn identifier] isEqualToString:iTM2PDTableViewTypeIdentifier])
 		{
 			NSURL * inAbsoluteURL = [NSURL fileURLWithPath:absoluteName];
-			return [SDC typeForContentsOfURL:inAbsoluteURL error:nil];
+			return [SDC localizedTypeForContentsOfURL:inAbsoluteURL error:nil]?:@"";// retained by the SDC
 		}
 		if([DFM fileExistsAtPath:absoluteName isDirectory:nil])
 		{
@@ -4326,6 +4326,10 @@ To Do List:
     if((row>=0)&& (row<[fileKeys count]))
     {
         NSString * K = [fileKeys objectAtIndex:row];
+		if([K isEqual:iTM2ProjectDefaultKey])
+		{
+			return;
+		}
 		NSError * localError = nil;
 		if([projectDocument openSubdocumentForKey:K display:YES error:&localError])
 		{
@@ -4349,6 +4353,27 @@ To Do List:
     }
 //iTM2_END;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:toolTipForCell:rect:tableColumn:row:mouseLocation::
+- (NSString *)tableView:(NSTableView *)tv toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tc row:(int)row mouseLocation:(NSPoint)mouseLocation;
+/*"Thx http://www.corbinstreehouse.com/blog/?p=50.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if ([cell isKindOfClass:[NSTextFieldCell class]])
+	{
+		NSAttributedString * AS = [cell attributedStringValue];
+        if ([AS size].width > rect->size.width)
+		{
+//iTM2_END;
+            return [cell stringValue];
+        }
+    }
+//iTM2_END;
+    return nil;
 }
 #if 0
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row;

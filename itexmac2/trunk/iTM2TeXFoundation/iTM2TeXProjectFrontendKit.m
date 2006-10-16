@@ -1927,13 +1927,22 @@ To Do List:
 		}
 		if([sender numberOfItems]>0)
 		{
-			int index = [sender indexOfItemWithRepresentedObject:oldProjectName];
-			if(index<0)
+			int index = 0;
+			if(![oldProjectName length])
 			{
-				// the preferred project oldProjectName, if any, is not listed in the available projects
-				index = 0;// a better choice?
 				oldProjectName = [[sender itemAtIndex:index] representedObject];
 				[self setOldProjectName:oldProjectName];
+			}
+			else
+			{
+				index = [sender indexOfItemWithRepresentedObject:oldProjectName];
+				if(index<0)
+				{
+					// the preferred project oldProjectName, if any, is not listed in the available projects
+					index = 0;// a better choice?
+					oldProjectName = [[sender itemAtIndex:index] representedObject];
+					[self setOldProjectName:oldProjectName];
+				}
 			}
 			[sender selectItemAtIndex:index];
 			return ([sender numberOfItems]>1) && ([self creationMode] == iTM2ToggleOldProjectMode);
@@ -2148,7 +2157,7 @@ To Do List:
 //iTM2_START;
     NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
 //iTM2_LOG(@"variant chosen is:%@", variant);
-    if([variant isEqualToString:@"_"])
+    if([variant isEqualToString:iTM2TeXPDefaultKey])
         variant = @"";
     NSDictionary * oldTPPs = [[self baseProjectName] TeXProjectProperties];
     if([variant isEqualToString:[[oldTPPs iVarVariant] lowercaseString]])
@@ -2228,7 +2237,7 @@ To Do List:
                         forKey:variant];
                 else
 #warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:@"_"];
+                    [MD takeValue:@"None" forKey:iTM2TeXPDefaultKey];
             }
             else
             {
@@ -2243,7 +2252,7 @@ To Do List:
         }
         NSString * variant = [Ps iVarVariant];
 //iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject:([variant length]? [variant lowercaseString]:@"_")];
+        int idx = [sender indexOfItemWithRepresentedObject:([variant length]? [variant lowercaseString]:iTM2TeXPDefaultKey)];
         if(idx == -1)
         {
             NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", variant];
