@@ -70,6 +70,105 @@
 		DCA37D7F0AE391AD00874F9E /* iTM2HelpSupport.h in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */; };
 		DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA60AE3939100874F9E /* AddressBook.framework */; };
 		DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA70AE3939100874F9E /* Message.framework */; };
+		DCA37F0C0AE3AD7800874F9E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E7A0AE3AD7800874F9E /* Credits.rtf */; };
+		DCA37F0D0AE3AD7800874F9E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E7C0AE3AD7800874F9E /* InfoPlist.strings */; };
+		DCA37F0E0AE3AD7800874F9E /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E7F0AE3AD7800874F9E /* index.html */; };
+		DCA37F0F0AE3AD7800874F9E /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E800AE3AD7800874F9E /* iTeXMac2.nib */; };
+		DCA37F100AE3AD7900874F9E /* iTM2FirstPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E820AE3AD7800874F9E /* iTM2FirstPanel.nib */; };
+		DCA37F110AE3AD7900874F9E /* iTM2MailController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E840AE3AD7800874F9E /* iTM2MailController.nib */; };
+		DCA37F120AE3AD7900874F9E /* iTM2StartupDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E860AE3AD7800874F9E /* iTM2StartupDocument.nib */; };
+		DCA37F130AE3AD7900874F9E /* NewDocuments.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E880AE3AD7800874F9E /* NewDocuments.resources.tgz */; };
+		DCA37F140AE3AD7900874F9E /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E8D0AE3AD7800874F9E /* index.html */; };
+		DCA37F150AE3AD7900874F9E /* 4CT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E930AE3AD7800874F9E /* 4CT.icns */; };
+		DCA37F160AE3AD7900874F9E /* 4HF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E940AE3AD7800874F9E /* 4HF.icns */; };
+		DCA37F170AE3AD7900874F9E /* 4TC.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E950AE3AD7800874F9E /* 4TC.icns */; };
+		DCA37F180AE3AD7900874F9E /* AUX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E960AE3AD7800874F9E /* AUX.icns */; };
+		DCA37F190AE3AD7900874F9E /* BBL.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E970AE3AD7800874F9E /* BBL.icns */; };
+		DCA37F1A0AE3AD7900874F9E /* BIB.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E980AE3AD7800874F9E /* BIB.icns */; };
+		DCA37F1B0AE3AD7900874F9E /* BLG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E990AE3AD7800874F9E /* BLG.icns */; };
+		DCA37F1C0AE3AD7900874F9E /* BST.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E9A0AE3AD7800874F9E /* BST.icns */; };
+		DCA37F1D0AE3AD7900874F9E /* CFG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E9B0AE3AD7800874F9E /* CFG.icns */; };
+		DCA37F1E0AE3AD7900874F9E /* CLO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E9C0AE3AD7800874F9E /* CLO.icns */; };
+		DCA37F1F0AE3AD7900874F9E /* CLS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E9D0AE3AD7800874F9E /* CLS.icns */; };
+		DCA37F200AE3AD7900874F9E /* CNF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E9E0AE3AD7800874F9E /* CNF.icns */; };
+		DCA37F210AE3AD7900874F9E /* CPA.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E9F0AE3AD7800874F9E /* CPA.icns */; };
+		DCA37F220AE3AD7900874F9E /* CSF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA00AE3AD7800874F9E /* CSF.icns */; };
+		DCA37F230AE3AD7900874F9E /* DAT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA10AE3AD7800874F9E /* DAT.icns */; };
+		DCA37F240AE3AD7900874F9E /* DEF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA20AE3AD7800874F9E /* DEF.icns */; };
+		DCA37F250AE3AD7900874F9E /* DIZ.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA30AE3AD7800874F9E /* DIZ.icns */; };
+		DCA37F260AE3AD7900874F9E /* DTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA40AE3AD7800874F9E /* DTX.icns */; };
+		DCA37F270AE3AD7900874F9E /* DVI.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA50AE3AD7800874F9E /* DVI.icns */; };
+		DCA37F280AE3AD7900874F9E /* ENC.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA60AE3AD7800874F9E /* ENC.icns */; };
+		DCA37F290AE3AD7900874F9E /* EPS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA70AE3AD7800874F9E /* EPS.icns */; };
+		DCA37F2A0AE3AD7900874F9E /* ETX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA80AE3AD7800874F9E /* ETX.icns */; };
+		DCA37F2B0AE3AD7A00874F9E /* FD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EA90AE3AD7800874F9E /* FD.icns */; };
+		DCA37F2C0AE3AD7A00874F9E /* FLS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EAA0AE3AD7800874F9E /* FLS.icns */; };
+		DCA37F2D0AE3AD7A00874F9E /* FMT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EAB0AE3AD7800874F9E /* FMT.icns */; };
+		DCA37F2E0AE3AD7A00874F9E /* FO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EAC0AE3AD7800874F9E /* FO.icns */; };
+		DCA37F2F0AE3AD7A00874F9E /* HTF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EAD0AE3AD7800874F9E /* HTF.icns */; };
+		DCA37F300AE3AD7A00874F9E /* IDV.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EAE0AE3AD7800874F9E /* IDV.icns */; };
+		DCA37F310AE3AD7A00874F9E /* IDX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EAF0AE3AD7800874F9E /* IDX.icns */; };
+		DCA37F320AE3AD7A00874F9E /* ILG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB00AE3AD7800874F9E /* ILG.icns */; };
+		DCA37F330AE3AD7A00874F9E /* IND.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB10AE3AD7800874F9E /* IND.icns */; };
+		DCA37F340AE3AD7A00874F9E /* INI.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB20AE3AD7800874F9E /* INI.icns */; };
+		DCA37F350AE3AD7A00874F9E /* INL.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB30AE3AD7800874F9E /* INL.icns */; };
+		DCA37F360AE3AD7A00874F9E /* INS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB40AE3AD7800874F9E /* INS.icns */; };
+		DCA37F370AE3AD7A00874F9E /* IST.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB50AE3AD7800874F9E /* IST.icns */; };
+		DCA37F380AE3AD7A00874F9E /* iTeXMac2.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB60AE3AD7800874F9E /* iTeXMac2.icns */; };
+		DCA37F390AE3AD7A00874F9E /* iTM2.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB70AE3AD7800874F9E /* iTM2.icns */; };
+		DCA37F3A0AE3AD7A00874F9E /* LCO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB80AE3AD7800874F9E /* LCO.icns */; };
+		DCA37F3B0AE3AD7A00874F9E /* LDF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EB90AE3AD7800874F9E /* LDF.icns */; };
+		DCA37F3C0AE3AD7A00874F9E /* LG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EBA0AE3AD7800874F9E /* LG.icns */; };
+		DCA37F3D0AE3AD7A00874F9E /* LH.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EBB0AE3AD7800874F9E /* LH.icns */; };
+		DCA37F3E0AE3AD7A00874F9E /* LIS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EBC0AE3AD7800874F9E /* LIS.icns */; };
+		DCA37F3F0AE3AD7A00874F9E /* LOF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EBD0AE3AD7800874F9E /* LOF.icns */; };
+		DCA37F400AE3AD7A00874F9E /* LOG.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EBE0AE3AD7800874F9E /* LOG.icns */; };
+		DCA37F410AE3AD7A00874F9E /* LOT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EBF0AE3AD7800874F9E /* LOT.icns */; };
+		DCA37F420AE3AD7A00874F9E /* LTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC00AE3AD7800874F9E /* LTX.icns */; };
+		DCA37F430AE3AD7A00874F9E /* MAP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC10AE3AD7800874F9E /* MAP.icns */; };
+		DCA37F440AE3AD7A00874F9E /* MEM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC20AE3AD7800874F9E /* MEM.icns */; };
+		DCA37F450AE3AD7A00874F9E /* MF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC30AE3AD7800874F9E /* MF.icns */; };
+		DCA37F460AE3AD7A00874F9E /* MFT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC40AE3AD7800874F9E /* MFT.icns */; };
+		DCA37F470AE3AD7A00874F9E /* MLD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC50AE3AD7800874F9E /* MLD.icns */; };
+		DCA37F480AE3AD7A00874F9E /* MP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC60AE3AD7800874F9E /* MP.icns */; };
+		DCA37F490AE3AD7A00874F9E /* MPO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC70AE3AD7800874F9E /* MPO.icns */; };
+		DCA37F4A0AE3AD7A00874F9E /* MPS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC80AE3AD7800874F9E /* MPS.icns */; };
+		DCA37F4B0AE3AD7A00874F9E /* MPX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EC90AE3AD7800874F9E /* MPX.icns */; };
+		DCA37F4C0AE3AD7A00874F9E /* MPY.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ECA0AE3AD7800874F9E /* MPY.icns */; };
+		DCA37F4D0AE3AD7A00874F9E /* MTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ECB0AE3AD7800874F9E /* MTX.icns */; };
+		DCA37F4E0AE3AD7A00874F9E /* OCP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ECC0AE3AD7800874F9E /* OCP.icns */; };
+		DCA37F4F0AE3AD7A00874F9E /* OPT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ECD0AE3AD7800874F9E /* OPT.icns */; };
+		DCA37F500AE3AD7A00874F9E /* ORI.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ECE0AE3AD7800874F9E /* ORI.icns */; };
+		DCA37F510AE3AD7A00874F9E /* OTF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ECF0AE3AD7800874F9E /* OTF.icns */; };
+		DCA37F520AE3AD7A00874F9E /* OTP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED00AE3AD7800874F9E /* OTP.icns */; };
+		DCA37F530AE3AD7A00874F9E /* OVF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED10AE3AD7800874F9E /* OVF.icns */; };
+		DCA37F540AE3AD7A00874F9E /* OVP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED20AE3AD7800874F9E /* OVP.icns */; };
+		DCA37F550AE3AD7A00874F9E /* PDF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED30AE3AD7800874F9E /* PDF.icns */; };
+		DCA37F560AE3AD7A00874F9E /* PFM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED40AE3AD7800874F9E /* PFM.icns */; };
+		DCA37F570AE3AD7A00874F9E /* PK.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED50AE3AD7800874F9E /* PK.icns */; };
+		DCA37F580AE3AD7A00874F9E /* POOL.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED60AE3AD7800874F9E /* POOL.icns */; };
+		DCA37F590AE3AD7A00874F9E /* PRO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED70AE3AD7800874F9E /* PRO.icns */; };
+		DCA37F5A0AE3AD7A00874F9E /* PST.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED80AE3AD7800874F9E /* PST.icns */; };
+		DCA37F5B0AE3AD7A00874F9E /* RTX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37ED90AE3AD7800874F9E /* RTX.icns */; };
+		DCA37F5C0AE3AD7A00874F9E /* SFD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EDA0AE3AD7800874F9E /* SFD.icns */; };
+		DCA37F5D0AE3AD7A00874F9E /* STD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EDB0AE3AD7800874F9E /* STD.icns */; };
+		DCA37F5E0AE3AD7A00874F9E /* STY.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EDC0AE3AD7800874F9E /* STY.icns */; };
+		DCA37F5F0AE3AD7A00874F9E /* T2.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EDD0AE3AD7800874F9E /* T2.icns */; };
+		DCA37F600AE3AD7A00874F9E /* TCX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EDE0AE3AD7800874F9E /* TCX.icns */; };
+		DCA37F610AE3AD7A00874F9E /* TEX.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EDF0AE3AD7800874F9E /* TEX.icns */; };
+		DCA37F620AE3AD7A00874F9E /* TEXD.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE00AE3AD7800874F9E /* TEXD.icns */; };
+		DCA37F630AE3AD7A00874F9E /* TEXP.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE10AE3AD7800874F9E /* TEXP.icns */; };
+		DCA37F640AE3AD7A00874F9E /* TFM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE20AE3AD7800874F9E /* TFM.icns */; };
+		DCA37F650AE3AD7A00874F9E /* TOC.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE30AE3AD7800874F9E /* TOC.icns */; };
+		DCA37F660AE3AD7A00874F9E /* TSS.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE40AE3AD7800874F9E /* TSS.icns */; };
+		DCA37F670AE3AD7B00874F9E /* TUF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE50AE3AD7800874F9E /* TUF.icns */; };
+		DCA37F680AE3AD7B00874F9E /* TUI.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE60AE3AD7800874F9E /* TUI.icns */; };
+		DCA37F690AE3AD7B00874F9E /* TUO.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE70AE3AD7800874F9E /* TUO.icns */; };
+		DCA37F6A0AE3AD7B00874F9E /* VF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE80AE3AD7800874F9E /* VF.icns */; };
+		DCA37F6B0AE3AD7B00874F9E /* XDV.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EE90AE3AD7800874F9E /* XDV.icns */; };
+		DCA37F6C0AE3AD7B00874F9E /* XPM.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EEA0AE3AD7800874F9E /* XPM.icns */; };
+		DCA37F6D0AE3AD7B00874F9E /* XREF.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EEB0AE3AD7800874F9E /* XREF.icns */; };
+		DCA37F6E0AE3AD7B00874F9E /* iTeXMac2.sdef in Resources */ = {isa = PBXBuildFile; fileRef = DCA37EEC0AE3AD7800874F9E /* iTeXMac2.sdef */; };
 		DCB7543808EDA67300A6819D /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCB93A7907D701AF005E5B38 /* iTeXMac2-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */; };
 		DCB93A8607D702A5005E5B38 /* iTM2StartupDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A8407D702A5005E5B38 /* iTM2StartupDocument.m */; };
@@ -215,6 +314,111 @@
 		DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2HelpSupport.h; sourceTree = "<group>"; };
 		DCA37DA60AE3939100874F9E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		DCA37DA70AE3939100874F9E /* Message.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Message.framework; path = /System/Library/Frameworks/Message.framework; sourceTree = "<absolute>"; };
+		DCA37E7B0AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		DCA37E7D0AE3AD7800874F9E /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCA37E7F0AE3AD7800874F9E /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		DCA37E810AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
+		DCA37E830AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2FirstPanel.nib; sourceTree = "<group>"; };
+		DCA37E850AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MailController.nib; sourceTree = "<group>"; };
+		DCA37E870AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2StartupDocument.nib; sourceTree = "<group>"; };
+		DCA37E890AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
+		DCA37E8A0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = French.lproj/Credits.rtf; sourceTree = "<group>"; };
+		DCA37E8B0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCA37E8D0AE3AD7800874F9E /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		DCA37E8E0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
+		DCA37E8F0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2MailController.nib; sourceTree = "<group>"; };
+		DCA37E900AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2StartupDocument.nib; sourceTree = "<group>"; };
+		DCA37E910AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
+		DCA37E930AE3AD7800874F9E /* 4CT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 4CT.icns; sourceTree = "<group>"; };
+		DCA37E940AE3AD7800874F9E /* 4HF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 4HF.icns; sourceTree = "<group>"; };
+		DCA37E950AE3AD7800874F9E /* 4TC.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 4TC.icns; sourceTree = "<group>"; };
+		DCA37E960AE3AD7800874F9E /* AUX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AUX.icns; sourceTree = "<group>"; };
+		DCA37E970AE3AD7800874F9E /* BBL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BBL.icns; sourceTree = "<group>"; };
+		DCA37E980AE3AD7800874F9E /* BIB.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BIB.icns; sourceTree = "<group>"; };
+		DCA37E990AE3AD7800874F9E /* BLG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BLG.icns; sourceTree = "<group>"; };
+		DCA37E9A0AE3AD7800874F9E /* BST.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BST.icns; sourceTree = "<group>"; };
+		DCA37E9B0AE3AD7800874F9E /* CFG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CFG.icns; sourceTree = "<group>"; };
+		DCA37E9C0AE3AD7800874F9E /* CLO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CLO.icns; sourceTree = "<group>"; };
+		DCA37E9D0AE3AD7800874F9E /* CLS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CLS.icns; sourceTree = "<group>"; };
+		DCA37E9E0AE3AD7800874F9E /* CNF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CNF.icns; sourceTree = "<group>"; };
+		DCA37E9F0AE3AD7800874F9E /* CPA.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CPA.icns; sourceTree = "<group>"; };
+		DCA37EA00AE3AD7800874F9E /* CSF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CSF.icns; sourceTree = "<group>"; };
+		DCA37EA10AE3AD7800874F9E /* DAT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DAT.icns; sourceTree = "<group>"; };
+		DCA37EA20AE3AD7800874F9E /* DEF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DEF.icns; sourceTree = "<group>"; };
+		DCA37EA30AE3AD7800874F9E /* DIZ.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DIZ.icns; sourceTree = "<group>"; };
+		DCA37EA40AE3AD7800874F9E /* DTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DTX.icns; sourceTree = "<group>"; };
+		DCA37EA50AE3AD7800874F9E /* DVI.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DVI.icns; sourceTree = "<group>"; };
+		DCA37EA60AE3AD7800874F9E /* ENC.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ENC.icns; sourceTree = "<group>"; };
+		DCA37EA70AE3AD7800874F9E /* EPS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = EPS.icns; sourceTree = "<group>"; };
+		DCA37EA80AE3AD7800874F9E /* ETX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ETX.icns; sourceTree = "<group>"; };
+		DCA37EA90AE3AD7800874F9E /* FD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = FD.icns; sourceTree = "<group>"; };
+		DCA37EAA0AE3AD7800874F9E /* FLS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = FLS.icns; sourceTree = "<group>"; };
+		DCA37EAB0AE3AD7800874F9E /* FMT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = FMT.icns; sourceTree = "<group>"; };
+		DCA37EAC0AE3AD7800874F9E /* FO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = FO.icns; sourceTree = "<group>"; };
+		DCA37EAD0AE3AD7800874F9E /* HTF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HTF.icns; sourceTree = "<group>"; };
+		DCA37EAE0AE3AD7800874F9E /* IDV.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IDV.icns; sourceTree = "<group>"; };
+		DCA37EAF0AE3AD7800874F9E /* IDX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IDX.icns; sourceTree = "<group>"; };
+		DCA37EB00AE3AD7800874F9E /* ILG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ILG.icns; sourceTree = "<group>"; };
+		DCA37EB10AE3AD7800874F9E /* IND.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IND.icns; sourceTree = "<group>"; };
+		DCA37EB20AE3AD7800874F9E /* INI.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = INI.icns; sourceTree = "<group>"; };
+		DCA37EB30AE3AD7800874F9E /* INL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = INL.icns; sourceTree = "<group>"; };
+		DCA37EB40AE3AD7800874F9E /* INS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = INS.icns; sourceTree = "<group>"; };
+		DCA37EB50AE3AD7800874F9E /* IST.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IST.icns; sourceTree = "<group>"; };
+		DCA37EB60AE3AD7800874F9E /* iTeXMac2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iTeXMac2.icns; sourceTree = "<group>"; };
+		DCA37EB70AE3AD7800874F9E /* iTM2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iTM2.icns; sourceTree = "<group>"; };
+		DCA37EB80AE3AD7800874F9E /* LCO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LCO.icns; sourceTree = "<group>"; };
+		DCA37EB90AE3AD7800874F9E /* LDF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LDF.icns; sourceTree = "<group>"; };
+		DCA37EBA0AE3AD7800874F9E /* LG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LG.icns; sourceTree = "<group>"; };
+		DCA37EBB0AE3AD7800874F9E /* LH.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LH.icns; sourceTree = "<group>"; };
+		DCA37EBC0AE3AD7800874F9E /* LIS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LIS.icns; sourceTree = "<group>"; };
+		DCA37EBD0AE3AD7800874F9E /* LOF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LOF.icns; sourceTree = "<group>"; };
+		DCA37EBE0AE3AD7800874F9E /* LOG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LOG.icns; sourceTree = "<group>"; };
+		DCA37EBF0AE3AD7800874F9E /* LOT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LOT.icns; sourceTree = "<group>"; };
+		DCA37EC00AE3AD7800874F9E /* LTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LTX.icns; sourceTree = "<group>"; };
+		DCA37EC10AE3AD7800874F9E /* MAP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MAP.icns; sourceTree = "<group>"; };
+		DCA37EC20AE3AD7800874F9E /* MEM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MEM.icns; sourceTree = "<group>"; };
+		DCA37EC30AE3AD7800874F9E /* MF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MF.icns; sourceTree = "<group>"; };
+		DCA37EC40AE3AD7800874F9E /* MFT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MFT.icns; sourceTree = "<group>"; };
+		DCA37EC50AE3AD7800874F9E /* MLD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MLD.icns; sourceTree = "<group>"; };
+		DCA37EC60AE3AD7800874F9E /* MP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MP.icns; sourceTree = "<group>"; };
+		DCA37EC70AE3AD7800874F9E /* MPO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MPO.icns; sourceTree = "<group>"; };
+		DCA37EC80AE3AD7800874F9E /* MPS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MPS.icns; sourceTree = "<group>"; };
+		DCA37EC90AE3AD7800874F9E /* MPX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MPX.icns; sourceTree = "<group>"; };
+		DCA37ECA0AE3AD7800874F9E /* MPY.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MPY.icns; sourceTree = "<group>"; };
+		DCA37ECB0AE3AD7800874F9E /* MTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MTX.icns; sourceTree = "<group>"; };
+		DCA37ECC0AE3AD7800874F9E /* OCP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OCP.icns; sourceTree = "<group>"; };
+		DCA37ECD0AE3AD7800874F9E /* OPT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OPT.icns; sourceTree = "<group>"; };
+		DCA37ECE0AE3AD7800874F9E /* ORI.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ORI.icns; sourceTree = "<group>"; };
+		DCA37ECF0AE3AD7800874F9E /* OTF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OTF.icns; sourceTree = "<group>"; };
+		DCA37ED00AE3AD7800874F9E /* OTP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OTP.icns; sourceTree = "<group>"; };
+		DCA37ED10AE3AD7800874F9E /* OVF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OVF.icns; sourceTree = "<group>"; };
+		DCA37ED20AE3AD7800874F9E /* OVP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OVP.icns; sourceTree = "<group>"; };
+		DCA37ED30AE3AD7800874F9E /* PDF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PDF.icns; sourceTree = "<group>"; };
+		DCA37ED40AE3AD7800874F9E /* PFM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PFM.icns; sourceTree = "<group>"; };
+		DCA37ED50AE3AD7800874F9E /* PK.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PK.icns; sourceTree = "<group>"; };
+		DCA37ED60AE3AD7800874F9E /* POOL.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = POOL.icns; sourceTree = "<group>"; };
+		DCA37ED70AE3AD7800874F9E /* PRO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PRO.icns; sourceTree = "<group>"; };
+		DCA37ED80AE3AD7800874F9E /* PST.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PST.icns; sourceTree = "<group>"; };
+		DCA37ED90AE3AD7800874F9E /* RTX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RTX.icns; sourceTree = "<group>"; };
+		DCA37EDA0AE3AD7800874F9E /* SFD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SFD.icns; sourceTree = "<group>"; };
+		DCA37EDB0AE3AD7800874F9E /* STD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = STD.icns; sourceTree = "<group>"; };
+		DCA37EDC0AE3AD7800874F9E /* STY.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = STY.icns; sourceTree = "<group>"; };
+		DCA37EDD0AE3AD7800874F9E /* T2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = T2.icns; sourceTree = "<group>"; };
+		DCA37EDE0AE3AD7800874F9E /* TCX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TCX.icns; sourceTree = "<group>"; };
+		DCA37EDF0AE3AD7800874F9E /* TEX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TEX.icns; sourceTree = "<group>"; };
+		DCA37EE00AE3AD7800874F9E /* TEXD.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TEXD.icns; sourceTree = "<group>"; };
+		DCA37EE10AE3AD7800874F9E /* TEXP.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TEXP.icns; sourceTree = "<group>"; };
+		DCA37EE20AE3AD7800874F9E /* TFM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TFM.icns; sourceTree = "<group>"; };
+		DCA37EE30AE3AD7800874F9E /* TOC.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TOC.icns; sourceTree = "<group>"; };
+		DCA37EE40AE3AD7800874F9E /* TSS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TSS.icns; sourceTree = "<group>"; };
+		DCA37EE50AE3AD7800874F9E /* TUF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TUF.icns; sourceTree = "<group>"; };
+		DCA37EE60AE3AD7800874F9E /* TUI.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TUI.icns; sourceTree = "<group>"; };
+		DCA37EE70AE3AD7800874F9E /* TUO.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TUO.icns; sourceTree = "<group>"; };
+		DCA37EE80AE3AD7800874F9E /* VF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VF.icns; sourceTree = "<group>"; };
+		DCA37EE90AE3AD7800874F9E /* XDV.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XDV.icns; sourceTree = "<group>"; };
+		DCA37EEA0AE3AD7800874F9E /* XPM.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XPM.icns; sourceTree = "<group>"; };
+		DCA37EEB0AE3AD7800874F9E /* XREF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XREF.icns; sourceTree = "<group>"; };
+		DCA37EEC0AE3AD7800874F9E /* iTeXMac2.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = iTeXMac2.sdef; sourceTree = "<group>"; };
 		DCB7543708EDA67300A6819D /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DCB93A4607D6FFAA005E5B38 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTeXMac2-Info.plist"; sourceTree = "<group>"; };
@@ -315,6 +519,7 @@
 			children = (
 				DCB93A4607D6FFAA005E5B38 /* README.txt */,
 				DCB93A5107D6FFC1005E5B38 /* iTeXMac2 */,
+				DCA37E780AE3AD7800874F9E /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				DC3B3DB00A4ADADF00E83ABA /* Settings */,
@@ -345,6 +550,138 @@
 			);
 			name = Settings;
 			path = ../Settings;
+			sourceTree = "<group>";
+		};
+		DCA37E780AE3AD7800874F9E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DCA37E7A0AE3AD7800874F9E /* Credits.rtf */,
+				DCA37E7C0AE3AD7800874F9E /* InfoPlist.strings */,
+				DCA37E7E0AE3AD7800874F9E /* iTeXMac2 Help */,
+				DCA37E800AE3AD7800874F9E /* iTeXMac2.nib */,
+				DCA37E820AE3AD7800874F9E /* iTM2FirstPanel.nib */,
+				DCA37E840AE3AD7800874F9E /* iTM2MailController.nib */,
+				DCA37E860AE3AD7800874F9E /* iTM2StartupDocument.nib */,
+				DCA37E880AE3AD7800874F9E /* NewDocuments.resources.tgz */,
+				DCA37E8C0AE3AD7800874F9E /* iTeXMac2 Help */,
+				DCA37E920AE3AD7800874F9E /* Icons */,
+				DCA37EEC0AE3AD7800874F9E /* iTeXMac2.sdef */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DCA37E7E0AE3AD7800874F9E /* iTeXMac2 Help */ = {
+			isa = PBXGroup;
+			children = (
+				DCA37E7F0AE3AD7800874F9E /* index.html */,
+			);
+			name = "iTeXMac2 Help";
+			path = "English.lproj/iTeXMac2 Help";
+			sourceTree = "<group>";
+		};
+		DCA37E8C0AE3AD7800874F9E /* iTeXMac2 Help */ = {
+			isa = PBXGroup;
+			children = (
+				DCA37E8D0AE3AD7800874F9E /* index.html */,
+			);
+			name = "iTeXMac2 Help";
+			path = "French.lproj/iTeXMac2 Help";
+			sourceTree = "<group>";
+		};
+		DCA37E920AE3AD7800874F9E /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				DCA37E930AE3AD7800874F9E /* 4CT.icns */,
+				DCA37E940AE3AD7800874F9E /* 4HF.icns */,
+				DCA37E950AE3AD7800874F9E /* 4TC.icns */,
+				DCA37E960AE3AD7800874F9E /* AUX.icns */,
+				DCA37E970AE3AD7800874F9E /* BBL.icns */,
+				DCA37E980AE3AD7800874F9E /* BIB.icns */,
+				DCA37E990AE3AD7800874F9E /* BLG.icns */,
+				DCA37E9A0AE3AD7800874F9E /* BST.icns */,
+				DCA37E9B0AE3AD7800874F9E /* CFG.icns */,
+				DCA37E9C0AE3AD7800874F9E /* CLO.icns */,
+				DCA37E9D0AE3AD7800874F9E /* CLS.icns */,
+				DCA37E9E0AE3AD7800874F9E /* CNF.icns */,
+				DCA37E9F0AE3AD7800874F9E /* CPA.icns */,
+				DCA37EA00AE3AD7800874F9E /* CSF.icns */,
+				DCA37EA10AE3AD7800874F9E /* DAT.icns */,
+				DCA37EA20AE3AD7800874F9E /* DEF.icns */,
+				DCA37EA30AE3AD7800874F9E /* DIZ.icns */,
+				DCA37EA40AE3AD7800874F9E /* DTX.icns */,
+				DCA37EA50AE3AD7800874F9E /* DVI.icns */,
+				DCA37EA60AE3AD7800874F9E /* ENC.icns */,
+				DCA37EA70AE3AD7800874F9E /* EPS.icns */,
+				DCA37EA80AE3AD7800874F9E /* ETX.icns */,
+				DCA37EA90AE3AD7800874F9E /* FD.icns */,
+				DCA37EAA0AE3AD7800874F9E /* FLS.icns */,
+				DCA37EAB0AE3AD7800874F9E /* FMT.icns */,
+				DCA37EAC0AE3AD7800874F9E /* FO.icns */,
+				DCA37EAD0AE3AD7800874F9E /* HTF.icns */,
+				DCA37EAE0AE3AD7800874F9E /* IDV.icns */,
+				DCA37EAF0AE3AD7800874F9E /* IDX.icns */,
+				DCA37EB00AE3AD7800874F9E /* ILG.icns */,
+				DCA37EB10AE3AD7800874F9E /* IND.icns */,
+				DCA37EB20AE3AD7800874F9E /* INI.icns */,
+				DCA37EB30AE3AD7800874F9E /* INL.icns */,
+				DCA37EB40AE3AD7800874F9E /* INS.icns */,
+				DCA37EB50AE3AD7800874F9E /* IST.icns */,
+				DCA37EB60AE3AD7800874F9E /* iTeXMac2.icns */,
+				DCA37EB70AE3AD7800874F9E /* iTM2.icns */,
+				DCA37EB80AE3AD7800874F9E /* LCO.icns */,
+				DCA37EB90AE3AD7800874F9E /* LDF.icns */,
+				DCA37EBA0AE3AD7800874F9E /* LG.icns */,
+				DCA37EBB0AE3AD7800874F9E /* LH.icns */,
+				DCA37EBC0AE3AD7800874F9E /* LIS.icns */,
+				DCA37EBD0AE3AD7800874F9E /* LOF.icns */,
+				DCA37EBE0AE3AD7800874F9E /* LOG.icns */,
+				DCA37EBF0AE3AD7800874F9E /* LOT.icns */,
+				DCA37EC00AE3AD7800874F9E /* LTX.icns */,
+				DCA37EC10AE3AD7800874F9E /* MAP.icns */,
+				DCA37EC20AE3AD7800874F9E /* MEM.icns */,
+				DCA37EC30AE3AD7800874F9E /* MF.icns */,
+				DCA37EC40AE3AD7800874F9E /* MFT.icns */,
+				DCA37EC50AE3AD7800874F9E /* MLD.icns */,
+				DCA37EC60AE3AD7800874F9E /* MP.icns */,
+				DCA37EC70AE3AD7800874F9E /* MPO.icns */,
+				DCA37EC80AE3AD7800874F9E /* MPS.icns */,
+				DCA37EC90AE3AD7800874F9E /* MPX.icns */,
+				DCA37ECA0AE3AD7800874F9E /* MPY.icns */,
+				DCA37ECB0AE3AD7800874F9E /* MTX.icns */,
+				DCA37ECC0AE3AD7800874F9E /* OCP.icns */,
+				DCA37ECD0AE3AD7800874F9E /* OPT.icns */,
+				DCA37ECE0AE3AD7800874F9E /* ORI.icns */,
+				DCA37ECF0AE3AD7800874F9E /* OTF.icns */,
+				DCA37ED00AE3AD7800874F9E /* OTP.icns */,
+				DCA37ED10AE3AD7800874F9E /* OVF.icns */,
+				DCA37ED20AE3AD7800874F9E /* OVP.icns */,
+				DCA37ED30AE3AD7800874F9E /* PDF.icns */,
+				DCA37ED40AE3AD7800874F9E /* PFM.icns */,
+				DCA37ED50AE3AD7800874F9E /* PK.icns */,
+				DCA37ED60AE3AD7800874F9E /* POOL.icns */,
+				DCA37ED70AE3AD7800874F9E /* PRO.icns */,
+				DCA37ED80AE3AD7800874F9E /* PST.icns */,
+				DCA37ED90AE3AD7800874F9E /* RTX.icns */,
+				DCA37EDA0AE3AD7800874F9E /* SFD.icns */,
+				DCA37EDB0AE3AD7800874F9E /* STD.icns */,
+				DCA37EDC0AE3AD7800874F9E /* STY.icns */,
+				DCA37EDD0AE3AD7800874F9E /* T2.icns */,
+				DCA37EDE0AE3AD7800874F9E /* TCX.icns */,
+				DCA37EDF0AE3AD7800874F9E /* TEX.icns */,
+				DCA37EE00AE3AD7800874F9E /* TEXD.icns */,
+				DCA37EE10AE3AD7800874F9E /* TEXP.icns */,
+				DCA37EE20AE3AD7800874F9E /* TFM.icns */,
+				DCA37EE30AE3AD7800874F9E /* TOC.icns */,
+				DCA37EE40AE3AD7800874F9E /* TSS.icns */,
+				DCA37EE50AE3AD7800874F9E /* TUF.icns */,
+				DCA37EE60AE3AD7800874F9E /* TUI.icns */,
+				DCA37EE70AE3AD7800874F9E /* TUO.icns */,
+				DCA37EE80AE3AD7800874F9E /* VF.icns */,
+				DCA37EE90AE3AD7800874F9E /* XDV.icns */,
+				DCA37EEA0AE3AD7800874F9E /* XPM.icns */,
+				DCA37EEB0AE3AD7800874F9E /* XREF.icns */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 		DCB93A5107D6FFC1005E5B38 /* iTeXMac2 */ = {
@@ -564,6 +901,105 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA37F0C0AE3AD7800874F9E /* Credits.rtf in Resources */,
+				DCA37F0D0AE3AD7800874F9E /* InfoPlist.strings in Resources */,
+				DCA37F0E0AE3AD7800874F9E /* index.html in Resources */,
+				DCA37F0F0AE3AD7800874F9E /* iTeXMac2.nib in Resources */,
+				DCA37F100AE3AD7900874F9E /* iTM2FirstPanel.nib in Resources */,
+				DCA37F110AE3AD7900874F9E /* iTM2MailController.nib in Resources */,
+				DCA37F120AE3AD7900874F9E /* iTM2StartupDocument.nib in Resources */,
+				DCA37F130AE3AD7900874F9E /* NewDocuments.resources.tgz in Resources */,
+				DCA37F140AE3AD7900874F9E /* index.html in Resources */,
+				DCA37F150AE3AD7900874F9E /* 4CT.icns in Resources */,
+				DCA37F160AE3AD7900874F9E /* 4HF.icns in Resources */,
+				DCA37F170AE3AD7900874F9E /* 4TC.icns in Resources */,
+				DCA37F180AE3AD7900874F9E /* AUX.icns in Resources */,
+				DCA37F190AE3AD7900874F9E /* BBL.icns in Resources */,
+				DCA37F1A0AE3AD7900874F9E /* BIB.icns in Resources */,
+				DCA37F1B0AE3AD7900874F9E /* BLG.icns in Resources */,
+				DCA37F1C0AE3AD7900874F9E /* BST.icns in Resources */,
+				DCA37F1D0AE3AD7900874F9E /* CFG.icns in Resources */,
+				DCA37F1E0AE3AD7900874F9E /* CLO.icns in Resources */,
+				DCA37F1F0AE3AD7900874F9E /* CLS.icns in Resources */,
+				DCA37F200AE3AD7900874F9E /* CNF.icns in Resources */,
+				DCA37F210AE3AD7900874F9E /* CPA.icns in Resources */,
+				DCA37F220AE3AD7900874F9E /* CSF.icns in Resources */,
+				DCA37F230AE3AD7900874F9E /* DAT.icns in Resources */,
+				DCA37F240AE3AD7900874F9E /* DEF.icns in Resources */,
+				DCA37F250AE3AD7900874F9E /* DIZ.icns in Resources */,
+				DCA37F260AE3AD7900874F9E /* DTX.icns in Resources */,
+				DCA37F270AE3AD7900874F9E /* DVI.icns in Resources */,
+				DCA37F280AE3AD7900874F9E /* ENC.icns in Resources */,
+				DCA37F290AE3AD7900874F9E /* EPS.icns in Resources */,
+				DCA37F2A0AE3AD7900874F9E /* ETX.icns in Resources */,
+				DCA37F2B0AE3AD7A00874F9E /* FD.icns in Resources */,
+				DCA37F2C0AE3AD7A00874F9E /* FLS.icns in Resources */,
+				DCA37F2D0AE3AD7A00874F9E /* FMT.icns in Resources */,
+				DCA37F2E0AE3AD7A00874F9E /* FO.icns in Resources */,
+				DCA37F2F0AE3AD7A00874F9E /* HTF.icns in Resources */,
+				DCA37F300AE3AD7A00874F9E /* IDV.icns in Resources */,
+				DCA37F310AE3AD7A00874F9E /* IDX.icns in Resources */,
+				DCA37F320AE3AD7A00874F9E /* ILG.icns in Resources */,
+				DCA37F330AE3AD7A00874F9E /* IND.icns in Resources */,
+				DCA37F340AE3AD7A00874F9E /* INI.icns in Resources */,
+				DCA37F350AE3AD7A00874F9E /* INL.icns in Resources */,
+				DCA37F360AE3AD7A00874F9E /* INS.icns in Resources */,
+				DCA37F370AE3AD7A00874F9E /* IST.icns in Resources */,
+				DCA37F380AE3AD7A00874F9E /* iTeXMac2.icns in Resources */,
+				DCA37F390AE3AD7A00874F9E /* iTM2.icns in Resources */,
+				DCA37F3A0AE3AD7A00874F9E /* LCO.icns in Resources */,
+				DCA37F3B0AE3AD7A00874F9E /* LDF.icns in Resources */,
+				DCA37F3C0AE3AD7A00874F9E /* LG.icns in Resources */,
+				DCA37F3D0AE3AD7A00874F9E /* LH.icns in Resources */,
+				DCA37F3E0AE3AD7A00874F9E /* LIS.icns in Resources */,
+				DCA37F3F0AE3AD7A00874F9E /* LOF.icns in Resources */,
+				DCA37F400AE3AD7A00874F9E /* LOG.icns in Resources */,
+				DCA37F410AE3AD7A00874F9E /* LOT.icns in Resources */,
+				DCA37F420AE3AD7A00874F9E /* LTX.icns in Resources */,
+				DCA37F430AE3AD7A00874F9E /* MAP.icns in Resources */,
+				DCA37F440AE3AD7A00874F9E /* MEM.icns in Resources */,
+				DCA37F450AE3AD7A00874F9E /* MF.icns in Resources */,
+				DCA37F460AE3AD7A00874F9E /* MFT.icns in Resources */,
+				DCA37F470AE3AD7A00874F9E /* MLD.icns in Resources */,
+				DCA37F480AE3AD7A00874F9E /* MP.icns in Resources */,
+				DCA37F490AE3AD7A00874F9E /* MPO.icns in Resources */,
+				DCA37F4A0AE3AD7A00874F9E /* MPS.icns in Resources */,
+				DCA37F4B0AE3AD7A00874F9E /* MPX.icns in Resources */,
+				DCA37F4C0AE3AD7A00874F9E /* MPY.icns in Resources */,
+				DCA37F4D0AE3AD7A00874F9E /* MTX.icns in Resources */,
+				DCA37F4E0AE3AD7A00874F9E /* OCP.icns in Resources */,
+				DCA37F4F0AE3AD7A00874F9E /* OPT.icns in Resources */,
+				DCA37F500AE3AD7A00874F9E /* ORI.icns in Resources */,
+				DCA37F510AE3AD7A00874F9E /* OTF.icns in Resources */,
+				DCA37F520AE3AD7A00874F9E /* OTP.icns in Resources */,
+				DCA37F530AE3AD7A00874F9E /* OVF.icns in Resources */,
+				DCA37F540AE3AD7A00874F9E /* OVP.icns in Resources */,
+				DCA37F550AE3AD7A00874F9E /* PDF.icns in Resources */,
+				DCA37F560AE3AD7A00874F9E /* PFM.icns in Resources */,
+				DCA37F570AE3AD7A00874F9E /* PK.icns in Resources */,
+				DCA37F580AE3AD7A00874F9E /* POOL.icns in Resources */,
+				DCA37F590AE3AD7A00874F9E /* PRO.icns in Resources */,
+				DCA37F5A0AE3AD7A00874F9E /* PST.icns in Resources */,
+				DCA37F5B0AE3AD7A00874F9E /* RTX.icns in Resources */,
+				DCA37F5C0AE3AD7A00874F9E /* SFD.icns in Resources */,
+				DCA37F5D0AE3AD7A00874F9E /* STD.icns in Resources */,
+				DCA37F5E0AE3AD7A00874F9E /* STY.icns in Resources */,
+				DCA37F5F0AE3AD7A00874F9E /* T2.icns in Resources */,
+				DCA37F600AE3AD7A00874F9E /* TCX.icns in Resources */,
+				DCA37F610AE3AD7A00874F9E /* TEX.icns in Resources */,
+				DCA37F620AE3AD7A00874F9E /* TEXD.icns in Resources */,
+				DCA37F630AE3AD7A00874F9E /* TEXP.icns in Resources */,
+				DCA37F640AE3AD7A00874F9E /* TFM.icns in Resources */,
+				DCA37F650AE3AD7A00874F9E /* TOC.icns in Resources */,
+				DCA37F660AE3AD7A00874F9E /* TSS.icns in Resources */,
+				DCA37F670AE3AD7B00874F9E /* TUF.icns in Resources */,
+				DCA37F680AE3AD7B00874F9E /* TUI.icns in Resources */,
+				DCA37F690AE3AD7B00874F9E /* TUO.icns in Resources */,
+				DCA37F6A0AE3AD7B00874F9E /* VF.icns in Resources */,
+				DCA37F6B0AE3AD7B00874F9E /* XDV.icns in Resources */,
+				DCA37F6C0AE3AD7B00874F9E /* XPM.icns in Resources */,
+				DCA37F6D0AE3AD7B00874F9E /* XREF.icns in Resources */,
+				DCA37F6E0AE3AD7B00874F9E /* iTeXMac2.sdef in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,6 +1303,68 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DCA37E7A0AE3AD7800874F9E /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCA37E7B0AE3AD7800874F9E /* English */,
+				DCA37E8A0AE3AD7800874F9E /* French */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		DCA37E7C0AE3AD7800874F9E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCA37E7D0AE3AD7800874F9E /* English */,
+				DCA37E8B0AE3AD7800874F9E /* French */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DCA37E800AE3AD7800874F9E /* iTeXMac2.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCA37E810AE3AD7800874F9E /* English */,
+				DCA37E8E0AE3AD7800874F9E /* French */,
+			);
+			name = iTeXMac2.nib;
+			sourceTree = "<group>";
+		};
+		DCA37E820AE3AD7800874F9E /* iTM2FirstPanel.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCA37E830AE3AD7800874F9E /* English */,
+			);
+			name = iTM2FirstPanel.nib;
+			sourceTree = "<group>";
+		};
+		DCA37E840AE3AD7800874F9E /* iTM2MailController.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCA37E850AE3AD7800874F9E /* English */,
+				DCA37E8F0AE3AD7800874F9E /* French */,
+			);
+			name = iTM2MailController.nib;
+			sourceTree = "<group>";
+		};
+		DCA37E860AE3AD7800874F9E /* iTM2StartupDocument.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCA37E870AE3AD7800874F9E /* English */,
+				DCA37E900AE3AD7800874F9E /* French */,
+			);
+			name = iTM2StartupDocument.nib;
+			sourceTree = "<group>";
+		};
+		DCA37E880AE3AD7800874F9E /* NewDocuments.resources.tgz */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCA37E890AE3AD7800874F9E /* English */,
+				DCA37E910AE3AD7800874F9E /* French */,
+			);
+			name = NewDocuments.resources.tgz;
+			sourceTree = "<group>";
+		};
 		DCFFA6C70855B7C900607AAA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
