@@ -706,9 +706,12 @@ nextApplication:
 			NSString * userApplicationsPrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"Applications"];
 			userApplicationsPrefix = [userApplicationsPrefix lowercaseString];
 			NSMutableArray * forbiddenApplications = [NSMutableArray arrayWithCapacity:2];
-			applicationName = [applicationName lastPathComponent];
-			applicationName = [applicationName lowercaseString];
-			[forbiddenApplications addObject:applicationName];
+			if([applicationName length])//applicationName was returned by SWS, it is sometimes nil
+			{
+				applicationName = [applicationName lastPathComponent];
+				applicationName = [applicationName lowercaseString];
+				[forbiddenApplications addObject:applicationName];
+			}
 			NSBundle * B = [NSBundle mainBundle];
 			applicationName = [B bundlePath];
 			applicationName = [applicationName lastPathComponent];
