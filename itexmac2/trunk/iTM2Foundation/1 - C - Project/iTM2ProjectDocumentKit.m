@@ -1372,6 +1372,25 @@ To Do List:
 //iTM2_END;
 	return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forgetSubdocument:
+- (void)forgetSubdocument:(id)document;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([[self subdocuments] containsObject:document])
+    {
+		[[document retain] autorelease];
+        [[self subdocuments] removeObject:document];
+		[SPC setProject:nil forDocument:document];
+		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
+    }
+//iTM2_END;
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSubdocument:
 - (void)removeSubdocument:(id)document;
 /*"Description forthcoming.
@@ -7307,7 +7326,7 @@ To Do List:
 	{
 		return nil;
 	}
-	*fileNameRef = [*fileNameRef stringByStandardizingPath];
+	NSString * fileName = *fileNameRef;
 //iTM2_LOG(*fileNameRef);
 	iTM2ProjectDocument * projectDocument = [self projectForFileName:*fileNameRef];
 	if(projectDocument)
@@ -7329,6 +7348,10 @@ To Do List:
 	|| (projectDocument = [self getProjectInHierarchyForFileName:*fileNameRef display:display error:outErrorPtr])
 	|| (projectDocument = [self getFarawayProjectForFileName:*fileNameRef display:display error:outErrorPtr])
 	|| (projectDocument = [self getProjectFromPanelForFileNameRef:fileNameRef display:display error:outErrorPtr]);
+	if([*fileNameRef belongsToFarawayProjectsDirectory])
+	{
+		*fileNameRef = fileName;
+	}
 	[self setProject:projectDocument forFileName:*fileNameRef];
 	[self didGetNewProjectForFileNameRef:fileNameRef];
 	return projectDocument;
@@ -7707,6 +7730,7 @@ To Do List:
 @end
 #endif
 
+
 @interface NSDocument_iTM2ProjectDocumentKit:NSDocument
 @end
 
@@ -7773,7 +7797,8 @@ To Do List:
 		NSString * name = newFileName;
 #warning ERROR POSSIBLE: display NO
 		newPD = [SPC newProjectForFileNameRef:&name display:NO error:nil];
-		[super setFileURL:[NSURL fileURLWithPath:name]];
+		newURL = [NSURL fileURLWithPath:name];
+		[super setFileURL:newURL];
 		if(![name pathIsEqual:newFileName])
 		{
 		#warning THERE MIGHT BE A PROBLEM HERE
@@ -7801,9 +7826,11 @@ To Do List:
 	// except the receiver,of course
 	if(newPD == oldPD)
 	{
-		[[newPD keyedSubdocuments] takeValue:nil forKey:oldKey];
+//		[[newPD keyedSubdocuments] takeValue:nil forKey:oldKey];
 		NSString * newKey = [newPD newKeyForFileName:[self fileName]];
-		[[newPD keyedProperties] takeValue:[[[oldPD propertiesForFileKey:oldKey] mutableCopy] autorelease] forKey:newKey];
+		id properties = [oldPD propertiesForFileKey:oldKey];
+		properties = [[properties mutableCopy] autorelease];
+		[[newPD keyedProperties] takeValue:properties forKey:newKey];
 		[super setFileURL:newURL];
 		return;
 	}
@@ -8019,7 +8046,128 @@ To Do List:
 	}
     return projectDocument? [projectDocument newRecentDocument]:[super newRecentDocument];
 }
-
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_catched_document:didSave:contextInfo:
+- (void)iTM2_catched_document:(NSDocument *)document didSave:(BOOL)didSaveSuccessfully contextInfo:(NSDictionary *)contextInfo;
+/*"Description Forthcoming
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSInvocation * I = [contextInfo objectForKey:@"invocation"];
+	[I setArgument:&didSaveSuccessfully atIndex:3];
+	NSURL * oldURL = [contextInfo objectForKey:@"oldURL"];
+	NSURL * newURL = [contextInfo objectForKey:@"newURL"];
+	if(![oldURL isFileURL])
+	{
+		[I invoke];
+		return;
+	}
+	if(![newURL isFileURL])
+	{
+		[I invoke];
+		return;
+	}
+	NSString * oldName = [oldURL path];
+	iTM2ProjectDocument * oldPD = [SPC projectForDocument:document];
+	NSString * oldKey = [oldPD keyForFileName:oldName];
+	NSString * newName = [newURL path];
+	iTM2ProjectDocument * newPD = [SPC projectForFileName:newName];
+	if(!newPD)
+	{
+		[I invoke];
+		return;
+	}
+	if(didSaveSuccessfully)
+	{
+		NSString * newKey = [newPD keyForFileName:newName];
+		id properties = [oldPD propertiesForFileKey:oldKey];
+		properties = [[properties mutableCopy] autorelease];
+		[[newPD keyedProperties] takeValue:properties forKey:newKey];
+		if([newPD isEqual:oldPD])
+		{
+			if(![oldKey isEqual:newKey])
+			{
+				NSMutableDictionary * MD = [oldPD keyedSubdocuments];
+				[MD removeObjectForKey:oldKey];
+				[MD setObject:[NSValue valueWithNonretainedObject:document] forKey:newKey];
+			}
+		}
+		else
+		{
+			[oldPD forgetSubdocument:document];
+			[newPD addSubdocument:document];
+		}
+	}
+	[I invoke];
+	return;
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:
+- (void)saveToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
+/*"This is one of the 2 critical methods where the document and its project can be separated. (the other one is setFileURL:)
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![absoluteURL isFileURL] || (saveOperation != NSSaveAsOperation))
+	{
+		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
+		return;
+	}
+	NSURL * oldURL = [self fileURL];
+	if(![oldURL isFileURL])
+	{
+		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
+		return;
+	}
+	NSString * newName = [absoluteURL path];
+	NSMutableDictionary * info = [NSMutableDictionary dictionary];
+	[info setObject:oldURL forKey:@"oldURL"];
+	[info setObject:absoluteURL forKey:@"newURL"];
+	[info setObject:(typeName?:@"") forKey:@"typeName"];
+	NSInvocation * I = nil;
+	NSMethodSignature * sig = [delegate methodSignatureForSelector:didSaveSelector];
+	if(sig)
+	{
+		I = [NSInvocation invocationWithMethodSignature:sig];
+		[I setSelector:didSaveSelector];
+		[I setTarget:delegate];
+		[I setArgument:&self atIndex:2];
+		[I setArgument:(contextInfo?&contextInfo:nil) atIndex:4];
+		[info setObject:I forKey:@"invocation"];
+	}
+	iTM2ProjectDocument * newPD = [SPC projectForFileName:newName];
+	if(newPD)
+	{
+		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:self didSaveSelector:@selector(iTM2_catched_document:didSave:contextInfo:) contextInfo:info];
+		return;
+	}
+	NSString * name = newName;
+	NSError * error = nil;
+	if(newPD = [SPC newProjectForFileNameRef:&name display:YES error:&error])
+	{
+		if(![name pathIsEqual:newName])
+		{
+			newName = name;
+			absoluteURL = [NSURL fileURLWithPath:name];
+			[info setObject:absoluteURL forKey:@"newURL"];
+		}
+		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:self didSaveSelector:@selector(iTM2_catched_document:didSave:contextInfo:) contextInfo:info];
+		return;
+	}
+	if(error)
+	{
+		iTM2_REPORTERROR(1,(@"Could not create a new project, save operation cancelled"),error);
+	}
+	BOOL result = NO;
+	[I setArgument:&result atIndex:3];
+	[I invoke];
+	return;
+}
 @end
 
 @implementation iTM2ProjectGhostWindow
@@ -8245,10 +8393,18 @@ To Do List:
 		id D1 = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 		if(D1)
 		{
+			if(display)
+			{
+				[D1 makeWindowControllers];
+				[D1 showWindows];
+			}
 			return D1;
 		}
-		[D makeWindowControllers];
-		[D makeKeyAndOrderFront:self];
+		if(display)
+		{
+			[D makeWindowControllers];
+			[D showWindows];
+		}
 		return D;
 	}
 	BOOL isDirectory = NO;
