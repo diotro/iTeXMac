@@ -225,6 +225,15 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)addSubdocument:(id)document;
 
 /*! 
+    @method     forgetSubdocument:
+    @abstract   forget a document
+    @discussion Same as closeSubdocument: but without saving.
+    @param      document to be removed.
+    @result     None.
+*/
+- (void)forgetSubdocument:(id)document;
+
+/*! 
     @method     removeSubdocument:
     @abstract   remove a document
     @discussion Once removed, a document no longer belongs to a project.

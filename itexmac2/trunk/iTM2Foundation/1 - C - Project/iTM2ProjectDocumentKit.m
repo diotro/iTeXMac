@@ -8163,6 +8163,11 @@ To Do List:
 	{
 		iTM2_REPORTERROR(1,(@"Could not create a new project, save operation cancelled"),error);
 	}
+	if([self isKindOfClass:[iTM2ProjectDocument class]])
+	{
+		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
+		return;
+	}
 	BOOL result = NO;
 	[I setArgument:&result atIndex:3];
 	[I invoke];

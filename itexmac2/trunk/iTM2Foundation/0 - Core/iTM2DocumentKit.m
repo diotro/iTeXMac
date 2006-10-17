@@ -2103,6 +2103,7 @@ To Do List:
     }
     return;
 }
+#warning - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
 - (NSData *)dataRepresentationOfType:(NSString *) type;
 /*"Returns YES.
@@ -2114,6 +2115,7 @@ To Do List:
 //iTM2_START;
     return [IMPLEMENTATION dataRepresentationOfType:type];
 }
+#warning - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
 - (BOOL)loadDataRepresentation:(NSData *) data ofType:(NSString *) type;
 /*"Returns YES.

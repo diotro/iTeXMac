@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCA37F7C0AE3ADDD00874F9E</string>
+						<string>DCA384D60AE3C1C900874F9E</string>
 						<key>history</key>
 						<array>
 							<string>DCA37E1E0AE3A18500874F9E</string>
@@ -355,7 +355,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCA37F7B0AE3ADDD00874F9E</string>
+										<string>DCA384D50AE3C1C900874F9E</string>
 										<key>history</key>
 										<array>
 											<string>DC20A2370AE2BBF000A125CD</string>
@@ -580,10 +580,10 @@
 		<string>DCA37E230AE3A18500874F9E</string>
 		<string>DC691935088C8CD600F00114</string>
 		<string>DC69174E088BFB5600F00114</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DCA37D790AE3915300874F9E</string>
 		<string>DCA37E1C0AE3A18500874F9E</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>69 68 1244 658 0 0 1440 878 </string>
@@ -789,7 +789,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

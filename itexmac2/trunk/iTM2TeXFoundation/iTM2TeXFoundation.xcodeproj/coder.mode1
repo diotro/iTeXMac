@@ -204,13 +204,13 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC20A84A0AE313AC00A125CD</string>
+						<string>DCA389A00AE4DD3900874F9E</string>
 						<key>history</key>
 						<array>
 							<string>DC958B8B0AD6944D0092F69A</string>
 							<string>DCF956FD0ADFC04200672833</string>
 							<string>DC209DA50AE295BD00A125CD</string>
-							<string>DC20A6FD0AE2F49E00A125CD</string>
+							<string>DC20A84A0AE313AC00A125CD</string>
 						</array>
 						<key>prevStack</key>
 						<array>
@@ -218,8 +218,6 @@
 							<string>DCF955A10ADF970E00672833</string>
 							<string>DCF956CC0ADFBBDF00672833</string>
 							<string>DC209DA70AE295BD00A125CD</string>
-							<string>DC209DA80AE295BD00A125CD</string>
-							<string>DC209DA90AE295BD00A125CD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -332,7 +330,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 39}, {284, 750}}</string>
+							<string>{{0, 0}, {284, 750}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -379,10 +377,9 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC20A8490AE313AC00A125CD</string>
+										<string>DCA3899F0AE4DD3900874F9E</string>
 										<key>history</key>
 										<array>
-											<string>DC469C2D0AC5FFB900F0CA29</string>
 											<string>DC469E2F0AC74F0200F0CA29</string>
 											<string>DCE5C3F80AC7EB4F0054C760</string>
 											<string>DCE5C3FB0AC7EB4F0054C760</string>
@@ -394,16 +391,13 @@
 											<string>DC31F7950AC90AAD00FF576B</string>
 											<string>DCF4377F0AD28D2C00CB4C3C</string>
 											<string>DC2B51A00AD502FB0039FCBA</string>
-											<string>DC84FEFB0AD5D1CD00C6FCAA</string>
 											<string>DC209DA20AE295BD00A125CD</string>
-											<string>DC20A6F70AE2F49E00A125CD</string>
-											<string>DC20A6F90AE2F49E00A125CD</string>
+											<string>DC20A8490AE313AC00A125CD</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>DC4697AF0AC4C0B500F0CA29</string>
 											<string>DC469C250AC5FEAF00F0CA29</string>
-											<string>DC469C2E0AC5FFB900F0CA29</string>
 											<string>DC469E310AC74F0200F0CA29</string>
 											<string>DCE5C4020AC7EB4F0054C760</string>
 											<string>DCE5C4030AC7EB4F0054C760</string>
@@ -413,11 +407,8 @@
 											<string>DCFEA59E0AC87CC70014A771</string>
 											<string>DCF437810AD28D2C00CB4C3C</string>
 											<string>DC2B51A20AD502FB0039FCBA</string>
-											<string>DC84FEFD0AD5D1CD00C6FCAA</string>
 											<string>DC209C930AE28DF900A125CD</string>
 											<string>DC209DA30AE295BD00A125CD</string>
-											<string>DC20A28E0AE2E41000A125CD</string>
-											<string>DC20A6FA0AE2F49E00A125CD</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -475,9 +466,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC209C950AE28DF900A125CD</string>
+				<string>DCA385DA0AE3C55500874F9E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC209C960AE28DF900A125CD</string>
+				<string>DCA385DB0AE3C55500874F9E</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -621,13 +612,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC209DAD0AE295BD00A125CD</string>
-		<string>DC209DAE0AE295BD00A125CD</string>
-		<string>DC993D63088E8E7D00F8BCE1</string>
-		<string>DC099B36088B331B0028F810</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC209C9E0AE28DF900A125CD</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
 		<string>DC11A35F0AD5382E00D825E7</string>
 	</array>

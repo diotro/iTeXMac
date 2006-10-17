@@ -1301,7 +1301,6 @@ To Do List:
 				if(![convertedPath pathIsEqual:path])
 				{
 					path = [targetName stringByAppendingPathComponent:path];
-					path = [path stringByStandardizingPath];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
 					convertedPath = [convertedPath stringByStandardizingPath];
 					if(![DFM movePath:path toPath:convertedPath handler:NULL])
@@ -1424,20 +1423,19 @@ To Do List:
 			}
 			// changing the name of all the files included in the newly created directory according to the filter above
 			NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:targetName];
-			NSString * path = nil;
+			NSString * originalPath = nil;
 			NSString * convertedPath = nil;
-			while(path = [DE nextObject])
+			while(originalPath = [DE nextObject])
 			{
-				convertedPath = [self convertedString:path withDictionary:filter];
-				if(![convertedPath pathIsEqual:path])
+				convertedPath = [self convertedString:originalPath withDictionary:filter];
+				if(![convertedPath pathIsEqual:originalPath])
 				{
-					path = [targetName stringByAppendingPathComponent:path];
-					path = [path stringByStandardizingPath];
+					originalPath = [targetName stringByAppendingPathComponent:originalPath];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
 					convertedPath = [convertedPath stringByStandardizingPath];
-					if(![DFM movePath:path toPath:convertedPath handler:NULL])
+					if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
 					{
-						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", path, convertedPath);
+						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalPath, convertedPath);
 					}
 				}
 			}
@@ -1445,13 +1443,13 @@ To Do List:
 			NSArray * enclosedProjects = [targetName enclosedProjectFileNames];
 			iTM2TeXProjectDocument * PD = nil;
 			NSEnumerator * E = [enclosedProjects objectEnumerator];
-			while(path = [E nextObject])
+			while(originalPath = [E nextObject])
 			{
-				path = [path stringByStandardizingPath];
-//iTM2_LOG(@"path is: %@", path);
-				// path is no longer used
+				originalPath = [originalPath stringByStandardizingPath];
+//iTM2_LOG(@"originalPath is: %@", originalPath);
+				// originalPath is no longer used
 				// open the project document
-				NSURL * url = [NSURL fileURLWithPath:path];
+				NSURL * url = [NSURL fileURLWithPath:originalPath];
 				PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 				// filter out the declared files
 				NSMutableDictionary * keyedFileNames = [PD keyedFileNames];
@@ -1465,8 +1463,8 @@ To Do List:
 					if(document)
 					{
 						// then change the file name:
-						NSString * originalPath = [document fileName];
-						NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
+						originalPath = [document fileName];
+						convertedPath = [self convertedString:originalPath withDictionary:filter];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
 						if(![convertedPath pathIsEqual:originalPath])
 						{
@@ -1488,8 +1486,8 @@ To Do List:
 					}
 					else
 					{
-						NSString * originalPath = [PD absoluteFileNameForKey:key];
-						NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
+						originalPath = [PD absoluteFileNameForKey:key];
+						convertedPath = [self convertedString:originalPath withDictionary:filter];
 						NSURL * url = [NSURL fileURLWithPath:convertedPath];
 						if(![convertedPath pathIsEqual:originalPath])
 						{
@@ -1517,6 +1515,22 @@ To Do List:
 				[[PD undoManager] removeAllActions];
 				[PD makeWindowControllers];
 				[PD showWindows];
+			}
+			// changing the name of all the files included in the newly created directory according to the filter above
+			DE = [DFM enumeratorAtPath:targetName];
+			while(originalPath = [DE nextObject])
+			{
+				convertedPath = [self convertedString:originalPath withDictionary:filter];
+				if(![convertedPath pathIsEqual:originalPath])
+				{
+					originalPath = [targetName stringByAppendingPathComponent:originalPath];
+					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
+					convertedPath = [convertedPath stringByStandardizingPath];
+					if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
+					{
+						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalPath, convertedPath);
+					}
+				}
 			}
 			// changing the file permissions: it is relevant if the document was built in...
 			[DFM makeFileWritableAtPath:targetName recursive:YES];
@@ -1614,25 +1628,26 @@ To Do List:
 						iTM2_LOG(@"........... ERROR: Could not recycle the \"Contents\" directory...");
 					}
 				}
-				// Modify the project file, assuming there is only one such file... NO;
+				// Modify the project files,
 				// finding the contained projects
 				NSArray * enclosedProjects = [targetName enclosedProjectFileNames];
-				NSString * path = nil;
+				NSString * originalPath = nil;
+				NSString * convertedPath = nil;
 				NSEnumerator * E = [enclosedProjects objectEnumerator];
-				while(path = [E nextObject])
+				while(originalPath = [E nextObject])
 				{
-					path = [path stringByStandardizingPath];
-					NSString * convertedPath = [self convertedString:path withDictionary:filter];
-					if(![convertedPath pathIsEqual:path])
+					originalPath = [originalPath stringByStandardizingPath];
+					NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
+					if(![convertedPath pathIsEqual:originalPath])
 					{
-						if(![DFM movePath:path toPath:convertedPath handler:NULL])
+						if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
 						{
 							iTM2_LOG(@"..........  ERROR: Could not change the project file name.");
-							convertedPath = path;
+							convertedPath = originalPath;
 						}
 					}
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
-					// path is no longer used
+					// originalPath is no longer used
 					// open the project document
 					NSURL * url = [NSURL fileURLWithPath:convertedPath];
 					iTM2ProjectDocument * PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
@@ -1653,8 +1668,8 @@ To Do List:
 							[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
 							[TS beginEditing];
 							// then change the file name:
-							NSString * originalPath = [document fileName];
-							NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
+							originalPath = [document fileName];
+							convertedPath = [self convertedString:originalPath withDictionary:filter];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
 							if([document isKindOfClass:[iTM2TeXDocument class]])
 							{
@@ -1680,26 +1695,45 @@ To Do List:
 						}
 						else if(!document)
 						{
-							NSString * originalPath = [PD absoluteFileNameForKey:key];
+							originalPath = [PD absoluteFileNameForKey:key];
 //iTM2_LOG(@"originalPath is: %@", originalPath);
-							NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
+							convertedPath = [self convertedString:originalPath withDictionary:filter];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
 							NSURL * url = [NSURL fileURLWithPath:originalPath];
-							document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
-//iTM2_LOG(@"document is: %@", document);
-							if([document isKindOfClass:[iTM2TextDocument class]])
+							NSError * error = nil;
+							NSString * typeName = [SDC typeForContentsOfURL:url error:&error];
+							if([typeName length])
 							{
-								NSTextStorage * TS = [document textStorage];
-								NSString * old = [TS string];
-								NSString * new = [self convertedString:old withDictionary:filter];
-								[TS beginEditing];
-								[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
-								[TS endEditing];
-								if([document isKindOfClass:[iTM2TeXDocument class]])
+								Class C = [SDC documentClassForType:typeName];
+								if([C isSubclassOfClass:[iTM2TextDocument class]])
 								{
-									convertedPath = [[convertedPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:
-											[self convertedString:[convertedPath lastPathComponent]
-													withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]]];
+									document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
+									NSString * old = [document stringRepresentation];
+									iTM2StringFormatController * stringFormatter = [document stringFormatter];
+									NSStringEncoding encoding = [stringFormatter stringEncoding];
+									NSMutableDictionary * filteredFilter = [[filter mutableCopy] autorelease];
+									NSEnumerator * E = [filter keyEnumerator];
+									NSString * key;
+									while(key = [E nextObject])
+									{
+										NSString * translation = [filter objectForKey:key];
+										NSData * data = [translation dataUsingEncoding:encoding allowLossyConversion:YES];
+										translation = [[[NSString alloc] initWithData:data encoding:encoding] autorelease];
+										[filteredFilter setObject:translation forKey:key];
+									}
+									NSString * new = [self convertedString:old withDictionary:filteredFilter];
+									NSData * D = [stringFormatter dataWithString:new allowLossyConversion:YES];
+									if(D)
+									{
+										[document loadDataRepresentation:D ofType:[document modelType]]
+											|| [document loadDataRepresentation:D ofType:[document fileType]];
+									}
+									if([document isKindOfClass:[iTM2TeXDocument class]])
+									{
+										convertedPath = [[convertedPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:
+												[self convertedString:[convertedPath lastPathComponent]
+														withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]]];
+									}
 								}
 							}
 							if(![convertedPath pathIsEqual:originalPath])
@@ -1747,6 +1781,22 @@ To Do List:
 					[[PD undoManager] removeAllActions];
 					[PD makeWindowControllers];
 					[PD showWindows];
+				}
+				// changing the name of all the files included in the newly created directory according to the filter above
+				NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:targetName];
+				while(originalPath = [DE nextObject])
+				{
+					convertedPath = [self convertedString:originalPath withDictionary:filter];
+					if(![convertedPath pathIsEqual:originalPath])
+					{
+						originalPath = [targetName stringByAppendingPathComponent:originalPath];
+						convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
+						convertedPath = [convertedPath stringByStandardizingPath];
+						if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
+						{
+							iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalPath, convertedPath);
+						}
+					}
 				}
 				// changing the file permissions: it is relevant if the document was built in...
 				[DFM makeFileWritableAtPath:targetName recursive:YES];

@@ -683,6 +683,7 @@ To Do List:
 //NSLog(@"data: %@", result);
     return [[self _DataRepresentations] allKeys];
 }
+#warning - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
 - (NSData *)dataRepresentationOfType:(NSString *)type;
 /*"Description Forthcoming.
@@ -695,6 +696,7 @@ To Do List:
 //NSLog(@"data: %@", result);
     return [[self _DataRepresentations] valueForKey:type];
 }
+#warning - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 /*"Description Forthcoming.

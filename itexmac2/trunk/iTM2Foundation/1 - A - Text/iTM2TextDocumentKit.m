@@ -699,7 +699,8 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 	}
 	else if(NSAlertErrorReturn == result)
 	{
-		[self loadDataRepresentation:[[self stringFormatter] dataWithString:argument allowLossyConversion:NO] ofType:[self fileType]];
+		//D = [[self stringFormatter] dataWithString:argument allowLossyConversion:NO];
+		[self loadDataRepresentation:D ofType:[self fileType]];
 		return;// error
 	}
 	else if(NSAlertOtherReturn == result)
@@ -824,7 +825,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #warning THIS MUST BE REVISITED: it should not be necessary to have a window controller to have a text storage
-    return [[[self frontWindow] windowController] textStorage];
+	id result = [[[self frontWindow] windowController] textStorage];
+	if(result)
+	{
+		return result;
+	}
+	[self makeWindowControllers];
+    return [[[self windowControllers] lastObject] textStorage];
 }
 #pragma mark =-=-=-=-=-=-=-=  PRINTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= printDocument:

@@ -67,29 +67,6 @@ To Do List:
 	}
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveToFile:saveOperation:delegate:didSaveSelector:contextInfo:
-- (void)saveToFile:(NSString *)fileName saveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
-/*"Spaces are replaced by underscores.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSString * path = [fileName stringByDeletingLastPathComponent];
-	NSMutableString * last = [[[fileName lastPathComponent] mutableCopy] autorelease];
-	if([last replaceOccurrencesOfString:@" " withString:@"_" options:0L range:NSMakeRange(0, [last length])])
-	{
-		fileName = [path stringByAppendingPathComponent:[last stringWithSubstring:@" " replacedByString:@"_"]];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"\nSpaces changed, new fileName: %@", fileName);
-		}
-	}
-    [super saveToFile: fileName saveOperation: saveOperation delegate: delegate
-                                        didSaveSelector: didSaveSelector contextInfo: contextInfo];
-    return;
-}
 @end
 
 
