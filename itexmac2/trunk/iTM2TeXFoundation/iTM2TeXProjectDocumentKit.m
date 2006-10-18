@@ -1049,6 +1049,35 @@ To Do List:
     }
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
+- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * string = [self contextStringForKey:@"iTM2ProjectSubdocumentsDrawerSize"];
+	if(string)
+	{
+		NSRectEdge edge = [sender preferredEdge];
+		NSSize defaultsSize = NSSizeFromString(string);
+		if((edge == NSMinXEdge) || (edge == NSMaxXEdge))
+		{
+			contentSize.height = defaultsSize.height;
+		}
+		else
+		{
+			contentSize.width = defaultsSize.width;
+		}
+	}
+	else
+	string = NSStringFromSize(contentSize);
+	[self takeContextValue:string forKey:@"iTM2ProjectSubdocumentsDrawerSize"];
+//iTM2_END;
+	return contentSize;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillOpen:
 - (void)drawerWillOpen:(NSNotification *) notification;
 /*"Description forthcoming.
@@ -1058,7 +1087,33 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[notification object] validateContent];
+	NSDrawer * drawer = [notification object];
+    [drawer validateContent];
+	NSSize contentSize = [drawer contentSize];
+	NSString * string = [self contextStringForKey:@"iTM2ProjectSubdocumentsDrawerSize"];
+	if(string)
+	{
+		NSRectEdge edge = [drawer preferredEdge];
+		NSSize maxContentSize = [drawer maxContentSize];
+		NSSize minContentSize = [drawer minContentSize];
+		NSSize defaultsSize = NSSizeFromString(string);
+		if((edge == NSMinXEdge) || (edge == NSMaxXEdge))
+		{
+			contentSize.width = MAX(minContentSize.width,defaultsSize.width);
+			contentSize.width = MIN(maxContentSize.width,contentSize.width);
+		}
+		else
+		{
+			contentSize.height = MAX(minContentSize.height,defaultsSize.height);
+			contentSize.height = MIN(maxContentSize.height,contentSize.height);
+		}
+		[drawer setContentSize:contentSize];	
+	}
+	else
+	{
+		string = NSStringFromSize(contentSize);
+		[self takeContextValue:string forKey:@"iTM2ProjectSubdocumentsDrawerSize"];
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
