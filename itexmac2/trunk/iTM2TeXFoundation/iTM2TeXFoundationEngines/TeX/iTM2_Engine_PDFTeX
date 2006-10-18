@@ -2,7 +2,7 @@
 # this is iTM2_Engine_PDFTeX for iTeXMac2 2.0
 # © 2006 jlaurens AT users DOT sourceforge DOT net
 # This is a pdfeTeX 3.141592-1.20a-2.2 (Web2C 7.5.3) wrapper
-iTM2_PDFTeX_Engine_Version=1.0
+iTM2_PDFTeX_Engine_Version=1.1
 iTM2PDFTeXEngineUsage()
 {
 iTM2_Usage="Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
@@ -273,6 +273,12 @@ fi
 if [ "${iTM2_PDFTeX_USE_MoreArgument:-0}" != "0" ] && [ ${#iTM2_PDFTeX_MoreArgument} -ne 0 ]
 then
 	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} ${iTM2_PDFTeX_MoreArgument}"
+fi
+if [ "${iTM2_PDFTeX_shell_escape:-0}" != "0" ]
+then
+	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -shell-escape"
+else
+	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -no-shell-escape"
 fi
 # the file name part
 TWSMasterBase="$(basename "${TWSMaster}")"

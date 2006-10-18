@@ -2,7 +2,7 @@
 # this is iTM2_Engine_TeX for iTeXMac2 2.0
 # © 2006 jlaurens AT users DOT sourceforge DOT net
 # This is a TeX 3.141592 (Web2C 7.5.3) wrapper
-iTM2_TeX_Engine_Version=1.0
+iTM2_TeX_Engine_Version=1.1
 iTM2TeXEngineUsage()
 {
 iTM2_USAGE="Welcome to $(basename "$0") version ${iTM2_TeX_Engine_Version}
@@ -233,6 +233,12 @@ then
 	else
 		iTM2_TeX_Arguments="${iTM2_TeX_Arguments} -src-specials"
 	fi
+fi
+if [ "${iTM2_TeX_shell_escape:-0}" != "0" ]
+then
+	iTM2_TeX_Arguments="${iTM2_TeX_Arguments} -shell-escape"
+else
+	iTM2_TeX_Arguments="${iTM2_TeX_Arguments} -no-shell-escape"
 fi
 # the file name part
 TWSMasterBase="$(basename "${TWSMaster}")"

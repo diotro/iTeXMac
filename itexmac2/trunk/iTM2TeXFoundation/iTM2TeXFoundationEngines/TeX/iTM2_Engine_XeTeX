@@ -169,6 +169,12 @@ if [ "${iTM2_XeTeX_USE_MoreArgument:-0}" != "0" ] && [ ${#iTM2_XeTeX_MoreArgumen
 then
 	iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} \"${iTM2_XeTeX_MoreArgument}\""
 fi
+if [ "${iTM2_XeTeX_shell_escape:-0}" != "0" ]
+then
+	iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -shell-escape"
+else
+	iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -no-shell-escape"
+fi
 # the file name part
 TWSMasterBase="$(basename "${TWSMaster}")"
 EXTENSION="${TWSMasterBase##*.}"
