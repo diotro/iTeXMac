@@ -1058,22 +1058,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * string = [self contextStringForKey:@"iTM2ProjectSubdocumentsDrawerSize"];
-	if(string)
-	{
-		NSRectEdge edge = [sender preferredEdge];
-		NSSize defaultsSize = NSSizeFromString(string);
-		if((edge == NSMinXEdge) || (edge == NSMaxXEdge))
-		{
-			contentSize.height = defaultsSize.height;
-		}
-		else
-		{
-			contentSize.width = defaultsSize.width;
-		}
-	}
-	else
-	string = NSStringFromSize(contentSize);
+	NSString * string = NSStringFromSize(contentSize);
 	[self takeContextValue:string forKey:@"iTM2ProjectSubdocumentsDrawerSize"];
 //iTM2_END;
 	return contentSize;
