@@ -959,60 +959,91 @@ To Do List:
     if([sender isKindOfClass:[NSPopUpButton class]])
     {
         if([[sender menu] numberOfItems] < 2)
+		{
             [sender setMenu:[iTM2StringFormatController EOLMenuWithAction:@selector(takeEOLFromTag:) target:self]];
+		}
+		// removing all the items with a iTM2_noop:action
+		NSMenu * M = [sender menu];
+		NSEnumerator * E = [[M itemArray] objectEnumerator];
+		NSMenuItem * MI;
+		SEL action = @selector(iTM2_noop:);
+		while(MI = [E nextObject])
+		{
+			if([MI action] == action)
+			{
+				[M removeItem:MI];
+			}
+		}
+		[M cleanSeparators];
         iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
         NSArray * fileKeys = [self orderedFileKeys];
-        int row = [[self documentsView] selectedRow];
-        if((row>=0) && (row<[fileKeys count]))
+		NSTableView * documentsView = [self documentsView];
+		NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
+		NSString * K = @"";
+		NSString * fileName = @"";
+        unsigned int row = [selectedRowIndexes firstIndex];
+		unsigned int top = [fileKeys count];
+		// first remove all the indexes for which the EOL has no meaning
+		NSMutableIndexSet * mutableIndexSet = [[selectedRowIndexes mutableCopy] autorelease];
+		NSMutableArray * EOLs = [NSMutableArray array];
+		NSString * EOLString;
+		while(row < top)
         {
-            NSString * K = [fileKeys objectAtIndex:row];
-			NSString * fileName = [project relativeFileNameForKey:K];
+            K = [fileKeys objectAtIndex:row];
+			fileName = [project relativeFileNameForKey:K];
 			if([fileName length])
 			{
 				Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
-				if(C && ![C isSubclassOfClass:[iTM2TextDocument class]])
+				if([C isSubclassOfClass:[iTM2TextDocument class]])
 				{
-					[sender selectItem:nil];// nothing selected
-					return NO;
+					if(EOLString = [project originalPropertyValueForKey:TWSEOLFileKey fileKey:K])
+					{
+						[EOLs addObject:EOLString];
+					}
+				}
+				else
+				{
+					[mutableIndexSet removeIndex:row];
 				}
 			}
-			// removing all the items with a iTM2_noop:action
-			NSMenu * M = [sender menu];
-			NSEnumerator * E = [[M itemArray] objectEnumerator];
-			NSMenuItem * MI;
-			SEL action = @selector(iTM2_noop:);
-			while(MI = [E nextObject])
-			{
-				if([MI action] == action)
-					[M removeItem:MI];
-			}
-			[M cleanSeparators];
-			NSString * EOLString = [project originalPropertyValueForKey:TWSEOLFileKey fileKey:K];
-            if(EOLString)
-            {
-                unsigned idx = [sender indexOfItemWithTag:[iTM2StringFormatController EOLForTerminationString:EOLString]];
-                [sender selectItem:(id <NSMenuItem>)(idx<[sender numberOfItems]? [sender itemAtIndex:idx]:nil)];
-				return [project subdocumentForKey:K] != nil;
-            }
-            else
-            {
-				EOLString = [project EOLStringForFileKey:K];
-                unsigned idx = [sender indexOfItemWithTag:[iTM2StringFormatController EOLForTerminationString:EOLString]];
-				NSString * title = [[sender itemAtIndex:idx] title];
-				NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:iTM2EOLDefaultFormat, title] action:action keyEquivalent:[NSString string]] autorelease];
-				[MI setTarget:nil];
-				[MI setEnabled:NO];
-				[[sender menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
-				[[sender menu] insertItem:MI atIndex:0];
-				[sender selectItemAtIndex:0];
-				return [project subdocumentForKey:K] != nil;
-            }
-        }
-        else
+			row = [selectedRowIndexes indexGreaterThanIndex:row];
+		}
+		if(![mutableIndexSet count])
 		{
 			[sender selectItem:nil];
-            return NO;
+			return NO;
 		}
+		int tag;
+		NSString * title;
+		if([EOLs count] == 0)
+		{
+			EOLString = [project EOLStringForFileKey:K];
+			tag = [iTM2StringFormatController EOLForTerminationString:EOLString];
+			row = [sender indexOfItemWithTag:tag];
+			title = [[sender itemAtIndex:row] title];
+			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:iTM2EOLDefaultFormat, title] action:action keyEquivalent:[NSString string]] autorelease];
+			[MI setTarget:nil];
+			[MI setEnabled:NO];
+			[[sender menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
+			[[sender menu] insertItem:MI atIndex:0];
+			[sender selectItemAtIndex:0];
+			return [mutableIndexSet count] != 0;
+		}
+		if([EOLs count] == 1)
+		{
+			tag = [iTM2StringFormatController EOLForTerminationString:EOLString];
+			row = [sender indexOfItemWithTag:row];
+			[sender selectItem:(id <NSMenuItem>)(row<[sender numberOfItems]? [sender itemAtIndex:row]:nil)];
+			return YES;
+		}
+		title = [[sender itemAtIndex:row] title];
+		MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:iTM2EOLDefaultFormat, title] action:action keyEquivalent:[NSString string]] autorelease];
+		[MI setTarget:nil];
+		[MI setEnabled:NO];
+		[[sender menu] insertItem:[NSMenuItem separatorItem] atIndex:0];
+		[[sender menu] insertItem:MI atIndex:0];
+		[sender selectItemAtIndex:0];
+		return YES;
     }
 //iTM2_END;
     return YES;
@@ -1026,27 +1057,35 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([sender isKindOfClass:[NSPopUpButton class]])
-    {
-        iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
-        NSArray * fileKeys = [self orderedFileKeys];
-        int row = [[self documentsView] selectedRow];
-        if((row>=0) && (row<[fileKeys count]))
-        {
-            NSString * K = [fileKeys objectAtIndex:row];
-			int EOL = [[sender selectedItem] tag];
-            NSString * new = [iTM2StringFormatController terminationStringForEOL:EOL];
-			NSString * old = [project originalPropertyValueForKey:TWSEOLFileKey fileKey:K];
-            if(![new isEqualToString:old])
-            {
-				id D = [SDC documentForFileName:[project absoluteFileNameForKey:K]];
-				if([D respondsToSelector:@selector(setEOL:)])
-					[D setEOL:EOL];
-                [project setEOLString:new forFileKey:K];
-                [project updateChangeCount:NSChangeDone];
-            }
-        }
-    }
+	int EOL = [sender tag];
+	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
+	NSArray * fileKeys = [self orderedFileKeys];
+	NSString * new = [iTM2StringFormatController terminationStringForEOL:EOL];
+	NSTableView * documentsView = [self documentsView];
+	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
+	unsigned int row = [selectedRowIndexes firstIndex];
+	unsigned int top = [fileKeys count];
+	BOOL changed = NO;
+	while(row < top)
+	{
+		NSString * K = [fileKeys objectAtIndex:row];
+		NSString * old = [project originalPropertyValueForKey:TWSEOLFileKey fileKey:K];
+		if(![new isEqualToString:old])
+		{
+			id D = [SDC documentForFileName:[project absoluteFileNameForKey:K]];
+			if([D respondsToSelector:@selector(setEOL:)])
+			{
+				[D setEOL:EOL];
+			}
+			[project setEOLString:new forFileKey:K];
+			changed = YES;
+		}
+		row = [selectedRowIndexes indexGreaterThanIndex:row];
+	}
+	if(changed)
+	{
+		[project updateChangeCount:NSChangeDone];		
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
