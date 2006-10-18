@@ -1032,7 +1032,7 @@ To Do List:
 		if([EOLs count] == 1)
 		{
 			tag = [iTM2StringFormatController EOLForTerminationString:EOLString];
-			row = [sender indexOfItemWithTag:row];
+			row = [sender indexOfItemWithTag:tag];
 			[sender selectItem:(id <NSMenuItem>)(row<[sender numberOfItems]? [sender itemAtIndex:row]:nil)];
 			return YES;
 		}
@@ -1086,6 +1086,7 @@ To Do List:
 	{
 		[project updateChangeCount:NSChangeDone];		
 	}
+	[self validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
