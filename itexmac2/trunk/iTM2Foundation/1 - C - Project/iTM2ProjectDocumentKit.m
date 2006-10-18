@@ -1334,6 +1334,7 @@ To Do List:
 	if(!document || (document == self)|| [document isKindOfClass:[iTM2WrapperDocument class]]|| [document isKindOfClass:[iTM2ProjectDocument class]])
 		return;
 	id projectDocument = [SPC projectForFileName:[document fileName]];
+	// beware , the next assertion does not fit with autosave feature
 	NSAssert3(!projectDocument || (projectDocument == self),@"The document <%@> cannot be assigned to project <%@> because it already belongs to another project <%@>",[document fileName],[self fileName],[projectDocument fileName]);
 	[self newKeyForFileName:[document fileName]];
 //iTM2_LOG(@"[self keyForFileName:[document fileName]]:<%@>",[self keyForFileName:[document fileName]]);
@@ -4394,6 +4395,112 @@ To Do List:
 //iTM2_END;
     return nil;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:writeRowsWithIndexes:toPasteboard:
+- (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSArray * fileKeys = [self orderedFileKeys];
+	iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
+	NSString * path;
+	NSString * key;
+ 	NSMutableArray * array = [NSMutableArray array];
+	unsigned int row = [rowIndexes firstIndex];
+	while(row != NSNotFound)
+	{
+		key = [fileKeys objectAtIndex:row];
+		path = [projectDocument absoluteFileNameForKey:key];
+		[array addObject:path];
+		row = [rowIndexes indexGreaterThanIndex:row];
+	}
+	if([array count])
+	{
+		[pboard declareTypes:[NSArray arrayWithObject:NSFilenamesPboardType] owner:self];
+//iTM2_END;
+		return [pboard setPropertyList:array forType:NSFilenamesPboardType];
+	}
+//iTM2_END;
+    return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newDocument:
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSPasteboard * draggingPasteboard = [info draggingPasteboard];
+	if(![[draggingPasteboard types] containsObject:NSFilenamesPboardType])
+	{
+		return NSDragOperationNone;
+	}
+	NSArray * array = [draggingPasteboard propertyListForType:NSFilenamesPboardType];
+	if(![array isKindOfClass:[NSArray class]] || ![array count])
+	{
+		return NSDragOperationNone;
+	}
+	iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
+	NSString * dirName = [projectDocument fileName];
+	dirName = [dirName stringByDeletingLastPathComponent];
+	NSEnumerator * E = [array objectEnumerator];
+	NSString * path;
+	while(path = [E nextObject])
+	{
+		if([path belongsToDirectory:dirName])
+		{
+			return NSDragOperationCopy;
+		}
+	}
+//iTM2_END;
+    return [iTM2EventObserver isAlternateKeyDown]?NSDragOperationCopy:NSDragOperationNone;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:acceptDrop:row:dropOperation:
+- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSPasteboard * draggingPasteboard = [info draggingPasteboard];
+	if(![[draggingPasteboard types] containsObject:NSFilenamesPboardType])
+	{
+		return NO;
+	}
+	NSArray * array = [draggingPasteboard propertyListForType:NSFilenamesPboardType];
+	if(![array isKindOfClass:[NSArray class]] || ![array count])
+	{
+		return NO;
+	}
+	iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
+	BOOL isAlt = [iTM2EventObserver isAlternateKeyDown];
+	BOOL result = NO;
+	NSString * dirName = [projectDocument fileName];
+	dirName = [dirName stringByDeletingLastPathComponent];
+	NSEnumerator * E = [array objectEnumerator];
+	NSString * path;
+	NSString * key;
+	while(path = [E nextObject])
+	{
+		if(isAlt || [path belongsToDirectory:dirName])
+		{
+			if(key = [projectDocument newKeyForFileName:path])
+			{
+				result = YES;
+			}
+		}
+	}
+//iTM2_END;
+    return result;
+}
+
 #if 0
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 - (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row;
@@ -5052,17 +5159,6 @@ To Do List:
 //iTM2_START;
     return YES;
 }
-#if 0
-
-// optional - drag and drop support
-- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
-    // This method is called after it has been determined that a drag should begin,but before the drag has been started.  To refuse the drag,return NO.  To start a drag,return YES and place the drag data onto the pasteboard (data,owner,etc...).  The drag image and other drag related information will be set up and provided by the table view once this call returns with YES.  The rows array is the list of row numbers that will be participating in the drag.
-
-- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
-    // This method is used by NSTableView to determine a valid drop target.  Based on the mouse position,the table view will suggest a proposed drop location.  This method must return a value that indicates which dragging operation the data source will perform.  The data source may "re-target" a drop if desired by calling setDropRow:dropOperation:and returning something other than NSDragOperationNone.  One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
-
-- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
-#endif
 @end
 
 @implementation NSDocument(Project)
@@ -7297,8 +7393,8 @@ To Do List:
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canGetNewProjectForFileNameRef:
-- (BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canGetNewProjectForFileNameRef:error:
+- (BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -7308,8 +7404,29 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(fileNameRef)
+	{
+		if([REENTRANT_PROJECT containsObject:*fileNameRef])
+		{
+			return NO;
+		}
+		BOOL isDirectory = NO;
+		if([DFM fileExistsAtPath:*fileNameRef isDirectory:&isDirectory])
+		{
+			if(isDirectory)
+			{
+				if([SWS isFilePackageAtPath:*fileNameRef])
+				{
+					return YES;
+				}
+				iTM2_OUTERROR(1,(@"No project for a directory that is not a package."),nil);
+				return NO;
+			}
+			return YES;
+		}
+	}
 //iTM2_END;
-	return fileNameRef && ![REENTRANT_PROJECT containsObject:*fileNameRef];
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newProjectForFileNameRef:display:error:
 - (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
@@ -7333,7 +7450,7 @@ To Do List:
 		return projectDocument;// this filename is already registered,possibly with a "nil" project
 	// reentrant code
 	[SPC setProject:nil forFileName:*fileNameRef];
-	if(![self canGetNewProjectForFileNameRef:fileNameRef])
+	if(![self canGetNewProjectForFileNameRef:fileNameRef error:outErrorPtr])
 	{
 		return nil;
 	}
