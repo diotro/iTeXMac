@@ -441,6 +441,100 @@ To Do List: Nothing at first glance.
     [self insertText:[self tabAnchor]];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  shouldChangeTextInRanges:replacementStrings:
+- (BOOL)shouldChangeTextInRanges:(NSArray *)affectedRanges replacementStrings:(NSArray *)replacementStrings;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![super shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		return NO;
+	}
+	// this is a patch to manage the special glyph generation used by iTM2
+	// some TeX commands are displayed just with one glyp
+	// when the style is extended latex for example, the \alpha command is replaced by the alpha greek letter
+	// There is a problem for text editing:
+	// if you have in your text the "alpha" word as is, no the name of a TeX command
+	// and if you want to insert \foo just before "alpha"
+	// you place the cursor before the firts a, the insert \, f, o, o, ' '
+	// What you want is "\foo alpha"
+	// but what you end up with is "foo \alpha"
+	// The fact is when you insert the first '\', alpha becomes \alpha and is interpreted as one glyph
+	// the NSTextView won't let you insert text inside the \alpha string,
+	// any new text material will be inserted before the glyph
+	// the purpose of this patch is to break the glyph when just one '\' character is inserted and
+	// there is a one glyph shortcut
+	// Here is the first part of the patch, the last one is in the didChangeText below.
+	NSValue * V = [[self implementation] metaValueForKey:@"__expected selected range"];
+	if(V)
+	{
+		// reentrant code management
+		V = nil;
+	}
+	else if(([affectedRanges count] == 1) && ([replacementStrings count] > 0))
+	{
+		NSString * replacementString = [replacementStrings objectAtIndex:0];
+		if([replacementString hasSuffix:[NSString backslashString]])
+		{
+			V = [affectedRanges lastObject];
+			NSRange R = [V rangeValue];
+			R.length = [replacementString length];
+			R.location = NSMaxRange(R);
+			R.length = 0;
+			V = [NSValue valueWithRange:R];
+		}
+	}
+	[[self implementation] takeMetaValue:V forKey:@"__expected selected range"];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  didChangeText
+- (void)didChangeText;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[super didChangeText];
+	// see the shouldChangeTextInRanges:replacementStrings: implementation for an explanation of this patch
+	NSValue * V = [[self implementation] metaValueForKey:@"__expected selected range"];
+	if(V)
+	{
+		NSRange expectedSelectedRange = [V rangeValue];
+		NSRange selectedRange = [self selectedRange];
+		if(!NSEqualRanges(expectedSelectedRange,selectedRange))
+		{
+			// there si a one glyph problem
+			// what is the glyph and its command name counterpart
+			NSLayoutManager * LM = [self layoutManager];
+			NSRange charRange = selectedRange;
+			charRange.length = 1;
+			NSString * string = [self string];
+			if(NSMaxRange(charRange)<=[string length])
+			{
+				NSRange actualCharRange;
+				[LM glyphRangeForCharacterRange:charRange actualCharacterRange:&actualCharRange];// unused glyph range
+				if(actualCharRange.length > charRange.length)
+				{
+					// this should always occur?
+					NSMutableString * replacementString = [[[string substringWithRange:actualCharRange] mutableCopy] autorelease];
+					[replacementString insertString:@" " atIndex:1];
+					if([self shouldChangeTextInRange:actualCharRange replacementString:replacementString])
+					{
+						[self replaceCharactersInRange:actualCharRange withString:replacementString];
+						[[self implementation] takeMetaValue:nil forKey:@"__expected selected range"];
+						[self didChangeText];
+						[self setSelectedRange:expectedSelectedRange];
+					}
+				}
+			}
+		}
+	}
+    return;
+}
 @end
 #pragma mark -
 #pragma mark =-=-=-=-=-  BOOKMARKS
