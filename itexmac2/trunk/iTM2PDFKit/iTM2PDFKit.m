@@ -29,6 +29,7 @@ NSString * const iTM2PDFKitDocumentDidChangeNotification = @"iTM2_PDFDocumentDid
 
 NSString * const iTM2MultiplePDFDocumentType = @"Multiple PDF Document";// beware, this MUST appear in the target file...
 
+NSString * const iTM2PDFKitKey = @"iTM2PDFKit";
 NSString * const iTM2PDFKitScaleFactorKey = @"iTM2PDFKitScaleFactor";
 NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
 
@@ -798,6 +799,77 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
+- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * string = NSStringFromSize(contentSize);
+	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey];
+	if([D isKindOfClass:[NSDictionary class]])
+	{
+		D = [[D mutableCopy] autorelease];
+	}
+	else
+	{
+		D = [NSMutableDictionary dictionary];
+	}
+	string = NSStringFromSize(contentSize);
+	[(NSMutableDictionary *)D takeValue:string forKey:@"Drawer Size"];
+	[self takeContextValue:D forKey:iTM2PDFKitKey];
+//iTM2_END;
+	return contentSize;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillOpen:
+- (void)drawerWillOpen:(NSNotification *) notification;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDrawer * drawer = [notification object];
+    [drawer validateContent];
+	NSSize contentSize = [drawer contentSize];
+	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey];
+	NSString * string;
+	if([D isKindOfClass:[NSDictionary class]])
+	{
+		string = [[self contextValueForKey:iTM2PDFKitKey] valueForKey:@"Drawer Size"];
+		if([string isKindOfClass:[NSString class]])
+		{
+			NSRectEdge edge = [drawer preferredEdge];
+			NSSize maxContentSize = [drawer maxContentSize];
+			NSSize minContentSize = [drawer minContentSize];
+			NSSize defaultsSize = NSSizeFromString(string);
+			if((edge == NSMinXEdge) || (edge == NSMaxXEdge))
+			{
+				contentSize.width = MAX(minContentSize.width,defaultsSize.width);
+				contentSize.width = MIN(maxContentSize.width,contentSize.width);
+			}
+			else
+			{
+				contentSize.height = MAX(minContentSize.height,defaultsSize.height);
+				contentSize.height = MIN(maxContentSize.height,contentSize.height);
+			}
+			[drawer setContentSize:contentSize];
+		}
+		D = [[D mutableCopy] autorelease];
+	}
+	else
+	{
+		D = [NSMutableDictionary dictionary];
+	}
+	string = NSStringFromSize(contentSize);
+	[(NSMutableDictionary *)D takeValue:string forKey:@"Drawer Size"];
+	[self takeContextValue:D forKey:iTM2PDFKitKey];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerDidOpen:
 - (void)drawerDidOpen:(NSNotification *)notification;
 /*"Description Forthcoming.
@@ -1106,7 +1178,7 @@ To Do List:
 	}
 	unsigned int count = [[self PDFSearchResults] count]/3;
 	[_searchCountText setStringValue: [NSString stringWithFormat:
-		NSLocalizedStringFromTableInBundle(@"Found %i match(es)", @"iTM2PDFKit", [self classBundle], ""),count]];
+		NSLocalizedStringFromTableInBundle(@"Found %i match(es)", iTM2PDFKitKey, [self classBundle], ""),count]];
 	NSDate * _searchTime = [[self implementation] metaValueForKey:@"_searchTime"];
 	NSDate * newTime = [NSDate date];
 	if (([newTime timeIntervalSinceDate: _searchTime] > 1.0) || (count == 1))
@@ -1627,11 +1699,11 @@ To Do List:
 //NSLog(@"dpn");
     return [[self album] synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint];
 }
-#define GETTER [[self contextValueForKey:@"iTM2PDFKit"] valueForKey:iTM2KeyFromSelector(_cmd)]
-#define SETTER(argument) id __D = [[[self contextDictionaryForKey:@"iTM2PDFKit"] mutableCopy] autorelease];\
+#define GETTER [[self contextValueForKey:iTM2PDFKitKey] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define SETTER(argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
-[self takeContextValue:__D forKey:@"iTM2PDFKit"];
+[self takeContextValue:__D forKey:iTM2PDFKitKey];
 #pragma mark =-=-=-=-=-  MODEL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareViewCompleteSaveContext:
 - (void)prepareViewCompleteSaveContext:(id)sender;
@@ -7417,12 +7489,12 @@ To Do List:
 	[self setDisplaysAsBook:[V displaysAsBook]];
 	// the factory model is the above defined hard coded model
 	// there is only one factory model for both projects and application
-	NSDictionary * D = [SUD dictionaryForKey:@"iTM2PDFKit"];
+	NSDictionary * D = [SUD dictionaryForKey:iTM2PDFKitKey];
 	if(D)
 		[[self model] addEntriesFromDictionary:D];
 	// the defaults model comes from the SUD, it concerns the application
 	// it is overriden by the project model
-	D = [self contextDictionaryForKey:@"iTM2PDFKit"];
+	D = [self contextDictionaryForKey:iTM2PDFKitKey];
 	if(D)
 		[[self model] addEntriesFromDictionary:D];
 	[self setProjectModel:[self model]];
@@ -7500,9 +7572,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMutableDictionary * MD = [[[self contextDictionaryForKey:@"iTM2PDFKit"] mutableCopy] autorelease];
+	NSMutableDictionary * MD = [[[self contextDictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];
 	[MD addEntriesFromDictionary:[self model]];
-	[self takeContextValue:MD forKey:@"iTM2PDFKit"];
+	[self takeContextValue:MD forKey:iTM2PDFKitKey];
 	[self setModel:MD];
 	[self setProjectModel:[self model]];
 	[self setOriginalModel:[self projectModel]];
@@ -8114,11 +8186,11 @@ To Do List:
 
 #undef GETTER
 #undef SETTER
-#define GETTER(KEY) [[self contextValueForKey:@"iTM2PDFKit"] valueForKey:KEY]
-#define SETTER(KEY, argument) id __D = [[[self contextDictionaryForKey:@"iTM2PDFKit"] mutableCopy] autorelease];\
+#define GETTER(KEY) [[self contextValueForKey:iTM2PDFKitKey] valueForKey:KEY]
+#define SETTER(KEY, argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:KEY];\
-[self takeContextValue:__D forKey:@"iTM2PDFKit"];\
+[self takeContextValue:__D forKey:iTM2PDFKitKey];\
 [[self contextManager] contextDidChange];
 
 @implementation NSApplication(iTM2PDFKitResponder)
@@ -8408,7 +8480,7 @@ To Do List:
 	[controller setShouldAntiAlias:YES];
 	[controller setAutoScales:NO];
 	[controller setDisplaysAsBook:[V displaysAsBook]];
-	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[controller model] forKey:@"iTM2PDFKit"]];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[controller model] forKey:iTM2PDFKitKey]];
 	iTM2_RELEASE_POOL;
 //iTM2_END;
     return;
@@ -8442,11 +8514,11 @@ To Do List:
 #endif
 #undef GETTER
 #undef SETTER
-#define GETTER [[SUD dictionaryForKey:@"iTM2PDFKit"] valueForKey:iTM2KeyFromSelector(_cmd)]
-#define SETTER(argument) id __D = [[[SUD dictionaryForKey:@"iTM2PDFKit"] mutableCopy] autorelease];\
+#define GETTER [[SUD dictionaryForKey:iTM2PDFKitKey] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define SETTER(argument) id __D = [[[SUD dictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
-[SUD setObject:__D forKey:@"iTM2PDFKit"];
+[SUD setObject:__D forKey:iTM2PDFKitKey];
 #pragma mark =-=-=-=-=-  BACKGROUND COLOR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backgroundColor
 - (NSColor *)backgroundColor;
