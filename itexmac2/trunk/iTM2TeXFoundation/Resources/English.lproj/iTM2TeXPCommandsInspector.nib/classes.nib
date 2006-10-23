@@ -28,6 +28,7 @@
                 toggleOutputDirectory = id; 
                 togglePATHPrefix = id; 
                 togglePATHSuffix = id; 
+                toggleShellEscape = id; 
             }; 
             CLASS = iTM2TeXPCommandsInspector; 
             LANGUAGE = ObjC; 

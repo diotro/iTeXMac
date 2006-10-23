@@ -21,6 +21,7 @@
                 editOptions = id; 
                 editScript = id; 
                 noop = id; 
+                switchToSimpleSettings = id; 
                 takeGhostScriptBinariesDistributionFromPopUp = id; 
                 takeGhostScriptBinariesPathFromStringValue = id; 
                 takeOutputDirectoryFromStringValue = id; 
@@ -33,6 +34,7 @@
                 toggleOutputDirectory = id; 
                 togglePATHPrefix = id; 
                 togglePATHSuffix = id; 
+                toggleShellEscape = id; 
             }; 
             CLASS = iTM2TeXPXtdCommandsInspector; 
             LANGUAGE = ObjC; 
