@@ -458,7 +458,7 @@ To Do List:
 //iTM2_START;
 	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:_pdfView];
 	[[self PDFThumbnails] setArray:[NSArray array]];
-	[self setCurrentOutputFigure: ([self contextValueForKey:@"CurrentOutputFigure"]?:[[[self outputFigureNumbers] objectEnumerator] nextObject])];
+	[self setCurrentOutputFigure: ([self contextValueForKey:@"CurrentOutputFigure" domain:iTM2ContextAllDomainsMask]?:[[[self outputFigureNumbers] objectEnumerator] nextObject])];
 	[_thumbnailTable setTarget:self];
 	[_thumbnailTable setAction:@selector(thumbnailTableAction:)];
 	[_thumbnailTable setDoubleAction:@selector(thumbnailTableDoubleAction:)];
@@ -570,7 +570,7 @@ To Do List:
 		metaSETTER(argument);
 		doc = [self currentPDFKitDocument];
 	}
-	[self takeContextValue:metaGETTER forKey:@"CurrentOutputFigure"];
+	[self takeContextValue:metaGETTER forKey:@"CurrentOutputFigure" domain:iTM2ContextAllDomainsMask];
 	[_pdfView setDocument:[doc PDFDocument]];
 	NSNumber * N = [doc metaPostViewScaleNumber];
 	if(N)
@@ -1296,7 +1296,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor"]>0?: 1.259921049895);
+    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
 		[self setScaleFactor:n / 100.0 * [self scaleFactor]];
@@ -1313,7 +1313,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor"]>0?: 1.259921049895);
+    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
 		[self setScaleFactor:100 * [self scaleFactor] / n];
