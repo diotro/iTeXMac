@@ -575,6 +575,7 @@
 /* Begin XCBuildConfiguration section */
 		DC0EF846094856580018276F /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -589,6 +590,7 @@
 		};
 		DC0EF847094856580018276F /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -662,6 +664,7 @@
 		};
 		DC9BC3050ABA054500FAC59E /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -690,7 +693,7 @@
 		};
 		DC9DC47C094840B10079E1B3 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */;
+			baseConfigurationReference = DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SYMROOT)",
@@ -702,7 +705,7 @@
 		};
 		DC9DC47D094840B10079E1B3 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */;
+			baseConfigurationReference = DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SYMROOT)",
