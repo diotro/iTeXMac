@@ -611,6 +611,9 @@ To Do List:
 		[self setPDFOutlines:nil];
 		[[self PDFThumbnails] setArray:[NSArray array]];
 		[[self PDFSearchResults] setArray:[NSArray array]];
+		[_thumbnailTable reloadData];
+		[_outlinesView reloadData];
+		[_searchTable reloadData];
 		PDFView * pdfView = [self pdfView];
 		PDFDocument * doc = [pdfView document];
 		if(doc)
@@ -710,21 +713,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	float limit = MIN(0.1, MAX([SUD floatForKey:@"iTM2PDFMinScaleLimit"], 0));
-	if(scale<limit)
+	float old = [self contextFloatForKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
+	if( old != scale )// reentrant management problem
 	{
-		scale = limit;
+		[self takeContextFloat:scale forKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
+		[self performSelector:@selector(validateWindowContent) withObject:nil afterDelay:0];
 	}
-	else
-	{
-		limit = MAX([SUD floatForKey:@"iTM2PDFMinScaleLimit"], 10.0);
-		if(scale>limit)
-		{
-			scale = limit;
-		}
-	}
-	[self takeContextFloat:scale forKey:iTM2PDFKitScaleFactorKey];
-	[self performSelector:@selector(validateWindowContent) withObject:nil afterDelay:0];
 //iTM2_END;
     return scale;
 }
@@ -809,7 +803,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * string = NSStringFromSize(contentSize);
-	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey];
+	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	if([D isKindOfClass:[NSDictionary class]])
 	{
 		D = [[D mutableCopy] autorelease];
@@ -820,7 +814,7 @@ To Do List:
 	}
 	string = NSStringFromSize(contentSize);
 	[(NSMutableDictionary *)D takeValue:string forKey:@"Drawer Size"];
-	[self takeContextValue:D forKey:iTM2PDFKitKey];
+	[self takeContextValue:D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
 	return contentSize;
 }
@@ -836,11 +830,11 @@ To Do List:
 	NSDrawer * drawer = [notification object];
     [drawer validateContent];
 	NSSize contentSize = [drawer contentSize];
-	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey];
+	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	NSString * string;
 	if([D isKindOfClass:[NSDictionary class]])
 	{
-		string = [[self contextValueForKey:iTM2PDFKitKey] valueForKey:@"Drawer Size"];
+		string = [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:@"Drawer Size"];
 		if([string isKindOfClass:[NSString class]])
 		{
 			NSRectEdge edge = [drawer preferredEdge];
@@ -867,7 +861,7 @@ To Do List:
 	}
 	string = NSStringFromSize(contentSize);
 	[(NSMutableDictionary *)D takeValue:string forKey:@"Drawer Size"];
-	[self takeContextValue:D forKey:iTM2PDFKitKey];
+	[self takeContextValue:D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerDidOpen:
@@ -1699,11 +1693,6 @@ To Do List:
 //NSLog(@"dpn");
     return [[self album] synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint];
 }
-#define GETTER [[self contextValueForKey:iTM2PDFKitKey] valueForKey:iTM2KeyFromSelector(_cmd)]
-#define SETTER(argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];\
-if(!__D) __D = [NSMutableDictionary dictionary];\
-[__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
-[self takeContextValue:__D forKey:iTM2PDFKitKey];
 #pragma mark =-=-=-=-=-  MODEL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareViewCompleteSaveContext:
 - (void)prepareViewCompleteSaveContext:(id)sender;
@@ -1733,6 +1722,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[super contextDidChange];
 	PDFView * V = [self pdfView];
 	[V setBackgroundColor:[self backgroundColor]];
 //iTM2_LOG(@"[V backgroundColor]: %@", [V backgroundColor]);
@@ -1771,6 +1761,7 @@ To Do List:
 	{
 		iTM2_LOG(@"NO VIEW...");
 	}
+	[self contextDidChangeComplete];
 //iTM2_END;
     return;
 }
@@ -1791,6 +1782,11 @@ To Do List:
 //iTM2_END;
 	return;
 }
+#define GETTER [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define SETTER(argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
+if(!__D) __D = [NSMutableDictionary dictionary];\
+[__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
+[self takeContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentViewVisibleRect
 - (NSRect)documentViewVisibleRect;
 {
@@ -1851,7 +1847,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayMode:
 - (void)setDisplayMode:(PDFDisplayMode)argument;
 {
-	SETTER([NSNumber numberWithInt: (int)argument]);
+	SETTER([NSNumber numberWithInt:argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  greekingThreshold
@@ -1862,7 +1858,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGreekingThreshold:
 - (void)setGreekingThreshold:(float)argument;
 {
-	SETTER([NSNumber numberWithFloat: (float)argument]);
+	SETTER([NSNumber numberWithFloat:argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scaleFactor
@@ -1873,7 +1869,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleFactor:
 - (void)setScaleFactor:(float)argument;
 {
-	SETTER([NSNumber numberWithFloat: (float)argument]);
+	SETTER([NSNumber numberWithFloat:argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shouldAntiAlias
@@ -1884,7 +1880,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setShouldAntiAlias:
 - (void)setShouldAntiAlias:(BOOL)argument;
 {
-	SETTER([NSNumber numberWithBool: (int)argument]);
+	SETTER([NSNumber numberWithBool:argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autoScales
@@ -1917,7 +1913,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplaysPageBreaks:
 - (void)setDisplaysPageBreaks:(BOOL)argument;
 {
-	SETTER([NSNumber numberWithBool: (int)argument]);
+	SETTER([NSNumber numberWithBool:argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= autoZoom:
@@ -2082,7 +2078,7 @@ To Do List:
 	//
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2PDFKitToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
-	if([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration"])
+	if([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if([configDictionary count])
@@ -2099,7 +2095,7 @@ To Do List:
 	{
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
-		configDictionary = [self contextDictionaryForKey:key];
+		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
 		if([configDictionary count])
 			[toolbar setConfigurationFromDictionary:configDictionary];
@@ -2107,7 +2103,7 @@ To Do List:
 		{
 			configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
-			[self takeContextValue:nil forKey:key];
+			[self takeContextValue:nil forKey:key domain:iTM2ContextAllDomainsMask];
 			if([configDictionary count])
 				[toolbar setConfigurationFromDictionary:configDictionary];
 			if(![[toolbar items] count])
@@ -2134,8 +2130,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL old = [self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration"];
-	[self takeContextBool: !old forKey:@"iTM2PDFKitToolbarShareConfiguration"];
+	BOOL old = [self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool: !old forKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self validateWindowContent];
 //iTM2_END;
 	return;
@@ -2149,7 +2145,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration"]? NSOnState:NSOffState)];
+	[sender setState: ([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
@@ -2162,11 +2158,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([self contextBoolForKey:@"iTM2PDFKitToolbarAutosavesConfiguration"])
+	if([self contextBoolForKey:@"iTM2PDFKitToolbarAutosavesConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
 		NSToolbar * toolbar = [[self window] toolbar];
 		NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
-		[self takeContextValue:[toolbar configurationDictionary] forKey:key];
+		[self takeContextValue:[toolbar configurationDictionary] forKey:key domain:iTM2ContextAllDomainsMask];
 	}
 //iTM2_START;
 	return;
@@ -2708,7 +2704,7 @@ To Do List:
 @end
 
 @interface iTM2PDFKitView(PRIVATE)
-- (BOOL)trackZoomIn:(NSEvent *)theEvent;
+- (BOOL)trackZoom:(NSEvent *)theEvent;
 - (BOOL)trackMove:(NSEvent *)theEvent;
 - (void)setupView;
 @end
@@ -2851,7 +2847,7 @@ To Do List:
 	{
 		[super awakeFromNib];
 	}
-	[self setToolMode:[self contextIntegerForKey:@"iTM2PDFKitToolMode"]];
+	[self setToolMode:[self contextIntegerForKey:@"iTM2PDFKitToolMode" domain:iTM2ContextAllDomainsMask]];
 //iTM2_END;
     return;
 }
@@ -2958,7 +2954,7 @@ To Do List:
 	iTM2SynchronizationLocationRecord locationRecord;
 	unsigned int displayBulletsMode;
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
-	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync"]];
+	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
     if([N respondsToSelector:@selector(boolValue)]? [N boolValue]: NO)
     {
@@ -3154,7 +3150,7 @@ To Do List:
 	}
 	unsigned int displayBulletsMode;
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
-	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync"]];
+	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
     if([N respondsToSelector:@selector(boolValue)]? [N boolValue]: NO)
     {
@@ -3357,8 +3353,8 @@ To Do List:
 //iTM2_END;
 	return [super areaOfInterestForMouse:theEvent];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  trackZoomIn:
-- (BOOL)trackZoomIn:(NSEvent *)theEvent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  trackZoom:
+- (BOOL)trackZoom:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0:
@@ -3396,13 +3392,14 @@ To Do List:
 	NSRect boundsInWindow, R1,R2, R3;
 	NSSize size;
 	float scale, scaleFactor;
+	NSWindow * window = [self window];
 	//
 next:
 	/* The bounds where the focus should live in window coordinates */
 	boundsInWindow = [documentView visibleRect];
 	boundsInWindow = [documentView convertRect:boundsInWindow toView:nil];
 	/* The windowFocus, constrained to boundsInWindow */
-	windowFocus = [[self window] mouseLocationOutsideOfEventStream];
+	windowFocus = [window mouseLocationOutsideOfEventStream];
 	if(windowFocus.x<=NSMinX(boundsInWindow))
 	{
 		windowFocus.x = NSMinX(boundsInWindow)+0.05;
@@ -3481,17 +3478,24 @@ next:
 	R3 = NSOffsetRect(R3,R1.origin.x-R2.origin.x,R1.origin.y-R2.origin.y);
 	[pdfViewZoomed setFrame:R3];
 	[rootView display];
-	if(theEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:YES])
+	if(theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:YES])
 	{
 		[NSEvent stopPeriodicEvents];/* No longer need to refresh */
 		[[rootView superview] replaceSubview:rootView with:self];
-		[[self window] makeFirstResponder:self];
+		[window makeFirstResponder:self];
 		[[self superview] setNeedsDisplay:YES];
-		[[self window] discardCursorRects];
+		[window discardCursorRects];
+		id WC = [window windowController];
+		if([WC respondsToSelector:@selector(setDocumentViewVisibleRect:)])
+		{
+			NSRect visibleRect = [documentView visibleRect];
+			visibleRect = [documentView absoluteRectWithRect:visibleRect];
+			[WC setDocumentViewVisibleRect:visibleRect];
+		}
 //iTM2_END;
 		return YES;
 	}
-	theEvent = [[self window] nextEventMatchingMask:NSLeftMouseDraggedMask|NSFlagsChangedMask|NSScrollWheelMask|NSPeriodicMask];
+	theEvent = [window nextEventMatchingMask:NSLeftMouseDraggedMask|NSFlagsChangedMask|NSScrollWheelMask|NSPeriodicMask];
 	NSSize scrollSize = NSZeroSize;
 	R1 = [documentView bounds];
 	R2 = [documentView visibleRect];
@@ -3534,7 +3538,7 @@ next:
 //iTM2_STOP;
 		return;
 	}
-	[self takeContextInteger:argument forKey:@"iTM2PDFKitToolMode"];
+	[self takeContextInteger:argument forKey:@"iTM2PDFKitToolMode" domain:iTM2ContextAllDomainsMask];
 	NSArray * selectViews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
 	NSEnumerator * E = [selectViews objectEnumerator];
 	NSView * subview;
@@ -4066,7 +4070,7 @@ To Do List:
 }
 @end
 
-#define SCROLL_LAYER 10
+#define SCROLL_LAYER 20
 #define SCROLL_DIMEN 100
 #define SCROLL_COEFF 1.1
 
@@ -4917,199 +4921,92 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#warning BUGGY with respect to what I was expecting
 	NSWindow * window = [self window];
 	NSView * documentView = [self documentView];
-	NSClipView * clipView = [[documentView enclosingScrollView] contentView];
-	NSPoint oldOrigin = [clipView bounds].origin;
-	oldOrigin = [documentView convertPoint:oldOrigin fromView:clipView];
-	NSPoint anchor = [theEvent locationInWindow];
-	NSPoint point,location,newOrigin;
-	NSSize scrollOffset;
-	NSRect noScrollRect,visibleRect;
-	float f,g;
-	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
 	NSRect bounds = [documentView bounds];
-	BOOL scroll;
+	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+	NSScrollView * scrollView = [documentView enclosingScrollView];
+	NSClipView * clipView = [scrollView contentView];
+	NSPoint oldHit = [window mouseLocationOutsideOfEventStream];
+	BOOL scroll = NO;
 mainLoop:
 	[[NSCursor closedHandCursor] set];
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
 	if([theEvent type] == NSLeftMouseUp)
 	{
 		[self discardCursorRects];
+#if 1
+		id WC = [window windowController];
+		if([WC respondsToSelector:@selector(setDocumentViewVisibleRect:)])
+		{
+			NSRect visibleRect = [documentView visibleRect];
+			visibleRect = [documentView absoluteRectWithRect:visibleRect];
+			[WC setDocumentViewVisibleRect:visibleRect];
+		}
+#endif
 		return YES;
 	}
-	// should I auto scroll?
-	visibleRect = [self visibleRect];
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
-	scroll = NO;
-	scrollOffset = NSZeroSize;
-	location = [window mouseLocationOutsideOfEventStream];
-	location = [self convertPoint:location fromView:nil];	
+	[window discardEventsMatchingMask:NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask beforeEvent:nil];
+	NSPoint newHit = [window mouseLocationOutsideOfEventStream];
+	NSRect visibleRect = [clipView visibleRect];
+	// removing the scroll views
+	visibleRect = [scrollView convertRect:visibleRect fromView:clipView];
+	visibleRect.size.width -= [[scrollView verticalScroller] frame].size.width;
+	visibleRect.size.height -= [[scrollView horizontalScroller] frame].size.height;
+	visibleRect = [documentView convertRect:visibleRect fromView:scrollView];
+	NSRect noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	NSPoint scrollOffset = NSZeroPoint;
+	NSPoint location = [documentView convertPoint:newHit fromView:nil];
+	NSPoint point = NSZeroPoint;
+	float f,g;
 	if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 	{
 		point = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
-		point = [self convertPoint:point fromView:nil];
+		point = [documentView convertPoint:point fromView:nil];
 		point.x -= NSMaxX(noScrollRect);
 		g/=point.x;
-		scrollOffset.width=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
+		scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = newHit.x>oldHit.x || (scroll && newHit.x==oldHit.x);
 	}
 	else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 	{
 		point = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
-		point = [self convertPoint:point fromView:nil];
+		point = [documentView convertPoint:point fromView:nil];
 		point.x -= NSMinX(noScrollRect);
 		g/=-point.x;
-		scrollOffset.width=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
+		scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = newHit.x<oldHit.x || (scroll && newHit.x==oldHit.x);
 	}
 	if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 	{
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
-		point = [self convertPoint:point fromView:nil];
+		point = [documentView convertPoint:point fromView:nil];
 		point.y -= NSMaxY(noScrollRect);
 		g/=point.y;
-		scrollOffset.height=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
+		scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
+		scroll = newHit.y>oldHit.y || (scroll && newHit.y==oldHit.y);
 	}
 	else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 	{
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
-		point = [self convertPoint:point fromView:nil];
+		point = [documentView convertPoint:point fromView:nil];
 		point.y -= NSMinY(noScrollRect);
 		g/=-point.y;
-		scrollOffset.height=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
-	}
-	// do scroll
-	point = [documentView convertPoint:anchor fromView:nil];
-	location = [window mouseLocationOutsideOfEventStream];
-	location = [documentView convertPoint:location fromView:nil];
-	location.x = oldOrigin.x + point.x - location.x;
-	location.y = oldOrigin.y + point.y - location.y;
-	[documentView scrollPoint:location];
-	newOrigin = [clipView bounds].origin;
-	newOrigin = [documentView convertPoint:newOrigin fromView:clipView];
-	if(NSEqualPoints(oldOrigin,newOrigin))
-	{
-		anchor = [window mouseLocationOutsideOfEventStream];
-	}
-	if(scroll)
-	{
-		scrollOffset = [self convertSize:scrollOffset toView:nil];
-		anchor.x-=scrollOffset.width;
-		anchor.y-=scrollOffset.height;
-		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
-						location:[window mouseLocationOutsideOfEventStream]
-							modifierFlags:0
-								timestamp:0
-									windowNumber:[window windowNumber]
-										context:nil
-											subtype:0
-												data1:0
-													data2:0];
-		[window postEvent:theEvent atStart:NO];
-	}
-	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
-	if([theEvent type] == NSLeftMouseUp)
-	{
-		return YES;
-	}
-	goto mainLoop;
-	
-	
-#if 0
-	NSRect visibleRect, noScrollRect, bounds;
-	NSPoint scrollOffset = NSMakePoint(10,10);
-	NSPoint anchor = [theEvent locationInWindow];/* immutable */
-	NSPoint locationAnchor = [documentView convertPoint:anchor fromView:nil];
-	NSPoint newPoint, location;
-	BOOL scroll = NO;
-	float f,g;
-	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
-	bounds = [documentView bounds];
-mainLoop:
-	[[NSCursor closedHandCursor] set];
-	visibleRect = [documentView visibleRect];
-	location = [window mouseLocationOutsideOfEventStream];
-	location = [documentView convertPoint:location fromView:nil];
-	// if the location is near the boundary of the visible rect, scroll
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
-	scroll = NO;
-	scrollOffset = NSZeroPoint;
-	if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
-	{
-		newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
-		newPoint = [window convertScreenToBase:newPoint];
-		newPoint = [documentView convertPoint:newPoint fromView:nil];
-		newPoint.x -= NSMaxX(noScrollRect);
-		g/=newPoint.x;
-		scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
-	}
-	else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
-	{
-		newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
-		newPoint = [window convertScreenToBase:newPoint];
-		newPoint = [documentView convertPoint:newPoint fromView:nil];
-		newPoint.x -= NSMinX(noScrollRect);
-		g/=-newPoint.x;
-		scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
-	}
-	if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
-	{
-		newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
-		newPoint = [window convertScreenToBase:newPoint];
-		newPoint = [documentView convertPoint:newPoint fromView:nil];
-		newPoint.y -= NSMaxY(noScrollRect);
-		g/=newPoint.y;
-		scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
-	}
-	else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
-	{
-		newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
-		newPoint = [window convertScreenToBase:newPoint];
-		newPoint = [documentView convertPoint:newPoint fromView:nil];
-		newPoint.y -= NSMinY(noScrollRect);
-		g/=-newPoint.y;
 		scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
-		scroll = YES;
+		scroll = newHit.y<oldHit.y || (scroll && newHit.y==oldHit.y);
 	}
+//	anchor = MLOES;
+//	handle = [documentView convertPoint:MLOES fromView:nil];
 	if(scroll)
 	{
-		visibleRect = NSOffsetRect(visibleRect,scrollOffset.x,scrollOffset.y);
-		[documentView scrollRectToVisible:visibleRect];
-NSLog(@"+");
-NSLog(NSStringFromPoint(locationAnchor));
-NSLog(NSStringFromPoint(location));
-NSLog(NSStringFromRect(anchorRect));
-NSLog(NSStringFromRect(visibleRect));
-	}
-	else
-	{
-		visibleRect = NSOffsetRect(anchorRect,locationAnchor.x-location.x,locationAnchor.y-location.y);
-NSLog(@"-");
-NSLog(NSStringFromPoint(locationAnchor));
-NSLog(NSStringFromPoint(location));
-NSLog(NSStringFromRect(anchorRect));
-NSLog(NSStringFromRect(visibleRect));
-		[documentView scrollRectToVisible:visibleRect];
-	}
-	anchorRect = visibleRect;
-	locationAnchor = [window mouseLocationOutsideOfEventStream];
-	locationAnchor = [documentView convertPoint:locationAnchor fromView:nil];
-	if(scroll)
-	{
-		location = [window mouseLocationOutsideOfEventStream];
+		oldHit.x-=scrollOffset.x;
+		oldHit.y-=scrollOffset.y;
 		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
-						location:location
+						location:newHit
 							modifierFlags:0
 								timestamp:0
 									windowNumber:[window windowNumber]
@@ -5119,8 +5016,15 @@ NSLog(NSStringFromRect(visibleRect));
 													data2:0];
 		[window postEvent:theEvent atStart:NO];
 	}
+//
+	location = [clipView bounds].origin;
+	location = [clipView convertPoint:location toView:nil];
+	location.x -= newHit.x - oldHit.x;
+	location.y -= newHit.y - oldHit.y;
+	location = [clipView convertPoint:location fromView:nil];
+	[clipView scrollPoint:location];
+	oldHit = newHit;
 	goto mainLoop;
-#endif
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent *)theEvent;
@@ -5138,11 +5042,12 @@ To Do List:
 		{
 			if(modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask))
 			{
-				float timeInterval = [[NSUserDefaults standardUserDefaults] floatForKey:@"com.apple.mouse.doubleClickThreshold"];
+				float timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
 				NSEvent * otherEvent;
-				if(otherEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:NO])
+				NSWindow * window = [self window];
+				if(otherEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES])
 				{
-					int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey]>0?: 1.259921049895);
+					int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
 					if(n>0)
 					{
 						float zoom = (modifierFlags & NSShiftKeyMask)?n/100.0:100.0/n;
@@ -5164,9 +5069,16 @@ To Do List:
 						newVisible.origin.y-=expectedHit.y-newHit.y;
 						[docView scrollRectToVisible:newVisible];
 						[self validateWindowContent];
+						id WC = [window windowController];
+						if([WC respondsToSelector:@selector(setDocumentViewVisibleRect:)])
+						{
+							NSRect visibleRect = [docView visibleRect];
+							visibleRect = [docView absoluteRectWithRect:visibleRect];
+							[WC setDocumentViewVisibleRect:visibleRect];
+						}
 					}
 				}
-				else if(![self trackZoomIn:theEvent])
+				else if(![self trackZoom:theEvent])
 				{
 					[super mouseDown:theEvent];
 				}
@@ -5181,15 +5093,22 @@ To Do List:
 		switch([self toolMode])
 		{
 			case kiTM2MoveToolMode:
-				if(![self trackMove:theEvent])
-					[super mouseDown:theEvent];
-				break;
+				if([self trackMove:theEvent])
+				{
+					return;
+				}
 			case kiTM2SelectToolMode:
+			{
 				iTM2_LOG(@"ERROR(minor): The iTM2PDFKitView is not expected to receive a mouseDown: message in kiTM2SelectToolMode...");
+				return;
+			}
+			default:
 				break;
+			/*
 			case kiTM2TextToolMode:
 			case kiTM2AnnotateToolMode:
 				[super mouseDown:theEvent];
+			*/
 		}
 	}
 //iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
@@ -7057,7 +6976,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey]>0?: 1.259921049895);
+    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
 		[[self pdfView] setScaleFactor:n / 100.0 * [[self pdfView] scaleFactor]];
@@ -7075,7 +6994,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey]>0?: 1.259921049895);
+    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer: &n];
 	if(n>0)
 		[[self pdfView] setScaleFactor:100 * [[self pdfView] scaleFactor] / n];
@@ -7494,7 +7413,7 @@ To Do List:
 		[[self model] addEntriesFromDictionary:D];
 	// the defaults model comes from the SUD, it concerns the application
 	// it is overriden by the project model
-	D = [self contextDictionaryForKey:iTM2PDFKitKey];
+	D = [self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	if(D)
 		[[self model] addEntriesFromDictionary:D];
 	[self setProjectModel:[self model]];
@@ -7511,7 +7430,7 @@ To Do List:
 	if(D)
 		[[self modelSync] addEntriesFromDictionary:D];
 //iTM2_END;
-	D = [self contextDictionaryForKey:@"iTM2PDFKitSync"];
+	D = [self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
 	if(D)
 		[[self modelSync] addEntriesFromDictionary:D];
 	[self setProjectModelSync:[self modelSync]];
@@ -7555,11 +7474,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[super contextDidChange];
 	NSEnumerator * E = [[[self document] windowControllers] objectEnumerator];
 	NSWindowController * WC;
 	while(WC = [E nextObject])
 		if(WC != self)
 			[WC contextDidChange];
+	[self contextDidChangeComplete];
 //iTM2_END;
     return;
 }
@@ -7572,15 +7493,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMutableDictionary * MD = [[[self contextDictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];
+	NSMutableDictionary * MD = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];
 	[MD addEntriesFromDictionary:[self model]];
-	[self takeContextValue:MD forKey:iTM2PDFKitKey];
+	[self takeContextValue:MD forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	[self setModel:MD];
 	[self setProjectModel:[self model]];
 	[self setOriginalModel:[self projectModel]];
-	MD = [[[self contextDictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
+	MD = [[[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];
 	[MD addEntriesFromDictionary:[self modelSync]];
-	[self takeContextValue:MD forKey:@"iTM2PDFKitSync"];
+	[self takeContextValue:MD forKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
 	[self setProjectModelSync:[self modelSync]];
 	[self setOriginalModelSync:[self projectModelSync]];
 	NSEnumerator * E = [[[self document] windowControllers] objectEnumerator];
@@ -8186,12 +8107,12 @@ To Do List:
 
 #undef GETTER
 #undef SETTER
-#define GETTER(KEY) [[self contextValueForKey:iTM2PDFKitKey] valueForKey:KEY]
-#define SETTER(KEY, argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];\
+#define GETTER(KEY) [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:KEY]
+#define SETTER(KEY, argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:KEY];\
-[self takeContextValue:__D forKey:iTM2PDFKitKey];\
-[[self contextManager] contextDidChange];
+[self takeContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];\
+[[self contextManager] notifyContextChange];
 
 @implementation NSApplication(iTM2PDFKitResponder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
