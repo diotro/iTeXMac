@@ -1107,7 +1107,7 @@ To Do List:
 			return;
 		}
 	}
-	newDirectory = [self contextStringForKey:@"iTM2NewDocumentDirectory"];
+	newDirectory = [self contextStringForKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	newDirectory = [newDirectory stringByResolvingSymlinksAndFinderAliasesInPath];
 	if(![DFM fileExistsAtPath:newDirectory isDirectory:&isDirectory] || !isDirectory)
 	{
@@ -1164,13 +1164,13 @@ To Do List:
 //iTM2_START;
 	NSCalendarDate * CD = [NSCalendarDate calendarDate];
 	NSMutableDictionary * filter = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2DateCalendarFormat"]], iTM2NewDDATEKey,
-		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2TimeCalendarFormat"]], iTM2NewDTIMEKey,
-		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2YearCalendarFormat"]], iTM2NewDYEARKey,
+		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2DateCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDDATEKey,
+		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2TimeCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDTIMEKey,
+		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2YearCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDYEARKey,
 		([projectName length]?projectName:@""), iTM2NewDPROJECTNAMEKey,
 		NSFullUserName(), iTM2NewDFULLUSERNAMEKey,
-		[self contextStringForKey:@"iTM2AuthorName"], iTM2NewDAUTHORNAMEKey,
-		[self contextStringForKey:@"iTM2OrganizationName"], iTM2NewDORGANIZATIONNAMEKey,
+		[self contextStringForKey:@"iTM2AuthorName" domain:iTM2ContextAllDomainsMask], iTM2NewDAUTHORNAMEKey,
+		[self contextStringForKey:@"iTM2OrganizationName" domain:iTM2ContextAllDomainsMask], iTM2NewDORGANIZATIONNAMEKey,
 			nil];
 //iTM2_END;
     return filter;
@@ -1253,7 +1253,7 @@ To Do List:
 	{
 		return NO;
 	}
-	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory"];
+	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	// No extension for fileName, the extension will be borrowed from the project
 	fileName = [fileName stringByDeletingPathExtension];
 	NSString * targetName = [fileName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
@@ -1383,7 +1383,7 @@ To Do List:
 	{
 		return NO;
 	}
-	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory"];
+	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	// No extension for fileName, the extension will be borrowed from the project
 	fileName = [fileName stringByDeletingPathExtension];
 	NSString * targetName = [fileName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
@@ -1598,7 +1598,7 @@ To Do List:
 	NSDictionary * filter = [self filterForProjectName:projectName];
 
 	[self takeContextValue:[targetName stringByDeletingLastPathComponent]
-		forKey:@"iTM2NewDocumentDirectory"];
+		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	
 	if([DFM fileExistsAtPath:targetName])
 	{
@@ -1849,7 +1849,7 @@ To Do List:
 	NSString * originalExtension = [sourceName pathExtension];
 	NSString * mandatoryName = [mandatoryProject fileName];
 	NSString * targetDirectory = [mandatoryName stringByDeletingLastPathComponent];
-	[self takeContextValue:targetDirectory forKey:@"iTM2NewDocumentDirectory"];
+	[self takeContextValue:targetDirectory forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	NSString * newCore = fileName;
 	NSArray * newCoreComponents = [newCore pathComponents];
 	NSArray * mandatoryNameComponents = [mandatoryName pathComponents];
@@ -1974,7 +1974,7 @@ To Do List:
 	targetDirName = [targetDirName stringByStrippingFarawayProjectsDirectory];
 	// this is the location where the new document should be stored
 	[self takeContextValue:[targetName stringByDeletingLastPathComponent]
-		forKey:@"iTM2NewDocumentDirectory"];
+		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	NSString * newCore = [targetName lastPathComponent];
 	newCore = [newCore stringByDeletingPathExtension];
 
@@ -2079,7 +2079,7 @@ To Do List:
 	projectName = [projectName lastPathComponent];
 
 	[self takeContextValue:[targetName stringByDeletingLastPathComponent]
-		forKey:@"iTM2NewDocumentDirectory"];
+		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
 	[self startProgressIndicationForName:targetName];
 	if([DFM copyPath:sourceName toPath:targetName handler:nil])
@@ -2107,7 +2107,7 @@ To Do List:
 			}
 			else
 			{
-iTM2_LOG(@"BEFORE now is:%@",[NSDate date]);
+//iTM2_LOG(@"BEFORE now is:%@",[NSDate date]);
 				// then create a standalone project...
 				NSError * localError = nil;
 				// if there is a project for the original file, duplicate it?
@@ -2126,7 +2126,7 @@ iTM2_LOG(@"BEFORE now is:%@",[NSDate date]);
 				NSString * baseProjectName = nil;
 				if([sourceProjectFileName length])
 				{
-iTM2_LOG(@"(1) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(1) now is:%@",[NSDate date]);
 					NSURL * projectURL = [NSURL fileURLWithPath:sourceProjectFileName];
 					NSURL * url = [iTM2ProjectDocument projectInfoURLFromFileURL:projectURL create:NO error:nil];
 					NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeOptionsNone error:nil] autorelease];
@@ -2149,7 +2149,7 @@ iTM2_LOG(@"(1) now is:%@",[NSDate date]);
 					}
 					if(![codeset length])
 					{
-						xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/string[text()=\"%@\"]/preceding-sibling::*[last()]/text()",TWSKeyedFilesKey,iTM2TeXPDefaultKey];
+						xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/string[text()=\"%@\"]/preceding-sibling::*[last()]/text()",TWSKeyedFilesKey,iTM2ProjectDefaultsKey];
 						nodes = [doc nodesForXPath:xpath error:nil];
 						node = [nodes lastObject];
 						key = [node stringValue];
@@ -2195,7 +2195,7 @@ iTM2_LOG(@"(1) now is:%@",[NSDate date]);
 							baseProjectName = s;
 						}
 					}
-iTM2_LOG(@"(2) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(2) now is:%@",[NSDate date]);
 				}
 				id projectDocument = [SPC newFarawayProjectForFileName:targetName display:NO error:&localError];
 				if(localError)
@@ -2206,16 +2206,17 @@ iTM2_LOG(@"(2) now is:%@",[NSDate date]);
 				{
 					[projectDocument setBaseProjectName:baseProjectName];
 				}
-iTM2_LOG(@"(3) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(3) now is:%@",[NSDate date]);
 				[SPC setProject:projectDocument forFileName:targetName];// targetName is no longer linked to an old project
 				NSString * fileKey = [projectDocument keyForFileName:targetName];
 				if([codeset length])
 				{
-					[projectDocument setStringEncodingString:codeset forFileKey:fileKey];
+					[projectDocument takePropertyValue:codeset forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+					
 				}
 				NSURL * url = [NSURL fileURLWithPath:targetName];
 				id document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
-iTM2_LOG(@"(4) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(4) now is:%@",[NSDate date]);
 				if([document isKindOfClass:[iTM2TextDocument class]])
 				{
 					NSString * old = [document stringRepresentation];
@@ -2223,19 +2224,19 @@ iTM2_LOG(@"(4) now is:%@",[NSDate date]);
 					NSString * new = [self convertedString:old withDictionary:filter];
 					[document setStringRepresentation:new];
 				}
-iTM2_LOG(@"(4.5) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(4.5) now is:%@",[NSDate date]);
 				[document saveDocument:self];
 				[document makeWindowControllers];
 				[document showWindows];
-iTM2_LOG(@"(5) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(5) now is:%@",[NSDate date]);
 				[[document undoManager] removeAllActions];
-iTM2_LOG(@"(6) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(6) now is:%@",[NSDate date]);
 				[projectDocument makeWindowControllers];
-iTM2_LOG(@"(7) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(7) now is:%@",[NSDate date]);
 				[projectDocument showWindows];
-iTM2_LOG(@"(8) now is:%@",[NSDate date]);
+//iTM2_LOG(@"(8) now is:%@",[NSDate date]);
 				[projectDocument saveDocument:self];
-iTM2_LOG(@"AFTER now is:%@",[NSDate date]);
+//iTM2_LOG(@"AFTER now is:%@",[NSDate date]);
 			}
 		}
 		else
