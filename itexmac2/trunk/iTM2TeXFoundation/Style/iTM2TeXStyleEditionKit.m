@@ -24,7 +24,7 @@
 #import <iTM2TeXFoundation/iTM2TeXStyleEditionKit.h>
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 
-#define iTM2TSSMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel"]
+#define iTM2TSSMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 #define TABLE @"TextStyle"
 #define BUNDLE [iTM2TeXParserAttributesInspector classBundle]
 
