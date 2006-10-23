@@ -42,7 +42,7 @@ NSString * const iTM2TeX_USE_progname = @"iTM2_TeX_USE_progname";
 NSString * const iTM2TeX_progname = @"iTM2_TeX_progname";
 NSString * const iTM2TeX_USE_jobname = @"iTM2_TeX_USE_jobname";
 NSString * const iTM2TeX_jobname = @"iTM2_TeX_jobname";
-NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
+NSString * const iTM2TeX_shell_escape = @"iTM2_AllTeX_shell_escape";
 NSString * const iTM2TeX_src_specials = @"iTM2_TeX_src_specials";
 NSString * const iTM2TeX_src_specials_where_no_cr = @"iTM2_TeX_src_specials_where_no_cr";
 NSString * const iTM2TeX_src_specials_where_no_display = @"iTM2_TeX_src_specials_where_no_display";
@@ -118,7 +118,7 @@ To Do List:
                 [NSNumber numberWithBool:NO], iTM2TeX_ini,
                 [NSNumber numberWithBool:NO], iTM2TeX_enc,
                 [NSNumber numberWithBool:NO], iTM2TeX_mltex,
-                [NSNumber numberWithBool:NO], iTM2TeX_shell_escape,
+// NO                [NSNumber numberWithBool:NO], iTM2TeX_shell_escape,
                 [NSNumber numberWithBool:NO], iTM2TeX_halt_on_error,
                 [NSNumber numberWithBool:YES], iTM2TeX_src_specials,
 				@"", iTM2TeXMoreArgumentKey,
@@ -642,30 +642,6 @@ To Do List:
     return [self modelFlagForKey:iTM2TeX_ini];
 }
 #pragma mark =-=-=-=-=-  Advanced
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShellEscape:
-- (IBAction)toggleShellEscape:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Mon Mar 29 08:07:47 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_shell_escape];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShellEscape:
-- (BOOL)validateToggleShellEscape:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu Nov 18 07:53:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_shell_escape]? NSOnState:NSOffState)];
-    return YES;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
 - (IBAction)editJobName:(id)sender;
 /*"Description forthcoming.
@@ -894,7 +870,7 @@ NSString * const iTM2PDFTeX_USE_progname = @"iTM2_PDFTeX_USE_progname";
 NSString * const iTM2PDFTeX_progname = @"iTM2_PDFTeX_progname";
 NSString * const iTM2PDFTeX_USE_jobname = @"iTM2_PDFTeX_USE_jobname";
 NSString * const iTM2PDFTeX_jobname = @"iTM2_PDFTeX_jobname";
-NSString * const iTM2PDFTeX_shell_escape = @"iTM2_PDFTeX_shell_escape";
+//NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
 NSString * const iTM2PDFTeX_pdfsync = @"iTM2_PDFTeX_PDFSYNC";
 NSString * const iTM2PDFTeX_src_specials = @"iTM2_PDFTeX_src_specials";
 NSString * const iTM2PDFTeX_src_specials_where_no_cr = @"iTM2_PDFTeX_src_specials_where_no_cr";
@@ -972,7 +948,7 @@ To Do List:
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_ini,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_enc,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_mltex,
-                [NSNumber numberWithBool:NO], iTM2PDFTeX_shell_escape,
+// NO PLEASE                [NSNumber numberWithBool:NO], iTM2TeX_shell_escape,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_halt_on_error,
                 [NSNumber numberWithBool:YES], iTM2PDFTeX_src_specials,
 				@"", iTM2PDFTeXMoreArgumentKey,
@@ -1546,30 +1522,6 @@ To Do List:
     return [self modelFlagForKey:iTM2PDFTeX_ini];
 }
 #pragma mark =-=-=-=-=-  Advanced
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShellEscape:
-- (IBAction)toggleShellEscape:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Mon Mar 29 08:07:47 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_shell_escape];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShellEscape:
-- (BOOL)validateToggleShellEscape:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu Nov 18 07:53:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_shell_escape]? NSOnState:NSOffState)];
-    return YES;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
 - (IBAction)editJobName:(id)sender;
 /*"Description forthcoming.
@@ -1796,7 +1748,7 @@ NSString * const iTM2XeTeX_USE_progname = @"iTM2_XeTeX_USE_progname";
 NSString * const iTM2XeTeX_progname = @"iTM2_XeTeX_progname";
 NSString * const iTM2XeTeX_USE_jobname = @"iTM2_XeTeX_USE_jobname";
 NSString * const iTM2XeTeX_jobname = @"iTM2_XeTeX_jobname";
-NSString * const iTM2XeTeX_shell_escape = @"iTM2_XeTeX_shell_escape";
+//NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
 NSString * const iTM2XeTeX_src_specials = @"iTM2_XeTeX_src_specials";
 NSString * const iTM2XeTeX_src_specials_where_no_cr = @"iTM2_XeTeX_src_specials_where_no_cr";
 NSString * const iTM2XeTeX_src_specials_where_no_display = @"iTM2_XeTeX_src_specials_where_no_display";
@@ -1872,7 +1824,7 @@ To Do List:
                 [NSNumber numberWithBool:NO], iTM2XeTeX_ini,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_enc,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_mltex,
-                [NSNumber numberWithBool:NO], iTM2XeTeX_shell_escape,
+// NO PLEASE                [NSNumber numberWithBool:NO], iTM2TeX_shell_escape,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_halt_on_error,
                 [NSNumber numberWithBool:YES], iTM2XeTeX_src_specials,
 				@"", iTM2XeTeXMoreArgumentKey,
@@ -2396,30 +2348,6 @@ To Do List:
     return [self modelFlagForKey:iTM2XeTeX_ini];
 }
 #pragma mark =-=-=-=-=-  Advanced
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShellEscape:
-- (IBAction)toggleShellEscape:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Mon Mar 29 08:07:47 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_shell_escape];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShellEscape:
-- (BOOL)validateToggleShellEscape:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu Nov 18 07:53:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_shell_escape]? NSOnState:NSOffState)];
-    return YES;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
 - (IBAction)editJobName:(id)sender;
 /*"Description forthcoming.
@@ -2644,3 +2572,126 @@ To Do List:
     return;
 }
 @end
+
+@implementation iTM2TeXPCommandsInspector(TeXWrapper)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shellEscapeSheetDidEnd:returnCode:contextInfo:
+- (void)shellEscapeSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START
+	if(NSAlertDefaultReturn != returnCode)
+	{
+		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
+		NSMutableDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
+		if(!D)
+		{
+			D = [NSMutableDictionary dictionary];
+		}
+		id value = [D objectForKey:iTM2TeX_shell_escape];
+		BOOL old = [value boolValue];// unsafe
+		[D setObject:[NSNumber numberWithBool:!old] forKey:iTM2TeX_shell_escape];
+		[TPD takeEnvironment:D forEngineMode:iTM2ProjectDefaultsKey];
+		[TPD updateChangeCount:NSChangeUndone];
+		[self validateWindowContent];
+		return;
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShellEscape:
+- (IBAction)toggleShellEscape:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START
+	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
+	NSMutableDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
+	if(!D)
+	{
+		D = [NSMutableDictionary dictionary];
+	}
+	id value = [D objectForKey:iTM2TeX_shell_escape];
+	BOOL old = [value boolValue];// unsafe
+	[D setObject:[NSNumber numberWithBool:!old] forKey:iTM2TeX_shell_escape];
+	[TPD takeEnvironment:D forEngineMode:iTM2ProjectDefaultsKey];
+	[TPD updateChangeCount:NSChangeUndone];
+	[self validateWindowContent];
+	if(!old)
+	{
+		NSBeginAlertSheet(
+			NSLocalizedStringFromTableInBundle(@"Shell Escape", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""),
+			nil,
+			NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,[NSBundle bundleForClass:[iTM2ProjectDocument class]],""),
+			nil,
+			[self window], self, @selector(shellEscapeSheetDidEnd:returnCode:contextInfo:), NULL, nil,
+			NSLocalizedStringFromTableInBundle(@"Really authorize TeX to launch shell processes with \\write18{}?", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""));
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShellEscape:
+- (BOOL)validateToggleShellEscape:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
+	NSDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
+	id value = [D objectForKey:iTM2TeX_shell_escape];
+	BOOL old = [value boolValue];// unsafe
+	[sender setState: (old? NSOnState:NSOffState)];
+    return YES;
+}
+@end
+
+@implementation iTM2TeXPEngineInspector(TeXWrapper)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShellEscape:
+- (IBAction)toggleShellEscape:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
+	NSMutableDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
+	if(!D)
+	{
+		D = [NSMutableDictionary dictionary];
+	}
+	id value = [D objectForKey:iTM2TeX_shell_escape];
+	BOOL old = [value boolValue];// unsafe
+	[D setObject:[NSNumber numberWithBool:!old] forKey:iTM2TeX_shell_escape];
+	[TPD takeEnvironment:D forEngineMode:iTM2ProjectDefaultsKey];
+	[self validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShellEscape:
+- (BOOL)validateToggleShellEscape:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
+	NSDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
+	id value = [D objectForKey:iTM2TeX_shell_escape];
+	BOOL old = [value boolValue];// unsafe
+	[sender setState: (old? NSOnState:NSOffState)];
+    return YES;
+}
+@end
+

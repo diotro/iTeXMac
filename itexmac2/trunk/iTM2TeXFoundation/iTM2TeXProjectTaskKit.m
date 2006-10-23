@@ -200,7 +200,7 @@ To Do List:
 //iTM2_START;
     [self fontOrColorDidChangeNotified:nil];
     // Adjusting the size of the split view
-    NSEnumerator * E = [[[self contextStringForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey]
+    NSEnumerator * E = [[[self contextStringForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]
                                 componentsSeparatedByString: @":"] objectEnumerator];
     float f = [[E nextObject] floatValue];
     float f1 = f<0.05? 0: (f>0.95? 1: f);
@@ -290,8 +290,8 @@ To Do List:
                 (h1+h2+h3+h4>0? h1/(h1+h2+h3+h4): 0),
                 (h2+h3+h4>0? h2/(h2+h3+h4): 0),
                 (h3+h4>0? h3/(h3+h4): 0)]
-            forKey: iTM2TeXPTaskInspectorSplitViewFactorsKey];
-//iTM2_LOG(@"[self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey] is: %@", [self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey]);
+            forKey: iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask];
+//iTM2_LOG(@"[self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey] is: %@", [self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]);
     return [super validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowShouldClose:
@@ -879,15 +879,15 @@ To Do List:
     if(!contextManager) contextManager = self;
 
     NSTextView * TV = [self outputView];
-    [TV setFont:[contextManager contextFontForKey:iTM2UDLogStandardFontKey]];
-    [TV setDrawsBackground:[contextManager contextBoolForKey:iTM2UDLogDrawsTextBackgroundKey]];
+    [TV setFont:[contextManager contextFontForKey:iTM2UDLogStandardFontKey domain:iTM2ContextAllDomainsMask]];
+    [TV setDrawsBackground:[contextManager contextBoolForKey:iTM2UDLogDrawsTextBackgroundKey domain:iTM2ContextAllDomainsMask]];
     if([TV drawsBackground])
     {
-        [TV setBackgroundColor:[contextManager contextColorForKey:iTM2UDLogTextBackgroundColorKey]];
-        [TV setInsertionPointColor:[contextManager contextColorForKey:iTM2UDLogInsertionPointColorKey]];
+        [TV setBackgroundColor:[contextManager contextColorForKey:iTM2UDLogTextBackgroundColorKey domain:iTM2ContextAllDomainsMask]];
+        [TV setInsertionPointColor:[contextManager contextColorForKey:iTM2UDLogInsertionPointColorKey domain:iTM2ContextAllDomainsMask]];
         [TV setSelectedTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                [contextManager contextColorForKey:iTM2UDLogSelectedTextColorKey], NSForegroundColorAttributeName,
-                [contextManager contextColorForKey:iTM2UDLogSelectedTextBackgroundColorKey], NSBackgroundColorAttributeName,
+                [contextManager contextColorForKey:iTM2UDLogSelectedTextColorKey domain:iTM2ContextAllDomainsMask], NSForegroundColorAttributeName,
+                [contextManager contextColorForKey:iTM2UDLogSelectedTextBackgroundColorKey domain:iTM2ContextAllDomainsMask], NSBackgroundColorAttributeName,
                     nil]];
     }
     else
@@ -942,7 +942,7 @@ To Do List:
     NSMutableArray * lines = [IMPLEMENTATION metaValueForKey:@"_lines"];
     NSMutableArray * messages = [IMPLEMENTATION metaValueForKey:@"_messages"];
     int oldNORs = [[IMPLEMENTATION metaValueForKey:@"_numberOfLines"] intValue];
-    id LP = [iTM2LogParser logParserForKey:[self contextStringForKey:iTM2TPFELogParserKey]];
+    id LP = [iTM2LogParser logParserForKey:[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask]];
     NSTextView * TV = [self outputView];
     NSTextStorage * TS = [TV textStorage];
     [TS beginEditing];
@@ -993,10 +993,10 @@ To Do List:
             newStyle = @"";
             break;
     }
-	NSString * oldStyle = [self contextValueForKey:iTM2TPFELogParserKey];
+	NSString * oldStyle = [self contextValueForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 	if(![newStyle isEqualToString:oldStyle])
 	{
-		[self takeContextValue:newStyle forKey:iTM2TPFELogParserKey];
+		[self takeContextValue:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 		[[self document] updateChangeCount:NSChangeDone];
 	}
     [self validateWindowContent];
@@ -1013,7 +1013,7 @@ To Do List:
 //iTM2_START;
     if([sender isKindOfClass:[NSPopUpButton class]])// bad design of the iTM2 validation protocol?
     {
-        NSString * style = [[self contextStringForKey:iTM2TPFELogParserKey] lowercaseString];
+        NSString * style = [[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask] lowercaseString];
         int tag = 0;
         if([style isEqualToString:@"latex"])
             tag = 1;
@@ -1083,7 +1083,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self contextBoolForKey:iTM2TaskTerminalIsHiddenKey];
+    return [self contextBoolForKey:iTM2TaskTerminalIsHiddenKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setHidden:
 - (void)setHidden:(BOOL)yorn;
@@ -1094,7 +1094,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextBool:yorn forKey:iTM2TaskTerminalIsHiddenKey];
+    [self takeContextBool:yorn forKey:iTM2TaskTerminalIsHiddenKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= taskDidTerminate

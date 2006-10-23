@@ -55,21 +55,19 @@
 		DC05CBD90919FDFD0003E471 /* iTM2TeXProjectCommandKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */; };
 		DC05CBDA0919FDFD0003E471 /* iTM2TeXProjectCommandKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05CBD60919FDFD0003E471 /* iTM2TeXProjectCommandKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC05CBDB0919FDFD0003E471 /* iTM2TeXProjectCommandKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */; };
-		DC1C6B41090D98AB000F4FDE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC1C6B38090D98AB000F4FDE /* Credits.rtf */; };
-		DC1C6B42090D98AB000F4FDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC1C6B3A090D98AB000F4FDE /* InfoPlist.strings */; };
-		DC1C6B43090D98AB000F4FDE /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC1C6B3C090D98AB000F4FDE /* iTeXMac2.nib */; };
-		DC1C6B44090D98AB000F4FDE /* Test Application-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC1C6B3E090D98AB000F4FDE /* Test Application-Info.plist */; };
-		DC1C6B45090D98AB000F4FDE /* Test Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1C6B3F090D98AB000F4FDE /* Test Application-main.m */; };
 		DC1C6C2C090D98FE000F4FDE /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */; };
 		DC1C6C2D090D98FE000F4FDE /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC1C6C2E090D98FE000F4FDE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C70854ACD700F3EB8A /* Carbon.framework */; };
 		DC1C6C2F090D98FE000F4FDE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC1C6C30090D98FE000F4FDE /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
-		DC1C6C32090D9930000F4FDE /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC1C6C31090D9930000F4FDE /* OgreKit.framework */; };
-		DC1C6C33090D9930000F4FDE /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC1C6C31090D9930000F4FDE /* OgreKit.framework */; };
-		DC1C6C64090D9961000F4FDE /* OgreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC1C6C31090D9930000F4FDE /* OgreKit.framework */; };
 		DC1C6C65090D9961000F4FDE /* iTM2Foundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */; };
 		DC1C6C66090D9961000F4FDE /* iTM2TeXFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */; };
+		DC225F710AE53C1A00186582 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC225F630AE53C1A00186582 /* Credits.rtf */; };
+		DC225F720AE53C1A00186582 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC225F650AE53C1A00186582 /* InfoPlist.strings */; };
+		DC225F730AE53C1A00186582 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC225F670AE53C1A00186582 /* iTeXMac2.nib */; };
+		DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */; };
+		DC225F760AE53C1A00186582 /* Test TeX Application-Prefix.pch in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */; };
+		DC225F8A0AE53F8D00186582 /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
 		DC24D2B70952C5DB00647943 /* iTeXMac2 Server in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */; };
 		DC35E569091A17D700BF5635 /* bookmarkToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */; };
 		DC35E56A091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */; };
@@ -252,12 +250,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DC1C6C64090D9961000F4FDE /* OgreKit.framework in CopyFiles */,
 				DC1C6C65090D9961000F4FDE /* iTM2Foundation.framework in CopyFiles */,
 				DC1C6C66090D9961000F4FDE /* iTM2TeXFoundation.framework in CopyFiles */,
 				DC05CBB80919FAB00003E471 /* iTM2TeXDocumentToolbar.h in CopyFiles */,
 				DC05CBD80919FDFD0003E471 /* iTM2TeXProjectCommandKit.h in CopyFiles */,
 				DCC3D16A0926A425005471BD /* iTM2TextWatcher.h in CopyFiles */,
+				DC225F760AE53C1A00186582 /* Test TeX Application-Prefix.pch in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,14 +293,14 @@
 		DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXDocumentToolbar.m; sourceTree = "<group>"; };
 		DC05CBD60919FDFD0003E471 /* iTM2TeXProjectCommandKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXProjectCommandKit.h; sourceTree = "<group>"; };
 		DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXProjectCommandKit.m; sourceTree = "<group>"; };
-		DC1C6B32090D983F000F4FDE /* TestTeXApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTeXApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC1C6B34090D983F000F4FDE /* Test TeX Application-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Test TeX Application-Info.plist"; sourceTree = "<group>"; };
-		DC1C6B39090D98AB000F4FDE /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
-		DC1C6B3B090D98AB000F4FDE /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DC1C6B3D090D98AB000F4FDE /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
-		DC1C6B3E090D98AB000F4FDE /* Test Application-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Test Application-Info.plist"; sourceTree = "<group>"; };
-		DC1C6B3F090D98AB000F4FDE /* Test Application-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test Application-main.m"; sourceTree = "<group>"; };
-		DC1C6C31090D9930000F4FDE /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OgreKit.framework; sourceTree = "<group>"; };
+		DC1C6B32090D983F000F4FDE /* Test TeX Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test TeX Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC225F640AE53C1A00186582 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		DC225F660AE53C1A00186582 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DC225F680AE53C1A00186582 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
+		DC225F690AE53C1A00186582 /* Test TeX Application-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Test TeX Application-Info.plist"; sourceTree = "<group>"; };
+		DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test TeX Application-main.m"; sourceTree = "<group>"; };
+		DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test TeX Application-Prefix.pch"; sourceTree = "<group>"; };
+		DC225F860AE53F8D00186582 /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmarkToolbarImage.png; sourceTree = "<group>"; };
 		DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = showCurrentProjectFilesToolbarImage.png; sourceTree = "<group>"; };
 		DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typesetCurrentProjectToolbarImage.png; sourceTree = "<group>"; };
@@ -460,7 +458,6 @@
 				DCC7F4C40854ACBA00F3EB8A /* iTM2Foundation.framework in Frameworks */,
 				DCC7F4C80854ACD700F3EB8A /* Carbon.framework in Frameworks */,
 				DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */,
-				DC1C6C33090D9930000F4FDE /* OgreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +470,7 @@
 				DC1C6C2E090D98FE000F4FDE /* Carbon.framework in Frameworks */,
 				DC1C6C2F090D98FE000F4FDE /* Cocoa.framework in Frameworks */,
 				DC1C6C30090D98FE000F4FDE /* PreferencePanes.framework in Frameworks */,
-				DC1C6C32090D9930000F4FDE /* OgreKit.framework in Frameworks */,
+				DC225F8A0AE53F8D00186582 /* OgreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,7 +490,7 @@
 			children = (
 				DCCC3C4F08794A5E0060EC0F /* iTM2TeXFoundation.framework */,
 				DC81AE6E08871B4600943C99 /* iTeXMac2.app */,
-				DC1C6B32090D983F000F4FDE /* TestTeXApplication.app */,
+				DC1C6B32090D983F000F4FDE /* Test TeX Application.app */,
 				DC5D6CBA0949A3F100EBA96C /* iTM2Foundation.framework */,
 				DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */,
 			);
@@ -504,11 +501,10 @@
 			isa = PBXGroup;
 			children = (
 				DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */,
-				DC1C6B34090D983F000F4FDE /* Test TeX Application-Info.plist */,
 				DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */,
-				DC1C6B37090D98AB000F4FDE /* Test Application */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				DC225F620AE53C1A00186582 /* Test TeX Application */,
 				DC3B41740A4ADC7300E83ABA /* Settings */,
 			);
 			name = iTM2TeXFoundation;
@@ -526,7 +522,7 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC1C6C31090D9930000F4FDE /* OgreKit.framework */,
+				DC225F860AE53F8D00186582 /* OgreKit.framework */,
 				DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */,
 				DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */,
 				DCC7F4C70854ACD700F3EB8A /* Carbon.framework */,
@@ -546,16 +542,17 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		DC1C6B37090D98AB000F4FDE /* Test Application */ = {
+		DC225F620AE53C1A00186582 /* Test TeX Application */ = {
 			isa = PBXGroup;
 			children = (
-				DC1C6B38090D98AB000F4FDE /* Credits.rtf */,
-				DC1C6B3A090D98AB000F4FDE /* InfoPlist.strings */,
-				DC1C6B3C090D98AB000F4FDE /* iTeXMac2.nib */,
-				DC1C6B3E090D98AB000F4FDE /* Test Application-Info.plist */,
-				DC1C6B3F090D98AB000F4FDE /* Test Application-main.m */,
+				DC225F630AE53C1A00186582 /* Credits.rtf */,
+				DC225F650AE53C1A00186582 /* InfoPlist.strings */,
+				DC225F670AE53C1A00186582 /* iTeXMac2.nib */,
+				DC225F690AE53C1A00186582 /* Test TeX Application-Info.plist */,
+				DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */,
+				DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */,
 			);
-			path = "Test Application";
+			path = "Test TeX Application";
 			sourceTree = "<group>";
 		};
 		DC3B41740A4ADC7300E83ABA /* Settings */ = {
@@ -800,7 +797,7 @@
 			);
 			name = "Test TeX Application";
 			productName = "Test Application";
-			productReference = DC1C6B32090D983F000F4FDE /* TestTeXApplication.app */;
+			productReference = DC1C6B32090D983F000F4FDE /* Test TeX Application.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DC5D6CB90949A3F100EBA96C /* Prepare iTM2Foundation */ = {
@@ -944,10 +941,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC1C6B41090D98AB000F4FDE /* Credits.rtf in Resources */,
-				DC1C6B42090D98AB000F4FDE /* InfoPlist.strings in Resources */,
-				DC1C6B43090D98AB000F4FDE /* iTeXMac2.nib in Resources */,
-				DC1C6B44090D98AB000F4FDE /* Test Application-Info.plist in Resources */,
 				DC4AF2D209118F170057E325 /* showCurrentPLogToolbarImage.tif in Resources */,
 				DC4AF31709119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif in Resources */,
 				DC4AF396091225C20057E325 /* cautionTypesetToolbarImage.tif in Resources */,
@@ -963,6 +956,9 @@
 				DC90CF8309978A1200C79525 /* iTM2ScriptText.png in Resources */,
 				DC90CF8409978A1200C79525 /* iTM2ScriptUser.png in Resources */,
 				DC90D2830997E66200C79525 /* iTM2ScriptMisc.png in Resources */,
+				DC225F710AE53C1A00186582 /* Credits.rtf in Resources */,
+				DC225F720AE53C1A00186582 /* InfoPlist.strings in Resources */,
+				DC225F730AE53C1A00186582 /* iTeXMac2.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,10 +1123,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC1C6B45090D98AB000F4FDE /* Test Application-main.m in Sources */,
 				DC05CBB90919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */,
 				DC05CBD90919FDFD0003E471 /* iTM2TeXProjectCommandKit.m in Sources */,
 				DCC3D16B0926A425005471BD /* iTM2TextWatcher.m in Sources */,
+				DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1183,26 +1179,26 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC1C6B38090D98AB000F4FDE /* Credits.rtf */ = {
+		DC225F630AE53C1A00186582 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC1C6B39090D98AB000F4FDE /* English */,
+				DC225F640AE53C1A00186582 /* English */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		DC1C6B3A090D98AB000F4FDE /* InfoPlist.strings */ = {
+		DC225F650AE53C1A00186582 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC1C6B3B090D98AB000F4FDE /* English */,
+				DC225F660AE53C1A00186582 /* English */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		DC1C6B3C090D98AB000F4FDE /* iTeXMac2.nib */ = {
+		DC225F670AE53C1A00186582 /* iTeXMac2.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC1C6B3D090D98AB000F4FDE /* English */,
+				DC225F680AE53C1A00186582 /* English */,
 			);
 			name = iTeXMac2.nib;
 			sourceTree = "<group>";
@@ -1671,8 +1667,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41760A4ADC7300E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "Test TeX Application-Info.plist";
-				PRODUCT_NAME = TestTeXApplication;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
+				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
+				PRODUCT_NAME = "Test TeX Application";
 			};
 			name = Development;
 		};
@@ -1680,8 +1682,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "Test TeX Application-Info.plist";
-				PRODUCT_NAME = TestTeXApplication;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
+				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
+				PRODUCT_NAME = "Test TeX Application";
 			};
 			name = Deployment;
 		};

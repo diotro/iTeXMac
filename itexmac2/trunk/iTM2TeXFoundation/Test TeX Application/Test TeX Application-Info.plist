@@ -24,7 +24,7 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>TestTeXApplication</string>
+	<string>Test TeX Application</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.yourcompany.Test_Application</string>
 	<key>CFBundleInfoDictionaryVersion</key>

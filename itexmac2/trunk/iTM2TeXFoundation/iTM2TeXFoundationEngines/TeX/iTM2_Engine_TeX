@@ -28,7 +28,7 @@ Usage: $(basename "$0") with environment variables
 	iTM2_TeX_progname: = STRING, set program (and fmt) name to STRING
 	iTM2_TeX_USE_jobname: 1 or void,
 	iTM2_TeX_jobname: = STRING, set the job name to STRING
-	iTM2_TeX_shell_escape: 1 or void, enable \write18{SHELL COMMAND}
+	iTM2_AllTeX_shell_escape: 1 or void, enable \write18{SHELL COMMAND}
 	iTM2_TeX_src_specials: 1 or void, insert source specials into the DVI file
 	iTM2_TeX_src_specials_where_no_cr: 1 or void,
 	iTM2_TeX_src_specials_where_no_display: 1 or void,
@@ -234,7 +234,7 @@ then
 		iTM2_TeX_Arguments="${iTM2_TeX_Arguments} -src-specials"
 	fi
 fi
-if [ "${iTM2_TeX_shell_escape:-0}" != "0" ]
+if [ "${iTM2_AllTeX_shell_escape:-0}" != "0" ]
 then
 	iTM2_TeX_Arguments="${iTM2_TeX_Arguments} -shell-escape"
 else

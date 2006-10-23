@@ -303,7 +303,7 @@ To Do List:
         [L unlock];
         [self performSelectorOnMainThread:@selector(pdfsyncDidParse:) withObject:nil waitUntilDone:NO]; 
         // cleaning the lines and the pages: we only keep line infos for which there exists a synchronization point.
-        [NSThread setThreadPriority:[self contextFloatForKey:iTM2PDFSyncPriorityKey]];
+        [NSThread setThreadPriority:[self contextFloatForKey:iTM2PDFSyncPriorityKey domain:iTM2ContextAllDomainsMask]];
 #if 1
         NSEnumerator * E = [pages objectEnumerator];
         id O;
@@ -519,7 +519,7 @@ To Do List:
         [L unlock];
         [self performSelectorOnMainThread:@selector(pdfsyncDidParse:) withObject:nil waitUntilDone:NO]; 
         // cleaning the lines and the pages: we only keep line infos for which there exists a synchronization point.
-        [NSThread setThreadPriority:[self contextFloatForKey:iTM2PDFSyncPriorityKey]];
+        [NSThread setThreadPriority:[self contextFloatForKey:iTM2PDFSyncPriorityKey domain:iTM2ContextAllDomainsMask]];
 #if 1
         NSEnumerator * E = [pages objectEnumerator];
         id O;
@@ -1161,8 +1161,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id R = [[NSApp mainWindow] firstResponder];
-    BOOL old = [R contextBoolForKey:iTM2PDFSyncFollowFocusKey];
-    [R takeContextBool: !old forKey:iTM2PDFSyncFollowFocusKey];
+    BOOL old = [R contextBoolForKey:iTM2PDFSyncFollowFocusKey domain:iTM2ContextAllDomainsMask];
+    [R takeContextBool: !old forKey:iTM2PDFSyncFollowFocusKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncFollowFocus:
@@ -1174,7 +1174,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey:iTM2PDFSyncFollowFocusKey]? NSOnState:NSOffState)];
+	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey:iTM2PDFSyncFollowFocusKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSynchronizationMode:
@@ -1188,8 +1188,8 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [NSApp mainWindow];
     id R = [W firstResponder];
-    BOOL old = [R contextBoolForKey:iTM2PDFNoSynchronizationKey];
-    [R takeContextBool: !old forKey:iTM2PDFNoSynchronizationKey];
+    BOOL old = [R contextBoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask];
+    [R takeContextBool: !old forKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask];
 	id D = [[W windowController] document];
 	if([D respondsToSelector:@selector(updatePdfsync:)])
 		[D updatePdfsync:self];//update the views
@@ -1204,7 +1204,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey:iTM2PDFNoSynchronizationKey]? NSOffState:NSOnState)];
+//	[sender setState: ([[[NSApp mainWindow] firstResponder] contextBoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask]? NSOffState:NSOnState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncNoBullets:
@@ -1218,7 +1218,7 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [NSApp mainWindow];
     id R = [W firstResponder];
-    [R takeContextInteger:0 forKey:iTM2PDFSYNCDisplayBulletsKey];
+    [R takeContextInteger:0 forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
     [[[W windowController] document] updatePdfsync:self];//update the views
     return;
 }
@@ -1232,7 +1232,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState: (mode == 0? NSOnState:NSOffState)];
     return YES;
 }
@@ -1248,7 +1248,7 @@ To Do List:
     NSWindow * W = [NSApp mainWindow];
     id R = [W firstResponder];
     [R takeContextInteger: kiTM2PDFSYNCDisplayBuiltInBullets|kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets
-        forKey: iTM2PDFSYNCDisplayBulletsKey];
+        forKey: iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
     [[[W windowController] document] updatePdfsync:self];//update the views
 //iTM2_END;
     return;
@@ -1263,7 +1263,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState: (mode == (kiTM2PDFSYNCDisplayBuiltInBullets|kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
@@ -1280,7 +1280,7 @@ To Do List:
     NSWindow * W = [NSApp mainWindow];
     id CM = [[W firstResponder] contextManager];
     [CM takeContextInteger: kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets
-        forKey: iTM2PDFSYNCDisplayBulletsKey];
+        forKey: iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
     [[[W windowController] document] updatePdfsync:self];//update the views
 //iTM2_END;
     return;
@@ -1295,7 +1295,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState: (mode == (kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
@@ -1311,7 +1311,7 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [NSApp mainWindow];
     id CM = [[W firstResponder] contextManager];
-    [CM takeContextInteger:kiTM2PDFSYNCDisplayFocusBullets forKey:iTM2PDFSYNCDisplayBulletsKey];
+    [CM takeContextInteger:kiTM2PDFSYNCDisplayFocusBullets forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
     [[[W windowController] document] updatePdfsync:self];//update the views
     return;
 }
@@ -1325,7 +1325,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState: (mode == kiTM2PDFSYNCDisplayFocusBullets? NSOnState:NSOffState)];
     return YES;
 }
@@ -1526,7 +1526,7 @@ To Do List:
 //iTM2_START;
     //things should be done only when the receiver is using the built in viewer
     // does a PDFSYNC info exist?
-    if([self contextBoolForKey:iTM2PDFNoSynchronizationKey])
+    if([self contextBoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask])
 	{
         [self replaceSynchronizer:nil];
 		return;
@@ -1590,7 +1590,7 @@ To Do List:
 #endif
 	NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
 //iTM2_LOG(@"pdfDate: %@, pdfsyncDate: %@, [pdfDate timeIntervalSinceDate:pdfsyncDate]: %d", pdfDate, pdfsyncDate, [pdfDate timeIntervalSinceDate:pdfsyncDate]);
-	if([pdfDate timeIntervalSinceDate:pdfsyncDate] < [self contextFloatForKey:iTM2PDFSYNCTimeKey])// in seconds
+	if([pdfDate timeIntervalSinceDate:pdfsyncDate] < [self contextFloatForKey:iTM2PDFSYNCTimeKey domain:iTM2ContextAllDomainsMask])// in seconds
 	{
 		[INC removeObserver: self
 			name: iTM2PDFSyncParsedNotificationName
@@ -1605,7 +1605,7 @@ To Do List:
 	}
 	else
 	{
-		iTM2_LOG(@"No synchronization available (pdfsync date %@>= pdf date %@ (%f s error -> pdfsync %lf)).", pdfsyncDate, pdfDate, [self contextFloatForKey:iTM2PDFSYNCTimeKey], [pdfDate timeIntervalSinceDate:pdfsyncDate]);
+		iTM2_LOG(@"No synchronization available (pdfsync date %@>= pdf date %@ (%f s error -> pdfsync %lf)).", pdfsyncDate, pdfDate, [self contextFloatForKey:iTM2PDFSYNCTimeKey domain:iTM2ContextAllDomainsMask], [pdfDate timeIntervalSinceDate:pdfsyncDate]);
 		int tag;
 		if(![SWS performFileOperation: NSWorkspaceRecycleOperation
 			source: [pdfsyncPath stringByDeletingLastPathComponent]	
@@ -1651,7 +1651,9 @@ To Do List:
 	[self showWindows];
 laSuite:
 	if([SRCE hasPrefix:@"/"])
+	{
 		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory:[[self fileName] stringByDeletingLastPathComponent]];
+	}
 	BOOL result = NO;
 //NSLog(@"line: %u column: %u source: %@", l, c, SRCE);
     [IMPLEMENTATION takeMetaValue:nil forKey:@"_Invocation"];
@@ -2036,7 +2038,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(![self contextBoolForKey:iTM2PDFNoSynchronizationKey])
+    if(![self contextBoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask])
     {
         NSRect R = NSZeroRect;
         R.origin = _SynchronizationPoint;
@@ -2116,7 +2118,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(![self contextBoolForKey:iTM2PDFNoSynchronizationKey])
+    if(![self contextBoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask])
     {
         NSColor * C = [[NSColor blueColor] colorWithAlphaComponent:0.3];
         NSColor * CStar = [NSColor colorWithCalibratedRed:0 green:0.5 blue:0 alpha:0.3];
@@ -2176,7 +2178,7 @@ To Do List:
         }
         else
         {
-            unsigned displayBulletsMode = [self contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey];
+            unsigned displayBulletsMode = [self contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
             NSEnumerator * E = [SLs objectEnumerator];
             iTM2SynchronizationLocationRecord locationRecord;
             NSValue * V;
@@ -2396,7 +2398,7 @@ To Do List:
 //iTM2_START;
 	NSTextView * TV = [self textView];
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
-	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync"]];
+	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"FollowFocus"];
 	if(([notification object] == TV) && [N respondsToSelector:@selector(boolValue)] && [N boolValue])
 	{

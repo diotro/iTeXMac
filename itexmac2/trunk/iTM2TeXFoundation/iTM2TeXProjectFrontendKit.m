@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Sep 11 2001.
-//  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
+//  Copyright © 2001-2006 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -50,7 +50,7 @@ NSString * const iTM2TeXProjectNoTerminalBehindKey = @"iTM2TeXProjectNoTerminalB
 NSString * const iTM2TeXPCommandPropertiesKey = @"Properties";
 
 #ifndef iTM2WindowsMenuItemIndentationLevel
-#define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel"]
+#define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 #endif
 
 @interface NSDocumentController_iTM2TeXProjectFrontend:iTM2DocumentController
@@ -543,7 +543,7 @@ To Do List:
 	if(!window)
 		window = [[self inspectorAddedWithMode:[iTM2TeXPTaskInspector inspectorMode]] window];
 	if(mainWindow && ![window isEqual:mainWindow] 
-		&& ![self contextBoolForKey:iTM2TeXProjectNoTerminalBehindKey])
+		&& ![self contextBoolForKey:iTM2TeXProjectNoTerminalBehindKey domain:iTM2ContextAllDomainsMask])
 		[window orderWindow:NSWindowBelow relativeTo:[mainWindow windowNumber]];
 	else
 		[window orderFront:self];
@@ -589,7 +589,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self contextBoolForKey:@"iTM2TeXProjectKeepBackup"];
+    return [self contextBoolForKey:@"iTM2TeXProjectKeepBackup" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= template_isValidCommandEnvironmentMode:forScriptMode:
 - (BOOL)template_isValidCommandEnvironmentMode:(NSString *) environmentMode forScriptMode:(NSString *) scriptMode;
@@ -2157,7 +2157,7 @@ To Do List:
 //iTM2_START;
     NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
 //iTM2_LOG(@"variant chosen is:%@", variant);
-    if([variant isEqualToString:iTM2TeXPDefaultKey])
+    if([variant isEqualToString:iTM2ProjectDefaultsKey])
         variant = @"";
     NSDictionary * oldTPPs = [[self baseProjectName] TeXProjectProperties];
     if([variant isEqualToString:[[oldTPPs iVarVariant] lowercaseString]])
@@ -2237,7 +2237,7 @@ To Do List:
                         forKey:variant];
                 else
 #warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:iTM2TeXPDefaultKey];
+                    [MD takeValue:@"None" forKey:iTM2ProjectDefaultsKey];
             }
             else
             {
@@ -2252,7 +2252,7 @@ To Do List:
         }
         NSString * variant = [Ps iVarVariant];
 //iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject:([variant length]? [variant lowercaseString]:iTM2TeXPDefaultKey)];
+        int idx = [sender indexOfItemWithRepresentedObject:([variant length]? [variant lowercaseString]:iTM2ProjectDefaultsKey)];
         if(idx == -1)
         {
             NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", variant];

@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC3E1A6B0AECFC93009BC4BA</string>
+						<string>DC3E1ABB0AED6910009BC4BA</string>
 						<key>history</key>
 						<array>
 							<string>DC3E13700AEC0EF6009BC4BA</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC3E1A6C0AECFC93009BC4BA</string>
+						<string>DC3E1ABC0AED6910009BC4BA</string>
 						<key>history</key>
 						<array>
 							<string>DC3E136C0AEC0EF6009BC4BA</string>
@@ -277,8 +277,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -340,16 +338,12 @@
 								<string>0867D691FE84028FC02AAC07</string>
 								<string>DCF61B510854654B003F5F79</string>
 								<string>DCF61BAA0854654B003F5F79</string>
-								<string>DCC7F8B00854DC0F00F3EB8A</string>
-								<string>DCC7F8B50854DC0F00F3EB8A</string>
 								<string>1C37FBAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>83</integer>
-									<integer>79</integer>
-									<integer>78</integer>
+									<integer>68</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -401,7 +395,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC3E1A6A0AECFC93009BC4BA</string>
+										<string>DC3E1ABA0AED6910009BC4BA</string>
 										<key>history</key>
 										<array>
 											<string>DC2260280AE5788400186582</string>
@@ -621,10 +615,10 @@
 		<string>DC3E136A0AEC0EF6009BC4BA</string>
 		<string>DC3E136E0AEC0EF6009BC4BA</string>
 		<string>DC993AC6088DF04D00F8BCE1</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>11 39 1396 796 0 0 1440 878 </string>

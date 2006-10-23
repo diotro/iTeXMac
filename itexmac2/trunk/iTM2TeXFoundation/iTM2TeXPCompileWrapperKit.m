@@ -189,7 +189,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSTabView * TV = [self tabView];
-    NSString * identifier = [self contextStringForKey:@"Compile Inspector:Tab View Item Identifier"];
+    NSString * identifier = [self contextStringForKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
     int index = [TV indexOfTabViewItemWithIdentifier:identifier];
     if(index !=  NSNotFound)
         [TV selectTabViewItemAtIndex:index];
@@ -243,6 +243,7 @@ To Do List:
 		{
 			[myTPD takeEnvironment:[TPD environmentForEngineMode:name] forEngineMode:name];
 		}
+		[myTPD takeEnvironment:[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] forEngineMode:iTM2ProjectDefaultsKey];
 		E = [[iTM2TeXPCompilePerformer builtInEngineModes] objectEnumerator];
 		NSMutableArray * MRA = [NSMutableArray array];
 		while(name = [E nextObject])
@@ -333,10 +334,12 @@ To Do List:
 	NSMutableArray * removeKeys = [[[[TPD engineScripts] allKeys] mutableCopy] autorelease];
 	[removeKeys removeObjectsInArray:[[myTPD engineScripts] allKeys]];
 	NSEnumerator * E = [[myTPD engineScripts] keyEnumerator];
+	id old = nil;
+	id new = nil;
 	while(name = [E nextObject])
 	{   
-		id old = [TPD scriptDescriptorForEngineMode:name];
-		id new = [myTPD scriptDescriptorForEngineMode:name];
+		old = [TPD scriptDescriptorForEngineMode:name];
+		new = [myTPD scriptDescriptorForEngineMode:name];
 		if(![new isEqual:old])
 		{
 			[TPD takeScriptDescriptor:new forEngineMode:name];
@@ -360,8 +363,6 @@ To Do List:
 	removeKeys = [[[[TPD engineEnvironments] allKeys] mutableCopy] autorelease];
 	[removeKeys removeObjectsInArray:[[myTPD engineEnvironments] allKeys]];
 	E = [[myTPD engineEnvironments] keyEnumerator];
-	id old = nil;
-	id new = nil;
 	while(name = [E nextObject])
 	{
 		old = [TPD environmentForEngineMode:name];
@@ -376,6 +377,18 @@ To Do List:
 		{
 //iTM2_LOG(@"SAME ENVIRONMENT FOR NAME: %@", name);
 		}
+	}
+	old = [TPD environmentForEngineMode:iTM2ProjectDefaultsKey];
+	new = [myTPD environmentForEngineMode:iTM2ProjectDefaultsKey];
+	if(![new isEqual:old])
+	{
+		[TPD takeEnvironment:new forEngineMode:name];
+		change = YES;
+//iTM2_LOG(@"CHANGE: environment added or modified");
+	}
+	else
+	{
+//iTM2_LOG(@"SAME ENVIRONMENT FOR NAME: %@", name);
 	}
 	if([removeKeys count])
 	{
@@ -423,7 +436,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self contextStringForKey:@"Compile Inspector:Edited Engine"];
+    return [self contextStringForKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEditedEngine:
 - (void)setEditedEngine:(NSString *)argument;
@@ -434,7 +447,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeContextValue:argument forKey:@"Compile Inspector:Edited Engine"];
+	[self takeContextValue:argument forKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
     return;
 }
@@ -1111,7 +1124,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier"];
+    [self takeContextValue:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
 //    [self validateWindowContent]; now in the validation kit
 //iTM2_END;
     return;
@@ -1506,7 +1519,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:nil];
-	[TPD takeContextBool: ![TPD contextBoolForKey:iTM2ContinuousCompile] forKey:iTM2ContinuousCompile];
+	[TPD takeContextBool: ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] forKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
 	[TPD updateChangeCount:NSChangeDone];
     return;
 //iTM2_END;
@@ -1521,7 +1534,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:nil];
-	[sender setState: ([TPD contextBoolForKey:iTM2ContinuousCompile]? NSOnState:NSOffState)];
+	[sender setState: ([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
     return TPD != nil;
 //iTM2_END;
 }
@@ -1732,6 +1745,7 @@ To Do List:
 	}
 	else
 	{
+		[ED addEntriesFromDictionary:[project environmentForEngineMode:iTM2ProjectDefaultsKey]];
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
 		while(O = [E nextObject])
@@ -1763,7 +1777,7 @@ To Do List:
 //iTM2_LOG(@"222-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 		}
 	}
-	if([project contextBoolForKey:iTM2ContinuousCompile])
+	if([project contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		[ED setObject:[NSNumber numberWithBool:YES] forKey:iTM2ContinuousCompile];
 //iTM2_END;
 	return ED;
@@ -1808,6 +1822,7 @@ To Do List:
 	else
 	{
 //iTM2_LOG(@"315-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
+		[ED addEntriesFromDictionary:[project environmentForEngineMode:iTM2ProjectDefaultsKey]];
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
 		while(O = [E nextObject])
@@ -1834,7 +1849,7 @@ To Do List:
 			[ED addEntriesFromDictionary:[project environmentForEngineMode:[CW environmentMode]]];
 		}
 	}
-	if([project contextBoolForKey:iTM2ContinuousCompile])
+	if([project contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		[ED setObject:[NSNumber numberWithBool:YES] forKey:iTM2ContinuousCompile];
 //iTM2_END;
 //iTM2_LOG(@"316-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
@@ -1856,9 +1871,9 @@ To Do List:
 	iTM2TeXProjectDocument * TPD = [[userInfo objectForKey:@"ProjectRef"] nonretainedObjectValue];
 	if([SPC isProject:TPD])
 	{
-		if([TPD contextBoolForKey:iTM2ContinuousCompile])
+		if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		{
-			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay] target: self
+			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
 				selector: @selector(_delayedPerformCommand:) userInfo: userInfo repeats: NO];
 		}
 	}
@@ -1886,9 +1901,9 @@ To Do List:
 				[self performCommandForProject:TPD];
 				return;
 			}
-		if([TPD contextBoolForKey:iTM2ContinuousCompile])
+		if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		{
-			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay] target: self
+			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
 				selector: @selector(_delayedPerformCommand:) userInfo: [timer userInfo] repeats:NO];
 		}
 	}
@@ -2060,6 +2075,7 @@ To Do List:
     return [NSArray array];
 }
 #if 0
+I don''t remember why I put this here
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 /*"Description forthcoming.

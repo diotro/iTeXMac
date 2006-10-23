@@ -248,7 +248,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self propertyValueForKey:TWSSpellingFileKey fileKey:fileKey];
+    return [self propertyValueForKey:TWSSpellingFileKey fileKey:fileKey contextDomain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSpellingMode:forFileKey:
 - (void)setSpellingMode:(NSString *) spellingMode forFileKey:(NSString *) fileKey;
@@ -259,7 +259,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takePropertyValue:spellingMode forKey:TWSSpellingFileKey fileKey:fileKey];
+	[self takePropertyValue:spellingMode forKey:TWSSpellingFileKey fileKey:fileKey contextDomain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromFile:ofType:

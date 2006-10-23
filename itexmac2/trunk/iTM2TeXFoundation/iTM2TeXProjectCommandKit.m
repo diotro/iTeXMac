@@ -236,6 +236,24 @@ To Do List:
 	}
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchToSimpleSettings:
+- (IBAction)switchToSimpleSettings:(id)sender;
+/*"Message sent by the "Advanced Settings" button in the basic project settings panel.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![[isa inspectorVariant] isEqualToString:[iTM2TeXPCommandsInspector inspectorVariant]])
+	{
+		// we can switch
+		id doc = [self document];
+		[doc saveDocument:sender];// to properly manage the undo stack
+		[doc replaceInspectorMode:[[self class] inspectorMode] variant:[iTM2TeXPCommandsInspector inspectorVariant]];
+	}
+    return;
+}
 #pragma mark =-=-=-=-=-=-=-=-=-=-  Backup/Cancel
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doCommandCompleteBackupModel
 - (void)doCommandCompleteBackupModel;
@@ -455,7 +473,7 @@ To Do List:
     id TPD = (iTM2TeXProjectDocument *)[self document];
     NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
 //iTM2_LOG(@"variant chosen is: %@", variant);
-    if([variant isEqualToString:iTM2TeXPDefaultKey])
+    if([variant isEqualToString:iTM2ProjectDefaultsKey])
         variant = @"";
     NSDictionary * oldTPPs = [[TPD baseProjectName] TeXProjectProperties];
     if([variant isEqualToString:[[oldTPPs iVarVariant] lowercaseString]])
@@ -546,7 +564,7 @@ To Do List:
                         forKey: variant];
                 else
 #warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:iTM2TeXPDefaultKey];
+                    [MD takeValue:@"None" forKey:iTM2ProjectDefaultsKey];
             }
             else
             {
@@ -561,7 +579,7 @@ To Do List:
         }
         NSString * variant = [Ps iVarVariant];
 //iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2TeXPDefaultKey)];
+        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2ProjectDefaultsKey)];
         if(idx == -1)
         {
 			if([sender numberOfItems])
@@ -802,7 +820,7 @@ To Do List:
 //iTM2_START;
     NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
 //iTM2_LOG(@"variant chosen is: %@", variant);
-    if([variant isEqualToString:iTM2TeXPDefaultKey])
+    if([variant isEqualToString:iTM2ProjectDefaultsKey])
         variant = @"";
     id TPD = (iTM2TeXProjectDocument *)[self document];
     NSString * oldBPN = [TPD baseProjectName];
@@ -891,7 +909,7 @@ To Do List:
                         forKey: variant];
                 else
 #warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:iTM2TeXPDefaultKey];
+                    [MD takeValue:@"None" forKey:iTM2ProjectDefaultsKey];
             }
             else
             {
@@ -906,7 +924,7 @@ To Do List:
         }
         NSString * variant = [Ps iVarVariant];
 //iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2TeXPDefaultKey)];
+        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2ProjectDefaultsKey)];
         if(idx == -1)
         {
             NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", variant];
@@ -1029,7 +1047,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self contextStringForKey:@"Commands Inspector:Edited Command"];
+    return [self contextStringForKey:@"Commands Inspector:Edited Command" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEditedCommand:
 - (void)setEditedCommand:(id)argument;
@@ -1040,7 +1058,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeContextValue:argument forKey:@"Commands Inspector:Edited Command"];
+	[self takeContextValue:argument forKey:@"Commands Inspector:Edited Command" domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
     return;
 }
@@ -2613,7 +2631,7 @@ To Do List: to be improved...
 	{
 		iTM2TaskController * TC = [project taskController];
 #warning DEBUGGGGG: add a SUD default here, related to hidden and silent from the terminal window
-		[project takeContextValue:commandName forKey:@"iTM2TeXProjectLastCommandName"];
+		[project takeContextValue:commandName forKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 		[project showTerminalInBackGroundIfNeeded:self];
 		if(iTM2DebugEnabled>100)
 		{
@@ -2721,7 +2739,7 @@ To Do List:
 	if([SPC isBaseProject:TPD])
 		return NO;
 	// selector  names like projectXXXXX: are catched here
-	NSString * lastCommandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName"];
+	NSString * lastCommandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 	NSString * commandName = [self commandName];
 	[sender setState:([lastCommandName isEqualToString:commandName]?NSMixedState:NSOffState)];
 	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];

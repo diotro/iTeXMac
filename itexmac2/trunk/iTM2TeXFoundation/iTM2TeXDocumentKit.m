@@ -1023,7 +1023,7 @@ To Do List: implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRange R = [self contextBoolForKey:iTM2TeXSmartSelectionKey] && ![iTM2EventObserver isAlternateKeyDown]?
+    NSRange R = [self contextBoolForKey:iTM2TeXSmartSelectionKey domain:iTM2ContextAllDomainsMask] && ![iTM2EventObserver isAlternateKeyDown]?
         [self smartDoubleClickAtIndex:index]:[super doubleClickAtIndex:index];
 //iTM2_END;
     return R;

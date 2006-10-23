@@ -42,10 +42,6 @@ extern NSString * const iTM2TeXPInfoKey;
 extern NSString * const iTM2TeXProjectTable;
 
 extern NSString * const TWSMasterFileKey;
-extern NSString * const TWSStringEncodingFileKey;
-extern NSString * const TWSEOLFileKey;
-
-extern NSString * const iTM2TeXPDefaultKey;
 
 extern NSString * iTM2ProjectLocalizedMasterName;
 
@@ -87,49 +83,6 @@ extern NSString * const iTM2TeXProjectPathExtension;
     @result     None
 */
 - (void)setMasterFileKey:(NSString *)key;
-
-/*! 
-    @method     stringEncodingNameForFileKey:
-    @abstract   The string encoding for the given key.
-    @discussion If no string encoding is available in the stored data model, a default value is deduced from the language.
-The ISO 3166 standard and IANA Assigned Character Set Names should be used to describe the string encoding.
-Don't assume that there will always be a default value.
-    @param      key is a key
-    @result     a string encoding.
-*/
-- (NSString *)stringEncodingNameForFileKey:(NSString *)key;
-
-/*! 
-    @method     setStringEncodingString:forFileKey:
-    @abstract   Set the stringe encoding for the given key.
-    @discussion Setting the string encoding string to nil removes any kind of information.
-    @param      string encoding is the new string encoding, assumed to be valid.
-    @param      key is a key
-    @result     None.
-*/
-- (void)setStringEncodingString:(NSString *)stringEncoding forFileKey:(NSString *)key;
-
-/*! 
-    @method     EOLStringForFileKey:
-    @abstract   The EOL for the given key.
-    @discussion The EOL is one of the given \r, \n, \r\n, and unicode codes.
-				Don't assume that there will always be a default value.
-    @param      key is a key
-    @result     a EOL marker.
-*/
-- (NSString *)EOLStringForFileKey:(NSString *)key;
-
-/*! 
-    @method     setEOLString:forFileKey:
-    @abstract   Set the EOL for the given key.
-    @discussion Setting the EOL to nil removes any kind of information.
-				Invalid EOL signifies no specific EOL marker.
-				The client is responsible for setting a proper value: no validation is made in this setter.
-    @param      EOL is the new EOL marker, assumed to be valid.
-    @param      key is a key
-    @result     None.
-*/
-- (void)setEOLString:(NSString *)EOL forFileKey:(NSString *)key;
 
 /*!
     @method     wasNotModified

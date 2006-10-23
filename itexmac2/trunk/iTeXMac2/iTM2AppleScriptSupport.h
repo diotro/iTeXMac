@@ -40,4 +40,8 @@
 - (NSArray *)PDFDocumentsArray;// make new project document
 
 @end
+
+@interface iTM2CompileCommand:NSScriptCommand
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2AppleScriptSupport

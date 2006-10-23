@@ -242,32 +242,127 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTMTeXScriptCommands
 /*"Description forthcoming."*/
 
+@interface iTM2CompileCommand(PRIVATE)
++ (NSString *)commandName;
+@end
+
+@implementation iTM2CompileCommand
++ (NSString *)commandName;
+{
+	return @"Compile";
+}
+- (id)performDefaultImplementation;
+{
+	NSString * commandName = [[self class] commandName];
+	id performer = [iTM2TeXPCommandManager commandPerformerForName:commandName];
+	if(!performer)
+	{
+		[self setScriptErrorNumber:1];
+		[self setScriptErrorString:
+			[NSString stringWithFormat:
+				@"%@: Not available, report a bug to iTeXMac2",commandName]];
+	}
+	id project = nil;
+#if 0
+work in progress
+	id evaluatedReceivers = [self evaluatedReceivers];
+	if([evaluatedReceivers isKindOfClass:[iTM2TeXProjectDocument class]])
+	{
+		project = evaluatedReceivers;
+	}
+	else if(![evaluatedReceivers isKindOfClass:[NSApplication class]])
+	{
+		// only NSApplication's and iTM2TeXProjectDocument's are permitted
+		[self setScriptErrorNumber:5];
+		[self setScriptErrorString:
+			[NSString stringWithFormat:@"%@: Missing file at\n%@",commandName,path]];
+	}
+	// all other situations are ignored
+#endif
+	NSDictionary * evaluatedArguments = [self evaluatedArguments];
+	NSURL * fileURL = [evaluatedArguments objectForKey:@"File"];
+	NSString * path;
+	
+	if([fileURL isKindOfClass:[NSURL class]])
+	{
+		if([fileURL isFileURL])
+		{
+			path = [fileURL path];
+baumugnes:
+			if([DFM fileExistsAtPath:path])
+			{
+				NSError * error = nil;
+				if(project
+					|| (project = [SPC projectForFileName:path])
+						|| (project = [SPC newProjectForFileNameRef:&path display:YES error:&error]))
+				{
+					[performer performCommandForProject:project];
+					return [project objectSpecifier];
+				}
+				else if(error)
+				{
+					[self setScriptErrorNumber:7];
+					[self setScriptErrorString:
+						[NSString stringWithFormat:
+							@"%@: no project for\n%@\n(%@)",commandName,path,[error localizedDescription]]];
+				}
+			}
+			else
+			{
+				[self setScriptErrorNumber:6];
+				[self setScriptErrorString:
+					[NSString stringWithFormat:
+						@"%@: Missing file at\n%@",commandName,path]];
+			}
+		}
+		else
+		{
+			[self setScriptErrorNumber:5];
+			[self setScriptErrorString:
+				[NSString stringWithFormat:
+					@"%@: Invalid File parameter, only local files are supported",commandName]];
+		}
+	}
+	else if(fileURL)
+	{
+		[self setScriptErrorNumber:4];
+		[self setScriptErrorString:
+			[NSString stringWithFormat:
+				@"%@: Invalid 'File' parameter, see the documentation",commandName]];
+	}
+	else if((path = [evaluatedArguments objectForKey:@"Path"]) && [path isKindOfClass:[NSString class]])
+	{
+		goto baumugnes;
+	}
+	else if(path)
+	{
+		[self setScriptErrorNumber:3];
+		[self setScriptErrorString:
+			[NSString stringWithFormat:
+				@"%@: Invalid 'Path' parameter, see the documentation",commandName]];
+	}
+	else
+	{
+		[self setScriptErrorNumber:2];
+		[self setScriptErrorString:
+			[NSString stringWithFormat:
+				@"%@: Missing parameter, see the documentation",commandName]];
+	}
+	return [super performDefaultImplementation];
+}
+@end
+
 NSString * const iTM2ApplFileNameKey = @"File";// the name of AppleScript argument
 NSString * const iTM2ApplProjectNameKey = @"Project";// the name of AppleScript argument
 
 #define DEF_CMD(CLASS,KEY)\
-@interface CLASS: NSScriptCommand\
+@interface CLASS: iTM2CompileCommand\
 @end\
 @implementation CLASS\
-- (id)performDefaultImplementation;\
-{\
-	NSString * path = [[self directParameter] stringByStandardizingPath];\
-	if(![DFM isReadableFileAtPath:path])\
-    {\
-        path = [[[self evaluatedArguments] objectForKey:iTM2ApplFileNameKey] stringByStandardizingPath];\
-        if(![DFM isReadableFileAtPath:path])\
-        {\
-            NSLog(@"No readable file at path: %@", path);\
-            return nil;\
-        }\
-    }\
-    NSString * project = [[self evaluatedArguments] objectForKey:iTM2ApplProjectNameKey];\
-	[[iTM2TeXPCommandManager commandPerformerForName:KEY] performCommandForProject:[SPC projectForSource:project]];\
-    return nil;\
-}\
++ (NSString *)commandName;{	return @"Compile";}\
 @end
 
-DEF_CMD(iTM2CompileCommand, @"Compile")
+//DEF_CMD(iTM2CompileCommand, @"Compile")
 DEF_CMD(iTM2TypesetCommand, @"Typeset")
 DEF_CMD(iTM2BibliographyCommand, @"Bibliography")
 DEF_CMD(iTM2GlossaryCommand, @"Glossary")
@@ -275,5 +370,35 @@ DEF_CMD(iTM2IndexCommand, @"Index")
 DEF_CMD(iTM2StopCommand, @"Stop")
 DEF_CMD(iTM2SpecialCommand, @"Special")
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTMTeXScriptCommands
+@interface iTM2EditCommand:NSScriptCommand
+@end
+@implementation iTM2EditCommand
+- (id)performDefaultImplementation;
+{
+	[self setScriptErrorNumber:1];
+	[self setScriptErrorString:@"Operation not yet suported"];
+	return [super performDefaultImplementation];
+}
+@end
+@interface iTM2DisplayCommand:NSScriptCommand
+@end
+@implementation iTM2DisplayCommand
+- (id)performDefaultImplementation;
+{
+	[self setScriptErrorNumber:1];
+	[self setScriptErrorString:@"Operation not yet suported"];
+	return [super performDefaultImplementation];
+}
+@end
+@interface iTM2UpdateCommand:NSScriptCommand
+@end
+@implementation iTM2UpdateCommand
+- (id)performDefaultImplementation;
+{
+	[self setScriptErrorNumber:1];
+	[self setScriptErrorString:@"Operation not yet suported"];
+	return [super performDefaultImplementation];
+}
+@end
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2AppleScriptCommands
 

@@ -77,6 +77,7 @@ extern NSString * const TWSShellEnvironmentProjectKey;
     @abstract   Abstract forthcoming.
     @discussion If you write your own command inspector, you must make it +initialized unless it will not be registered.
 				The built in command inspectors are +initialized in the +load method of the iTM2TeXProjectInspector.
+				This information might be obsolete. See the source code for more details.
 */
 @interface iTM2TeXPCommandInspector : iTM2TeXProjectInspector
 

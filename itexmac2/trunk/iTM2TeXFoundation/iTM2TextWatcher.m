@@ -158,7 +158,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 	{
 		D = [NSMutableDictionary dictionary];
 		[_iTM2TextWatcherDictionary setObject:D forKey:K];
-		[D setObject:[NSNumber numberWithBool:[TV contextBoolForKey:iTM2UDMatchDelimiterKey]] forKey:iTM2UDMatchDelimiterKey];
+		[D setObject:[NSNumber numberWithBool:[TV contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask]] forKey:iTM2UDMatchDelimiterKey];
 	}
 	if([[D objectForKey:iTM2UDMatchDelimiterKey] boolValue])
 	{
@@ -180,7 +180,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeContextBool: ![self contextBoolForKey:iTM2UDMatchDelimiterKey] forKey:iTM2UDMatchDelimiterKey];
+	[self takeContextBool: ![self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask] forKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
     return;
 }
@@ -193,7 +193,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self contextBoolForKey:iTM2UDMatchDelimiterKey]? NSOnState:NSOffState)];
+	[sender setState: ([self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -228,6 +228,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 //iTM2_START;
 	[_iTM2TextWatcherDictionary removeObjectForKey:[NSValue valueWithNonretainedObject:self]];
 	[super contextDidChange];
+	[self contextDidChangeComplete];
 //iTM2_END;
     return;
 }
