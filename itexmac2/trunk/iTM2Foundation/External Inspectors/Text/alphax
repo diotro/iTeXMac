@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# this is alphax shell script for iTeXMac 1.3 version 0.1
-# © 2003 jlaurens AT users DOT sourceforge DOT net
+# this is alphax shell script for iTeXMac 2.0 version 0.1
+# © 2006 jlaurens AT users DOT sourceforge DOT net
 base="/Applications/Alpha/Tools/alphac"
 if [ -x "~${base}" ]
 then
@@ -11,17 +11,15 @@ fi
 
 if [ ${#file} -gt 0 ]
 then
-    echo "`pwd`"
-    cd "`dirname "${file}"`"
-    echo "`pwd`"
+    cd "$(dirname "${file}")"
     options=""
     if [ ${line:--1} -gt 0 ]
     then
         options="+${line}"
         if [ ${column:--1} -gt 0 ]
         then
-            next="`expr ${line} + 1`"
-            options="${options}.${column},${next}.${column}"
+            next="$(expr ${column} + 1)"
+            options="${options}.${column},${line}.${next}"
         else
             options="${options}.0,${line}.65535"
         fi

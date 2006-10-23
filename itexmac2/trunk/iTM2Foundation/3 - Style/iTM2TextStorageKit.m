@@ -98,12 +98,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"[self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey]:%@", ([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey]? @"Y":@"N"));
-	if([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey])
+//iTM2_LOG(@"[self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask]:%@", ([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask domain:iTM2ContextAllDomainsMask]? @"Y":@"N"));
+	if([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask])
 	{
 		id result = [[[iTM2TextStorage allocWithZone:[self zone]] init] autorelease];
-		NSString * style = [[self contextValueForKey:iTM2TextStyleKey] lowercaseString];
-		NSString * variant = [[self contextValueForKey:iTM2TextSyntaxParserVariantKey] lowercaseString];
+		NSString * style = [[self contextValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask] lowercaseString];
+		NSString * variant = [[self contextValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask] lowercaseString];
 		NSEnumerator * E = [iTM2TextSyntaxParser syntaxParserClassEnumerator];
 		Class C;
 		while(C = [E nextObject])
@@ -138,8 +138,8 @@ To Do List:
 	id TS = [self textStorage];
 	if([TS isKindOfClass:[iTM2TextStorage class]])
 	{
-		[self takeContextValue:[[self textStorage] syntaxParserStyle] forKey:iTM2TextStyleKey];
-		[self takeContextValue:[[self textStorage] syntaxParserVariant] forKey:iTM2TextSyntaxParserVariantKey];
+		[self takeContextValue:[[self textStorage] syntaxParserStyle] forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask];
+		[self takeContextValue:[[self textStorage] syntaxParserVariant] forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask];
 	}
 //iTM2_END;
     return;
@@ -662,8 +662,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self setSyntaxParserStyle:style variant:variant];
-    [self takeContextValue:style forKey:iTM2TextStyleKey];
-    [self takeContextValue:variant forKey:iTM2TextSyntaxParserVariantKey];
+    [self takeContextValue:style forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask];
+    [self takeContextValue:variant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= invalidateAttributesInRange:
@@ -723,8 +723,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setSyntaxParserStyle:[self contextValueForKey:iTM2TextStyleKey]
-            variant: [self contextValueForKey:iTM2TextSyntaxParserVariantKey]];
+	[super contextDidChange];
+    [self setSyntaxParserStyle:[self contextValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask]
+            variant: [self contextValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask]];
+	[self contextDidChangeComplete];
 //iTM2_END;
     return;
 }

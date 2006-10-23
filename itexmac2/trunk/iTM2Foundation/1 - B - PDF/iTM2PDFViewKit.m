@@ -185,9 +185,9 @@ To Do List:
     {
         [_BackgroundColor set];
     }
-    else if([self contextBoolForKey:iTM2PDFUseSheetBackgroundColorKey])
+    else if([self contextBoolForKey:iTM2PDFUseSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask])
     {
-        [[NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFSheetBackgroundColorKey]] set];
+        [[NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]] set];
     }
     else
     {
@@ -276,9 +276,9 @@ To Do List:
     {
         [_BackgroundColor set];
     }
-    else if([self contextBoolForKey:iTM2PDFUseSheetBackgroundColorKey])
+    else if([self contextBoolForKey:iTM2PDFUseSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask])
     {
-        [[NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFSheetBackgroundColorKey]] set];
+        [[NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]] set];
     }
     else
     {
@@ -453,7 +453,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([self contextBoolForKey:[NSString stringWithFormat:@"%#x", [self window]]])
+    if([self contextBoolForKey:[NSString stringWithFormat:@"%#x", [self window]] domain:iTM2ContextAllDomainsMask])
     {
         if([[NSApp currentEvent] modifierFlags] & [[self class] grabKeyMask])
             [self addCursorRect:[self visibleRect] cursor:[NSCursor arrowCursor]];
@@ -519,9 +519,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	_AbsoluteFocusPoint = NSPointFromString([self contextValueForKey:@"iTM2PDFAbsoluteFocusPoint"]);
+	_AbsoluteFocusPoint = NSPointFromString([self contextValueForKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask]);
 	[(iTM2PDFView *)[self superview] placeFocusPointInVisibleArea];// scroll to the page as side effect should be a wrapper for stuff below
- 	[self scrollRectToVisible:NSRectFromString([self contextValueForKey:@"iTM2PDFImageRepViewVisibleRect"])];
+ 	[self scrollRectToVisible:NSRectFromString([self contextValueForKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask])];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFImageRepViewCompleteSaveContext:
@@ -529,8 +529,8 @@ To Do List:
 /*"YES."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeContextValue:NSStringFromPoint(_AbsoluteFocusPoint) forKey:@"iTM2PDFAbsoluteFocusPoint"];
-	[self takeContextValue:NSStringFromRect([self visibleRect]) forKey:@"iTM2PDFImageRepViewVisibleRect"];
+	[self takeContextValue:NSStringFromPoint(_AbsoluteFocusPoint) forKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask];
+	[self takeContextValue:NSStringFromRect([self visibleRect]) forKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask];
     return;
 }
 @end
@@ -836,7 +836,7 @@ To Do List:
 		if(!NSPointInRect(focusPoint, [V bounds]))
 		{
 			NSRect DB = [V drawingBounds];
-			switch([self contextIntegerForKey:iTM2PDFNewPageModeKey])
+			switch([self contextIntegerForKey:iTM2PDFNewPageModeKey domain:iTM2ContextAllDomainsMask])
 			{
 				case iTM2TopLeft:
 					focusPoint = NSMakePoint(NSMinX(DB), NSMaxY(DB));
@@ -990,8 +990,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self contextBoolForKey:iTM2PDFUseViewerBackgroundColorKey]?
-        [NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFViewerBackgroundColorKey]]:
+    return [self contextBoolForKey:iTM2PDFUseViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]?
+        [NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]]:
             [NSColor windowBackgroundColor];
 }
 #pragma mark =-=-=-=-=-  IMAGE REPRESENTATION

@@ -201,12 +201,12 @@ To Do List:
 //iTM2_LOG(@"name is: %@", name);
     if([self positionShouldBeObserved])
     {
-		iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self frameAutosaveModeKey]];
+		iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask];
 		NSString * identifier = [self frameAutosaveIdentifierForMode:mode];
 		if([identifier length])
 		{
-			[self takeContextValue:[self stringWithSavedFrame] forKey:[NSString stringWithFormat:@"Window Frame %@", identifier]];
-			[self takeContextBool:NO forKey:@"iTM2ShouldCascadeWindows"];
+			[self takeContextValue:[self stringWithSavedFrame] forKey:[NSString stringWithFormat:@"Window Frame %@", identifier] domain:iTM2ContextAllDomainsMask];
+			[self takeContextBool:NO forKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask];
 		}
     }
 	[super saveFrameUsingName:name];
@@ -226,7 +226,7 @@ To Do List:
     if([self positionShouldBeObserved])
 	{
 		NSString * S;
-		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@", name]];
+		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@", name] domain:iTM2ContextAllDomainsMask];
 		if([S length])
 		{
 			[self setFrameFromString:S];
@@ -250,14 +250,14 @@ To Do List:
     if([self positionShouldBeObserved])
 	{
 		NSString * S;
-		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@:%@", name, NSStringFromSize([[NSScreen mainScreen] frame].size)]];
+		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@:%@", name, NSStringFromSize([[NSScreen mainScreen] frame].size)] domain:iTM2ContextAllDomainsMask];
 		if([S length])
 		{
 			[self setFrameFromString:S];
 //iTM2_END;
 			return YES;
 		}
-		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@", name]];
+		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@", name] domain:iTM2ContextAllDomainsMask];
 		if([S length])
 		{
 			[self setFrameFromString:S];
@@ -277,9 +277,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self frameAutosaveModeKey]];
+    iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask];
     NSString * identifier = [self frameAutosaveIdentifierForMode:mode];
-	[self takeContextValue:nil forKey:[NSString stringWithFormat:@"Window Frame %@:%@", identifier, NSStringFromSize([[NSScreen mainScreen] frame].size)]];
+	[self takeContextValue:nil forKey:[NSString stringWithFormat:@"Window Frame %@:%@", identifier, NSStringFromSize([[NSScreen mainScreen] frame].size)] domain:iTM2ContextAllDomainsMask];
 	[[self class] removeFrameUsingName:name];
 //iTM2_END;
     return;
@@ -295,7 +295,7 @@ To Do List:
 //iTM2_START;
 	NSString * frameAutosaveName = [super frameAutosaveName];
     return [frameAutosaveName length]? frameAutosaveName:
-		[self frameAutosaveIdentifierForMode:[self contextIntegerForKey:[self frameAutosaveModeKey]]];
+		[self frameAutosaveIdentifierForMode:[self contextIntegerForKey:[self frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask]];
 }
 #if __iTM2_DEVELOPMENT__
 - (void)makeKeyAndOrderFront:(id)sender;

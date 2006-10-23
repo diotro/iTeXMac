@@ -318,6 +318,10 @@ extern NSString * const iTM2TextInspectorType;
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @interface iTM2TextEditor: NSTextView <iTM2TextEditor>
+{
+@private
+	id _Implementation;
+}
 - (void)scrollTaggedToVisible:(id <NSMenuItem>)sender;
 - (void)scrollTaggedAndRepresentedStringToVisible:(id <NSMenuItem>)sender;
 @end

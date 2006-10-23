@@ -19,7 +19,6 @@
 //  to the actual developper team.
 */
 
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSView_iTeXMac2
 
 @interface NSView(iTeXMac2)

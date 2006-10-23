@@ -405,23 +405,6 @@ To Do List:
 //iTM2_START;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
-- (void)takeContextValue:(id) object forKey:(NSString *) aKey;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/26/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSParameterAssert(aKey != nil);
-	[super takeContextValue:object forKey:aKey];
-	if(object)
-		[SUD setObject:object forKey:aKey];
-	else
-		[SUD removeObjectForKey:aKey];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextDictionaryFromFile:
 + (id)contextDictionaryFromFile:(NSString *) fullDocumentPath;
 /*"Description Forthcoming.
@@ -460,7 +443,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * fullDocumentPath = [fileURL path];
-	NSData * D = [self contextValueForKey:@"NSPrintInfo"];
+	NSData * D = [self contextValueForKey:@"NSPrintInfo" domain:iTM2ContextAllDomainsMask];
 	if(!D)
 		D = [DFM extendedFileAttribute:@"NSPrintInfo" inSpace:[NSNumber numberWithUnsignedInt:'TUG0'] atPath:fullDocumentPath error:nil];
 //	if(!D)
@@ -496,7 +479,7 @@ To Do List:
 	NSData * D = [NSArchiver archivedDataWithRootObject:[[self printInfo] dictionary]];
 	if(D)
 	{
-		[self takeContextValue:D forKey:@"Print Info Data"];
+		[self takeContextValue:D forKey:@"Print Info Data" domain:iTM2ContextAllDomainsMask];
 		[DFM addExtendedFileAttribute:@"NSPrintInfo" value:D inSpace:[NSNumber numberWithUnsignedInt:'TUG0'] atPath:fileName error:nil];
 //		[DFM addExtendedFileAttribute:@"NSPrintInfo" value:D atPath:fileName forNameSpace:@"org_tug_mac_cocoa" error:nil];
 	}
@@ -533,7 +516,7 @@ To Do List:
 	{
 		iTM2_LOG(@"ARGH:No inspectors available for %@", [self fileURL]);
 	}
-    [self takeContextValue:openInspectors forKey:iTM2ContextOpenInspectors];
+    [self takeContextValue:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
 //iTM2_LOG(@"openInspectors (%@) are:%@ = %@", [self fileName], openInspectors, [self contextValueForKey:iTM2ContextOpenInspectors]);
 //iTM2_END;
     return;
@@ -577,8 +560,6 @@ To Do List:
 	if([self contextManager] == self)
 	{
 		NSDictionary * attributes = [DFM extendedFileAttributesInSpace:[NSNumber numberWithUnsignedInt:'iTM2'] atPath:[absoluteURL path] error:nil];
-	//	if(!D)
-	//		D = [DFM extendedFileAttributesAtPath:fullDocumentPath forNameSpace:@"org_tug_mac_iTM20" error:nil];
 		NSEnumerator * E = [attributes keyEnumerator];
 		NSString * key;
 		while(key = [E nextObject])
@@ -593,6 +574,7 @@ To Do List:
 			[NSApp reportException:localException];
 			NS_ENDHANDLER
 		}
+iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
 	}
 //iTM2_END;
     return YES;
@@ -606,8 +588,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![absoluteURL isFileURL])
+	{
+		return NO;
+	}
 	NSDictionary * contextDictionary = [self contextDictionary];
-//iTM2_LOG(@"contextDictionary is:%@", contextDictionary);
+iTM2_LOG(@"contextDictionary is:%@", contextDictionary);
 	if([contextDictionary count])
 	{
 		NSMutableDictionary * attributes = [NSMutableDictionary dictionary];
@@ -879,11 +865,11 @@ To Do List:
             return WC;
 		}
 	}
-    NSMutableDictionary * MD = (NSMutableDictionary *)[[[self contextDictionaryForKey:iTM2ContextInspectorVariants] mutableCopy] autorelease];
+    NSMutableDictionary * MD = (NSMutableDictionary *)[[[self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];
     if(!MD)
     {
         MD = [NSMutableDictionary dictionary];
-        [self takeContextValue:MD forKey:iTM2ContextInspectorVariants];
+        [self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
     }
     NSString * type = [[self class] inspectorType];
     NSArray * variants = [MD objectForKey:mode];
@@ -915,7 +901,7 @@ To Do List:
         }
     }
     [MD removeObjectForKey:mode];
-    [self takeContextValue:MD forKey:iTM2ContextInspectorVariants];
+    [self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
     if(C = [NSWindowController inspectorClassForType:type mode:mode variant:iTM2DefaultInspectorVariant])
     {
         WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
@@ -1068,7 +1054,7 @@ To Do List:
 	NSString * inspectorVariant = [C inspectorVariant];
 	if(![inspectorVariant hasPrefix:@"."])
 	{
-		NSDictionary * D = [self contextDictionaryForKey:iTM2ContextInspectorVariants];
+		NSDictionary * D = [self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
 		if(!D)
 			D = [NSDictionary dictionary];
 		NSMutableDictionary * MD = [[D mutableCopy] autorelease];
@@ -1081,8 +1067,8 @@ To Do List:
 		[MRA removeObject:inspectorVariant];
 		[MRA insertObject:inspectorVariant atIndex:0];
 		[MD setObject:MRA forKey:[C inspectorMode]];
-		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants];
-		D = [self contextDictionaryForKey:iTM2ContextInspectorVariants];
+		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+		D = [self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
 		if(!D)
 		{
 			D = [NSDictionary dictionary];
@@ -1100,7 +1086,7 @@ To Do List:
 			D = [NSDictionary dictionaryWithObjectsAndKeys:mode, @"mode", variant, @"variant", nil];
 			[MD setObject:D forKey:type];
 		}
-		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants];
+		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
 	}
 	if(![WC isKindOfClass:[iTM2ExternalInspector class]])
 		[self didAddWindowController:WC];
@@ -1164,7 +1150,7 @@ To Do List:
 		if(![[[WC class] inspectorMode] hasPrefix:@"."])
 			return;
 	}
-    NSArray * modes = [self contextValueForKey:iTM2ContextOpenInspectors];
+    NSArray * modes = [self contextValueForKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
     if([modes isKindOfClass:[NSArray class]])
     {
         NSEnumerator * E = [modes objectEnumerator];
@@ -1233,7 +1219,7 @@ To Do List:
     if(![[self windowControllers] count])
     {
         NSString * documentType = [[[self fileName] pathExtension] lowercaseString];
-        NSDictionary * contextVariants = [self contextDictionaryForKey:iTM2ContextInspectorVariants];
+        NSDictionary * contextVariants = [self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
         NSDictionary * D = [contextVariants objectForKey:documentType];
 		NSString * inspectorMode = [D objectForKey:@"mode"];
 		if(!inspectorMode)
@@ -1825,7 +1811,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-	if([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError"])
+	if([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask])
 	{
 		return NO;
 	}
@@ -2103,7 +2089,22 @@ To Do List:
     }
     return;
 }
-#warning - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataOfType:error:
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed 05 mar 03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//NSLog(@"data: %@", result);
+	if(outError)
+	{
+		* outError = nil;
+	}
+    return [self dataRepresentationOfType:typeName];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
 - (NSData *)dataRepresentationOfType:(NSString *) type;
 /*"Returns YES.
@@ -2115,7 +2116,6 @@ To Do List:
 //iTM2_START;
     return [IMPLEMENTATION dataRepresentationOfType:type];
 }
-#warning - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
 - (BOOL)loadDataRepresentation:(NSData *) data ofType:(NSString *) type;
 /*"Returns YES.
@@ -2127,6 +2127,21 @@ To Do List:
 //iTM2_START;
 //NSLog(@"type:%@", type);
     return [IMPLEMENTATION loadDataRepresentation:data ofType:type];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromData:ofType:error:
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed 05 mar 03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(outError)
+	{
+		* outError = nil;
+	}
+    return [self loadDataRepresentation:data ofType:typeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataRepresentation
 - (NSData *)dataRepresentation;
@@ -2198,7 +2213,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self contextBoolForKey:@"iTM2KeepBackup"];
+    return [self contextBoolForKey:@"iTM2KeepBackup" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:error:
 - (BOOL)writeToDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
@@ -2829,7 +2844,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self iTM2_swizzled_windowWillLoad];
-	[self setShouldCascadeWindows:[self contextBoolForKey:@"iTM2ShouldCascadeWindows"]];
+	[self setShouldCascadeWindows:[self contextBoolForKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask]];
 //iTM2_LOG(@"should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
@@ -3219,8 +3234,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL old = [self contextBoolForKey:iTM2UDSmartUndoKey];
-	[self takeContextBool:!old forKey:iTM2UDSmartUndoKey];
+	BOOL old = [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
     return;
 }
@@ -3233,7 +3248,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState:([self contextBoolForKey:iTM2UDSmartUndoKey]?NSOnState:NSOffState)];
+	[sender setState:([self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask]?NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -3615,7 +3630,7 @@ To Do List:
 //iTM2_START;
 	NSWindow * mainWindow = [NSApp mainWindow];
 	id document = [[mainWindow windowController] document];
-    if([document contextBoolForKey:iTM2UDSmartUndoKey])
+    if([document contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask])
     {
         if(![document isDocumentEdited])
         {
@@ -3722,7 +3737,7 @@ To Do List:
 		[processEnvironment addEntriesFromDictionary:[[self document] environmentForExternalHelper]];
 		[processEnvironment addEntriesFromDictionary:environment];
 		[processEnvironment setObject:[NSString stringWithFormat:@":%@:%@",
-                        [self contextValueForKey:iTM2PATHPrefixKey],
+                        [self contextValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask],
 							[processEnvironment objectForKey:@"PATH"]]  forKey:@"PATH"];
 		[processEnvironment setObject:[[[self document] fileName] lastPathComponent]  forKey:@"file"];
         [task setEnvironment:processEnvironment];
@@ -3886,4 +3901,3 @@ To Do List:
 
 @implementation iTM2WildcardDocument
 @end
-

@@ -653,7 +653,7 @@ To Do List:
 }
 @end
 
-#define iTM2TSSMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel"]
+#define iTM2TSSMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
 static NSMutableArray * _giTM2TextSyntaxMenus;
 static NSMenu * _giTM2TextSyntaxMenu;
@@ -1006,8 +1006,8 @@ To Do List: Nothing
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL old = [self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey];
-    [self takeContextBool:!old forKey:iTM2SyntaxParserStyleEnabledKey];
+	BOOL old = [self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask];
+    [self takeContextBool:!old forKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask];
 	id TS = [self textStorageTarget];
 	iTM2TextInspector * WC = [[[[[[[TS layoutManagers] lastObject] textContainers] lastObject] textView] window] windowController];
 	if([WC isKindOfClass:[iTM2TextInspector class]])
@@ -1030,7 +1030,7 @@ To Do List: Nothing
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"[self textStorageTarget] is:%@", [self textStorageTarget]);
-	[sender setState:([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey]?
+	[sender setState:([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask]?
 		NSOnState: NSOffState)];
 //iTM2_END;
     return YES;

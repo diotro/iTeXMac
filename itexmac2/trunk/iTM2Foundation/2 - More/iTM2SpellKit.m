@@ -426,7 +426,7 @@ To Do List:
     if(old != flag)
 	{
         [super setContinuousSpellCheckingEnabled:flag];
-		[self takeContextBool:[self isContinuousSpellCheckingEnabled] forKey:iTM2UDContinuousSpellCheckingKey];
+		[self takeContextBool:[self isContinuousSpellCheckingEnabled] forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
 	}
 //iTM2_END;
     return;
@@ -442,7 +442,7 @@ To Do List:
 //iTM2_START;
     [super toggleContinuousSpellChecking:sender];
 	BOOL yorn = [self isContinuousSpellCheckingEnabled];
-	[self takeContextBool:yorn forKey:iTM2UDContinuousSpellCheckingKey];
+	[self takeContextBool:yorn forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
     return;
 }
@@ -455,8 +455,10 @@ To Do List: ...
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setContinuousSpellCheckingEnabled:[self contextBoolForKey:iTM2UDContinuousSpellCheckingKey]];
+	BOOL yorn = [self contextBoolForKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
+    [self setContinuousSpellCheckingEnabled:yorn];
 	[super contextDidChange];
+	[self contextDidChangeComplete];
 //iTM2_END;
     return;
 }
@@ -663,11 +665,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    NSString * mode = [text contextValueForKey:iTM2SpellContextModeKey];
+    NSString * mode = [text contextValueForKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
     if(![self spellContextForMode:mode])
     {
         mode = TWSSpellDefaultContextMode;
-        [text takeContextValue:mode forKey:iTM2SpellContextModeKey];
+        [text takeContextValue:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
     }
 //iTM2_END;
     return mode;
@@ -681,7 +683,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [text takeContextValue:mode forKey:iTM2SpellContextModeKey];
+    [text takeContextValue:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
     return;
 }

@@ -268,17 +268,38 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (void)didRead;
 
 /*!
-	@method		loadDataRepresentation:ofType:
+	@method		readFromData:(NSData *)data ofType:(NSString *)typeName error:
 	@abstract	Loads the given data representation, assuming its type.
 	@discussion	This default implementation just stores the given data in its data representation dictionary, as is, with key, the given type. It overrides any previously loaded data representation with no precaution.
+	@result		YES.
+*/
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
+
+/*!
+	@method		loadDataRepresentation:ofType:
+	@abstract	Loads the given data representation, assuming its type.
+	@discussion	Deprecated since Tiger. Use
+				- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
+				instead.
+				This default implementation just stores the given data in its data representation dictionary, as is, with key, the given type. It overrides any previously loaded data representation with no precaution.
 	@result		YES.
 */
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 
 /*!
-	@method		dataRepresentationTypes
+	@method		dataOfType:error:
 	@abstract	All the keys of the data representations.
 	@discussion	Description forthcoming.
+	@result		an array of NSString's.
+*/
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError;
+
+/*!
+	@method		dataRepresentationTypes
+	@abstract	All the keys of the data representations.
+	@discussion	Deprecatd since Tiger. Use
+				- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError;
+				instead. Description forthcoming.
 	@result		an array of NSString's.
 */
 - (NSArray *)dataRepresentationTypes;

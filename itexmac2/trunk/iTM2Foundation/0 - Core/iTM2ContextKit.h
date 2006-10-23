@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Mar 26 2002.
-//  Copyright © 2005 Laurens'Tribune. All rights reserved.
+//  Copyright © 2006 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -25,6 +25,21 @@
 extern NSString * const iTM2ContextDidChangeNotification;
 extern NSString * const iTM2ContextExtensionsKey;
 extern NSString * const iTM2ContextTypesKey;
+
+enum
+{
+	iTM2ContextNoDomainMask = 0,// Nothing
+	iTM2ContextStandardLocalMask = 1 << 1,// private to the object
+	iTM2ContextStandardProjectMask = 1 << 2,// share with the default
+	iTM2ContextExtendedProjectMask = 1 << 3,// share the extension with the default
+	iTM2ContextExtendedDefaultsMask = 1 << 4,// share the extension with the default
+	iTM2ContextStandardDefaultsMask = 1 << 5,// share with the default
+	iTM2ContextDefaultsMask = iTM2ContextStandardDefaultsMask|iTM2ContextExtendedDefaultsMask,
+	iTM2ContextProjectMask = iTM2ContextStandardProjectMask|iTM2ContextExtendedProjectMask,
+	iTM2ContextStandardMask = iTM2ContextStandardLocalMask|iTM2ContextStandardDefaultsMask|iTM2ContextStandardProjectMask,
+	iTM2ContextExtendedMask = iTM2ContextExtendedDefaultsMask|iTM2ContextExtendedProjectMask,
+	iTM2ContextAllDomainsMask = ~iTM2ContextNoDomainMask
+};
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKit
 
@@ -92,6 +107,11 @@ extern NSString * const iTM2ContextTypesKey;
 				When something changes that should cause the context manager to change accordingly, this message should be sent.
 				In particular, this message is sent in the iTMDocument setFileName: method,
 				because it may also change the location where the context is stored to disk.
+				In the various methods, the mask determines how the context value is stored/retrieved.
+				When there is no mask, the search path is local->project->defaults.
+				Giving a mask allows to shortcut one of these search locations.
+				The extended version allows to search in the same location for a likely key.
+				It is used for example to associate a default encoding to each file with the same extension or the same document type.
     @param		None
     @result		A context manager
 */
@@ -118,33 +138,35 @@ extern NSString * const iTM2ContextTypesKey;
 - (void)setContextDictionary:(id)dictionary;
 
 /*! 
-    @method		contextValueForKey:
+    @method		contextValueForKey:domain:
     @abstract	The context value for the given key.
     @discussion	Comes from the context dictionary if any, at least from the context manager.
     @param		key
+    @param		mask
     @result		None
 */
-- (id)contextValueForKey:(NSString *)aKey;
+- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
-    @method		takeContextValue:forKey:
+    @method		takeContextValue:forKey:domain:
     @abstract	Records the given context value for the given key.
     @discussion	It forwards the request to the context manager,
                 unless subclassers have overriden the contextDictionary to return a valid mutable dictionary.
     @param		value
     @param		key
-    @result		None
+    @param		mask
+    @result     yorn whether something has changed.
 */
-- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
+- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
-    @method		contextFontForKey:
+    @method		contextFontForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
     @result		None
 */
-- (NSFont *)contextFontForKey:(NSString *)aKey;
+- (NSFont *)contextFontForKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
     @method		takeContextFont:forKey:
@@ -154,7 +176,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey;
+- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
     @method		contextColorForKey:
@@ -163,7 +185,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (NSColor *)contextColorForKey:(NSString *)key;
+- (NSColor *)contextColorForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		takeContextColor:forKey:
@@ -173,7 +195,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (void)takeContextColor:(NSColor *)value forKey:(NSString *)key;
+- (void)takeContextColor:(NSColor *)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		contextStringForKey:
@@ -182,7 +204,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (NSString *)contextStringForKey:(NSString *)key;
+- (NSString *)contextStringForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		contextArrayForKey:
@@ -191,7 +213,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (NSArray *)contextArrayForKey:(NSString *)key;
+- (NSArray *)contextArrayForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		contextDictionaryForKey:
@@ -200,7 +222,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (NSDictionary *)contextDictionaryForKey:(NSString *)key;
+- (NSDictionary *)contextDictionaryForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		contextDataForKey:
@@ -209,7 +231,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (NSData *)contextDataForKey:(NSString *)key;
+- (NSData *)contextDataForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		contextStringArrayForKey
@@ -218,7 +240,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (NSArray *)contextStringArrayForKey:(NSString *)key;
+- (NSArray *)contextStringArrayForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		contextIntegerForKey:
@@ -227,7 +249,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (int)contextIntegerForKey:(NSString *)key; 
+- (int)contextIntegerForKey:(NSString *)key domain:(unsigned int)mask; 
 
 /*! 
     @method		contextFloatForKey:
@@ -236,7 +258,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (float)contextFloatForKey:(NSString *)key; 
+- (float)contextFloatForKey:(NSString *)key domain:(unsigned int)mask; 
 
 /*! 
     @method		contextBoolForKey:
@@ -245,7 +267,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (BOOL)contextBoolForKey:(NSString *)key;  
+- (BOOL)contextBoolForKey:(NSString *)key domain:(unsigned int)mask;  
 
 /*! 
     @method		takeContextInteger:forKey:
@@ -255,7 +277,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (void)takeContextInteger:(int)value forKey:(NSString *)key;
+- (void)takeContextInteger:(int)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		takeContextFloat:forKey:
@@ -265,7 +287,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (void)takeContextFloat:(float)value forKey:(NSString *)key;
+- (void)takeContextFloat:(float)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method		takeContextBool:forKey:
@@ -275,7 +297,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param		key
     @result		None
 */
-- (void)takeContextBool:(BOOL)value forKey:(NSString *)key;
+- (void)takeContextBool:(BOOL)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method     saveContext:
@@ -323,10 +345,29 @@ extern NSString * const iTM2ContextTypesKey;
     @discussion	You should send this message whenever the context will need a registration at appropriate time.
 				The default implementation does nothing else unless the receiver has an implementation.
 				(see iTM2Implementation.h)
+				Subclassers should call the inherited method.
     @param      None
     @result     None
 */
 - (void)contextDidChange;
+
+/*! 
+    @method     contextDidChangeComplete
+    @abstract	Abstract forthcoming.
+    @discussion	You should send this message just before returning your contextDidChange implementation.
+    @param      None
+    @result     None
+*/
+- (void)contextDidChangeComplete;
+
+/*! 
+    @method     notifyContextChange
+    @abstract	Abstract forthcoming.
+    @discussion	Force an update base on the context. This is automatically sent by the takeContexValue:forKey:domain:.
+    @param      None
+    @result     None
+*/
+- (void)notifyContextChange;
 
 /*! 
     @method     contextRegistrationNeeded
@@ -354,7 +395,7 @@ extern NSString * const iTM2ContextTypesKey;
     @param      key
     @result     A value
 */
-- (id)contextValueForKey:(NSString *)key;
+- (id)contextValueForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method     takeContextValue:forKey:
@@ -381,11 +422,13 @@ extern NSString * const iTM2ContextTypesKey;
 				c - if the context value exists in the user defaults data base, it is returned
 				We do not want to reserve a placeholder for each document in the user defaults database.
 				Only file extensions and document types are authorized such that a limited amount of info is stored.
+				
+				If you do not want a value to be stored in the user defaults, just use the appropriate domain mask
     @param      value is the new value
     @param      key is the context value key
-    @result     None
+    @result     yorn whether something has changed.
 */
-- (void)takeContextValue:(id)value forKey:(NSString *)key;
+- (BOOL)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method     documentCompleteSaveContext:

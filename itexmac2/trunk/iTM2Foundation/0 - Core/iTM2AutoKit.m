@@ -187,7 +187,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextBool:([sender state] == NSOffState) forKey:iTM2AutoUpdateEnabledKey];
+    [self takeContextBool:([sender state] == NSOffState) forKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleAutoUpdate:
@@ -199,7 +199,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState:([self contextBoolForKey:iTM2AutoUpdateEnabledKey]? NSOnState:NSOffState)];
+    [sender setState:([self contextBoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartUpdate:
@@ -212,9 +212,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     BOOL wasOnState = ([sender state] != NSOffState);
-    [self takeContextBool:!wasOnState forKey:iTM2SmartUpdateEnabledKey];
+    [self takeContextBool:!wasOnState forKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
     if(!wasOnState)
-        [self takeContextBool:YES forKey:iTM2AutoUpdateEnabledKey];
+        [self takeContextBool:YES forKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartUpdate:
@@ -226,8 +226,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState:([self contextBoolForKey:iTM2SmartUpdateEnabledKey]? NSOnState:NSOffState)];
-    return [self contextBoolForKey:iTM2AutoUpdateEnabledKey];
+    [sender setState:([self contextBoolForKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
+    return [self contextBoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
 }
 @end
 
@@ -304,12 +304,12 @@ To Do List:
         _iTM2_AutoSave_TimeInterval = newTimeInterval;
         [_iTM2_AutoSave_Timer invalidate];
         [_iTM2_AutoSave_Timer autorelease];
-        _iTM2_AutoSave_Timer = [([self contextBoolForKey:iTM2AutoSaveDocumentsEnabledKey]?
+        _iTM2_AutoSave_Timer = [([self contextBoolForKey:iTM2AutoSaveDocumentsEnabledKey domain:iTM2ContextAllDomainsMask]?
             [NSTimer scheduledTimerWithTimeInterval:_iTM2_AutoSave_TimeInterval
                 target:self selector:@selector(_TimedSaveAllDocuments:) userInfo:nil repeats:YES]
             :nil) retain];
     }
-    else if([self contextBoolForKey:iTM2AutoSaveDocumentsEnabledKey])
+    else if([self contextBoolForKey:iTM2AutoSaveDocumentsEnabledKey domain:iTM2ContextAllDomainsMask])
     {
         if(!_iTM2_AutoSave_Timer)
             _iTM2_AutoSave_Timer = [[NSTimer scheduledTimerWithTimeInterval:_iTM2_AutoSave_TimeInterval
@@ -355,10 +355,10 @@ To Do List:
     NSWindow * W = [aNotification object];
     NSDocument * D = [[W windowController] document];
     if ([D canAutoUpdate]
-            && [D contextBoolForKey:iTM2AutoUpdateEnabledKey]
+            && [D contextBoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]
                 && [D needsToUpdate])
     {
-        if([D contextBoolForKey:iTM2SmartUpdateEnabledKey])
+        if([D contextBoolForKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask])
         {
             // finding the front most window
             NSMutableArray * windows = [NSMutableArray array];

@@ -683,7 +683,22 @@ To Do List:
 //NSLog(@"data: %@", result);
     return [[self _DataRepresentations] allKeys];
 }
-#warning - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataOfType:error:
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed 05 mar 03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//NSLog(@"data: %@", result);
+	if(outError)
+	{
+		* outError = nil;
+	}
+    return [self dataRepresentationOfType:typeName];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
 - (NSData *)dataRepresentationOfType:(NSString *)type;
 /*"Description Forthcoming.
@@ -696,7 +711,21 @@ To Do List:
 //NSLog(@"data: %@", result);
     return [[self _DataRepresentations] valueForKey:type];
 }
-#warning - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromData:ofType:error:
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed 05 mar 03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(outError)
+	{
+		* outError = nil;
+	}
+    return [self loadDataRepresentation:data ofType:typeName];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
 - (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 /*"Description Forthcoming.

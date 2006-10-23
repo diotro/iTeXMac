@@ -386,7 +386,7 @@ To Do List:
 						localizedType = [[B localizedInfoDictionary] objectForKey:documentType];
 						if([localizedType length])
 						{
-							[[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
+							[(NSMutableDictionary *)[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
 						}
 					}
 				}
@@ -421,7 +421,7 @@ To Do List:
 								localizedType = [[B localizedInfoDictionary] objectForKey:documentType];
 								if([localizedType length])
 								{
-									[[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
+									[(NSMutableDictionary *)[self localizedDocumentTypesDictionary] setObject:localizedType forKey:documentType];
 								}
 							}
 							else

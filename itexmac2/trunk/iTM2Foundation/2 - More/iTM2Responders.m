@@ -120,8 +120,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self PDFInspector] setMagnification:magnification];
-    [self takeContextFloat:magnification forKey:iTM2PDFCurrentMagnificationKey];
-    [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
+    [self takeContextFloat:magnification forKey:iTM2PDFCurrentMagnificationKey domain:iTM2ContextAllDomainsMask];
+    [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtFixedSize:...
@@ -135,10 +135,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
+    [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
 	id album = [[self PDFInspector] album];
     [album setMagnificationWithDisplayMode:iTM2PDFDisplayModeFixed stickMode:0];// unused stick mode
-    [self takeContextFloat:[album magnification] forKey:iTM2PDFCurrentMagnificationKey];
+    [self takeContextFloat:[album magnification] forKey:iTM2PDFCurrentMagnificationKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDisplayPDFAtFixedSize:
@@ -153,7 +153,7 @@ of the magnification."*/
 	{
 		atFixedSizeFormat = [[anItem title] copy];
 	}
-    float f = [self contextFloatForKey:iTM2PDFFixedMagnificationKey] * 100;
+    float f = [self contextFloatForKey:iTM2PDFFixedMagnificationKey domain:iTM2ContextAllDomainsMask] * 100;
     [anItem setTitle:[NSString stringWithFormat:atFixedSizeFormat, f]];
     return (f > 0);
 }
@@ -166,10 +166,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
+    [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
 	id album = [[self PDFInspector] album];
     [album setMagnificationWithDisplayMode:iTM2PDFDisplayModeStick stickMode:[sender tag]];
-    [self takeContextFloat:[album magnification] forKey:iTM2PDFCurrentMagnificationKey];
+    [self takeContextFloat:[album magnification] forKey:iTM2PDFCurrentMagnificationKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtMagnificationFromRepresentedObject:
@@ -183,7 +183,7 @@ To Do List:
 //iTM2_START;
     if([sender representedObject])
     {
-        [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
+        [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
         [[[self PDFInspector] album] setMagnification:[[sender representedObject] floatValue]];
     }
     else
@@ -192,7 +192,7 @@ To Do List:
         NSDecimalNumber * number;
         if([MF getObjectValue:&number forString:[sender title] errorDescription:nil])
         {
-            [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
+            [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
             [[[self PDFInspector] album] setMagnification:[number floatValue]];
         }
         else
@@ -332,7 +332,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextInteger:[sender tag] forKey:iTM2PDFNewPageModeKey];
+    [self takeContextInteger:[sender tag] forKey:iTM2PDFNewPageModeKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakePDFNewPageModeFromTag:
@@ -344,7 +344,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState:([self contextIntegerForKey:iTM2PDFNewPageModeKey] == [sender tag]? NSOnState:NSOffState)];
+    [sender setState:([self contextIntegerForKey:iTM2PDFNewPageModeKey domain:iTM2ContextAllDomainsMask] == [sender tag]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takePDFPageLayoutModeFromTag:
@@ -356,7 +356,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextInteger:[sender tag] forKey:iTM2PDFPageLayoutModeKey];
+    [self takeContextInteger:[sender tag] forKey:iTM2PDFPageLayoutModeKey domain:iTM2ContextAllDomainsMask];
     [[[self PDFInspector] album] setPageLayout:[sender tag]];
     return;
 }
@@ -369,7 +369,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState:(([self contextIntegerForKey:iTM2PDFPageLayoutModeKey] == [sender tag])? NSOnState:NSOffState)];
+    [sender setState:(([self contextIntegerForKey:iTM2PDFPageLayoutModeKey domain:iTM2ContextAllDomainsMask] == [sender tag])? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= togglePDFDisplayModeStick:
@@ -381,15 +381,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    switch([self contextIntegerForKey:iTM2PDFDisplayModeKey])
+    switch([self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask])
     {
         case iTM2PDFDisplayModeStick:
-            [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey];
+            [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
             break;
         default:
-            [self takeContextInteger:iTM2PDFDisplayModeStick forKey:iTM2PDFStickModeKey];
-            [[[self PDFInspector] album] setMagnificationWithDisplayMode:[self contextIntegerForKey:iTM2PDFDisplayModeKey]
-            stickMode: [self contextIntegerForKey:iTM2PDFStickModeKey]]; 
+            [self takeContextInteger:iTM2PDFDisplayModeStick forKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask];
+            [[[self PDFInspector] album] setMagnificationWithDisplayMode:[self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
+            stickMode: [self contextIntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]]; 
             break;
     }
     return;
@@ -403,7 +403,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [anItem setState:([self contextIntegerForKey:iTM2PDFDisplayModeKey] == iTM2PDFDisplayModeStick?
+    [anItem setState:([self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask] == iTM2PDFDisplayModeStick?
             NSOnState: NSOffState)];
     return YES;
 }
@@ -417,10 +417,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextInteger:iTM2PDFDisplayModeStick forKey:iTM2PDFDisplayModeKey];
-    [self takeContextInteger:[sender tag] forKey:iTM2PDFStickModeKey];
-    [[[self PDFInspector] album] setMagnificationWithDisplayMode:[self contextIntegerForKey:iTM2PDFDisplayModeKey]
-            stickMode: [self contextIntegerForKey:iTM2PDFStickModeKey]];
+    [self takeContextInteger:iTM2PDFDisplayModeStick forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
+    [self takeContextInteger:[sender tag] forKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask];
+    [[[self PDFInspector] album] setMagnificationWithDisplayMode:[self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
+            stickMode: [self contextIntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePDFStickModeFromTag:
@@ -432,9 +432,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState:(([self contextIntegerForKey:iTM2PDFStickModeKey] == [sender tag])?
+    [sender setState:(([self contextIntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask] == [sender tag])?
                     NSOnState: NSOffState)];
-    return [self contextIntegerForKey:iTM2PDFDisplayModeKey] == iTM2PDFDisplayModeStick;
+    return [self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask] == iTM2PDFDisplayModeStick;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePDFDisplayOrientationFromTag:
 - (IBAction)takePDFDisplayOrientationFromTag:(id)sender
@@ -452,10 +452,10 @@ To Do List:
 	{
 		int argument = [sender tag] % 3;
 		if(argument == 3) argument = -1;
-		int _OrientationMode = [self contextIntegerForKey:@"PDFOrientation"];
+		int _OrientationMode = [self contextIntegerForKey:@"PDFOrientation" domain:iTM2ContextAllDomainsMask];
 		if(argument != _OrientationMode)
 		{
-			[self takeContextInteger:argument forKey:@"PDFOrientation"];
+			[self takeContextInteger:argument forKey:@"PDFOrientation" domain:iTM2ContextAllDomainsMask];
 		}
 	}
     return;
@@ -481,8 +481,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL old = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey];
-    [self takeContextBool:!old forKey:iTM2PDFSlidesLandscapeModeKey];
+    BOOL old = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
+    [self takeContextBool:!old forKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
     [[[self PDFInspector] album] setParametersHaveChanged:YES];
     return;
 }
@@ -495,7 +495,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState:([self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey]? NSOnState:NSOffState)];
+    [sender setState:([self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autoZoom:
@@ -507,8 +507,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL old = [self contextBoolForKey:@"AutoScales"];
-    [self takeContextBool:!old forKey:@"AutoScales"];
+    BOOL old = [self contextBoolForKey:@"AutoScales" domain:iTM2ContextAllDomainsMask];
+    [self takeContextBool:!old forKey:@"AutoScales" domain:iTM2ContextAllDomainsMask];
     [[[self PDFInspector] album] setParametersHaveChanged:YES];
 //iTM2_END;
     return;
@@ -522,7 +522,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState:([self contextBoolForKey:@"AutoScales"]? NSOnState:NSOffState)];
+	[sender setState:([self contextBoolForKey:@"AutoScales" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -656,7 +656,7 @@ To Do List:
 	if(WC)
 		[WC setStringEncoding:[sender tag]];
 	else if(WC = [SPC currentProject])
-		[WC takeContextInteger:[sender tag] forKey:iTM2StringEncodingPreferredKey];
+		[WC takeContextInteger:[sender tag] forKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask];
 	else
 		[SUD setInteger:[sender tag] forKey:iTM2StringEncodingPreferredKey];
     return;
@@ -670,9 +670,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id target = [self textInspector]?:([SPC currentProject]?:SUD);
-	BOOL old = [target contextBoolForKey:iTM2StringEncodingIsAutoKey];
-    [target takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey];
+	id target = [self textInspector];
+	BOOL old;
+	if(target)
+	{
+		old = [target contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+		[target takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+		return;
+	}
+	if(target = [SPC currentProject])
+	{
+		NSNumber * N = [target propertyValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
+		old = [N respondsToSelector:@selector(boolValue)]?[N boolValue]:NO;
+		N = [NSNumber numberWithBool:!old];
+		[target takePropertyValue:N forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
+		return;
+	}
+	if(target = SUD)
+	{
+		old = [target contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+		[target takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+		return;
+	}
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
@@ -686,7 +705,7 @@ To Do List:
 //iTM2_START;
     id TI = [self textInspector];
 	id target = TI?: ([SPC currentProject]?:SUD);
-	BOOL isAuto = [target contextBoolForKey:iTM2StringEncodingIsAutoKey];
+	BOOL isAuto = [target contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
     [sender setState:(isAuto? NSOnState:NSOffState)];
 	BOOL enabled = YES;
 	int tag;
@@ -696,7 +715,7 @@ To Do List:
 		enabled = !isAuto || ![TI isStringEncodingHardCoded];
 	}
 	else if(TI = [SPC currentProject])
-		tag = [TI contextIntegerForKey:iTM2StringEncodingPreferredKey];
+		tag = [TI contextIntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask];
 	else
 		tag = [SUD integerForKey:iTM2StringEncodingPreferredKey];
 	BOOL stringEncodingNotAvailable = YES;
@@ -804,7 +823,7 @@ To Do List:
 	if(TI)
 		[[TI document] setEOL:[sender tag]];
 	else if(TI = [SPC currentProject])
-		[TI takeContextInteger:[sender tag] forKey:iTM2EOLPreferredKey];
+		[TI takeContextInteger:[sender tag] forKey:iTM2EOLPreferredKey domain:iTM2ContextAllDomainsMask];
 	else
 		[SUD setInteger:[sender tag] forKey:iTM2EOLPreferredKey];
     return;
@@ -823,7 +842,7 @@ To Do List:
 	if(TI)
 		tag = [TI EOL];
 	else if(TI = [SPC currentProject])
-		tag = [TI contextIntegerForKey:iTM2EOLPreferredKey];
+		tag = [TI contextIntegerForKey:iTM2EOLPreferredKey domain:iTM2ContextAllDomainsMask];
 	else
 		tag = [SUD integerForKey:iTM2EOLPreferredKey];
 	[sender setTarget:self];

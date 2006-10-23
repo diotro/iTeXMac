@@ -43,6 +43,9 @@ NSString * const iTM2StringEncodingOpenKey = @"iTM2StringEncodingOpen";
 NSString * const iTM2StringEncodingHeaderKey = @"charset";
 NSString * const iTM2CharacterStringEncodingKey = @"CharacterEncoding";// COCOA STUFF
 
+NSString * const TWSStringEncodingFileKey = @"codeset";
+NSString * const TWSEOLFileKey = @"eol";
+
 NSString * const iTM2StringEncodingListDidChangeNotification = @"iTM2StringEncodingListDidChange";
 NSString * const iTM2StringEncodingsPListName = @"StringEncodings";
 
@@ -442,20 +445,6 @@ To Do List:
         default: 			return @"\n";
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOLForTerminationString:
-+ (iTM2EOL)EOLForTerminationString:(NSString *)terminationString;
-/*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
-To do list:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    terminationString = [terminationString lowercaseString];
-    if([terminationString isEqualToString:@"\r"]) return iTM2MacintoshEOL;
-    if([terminationString isEqualToString:@"\n"]) return iTM2UNIXEOL;
-    if([terminationString isEqualToString:@"\r\n"]) return iTM2WindowsEOL;
-    return iTM2UnknownEOL;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOLForName:
 + (iTM2EOL)EOLForName:(NSString *)name;
 /*"Description Forthcoming.
@@ -468,7 +457,12 @@ To do list:
     if([name isEqualToString:@"unchanged"]) return 0;
     if([name isEqualToString:@"unix"]) return iTM2UNIXEOL;
     if([name isEqualToString:@"macintosh"]) return iTM2MacintoshEOL;
+    if([name isEqualToString:@"mac"]) return iTM2MacintoshEOL;
+    if([name isEqualToString:@"macOS"]) return iTM2MacintoshEOL;
     if([name isEqualToString:@"windows"]) return iTM2WindowsEOL;
+    if([name isEqualToString:@"\r"]) return iTM2MacintoshEOL;
+    if([name isEqualToString:@"\n"]) return iTM2UNIXEOL;
+    if([name isEqualToString:@"\r\n"]) return iTM2WindowsEOL;
     return iTM2UnknownEOL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= encodingsDictionary
@@ -493,6 +487,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![argument isKindOfClass:[NSString class]])
+	{
+		if([argument respondsToSelector:@selector(intValue)])
+		{
+			return [argument intValue];
+		}
+		return kCFStringEncodingInvalidId;
+	}
 	if(![argument length])
 	{
 		return kCFStringEncodingInvalidId;
@@ -506,6 +508,7 @@ To Do List:
 	}
     NSScanner * S = [NSScanner scannerWithString:argument];
     [S setCaseSensitive:NO];
+	CFStringEncoding CFSE;
     // a Core Foundation number
     if([S scanInt:(int*)&result])
     {
@@ -680,7 +683,6 @@ To Do List:
         [S setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@" -\t"]];
         if([S scanString:@"8859" intoString:nil])
         {
-            CFStringEncoding CFSE;
             [S scanInt:(int*)&CFSE];
             switch(CFSE)
             {
@@ -703,7 +705,6 @@ To Do List:
         }
         else if([S scanString:@"latin" intoString:nil])
         {
-            CFStringEncoding CFSE;
             [S setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@" -\t"]];
             if([S scanInt:(int*)&CFSE])
                 switch(CFSE)
@@ -775,7 +776,6 @@ To Do List:
             result = kCFStringEncodingDOSChineseTrad;
         else if([S scanString:@"latin" intoString:nil])
         {
-            CFStringEncoding CFSE;
             [S scanInt:(int*)&CFSE];
             switch(CFSE)
             {
@@ -785,7 +785,6 @@ To Do List:
         }
         else if([S scanString:@"greek" intoString:nil])
         {
-            CFStringEncoding CFSE;
             [S scanInt:(int*)&CFSE];
             switch(CFSE)
             {
@@ -826,7 +825,6 @@ To Do List:
             result = kCFStringEncodingWindowsVietnamese;
         else if([S scanString:@"latin" intoString:nil])
         {
-            CFStringEncoding CFSE;
             [S scanInt:(int*)&CFSE];
             switch(CFSE)
             {
@@ -839,7 +837,6 @@ To Do List:
     else if(([S scanString:@"code" intoString:nil] && [S scanString:@"page" intoString:nil]) ||
                         ([S scanString:@"cp" intoString:nil]))
     {
-        CFStringEncoding CFSE;
         [S setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@" -\t"]];
         [S scanInt:(int*)&CFSE];
         switch(CFSE)
@@ -1390,7 +1387,7 @@ To Do List:
         usedStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
         string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
     }
-    else if([self contextBoolForKey:iTM2StringEncodingIsAutoKey])
+    else if([self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask])
     {
 		// guess the string from the file contents
         NSStringEncoding preferredStringEncoding = [self stringEncoding];
@@ -1474,7 +1471,7 @@ To Do List:
 			string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedStringEncoding] autorelease];
 		}
         canStringEncoding = YES;
-		[self takeContextBool:NO forKey:iTM2StringEncodingIsAutoKey];
+		[self takeContextBool:NO forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
 	}
 	if(iTM2DebugEnabled)
 	{
@@ -1512,7 +1509,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return (unsigned int)[SUD integerForKey:iTM2EOLPreferredKey];
+    return [self contextIntegerForKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
 - (void)setEOL:(unsigned int)argument;
@@ -1523,7 +1520,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    metaSETTER([NSNumber numberWithUnsignedInt:argument]);
+	NSNumber * N = [NSNumber numberWithUnsignedInt:argument];
+    metaSETTER(N);
+	[self takeContextValue:N forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
@@ -1552,7 +1551,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self contextIntegerForKey:iTM2StringEncodingOpenKey]?:[self contextIntegerForKey:iTM2StringEncodingPreferredKey];
+    return [self contextIntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask|iTM2ContextProjectMask]?:
+		([self contextIntegerForKey:iTM2StringEncodingOpenKey domain:iTM2ContextAllDomainsMask]?:[self contextIntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
 - (void)setStringEncoding:(NSStringEncoding)argument;
@@ -1564,8 +1564,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSNumber * N = [NSNumber numberWithUnsignedInt:argument];
-    metaSETTER([NSNumber numberWithUnsignedInt:argument]);
-	[self takeContextValue:N forKey:iTM2StringEncodingOpenKey];
+    metaSETTER(N);
+	[self takeContextValue:N forKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hardStringEncodingString

@@ -54,6 +54,9 @@ extern NSString * const iTM2StringEncodingsPListName;
 
 extern NSString * const iTM2StringEncodingListDidChangeNotification;
 
+extern NSString * const TWSStringEncodingFileKey;
+extern NSString * const TWSEOLFileKey;
+
 /*!
 @class iTM2StringFormatController
 @abstract	Helper to archive NSString objects.
@@ -74,7 +77,6 @@ extern NSString * const iTM2StringEncodingListDidChangeNotification;
 + (NSMenu *)stringEncodingMenuWithAction:(SEL)anAction target:(id)aTarget;
 + (NSArray *)supportedStringEncodings;
 + (NSString *)terminationStringForEOL:(iTM2EOL)EOL;
-+ (iTM2EOL)EOLForTerminationString:(NSString *)terminationString;
 + (CFStringEncoding)coreFoundationStringEncodingWithName:(NSString *)argument;
 + (NSString *)nameOfCoreFoundationStringEncoding:(CFStringEncoding)argument;
 + (NSString *)nameOfEOL:(iTM2EOL)LE;

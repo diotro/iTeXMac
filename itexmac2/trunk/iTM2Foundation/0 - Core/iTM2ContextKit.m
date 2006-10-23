@@ -111,8 +111,8 @@ To Do List:
 	NSAssert(NO, @"The default implementation does not set any context dictionary...");
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:
-- (id)contextValueForKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:domain:
+- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -120,22 +120,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id result = [[self contextDictionary] valueForKey:aKey];
-	if(result)
-		return result;
-	id manager = [self contextManager];
-	if(manager != self)
-		result = [manager contextValueForKey:aKey];
-	else
-		result = [SUD contextValueForKey:aKey];
-	if(iTM2DebugEnabled>999 && !result)
+	id result = nil;
+	if(mask & iTM2ContextStandardLocalMask)
 	{
-		iTM2_LOG(@"SUD is: %@", SUD);
+		if(result = [[self contextDictionary] valueForKey:aKey])
+		{
+			return result;
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (result = [contextManager contextValueForKey:aKey domain:mask]))
+		{
+			return result;
+		}
 	}
+	result = [SUD contextValueForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
-- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
+- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -144,27 +146,38 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSAssert(aKey != nil, @"Unexpected nil aKey");
-	if([self contextDictionary])
+	BOOL didChange = NO;
+	if(mask & iTM2ContextStandardLocalMask)
 	{
-		id old = [[self contextDictionary] valueForKey:aKey];
-		if(![old isEqual:object])
+		NSDictionary * D = [self contextDictionary];
+		if(D)
 		{
-			[[self contextDictionary] takeValue:object forKey:aKey];
-			[self contextDidChange];
+			id old = [D valueForKey:aKey];
+			if(![old isEqual:object])
+			{
+				[D takeValue:object forKey:aKey];
+				didChange = YES;
+			}
+		}
+		id contextManager = [self contextManager];
+		if(self != contextManager)
+		{
+			if([contextManager takeContextValue:object forKey:aKey domain:mask] && !D)
+			{
+				didChange = YES;
+			}
 		}
 	}
-	id contextManager = [self contextManager];
-	if(contextManager && (self != contextManager))
-		[contextManager takeContextValue:object forKey:aKey];
-	else if(object)
-		[SUD setObject:object forKey:aKey];
-	else
-		[SUD removeObjectForKey:aKey];
+	[SUD takeContextValue:object forKey:aKey domain:mask];
+	if(didChange)
+	{
+		[self notifyContextChange];
+	}
 //iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
-    return;
+    return didChange;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextFontForKey:
-- (NSFont *)contextFontForKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextFontForKey:domain:
+- (NSFont *)contextFontForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -172,10 +185,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSFont fontWithNameSizeDictionary:[self contextValueForKey:aKey]];
+    return [NSFont fontWithNameSizeDictionary:[self contextValueForKey:aKey domain:mask]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextFont:forKey:
-- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextFont:forKey:domain:
+- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -183,11 +196,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[aFont nameSizeDictionary] forKey:aKey];
+    [self takeContextValue:[aFont nameSizeDictionary] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextColorForKey:
-- (NSColor *)contextColorForKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextColorForKey:domain:
+- (NSColor *)contextColorForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -195,10 +208,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSColor colorWithRGBADictionary:[self contextValueForKey:aKey]];
+    return [NSColor colorWithRGBADictionary:[self contextValueForKey:aKey domain:mask]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextColor:forKey:
-- (void)takeContextColor:(NSColor *)aColor forKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextColor:forKey:domain:
+- (void)takeContextColor:(NSColor *)aColor forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -206,11 +219,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[aColor RGBADictionary] forKey:aKey];
+    [self takeContextValue:[aColor RGBADictionary] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:
-- (NSString *)contextStringForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:domain:
+- (NSString *)contextStringForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -218,13 +231,32 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [self contextValueForKey:key];
-    return [result isKindOfClass:[NSString class]]?
-                result:
-                    ([result respondsToSelector:@selector(stringValue)]? [result stringValue]:[NSString string]);
+	id result = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(result = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([result isKindOfClass:[NSString class]])
+			{
+				return result;
+			}
+			if([result respondsToSelector:@selector(stringValue)])
+			{
+				return [result stringValue];
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (result = [contextManager contextStringForKey:aKey domain:mask]))
+		{
+			return result;
+		}
+	}
+	result = [SUD contextStringForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextArrayForKey:
-- (NSArray *)contextArrayForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextArrayForKey:domain:
+- (NSArray *)contextArrayForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -232,11 +264,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [self contextValueForKey:key];
-    return [result isKindOfClass:[NSArray class]]? result:nil;
+	id result = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(result = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([result isKindOfClass:[NSArray class]])
+			{
+				return result;
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (result = [contextManager contextArrayForKey:aKey domain:mask]))
+		{
+			return result;
+		}
+	}
+	result = [SUD contextArrayForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionaryForKey:
-- (NSDictionary *)contextDictionaryForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionaryForKey:domain:
+- (NSDictionary *)contextDictionaryForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -244,11 +293,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [self contextValueForKey:key];
-    return [result isKindOfClass:[NSDictionary class]]? result:nil;
+	id result = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(result = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([result isKindOfClass:[NSDictionary class]])
+			{
+				return result;
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (result = [contextManager contextDictionaryForKey:aKey domain:mask]))
+		{
+			return result;
+		}
+	}
+	result = [SUD contextDictionaryForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDataForKey:
-- (NSData *)contextDataForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDataForKey:domain:
+- (NSData *)contextDataForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -256,11 +322,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [self contextValueForKey:key];
-    return [result isKindOfClass:[NSData class]]? result:nil;
+	id result = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(result = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([result isKindOfClass:[NSData class]])
+			{
+				return result;
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (result = [contextManager contextDataForKey:aKey domain:mask]))
+		{
+			return result;
+		}
+	}
+	result = [SUD contextDataForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringArrayForKey:
-- (NSArray *)contextStringArrayForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringArrayForKey:domain:
+- (NSArray *)contextStringArrayForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -268,25 +351,42 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL OK = YES;
-    id result = [self contextArrayForKey:key];
-    NSMutableArray * MA = [NSMutableArray array];
-    NSEnumerator * E = [result objectEnumerator];
-    id object;
-    while(object = [E nextObject])
-        if([object isKindOfClass:[NSString class]])
-            [MA addObject:object];
-        else if([object respondsToSelector:@selector(stringValue)])
-            [MA addObject:[object stringValue]];
-        else
-        {
-            OK = NO;
-            break;
-        }
-    return OK? result: nil;
+	id result = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		NSEnumerator * E;
+		NSString * S;
+		if(result = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([result isKindOfClass:[NSArray class]])
+			{
+				if([result count])
+				{
+					E = [result objectEnumerator];
+					while(S = [E nextObject])
+					{
+						if(![S isKindOfClass:[NSString class]])
+						{
+							goto next;
+						}
+					}
+				}
+				return result;
+			}
+		}
+next:;
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (result = [contextManager contextStringArrayForKey:aKey domain:mask]))
+		{
+			return result;
+		}
+	}
+	result = [SUD contextStringArrayForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:
-- (int)contextIntegerForKey:(NSString *)key; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:domain:
+- (int)contextIntegerForKey:(NSString *)aKey domain:(unsigned int)mask; 
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -294,15 +394,29 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [self contextValueForKey:key];
-    if((iTM2DebugEnabled > 100) && result && ![result respondsToSelector:@selector(intValue)])
-    {
-        iTM2_LOG(@"Weird defaults value for key: %@, got %@", key, result);
-    }
-    return [result respondsToSelector:@selector(intValue)]? [result intValue]:0;
+	id value = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(value = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([value respondsToSelector:@selector(intValue)])
+			{
+				return [value intValue];
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (value = [contextManager contextValueForKey:aKey domain:mask])
+				&&([value respondsToSelector:@selector(intValue)]))
+		{
+			return [value intValue];
+		}
+	}
+	int result = [SUD contextIntegerForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:
-- (float)contextFloatForKey:(NSString *)key; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:domain:
+- (float)contextFloatForKey:(NSString *)aKey domain:(unsigned int)mask; 
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -310,11 +424,29 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [self contextValueForKey:key];
-    return [result respondsToSelector:@selector(floatValue)]? [result floatValue]:0;
+	id value = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(value = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([value respondsToSelector:@selector(floatValue)])
+			{
+				return [value floatValue];
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (value = [contextManager contextValueForKey:aKey domain:mask])
+				&& [value respondsToSelector:@selector(floatValue)])
+		{
+			return [value floatValue];
+		}
+	}
+	float result = [SUD contextFloatForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextBoolForKey:
-- (BOOL)contextBoolForKey:(NSString *)key;  
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextBoolForKey:domain:
+- (BOOL)contextBoolForKey:(NSString *)aKey domain:(unsigned int)mask;  
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -322,11 +454,29 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [self contextValueForKey:key];
-    return [result respondsToSelector:@selector(boolValue)]? [result boolValue]:NO;
+	id value = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(value = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([value respondsToSelector:@selector(boolValue)])
+			{
+				return [value boolValue];
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+			&& (value = [contextManager contextValueForKey:aKey domain:mask])
+				&& [value respondsToSelector:@selector(boolValue)])
+		{
+			return [value boolValue];
+		}
+	}
+	BOOL result = [SUD contextBoolForKey:aKey domain:mask];
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextInteger:forKey:
-- (void)takeContextInteger:(int)value forKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextInteger:forKey:domain:
+- (void)takeContextInteger:(int)value forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -334,11 +484,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[NSNumber numberWithInt:value] forKey:key];
+    [self takeContextValue:[NSNumber numberWithInt:value] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextFloat:forKey:
-- (void)takeContextFloat:(float)value forKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextFloat:forKey:domain:
+- (void)takeContextFloat:(float)value forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -346,11 +496,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[NSNumber numberWithFloat:value] forKey:key];
+    [self takeContextValue:[NSNumber numberWithFloat:value] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextBool:forKey:
-- (void)takeContextBool:(BOOL)value forKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextBool:forKey:domain:
+- (void)takeContextBool:(BOOL)value forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -358,7 +508,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[NSNumber numberWithBool:value] forKey:key];
+    [self takeContextValue:[NSNumber numberWithBool:value] forKey:aKey domain:mask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext:
@@ -428,18 +578,47 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChangeComplete
+- (void)contextDidChangeComplete;
+/*"This message discards any pending change in the context manager.
+Send this message just before you return from your -contextDidChange method
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 10/20/2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(contextDidChange) object:nil];
+	[[self implementation] takeMetaValue:nil forKey:@"iTM2ContextRegistrationNeeded"];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyContextChange
+- (void)notifyContextChange;
+/*"This message should be sent each time the context have changed.
+It is automatically sent by the takeContextValue:forKey:context: methods.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 10/20/2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self implementation] takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"iTM2ContextRegistrationNeeded"];
+	[[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(contextDidChange) object:nil];
+	[self performSelector:@selector(contextDidChange) withObject:nil afterDelay:0];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
 - (void)contextDidChange;
-/*"This message is sent each time the contextManager have changed.
+/*"This message is sent each time the contextManager have changed on the next loop after the change.
 The receiver will take appropriate actions to synchronize its state with its contextManager.
 Subclasses will most certainly override this method because the default implementation does nothing.
+You must send a - contextDidChangeComplete just before returning. This addresses reentrant code problems.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self implementation] takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"iTM2ContextRegistrationNeeded"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextRegistrationNeeded
@@ -569,8 +748,8 @@ To Do List:
 //iTM2_START
     return SUD != self? SUD: nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:
-- (id)contextValueForKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:domain:
+- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -578,10 +757,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self objectForKey:aKey];
+    return (mask & iTM2ContextDefaultsMask)?[self objectForKey:aKey]: nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
-- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
+- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -590,11 +769,120 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"[self takeContextValue:%@ forKey:%@]", object, aKey);
-	if(object)
-		[self setObject:object forKey:aKey];
-	else
-		[self removeObjectForKey:aKey];
-    return;
+	NSParameterAssert((aKey != nil));
+	if(mask & iTM2ContextDefaultsMask)
+	{
+		id old = [self objectForKey:aKey];
+		if(![old isEqual:object] && (old != object))
+		{
+			if(object)
+			{
+				[self setObject:object forKey:aKey];
+			}
+			else
+			{
+				[self removeObjectForKey:aKey];
+			}
+			return YES;
+		}
+	}
+    return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:domain:
+- (NSString *)contextStringForKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self stringForKey:aKey]:nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextArrayForKey:domain:
+- (NSArray *)contextArrayForKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self arrayForKey:aKey]:nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionaryForKey:domain:
+- (NSDictionary *)contextDictionaryForKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self dictionaryForKey:aKey]:nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDataForKey:domain:
+- (NSData *)contextDataForKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self dataForKey:aKey]:nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringArrayForKey:domain:
+- (NSArray *)contextStringArrayForKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self stringArrayForKey:aKey]:nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:domain:
+- (int)contextIntegerForKey:(NSString *)aKey domain:(unsigned int)mask; 
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self integerForKey:aKey]:0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:domain:
+- (float)contextFloatForKey:(NSString *)aKey domain:(unsigned int)mask; 
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self floatForKey:aKey]:0.0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextBoolForKey:domain:
+- (BOOL)contextBoolForKey:(NSString *)aKey domain:(unsigned int)mask;  
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?[self boolForKey:aKey]:NO;
 }
 @end
 
@@ -637,7 +925,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKitCompleteInstallation
-+ (void)iTM2ContextKitCompleteInstallation;
++ (void)iTM2ContextKitCompleteInstallation;// never called
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -716,8 +1004,8 @@ NSString * const iTM2ContextExtensionsKey = @"iTM2ContextExtensions";
 NSString * const iTM2ContextTypesKey = @"iTM2ContextTypes";
 
 @implementation NSDocument(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:
-- (id)contextValueForKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:domain:
+- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -726,31 +1014,51 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// if there is no context value, looking in the general stuff for the file extension
-	id result = [[self contextDictionary] valueForKey:aKey];
-	if(result)
-		return result;
-	if(([self contextManager] != self)
-			&& ([self contextManager] != SUD)
-				&& (result = [[self contextManager] contextValueForKey:aKey]))
-			return result;
-		
-	NSString * extensionKey = [[self fileName] pathExtension];
-	if([extensionKey length])
+	id result = nil;
+	if(result = [super contextValueForKey:aKey domain:mask&~iTM2ContextStandardDefaultsMask])
 	{
-		if(result = [[SUD dictionaryForKey:[iTM2ContextExtensionsKey stringByAppendingPathExtension:extensionKey]] objectForKey:aKey])
-			return result;
-		NSString * type = [SDC typeFromFileExtension:extensionKey];
-		if([type length] && (result = [[SUD dictionaryForKey:[iTM2ContextTypesKey stringByAppendingPathExtension:type]] objectForKey:aKey]))
-			return result;
-	}
-	NSString * type = [self fileType];
-	if([type length] && (result = [[SUD dictionaryForKey:[iTM2ContextTypesKey stringByAppendingPathExtension:type]] objectForKey:aKey]))
 		return result;
-	// Finally, trying in the inherited behaviour
-    return [super contextValueForKey:aKey];
+	}
+
+	if(mask & iTM2ContextExtendedDefaultsMask)
+	{
+		NSString * extensionKey = [[self fileName] pathExtension];
+		NSString * contextKey = nil;
+		NSDictionary * D = nil;
+		if([extensionKey length])
+		{
+			contextKey = [iTM2ContextExtensionsKey stringByAppendingPathExtension:extensionKey];
+			D = [SUD dictionaryForKey:contextKey];
+			if(result = [D objectForKey:aKey])
+			{
+				return result;
+			}
+		}
+		NSString * type = [self fileType];
+		if([type length])
+		{
+			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type];
+			D = [SUD dictionaryForKey:contextKey];
+			if(result = [D objectForKey:aKey])
+			{
+				return result;
+			}
+		}
+		NSString * typeFromFileExtension = [SDC typeFromFileExtension:extensionKey];
+		if([typeFromFileExtension length] && ![typeFromFileExtension isEqual:type])
+		{
+			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:typeFromFileExtension];
+			D = [SUD dictionaryForKey:contextKey];
+			if(result = [D objectForKey:aKey])
+			{
+				return result;
+			}
+		}
+	}
+    return [super contextValueForKey:aKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:
-- (void)takeContextValue:(id)object forKey:(NSString *)aKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
+- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -758,55 +1066,55 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSParameterAssert(aKey != nil);
-	[super takeContextValue:object forKey:aKey];
-	// Set the value in the user defaults data base with the file extension
-	NSString * extensionKey = [[self fileName] pathExtension];
-	if([extensionKey length])
+	BOOL didChange = [super takeContextValue:object forKey:aKey domain:mask];
+	// Set the value in the user defaults data base with the file extension and document type
+	if(mask & iTM2ContextExtendedDefaultsMask)
 	{
-		NSString * contextKey = [iTM2ContextExtensionsKey stringByAppendingPathExtension:extensionKey];
-		NSDictionary * D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:
-			[NSMutableDictionary dictionary];
-		[D takeValue:object forKey:aKey];
-		[SUD setObject:D forKey:contextKey];
+		NSString * contextKey = nil;
+		NSMutableDictionary * D = nil;
+		NSString * fileName = [self fileName];
+		NSString * extensionKey = [fileName pathExtension];
+		id old = nil;
+		if([extensionKey length])
+		{
+			contextKey = [iTM2ContextExtensionsKey stringByAppendingPathExtension:extensionKey];
+			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];
+			old = [D objectForKey:aKey];
+			if(![old isEqual:object] && (old != object))
+			{
+				[D takeValue:object forKey:aKey];
+				[SUD setObject:D forKey:contextKey];
+			}
+		}
 		NSString * type = [self fileType];
 		if([type length])
 		{
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type];
-			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:
-					[NSMutableDictionary dictionary];
-			[D takeValue:object forKey:aKey];
-			[SUD setObject:D forKey:contextKey];
+			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];
+			if(![old isEqual:object] && (old != object))
+			{
+				[D takeValue:object forKey:aKey];
+				[SUD setObject:D forKey:contextKey];
+			}
 		}
-		NSString * newType = [SDC typeFromFileExtension:extensionKey];
-		if([newType length] && ![newType isEqual:type])
+		NSString * typeFromFileExtension = [SDC typeFromFileExtension:extensionKey];
+		if([typeFromFileExtension length] && ![typeFromFileExtension isEqual:type])
 		{
-			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:newType];
-			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:
-				[NSMutableDictionary dictionary];
-			[D takeValue:object forKey:aKey];
-			[SUD setObject:D forKey:contextKey];
+			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:typeFromFileExtension];
+			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];
+			if(![old isEqual:object] && (old != object))
+			{
+				[D takeValue:object forKey:aKey];
+				[SUD setObject:D forKey:contextKey];
+			}
 		}
 	}
-	else
+	if(didChange)
 	{
-		NSString * contextKey = iTM2ContextExtensionsKey;
-		NSDictionary * D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:
-			[NSMutableDictionary dictionary];
-		[D takeValue:object forKey:aKey];
-		[SUD setObject:D forKey:contextKey];
-		NSString * type = [self fileType];
-		if([type length])
-		{
-			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type];
-			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:
-					[NSMutableDictionary dictionary];
-			[D takeValue:object forKey:aKey];
-			[SUD setObject:D forKey:contextKey];
-		}
+		[self notifyContextChange];
 	}
 //iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
-    return;
+    return didChange;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentCompleteSaveContext:
 - (void)documentCompleteSaveContext:(id)sender;

@@ -394,7 +394,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    float f = [self contextFloatForKey:@"iTM2ZoomFactor"]>0?:1.259921049895;
+    float f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
  	if(f>0)
 		[self setScaleFactor:f * [self scaleFactor]];
 //iTM2_END;
@@ -409,7 +409,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    float f = [self contextFloatForKey:@"iTM2ZoomFactor"]>0?:1.259921049895;
+    float f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
 	if(f>0)
 		[self setScaleFactor:[self scaleFactor] / f];
 //iTM2_END;
@@ -477,7 +477,7 @@ To Do List:
 		[self setFrameSize:oldSize];
 		[[self enclosingScrollView]setNeedsDisplay:YES];
 	}
-	[self takeContextFloat:aMagnification forKey:@"iTM2TextScaleFactor"];
+	[self takeContextFloat:aMagnification forKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
     return;
 }
 @end

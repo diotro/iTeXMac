@@ -1120,6 +1120,21 @@ To Do List:
 - (void)recordCurrentContext;
 @end
 
+@implementation iTM2ExternalInspector(Text)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage
+- (id)textStorage;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil;
+}
+@end
+
 //#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
 
 @implementation iTM2TextInspector
@@ -1355,12 +1370,12 @@ To Do List:
 	[self setupTextEditorScrollers];
     [super windowDidLoad];
 	#if 0
-	BOOL flag = [self contextBoolForKey:@"iTM2TextKeyWindow"];
+	BOOL flag = [self contextBoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];
 //iTM2_LOG(@"flag is: %@", (flag? @"Y": @"N"));
 //iTM2_LOG(@"NSApp is: %@", NSApp);
 //iTM2_LOG(@"[NSApp keyWindow] is:%@", [NSApp keyWindow]);
     NS_DURING
-    if([self contextBoolForKey:@"iTM2TextKeyWindow"])
+    if([self contextBoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask])
         [[self window] makeKeyAndOrderFront:self];
     else
         [[self window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
@@ -1555,8 +1570,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextBool:[[self window] isKeyWindow] forKey:@"iTM2TextKeyWindow"];// buggy?
-    [self takeContextValue:NSStringFromRange([[self textView] selectedRange]) forKey:@"iTM2TextSelectedRange"];
+    [self takeContextBool:[[self window] isKeyWindow] forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy?
+    [self takeContextValue:NSStringFromRange([[self textView] selectedRange]) forKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask];
     NS_DURING
     NSRect visibleRect = [[self textView] visibleRect];
     NSLayoutManager * LM = [[self textView] layoutManager];
@@ -1569,10 +1584,10 @@ To Do List:
 			[LM glyphRangeForBoundingRectWithoutAdditionalLayout:visibleRect inTextContainer:container]);
     }
     NSRange characterRange = [LM characterRangeForGlyphRange:glyphRange actualGlyphRange:nil];
-    [self takeContextValue:NSStringFromRange(characterRange) forKey:@"iTM2TextVisibleRange"];
+    [self takeContextValue:NSStringFromRange(characterRange) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
     NS_HANDLER
     iTM2_LOG(@"*** Exception catched: %@", [localException reason]);
-    [self takeContextValue:NSStringFromRange([[self textView] selectedRange]) forKey:@"iTM2TextVisibleRange"];
+    [self takeContextValue:NSStringFromRange([[self textView] selectedRange]) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
     NS_ENDHANDLER
 //iTM2_END;
     return;
@@ -2039,6 +2054,75 @@ To Do List:
 @end
 
 @implementation iTM2TextEditor
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
+- (id)initWithFrame:(NSRect)frameRect;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(self = [super initWithFrame:frameRect])
+	{
+		[self initImplementation];
+	}
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
+- (id)initWithCoder:(NSCoder *)aDecoder;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(self = [super initWithCoder:aDecoder])
+	{
+		[self initImplementation];
+	}
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
+- (void)dealloc;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self deallocImplementation];
+	[super dealloc];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
+- (id)implementation;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _Implementation;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
+- (void)setImplementation:(id)argument;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[_Implementation autorelease];
+	_Implementation = [argument retain];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromContext
 - (void)awakeFromContext;
 /*Description Forthcomping.
@@ -2049,12 +2133,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super awakeFromContext];
-	float scale = [self contextFloatForKey:@"iTM2TextScaleFactor"];
+	float scale = [self contextFloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
     NSRange R = NSMakeRange(0, [[self string] length]);
-    NSRange r = NSRangeFromString([self contextValueForKey:@"iTM2TextSelectedRange"]);
+    NSRange r = NSRangeFromString([self contextValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);
     [self setSelectedRange:NSIntersectionRange(R, r)];
-    r = NSRangeFromString([self contextValueForKey:@"iTM2TextVisibleRange"]);
+    r = NSRangeFromString([self contextValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask]);
     [self scrollRangeToVisible:NSIntersectionRange(R, r)];
 //iTM2_END;
     return;

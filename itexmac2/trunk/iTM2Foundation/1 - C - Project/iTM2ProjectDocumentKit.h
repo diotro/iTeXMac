@@ -22,7 +22,7 @@
 */
 
 #define SPC [iTM2ProjectController sharedProjectController]
-#define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel"]
+#define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
 extern NSString * const iTM2ProjectContextDidChangeNotification;
 extern NSString * const iTM2ProjectCurrentDidChangeNotification;
@@ -52,7 +52,7 @@ extern NSString * const TWSKeyedFilesKey;
 extern NSString * const TWSKeyedPropertiesKey;
 extern NSString * const TWSFrontendComponent;
 
-extern NSString * const iTM2ProjectDefaultKey;
+extern NSString * const iTM2ProjectDefaultsKey;
 
 extern NSString * const iTM2NewDocumentEnclosedInWrapperKey;
 extern NSString * const iTM2NewProjectCreationModeKey;
@@ -548,37 +548,29 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)subdocumentForKey:(NSString *)key;
 
 /*! 
-    @method     propertyValueForKey:fileKey:
+    @method     propertyValueForKey:fileKey:contextDomain:
     @abstract   The property value for the given key and file key.
     @discussion If there is no property value for the given key and the given file key,
 				defaults values restructed to the project context are returned instead.
 				If there is still nothing to return, global user defaults values are returned.
     @param      key is a key
     @param      fileKey is a file name
+	@param		mask is a context domain mask
     @result     a language.
 */
-- (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey;
+- (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
 
 /*! 
-    @method     originalPropertyValueForKey:fileKey:
-    @abstract   The original property value for the given key and file key.
-    @discussion No default value is returned. Used in the UI to make the difference.
-    @param      key is a key
-    @param      fileKey is a file name
-    @result     a language.
-*/
-- (id)originalPropertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey;
-
-/*! 
-    @method     takePropertyValue:forKey:fileKey:
+    @method     takePropertyValue:forKey:fileKey:contextDomain:
     @abstract   Set the given property for the given key and file key.
     @discussion Also sets default properties in the project context and in the user defaults data base.
     @param      property is a standard  property list object
     @param      key is a key
     @param      fileKey is a file name
-    @result     a language.
+    @param      mask is a context domain mask
+    @result     a value.
 */
-- (void)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey;
+- (void)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
 
 /*! 
     @method     keyedFileNames
@@ -671,26 +663,28 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)saveContext:(id)irrelevant;
 
 /*! 
-    @method     contextValueForKey:fileKey:
+    @method     contextValueForKey:fileKey:domain:
     @abstract   Abstract forthcoming.
     @discussion The project is expected to manage the contexts of the files it owns.
 				The standard user defaults database is used in the end of the chain.
     @param      \p aKey is the context key
     @param      \p fileKey is the file key
+	@param		\p mask is a context domain mask
     @result     An object.
 */
-- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey;
+- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 
 /*! 
-    @method     takeContextValue:forKey:fileKey:
+    @method     takeContextValue:forKey:fileKey:domain:
     @abstract   Abstract forthcoming.
     @discussion See the \p -contextValueForKey:fileKey: comment.
     @param      the value, possibly nil.
     @param      \p aKey is the context key
     @param      \p fileKey is the file key
-    @result     None.
+	@param		\p mask is a context domain mask
+    @result     yorn whether something has changed.
 */
-- (void)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey;
+- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 
 /*! 
     @method     addFileName:
@@ -1029,7 +1023,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
 - (void)willGetNewProjectForFileNameRef:(NSString **)fileNameRef;
 - (void)didGetNewProjectForFileNameRef:(NSString **)fileNameRef;
-- (BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef;
+- (BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
 - (id)newFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
@@ -1210,16 +1204,16 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
 - (void)setHasProject:(BOOL)yorn;
 
 /*! 
-    @method     contextValueForKey:
+    @method     contextValueForKey:domain:
     @abstract   Abstract forthcoming.
     @discussion See the -takeContextValue:forKey: discussion below.
     @param      key
     @result     A project
 */
-- (id)contextValueForKey:(NSString *)key;
+- (id)contextValueForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
-    @method     takeContextValue:forKey:
+    @method     takeContextValue:forKey:domain:
     @abstract   Abstract forthcoming.
     @discussion This is the setter entry point for the context of documents owned by a project.
 				The project records the context of each document of it own.
@@ -1255,15 +1249,15 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
 				f - if the context value exists in the user defaults data base, it is returned
     @param      value is the new value
     @param      key is the context value key
-    @result     None
+    @result     yorn whether something has changed.
 */
-- (void)takeContextValue:(id)value forKey:(NSString *)key;
+- (BOOL)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*!
 	@method			documentProjectCompleteSaveContext:
 	@abstract		Save the project related information.
 	@discussion		Automatically called by the -saveContext: message.
-					Save some info about the project.
+					Save some info about the project. This overrides the standard behaviour declared in the iTM2ContextKit
 	@result			None.
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.

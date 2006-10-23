@@ -1102,7 +1102,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     if(([self handlesKeyBindings] || [self handlesKeyStrokes])
-        && ![self contextBoolForKey:iTM2NoKeyBindingsIdentifier])
+        && ![self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask])
     {
 		id KBM = metaGETTER;
         if(!KBM)
@@ -2243,7 +2243,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextBool:![self contextBoolForKey:iTM2NoKeyBindingsIdentifier] forKey:iTM2NoKeyBindingsIdentifier];
+    [self takeContextBool:![self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask] forKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask];
     [self flushKeyBindings:nil];
     return;
 }
@@ -2255,7 +2255,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState:([self contextBoolForKey:iTM2NoKeyBindingsIdentifier]? NSOffState:NSOnState)];
+    [sender setState:([self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask]? NSOffState:NSOnState)];
     return YES;
 }
 @end
