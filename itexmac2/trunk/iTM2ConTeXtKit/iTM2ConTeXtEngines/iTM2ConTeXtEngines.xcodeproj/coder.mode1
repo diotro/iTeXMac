@@ -271,7 +271,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>23</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -322,7 +322,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC9799030ADDBCDA00CDF259</string>
+										<string>DC27DCC80AE959DE00A5460D</string>
 										<key>history</key>
 										<array>
 											<string>DCC541840935A0E50050770C</string>
@@ -332,7 +332,7 @@
 											<string>DC99E7AA0A2456E600F50752</string>
 											<string>DC99E7AB0A2456E600F50752</string>
 											<string>DC81071D0ADD9DBA00F870B4</string>
-											<string>DC9798040ADDB86800CDF259</string>
+											<string>DCCB2CA40AE83E8400433CC3</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -401,9 +401,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC9799040ADDBCDA00CDF259</string>
+				<string>DC27DA790AE8EFDA00A5460D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC9799050ADDBCDA00CDF259</string>
+				<string>DC27DA7A0AE8EFDA00A5460D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -551,7 +551,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG/iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>136 168 1057 710 0 0 1440 878 </string>
