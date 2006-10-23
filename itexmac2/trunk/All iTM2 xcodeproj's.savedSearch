@@ -10,7 +10,7 @@
 	<dict>
 		<key>CurrentFolderPath</key>
 		<array>
-			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG</string>
+			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2</string>
 		</array>
 		<key>FXCriteriaSlices</key>
 		<array>
@@ -27,7 +27,7 @@
 		<integer>1396925286</integer>
 		<key>FXScopeArrayOfPaths</key>
 		<array>
-			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2-201-BUG</string>
+			<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2</string>
 		</array>
 	</dict>
 	<key>Version</key>
@@ -52,19 +52,19 @@
 		<key>ToolbarVisible</key>
 		<false/>
 		<key>ViewHeight</key>
-		<integer>813</integer>
+		<integer>757</integer>
 		<key>ViewStyle</key>
 		<string>qrsb</string>
 		<key>WindowBounds</key>
 		<dict>
 			<key>bottom</key>
-			<integer>888</integer>
+			<integer>875</integer>
 			<key>left</key>
-			<integer>437</integer>
+			<integer>222</integer>
 			<key>right</key>
-			<integer>1400</integer>
+			<integer>1185</integer>
 			<key>top</key>
-			<integer>75</integer>
+			<integer>118</integer>
 		</dict>
 	</dict>
 </dict>
