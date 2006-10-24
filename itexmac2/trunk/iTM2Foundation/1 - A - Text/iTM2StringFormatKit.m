@@ -37,6 +37,7 @@
 
 NSString * const iTM2EOLPreferredKey = @"iTM2EOLPreferred";
 NSString * const iTM2StringEncodingIsAutoKey = @"iTM2StringEncodingIsAuto";
+NSString * const iTM2StringEncodingIsHardCodedKey = @"iTM2StringEncodingIsHardCoded";
 NSString * const iTM2StringEncodingPreferredKey = @"iTM2StringEncodingPreferred";
 NSString * const iTM2StringEncodingOpenKey = @"iTM2StringEncodingOpen";
 
@@ -373,6 +374,7 @@ To do list:
 					[NSNumber numberWithUnsignedInt:iTM2UNIXEOL], iTM2EOLPreferredKey,
 					[NSNumber numberWithUnsignedInt:NSMacOSRomanStringEncoding], iTM2StringEncodingPreferredKey,
 					[NSNumber numberWithUnsignedInt:NSMacOSRomanStringEncoding], iTM2StringEncodingOpenKey,
+					[NSNumber numberWithUnsignedInt:NSMacOSRomanStringEncoding], TWSStringEncodingFileKey,
 					[NSNumber numberWithBool:YES], iTM2StringEncodingIsAutoKey,
 								nil]];
 		BOOL OK = YES;

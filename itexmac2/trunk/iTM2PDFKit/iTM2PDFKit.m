@@ -1691,7 +1691,7 @@ To Do List:
 //iTM2_START;
 //NSLog
 //NSLog(@"dpn");
-    return [[self album] synchronizeWithDestinations: (NSDictionary *) destinations hint: (NSDictionary *) hint];
+    return [[self album] synchronizeWithDestinations:destinations hint:hint];
 }
 #pragma mark =-=-=-=-=-  MODEL
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareViewCompleteSaveContext:

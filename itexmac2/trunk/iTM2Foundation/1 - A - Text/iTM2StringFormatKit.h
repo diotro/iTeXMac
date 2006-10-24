@@ -43,6 +43,7 @@ typedef enum
 
 extern NSString * const iTM2EOLPreferredKey;
 extern NSString * const iTM2StringEncodingIsAutoKey;
+extern NSString * const iTM2StringEncodingIsHardCodedKey;
 extern NSString * const iTM2StringEncodingPreferredKey;
 extern NSString * const iTM2StringEncodingOpenKey;
 

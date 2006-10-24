@@ -641,7 +641,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id TI = [[NSApp mainWindow] windowController];
-    return [TI isKindOfClass:[iTM2TextInspector class]]? TI:nil;
+    return [TI isKindOfClass:[iTM2TextInspector class]]
+		|| [[TI document] isKindOfClass:[iTM2TextDocument class]]? TI:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStringEncodingFromTag:
 - (IBAction)takeStringEncodingFromTag:(id)sender;
@@ -704,20 +705,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id TI = [self textInspector];
-	id target = TI?: ([SPC currentProject]?:SUD);
-	BOOL isAuto = [target contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	BOOL isAuto = [TI contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
     [sender setState:(isAuto? NSOnState:NSOffState)];
 	BOOL enabled = YES;
 	int tag;
 	if(TI)
 	{
-		tag = [TI stringEncoding];
-		enabled = !isAuto || ![TI isStringEncodingHardCoded];
+		tag = [TI contextBoolForKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask];
+		enabled = !isAuto;
 	}
-	else if(TI = [SPC currentProject])
-		tag = [TI contextIntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask];
-	else
-		tag = [SUD integerForKey:iTM2StringEncodingPreferredKey];
 	BOOL stringEncodingNotAvailable = YES;
 	NSMenu * menu = [sender menu];
 	NSEnumerator * E = [[menu itemArray] objectEnumerator];
@@ -820,12 +816,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id TI = [self textInspector];
-	if(TI)
-		[[TI document] setEOL:[sender tag]];
-	else if(TI = [SPC currentProject])
-		[TI takeContextInteger:[sender tag] forKey:iTM2EOLPreferredKey domain:iTM2ContextAllDomainsMask];
-	else
-		[SUD setInteger:[sender tag] forKey:iTM2EOLPreferredKey];
+	[[TI document] setEOL:[sender tag]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
@@ -840,11 +831,7 @@ To Do List:
 	int tag;
     id TI = [self textInspector];
 	if(TI)
-		tag = [TI EOL];
-	else if(TI = [SPC currentProject])
-		tag = [TI contextIntegerForKey:iTM2EOLPreferredKey domain:iTM2ContextAllDomainsMask];
-	else
-		tag = [SUD integerForKey:iTM2EOLPreferredKey];
+		tag = [[TI document] EOL];
 	[sender setTarget:self];
 	[sender setState:([sender tag] == tag? NSOnState:NSOffState)];
 	return YES;

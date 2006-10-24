@@ -814,167 +814,154 @@ To Do List:
 //iTM2_END;
 			return NO;
 		}
-		fileKey = @"";
-		NSString * fileName = @"";
-		NSMutableSet * stringEncodingNames = [NSMutableSet set];
-		BOOL isAuto = NO;
-		BOOL excluded = NO;
-		BOOL isDefaults = NO;
 		BOOL enabled = NO;
-		NSString * keyWithDefault = nil;// the last file key having a default string encoding
-		NSNumber * N = nil;
-        unsigned int row = [selectedRowIndexes firstIndex];
+		if([selectedRowIndexes count]>1)// no item selected
+		{
+			enabled = NO;
+//multipleSelection:
+			title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM2FoundationBundle],"Description Forthcoming");
+			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
+			[MI setTarget:nil];
+			[MI setEnabled:NO];
+			[M insertItem:[NSMenuItem separatorItem] atIndex:0];
+			[M insertItem:MI atIndex:0];
+			[sender selectItemAtIndex:0];
+//iTM2_END;
+			return enabled;
+		}
+		fileKey = iTM2ProjectDefaultsKey;
+		NSNumber * N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+		BOOL defaultIsAutoStringEncoding = [N boolValue];// beware, contextBoolForKey should be preferred, once it is well implemented
+		NSString * defaultStringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
+		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, come code is broken in the iTM2StringFormatterKit"));
+		NSStringEncoding defaultStringEncoding = [NSString stringEncodingWithName:defaultStringEncodingName];
+		unsigned int row = [selectedRowIndexes firstIndex];
 		if(row == 0)
         {
-			isDefaults = YES;
-            keyWithDefault = [fileKeys objectAtIndex:0];
-			fileKey = keyWithDefault;
-			row = [selectedRowIndexes indexGreaterThanIndex:row];
-		}
-		unsigned int top = [fileKeys count];
-		// first remove all the indexes for which the string encoding has no meaning
-		while(row < top)
-        {
-            fileKey = [fileKeys objectAtIndex:row];
-			fileName = [project relativeFileNameForKey:fileKey];
-			if([fileName length])
+			enabled = YES;
+			encoding = defaultStringEncoding;
+selectOneItem:
+			row = [sender indexOfItemWithTag:encoding];
+			if(row<0)
 			{
-				Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
-				if([C isSubclassOfClass:[iTM2TextDocument class]])
+				// no item found, one should be created
+				title = [NSString localizedNameOfStringEncoding:encoding];
+				title = [NSString stringWithFormat:iTM2StringEncodingDefaultFormat, title];
+				MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
+						action:@selector(takeStringEncodingFromTag:) keyEquivalent:[NSString string]] autorelease];
+				NSFont * F = [NSFont fontWithName:@"Helvetica-Oblique" size:[NSFont systemFontSize]*1.1];
+				if(F)
 				{
-					N = [project propertyValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-					if([N boolValue])
+					NSDictionary * attrs = [NSDictionary dictionaryWithObject:F forKey:NSFontAttributeName];
+					NSAttributedString * AS = [[[NSAttributedString allocWithZone:[MI zone]] initWithString:title
+						attributes:attrs] autorelease];
+					[MI setAttributedTitle:AS];
+				}
+				[MI setRepresentedObject:@"Supplemental encoding"];
+				[MI setTarget:self];
+				[MI setEnabled:YES];
+				// where should I place this menu item?
+				// this item will appear as a separated item in the list
+				// to collect all the other item, I use the represented object
+				NSMenuItem * mi;
+				NSEnumerator * e = [[M itemArray] reverseObjectEnumerator];
+				while(mi = [e nextObject])
+				{
+					if([[mi representedObject] isEqual:@"Supplemental encoding"])
 					{
-						isAuto = YES;
+						row = [M indexOfItem:mi];
+						++row;
+						[M insertItem:MI atIndex:row];
+						[sender selectItemAtIndex:row];
+//iTM2_END;
+						return enabled;
 					}
-					else if(stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask])
+				}
+				row = [M numberOfItems];
+				[M insertItem:MI atIndex:row];
+				[M insertItem:[NSMenuItem separatorItem] atIndex:row];
+			}
+			[sender selectItemAtIndex:row];
+//iTM2_END;
+			return enabled;
+		}
+		
+		// here is how we menage things
+		// first remember the project defaults values
+		// list all the selected items and record there status
+		// we only have to know if there is on item in given categories
+		// what is the encoding situation
+		
+		id document = nil;
+		fileKey = [fileKeys objectAtIndex:row];
+		if(document = [project subdocumentForKey:fileKey])
+		{
+			if([document isKindOfClass:[iTM2TextDocument class]])
+			{
+				N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				if([N boolValue])
+				{
+					iTM2StringFormatController * SFC = [document stringFormatter];
+					encoding = [SFC stringEncoding];
+					enabled = NO;
+					goto selectOneItem;
+				}
+				
+			}
+		}
+		NSString * fileName = [project relativeFileNameForKey:fileKey];
+		if([fileName length])
+		{
+			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
+			if([C isSubclassOfClass:[iTM2TextDocument class]])
+			{
+				N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				if([N boolValue])
+				{
+					[sender selectItem:nil];
+//iTM2_END;
+					return NO;
+				}
+				else if(N)
+				{
+bibiche:
+					if(stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask])
 					{
-						[stringEncodingNames addObject:stringEncodingName];
+						encoding = [NSString stringEncodingWithName:stringEncodingName];
+						enabled = YES;
+						goto selectOneItem;
 					}
 					else
 					{
-						keyWithDefault = fileKey;
+						[sender selectItemAtIndex:0];
+//iTM2_END;
+						return YES;
 					}
+				}
+				else if(defaultIsAutoStringEncoding)
+				{
+					[sender selectItem:nil];
+//iTM2_END;
+					return NO;
 				}
 				else
 				{
-					excluded = YES;
+					goto bibiche;
 				}
-			}
-			row = [selectedRowIndexes indexGreaterThanIndex:row];
-		}
-		if(excluded)// no item with a string encoding
-		{
-			[sender selectItem:nil];
-//iTM2_END;
-			return NO;
-		}
-		if(([stringEncodingNames count] == 0) && !isAuto)
-		{
-			if(keyWithDefault)
-			{
-				fileKey = iTM2ProjectDefaultsKey;
-				stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-				encoding = [NSString stringEncodingWithName:stringEncodingName];
-				if([fileKey isEqual:keyWithDefault])
-				{
-					// there is only one file selected and this is the defaults one
-					enabled = YES;
-selectOneItem:
-					row = [sender indexOfItemWithTag:encoding];
-					if(row<0)
-					{
-						// no item found, one should be created
-						title = [NSString localizedNameOfStringEncoding:encoding];
-						title = [NSString stringWithFormat:iTM2StringEncodingDefaultFormat, title];
-						MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
-								action:@selector(takeStringEncodingFromTag:) keyEquivalent:[NSString string]] autorelease];
-						NSFont * F = [NSFont fontWithName:@"Helvetica-Oblique" size:[NSFont systemFontSize]];
-						if(F)
-						{
-							NSDictionary * attrs = [NSDictionary dictionaryWithObject:F forKey:NSFontAttributeName];
-							NSAttributedString * AS = [[[NSAttributedString allocWithZone:[MI zone]] initWithString:title
-								attributes:attrs] autorelease];
-							[MI setAttributedTitle:AS];
-						}
-						[MI setRepresentedObject:@"Supplemental encoding"];
-						[MI setTarget:self];
-						[MI setEnabled:YES];
-						// where should I place this menu item?
-						// this item will appear as a separated item in the list
-						// to collect all the other item, I use the represented object
-						NSMenuItem * mi;
-						NSEnumerator * e = [[M itemArray] reverseObjectEnumerator];
-						while(mi = [e nextObject])
-						{
-							if([[mi representedObject] isEqual:@"Supplemental encoding"])
-							{
-								row = [M indexOfItem:mi];
-								++row;
-								[M insertItem:MI atIndex:row];
-								[sender selectItemAtIndex:row];
-//iTM2_END;
-								return enabled;
-							}
-						}
-						row = [M numberOfItems];
-						[M insertItem:MI atIndex:row];
-						[M insertItem:[NSMenuItem separatorItem] atIndex:row];
-					}
-					[sender selectItemAtIndex:row];
-//iTM2_END;
-					return enabled;
-				}
-				if(isDefaults)
-				{
-					enabled = NO;
-multipleSelection:
-					title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM2FoundationBundle],"Description Forthcoming");
-					MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
-					[MI setTarget:nil];
-					[MI setEnabled:NO];
-					[M insertItem:[NSMenuItem separatorItem] atIndex:0];
-					[M insertItem:MI atIndex:0];
-					[sender selectItemAtIndex:0];
-//iTM2_END;
-					return enabled;
-				}
-				[sender selectItemAtIndex:0];
-	//iTM2_END;
-				return YES;
 			}
 			else
-			{// nothing is selected
+			{// do not go further
 				[sender selectItem:nil];
 //iTM2_END;
 				return NO;
 			}
 		}
-		if(keyWithDefault && isAuto)
-		{
-			enabled = NO;
-			goto multipleSelection;
-		}
-		if(isDefaults && isAuto)
-		{
-			enabled = NO;
-			goto multipleSelection;
-		}
-		if(([stringEncodingNames count] == 1) && !keyWithDefault && !isAuto)
-		{// all the selected items have the same encoding
-			enabled = YES;
-			stringEncodingName = [stringEncodingNames anyObject];
-			encoding = [NSString stringEncodingWithName:stringEncodingName];
-			goto selectOneItem;
-		}
-		if(!isAuto)
-		{// all the selected items have the same encoding
-			enabled = keyWithDefault == nil;
-			goto multipleSelection;
-		}
-		[sender selectItem:nil];
+		else
+		{// do not go further
+			[sender selectItem:nil];
 //iTM2_END;
-		return NO;
+			return NO;
+		}
     }
 //iTM2_END;
     return YES;
@@ -1065,13 +1052,13 @@ To Do List:
 			}
 			else if(D)
 			{
-				[D takeContextValue:nil fileKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];
-				[D takeContextValue:nil fileKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+				[D takeContextValue:nil forKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];
+				[D takeContextValue:nil forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 			}
 			else
 			{
 				[project takePropertyValue:nil forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-				[project takePropertyValue:nil forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+				[project takeContextValue:nil forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 			}
 			changed = YES;
 		}
@@ -1084,6 +1071,220 @@ To Do List:
 	[self validateWindowContent];
 //iTM2_END;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
+- (IBAction)stringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
+	NSArray * fileKeys = [self orderedFileKeys];
+	NSTableView * documentsView = [self documentsView];
+	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
+	unsigned int row = [selectedRowIndexes firstIndex];
+	unsigned int top = [fileKeys count];
+	id D = nil;
+	BOOL changed = NO;
+	while(row < top)
+	{
+		NSString * fileKey = [fileKeys objectAtIndex:row];
+		NSString * fileName = [project relativeFileNameForKey:fileKey];
+		id isAuto = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+		BOOL old = [isAuto boolValue];
+		// this is a 3 states switch: YES, NO, inherited
+		if([fileName length])
+		{
+			isAuto = isAuto?(old?[NSNumber numberWithBool:NO]:nil):[NSNumber numberWithBool:YES];
+			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
+			if([C isSubclassOfClass:[iTM2TextDocument class]])
+			{
+				if(D = [project subdocumentForKey:fileKey])
+				{
+					[D takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+				}
+				else
+				{
+					[project takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				}
+				changed = YES;
+			}
+		}
+		else if([fileKey isEqual:iTM2ProjectDefaultsKey])
+		{
+			isAuto = [NSNumber numberWithBool:!old];
+			changed = [project takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+		}
+		row = [selectedRowIndexes indexGreaterThanIndex:row];
+	}
+	if(changed)
+	{
+		[project updateChangeCount:NSChangeDone];		
+	}
+	[self validateWindowContent];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
+- (BOOL)validateStringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// the menu is 
+	// an optional "Multiple Selection" dimmed item
+	// a "Default EOL"
+	// the list of preferred EOL
+	// other encodings if they are not in the list
+	// rules for disabling
+	// one of the selected items does not correspond to a text file nor the "default".
+	// rules for "Multiple Selection" (2 items are selected at least indeed)
+	// If a file has no encoding set, it inherites from the setting of the "Defaults" file, with the iTM2ProjectDefaultsKey
+	// one of the following conditions is fullfilled
+	// - The Defaults is selected
+	// - All the selected items do not have the same setting.
+	// updating the Defaults menu
+	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
+	NSArray * fileKeys = [self orderedFileKeys];
+	NSString * fileKey = [fileKeys objectAtIndex:0];
+	NSTableView * documentsView = [self documentsView];
+	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
+	if(![selectedRowIndexes count])// no item selected
+	{
+//iTM2_END;
+		[sender setState:NSOffState];
+		return NO;
+	}
+	if([selectedRowIndexes count]>1)// no item selected
+	{
+//iTM2_END;
+		[sender setState:NSMixedState];
+		return NO;
+	}
+	fileKey = @"";
+	NSString * fileName = @"";
+	NSNumber * N;
+	BOOL hasOn = NO;
+	BOOL hasOff = NO;
+	BOOL excluded = NO;
+	BOOL isDefaults = NO;
+	NSString * keyWithAutoDefault = nil;// the last file key having a default string encoding
+	unsigned int row = [selectedRowIndexes firstIndex];
+	if(row == 0)
+	{
+		isDefaults = YES;
+		keyWithAutoDefault = [fileKeys objectAtIndex:0];
+		fileKey = keyWithAutoDefault;
+		row = [selectedRowIndexes indexGreaterThanIndex:row];
+	}
+	else
+	{
+		fileKey = [fileKeys objectAtIndex:row];
+		fileName = [project relativeFileNameForKey:fileKey];
+		if([fileName length])
+		{
+			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
+			if([C isSubclassOfClass:[iTM2TextDocument class]])
+			{
+				if(N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask])
+				{
+					if([N boolValue])
+					{
+						hasOn = YES;
+					}
+					else
+					{
+						hasOff = YES;
+					}
+				}
+				else
+				{
+					keyWithAutoDefault = fileKey;
+				}
+			}
+			else
+			{
+				[sender setState:NSOffState];
+//iTM2_END;
+				return NO;
+			}
+		}
+		row = [selectedRowIndexes indexGreaterThanIndex:row];
+	}
+	// mutliple case
+	// hasOn && hasOff
+	BOOL x = NO;
+	if(N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask])
+	{
+		x = [N boolValue];
+	}
+	if(isDefaults)
+	{
+		if(hasOn && hasOff)
+		{
+			// multiple case
+			[sender setState:NSMixedState];
+			return NO;
+		}
+		if(x && hasOff)
+		{
+			// multiple case
+			[sender setState:NSMixedState];
+			return NO;
+		}
+		else if(!x && hasOn)
+		{
+			// multiple case
+			[sender setState:NSMixedState];
+			return NO;
+		}
+		else if(x && hasOn)
+		{
+			// multiple case
+			[sender setState:NSOnState];
+			return NO;
+		}
+		else if(!x && hasOff)
+		{
+			// multiple case
+			[sender setState:NSOffState];
+			return NO;
+		}
+		[sender setState:(x?NSOnState:NSOffState)];
+		return YES;
+	}
+	if(keyWithAutoDefault)
+	{
+		// multiple case with project defaults
+		[sender setState:NSMixedState];// the string encoding popup will say if this is auto or not
+		return YES;
+	}
+	else if(hasOn && hasOff)
+	{
+		// multiple case with no project defaults
+		[sender setState:NSMixedState];
+		return YES;
+	}
+	else if(hasOn)
+	{
+		// single case with no project defaults
+		[sender setState:NSOnState];
+		return YES;
+	}
+	else if(hasOff)
+	{
+		// single case with no project defaults
+		[sender setState:NSOffState];
+		return YES;
+	}
+	[sender setState:(x?NSOnState:NSOffState)];
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseEOL:
 - (IBAction)chooseEOL:(id) sender;
@@ -1166,6 +1367,12 @@ To Do List:
 //iTM2_END;
 			return NO;
 		}
+		if([selectedRowIndexes count]>1)// no item selected
+		{
+			[sender selectItem:nil];
+//iTM2_END;
+			return NO;
+		}
 		fileKey = @"";
 		NSString * fileName = @"";
 		NSMutableSet * EOLNames = [NSMutableSet set];
@@ -1179,11 +1386,8 @@ To Do List:
 			isDefaults = YES;
             keyWithDefault = [fileKeys objectAtIndex:0];
 			fileKey = keyWithDefault;
-			row = [selectedRowIndexes indexGreaterThanIndex:row];
 		}
-		unsigned int top = [fileKeys count];
-		// first remove all the indexes for which the string encoding has no meaning
-		while(row < top)
+		else
         {
             fileKey = [fileKeys objectAtIndex:row];
 			fileName = [project relativeFileNameForKey:fileKey];
@@ -1302,7 +1506,7 @@ multipleSelection:
 			EOL = [iTM2StringFormatController EOLForName:EOLName];
 			goto selectOneItem;
 		}
-		enabled = keyWithDefault == nil;
+		enabled = NO;//keyWithDefault == nil;
 		goto multipleSelection;
     }
 //iTM2_END;
@@ -1355,213 +1559,6 @@ To Do List:
 	}
 	[self validateWindowContent];
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
-- (IBAction)stringEncodingToggleAuto:(id)sender;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
-	NSArray * fileKeys = [self orderedFileKeys];
-	NSTableView * documentsView = [self documentsView];
-	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
-	unsigned int row = [selectedRowIndexes firstIndex];
-	unsigned int top = [fileKeys count];
-	id D = nil;
-	BOOL changed = NO;
-	while(row < top)
-	{
-		NSString * fileKey = [fileKeys objectAtIndex:row];
-		NSString * fileName = [project relativeFileNameForKey:fileKey];
-		id isAuto = [project propertyValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-		BOOL old = [isAuto boolValue];
-		isAuto = [NSNumber numberWithBool:!old];
-		if([fileName length])
-		{
-			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
-			if([C isSubclassOfClass:[iTM2TextDocument class]])
-			{
-				if(D = [project subdocumentForKey:fileKey])
-				{
-					[D takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
-				}
-				else
-				{
-					[project takePropertyValue:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-				}
-				changed = YES;
-			}
-		}
-		else if([fileKey isEqual:iTM2ProjectDefaultsKey])
-		{
-			[project takePropertyValue:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-			changed = YES;
-		}
-		row = [selectedRowIndexes indexGreaterThanIndex:row];
-	}
-	if(changed)
-	{
-		[project updateChangeCount:NSChangeDone];		
-	}
-	[self validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
-- (BOOL)validateStringEncodingToggleAuto:(id)sender;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// the menu is 
-	// an optional "Multiple Selection" dimmed item
-	// a "Default EOL"
-	// the list of preferred EOL
-	// other encodings if they are not in the list
-	// rules for disabling
-	// one of the selected items does not correspond to a text file nor the "default".
-	// rules for "Multiple Selection" (2 items are selected at least indeed)
-	// If a file has no encoding set, it inherites from the setting of the "Defaults" file, with the iTM2ProjectDefaultsKey
-	// one of the following conditions is fullfilled
-	// - The Defaults is selected
-	// - All the selected items do not have the same setting.
-	// updating the Defaults menu
-	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
-	NSArray * fileKeys = [self orderedFileKeys];
-	NSString * fileKey = [fileKeys objectAtIndex:0];
-	NSTableView * documentsView = [self documentsView];
-	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
-	if(![selectedRowIndexes count])// no item selected
-	{
-//iTM2_END;
-		[sender setState:NSOffState];
-		return NO;
-	}
-	fileKey = @"";
-	NSString * fileName = @"";
-	NSNumber * N;
-	BOOL hasOn = NO;
-	BOOL hasOff = NO;
-	BOOL excluded = NO;
-	BOOL isDefaults = NO;
-	NSString * keyWithDefault = nil;// the last file key having a default string encoding
-	unsigned int row = [selectedRowIndexes firstIndex];
-	if(row == 0)
-	{
-		isDefaults = YES;
-		keyWithDefault = [fileKeys objectAtIndex:0];
-		fileKey = keyWithDefault;
-		row = [selectedRowIndexes indexGreaterThanIndex:row];
-	}
-	unsigned int top = [fileKeys count];
-	// first remove all the indexes for which the string encoding has no meaning
-	while(row < top)
-	{
-		fileKey = [fileKeys objectAtIndex:row];
-		fileName = [project relativeFileNameForKey:fileKey];
-		if([fileName length])
-		{
-			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
-			if([C isSubclassOfClass:[iTM2TextDocument class]])
-			{
-				if(N = [project propertyValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask])
-				{
-					if([N boolValue])
-					{
-						hasOn = YES;
-					}
-					else
-					{
-						hasOff = YES;
-					}
-				}
-				else
-				{
-					keyWithDefault = fileKey;
-				}
-			}
-			else
-			{
-				excluded = YES;
-			}
-		}
-		row = [selectedRowIndexes indexGreaterThanIndex:row];
-	}
-	if(excluded)// no item with a string encoding
-	{
-		[sender setState:NSOffState];
-//iTM2_END;
-		return NO;
-	}
-	// mutliple case
-	// hasOn && hasOff
-	BOOL x = NO;
-	if(N = [project propertyValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask])
-	{
-		x = [N boolValue];
-	}
-	if(isDefaults)
-	{
-		if(hasOn && hasOff)
-		{
-			// multiple case
-			[sender setState:NSMixedState];
-			return NO;
-		}
-		if(x && hasOff)
-		{
-			// multiple case
-			[sender setState:NSMixedState];
-			return NO;
-		}
-		else if(!x && hasOn)
-		{
-			// multiple case
-			[sender setState:NSMixedState];
-			return NO;
-		}
-		else if(x && hasOn)
-		{
-			// multiple case
-			[sender setState:NSOnState];
-			return NO;
-		}
-		else if(!x && hasOff)
-		{
-			// multiple case
-			[sender setState:NSOffState];
-			return NO;
-		}
-		[sender setState:(x?NSOnState:NSOffState)];
-		return YES;
-	}
-	if(hasOn && hasOff)
-	{
-		// multiple case with no project defaults
-		[sender setState:NSMixedState];
-		return YES;
-	}
-	else if(hasOn)
-	{
-		// multiple case with no project defaults
-		[sender setState:NSOnState];
-		return YES;
-	}
-	else if(hasOff)
-	{
-		// multiple case with no project defaults
-		[sender setState:NSOffState];
-		return YES;
-	}
-	[sender setState:(x?NSOnState:NSOffState)];
-	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
 - (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize;

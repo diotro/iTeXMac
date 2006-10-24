@@ -167,6 +167,9 @@ To Do List:
 				didChange = YES;
 			}
 		}
+		id afterObject = [self contextValueForKey:aKey domain:iTM2ContextStandardLocalMask];
+iTM2_LOG(@"afterObject:%@",afterObject);
+		NSAssert(([object isEqual:afterObject] || (object == afterObject)),@"Inconsistancy: THIS IS A BUG");
 	}
 	[SUD takeContextValue:object forKey:aKey domain:mask];
 	if(didChange)
@@ -1055,7 +1058,8 @@ To Do List:
 			}
 		}
 	}
-    return [super contextValueForKey:aKey domain:mask];
+	result = [super contextValueForKey:aKey domain:mask];// debug design
+    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
 - (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;

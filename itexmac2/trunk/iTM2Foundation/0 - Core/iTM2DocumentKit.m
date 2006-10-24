@@ -512,11 +512,10 @@ To Do List:
 					[openInspectors addObject:[NSDictionary dictionaryWithObjectsAndKeys:[C inspectorType], @"type", mode, @"mode", [WC inspectorVariant], @"variant", nil]];
             }
         }
-	if(![openInspectors count])
+	if([openInspectors count])
 	{
-		iTM2_LOG(@"ARGH:No inspectors available for %@", [self fileURL]);
+		[self takeContextValue:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
 	}
-    [self takeContextValue:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
 //iTM2_LOG(@"openInspectors (%@) are:%@ = %@", [self fileName], openInspectors, [self contextValueForKey:iTM2ContextOpenInspectors]);
 //iTM2_END;
     return;
@@ -1067,26 +1066,7 @@ To Do List:
 		[MRA removeObject:inspectorVariant];
 		[MRA insertObject:inspectorVariant atIndex:0];
 		[MD setObject:MRA forKey:[C inspectorMode]];
-		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
-		D = [self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
-		if(!D)
-		{
-			D = [NSDictionary dictionary];
-		}
-		MD = [[D mutableCopy] autorelease];
-		NSString * type = [[[self fileName] pathExtension] lowercaseString];
-		if(![type length])
-		{
-			type = [self fileType];
-		}
-		if([type length])
-		{
-			NSString * mode = [C inspectorMode];
-			NSString * variant = [C inspectorVariant];
-			D = [NSDictionary dictionaryWithObjectsAndKeys:mode, @"mode", variant, @"variant", nil];
-			[MD setObject:D forKey:type];
-		}
-		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
 	}
 	if(![WC isKindOfClass:[iTM2ExternalInspector class]])
 		[self didAddWindowController:WC];
@@ -1144,7 +1124,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSEnumerator * E = [[self windowControllers] objectEnumerator];
-	NSWindowController * WC;
+	NSWindowController * WC = nil;
 	while(WC = [E nextObject])
 	{
 		if(![[[WC class] inspectorMode] hasPrefix:@"."])
@@ -1153,49 +1133,49 @@ To Do List:
     NSArray * modes = [self contextValueForKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
     if([modes isKindOfClass:[NSArray class]])
     {
-        NSEnumerator * E = [modes objectEnumerator];
+        E = [modes objectEnumerator];
         NSDictionary * d;
 		NSMutableArray * alreadyOpenModes = [NSMutableArray array];
+		NSString * inspectorType = [[self class] inspectorType];
+		NSString * fileName = [self fileName];
         while(d = [E nextObject])
         {
 //iTM2_LOG(@"d is:%@", d);
 			if(![alreadyOpenModes containsObject:d])
 			{
 				NSString * type = [d objectForKey:@"type"];
-				if([type isEqual:[[self class] inspectorType]])
+				NSString * mode = [d objectForKey:@"mode"];
+				NSString * variant = [d objectForKey:@"variant"];
+				if([type isEqual:inspectorType])
 				{
-					NSString * mode = [d objectForKey:@"mode"];
 					if([mode hasPrefix:@"."])
 					{
 						;// do nothing
 					}
 					else
 					{
-						NSString * variant = [d objectForKey:@"variant"];
 						Class C = [NSWindowController inspectorClassForType:type mode:mode variant:variant];
-						NSWindowController * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+						WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
 						[WC setInspectorVariant:variant];
 						[self addWindowController:WC];// 1ZT
 						if(![WC window])// EXC_BAD_ACCESS HERE!!!
 							[self removeWindowController:WC];
 					}
 				}
-				else
+				else if([mode isEqual:iTM2ExternalInspectorMode]
+					&& ([fileName length] > 0)
+						&& [iTM2ExternalInspectorServer objectForType:inspectorType key:variant])
+						// there is an external inspector for that type/variant pair
 				{
-					NSString * mode = [d objectForKey:@"mode"];
-					if([mode isEqual:iTM2ExternalInspectorMode] && ([[self fileName] length] > 0))
-					{
-						NSEnumerator * E = [[self windowControllers] objectEnumerator];
-						NSWindowController * WC;
-						while(WC = [E nextObject])
-							if([WC isKindOfClass:[iTM2ExternalInspector class]])
-								[self removeWindowController:WC];
-						WC = [[[iTM2ExternalInspector allocWithZone:[self zone]] initWithWindowNibName:@"iTM2ExternalInspector"] autorelease];
-						[WC setInspectorVariant:[d objectForKey:@"variant"]];
-						[self addWindowController:WC];
-						if(![WC window])
+					NSEnumerator * EE = [[self windowControllers] objectEnumerator];
+					while(WC = [EE nextObject])
+						if([WC isKindOfClass:[iTM2ExternalInspector class]])
 							[self removeWindowController:WC];
-					}
+					WC = [[[iTM2ExternalInspector allocWithZone:[self zone]] initWithWindowNibName:@"iTM2ExternalInspector"] autorelease];
+					[WC setInspectorVariant:variant];
+					[self addWindowController:WC];
+					if(![WC window])
+						[self removeWindowController:WC];
 				}
 			}
 			[alreadyOpenModes addObject:d];
@@ -3518,9 +3498,14 @@ To Do List:
 	id doc = [[[NSApp mainWindow] windowController] document];
 	if([doc isDocumentEdited])
 		return;
+	NSDictionary * D = [sender representedObject];
+	NSString * mode = [D valueForKey:@"mode"];
+	NSString * variant = [D valueForKey:@"variant"];
 	if([doc isKindOfClass:[iTM2Document class]])
-		[doc replaceInspectorMode:[[sender representedObject] valueForKey:@"mode"]
-            variant:[[sender representedObject] valueForKey:@"variant"]];
+	{
+		[doc replaceInspectorMode:mode variant:variant];
+	}
+#if 0
 	NSEnumerator * E = [[[sender menu] itemArray] objectEnumerator];
 	while(sender = [E nextObject])
 	{
@@ -3535,6 +3520,7 @@ To Do List:
 			}
 		}
 	}
+#endif
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleInspector:
@@ -3725,9 +3711,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-        [DNC removeObserver:self name:NSTaskDidTerminateNotification object:[[self implementation] metaValueForKey:@"task"]];
-        NSTask * task = [[[NSTask allocWithZone:[self zone]] init] autorelease];
-		NSString * launchPath = [iTM2ExternalInspectorServer objectForType:[[[self document] class] inspectorType] key:[self inspectorVariant]];
+        NSTask * task = [[self implementation] metaValueForKey:@"task"];
+        [DNC removeObserver:self name:NSTaskDidTerminateNotification object:task];
+        task = [[[NSTask allocWithZone:[self zone]] init] autorelease];
+		NSString * type = [[[self document] class] inspectorType];
+		NSString * variant = [self inspectorVariant];
+		NSString * launchPath = [iTM2ExternalInspectorServer objectForType:type key:variant];
 		NSAssert([launchPath length], @"Inconsistency on launchPath, PLEASE report bug...");
         [task setLaunchPath:launchPath];
 		NSString * fileName = [[self document] fileName];

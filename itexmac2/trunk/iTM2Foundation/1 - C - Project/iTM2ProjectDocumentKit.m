@@ -3362,7 +3362,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self propertiesForFileKey:fileKey] valueForKey:key]?:[self contextValueForKey:key fileKey:fileKey domain:mask];
+	id result = nil;
+	id Ps = [self propertiesForFileKey:fileKey];
+	if(result = [Ps valueForKey:key])
+	{
+		return result;
+	}
+    return [self contextValueForKey:key fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePropertyValue:forKey:fileKey:contextDomain:
 - (void)takePropertyValue:(id)property forKey:(NSString *)aKey fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
@@ -3886,6 +3892,48 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:domain:
+- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = nil;
+	if(result = [super contextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
+	{
+		return result;
+	}
+	NSString * fileKey = @".";
+	if(result = [self contextValueForKey:aKey fileKey:fileKey domain:mask&iTM2ContextStandardLocalMask])
+	{
+		return result;
+	}
+    return [super contextValueForKey:aKey domain:mask];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
+- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2ProjectDocument * project = [self project];
+	id contextManager = [self contextManager];
+	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
+	BOOL didChange = [super takeContextValue:object forKey:aKey domain:mask];
+	NSString * fileKey = @".";// weird...
+	if([self takeContextValue:object forKey:aKey fileKey:fileKey domain:mask])
+	{
+		didChange = YES;
+	}
+//iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
+    return didChange;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:fileKey:domain;
 - (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 /*"Description forthcoming.
@@ -3954,7 +4002,7 @@ To Do List:
 			}
 		}
 	}
-    return [super contextValueForKey:aKey domain:mask];
+    return [fileKey isEqual:@"."]?[super contextValueForKey:aKey domain:mask]:nil;// not self, reentrant code management
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:fileKey:domain:
 - (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
@@ -3967,7 +4015,7 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert(aKey != nil);
 	NSString * fileName = [self relativeFileNameForKey:fileKey];// not the file name!
-	if(![fileName length])
+	if(![fileName length] && ![fileKey isEqual:iTM2ProjectDefaultsKey])
 	{
 		return NO;
 	}
@@ -3978,27 +4026,53 @@ To Do List:
 	id implementation = [self implementation];
 	if(mask & iTM2ContextStandardLocalMask)
 	{
-		if(server = [implementation iVarContextKeyedFiles],D = [[[server valueForKey:fileKey] mutableCopy] autorelease])
+		if(server = [implementation iVarContextKeyedFiles])
 		{
-			old = [D valueForKey:aKey];
-			if(![old isEqual:object] && (old != object))
+			if(D = [server valueForKey:fileKey])
 			{
+				D = [[D mutableCopy] autorelease];
+				old = [D valueForKey:aKey];
+				if(![old isEqual:object] && (old != object))
+				{
+					[D takeValue:object forKey:aKey];
+					[server takeValue:D forKey:fileKey];
+					didChange = YES;
+				}
+			}
+			else if(object)
+			{
+				D = [NSMutableDictionary dictionary];
 				[D takeValue:object forKey:aKey];
 				[server takeValue:D forKey:fileKey];
 				didChange = YES;
 			}
 		}
+		id afterObject = [self contextValueForKey:aKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+iTM2_LOG(@"afterObject:%@",afterObject);
+		NSAssert(([object isEqual:afterObject] || (object == afterObject)),@"Inconsistancy: THIS IS A BUG");
 	}
 	if(mask & iTM2ContextStandardProjectMask)
 	{
 		fileKey = iTM2ProjectDefaultsKey;
-		if(server = [implementation iVarContextKeyedFiles],D = [[[server valueForKey:fileKey] mutableCopy] autorelease])
+		if(server = [implementation iVarContextKeyedFiles])
 		{
-			old = [D valueForKey:aKey];
-			if(![old isEqual:object] && (old != object))
+			if(D = [server valueForKey:fileKey])
 			{
+				D = [[D mutableCopy] autorelease];
+				old = [D valueForKey:aKey];
+				if(![old isEqual:object] && (old != object))
+				{
+					[D takeValue:object forKey:aKey];
+					[server takeValue:D forKey:fileKey];
+					didChange = YES;
+				}
+			}
+			else if(object)
+			{
+				D = [NSMutableDictionary dictionary];
 				[D takeValue:object forKey:aKey];
 				[server takeValue:D forKey:fileKey];
+				didChange = YES;
 			}
 		}
 	}
@@ -4007,39 +4081,73 @@ To Do List:
 		NSString * extension = [fileName pathExtension];
 		if([extension length])
 		{
-			if(server = [implementation iVarContextExtensions],D = [[[server valueForKey:extension] mutableCopy] autorelease])
+			if(server = [implementation iVarContextExtensions])
 			{
-				old = [D valueForKey:aKey];
-				if(![old isEqual:object] && (old != object))
+				if(D = [server valueForKey:extension])
 				{
+					D = [[D mutableCopy] autorelease];
+					old = [D valueForKey:aKey];
+					if(![old isEqual:object] && (old != object))
+					{
+						[D takeValue:object forKey:aKey];
+						[server takeValue:D forKey:extension];
+					}
+				}
+				else if(object)
+				{
+					D = [NSMutableDictionary dictionary];
 					[D takeValue:object forKey:aKey];
-					[server takeValue:D forKey:fileKey];
+					[server takeValue:D forKey:extension];
 				}
 			}
 		}
 		NSString * type = [SDC typeFromFileExtension:extension];
 		if([type length])
 		{
-			if(server = [implementation iVarContextTypes],D = [[[server objectForKey:type] mutableCopy] autorelease])
+			if(server = [implementation iVarContextTypes])
 			{
-				old = [D valueForKey:aKey];
-				if(![old isEqual:object] && (old != object))
+				if(D = [server valueForKey:type])
 				{
+					D = [[D mutableCopy] autorelease];
+					old = [D valueForKey:aKey];
+					if(![old isEqual:object] && (old != object))
+					{
+						[D takeValue:object forKey:aKey];
+						[server takeValue:D forKey:type];
+						didChange = YES;
+					}
+				}
+				else if(object)
+				{
+					D = [NSMutableDictionary dictionary];
 					[D takeValue:object forKey:aKey];
-					[server takeValue:D forKey:fileKey];
+					[server takeValue:D forKey:type];
+					didChange = YES;
 				}
 			}
 		}
 		NSString * typeFromFileExtension = [SDC typeFromFileExtension:extension];
 		if([typeFromFileExtension length] && ![typeFromFileExtension isEqual:type])
 		{
-			if(server = [implementation iVarContextTypes],D = [[[server objectForKey:typeFromFileExtension] mutableCopy] autorelease])
+			if(server = [implementation iVarContextTypes])
 			{
-				old = [D valueForKey:aKey];
-				if(![old isEqual:object] && (old != object))
+				if(D = [server valueForKey:typeFromFileExtension])
 				{
+					D = [[D mutableCopy] autorelease];
+					old = [D valueForKey:aKey];
+					if(![old isEqual:object] && (old != object))
+					{
+						[D takeValue:object forKey:aKey];
+						[server takeValue:D forKey:typeFromFileExtension];
+						didChange = YES;
+					}
+				}
+				else if(object)
+				{
+					D = [NSMutableDictionary dictionary];
 					[D takeValue:object forKey:aKey];
-					[server takeValue:D forKey:fileKey];
+					[server takeValue:D forKey:typeFromFileExtension];
+					didChange = YES;
 				}
 			}
 		}
@@ -4068,6 +4176,33 @@ To Do List:
 	CREATE(iTM2ContextTypesKey);
 	CREATE(iTM2ContextExtensionsKey);
 	#undef CREATE
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteLoadContext:
+- (void)projectCompleteLoadContext:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// this is where oui set up initial context values
+	id expected = [self contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
+	if(![expected respondsToSelector:@selector(boolValue)])
+	{
+		expected = [self contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];
+		if([expected respondsToSelector:@selector(boolValue)])
+		{
+			[self takeContextValue:expected forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
+		}
+	}
+	if(!(expected = [self propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask]))
+	{
+		expected = [self contextValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];//something should be returned because this registered as defaults in the string formatter kit
+		[self takePropertyValue:expected forKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
+	}
 //iTM2_END;
     return;
 }
@@ -8306,7 +8441,7 @@ To Do List:
 	id contextManager = [self contextManager];
 	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
 	NSString * fileName = [self fileName];
-	if((id)project != self)
+	if((id)project != self)// reentrant code management
 	{
 		NSString * fileKey = [project keyForFileName:fileName];
 		if([fileKey length])
@@ -8331,9 +8466,8 @@ To Do List:
 	iTM2ProjectDocument * project = [self project];
 	id contextManager = [self contextManager];
 	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
-	BOOL didChange = [super takeContextValue:object forKey:aKey domain:mask];
 	NSString * fileName = [self fileName];// not the file name!
-	if(![fileName length])
+	if([fileName length])
 	{
 		NSString * fileKey = [project keyForFileName:fileName];
 		if([fileKey length])
@@ -8346,6 +8480,7 @@ To Do List:
 //iTM2_LOG([project keyForFileName:fileName]);
 		}
 	}
+	BOOL didChange = [super takeContextValue:object forKey:aKey domain:mask];// last to be sure we have registered
 //iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
     return didChange;
 }

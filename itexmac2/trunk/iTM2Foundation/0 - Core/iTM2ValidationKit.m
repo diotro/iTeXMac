@@ -478,7 +478,7 @@ To Do List:
 	NSView * V = [self contentView];
 	NSSize S = [V visibleRect].size;
 //iTM2_END;
-	return (S.width>0 && S.height>0) && [V validateUserInterfaceItems];
+	return ([self state] == NSDrawerClosedState) || (S.width>0 && S.height>0 && [V validateUserInterfaceItems]);
 }
 @end
 
