@@ -1,0 +1,14 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {OK = id; addCompletionSet = id; cancel = id; help = id; }; 
+            CLASS = iTM2CompletionInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {"_TableView" = NSTableView; panel = id; }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
