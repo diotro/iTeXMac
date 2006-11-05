@@ -559,6 +559,23 @@ To Do List:
 //iTM2_END;
 	return range;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= completionsForPartialWordRange:indexOfSelectedItem:
+- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexPtr;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 12:58:07 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * string = [self string];
+	BOOL escaped = NO;
+	if([string isControlAtIndex:range.location escaped:&escaped] && !escaped)
+	{
+		return [[iTM2CompletionServer completionServer] completionsForTextView:self partialWordRange:charRange indexOfSelectedItem:indexPtr];
+	}
+	return charRange.length?[super completionsForPartialWordRange:charRange indexOfSelectedItem:index]:[NSArray array];
+}
 @end
 #pragma mark -
 #pragma mark =-=-=-=-=-  BOOKMARKS
