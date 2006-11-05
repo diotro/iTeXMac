@@ -267,3 +267,31 @@
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
+
+/*!
+    @class       iTM2PatriciaController 
+    @superclass  NSObject
+    @abstract    The patricia tree controller
+    @discussion  discussion forthcoming
+*/
+@interface iTM2PatriciaController : NSObject
+{
+@private
+    id _implementation;
+}
+
+- (BOOL)addStrings:(NSArray *)stringList;
+
+- (BOOL)addString:(NSString *)aString;
+
+- (BOOL)removeString:(NSString *)aString;
+
+- (NSArray *)stringListForPrefix:(NSString *)prefix;
+
+- (NSArray *)stringList;
+
+- (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
+
+- (BOOL)writeToURL:(NSURL *)url error:(NSError **)outErrorPtr;
+
+@end
