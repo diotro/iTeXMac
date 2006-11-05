@@ -535,6 +535,30 @@ To Do List:
 	}
     return;
 }
+#pragma mark =-=-=-=-=-  COMPLETION
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
+- (NSRange)rangeForUserCompletion;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange range = [super rangeForUserCompletion];
+	NSString * string = [self string];
+	if(range.location>0)
+	{
+		BOOL escaped = NO;
+		if([string isControlAtIndex:range.location-1 escaped:&escaped] && !escaped)
+		{
+			--range.location;
+			++range.length;
+		}
+	}
+//iTM2_END;
+	return range;
+}
 @end
 #pragma mark -
 #pragma mark =-=-=-=-=-  BOOKMARKS
