@@ -57,13 +57,15 @@
 	<key>LaTeX resource</key>
 	<string>Ressource LaTeX</string>
 	<key>LaTeX revtex resource</key>
-	<string>Ressource revtex de LaTeX</string>
+	<string>Resource revtex de LaTeX</string>
 	<key>LaTeX source</key>
 	<string>Source LaTeX</string>
 	<key>LaTeX table of contents</key>
 	<string>Table des matières LaTeX</string>
 	<key>LaTeX titlesec resource</key>
-	<string>Ressource titlesec de LaTeX</string>
+	<string>Resource titlesec de LaTeX</string>
+	<key>LaTeX Hyperref Output</key>
+	<string>Fichier auxiliaire hyperref de LaTeX</string>
 	<key>MakeIndex input</key>
 	<string>Entrée de MakeIndex</string>
 	<key>MakeIndex log</key>
@@ -140,5 +142,7 @@
 	<string>Symboles de syntaxe iTeXMac2</string>
 	<key>iTeXMac2 Style Variant</key>
 	<string>Variante de style de syntaxe iTeXMac2</string>
+	<key>Asymptote Document</key>
+	<string>Document Asymptote</string>
 </dict>
 </plist>
