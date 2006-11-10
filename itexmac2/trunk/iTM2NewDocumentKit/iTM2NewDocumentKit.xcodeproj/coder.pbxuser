@@ -8,8 +8,6 @@
 		);
 		breakpoints = (
 			DCE8742609352CC500037138 /* -[NSException raise] */,
-			DC84F8330AD58FA900C6FCAA /* iTM2NewDocumentKit.m:2073 */,
-			DC08760D0A42E4C10062ABE6 /* iTM2NewDocumentKit.m:1372 */,
 		);
 		breakpointsGroup = DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DCDE977508EC808C00A7C892 /* Code sense */;
@@ -137,12 +135,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 183037900;
-			PBXWorkspaceStateSaveDate = 183037900;
-		};
-		perUserProjectItems = {
-			DC27DCD80AE959FD00A5460D /* PBXTextBookmark */ = DC27DCD80AE959FD00A5460D /* PBXTextBookmark */;
-			DCCB2CCF0AE83E8A00433CC3 /* PBXTextBookmark */ = DCCB2CCF0AE83E8A00433CC3 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 184584565;
+			PBXWorkspaceStateSaveDate = 184584565;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
@@ -160,21 +154,11 @@
 		hitCount = 1;
 		lineNumber = 1372;
 		location = iTM2NewDocumentKit;
-		modificationTime = 183074715.946123;
+		modificationTime = 184588249.681109;
 		state = 1;
 	};
 	DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */ = {
 		activeExec = 0;
-	};
-	DC27DCD80AE959FD00A5460D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3543";
-		rLen = 0;
-		rLoc = 118539;
-		rType = 0;
-		vrLen = 2103;
-		vrLoc = 60242;
 	};
 	DC2CA6BE0855D0CE00128F14 /* iTM2NewDocumentKit-Prefix.pch */ = {
 		uiCtxt = {
@@ -237,7 +221,7 @@
 		hitCount = 1;
 		lineNumber = 2073;
 		location = iTM2NewDocumentKit;
-		modificationTime = 183074715.130165;
+		modificationTime = 184588254.29369;
 		state = 1;
 	};
 	DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */ = {
@@ -251,16 +235,6 @@
 	};
 	DC9E4F310858A8A300A86BED /* All */ = {
 		activeExec = 0;
-	};
-	DCCB2CCF0AE83E8A00433CC3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 3542";
-		rLen = 0;
-		rLoc = 118539;
-		rType = 0;
-		vrLen = 2103;
-		vrLoc = 60242;
 	};
 	DCDE975E08EC808300A7C892 /* iTeXMac2 */ = {
 		isa = PBXExecutable;

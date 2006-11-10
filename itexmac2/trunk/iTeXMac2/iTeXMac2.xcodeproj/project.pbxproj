@@ -172,6 +172,8 @@
 		DCB7543808EDA67300A6819D /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCB93A7907D701AF005E5B38 /* iTeXMac2-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */; };
 		DCB93A8607D702A5005E5B38 /* iTM2StartupDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A8407D702A5005E5B38 /* iTM2StartupDocument.m */; };
+		DCBA43250B011B45006AF52A /* ASY.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCBA43230B011B45006AF52A /* ASY.icns */; };
+		DCBA43260B011B45006AF52A /* OUT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCBA43240B011B45006AF52A /* OUT.icns */; };
 		DCCE70A7091B58D200960441 /* iTM2AppleScriptSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */; };
 		DCE7E7CA08F2712A00DBB513 /* OgreKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCFD96D40858F4FB0034D83E /* iTeXMac2CMPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFFA6CD0855B7C900607AAA /* iTeXMac2CMPlugIn.m */; };
@@ -425,6 +427,8 @@
 		DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iTeXMac2-main.m"; sourceTree = "<group>"; };
 		DCB93A8407D702A5005E5B38 /* iTM2StartupDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StartupDocument.m; sourceTree = "<group>"; };
 		DCB93D2F07D70F95005E5B38 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		DCBA43230B011B45006AF52A /* ASY.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ASY.icns; sourceTree = "<group>"; };
+		DCBA43240B011B45006AF52A /* OUT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OUT.icns; sourceTree = "<group>"; };
 		DCCE70A4091B58D200960441 /* iTM2AppleScriptSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AppleScriptSupport.h; sourceTree = "<group>"; };
 		DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2AppleScriptSupport.m; sourceTree = "<group>"; };
 		DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2LaTeXSymbolsKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -591,6 +595,8 @@
 		DCA37E920AE3AD7800874F9E /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				DCBA43230B011B45006AF52A /* ASY.icns */,
+				DCBA43240B011B45006AF52A /* OUT.icns */,
 				DCA37E930AE3AD7800874F9E /* 4CT.icns */,
 				DCA37E940AE3AD7800874F9E /* 4HF.icns */,
 				DCA37E950AE3AD7800874F9E /* 4TC.icns */,
@@ -1000,6 +1006,8 @@
 				DCA37F6C0AE3AD7B00874F9E /* XPM.icns in Resources */,
 				DCA37F6D0AE3AD7B00874F9E /* XREF.icns in Resources */,
 				DCA37F6E0AE3AD7B00874F9E /* iTeXMac2.sdef in Resources */,
+				DCBA43250B011B45006AF52A /* ASY.icns in Resources */,
+				DCBA43260B011B45006AF52A /* OUT.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

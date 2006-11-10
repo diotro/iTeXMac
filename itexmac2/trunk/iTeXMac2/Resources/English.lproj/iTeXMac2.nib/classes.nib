@@ -6,6 +6,7 @@
                 OgreFindMenuItemAction = id; 
                 TestPerlAction = id; 
                 actualSize = id; 
+                addSelectionToCompletion = id; 
                 annotateTool = id; 
                 assignProfile = id; 
                 autoZoom = id; 
@@ -13,6 +14,7 @@
                 centerSelectionInVisibleArea = id; 
                 commentSelectedText = id; 
                 completeLaTeXEnvironment = id; 
+                completionMode = id; 
                 crop = id; 
                 displayCropBox = id; 
                 displayMediaBox = id; 
@@ -39,6 +41,7 @@
                 doZoomIn = id; 
                 doZoomOut = id; 
                 doZoomToSelection = id; 
+                editCompletions = id; 
                 editExportImageOptions = id; 
                 findAndScrollSynchronizationPointToVisible = id; 
                 flipHorizontal = id; 

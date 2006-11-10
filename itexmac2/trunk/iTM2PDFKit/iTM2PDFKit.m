@@ -1551,12 +1551,29 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+iTM2_START;
 	[[[self window] toolbar] validateVisibleItems];
-	PDFPage * page = [[self pdfView] currentPage];
-	[self setDocumentViewVisiblePageNumber:[[page document] indexForPage:page]];
-	[self updatePDFOutlineInformation];
-//iTM2_END;
+	PDFView * pdfView = [self pdfView];
+	PDFPage * page = [pdfView currentPage];
+	unsigned int oldPageIndex = [self documentViewVisiblePageNumber];
+	unsigned int newPageIndex = [[page document] indexForPage:page];
+iTM2_LOG(@"oldPageIndex:%u,newPageIndex:%u",oldPageIndex,newPageIndex);
+	if(oldPageIndex!=newPageIndex)
+	{
+		[self setDocumentViewVisiblePageNumber:newPageIndex];
+		NSView * documentView = [pdfView documentView];
+		NSRect oldRect = [self documentViewVisibleRect];
+		NSRect newRect = [documentView visibleRect];
+		newRect = [documentView absoluteRectWithRect:newRect];
+		if(NSEqualRects(oldRect,newRect))
+		{
+			newRect = NSMakeRect(0,0,1,1);// the whole view, this is necessary because the notification is posted before the new page is shown
+		}
+		[self setDocumentViewVisibleRect:newRect];
+		[self updatePDFOutlineInformation];
+		[self contextDidChangeComplete];
+	}
+iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewScaleChangedNotified:
@@ -1721,7 +1738,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+iTM2_START;
 	[super contextDidChange];
 	PDFView * V = [self pdfView];
 	[V setBackgroundColor:[self backgroundColor]];
@@ -1751,6 +1768,7 @@ To Do List:
 			[[self window] disableFlushWindow];
 			NSRect visibleRect = [self documentViewVisibleRect];
 			visibleRect = [docView rectWithAbsoluteRect:visibleRect];
+iTM2_LOG(@"pageIndex:%u,visibleRect:%@",pageIndex,NSStringFromRect(visibleRect));
 			[docView scrollRectToVisible:visibleRect];
 			[V display];
 			[[self window] enableFlushWindow];
@@ -1762,7 +1780,7 @@ To Do List:
 		iTM2_LOG(@"NO VIEW...");
 	}
 	[self contextDidChangeComplete];
-//iTM2_END;
+iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedSynchronizeDocumentView:
@@ -1775,10 +1793,12 @@ To Do List:
 		return;
 	}
 	PDFView * V = [self pdfView];
-	[[self window] disableFlushWindow];
-	[[V documentView] scrollRectToVisible:[value rectValue]];
+	NSWindow * window = [self window];
+	[window disableFlushWindow];
+	NSRect R = [value rectValue];
+	[[V documentView] scrollRectToVisible:R];
 	[V display];
-	[[self window] enableFlushWindow];
+	[window enableFlushWindow];
 //iTM2_END;
 	return;
 }
@@ -3560,6 +3580,16 @@ next:
 //iTM2_STOP;
 	return;
 }
+- (IBAction)goToNextPage:(id)sender
+{
+	PDFPage * page = [self currentPage];
+	PDFDocument * doc = [page document];
+iTM2_LOG(@"BEFORE %i",[doc indexForPage:page]);
+	[super goToNextPage:sender];
+	page = [self currentPage];
+iTM2_LOG(@"AFTER %i",[doc indexForPage:page]);
+	return;
+}
 @end
 
 @implementation iTM2XtdPDFDocument
@@ -4071,8 +4101,8 @@ To Do List:
 @end
 
 #define SCROLL_LAYER 20
-#define SCROLL_DIMEN 100
-#define SCROLL_COEFF 1.1
+#define SCROLL_DIMEN 20
+#define SCROLL_COEFF 1.2
 
 @interface iTM2PDFKitView(SyncHRONIZE)
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations;

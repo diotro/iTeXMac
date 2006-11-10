@@ -38,6 +38,7 @@
                 doZoomIn = id; 
                 doZoomOut = id; 
                 doZoomToSelection = id; 
+                editCompletions = id; 
                 editExportImageOptions = id; 
                 findAndScrollSynchronizationPointToVisible = id; 
                 flipHorizontal = id; 
@@ -166,6 +167,7 @@
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 
         }, 
+        {CLASS = iTM2TextEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
         {CLASS = "java.lang.Object"; LANGUAGE = Java; }
     ); 
     IBVersion = 1; 

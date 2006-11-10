@@ -29,7 +29,7 @@
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2MenuKit.h>
 
-NSString * const iTM2MacroServerDirectoryName = @"Macros.localized";
+NSString * const iTM2MacroServerComponent = @"Macros.localized";
 NSString * const iTM2MacroServerSummaryComponent = @"Summary";
 
 static NSMutableDictionary * _iTM2_MacroServer_Data;
@@ -58,7 +58,7 @@ To Do List:
 		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 		[TW setLaunchPath:path];
 		[TW addArgument:@"--directory"];
-		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerDirectoryName inDomain:NSUserDomainMask create:NO];
+		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
 		[TW addArgument:P];
 		[TW addArgument:@"--callback"];
 		iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
@@ -507,7 +507,7 @@ To Do List:
 		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 		[TW setLaunchPath:path];
 		[TW addArgument:@"--directory"];
-//		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerDirectoryName inDomain:NSUserDomainMask create:NO];
+//		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
 //		[TW addArgument:P];
 		[TW addArgument:@"/Users"];
 		iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
@@ -976,7 +976,7 @@ To Do List:
 //iTM2_START;
 	NSMutableDictionary * macros = [NSMutableDictionary dictionary];
 	// first we scan the built in resources, from the deeper embedded bundle to the main one
-	NSString * path = [[iTM2MacroServerDirectoryName stringByAppendingPathComponent:domain] stringByAppendingPathComponent:category];
+	NSString * path = [[iTM2MacroServerComponent stringByAppendingPathComponent:domain] stringByAppendingPathComponent:category];
 	NSEnumerator * E = [[[NSBundle mainBundle] pathsForBuiltInResource:@"iTM2LocalesIndex" ofType:@"xml" inDirectory:path] objectEnumerator];
 	while(path = [E nextObject])
 	{
@@ -995,7 +995,7 @@ To Do List:
 		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 		[TW setLaunchPath:path];
 		[TW addArgument:@"--directory"];
-		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerDirectoryName inDomain:NSUserDomainMask create:NO];
+		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
 		[TW addArgument:P];
 		iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
 		[TC addTaskWrapper:TW];
@@ -1007,7 +1007,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: bad configuration, reinstall and report bug if the problem is not solved.");
 	}
-	E = [[[NSBundle mainBundle] pathsForSupportResource:@"iTM2LocalesIndex" ofType:@"xml" inDirectory:iTM2MacroServerDirectoryName] objectEnumerator];
+	E = [[[NSBundle mainBundle] pathsForSupportResource:@"iTM2LocalesIndex" ofType:@"xml" inDirectory:iTM2MacroServerComponent] objectEnumerator];
 	while(path = [E nextObject])
 	{
 		NSError * error = nil;
@@ -1033,7 +1033,7 @@ To Do List:
 //iTM2_START;
 	NSMutableDictionary * macros = [NSMutableDictionary dictionary];
 	// first we scan the built in resources, from the deeper embedded bundle to the main one
-	NSEnumerator * E = [[[NSBundle mainBundle] pathsForBuiltInResource:@"Actions" ofType:@"xml" inDirectory:[[iTM2MacroServerDirectoryName stringByAppendingPathComponent:domain] stringByAppendingPathComponent:category]] objectEnumerator];
+	NSEnumerator * E = [[[NSBundle mainBundle] pathsForBuiltInResource:@"Actions" ofType:@"xml" inDirectory:[[iTM2MacroServerComponent stringByAppendingPathComponent:domain] stringByAppendingPathComponent:category]] objectEnumerator];
 	NSString * path;
 	while(path = [E nextObject])
 	{
@@ -1052,7 +1052,7 @@ To Do List:
 		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 		[TW setLaunchPath:path];
 		[TW addArgument:@"--directory"];
-		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerDirectoryName inDomain:NSUserDomainMask create:NO];
+		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
 		[TW addArgument:P];
 		iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
 		[TC addTaskWrapper:TW];
@@ -1064,7 +1064,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: bad configuration, reinstall and report bug if the problem is not solved.");
 	}
-	E = [[[NSBundle mainBundle] pathsForSupportResource:nil ofType:iTM2MacroServerDirectoryName inDirectory:@"iTM2ActionsIndex"] objectEnumerator];
+	E = [[[NSBundle mainBundle] pathsForSupportResource:nil ofType:iTM2MacroServerComponent inDirectory:@"iTM2ActionsIndex"] objectEnumerator];
 	while(path = [E nextObject])
 	{
 		NSError * error = nil;
@@ -1096,7 +1096,7 @@ To Do List:
 	NSArray * components = [path pathComponents];
 	path = [path stringByAppendingPathComponent:@"Locales"];
 	path = [path stringByAppendingPathExtension:@"xml"];
-	int index = [components indexOfObject:iTM2MacroServerDirectoryName];
+	int index = [components indexOfObject:iTM2MacroServerComponent];
 	if(index==NSNotFound)
 	{
 		return;
@@ -1415,23 +1415,23 @@ To Do List:
 	// load
 	#define RELOAD(ARRAY)\
 	E = [ARRAY objectEnumerator];\
-	while(B = [E nextObject]) [self loadMacrosSummariesAtPath:[B pathForResource:iTM2MacroServerDirectoryName ofType:nil]];
+	while(B = [E nextObject]) [self loadMacrosSummariesAtPath:[B pathForResource:iTM2MacroServerComponent ofType:nil]];
 	RELOAD(otherFrameworks);
 	RELOAD(otherPlugIns);
 	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForResource:iTM2MacroServerDirectoryName ofType:nil]];
+		[mainBundle pathForResource:iTM2MacroServerComponent ofType:nil]];
 	RELOAD(networkFrameworks);
 	RELOAD(networkPlugIns);
 	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForSupportDirectory:iTM2MacroServerDirectoryName inDomain:NSNetworkDomainMask create:NO]];
+		[mainBundle pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSNetworkDomainMask create:NO]];
 	RELOAD(localFrameworks);
 	RELOAD(localPlugIns);
 	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForSupportDirectory:iTM2MacroServerDirectoryName inDomain:NSLocalDomainMask create:NO]];
+		[mainBundle pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSLocalDomainMask create:NO]];
 	RELOAD(userFrameworks);
 	RELOAD(userPlugIns);
 	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForSupportDirectory:iTM2MacroServerDirectoryName inDomain:NSUserDomainMask create:YES]];
+		[mainBundle pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES]];
 	#undef RELOAD
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -1447,7 +1447,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;NSNotFound
 	NSArray * components = [path pathComponents];
-	int index = [components indexOfObject:iTM2MacroServerDirectoryName];
+	int index = [components indexOfObject:iTM2MacroServerComponent];
 	if(index==NSNotFound)
 	{
 		return;

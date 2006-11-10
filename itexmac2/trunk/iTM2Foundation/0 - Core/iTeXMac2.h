@@ -106,7 +106,7 @@ extern int iTM2DebugEnabled;
 
 #define myBUNDLE [self classBundle]
 
-#define iTM2_OUTERROR(TAG, STRING, UNDERLYING)\
+#define iTM2_OUTERROR(TAG,STRING,UNDERLYING)\
 if(outErrorPtr)\
 {\
 	*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:TAG\
@@ -119,10 +119,10 @@ else if(UNDERLYING)\
 	iTM2_LOCALERROR(TAG,(STRING),(UNDERLYING));\
 }
 
-#define iTM2_LOCALERROR(TAG, STRING, UNDERLYING)\
+#define iTM2_LOCALERROR(TAG,STRING,UNDERLYING)\
 if(UNDERLYING)\
 {\
-	iTM2_LOG(@"***  ERROR: %@ (%@)", STRING, UNDERLYING);\
+	iTM2_LOG(@"***  ERROR: %@ (%@)",(STRING),(UNDERLYING));\
 }\
 else\
 {\
@@ -133,7 +133,7 @@ else\
 [NSApp presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:(int)TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@\n%@",(STRING),[(NSError *)UNDERLYING localizedDescription]],NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
-				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])]]
+				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])]];iTM2_LOG(@"Reporting error:%i,%@,%@",TAG,(STRING),(UNDERLYING))
 
 
 //#define HUNTING

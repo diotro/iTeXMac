@@ -224,25 +224,6 @@ To Do List:
         [super mouseDown:event];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
-- (NSRange)rangeForUserCompletion;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 02/03/2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSRange R = [super rangeForUserCompletion];
-	BOOL escaped = NO;
-	if((R.length>0) && (R.location>0) && [[self string] isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
-	{
-		--R.location;
-		++R.length;
-	}
-//iTM2_END;
-    return R;
-}
 #if 0
 - (void)moveWordForwardAndModifySelection:(id)sender;
 - (void)moveWordBackwardAndModifySelection:(id)sender;
@@ -570,11 +551,11 @@ To Do List:
 //iTM2_START;
 	NSString * string = [self string];
 	BOOL escaped = NO;
-	if([string isControlAtIndex:range.location escaped:&escaped] && !escaped)
+	if([string isControlAtIndex:charRange.location escaped:&escaped] && !escaped)
 	{
 		return [[iTM2CompletionServer completionServer] completionsForTextView:self partialWordRange:charRange indexOfSelectedItem:indexPtr];
 	}
-	return charRange.length?[super completionsForPartialWordRange:charRange indexOfSelectedItem:index]:[NSArray array];
+	return charRange.length?[super completionsForPartialWordRange:charRange indexOfSelectedItem:indexPtr]:[NSArray array];
 }
 @end
 #pragma mark -

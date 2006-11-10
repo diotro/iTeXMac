@@ -31,6 +31,7 @@
 #import <iTM2Foundation/iTM2Implementation.h>
 
 NSString * const iTeXMac2 = @"iTeXMac2";
+NSString * const iTM2LocalizedExtension = @"localized";
 NSString * const iTM2SupportGeneralComponent = @"General.localized";
 NSString * const iTM2BPrivate = @"Private";
 NSString * const iTM2ApplicationSupport = @"Application Support";
@@ -247,10 +248,23 @@ To Do List:
 		return [NSString string];
     if(!subpath)
         subpath = [NSString string];
-    NSString * path = [[[[self searchPathsForSupportInDomains:domainMask withName:appName] lastObject]
-                stringByAppendingPathComponent: subpath] stringByResolvingSymlinksAndFinderAliasesInPath];
+    NSString * path = [[self searchPathsForSupportInDomains:domainMask withName:appName] lastObject];
+    path = [path stringByAppendingPathComponent:subpath];
+    path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	if([DFM fileExistsAtPath:path])
+	{
+		return path;
+	}
 	NSError * localError = nil;
-    return [DFM fileExistsAtPath:path] || (create && [DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])? path:[NSString string];
+	if(create && [DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
+	{
+		return path;
+	}
+	if(localError)
+	{
+		[NSApp presentError:localError];
+	}
+    return [NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pathForSupportDirectory:inDomain:create:
 - (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
@@ -337,9 +351,9 @@ To Do List:
 		if(errorRef)
 			* errorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
-					NSLocalizedStringFromTableInBundle(@"Setup failure", @"localized", [self classBundle], ""), NSLocalizedDescriptionKey,
-					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT remove existing file at %@", @"localized", [self classBundle], ""), link], NSLocalizedFailureReasonErrorKey,
-					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Remove file at %@", @"localized", [self classBundle], ""), link], NSLocalizedRecoverySuggestionErrorKey,
+					NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, [self classBundle], ""), NSLocalizedDescriptionKey,
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT remove existing file at %@", iTM2LocalizedExtension, [self classBundle], ""), link], NSLocalizedFailureReasonErrorKey,
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Remove file at %@", iTM2LocalizedExtension, [self classBundle], ""), link], NSLocalizedRecoverySuggestionErrorKey,
 						nil]];
 	}
 	else if([DFM createSymbolicLinkAtPath:link pathContent:executable])
@@ -355,9 +369,9 @@ To Do List:
 		if(errorRef)
 			* errorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
-					NSLocalizedStringFromTableInBundle(@"Setup failure", @"localized", [self classBundle], ""), NSLocalizedDescriptionKey,
-					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT make a soft link to\n%@\nfrom\n%@", @"localized", [NSBundle bundleForClass:self], ""), link, executable], NSLocalizedFailureReasonErrorKey,
-					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Please make a soft link to\n%@\nfrom\n%@", @"localized", [NSBundle bundleForClass:self], ""), link, executable], NSLocalizedRecoverySuggestionErrorKey,
+					NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, [self classBundle], ""), NSLocalizedDescriptionKey,
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, [NSBundle bundleForClass:self], ""), link, executable], NSLocalizedFailureReasonErrorKey,
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Please make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, [NSBundle bundleForClass:self], ""), link, executable], NSLocalizedRecoverySuggestionErrorKey,
 						nil]];
 	}
 //iTM2_END;
@@ -718,7 +732,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return *(const unsigned long *)[[[[self infoDictionary] objectForKey:@"CFBundlePackageType"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] lossyCString];
+    return *(const unsigned long *)[[[[self infoDictionary] objectForKey:@"CFBundlePackageType"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleHFSCreatorCode
 - (OSType)bundleHFSCreatorCode;
@@ -729,7 +743,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return *(const unsigned long *)[[[[self infoDictionary] objectForKey:@"CFBundleSignature"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] lossyCString];
+    return *(const unsigned long *)[[[[self infoDictionary] objectForKey:@"CFBundleSignature"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allBundlesAtPath:
@@ -845,7 +859,7 @@ To Do List:
 	{
 		[result addObjectsFromArray:[B pathsForSupportResource:name ofType:type inDirectory:subpath]];
 	}
-	if([type isEqualToString:@"localized"])
+	if([type isEqualToString:iTM2LocalizedExtension])
 	{
 		// from preview 13 to 14, folders in the application support directory now are localizable
 		// if I am looking for a .localized folder and I just find a not localized one,
@@ -860,7 +874,7 @@ To Do List:
 		NSString * path;
 		while(path = [E nextObject])
 		{
-			NSString * newPath = [path stringByAppendingPathExtension:@"localized"];
+			NSString * newPath = [path stringByAppendingPathExtension:iTM2LocalizedExtension];
 			if([DFM fileExistsAtPath:newPath isDirectory:nil])
 			{
 				iTM2_REPORTERROR(1, ([NSString stringWithFormat:@"Recycle file at:\n%@", path]), nil);
@@ -901,6 +915,7 @@ To Do List:
 	NSString * lastComponent = nil;
 	NSString * lastName = nil;
 	NSString * pathExtension = nil;
+	NSEnumerator * DE = nil;
 	NSMutableArray * result = [NSMutableArray array];
 	if(name)
 	{
@@ -913,7 +928,7 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -922,7 +937,8 @@ To Do List:
 						lastName = [lastName lowercaseString];
 						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
-							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+							lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 						}
 					}
 				}
@@ -932,7 +948,7 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -941,7 +957,8 @@ To Do List:
 						lastName = [lastName lowercaseString];
 						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
-							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+							lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 						}
 					}
 				}
@@ -951,7 +968,7 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -960,7 +977,8 @@ To Do List:
 						lastName = [lastName lowercaseString];
 						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
-							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+							lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 						}
 					}
 				}
@@ -973,7 +991,7 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -982,7 +1000,8 @@ To Do List:
 						lastName = [lastName lowercaseString];
 						if([lastName pathIsEqual:name])
 						{
-							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+							lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 						}
 					}
 				}
@@ -992,7 +1011,7 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1001,7 +1020,8 @@ To Do List:
 						lastName = [lastName lowercaseString];
 						if([lastName pathIsEqual:name])
 						{
-							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+							lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 						}
 					}
 				}
@@ -1011,7 +1031,7 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1020,7 +1040,8 @@ To Do List:
 						lastName = [lastName lowercaseString];
 						if([lastName pathIsEqual:name])
 						{
-							[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+							lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 						}
 					}
 				}
@@ -1030,19 +1051,21 @@ To Do List:
 	else if(type)
 	{
 		type = [type lowercaseString];
-		name = [@"." stringByAppendingString:type];
+		name = type;
 		if(mask = domainMask & NSNetworkDomainMask)
 		{
 			path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
-				NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+				DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
+					lastName = [lastName pathExtension];
 					if([lastName pathIsEqual:name])
 					{
-						[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+						lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 					}
 				}
 			}
@@ -1056,9 +1079,11 @@ To Do List:
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
+					lastName = [lastName pathExtension];
 					if([lastName pathIsEqual:name])
 					{
-						[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+						lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 					}
 				}
 			}
@@ -1072,9 +1097,11 @@ To Do List:
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
+					lastName = [lastName pathExtension];
 					if([lastName pathIsEqual:name])
 					{
-						[result addObject:[path stringByAppendingPathComponent:lastComponent]];
+						lastName = [path stringByAppendingPathComponent:lastComponent];
+						[result addObject:lastName];
 					}
 				}
 			}
@@ -1138,6 +1165,99 @@ To Do List:
 	}
 //iTM2_END;
 	return candidate;
+}
+#pragma mark -
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeObject:performSelector:withOrderedBundlePathsForComponent:
++ (void)makeObject:(id)anObject performSelector:(SEL)aSelector withOrderedBundlePathsForComponent:(NSString *)component;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	NSParameterAssert([anObject respondsToSelector:aSelector]);
+	iTM2_INIT_POOL;
+//iTM2_START;
+	// read the built in stuff
+	// inside frameworks then bundles.
+	NSArray * frameworks = [NSBundle allFrameworks];
+	NSMutableArray * plugins = [NSMutableArray arrayWithArray:[NSBundle allBundles]];
+	[plugins removeObjectsInArray:frameworks];// plugins are bundles
+	NSBundle * mainBundle = [NSBundle mainBundle];
+	[plugins removeObject:mainBundle];// plugins are bundles, except the main one
+	// sorting the frameworks and plugins
+	// separating them according to their domain
+	NSString * networkPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSNetworkDomainMask create:NO];
+	networkPrefix = [networkPrefix stringByAppendingString:iTM2PathComponentsSeparator];
+	NSString * localPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSLocalDomainMask create:NO];
+	localPrefix = [localPrefix stringByAppendingString:iTM2PathComponentsSeparator];
+	NSString * userPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSUserDomainMask create:NO];
+	userPrefix = [userPrefix stringByAppendingString:iTM2PathComponentsSeparator];
+	
+	NSMutableArray * networkFrameworks = [NSMutableArray array];
+	NSMutableArray * localFrameworks = [NSMutableArray array];
+	NSMutableArray * userFrameworks = [NSMutableArray array];
+	NSMutableArray * otherFrameworks = [NSMutableArray array];
+	NSString * P = nil;
+	NSEnumerator * E = [frameworks objectEnumerator];
+	NSBundle * B = nil;
+	while(B = [E nextObject])
+	{
+		P = [B bundlePath];
+		if([P hasPrefix:userPrefix])
+			[userFrameworks addObject:B];
+		else if([P hasPrefix:localPrefix])
+			[localFrameworks addObject:B];
+		else if([P hasPrefix:networkPrefix])
+			[networkFrameworks addObject:B];
+		else
+			[otherFrameworks addObject:B];
+	}
+	NSMutableArray * networkPlugIns = [NSMutableArray array];
+	NSMutableArray * localPlugIns = [NSMutableArray array];
+	NSMutableArray * userPlugIns = [NSMutableArray array];
+	NSMutableArray * otherPlugIns = [NSMutableArray array];
+	E = [frameworks objectEnumerator];
+	while(B = [E nextObject])
+	{
+		P = [B bundlePath];
+		if([P hasPrefix:userPrefix])
+			[userPlugIns addObject:B];
+		else if([P hasPrefix:localPrefix])
+			[localPlugIns addObject:B];
+		else if([P hasPrefix:networkPrefix])
+			[networkPlugIns addObject:B];
+		else
+			[otherPlugIns addObject:B];
+	}
+	// reload
+	#define RELOAD(ARRAY)\
+	E = [ARRAY objectEnumerator];\
+	while(B = [E nextObject])\
+	{\
+		P = [B pathForResource:component ofType:nil];\
+		[anObject performSelector:aSelector withObject:P];\
+	}
+	RELOAD(otherFrameworks);
+	RELOAD(otherPlugIns);
+	P = [mainBundle pathForResource:component ofType:nil];
+	[anObject performSelector:aSelector withObject:P];
+	RELOAD(networkFrameworks);
+	RELOAD(networkPlugIns);
+	P = [mainBundle pathForSupportDirectory:component inDomain:NSNetworkDomainMask create:NO];
+	[anObject performSelector:aSelector withObject:P];
+	RELOAD(localFrameworks);
+	RELOAD(localPlugIns);
+	P = [mainBundle pathForSupportDirectory:component inDomain:NSLocalDomainMask create:NO];
+	[anObject performSelector:aSelector withObject:P];
+	RELOAD(userFrameworks);
+	RELOAD(userPlugIns);
+	P = [mainBundle pathForSupportDirectory:component inDomain:NSUserDomainMask create:YES];
+	[anObject performSelector:aSelector withObject:P];
+	#undef RELOAD
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+	return;
 }
 @end
 

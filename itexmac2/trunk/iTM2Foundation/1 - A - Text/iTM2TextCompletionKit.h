@@ -26,24 +26,35 @@
 @discussion Description Forthcoming.
 */
 
-extern NSString * const iTM2CompletionsDirectoryName;
+extern NSString * const iTM2CompletionComponent;
 extern NSString * const iTM2CompletionsExtension;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit
-
-@interface iTM2CompletionsServer: NSObject
-
-+ (void)reloadCompletionsAtPath:(NSString *)path;
-+ (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
-+ (void)addCompletions:(NSArray *)completions forContext:(NSString *)context ofCategory:(NSString *)category;
-+ (id)storageForContext:(NSString *)context ofCategory:(NSString *)category;
-
-@end
 
 @interface NSText(iTM2TextCompletionKit)
 
 - (BOOL)getContext:(NSString **)contextPtr category:(NSString **)categoryPtr forPartialWordRange:(NSRange)charRange;
 
+@end
+
+#import <iTM2Foundation/iTM2DocumentKit.h>
+
+@interface iTM2CompletionServer: iTM2Inspector
+{
+// this is subject to changes
+@private
+	IBOutlet NSTableView * _TableView;
+	id _Candidates;
+	id _TextView;
+	NSString * _OriginalString;
+	NSString * _EditedString;
+	BOOL _ShouldEnableUndoRegistration;
+	NSRange _RangeForUserCompletion;
+	NSRange _EditedRangeForUserCompletion;
+	NSMutableDictionary * _PatriciaControllers;
+}
++ (id)completionServer;
+- (NSArray *)completionsForTextView:(NSTextView *)aTextView partialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)index;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit

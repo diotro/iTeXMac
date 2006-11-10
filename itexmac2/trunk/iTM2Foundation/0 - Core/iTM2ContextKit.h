@@ -157,7 +157,7 @@ enum
     @param		mask
     @result     yorn whether something has changed.
 */
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
     @method		contextFontForKey:domain:
@@ -428,7 +428,7 @@ enum
     @param      key is the context value key
     @result     yorn whether something has changed.
 */
-- (BOOL)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
     @method     documentCompleteSaveContext:

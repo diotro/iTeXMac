@@ -71,6 +71,8 @@
 		DC986AE909EFD51100FF4BD3 /* NewDocuments.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC986AE309EFD51100FF4BD3 /* NewDocuments.resources.tgz */; };
 		DC986AEA09EFD51100FF4BD3 /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC986AE509EFD51100FF4BD3 /* Styles.resources.tgz */; };
 		DC986AFD09EFD65F00FF4BD3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC986AFB09EFD65F00FF4BD3 /* InfoPlist.strings */; };
+		DCBA43A40B027927006AF52A /* iTM2AsymptoteKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCBA43A20B027927006AF52A /* iTM2AsymptoteKit.h */; };
+		DCBA43A50B027927006AF52A /* iTM2AsymptoteKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBA43A30B027927006AF52A /* iTM2AsymptoteKit.m */; };
 		DCCD2EA909E145B30003EEF9 /* Inspector.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2EA709E145B30003EEF9 /* Inspector.strings */; };
 		DCCD2EAE09E145E40003EEF9 /* iTM2TextStyle_LaTeX-Xtd.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2EAA09E145E40003EEF9 /* iTM2TextStyle_LaTeX-Xtd.strings */; };
 		DCCD2EAF09E145E40003EEF9 /* iTM2TextStyle_LaTeX.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2EAC09E145E40003EEF9 /* iTM2TextStyle_LaTeX.strings */; };
@@ -167,6 +169,8 @@
 		DCAF9ABE09D811C600AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2LaTeXLabelMenu.nib; sourceTree = "<group>"; };
 		DCAF9ABF09D811C600AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2LaTeXSectionMenu.nib; sourceTree = "<group>"; };
 		DCAF9AC509D811C600AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Toolbar.strings; sourceTree = "<group>"; };
+		DCBA43A20B027927006AF52A /* iTM2AsymptoteKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AsymptoteKit.h; sourceTree = "<group>"; };
+		DCBA43A30B027927006AF52A /* iTM2AsymptoteKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2AsymptoteKit.m; sourceTree = "<group>"; };
 		DCCD2EA809E145B30003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCD2EAB09E145E40003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = "English.lproj/iTM2TextStyle_LaTeX-Xtd.strings"; sourceTree = "<group>"; };
 		DCCD2EAD09E145E40003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2TextStyle_LaTeX.strings; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 				DC2CA71A0855D19F00128F14 /* iTM2LaTeXKit-Info.plist */,
 				DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */,
 				DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */,
+				DCBA43A20B027927006AF52A /* iTM2AsymptoteKit.h */,
+				DCBA43A30B027927006AF52A /* iTM2AsymptoteKit.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC27427B090CE72800C2D1D2 /* iTM2LaTeXKit.h in Headers */,
+				DCBA43A40B027927006AF52A /* iTM2AsymptoteKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC274271090CE6B300C2D1D2 /* iTM2LaTeXKit.m in Sources */,
+				DCBA43A50B027927006AF52A /* iTM2AsymptoteKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

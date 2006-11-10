@@ -18,6 +18,7 @@
 	};
 	DC27DCD10AE959ED00A5460D /* classes.nib */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = text;
 		name = classes.nib;
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";
 		sourceTree = "<absolute>";
@@ -470,8 +471,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 183037895;
-			PBXWorkspaceStateSaveDate = 183037895;
+			PBXPerProjectTemplateStateSaveDate = 184584562;
+			PBXWorkspaceStateSaveDate = 184584562;
 		};
 		perUserProjectItems = {
 			DC27DCD00AE959ED00A5460D /* PBXTextBookmark */ = DC27DCD00AE959ED00A5460D /* PBXTextBookmark */;
@@ -493,7 +494,7 @@
 			DC9BC3880ABA0D4D00FAC59E /* PBXTextBookmark */ = DC9BC3880ABA0D4D00FAC59E /* PBXTextBookmark */;
 			DC9BC38A0ABA0D4D00FAC59E /* PBXTextBookmark */ = DC9BC38A0ABA0D4D00FAC59E /* PBXTextBookmark */;
 			DC9BC38C0ABA0D4D00FAC59E /* PBXTextBookmark */ = DC9BC38C0ABA0D4D00FAC59E /* PBXTextBookmark */;
-			DCCB2CC70AE83E8900433CC3 /* PBXTextBookmark */ = DCCB2CC70AE83E8900433CC3 /* PBXTextBookmark */;
+			DCBA444C0B028A38006AF52A /* PBXTextBookmark */ = DCBA444C0B028A38006AF52A /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;
@@ -523,9 +524,9 @@
 	DC9DC6E5094844DF0079E1B3 /* All */ = {
 		activeExec = 0;
 	};
-	DCCB2CC70AE83E8900433CC3 /* PBXTextBookmark */ = {
+	DCBA444C0B028A38006AF52A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCCB2CC80AE83E8900433CC3 /* classes.nib */;
+		fRef = DCBA444D0B028A38006AF52A /* classes.nib */;
 		name = "(null): 17";
 		rLen = 0;
 		rLoc = 395;
@@ -533,9 +534,8 @@
 		vrLen = 395;
 		vrLoc = 0;
 	};
-	DCCB2CC80AE83E8900433CC3 /* classes.nib */ = {
+	DCBA444D0B028A38006AF52A /* classes.nib */ = {
 		isa = PBXFileReference;
-		lastKnownFileType = text;
 		name = classes.nib;
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";
 		sourceTree = "<absolute>";

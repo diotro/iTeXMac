@@ -189,6 +189,14 @@ It would remove some previously registered responders and would cause unexpected
     else
         return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=  performAction:withArguments:attributes:
+- (void)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+/*"The default implementation does nothing."*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
 @end
 
 @implementation iTM2SharedResponder

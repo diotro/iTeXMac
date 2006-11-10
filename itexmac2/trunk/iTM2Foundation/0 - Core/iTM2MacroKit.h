@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-extern NSString * const iTM2MacroServerDirectoryName;
+extern NSString * const iTM2MacroServerComponent;
 extern NSString * const iTM2MacroNameKey;
 extern NSString * const iTM2MacroInsertionKey;
 extern NSString * const iTM2MacroToolTipKey;

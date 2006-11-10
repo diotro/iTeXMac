@@ -144,6 +144,8 @@
 		DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */ = {isa = PBXBuildFile; fileRef = DCB49C8809C5A3D600CF628D /* MoreFilesX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */; };
 		DCB7DEB40ADE4A0F0084DE9D /* textmate in Copy Command */ = {isa = PBXBuildFile; fileRef = DCB7DE860ADE47FB0084DE9D /* textmate */; };
+		DCBDA1E30AFE0D3D00522BD9 /* iTM2CompletionInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */; };
+		DCBDA1F10AFE0DDB00522BD9 /* iTM2CompletionServer.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCBDA1EB0AFE0DDB00522BD9 /* iTM2CompletionServer.nib */; };
 		DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
 		DCC62E610A9A70B300073E93 /* iTM2MacroKeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */; };
 		DCC7F34D0854A96000F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
@@ -723,6 +725,7 @@
 		DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2KeyStrokeSelectors.plist; sourceTree = "<group>"; };
 		DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupKit.h; sourceTree = "<group>"; };
 		DC69184F088C6E9A00F00114 /* iTM2StartupKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StartupKit.m; sourceTree = "<group>"; };
+		DC6A89E90B04894A0072FC1A /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2CompletionInspector.nib; sourceTree = "<group>"; };
 		DC6BC63D09490315008F8188 /* Prepare OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare OgreKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PerlKitServer.h; sourceTree = "<group>"; };
 		DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PerlKitServer.m; sourceTree = "<group>"; };
@@ -788,6 +791,8 @@
 		DCB7DE860ADE47FB0084DE9D /* textmate */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = textmate; sourceTree = "<group>"; };
 		DCB7DE870ADE47FB0084DE9D /* TextMate-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TextMate-Info.plist"; sourceTree = "<group>"; };
 		DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextMate.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCBDA1DE0AFE0D3D00522BD9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CompletionInspector.nib; sourceTree = "<group>"; };
+		DCBDA1EC0AFE0DDB00522BD9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CompletionServer.nib; sourceTree = "<group>"; };
 		DCBEF0BF0A5B2DDC000EB417 /* Test Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test Application-Prefix.pch"; sourceTree = "<group>"; };
 		DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextStorageKit.m; sourceTree = "<group>"; };
 		DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
@@ -1575,6 +1580,8 @@
 				DCC9FB6E087354CD003279C2 /* iTM2ExternalInspector.nib */,
 				DCF61C240854654B003F5F79 /* NSFindPanel.nib */,
 				DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */,
+				DCBDA1EB0AFE0DDB00522BD9 /* iTM2CompletionServer.nib */,
+				DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */,
 				DCDA12F40908E59B005E9B57 /* Toolbar.strings */,
 				DC25E2E809917C6600545F27 /* iTM2CreateMacroIndex.pl */,
 				DCCF02EF0A5DC5C100B4B720 /* Aqua2_Add_Inactive.tif */,
@@ -2138,6 +2145,8 @@
 				DC2B4ABE0AD405930039FCBA /* resizeBottomRightCursor.png in Resources */,
 				DC2B4ABF0AD405930039FCBA /* resizeTopLeftCursor.png in Resources */,
 				DC2B4AC00AD405930039FCBA /* resizeTopRightCursor.png in Resources */,
+				DCBDA1E30AFE0D3D00522BD9 /* iTM2CompletionInspector.nib in Resources */,
+				DCBDA1F10AFE0DDB00522BD9 /* iTM2CompletionServer.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2707,6 +2716,23 @@
 				DC8AD5420A3ABD44006C28A5 /* French */,
 			);
 			name = TextEditor.resources.tgz;
+			sourceTree = "<group>";
+		};
+		DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCBDA1DE0AFE0D3D00522BD9 /* English */,
+				DC6A89E90B04894A0072FC1A /* French */,
+			);
+			name = iTM2CompletionInspector.nib;
+			sourceTree = "<group>";
+		};
+		DCBDA1EB0AFE0DDB00522BD9 /* iTM2CompletionServer.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCBDA1EC0AFE0DDB00522BD9 /* English */,
+			);
+			name = iTM2CompletionServer.nib;
 			sourceTree = "<group>";
 		};
 		DCC7F60C0854B11C00F3EB8A /* iTM2TextFinder.nib */ = {

@@ -1004,6 +1004,24 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>out</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>OUT</string>
+			<key>CFBundleTypeName</key>
+			<string>LaTeX Hyperref Output</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>iTM2TextDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
 				<string>4HF</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
@@ -1697,7 +1715,7 @@
 			<key>NSDocumentClass</key>
 			<string>NSDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
+			<string>Binary</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -1752,6 +1770,24 @@
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
 			<false/>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>iTM2TextDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ASY</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>ASY</string>
+			<key>CFBundleTypeName</key>
+			<string>Asymptote Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>

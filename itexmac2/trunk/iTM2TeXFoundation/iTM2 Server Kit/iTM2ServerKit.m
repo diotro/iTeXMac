@@ -1159,7 +1159,33 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString *urlString = [self directParameter];
-    NSLog(@"url = %@", urlString);
+	NSURL * url = [NSURL URLWithString:urlString];
+    NSString * action = [url host];
+	NSString * query = [url query];
+	NSArray * components = [query componentsSeparatedByString:@"&"];
+	NSMutableArray * arguments = [NSMutableArray array];
+	NSMutableDictionary * attributes = [NSMutableDictionary dictionary];
+	NSEnumerator * E = [components objectEnumerator];
+	NSString * S;
+	while(S = [E nextObject])
+	{
+		NSArray * RA = [S componentsSeparatedByString:@"="];
+		if([RA count]>1)
+		{
+			NSString * key = [RA objectAtIndex:0];
+			key = [key stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			NSString * value = [RA objectAtIndex:1];
+			value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			[attributes setObject:value forKey:key];
+		}
+		else if([RA count])
+		{
+			NSString * value = [RA objectAtIndex:0];
+			value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			[arguments addObject:value];
+		}
+	}
+	[[NSApp firstResponder] performAction:action withArguments:arguments attributes:attributes];
 //iTM2_END;
     return nil;
 }

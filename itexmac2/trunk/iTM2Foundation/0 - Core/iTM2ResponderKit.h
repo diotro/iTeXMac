@@ -64,6 +64,17 @@
 */
 - (BOOL)insertInResponderChainAfter:(NSResponder*)responder;
 
+/*! 
+    @method     performAction:withArguments:attributes:
+    @abstract   Abstract forthcoming.
+    @discussion This is used by the URL handler in the TeX Foundation.
+    @param      action, an action name
+    @param      arguments, a list of arguments
+    @param      attributes, a list of keyed arguments
+    @result     None
+*/
+- (void)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+
 @end
 
 //Declared but not implemented

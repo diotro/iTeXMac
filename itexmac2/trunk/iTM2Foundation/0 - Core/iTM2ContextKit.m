@@ -123,7 +123,8 @@ To Do List:
 	id result = nil;
 	if(mask & iTM2ContextStandardLocalMask)
 	{
-		if(result = [[self contextDictionary] valueForKey:aKey])
+		NSDictionary * D = [self contextDictionary];
+		if(result = [D valueForKey:aKey])
 		{
 			return result;
 		}
@@ -137,7 +138,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -146,7 +147,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSAssert(aKey != nil, @"Unexpected nil aKey");
-	BOOL didChange = NO;
+	unsigned int didChange = 0;
 	if(mask & iTM2ContextStandardLocalMask)
 	{
 		NSDictionary * D = [self contextDictionary];
@@ -156,23 +157,18 @@ To Do List:
 			if(![old isEqual:object])
 			{
 				[D takeValue:object forKey:aKey];
-				didChange = YES;
+				didChange |= iTM2ContextStandardLocalMask;
 			}
 		}
 		id contextManager = [self contextManager];
 		if(self != contextManager)
 		{
-			if([contextManager takeContextValue:object forKey:aKey domain:mask] && !D)
-			{
-				didChange = YES;
-			}
+			didChange |= [contextManager takeContextValue:object forKey:aKey domain:mask];
 		}
 		id afterObject = [self contextValueForKey:aKey domain:iTM2ContextStandardLocalMask];
-iTM2_LOG(@"afterObject:%@",afterObject);
-		NSAssert(([object isEqual:afterObject] || (object == afterObject)),@"Inconsistancy: THIS IS A BUG");
+		NSAssert(([object isEqual:afterObject] || (object == afterObject) || !(didChange&iTM2ContextStandardLocalMask)),@"Inconsistancy: THIS IS A BUG");
 	}
-	[SUD takeContextValue:object forKey:aKey domain:mask];
-	if(didChange)
+	if(didChange |= [SUD takeContextValue:object forKey:aKey domain:mask])
 	{
 		[self notifyContextChange];
 	}
@@ -188,7 +184,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSFont fontWithNameSizeDictionary:[self contextValueForKey:aKey domain:mask]];
+	NSDictionary * D = [self contextValueForKey:aKey domain:mask];
+//iTM2_END;
+    return [NSFont fontWithNameSizeDictionary:D];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextFont:forKey:domain:
 - (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey domain:(unsigned int)mask;
@@ -199,7 +197,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[aFont nameSizeDictionary] forKey:aKey domain:mask];
+	NSDictionary * D = [aFont nameSizeDictionary];
+    [self takeContextValue:D forKey:aKey domain:mask];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextColorForKey:domain:
@@ -211,7 +211,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSColor colorWithRGBADictionary:[self contextValueForKey:aKey domain:mask]];
+	NSDictionary * D = [self contextValueForKey:aKey domain:mask];
+//iTM2_END;
+    return [NSColor colorWithRGBADictionary:D];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextColor:forKey:domain:
 - (void)takeContextColor:(NSColor *)aColor forKey:(NSString *)aKey domain:(unsigned int)mask;
@@ -222,7 +224,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeContextValue:[aColor RGBADictionary] forKey:aKey domain:mask];
+	NSDictionary * D = [aColor RGBADictionary];
+    [self takeContextValue:D forKey:aKey domain:mask];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:domain:
@@ -237,7 +241,8 @@ To Do List:
 	id result = nil;
 	if(mask & iTM2ContextStandardLocalMask)
 	{
-		if(result = [[self contextDictionary] valueForKey:aKey])
+		NSDictionary * D = [self contextDictionary];
+		if(result = [D valueForKey:aKey])
 		{
 			if([result isKindOfClass:[NSString class]])
 			{
@@ -763,7 +768,7 @@ To Do List:
     return (mask & iTM2ContextDefaultsMask)?[self objectForKey:aKey]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -786,10 +791,10 @@ To Do List:
 			{
 				[self removeObjectForKey:aKey];
 			}
-			return YES;
+			return iTM2ContextDefaultsMask;
 		}
 	}
-    return NO;
+    return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:domain:
 - (NSString *)contextStringForKey:(NSString *)aKey domain:(unsigned int)mask;
@@ -1062,7 +1067,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -1070,7 +1075,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL didChange = [super takeContextValue:object forKey:aKey domain:mask];
+	unsigned int didChange = [super takeContextValue:object forKey:aKey domain:mask];
 	// Set the value in the user defaults data base with the file extension and document type
 	if(mask & iTM2ContextExtendedDefaultsMask)
 	{

@@ -28,6 +28,8 @@ extern NSString * const iTM2SupportPluginsComponent;
 extern NSString * const iTM2SupportGeneralComponent;//used
 extern NSString * const iTM2SupportTextComponent;
 
+extern NSString * const iTM2LocalizedExtension;
+
 extern NSString * const iTeXMac2BundleIdentifier;
 
 extern NSString * const iTM2BundleDidLoadNotification;
@@ -403,6 +405,18 @@ extern NSString * const iTM2BundleContentsComponent;
 	@result		A localized string
 */
 + (NSString *)bundleForClass:(Class)aClass localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
+
+/*!
+    @method 	makeObject:(id)anObject performSelector:withOrderedBundlePathsForComponent:
+    @abstract	Make an object process all the support path with the given component.
+    @discussion	All the bundles and embedded frameworks are turned into a file url.
+				The given object is asked to perform the given selector against each url.
+	@param		anObject
+	@param		aSelector, anObject MUST respond to aSelector
+	@param		Component can bu "Base Projects.localized", Completion.localized, Macros.localized...
+	@result		None
+*/
++ (void)makeObject:(id)anObject performSelector:(SEL)aSelector withOrderedBundlePathsForComponent:(NSString *)component;
 
 @end
 

@@ -684,7 +684,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     yorn whether something has changed.
 */
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 
 /*! 
     @method     addFileName:
@@ -1251,7 +1251,7 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
     @param      key is the context value key
     @result     yorn whether something has changed.
 */
-- (BOOL)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*!
 	@method			documentProjectCompleteSaveContext:

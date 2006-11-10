@@ -80,7 +80,7 @@ int main (int argc, const char * argv[]) {
 	{
 		NSLog(@"The SOURCE and XSLT must be different from DESTINATION:\nSOURCE: %@\nDESTINATION: %@\nXSLT: %@",
 			SOURCE, DESTINATION, XSLT);
-		return 1;
+		[pool release];return 1;
 	}
 	NSLog(@"%s\nConverting\n%@\ninto\n%@", argv[0], SOURCE, DESTINATION);
 	NSError * localError = nil;
@@ -89,14 +89,14 @@ int main (int argc, const char * argv[]) {
 	if(localError)
 	{
 		NSLog(@"There was an error opening\n%@\ndue to\n%@", url, [localError localizedDescription]);
-		return 2;
+		[pool release];return 2;
 	}
 	url = [NSURL fileURLWithPath:XSLT];
 	id output = [doc objectByApplyingXSLTAtURL:url arguments:nil error:&localError];
 	if(localError)
 	{
 		NSLog(@"There was an error apllying XSLT at\n%@\ndue to\n%@", url, [localError localizedDescription]);
-		return 3;
+		[pool release];return 3;
 	}
 	if([output isKindOfClass:[NSXMLDocument class]])
 	{
@@ -105,21 +105,21 @@ int main (int argc, const char * argv[]) {
 	else if(![output isKindOfClass:[NSData class]])
 	{
 		NSLog(@"Unexpected output: got\n%@\ninstead lof a NSXMLDocument or NSData", output);
-		return 4;
+		[pool release];return 4;
 	}
 	url = [NSURL fileURLWithPath:DESTINATION];
 	if([output writeToURL:url options:NSAtomicWrite error:&localError])
 	{
-		return 0;
+		[pool release];return 0;
 	}
 	if(localError)
 	{
 		NSLog(@"There was an error writing at\n%@\ndue to\n%@", url, [localError localizedDescription]);
-		return 5;
+		[pool release];return 5;
 	}
 	NSLog(@"There was an unknown error writing at\n%@", url);
-	return 6;
+	[pool release];return 6;
 ERROR:
 	NSLog(@"Usage: %s --source SOURCE --xslt XSLT [--destination DESTINATION]\n", argv[0]);
-    return -1;
+    [pool release];return -1;
 }

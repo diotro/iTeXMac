@@ -91,7 +91,9 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 - (NSString *)previousFileNameForKey:(NSString *)key;
 - (void)fixProjectFileNamesConsistency;
 - (BOOL)fixProjectConsistency;
+- (BOOL)_fixFarawayProjectConsistency;
 - (BOOL)fixFarawayProjectConsistency;
+- (BOOL)_fixInternalProjectConsistency;
 - (BOOL)fixInternalProjectConsistency;
 - (BOOL)makeNotFaraway;
 @end
@@ -518,21 +520,14 @@ To Do List:
 	{// we can't do everything we want
 		return YES;
 	}
-	NSString * requiredCore = [projectFileName lastPathComponent];
-	requiredCore = [requiredCore stringByDeletingPathExtension];
-	NSString * requiredFarawayDirectory = nil;
-	NSString * requiredFarawayWrapper = nil;
-	NSMutableSet * inconsistentKeys = [NSMutableSet set];
-	// verification of the registered files.
-	// if the receiver has been moved,things will be special
+	// this is a critical method
+	// the first diagnostic determines whether the project is consistent or not
+	// We assume that projects are consistent in general such that we do not merge actions
+	// Testing for the keys, shallow consistency
 	NSArray * allKeys = [self allKeys];
-	NSEnumerator * E = nil;
+	NSEnumerator * E = [allKeys objectEnumerator];
 	NSString * key = nil;
-	BOOL aFileHasMoved = NO;
-	BOOL shouldSave = NO;
 	NSString * name = nil;
-	NSArray * RA = nil;
-	E = [allKeys objectEnumerator];
 	while(key = [E nextObject])// this is too early?
 	{
 		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
@@ -540,349 +535,240 @@ To Do List:
 			name = [self relativeFileNameForKey:key];
 			if(![name length])
 			{
-				[inconsistentKeys addObject:key];
+				return [self _fixFarawayProjectConsistency];
 			}
 		}
 	}
-	if([[self previousFileNameForKey:@"project"] pathIsEqual:projectFileName])
+	// Project file name
+	name = [self previousFileNameForKey:@"project"];
+	if(![name pathIsEqual:projectFileName])
 	{
-		// the project was already there last time it was saved
-		E = [allKeys objectEnumerator];
-		while(key = [E nextObject])
-		{
-			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
-			{// those keys are for the project itself: simply ignore them
-				name = [self absoluteFileNameForKey:key];
-				if([name length])
-				{
-					name = [self absoluteFileNameForKey:key];
-					if(![DFM fileExistsAtPath:name])
-					{
-						name = [self farawayFileNameForKey:key];
-						if(![DFM fileExistsAtPath:name])
-						{
-							name = [self fileNameForRecordedKey:key];
-							if([DFM fileExistsAtPath:name])
-							{
-								RA = [name pathComponents];
-								if([RA containsObject:@".Trash"])
-								{
-									iTM2_LOG(@"Project\n%@\nLost file (it has been trashed)\n%@",projectFileName,name);
-									[self removeKey:key];
-									shouldSave = YES;
-								}
-								else
-								{
-									[self setFileName:name forKey:key makeRelative:YES];
-									aFileHasMoved = YES;
-								}
-							}
-							else
-							{
-								iTM2_LOG(@"Project\n%@\nLost file\n%@",projectFileName,name);
-								[self removeKey:key];
-								shouldSave = YES;
-							}
-						}
-					}
-				}
-				else
-				{
-					[inconsistentKeys addObject:key];
-				}
-			}
-		}
+		// the project has most certainly moved
+		return [self _fixFarawayProjectConsistency];
 	}
-	else
-	{// the project has been moved around,maybe just a rename...
-		// if it is in the trash,we should treat it in a special way
-		E = [allKeys objectEnumerator];
-		while(key = [E nextObject])
-		{
-			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
-			{// those keys are for the project itself: simply ignore them
-				NSString * name = [self previousFileNameForKey:key];
-				if(![DFM fileExistsAtPath:name])
-				{
-					name = [self absoluteFileNameForKey:key];
-					if([name length])
-					{
-						name = [self absoluteFileNameForKey:key];
-						if(![DFM fileExistsAtPath:name])
-						{
-							name = [self farawayFileNameForKey:key];
-							if(![DFM fileExistsAtPath:name])
-							{
-								name = [self fileNameForRecordedKey:key];
-								if([DFM fileExistsAtPath:name])
-								{
-									RA = [name pathComponents];
-									if([RA containsObject:@".Trash"])
-									{
-										iTM2_LOG(@"Project\n%@\nLost file (it has been trashed)\n%@",projectFileName,name);
-										[self removeKey:key];
-										shouldSave = YES;
-									}
-									else
-									{
-										[self setFileName:name forKey:key makeRelative:YES];
-										aFileHasMoved = YES;
-									}
-								}
-								else
-								{
-									iTM2_LOG(@"Project\n%@\nLost file\n%@",projectFileName,name);
-									[self removeKey:key];
-									shouldSave = YES;
-								}
-							}
-						}
-					}
-					else
-					{
-						[inconsistentKeys addObject:key];
-					}
-				}
-			}
-		}
-	}
-	if(!aFileHasMoved)
-	{
-		if(shouldSave)
-		{
-			[self saveDocument:self];
-		}
-		goto cleanKeys;
-	}
-	// if one of the files has .. and one of the files has no ..,do nothing
-	allKeys = [self allKeys];// key might have been removed
-	E = [allKeys objectEnumerator];
-	NSArray * commonComponents = nil;
-	while(key = [E nextObject])
-	{
-		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
-		{
-			name = [self farawayFileNameForKey:key];
-			if(![DFM fileExistsAtPath:name])// we exclude files in the faraway folder
-			{
-				name = [self relativeFileNameForKey:key];
-				if([name length])
-				{
-					commonComponents = [name pathComponents];
-					while(key = [E nextObject])
-					{
-						if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
-						{
-							name = [self farawayFileNameForKey:key];
-							if(![DFM fileExistsAtPath:name])// we exclude files in the faraway folder
-							{
-								name = [self relativeFileNameForKey:key];
-								RA = [name pathComponents];
-								commonComponents = [commonComponents arrayWithCommonFirstObjectsOfArray:RA];
-							}
-						}
-					}
-				}
-				else
-				{
-					[inconsistentKeys addObject:key];
-				}
-			}
-		}
-	}
-	if(![commonComponents count])
-	{
-		if(shouldSave)
-		{
-			[self saveDocument:self];
-		}
-		E = [allKeys objectEnumerator];
-		while(key = [E nextObject])
-		{
-			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
-			{
-				name = [self relativeFileNameForKey:key];
-				if(![name length])
-				{
-					[inconsistentKeys addObject:key];
-				}
-			}
-		}
-		goto cleanKeys;
-	}
-	requiredFarawayDirectory = [projectFileName enclosingWrapperFileName];
-	requiredFarawayDirectory = [requiredFarawayDirectory stringByDeletingLastPathComponent];
-	name = [NSString pathWithComponents:commonComponents];
-	requiredFarawayDirectory = [requiredFarawayDirectory stringByAppendingPathComponent:name];
-	requiredFarawayDirectory = [requiredFarawayDirectory stringByStandardizingPath];
-	if(![requiredFarawayDirectory belongsToFarawayProjectsDirectory])
-	{
-		// there is something very strange
-		// I don't know what to do yet
-		goto cleanKeys;
-	}
-	// this is the required directory for the external wrapper
-	// what about the name?
-	// if there is a registered file name with the same core name than the receiver,
-	// no change in the name
+	// the project has not moved, test for the file names
+	allKeys = [self allKeys];
 	E = [allKeys objectEnumerator];
 	while(key = [E nextObject])
 	{
 		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 		{
-			name = [self relativeFileNameForKey:key];
-			if([name length])
-			{
-				name = [name lastPathComponent];
-				name = [name stringByDeletingPathExtension];
-				if([name pathIsEqual:requiredCore])
-				{
-					// I just have to move the project,not rename it
-					// so let us move the project + wrapper around and update the file keys/path binding
-					goto moveTheProject;
-				}
-			}
-			else
-			{
-				[inconsistentKeys addObject:key];
-			}
-		}
-	}
-	// no name,try to find a name used twice at least
-	NSCountedSet * set = [NSCountedSet set];
-	E = [allKeys objectEnumerator];
-	while(key = [E nextObject])
-	{
-		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
-		{
-			name = [self relativeFileNameForKey:key];
-			if([name length])
-			{
-				name = [name lastPathComponent];
-				name = [name stringByDeletingPathExtension];
-				[set addObject:name];
-			}
-			else
-			{
-				[inconsistentKeys addObject:key];
-			}
-		}
-	}
-	E = [set objectEnumerator];
-	int level = 0;
-	while(name = [E nextObject])
-	{
-		int CFO = [set countForObject:name];
-		if(CFO == 1)
-		{
-			[set removeObject:name];
-		}
-		else if(CFO>level)
-		{
-			level = CFO;
-			requiredCore = name;
-		}
-	}
-moveTheProject:
-	requiredFarawayWrapper = [requiredCore stringByAppendingPathExtension:[SDC wrapperPathExtension]];
-	requiredFarawayWrapper = [requiredFarawayDirectory stringByAppendingPathComponent:requiredFarawayWrapper];
-	NSString * wrapperFileName = [projectFileName enclosingWrapperFileName];
-	NSError * localError = nil;
-	if(![wrapperFileName belongsToDirectory:requiredFarawayWrapper]
-		&& ![requiredFarawayWrapper belongsToDirectory:wrapperFileName])
-	{
-		if([DFM fileExistsAtPath:requiredFarawayWrapper isDirectory:nil]
-			&& ![DFM removeFileAtPath:requiredFarawayWrapper handler:nil])
-		{
-			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could no remove\n%@\nPlease,do it for me.",requiredFarawayWrapper]),nil);
-			goto cleanKeys;
-		}
-		if([DFM createDeepDirectoryAtPath:requiredFarawayDirectory attributes:nil error:&localError] || !localError)
-		{
-			// now I can move the project around
-			if(![DFM movePath:wrapperFileName toPath:requiredFarawayWrapper handler:nil])
-			{
-				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not move\n%@\nto\n%@",wrapperFileName,requiredFarawayWrapper]),nil);
-				goto cleanKeys;
-			}
-		}
-		// I should also remove the void directories
-	}
-	else
-	{
-		iTM2_REPORTERROR(1,(@"Please report an inconsistency of type 1 in fixFarawayProjectConsistency (with details)"),nil);
-		goto cleanKeys;
-	}
-	// should I move the project to synchronize with the enclosing wrapper
-	NSString * requiredFarawayProject = [requiredCore stringByAppendingPathExtension:[projectFileName pathExtension]];
-	requiredFarawayProject = [requiredFarawayWrapper stringByAppendingPathComponent:requiredFarawayProject];//Contents
-	if(![requiredFarawayProject belongsToDirectory:projectFileName]
-		&& ![projectFileName belongsToDirectory:requiredFarawayProject])
-	{
-		if([DFM fileExistsAtPath:requiredFarawayProject isDirectory:nil]
-			&& ![DFM removeFileAtPath:requiredFarawayProject handler:nil])
-		{
-			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could no remove\n%@\nPlease,do it for me.",requiredFarawayProject]),nil);
-			goto cleanKeys;
-		}
-		// now I can move the project around
-		if(![DFM movePath:projectFileName toPath:requiredFarawayProject handler:nil])
-		{
-			iTM2_REPORTERROR(1,(@"Could no move faraway project around"),nil);
-			goto cleanKeys;
-		}
-	}
-	else
-	{
-		iTM2_REPORTERROR(1,(@"Please report an inconsistency of type 2 in fixFarawayProjectConsistency (with details)"),nil);
-		goto cleanKeys;
-	}
-	// then  move the project and the registered reference accordingly
-	// only the references outside the faraway folder should be considered
-	// all the references inside the project are not subject to any change as the whole wrapper has moved
-	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-	E = [allKeys objectEnumerator];
-	while(key = [E nextObject])
-	{
-		if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
-		{
-			name = [self farawayFileNameForKey:key];
+			name = [self absoluteFileNameForKey:key];
 			if(![DFM fileExistsAtPath:name])
 			{
-				name = [self relativeFileNameForKey:key];
-				if([name length])
+				name = [self farawayFileNameForKey:key];
+				if(![DFM fileExistsAtPath:name])
 				{
-					name = [self absoluteFileNameForKey:key];
-					[MD setObject:name forKey:key];
-				}
-				else
-				{
-					[inconsistentKeys addObject:key];
+					name = [self previousFileNameForKey:key];
+					if([DFM fileExistsAtPath:name])
+					{
+						// a file has most certainly moved
+						return [self _fixFarawayProjectConsistency];
+					}
+					name = [self fileNameForRecordedKey:key];
+					if([DFM fileExistsAtPath:name])
+					{
+						// a file has most certainly moved
+						return [self _fixFarawayProjectConsistency];
+					}
 				}
 			}
 		}
 	}
-	[self setFileURL:[NSURL fileURLWithPath:requiredFarawayProject]];
-	E = [MD keyEnumerator];
+	// 
+//iTM2_END;
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _fixFarawayProjectConsistency
+- (BOOL)_fixFarawayProjectConsistency;
+/*"Description Forthcoming.
+You should not send this message by yourself, unless you are named fixFarawayProjectConsistency
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Nov  8 13:45:07 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * projectFileName = [self fileName];
+	if(![projectFileName belongsToFarawayProjectsDirectory])
+	{// this is not an external project: do nothing
+		return NO;
+	}
+	if(![DFM isWritableFileAtPath:projectFileName])
+	{// we can't do everything we want
+		return YES;
+	}
+	// first clean all the keys that point to nothing
+	// record all the file names
+	NSArray * allKeys = [self allKeys];
+	NSEnumerator * E = [allKeys objectEnumerator];
+	NSString * key = nil;
+	NSString * name = nil;
+	// record all the keyed file names
+	NSMutableDictionary * oldExistingFileNames = [NSMutableDictionary dictionary];
+	NSMutableDictionary * oldMovedFileNames = [NSMutableDictionary dictionary];
+	NSMutableDictionary * oldFarawayFileNames  = [NSMutableDictionary dictionary];
+	NSMutableSet * oldMissingFileNames  = [NSMutableSet set];
 	while(key = [E nextObject])
 	{
-		name = [MD objectForKey:key];
-		[self setFileName:name forKey:key makeRelative:YES];
-	}
-	[self saveDocument:self];
-//iTM2_END;
-cleanKeys:
-	if([inconsistentKeys count])
-	{
-		iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Fixing the project keys (merely an internal bug) %@",inconsistentKeys]),nil);
-		E = [inconsistentKeys objectEnumerator];
-		while(key = [E nextObject])
+		if([key isEqualToString:@"."] || [key isEqualToString:@"project"])
+		{
+			// do nothing, this will be managed later
+		}
+		else if((name = [self relativeFileNameForKey:key]),[name length])
+		{
+			name = [self absoluteFileNameForKey:key];
+			if([DFM fileExistsAtPath:name])
+			{
+				[oldExistingFileNames setObject:name forKey:key];
+			}
+			else if((name = [self farawayFileNameForKey:key]),[DFM fileExistsAtPath:name])
+			{
+				[oldFarawayFileNames setObject:name forKey:key];
+			}
+			else if((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
+			{
+				[oldMovedFileNames setObject:name forKey:key];
+			}
+			else if((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name])
+			{
+				[oldMovedFileNames setObject:name forKey:key];
+			}
+			else
+			{
+				[oldMissingFileNames addObject:key];
+			}
+		}
+		else
 		{
 			[self removeKey:key];
 		}
 	}
-iTM2_LOG(@"[self keyedFileNames] are:%@",[self keyedFileNames]);
-	return YES;
+	// This is recorded for the case of a move...
+	//
+	NSString * oldProjectFileName = [self previousFileNameForKey:@"project"];
+	NSArray * RA = nil;
+	NSString * expectedDirName = nil;
+	NSString * requiredCore = [projectFileName lastPathComponent];
+	requiredCore = [requiredCore stringByDeletingPathExtension];
+	NSArray * commonComponents = nil;
+	if([oldProjectFileName pathIsEqual:projectFileName])
+	{
+		// the project has not moved since the last time it was saved by iTeXMac2
+		// If some files have moved, I might need to move the project accordingly
+		// as an external project, I just have to follow the containing directory
+changeName:
+		E = [oldExistingFileNames objectEnumerator];
+		name = [E nextObject];
+		name = [name stringByDeletingLastPathComponent];
+		commonComponents = [name pathComponents];
+		while(name = [E nextObject])
+		{
+			RA = [name pathComponents];
+			commonComponents = [commonComponents arrayWithCommonFirstObjectsOfArray:RA];
+		}
+		E = [oldMovedFileNames objectEnumerator];
+		if(![commonComponents count])
+		{
+			name = [E nextObject];
+			name = [name stringByDeletingLastPathComponent];
+			commonComponents = [name pathComponents];
+		}
+		while(name = [E nextObject])
+		{
+			RA = [name pathComponents];
+			commonComponents = [commonComponents arrayWithCommonFirstObjectsOfArray:RA];
+		}
+		// the commonComponents are not expected to belong to the external project directory
+		expectedDirName = [NSString pathWithComponents:commonComponents];
+		if([expectedDirName belongsToFarawayProjectsDirectory])
+		{
+			iTM2_REPORTERROR(2,(@"Unexpected common components in the faraway project directory. Report a bug please."),nil);
+		}
+		//
+		NSString * projectDirName = [projectFileName enclosingWrapperFileName];
+		projectDirName = [projectDirName stringByDeletingLastPathComponent];
+		projectDirName = [projectDirName stringByStrippingFarawayProjectsDirectory];
+		if([expectedDirName pathIsEqual:projectDirName])
+		{
+			// there is absolutely no need to move the project
+			// just update the moved files
+			E = [oldMovedFileNames keyEnumerator];
+			while(key = [E nextObject])
+			{
+				name = [oldMovedFileNames objectForKey:key];
+				[self setFileName:name forKey:key makeRelative:YES];
+			}
+			if([oldMovedFileNames count])
+			{
+				[self saveDocument:self];
+			}
+			return YES;
+		}
+		// I should move the project to follow the files it contains
+		NSString * src = [projectFileName enclosingWrapperFileName];
+		NSString * dest = [SDC wrapperPathExtension];
+		dest = [requiredCore stringByAppendingPathExtension:dest];
+		dest = [requiredCore stringByAppendingPathExtension:dest];
+		dest = [expectedDirName stringByAppendingPathComponent:dest];
+		dest = [[NSString farawayProjectsDirectory] stringByAppendingPathComponent:dest];
+		if([DFM movePath:src toPath:dest handler:NULL])
+		{
+			// also change the receiver's file name
+			name = [projectFileName stringByAbbreviatingWithDotsRelativeToDirectory:src];
+			name = [dest stringByAppendingPathComponent:name];
+			[self setFileName:name];
+			allKeys = [self allKeys];
+			E = [allKeys objectEnumerator];
+			while(key = [E nextObject])
+			{
+				name = [self absoluteFileNameForKey:key];
+				if([DFM fileExistsAtPath:name])
+				{
+					[self setFileName:name forKey:key makeRelative:YES];
+				}
+				else if(name = [oldExistingFileNames objectForKey:key])
+				{
+					[self setFileName:name forKey:key makeRelative:YES];
+				}
+				else if(name = [oldMovedFileNames objectForKey:key])
+				{
+					[self setFileName:name forKey:key makeRelative:YES];
+				}
+				else if(name = [oldFarawayFileNames objectForKey:key])
+				{
+				}
+			}
+			[self saveDocument:self];
+			return YES;
+		}
+		else
+		{
+			iTM2_REPORTERROR(3,([NSString stringWithFormat:@"Problem %@ could not be moved to %@",src,dest]),nil);
+		}
+		return YES;
+	}
+	// the project has changed
+	NSString * oldProjectDirName = [oldProjectFileName stringByDeletingLastPathComponent];
+	oldProjectDirName = [oldProjectDirName stringByStrippingFarawayProjectsDirectory];
+	if([oldMissingFileNames count])
+	{
+		// can I catch a file name for that?
+		// I assume that only the files not in the faraway wrapper need to be retrieved
+		E = [oldMissingFileNames objectEnumerator];
+		while(key = [E nextObject])
+		{
+			name = [self relativeFileNameForKey:key];
+			name = [oldProjectDirName stringByAppendingPathComponent:name];
+			if([DFM fileExistsAtPath:name])
+			{
+				[oldExistingFileNames setObject:name forKey:key];
+				[oldMissingFileNames removeObject:key];
+			}
+		}
+	}
+	[self saveDocument:self];
+	goto changeName;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixProjectConsistency
 - (BOOL)fixProjectConsistency;
@@ -900,8 +786,8 @@ To Do List:
 //iTM2_END;
 	return [self fixFarawayProjectConsistency] || [self fixInternalProjectConsistency];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixInternalProjectConsistency
-- (BOOL)fixInternalProjectConsistency;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _fixInternalProjectConsistency
+- (BOOL)_fixInternalProjectConsistency;
 /*"If the project is the only project of a wrapper,synchronize the names of the project and its enclosing wrapper.
 If the project is not a wrapper,there is a risk that things have been messed up.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -1105,6 +991,203 @@ To Do List:
 					{
 						[inconsistentKeys addObject:key];
 					}
+				}
+			}
+		}
+	}
+//iTM2_END;
+cleanKeys:
+	E = [inconsistentKeys objectEnumerator];
+	while(key = [E nextObject])
+	{
+		[self removeKey:key];
+	}
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixInternalProjectConsistency
+- (BOOL)fixInternalProjectConsistency;
+/*"If the project is the only project of a wrapper,synchronize the names of the project and its enclosing wrapper.
+If the project is not a wrapper,there is a risk that things have been messed up.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * projectFileName = [self fileName];
+	if([projectFileName length])
+	{// the receiver has no file name yet,we can't do anything serious
+		return NO;// we are definitely pesimistic.
+	}
+	NSEnumerator * E = nil;
+	NSString * key = nil;
+	NSString * name = nil;
+	NSArray * allKeys = [self allKeys];
+	NSString * enclosingWrapper = [projectFileName enclosingWrapperFileName];
+	NSString * previousProjectDirectory = nil;
+	NSString * actualProjectDirectory = nil;
+	NSMutableArray * inconsistentKeys = [NSMutableArray array];
+	if([enclosingWrapper length])
+	{
+		// the project does belong to a wrapper
+		// was the project moved around?
+		previousProjectDirectory = [self previousFileNameForKey:@"project"];
+		previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
+		actualProjectDirectory = [self fileName];
+		actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
+		if([actualProjectDirectory pathIsEqual:previousProjectDirectory])
+		{
+			// simply list the registered files and see if things were inadvertantly broken...
+			E = [allKeys objectEnumerator];
+			while(key = [E nextObject])
+			{
+				if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
+				{
+					if((name = [self relativeFileNameForKey:key]),[name length])
+					{
+						if((name = [self absoluteFileNameForKey:key]),[DFM fileExistsAtPath:name])
+						{
+							// do nothing
+						}
+						else if((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name])
+						{
+							[self setFileName:name forKey:key makeRelative:YES];
+						}
+						else
+						{
+							iTM2_LOG(@"Project\n%@\nLost file\n%@",projectFileName,name);
+						}
+					}
+					else
+					{
+						[inconsistentKeys addObject:key];
+					}
+				}
+			}
+			goto cleanKeys;
+		}
+		else
+		{// the project has been moved, things might be more delicate to handle
+			E = [[self allKeys] objectEnumerator];
+			while(key = [E nextObject])
+			{
+				if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
+				{
+					if((name = [self relativeFileNameForKey:key]),[name length])
+					{
+						if((name = [self absoluteFileNameForKey:key]),[DFM fileExistsAtPath:name])
+						{
+							//do nothing;
+						}
+						else if(((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
+							|| ((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name]))
+						{
+							[self setFileName:name forKey:key makeRelative:YES];
+						}
+						else
+						{
+							iTM2_LOG(@"Project\n%@\nLost file\n%@",projectFileName,name);
+						}
+					}
+					else
+					{
+						[inconsistentKeys addObject:key];
+					}
+				}
+			}
+		}
+		// the project belongs to a wrapper,synchronize the names if it makes sense
+		NSArray * enclosed = [enclosingWrapper enclosedProjectFileNames];
+		if([enclosed count] == 1)
+		{
+			//Synchronize the project name and the wrapper name
+			NSString * required = [enclosingWrapper lastPathComponent];
+			required = [required stringByDeletingPathExtension];
+			required = [required stringByAppendingPathExtension:[projectFileName pathExtension]];
+			required = [[projectFileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:required];
+			if(![required pathIsEqual:projectFileName])// Contents directory?
+			{
+				if([DFM movePath:projectFileName toPath:required handler:nil])
+				{
+					NSURL * url = [NSURL fileURLWithPath:required];
+					[self setFileURL:url];
+					[self saveDocument:self];
+				}
+				else
+				{
+					iTM2_LOG(@"Could not move %@ to %@...");
+				}
+			}
+		}
+		goto cleanKeys;
+	}
+	// the project does not belong to a wrapper
+	// list the included files and verify they are where they are expected to be...
+	// did the project move since the last date it was saved?
+	// If the use moves the project file whereas it is not open in iTeXMac2
+	// iTeXMac2 won't be aware of the change
+	// But the change will be tracked by the alias cached in the project itself
+	previousProjectDirectory = [self previousFileNameForKey:@"project"];
+	previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
+	actualProjectDirectory = [self fileName];
+	actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
+	if([actualProjectDirectory pathIsEqual:previousProjectDirectory])
+	{
+		// simply list the registered files and see if things were inadvertantly broken...
+		E = [allKeys objectEnumerator];
+		while(key = [E nextObject])
+		{
+			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
+			{
+				if((name = [self absoluteFileNameForKey:key]),[DFM fileExistsAtPath:name])
+				{
+					// do nothing;
+				}
+				else if(((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
+						|| ((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name]))
+				{
+					[self setFileName:name forKey:key makeRelative:YES];
+				}
+				else if((name = [self relativeFileNameForKey:key]),[name length])
+				{
+					iTM2_LOG(@"Project\n%@\nLost file\n%@",projectFileName,name);
+				}
+				else
+				{
+					[inconsistentKeys addObject:key];
+				}
+			}
+		}
+		goto cleanKeys;
+	}
+	else if([DFM fileExistsAtPath:previousProjectDirectory])
+	{
+		// do nothing: the project might have been duplicated
+	}
+	else
+	{// the project has been moved,things are delicate
+		allKeys = [self allKeys];
+		E = [allKeys objectEnumerator];
+		while(key = [E nextObject])
+		{
+			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
+			{
+				if((name = [self absoluteFileNameForKey:key]),[DFM fileExistsAtPath:name])
+				{
+					// do nothing;
+				}
+				else if(((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
+						|| ((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name]))
+				{
+					[self setFileName:name forKey:key makeRelative:YES];
+				}
+				else if((name = [self relativeFileNameForKey:key]),[name length])
+				{
+					iTM2_LOG(@"Project\n%@\nLost file\n%@",projectFileName,name);
+				}
+				else
+				{
+					[inconsistentKeys addObject:key];
 				}
 			}
 		}
@@ -3914,7 +3997,7 @@ To Do List:
     return [super contextValueForKey:aKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -3925,14 +4008,10 @@ To Do List:
 	iTM2ProjectDocument * project = [self project];
 	id contextManager = [self contextManager];
 	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
-	BOOL didChange = [super takeContextValue:object forKey:aKey domain:mask];
+	unsigned int didChange = [super takeContextValue:object forKey:aKey domain:mask];
 	NSString * fileKey = @".";// weird...
-	if([self takeContextValue:object forKey:aKey fileKey:fileKey domain:mask])
-	{
-		didChange = YES;
-	}
 //iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
-    return didChange;
+    return didChange |= [self takeContextValue:object forKey:aKey fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:fileKey:domain;
 - (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
@@ -4005,7 +4084,7 @@ To Do List:
     return [fileKey isEqual:@"."]?[super contextValueForKey:aKey domain:mask]:nil;// not self, reentrant code management
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:fileKey:domain:
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -4019,7 +4098,7 @@ To Do List:
 	{
 		return NO;
 	}
-	BOOL didChange = NO;
+	unsigned int didChange = 0;
 	id old = nil;
 	NSMutableDictionary * D = nil;
 	NSMutableDictionary * server = nil;
@@ -4036,7 +4115,7 @@ To Do List:
 				{
 					[D takeValue:object forKey:aKey];
 					[server takeValue:D forKey:fileKey];
-					didChange = YES;
+					didChange = iTM2ContextStandardLocalMask;
 				}
 			}
 			else if(object)
@@ -4044,12 +4123,12 @@ To Do List:
 				D = [NSMutableDictionary dictionary];
 				[D takeValue:object forKey:aKey];
 				[server takeValue:D forKey:fileKey];
-				didChange = YES;
+				didChange = iTM2ContextStandardLocalMask;
 			}
 		}
 		id afterObject = [self contextValueForKey:aKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
-iTM2_LOG(@"afterObject:%@",afterObject);
-		NSAssert(([object isEqual:afterObject] || (object == afterObject)),@"Inconsistancy: THIS IS A BUG");
+//iTM2_LOG(@"afterObject:%@",afterObject);
+		NSAssert(([object isEqual:afterObject] || (object == afterObject) || !(didChange&iTM2ContextStandardLocalMask)),@"Inconsistancy: THIS IS A BUG");
 	}
 	if(mask & iTM2ContextStandardProjectMask)
 	{
@@ -4064,7 +4143,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 				{
 					[D takeValue:object forKey:aKey];
 					[server takeValue:D forKey:fileKey];
-					didChange = YES;
+					didChange |= iTM2ContextStandardProjectMask;
 				}
 			}
 			else if(object)
@@ -4072,7 +4151,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 				D = [NSMutableDictionary dictionary];
 				[D takeValue:object forKey:aKey];
 				[server takeValue:D forKey:fileKey];
-				didChange = YES;
+				didChange |= iTM2ContextStandardProjectMask;
 			}
 		}
 	}
@@ -4091,6 +4170,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 					{
 						[D takeValue:object forKey:aKey];
 						[server takeValue:D forKey:extension];
+						didChange |= iTM2ContextExtendedProjectMask;
 					}
 				}
 				else if(object)
@@ -4098,6 +4178,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 					D = [NSMutableDictionary dictionary];
 					[D takeValue:object forKey:aKey];
 					[server takeValue:D forKey:extension];
+					didChange |= iTM2ContextExtendedProjectMask;
 				}
 			}
 		}
@@ -4114,7 +4195,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 					{
 						[D takeValue:object forKey:aKey];
 						[server takeValue:D forKey:type];
-						didChange = YES;
+						didChange |= iTM2ContextExtendedProjectMask;
 					}
 				}
 				else if(object)
@@ -4122,7 +4203,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 					D = [NSMutableDictionary dictionary];
 					[D takeValue:object forKey:aKey];
 					[server takeValue:D forKey:type];
-					didChange = YES;
+					didChange |= iTM2ContextExtendedProjectMask;
 				}
 			}
 		}
@@ -4139,7 +4220,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 					{
 						[D takeValue:object forKey:aKey];
 						[server takeValue:D forKey:typeFromFileExtension];
-						didChange = YES;
+						didChange |= iTM2ContextExtendedProjectMask;
 					}
 				}
 				else if(object)
@@ -4147,7 +4228,7 @@ iTM2_LOG(@"afterObject:%@",afterObject);
 					D = [NSMutableDictionary dictionary];
 					[D takeValue:object forKey:aKey];
 					[server takeValue:D forKey:typeFromFileExtension];
-					didChange = YES;
+					didChange |= iTM2ContextExtendedProjectMask;
 				}
 			}
 		}
@@ -4198,7 +4279,7 @@ To Do List:
 			[self takeContextValue:expected forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
 		}
 	}
-	if(!(expected = [self propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask]))
+	if(!(expected = [self propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask]))
 	{
 		expected = [self contextValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];//something should be returned because this registered as defaults in the string formatter kit
 		[self takePropertyValue:expected forKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
@@ -6618,13 +6699,13 @@ To Do List:
 	NSDictionary * contextDictionary = [iTM2Document contextDictionaryFromFile:fileName];
 //iTM2_LOG(@"contextDictionary is:%@",contextDictionary);
 	// using the absolute hint
-	NSString * projectAbsolutePathHint = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey];
+	NSString * path = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey];
 	NSURL * url = nil;
-	if([projectAbsolutePathHint isKindOfClass:[NSString class]]
-		&& [SWS isProjectPackageAtPath:projectAbsolutePathHint])
+	if([path isKindOfClass:[NSString class]]
+		&& [SWS isProjectPackageAtPath:path])
 	{
-		NSAssert(![projectAbsolutePathHint pathIsEqual:fileName],@"Recursive call catched... THIS IS A BIG BUG - 1");
-		url = [NSURL fileURLWithPath:projectAbsolutePathHint];
+		NSAssert(![path pathIsEqual:fileName],@"Recursive call catched... THIS IS A BIG BUG - 1");
+		url = [NSURL fileURLWithPath:path];
 	}
 	else
 	{
@@ -6682,38 +6763,42 @@ To Do List:
 			}
 		}
 	}
-	NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
-	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
+	path = [url path];
+	if([DFM fileExistsAtPath:path isDirectory:nil])
 	{
-		[projectDocument fixProjectConsistency];
-		NSString * key = [projectDocument keyForFileName:fileName];
-		if([key length])
+		NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
+		if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
 		{
-			[SDC addDocument:projectDocument];
-			[projectDocument saveDocument:nil];
-			if(display)
-			{
-				[projectDocument makeWindowControllers];
-				[projectDocument showWindows];
-			}
-			return projectDocument;
-		}
-		else
-		{
-			key = [projectDocument recordedKeyForFileName:fileName];
-			// ok this project once had this file name on its own
+			[projectDocument fixProjectConsistency];
+			NSString * key = [projectDocument keyForFileName:fileName];
 			if([key length])
 			{
 				[SDC addDocument:projectDocument];
 				[projectDocument saveDocument:nil];
-				[projectDocument setFileName:fileName forKey:key makeRelative:YES];
-				key = [projectDocument newKeyForFileName:fileName];// ensure that the file name is registered.
 				if(display)
 				{
 					[projectDocument makeWindowControllers];
 					[projectDocument showWindows];
 				}
 				return projectDocument;
+			}
+			else
+			{
+				key = [projectDocument recordedKeyForFileName:fileName];
+				// ok this project once had this file name on its own
+				if([key length])
+				{
+					[SDC addDocument:projectDocument];
+					[projectDocument saveDocument:nil];
+					[projectDocument setFileName:fileName forKey:key makeRelative:YES];
+					key = [projectDocument newKeyForFileName:fileName];// ensure that the file name is registered.
+					if(display)
+					{
+						[projectDocument makeWindowControllers];
+						[projectDocument showWindows];
+					}
+					return projectDocument;
+				}
 			}
 		}
 	}
@@ -8455,7 +8540,7 @@ To Do List:
     return [super contextValueForKey:aKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (BOOL)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -8824,7 +8909,8 @@ To Do List:
 	{// I only catch file URLs
 		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 	}
-	NSString * fileName = [[absoluteURL path] stringByStandardizingPath];// not a link!
+	NSString * fileName = [absoluteURL path];// not a link!
+	fileName = [fileName stringByStandardizingPath];// not a link!
 	if(![fileName length])
 	{
 		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];

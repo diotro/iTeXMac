@@ -22,6 +22,7 @@
 */
 
 #import <iTM2Foundation/iTM2MacroPrefPane.h>
+#import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
 #import <iTM2Foundation/iTM2TreeKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
@@ -520,7 +521,7 @@ To Do List:
 				editableMacrosDocument = [otherMacrosDocuments lastObject];
 				editableMacrosDocument = [[editableMacrosDocument copy] autorelease];
 				
-				NSString * repositoryPath = [[NSBundle mainBundle] pathForSupportDirectory:@"Macros.localized" inDomain:NSUserDomainMask create:YES];
+				NSString * repositoryPath = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
 				NSURL * repositoryURL = [NSURL fileURLWithPath:repositoryPath];
 				NSURL * url = [NSURL URLWithString:[subpath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:repositoryURL];
 				[editableMacrosDocument setURI:[url absoluteString]];
@@ -768,7 +769,7 @@ To Do List:
 			if([url isFileURL])
 			{
 				NSString * path = [url path];
-				NSArray * components = [path componentsSeparatedByString:@"Macros.localized"];
+				NSArray * components = [path componentsSeparatedByString:iTM2MacroServerComponent];
 				if([components count]>1)
 				{
 					path = [components lastObject];
@@ -1242,8 +1243,8 @@ static id _iTM2MacroController = nil;
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained later
 	// list all the *.iTM2-macros files
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:@"Macros.localized" inDomain:NSUserDomainMask create:NO];
-	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"Macros" ofType:@"localized"];
+	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
+	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSURL * repositoryURL = nil;
@@ -1378,10 +1379,10 @@ To Do List:
 		return result;
 	}
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:@"Macros.localized" inDomain:NSUserDomainMask create:NO];
+	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained
 	// list all the *.iTM2-macros files
-	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"Macros" ofType:@"localized"];
+	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSURL * repositoryURL = nil;
@@ -1881,10 +1882,10 @@ To Do List:
 		return result;
 	}
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:@"Macros.localized" inDomain:NSUserDomainMask create:YES];
+	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
 	iTM2MacroEditNode * root = [[[iTM2MacroEditNode alloc] init] autorelease];// this will be retained
 	// list all the *.iTM2-macros files
-	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"Macros" ofType:@"localized"];
+	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSURL * repositoryURL = nil;

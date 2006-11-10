@@ -1972,9 +1972,9 @@ To Do List:
 		NSBundle * bundle = [iTM2TeXPEngineInspector classBundle];
 		[NSApp presentError: [NSError errorWithDomain: iTM2TeXFoundationErrorDomain code: 1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
-					NSLocalizedStringFromTableInBundle(@"Setup failure", @"localized", bundle, ""), NSLocalizedDescriptionKey,
-					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Missing executable %@ in bundle %@", @"localized", bundle, ""), aName, bundle], NSLocalizedFailureReasonErrorKey,
-					NSLocalizedStringFromTableInBundle(@"Reinstall iTeXMac2 and if it happens again, report a bug", @"localized", bundle, ""), NSLocalizedRecoverySuggestionErrorKey,
+					NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, bundle, ""), NSLocalizedDescriptionKey,
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Missing executable %@ in bundle %@", iTM2LocalizedExtension, bundle, ""), aName, bundle], NSLocalizedFailureReasonErrorKey,
+					NSLocalizedStringFromTableInBundle(@"Reinstall iTeXMac2 and if it happens again, report a bug", iTM2LocalizedExtension, bundle, ""), NSLocalizedRecoverySuggestionErrorKey,
 						nil]]];
 		iTM2_LOG(@".........  ERROR: Missing executable (bundle: %@, aName: %@, target, %@)...",
 			bundle, aName, executable);
