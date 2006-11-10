@@ -30,14 +30,14 @@
 #import <iTM2Foundation/iTM2MenuKit.h>
 
 NSString * const iTM2CompletionComponent = @"Completion.localized";
-NSString * const iTM2CompletionIdentifier = @"iTM2CompletionIdentifier";
+NSString * const iTM2CompletionMode = @"iTM2CompletionMode";
 NSString * const iTM2CompletionsExtension = @"xml";
 
 @interface iTM2CompletionServer(PRIVATE)
+- (NSArray *)completionModes;
 - (iTM2PatriciaController *)patriciaControllerForTextView:(NSTextView *)aTextView;
 - (void)addSelectionToCompletionForTextView:(NSTextView *)aTextView;
 - (int)runCompletionForTextView:(NSTextView *)aTextView;
-- (BOOL)validateChooseCompletionMode:(id)sender forTextView:(NSTextView *)aTextView;
 - (void)updateCompletion;
 - (void)cancelCompletion;
 - (void)concludeCompletion;
@@ -47,7 +47,6 @@ NSString * const iTM2CompletionsExtension = @"xml";
 + (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
 + (void)addCompletions:(NSArray *)completions forContext:(NSString *)context ofCategory:(NSString *)category;
 + (id)storageForContext:(NSString *)context ofCategory:(NSString *)category;
-- (void)editCompletionsForTextView:(NSTextView *)aTextView;
 @end
 
 #import <iTM2Foundation/iTM2ContextKit.h>
@@ -67,7 +66,6 @@ NSString * const iTM2CompletionsExtension = @"xml";
 	NSPanel * panel;
 }
 + (id)completionInspector;
-- (void)editCompletionsForTextView:(NSTextView *)aTextView;
 - (NSString *)selectedCompletionSet;
 - (void)setSelectedCompletionSet:(NSString *)newSet;
 - (NSArray *)completionSortDescriptors;
@@ -82,7 +80,7 @@ static id _iTM2_CompletionServer_Data = nil;
 	[super initialize];
 	[SUD registerDefaults:
 		[NSDictionary dictionaryWithObjectsAndKeys:
-			@"Default",iTM2CompletionIdentifier,
+			@"Default",iTM2CompletionMode,
 			nil]];
 	return;
 }
@@ -101,6 +99,16 @@ static id iTM2SharedCompletionServer = nil;
 	NSAssert((iTM2SharedCompletionServer = [super initWithWindow:window]),@"BUG, please report error iTM2 9669-1");
 	[_PatriciaControllers autorelease];
 	_PatriciaControllers = [[NSMutableDictionary dictionary] retain];
+	NSBundle * mainBundle = [NSBundle mainBundle];
+	NSArray * allPaths = [mainBundle allPathsForResource:nil ofType:@"xml" inDirectory:iTM2CompletionComponent];
+	NSEnumerator * E = [allPaths objectEnumerator];
+	NSString * path;
+	while(path = [E nextObject])
+	{
+		path = [path lastPathComponent];
+		path = [path stringByDeletingPathExtension];
+		[_PatriciaControllers setObject:[NSNull null] forKey:path];
+	}
 	return iTM2SharedCompletionServer;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithWindowNibName:
@@ -151,18 +159,22 @@ To Do List:
 	[super dealloc];
 	return;
 }
+- (NSArray *)completionModes;
+{
+	return [_PatriciaControllers allKeys];
+}
 - (iTM2PatriciaController *)patriciaControllerForTextView:(NSTextView *)aTextView;
 {
 	NSParameterAssert(aTextView);
-	NSString * completionIdentifier = [aTextView contextValueForKey:iTM2CompletionIdentifier domain:iTM2ContextAllDomainsMask];
-	iTM2PatriciaController * patriciaController = [_PatriciaControllers objectForKey:completionIdentifier];
-	if(!patriciaController)
+	NSString * completionMode = [aTextView contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
+	iTM2PatriciaController * patriciaController = [_PatriciaControllers objectForKey:completionMode];
+	if(![patriciaController isKindOfClass:[iTM2PatriciaController class]])
 	{
 		patriciaController = [[[iTM2PatriciaController allocWithZone:[self zone]] init] autorelease];
-		[_PatriciaControllers setObject:patriciaController forKey:completionIdentifier];
+		[_PatriciaControllers setObject:patriciaController forKey:completionMode];
 		// now read all the completion files
 		NSBundle * mainBundle = [NSBundle mainBundle];
-		NSArray * allPaths = [mainBundle allPathsForResource:completionIdentifier ofType:@"xml" inDirectory:iTM2CompletionComponent];
+		NSArray * allPaths = [mainBundle allPathsForResource:completionMode ofType:@"xml" inDirectory:iTM2CompletionComponent];
 		NSEnumerator * E = [allPaths objectEnumerator];
 		NSString * path;
 		NSURL * url;
@@ -925,84 +937,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * completionIdentifier = [aTextView contextValueForKey:iTM2CompletionIdentifier domain:iTM2ContextAllDomainsMask];
-	[_PatriciaControllers removeObjectForKey:completionIdentifier];
+	NSString * completionMode = [aTextView contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
+	[_PatriciaControllers removeObjectForKey:completionMode];
 	[[iTM2CompletionInspector completionInspector] editCompletionsForTextView:aTextView];
 //iTM2_END;
 	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseCompletionMode:forTextView:
-- (BOOL)validateChooseCompletionMode:(id)sender forTextView:(NSTextView *)aTextView;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![sender isKindOfClass:[NSMenuItem class]])
-	{
-		return NO;
-	}
-	NSMenu * M = [sender menu];
-	NSBundle * mainBundle = [NSBundle mainBundle];
-	NSArray * allPaths = [mainBundle allPathsForResource:nil ofType:@"xml" inDirectory:iTM2CompletionComponent];
-	NSEnumerator * E = [allPaths objectEnumerator];
-	NSString * path = nil;
-	NSMutableSet * expectedModes = [NSMutableSet set];
-	while(path = [E nextObject])
-	{
-		path = [path lastPathComponent];
-		path = [path stringByDeletingPathExtension];
-		[expectedModes addObject:path];
-	}
-	NSArray * itemArray = [M itemArray];
-	E = [itemArray objectEnumerator];
-	NSMenuItem * MI = nil;
-	SEL action = @selector(chooseCompletionMode:);
-	NSMutableSet * availableModes = [NSMutableSet set];
-	NSString * completionIdentifier = [aTextView contextValueForKey:iTM2CompletionIdentifier domain:iTM2ContextAllDomainsMask];
-	while(MI = [E nextObject])
-	{
-		if([MI action] == action)
-		{
-			NSString * representedObject = [MI representedObject];
-			[availableModes addObject:representedObject];
-			[MI setEnabled:([completionIdentifier isEqual:representedObject]?NSOnState:NSOffState)];
-		}
-	}
-	if([availableModes isEqual:expectedModes])
-	{
-//iTM2_END;
-		return YES;
-	}
-	// the things have changed since the last time it was validated...
-	E = [itemArray objectEnumerator];
-	while(MI = [E nextObject])
-	{
-		if([MI action] == action)
-		{
-			[M removeItem:MI];
-		}
-	}
-	// 
-	int index = [M indexOfItem:sender] + 1;
-	itemArray = [expectedModes allObjects];
-	itemArray = [itemArray sortedArrayUsingSelector:@selector(compare:)];
-	E = [itemArray objectEnumerator];
-	while(path = [E nextObject])
-	{
-		MI = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:path action:action keyEquivalent:@""] autorelease];
-		[MI setRepresentedObject:path];
-		[MI setIndentationLevel:1];
-		[M insertItem:MI atIndex:index++];
-		[MI setState:([completionIdentifier isEqual:path]?NSOnState:NSOffState)];
-	}
-	MI = [NSMenuItem separatorItem];
-	[M insertItem:MI atIndex:index++];
-	[M cleanSeparators];
-//iTM2_END;
-	return YES;
 }
 @end
 
@@ -1049,32 +988,6 @@ To Do List:
 //iTM2_END;
 	return [self selectedRange].length>0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editCompletions:
-- (void)editCompletions:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[[iTM2CompletionInspector completionInspector] editCompletionsForTextView:self];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionMode:
-- (void)completionMode:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// just a message catcher;
-//iTM2_END;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseCompletionMode:
 - (void)chooseCompletionMode:(id)sender;
 /*"Desription Forthcoming.
@@ -1087,7 +1000,7 @@ To Do List:
 	NSString * representedString = [sender representedString];
 	if(representedString)
 	{
-		[self takeContextValue:representedString forKey:iTM2CompletionIdentifier domain:iTM2ContextAllDomainsMask];
+		[self takeContextValue:representedString forKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
 	}
 //iTM2_END;
 	return;
@@ -1102,23 +1015,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * representedString = [sender representedString];
-	NSString * completionIdentifier = [self contextValueForKey:iTM2CompletionIdentifier domain:iTM2ContextAllDomainsMask];
-	[sender setState:([representedString isEqual:completionIdentifier]?NSOnState:NSOffState)];
+	NSString * completionMode = [self contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
+	[sender setState:([representedString isEqual:completionMode]?NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCompletionMode:
-- (BOOL)validateCompletionMode:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[[iTM2CompletionServer completionServer] validateChooseCompletionMode:sender forTextView:self];
-//iTM2_END;
-	return NO;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
@@ -1197,6 +1097,145 @@ To Do List:
     return;
 }
 #endif
+@end
+
+#import <iTM2Foundation/iTM2ResponderKit.h>
+
+@implementation iTM2SharedResponder(TextCompletion)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionMode:
+- (void)completionMode:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// just a message catcher;
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCompletionMode:
+- (BOOL)validateCompletionMode:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![sender isKindOfClass:[NSMenuItem class]])
+	{
+		return NO;
+	}
+	NSMenu * M = [sender menu];
+	NSArray * completionModes = [[iTM2CompletionServer completionServer] completionModes];
+	NSEnumerator * E = [completionModes objectEnumerator];
+	NSString * mode = nil;
+	NSMutableSet * expectedModes = [NSMutableSet set];
+	while(mode = [E nextObject])
+	{
+		[expectedModes addObject:mode];
+	}
+	NSArray * itemArray = [M itemArray];
+	E = [itemArray objectEnumerator];
+	NSMenuItem * MI = nil;
+	SEL action = @selector(chooseCompletionMode:);
+	NSMutableSet * availableModes = [NSMutableSet set];
+	id firstResponder = [NSApp keyWindow];
+	firstResponder = firstResponder?[firstResponder firstResponder]:self;
+	NSString * currentMode = [firstResponder contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
+	while(MI = [E nextObject])
+	{
+		if([MI action] == action)
+		{
+			NSString * representedMode = [MI representedObject];
+			[availableModes addObject:representedMode];
+			[MI setEnabled:([currentMode isEqual:representedMode]?NSOnState:NSOffState)];
+		}
+	}
+	if([availableModes isEqual:expectedModes])
+	{
+//iTM2_END;
+		return YES;
+	}
+	// the things have changed since the last time it was validated...
+	E = [itemArray objectEnumerator];
+	while(MI = [E nextObject])
+	{
+		if([MI action] == action)
+		{
+			[M removeItem:MI];
+		}
+	}
+	// 
+	int index = [M indexOfItem:sender] + 1;
+	itemArray = [expectedModes allObjects];
+	itemArray = [itemArray sortedArrayUsingSelector:@selector(compare:)];
+	E = [itemArray objectEnumerator];
+	while(mode = [E nextObject])
+	{
+		MI = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:mode action:action keyEquivalent:@""] autorelease];
+		[MI setRepresentedObject:mode];
+		[MI setIndentationLevel:1];
+		[M insertItem:MI atIndex:index++];
+		[MI setState:([currentMode isEqual:mode]?NSOnState:NSOffState)];
+	}
+	MI = [NSMenuItem separatorItem];
+	[M insertItem:MI atIndex:index++];
+	[M cleanSeparators];
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseCompletionMode:
+- (void)chooseCompletionMode:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * representedString = [sender representedString];
+	if(representedString)
+	{
+		[self takeContextValue:representedString forKey:iTM2CompletionMode domain:iTM2ContextDefaultsMask|iTM2ContextProjectMask];// the mode is not standard
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseCompletionMode:
+- (BOOL)validateChooseCompletionMode:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * representedString = [sender representedString];
+	NSString * completionMode = [self contextValueForKey:iTM2CompletionMode domain:iTM2ContextDefaultsMask|iTM2ContextProjectMask];// the mode is not standard
+	[sender setState:([representedString isEqual:completionMode]?NSOnState:NSOffState)];
+//iTM2_END;
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editCompletions:
+- (void)editCompletions:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * completionMode = [self contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
+	iTM2CompletionInspector * inspector = [iTM2CompletionInspector completionInspector];
+	[inspector setSelectedCompletionSet:completionMode];
+	NSWindow * window = [inspector window];// load the window
+	[window makeKeyAndOrderFront:self];
+//iTM2_END;
+	return;
+}
 @end
 
 @implementation iTM2CompletionWindow
@@ -1399,15 +1438,12 @@ static id iTM2SharedCompletionInspector = nil;
 	NSAssert((iTM2SharedCompletionInspector = [super initWithWindow:window]),@"BUG, please report error iTM2 9669-4");
 	[_CompletionSets autorelease];
 	_CompletionSets = [[NSMutableDictionary dictionary] retain];
-	NSBundle * mainBundle = [NSBundle mainBundle];
-	NSArray * allPaths = [mainBundle allPathsForResource:nil ofType:@"xml" inDirectory:iTM2CompletionComponent];
-	NSEnumerator * E = [allPaths objectEnumerator];
-	NSString * path = nil;
-	while(path = [E nextObject])
+	NSArray * completionModes = [[iTM2CompletionServer completionServer] completionModes];
+	NSEnumerator * E = [completionModes objectEnumerator];
+	NSString * mode = nil;
+	while(mode = [E nextObject])
 	{
-		path = [path lastPathComponent];
-		path = [path stringByDeletingPathExtension];
-		[_CompletionSets setObject:[NSNull null] forKey:path];
+		[_CompletionSets setObject:[NSNull null] forKey:mode];
 	}
 	return iTM2SharedCompletionInspector;
 }
@@ -1428,14 +1464,6 @@ static id iTM2SharedCompletionInspector = nil;
 {
 	[selectedCompletionSet autorelease];// is it necessary
 	selectedCompletionSet = [newSet copy];
-	return;
-}
-- (void)editCompletionsForTextView:(NSTextView *)aTextView;
-{
-	NSString * completionIdentifier = [aTextView contextValueForKey:iTM2CompletionIdentifier domain:iTM2ContextAllDomainsMask];
-	[self setSelectedCompletionSet:completionIdentifier];
-	NSWindow * window = [self window];// load the window
-	[window makeKeyAndOrderFront:self];
 	return;
 }
 - (int)countOfCompletionSets;

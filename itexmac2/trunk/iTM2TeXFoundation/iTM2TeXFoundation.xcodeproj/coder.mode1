@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC6A8AE30B04AD800072FC1A</string>
+						<string>DC6A8B580B04BC650072FC1A</string>
 						<key>history</key>
 						<array>
 							<string>DC6A897A0B046ED90072FC1A</string>
@@ -354,7 +354,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2TeXDocumentKit.m</string>
+								<string>iTM2TeXStringKit.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -362,11 +362,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TeXDocumentKit.m</string>
+										<string>iTM2TeXStringKit.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC6A8AE20B04AD800072FC1A</string>
+										<string>DC6A8B570B04BC650072FC1A</string>
 										<key>history</key>
 										<array>
 											<string>DC469E2F0AC74F0200F0CA29</string>
@@ -390,8 +390,7 @@
 											<string>DCF994D80AEE9C59005740A2</string>
 											<string>DCF995D50AEED6F4005740A2</string>
 											<string>DCBDA34D0AFE3A7D00522BD9</string>
-											<string>DCBDA34E0AFE3A7D00522BD9</string>
-											<string>DCBA44550B028A39006AF52A</string>
+											<string>DCBDA3520AFE3A7D00522BD9</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -415,8 +414,6 @@
 											<string>DC3E10BA0AEB74FB009BC4BA</string>
 											<string>DCF994D90AEE9C59005740A2</string>
 											<string>DCBDA3500AFE3A7D00522BD9</string>
-											<string>DCBDA3510AFE3A7D00522BD9</string>
-											<string>DCBDA3520AFE3A7D00522BD9</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

@@ -685,8 +685,6 @@ To Do List:
 }
 @end
 
-#if 0
-I am no sure this is a godd design idea
 @implementation NSResponder(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
 - (id)currentContextManager;
@@ -697,10 +695,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START
-    return (id)[[self nextResponder] contextManager]?:[super currentContextManager];
+    return (id)[self nextResponder]?:[super currentContextManager];
 }
 @end
-#endif
 
 @implementation NSView(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
