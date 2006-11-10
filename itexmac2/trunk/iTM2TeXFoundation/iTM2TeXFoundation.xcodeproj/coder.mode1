@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC6A8B580B04BC650072FC1A</string>
+						<string>DC6A8C5D0B0501310072FC1A</string>
 						<key>history</key>
 						<array>
 							<string>DC6A897A0B046ED90072FC1A</string>
@@ -366,7 +366,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC6A8B570B04BC650072FC1A</string>
+										<string>DC6A8C5C0B0501310072FC1A</string>
 										<key>history</key>
 										<array>
 											<string>DC469E2F0AC74F0200F0CA29</string>
@@ -621,10 +621,10 @@
 		<string>DC6A89290B0408840072FC1A</string>
 		<string>DC6A89240B0408840072FC1A</string>
 		<string>DC099B36088B331B0028F810</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>DC993D63088E8E7D00F8BCE1</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
 		<string>DC6A89370B040F030072FC1A</string>
+		<string>DC993D63088E8E7D00F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>

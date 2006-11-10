@@ -1,11 +1,23 @@
 {
     IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            ACTIONS = {addCompletionSet = id; }; 
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                OK = id; 
+                cancel = id; 
+                newCompletionSet = id; 
+                panelCancel = id; 
+                panelOK = id; 
+                removeCompletionSet = id; 
+            }; 
             CLASS = iTM2CompletionInspector; 
             LANGUAGE = ObjC; 
-            OUTLETS = {"_TableView" = NSTableView; }; 
+            OUTLETS = {"_NewPanel" = id; "_RemovePanel" = id; "_TableView" = NSTableView; }; 
             SUPERCLASS = NSWindowController; 
         }
     ); 

@@ -63,13 +63,15 @@ NSString * const iTM2CompletionsExtension = @"xml";
 	NSString * selectedCompletionSet;
 	NSString * newCompletionSet;
 	NSMutableDictionary * _CompletionSets;
-	NSPanel * panel;
+	NSPanel * _NewPanel;
+	NSPanel * _RemovePanel;
 }
 + (id)completionInspector;
 - (NSString *)selectedCompletionSet;
 - (void)setSelectedCompletionSet:(NSString *)newSet;
 - (NSArray *)completionSortDescriptors;
 - (NSMutableArray *)currentCompletions;
+- (NSArray *)completionModes;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit
@@ -165,8 +167,7 @@ To Do List:
 }
 - (iTM2PatriciaController *)patriciaControllerForTextView:(NSTextView *)aTextView;
 {
-	NSParameterAssert(aTextView);
-	NSString * completionMode = [aTextView contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
+	NSString * completionMode = aTextView?[aTextView contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask]:@"Default";
 	iTM2PatriciaController * patriciaController = [_PatriciaControllers objectForKey:completionMode];
 	if(![patriciaController isKindOfClass:[iTM2PatriciaController class]])
 	{
@@ -212,13 +213,72 @@ To Do List:
 //iTM2_LOG(@"[patriciaController stringList]:%@",[patriciaController stringList]);
 	return;
 }
-- (NSArray *)completionsForTextView:(NSTextView *)aTextView partialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)index;
+- (NSArray *)completionsForTextView:(NSTextView *)aTextView partialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexPtr;
 {
 	NSParameterAssert(aTextView);
-	iTM2PatriciaController * patriciaController = [self patriciaControllerForTextView:aTextView];
+	iTM2PatriciaController * patriciaController1 = [self patriciaControllerForTextView:aTextView];
 	NSString * string = [aTextView string];
 	string = [string substringWithRange:charRange];
-	return [patriciaController stringListForPrefix:string];
+	id result1 = [patriciaController1 stringListForPrefix:string];
+	iTM2PatriciaController * patriciaController2 = [self patriciaControllerForTextView:nil];
+	if(indexPtr)
+	{
+		*indexPtr = 0;
+	}
+	if([patriciaController1 isEqual:patriciaController2])
+	{
+		return result1;
+	}
+	NSArray * result2 = [patriciaController2 stringListForPrefix:string];
+	if([result1 count])
+	{
+		result1 = [[result1 mutableCopy] autorelease];
+		// now merging the two arrays
+		int idx1 = [result1 count] - 1;
+		int idx2 = [result2 count] - 1;
+		NSString * S1 = [result1 objectAtIndex:idx1];
+		NSString * S2 = [result2 objectAtIndex:idx2];
+		int compare;
+grosbois:
+		compare = [S1 compare:S2];
+		if(compare == NSOrderedDescending)
+		{
+			// S2 should be inserted before S1
+			if(idx1)
+			{
+				--idx1;
+				S1 = [result1 objectAtIndex:idx1];
+			}
+			else
+			{
+				// S1 is the first object
+				[result1 insertObject:S2 atIndex:idx1];
+				while(idx2--)
+				{
+					S2 = [result2 objectAtIndex:idx2];
+					[result1 insertObject:S2 atIndex:idx1];
+				}
+			}
+		}
+		else if(compare == NSOrderedAscending)
+		{
+			[result1 insertObject:S2 atIndex:idx1+1];
+			if(idx2--)
+			{
+				S2 = [result2 objectAtIndex:idx2];
+				goto grosbois;
+			}
+		}
+		else if(idx2--)
+		{
+			S2 = [result2 objectAtIndex:idx2];
+			goto grosbois;
+		}
+	}
+	else
+	{
+		return result2;
+	}
 }
 - (int)runCompletionForTextView:(NSTextView *)aTextView;
 {
@@ -1020,6 +1080,87 @@ To Do List:
 //iTM2_END;
 	return YES;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= completionsForPartialWordRange:indexOfSelectedItem:
+- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexPtr;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 12:58:07 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// we assuma that the arrays given by the various methods are ordered
+	NSString * preferred1 = nil;
+	NSString * preferred2 = nil;
+	NSMutableArray * result1 = (id)[[iTM2CompletionServer completionServer] completionsForTextView:self partialWordRange:charRange indexOfSelectedItem:indexPtr];
+	if([result1 count])
+	{
+		if(indexPtr && (*indexPtr < [result1 count]))
+		{
+			preferred1 = [result1 objectAtIndex:*indexPtr];
+		}
+		int index2 = 0;
+		NSArray * result2 = [[iTM2CompletionServer completionServer] completionsForTextView:self partialWordRange:charRange indexOfSelectedItem:&index2];
+		if([result2 count])
+		{
+			if(indexPtr && (index2 < [result2 count]))
+			{
+				preferred2 = [result2 objectAtIndex:index2];
+			}
+			result1 = [[result1 mutableCopy] autorelease];
+			// now merging the two arrays
+			int idx1 = [result1 count] - 1;
+			int idx2 = [result1 count] - 2;
+			NSString * S1 = [result1 objectAtIndex:idx1];
+			NSString * S2 = [result2 objectAtIndex:idx2];
+			int compare;
+grosbois:
+			compare = [S1 compare:S2];
+			if(compare == NSOrderedDescending)
+			{
+				// S2 should be inserted before S1
+				if(idx1)
+				{
+					--idx1;
+					S1 = [result1 objectAtIndex:idx1];
+				}
+				else
+				{
+					// S1 is the first object
+					[result1 insertObject:S2 atIndex:idx1];
+					while(idx2--)
+					{
+						S2 = [result2 objectAtIndex:idx2];
+						[result1 insertObject:S2 atIndex:idx1];
+					}
+				}
+			}
+			else if(compare == NSOrderedAscending)
+			{
+				[result1 insertObject:S2 atIndex:idx1+1];
+				if(idx2--)
+				{
+					S2 = [result2 objectAtIndex:idx2];
+					goto grosbois;
+				}
+			}
+			else if(idx2--)
+			{
+				S2 = [result2 objectAtIndex:idx2];
+				goto grosbois;
+			}
+			if(indexPtr)
+			{
+				*indexPtr = [result1 indexOfObject:preferred1];
+			}
+		}
+		return result1;
+	}
+	else
+	{
+		return charRange.length?[super completionsForPartialWordRange:charRange indexOfSelectedItem:indexPtr]:[NSArray array];
+	}
+}
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
 - (NSRange)rangeForUserCompletion;
@@ -1462,18 +1603,24 @@ static id iTM2SharedCompletionInspector = nil;
 }
 - (void)setSelectedCompletionSet:(NSString *)newSet;
 {
+	[self willChangeValueForKey:@"selectedCompletionSet"];
 	[selectedCompletionSet autorelease];// is it necessary
 	selectedCompletionSet = [newSet copy];
+	[self didChangeValueForKey:@"selectedCompletionSet"];
 	return;
 }
 - (int)countOfCompletionSets;
 {
 	return [_CompletionSets count];
 }
+- (NSArray *)completionModes;
+{
+	return [_CompletionSets allKeys];
+}
 -(id)objectInCompletionSetsAtIndex:(int)index;
 {
-	NSArray * keys = [_CompletionSets allKeys];
-	return index<[keys count]?[keys objectAtIndex:index]:@"Default";
+	NSArray * modes = [self completionModes];
+	return index<[modes count]?[modes objectAtIndex:index]:@"Default";
 }
 - (void)insertObject:(id)anObject inCompletionSetsAtIndex:(int)index;
 {
@@ -1482,8 +1629,8 @@ iTM2_LOG(@"anObject:%@",anObject);
 }
 - (void)removeObjectFromCompletionSetsAtIndex:(int) index;
 {
-	NSArray * keys = [_CompletionSets allKeys];
-	if(index>=0 && index<[keys count])
+	NSArray * modes = [self completionModes];
+	if(index>=0 && index<[modes count])
 	{
 		[self willChangeValueForKey:@"completionSets"];
 		NSString * key = (selectedCompletionSet?:@"Default");
@@ -1582,68 +1729,71 @@ iTM2_LOG(@"anObject:%@",anObject);
 - (IBAction)OK:(id)sender;
 {
 	//save?
-	NSLog(@"OK (%i)",selectedCompletionSet);
+	NSLog(@"OK (%a)",selectedCompletionSet);
 	NSArray * sortDescriptors = [self completionSortDescriptors];
 	NSEnumerator * E = [_CompletionSets keyEnumerator];
 	NSString * key;
 	while(key = [E nextObject])
 	{
 		NSMutableArray * MRA = [_CompletionSets objectForKey:key];
-		NSEnumerator * e = [MRA objectEnumerator];
-		NSDictionary * D;
-		MRA = [NSMutableArray array];
-		BOOL shouldSave = NO;
-		NSString * string = nil;
-		while(D = [e nextObject])
+		if([MRA isKindOfClass:[NSArray class]])
 		{
-			NSString * original = [D objectForKey:@"original"];// from various Library/Application Support
-			string = [D objectForKey:@"string"];// the "visible" string
-			NSString * initial = [D objectForKey:@"initial"];// the string read from the HD
-			if(![string isEqual:original])
+			NSEnumerator * e = [MRA objectEnumerator];
+			NSDictionary * D;
+			MRA = [NSMutableArray array];
+			BOOL shouldSave = NO;
+			NSString * string = nil;
+			while(D = [e nextObject])
 			{
-				[MRA addObject:D];
-			}
-			if(!shouldSave && ![string isEqual:initial])
-			{
-				shouldSave = YES;
-			}
-		}
-		if([MRA count])
-		{
-			[MRA sortUsingDescriptors:sortDescriptors];
-			if(shouldSave)
-			{
-				NSXMLElement * root = [NSXMLElement elementWithName:@"STRINGLIST"];
-				e = [MRA objectEnumerator];
-				NSXMLElement * child = nil;
-				while(D = [e nextObject])
+				NSString * original = [D objectForKey:@"original"];// from various Library/Application Support
+				string = [D objectForKey:@"string"];// the "visible" string
+				NSString * initial = [D objectForKey:@"initial"];// the string read from the HD
+				if(![string isEqual:original])
 				{
-					string = [D objectForKey:@"string"];
-					if(child = [D objectForKey:@"XMLElement"])
-					{
-						[child setStringValue:string];
-					}
-					else
-					{
-						child = [NSXMLElement elementWithName:@"S" stringValue:string];
-					}
-					[root addChild:child];
+					[MRA addObject:D];
 				}
-				NSXMLDocument * doc = [[[NSXMLDocument allocWithZone:[self zone]] initWithRootElement:root] autorelease];
-				[doc setCharacterEncoding:@"UTF-8"];
-				key = [key stringByAppendingPathExtension:@"xml"];
-				NSString * path = [[NSBundle mainBundle] pathForSupportDirectory:iTM2CompletionComponent inDomain:NSUserDomainMask create:YES];
-				key = [path stringByAppendingPathComponent:key];
-				NSURL * url = [NSURL fileURLWithPath:key];
-				if(![[doc XMLDataWithOptions:NSXMLNodePrettyPrint] writeToURL:url atomically:YES])
+				if(!shouldSave && ![string isEqual:initial])
 				{
-					NSLog(@"****  FAILURE: %@",url);
+					shouldSave = YES;
 				}
-				e = [MRA objectEnumerator];
-				while(D = [e nextObject])
+			}
+			if([MRA count])
+			{
+				[MRA sortUsingDescriptors:sortDescriptors];
+				if(shouldSave)
 				{
-					child = [D objectForKey:@"XMLElement"];
-					[child detach];
+					NSXMLElement * root = [NSXMLElement elementWithName:@"STRINGLIST"];
+					e = [MRA objectEnumerator];
+					NSXMLElement * child = nil;
+					while(D = [e nextObject])
+					{
+						string = [D objectForKey:@"string"];
+						if(child = [D objectForKey:@"XMLElement"])
+						{
+							[child setStringValue:string];
+						}
+						else
+						{
+							child = [NSXMLElement elementWithName:@"S" stringValue:string];
+						}
+						[root addChild:child];
+					}
+					NSXMLDocument * doc = [[[NSXMLDocument allocWithZone:[self zone]] initWithRootElement:root] autorelease];
+					[doc setCharacterEncoding:@"UTF-8"];
+					key = [key stringByAppendingPathExtension:@"xml"];
+					NSString * path = [[NSBundle mainBundle] pathForSupportDirectory:iTM2CompletionComponent inDomain:NSUserDomainMask create:YES];
+					key = [path stringByAppendingPathComponent:key];
+					NSURL * url = [NSURL fileURLWithPath:key];
+					if(![[doc XMLDataWithOptions:NSXMLNodePrettyPrint] writeToURL:url atomically:YES])
+					{
+						NSLog(@"****  FAILURE: %@",url);
+					}
+					e = [MRA objectEnumerator];
+					while(D = [e nextObject])
+					{
+						child = [D objectForKey:@"XMLElement"];
+						[child detach];
+					}
 				}
 			}
 		}
@@ -1664,17 +1814,25 @@ iTM2_LOG(@"anObject:%@",anObject);
 {
 	[newCompletionSet autorelease];
 	newCompletionSet = [aNewCompletionSet copy];
-	[NSApp endSheet:panel returnCode:([newCompletionSet length]>0?NSOKButton:NSCancelButton)];
 	return;
 }
-- (IBAction)addCompletionSet:(id)sender;
+- (IBAction)newCompletionSet:(id)sender;
 {
-	[NSApp beginSheet:panel modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(newCompletionSetPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+	[NSApp beginSheet:_NewPanel modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(newCompletionSetPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
 	return;
 }
 - (void)newCompletionSetPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 {
     [sheet orderOut:self];
+	if(![newCompletionSet length])
+	{
+		return;
+	}
+	if([_CompletionSets objectForKey:newCompletionSet])
+	{
+		// there is already a completion set for that stuff.
+		return;
+	}
 	if(returnCode == NSOKButton)
 	{
 		[self willChangeValueForKey:@"completionSets"];
@@ -1682,6 +1840,42 @@ iTM2_LOG(@"anObject:%@",anObject);
 		[self didChangeValueForKey:@"completionSets"];
 		[self setSelectedCompletionSet:newCompletionSet];
 	}
+	return;
+}
+- (IBAction)removeCompletionSet:(id)sender;
+{
+	if([[self selectedCompletionSet] isEqual:@"Default"])
+	{
+		return;
+	}
+	[NSApp beginSheet:_RemovePanel modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(removeCompletionSetPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+	return;
+}
+- (BOOL)canRemoveCompletionSet;
+{
+	return ![[self selectedCompletionSet] isEqual:@"Default"];
+}
+- (void)removeCompletionSetPanelDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+{
+    [sheet orderOut:self];
+	if(returnCode == NSOKButton)
+	{
+		[self willChangeValueForKey:@"completionSets"];
+		NSString * mySelectedCompletionSet = [self selectedCompletionSet];
+		[self setSelectedCompletionSet:@"Default"];
+		[_CompletionSets removeObjectForKey:mySelectedCompletionSet];
+		[self didChangeValueForKey:@"completionSets"];
+	}
+	return;
+}
+- (IBAction)panelOK:(id)sender;
+{
+	[NSApp endSheet:[sender window] returnCode:NSOKButton];
+	return;
+}
+- (IBAction)panelCancel:(id)sender;
+{
+	[NSApp endSheet:[sender window] returnCode:NSCancelButton];
 	return;
 }
 @end
