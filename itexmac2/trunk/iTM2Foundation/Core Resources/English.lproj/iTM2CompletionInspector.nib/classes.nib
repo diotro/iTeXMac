@@ -1,0 +1,13 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {addCompletionSet = id; }; 
+            CLASS = iTM2CompletionInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {"_TableView" = NSTableView; }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
