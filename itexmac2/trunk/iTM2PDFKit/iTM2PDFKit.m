@@ -1650,11 +1650,6 @@ To Do List:
 - (IBAction)refreshBackForwardState:(id)sender;
 - (IBAction)refreshDisplayBoxState:(id)sender;
 
-- (IBAction)annotateTool:(id)sender;
-- (IBAction)scrollTool:(id)sender;
-- (IBAction)selectTool:(id)sender;
-- (IBAction)textTool:(id)sender;
-
 - (IBAction)setCircleAnnotation:(id)sender;
 - (IBAction)setFreeTextAnnotation:(id)sender;
 - (IBAction)softProofToggle:(id)sender;
@@ -1670,6 +1665,54 @@ To Do List:
 {
 	[[self pdfView] setToolMode:argument];
 	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollTool:
+- (IBAction)scrollTool:(id)sender;
+{
+	[[self pdfView] setToolMode:kiTM2ScrollToolMode];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textTool:
+- (IBAction)textTool:(id)sender;
+{
+	[[self pdfView] setToolMode:kiTM2TextToolMode];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectTool:
+- (IBAction)selectTool:(id)sender;
+{
+	[[self pdfView] setToolMode:kiTM2SelectToolMode];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  annotateTool:
+- (IBAction)annotateTool:(id)sender;
+{
+	[[self pdfView] setToolMode:kiTM2AnnotateToolMode];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollTool:
+- (BOOL)validateScrollTool:(id)sender;
+{
+	[sender setState:([self toolMode] == kiTM2ScrollToolMode)];
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTextTool:
+- (BOOL)validateTextTool:(id)sender;
+{
+	[sender setState:([self toolMode] == kiTM2TextToolMode)];
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSelectTool:
+- (BOOL)validateSelectTool:(id)sender;
+{
+	[sender setState:([self toolMode] == kiTM2SelectToolMode)];
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateAnnotateTool:
+- (BOOL)validateAnnotateTool:(id)sender;
+{
+	[sender setState:([self toolMode] == kiTM2AnnotateToolMode)];
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canSynchronizeOutput
 - (BOOL)canSynchronizeOutput;
@@ -2084,8 +2127,8 @@ To Do List:
 	segmentedCell = [_toolbarToolModeView cell];
 	[segmentedCell setTrackingMode:NSSegmentSwitchTrackingSelectOne];
 	[segmentedCell setSegmentCount:4];
-	[segmentedCell setImage:[NSImage imageMoveToolAdorn] forSegment:kiTM2MoveToolMode];
-	[segmentedCell setTag:kiTM2MoveToolMode forSegment:kiTM2MoveToolMode];
+	[segmentedCell setImage:[NSImage imageMoveToolAdorn] forSegment:kiTM2ScrollToolMode];
+	[segmentedCell setTag:kiTM2ScrollToolMode forSegment:kiTM2ScrollToolMode];
 	[segmentedCell setImage:[NSImage imageTextToolAdorn] forSegment:kiTM2TextToolMode];
 	[segmentedCell setTag:kiTM2TextToolMode forSegment:kiTM2TextToolMode];
 	[segmentedCell setImage:[NSImage imageSelectToolAdorn] forSegment:kiTM2SelectToolMode];
@@ -2715,7 +2758,7 @@ To Do List:
 	iTM2ToolMode toolMode = [self toolMode];
 	if(![sender selectSegmentWithTag:toolMode])
 	{
-		[self setToolMode:kiTM2MoveToolMode];
+		[self setToolMode:kiTM2ScrollToolMode];
 		[sender selectSegmentWithTag:[self toolMode]];
 	}
 //iTM2_END;
@@ -3328,7 +3371,7 @@ To Do List:
 	}
 	switch([self toolMode])
 	{
-		case kiTM2MoveToolMode:
+		case kiTM2ScrollToolMode:
 			[[NSCursor openHandCursor] set];
 			return;
 		case kiTM2SelectToolMode:
@@ -5122,7 +5165,7 @@ To Do List:
 		}
 		switch([self toolMode])
 		{
-			case kiTM2MoveToolMode:
+			case kiTM2ScrollToolMode:
 				if([self trackMove:theEvent])
 				{
 					return;

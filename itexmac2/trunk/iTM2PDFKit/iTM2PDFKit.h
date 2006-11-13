@@ -32,7 +32,7 @@ extern NSString * const iTM2PDFKitViewerDefaultsDidChangeNotification;
 
 typedef enum
 {
-    kiTM2MoveToolMode = 0, 
+    kiTM2ScrollToolMode = 0, 
     kiTM2TextToolMode = 1, 
     kiTM2SelectToolMode = 2, 
     kiTM2AnnotateToolMode = 3
