@@ -916,7 +916,7 @@ To Do List:
 		}
     }
 	NSArray * inspectorClasses = [NSWindowController inspectorClassesForType:type mode:mode];
-    if(([inspectorClasses count] && (C = [inspectorClasses objectAtIndex:0]))
+    if([inspectorClasses count] && (C = [inspectorClasses objectAtIndex:0]))
     {
         WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
         [self addWindowController:WC];
@@ -3410,7 +3410,7 @@ To Do List:
 			NSString * title = @"";
 			if([inspectorClasses count])
 			{
-				C = [inspectorClasses objectAtIndex:0]
+				C = [inspectorClasses objectAtIndex:0];
 				title = [C prettyInspectorMode];
 			}
 			NSMenuItem * MI = [self addItemWithTitle:([title length]? title:NSLocalizedStringFromTableInBundle(iTM2DefaultInspectorMode, iTM2InspectorTable, BUNDLE, "DF"))

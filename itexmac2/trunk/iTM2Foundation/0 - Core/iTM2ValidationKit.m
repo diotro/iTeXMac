@@ -513,8 +513,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"sender is: %@", sender);
-    return ([isa target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusYES) || [super validateMenuItem:(id) sender];
+//iTM2_LOG(@"sender is: %@ (action: %@, target: %@)", sender, NSStringFromSelector([sender action]), [sender target]);
+	int status = [isa target:self validateUserInterfaceItem:sender];
+    return status == iTM2ValidationStatusYES?YES:
+		(status == iTM2ValidationStatusNO?NO:[super validateMenuItem:sender]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowsContents
 - (BOOL)validateWindowsContents;

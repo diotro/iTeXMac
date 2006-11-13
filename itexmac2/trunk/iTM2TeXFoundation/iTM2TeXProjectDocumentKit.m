@@ -708,7 +708,8 @@ To Do List:
     else if(row)
     {
 		id DS = [DV dataSource];
-        title = [DS tableView:DV objectValueForTableColumn:[[DV tableColumns] lastObject] row:row];
+		NSTableColumn * TC = [DV tableColumnWithIdentifier:@"path"];
+        title = [DS tableView:DV objectValueForTableColumn:TC row:row];
         if([title length])
 		{
 			NSArray * fileKeys = [self orderedFileKeys];
@@ -833,7 +834,7 @@ To Do List:
 		NSNumber * N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 		BOOL defaultIsAutoStringEncoding = [N boolValue];// beware, contextBoolForKey should be preferred, once it is well implemented
 		NSString * defaultStringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
-		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, come code is broken in the iTM2StringFormatterKit"));
+		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
 		NSStringEncoding defaultStringEncoding = [NSString stringEncodingWithName:defaultStringEncodingName];
 		unsigned int row = [selectedRowIndexes firstIndex];
 		if(row == 0)

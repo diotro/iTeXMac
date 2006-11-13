@@ -1229,6 +1229,111 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithName:
+- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Nov  8 09:18:47 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
+	if(!mandatoryProject)
+	{
+		return NO;
+	}
+	// just insert a new document in an already existing project
+	NSString * sourceName = [self standaloneFileName];// must be a file name?
+	NSString * originalExtension = [sourceName pathExtension];
+	NSString * mandatoryName = [mandatoryProject fileName];
+	NSString * targetDirectory = [mandatoryName stringByDeletingLastPathComponent];
+	[self takeContextValue:targetDirectory forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	NSString * newCore = fileName;
+	NSArray * newCoreComponents = [newCore pathComponents];
+	NSArray * mandatoryNameComponents = [mandatoryName pathComponents];
+	NSRange R = NSMakeRange([mandatoryNameComponents count], [newCoreComponents count]);
+	// if the document is added in a subdirectory...
+	if(R.length>R.location)
+	{
+		R.length -= R.location;
+		newCoreComponents = [newCoreComponents subarrayWithRange:R];
+		newCore = [NSString pathWithComponents:newCoreComponents];
+	}
+	else
+	{
+		newCore = [newCore lastPathComponent];
+	}
+	NSString * targetName = nil;
+	if([originalExtension length])
+	{
+		newCore = [newCore stringByDeletingPathExtension];
+		newCore = [newCore stringByAppendingPathExtension:originalExtension];
+	}
+	if([[SDC typeFromFileExtension:[targetName pathExtension]] isEqualToString:iTM2TeXDocumentType])
+	{
+		NSDictionary * filter = [NSDictionary dictionaryWithObject:	@"-" forKey:@" "];
+		newCore = [self convertedString:newCore withDictionary:filter];
+	}
+	NSMutableDictionary * filter = [NSMutableDictionary dictionaryWithDictionary:[self filterForProjectName:mandatoryName]];
+	newCore = [self convertedString:newCore withDictionary:filter];
+	targetName = [targetDirectory stringByAppendingPathComponent:newCore];
+	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
+	[self startProgressIndicationForName:targetName];
+	if([DFM copyPath:sourceName toPath:targetName handler:nil])
+	{
+		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
+		BOOL isDirectory;
+		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
+		{
+			NSMutableArray * names = [NSMutableArray array];
+			NSString * component = nil;
+			if(isDirectory)
+			{
+				NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:targetName];
+				while(component = [DE nextObject])
+				{
+					[names addObject:[targetName stringByAppendingPathComponent:component]];
+				}
+			}
+			else
+			{
+				[names addObject:targetName];
+			}
+			NSEnumerator * E = [names objectEnumerator];
+			while(component = [E nextObject])
+			{
+				mandatoryName = [mandatoryName lastPathComponent];
+				mandatoryName = [mandatoryName stringByDeletingPathExtension];
+				[filter setObject:mandatoryName forKey:iTM2NewDPROJECTNAMEKey];
+				[SPC setProject:mandatoryProject forFileName:targetName];//
+				NSURL * url = [NSURL fileURLWithPath:targetName];
+				id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
+				if([document isKindOfClass:[iTM2TextDocument class]])
+				{
+					NSTextStorage * TS = [document textStorage];
+					NSString * old = [TS string];
+					NSString * new = [self convertedString:old withDictionary:filter];
+					[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
+				}//if([document isKindOfClass:[iTM2TextDocument class]])
+				[document saveDocument:self];
+				[[document undoManager] removeAllActions];
+			}
+			[mandatoryProject saveDocument:self];
+		}
+		else
+		{
+			iTM2_LOG(@"*** ERROR: Missing file at %@", targetName);
+		}
+	}
+	else
+	{
+		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
+	}
+	[self stopProgressIndication];
+//iTM2_END;
+    return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithName:
 - (BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
 /*"Description forthcoming.
@@ -1816,111 +1921,6 @@ To Do List:
 			{
 				iTM2_LOG(@"*** ERROR: Missing directory at %@", targetName);
 			}
-		}
-		else
-		{
-			iTM2_LOG(@"*** ERROR: Missing file at %@", targetName);
-		}
-	}
-	else
-	{
-		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
-	}
-	[self stopProgressIndication];
-//iTM2_END;
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithName:
-- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Nov  8 09:18:47 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
-	if(!mandatoryProject)
-	{
-		return NO;
-	}
-	// just insert a new document in an already existing project
-	NSString * sourceName = [self standaloneFileName];// must be a file name?
-	NSString * originalExtension = [sourceName pathExtension];
-	NSString * mandatoryName = [mandatoryProject fileName];
-	NSString * targetDirectory = [mandatoryName stringByDeletingLastPathComponent];
-	[self takeContextValue:targetDirectory forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
-	NSString * newCore = fileName;
-	NSArray * newCoreComponents = [newCore pathComponents];
-	NSArray * mandatoryNameComponents = [mandatoryName pathComponents];
-	NSRange R = NSMakeRange([mandatoryNameComponents count], [newCoreComponents count]);
-	// if the document is added in a subdirectory...
-	if(R.length>R.location)
-	{
-		R.length -= R.location;
-		newCoreComponents = [newCoreComponents subarrayWithRange:R];
-		newCore = [NSString pathWithComponents:newCoreComponents];
-	}
-	else
-	{
-		newCore = [newCore lastPathComponent];
-	}
-	NSString * targetName = nil;
-	if([originalExtension length])
-	{
-		newCore = [newCore stringByDeletingPathExtension];
-		newCore = [newCore stringByAppendingPathExtension:originalExtension];
-	}
-	if([[SDC typeFromFileExtension:[targetName pathExtension]] isEqualToString:iTM2TeXDocumentType])
-	{
-		NSDictionary * filter = [NSDictionary dictionaryWithObject:	@"-" forKey:@" "];
-		newCore = [self convertedString:newCore withDictionary:filter];
-	}
-	NSMutableDictionary * filter = [NSMutableDictionary dictionaryWithDictionary:[self filterForProjectName:mandatoryName]];
-	newCore = [self convertedString:newCore withDictionary:filter];
-	targetName = [targetDirectory stringByAppendingPathComponent:newCore];
-	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
-	[self startProgressIndicationForName:targetName];
-	if([DFM copyPath:sourceName toPath:targetName handler:nil])
-	{
-		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
-		BOOL isDirectory;
-		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
-		{
-			NSMutableArray * names = [NSMutableArray array];
-			NSString * component = nil;
-			if(isDirectory)
-			{
-				NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:targetName];
-				while(component = [DE nextObject])
-				{
-					[names addObject:[targetName stringByAppendingPathComponent:component]];
-				}
-			}
-			else
-			{
-				[names addObject:targetName];
-			}
-			NSEnumerator * E = [names objectEnumerator];
-			while(component = [E nextObject])
-			{
-				mandatoryName = [mandatoryName lastPathComponent];
-				mandatoryName = [mandatoryName stringByDeletingPathExtension];
-				[filter setObject:mandatoryName forKey:iTM2NewDPROJECTNAMEKey];
-				[SPC setProject:mandatoryProject forFileName:targetName];//
-				NSURL * url = [NSURL fileURLWithPath:targetName];
-				id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
-				if([document isKindOfClass:[iTM2TextDocument class]])
-				{
-					NSTextStorage * TS = [document textStorage];
-					NSString * old = [TS string];
-					NSString * new = [self convertedString:old withDictionary:filter];
-					[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
-				}//if([document isKindOfClass:[iTM2TextDocument class]])
-				[document saveDocument:self];
-				[[document undoManager] removeAllActions];
-			}
-			[mandatoryProject saveDocument:self];
 		}
 		else
 		{

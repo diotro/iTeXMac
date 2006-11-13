@@ -156,6 +156,7 @@ To Do List:
 	while(child = [E nextObject])
 	{
 		[_Children removeObject:child];
+		[child setParent:nil];
 	}
 	[_Children autorelease];
 	_Children = nil;

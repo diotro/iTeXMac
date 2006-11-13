@@ -1299,7 +1299,7 @@ To Do List:
 		GWC = [[[NSWindowController allocWithZone:[self zone]] initWithWindow:W] autorelease];
 		[self addWindowController:GWC];
 		[IMPLEMENTATION takeMetaValue:GWC forKey:@"_GWC"];
-		[[GWC window] setExcludedFromWindowsMenu:NO];
+		[[GWC window] setExcludedFromWindowsMenu:YES];
 		[[GWC window] orderFront:self];
 	}
 //iTM2_END;
@@ -2715,9 +2715,9 @@ To Do List:
 	{
 		[self recordHandleToFileURL:fileURL];// just in case...
 //		[[self keyedFileNames] takeValue:fileName forKey:key];
-iTM2_LOG(@"fileName:%@",fileName);
-iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
-iTM2_LOG(@"[self keyForFileName:fileName]:%@",[self keyForFileName:fileName]);
+//iTM2_LOG(@"fileName:%@",fileName);
+//iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
+//iTM2_LOG(@"[self keyForFileName:fileName]:%@",[self keyForFileName:fileName]);
 		[[self keyedFileNames] takeValue:relativeName forKey:key];
 		[self setFileName:relativeName forKey:key makeRelative:NO];
 //iTM2_LOG(@"AFTER  cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
@@ -2725,9 +2725,9 @@ iTM2_LOG(@"[self keyForFileName:fileName]:%@",[self keyForFileName:fileName]);
 		{
 			[self saveDocument:nil];
 		}
-iTM2_LOG(@"fileName:%@",fileName);
-iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
-iTM2_LOG(@"[self keyForFileName:fileName]:%@",[self keyForFileName:fileName]);
+//iTM2_LOG(@"fileName:%@",fileName);
+//iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
+//iTM2_LOG(@"[self keyForFileName:fileName]:%@",[self keyForFileName:fileName]);
 		NSAssert1([key isEqual:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %s"),__PRETTY_FUNCTION__);
 		return key;
 	}
@@ -9474,8 +9474,9 @@ To Do List:
 			NSString * key = [sender representedObject];
 			if([key isKindOfClass:[NSString class]])
 			{
-				NSString * path = [projectDocument absoluteFileNameForKey:key];
-                [sender setAttributedTitle:([DFM fileExistsAtPath:path]? nil:
+				NSString * absolutePath = [projectDocument absoluteFileNameForKey:key];
+				NSString * farawayPath = [projectDocument farawayFileNameForKey:key];
+                [sender setAttributedTitle:([DFM fileExistsAtPath:absolutePath]||[DFM fileExistsAtPath:farawayPath]? nil:
                     [[[NSAttributedString alloc] initWithString:[sender title]
                         attributes:[NSDictionary dictionaryWithObjectsAndKeys:
                             [NSColor redColor],NSForegroundColorAttributeName,

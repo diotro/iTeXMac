@@ -1482,6 +1482,12 @@ To Do List:
 	[self setStringEncoding:usedStringEncoding];
 	[self setStringEncodingHardCoded:!canStringEncoding];
 	[self setHardStringEncodingString:hardStringEncodingString];
+	id doc = [self document];
+	if(doc)
+	{
+		NSString * defaultStringEncodingName = [doc contextValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];// we are expecting something
+		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
+	}
 //iTM2_START;
     return string;
 }
