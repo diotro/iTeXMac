@@ -6,9 +6,9 @@
 	DC0EF94A094899550018276F /* Install in iTM2LaTeXKit */ = {
 		activeExec = 0;
 	};
-	DC27DCD00AE959ED00A5460D /* PBXTextBookmark */ = {
+	DC10E6350B086FDF00E3BA31 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DC27DCD10AE959ED00A5460D /* classes.nib */;
+		fRef = DC10E6360B086FDF00E3BA31 /* classes.nib */;
 		name = "(null): 17";
 		rLen = 0;
 		rLoc = 395;
@@ -16,9 +16,8 @@
 		vrLen = 395;
 		vrLoc = 0;
 	};
-	DC27DCD10AE959ED00A5460D /* classes.nib */ = {
+	DC10E6360B086FDF00E3BA31 /* classes.nib */ = {
 		isa = PBXFileReference;
-		lastKnownFileType = text;
 		name = classes.nib;
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";
 		sourceTree = "<absolute>";
@@ -471,11 +470,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 184584562;
-			PBXWorkspaceStateSaveDate = 184584562;
+			PBXPerProjectTemplateStateSaveDate = 185099415;
+			PBXWorkspaceStateSaveDate = 185099415;
 		};
 		perUserProjectItems = {
-			DC27DCD00AE959ED00A5460D /* PBXTextBookmark */ = DC27DCD00AE959ED00A5460D /* PBXTextBookmark */;
+			DC10E6350B086FDF00E3BA31 /* PBXTextBookmark */ = DC10E6350B086FDF00E3BA31 /* PBXTextBookmark */;
 			DC5B8C3F0AE776FD0076589D /* PBXTextBookmark */ = DC5B8C3F0AE776FD0076589D /* PBXTextBookmark */;
 			DC80337C0ABECAB30087FC8F /* PBXTextBookmark */ = DC80337C0ABECAB30087FC8F /* PBXTextBookmark */;
 			DC9BC3770ABA0D4D00FAC59E /* PBXTextBookmark */ = DC9BC3770ABA0D4D00FAC59E /* PBXTextBookmark */;
@@ -536,6 +535,7 @@
 	};
 	DCBA444D0B028A38006AF52A /* classes.nib */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = text;
 		name = classes.nib;
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";
 		sourceTree = "<absolute>";
