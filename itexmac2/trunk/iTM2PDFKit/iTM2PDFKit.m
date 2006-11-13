@@ -2825,6 +2825,7 @@ To Do List:
 	[super initialize];
 	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithInt:10], @"iTM2PDFKitSyncMaxNumberOfMatches",
+		[NSNumber numberWithFloat:0.2], @"com.apple.mouse.doubleClickThreshold",
 		[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithBool:YES], @"EnableSynchronization",
 			[NSNumber numberWithBool:YES], @"FollowFocus",
