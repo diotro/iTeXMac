@@ -1,0 +1,26 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                OK = id; 
+                cancel = id; 
+                help = id; 
+                newCompletionSet = id; 
+                panelCancel = id; 
+                panelOK = id; 
+                removeCompletionSet = id; 
+            }; 
+            CLASS = iTM2CompletionInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {"_NewPanel" = id; "_RemovePanel" = id; "_TableView" = NSTableView; }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
