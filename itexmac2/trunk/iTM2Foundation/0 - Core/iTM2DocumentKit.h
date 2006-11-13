@@ -789,14 +789,14 @@ extern NSString * const iTM2InspectorTable;
 + (Class)inspectorClassForType:(NSString *)type mode:(NSString *)mode variant:(NSString *)variant;
 
 /*!
-    @method		inspectorClassesEnumeratorForType:mode:
-    @abstract	The class object enumerator for the given type and mode arguments.
+    @method		inspectorClassesForType:mode:
+    @abstract	The class objects for the given type and mode arguments.
     @discussion	Discussion forthcoming.
     @param		type is a unique NSString identifier.
     @param		mode is a unique NSString identifier.
     @result		an enumerator.
 */
-+ (NSEnumerator *)inspectorClassesEnumeratorForType:(NSString *)type mode:(NSString *)mode;
++ (NSArray *)inspectorClassesForType:(NSString *)type mode:(NSString *)mode;
 
 /*!
     @method		inspectorModesForType:

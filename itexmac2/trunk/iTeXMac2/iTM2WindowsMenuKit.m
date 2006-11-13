@@ -55,7 +55,11 @@ To Do List:
 //iTM2_LOG(@"[inspectorClass inspectorVariant] is: %@(%@)", [inspectorClass inspectorVariant], iTM2DefaultInspectorVariant);
         if(inspectorClass == Nil)
         {
-            inspectorClass = [[NSWindowController inspectorClassesEnumeratorForType:type mode:mode] nextObject];
+			NSArray * inspectorClasses = [NSWindowController inspectorClassesForType:type mode:mode];
+			if([inspectorClasses count])
+			{
+				inspectorClass = [inspectorClasses objectAtIndex:0];
+			}
 //iTM2_LOG(@"[C inspectorType] is: %@(%@)", [C inspectorType], type);
 //iTM2_LOG(@"[C inspectorMode] is: %@(%@)", [C inspectorMode], mode);
 //iTM2_LOG(@"[C inspectorVariant] is: %@(%@)", [C inspectorVariant], iTM2DefaultInspectorVariant);
@@ -211,7 +215,6 @@ In general:
 project name, with a submenu
 indented list of windows
 menu separator
-If an external project is used containing only one documents (except the project itself), we just use the standard menu item.
 Those items are collected at the end of the window list.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -247,7 +250,7 @@ To Do List:
 		W = [MI target];
 		if([W isKindOfClass:[NSWindow class]])
 		{
-			targetIsWindow:
+targetIsWindow:
 //iTM2_LOG(@"1 - [MI title] is: %@", [MI title]);
 			[MI setTitle:[W windowsMenuItemTitle]];
 //iTM2_LOG(@"2 - [MI title] is: %@", [MI title]);
@@ -266,18 +269,16 @@ To Do List:
 				NSMenu * m = [[[iTM2ProjectWindowSubmenu allocWithZone:[NSMenu menuZone]] initWithTitle:[MI title]] autorelease];
 				[[MI menu] setSubmenu:m forItem:MI];
 				// [m addItemWithTitle:@"RIEN" action:NULL keyEquivalent:@""];
-//                [self updateWindowsSubmenu:m];// once m is really a submenu!!!
                 [document updateWindowsSubmenu:m];// once m is really a submenu!!!
 //iTM2_LOG(@"=-=-=-=-=-  [MI submenu] is: %@", [MI submenu]);
 				[W setExcludedFromWindowsMenu:YES];
 				[MI setState:NSOffState];
-				itemIsProject:
+itemIsProject:
 //iTM2_LOG(@"=-=-=-=-=-  menu item is project %#x", document);
 				[namesToProjectMenuItems takeValue:MI forKey: ([fileName length]? fileName:
                     ([[document displayName] length]? [document displayName]:[NSString stringWithFormat:@"%#x", document]))];
 				[windowsMenu removeItem:MI];
-
-				nextMenuItem:
+nextMenuItem:
 				MI = [E nextObject];
 //iTM2_LOG(@"LOOP ----> [MI title] is: %@", [MI title]);
 				W = [MI target];
@@ -332,7 +333,7 @@ To Do List:
 		}
 		else if([MI hasSubmenu] && [[MI submenu] isKindOfClass:[iTM2ProjectWindowSubmenu class]])
 		{
-			itemHasProjectSubmenu:;
+itemHasProjectSubmenu:;
 //iTM2_LOG(@"=-=-=-=-=-  target has submenu");
 			NSValue * V = [MI representedObject];
 			id document = [V isKindOfClass:[NSValue class]]? [V nonretainedObjectValue]: nil;

@@ -915,7 +915,8 @@ To Do List:
             [self removeWindowController:WC];
 		}
     }
-    if(C = [[NSWindowController inspectorClassesEnumeratorForType:type mode:mode] nextObject])
+	NSArray * inspectorClasses = [NSWindowController inspectorClassesForType:type mode:mode];
+    if(([inspectorClasses count] && (C = [inspectorClasses objectAtIndex:0]))
     {
         WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
         [self addWindowController:WC];
@@ -2669,7 +2670,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSEnumerator * E = [self inspectorClassesEnumeratorForType:type mode:mode];
+	NSArray * inspectorClasses = [self inspectorClassesForType:type mode:mode];
+    NSEnumerator * E = [inspectorClasses objectEnumerator];
     Class C;
     while(C = [E nextObject])
 	{
@@ -2692,8 +2694,8 @@ To Do List:
 //iTM2_END;
     return [[[self windowControllerServer] keyEnumeratorForType:type] allObjects];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorClassesEnumeratorForType:mode:
-+ (NSEnumerator *)inspectorClassesEnumeratorForType:(NSString *) type mode:(NSString *) mode;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorClassesForType:mode:
++ (NSArray *)inspectorClassesForType:(NSString *) type mode:(NSString *) mode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2701,7 +2703,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[[self windowControllerServer] objectForType:type key:mode] objectEnumerator];
+    return [[self windowControllerServer] objectForType:type key:mode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
 - (NSString *)inspectorVariant;
@@ -3391,97 +3393,102 @@ To Do List:
         return;
     }
 //    if(![[self title] isEqualToString:newTitle])
-    {
-        [self setTitle:newTitle];
-        BOOL old = [self menuChangedMessagesEnabled];
-        [self setMenuChangedMessagesEnabled:NO];
-        while([self numberOfItems])
-            [self removeItemAtIndex:0];
-        NSString * type = [[D class] inspectorType];
-        NSEnumerator * E = [[NSWindowController inspectorModesForType:type] objectEnumerator];
-        NSString * inspectorMode;
-        while(inspectorMode = [E nextObject])
+	[self setTitle:newTitle];
+	BOOL old = [self menuChangedMessagesEnabled];
+	[self setMenuChangedMessagesEnabled:NO];
+	while([self numberOfItems])
+		[self removeItemAtIndex:0];
+	NSString * type = [[D class] inspectorType];
+	NSEnumerator * E = [[NSWindowController inspectorModesForType:type] objectEnumerator];
+	NSString * inspectorMode;
+	while(inspectorMode = [E nextObject])
+	{
+		if(![inspectorMode hasPrefix:@"."])
 		{
-			if(![inspectorMode hasPrefix:@"."])
+			NSArray * inspectorClasses = [NSWindowController inspectorClassesForType:type mode:inspectorMode];
+			Class C = Nil;
+			NSString * title = @"";
+			if([inspectorClasses count])
 			{
-				NSString * title = [[[NSWindowController inspectorClassesEnumeratorForType:type mode:inspectorMode] nextObject] prettyInspectorMode];
-				NSMenuItem * MI = [self addItemWithTitle:([title length]? title:NSLocalizedStringFromTableInBundle(iTM2DefaultInspectorMode, iTM2InspectorTable, BUNDLE, "DF"))
-						action:NULL keyEquivalent:@""];
-				[MI setRepresentedObject:inspectorMode];
-				NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:title] autorelease];
-				NSEnumerator * e = [NSWindowController inspectorClassesEnumeratorForType:type mode:inspectorMode];
-				Class C;
-				while(C = [e nextObject])
+				C = [inspectorClasses objectAtIndex:0]
+				title = [C prettyInspectorMode];
+			}
+			NSMenuItem * MI = [self addItemWithTitle:([title length]? title:NSLocalizedStringFromTableInBundle(iTM2DefaultInspectorMode, iTM2InspectorTable, BUNDLE, "DF"))
+					action:NULL keyEquivalent:@""];
+			[MI setRepresentedObject:inspectorMode];
+			NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:title] autorelease];
+			NSEnumerator * e = [inspectorClasses objectEnumerator];
+			while(C = [e nextObject])
+			{
+				NSArray * variants = [C allInspectorVariantsForType:type];
+				if([variants count] > 1)
 				{
-					NSArray * variants = [C allInspectorVariantsForType:type];
-					if([variants count] > 1)
+					// some code is added to track george tourlakis bug
+					NSEnumerator * ee = [variants objectEnumerator];
+					NSString * inspectorVariant;
+					while(inspectorVariant = [ee nextObject])
 					{
-						NSEnumerator * ee = [variants objectEnumerator];
-						NSString * inspectorVariant;
-						while(inspectorVariant = [ee nextObject])
-						{
-							NSMenuItem * mi = [M addItemWithTitle:inspectorVariant
-													action:@selector(toggleInspector:) keyEquivalent:@""];
-							[mi setRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:
-								type, @"type", inspectorMode, @"mode", inspectorVariant, @"variant", nil]];
-							[mi setTarget:self];
-						}
-					}
-					else
-					{
-						NSString * prettyInspectorVariant = [C prettyInspectorVariant];
-						NSMenuItem * mi = [M addItemWithTitle:([prettyInspectorVariant length]? prettyInspectorVariant:
-									NSLocalizedStringFromTableInBundle(iTM2DefaultInspectorVariant, iTM2InspectorTable, BUNDLE, "DF"))
-								action:@selector(toggleInspector:) keyEquivalent:@""];
+						NSMenuItem * mi = [M addItemWithTitle:inspectorVariant
+												action:@selector(toggleInspector:) keyEquivalent:@""];
 						[mi setRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:
-							type, @"type", inspectorMode, @"mode", [C inspectorVariant], @"variant", nil]];
+							type, @"type", inspectorMode, @"mode", inspectorVariant, @"variant", nil]];
 						[mi setTarget:self];
 					}
 				}
-				if([M numberOfItems] > 1)
+				else
 				{
-					[self setSubmenu:M forItem:MI];
+					NSString * prettyInspectorVariant = [C prettyInspectorVariant];
+					NSMenuItem * mi = [M addItemWithTitle:([prettyInspectorVariant length]? prettyInspectorVariant:
+								NSLocalizedStringFromTableInBundle(iTM2DefaultInspectorVariant, iTM2InspectorTable, BUNDLE, "DF"))
+							action:@selector(toggleInspector:) keyEquivalent:@""];
+					[mi setRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:
+						type, @"type", inspectorMode, @"mode", [C inspectorVariant], @"variant", nil]];
+					[mi setTarget:self];
+				}
+			}
+			if([M numberOfItems] > 1)
+			{
+				[self setSubmenu:M forItem:MI];
 #if 0
 //iTM2_LOG(@"M is:%@", M);
 NSEnumerator * E = [[M itemArray] objectEnumerator];
 id mi;
 while(mi = [E nextObject])
 {
-	iTM2_LOG(@"mi:%@, action:%@, target:%@", mi, NSStringFromSelector([mi action]), [mi target]);
+iTM2_LOG(@"mi:%@, action:%@, target:%@", mi, NSStringFromSelector([mi action]), [mi target]);
 }
 #endif
-				}
-				else if([M numberOfItems] > 0)
-				{
-					[self removeItem:MI];
-					MI = [[[M itemAtIndex:0] retain] autorelease];
-					[M removeItem:MI];
-					[self addItem:MI];
-					[MI setTitle:title];
-				}
-				else
-				{
-					iTM2_LOG(@"There is some weird thing happening with the inspectors(type:%@, mode:%@)...", type, inspectorMode);
-				}
+			}
+			else if([M numberOfItems] > 0)
+			{
+				[self removeItem:MI];
+				MI = [[[M itemAtIndex:0] retain] autorelease];
+				[M removeItem:MI];
+				[self addItem:MI];
+				[MI setTitle:title];
+			}
+			else
+			{
+				iTM2_LOG(@"There is some weird thing happening with the inspectors(type:%@, mode:%@)...", type, inspectorMode);
 			}
 		}
-		int NOI = [self numberOfItems];
-		// adding now the external inspectors, if any
-		E = [[[[iTM2ExternalInspectorServer keyEnumeratorForType:type] allObjects] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-		NSString * inspectorVariant;
-		while(inspectorVariant = [E nextObject])
-		{
-			NSMenuItem * mi = [self addItemWithTitle:inspectorVariant
-					action:@selector(toggleExternalInspector:) keyEquivalent:@""];
-			[mi setRepresentedObject:[iTM2ExternalInspectorServer objectForType:type key:inspectorVariant]];
-			[mi setTarget:self];
-		}
-		if([self numberOfItems]>NOI)
-		{
-			[self insertItem:[NSMenuItem separatorItem] atIndex:NOI];
-		}
-        [self setMenuChangedMessagesEnabled:old];
-    }
+	}
+	int NOI = [self numberOfItems];
+	// adding now the external inspectors, if any
+	E = [[[[iTM2ExternalInspectorServer keyEnumeratorForType:type] allObjects] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
+	NSString * inspectorVariant;
+	while(inspectorVariant = [E nextObject])
+	{
+		NSMenuItem * mi = [self addItemWithTitle:inspectorVariant
+				action:@selector(toggleExternalInspector:) keyEquivalent:@""];
+		[mi setRepresentedObject:[iTM2ExternalInspectorServer objectForType:type key:inspectorVariant]];
+		[mi setTarget:self];
+	}
+	if([self numberOfItems]>NOI)
+	{
+		[self insertItem:[NSMenuItem separatorItem] atIndex:NOI];
+	}
+	[self setMenuChangedMessagesEnabled:old];
     [super update];
 //iTM2_END;
     return;

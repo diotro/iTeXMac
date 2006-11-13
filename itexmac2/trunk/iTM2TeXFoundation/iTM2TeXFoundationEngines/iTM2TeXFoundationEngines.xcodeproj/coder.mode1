@@ -322,14 +322,14 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCBA44560B028A3A006AF52A</string>
+										<string>DC10E63A0B086FE000E3BA31</string>
 										<key>history</key>
 										<array>
 											<string>DC3E11020AEBA07B009BC4BA</string>
 											<string>DC3E11030AEBA07B009BC4BA</string>
 											<string>DC3E11040AEBA07B009BC4BA</string>
 											<string>DC3E11050AEBA07B009BC4BA</string>
-											<string>DC3E1AB50AED690C009BC4BA</string>
+											<string>DC10E6390B086FE000E3BA31</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -394,9 +394,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCBA42270B0093F7006AF52A</string>
+				<string>DC10E60C0B0864A900E3BA31</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCBA42280B0093F7006AF52A</string>
+				<string>DC10E60D0B0864A900E3BA31</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -530,9 +530,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DCBA41B30B008993006AF52A</string>
-		<string>1C0AD2B3069F1EA900FABCE6</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>44 85 1015 647 0 0 1440 878 </string>
@@ -756,21 +755,19 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TeXWrapperKit.m</string>
+										<string>&lt;No Editor&gt;</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{0, 0}, {1154, 283}}</string>
+										<string>{{0, 0}, {1154, 484}}</string>
 										<key>RubberWindowFrame</key>
 										<string>71 48 1154 757 0 0 1440 878 </string>
 									</dict>
@@ -781,7 +778,7 @@
 								</dict>
 							</array>
 							<key>Proportion</key>
-							<string>283pt</string>
+							<string>484pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -794,14 +791,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 288}, {1154, 428}}</string>
+								<string>{{0, 489}, {1154, 227}}</string>
 								<key>RubberWindowFrame</key>
 								<string>71 48 1154 757 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
 							<key>Proportion</key>
-							<string>428pt</string>
+							<string>227pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -819,8 +816,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC3E0F9E0AEB6B29009BC4BA</string>
-				<string>DC3E0F9F0AEB6B29009BC4BA</string>
+				<string>DC10E63B0B086FE000E3BA31</string>
+				<string>DC10E63C0B086FE000E3BA31</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>

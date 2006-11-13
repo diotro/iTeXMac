@@ -320,7 +320,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCBA443F0B028A33006AF52A</string>
+										<string>DC10E6320B086FDE00E3BA31</string>
 										<key>history</key>
 										<array>
 											<string>DCC541840935A0E50050770C</string>
@@ -330,7 +330,7 @@
 											<string>DC99E7AA0A2456E600F50752</string>
 											<string>DC99E7AB0A2456E600F50752</string>
 											<string>DC81071D0ADD9DBA00F870B4</string>
-											<string>DC27DCC80AE959DE00A5460D</string>
+											<string>DCBA443F0B028A33006AF52A</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -399,9 +399,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCBA44400B028A33006AF52A</string>
+				<string>DC10E5F20B0864A900E3BA31</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCBA44410B028A33006AF52A</string>
+				<string>DC10E5F30B0864A900E3BA31</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -548,7 +548,9 @@
 	<key>WindowJustification</key>
 	<integer>5</integer>
 	<key>WindowOrderList</key>
-	<array/>
+	<array>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj</string>
+	</array>
 	<key>WindowString</key>
 	<string>136 168 1057 710 0 0 1440 878 </string>
 	<key>WindowTools</key>

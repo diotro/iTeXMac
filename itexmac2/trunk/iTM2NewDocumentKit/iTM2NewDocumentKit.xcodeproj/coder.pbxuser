@@ -8,6 +8,8 @@
 		);
 		breakpoints = (
 			DCE8742609352CC500037138 /* -[NSException raise] */,
+			DC08760D0A42E4C10062ABE6 /* iTM2NewDocumentKit.m:1372 */,
+			DC84F8330AD58FA900C6FCAA /* iTM2NewDocumentKit.m:2073 */,
 		);
 		breakpointsGroup = DC99EBEC0A27C5D900F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DCDE977508EC808C00A7C892 /* Code sense */;
@@ -135,8 +137,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 184584565;
-			PBXWorkspaceStateSaveDate = 184584565;
+			PBXPerProjectTemplateStateSaveDate = 185099420;
+			PBXWorkspaceStateSaveDate = 185099420;
 		};
 		sourceControlManager = DCDE977408EC808C00A7C892 /* Source Control */;
 		userBuildSettings = {
