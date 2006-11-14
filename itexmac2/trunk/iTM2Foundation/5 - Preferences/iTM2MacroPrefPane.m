@@ -1308,6 +1308,10 @@ static id _iTM2MacroController = nil;
 								[[[iTM2MacroContextNode alloc] initWithParent:categoryNode context:component] autorelease];
 					}
 					NSURL * url = [NSURL URLWithString:[subpath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:repositoryURL];
+					if(iTM2DebugEnabled)
+					{
+						iTM2_LOG(@"url:%@",url);
+					}
 					NSError * localError =  nil;
 					NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
 					if(localError)
@@ -1328,6 +1332,11 @@ static id _iTM2MacroController = nil;
 							{
 								//iTM2MacroLeafNode * node = 
 								[[[iTM2MacroLeafNode alloc] initWithParent:contextNode ID:ID element:element] autorelease];
+							}
+							if(iTM2DebugEnabled)
+							{
+								child = (iTM2MacroLeafNode *)[contextNode objectInChildrenWithID:ID];
+								iTM2_LOG(@"child:%@",child);
 							}
 						}
 					}
