@@ -109,6 +109,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"argument:%@,type:%@,key:%@,retain:%@",argument,type,key,(yorn?@"Y":@"N"));
+	}
     NSMutableDictionary * MD = [[self mutableDictionary] objectForKey:type];
     if(!MD)
     {
@@ -124,6 +128,7 @@ To Do List:
             argument, @"value", nil]:
         [NSDictionary dictionaryWithObject:[NSValue valueWithNonretainedObject:argument] forKey:@"address"])
             forKey: key];
+//iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unregisterObjectForType:key:

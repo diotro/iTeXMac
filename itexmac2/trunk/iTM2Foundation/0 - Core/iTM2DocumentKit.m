@@ -2705,6 +2705,18 @@ To Do List:
 //iTM2_START;
     return [[self windowControllerServer] objectForType:type key:mode];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allInspectorsDescription
++ (NSString *)allInspectorsDescription;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[[self windowControllerServer] mutableDictionary] description];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
 - (NSString *)inspectorVariant;
 /*"Description Forthcoming.

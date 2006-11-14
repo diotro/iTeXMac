@@ -861,6 +861,8 @@ extern NSString * const iTM2InspectorTable;
 */
 - (void)showWindowBelowFront:(id)sender;
 
++ (NSString *)allInspectorsDescription;// intentionnally undocumented
+
 @end
 
 @interface NSWindowController(iTM2DocumentKit)
