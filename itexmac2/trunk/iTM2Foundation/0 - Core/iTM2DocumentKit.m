@@ -2421,6 +2421,10 @@ To Do List:
 //Class c = [NSWindowController inspectorClassForType:type mode:mode variant:[C inspectorVariant]];
 //iTM2_LOG(@"Registered inspector:%@, type:%@, mode:%@, variant:%@", NSStringFromClass(c), [c inspectorType], [c inspectorMode], [c inspectorVariant]);
                 }
+				else if(iTM2DebugEnabled)
+				{
+					iTM2_LOG(@"Already registered class %@", NSStringFromClass(C));
+				}
             }
         }
         else if(iTM2DebugEnabled)
