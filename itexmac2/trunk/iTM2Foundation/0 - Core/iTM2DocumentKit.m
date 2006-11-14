@@ -3424,6 +3424,20 @@ To Do List:
 				if([variants count] > 1)
 				{
 					// some code is added to track george tourlakis bug
+NSSet * set = [NSSet setWithArray:variants];
+if([set count]<[variants count])
+{
+	iTM2_LOG(@"[NSWindowController allInspectorsDescription]:%@",[NSWindowController allInspectorsDescription]);
+	if([SUD boolForKey:@"GeorgeTourlakisBug"])
+	{
+		// do nothing
+	}
+	else
+	{
+		iTM2_REPORTERROR(1,(@"Problem with inspectors: please send the console.app last lines (~100) to jlaurens@users.sourceforge.net"),nil);
+		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"GeorgeTourlakisBug"]];
+	}
+}
 					NSEnumerator * ee = [variants objectEnumerator];
 					NSString * inspectorVariant;
 					while(inspectorVariant = [ee nextObject])
