@@ -48,23 +48,23 @@
 			</dict>
 		</dict>
 		<key>SidebarWidth</key>
-		<integer>124</integer>
+		<integer>166</integer>
 		<key>ToolbarVisible</key>
 		<false/>
 		<key>ViewHeight</key>
-		<integer>729</integer>
+		<integer>694</integer>
 		<key>ViewStyle</key>
 		<string>qrsb</string>
 		<key>WindowBounds</key>
 		<dict>
 			<key>bottom</key>
-			<integer>883</integer>
+			<integer>859</integer>
 			<key>left</key>
-			<integer>258</integer>
+			<integer>91</integer>
 			<key>right</key>
-			<integer>1362</integer>
+			<integer>1321</integer>
 			<key>top</key>
-			<integer>154</integer>
+			<integer>165</integer>
 		</dict>
 	</dict>
 </dict>

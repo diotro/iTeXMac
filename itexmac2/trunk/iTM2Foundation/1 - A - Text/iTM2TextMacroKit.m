@@ -410,6 +410,24 @@ To Do List:
 //iTM2_START;
     return [SUD stringForKey:iTM2UDTabAnchorStringKey];
 }
+//=-=-=-=-=-=-=-=-=-=-=  performInsertActionWithArguments:attributes:
+- (BOOL)performInsertActionWithArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+/*"The default implementation does nothing."*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"arguments:%@",arguments);
+		iTM2_LOG(@"attributes:%@",attributes);
+	}
+	if([arguments count])
+	{
+		NSString * replacementString = [arguments objectAtIndex:0];
+		[self insertMacro:replacementString];
+	}
+//iTM2_END;
+    return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:
 - (void)insertMacro:(id)argument;
 /*"Description forthcoming. argument is either a dictionary with strings for keys "before", "selected" and "after" or a string playing the role of before keyed object (the other strings are blank). When the argument is a NSMenuItem (or so) we add a pretreatment replacing the argument by its represented object.

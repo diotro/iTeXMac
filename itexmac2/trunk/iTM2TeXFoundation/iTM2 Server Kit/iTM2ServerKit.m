@@ -1185,7 +1185,8 @@ To Do List:
 			[arguments addObject:value];
 		}
 	}
-	[[NSApp firstResponder] performAction:action withArguments:arguments attributes:attributes];
+	[[[NSApp keyWindow] firstResponder] performAction:action withArguments:arguments attributes:attributes]
+		|| [[[NSApp mainWindow] firstResponder] performAction:action withArguments:arguments attributes:attributes];
 //iTM2_END;
     return nil;
 }

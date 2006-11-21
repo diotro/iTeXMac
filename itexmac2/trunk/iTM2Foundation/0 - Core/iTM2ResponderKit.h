@@ -71,9 +71,9 @@
     @param      action, an action name
     @param      arguments, a list of arguments
     @param      attributes, a list of keyed arguments
-    @result     None
+    @result     yorn
 */
-- (void)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+- (BOOL)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
 
 @end
 

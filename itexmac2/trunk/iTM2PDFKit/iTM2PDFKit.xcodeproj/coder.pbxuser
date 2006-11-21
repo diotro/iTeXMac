@@ -9,10 +9,8 @@
 		);
 		breakpoints = (
 			DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6401 */,
-			DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3306 */,
 			DCBDA0060AFC831000522BD9 /* iTM2PDFKit.m:1790 */,
 			DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7173 */,
-			DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6935 */,
 			DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7157 */,
 		);
 		breakpointsGroup = DC99EC7A0A27C6B600F50752 /* XCBreakpointsBucket */;
@@ -143,17 +141,17 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 185099422;
-			PBXWorkspaceStateSaveDate = 185099422;
+			PBXPerProjectTemplateStateSaveDate = 185191480;
+			PBXWorkspaceStateSaveDate = 185191480;
 		};
 		perUserProjectItems = {
+			DC09A0F90B09F532000612AA /* PBXBookmark */ = DC09A0F90B09F532000612AA /* PBXBookmark */;
 			DC10E6370B086FDF00E3BA31 /* PBXBookmark */ = DC10E6370B086FDF00E3BA31 /* PBXBookmark */;
 			DC264C490986353C00109CD2 /* PBXTextBookmark */ = DC264C490986353C00109CD2 /* PBXTextBookmark */;
 			DC2B4CF20AD47FED0039FCBA /* PBXBookmark */ = DC2B4CF20AD47FED0039FCBA /* PBXBookmark */;
 			DC2B4CF40AD47FED0039FCBA /* PBXBookmark */ = DC2B4CF40AD47FED0039FCBA /* PBXBookmark */;
 			DC79762E0ADEBDF9006AB113 /* PBXBookmark */ = DC79762E0ADEBDF9006AB113 /* PBXBookmark */;
 			DC7976300ADEBDF9006AB113 /* PBXBookmark */ = DC7976300ADEBDF9006AB113 /* PBXBookmark */;
-			DCBA44540B028A39006AF52A /* PBXBookmark */ = DCBA44540B028A39006AF52A /* PBXBookmark */;
 			DCC544C90937B2780050770C /* PBXBookmark */ = DCC544C90937B2780050770C /* PBXBookmark */;
 			DCD23DF70AC321C600CCA453 /* PBXBookmark */ = DCD23DF70AC321C600CCA453 /* PBXBookmark */;
 			DCD23DF80AC321C600CCA453 /* PBXBookmark */ = DCD23DF80AC321C600CCA453 /* PBXBookmark */;
@@ -166,6 +164,10 @@
 		sourceControlManager = DC520430088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
 		};
+	};
+	DC09A0F90B09F532000612AA /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */;
 	};
 	DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */ = {
 		uiCtxt = {
@@ -206,7 +208,7 @@
 		hitCount = 1;
 		lineNumber = 6401;
 		location = iTM2PDFKit;
-		modificationTime = 184710161.535054;
+		modificationTime = 185278151.684001;
 		state = 1;
 	};
 	DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {
@@ -338,7 +340,7 @@
 		name = iTM2PDFKit;
 		objects = (
 			DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6401 */,
-			DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3306 */,
+			DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3305 */,
 			DCBDA0060AFC831000522BD9 /* iTM2PDFKit.m:1790 */,
 			DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7173 */,
 			DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6935 */,
@@ -356,10 +358,6 @@
 			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
 		};
 	};
-	DCBA44540B028A39006AF52A /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */;
-	};
 	DCBDA0060AFC831000522BD9 /* iTM2PDFKit.m:1790 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -372,7 +370,7 @@
 		hitCount = 1;
 		lineNumber = 1790;
 		location = iTM2PDFKit;
-		modificationTime = 184710118.865915;
+		modificationTime = 185277549.423171;
 		state = 2;
 	};
 	DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7173 */ = {
@@ -387,7 +385,7 @@
 		hitCount = 1;
 		lineNumber = 7173;
 		location = iTM2PDFKit;
-		modificationTime = 184710162.419993;
+		modificationTime = 185278151.684163;
 		state = 1;
 	};
 	DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6935 */ = {
@@ -398,12 +396,12 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		fileReference = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		functionName = "-tryToExecuteStringInstruction:";
+		functionName = "-keyBindingsManagerIdentifier";
 		hitCount = 1;
 		lineNumber = 6935;
 		location = iTM2PDFKit;
-		modificationTime = 184710162.859584;
-		state = 1;
+		modificationTime = 185233870.709402;
+		state = 0;
 	};
 	DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7157 */ = {
 		isa = PBXFileBreakpoint;
@@ -417,7 +415,7 @@
 		hitCount = 1;
 		lineNumber = 7157;
 		location = iTM2PDFKit;
-		modificationTime = 184710163.299729;
+		modificationTime = 185278151.684109;
 		state = 1;
 	};
 	DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */ = {
@@ -463,7 +461,7 @@
 		isa = PBXBookmark;
 		fRef = DC0C1B3308FF02E200C46507 /* template.pdf */;
 	};
-	DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3306 */ = {
+	DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3305 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -471,12 +469,12 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		fileReference = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		functionName = "-setCursorForAreaOfInterest:";
+		functionName = "-focusCompleteDrawPage:";
 		hitCount = 1;
-		lineNumber = 3306;
+		lineNumber = 3305;
 		location = iTM2PDFKit;
-		modificationTime = 184710161.9759;
-		state = 1;
+		modificationTime = 185233888.361415;
+		state = 0;
 	};
 	DCF94D760ADEE26100672833 /* PBXBookmark */ = {
 		isa = PBXBookmark;

@@ -71,8 +71,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 184716581;
-			PBXWorkspaceStateSaveDate = 184716581;
+			PBXPerProjectTemplateStateSaveDate = 185237083;
+			PBXWorkspaceStateSaveDate = 185237083;
+		};
+		perUserProjectItems = {
+			DC09A7570B0A800D000612AA /* PBXBookmark */ = DC09A7570B0A800D000612AA /* PBXBookmark */;
+			DC09AB780B0B6021000612AA /* PBXTextBookmark */ = DC09AB780B0B6021000612AA /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC7145DF09F78B6C004A5A6A /* Source Control */;
 		userBuildSettings = {
@@ -80,9 +84,9 @@
 	};
 	08FB7796FE84155DC02AAC07 /* Tiny XSLT Applicator.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1036, 2142}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1103, 2142}}";
 			sepNavSelRange = "{4431, 0}";
-			sepNavVisRect = "{{0, 1465}, {825, 397}}";
+			sepNavVisRect = "{{0, 445}, {1103, 759}}";
 			sepNavWindowFrame = "{{15, -5}, {1142, 832}}";
 		};
 	};
@@ -99,6 +103,20 @@
 			sepNavVisRect = "{{0, 58}, {1202, 801}}";
 			sepNavWindowFrame = "{{15, -1}, {1241, 874}}";
 		};
+	};
+	DC09A7570B0A800D000612AA /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 08FB7796FE84155DC02AAC07 /* Tiny XSLT Applicator.m */;
+	};
+	DC09AB780B0B6021000612AA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 08FB7796FE84155DC02AAC07 /* Tiny XSLT Applicator.m */;
+		name = "Tiny XSLT Applicator.m: 124";
+		rLen = 0;
+		rLoc = 4431;
+		rType = 0;
+		vrLen = 1346;
+		vrLoc = 1169;
 	};
 	DC6A81EB0B028E150072FC1A /* MAIN.xslt */ = {
 		uiCtxt = {

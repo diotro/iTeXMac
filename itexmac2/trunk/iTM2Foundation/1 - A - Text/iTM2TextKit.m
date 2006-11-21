@@ -228,6 +228,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"textArray is: %@", textArray);
+    [self breakTypingFlow];
 	NSMutableArray * rangeArray = [NSMutableArray array];
 	NSEnumerator * E = [textArray objectEnumerator];
 	NSString * S;// not always an NSString but...
@@ -279,6 +280,7 @@ subLoop:
 	if([rangeArray count])
 		[self setSelectedRanges:rangeArray];
 //iTM2_END;
+    [self breakTypingFlow];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendSelectionWithRange:

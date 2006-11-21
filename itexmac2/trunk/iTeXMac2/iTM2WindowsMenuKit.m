@@ -192,7 +192,7 @@ To Do List:
 			object: nil];
 	[self performSelector: @selector(updateWindowsMenu:)
 		withObject: nil
-			afterDelay: 0.01];// not too long please
+			afterDelay: 0];// not too long please
 //iTM2_END;
     return;
 }
@@ -210,7 +210,7 @@ To Do List:
 			object: nil];
 	[self performSelector: @selector(updateWindowsMenu:)
 		withObject: nil
-			afterDelay: 0.01];// not too long please
+			afterDelay: 0];// not too long please
 //iTM2_END;
     return;
 }
@@ -258,9 +258,13 @@ To Do List:
 	id key = nil;
 	NSString * fileName = nil;
 	NSMutableArray * MRA = nil;
+	id windowsSet = [NSMutableSet set];
 	id set = [NSMutableSet set];
+	NSValue * V;
 	while(W = [E nextObject])
 	{
+		V = [NSValue valueWithNonretainedObject:W];
+		[windowsSet addObject:V];
 		if([W isKindOfClass:[iTM2ProjectGhostWindow class]])
 		{
 //iTM2_LOG(@"=-=-=-=-=-  target is a ghost window");
@@ -302,7 +306,12 @@ To Do List:
 		++insertIndex;
 //iTM2_LOG(@"LOOP ----> [MI title] is: %@, insertIndex is: %i", [MI title], insertIndex);
 		W = [MI target];
-		if([W isKindOfClass:[NSWindow class]])
+		V = [NSValue valueWithNonretainedObject:W];
+		if(![windowsSet containsObject:V])
+		{
+			[windowsMenu removeItem:MI];// cleaning: create this on later
+		}
+		else if([W isKindOfClass:[NSWindow class]])// SIGTRAP
 		{
 targetIsWindow:
 //iTM2_LOG(@"1 - [MI title] is: %@", [MI title]);
@@ -378,6 +387,10 @@ itemHasProjectSubmenu:;
 //iTM2_LOG(@"=-=-=-=-=-  target has submenu");
 			[windowsMenu removeItem:MI];// cleaning: create this on later
 			goto nextMenuItem;
+		}
+		else if([MI action] == @selector(__REMOVE_ME_ACTION:))
+		{
+			[windowsMenu removeItem:MI];// cleaning: create this on later
 		}
 	}
 iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@:",projectRefsToProjectDocumentsMenuItems);

@@ -627,7 +627,7 @@ To Do List:
 //iTM2_START;
 	if(![sender selectSegmentWithTag:[self toolMode]])
 	{
-		[self setToolMode:kiTM2MoveToolMode];
+		[self setToolMode:kiTM2ScrollToolMode];
 		[sender selectSegmentWithTag:[self toolMode]];
 	}
 	int segment = [sender segmentCount];

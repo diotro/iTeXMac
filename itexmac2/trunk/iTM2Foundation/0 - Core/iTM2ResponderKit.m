@@ -189,13 +189,74 @@ It would remove some previously registered responders and would cause unexpected
     else
         return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=  performAction:withArguments:attributes:
-- (void)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+//=-=-=-=-=-=-=-=-=-=-=  __performFakeActionWithArguments:attributes:
+- (BOOL)__performFakeActionWithArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
 /*"The default implementation does nothing."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=  performAction:withArguments:attributes:
+- (BOOL)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+/*"The default implementation does nothing."*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	action = [action capitalizedString];
+	action = [NSString stringWithFormat:@"perform%@ActionWithArguments:attributes:",action];
+	SEL selector = NSSelectorFromString(action);
+	if(selector)
+	{
+		NSMethodSignature * signature = [self methodSignatureForSelector:selector];
+		if(signature)
+		{
+			NSInvocation * I = [NSInvocation invocationWithMethodSignature:signature];
+			[I setTarget:self];
+			[I setArgument:&arguments atIndex:2];
+			[I setArgument:&attributes atIndex:3];
+			[I setSelector:selector];
+			[I invoke];
+			BOOL R = NO;
+			[I getReturnValue:&R];
+			if(R)
+			{
+				return YES;
+			}
+		}
+	}
+//iTM2_END;
+    return [[self nextResponder] performAction:action withArguments:arguments attributes:attributes];
+}
+@end
+
+@implementation NSWindow(iTM2ResponderKit)
+//=-=-=-=-=-=-=-=-=-=-=  performAction:withArguments:attributes:
+- (BOOL)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+/*"The default implementation does nothing."*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [super performAction:action withArguments:arguments attributes:attributes]
+		|| [[self windowController] performAction:action withArguments:arguments attributes:attributes];
+}
+@end
+
+@implementation NSView(iTM2ResponderKit)
+//=-=-=-=-=-=-=-=-=-=-=  performAction:withArguments:attributes:
+- (BOOL)performAction:(NSString *)action withArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
+/*"The default implementation does nothing."*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	if([super performAction:action withArguments:arguments attributes:attributes])
+	{
+		return YES;
+	}
+	if([self superview])
+	{
+		return [[self superview] performAction:action withArguments:arguments attributes:attributes];
+	}
+	return [[self window] performAction:action withArguments:arguments attributes:attributes];
 }
 @end
 
