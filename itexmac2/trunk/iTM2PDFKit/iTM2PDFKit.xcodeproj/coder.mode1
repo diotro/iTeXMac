@@ -185,7 +185,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>DCF3C2560B14D6890072CC6F</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>iTM2PDFKit.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCF3C2570B14D6890072CC6F</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>iTM2PDFKit.m</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCF3C42D0B14FE910072CC6F</string>
+						<key>history</key>
+						<array>
+							<string>DCF3C2500B14D5C10072CC6F</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1281, 832}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>94 4 1281 873 0 0 1440 878 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -325,7 +366,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC09A0F90B09F532000612AA</string>
+										<string>DCF3C42C0B14FE910072CC6F</string>
 										<key>history</key>
 										<array>
 											<string>DCF30F080AAFAE6E0088479F</string>
@@ -334,7 +375,7 @@
 											<string>DC2B4CF20AD47FED0039FCBA</string>
 											<string>DC79762E0ADEBDF9006AB113</string>
 											<string>DCF94D760ADEE26100672833</string>
-											<string>DC10E6370B086FDF00E3BA31</string>
+											<string>DC09A0F90B09F532000612AA</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -402,9 +443,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC099BAF0B09CC40000612AA</string>
+				<string>DCF3C2540B14D6890072CC6F</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC099BB00B09CC40000612AA</string>
+				<string>DCF3C2550B14D6890072CC6F</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -539,6 +580,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
+		<string>DCF3C2560B14D6890072CC6F</string>
 	</array>
 	<key>WindowString</key>
 	<string>55 56 1368 821 0 0 1440 878 </string>

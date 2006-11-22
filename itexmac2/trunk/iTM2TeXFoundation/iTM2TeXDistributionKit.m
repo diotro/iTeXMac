@@ -417,6 +417,10 @@ To Do List:
 		iTM2_LOG(@"...........  HUGE ERROR: Missing TeXMF distribution reference in preferences, report bug");
 		return @"Missing TeXMF ";
 	}
+	else if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"distribution:%@",distribution);
+	}
 	NSString * key = [iTM2DistributionDomainTeXMF stringByAppendingPathExtension:distribution];
 	NSString * result = [SUD stringForKey:key];
 	if(![result length])
@@ -442,6 +446,10 @@ To Do List:
 		iTM2_LOG(@"...........  HUGE ERROR: Missing TeXMF binaries distribution reference in preferences, report bug");
 		return @"Missing TeXMF Binaries ";
 	}
+	else if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"distribution:%@",distribution);
+	}
 	NSString * key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:distribution];
 	NSString * result = [SUD stringForKey:key];
 	if(![result length])
@@ -466,6 +474,10 @@ To Do List:
 	{
 		iTM2_LOG(@"...........  HUGE ERROR: Missing GhostScript binaries distribution reference in preferences, report bug");
 		return @"Missing GhostScript Binaries ";
+	}
+	else if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"distribution:%@",distribution);
 	}
 	NSString * key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:distribution];
 	NSString * result = [SUD stringForKey:key];

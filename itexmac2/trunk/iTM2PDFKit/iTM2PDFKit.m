@@ -3163,6 +3163,7 @@ To Do List:
 				{
 					inRect.size = [syncDimple size];
 				}
+				#if 0
 				inRect = NSIntegralRect(inRect);
 				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
 				inRect.size.height = inRect.size.width;
@@ -3185,6 +3186,7 @@ To Do List:
 				inRect.origin.x = syncPoint.x - inRect.size.width/2;
 				inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
 				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+				#endif
             }
 			[NSGraphicsContext restoreGraphicsState];
 		}
@@ -3285,7 +3287,7 @@ To Do List:
 					NSPoint syncPoint = [destination point];
 					inRect.origin.x = syncPoint.x + origin.x;
 					inRect.origin.y = syncPoint.y + origin.y;
-					[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
+//					[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
 					[[[NSColor redColor] colorWithAlphaComponent:0.2] set];
 					NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
 					NSBezierPath * path = [NSBezierPath bezierPath];

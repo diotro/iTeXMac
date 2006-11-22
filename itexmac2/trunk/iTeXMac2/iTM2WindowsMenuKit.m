@@ -155,7 +155,6 @@ To Do List:
         selector: @selector(_windowsMenuDidChangeNotified:)
             name: NSMenuDidChangeItemNotification
                 object: [NSApp windowsMenu]];// beware, the windows menu is not expected to change
-#endif
     [DNC addObserver: self
         selector: @selector(windowsMenuDidChangeNotified:)
             name: NSMenuDidAddItemNotification
@@ -168,11 +167,55 @@ To Do List:
         selector: @selector(windowsMenuDidChangeNotified:)
             name: NSMenuDidRemoveItemNotification
                 object: [NSApp windowsMenu]];// beware, the windows menu is not expected to change
+     [DNC addObserver:self
+        selector:@selector(windowWillClosedNotified:)
+            name:NSWindowWillCloseNotification
+                object:nil];
+#endif
+	[[NSApp windowsMenu] setDelegate:self];
 	[INC removeObserver:self];
 	[INC addObserver: self
         selector: @selector(windowsMenuShouldUpdateNotified:)
             name: iTM2ProjectContextDidChangeNotification
                 object: nil];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuNeedsUpdate:
+- (void)menuNeedsUpdate:(NSMenu *)menu
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self updateWindowMenu:self]
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillClosedNotified:
++ (void)windowWillClosedNotified:(NSNotification *)notification;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSWindow * W = [notification object];
+	NSMenu * M = [NSApp windowsMenu];
+	NSArray * RA = [M itemArray];
+	NSEnumerator * E = [RA objectEnumerator];
+	NSMenuItem * MI;
+	while(MI = [E nextObject])
+	{
+		if([MI target] == W)
+		{
+			[MI setTarget:nil];
+			[MI setAction:@selector(__REMOVE_ME_ACTION:)];
+		}
+	}
 //iTM2_END;
     return;
 }
@@ -258,13 +301,10 @@ To Do List:
 	id key = nil;
 	NSString * fileName = nil;
 	NSMutableArray * MRA = nil;
-	id windowsSet = [NSMutableSet set];
 	id set = [NSMutableSet set];
 	NSValue * V;
 	while(W = [E nextObject])
 	{
-		V = [NSValue valueWithNonretainedObject:W];
-		[windowsSet addObject:V];
 		if([W isKindOfClass:[iTM2ProjectGhostWindow class]])
 		{
 //iTM2_LOG(@"=-=-=-=-=-  target is a ghost window");
@@ -305,9 +345,7 @@ To Do List:
 	{
 		++insertIndex;
 //iTM2_LOG(@"LOOP ----> [MI title] is: %@, insertIndex is: %i", [MI title], insertIndex);
-		W = [MI target];
-		V = [NSValue valueWithNonretainedObject:W];
-		if(![windowsSet containsObject:V])
+		if([MI action] == @selector(__REMOVE_ME_ACTION:))
 		{
 			[windowsMenu removeItem:MI];// cleaning: create this on later
 		}
@@ -366,7 +404,11 @@ nextMenuItem:
 				MI = [E nextObject];
 //iTM2_LOG(@"LOOP ----> [MI title] is: %@", [MI title]);
 				W = [MI target];
-				if([W isKindOfClass:[NSWindow class]])
+				if([MI action] == @selector(__REMOVE_ME_ACTION:))
+				{
+					[windowsMenu removeItem:MI];// cleaning: create this on later
+				}
+				else if([W isKindOfClass:[NSWindow class]])// STILL SIGTRAP
 					goto targetIsWindow;
 				else if([MI hasSubmenu] && [[MI submenu] isKindOfClass:[iTM2ProjectWindowSubmenu class]])
 					goto itemHasProjectSubmenu;
@@ -387,10 +429,6 @@ itemHasProjectSubmenu:;
 //iTM2_LOG(@"=-=-=-=-=-  target has submenu");
 			[windowsMenu removeItem:MI];// cleaning: create this on later
 			goto nextMenuItem;
-		}
-		else if([MI action] == @selector(__REMOVE_ME_ACTION:))
-		{
-			[windowsMenu removeItem:MI];// cleaning: create this on later
 		}
 	}
 iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@:",projectRefsToProjectDocumentsMenuItems);
@@ -468,7 +506,7 @@ iTM2_LOG(@"path component:%@",path);
 			}
 			else
 			{
-				node = [[[iTM2TreeNode alloc] initWithParent:nil value:component] autorelease];
+				node = [[[iTM2TreeNode alloc] initWithParent:nil value:path] autorelease];
 				[roots addObject:node];
 				RA = [roots filteredArrayUsingPredicate:predicate];
 				NSAssert([RA count]>0,@"Aie");
@@ -776,4 +814,5 @@ To Do List:
 //iTM2_END;
     return;
 }
+
 @end

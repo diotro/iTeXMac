@@ -10727,3 +10727,118 @@ To Do List:
 	return result;
 }
 @end
+
+
+@interface iTM2StringFormatController_iTM2ProjectDocumentKit:iTM2StringFormatController
+@end
+
+@implementation iTM2StringFormatController_iTM2ProjectDocumentKit
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++ (void)load;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+//iTM2_START;
+	[iTM2StringFormatController_iTM2ProjectDocumentKit poseAsClass:[iTM2StringFormatController class]];
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOL
+- (unsigned int)EOL;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id D = [self document];
+	id P = [D project];
+	if(P)
+	{
+		NSString * FN = [D fileName];
+		NSString * fileKey = [P keyForFileName:FN];
+		if([fileKey length])
+		{
+			NSString * EOLName = [P propertyValueForKey:TWSEOLFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+			unsigned int EOL = [iTM2StringFormatController EOLForName:EOLName];
+			return EOL == iTM2UnknownEOL? [iTM2StringFormatController EOLForName:EOLName]:EOL;
+		}
+	}
+    return [super EOL];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
+- (void)setEOL:(unsigned int) argument;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super setEOL:argument];
+	id D = [self document];
+	id P = [D project];
+	NSString * FN = [D fileName];
+	NSString * fileKey = [P keyForFileName:FN];
+	if([fileKey length])
+	{
+		NSString * EOLString = [iTM2StringFormatController nameOfEOL:argument];
+		[P takePropertyValue:EOLString forKey:TWSEOLFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
+- (NSStringEncoding)stringEncoding;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id D = [self document];
+	id P = [D project];
+	if(P)
+	{
+		NSString * FN = [D fileName];
+		NSString * fileKey = [P keyForFileName:FN];
+		NSString * stringEncodingName = [P propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextAllDomainsMask];
+		CFStringEncoding encoding = [iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncodingName];
+		return CFStringConvertEncodingToNSStringEncoding(encoding);
+	}
+    return [super stringEncoding];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
+- (void)setStringEncoding:(NSStringEncoding) argument;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[super setStringEncoding:argument];
+	id D = [self document];
+	id P = [D project];
+	NSString * fileName = [D fileName];
+	NSString * fileKey = [P keyForFileName:fileName];
+	NSString * stringEncodingName = [iTM2StringFormatController nameOfCoreFoundationStringEncoding:CFStringConvertNSStringEncodingToEncoding(argument)];
+	if([fileKey length])
+	{
+		[P takePropertyValue:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+	}
+	fileKey = iTM2ProjectDefaultsKey;
+	NSString * defaultStringEncodingName = [P propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
+	if(!defaultStringEncodingName)
+	{
+		[P takePropertyValue:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+	}
+	return;
+}
+@end
