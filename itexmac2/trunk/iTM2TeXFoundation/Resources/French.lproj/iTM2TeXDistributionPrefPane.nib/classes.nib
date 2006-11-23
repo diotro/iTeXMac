@@ -20,6 +20,9 @@
         {
             ACTIONS = {
                 addEnvironmentVariable = id; 
+                chooseGhostScriptBinariesFromPanel = id; 
+                chooseTeXMFBinariesFromPanel = id; 
+                chooseTeXMFPathFromPanel = id; 
                 removeEnvironmentVariable = id; 
                 revertToDefaultEnvironment = id; 
                 takeGhostScriptBinariesDistributionFromPopUp = id; 

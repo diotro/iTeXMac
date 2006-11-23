@@ -34,11 +34,11 @@ NSString * const iTM2DistributionBuiltIn = @"built-in";// Not yet used
 NSString * const iTM2DistributiongwTeX = @"gwTeX";// from iinstaller
 NSString * const iTM2DistributionFink = @"fink";
 NSString * const iTM2DistributionTeXLive = @"TeX Live";
-NSString * const iTM2DistributionTeXLiveCD = @"TeX Live CD";
+NSString * const iTM2DistributionTeXLiveDVD = @"TeX Live DVD";
 NSString * const iTM2DistributiongwTeXIntel = @"gwTeX(Intel)";// from iinstaller
 NSString * const iTM2DistributionFinkIntel = @"fink(Intel)";
 NSString * const iTM2DistributionTeXLiveIntel = @"TeX Live(Intel)";
-NSString * const iTM2DistributionTeXLiveCDIntel = @"TeX Live CD(Intel)";
+NSString * const iTM2DistributionTeXLiveDVDIntel = @"TeX Live DVD(Intel)";
 NSString * const iTM2DistributionOther = @"other";
 NSString * const iTM2DistributionCustom = @"custom";
 
@@ -108,6 +108,8 @@ To do list:
 		iTM2_LOG(@"_iTM2PathsDictionary is: %@", _iTM2PathsDictionary);
 	}
 	// then I make some diagnostic... to be sure that the chosen distribution is available
+	// this is working at a SUD level
+	// we must make some diagnostic at a project level too
 	BOOL distributionWasNotCorrect = NO;
 	BOOL distributionIsStillNotCorrect = NO;
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
@@ -130,7 +132,7 @@ To do list:
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
 		goto testTeXMFBinaries;// that's OK
-	[SUD setObject:iTM2DistributionTeXLiveCD forKey:iTM2DistributionTeXMF];
+	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
 		goto testTeXMFBinaries;// that's OK
@@ -159,7 +161,7 @@ testTeXMFBinaries:
 		path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
 		if([DFM fileExistsAtPath:path])
 			goto testGhostScriptBinaries;// that's OK
-		[SUD setObject:iTM2DistributionTeXLiveCDIntel forKey:iTM2DistributionTeXMFBinaries];
+		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFBinaries];
 	}
 	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFBinaries];
 	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
@@ -173,7 +175,7 @@ testTeXMFBinaries:
 	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
 	if([DFM fileExistsAtPath:path])
 		goto testGhostScriptBinaries;// that's OK
-	[SUD setObject:iTM2DistributionTeXLiveCD forKey:iTM2DistributionTeXMFBinaries];
+	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMFBinaries];
 	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
 	if([DFM fileExistsAtPath:path])
 		goto testGhostScriptBinaries;// that's OK
@@ -202,7 +204,7 @@ testGhostScriptBinaries:
 		path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
-		[SUD setObject:iTM2DistributionTeXLiveCDIntel forKey:iTM2DistributionGhostScriptBinaries];
+		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionGhostScriptBinaries];
 		path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
@@ -219,7 +221,7 @@ testGhostScriptBinaries:
 	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
-	[SUD setObject:iTM2DistributionTeXLiveCD forKey:iTM2DistributionGhostScriptBinaries];
+	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionGhostScriptBinaries];
 	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
@@ -326,7 +328,7 @@ DISTRIBUTION(GhostScriptBinariesPath, setGhostScriptBinariesPath)
 #undef DISTRIBUTION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTeXMFBinariesPath
 - (NSString *)getTeXMFBinariesPath;
-/*"Description forthcoming.
+/*"Higher level getter.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
 To Do List:
@@ -822,9 +824,9 @@ To Do List:
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
 	{
-		return iTM2DistributionTeXLiveCD;
+		return iTM2DistributionTeXLiveDVD;
 	}
 	else
 		return distribution;
@@ -844,7 +846,7 @@ To Do List:
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
 - (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
@@ -869,9 +871,9 @@ To Do List:
 	{
 		[doc setTeXMFBinariesDistribution:iTM2DistributionTeXLiveIntel];
 	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
 	{
-		[doc setTeXMFBinariesDistribution:iTM2DistributionTeXLiveCDIntel];
+		[doc setTeXMFBinariesDistribution:iTM2DistributionTeXLiveDVDIntel];
 	}
 //iTM2_END;
     return;
@@ -898,9 +900,9 @@ To Do List:
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
 	{
-		return iTM2DistributionTeXLiveCD;
+		return iTM2DistributionTeXLiveDVD;
 	}
 	else
 		return distribution;
@@ -920,7 +922,7 @@ To Do List:
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
 - (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
@@ -945,9 +947,9 @@ To Do List:
 	{
 		[doc setGhostScriptBinariesDistribution:iTM2DistributionTeXLiveIntel];
 	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
 	{
-		[doc setGhostScriptBinariesDistribution:iTM2DistributionTeXLiveCDIntel];
+		[doc setGhostScriptBinariesDistribution:iTM2DistributionTeXLiveDVDIntel];
 	}
 //iTM2_END;
     return;
@@ -1224,8 +1226,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveDVDTag];
 		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
 		else if([distribution pathIsEqual:iTM2DistributionOther])
@@ -1243,7 +1245,7 @@ To Do List:
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; [sender setIndentationLevel:1]; break;
-			case iTM2TeXDistributionTeXLiveCDTag: representedObject = iTM2DistributionTeXLiveCD; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionOtherTag: representedObject = iTM2DistributionOther; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionCustomTag: representedObject = iTM2DistributionCustom; break;
 		}
@@ -1340,8 +1342,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveDVDTag];
 		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
 		else if([distribution pathIsEqual:iTM2DistributionOther])
@@ -1359,7 +1361,7 @@ To Do List:
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; [sender setIndentationLevel:1]; break;
-			case iTM2TeXDistributionTeXLiveCDTag: representedObject = iTM2DistributionTeXLiveCD; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionOtherTag: representedObject = iTM2DistributionOther; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionCustomTag: representedObject = iTM2DistributionCustom; break;
 		}
@@ -1413,7 +1415,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setTeXMFBinariesDistributionIntel: ![self TeXMFBinariesDistributionIsIntel]];
+	[self setTeXMFBinariesDistributionIntel:![self TeXMFBinariesDistributionIsIntel]];
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[TPD updateChangeCount:NSChangeDone];
 	[self validateWindowContent];
@@ -1440,7 +1442,7 @@ To Do List:
 		[sender setState:NSMixedState];
 		return NO;
 	}
-	[sender setState: ([self TeXMFBinariesDistributionIsIntel]?NSOnState:NSOffState)];
+	[sender setState:([self TeXMFBinariesDistributionIsIntel]?NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
@@ -1496,8 +1498,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveDVDTag];
 		else if([distribution pathIsEqual:iTM2DistributionCustom])
 			[sender selectItemWithTag:iTM2TeXDistributionCustomTag];
 		else if([distribution pathIsEqual:iTM2DistributionOther])
@@ -1515,7 +1517,7 @@ To Do List:
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; [sender setIndentationLevel:1]; break;
-			case iTM2TeXDistributionTeXLiveCDTag: representedObject = iTM2DistributionTeXLiveCD; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionOtherTag: representedObject = iTM2DistributionOther; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionCustomTag: representedObject = iTM2DistributionCustom; break;
 		}
@@ -2232,9 +2234,9 @@ To Do List:
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
 	{
-		return iTM2DistributionTeXLiveCD;
+		return iTM2DistributionTeXLiveDVD;
 	}
 	else
 		return distribution;
@@ -2254,7 +2256,7 @@ To Do List:
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
 - (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
@@ -2266,21 +2268,43 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-	if([distribution pathIsEqual:iTM2DistributiongwTeX])
+	if(flag)
 	{
-		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFBinaries];
+		if([distribution pathIsEqual:iTM2DistributiongwTeX])
+		{
+			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionFink])
+		{
+			[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionTeXMFBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
+		{
+			[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+		{
+			[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFBinaries];
+		}
 	}
-	else if([distribution pathIsEqual:iTM2DistributionFink])
+	else
 	{
-		[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionTeXMFBinaries];
-	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
-	{
-		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFBinaries];
-	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-	{
-		[SUD setObject:iTM2DistributionTeXLiveCDIntel forKey:iTM2DistributionTeXMFBinaries];
+		if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+		{
+			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
+		{
+			[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMFBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
+		{
+			[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
+		{
+			[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMFBinaries];
+		}
 	}
 //iTM2_END;
     return;
@@ -2307,9 +2331,9 @@ To Do List:
 	{
 		return iTM2DistributionTeXLive;
 	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel])
+	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
 	{
-		return iTM2DistributionTeXLiveCD;
+		return iTM2DistributionTeXLiveDVD;
 	}
 	else
 		return distribution;
@@ -2329,7 +2353,7 @@ To Do List:
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
-		|| [distribution pathIsEqual:iTM2DistributionTeXLiveCDIntel];
+		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
 - (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
@@ -2341,21 +2365,43 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
-	if([distribution pathIsEqual:iTM2DistributiongwTeX])
+	if(flag)
 	{
-		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionGhostScriptBinaries];
+		if([distribution pathIsEqual:iTM2DistributiongwTeX])
+		{
+			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionGhostScriptBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionFink])
+		{
+			[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionGhostScriptBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
+		{
+			[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionGhostScriptBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+		{
+			[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionGhostScriptBinaries];
+		}
 	}
-	else if([distribution pathIsEqual:iTM2DistributionFink])
+	else
 	{
-		[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionGhostScriptBinaries];
-	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
-	{
-		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionGhostScriptBinaries];
-	}
-	else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-	{
-		[SUD setObject:iTM2DistributionTeXLiveCDIntel forKey:iTM2DistributionGhostScriptBinaries];
+		if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+		{
+			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionGhostScriptBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
+		{
+			[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionGhostScriptBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
+		{
+			[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionGhostScriptBinaries];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
+		{
+			[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionGhostScriptBinaries];
+		}
 	}
 //iTM2_END;
     return;
@@ -2409,8 +2455,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveDVDTag];
 		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
 		else if([distribution pathIsEqual:iTM2DistributionCustom])
@@ -2428,7 +2474,7 @@ To Do List:
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; break;
-			case iTM2TeXDistributionTeXLiveCDTag: representedObject = iTM2DistributionTeXLiveCD; break;
+			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; break;
 			case iTM2TeXDistributionOtherTag: representedObject = iTM2DistributionOther; break;
 			case iTM2TeXDistributionCustomTag: representedObject = iTM2DistributionCustom; break;
 		}
@@ -2533,8 +2579,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveDVDTag];
 		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
 		else if([distribution pathIsEqual:iTM2DistributionCustom])
@@ -2552,7 +2598,7 @@ To Do List:
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; break;
-			case iTM2TeXDistributionTeXLiveCDTag: representedObject = iTM2DistributionTeXLiveCD; break;
+			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; break;
 			case iTM2TeXDistributionOtherTag: representedObject = iTM2DistributionOther; break;
 			case iTM2TeXDistributionCustomTag: representedObject = iTM2DistributionCustom; break;
 		}
@@ -2622,7 +2668,7 @@ To Do List:
 		BOOL isIntel = [self GhostScriptBinariesDistributionIsIntel];
 		id old = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
 		[SUD setObject:[sender representedObject] forKey:iTM2DistributionGhostScriptBinaries];
-		[self setTeXMFBinariesDistributionIntel:isIntel];
+		[self setGhostScriptBinariesDistributionIntel:isIntel];
 		id new = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
 		if(![old pathIsEqual:new])
 		{
@@ -2657,8 +2703,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveTag];
-		else if([distribution pathIsEqual:iTM2DistributionTeXLiveCD])
-			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveCDTag];
+		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
+			[sender selectItemWithTag:iTM2TeXDistributionTeXLiveDVDTag];
 		else if([distribution pathIsEqual:iTM2DistributionOther])
 			[sender selectItemWithTag:iTM2TeXDistributionOtherTag];
 		else if([distribution pathIsEqual:iTM2DistributionCustom])
@@ -2676,7 +2722,7 @@ To Do List:
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; break;
-			case iTM2TeXDistributionTeXLiveCDTag: representedObject = iTM2DistributionTeXLiveCD; break;
+			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; break;
 			case iTM2TeXDistributionOtherTag: representedObject = iTM2DistributionOther; break;
 			case iTM2TeXDistributionCustomTag: representedObject = iTM2DistributionCustom; break;
 		}
@@ -2805,6 +2851,216 @@ To Do List:
 	[sender setState: ([self GhostScriptBinariesDistributionIsIntel]?NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFBinariesFromPanel:
+- (IBAction)chooseTeXMFBinariesFromPanel:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSOpenPanel * OP = [NSOpenPanel openPanel];
+    [OP setCanChooseFiles:NO];
+    [OP setCanChooseDirectories:YES];
+    [OP setTreatsFilePackagesAsDirectories:YES];
+    [OP setAllowsMultipleSelection:NO];
+    [OP setDelegate:self];
+    [OP setResolvesAliases:YES];
+	[OP setPrompt:[sender title]];
+    [OP beginSheetForDirectory:NSHomeDirectory()
+        file:nil types:nil modalForWindow:[sender window]
+            modalDelegate:self didEndSelector:@selector(chooseTeXMFBinariesFromPanel:returnCode:contextInfo:)
+				contextInfo:nil];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFBinariesFromPanel:returnCode:contextInfo:
+- (void)chooseTeXMFBinariesFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(returnCode == NSOKButton)
+	{
+		NSString * new = [panel filename];
+		NSString * key = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+		key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:key];
+		if(![[SUD stringForKey:key] pathIsEqual:new])
+		{
+			[SUD setObject:new forKey:key];
+			[[self mainView] validateWindowContent];
+		}
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXMFBinariesFromPanel:
+- (BOOL)validateChooseTeXMFBinariesFromPanel:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+	if([distribution pathIsEqual:iTM2DistributionCustom])
+	{
+		[sender setHidden:NO];
+//iTM2_END;
+		return YES;
+	}
+	else
+	{
+		[sender setHidden:YES];
+//iTM2_END;
+		return NO;
+	}
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFPathFromPanel:
+- (IBAction)chooseTeXMFPathFromPanel:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSOpenPanel * OP = [NSOpenPanel openPanel];
+    [OP setCanChooseFiles:NO];
+    [OP setCanChooseDirectories:YES];
+    [OP setTreatsFilePackagesAsDirectories:YES];
+    [OP setAllowsMultipleSelection:NO];
+    [OP setDelegate:self];
+    [OP setResolvesAliases:YES];
+	[OP setPrompt:[sender title]];
+    [OP beginSheetForDirectory:NSHomeDirectory()
+        file:nil types:nil modalForWindow:[sender window]
+            modalDelegate:self didEndSelector:@selector(chooseTeXMFPathFromPanel:returnCode:contextInfo:)
+				contextInfo:nil];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFPathFromPanel:returnCode:contextInfo:
+- (void)chooseTeXMFPathFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(returnCode == NSOKButton)
+	{
+		NSString * new = [panel filename];
+		NSString * key = [SUD stringForKey:iTM2DistributionTeXMF];
+		key = [iTM2DistributionDomainTeXMF stringByAppendingPathExtension:key];
+		if(![[SUD stringForKey:key] pathIsEqual:new])
+		{
+			[SUD setObject:new forKey:key];
+			[[self mainView] validateWindowContent];
+		}
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXMFPathFromPanel:
+- (BOOL)validateChooseTeXMFPathFromPanel:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMF];
+	if([distribution pathIsEqual:iTM2DistributionCustom])
+	{
+		[sender setHidden:NO];
+//iTM2_END;
+		return YES;
+	}
+	else
+	{
+		[sender setHidden:YES];
+//iTM2_END;
+		return NO;
+	}
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseGhostScriptBinariesFromPanel:
+- (IBAction)chooseGhostScriptBinariesFromPanel:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSOpenPanel * OP = [NSOpenPanel openPanel];
+    [OP setCanChooseFiles:NO];
+    [OP setCanChooseDirectories:YES];
+    [OP setTreatsFilePackagesAsDirectories:YES];
+    [OP setAllowsMultipleSelection:NO];
+    [OP setDelegate:self];
+    [OP setResolvesAliases:YES];
+	[OP setPrompt:[sender title]];
+    [OP beginSheetForDirectory:NSHomeDirectory()
+        file:nil types:nil modalForWindow:[sender window]
+            modalDelegate:self didEndSelector:@selector(chooseGhostScriptBinariesFromPanel:returnCode:contextInfo:)
+				contextInfo:nil];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseGhostScriptBinariesFromPanel:returnCode:contextInfo:
+- (void)chooseGhostScriptBinariesFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(returnCode == NSOKButton)
+	{
+		NSString * new = [panel filename];
+		NSString * key = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+		key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:key];
+		if(![[SUD stringForKey:key] pathIsEqual:new])
+		{
+			[SUD setObject:new forKey:key];
+			[[self mainView] validateWindowContent];
+		}
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseGhostScriptBinariesFromPanel:
+- (BOOL)validateChooseGhostScriptBinariesFromPanel:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
+	if([distribution pathIsEqual:iTM2DistributionCustom])
+	{
+		[sender setHidden:NO];
+//iTM2_END;
+		return YES;
+	}
+	else
+	{
+		[sender setHidden:YES];
+//iTM2_END;
+		return NO;
+	}
 }
 @end
 

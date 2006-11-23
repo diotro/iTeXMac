@@ -182,7 +182,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuNeedsUpdate:
-- (void)menuNeedsUpdate:(NSMenu *)menu
++ (void)menuNeedsUpdate:(NSMenu *)menu
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -190,7 +190,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self updateWindowMenu:self]
+	[self updateWindowsMenu:self];
 //iTM2_END;
     return;
 }

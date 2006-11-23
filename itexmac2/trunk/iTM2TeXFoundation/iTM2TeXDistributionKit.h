@@ -28,7 +28,7 @@ typedef enum
       iTM2TeXDistributionGWTeX = 2,
       iTM2TeXDistributionFink = 3,
       iTM2TeXDistributionTeXLive = 4,
-      iTM2TeXDistributionTeXLiveCD = 5,
+      iTM2TeXDistributionTeXLiveDVD = 5,
       iTM2TeXDistributionOther = -1
 } iTM2TeXDistributionType;
 
@@ -78,7 +78,7 @@ extern NSString * const iTM2DistributionBuiltIn;// Not yet used
 extern NSString * const iTM2DistributiongwTeX;
 extern NSString * const iTM2DistributionFink;
 extern NSString * const iTM2DistributionTeXLive;
-extern NSString * const iTM2DistributionTeXLiveCD;
+extern NSString * const iTM2DistributionTeXLiveDVD;
 extern NSString * const iTM2DistributionOther;// from the defaults: the custom distribution of the defaults
 extern NSString * const iTM2DistributionCustom;// for the project or the defaults
 
@@ -93,7 +93,7 @@ typedef enum
       iTM2TeXDistributionGWTeXTag = 2,
       iTM2TeXDistributionFinkTag = 3,
       iTM2TeXDistributionTeXLiveTag = 4,
-      iTM2TeXDistributionTeXLiveCDTag = 5,
+      iTM2TeXDistributionTeXLiveDVDTag = 5,
       iTM2TeXDistributionOtherTag = -1,
       iTM2TeXDistributionCustomTag = -2
 } iTM2TeXDistributionTag;

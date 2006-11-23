@@ -22,10 +22,14 @@
 	<string>/sw/share/texmf</string>
 	<key>iTM2DistributionDomainGhostScriptBinaries.TeX Live</key>
 	<string>Not Yet Implemented</string>
+	<key>iTM2DistributionDomainGhostScriptBinaries.TeX Live(Intel)</key>
+	<string>Not Yet Implemented</string>
 	<key>iTM2DistributionDomainTeXMFBinaries.TeX Live</key>
-	<string>Not Yet Implemented</string>
+	<string>/usr/local/texlive/bin/powerpc-darwin</string>
+	<key>iTM2DistributionDomainTeXMFBinaries.TeX Live(Intel)</key>
+	<string>/usr/local/texlive/bin/i386-darwin</string>
 	<key>iTM2DistributionDomainTeXMF.TeX Live</key>
-	<string>Not Yet Implemented</string>
+	<string>/usr/local/texlive</string>
 	<key>iTM2DistributionDomainGhostScriptBinaries.TeX Live CD</key>
 	<string>Not Yet Implemented</string>
 	<key>iTM2DistributionDomainTeXMFBinaries.TeX Live CD</key>

@@ -150,11 +150,11 @@ To Do List:
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray:[[mainBundle class] availablePlugInPathsAtPath:
 		[[mainBundle class] pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask
-			withName: [mainBundle bundleName] create:YES]
+			withName: [mainBundle bundleName] create:NO]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray:[[mainBundle class] availablePlugInPathsAtPath:
 		[[mainBundle class] pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask
-			withName: [mainBundle bundleName] create:YES]
+			withName: [mainBundle bundleName] create:NO]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray:[[mainBundle class] availablePlugInPathsAtPath:[mainBundle builtInPlugInsPath] ofType:@"prefPane"]];
 	int newCount = [paths count];

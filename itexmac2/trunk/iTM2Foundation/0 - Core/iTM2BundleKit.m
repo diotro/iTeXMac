@@ -595,10 +595,10 @@ To Do List:
 		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:YES]
 				ofType: aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
-		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:YES]
+		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
 				ofType: aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
-		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:YES]
+		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
 				ofType: aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:[self builtInPlugInsPath] ofType:aType]];
 //iTM2_END;
