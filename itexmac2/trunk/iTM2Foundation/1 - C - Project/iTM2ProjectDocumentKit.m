@@ -10842,3 +10842,121 @@ To Do List:
 	return;
 }
 @end
+
+@implementation iTM2SubdocumentsInspector(StringFormat)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStringEncodingFromTag:
+- (IBAction)takeStringEncodingFromTag:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [NSNumber numberWithInt:[sender tag]];
+	[[self document] takePropertyValue:N forKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
+	[self validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
+- (IBAction)stringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [[self document] propertyValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
+	BOOL old = [N respondsToSelector:@selector(boolValue)]?[N boolValue]:NO;
+	N = [NSNumber numberWithBool:!old];
+	[[self document] takePropertyValue:N forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
+	[self validateWindowContent];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
+- (BOOL)validateStringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [[self document] propertyValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
+	BOOL isAuto = [N respondsToSelector:@selector(boolValue)]?[N boolValue]:NO;
+    [sender setState:(isAuto? NSOnState:NSOffState)];
+	BOOL enabled = !isAuto;
+
+	N = [[self document] propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
+	int tag = [N respondsToSelector:@selector(intValue)]?[N intValue]:4;// why 4? why not
+	BOOL stringEncodingNotAvailable = YES;
+	NSMenu * menu = [sender menu];
+	NSEnumerator * E = [[menu itemArray] objectEnumerator];
+	while(sender = [E nextObject])
+	{
+		if([sender action] == @selector(takeStringEncodingFromTag:))
+		{
+			[sender setEnabled:enabled];
+			if([sender tag] == tag)
+			{
+				[sender setState:NSOnState];
+				stringEncodingNotAvailable = NO;
+			}
+			else if([[sender attributedTitle] length])
+			{
+				[menu removeItem:sender];// the menu item was added because the encoding was missing in the menu
+			}
+			else
+			{
+				[sender setState:NSOffState];
+			}
+		}
+	}
+	if(stringEncodingNotAvailable)
+	{
+		iTM2_LOG(@"StringEncoding %i is not available", tag);
+		NSString * title = [NSString localizedNameOfStringEncoding:tag];
+		if(![title length])
+			title = [NSString stringWithFormat:@"StringEncoding:%u", tag];
+		sender = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:@selector(takeStringEncodingFromTag:) keyEquivalent:@""] autorelease];
+		NSFont * F = [NSFont menuFontOfSize:[NSFont systemFontSize]*1.1];
+		F = [SFM convertFont:F toFamily:@"Helvetica"];
+		F = [SFM convertFont:F toHaveTrait:NSItalicFontMask];
+		[sender setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]] initWithString:title attributes:[NSDictionary dictionaryWithObjectsAndKeys:F, NSFontAttributeName, nil]] autorelease]];
+		[sender setEnabled:NO];
+		[sender setTag:tag];
+		[sender setState:NSOnState];
+		[menu insertItem:sender atIndex:0];
+	}
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeEOLFromTag:
+- (IBAction)takeEOLFromTag:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [NSNumber numberWithInt:[sender tag]];
+	[[self document] takePropertyValue:N forKey:TWSEOLFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
+	[self validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
+- (BOOL)validateTakeEOLFromTag:(id)sender;
+/*"Description Forthcoming. This is the one form the main menu.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [[self document] propertyValueForKey:TWSEOLFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
+	int tag = [N respondsToSelector:@selector(intValue)]?[N intValue]:4;// why 4? why not
+	[sender setState:([sender tag] == tag? NSOnState:NSOffState)];
+	return YES;
+}
+@end

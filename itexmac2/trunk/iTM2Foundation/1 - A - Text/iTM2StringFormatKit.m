@@ -344,6 +344,10 @@ To Do List:
 }
 @end
 
+@interface iTM2StringFormatController(PRIVATE)
++ (void)stringEncodingListDidChangeNotified:(NSNotification *)irrelevant;
+@end
+
 @implementation iTM2StringFormatController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
@@ -425,7 +429,45 @@ To do list:
 		m = [MI menu];
 		[m removeItem:MI];
 		[m cleanSeparators];
+		[DDNC removeObserver:self];
+		[DDNC addObserver:self
+			selector:@selector(stringEncodingListDidChangeNotified:)
+				name:iTM2StringEncodingListDidChangeNotification object:nil];
+		[self stringEncodingListDidChangeNotified:nil];
 	}		
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingListDidChangeNotified:
++ (void)stringEncodingListDidChangeNotified:(NSNotification *)irrelevant;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMenuItem * stringEncodingMI = [[NSApp mainMenu] deepItemWithAction:@selector(stringEncodingEditList:)];
+	[stringEncodingMI setTarget:nil];
+	NSMenu * M = [stringEncodingMI menu];
+	// removing all the menu items with the stringEncodingSelect:
+	NSEnumerator * E = [[M itemArray] objectEnumerator];
+	id MI;
+	while(MI = [E nextObject])
+		if([MI action] == @selector(takeStringEncodingFromTag:) && (![MI target]))
+			[M removeItem:MI];
+	// adding the string encoding menu items
+	int index = [M indexOfItem:stringEncodingMI];
+	[M insertItem:[NSMenuItem separatorItem] atIndex:index];
+	E = [[[iTM2StringFormatController stringEncodingMenuWithAction:@selector(takeStringEncodingFromTag:) target:nil]
+			itemArray] reverseObjectEnumerator];
+	while(MI = [[[E nextObject] retain] autorelease])
+	{
+		[[MI menu] removeItem:MI];
+		[M insertItem:MI atIndex:index];
+	}
+	[M insertItem:[NSMenuItem separatorItem] atIndex:index];
+	[M cleanSeparators];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= terminationStringForEOL:
@@ -2517,5 +2559,283 @@ To Do List:
         result = [NSString stringWithUTF8String:"―"];
 	}
     return result;
+}
+@end
+
+#import <iTM2Foundation/iTM2TextDocumentKit.h>
+
+@implementation iTM2TextInspector(StringFormatter)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStringEncodingFromTag:
+- (IBAction)takeStringEncodingFromTag:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self setStringEncoding:[sender tag]];
+	[self validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
+- (IBAction)stringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+	[self validateWindowContent];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
+- (BOOL)validateStringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL isAuto = [self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+    [sender setState:(isAuto? NSOnState:NSOffState)];
+	// now validating all the menu items
+	BOOL enabled = !isAuto;
+	int tag = [self contextIntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask];
+	BOOL stringEncodingNotAvailable = YES;
+	NSMenu * menu = [sender menu];
+	NSEnumerator * E = [[menu itemArray] objectEnumerator];
+	while(sender = [E nextObject])
+	{
+		if([sender action] == @selector(takeStringEncodingFromTag:))
+		{
+			[sender setTarget:self];
+			[sender setEnabled:enabled];
+			if([sender tag] == tag)
+			{
+				[sender setState:NSOnState];
+				stringEncodingNotAvailable = NO;
+			}
+			else if([[sender attributedTitle] length])
+			{
+				[menu removeItem:sender];// the menu item was added because the encoding was missing in the menu
+			}
+			else
+			{
+				[sender setState:NSOffState];
+			}
+		}
+	}
+	if(stringEncodingNotAvailable)
+	{
+		iTM2_LOG(@"StringEncoding %i is not available", tag);
+		NSString * title = [NSString localizedNameOfStringEncoding:tag];
+		if(![title length])
+		{
+			title = [NSString stringWithFormat:@"StringEncoding:%u", tag];
+			}
+		sender = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+			initWithTitle:title action:@selector(takeStringEncodingFromTag:) keyEquivalent:@""]
+				autorelease];
+		NSFont * F = [NSFont menuFontOfSize:[NSFont systemFontSize]*1.1];
+		F = [SFM convertFont:F toFamily:@"Helvetica"];
+		F = [SFM convertFont:F toHaveTrait:NSItalicFontMask];
+		NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:F, NSFontAttributeName, nil];
+		[sender setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+			initWithString:title attributes:attributes]
+				autorelease]];
+		[sender setEnabled:NO];
+		[sender setTarget:self];
+		[sender setTag:tag];
+		[sender setState:NSOnState];
+		[menu insertItem:sender atIndex:0];
+	}
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeEOLFromTag:
+- (IBAction)takeEOLFromTag:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self document] setEOL:[sender tag]];
+	[self validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
+- (BOOL)validateTakeEOLFromTag:(id)sender;
+/*"Description Forthcoming. This is the one form the main menu.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	int tag = [[self document] EOL];
+	[sender setState:([sender tag] == tag? NSOnState:NSOffState)];
+	return YES;
+}
+@end
+
+#import <iTM2Foundation/iTM2PathUtilities.h>
+
+@implementation NSApplication(iTM2StringFormat)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStringEncodingFromTag:
+- (IBAction)takeStringEncodingFromTag:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [SUD setInteger:[sender tag] forKey:iTM2StringEncodingPreferredKey];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
+- (IBAction)stringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [SUD contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	[SUD takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
+- (BOOL)validateStringEncodingToggleAuto:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL isAuto = [SUD contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+    [sender setState:(isAuto? NSOnState:NSOffState)];
+	BOOL enabled = !isAuto;
+	int tag = [SUD contextIntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask];
+	BOOL stringEncodingNotAvailable = YES;
+	NSMenu * menu = [sender menu];
+	NSEnumerator * E = [[menu itemArray] objectEnumerator];
+	while(sender = [E nextObject])
+	{
+		if([sender action] == @selector(takeStringEncodingFromTag:))
+		{
+			[sender setTarget:self];
+			[sender setEnabled:enabled];
+			if([sender tag] == tag)
+			{
+				[sender setState:NSOnState];
+				stringEncodingNotAvailable = NO;
+			}
+			else if([[sender attributedTitle] length])
+			{
+				[menu removeItem:sender];// the menu item was added because the encoding was missing in the menu
+			}
+			else
+			{
+				[sender setState:NSOffState];
+			}
+		}
+	}
+	if(stringEncodingNotAvailable)
+	{
+		iTM2_LOG(@"StringEncoding %i is not available", tag);
+		NSString * title = [NSString localizedNameOfStringEncoding:tag];
+		if(![title length])
+			title = [NSString stringWithFormat:@"StringEncoding:%u", tag];
+		sender = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:@selector(takeStringEncodingFromTag:) keyEquivalent:@""] autorelease];
+		NSFont * F = [NSFont menuFontOfSize:[NSFont systemFontSize]*1.1];
+		F = [SFM convertFont:F toFamily:@"Helvetica"];
+		F = [SFM convertFont:F toHaveTrait:NSItalicFontMask];
+		[sender setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]] initWithString:title attributes:[NSDictionary dictionaryWithObjectsAndKeys:F, NSFontAttributeName, nil]] autorelease]];
+		[sender setEnabled:NO];
+		[sender setTarget:self];
+		[sender setTag:tag];
+		[sender setState:NSOnState];
+		[menu insertItem:sender atIndex:0];
+	}
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingEditList:
+- (IBAction)stringEncodingEditList:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * subpath = [[NSBundle mainBundle] pathForSupportDirectory:iTM2SupportTextComponent inDomain:NSUserDomainMask create:YES];
+	NSString * path = [[subpath stringByAppendingPathComponent:iTM2StringEncodingsPListName] stringByAppendingPathExtension:@"plist"];
+//iTM2_LOG(@"path is: %@", path);
+	id D = [SDC documentForFileName:path];
+	if(D)
+	{
+		if([SDC shouldCreateUI])
+		{
+			[D makeWindowControllers];
+			[D showWindows];
+		}
+		return;
+	}
+	if([DFM fileExistsAtPath:path])
+	{
+		D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]]
+				initWithContentsOfFile: [path stringByResolvingSymlinksAndFinderAliasesInPath] ofType:@""] autorelease];
+		[SDC addDocument:D];
+		if([SDC shouldCreateUI])
+		{
+			[D makeWindowControllers];
+			[D showWindows];
+		}
+		return;
+	}
+	D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]] init] autorelease];
+	[D setFileName:path];
+	[SDC addDocument:D];
+	if([SDC shouldCreateUI])
+	{
+		[D makeWindowControllers];
+		[D showWindows];
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeEOLFromTag:
+- (IBAction)takeEOLFromTag:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self takeContextInteger:[sender tag] forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
+- (BOOL)validateTakeEOLFromTag:(id)sender;
+/*"Description Forthcoming. This is the one form the main menu.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	int tag = [self contextIntegerForKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
+	[sender setState:([sender tag] == tag? NSOnState:NSOffState)];
+	return YES;
 }
 @end

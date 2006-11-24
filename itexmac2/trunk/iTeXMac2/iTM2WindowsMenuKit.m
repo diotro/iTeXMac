@@ -292,28 +292,34 @@ To Do List:
 	// projectRefsToProjectDocumentsMenuItems: keys are NSValues containing the address of a Project Document
 	// values are mutable arrays of menu items for windows of documents of this project
 	NSMutableArray * otherMenuItems = [NSMutableArray array];
-	int insertIndex = -1;
 	NSMenu * windowsMenu = [NSApp windowsMenu];
 	BOOL oldMenuChangedMessagesEnabled = [windowsMenu menuChangedMessagesEnabled];
 	// collecting all the application ghost windows to have all the projects
-	NSArray * RA = [NSApp windows];
-	NSEnumerator * E = [RA objectEnumerator];
 	id key = nil;
 	NSString * fileName = nil;
 	NSMutableArray * MRA = nil;
 	id set = [NSMutableSet set];
-	NSValue * V;
+	// first we scan all the application windows
+	// for each project, we prepare the 2 dictionaries above
+	NSArray * RA = [NSApp windows];
+	NSEnumerator * E = [RA objectEnumerator];
 	while(W = [E nextObject])
 	{
-		if([W isKindOfClass:[iTM2ProjectGhostWindow class]])
+		if([W isKindOfClass:[iTM2ProjectGhostWindow class]])// a ghost window is an awfull trick to have the projects listed in the windows menu, and other side effects
 		{
 //iTM2_LOG(@"=-=-=-=-=-  target is a ghost window");
 			WC = [W windowController];
 			if(PD = [WC document])
 			{
 				key = [NSValue valueWithNonretainedObject:PD];
-				[projectRefsToProjectWindowsMenuItems setObject:[NSMutableArray array] forKey:key];
-				[projectRefsToProjectDocumentsMenuItems setObject:[NSMutableArray array] forKey:key];
+				if(![projectRefsToProjectWindowsMenuItems objectForKey:key])
+				{
+					[projectRefsToProjectWindowsMenuItems setObject:[NSMutableArray array] forKey:key];
+				}
+				if(![projectRefsToProjectDocumentsMenuItems objectForKey:key])
+				{
+					[projectRefsToProjectDocumentsMenuItems setObject:[NSMutableArray array] forKey:key];
+				}
 				fileName = [PD fileName];
 				if([set containsObject:fileName])
 				{
@@ -339,35 +345,41 @@ To Do List:
 			}
 		}
 	}
+	// remove all the menu items that where tagged 
 	RA = [windowsMenu itemArray];
 	E = [RA objectEnumerator];
 	while(MI = [E nextObject])
 	{
-		++insertIndex;
-//iTM2_LOG(@"LOOP ----> [MI title] is: %@, insertIndex is: %i", [MI title], insertIndex);
 		if([MI action] == @selector(__REMOVE_ME_ACTION:))
 		{
 			[windowsMenu removeItem:MI];// cleaning: create this on later
 		}
-		else if([W isKindOfClass:[NSWindow class]])// SIGTRAP
+	}
+	// then we scan the windows menu 
+	RA = [windowsMenu itemArray];
+	E = [RA objectEnumerator];
+	int insertIndex = [RA count];// the index where all the doc menu items will live
+	int idx = insertIndex;// will hold the new candidate for insertIndex
+	while(MI = [E nextObject])
+	{
+		if([MI hasSubmenu] && [[MI submenu] isKindOfClass:[iTM2ProjectWindowSubmenu class]])
 		{
-targetIsWindow:
-//iTM2_LOG(@"1 - [MI title] is: %@", [MI title]);
+			idx = [windowsMenu indexOfItem:MI];
+			[windowsMenu removeItem:MI];// cleaning: recreate this on later
+		}
+		else if(W = [MI target],[W isKindOfClass:[NSWindow class]])// SIGTRAP catched?
+		{
 			[MI setTitle:[W windowsMenuItemTitle]];
-//iTM2_LOG(@"2 - [MI title] is: %@", [MI title]);
-//iTM2_LOG(@"=-=-=-=-=-  target is window, modified [MI title] is: %@", [MI title]);
 			WC = [W windowController];
 			if(document = [WC document])
 			{
 				// the current menu item has a window
 				// this window has a document
 				iTM2ProjectDocument * PD = [document project];
-//iTM2_LOG(@"PD: %@", PD);
-//iTM2_LOG(@"[PD fileName]: %@", [PD fileName]);
+				key = [NSValue valueWithNonretainedObject:PD];
 				if(document == PD)
 				{
 					// this window is a project window
-					key = [NSValue valueWithNonretainedObject:PD];
 					if(MRA = [projectRefsToProjectWindowsMenuItems objectForKey:key])
 					{
 						[MRA addObject:MI];
@@ -381,7 +393,6 @@ targetIsWindow:
 				}
 				else if(PD)
 				{
-					key = [NSValue valueWithNonretainedObject:PD];
 					if(MRA = [projectRefsToProjectDocumentsMenuItems objectForKey:key])
 					{
 						[MRA addObject:MI];
@@ -392,47 +403,28 @@ targetIsWindow:
 						[projectRefsToProjectDocumentsMenuItems setObject:MRA forKey:key];
 					}
 					[MI setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
-//iTM2_LOG(@"=-=-=-=-=-  menu item is project document pertaining to %#x, %@, %@", PD, [PD fileName], [document fileName]);
 				}
 				else
 				{
-					[otherMenuItems addObject:MI];
-//iTM2_LOG(@"=-=-=-=-=-  menu item is other");
+					[otherMenuItems addObject:MI];// no project for this menu item
 				}
-				[windowsMenu removeItem:MI];// do not loop through while above to avoid ++insertIndex
-nextMenuItem:
-				MI = [E nextObject];
-//iTM2_LOG(@"LOOP ----> [MI title] is: %@", [MI title]);
-				W = [MI target];
-				if([MI action] == @selector(__REMOVE_ME_ACTION:))
-				{
-					[windowsMenu removeItem:MI];// cleaning: create this on later
-				}
-				else if([W isKindOfClass:[NSWindow class]])// STILL SIGTRAP
-					goto targetIsWindow;
-				else if([MI hasSubmenu] && [[MI submenu] isKindOfClass:[iTM2ProjectWindowSubmenu class]])
-					goto itemHasProjectSubmenu;
-				else if(MI)
-					goto nextMenuItem;
 			}
 			else 
 			{
-//iTM2_LOG(@"=-=-=-=-=-  menu item with no document");
-				[otherMenuItems addObject:MI];
-				[windowsMenu removeItem:MI];
-				goto nextMenuItem;
+				[otherMenuItems addObject:MI];// no document for this window
 			}
+			idx = [windowsMenu indexOfItem:MI];
+			[windowsMenu removeItem:MI];
 		}
-		else if([MI hasSubmenu] && [[MI submenu] isKindOfClass:[iTM2ProjectWindowSubmenu class]])
+		if(idx<insertIndex)
 		{
-itemHasProjectSubmenu:;
-//iTM2_LOG(@"=-=-=-=-=-  target has submenu");
-			[windowsMenu removeItem:MI];// cleaning: create this on later
-			goto nextMenuItem;
+			insertIndex = idx;
 		}
 	}
-iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@:",projectRefsToProjectDocumentsMenuItems);
-iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@:",projectRefsToProjectWindowsMenuItems);
+//iTM2_LOG(@"0 - windowsMenu:%@",windowsMenu);
+//iTM2_LOG(@"otherMenuItems:%@:",otherMenuItems);
+//iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@:",projectRefsToProjectDocumentsMenuItems);
+//iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@:",projectRefsToProjectWindowsMenuItems);
 	// updating with 
 //iTM2_LOG(@"=-=-=-=-=-  INSERTING OTHERS %i", [windowsMenu numberOfItems]);
 	if(insertIndex < 0)
@@ -450,25 +442,6 @@ iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@:",projectRefsToProjectWindows
 	//iTM2_LOG(@"=-=-=-=-=-  inserted document MI is: %@", MI);
 			[windowsMenu insertItem:MI atIndex:insertIndex];
 		}
-#if 0
-		RA = [namesToProjectMenuItems allValues];
-		RA = [RA sortedArrayUsingDescriptors:sortDescriptors];
-		E = [RA objectEnumerator];
-		iTM2ProjectWindowSubmenu * addMenu = [[[iTM2ProjectWindowSubmenu allocWithZone:[iTM2ProjectWindowSubmenu menuZone]] initWithTitle:iTM2ProjectLocalizedAddCurrentDocumentName] autorelease];
-		while(MI = [[[E nextObject] copy] autorelease])
-		{
-			[MI setSubmenu:nil];
-			[MI setAction:@selector(projectAddCurrentDocument:)];
-			[addMenu addItem:MI];
-		}
-		if([addMenu numberOfItems])
-		{
-			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[addMenu title]
-							action: @selector(projectAddCurrentDocument:) keyEquivalent: @""] autorelease];
-			[windowsMenu insertItem:MI atIndex:insertIndex];
-			[windowsMenu setSubmenu:addMenu forItem:MI];
-		}
-#endif
 		[windowsMenu insertItem:[NSMenuItem separatorItem] atIndex:insertIndex];
 	}
 	// sorting all the project names using an array of trees
@@ -483,7 +456,7 @@ iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@:",projectRefsToProjectWindows
 	{
 		PD = [key nonretainedObjectValue];
 		fileName = [PD fileName];
-iTM2_LOG(@"a - project file name:%@",fileName);
+//iTM2_LOG(@"a - project file name:%@",fileName);
 		if([fileName belongsToFarawayProjectsDirectory])
 		{
 			component = [fileName lastPathComponent];
@@ -492,12 +465,12 @@ iTM2_LOG(@"a - project file name:%@",fileName);
 			fileName = [fileName stringByDeletingLastPathComponent];
 			fileName = [fileName stringByAppendingPathComponent:component];
 		}
-iTM2_LOG(@"b - project file name:%@",fileName);
+//iTM2_LOG(@"b - project file name:%@",fileName);
 		RA = [fileName pathComponents];
 		MRA = [[RA mutableCopy] autorelease];
 		if(path = [MRA lastObject])
 		{
-iTM2_LOG(@"path component:%@",path);
+//iTM2_LOG(@"path component:%@",path);
 			NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value like %@",path];
 			RA = [roots filteredArrayUsingPredicate:predicate];
 			if([RA count])
@@ -515,7 +488,7 @@ iTM2_LOG(@"path component:%@",path);
 			while(component = [MRA lastObject])
 			{
 				path = [component stringByAppendingPathComponent:path];
-iTM2_LOG(@"path component:%@",path);
+//iTM2_LOG(@"path component:%@",path);
 				if(child = [node objectInChildrenWithValue:path])
 				{
 					node = child;
@@ -578,7 +551,7 @@ otherUp:
 			}
 		}
 	}
-	// now all the leaf nodes have correspond to a different name
+	// now all the leaf nodes correspond to a different name
 	// record these names
 	NSMutableDictionary * shortProjectNames = [NSMutableDictionary dictionary];
 	E = [roots objectEnumerator];
@@ -617,7 +590,7 @@ up1:
 	NSCountedSet * shortProjectNamesSet = [NSCountedSet set];
 	NSString * dirName = nil;
 	NSString * lastPathComponent = nil;
-iTM2_LOG(@"00 - shortProjectNames:%@",shortProjectNames);
+//iTM2_LOG(@"00 - shortProjectNames:%@",shortProjectNames);
 	E = [shortProjectNames keyEnumerator];
 	while(key = [E nextObject])
 	{
@@ -643,7 +616,7 @@ iTM2_LOG(@"00 - shortProjectNames:%@",shortProjectNames);
 		[shortProjectNamesSet addObject:component];
 	}
 	// second step, same loop taking the previous set into account
-iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
+//iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
 	E = [shortProjectNames keyEnumerator];
 	while(key = [E nextObject])
 	{
@@ -655,7 +628,7 @@ iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
 		if([RA count]>1)
 		{
 			component = [RA objectAtIndex:0];
-			component = [NSString stringWithFormat:@"%@ (...%@/...)",lastPathComponent,component];
+			component = [NSString stringWithFormat:@"%@ - ...%@/...",lastPathComponent,component];
 			if([shortProjectNamesSet countForObject:path]<2)
 			{
 				[shortProjectNames setObject:component forKey:key];
@@ -664,7 +637,7 @@ iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
 		else if([RA count])
 		{
 			component = [RA objectAtIndex:0];
-			component = [NSString stringWithFormat:@"%@ (...%@/)",lastPathComponent,component];
+			component = [NSString stringWithFormat:@"%@ - ...%@/",lastPathComponent,component];
 			if([shortProjectNamesSet countForObject:path]<2)
 			{
 				[shortProjectNames setObject:component forKey:key];
@@ -673,10 +646,10 @@ iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
 	}
 	NSEnumerator * e = nil;
 	NSMenuItem * mi = nil;
-iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
-iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@",projectRefsToProjectDocumentsMenuItems);
-iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@",projectRefsToProjectWindowsMenuItems);
-iTM2_LOG(@"1 - windowsMenu:%@",windowsMenu);
+//iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
+//iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@",projectRefsToProjectDocumentsMenuItems);
+//iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@",projectRefsToProjectWindowsMenuItems);
+//iTM2_LOG(@"1 - windowsMenu:%@",windowsMenu);
 	RA = [shortProjectNames allValues];
 	RA = [RA sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 	E = [RA reverseObjectEnumerator];
@@ -738,9 +711,9 @@ iTM2_LOG(@"1 - windowsMenu:%@",windowsMenu);
 		[PD updateWindowsSubmenu:M];
 		[windowsMenu insertItem:[NSMenuItem separatorItem] atIndex:insertIndex];
 	}
-iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@",projectRefsToProjectDocumentsMenuItems);
-iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@",projectRefsToProjectWindowsMenuItems);
-iTM2_LOG(@"2 - windowsMenu:%@",windowsMenu);
+//iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@",projectRefsToProjectDocumentsMenuItems);
+//iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@",projectRefsToProjectWindowsMenuItems);
+//iTM2_LOG(@"2 - windowsMenu:%@",windowsMenu);
 //iTM2_LOG(@"=-=-=-=-=-  INSERTING REMAINING PROJECT ITEMS %i", [windowsMenu numberOfItems]);
 //iTM2_LOG(@"=-=-=-=-=-  INSERTING THE ADD DOCUMENT TO PROJECT MENU, %i", [windowsMenu numberOfItems]);
 	[windowsMenu insertItem:[NSMenuItem separatorItem] atIndex:insertIndex];
@@ -748,7 +721,7 @@ iTM2_LOG(@"2 - windowsMenu:%@",windowsMenu);
 	[windowsMenu cleanSeparators];
 //iTM2_LOG(@"=-=-=-=-=-  CLEANED %i", [windowsMenu numberOfItems]);
 //iTM2_LOG(@"=-=-=-=-=-  windowsMenu %@", windowsMenu);
-iTM2_LOG(@"3 - windowsMenu:%@",   windowsMenu);
+//iTM2_LOG(@"3 - windowsMenu:%@",   windowsMenu);
 	[self registerNotifications];
 	[windowsMenu setMenuChangedMessagesEnabled:oldMenuChangedMessagesEnabled];
 //iTM2_END;
