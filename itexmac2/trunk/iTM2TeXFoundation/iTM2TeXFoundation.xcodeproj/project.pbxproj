@@ -191,6 +191,23 @@
 		DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildStyle section */
+		DC4517060B1E37A500BB8DAF /* Development */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Development;
+		};
+		DC4517070B1E37A500BB8DAF /* Deployment */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Deployment;
+		};
+/* End PBXBuildStyle section */
+
 /* Begin PBXContainerItemProxy section */
 		DC1C6C6C090D9AA5000F4FDE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -324,7 +341,7 @@
 		DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStorageKit.m; sourceTree = "<group>"; };
 		DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStyleEditionKit.h; sourceTree = "<group>"; };
 		DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStyleEditionKit.m; sourceTree = "<group>"; };
-		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Inactive.tif; sourceTree = "<group>"; };
 		DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Pressed.tif; sourceTree = "<group>"; };
@@ -857,6 +874,12 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB87509474619004B0A81 /* Build configuration list for PBXProject "iTM2TeXFoundation" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				DC4517060B1E37A500BB8DAF /* Development */,
+				DC4517070B1E37A500BB8DAF /* Deployment */,
+			);
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -1089,7 +1112,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)\"\n\"${BUILD_DIR}/${FULL_PRODUCT_NAME}\" -debug\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 ERROR: testing iTeXMac2 Server (universal binary?)... FAILED\"\n    exit 1\nfi\necho \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)... DONE\"\n";
+			shellScript = "echo \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?) ${BUILD_DIR}/${FULL_PRODUCT_NAME}\"\n\"${BUILD_DIR}/${FULL_PRODUCT_NAME}\" -debug\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 ERROR: testing iTeXMac2 Server (universal binary?)... FAILED\"\n    exit 1\nfi\necho \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)... DONE\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1711,6 +1734,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41760A4ADC7300E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				GCC_PREFIX_HEADER = "iTM2 Server Kit/iTM2Server-Prefix.pch";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "iTeXMac2 Server";
@@ -1721,6 +1748,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				GCC_PREFIX_HEADER = "iTM2 Server Kit/iTM2Server-Prefix.pch";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "iTeXMac2 Server";
