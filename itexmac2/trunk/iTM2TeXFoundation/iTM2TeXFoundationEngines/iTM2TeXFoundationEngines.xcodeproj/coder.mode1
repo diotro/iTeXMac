@@ -322,7 +322,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC09A0EC0B09F51E000612AA</string>
+										<string>DCBF0D790B1B0088002B1373</string>
 										<key>history</key>
 										<array>
 											<string>DC3E11020AEBA07B009BC4BA</string>
@@ -330,7 +330,7 @@
 											<string>DC3E11040AEBA07B009BC4BA</string>
 											<string>DC3E11050AEBA07B009BC4BA</string>
 											<string>DC099ED60B09CFBF000612AA</string>
-											<string>DC099ED70B09CFBF000612AA</string>
+											<string>DC09A0EC0B09F51E000612AA</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -396,9 +396,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC099BB50B09CC40000612AA</string>
+				<string>DCBF05B90B1AF71F002B1373</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC099BB60B09CC40000612AA</string>
+				<string>DCBF05BA0B1AF71F002B1373</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -532,13 +532,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC099FE90B09E6F3000612AA</string>
-		<string>DC099FEA0B09E6F3000612AA</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC099FE70B09E6F3000612AA</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>DC9DC6EA094844F00079E1B3</string>
-		<string>DC8107340ADD9E6F00F870B4</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

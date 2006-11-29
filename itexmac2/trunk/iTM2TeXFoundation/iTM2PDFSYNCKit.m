@@ -1672,7 +1672,12 @@ laSuite:
 		}
 	}
 //NSLog(@"SYNCHRONIZING");
-	if(destinations = [[self synchronizer] destinationsForLine:l column:c inSource:SRCE])
+	id syncer = [self synchronizer];
+	if(!syncer)
+	{
+		[self updatePdfsync:self];
+	}
+	else if(destinations = [syncer destinationsForLine:l column:c inSource:SRCE])
 	{
 		BOOL result = NO;
 		E = [[NSApp windows] objectEnumerator];
@@ -1706,7 +1711,7 @@ laSuite:
 			return result;
 		}
 	}
-	else if(l != NSNotFound)
+	if(l != NSNotFound)
 	{
 		result = NO;
 		E = [[NSApp windows] objectEnumerator];

@@ -80,12 +80,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSURL * url = nil;
+	NSString * output = nil;
+	NSDocument * D = nil;
 	iTM2TeXProjectDocument * TPD = [SPC projectForFileName:source];
 	if(TPD)
 	{
-		NSEnumerator * E = [[TPD subdocuments] objectEnumerator];
+		NSArray * subdocuments = [TPD subdocuments];
+		NSEnumerator * E = [subdocuments objectEnumerator];
 		BOOL displayed = NO;
-		NSDocument * D;
 		while(D = [E nextObject])
 			if([D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force])
 				displayed = YES;
@@ -93,37 +96,49 @@ To Do List:
 			return YES;
 		if(!force)
 			return NO;
-		NSString * master = [TPD absoluteFileNameForKey:[TPD masterFileKey]];
+		NSString * key = [TPD masterFileKey];
+		NSString * master = [TPD absoluteFileNameForKey:key];
 		if([master length])
 		{
-			master = [[master stringByDeletingPathExtension] stringByAppendingPathExtension:[TPD outputFileExtension]];
-			NSString * output = master;
-			NSURL * url = [NSURL fileURLWithPath:output];
-			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
+			master = [master stringByDeletingPathExtension];
+			master = [master stringByAppendingPathExtension:[TPD outputFileExtension]];
+			output = master;
+			url = [NSURL fileURLWithPath:output];
+			if(![TPD subdocumentForURL:url] &&
+				(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
+			{
 				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+			}
 			output = [output stringByStrippingFarawayProjectsDirectory];
 			url = [NSURL fileURLWithPath:output];
-			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
+			if(![TPD subdocumentForURL:url] &&
+				(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
+			{
 				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+			}
 			NSString * projectFileName = [TPD fileName];
 			if([projectFileName belongsToFarawayProjectsDirectory])
 			{
 				output = [projectFileName stringByDeletingLastPathComponent];
 				output = [output stringByAppendingPathComponent:[master lastPathComponent]];
 				url = [NSURL fileURLWithPath:output];
-				if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
+				if(![TPD subdocumentForURL:url] &&
+					(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
+				{
 					return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+				}
 			}
 		}
 	}
 	else if([source length])
 	{
-		NSString * output = [[source stringByDeletingPathExtension] stringByAppendingPathExtension:@"pdf"];
+		output = [source stringByDeletingPathExtension];
+		output = [output stringByAppendingPathExtension:@"pdf"];
 		if([DFM fileExistsAtPath:output])// save some time
 		{
-			id document = [self openDocumentWithContentsOfURL:[NSURL fileURLWithPath:output] display:NO error:nil];
-			if(document)
-				return [document displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];// time consuming
+			url = [NSURL fileURLWithPath:output];
+			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
+				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];// time consuming
 		}
 	}
 //iTM2_END;

@@ -957,7 +957,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
 - (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
-/*"Description forthcoming.
+/*"Description forthcoming. To ensure the context is properly saved
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
 To Do List:

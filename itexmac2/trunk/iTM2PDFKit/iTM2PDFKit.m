@@ -676,15 +676,21 @@ To Do List:
 	NSAssert(_tabViewControl, @"Missing _tabViewControl connection...");
 	[DNC addObserver:self selector:@selector(PDFViewPageChangedNotified:)  name:PDFViewPageChangedNotification  object:[self pdfView]];
 	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:[self pdfView]];
-	PDFDocument * doc = [[self document] PDFDocument];
-	[[self pdfView] setDocument:doc];
-	[[self pdfView] setDelegate:self];
-	[doc setDelegate:self];
+	// outlines
 	[self setPDFOutlines:nil];
 	[_outlinesView setTarget:self];
 	[_outlinesView setAction:@selector(takeDestinationFromSelectedItemRepresentedObject:)];
 	[_tabViewControl setEnabled: ([[self PDFOutlines] countOfChildren]>0) forSegment:1];
+	// thumbnails
 	[[self PDFThumbnails] setArray:[NSArray array]];
+	// search
+	[_searchCountText setStringValue:@""];
+	// doc
+	[[self pdfView] setDelegate:self];
+	PDFDocument * doc = [[self document] PDFDocument];
+	[doc setDelegate:self];
+	[[self pdfView] setDocument:doc];// last thing to do
+iTM2_LOG(@"The document has been properly connected to the view:\n%@ <-> %@",doc,[self pdfView]);
 	[INC addObserver: self
 		selector: @selector(PDFDocumentDidChangeNotified:)
 			name: iTM2PDFKitDocumentDidChangeNotification
@@ -699,7 +705,6 @@ To Do List:
 	[newCell setImageFrameStyle:[oldCell imageFrameStyle]];
 	[column setDataCell:newCell];
 	#endif
-	[_searchCountText setStringValue:@""];
 	[self contextDidChange];
 //iTM2_END;
     return;
@@ -2181,6 +2186,7 @@ To Do List:
 //    [toolbar setSizeMode:NSToolbarSizeModeSmall];
     [toolbar setDelegate:self];
     [[self window] setToolbar:toolbar];
+iTM2_LOG(@"The toolbar has properly been setup");
 //iTM2_END;
 	return;
 }
@@ -2954,6 +2960,8 @@ To Do List:
 	{
 		[_SyncDestination autorelease];
 		_SyncDestination = nil;
+		[_SyncDestinations autorelease];
+		_SyncDestinations = nil;
 		[_SyncPointValues autorelease];
 		_SyncPointValues = nil;
 		[super setDocument:document];// raise if the document has no pages
@@ -4169,6 +4177,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(destinations);
+	[_SyncDestinations autorelease];
+	_SyncDestinations = [[NSMutableArray array] retain];
 #if 1
 	NSMutableSet * pageSet = [NSMutableSet set];
 	PDFDocument * document = [self document];

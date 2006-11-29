@@ -1684,7 +1684,7 @@ To Do List:
 		}
 	    [self showSubdocuments:self];
 	}
-#elif 0
+#elif 1
 	// there is a problem with the window.
 	// if we do nothing the sheet won't display from the correct window.
 	if([self isDocumentEdited])
@@ -1797,7 +1797,9 @@ To Do List:
 		NSEnumerator * E = [subdocuments objectEnumerator];
 		id subdocument;
 		while(subdocument = [E nextObject])
+		{
 			[subdocument canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(__subdocument:shouldClose:contextDictionary:)contextInfo:[contextDictionary retain]];
+		}
 	}
 //iTM2_END;
     return;

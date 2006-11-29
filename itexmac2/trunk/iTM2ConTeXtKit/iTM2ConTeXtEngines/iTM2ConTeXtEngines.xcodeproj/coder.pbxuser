@@ -103,12 +103,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 185191470;
-			PBXWorkspaceStateSaveDate = 185191470;
+			PBXPerProjectTemplateStateSaveDate = 186316559;
+			PBXWorkspaceStateSaveDate = 186316559;
 		};
 		perUserProjectItems = {
 			DC09A10B0B09F53D000612AA /* PBXTextBookmark */ = DC09A10B0B09F53D000612AA /* PBXTextBookmark */;
-			DC10E6320B086FDE00E3BA31 /* PBXTextBookmark */ = DC10E6320B086FDE00E3BA31 /* PBXTextBookmark */;
 			DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
 			DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */;
 			DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */;
@@ -121,6 +120,7 @@
 			DC99E7AE0A2456E600F50752 /* PBXBookmark */ = DC99E7AE0A2456E600F50752 /* PBXBookmark */;
 			DC99E7B00A2456E600F50752 /* PBXBookmark */ = DC99E7B00A2456E600F50752 /* PBXBookmark */;
 			DC99E7B10A2456E600F50752 /* PBXBookmark */ = DC99E7B10A2456E600F50752 /* PBXBookmark */;
+			DCBF0D970B1B0092002B1373 /* PBXTextBookmark */ = DCBF0D970B1B0092002B1373 /* PBXTextBookmark */;
 			DCC541840935A0E50050770C /* PBXTextBookmark */ = DCC541840935A0E50050770C /* PBXTextBookmark */;
 			DCC544BB0937AA500050770C /* PBXTextBookmark */ = DCC544BB0937AA500050770C /* PBXTextBookmark */;
 			DCC544BC0937AA500050770C /* PBXTextBookmark */ = DCC544BC0937AA500050770C /* PBXTextBookmark */;
@@ -131,16 +131,6 @@
 		};
 	};
 	DC09A10B0B09F53D000612AA /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
-		name = "TeXExec wrapper-Info.plist: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 391;
-		vrLoc = 0;
-	};
-	DC10E6320B086FDE00E3BA31 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
 		name = "TeXExec wrapper-Info.plist: 1";
@@ -366,6 +356,16 @@
 		objects = (
 			DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */,
 		);
+	};
+	DCBF0D970B1B0092002B1373 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
+		name = "TeXExec wrapper-Info.plist: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 391;
+		vrLoc = 0;
 	};
 	DCC541840935A0E50050770C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
