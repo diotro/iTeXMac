@@ -2956,8 +2956,6 @@ To Do List:
 		_SyncDestination = nil;
 		[_SyncPointValues autorelease];
 		_SyncPointValues = nil;
-		[_SyncDestinations autorelease];
-		_SyncDestinations = nil;
 		[super setDocument:document];// raise if the document has no pages
 #if 0
 #warning Trick to workaround a bug: the PDFView document view is not properly set up
@@ -4171,59 +4169,48 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(destinations);
-#if 0
+#if 1
 	NSMutableSet * pageSet = [NSMutableSet set];
 	PDFDocument * document = [self document];
-	NSEnumerator * E = [destinations keyEnumerator];
-	NSNumber * N;
-	while(N = [E nextObject])
+	NSArray * keys = [NSArray arrayWithObjects:@"here",@"after",@"before",nil];
+	NSEnumerator * EE = [keys objectEnumerator];
+	NSString * key = nil;
+	while(key = [EE nextObject])
 	{
-		unsigned int pageIndex = [N unsignedIntValue];
-		if(pageIndex < [document pageCount])
+		NSDictionary * D = [destinations objectForKey:key];
+		NSEnumerator * E = [D keyEnumerator];
+		NSNumber * N;
+		while(N = [E nextObject])
 		{
-			PDFPage * page = [document pageAtIndex:pageIndex];
-			NSEnumerator * e = [[destinations objectForKey:N] objectEnumerator];
-			NSValue * pointValue;
-			nextPointValue:
-			if(pointValue = [e nextObject])
+			unsigned int pageIndex = [N unsignedIntValue];
+			if(pageIndex < [document pageCount])
 			{
-				NSPoint point = [pointValue pointValue];
-				NSPoint checkPoint = point;
-				#define OFFSET 4
-				checkPoint.x += OFFSET;
-				checkPoint.y += OFFSET;
-				if([page characterIndexAtPoint:checkPoint] == -1)
+				PDFPage * page = [document pageAtIndex:pageIndex];
+				NSEnumerator * e = [[D objectForKey:N] objectEnumerator];
+				NSValue * pointValue;
+nextPointValue:
+				if(pointValue = [e nextObject])
 				{
-					checkPoint.x -= 2 * OFFSET;
-					if([page characterIndexAtPoint:checkPoint] == -1)
+					NSPoint point = [pointValue pointValue];
+					if([page characterIndexNearPoint:point] != -1)
 					{
-						checkPoint.y -= 2 * OFFSET;
-						if([page characterIndexAtPoint:checkPoint] == -1)
-						{
-							checkPoint.x += 2 * OFFSET;
-							if([page characterIndexAtPoint:checkPoint] == -1)
-							{
-								// this Sync point does not seem to correspond to a character
-//iTM2_LOG(@"Sync POINT IS IGNORED");
-								goto nextPointValue;
-							}
-						}
+						[_SyncDestinations addObject:[[[PDFDestination allocWithZone:[self zone]]
+							initWithPage: page atPoint: point] autorelease]];
+						[pageSet addObject:page];
+						return YES;
 					}
+					goto nextPointValue;
 				}
-				[_SyncDestinations addObject:[[[PDFDestination allocWithZone:[self zone]]
-					initWithPage: page atPoint: point] autorelease]];
-				[pageSet addObject:page];
-				goto nextPointValue;
 			}
 		}
-	}
 #if 0
-	if([pageSet count] != 1)
-	{
-		// I need to scroll
-		return;
-	}
+		if([pageSet count] != 1)
+		{
+			// I need to scroll
+			return YES;
+		}
 #endif
+	}
 #endif
 //iTM2_END;
 	return NO;
@@ -4759,23 +4746,9 @@ startAgain:;
 						result = [self _synchronizeWithDestinations:destinations here:hereWord index:localHitIndex];
 					}
 				}
-				else if(destinations)
-				{
-					result = [self _synchronizeWithDestinations:destinations];
-				}
-			}
-			else if(destinations)
-			{
-				// the hint seems inconsistent, this is the standard synchronization process...
-				result = [self _synchronizeWithDestinations:destinations];
 			}
 		}
-		else if(destinations)
-		{
-			// no hint given, this is the standard stuff
-			result = [self _synchronizeWithDestinations:destinations];
-		}
-		if(result)
+		if(result || (destinations && (result = [self _synchronizeWithDestinations:destinations])))
 		{
 			[self setNeedsDisplay:YES];
 		}
@@ -4833,8 +4806,6 @@ To Do List:
 //iTM2_START;
 	[_SyncDestination autorelease];
 	_SyncDestination = nil;
-	[_SyncDestinations autorelease];
-	_SyncDestinations = nil;
 	[_SyncPointValues autorelease];
 	_SyncPointValues = nil;
 	if(aCurrentPhysicalPage<0)
@@ -5373,45 +5344,48 @@ To Do List:
 	if(page)
 	{
 		point = [self convertPoint:point toPage:page];
-		int charIndex = [page characterIndexAtPoint:point];
-		if(charIndex >= 0)
-		{
-			// there is a bug in
+		int charIndex = [page characterIndexNearPoint:point];
+// there is a bug in
 //				PDFSelection * SELECTION = [page selectionForRange:NSMakeRange(charIndex, 1)];
 //iTM2_LOG(@"................ character: %@, point: %@, bounds: %@", [[page string] substringWithRange:NSMakeRange(charIndex, 1)], NSStringFromPoint(point), (SELECTION? NSStringFromRect([SELECTION boundsForPage:page]): @"No rect"));
-			unsigned int pageIndex = [[page document] indexForPage:page];
-			NSMutableDictionary * hint = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+		NSMutableDictionary * hint = charIndex >= 0?
+			[NSMutableDictionary dictionaryWithObjectsAndKeys:
 				[NSNumber numberWithInt:charIndex], @"character index",
 				[page string], @"container",
+					nil]:
+			[NSMutableDictionary dictionaryWithObjectsAndKeys:
+				[page string], @"container",
 					nil];
-			PDFSelection * selection;
-			if(selection = [page selectionForWordAtPoint:point])
-				[hint setObject:[NSValue valueWithRect:[selection boundsForPage:page]] forKey:@"word bounds"];
+		unsigned int pageIndex = [[page document] indexForPage:page];
+		PDFSelection * selection;
+		if(selection = [page selectionForWordAtPoint:point])
+		{
+			[hint setObject:[NSValue valueWithRect:[selection boundsForPage:page]] forKey:@"word bounds"];
+		}
+		if(selection = [page selectionForLineAtPoint:point])
+		{
+			NSRect lineBounds = [selection boundsForPage:page];
+			NSPoint P = point;
+			P.y += lineBounds.size.height * 1.1;
 			if(selection = [page selectionForLineAtPoint:point])
 			{
-				NSRect lineBounds = [selection boundsForPage:page];
-				NSPoint P = point;
-				P.y += lineBounds.size.height * 1.1;
-				if(selection = [page selectionForLineAtPoint:point])
-				{
-					NSRect bounds = [selection boundsForPage:page];
-					bounds.origin.y = lineBounds.origin.y;
-					bounds.size.height = lineBounds.size.height;
-					lineBounds = NSUnionRect(bounds, lineBounds);
-				}
-				P.y = point.y - lineBounds.size.height * 1.1;
-				if(selection = [page selectionForLineAtPoint:point])
-				{
-					NSRect bounds = [selection boundsForPage:page];
-					bounds.origin.y = lineBounds.origin.y;
-					bounds.size.height = lineBounds.size.height;
-					lineBounds = NSUnionRect(bounds, lineBounds);
-				}
-				[hint setObject:[NSValue valueWithRect:lineBounds] forKey:@"line bounds"];
+				NSRect bounds = [selection boundsForPage:page];
+				bounds.origin.y = lineBounds.origin.y;
+				bounds.size.height = lineBounds.size.height;
+				lineBounds = NSUnionRect(bounds, lineBounds);
 			}
-			[[[[self window] windowController] document]
-				synchronizeWithLocation: point inPageAtIndex: pageIndex withHint: hint orderFront:([theEvent clickCount] > 1)];
+			P.y = point.y - lineBounds.size.height * 1.1;
+			if(selection = [page selectionForLineAtPoint:point])
+			{
+				NSRect bounds = [selection boundsForPage:page];
+				bounds.origin.y = lineBounds.origin.y;
+				bounds.size.height = lineBounds.size.height;
+				lineBounds = NSUnionRect(bounds, lineBounds);
+			}
+			[hint setObject:[NSValue valueWithRect:lineBounds] forKey:@"line bounds"];
 		}
+		[[[[self window] windowController] document]
+			synchronizeWithLocation:point inPageAtIndex:pageIndex withHint:hint orderFront:([theEvent clickCount] > 1)];
 	}
 //iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
 //iTM2_END;
