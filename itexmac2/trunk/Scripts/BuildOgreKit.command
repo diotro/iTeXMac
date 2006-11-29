@@ -50,7 +50,15 @@ STATUS=$?
 if [ ${STATUS} -ne 0 ]
 then
     echo "warning: iTeXMac2 INFO, Building ${PRODUCT_NAME} complete... FAILED (${STATUS})"
-    exit -1
+    echo "warning: trying to ranlib the library"
+	ranlib "${OGREKIT_DIRECTORY}/RegularExpression/oniguruma/universal/libonig.a" 
+	xcodebuild -target All -configuration "$CONFIGURATION" build
+	STATUS=$?
+	if [ ${STATUS} -ne 0 ]
+	then
+		echo "warning: iTeXMac2 INFO, Building ${PRODUCT_NAME} complete... DEFINITIVELY FAILED (${STATUS})"
+		exit -1
+	fi
 fi
 popd
 rm -Rf "${OGREKIT_FRAMEWORK}"
