@@ -672,15 +672,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+iTM2_LOG(@"Setting up the pdf inspector:0");
 	NSAssert(_pdfTabView, @"Missing _pdfTabView connection...");
 	NSAssert(_tabViewControl, @"Missing _tabViewControl connection...");
 	[DNC addObserver:self selector:@selector(PDFViewPageChangedNotified:)  name:PDFViewPageChangedNotification  object:[self pdfView]];
 	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:[self pdfView]];
+iTM2_LOG(@"Setting up the pdf inspector:1");
 	// outlines
 	[self setPDFOutlines:nil];
 	[_outlinesView setTarget:self];
 	[_outlinesView setAction:@selector(takeDestinationFromSelectedItemRepresentedObject:)];
 	[_tabViewControl setEnabled: ([[self PDFOutlines] countOfChildren]>0) forSegment:1];
+iTM2_LOG(@"Setting up the pdf inspector:2");
 	// thumbnails
 	[[self PDFThumbnails] setArray:[NSArray array]];
 	// search
@@ -706,6 +709,7 @@ iTM2_LOG(@"The document has been properly connected to the view:\n%@ <-> %@",doc
 	[column setDataCell:newCell];
 	#endif
 	[self contextDidChange];
+iTM2_LOG(@"Setting up the pdf inspector:DONE");
 //iTM2_END;
     return;
 }
@@ -722,6 +726,7 @@ To Do List:
 	if( old != scale )// reentrant management problem
 	{
 		[self takeContextFloat:scale forKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
+		[self setScaleFactor:scale];
 		[self performSelector:@selector(validateWindowContent) withObject:nil afterDelay:0];
 	}
 //iTM2_END;
@@ -1932,7 +1937,8 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scaleFactor
 - (float)scaleFactor;
 {
-	return [GETTER floatValue]?:1.0;
+	float result = [GETTER floatValue];
+	return result>0?result:1.0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleFactor:
 - (void)setScaleFactor:(float)argument;
@@ -2123,6 +2129,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+iTM2_LOG(@"Setting up the toolbar: 0");
 	NSAssert(_toolbarBackForwardView, @"Missing _toolbarBackForwardView connection...");
 	NSSegmentedCell * segmentedCell = [_toolbarBackForwardView cell];
 	[segmentedCell setAction:@selector(goBackForward:)];
@@ -2144,10 +2151,12 @@ To Do List:
 	[segmentedCell setTarget:nil];
 	[_toolbarToolModeView setFrameSize:[segmentedCell cellSize]];
 	//
+iTM2_LOG(@"Setting up the toolbar: 1");
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2PDFKitToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
 	if([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
+iTM2_LOG(@"Setting up the toolbar: 1-a");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if([configDictionary count])
 		{
@@ -2161,6 +2170,7 @@ To Do List:
 	}
 	else
 	{
+iTM2_LOG(@"Setting up the toolbar: 1-b");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
 		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
@@ -2181,6 +2191,7 @@ To Do List:
 			}
 		}
 	}
+iTM2_LOG(@"Setting up the toolbar: 2");
 	[toolbar setAutosavesConfiguration:YES];
     [toolbar setAllowsUserCustomization:YES];
 //    [toolbar setSizeMode:NSToolbarSizeModeSmall];

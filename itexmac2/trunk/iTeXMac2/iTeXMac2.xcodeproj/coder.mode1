@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -319,7 +317,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE48E660B1D0525009DCF57</string>
+										<string>DCE493080B1E61F7009DCF57</string>
 										<key>history</key>
 										<array>
 											<string>DCA37E040AE3A18500874F9E</string>
@@ -538,9 +536,7 @@
 	<key>WindowJustification</key>
 	<integer>5</integer>
 	<key>WindowOrderList</key>
-	<array>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
-	</array>
+	<array/>
 	<key>WindowString</key>
 	<string>69 113 1244 658 0 0 1440 878 </string>
 	<key>WindowTools</key>

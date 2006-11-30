@@ -255,21 +255,21 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>0867D691FE84028FC02AAC07</string>
-								<string>DCF61B510854654B003F5F79</string>
 								<string>DCF61B830854654B003F5F79</string>
 								<string>DCF61BAA0854654B003F5F79</string>
+								<string>DCF61C000854654B003F5F79</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>84</integer>
-									<integer>82</integer>
+									<integer>37</integer>
+									<integer>33</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 957}, {287, 732}}</string>
+							<string>{{0, 238}, {287, 732}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -316,7 +316,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE48FFC0B1DFD6C009DCF57</string>
+										<string>DCF404F20B1F054400E89551</string>
 										<key>history</key>
 										<array>
 											<string>DC22636A0AE69A4500186582</string>
@@ -340,7 +340,7 @@
 											<string>DCBC79DF0B162F7A00AAABCA</string>
 											<string>DCBF20640B1CEBF4002B1373</string>
 											<string>DCBF20650B1CEBF4002B1373</string>
-											<string>DCBF20AA0B1CF57B002B1373</string>
+											<string>DCE493090B1E61F8009DCF57</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -422,9 +422,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCE48D640B1D03AA009DCF57</string>
+				<string>DCF404F30B1F054400E89551</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCE48D650B1D03AA009DCF57</string>
+				<string>DCF404F40B1F054400E89551</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -558,9 +558,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCE48D6C0B1D03AA009DCF57</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>12 87 1396 791 0 0 1440 878 </string>
@@ -764,7 +762,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

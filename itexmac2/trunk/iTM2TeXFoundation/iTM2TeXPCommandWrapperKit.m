@@ -1475,8 +1475,8 @@ To Do List:
 	else
 	{
 		NSString * commandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
-		[[iTM2TeXPCommandManager commandPerformerForName:commandName]
-			performCommandForProject: TPD];
+		id performer = [iTM2TeXPCommandManager commandPerformerForName:(commandName?:@"Compile")];
+		[performer performCommandForProject: TPD];
 		NSImage * I = [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"];
 //iTM2_LOG(@"[NSImage imageNamed:@\"stopTypesetCurrentProjectToolbarImage\"] is: %@", [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"]);
 		[sender setImage:I];

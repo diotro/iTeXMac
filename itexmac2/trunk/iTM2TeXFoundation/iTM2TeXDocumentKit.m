@@ -65,6 +65,8 @@ To Do List:
 		[MD setObject:D forKey:type];
 		[SUD setObject:MD forKey:iTM2SUDInspectorVariants];
 	}
+	D = [NSDictionary dictionaryWithObjectsAndKeys:@"TeX-Xtd", @"iTM2TextStyle", @"default", @"iTM2TextSyntaxParserVariant", nil];
+	[SUD registerDefaults:D];
     return;
 }
 @end

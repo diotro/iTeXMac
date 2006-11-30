@@ -1540,6 +1540,8 @@ To Do List:
             goto laSuite;
 	}
 //iTM2_LOG(@"NO WINDOW TO SYNCHRONIZE");
+	id S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+	[self replaceSynchronizer:S];
 	return;
     laSuite:;
 	NSString * FN = [self fileName];
@@ -1561,6 +1563,8 @@ To Do List:
 			pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
 			if(![DFM fileExistsAtPath:pdfsyncPath])
 			{
+				id S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+				[self replaceSynchronizer:S];
 				return;
 			}
 		}
