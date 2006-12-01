@@ -20,23 +20,24 @@
         {
             ACTIONS = {
                 addEnvironmentVariable = id; 
-                chooseGhostScriptBinariesFromPanel = id; 
-                chooseTeXMFBinariesFromPanel = id; 
+                chooseOtherProgramsFromPanel = id; 
                 chooseTeXMFPathFromPanel = id; 
+                chooseTeXMFProgramsFromPanel = id; 
                 removeEnvironmentVariable = id; 
                 revertToDefaultEnvironment = id; 
-                takeGhostScriptBinariesDistributionFromPopUp = id; 
-                takeGhostScriptBinariesPathFromStringValue = id; 
+                takeOtherProgramsDistributionFromPopUp = id; 
+                takeOtherProgramsPathFromStringValue = id; 
                 takePATHPrefixFromStringValue = id; 
                 takePATHSuffixFromStringValue = id; 
-                takeTeXMFBinariesDistributionFromPopUp = id; 
-                takeTeXMFBinariesPathFromStringValue = id; 
                 takeTeXMFDistributionFromPopUp = id; 
                 takeTeXMFPathFromStringValue = id; 
-                toggleGhostScriptBinariesCPUType = id; 
+                takeTeXMFProgramsDistributionFromPopUp = id; 
+                takeTeXMFProgramsPathFromStringValue = id; 
+                toggleOtherProgramsCPUType = id; 
+                togglePATHLoginShell = id; 
                 togglePATHPrefix = id; 
                 togglePATHSuffix = id; 
-                toggleTeXMFBinariesCPUType = id; 
+                toggleTeXMFProgramsCPUType = id; 
             }; 
             CLASS = iTM2TeXDistributionPrefPane; 
             LANGUAGE = ObjC; 

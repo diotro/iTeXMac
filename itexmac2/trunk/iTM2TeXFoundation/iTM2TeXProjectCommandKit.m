@@ -2687,10 +2687,14 @@ To Do List: to be improved...
 //		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
         [TW addArgument:commandName];
 		[TW setEnvironmentString:[NSString farawayProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
-		[TW prependPATHComponent:[project getTeXMFBinariesPath]];
-		[TW prependPATHComponent:[project getGhostScriptBinariesPath]];
-		[TW prependPATHComponent:[project getPATHPrefix]];
-		[TW appendPATHComponent:[project getPATHSuffix]];
+		[TW setEnvironmentString:[project getTeXMFProgramsPath] forKey:@"iTM2_PATH_TeX_Programs"];
+		[TW setEnvironmentString:[project getOtherProgramsPath] forKey:@"iTM2_PATH_Other_Programs"];
+		[TW setEnvironmentString:[project getPATHPrefix] forKey:@"iTM2_PATH_Prefix"];
+		[TW setEnvironmentString:[project getPATHSuffix] forKey:@"iTM2_PATH_Suffix"];
+		if([project getPATHUsesLoginShell])
+		{
+			[TW setEnvironmentString:@"YES" forKey:@"iTM2_PATH_UsesLoginShell"];
+		}
 //iTM2_LOG(@"component is: %@", component);
 		[TW setDelegate: self
             launchCallback: NULL

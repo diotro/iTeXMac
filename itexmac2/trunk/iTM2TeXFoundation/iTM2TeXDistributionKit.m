@@ -26,8 +26,8 @@
 #import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
 
 NSString * const iTM2DistributionTeXMF = @"iTM2DistributionTeXMF";
-NSString * const iTM2DistributionTeXMFBinaries = @"iTM2DistributionTeXMFBinaries";
-NSString * const iTM2DistributionGhostScriptBinaries = @"iTM2DistributionGhostScriptBinaries";
+NSString * const iTM2DistributionTeXMFPrograms = @"iTM2DistributionTeXMFPrograms";
+NSString * const iTM2DistributionOtherPrograms = @"iTM2DistributionOtherPrograms";
 
 NSString * const iTM2DistributionDefault = @"default";
 NSString * const iTM2DistributionBuiltIn = @"built-in";// Not yet used
@@ -43,8 +43,8 @@ NSString * const iTM2DistributionOther = @"other";
 NSString * const iTM2DistributionCustom = @"custom";
 
 NSString * const iTM2DistributionDomainTeXMF = @"iTM2DistributionDomainTeXMF";
-NSString * const iTM2DistributionDomainTeXMFBinaries = @"iTM2DistributionDomainTeXMFBinaries";
-NSString * const iTM2DistributionDomainGhostScriptBinaries = @"iTM2DistributionDomainGhostScriptBinaries";
+NSString * const iTM2DistributionDomainTeXMFPrograms = @"iTM2DistributionDomainTeXMFPrograms";
+NSString * const iTM2DistributionDomainOtherPrograms = @"iTM2DistributionDomainOtherPrograms";
 
 // those should be deprecated because I can retrieve those paths from the TeXMF tree
 NSString * const iTM2DistributionDomainTeXMFDocumentation = @"iTM2DistributionDomainTeXMFDocumentation";
@@ -82,8 +82,8 @@ To do list:
 	id distribution = [NSBundle isI386]? iTM2DistributiongwTeXIntel: iTM2DistributiongwTeX;
     [SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
 					distribution, iTM2DistributionTeXMF,
-					distribution, iTM2DistributionTeXMFBinaries,
-					distribution, iTM2DistributionGhostScriptBinaries,
+					distribution, iTM2DistributionTeXMFPrograms,
+					distribution, iTM2DistributionOtherPrograms,
                                     nil]];
 #ifdef __iTM2_BUG_TRACKING__
 	#warning *** BUG TRACKING
@@ -114,119 +114,119 @@ To do list:
 	BOOL distributionIsStillNotCorrect = NO;
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
-		goto testTeXMFBinaries;// that's OK
+		goto testTeXMFPrograms;// that's OK
 	distributionWasNotCorrect = YES;
 	[SUD setObject:iTM2DistributionBuiltIn forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
-		goto testTeXMFBinaries;// that's OK
+		goto testTeXMFPrograms;// that's OK
 	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
-		goto testTeXMFBinaries;// that's OK
+		goto testTeXMFPrograms;// that's OK
 	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
-		goto testTeXMFBinaries;// that's OK
+		goto testTeXMFPrograms;// that's OK
 	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
-		goto testTeXMFBinaries;// that's OK
+		goto testTeXMFPrograms;// that's OK
 	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
-		goto testTeXMFBinaries;// that's OK
+		goto testTeXMFPrograms;// that's OK
 	[SUD setObject:iTM2DistributionCustom forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
-		goto testTeXMFBinaries;// that's OK
+		goto testTeXMFPrograms;// that's OK
 	// I have to inform the user that his configuration is not correct...
 	distributionIsStillNotCorrect = YES;
-testTeXMFBinaries:
-	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+testTeXMFPrograms:
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
-		goto testGhostScriptBinaries;// that's OK
+		goto testOtherPrograms;// that's OK
 	distributionWasNotCorrect = YES;
-	[SUD setObject:iTM2DistributionBuiltIn forKey:iTM2DistributionTeXMFBinaries];
-	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+	[SUD setObject:iTM2DistributionBuiltIn forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
-		goto testGhostScriptBinaries;// that's OK
+		goto testOtherPrograms;// that's OK
 	if([NSBundle isI386])
 	{
-		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFBinaries];
-		path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
+		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 		if([DFM fileExistsAtPath:path])
-			goto testGhostScriptBinaries;// that's OK
-		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFBinaries];
-		path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+			goto testOtherPrograms;// that's OK
+		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFPrograms];
+		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 		if([DFM fileExistsAtPath:path])
-			goto testGhostScriptBinaries;// that's OK
-		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFBinaries];
+			goto testOtherPrograms;// that's OK
+		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFPrograms];
 	}
-	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFBinaries];
-	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
-		goto testGhostScriptBinaries;// that's OK
-	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMFBinaries];
-	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+		goto testOtherPrograms;// that's OK
+	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
-		goto testGhostScriptBinaries;// that's OK
-	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFBinaries];
-	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+		goto testOtherPrograms;// that's OK
+	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
-		goto testGhostScriptBinaries;// that's OK
-	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMFBinaries];
-	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+		goto testOtherPrograms;// that's OK
+	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
-		goto testGhostScriptBinaries;// that's OK
-	[SUD setObject:iTM2DistributionCustom forKey:iTM2DistributionTeXMFBinaries];
-	path = [iTM2TeXProjectDocument defaultTeXMFBinariesPath];
+		goto testOtherPrograms;// that's OK
+	[SUD setObject:iTM2DistributionCustom forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
-		goto testGhostScriptBinaries;// that's OK
+		goto testOtherPrograms;// that's OK
 	// I have to inform the user that his configuration is not correct...
 	distributionIsStillNotCorrect = YES;
-testGhostScriptBinaries:
-	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+testOtherPrograms:
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	distributionWasNotCorrect = YES;
-	[SUD setObject:iTM2DistributionBuiltIn forKey:iTM2DistributionGhostScriptBinaries];
-	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+	[SUD setObject:iTM2DistributionBuiltIn forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	if([NSBundle isI386])
 	{
-		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionGhostScriptBinaries];
-		path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
+		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
-		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionGhostScriptBinaries];
-		path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionOtherPrograms];
+		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
-		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionGhostScriptBinaries];
-		path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionOtherPrograms];
+		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 	}
-	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionGhostScriptBinaries];
-	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
-	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionGhostScriptBinaries];
-	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
-	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionGhostScriptBinaries];
-	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
-	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionGhostScriptBinaries];
-	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
-	[SUD setObject:iTM2DistributionCustom forKey:iTM2DistributionGhostScriptBinaries];
-	path = [iTM2TeXProjectDocument defaultGhostScriptBinariesPath];
+	[SUD setObject:iTM2DistributionCustom forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	// I have to inform the user that his configuration is not correct...
@@ -248,6 +248,7 @@ NSString * const iTM2DistributionEnvironmentKey = @"TeXDistribution";
 
 NSString * const iTM2DistributionUseOutputDirectoryKey = @"iTM2DistributionUseTEXMFOUTPUT";
 NSString * const iTM2DistributionOutputDirectoryKey = @"iTM2DistributionTEXMFOUTPUT";
+NSString * const iTM2DistributionUsePATHLoginShellKey = @"iTM2DistributionUsePATHLoginShell";
 NSString * const iTM2DistributionUsePATHPrefixKey = @"iTM2DistributionUsePATHPrefix";
 NSString * const iTM2DistributionPATHPrefixKey = @"iTM2DistributionPATHPrefix";
 NSString * const iTM2DistributionUsePATHSuffixKey = @"iTM2DistributionUsePATHSuffix";
@@ -320,14 +321,14 @@ To Do List:
 	return;\
 }
 DISTRIBUTION(TeXMFDistribution, setTeXMFDistribution)
-DISTRIBUTION(TeXMFBinariesDistribution, setTeXMFBinariesDistribution)
-DISTRIBUTION(GhostScriptBinariesDistribution, setGhostScriptBinariesDistribution)
+DISTRIBUTION(TeXMFProgramsDistribution, setTeXMFProgramsDistribution)
+DISTRIBUTION(OtherProgramsDistribution, setOtherProgramsDistribution)
 DISTRIBUTION(TeXMFPath, setTeXMFPath)
-DISTRIBUTION(TeXMFBinariesPath, setTeXMFBinariesPath)
-DISTRIBUTION(GhostScriptBinariesPath, setGhostScriptBinariesPath)
+DISTRIBUTION(TeXMFProgramsPath, setTeXMFProgramsPath)
+DISTRIBUTION(OtherProgramsPath, setOtherProgramsPath)
 #undef DISTRIBUTION
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTeXMFBinariesPath
-- (NSString *)getTeXMFBinariesPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTeXMFProgramsPath
+- (NSString *)getTeXMFProgramsPath;
 /*"Higher level getter.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -335,20 +336,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [self TeXMFBinariesDistribution];
+	NSString * distribution = [self TeXMFProgramsDistribution];
 	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
-		return [[self class] defaultTeXMFBinariesPath];
+		return [[self class] defaultTeXMFProgramsPath];
 	}
 	else if([distribution isEqualToString:iTM2DistributionCustom])
 	{
-		return [self TeXMFBinariesPath];
+		return [self TeXMFProgramsPath];
 	}
 	else
 	{
-		NSString * key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:distribution];
+		NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
 		NSString * result = [SUD stringForKey:key];
-		return [result length]? result:[[self class] defaultTeXMFBinariesPath];
+		return [result length]? result:[[self class] defaultTeXMFProgramsPath];
 	}
 //iTM2_END;
 }
@@ -378,8 +379,8 @@ To Do List:
 	}
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getGhostScriptBinariesPath
-- (NSString *)getGhostScriptBinariesPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getOtherProgramsPath
+- (NSString *)getOtherProgramsPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -387,20 +388,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [self GhostScriptBinariesDistribution];
+	NSString * distribution = [self OtherProgramsDistribution];
 	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
-		return [[self class] defaultGhostScriptBinariesPath];
+		return [[self class] defaultOtherProgramsPath];
 	}
 	else if([distribution isEqualToString:iTM2DistributionCustom])
 	{
-		return [self GhostScriptBinariesPath];
+		return [self OtherProgramsPath];
 	}
 	else
 	{
-		NSString * key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:distribution];
+		NSString * key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
 		NSString * result = [SUD stringForKey:key];
-		return [result length]? result:[[self class] defaultGhostScriptBinariesPath];
+		return [result length]? result:[[self class] defaultOtherProgramsPath];
 	}
 //iTM2_END;
 }
@@ -433,8 +434,8 @@ To Do List:
 //iTM2_END;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultTeXMFBinariesPath
-+ (NSString *)defaultTeXMFBinariesPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultTeXMFProgramsPath
++ (NSString *)defaultTeXMFProgramsPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -442,28 +443,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 	if(![distribution length])
 	{
 		iTM2_LOG(@"...........  HUGE ERROR: Missing TeXMF binaries distribution reference in preferences, report bug");
-		return @"Missing TeXMF Binaries ";
+		return @"Missing TeXMF Programs ";
 	}
 	else if(iTM2DebugEnabled)
 	{
 		iTM2_LOG(@"distribution:%@",distribution);
 	}
-	NSString * key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:distribution];
+	NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
 	NSString * result = [SUD stringForKey:key];
 	if(![result length])
 	{
 		iTM2_LOG(@"...........  HUGE ERROR: Missing TeXMF binaries %@ distribution path in preferences, report bug", distribution);
-		return @"Missing TeXMF Binaries Distribution Path";
+		return @"Missing TeXMF Programs Distribution Path";
 	}
 //iTM2_END;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultGhostScriptBinariesPath
-+ (NSString *)defaultGhostScriptBinariesPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultOtherProgramsPath
++ (NSString *)defaultOtherProgramsPath;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -471,22 +472,22 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	if(![distribution length])
 	{
-		iTM2_LOG(@"...........  HUGE ERROR: Missing GhostScript binaries distribution reference in preferences, report bug");
-		return @"Missing GhostScript Binaries ";
+		iTM2_LOG(@"...........  HUGE ERROR: Missing Other binaries distribution reference in preferences, report bug");
+		return @"Missing Other Programs ";
 	}
 	else if(iTM2DebugEnabled)
 	{
 		iTM2_LOG(@"distribution:%@",distribution);
 	}
-	NSString * key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:distribution];
+	NSString * key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
 	NSString * result = [SUD stringForKey:key];
 	if(![result length])
 	{
-		iTM2_LOG(@"...........  HUGE ERROR: Missing GhostScript binaries %@ distribution path in preferences, report bug", distribution);
-		return @"Missing GhostScript Binaries Distribution Path";
+		iTM2_LOG(@"...........  HUGE ERROR: Missing Other binaries %@ distribution path in preferences, report bug", distribution);
+		return @"Missing Other Programs Distribution Path";
 	}
 //iTM2_END;
     return result;
@@ -503,8 +504,8 @@ To Do List:
 	// testing the distributions
 #if 0
 	if(([[self TeXMFDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self TeXMFPath]])
-		&& ([[self TeXMFBinariesDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self TeXMFBinariesPath]])
-		&& ([[self GhostScriptBinariesDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self GhostScriptBinariesPath]]))
+		&& ([[self TeXMFProgramsDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self TeXMFProgramsPath]])
+		&& ([[self OtherProgramsDistribution] isEqualToString:iTM2DistributionDefault] || [DFM fileExistsAtPath:[self OtherProgramsPath]]))
 	{
 		return;
 	}
@@ -514,12 +515,12 @@ To Do List:
 	NSString * path = [self TeXMFPath];
 	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return;
-	distribution = [self TeXMFBinariesDistribution];
-	path = [self TeXMFBinariesPath];
+	distribution = [self TeXMFProgramsDistribution];
+	path = [self TeXMFProgramsPath];
 	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return;
-	distribution = [self GhostScriptBinariesDistribution];
-	path = [self GhostScriptBinariesPath];
+	distribution = [self OtherProgramsDistribution];
+	path = [self OtherProgramsPath];
 	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return;
 #endif
@@ -582,6 +583,21 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPATHUsesLoginShell
+- (BOOL)getPATHUsesLoginShell;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * projectPrefix = @"";
+	id environment = [[self implementation] iVarDistributionEnvironment];
+	NSNumber * N = [environment objectForKey:iTM2DistributionUsePATHLoginShellKey];
+	return N? [N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHLoginShellKey];
+//iTM2_END;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPATHPrefix
 - (NSString *)getPATHPrefix;
 /*"Description forthcoming.
@@ -593,22 +609,26 @@ To Do List:
 //iTM2_START;
 	NSString * projectPrefix = @"";
 	id environment = [[self implementation] iVarDistributionEnvironment];
-	if([[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue])
-		projectPrefix = [environment objectForKey:iTM2DistributionPATHPrefixKey]?: @"";
-	NSString * SUDPrefix = @"";
-	if([SUD boolForKey:iTM2DistributionUsePATHPrefixKey])
-		SUDPrefix = [SUD objectForKey:iTM2DistributionPATHPrefixKey]?: @"";
-	if([projectPrefix length])
+	NSNumber * N = [environment objectForKey:iTM2DistributionUsePATHPrefixKey];
+	BOOL flag = N?[N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHPrefixKey];
+	if(flag)
 	{
-		if([SUDPrefix length])
+		projectPrefix = [environment objectForKey:iTM2DistributionPATHPrefixKey]?: @"";
+		NSString * SUDPrefix = [SUD objectForKey:iTM2DistributionPATHPrefixKey]?: @"";
+		if([projectPrefix length])
 		{
-			return [NSString stringWithFormat:@"%@:%@", projectPrefix, SUDPrefix];
+			if([SUDPrefix length])
+			{
+				return [NSString stringWithFormat:@"%@:%@", projectPrefix, SUDPrefix];
+			}
+			else
+				return projectPrefix;
 		}
 		else
-			return projectPrefix;
+			return SUDPrefix;
 	}
 	else
-		return SUDPrefix;
+		return projectPrefix;
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPATHSuffix
@@ -622,22 +642,26 @@ To Do List:
 //iTM2_START;
 	NSString * projectSuffix = @"";
 	id environment = [[self implementation] iVarDistributionEnvironment];
-	if([[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue])
-		projectSuffix = [environment objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
-	NSString * SUDSuffix = @"";
-	if([SUD boolForKey:iTM2DistributionUsePATHSuffixKey])
-		SUDSuffix = [SUD objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
-	if([projectSuffix length])
+	NSNumber * N = [environment objectForKey:iTM2DistributionUsePATHSuffixKey];
+	BOOL flag = N?[N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHSuffixKey];
+	if(flag)
 	{
-		if([SUDSuffix length])
+		projectSuffix = [environment objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
+		NSString * SUDSuffix = [SUD objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
+		if([projectSuffix length])
 		{
-			return [NSString stringWithFormat:@"%@:%@", projectSuffix, SUDSuffix];
+			if([SUDPrefix length])
+			{
+				return [NSString stringWithFormat:@"%@:%@", projectSuffix, SUDSuffix];
+			}
+			else
+				return projectSuffix;
 		}
 		else
-			return projectSuffix;
+			return SUDSuffix;
 	}
 	else
-		return SUDSuffix;
+		return projectSuffix;
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTEXMFOUTPUT
@@ -793,17 +817,17 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 #pragma mark -
 #import "iTM2TeXProjectCommandKit.h"
 @interface iTM2TeXPCommandsInspector(TeXDistributionKit_PRIVATE)
-- (NSString *)lossyTeXMFBinariesDistribution;
-- (BOOL)TeXMFBinariesDistributionIsIntel;
-- (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
-- (NSString *)lossyGhostScriptBinariesDistribution;
-- (BOOL)GhostScriptBinariesDistributionIsIntel;
-- (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
+- (NSString *)lossyTeXMFProgramsDistribution;
+- (BOOL)TeXMFProgramsDistributionIsIntel;
+- (void)setTeXMFProgramsDistributionIntel:(BOOL)flag;
+- (NSString *)lossyOtherProgramsDistribution;
+- (BOOL)OtherProgramsDistributionIsIntel;
+- (void)setOtherProgramsDistributionIntel:(BOOL)flag;
 @end
 @implementation iTM2TeXPCommandsInspector(TeXDistributionKit)
 #pragma mark =-=-=-=-=-  INTEL?
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyTeXMFBinariesDistribution
-- (NSString *)lossyTeXMFBinariesDistribution;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyTeXMFProgramsDistribution
+- (NSString *)lossyTeXMFProgramsDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -811,7 +835,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [[self document] TeXMFBinariesDistribution];
+	NSString * distribution = [[self document] TeXMFProgramsDistribution];
 	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
@@ -832,8 +856,8 @@ To Do List:
 		return distribution;
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXMFBinariesDistributionIsIntel
-- (BOOL)TeXMFBinariesDistributionIsIntel;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXMFProgramsDistributionIsIntel
+- (BOOL)TeXMFProgramsDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -841,15 +865,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [[self document] TeXMFBinariesDistribution];
+	NSString * distribution = [[self document] TeXMFProgramsDistribution];
 //iTM2_END;
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
-- (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFProgramsDistributionIntel:
+- (void)setTeXMFProgramsDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -858,28 +882,28 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id doc = [self document];
-	NSString * distribution = [doc TeXMFBinariesDistribution];
+	NSString * distribution = [doc TeXMFProgramsDistribution];
 	if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
-		[doc setTeXMFBinariesDistribution:iTM2DistributiongwTeXIntel];
+		[doc setTeXMFProgramsDistribution:iTM2DistributiongwTeXIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
-		[doc setTeXMFBinariesDistribution:iTM2DistributionFinkIntel];
+		[doc setTeXMFProgramsDistribution:iTM2DistributionFinkIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 	{
-		[doc setTeXMFBinariesDistribution:iTM2DistributionTeXLiveIntel];
+		[doc setTeXMFProgramsDistribution:iTM2DistributionTeXLiveIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
 	{
-		[doc setTeXMFBinariesDistribution:iTM2DistributionTeXLiveDVDIntel];
+		[doc setTeXMFProgramsDistribution:iTM2DistributionTeXLiveDVDIntel];
 	}
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyGhostScriptBinariesDistribution
-- (NSString *)lossyGhostScriptBinariesDistribution;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyOtherProgramsDistribution
+- (NSString *)lossyOtherProgramsDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -887,7 +911,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [[self document] GhostScriptBinariesDistribution];
+	NSString * distribution = [[self document] OtherProgramsDistribution];
 	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
@@ -908,8 +932,8 @@ To Do List:
 		return distribution;
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  GhostScriptBinariesDistributionIsIntel
-- (BOOL)GhostScriptBinariesDistributionIsIntel;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  OtherProgramsDistributionIsIntel
+- (BOOL)OtherProgramsDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -917,15 +941,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [[self document] GhostScriptBinariesDistribution];
+	NSString * distribution = [[self document] OtherProgramsDistribution];
 //iTM2_END;
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
-- (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOtherProgramsDistributionIntel:
+- (void)setOtherProgramsDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -934,22 +958,22 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id doc = [self document];
-	NSString * distribution = [doc GhostScriptBinariesDistribution];
+	NSString * distribution = [doc OtherProgramsDistribution];
 	if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
-		[doc setGhostScriptBinariesDistribution:iTM2DistributiongwTeXIntel];
+		[doc setOtherProgramsDistribution:iTM2DistributiongwTeXIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
-		[doc setGhostScriptBinariesDistribution:iTM2DistributionFinkIntel];
+		[doc setOtherProgramsDistribution:iTM2DistributionFinkIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 	{
-		[doc setGhostScriptBinariesDistribution:iTM2DistributionTeXLiveIntel];
+		[doc setOtherProgramsDistribution:iTM2DistributionTeXLiveIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
 	{
-		[doc setGhostScriptBinariesDistribution:iTM2DistributionTeXLiveDVDIntel];
+		[doc setOtherProgramsDistribution:iTM2DistributionTeXLiveDVDIntel];
 	}
 //iTM2_END;
     return;
@@ -1028,6 +1052,40 @@ To Do List:
     return NO;
 }
 #pragma mark =-=-=-=-=-  PATH
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHLoginShell:
+- (IBAction)togglePATHLoginShell:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id document = [self document];
+	id implementation = [document implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+//	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
+    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHLoginShellKey] boolValue];
+    [environment setObject:[NSNumber numberWithBool:!old] forKey:iTM2DistributionUsePATHLoginShellKey];
+	[[self document] updateChangeCount:NSChangeDone];
+    [sender validateWindowContent];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHLoginShell:
+- (BOOL)validateTogglePATHLoginShell:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
+    [sender setState: ([[environment objectForKey:iTM2DistributionUsePATHLoginShellKey] boolValue]? NSOnState:NSOffState)];
+//iTM2_END;
+    return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHPrefix:
 - (IBAction)togglePATHPrefix:(id)sender;
 /*"Description forthcoming.
@@ -1290,8 +1348,8 @@ To Do List:
 //iTM2_END;
 	return [[TPD TeXMFDistribution] pathIsEqual:iTM2DistributionCustom];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesDistributionFromPopUp:
-- (IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsDistributionFromPopUp:
+- (IBAction)takeTeXMFProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -1303,11 +1361,11 @@ To Do List:
 		sender = [sender selectedItem];
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
-		BOOL isIntel = [self TeXMFBinariesDistributionIsIntel];
-		NSString * old = [[self document] TeXMFBinariesDistribution];
-		[[self document] setTeXMFBinariesDistribution:[sender representedObject]];
-		[self setTeXMFBinariesDistributionIntel:isIntel];
-		NSString * new = [[self document] TeXMFBinariesDistribution];
+		BOOL isIntel = [self TeXMFProgramsDistributionIsIntel];
+		NSString * old = [[self document] TeXMFProgramsDistribution];
+		[[self document] setTeXMFProgramsDistribution:[sender representedObject]];
+		[self setTeXMFProgramsDistributionIntel:isIntel];
+		NSString * new = [[self document] TeXMFProgramsDistribution];
 		if(![old pathIsEqual:new])
 		{
 			[[self document] updateChangeCount:NSChangeDone];
@@ -1317,8 +1375,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesDistributionFromPopUp:
-- (BOOL)validateTakeTeXMFBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFProgramsDistributionFromPopUp:
+- (BOOL)validateTakeTeXMFProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1328,7 +1386,7 @@ To Do List:
 //iTM2_START;
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
-		NSString * distribution = [self lossyTeXMFBinariesDistribution];
+		NSString * distribution = [self lossyTeXMFProgramsDistribution];
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
@@ -1370,8 +1428,8 @@ To Do List:
 	}
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesPathFromStringValue:
-- (IBAction)takeTeXMFBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsPathFromStringValue:
+- (IBAction)takeTeXMFProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1381,17 +1439,17 @@ To Do List:
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	id new = [sender stringValue];
-	if(![[TPD TeXMFBinariesPath] pathIsEqual:new])
+	if(![[TPD TeXMFProgramsPath] pathIsEqual:new])
 	{
-		[TPD setTeXMFBinariesPath:new];
+		[TPD setTeXMFProgramsPath:new];
 		[TPD updateChangeCount:NSChangeDone];
 		[self validateWindowContent];
 	}
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesPathFromStringValue:
-- (BOOL)validateTakeTeXMFBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFProgramsPathFromStringValue:
+- (BOOL)validateTakeTeXMFProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1402,12 +1460,12 @@ To Do List:
 	if(![sender formatter])
 		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
     id TPD = (iTM2TeXProjectDocument *)[self document];
-	[sender setStringValue:[TPD getTeXMFBinariesPath]];
+	[sender setStringValue:[TPD getTeXMFProgramsPath]];
 //iTM2_END;
-	return [[TPD TeXMFBinariesDistribution] pathIsEqual:iTM2DistributionCustom];
+	return [[TPD TeXMFProgramsDistribution] pathIsEqual:iTM2DistributionCustom];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTeXMFBinariesCPUType:
-- (IBAction)toggleTeXMFBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTeXMFProgramsCPUType:
+- (IBAction)toggleTeXMFProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1415,15 +1473,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setTeXMFBinariesDistributionIntel:![self TeXMFBinariesDistributionIsIntel]];
+	[self setTeXMFProgramsDistributionIntel:![self TeXMFProgramsDistributionIsIntel]];
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[TPD updateChangeCount:NSChangeDone];
 	[self validateWindowContent];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTeXMFBinariesCPUType:
-- (BOOL)validateToggleTeXMFBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTeXMFProgramsCPUType:
+- (BOOL)validateToggleTeXMFProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1437,17 +1495,17 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[(id)[self document] TeXMFBinariesDistribution] pathIsEqual:iTM2DistributionCustom])
+	if([[(id)[self document] TeXMFProgramsDistribution] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;
 	}
-	[sender setState:([self TeXMFBinariesDistributionIsIntel]?NSOnState:NSOffState)];
+	[sender setState:([self TeXMFProgramsDistributionIsIntel]?NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesDistributionFromPopUp:
-- (IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeOtherProgramsDistributionFromPopUp:
+- (IBAction)takeOtherProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -1459,11 +1517,11 @@ To Do List:
 		sender = [sender selectedItem];
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
-		BOOL isIntel = [self GhostScriptBinariesDistributionIsIntel];
-		NSString * old = [[self document] GhostScriptBinariesDistribution];
-		[[self document] setGhostScriptBinariesDistribution:[sender representedObject]];
-		[self setGhostScriptBinariesDistributionIntel:isIntel];
-		NSString * new = [[self document] GhostScriptBinariesDistribution];
+		BOOL isIntel = [self OtherProgramsDistributionIsIntel];
+		NSString * old = [[self document] OtherProgramsDistribution];
+		[[self document] setOtherProgramsDistribution:[sender representedObject]];
+		[self setOtherProgramsDistributionIntel:isIntel];
+		NSString * new = [[self document] OtherProgramsDistribution];
 		if(![old pathIsEqual:new])
 		{
 			[[self document] updateChangeCount:NSChangeDone];
@@ -1473,8 +1531,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesDistributionFromPopUp:
-- (BOOL)validateTakeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeOtherProgramsDistributionFromPopUp:
+- (BOOL)validateTakeOtherProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1484,7 +1542,7 @@ To Do List:
 //iTM2_START;
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
-		NSString * distribution = [self lossyGhostScriptBinariesDistribution];
+		NSString * distribution = [self lossyOtherProgramsDistribution];
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
@@ -1526,8 +1584,8 @@ To Do List:
 	}
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesPathFromStringValue:
-- (IBAction)takeGhostScriptBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeOtherProgramsPathFromStringValue:
+- (IBAction)takeOtherProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1537,17 +1595,17 @@ To Do List:
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	id new = [sender stringValue];
-	if(![[TPD GhostScriptBinariesPath] pathIsEqual:new])
+	if(![[TPD OtherProgramsPath] pathIsEqual:new])
 	{
-		[TPD setGhostScriptBinariesPath:new];
+		[TPD setOtherProgramsPath:new];
 		[TPD updateChangeCount:NSChangeDone];
 		[self validateWindowContent];
 	}
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesPathFromStringValue:
-- (BOOL)validateTakeGhostScriptBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeOtherProgramsPathFromStringValue:
+- (BOOL)validateTakeOtherProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1558,12 +1616,12 @@ To Do List:
 	if(![sender formatter])
 		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
     id TPD = (iTM2TeXProjectDocument *)[self document];
-	[sender setStringValue:[TPD getGhostScriptBinariesPath]];
+	[sender setStringValue:[TPD getOtherProgramsPath]];
 //iTM2_END;
-	return [[TPD GhostScriptBinariesDistribution] pathIsEqual:iTM2DistributionCustom];
+	return [[TPD OtherProgramsDistribution] pathIsEqual:iTM2DistributionCustom];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleGhostScriptBinariesCPUType:
-- (IBAction)toggleGhostScriptBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOtherProgramsCPUType:
+- (IBAction)toggleOtherProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1571,15 +1629,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setGhostScriptBinariesDistributionIntel: ![self GhostScriptBinariesDistributionIsIntel]];
+	[self setOtherProgramsDistributionIntel: ![self OtherProgramsDistributionIsIntel]];
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[TPD updateChangeCount:NSChangeDone];
 	[self validateWindowContent];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleGhostScriptBinariesCPUType:
-- (BOOL)validateToggleGhostScriptBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOtherProgramsCPUType:
+- (BOOL)validateToggleOtherProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1593,12 +1651,12 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[(id)[self document] GhostScriptBinariesDistribution] pathIsEqual:iTM2DistributionCustom])
+	if([[(id)[self document] OtherProgramsDistribution] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;
 	}
-	[sender setState: ([self GhostScriptBinariesDistributionIsIntel]?NSOnState:NSOffState)];
+	[sender setState: ([self OtherProgramsDistributionIsIntel]?NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
@@ -1614,8 +1672,8 @@ To Do List:
 - (IBAction)togglePATHSuffix:(id)sender;
 - (IBAction)takePATHSuffixFromStringValue:(id)sender;
 - (IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
-- (IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
-- (IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+- (IBAction)takeTeXMFProgramsDistributionFromPopUp:(id)sender;
+- (IBAction)takeOtherProgramsDistributionFromPopUp:(id)sender;
 - (id)orderedEnvironmentVariableNames;
 - (void)setOrderedEnvironmentVariableNames:(id)argument;
 - (id)environmentVariables;
@@ -2091,6 +2149,33 @@ To Do List:
     return NO;
 }
 #pragma mark =-=-=-=-=-  PATH
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHLoginShell:
+- (IBAction)togglePATHLoginShell:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [SUD setBool: ![SUD boolForKey:iTM2DistributionUsePATHLoginShellKey] forKey:iTM2DistributionUsePATHLoginShellKey];
+    [[self mainView] validateWindowContent];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHLoginShell:
+- (BOOL)validateTogglePATHLoginShell:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([SUD boolForKey:iTM2DistributionUsePATHLoginShellKey]? NSOnState:NSOffState)];
+//iTM2_END;
+    return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHPrefix:
 - (IBAction)togglePATHPrefix:(id)sender;
 /*"Description forthcoming.
@@ -2212,8 +2297,8 @@ To Do List:
     return NO;
 }
 #pragma mark =-=-=-=-=-  INTEL?
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyTeXMFBinariesDistribution
-- (NSString *)lossyTeXMFBinariesDistribution;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyTeXMFProgramsDistribution
+- (NSString *)lossyTeXMFProgramsDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2221,7 +2306,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
@@ -2242,8 +2327,8 @@ To Do List:
 		return distribution;
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXMFBinariesDistributionIsIntel
-- (BOOL)TeXMFBinariesDistributionIsIntel;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXMFProgramsDistributionIsIntel
+- (BOOL)TeXMFProgramsDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2251,15 +2336,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 //iTM2_END;
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFBinariesDistributionIntel:
-- (void)setTeXMFBinariesDistributionIntel:(BOOL)flag;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTeXMFProgramsDistributionIntel:
+- (void)setTeXMFProgramsDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2267,50 +2352,50 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 	if(flag)
 	{
 		if([distribution pathIsEqual:iTM2DistributiongwTeX])
 		{
-			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 		{
-			[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 		{
-			[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
 		{
-			[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFPrograms];
 		}
 	}
 	else
 	{
 		if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 		{
-			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 		{
-			[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
 		{
-			[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
 		{
-			[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMFBinaries];
+			[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMFPrograms];
 		}
 	}
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyGhostScriptBinariesDistribution
-- (NSString *)lossyGhostScriptBinariesDistribution;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lossyOtherProgramsDistribution
+- (NSString *)lossyOtherProgramsDistribution;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2318,7 +2403,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
@@ -2339,8 +2424,8 @@ To Do List:
 		return distribution;
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  GhostScriptBinariesDistributionIsIntel
-- (BOOL)GhostScriptBinariesDistributionIsIntel;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  OtherProgramsDistributionIsIntel
+- (BOOL)OtherProgramsDistributionIsIntel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2348,15 +2433,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 //iTM2_END;
     return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGhostScriptBinariesDistributionIntel:
-- (void)setGhostScriptBinariesDistributionIntel:(BOOL)flag;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOtherProgramsDistributionIntel:
+- (void)setOtherProgramsDistributionIntel:(BOOL)flag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2364,43 +2449,43 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	if(flag)
 	{
 		if([distribution pathIsEqual:iTM2DistributiongwTeX])
 		{
-			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 		{
-			[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributionFinkIntel forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
 		{
-			[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVD])
 		{
-			[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionOtherPrograms];
 		}
 	}
 	else
 	{
 		if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 		{
-			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 		{
-			[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLiveIntel])
 		{
-			[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel])
 		{
-			[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionGhostScriptBinaries];
+			[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionOtherPrograms];
 		}
 	}
 //iTM2_END;
@@ -2528,8 +2613,8 @@ To Do List:
 //iTM2_END;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesDistributionFromPopUp:
-- (IBAction)takeTeXMFBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsDistributionFromPopUp:
+- (IBAction)takeTeXMFProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2541,11 +2626,11 @@ To Do List:
 		sender = [sender selectedItem];
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
-		BOOL isIntel = [self TeXMFBinariesDistributionIsIntel];
-		id old = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-		[SUD setObject:[sender representedObject] forKey:iTM2DistributionTeXMFBinaries];
-		[self setTeXMFBinariesDistributionIntel:isIntel];
-		id new = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+		BOOL isIntel = [self TeXMFProgramsDistributionIsIntel];
+		id old = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
+		[SUD setObject:[sender representedObject] forKey:iTM2DistributionTeXMFPrograms];
+		[self setTeXMFProgramsDistributionIntel:isIntel];
+		id new = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 		if(![old pathIsEqual:new])
 		{
 			[[self mainView] validateWindowContent];
@@ -2554,8 +2639,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesDistributionFromPopUp:
-- (BOOL)validateTakeTeXMFBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFProgramsDistributionFromPopUp:
+- (BOOL)validateTakeTeXMFProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2565,7 +2650,7 @@ To Do List:
 //iTM2_START;
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
-		NSString * distribution = [self lossyTeXMFBinariesDistribution];
+		NSString * distribution = [self lossyTeXMFProgramsDistribution];
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
@@ -2607,8 +2692,8 @@ To Do List:
 	}
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFBinariesPathFromStringValue:
-- (IBAction)takeTeXMFBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsPathFromStringValue:
+- (IBAction)takeTeXMFProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2617,7 +2702,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id new = [sender stringValue];
-	NSString * key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:[SUD stringForKey:iTM2DistributionTeXMFBinaries]];
+	NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:[SUD stringForKey:iTM2DistributionTeXMFPrograms]];
 	if(![[SUD stringForKey:key] pathIsEqual:new])
 	{
 		[SUD setObject:new forKey:key];
@@ -2626,8 +2711,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFBinariesPathFromStringValue:
-- (BOOL)validateTakeTeXMFBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeTeXMFProgramsPathFromStringValue:
+- (BOOL)validateTakeTeXMFProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2637,8 +2722,8 @@ To Do List:
 //iTM2_START;
 	if(![sender formatter])
 		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
-	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-	NSString * key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:distribution];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
+	NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
 	NSString * path = [SUD stringForKey:key]?: @"";
 	if([DFM fileExistsAtPath:path])
 		[sender setStringValue:path];
@@ -2652,8 +2737,8 @@ To Do List:
 //iTM2_END;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesDistributionFromPopUp:
-- (IBAction)takeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeOtherProgramsDistributionFromPopUp:
+- (IBAction)takeOtherProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2665,11 +2750,11 @@ To Do List:
 		sender = [sender selectedItem];
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
-		BOOL isIntel = [self GhostScriptBinariesDistributionIsIntel];
-		id old = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
-		[SUD setObject:[sender representedObject] forKey:iTM2DistributionGhostScriptBinaries];
-		[self setGhostScriptBinariesDistributionIntel:isIntel];
-		id new = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
+		BOOL isIntel = [self OtherProgramsDistributionIsIntel];
+		id old = [SUD stringForKey:iTM2DistributionOtherPrograms];
+		[SUD setObject:[sender representedObject] forKey:iTM2DistributionOtherPrograms];
+		[self setOtherProgramsDistributionIntel:isIntel];
+		id new = [SUD stringForKey:iTM2DistributionOtherPrograms];
 		if(![old pathIsEqual:new])
 		{
 			[[self mainView] validateWindowContent];
@@ -2678,8 +2763,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesDistributionFromPopUp:
-- (BOOL)validateTakeGhostScriptBinariesDistributionFromPopUp:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeOtherProgramsDistributionFromPopUp:
+- (BOOL)validateTakeOtherProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2689,7 +2774,7 @@ To Do List:
 //iTM2_START;
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
-		NSString * distribution = [self lossyGhostScriptBinariesDistribution];
+		NSString * distribution = [self lossyOtherProgramsDistribution];
 		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
@@ -2731,8 +2816,8 @@ To Do List:
 	}
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGhostScriptBinariesPathFromStringValue:
-- (IBAction)takeGhostScriptBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeOtherProgramsPathFromStringValue:
+- (IBAction)takeOtherProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2741,7 +2826,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id new = [sender stringValue];
-	NSString * key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:[SUD stringForKey:iTM2DistributionGhostScriptBinaries]];
+	NSString * key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:[SUD stringForKey:iTM2DistributionOtherPrograms]];
 	if(![[SUD stringForKey:key] pathIsEqual:new])
 	{
 		[SUD setObject:new forKey:key];
@@ -2750,8 +2835,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGhostScriptBinariesPathFromStringValue:
-- (BOOL)validateTakeGhostScriptBinariesPathFromStringValue:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeOtherProgramsPathFromStringValue:
+- (BOOL)validateTakeOtherProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 06:28:11 GMT 2005
@@ -2761,8 +2846,8 @@ To Do List:
 //iTM2_START;
 	if(![sender formatter])
 		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
-	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
-	NSString * key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:distribution];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
+	NSString * key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
 	NSString * path = [SUD stringForKey:key]?: @"";
 	if([DFM fileExistsAtPath:path])
 		[sender setStringValue:path];
@@ -2776,8 +2861,8 @@ To Do List:
 //iTM2_END;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTeXMFBinariesCPUType:
-- (IBAction)toggleTeXMFBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTeXMFProgramsCPUType:
+- (IBAction)toggleTeXMFProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2785,13 +2870,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setTeXMFBinariesDistributionIntel: ![self TeXMFBinariesDistributionIsIntel]];
+	[self setTeXMFProgramsDistributionIntel: ![self TeXMFProgramsDistributionIsIntel]];
 	[[self mainView] validateWindowContent];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTeXMFBinariesCPUType:
-- (BOOL)validateToggleTeXMFBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTeXMFProgramsCPUType:
+- (BOOL)validateToggleTeXMFProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2805,17 +2890,17 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[SUD stringForKey:iTM2DistributionTeXMFBinaries] pathIsEqual:iTM2DistributionCustom])
+	if([[SUD stringForKey:iTM2DistributionTeXMFPrograms] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;
 	}
-	[sender setState: ([self TeXMFBinariesDistributionIsIntel]?NSOnState:NSOffState)];
+	[sender setState: ([self TeXMFProgramsDistributionIsIntel]?NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleGhostScriptBinariesCPUType:
-- (IBAction)toggleGhostScriptBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOtherProgramsCPUType:
+- (IBAction)toggleOtherProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2823,13 +2908,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setGhostScriptBinariesDistributionIntel: ![self GhostScriptBinariesDistributionIsIntel]];
+	[self setOtherProgramsDistributionIntel: ![self OtherProgramsDistributionIsIntel]];
 	[[self mainView] validateWindowContent];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleGhostScriptBinariesCPUType:
-- (BOOL)validateToggleGhostScriptBinariesCPUType:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOtherProgramsCPUType:
+- (BOOL)validateToggleOtherProgramsCPUType:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -2843,17 +2928,17 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[SUD stringForKey:iTM2DistributionGhostScriptBinaries] pathIsEqual:iTM2DistributionCustom])
+	if([[SUD stringForKey:iTM2DistributionOtherPrograms] pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setState:NSMixedState];
 		return NO;
 	}
-	[sender setState: ([self GhostScriptBinariesDistributionIsIntel]?NSOnState:NSOffState)];
+	[sender setState: ([self OtherProgramsDistributionIsIntel]?NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFBinariesFromPanel:
-- (IBAction)chooseTeXMFBinariesFromPanel:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFProgramsFromPanel:
+- (IBAction)chooseTeXMFProgramsFromPanel:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -2871,13 +2956,13 @@ To Do List:
 	[OP setPrompt:[sender title]];
     [OP beginSheetForDirectory:NSHomeDirectory()
         file:nil types:nil modalForWindow:[sender window]
-            modalDelegate:self didEndSelector:@selector(chooseTeXMFBinariesFromPanel:returnCode:contextInfo:)
+            modalDelegate:self didEndSelector:@selector(chooseTeXMFProgramsFromPanel:returnCode:contextInfo:)
 				contextInfo:nil];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFBinariesFromPanel:returnCode:contextInfo:
-- (void)chooseTeXMFBinariesFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFProgramsFromPanel:returnCode:contextInfo:
+- (void)chooseTeXMFProgramsFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2006
@@ -2888,8 +2973,8 @@ To Do List:
 	if(returnCode == NSOKButton)
 	{
 		NSString * new = [panel filename];
-		NSString * key = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-		key = [iTM2DistributionDomainTeXMFBinaries stringByAppendingPathExtension:key];
+		NSString * key = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
+		key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:key];
 		if(![[SUD stringForKey:key] pathIsEqual:new])
 		{
 			[SUD setObject:new forKey:key];
@@ -2899,8 +2984,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXMFBinariesFromPanel:
-- (BOOL)validateChooseTeXMFBinariesFromPanel:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXMFProgramsFromPanel:
+- (BOOL)validateChooseTeXMFProgramsFromPanel:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -2908,7 +2993,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 	if([distribution pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setHidden:NO];
@@ -2992,8 +3077,8 @@ To Do List:
 		return NO;
 	}
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseGhostScriptBinariesFromPanel:
-- (IBAction)chooseGhostScriptBinariesFromPanel:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOtherProgramsFromPanel:
+- (IBAction)chooseOtherProgramsFromPanel:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -3011,13 +3096,13 @@ To Do List:
 	[OP setPrompt:[sender title]];
     [OP beginSheetForDirectory:NSHomeDirectory()
         file:nil types:nil modalForWindow:[sender window]
-            modalDelegate:self didEndSelector:@selector(chooseGhostScriptBinariesFromPanel:returnCode:contextInfo:)
+            modalDelegate:self didEndSelector:@selector(chooseOtherProgramsFromPanel:returnCode:contextInfo:)
 				contextInfo:nil];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseGhostScriptBinariesFromPanel:returnCode:contextInfo:
-- (void)chooseGhostScriptBinariesFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOtherProgramsFromPanel:returnCode:contextInfo:
+- (void)chooseOtherProgramsFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2006
@@ -3028,8 +3113,8 @@ To Do List:
 	if(returnCode == NSOKButton)
 	{
 		NSString * new = [panel filename];
-		NSString * key = [SUD stringForKey:iTM2DistributionTeXMFBinaries];
-		key = [iTM2DistributionDomainGhostScriptBinaries stringByAppendingPathExtension:key];
+		NSString * key = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
+		key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:key];
 		if(![[SUD stringForKey:key] pathIsEqual:new])
 		{
 			[SUD setObject:new forKey:key];
@@ -3039,8 +3124,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseGhostScriptBinariesFromPanel:
-- (BOOL)validateChooseGhostScriptBinariesFromPanel:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOtherProgramsFromPanel:
+- (BOOL)validateChooseOtherProgramsFromPanel:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2004
@@ -3048,7 +3133,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [SUD stringForKey:iTM2DistributionGhostScriptBinaries];
+	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	if([distribution pathIsEqual:iTM2DistributionCustom])
 	{
 		[sender setHidden:NO];

@@ -129,6 +129,7 @@ typedef enum
 - (NSString *)getGhostScriptBinariesPath;
 - (NSString *)GhostScriptBinariesPath;
 - (void)setGhostScriptBinariesPath:(NSString *)argument;
+- (BOOL)getPATHUsesLoginShell;
 - (NSString *)getPATHPrefix;
 - (NSString *)getPATHSuffix;
 @end

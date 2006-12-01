@@ -52,7 +52,7 @@ else
 	chmod -R u+rwx "${iTM2BinaryPATH}"
 fi
 iTM2SHORT="0"
-iTM2Link ()
+iTM2Linkbin ()
 {
 	local iTM2_TARGET="${iTM2BinaryPATH}/$iTM2SHORT"
     rm -Rf "${iTM2_TARGET}"
@@ -63,23 +63,37 @@ iTM2Link ()
 		iTM2SHORT=$(expr ${iTM2SHORT} + 1)
     fi
 }
+iTM2LinkPrograms ()
+{
+	local iTM2_TARGET="${iTM2BinaryPATH}/$iTM2SHORT"
+    rm -Rf "${iTM2_TARGET}"
+    if ( [ -d "$1" ] ) && ( [ -d "$1/Programs" ] )
+    then
+		ln -s "$1" "${iTM2_TARGET}"
+		iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/Programs";
+		iTM2SHORT=$(expr ${iTM2SHORT} + 1)
+    fi
+}
 # the binary path:
 iTM2PREFIX=".:${iTM2BinaryPATH}"
-iTM2Link "${iTM2_HOME}/Library/TeX"
-iTM2Link "${iTM2_HOME}/Library/Application Support/iTeXMac2"
+iTM2Linkbin "${iTM2_HOME}/Library/TeX"
+iTM2LinkPrograms "${iTM2_HOME}/Library/TeX"
+iTM2Linkbin "${iTM2_HOME}/Library/Application Support/iTeXMac2"
 if [ ${#iTM2_TemporaryDirectory} -gt 0 ]
 then
-	iTM2Link "${iTM2_TemporaryDirectory}"
+	iTM2Linkbin "${iTM2_TemporaryDirectory}"
 fi
-iTM2Link "/Library/TeX"
-iTM2Link "/Library/Application Support/iTeXMac2"
+iTM2Linkbin "/Library/TeX"
+iTM2LinkPrograms "/Library/TeX"
+iTM2Linkbin "/Library/Application Support/iTeXMac2"
 if [ ${#iTM2UseNetwork} -gt 0 ]
 then
-	iTM2Link "/Network/Library/TeX"
-	iTM2Link "/Network/Library/Application Support/iTeXMac2"
+	iTM2Linkbin "/Network/Library/TeX"
+	iTM2LinkPrograms "/Network/Library/TeX"
+	iTM2Linkbin "/Network/Library/Application Support/iTeXMac2"
 fi
 iTM2_BUILTIN_EXECUTABLE_PATH="$(dirname "$0")"
-iTM2Link "$(dirname "$iTM2_BUILTIN_EXECUTABLE_PATH")"
+iTM2Linkbin "$(dirname "$iTM2_BUILTIN_EXECUTABLE_PATH")"
 # Now we are setting the PATH variable
 if [ ${#iTM2PREFIX} -gt 0 ]
 then
