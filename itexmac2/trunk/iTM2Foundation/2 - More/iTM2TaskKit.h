@@ -430,7 +430,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @param      a pointer to an error string.
     @result     the termination status of the task.
 */
-+ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
++ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSError **)outErrorPtr;
 
 /*! 
     @method     modalStatusAndOutput:error:
@@ -441,7 +441,7 @@ Not strongly tested. Be coutious when using it.
     @param      a pointer to an error string.
     @result     the termination status of the task.
 */
-- (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSString **)errorPtr;
+- (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)outErrorPtr;
 
 /*! 
     @method     setEnvironmentString:forKey:
@@ -470,13 +470,6 @@ Not strongly tested. Be coutious when using it.
     @result     None.
 */
 - (void)prependPATHComponent:(NSString *)path;
-
-/*! 
-    @method     modalStatusOfScript:output:error:
-    @abstract   Abstract Forthcoming.
-    @discussion Description Forthcoming.
-*/
-+ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
 
 @end
 

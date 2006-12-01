@@ -34,7 +34,7 @@
 
 @implementation NSFileManager(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepDirectoryAtPath:attributes:error:
-- (BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)errorPtr;
+- (BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -67,9 +67,9 @@ To Do List:
 			}
 			else
 			{
-				if(errorPtr)
+				if(outErrorPtr)
 				{
-					*errorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 							[NSString stringWithFormat:@"A (link to a)directory was expected at\n%@", fullPath], NSLocalizedDescriptionKey,
 							fullPath, @"iTM2DirectoryPath",
@@ -86,10 +86,10 @@ To Do List:
 			}
 			else
 			{
-				if(errorPtr)
+				if(outErrorPtr)
 				{
 					NSString * fullPath = [[self currentDirectoryPath] stringByAppendingPathComponent:component];
-					*errorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2
+					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2
 						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 							[NSString stringWithFormat:@"Could not change to directory\n%@", fullPath], NSLocalizedDescriptionKey,
 							fullPath, @"iTM2DirectoryPath",
@@ -100,10 +100,10 @@ To Do List:
 		}
 		else
 		{
-			if(errorPtr)
+			if(outErrorPtr)
 			{
 				NSString * fullPath = [[self currentDirectoryPath] stringByAppendingPathComponent:component];
-				*errorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2
+				*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2
 					userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 						[NSString stringWithFormat:@"Could not create directory\n%@", fullPath], NSLocalizedDescriptionKey,
 						fullPath, @"iTM2DirectoryPath",
@@ -262,7 +262,7 @@ To Do List:
 			[[path lastPathComponent] stringByDeletingPathExtension]:[path lastPathComponent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileExistsAtPath:isAlias:error:
-- (BOOL)fileExistsAtPath:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)errorPtr;
+- (BOOL)fileExistsAtPath:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -276,8 +276,11 @@ To Do List:
 		OSStatus status = FSPathMakeRef((UInt8 *)[path UTF8String], &ref, NULL);
 		if(status)
 		{
-			[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:status
-				userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create an FSRef for %@", path] forKey:NSLocalizedDescriptionKey]];
+			if(outErrorPtr)
+			{
+				*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:status
+					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create an FSRef for %@", path] forKey:NSLocalizedDescriptionKey]];
+			}
 //iTM2_END;
 			return YES;
 		}
@@ -1462,7 +1465,7 @@ else NSLog(@"No spec");
 
 @implementation NSData(iTM2ALias)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeAsFinderAliasToURL:options:error:
-- (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
+- (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1473,9 +1476,9 @@ To Do List:
 //iTM2_LOG(@"0");
 	if(![url isFileURL])
 	{
-		if(errorPtr)
+		if(outErrorPtr)
 		{
-			*errorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+			*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create a finder alias at\n%@\nfile url required.", url]
 								forKey:NSLocalizedDescriptionKey]];
 		}
@@ -1485,18 +1488,18 @@ To Do List:
 	NSString * path = [url path];
 	if([DFM fileExistsAtPath:path isDirectory:nil] && ![DFM removeFileAtPath:path handler:NULL])
 	{
-		if(errorPtr)
+		if(outErrorPtr)
 		{
-			*errorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2
+			*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove file at\n%@", path]
 								forKey:NSLocalizedDescriptionKey]];
 		}
 		return NO;
 	}
 //iTM2_LOG(@"2");
-	BOOL result = [[NSData data] writeToURL:url options:writeOptionsMask error:errorPtr];
+	BOOL result = [[NSData data] writeToURL:url options:writeOptionsMask error:outErrorPtr];
 	if(result
-		&& [DFM addExtendedFileAttribute:@"Alias" value:self withResourceType:'alis' resourceID:0 atPath:path error:errorPtr])
+		&& [DFM addExtendedFileAttribute:@"Alias" value:self withResourceType:'alis' resourceID:0 atPath:path error:outErrorPtr])
 #if 0
 	{
 		result = NO;

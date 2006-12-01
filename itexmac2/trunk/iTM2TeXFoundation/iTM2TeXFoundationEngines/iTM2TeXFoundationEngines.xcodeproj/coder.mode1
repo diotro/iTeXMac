@@ -310,7 +310,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2PDFDocumentKit.m</string>
+								<string>iTM2ServerKit.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -318,11 +318,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2PDFDocumentKit.m</string>
+										<string>iTM2ServerKit.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCBF0D790B1B0088002B1373</string>
+										<string>DC3CE9500B201E080021D7AD</string>
 										<key>history</key>
 										<array>
 											<string>DC3E11020AEBA07B009BC4BA</string>
@@ -330,7 +330,7 @@
 											<string>DC3E11040AEBA07B009BC4BA</string>
 											<string>DC3E11050AEBA07B009BC4BA</string>
 											<string>DC099ED60B09CFBF000612AA</string>
-											<string>DC09A0EC0B09F51E000612AA</string>
+											<string>DC3CE94F0B201E080021D7AD</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -396,9 +396,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCBF05B90B1AF71F002B1373</string>
+				<string>DC3CE1860B201ACA0021D7AD</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCBF05BA0B1AF71F002B1373</string>
+				<string>DC3CE1870B201ACA0021D7AD</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -533,6 +533,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>44 85 1015 647 0 0 1440 878 </string>
@@ -756,21 +757,19 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2MetaPostToolbarKit.m</string>
+										<string>iTM2TeXDistributionKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{0, 0}, {1154, 484}}</string>
+										<string>{{0, 0}, {1154, 342}}</string>
 										<key>RubberWindowFrame</key>
 										<string>71 48 1154 757 0 0 1440 878 </string>
 									</dict>
@@ -781,9 +780,11 @@
 								</dict>
 							</array>
 							<key>Proportion</key>
-							<string>484pt</string>
+							<string>342pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -794,14 +795,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 489}, {1154, 227}}</string>
+								<string>{{0, 347}, {1154, 369}}</string>
 								<key>RubberWindowFrame</key>
 								<string>71 48 1154 757 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
 							<key>Proportion</key>
-							<string>227pt</string>
+							<string>369pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -819,8 +820,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC099EDC0B09CFBF000612AA</string>
-				<string>DC099EDD0B09CFBF000612AA</string>
+				<string>DC3CE9520B201E080021D7AD</string>
+				<string>DC3CE9530B201E080021D7AD</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>

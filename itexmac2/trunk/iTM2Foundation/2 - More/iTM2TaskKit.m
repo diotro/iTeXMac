@@ -2169,7 +2169,7 @@ To Do List:
     return [[self implementation] metaValueForKey:iTM2TaskInterruptInvocationKey] != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusAndOutput:error:
-- (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSString **)errorPtr;
+- (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2181,14 +2181,13 @@ To Do List:
     [TC addTaskWrapper:self];
     [TC start];
     [[TC currentTask] waitUntilExit];
-    if(errorPtr)
-        *errorPtr = [TC error];
+	iTM2_OUTERROR(1,([TC errorStatus]),nil);
     if(outputPtr)
         *outputPtr = [TC output];
     return [[TC currentTask] terminationStatus];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusOfScript:output:error:
-+ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSString **)errorPtr;
++ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2204,8 +2203,7 @@ To Do List:
     [TC execute:script];
     [TC execute:@"exit"];
     [TC waitUntilExit];
-    if(errorPtr)
-        *errorPtr = [TC error];
+	iTM2_OUTERROR(2,([TC errorStatus]),nil);
     if(outputPtr)
         *outputPtr = [TC output];
     return [[TC currentTask] terminationStatus];

@@ -317,7 +317,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE493080B1E61F7009DCF57</string>
+										<string>DC3CE15C0B201AC90021D7AD</string>
 										<key>history</key>
 										<array>
 											<string>DCA37E040AE3A18500874F9E</string>
@@ -330,7 +330,7 @@
 											<string>DCBA442F0B028A2F006AF52A</string>
 											<string>DC6A89FB0B0492C30072FC1A</string>
 											<string>DC10E6270B086FDD00E3BA31</string>
-											<string>DCBF20600B1CEBB6002B1373</string>
+											<string>DCE493080B1E61F7009DCF57</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -401,9 +401,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCE48E670B1D0525009DCF57</string>
+				<string>DC3CE15D0B201AC90021D7AD</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCE48E680B1D0525009DCF57</string>
+				<string>DC3CE15E0B201AC90021D7AD</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -536,7 +536,9 @@
 	<key>WindowJustification</key>
 	<integer>5</integer>
 	<key>WindowOrderList</key>
-	<array/>
+	<array>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
+	</array>
 	<key>WindowString</key>
 	<string>69 113 1244 658 0 0 1440 878 </string>
 	<key>WindowTools</key>

@@ -193,7 +193,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
-- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)errorPtr;
+- (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -201,10 +201,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(errorPtr)
-		*errorPtr = nil;
+	if(outErrorPtr)
+		*outErrorPtr = nil;
 	PDFDocument * PDFDoc = nil;
-	NSData * PDFData = [NSData dataWithContentsOfURL:fileURL options:0 error:errorPtr];
+	NSData * PDFData = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
 	PDFDoc = [[iTM2XtdPDFDocument alloc] initWithData:PDFData];
 	BOOL result = NO;
 	if(PDFDoc)
