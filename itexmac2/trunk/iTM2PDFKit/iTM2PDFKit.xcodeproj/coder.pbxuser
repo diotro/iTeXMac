@@ -8,11 +8,11 @@
 			DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */,
 		);
 		breakpoints = (
-			DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6398 */,
-			DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7170 */,
-			DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7154 */,
+			DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6404 */,
+			DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7176 */,
+			DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7160 */,
 			DCBDA0060AFC831000522BD9 /* iTM2PDFKit.m:1800 */,
-			DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6932 */,
+			DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6938 */,
 		);
 		breakpointsGroup = DC99EC7A0A27C6B600F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DC520431088B1FD300DE6E7F /* Code sense */;
@@ -154,7 +154,7 @@
 			sepNavWindowFrame = "{{176, 36}, {1210, 690}}";
 		};
 	};
-	DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6398 */ = {
+	DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6404 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -164,9 +164,9 @@
 		fileReference = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
 		functionName = "-setCursorForAreaOfInterest:";
 		hitCount = 1;
-		lineNumber = 6398;
+		lineNumber = 6404;
 		location = iTM2PDFKit;
-		modificationTime = 186919795.633745;
+		modificationTime = 186922421.196157;
 		state = 1;
 	};
 	DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {
@@ -289,12 +289,12 @@
 		isa = XCBreakpointsBucket;
 		name = iTM2PDFKit;
 		objects = (
-			DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6398 */,
+			DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6404 */,
 			DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3324 */,
 			DCBDA0060AFC831000522BD9 /* iTM2PDFKit.m:1800 */,
-			DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7170 */,
-			DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6932 */,
-			DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7154 */,
+			DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7176 */,
+			DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6938 */,
+			DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7160 */,
 			DCE48F550B1DDB5A009DCF57 /* iTM2PDFKit.m:4191 */,
 			DCE48F660B1DDF88009DCF57 /* iTM2PDFSYNCKit.m:1684 */,
 			DCE48F700B1DDFF6009DCF57 /* iTM2PDFSYNCKit.m:903 */,
@@ -323,10 +323,10 @@
 		hitCount = 1;
 		lineNumber = 1800;
 		location = iTM2PDFKit;
-		modificationTime = 186919776.185985;
+		modificationTime = 186922401.785497;
 		state = 2;
 	};
-	DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7170 */ = {
+	DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7176 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -336,12 +336,12 @@
 		fileReference = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
 		functionName = "-displayPage:";
 		hitCount = 1;
-		lineNumber = 7170;
+		lineNumber = 7176;
 		location = iTM2PDFKit;
-		modificationTime = 186919795.805218;
+		modificationTime = 186922421.503571;
 		state = 1;
 	};
-	DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6932 */ = {
+	DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6938 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -351,12 +351,12 @@
 		fileReference = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
 		functionName = "-keyDown:";
 		hitCount = 1;
-		lineNumber = 6932;
+		lineNumber = 6938;
 		location = iTM2PDFKit;
-		modificationTime = 186919795.977601;
+		modificationTime = 186922422.120738;
 		state = 1;
 	};
-	DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7154 */ = {
+	DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7160 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -366,9 +366,9 @@
 		fileReference = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
 		functionName = "-displayZoom:";
 		hitCount = 1;
-		lineNumber = 7154;
+		lineNumber = 7160;
 		location = iTM2PDFKit;
-		modificationTime = 186919795.977324;
+		modificationTime = 186922421.814441;
 		state = 1;
 	};
 	DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */ = {

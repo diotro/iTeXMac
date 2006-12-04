@@ -5008,6 +5008,12 @@ To Do List:
 	NSClipView * clipView = [scrollView contentView];
 	NSPoint oldHit = [window mouseLocationOutsideOfEventStream];
 	BOOL scroll = NO;
+	float timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
+	NSEvent * otherEvent;
+	if([window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES])
+	{
+		return NO;
+	}
 mainLoop:
 	[[NSCursor closedHandCursor] set];
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
@@ -5172,10 +5178,10 @@ To Do List:
 		switch([self toolMode])
 		{
 			case kiTM2ScrollToolMode:
-				if([self trackMove:theEvent])
-				{
-					return;
-				}
+			if([self trackMove:theEvent])
+			{
+				return;
+			}
 			case kiTM2SelectToolMode:
 			{
 				iTM2_LOG(@"ERROR(minor): The iTM2PDFKitView is not expected to receive a mouseDown: message in kiTM2SelectToolMode...");

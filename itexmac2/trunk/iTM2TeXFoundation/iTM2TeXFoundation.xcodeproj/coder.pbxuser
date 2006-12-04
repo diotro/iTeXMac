@@ -217,6 +217,8 @@
 			DC2F3DC20B2422CC00BA57D5 /* PBXTextBookmark */ = DC2F3DC20B2422CC00BA57D5 /* PBXTextBookmark */;
 			DC2F3DFA0B242B7500BA57D5 /* PBXTextBookmark */ = DC2F3DFA0B242B7500BA57D5 /* PBXTextBookmark */;
 			DC2F3DFB0B242B7500BA57D5 /* PBXTextBookmark */ = DC2F3DFB0B242B7500BA57D5 /* PBXTextBookmark */;
+			DC2F3E190B242DC100BA57D5 /* PBXTextBookmark */ = DC2F3E190B242DC100BA57D5 /* PBXTextBookmark */;
+			DC2F3E1A0B242DC100BA57D5 /* PBXTextBookmark */ = DC2F3E1A0B242DC100BA57D5 /* PBXTextBookmark */;
 			DC3CE9630B202A960021D7AD = DC3CE9630B202A960021D7AD /* PBXTextBookmark */;
 			DC3CE9640B202A960021D7AD = DC3CE9640B202A960021D7AD /* PBXTextBookmark */;
 			DC3E0F550AEB68D0009BC4BA = DC3E0F550AEB68D0009BC4BA /* PBXTextBookmark */;
@@ -542,6 +544,26 @@
 		vrLen = 1537;
 		vrLoc = 19433;
 	};
+	DC2F3E190B242DC100BA57D5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */;
+		name = "iTM2TeXDistributionKit.m: 3184";
+		rLen = 0;
+		rLoc = 116097;
+		rType = 0;
+		vrLen = 1245;
+		vrLoc = 80685;
+	};
+	DC2F3E1A0B242DC100BA57D5 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */;
+		name = "iTM2TeXDistributionKit.m: 3184";
+		rLen = 0;
+		rLoc = 116097;
+		rType = 0;
+		vrLen = 1537;
+		vrLoc = 19433;
+	};
 	DC31FE090AC9B88400FF576B /* -[NSException raise] */ = {
 		isa = PBXSymbolicBreakpoint;
 		actions = (
@@ -591,7 +613,7 @@
 		fRef = DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */;
 		name = "iTM2TeXDistributionKit.m: 3184";
 		rLen = 0;
-		rLoc = 116085;
+		rLoc = 116097;
 		rType = 0;
 		vrLen = 1245;
 		vrLoc = 80673;
@@ -601,7 +623,7 @@
 		fRef = DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */;
 		name = "iTM2TeXDistributionKit.m: 3184";
 		rLen = 0;
-		rLoc = 116085;
+		rLoc = 116097;
 		rType = 0;
 		vrLen = 1549;
 		vrLoc = 19421;
@@ -1821,7 +1843,7 @@
 		fRef = DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */;
 		name = "iTM2TeXDistributionKit.m: 3184";
 		rLen = 0;
-		rLoc = 116085;
+		rLoc = 116097;
 		rType = 0;
 		vrLen = 1245;
 		vrLoc = 80673;
@@ -1831,7 +1853,7 @@
 		fRef = DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */;
 		name = "iTM2TeXDistributionKit.m: 3184";
 		rLen = 0;
-		rLoc = 116085;
+		rLoc = 116097;
 		rType = 0;
 		vrLen = 1549;
 		vrLoc = 19421;
