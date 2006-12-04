@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC2F3EDB0B24360900BA57D5</string>
+						<string>DC2F3F530B245D4400BA57D5</string>
 						<key>history</key>
 						<array>
 							<string>DC2F3EC70B24358A00BA57D5</string>
@@ -360,7 +360,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC2F3EDA0B24360900BA57D5</string>
+										<string>DC2F3F520B245D4400BA57D5</string>
 										<key>history</key>
 										<array>
 											<string>DCA37E040AE3A18500874F9E</string>
@@ -581,14 +581,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC2F3EDC0B24360900BA57D5</string>
+		<string>1C0AD2B3069F1EA900FABCE6</string>
 		<string>DC2F3ED80B2435E500BA57D5</string>
 		<string>DC2F3ED90B2435E500BA57D5</string>
 		<string>DC2F3ED60B2435E500BA57D5</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 		<string>DC2F3ECD0B2435E500BA57D5</string>
 		<string>DC691935088C8CD600F00114</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>69 113 1244 658 0 0 1440 878 </string>
@@ -1036,9 +1036,9 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C0AD2B3069F1EA900FABCE6</string>
-				<string>DC0D4F0A0AD6C7770024D73F</string>
+				<string>DC2F3EDF0B24380400BA57D5</string>
 				<string>1CD0528B0623707200166675</string>
-				<string>DC0D4F0B0AD6C7770024D73F</string>
+				<string>DC2F3EE00B24380400BA57D5</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.run</string>
