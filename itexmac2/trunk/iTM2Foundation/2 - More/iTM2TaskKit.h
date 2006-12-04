@@ -664,13 +664,13 @@ Not strongly tested. Be coutious when using it.
 - (NSString *)custom;
 
 /*! 
-    @method     error
+    @method     errorStatus
     @abstract   The error.
     @discussion Description Forthcoming. Can be flushed with a clean message. Lazy initializer.
     @param      None.
     @result     the output
 */
-- (NSString *)error;
+- (NSString *)errorStatus;
 
 /*! 
     @method     clean

@@ -1351,7 +1351,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteReadFromURL:ofType:error:
-- (BOOL)dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)error;
+- (BOOL)dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1364,10 +1364,11 @@ To Do List:
 	BOOL isDirectory;
 	if([DFM fileExistsAtPath:[absoluteURL path] isDirectory:&isDirectory] && isDirectory)
 		return YES;
-    return [self loadDataRepresentation:[NSData dataWithContentsOfURL:absoluteURL options:0 error:error] ofType:typeName];
+	NSData * D = [NSData dataWithContentsOfURL:absoluteURL options:0 error:outErrorPtr];
+    return [self loadDataRepresentation:D ofType:typeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resourcesCompleteReadFromURL:ofType:error:
-- (BOOL)resourcesCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+- (BOOL)resourcesCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1806,7 +1807,7 @@ To Do List:
     return (result == NSAlertDefaultReturn);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1827,7 +1828,7 @@ To Do List:
 				break;
 			}
 	}
-    BOOL superResult = [myLSTypeIsPackage boolValue] || [super writeToURL:absoluteURL ofType:type error:error];
+    BOOL superResult = [myLSTypeIsPackage boolValue] || [super writeToURL:absoluteURL ofType:type error:outErrorPtr];
 	BOOL result = YES;
 	if(iTM2DebugEnabled>99)
 	{
@@ -1838,7 +1839,7 @@ To Do List:
     [I setTarget:self];
     [I setArgument:&absoluteURL atIndex:2];
     [I setArgument:&type atIndex:3];
-    [I setArgument:&error atIndex:4];
+    [I setArgument:&outErrorPtr atIndex:4];
     NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:error:" signature:sig0 inherited:YES] objectEnumerator];
     SEL selector;
     while(selector = (SEL)[[E nextObject] pointerValue])
@@ -1862,12 +1863,12 @@ To Do List:
 		iTM2_LOG(@"FINAL DID WRITE? %@", (result || superResult? @"YES":@"NO"));
 		iTM2_LOG(@"Result exists:%@", ([DFM fileExistsAtPath:[absoluteURL path]]? @"YES":@"NO"));
 	}
-	[self writeContextToURL:absoluteURL ofType:type error:error];
+	[self writeContextToURL:absoluteURL ofType:type error:outErrorPtr];
 //iTM2_END;
     return result || superResult;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteWriteToURL:ofType:error:
-- (BOOL)dataCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) error;
+- (BOOL)dataCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1882,10 +1883,10 @@ To Do List:
 		iTM2_LOG(@"is there any data to save? %@", (D? @"Y":@"N"));
 		iTM2_LOG(@"Currently saving data with length:%i", [D length]);
 	}
-    return [(D? D:[NSData data]) writeToURL:absoluteURL options:NSAtomicWrite error:error];
+    return [(D? D:[NSData data]) writeToURL:absoluteURL options:NSAtomicWrite error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resourcesCompleteWriteToURL:ofType:error:
-- (BOOL)resourcesCompleteWriteToURL:(NSURL *) absoluteURL ofType:(NSString *) typeName error:(NSError**)error;
+- (BOOL)resourcesCompleteWriteToURL:(NSURL *) absoluteURL ofType:(NSString *) typeName error:(NSError**)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1927,7 +1928,7 @@ To Do List:
                 short curResFile = CurResFile();
 				OSErr resError;
 				BOOL wasCurResFile = (noErr == ResError());
-                NSDictionary * fileAttributes = [self fileAttributesToWriteToURL:absoluteURL ofType:[self fileType] forSaveOperation:NSSaveOperation originalContentsURL:absoluteURL error:error];
+                NSDictionary * fileAttributes = [self fileAttributesToWriteToURL:absoluteURL ofType:[self fileType] forSaveOperation:NSSaveOperation originalContentsURL:absoluteURL error:outErrorPtr];
                 FSpCreateResFile(&spec, [fileAttributes fileHFSCreatorCode], [fileAttributes fileHFSTypeCode], smRoman);
 				// no error check needed
 				short refNum = FSOpenResFile(&ref, fsWrPerm);

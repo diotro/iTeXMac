@@ -117,7 +117,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)error;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -125,9 +125,9 @@ To Do List:save the file, if it has disappeared from the HD.
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL result = [super readFromURL:absoluteURL ofType:type error:error];
+    BOOL result = [super readFromURL:absoluteURL ofType:type error:outErrorPtr];
     if(result)
-		[self fileModificationDataCompleteDidReadFromURL:absoluteURL ofType:type error:error];
+		[self fileModificationDataCompleteDidReadFromURL:absoluteURL ofType:type error:outErrorPtr];
 //iTM2_END;
     return result;
 }

@@ -389,6 +389,17 @@ To Do List:
     metaSETTER(argument);
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autosavingFileType
+- (NSString *)autosavingFileType;
+/*"Autosave is disabled for these documents.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return nil;
+}
 @end
 
 #import <iTM2Foundation/iTM2BundleKit.h>

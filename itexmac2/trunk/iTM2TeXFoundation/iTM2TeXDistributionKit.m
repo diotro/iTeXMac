@@ -26,8 +26,8 @@
 #import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
 
 NSString * const iTM2DistributionTeXMF = @"iTM2DistributionTeXMF";
-NSString * const iTM2DistributionTeXMFPrograms = @"iTM2DistributionTeXMFPrograms";
-NSString * const iTM2DistributionOtherPrograms = @"iTM2DistributionOtherPrograms";
+NSString * const iTM2DistributionTeXMFPrograms = @"iTM2DistributionTeXMFBinaries";
+NSString * const iTM2DistributionOtherPrograms = @"iTM2DistributionGhostScriptBinaries";
 
 NSString * const iTM2DistributionDefault = @"default";
 NSString * const iTM2DistributionBuiltIn = @"built-in";// Not yet used
@@ -43,8 +43,8 @@ NSString * const iTM2DistributionOther = @"other";
 NSString * const iTM2DistributionCustom = @"custom";
 
 NSString * const iTM2DistributionDomainTeXMF = @"iTM2DistributionDomainTeXMF";
-NSString * const iTM2DistributionDomainTeXMFPrograms = @"iTM2DistributionDomainTeXMFPrograms";
-NSString * const iTM2DistributionDomainOtherPrograms = @"iTM2DistributionDomainOtherPrograms";
+NSString * const iTM2DistributionDomainTeXMFPrograms = @"iTM2DistributionDomainTeXMFBinaries";
+NSString * const iTM2DistributionDomainOtherPrograms = @"iTM2DistributionDomainGhostScriptBinaries";
 
 // those should be deprecated because I can retrieve those paths from the TeXMF tree
 NSString * const iTM2DistributionDomainTeXMFDocumentation = @"iTM2DistributionDomainTeXMFDocumentation";
@@ -650,7 +650,7 @@ To Do List:
 		NSString * SUDSuffix = [SUD objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
 		if([projectSuffix length])
 		{
-			if([SUDPrefix length])
+			if([SUDSuffix length])
 			{
 				return [NSString stringWithFormat:@"%@:%@", projectSuffix, SUDSuffix];
 			}

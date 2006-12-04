@@ -34,9 +34,9 @@ typedef enum
 
 typedef enum
 {
-      iTM2TeXMFBinariesDomain = 0,
+      iTM2TeXMFProgramsDomain = 0,
       iTM2TeXMFDomain = 1,
-      iTM2GhostScriptDomain = 2,
+      iTM2OtherDomain = 2,
       iTM2DocumentationDomain = 3
 } iTM2PathDomainType;
 
@@ -70,8 +70,8 @@ typedef enum
 @end
 
 extern NSString * const iTM2DistributionTeXMF;
-extern NSString * const iTM2DistributionTeXMFBinaries;
-extern NSString * const iTM2DistributionGhostScriptBinaries;
+extern NSString * const iTM2DistributionTeXMFPrograms;
+extern NSString * const iTM2DistributionOtherPrograms;
 
 extern NSString * const iTM2DistributionDefault;
 extern NSString * const iTM2DistributionBuiltIn;// Not yet used
@@ -83,8 +83,8 @@ extern NSString * const iTM2DistributionOther;// from the defaults: the custom d
 extern NSString * const iTM2DistributionCustom;// for the project or the defaults
 
 extern NSString * const iTM2DistributionDomainTeXMF;
-extern NSString * const iTM2DistributionDomainTeXMFBinaries;
-extern NSString * const iTM2DistributionDomainGhostScriptBinaries;
+extern NSString * const iTM2DistributionDomainTeXMFPrograms;
+extern NSString * const iTM2DistributionDomainOtherPrograms;
 
 typedef enum
 {
@@ -112,23 +112,23 @@ typedef enum
 - (NSString *)commonCommandOutputDirectory;
 
 + (NSString *)defaultTeXMFPath;
-+ (NSString *)defaultTeXMFBinariesPath;
-+ (NSString *)defaultGhostScriptBinariesPath;
++ (NSString *)defaultTeXMFProgramsPath;
++ (NSString *)defaultOtherProgramsPath;
 - (NSString *)TeXMFDistribution;// low level getter
 - (void)setTeXMFDistribution:(NSString *)argument;
-- (NSString *)TeXMFBinariesDistribution;// low level getter
-- (void)setTeXMFBinariesDistribution:(NSString *)argument;
-- (NSString *)GhostScriptBinariesDistribution;// low level getter
-- (void)setGhostScriptBinariesDistribution:(NSString *)argument;
+- (NSString *)TeXMFProgramsDistribution;// low level getter
+- (void)setTeXMFProgramsDistribution:(NSString *)argument;
+- (NSString *)OtherProgramsDistribution;// low level getter
+- (void)setOtherProgramsDistribution:(NSString *)argument;
 - (NSString *)getTeXMFPath;
 - (NSString *)TeXMFPath;
 - (void)setTeXMFPath:(NSString *)argument;
-- (NSString *)getTeXMFBinariesPath;
-- (NSString *)TeXMFBinariesPath;
-- (void)setTeXMFBinariesPath:(NSString *)argument;
-- (NSString *)getGhostScriptBinariesPath;
-- (NSString *)GhostScriptBinariesPath;
-- (void)setGhostScriptBinariesPath:(NSString *)argument;
+- (NSString *)getTeXMFProgramsPath;
+- (NSString *)TeXMFProgramsPath;
+- (void)setTeXMFProgramsPath:(NSString *)argument;
+- (NSString *)getOtherProgramsPath;
+- (NSString *)OtherProgramsPath;
+- (void)setOtherProgramsPath:(NSString *)argument;
 - (BOOL)getPATHUsesLoginShell;
 - (NSString *)getPATHPrefix;
 - (NSString *)getPATHSuffix;

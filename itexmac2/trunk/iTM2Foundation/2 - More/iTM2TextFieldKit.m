@@ -381,7 +381,7 @@ To Do List:
 proposedSelectedRange: (NSRangePointer) proposedSelRangePtr
 originalString: (NSString *) origString
 originalSelectedRange: (NSRange) origSelRange
-errorDescription: (NSString **) error;
+errorDescription: (NSString **) errorStatusPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -392,9 +392,9 @@ To Do List:
     id anObject;
     NSString * localError;
     BOOL result;
-    if(!error)
-        error = &localError;
-    result = [self getObjectValue:&anObject forString:*partialStringPtr errorDescription:error];
+    if(!errorStatusPtr)
+        errorStatusPtr = &localError;
+    result = [self getObjectValue:&anObject forString:*partialStringPtr errorDescription:errorStatusPtr];
     if(!result)
     {
         *partialStringPtr = [[origString copy] autorelease];
@@ -403,7 +403,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getObjectValue:forString:errorDescription:
-- (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error;
+- (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)errorStatusPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -411,7 +411,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL result = [super getObjectValue:obj forString:string errorDescription:error];
+	BOOL result = [super getObjectValue:obj forString:string errorDescription:errorStatusPtr];
 	if(!result)
 	{
 		iTM2_LOG(@"Failure");
@@ -422,9 +422,9 @@ To Do List:
 		if(* obj == nil)
 		{
 //iTM2_LOG(@"string is: <%@>", string);
-			if(error)
+			if(errorStatusPtr)
 			{
-				iTM2_LOG(@"error is: <%@>", *error);
+				iTM2_LOG(@"error is: <%@>", *errorStatusPtr);
 			}
 			return NO;
 		}
@@ -441,8 +441,6 @@ To Do List:
 }
 #endif
 @end
-
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2NavigationFormatter
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2NavigationFormatter
 /*"Description forthcoming."*/

@@ -349,6 +349,17 @@ To Do List:
 	}
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= autosavingFileType
+- (NSString *)autosavingFileType;
+/*"No autosave.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Jan 18 22:21:11 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return nil;
+}
 @end
 
 @implementation iTM2MultiplePDFKitDocument

@@ -595,7 +595,7 @@ To Do List:
                 [_Inspectors addObject:V];
                 [argument setTaskController:self];
                 [argument logOutput:[self output]];
-                [argument logError:[self error]];
+                [argument logError:[self errorStatus]];
             }
         }
     }
@@ -1071,8 +1071,8 @@ To Do List:
 //iTM2_START;
     return _Custom? [[_Custom copy] autorelease]:[NSString string];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= error
-- (NSString *)error;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= errorStatus
+- (NSString *)errorStatus;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1341,7 +1341,7 @@ To Do List:
 //NSLog(@"error string: %@", string);
         [_Error appendString:string];
         [[self allInspectors] makeObjectsPerformSelector:_cmd withObject:string];
-//NSLog(@"[self error]:%@", [self error]);
+//NSLog(@"[self errorStatus]:%@", [self errorStatus]);
     }
     return;
 }
