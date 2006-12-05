@@ -29,6 +29,8 @@
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2ImageKit.h>
 
+extern int iTM2DebugEnabled;
+
 @implementation iTM2SharedResponder(MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkForUpdate:
 - (IBAction)checkForUpdate:(id)sender;
@@ -49,6 +51,96 @@ To Do List:
     else
         [SWS launchApplication:helper];
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayConsoleDebug:
+- (void)displayConsoleDebug:(id)sender;
+/*"This is the build number.
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0:
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[NSWorkspace sharedWorkspace] launchApplication:@"Console"];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDisplayConsoleDebug:
+- (BOOL)validateDisplayConsoleDebug:(id)sender;
+/*"This is the build number.
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0:
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![sender image])
+	{
+		NSString * path = [SWS fullPathForApplication:@"Console"];
+		NSImage * I = [SWS iconForFile:path];
+		[I setScalesWhenResized:YES];
+		[I setSize:NSMakeSize(16,16)];
+		[sender setImage:I];//size
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeDebugModeFromSenderTag:
+- (void)takeDebugModeFromSenderTag:(id)sender;
+/*"This is the build number.
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0:
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	switch([sender tag])
+	{
+		case 0: iTM2DebugEnabled = 0; break;
+		case 1: iTM2DebugEnabled = 1; break;
+		case 2: iTM2DebugEnabled = 100; break;
+		case 3: iTM2DebugEnabled = 10000; break;
+	}
+	if(iTM2DebugEnabled)
+	{
+		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:@"NSScriptingDebugLogLevel"]];
+	}
+	else
+	{
+		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"NSScriptingDebugLogLevel"]];
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakeDebugModeFromSenderTag:
+- (BOOL)validateTakeDebugModeFromSenderTag:(id)sender;
+/*"This is the build number.
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0:
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned tag;
+	if(iTM2DebugEnabled<1)
+	{
+		tag = 0;// Off
+	}
+	else if(iTM2DebugEnabled<100)
+	{
+		tag = 1;// Simple
+	}
+	else if(iTM2DebugEnabled<10000)
+	{
+		tag = 2;// Advanced
+	}
+	else
+	{
+		tag = 3;// Expert
+	}
+	[sender setState:([sender tag]==tag?NSOnState:NSOffState)];
+//iTM2_END;
+    return YES;
 }
 @end
 

@@ -13,6 +13,11 @@
 #
 #iTM2_CMD_Notify comment "iTM2: STARTING $0"
 "${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify echo "$(date "+START - DATE: %m/%d/%y - TIME: %H:%M:%S")"
+if [ "${iTM2_Debug}" != "0" ]
+then
+	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify comment "iTM2_Launch script (0): PATH is {$PATH}"
+	printenv
+fi
 iTM2_LAUNCH_VERSION=1
 if ! [ -w "${iTM2_Device}" ]
 then
@@ -20,7 +25,7 @@ then
 fi
 iTM2Command="$1"
 # Sanity check: TWSMaster must be a readable file, no condition on TWSFront, TWSProject, TWSWrapper
-iTM2BinaryPATH=""
+iTM2BinaryPATH="iTM2_HOME/Library/bin"
 if [ -d "${TWSProject}" ]
 then
 	pushd "$(dirname "${TWSProject}")"
@@ -60,6 +65,10 @@ iTM2Linkbin ()
     then
 		ln -s "$1" "${iTM2_TARGET}"
 		iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/bin";
+		if [ ${iTM2_Debug} > 99 ]
+		then
+			"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify comment "iTM2_Launch script (1): iTM2PREFIX is ${iTM2PREFIX}"
+		fi
 		iTM2SHORT=$(expr ${iTM2SHORT} + 1)
     fi
 }
@@ -71,20 +80,24 @@ iTM2LinkPrograms ()
     then
 		ln -s "$1" "${iTM2_TARGET}"
 		iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/Programs";
+		if [ ${iTM2_Debug} > 99 ]
+		then
+			"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify comment "iTM2_Launch script (2): iTM2PREFIX is ${iTM2PREFIX}"
+		fi
 		iTM2SHORT=$(expr ${iTM2SHORT} + 1)
     fi
 }
 # the binary path:
-iTM2PREFIX=".:${iTM2BinaryPATH}"
+iTM2PREFIX=""
 iTM2Linkbin "${iTM2_HOME}/Library/TeX"
-iTM2LinkPrograms "${iTM2_HOME}/Library/TeX"
+iTM2LinkPrograms "${iTM2_HOME}/Library/TeX/Distributions/Default"
 iTM2Linkbin "${iTM2_HOME}/Library/Application Support/iTeXMac2"
 if [ ${#iTM2_TemporaryDirectory} -gt 0 ]
 then
 	iTM2Linkbin "${iTM2_TemporaryDirectory}"
 fi
 iTM2Linkbin "/Library/TeX"
-iTM2LinkPrograms "/Library/TeX"
+iTM2LinkPrograms "/Library/TeX/Distributions/Default"
 iTM2Linkbin "/Library/Application Support/iTeXMac2"
 if [ ${#iTM2UseNetwork} -gt 0 ]
 then
@@ -95,13 +108,30 @@ fi
 iTM2_BUILTIN_EXECUTABLE_PATH="$(dirname "$0")"
 iTM2Linkbin "$(dirname "$iTM2_BUILTIN_EXECUTABLE_PATH")"
 # Now we are setting the PATH variable
+if [ ${#iTM2_PATH_Other_Programs} -gt 0 ]
+then
+    PATH="$iTM2_PATH_Other_Programs:$PATH"
+fi
+if [ ${#iTM2_PATH_TeX_Programs} -gt 0 ]
+then
+    PATH="$iTM2_PATH_TeX_Programs:$PATH"
+fi
 if [ ${#iTM2PREFIX} -gt 0 ]
 then
-    PATH="$iTM2PREFIX:$PATH"
+    PATH=".:$iTM2PREFIX:$iTM2BinaryPATH:$PATH"
 fi
+if [ ${#iTM2_PATH_Suffix} -gt 0 ]
+then
+    PATH="$iTM2_PATH_Suffix:$PATH"
+fi
+if [ ${#iTM2_PATH_Prefix} -gt 0 ]
+then
+    PATH="$PATH:$iTM2_PATH_Prefix"
+fi
+# iTM2_CMD_Notify is only available now
 if [ "${iTM2_Debug}" != "0" ]
 then
-	"${iTM2_CMD_Notify}" notify comment "PATH is {$PATH}"
+	"${iTM2_CMD_Notify}" notify comment "iTM2_Launch script (3): PATH is {$PATH}"
 fi
 iTM2Cached="${iTM2BinaryPATH}/${iTM2Command}-cached"
 if [ "${iTM2_XLR8:-0}" != "0" ] && [ 0 -eq 1 ]
