@@ -207,6 +207,7 @@
 			DC2F520B0B258A3900BA57D5 = DC2F520B0B258A3900BA57D5 /* PBXTextBookmark */;
 			DC2F55010B26426C00BA57D5 = DC2F55010B26426C00BA57D5 /* PBXTextBookmark */;
 			DCF45F070B26F4D400020FA6 /* PBXTextBookmark */ = DCF45F070B26F4D400020FA6 /* PBXTextBookmark */;
+			DCF460740B26FB5D00020FA6 /* PBXTextBookmark */ = DCF460740B26FB5D00020FA6 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -235,7 +236,7 @@
 		hitCount = 1;
 		lineNumber = 948;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068271;
+		modificationTime = 187104086.166866;
 		state = 1;
 	};
 	DC0090C80A6AFE91009236E8 /* iTM2TeXPCompileWrapperKit.m:537 */ = {
@@ -250,7 +251,7 @@
 		hitCount = 1;
 		lineNumber = 537;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.067791;
+		modificationTime = 187104085.982418;
 		state = 1;
 	};
 	DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */ = {
@@ -362,7 +363,7 @@
 		hitCount = 1;
 		lineNumber = 7736;
 		location = iTM2Foundation;
-		modificationTime = 187056007.281647;
+		modificationTime = 187104086.042957;
 		state = 1;
 	};
 	DC2CA78D0855D4F500128F14 /* All */ = {
@@ -433,7 +434,7 @@
 		hitCount = 1;
 		lineNumber = 1190;
 		location = iTM2TeXFoundation;
-		modificationTime = 187002739.357689;
+		modificationTime = 187104087.027511;
 		state = 1;
 	};
 	DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */ = {
@@ -463,7 +464,7 @@
 		functionName = "";
 		hitCount = 1;
 		lineNumber = 1075;
-		modificationTime = 187056007.281728;
+		modificationTime = 187104076.281515;
 		state = 2;
 	};
 	DC3E18750AECC83D009BC4BA /* iTM2ProjectDocumentKit.m */ = {
@@ -485,7 +486,7 @@
 		hitCount = 1;
 		lineNumber = 7688;
 		location = iTM2Foundation;
-		modificationTime = 187056332.068278;
+		modificationTime = 187104086.65287;
 		state = 1;
 	};
 	DC3E187A0AECC898009BC4BA /* iTM2ProjectDocumentKit.m */ = {
@@ -507,7 +508,7 @@
 		hitCount = 1;
 		lineNumber = 7611;
 		location = iTM2Foundation;
-		modificationTime = 187056332.068576;
+		modificationTime = 187104086.409713;
 		state = 1;
 	};
 	DC3E18E20AECCDA7009BC4BA /* iTM2ProjectDocumentKit.m */ = {
@@ -529,7 +530,7 @@
 		hitCount = 1;
 		lineNumber = 3250;
 		location = iTM2Foundation;
-		modificationTime = 187056332.066634;
+		modificationTime = 187104086.720258;
 		state = 1;
 	};
 	DC3E1A620AECFC12009BC4BA /* iTM2ServerKit.m:733 */ = {
@@ -544,7 +545,7 @@
 		hitCount = 1;
 		lineNumber = 733;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068397;
+		modificationTime = 187104086.782741;
 		state = 1;
 	};
 	DC3E1A720AECFDD8009BC4BA /* iTM2ServerKit.m:561 */ = {
@@ -559,7 +560,7 @@
 		hitCount = 1;
 		lineNumber = 561;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.066613;
+		modificationTime = 187104086.104192;
 		state = 1;
 	};
 	DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */ = {
@@ -701,7 +702,7 @@
 		hitCount = 1;
 		lineNumber = 558;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068537;
+		modificationTime = 187104085.606522;
 		state = 1;
 	};
 	DC89F31F0A6EEA11001272DD /* iTM2TeXStorageKit.m:580 */ = {
@@ -716,7 +717,7 @@
 		hitCount = 1;
 		lineNumber = 580;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068527;
+		modificationTime = 187104085.671594;
 		state = 1;
 	};
 	DC89F3210A6EEA13001272DD /* iTM2TeXStorageKit.m:599 */ = {
@@ -731,7 +732,7 @@
 		hitCount = 1;
 		lineNumber = 599;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.066605;
+		modificationTime = 187104085.733866;
 		state = 1;
 	};
 	DC89F3230A6EEA15001272DD /* iTM2TeXStorageKit.m:618 */ = {
@@ -746,7 +747,7 @@
 		hitCount = 1;
 		lineNumber = 618;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068551;
+		modificationTime = 187104085.797481;
 		state = 1;
 	};
 	DC89F3250A6EEA18001272DD /* iTM2TeXStorageKit.m:637 */ = {
@@ -761,7 +762,7 @@
 		hitCount = 1;
 		lineNumber = 637;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068544;
+		modificationTime = 187104085.859687;
 		state = 1;
 	};
 	DC89F3270A6EEA1A001272DD /* iTM2TeXStorageKit.m:656 */ = {
@@ -776,7 +777,7 @@
 		hitCount = 1;
 		lineNumber = 656;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.0682639;
+		modificationTime = 187104085.920445;
 		state = 1;
 	};
 	DC89F3290A6EEA1F001272DD /* iTM2TeXStorageKit.m:674 */ = {
@@ -790,7 +791,7 @@
 		functionName = "-syntaxModeForCharacter:previousMode:";
 		hitCount = 1;
 		lineNumber = 674;
-		modificationTime = 187056007.282345;
+		modificationTime = 187104076.281549;
 		state = 2;
 	};
 	DC89F32B0A6EEA2B001272DD /* iTM2TeXStorageKit.m:675 */ = {
@@ -805,7 +806,7 @@
 		hitCount = 1;
 		lineNumber = 675;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068566;
+		modificationTime = 187104086.531683;
 		state = 1;
 	};
 	DC89F32D0A6EEA2F001272DD /* iTM2TeXStorageKit.m:678 */ = {
@@ -820,7 +821,7 @@
 		hitCount = 1;
 		lineNumber = 678;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.06662;
+		modificationTime = 187104086.592428;
 		state = 1;
 	};
 	DC89F32F0A6EEA33001272DD /* iTM2TeXStorageKit.m:695 */ = {
@@ -835,7 +836,7 @@
 		hitCount = 1;
 		lineNumber = 695;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.066545;
+		modificationTime = 187104086.845325;
 		state = 1;
 	};
 	DC89F3310A6EEA36001272DD /* iTM2TeXStorageKit.m:697 */ = {
@@ -850,7 +851,7 @@
 		hitCount = 1;
 		lineNumber = 697;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.068256;
+		modificationTime = 187104086.905525;
 		state = 1;
 	};
 	DC89F3330A6EEA38001272DD /* iTM2TeXStorageKit.m:698 */ = {
@@ -865,7 +866,7 @@
 		hitCount = 1;
 		lineNumber = 698;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.066577;
+		modificationTime = 187104086.966146;
 		state = 1;
 	};
 	DC90CF7909978A1200C79525 /* iTM2ScriptColor.png */ = {
@@ -910,7 +911,7 @@
 		hitCount = 1;
 		lineNumber = 770;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.06657;
+		modificationTime = 187104086.349294;
 		state = 1;
 	};
 	DC99EA06088315BD007AF81F /* iTeXMac2 Server Setup */ = {
@@ -1036,7 +1037,7 @@
 		hitCount = 1;
 		lineNumber = 1084;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.066627;
+		modificationTime = 187104086.227103;
 		state = 1;
 	};
 	DC9CBE5D0AEE1258006215B4 /* iTM2TeXProjectDocumentKit.m:1153 */ = {
@@ -1050,7 +1051,7 @@
 		functionName = "-validateStringEncodingToggleAuto:";
 		hitCount = 1;
 		lineNumber = 1153;
-		modificationTime = 187056007.282032;
+		modificationTime = 187104076.281525;
 		state = 2;
 	};
 	DCA45CBB085EEA6B00AF1C1F /* iTM2TeXFoundation.hdoc */ = {
@@ -1103,7 +1104,7 @@
 		hitCount = 1;
 		lineNumber = 545;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.066598;
+		modificationTime = 187104086.287237;
 		state = 1;
 	};
 	DCBF20B00B1CF662002B1373 /* iTM2PDFSYNCKit.m:1726 */ = {
@@ -1118,7 +1119,7 @@
 		hitCount = 1;
 		lineNumber = 1726;
 		location = iTM2TeXFoundation;
-		modificationTime = 187002207.852523;
+		modificationTime = 187104087.151395;
 		state = 1;
 	};
 	DCBF20B30B1CF676002B1373 /* iTM2PDFSYNCKit.m:903 */ = {
@@ -1133,7 +1134,7 @@
 		hitCount = 1;
 		lineNumber = 903;
 		location = iTM2TeXFoundation;
-		modificationTime = 187002193.911683;
+		modificationTime = 187104087.211907;
 		state = 1;
 	};
 	DCBF20B60B1CF699002B1373 /* iTM2PDFSYNCKit.m:1692 */ = {
@@ -1148,7 +1149,7 @@
 		hitCount = 1;
 		lineNumber = 1692;
 		location = iTM2TeXFoundation;
-		modificationTime = 187002200.751386;
+		modificationTime = 187104087.272254;
 		state = 1;
 	};
 	DCBF20C20B1CF944002B1373 /* iTM2TeXProjectFrontendKit.m:89 */ = {
@@ -1163,7 +1164,7 @@
 		hitCount = 1;
 		lineNumber = 89;
 		location = iTM2TeXFoundation;
-		modificationTime = 187002189.375628;
+		modificationTime = 187104087.332857;
 		state = 1;
 	};
 	DCC3D1680926A425005471BD /* iTM2TextWatcher.h */ = {
@@ -1454,7 +1455,7 @@
 		hitCount = 1;
 		lineNumber = 317;
 		location = iTM2TeXFoundation;
-		modificationTime = 187056332.066554;
+		modificationTime = 187104086.470149;
 		state = 1;
 	};
 	DCF2E57D095240C600EE54E2 /* iTeXMac2 Server */ = {
@@ -1499,6 +1500,16 @@
 		vrLen = 981;
 		vrLoc = 4422;
 	};
+	DCF460740B26FB5D00020FA6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EA14088315BD007AF81F /* iTM2_Launch */;
+		name = "iTM2_Launch: 123";
+		rLen = 77;
+		rLoc = 4011;
+		rType = 0;
+		vrLen = 981;
+		vrLoc = 4422;
+	};
 	DCF956EE0ADFBF7100672833 /* iTM2PDFSYNCKit.m:904 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -1511,7 +1522,7 @@
 		hitCount = 1;
 		lineNumber = 904;
 		location = iTM2TeXFoundation;
-		modificationTime = 187002196.425612;
+		modificationTime = 187104087.090311;
 		state = 1;
 	};
 	DCF994E30AEE9EB0005740A2 /* iTM2TeXProjectDocumentKit.m:1179 */ = {
@@ -1525,7 +1536,7 @@
 		functionName = "-validateStringEncodingToggleAuto:";
 		hitCount = 1;
 		lineNumber = 1179;
-		modificationTime = 187056007.281664;
+		modificationTime = 187104076.281505;
 		state = 2;
 	};
 	DCF995120AEEA55D005740A2 /* iTM2TeXProjectDocumentKit.m:1153 */ = {
@@ -1539,7 +1550,7 @@
 		functionName = "-validateStringEncodingToggleAuto:";
 		hitCount = 1;
 		lineNumber = 1153;
-		modificationTime = 187056007.281692;
+		modificationTime = 187104076.28151;
 		state = 2;
 	};
 }

@@ -592,7 +592,7 @@ To Do List:
 		return NO;
 	}
 	NSDictionary * contextDictionary = [self contextDictionary];
-iTM2_LOG(@"contextDictionary is:%@", contextDictionary);
+//iTM2_LOG(@"contextDictionary is:%@", contextDictionary);
 	if([contextDictionary count])
 	{
 		NSMutableDictionary * attributes = [NSMutableDictionary dictionary];

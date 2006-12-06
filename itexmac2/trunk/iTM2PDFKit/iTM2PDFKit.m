@@ -683,18 +683,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"Setting up the pdf inspector:0");
+//iTM2_LOG(@"Setting up the pdf inspector:0");
 	NSAssert(_pdfTabView, @"Missing _pdfTabView connection...");
 	NSAssert(_tabViewControl, @"Missing _tabViewControl connection...");
 	[DNC addObserver:self selector:@selector(PDFViewPageChangedNotified:)  name:PDFViewPageChangedNotification  object:[self pdfView]];
 	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:[self pdfView]];
-iTM2_LOG(@"Setting up the pdf inspector:1");
+//iTM2_LOG(@"Setting up the pdf inspector:1");
 	// outlines
 	[self setPDFOutlines:nil];
 	[_outlinesView setTarget:self];
 	[_outlinesView setAction:@selector(takeDestinationFromSelectedItemRepresentedObject:)];
 	[_tabViewControl setEnabled: ([[self PDFOutlines] countOfChildren]>0) forSegment:1];
-iTM2_LOG(@"Setting up the pdf inspector:2");
+//iTM2_LOG(@"Setting up the pdf inspector:2");
 	// thumbnails
 	[[self PDFThumbnails] setArray:[NSArray array]];
 	// search
@@ -704,7 +704,7 @@ iTM2_LOG(@"Setting up the pdf inspector:2");
 	PDFDocument * doc = [[self document] PDFDocument];
 	[doc setDelegate:self];
 	[[self pdfView] setDocument:doc];// last thing to do
-iTM2_LOG(@"The document has been properly connected to the view:\n%@ <-> %@",doc,[self pdfView]);
+//iTM2_LOG(@"The document has been properly connected to the view:\n%@ <-> %@",doc,[self pdfView]);
 	[INC addObserver: self
 		selector: @selector(PDFDocumentDidChangeNotified:)
 			name: iTM2PDFKitDocumentDidChangeNotification
@@ -720,7 +720,7 @@ iTM2_LOG(@"The document has been properly connected to the view:\n%@ <-> %@",doc
 	[column setDataCell:newCell];
 	#endif
 	[self contextDidChange];
-iTM2_LOG(@"Setting up the pdf inspector:DONE");
+//iTM2_LOG(@"Setting up the pdf inspector:DONE");
 //iTM2_END;
     return;
 }
@@ -1578,7 +1578,7 @@ iTM2_START;
 	PDFPage * page = [pdfView currentPage];
 	unsigned int oldPageIndex = [self documentViewVisiblePageNumber];
 	unsigned int newPageIndex = [[page document] indexForPage:page];
-iTM2_LOG(@"oldPageIndex:%u,newPageIndex:%u",oldPageIndex,newPageIndex);
+//iTM2_LOG(@"oldPageIndex:%u,newPageIndex:%u",oldPageIndex,newPageIndex);
 	if(oldPageIndex!=newPageIndex)
 	{
 		[self setDocumentViewVisiblePageNumber:newPageIndex];
@@ -1832,7 +1832,7 @@ iTM2_START;
 			[[self window] disableFlushWindow];
 			NSRect visibleRect = [self documentViewVisibleRect];
 			visibleRect = [docView rectWithAbsoluteRect:visibleRect];
-iTM2_LOG(@"pageIndex:%u,visibleRect:%@",pageIndex,NSStringFromRect(visibleRect));
+//iTM2_LOG(@"pageIndex:%u,visibleRect:%@",pageIndex,NSStringFromRect(visibleRect));
 			[docView scrollRectToVisible:visibleRect];
 			[V display];
 			[[self window] enableFlushWindow];
@@ -2140,7 +2140,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"Setting up the toolbar: 0");
+//iTM2_LOG(@"Setting up the toolbar: 0");
 	NSAssert(_toolbarBackForwardView, @"Missing _toolbarBackForwardView connection...");
 	NSSegmentedCell * segmentedCell = [_toolbarBackForwardView cell];
 	[segmentedCell setAction:@selector(goBackForward:)];
@@ -2162,12 +2162,12 @@ iTM2_LOG(@"Setting up the toolbar: 0");
 	[segmentedCell setTarget:nil];
 	[_toolbarToolModeView setFrameSize:[segmentedCell cellSize]];
 	//
-iTM2_LOG(@"Setting up the toolbar: 1");
+//iTM2_LOG(@"Setting up the toolbar: 1");
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2PDFKitToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
 	if([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
-iTM2_LOG(@"Setting up the toolbar: 1-a");
+//iTM2_LOG(@"Setting up the toolbar: 1-a");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if([configDictionary count])
 		{
@@ -2181,7 +2181,7 @@ iTM2_LOG(@"Setting up the toolbar: 1-a");
 	}
 	else
 	{
-iTM2_LOG(@"Setting up the toolbar: 1-b");
+//iTM2_LOG(@"Setting up the toolbar: 1-b");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //iTM2_LOG(@"configDictionary: %@", configDictionary);
 		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
@@ -2202,13 +2202,13 @@ iTM2_LOG(@"Setting up the toolbar: 1-b");
 			}
 		}
 	}
-iTM2_LOG(@"Setting up the toolbar: 2");
+//iTM2_LOG(@"Setting up the toolbar: 2");
 	[toolbar setAutosavesConfiguration:YES];
     [toolbar setAllowsUserCustomization:YES];
 //    [toolbar setSizeMode:NSToolbarSizeModeSmall];
     [toolbar setDelegate:self];
     [[self window] setToolbar:toolbar];
-iTM2_LOG(@"The toolbar has properly been setup");
+//iTM2_LOG(@"The toolbar has properly been setup");
 //iTM2_END;
 	return;
 }
@@ -2989,13 +2989,13 @@ To Do List:
 		[super setDocument:document];// raise if the document has no pages
 #if 0
 #warning Trick to workaround a bug: the PDFView document view is not properly set up
-iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
+//iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
 		NSRect frame = [self frame];
 		NSRect smallerFrame = NSInsetRect(frame,5,5);
 		[self setFrame:smallerFrame];
-iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
+//iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
 		[self setFrame:frame];
-iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
+//iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
 		NSWindow * W = [self window];
 		frame = [W frame];
 		smallerFrame = NSInsetRect(frame,-1,-1);
@@ -3658,10 +3658,10 @@ next:
 {
 	PDFPage * page = [self currentPage];
 	PDFDocument * doc = [page document];
-iTM2_LOG(@"BEFORE %i",[doc indexForPage:page]);
+//iTM2_LOG(@"BEFORE %i",[doc indexForPage:page]);
 	[super goToNextPage:sender];
 	page = [self currentPage];
-iTM2_LOG(@"AFTER %i",[doc indexForPage:page]);
+//iTM2_LOG(@"AFTER %i",[doc indexForPage:page]);
 	return;
 }
 @end
