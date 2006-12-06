@@ -27,10 +27,10 @@
                 takeOutputDirectoryFromStringValue = id; 
                 takePATHPrefixFromStringValue = id; 
                 takePATHSuffixFromStringValue = id; 
-                takeTeXMFProgramsDistributionFromPopUp = id; 
-                takeTeXMFProgramsPathFromStringValue = id; 
                 takeTeXMFDistributionFromPopUp = id; 
                 takeTeXMFPathFromStringValue = id; 
+                takeTeXMFProgramsDistributionFromPopUp = id; 
+                takeTeXMFProgramsPathFromStringValue = id; 
                 toggleOutputDirectory = id; 
                 togglePATHLoginShell = id; 
                 togglePATHPrefix = id; 

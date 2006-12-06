@@ -196,6 +196,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -260,18 +262,20 @@
 							<array>
 								<string>0867D691FE84028FC02AAC07</string>
 								<string>DCC7F3CA0854AC9200F3EB8A</string>
-								<string>DC99EA05088315BD007AF81F</string>
+								<string>DCC7F3F10854AC9200F3EB8A</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>55</integer>
-									<integer>54</integer>
+									<integer>57</integer>
+									<integer>36</integer>
+									<integer>1</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 301}, {284, 753}}</string>
+							<string>{{0, 432}, {284, 753}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -318,17 +322,15 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC2F52760B258FFD00BA57D5</string>
+										<string>DCF45F070B26F4D400020FA6</string>
 										<key>history</key>
 										<array>
 											<string>DC2F51C00B257DFC00BA57D5</string>
-											<string>DC2F51C10B257DFC00BA57D5</string>
-											<string>DC2F520B0B258A3900BA57D5</string>
+											<string>DC2F55010B26426C00BA57D5</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>DC2F51C40B257DFC00BA57D5</string>
-											<string>DC2F51C50B257DFC00BA57D5</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -386,9 +388,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC2F50DD0B256A5800BA57D5</string>
+				<string>DCF45F080B26F4D400020FA6</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC2F50DE0B256A5800BA57D5</string>
+				<string>DCF45F090B26F4D400020FA6</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -532,12 +534,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC2F51580B256FE300BA57D5</string>
-		<string>DC2F51590B256FE300BA57D5</string>
-		<string>DC993D63088E8E7D00F8BCE1</string>
-		<string>DC099B36088B331B0028F810</string>
-		<string>DC2F50E70B256A5800BA57D5</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>DCF45F100B26F4D400020FA6</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
 	</array>
@@ -663,8 +660,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {426, 80}}</string>
-											<string>{{426, 0}, {676, 80}}</string>
+											<string>{{0, 0}, {425, 280}}</string>
+											<string>{{425, 0}, {677, 280}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -679,8 +676,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1102, 80}}</string>
-											<string>{{0, 80}, {1102, 675}}</string>
+											<string>{{0, 0}, {1102, 280}}</string>
+											<string>{{0, 280}, {1102, 475}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -727,14 +724,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC2F50E10B256A5800BA57D5</string>
+				<string>DCF45F0A0B26F4D400020FA6</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC2F50E20B256A5800BA57D5</string>
-				<string>DC2F50E30B256A5800BA57D5</string>
-				<string>DC2F50E40B256A5800BA57D5</string>
-				<string>DC2F50E50B256A5800BA57D5</string>
-				<string>DC2F50E60B256A5800BA57D5</string>
-				<string>DC2F50E70B256A5800BA57D5</string>
+				<string>DCF45F0B0B26F4D400020FA6</string>
+				<string>DCF45F0C0B26F4D400020FA6</string>
+				<string>DCF45F0D0B26F4D400020FA6</string>
+				<string>DCF45F0E0B26F4D400020FA6</string>
+				<string>DCF45F0F0B26F4D400020FA6</string>
+				<string>DCF45F100B26F4D400020FA6</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -761,14 +758,12 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2PathUtilities.h</string>
+										<string></string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
