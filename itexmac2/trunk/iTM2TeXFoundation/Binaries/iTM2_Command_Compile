@@ -60,18 +60,19 @@ This is the built in shell script to compile
 compiling TWSMaster (${TWSMaster})"
 fi
 iTM2_Compile_INPUT="$(basename "${TWSMaster}")"
-iTM2_Compile_Extension="$(echo "${iTM2_Compile_INPUT##*.}" | tr [:upper:] [:lower:])"
-if [ "${iTM2_Compile_Extension}" == "${iTM2_Compile_INPUT}" ]
+iTM2_Compile_Extension="${iTM2_Compile_INPUT##*.}"
+if [ ${#iTM2_Compile_Extension} -eq ${#iTM2_Compile_INPUT} ]
 then
 	iTM2_Compile_Extension="${iTM2_Compile_Switch}"
-	if [ ${#iTM2_Compile_Extension} -eq 0 ]
-	then
-		"${iTM2_CMD_Notify}" notify error  "Missing a master file name with an extension, or an extension switcher...
+fi
+if [ ${#iTM2_Compile_Extension} -eq 0 ]
+then
+	"${iTM2_CMD_Notify}" notify error  "Missing a master file name with an extension, or an extension switcher...
 Did you give your project a master file?
 ${iTM2_COMPILE_USAGE}"
-		exit 5
-	fi
+	exit 5
 fi
+iTM2_Compile_Extension="$(echo "${iTM2_Compile_Extension##*.}" | tr [:upper:] [:lower:])"
 iTM2_Compile_Engine="iTM2_Compile_${iTM2_Compile_Extension}"
 iTM2_Compile_Wrapped="${!iTM2_Compile_Engine}"
 # the iTM2_Compile_Engine now contains the name of the environment variable that knows the command to launch
