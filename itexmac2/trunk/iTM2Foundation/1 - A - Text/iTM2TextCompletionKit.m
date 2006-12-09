@@ -232,47 +232,54 @@ To Do List:
 	NSArray * result2 = [patriciaController2 stringListForPrefix:string];
 	if([result1 count])
 	{
-		result1 = [[result1 mutableCopy] autorelease];
-		// now merging the two arrays
-		int idx1 = [result1 count] - 1;
-		int idx2 = [result2 count] - 1;
-		NSString * S1 = [result1 objectAtIndex:idx1];
-		NSString * S2 = [result2 objectAtIndex:idx2];
-		int compare;
-grosbois:
-		compare = [S1 compare:S2];
-		if(compare == NSOrderedDescending)
+		if([result2 count])
 		{
-			// S2 should be inserted before S1
-			if(idx1)
+			result1 = [[result1 mutableCopy] autorelease];
+			// now merging the two arrays
+			int idx1 = [result1 count] - 1;
+			int idx2 = [result2 count] - 1;
+			NSString * S1 = [result1 objectAtIndex:idx1];
+			NSString * S2 = [result2 objectAtIndex:idx2];
+			int compare;
+grosbois:
+			compare = [S1 compare:S2];
+			if(compare == NSOrderedDescending)
 			{
-				--idx1;
-				S1 = [result1 objectAtIndex:idx1];
-			}
-			else
-			{
-				// S1 is the first object
-				[result1 insertObject:S2 atIndex:idx1];
-				while(idx2--)
+				// S2 should be inserted before S1
+				if(idx1)
 				{
-					S2 = [result2 objectAtIndex:idx2];
+					--idx1;
+					S1 = [result1 objectAtIndex:idx1];
+				}
+				else
+				{
+					// S1 is the first object
 					[result1 insertObject:S2 atIndex:idx1];
+					while(idx2--)
+					{
+						S2 = [result2 objectAtIndex:idx2];
+						[result1 insertObject:S2 atIndex:idx1];
+					}
 				}
 			}
-		}
-		else if(compare == NSOrderedAscending)
-		{
-			[result1 insertObject:S2 atIndex:idx1+1];
-			if(idx2--)
+			else if(compare == NSOrderedAscending)
+			{
+				[result1 insertObject:S2 atIndex:idx1+1];
+				if(idx2--)
+				{
+					S2 = [result2 objectAtIndex:idx2];
+					goto grosbois;
+				}
+			}
+			else if(idx2--)
 			{
 				S2 = [result2 objectAtIndex:idx2];
 				goto grosbois;
 			}
 		}
-		else if(idx2--)
+		else
 		{
-			S2 = [result2 objectAtIndex:idx2];
-			goto grosbois;
+			return result1;
 		}
 	}
 	else
