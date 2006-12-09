@@ -818,7 +818,7 @@ To Do List:
 		NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 		NSString * filename;
 		while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
-			if([DFM fileExistsAtPath:filename isDirectory:nil])
+			if([DFM fileOrLinkExistsAtPath:filename])
 			{
 				result = NSDragOperationCopy;
 				break;
@@ -919,7 +919,7 @@ To Do List:
 		NSString * filename;
 		NSMutableArray * filenames = [NSMutableArray array];
 		while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
-			if([DFM fileExistsAtPath:filename isDirectory:nil])
+			if([DFM fileOrLinkExistsAtPath:filename])
 				[filenames addObject:filename];
 		if([filenames count])
 		{
@@ -999,12 +999,12 @@ To Do List:
 	NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 	NSString * filename;
 	while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
-		if([DFM fileExistsAtPath:filename isDirectory:nil])
+		if([DFM fileOrLinkExistsAtPath:filename])
 		{
 			NSString * target = [dirname stringByAppendingPathComponent:[filename lastPathComponent]];
 			if([target pathIsEqual:filename])
 				continue;
-			else if([DFM fileExistsAtPath:target isDirectory:nil])
+			else if([DFM fileOrLinkExistsAtPath:target])
 			{
 				NSSavePanel * SP = [NSSavePanel savePanel];
 				[SP pushNavLastRootDirectory];
@@ -1206,7 +1206,7 @@ To Do List:
 	if(returnCode == NSOKButton)
 	{
 		NSString * fileName = [panel filename];
-		if(![DFM fileExistsAtPath:fileName isDirectory:nil]
+		if(![DFM fileOrLinkExistsAtPath:fileName]
 			|| [SWS performFileOperation:NSWorkspaceRecycleOperation source:[fileName stringByDeletingLastPathComponent] destination:nil files:[NSArray arrayWithObject:[fileName lastPathComponent]] tag:nil])
 		{
 			[self createInMandatoryProjectNewDocumentWithName:fileName]
@@ -1383,7 +1383,7 @@ To Do List:
 		{
 			// remove any "Contents" directory;
 			NSString * deeper = [targetName stringByAppendingPathComponent:iTM2BundleContentsComponent];
-			if([DFM fileExistsAtPath:deeper isDirectory:nil])
+			if([DFM fileOrLinkExistsAtPath:deeper])
 			{
 				int tag;
 				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetName destination:nil
@@ -1513,7 +1513,7 @@ To Do List:
 		{
 			// remove any "Contents" directory;
 			NSString * deeper = [targetName stringByAppendingPathComponent:iTM2BundleContentsComponent];
-			if([DFM fileExistsAtPath:deeper isDirectory:nil])
+			if([DFM fileOrLinkExistsAtPath:deeper])
 			{
 				int tag;
 				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetName destination:nil
@@ -1720,7 +1720,7 @@ To Do List:
 				// the original "file" might be either a project or a wrapper
 				// remove any "Contents" directory;
 				NSString * deeper = [targetName stringByAppendingPathComponent:iTM2BundleContentsComponent];
-				if([DFM fileExistsAtPath:deeper isDirectory:nil])
+				if([DFM fileOrLinkExistsAtPath:deeper])
 				{
 					int tag;
 					if([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetName destination:nil

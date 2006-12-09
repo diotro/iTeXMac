@@ -120,6 +120,28 @@
 */
 - (BOOL)popDirectory;
 
+/*!
+	@method			fileOrLinkExistsAtPath
+	@abstract		Abstract forthcoming.
+	@discussion		Discussion forthcoming.
+	@param			path
+	@result			yorn.
+	@availability	iTM2.
+	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)fileOrLinkExistsAtPath:(NSString *)path;
+
+/*!
+	@method			linkExistsAtPath
+	@abstract		Abstract forthcoming.
+	@discussion		Discussion forthcoming.
+	@param			path
+	@result			yorn.
+	@availability	iTM2.
+	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)linkExistsAtPath:(NSString *)path;
+
 @end
 
 /*!

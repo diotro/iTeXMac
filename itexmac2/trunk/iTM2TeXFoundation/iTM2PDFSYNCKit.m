@@ -1548,7 +1548,7 @@ To Do List:
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension: iTM2PDFSYNCExtension];
 	pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
-	if(![DFM fileExistsAtPath:pdfsyncPath isDirectory:nil])
+	if(![DFM fileOrLinkExistsAtPath:pdfsyncPath])
 	{
 		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
 		NSString * dirName = [PD fileName];

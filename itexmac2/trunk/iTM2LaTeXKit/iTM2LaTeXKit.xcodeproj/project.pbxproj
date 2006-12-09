@@ -59,6 +59,7 @@
 		DC4AF50309126D6C0057E325 /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF50109126D6C0057E325 /* Toolbar.strings */; };
 		DC4F71820958CF7A00D15534 /* iTM2LaTeXInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC4F71800958CF7A00D15534 /* iTM2LaTeXInspector.nib */; };
 		DC8A42150910FB4000F47F63 /* iTM2LaTeXSectionMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC9AAD8F0892FDE50080EB6E /* iTM2LaTeXSectionMenu.nib */; };
+		DC8E1FEB0B2A448C0073D255 /* Completion.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8E1FE90B2A448C0073D255 /* Completion.resources.tgz */; };
 		DC90D02C09978AFF00C79525 /* iTM2ScriptColor.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90D02609978AFF00C79525 /* iTM2ScriptColor.png */; };
 		DC90D02D09978AFF00C79525 /* iTM2ScriptDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90D02709978AFF00C79525 /* iTM2ScriptDocument.png */; };
 		DC90D02E09978AFF00C79525 /* iTM2ScriptMath.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90D02809978AFF00C79525 /* iTM2ScriptMath.png */; };
@@ -143,6 +144,8 @@
 		DC81AD260887161F00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A61D9088D7DDF0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A61DA088D7DDF0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
+		DC8E1FEA0B2A448C0073D255 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Completion.resources.tgz; sourceTree = "<group>"; };
+		DC8E1FEC0B2A449D0073D255 /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Completion.resources.tgz; sourceTree = "<group>"; };
 		DC90D02609978AFF00C79525 /* iTM2ScriptColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptColor.png; sourceTree = "<group>"; };
 		DC90D02709978AFF00C79525 /* iTM2ScriptDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptDocument.png; sourceTree = "<group>"; };
 		DC90D02809978AFF00C79525 /* iTM2ScriptMath.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptMath.png; sourceTree = "<group>"; };
@@ -222,6 +225,7 @@
 			children = (
 				DC986AFB09EFD65F00FF4BD3 /* InfoPlist.strings */,
 				DC986ADF09EFD51100FF4BD3 /* BaseProjects.resources.tgz */,
+				DC8E1FE90B2A448C0073D255 /* Completion.resources.tgz */,
 				DC986AE109EFD51100FF4BD3 /* Macros.resources.tgz */,
 				DC986AE309EFD51100FF4BD3 /* NewDocuments.resources.tgz */,
 				DC986AE509EFD51100FF4BD3 /* Styles.resources.tgz */,
@@ -442,6 +446,7 @@
 				DC986AE909EFD51100FF4BD3 /* NewDocuments.resources.tgz in Resources */,
 				DC986AEA09EFD51100FF4BD3 /* Styles.resources.tgz in Resources */,
 				DC986AFD09EFD65F00FF4BD3 /* InfoPlist.strings in Resources */,
+				DC8E1FEB0B2A448C0073D255 /* Completion.resources.tgz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +625,15 @@
 				DCAF9ABD09D811C600AFD95F /* French */,
 			);
 			name = iTM2LaTeXInspector.nib;
+			sourceTree = "<group>";
+		};
+		DC8E1FE90B2A448C0073D255 /* Completion.resources.tgz */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC8E1FEA0B2A448C0073D255 /* French */,
+				DC8E1FEC0B2A449D0073D255 /* English */,
+			);
+			name = Completion.resources.tgz;
 			sourceTree = "<group>";
 		};
 		DC986ADF09EFD51100FF4BD3 /* BaseProjects.resources.tgz */ = {

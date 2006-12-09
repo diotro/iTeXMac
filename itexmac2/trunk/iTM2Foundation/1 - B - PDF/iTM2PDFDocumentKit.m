@@ -145,6 +145,7 @@ To Do List:
 			NSString * pdfPath = [path stringByDeletingPathExtension];
 			pdfPath = [pdfPath stringByAppendingPathExtension:@"pdf"];
 			NSAssert(![pdfPath pathIsEqual:path],@"Bad type name for a postscript file.");
+#warning REVISITED?
 			if([DFM fileExistsAtPath:pdfPath])
 			{
 				NSDictionary * attributes = [DFM fileAttributesAtPath:path traverseLink:YES];

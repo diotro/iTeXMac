@@ -146,8 +146,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 187103714;
-			PBXWorkspaceStateSaveDate = 187103714;
+			PBXPerProjectTemplateStateSaveDate = 187380392;
+			PBXWorkspaceStateSaveDate = 187380392;
 		};
 		sourceControlManager = DC520430088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -170,8 +170,8 @@
 		hitCount = 1;
 		lineNumber = 6403;
 		location = iTM2PDFKit;
-		modificationTime = 187105578.24629;
-		state = 1;
+		modificationTime = 187380435.724044;
+		state = 0;
 	};
 	DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {
 		uiCtxt = {
@@ -342,8 +342,8 @@
 		hitCount = 1;
 		lineNumber = 7175;
 		location = iTM2PDFKit;
-		modificationTime = 187105578.246259;
-		state = 1;
+		modificationTime = 187380437.175146;
+		state = 0;
 	};
 	DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6937 */ = {
 		isa = PBXFileBreakpoint;
@@ -357,8 +357,8 @@
 		hitCount = 1;
 		lineNumber = 6937;
 		location = iTM2PDFKit;
-		modificationTime = 187105578.246471;
-		state = 1;
+		modificationTime = 187380440.180909;
+		state = 0;
 	};
 	DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7159 */ = {
 		isa = PBXFileBreakpoint;
@@ -372,8 +372,8 @@
 		hitCount = 1;
 		lineNumber = 7159;
 		location = iTM2PDFKit;
-		modificationTime = 187105578.246171;
-		state = 1;
+		modificationTime = 187380438.702581;
+		state = 0;
 	};
 	DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */ = {
 		activeExec = 0;
@@ -395,8 +395,8 @@
 		hitCount = 1;
 		lineNumber = 4191;
 		location = iTM2PDFKit;
-		modificationTime = 187105578.246121;
-		state = 1;
+		modificationTime = 187380443.087156;
+		state = 0;
 	};
 	DCE48F640B1DDF88009DCF57 /* iTM2PDFSYNCKit.m */ = {
 		isa = PBXFileReference;
@@ -416,9 +416,8 @@
 		functionName = "-displayPageForLine:column:source:withHint:orderFront:force:";
 		hitCount = 1;
 		lineNumber = 1684;
-		location = iTM2TeXFoundation;
-		modificationTime = 187105578.246764;
-		state = 1;
+		modificationTime = 187380444.548027;
+		state = 0;
 	};
 	DCE48F700B1DDFF6009DCF57 /* iTM2PDFSYNCKit.m:903 */ = {
 		isa = PBXFileBreakpoint;
@@ -431,9 +430,8 @@
 		functionName = "-destinationsForLine:column:inSource:";
 		hitCount = 1;
 		lineNumber = 903;
-		location = iTM2TeXFoundation;
-		modificationTime = 187105578.246269;
-		state = 1;
+		modificationTime = 187380446.026949;
+		state = 0;
 	};
 	DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3324 */ = {
 		isa = PBXFileBreakpoint;
@@ -447,7 +445,7 @@
 		hitCount = 1;
 		lineNumber = 3324;
 		location = iTM2PDFKit;
-		modificationTime = 187105578.246111;
-		state = 1;
+		modificationTime = 187380441.634076;
+		state = 0;
 	};
 }

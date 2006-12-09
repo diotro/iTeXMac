@@ -376,9 +376,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCF460550B26FA0500020FA6</string>
+				<string>DC42DAA50B2B32AF00FE3465</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCF460560B26FA0500020FA6</string>
+				<string>DC42DAA60B2B32AF00FE3465</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -512,9 +512,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DCF4605F0B26FA0500020FA6</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

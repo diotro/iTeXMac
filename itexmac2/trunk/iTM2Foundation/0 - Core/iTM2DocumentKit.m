@@ -1610,7 +1610,7 @@ To Do List:
 	NSString * baseName;
 	NSArray * files;
 	int tag = 0;
-	if([DFM fileExistsAtPath:fullDocumentPath isDirectory:nil])
+	if([DFM fileExistsAtPath:fullDocumentPath] || [DFM pathContentOfSymbolicLinkAtPath:path])
 	{
 		// try to recycle it
 		dirName = [fullDocumentPath stringByDeletingLastPathComponent];
@@ -1695,7 +1695,7 @@ To Do List:
 						absoluteOriginalContentsURL:%@\n[self fileType]:%@",absoluteOriginalContentsURL,[self fileType]);
 				}
 			}
-			if(![DFM fileExistsAtPath:fullDocumentPath isDirectory:nil]
+			if((![DFM fileExistsAtPath:fullDocumentPath] || ([DFM pathContentOfSymbolicLinkAtPath:path] && [DFM removeFileAtPath:path handler:NULL]))
 				&& ![DFM createDirectoryAtPath:fullDocumentPath attributes:nil])
 			{
 				iTM2_OUTERROR(4,([NSString stringWithFormat:@"Could not create a directory at\n%@", fullDocumentPath]),nil);

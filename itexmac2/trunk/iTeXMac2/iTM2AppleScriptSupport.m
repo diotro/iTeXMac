@@ -289,7 +289,8 @@ work in progress
 		{
 			path = [fileURL path];
 baumugnes:
-			if([DFM fileExistsAtPath:path])
+			if([DFM fileExistsAtPath:path] ||
+				((path=[path stringByResolvingSymlinksInPath]),[DFM fileExistsAtPath:path]))
 			{
 				NSError * error = nil;
 				if(project

@@ -256,6 +256,16 @@ To Do List:
 		return path;
 	}
 	NSError * localError = nil;
+	if([DFM pathContentOfSymbolicLinkAtPath:path]
+		&& ![DFM removeFileAtPath:path handler:NULL])
+	{
+		localError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+							[NSString stringWithFormat:@"Could not remove\n%@", fullPath], NSLocalizedDescriptionKey,
+							fullPath, @"iTM2BundleKit",
+								nil]]
+		[NSApp presentError:localError];
+	}
 	if(create && [DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
 	{
 		return path;
@@ -346,15 +356,18 @@ To Do List:
 //iTM2_START;
 	NSString * binaryDirectory = [self temporaryBinaryDirectory];
 	NSString * link = [binaryDirectory stringByAppendingPathComponent:[executable lastPathComponent]];// no stringByStandardizingPath please
-	if([DFM fileExistsAtPath:link isDirectory:nil] && (![DFM isDeletableFileAtPath:link] || ![DFM removeFileAtPath:link handler:nil]))
+	if(([DFM fileExistsAtPath:link] || [DFM pathContentOfSymbolicLinkAtPath:path])
+			&& (![DFM isDeletableFileAtPath:link] || ![DFM removeFileAtPath:link handler:nil]))
 	{
 		if(errorRef)
+		{
 			* errorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, [self classBundle], ""), NSLocalizedDescriptionKey,
 					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT remove existing file at %@", iTM2LocalizedExtension, [self classBundle], ""), link], NSLocalizedFailureReasonErrorKey,
 					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Remove file at %@", iTM2LocalizedExtension, [self classBundle], ""), link], NSLocalizedRecoverySuggestionErrorKey,
 						nil]];
+		}
 	}
 	else if([DFM createSymbolicLinkAtPath:link pathContent:executable])
 	{
@@ -367,12 +380,14 @@ To Do List:
 	else
 	{
 		if(errorRef)
+		{
 			* errorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, [self classBundle], ""), NSLocalizedDescriptionKey,
 					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, [NSBundle bundleForClass:self], ""), link, executable], NSLocalizedFailureReasonErrorKey,
 					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Please make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, [NSBundle bundleForClass:self], ""), link, executable], NSLocalizedRecoverySuggestionErrorKey,
 						nil]];
+		}
 	}
 //iTM2_END;
 	return NO;
@@ -390,13 +405,19 @@ To Do List:
 	unsigned int i = 0;
 	do
 	{
-		path = [directory stringByAppendingPathComponent:[NSString stringWithFormat:@"%u", i++]];
+		NSString * component = [NSString stringWithFormat:@"%u", i++];
+		path = [directory stringByAppendingPathComponent:component];
 	}
-	while([DFM fileExistsAtPath:path]);
+	while([DFM fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path]);
+	
 	if([DFM createDeepDirectoryAtPath:path attributes:nil error:nil])
+	{
 		return path;
+	}
 	else
+	{
 		return NSTemporaryDirectory();
+	}
 //iTM2_END;
 	return path;
 }
@@ -408,17 +429,23 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * path = [[self temporaryDirectory] stringByAppendingPathComponent:@"default"];
-    if(![DFM fileExistsAtPath:path])
-        [DFM createDirectoryAtPath:path attributes:nil];
-    BOOL isDirectory = NO;
-    if([DFM fileExistsAtPath:path isDirectory:&isDirectory] && isDirectory)
-        return path;
-    else
-    {
-        iTM2_LOG(@"Directory expected at %@... returning %@ instead", path, [self temporaryDirectory]);
-        return [self temporaryDirectory];
-    }
+    NSString * path = [self temporaryDirectory];
+    path = [path stringByAppendingPathComponent:@"default"];
+    if([DFM fileExistsAtPath:path isDirectory:&isDirectory])
+	{
+		if(isDirectory)
+		{
+			return path;
+		}
+	}
+	else if((![DFM pathContentOfSymbolicLinkAtPath:path]
+			|| [DF removeFileAtPath:path handler:NULL])
+				&& [DFM createDirectoryAtPath:path attributes:nil])
+	{
+		return path;
+	}
+    iTM2_LOG(@"Directory expected at %@... returning %@ instead", path, [self temporaryDirectory]);
+	return [self temporaryDirectory];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uniqueApplicationIdentifier
 + (NSString *)uniqueApplicationIdentifier;
@@ -875,7 +902,7 @@ To Do List:
 		while(path = [E nextObject])
 		{
 			NSString * newPath = [path stringByAppendingPathExtension:iTM2LocalizedExtension];
-			if([DFM fileExistsAtPath:newPath isDirectory:nil])
+			if([DFM fileExistsAtPath:newPath] || [DFM pathContentOfSymbolicLinkAtPath:path])
 			{
 				iTM2_REPORTERROR(1, ([NSString stringWithFormat:@"Recycle file at:\n%@", path]), nil);
 				if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:[path stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[path lastPathComponent]] tag:nil])

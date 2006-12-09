@@ -419,7 +419,7 @@ To Do List:
 	while(key = [E nextObject])
 	{
 		NSString * path = [self absoluteFileNameForKey:key];
-		if(![DFM fileExistsAtPath:path])// traverse the linck
+		if(![DFM fileExistsAtPath:path])// traverse the link
 		{
 			path = [self fileNameForRecordedKey:key];
 			if([DFM fileExistsAtPath:path])
@@ -471,7 +471,7 @@ To Do List:
 		// we try to move the project to that folder
 		NSString * expected = [projectFileName lastPathComponent];
 		expected = [enclosingDirectory stringByAppendingPathComponent:expected];
-		if([DFM fileExistsAtPath:expected isDirectory:nil])
+		if([DFM fileExistsAtPath:expected] || [DFM pathContentOfSymbolicLinkAtPath:path])
 		{
 			if(![DFM removeFileAtPath:expected handler:nil])
 			{
@@ -3018,13 +3018,13 @@ To Do List:
 	NSString * projectFileName = [self fileName];
 	NSString * subdirectory = [projectFileName stringByAppendingPathComponent:[SPC finderAliasesSubdirectory]];
 	NSString * path = [subdirectory stringByAppendingPathComponent:key];
-	if([DFM fileExistsAtPath:path isDirectory:nil] && ![DFM removeFileAtPath:path handler:NULL])
+	if([DFM fileExistsAtPath:path] && ![DFM removeFileAtPath:path handler:NULL])
 	{
 		iTM2_LOG(@"*** ERROR: I could not remove %@,please do it for me...",path);
 	}
 	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
 	path = [subdirectory stringByAppendingPathComponent:key];
-	if([DFM fileExistsAtPath:path isDirectory:nil] && ![DFM removeFileAtPath:path handler:NULL])
+	if([DFM fileOrLinkExistsAtPath:path] && ![DFM removeFileAtPath:path handler:NULL])
 	{
 		iTM2_LOG(@"*** ERROR: I could not remove %@,please do it for me...",path);
 	}
@@ -4654,7 +4654,7 @@ To Do List:
 			NSURL * inAbsoluteURL = [NSURL fileURLWithPath:absoluteName];
 			return [SDC localizedTypeForContentsOfURL:inAbsoluteURL error:nil]?:@"";// retained by the SDC
 		}
-		if([DFM fileExistsAtPath:absoluteName isDirectory:nil])
+		if([DFM fileExistsAtPath:absoluteName])
 		{
 			return [SWS iconForFile:absoluteName];
 		}
@@ -5127,7 +5127,7 @@ To Do List:
 				{
 					NSString * lastComponent = [fullPath lastPathComponent];
 					NSString * target = [projectDirName stringByAppendingPathComponent:lastComponent];
-					if([DFM fileExistsAtPath:target isDirectory:nil])
+					if([DFM fileExistsAtPath:target] || [DFM pathContentOfSymbolicLinkAtPath:path])
 					{
 						problem = YES;
 					}
@@ -5197,7 +5197,7 @@ To Do List:
 		{
 			NSString * lastComponent = [fullPath lastPathComponent];
 			NSString * target = [projectDirName stringByAppendingPathComponent:lastComponent];
-			if([DFM fileExistsAtPath:target isDirectory:nil])
+			if([DFM fileOrLinkExistsAtPath:target])
 			{
 				problem = YES;
 			}
@@ -5271,7 +5271,7 @@ To Do List:
 			NSString * fullPath = [projectDocument absoluteFileNameForKey:fileKey];
 			if(![fullPath pathIsEqual:[projectDocument fileName]]// don't recycle the project
 				&& ![fullPath pathIsEqual:dirName]// nor its containing directory!!!
-					&& [DFM fileExistsAtPath:fullPath isDirectory:nil])
+					&& [DFM fileOrLinkExistsAtPath:fullPath])
 			{
 				// if the file belongs to another project it should not be recycled
 				[recyclable addObject:fileKey];
@@ -6768,7 +6768,7 @@ To Do List:
 		}
 	}
 	path = [url path];
-	if([DFM fileExistsAtPath:path isDirectory:nil])
+	if([DFM fileOrLinkExistsAtPath:path])
 	{
 		NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
 		if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
@@ -7527,7 +7527,7 @@ To Do List:
 					[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove\n%@\nPlease,do it for me now and click OK.",farawayWrapperName]
 								forKey:NSLocalizedDescriptionKey]]];
-					if([DFM fileExistsAtPath:farawayWrapperName isDirectory:nil])
+					if([DFM fileOrLinkExistsAtPath:farawayWrapperName])
 					{
 						if(outErrorPtr)
 						{
@@ -7585,7 +7585,7 @@ createWrapper:
 				iTM2_OUTERROR(1,([NSString stringWithFormat:@"Could not remove the link at %@",linkName]),nil);
 			}
 		}
-		else if([DFM fileExistsAtPath:linkName isDirectory:nil])
+		else if([DFM fileOrLinkExistsAtPath:linkName])
 		{
 			NSString * dirName = [linkName stringByDeletingLastPathComponent];
 			NSString * component = [linkName lastPathComponent];
@@ -9846,7 +9846,7 @@ To Do List:
 		NSString * name = [_NewProjectName stringByStandardizingPath];
 		NSString * absolutePath = [name hasPrefix:iTM2PathComponentsSeparator]? name:
 					[[[self projectDirName] stringByAppendingPathComponent:name] stringByStandardizingPath];
-		if([DFM fileExistsAtPath:absolutePath isDirectory:nil])
+		if([DFM fileOrLinkExistsAtPath:absolutePath])
 			goto more;
 
 		NSBeginAlertSheet(

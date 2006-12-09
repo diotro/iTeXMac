@@ -35,7 +35,7 @@
 @implementation NSFileManager(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepDirectoryAtPath:attributes:error:
 - (BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)outErrorPtr;
-/*"Description forthcoming.
+/*"Description forthcoming. mkdir -p
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
 To Do List:
@@ -44,9 +44,9 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert([path length]);
 	NSString * currentDirectoryPath = [self currentDirectoryPath];
-    if([path isAbsolutePath])
+    if([path isAbsolutePath] && ![self changeCurrentDirectoryPath:NSOpenStepRootDirectory()]
 	{
-        [self changeCurrentDirectoryPath:NSOpenStepRootDirectory()];
+		return NO;
 	}
 	NSEnumerator * E = [[path pathComponents] objectEnumerator];
 	NSString * component;
@@ -59,9 +59,12 @@ To Do List:
 		else if([self fileExistsAtPath:component])
 		{
 			// may be it was a finder alias
-			NSString * fullPath = [[self currentDirectoryPath] stringByAppendingPathComponent:component];
-			NSData * aliasData = [NSData aliasDataWithContentsOfURL:[NSURL fileURLWithPath:fullPath] error:nil];
-			if([self changeCurrentDirectoryPath:[aliasData pathByResolvingDataAliasRelativeTo:nil error:nil]])
+			NSString * fullPath = [self currentDirectoryPath];
+			fullPath = [fullPath stringByAppendingPathComponent:component];
+			NSURL * url = [NSURL fileURLWithPath:fullPath];
+			NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
+			NSString * resolvedPath = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
+			if([self changeCurrentDirectoryPath:resolvedPath])
 			{
 				//that's ok, next slide please
 			}
@@ -127,7 +130,7 @@ To Do List:
     if(![path isAbsolutePath])
         path = [[self currentDirectoryPath] stringByAppendingPathComponent:path];
     path = [path stringByStandardizingPath];
-    if([self fileExistsAtPath:path])
+    if([self fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path])
     {
         return NO;
     }
@@ -153,7 +156,7 @@ To Do List:
     if(![path isAbsolutePath])
         path = [[self currentDirectoryPath] stringByAppendingPathComponent:path];
     path = [path stringByStandardizingPath];
-    if([self fileExistsAtPath:path])
+    if([self fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path])
         return NO;
     else
     {
@@ -176,7 +179,7 @@ To Do List:
         path = [[self currentDirectoryPath] stringByAppendingPathComponent:path];
     path = [path stringByStandardizingPath];
     BOOL isDirectory;
-    oneMoreTime:
+oneMoreTime:
     if([self fileExistsAtPath:path isDirectory:&isDirectory])
     {
         return isDirectory && (!son
@@ -270,7 +273,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([self fileExistsAtPath:path])
+	if([self fileExistsAtPath:path])//traverse links
 	{
 		FSRef ref = {0};
 		OSStatus status = FSPathMakeRef((UInt8 *)[path UTF8String], &ref, NULL);
@@ -338,6 +341,37 @@ To Do List:
 	}
 //iTM2_END;
 	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popDirectory
+- (BOOL)fileOrLinkExistsAtPath:(NSString *)path;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * path = [iTM2FileManagerKitDirectoryStack lastObject];
+	if(path && [self changeCurrentDirectoryPath:path])
+	{
+		[iTM2FileManagerKitDirectoryStack removeLastObject];
+//iTM2_END;
+		return YES;
+	}
+//iTM2_END;
+	return [self fileExistsAtPath:path] || [self linkExistsAtPath:path];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  linkExistsAtPath:
+- (BOOL)linkExistsAtPath:(NSString *)path;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [self pathContentOfSymbolicLinkAtPath:path]!=nil;
 }
 #if 0
 #warning *** DEBUGGING PURPOSE ONLY, to be removed
@@ -557,6 +591,7 @@ To Do List:
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return D;
 	}
+	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
 	const char * src = [attributeName UTF8String];
 	if(strlen(src)>= 256)
 	{
@@ -689,6 +724,7 @@ To Do List:
 //iTM2_START;
 	if(![DFM fileExistsAtPath:path])
 		return NO;
+	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
 	BOOL result = YES;
 	const char * src = [attributeName UTF8String];
 	if(strlen(src)>= 256)
@@ -844,6 +880,7 @@ To Do List:
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return NO;
 	}
+	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
 	BOOL result = YES;
 	const char * src = [attributeName UTF8String];
 	if(strlen(src)>= 256)
@@ -997,7 +1034,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![DFM fileExistsAtPath:path])
+	{
 		return NO;
+	}
+	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
 	BOOL result = YES;
 	FSRef fileSystemReference;
 	if(CFURLGetFSRef((CFURLRef)[NSURL fileURLWithPath:path], &fileSystemReference))
@@ -1242,6 +1282,7 @@ To Do List:
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return D;
 	}
+	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
 	FSRef fileSystemReference;
 	if(CFURLGetFSRef((CFURLRef)[NSURL fileURLWithPath:path], &fileSystemReference))
 	{
@@ -1348,7 +1389,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![DFM fileExistsAtPath:path])
+	{
 		return NO;
+	}
+	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
 	BOOL result = YES;
 	FSRef fileSystemReference;
 	if(CFURLGetFSRef((CFURLRef)[NSURL fileURLWithPath:path], &fileSystemReference))
@@ -1486,7 +1530,7 @@ To Do List:
 	}
 //iTM2_LOG(@"1");
 	NSString * path = [url path];
-	if([DFM fileExistsAtPath:path isDirectory:nil] && ![DFM removeFileAtPath:path handler:NULL])
+	if(([DFM fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path]) && ![DFM removeFileAtPath:path handler:NULL])
 	{
 		if(outErrorPtr)
 		{
@@ -1574,7 +1618,7 @@ To Do List:
 	BOOL isDirectory;
 	base = [base stringByResolvingSymlinksInPath];
 	OSErr theErr;
-	if([[NSFileManager defaultManager] fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory)
+	if([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory)
 	{
 		if(!CFURLGetFSRef ((CFURLRef)[NSURL fileURLWithPath:base], &baseRef))
 		{
@@ -1629,7 +1673,7 @@ To Do List:
 	FSRef * fromFile = NULL;
 	FSRef baseRef;
 	BOOL isDirectory;
-	if([[NSFileManager defaultManager] fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory)
+	if([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory)
 	{
 		if(!CFURLGetFSRef ((CFURLRef)[NSURL fileURLWithPath:base], &baseRef))
 		{
