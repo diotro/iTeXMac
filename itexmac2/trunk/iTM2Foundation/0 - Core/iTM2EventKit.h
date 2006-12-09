@@ -30,8 +30,6 @@
 */
 extern NSString * const iTM2FlagsDidChangeNotification;
 
-typedef KeyMap iTM2KeyMap;
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2EventObserver
 
 @interface iTM2EventObserver : NSObject

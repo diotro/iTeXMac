@@ -1493,7 +1493,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil];
+	iTM2TeXProjectDocument * TPD = [SPC projectForSource:sender];
 	iTM2TaskController * TC = [TPD taskController];
 	NSTask * T = [TC currentTask];
 	if([T isRunning])

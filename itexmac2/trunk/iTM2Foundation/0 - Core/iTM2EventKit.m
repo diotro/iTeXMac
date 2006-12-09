@@ -20,6 +20,7 @@
 */
 
 #import <iTM2Foundation/iTM2EventKit.h>
+#import <Carbon/Carbon.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2EventObserver
 /*"Description forthcoming."*/

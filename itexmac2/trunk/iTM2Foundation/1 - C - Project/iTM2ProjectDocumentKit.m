@@ -6578,6 +6578,8 @@ To Do List:
         return [[[source windowController] document] project];
     else if([source isKindOfClass:[NSView class]])
         return [[[[source window] windowController] document] project];
+    else if([source isKindOfClass:[NSToolbarItem class]])
+        return [self projectForSource:[source view]];
     else if([source isKindOfClass:[NSValue class]])
 	{
 		source = [source nonretainedObjectValue];
