@@ -149,7 +149,7 @@ To Do List:
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_page_ranges,
 				@"", iTM2Dvips_page_ranges,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_max_num_pages,
-				[NSNumber numberWithInt:1], iTM2Dvips_max_num_pages,
+				[NSNumber numberWithInt:0], iTM2Dvips_max_num_pages,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_offset,
 				[NSNumber numberWithFloat:0], iTM2Dvips_x_offset,
 				@"in", iTM2Dvips_x_offset_unit,
