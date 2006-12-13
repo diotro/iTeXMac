@@ -1420,13 +1420,13 @@ To Do List:
 			short refNum = FSOpenResFile(&ref, fsRdPerm);
 			if(resError = ResError())
 			{
-				iTM2_LOG(@"Could not FSOpenResFile, error %i (refNum:%i)", resError, refNum);
+				iTM2_LOG(@"1 - Could not FSOpenResFile, error %i (refNum:%i)", resError, refNum);
 				return YES;
 			}
 			UseResFile(refNum);
 			if(resError = ResError())
 			{
-				iTM2_LOG(@"Could not UseResFile, error %i (refNum:%i)", resError, refNum);
+				iTM2_LOG(@"2 - Could not UseResFile, error %i (refNum:%i)", resError, refNum);
 				CloseResFile(refNum);
 				return YES;
 			}
@@ -1440,25 +1440,27 @@ To Do List:
 				Handle H = Get1IndResource(resourceType, resourceIndex);
 				if((resError = ResError()) || !H)
 				{
-					iTM2_LOG(@"Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"3 - Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_OUTERROR(2,([NSString stringWithFormat:@"3 - Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 					--resourceIndex;
 					goto nextLoop;
 				}
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could use Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"4 - Could use Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
 				}
 				SInt16 resourceID = 0;
 				GetResInfo(H, &resourceID, nil, nil);
 				if(resError = ResError())
 				{
-					iTM2_LOG(@"Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 					--resourceIndex;
 					goto nextLoop;
 				}
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could use GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"6 - Could use GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
 				}
 				HLock(H);
 				NSData * D = [NSData dataWithBytes:*H length:GetHandleSize(H)];
@@ -1466,7 +1468,8 @@ To Do List:
 				ReleaseResource(H);
 				if(resError = ResError())
 				{
-					iTM2_LOG(@"Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"7 - Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"7 - Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 				}
 				id resourceContent = [NSUnarchiver unarchiveObjectWithData:D];
 				if(resourceContent)
@@ -1490,20 +1493,23 @@ To Do List:
 				else
 				{
 					iTM2_LOG(@"ERROR:Could not read resource with ID:%u", resourceID);
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"ERROR:Could not read resource with ID:%u", resourceID]),nil);
 				}
 				--resourceIndex;
 			}
 			CloseResFile(refNum);
 			if(resError = ResError())
 			{
-				iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+				iTM2_LOG(@"8 - Could not CloseResFile, error %i", resError);
+				iTM2_OUTERROR(3,([NSString stringWithFormat:@"8 - Could not CloseResFile, error %i", resError]),nil);
 			}
 			if(wasCurResFile)
 			{
 				UseResFile(curResFile);
 				if(resError = ResError())
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i", resError);
+					iTM2_LOG(@"9 - Could not UseResFile, error %i", resError);
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"9 - Could not UseResFile, error %i", resError]),nil);
 				}
 			}
 		}
@@ -1588,14 +1594,14 @@ To Do List:
 	// only file URLs are supported
 	if(![absoluteURL isFileURL])
 	{
-		iTM2_OUTERROR(1,(@"Only file URLs are supported for writing to."),nil);
+		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Only file URLs are supported for writing to."]),nil);
 		return NO;
 	}
 	NSString * fullDocumentPath = [absoluteURL path];
 	NSString * fullOriginalDocumentPath = nil;
 	if(absoluteOriginalContentsURL && ![absoluteOriginalContentsURL isFileURL])
 	{
-		iTM2_OUTERROR(1,(@"Only file URLs are supported for original contents."),nil);
+		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Only file URLs are supported for original contents."]),nil);
 		// do not return
 	}
 	else
@@ -1610,7 +1616,7 @@ To Do List:
 	NSString * baseName;
 	NSArray * files;
 	int tag = 0;
-	if([DFM fileExistsAtPath:fullDocumentPath] || [DFM pathContentOfSymbolicLinkAtPath:path])
+	if([DFM fileExistsAtPath:fullDocumentPath] || [DFM pathContentOfSymbolicLinkAtPath:fullDocumentPath])
 	{
 		// try to recycle it
 		dirName = [fullDocumentPath stringByDeletingLastPathComponent];
@@ -1622,7 +1628,7 @@ To Do List:
 		}
 		else
 		{
-			iTM2_OUTERROR(tag,(@"Could not recycle already existing file at save location."),nil);
+			iTM2_OUTERROR(tag,([NSString stringWithFormat:@"Could not recycle already existing file at save location."]),nil);
 			iTM2_LOG(@"**** WARNING: Don't be surprised if things don't work as expected...");
 			return NO;
 		}
@@ -1695,7 +1701,7 @@ To Do List:
 						absoluteOriginalContentsURL:%@\n[self fileType]:%@",absoluteOriginalContentsURL,[self fileType]);
 				}
 			}
-			if((![DFM fileExistsAtPath:fullDocumentPath] || ([DFM pathContentOfSymbolicLinkAtPath:path] && [DFM removeFileAtPath:path handler:NULL]))
+			if((![DFM fileExistsAtPath:fullDocumentPath] || ([DFM pathContentOfSymbolicLinkAtPath:fullDocumentPath] && [DFM removeFileAtPath:fullDocumentPath handler:NULL]))
 				&& ![DFM createDirectoryAtPath:fullDocumentPath attributes:nil])
 			{
 				iTM2_OUTERROR(4,([NSString stringWithFormat:@"Could not create a directory at\n%@", fullDocumentPath]),nil);
@@ -1934,15 +1940,26 @@ To Do List:
 				short refNum = FSOpenResFile(&ref, fsWrPerm);
 				if(resError = ResError())
 				{
-					iTM2_LOG(@"Could not FSOpenResFile, error %i, refNum:%i", resError, refNum);
+					iTM2_LOG(@"1 - Could not FSOpenResFile, error %i, refNum:%i", resError, refNum);
 					CloseResFile(refNum);
+					if(resError = ResError())
+					{
+						iTM2_LOG(@"1 - END - Could not CloseResFile, error %i", resError);
+						iTM2_OUTERROR(2,([NSString stringWithFormat:@"1 - END - Could not CloseResFile, error %i", resError]),nil);
+					}
 					return YES;
 				}
                 UseResFile(refNum);
 				if(resError = ResError())
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i, refNum:%i", resError, refNum);
+					iTM2_LOG(@"2 - Could not UseResFile, error %i, refNum:%i", resError, refNum);
+					iTM2_OUTERROR(2,([NSString stringWithFormat:@"2 - Could not UseResFile, error %i, refNum:%i", resError, refNum]),nil);
 					CloseResFile(refNum);
+					if(resError = ResError())
+					{
+						iTM2_LOG(@"2 - End - Could not CloseResFile, error %i", resError);
+						iTM2_OUTERROR(2,([NSString stringWithFormat:@"2 - End - Could not CloseResFile, error %i", resError]),nil);
+					}
 					return YES;
 				}
                 OSType resourceType = [[NSBundle mainBundle] bundleHFSCreatorCode];
@@ -1967,7 +1984,8 @@ To Do List:
                     Handle H = Get1Resource(resourceType, resourceID);
 					if(resError = ResError())
 					{
-						iTM2_LOG(@"Could not Get1Resource, error %i", resError);
+						iTM2_LOG(@"3 - Could not Get1Resource, error %i", resError);
+						iTM2_OUTERROR(2,([NSString stringWithFormat:@"3 - Could not Get1Resource, error %i", resError]),nil);
 						goto onceAgain;
 					}
                     if(H)
@@ -1980,7 +1998,8 @@ To Do List:
 					if(!D) D = [NSData data];
 					if(resError = PtrToHand([D bytes], &H, [D length]))
 					{
-						iTM2_LOG(@"WARNING:Could not convert a Ptr into a handle");
+						iTM2_LOG(@"4 - WARNING:Could not convert a Ptr into a handle");
+						iTM2_OUTERROR(2,([NSString stringWithFormat:@"4 - WARNING:Could not convert a Ptr into a handle"]),nil);
 					}
 					else
                     {
@@ -1989,12 +2008,13 @@ To Do List:
                         HUnlock(H);
 						if(resError = ResError())
 						{
-							iTM2_LOG(@"Could not AddResource, error %i", resError);
+							iTM2_LOG(@"5 - Could not AddResource, error %i", resError);
+							iTM2_OUTERROR(2,([NSString stringWithFormat:@"5 - Could not AddResource, error %i", resError]),nil);
 							DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 						}
                         else if(iTM2DebugEnabled>99)
                         {
-                            iTM2_LOG(@"Resource added:%u", resourceID);
+                            iTM2_LOG(@"6 - Resource added:%u", resourceID);
                         }
 						// DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
                     }
@@ -2002,14 +2022,16 @@ To Do List:
                 CloseResFile(refNum);
 				if(resError = ResError())
 				{
-					iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+					iTM2_LOG(@"7 - Could not CloseResFile, error %i", resError);
+					iTM2_OUTERROR(2,([NSString stringWithFormat:@"7 - Could not CloseResFile, error %i", resError]),nil);
 				}
 				if(wasCurResFile)
 				{
 					UseResFile(curResFile);
 					if(resError = ResError())
 					{
-						iTM2_LOG(@"Could not UseResFile, error %i", resError);
+						iTM2_LOG(@"8 - Could not UseResFile, error %i", resError);
+						iTM2_OUTERROR(2,([NSString stringWithFormat:@"8 - Could not UseResFile, error %i", resError]),nil);
 					}
 				}
             }

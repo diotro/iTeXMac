@@ -117,8 +117,8 @@ typedef struct
     @abstract   Translates a source information into an output information.
     @discussion These are the methods for synchronization.
 				Destinations is a dictionary containing 3 dictionaries for keys @"here", @"before" and @"after".
-				Each dictionary keys are page indexes wrapped in numbers as unsigned ints and
-				values are mutable arrays of points wrapped in NSValue's. Points are expressed in page coordinates,
+				Each dictionary keys are page indexes wrapped in numbers as unsigned ints and corresponding
+				values are mutable arrays of pdfsync points wrapped in NSValue's. Points are expressed in page coordinates,
 				as expected by Mac OS X (bp vs pt, this might be a strange affair because it is not clear what TeX gives...)
     @param      line is a line number.
     @param      column is a column number.

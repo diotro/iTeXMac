@@ -91,6 +91,13 @@ To Do List:
 
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 
+@interface iTM2TeXEditor(comment)
+- (void)commentSelectedTextWhenUndoRegistrationEnabled:(id)sender;
+- (void)commentSelectedTextWhenUndoRegistrationDisabled:(id)sender;
+- (void)willChangeSelectedRanges;
+- (void)didChangeSelectedRanges;
+@end
+
 @implementation iTM2TeXEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
 - (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
@@ -241,7 +248,7 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+//iTM2_START;
     if(!_iTMTVFlags.smartInsert || _iTMTVFlags.isEscaped || _iTMTVFlags.isDeepEscaped)
     {
         [self insertText:@"_"];
@@ -265,7 +272,7 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+//iTM2_START;
 //NSLog(NSStringFromRange([self selectedRange]));
 //NSLog(NSStringFromRange([self markedRange]));
     if(!_iTMTVFlags.smartInsert || _iTMTVFlags.isEscaped || _iTMTVFlags.isDeepEscaped)
@@ -301,7 +308,7 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+//iTM2_START;
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
@@ -326,7 +333,7 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+//iTM2_START;
     BOOL escaped;
     NSRange R = [self selectedRange];
     if(!R.location || ![[self string] isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
@@ -343,7 +350,7 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+//iTM2_START;
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
@@ -364,7 +371,7 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+//iTM2_START;
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
@@ -381,7 +388,7 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+//iTM2_START;
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
@@ -419,9 +426,209 @@ Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
 To Do List: Nothing at first glance.
 "*/
-{
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
     [self insertText:[self tabAnchor]];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelectedText:
+- (void)commentSelectedText:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self commentSelectedTextWhenUndoRegistrationEnabled:(id)sender];
+	[self commentSelectedTextWhenUndoRegistrationDisabled:(id)sender];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelectedTextWhenUndoRegistrationDisabled:
+- (void)commentSelectedTextWhenUndoRegistrationDisabled:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSUndoManager * UM = [self undoManager];
+	if([UM isUndoRegistrationEnabled])
+	{
+		return;
+	}
+	NSString * commentString = [NSString commentString];
+	NSMutableArray * affectedRanges = [NSMutableArray array];
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	NSString * S = [self string];
+	NSArray * selectedRanges = [self selectedRanges];
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	NSValue * V;
+	NSRange R;
+	while(V = [E nextObject])
+	{
+		NSRange R = [V rangeValue];
+		unsigned int nextStart,top;
+		top = NSMaxRange(R);
+		R.length = 0;
+		[S getLineStart:&R.location end:&nextStart contentsEnd:nil forRange:R];
+		V = [NSValue valueWithRange:R];
+		if(![affectedRanges containsObject:V])
+		{
+			[affectedRanges addObject:V];
+			[replacementStrings addObject:commentString];
+		}
+		while (nextStart<top)
+		{
+			R.location = nextStart;
+			V = [NSValue valueWithRange:R];
+			if(![affectedRanges containsObject:V])
+			{
+				[affectedRanges addObject:V];
+				[replacementStrings addObject:commentString];
+			}
+			[S getLineStart:nil end:&nextStart contentsEnd:nil forRange:R];
+		}
+	}
+	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		unsigned int shift = 0;
+		NSEnumerator * E = [affectedRanges objectEnumerator];// no reverse to properly manage the selection
+		affectedRanges = [NSMutableArray array];
+		// no need to enumerate the replacementStrings
+		while(V = [E nextObject])
+		{
+			R = [V rangeValue];
+			R.location += shift;
+			[self replaceCharactersInRange:R withString:commentString];
+			[S getLineStart:nil end:&R.length contentsEnd:nil forRange:R];
+			R.length -= R.location;
+			V = [NSValue valueWithRange:R];
+			[affectedRanges addObject:V];
+			++shift;
+		}
+		[self didChangeText];
+		[self setSelectedRanges:affectedRanges];
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelectedTextWhenUndoRegistrationEnabled:
+- (void)commentSelectedTextWhenUndoRegistrationEnabled:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSUndoManager * UM = [self undoManager];
+	if(![UM isUndoRegistrationEnabled])
+	{
+		return;
+	}
+	NSString * commentString = [NSString commentString];
+	NSMutableArray * affectedRanges = [NSMutableArray array];
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	NSString * S = [self string];
+	NSArray * selectedRanges = [self selectedRanges];
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	NSValue * V;
+	NSRange R;
+	while(V = [E nextObject])
+	{
+		NSRange R = [V rangeValue];
+		unsigned int nextStart,top;
+		top = NSMaxRange(R);
+		R.length = 0;
+		[S getLineStart:&R.location end:&nextStart contentsEnd:nil forRange:R];
+		V = [NSValue valueWithRange:R];
+		if(![affectedRanges containsObject:V])
+		{
+			[affectedRanges addObject:V];
+			[replacementStrings addObject:commentString];
+		}
+		while (nextStart<top)
+		{
+			R.location = nextStart;
+			V = [NSValue valueWithRange:R];
+			if(![affectedRanges containsObject:V])
+			{
+				[affectedRanges addObject:V];
+				[replacementStrings addObject:commentString];
+			}
+			[S getLineStart:nil end:&nextStart contentsEnd:nil forRange:R];
+		}
+	}
+	[UM beginUndoGrouping];
+	[self willChangeSelectedRanges];
+	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		unsigned int shift = 0;
+		NSEnumerator * E = [affectedRanges objectEnumerator];// no reverse enumerator to properly manage the selection
+		affectedRanges = [NSMutableArray array];
+		// no need to enumerate the replacementStrings
+		while(V = [E nextObject])
+		{
+			R = [V rangeValue];
+			R.location += shift;
+			[self replaceCharactersInRange:R withString:commentString];
+			[S getLineStart:nil end:&R.length contentsEnd:nil forRange:R];
+			R.length -= R.location;
+			V = [NSValue valueWithRange:R];
+			[affectedRanges addObject:V];
+			++shift;
+		}
+		[self didChangeText];
+		[self setSelectedRanges:affectedRanges];
+	}
+	[self didChangeSelectedRanges];
+	[UM endUndoGrouping];
+iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willChangeSelectedRanges
+- (void)willChangeSelectedRanges;
+/*"Register the actual selected ranges for an eventual undo action.
+Wen undoing a will action becomes a did acion and conversely.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+iTM2_START;
+	NSArray * actualSelectedRange = [self selectedRanges];
+	NSUndoManager * UM = [self undoManager];
+	[UM registerUndoWithTarget:self selector:@selector(setSelectedRanges:) object:actualSelectedRange];
+	[UM registerUndoWithTarget:self selector:@selector(didChangeSelectedRanges) object:nil];
+iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didChangeSelectedRanges
+- (void)didChangeSelectedRanges;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+iTM2_START;
+	NSUndoManager * UM = [self undoManager];
+	[UM registerUndoWithTarget:self selector:@selector(willChangeSelectedRanges) object:nil];
+iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uncommentSelectedText:
+- (void)uncommentSelectedText:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  shouldChangeTextInRanges:replacementStrings:

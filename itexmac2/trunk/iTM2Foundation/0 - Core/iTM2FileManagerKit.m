@@ -25,6 +25,7 @@
 #import <sys/stat.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 #import <iTM2Foundation/MoreFilesX.h>
+#import <iTM2Foundation/iTM2PathUtilities.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
@@ -44,7 +45,7 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert([path length]);
 	NSString * currentDirectoryPath = [self currentDirectoryPath];
-    if([path isAbsolutePath] && ![self changeCurrentDirectoryPath:NSOpenStepRootDirectory()]
+    if([path isAbsolutePath] && ![self changeCurrentDirectoryPath:NSOpenStepRootDirectory()])
 	{
 		return NO;
 	}
@@ -351,13 +352,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * path = [iTM2FileManagerKitDirectoryStack lastObject];
-	if(path && [self changeCurrentDirectoryPath:path])
-	{
-		[iTM2FileManagerKitDirectoryStack removeLastObject];
-//iTM2_END;
-		return YES;
-	}
 //iTM2_END;
 	return [self fileExistsAtPath:path] || [self linkExistsAtPath:path];
 }
@@ -467,8 +461,9 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not FSOpenResFile, error %i (fileSystemReferenceNumber: %i)", resError, fileSystemReferenceNumber);
+				iTM2_LOG(@"1 - Could not FSOpenResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 			}
+			iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"1 - Could not FSOpenResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber]),nil);
 			return nil;
 		}
 		UseResFile(fileSystemReferenceNumber);
@@ -476,9 +471,18 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not UseResFile, error %i (fileSystemReferenceNumber: %i)", resError, fileSystemReferenceNumber);
+				iTM2_LOG(@"2 - Could not UseResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 			}
+			iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"2 - Could not UseResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber]),nil);
 			CloseResFile(fileSystemReferenceNumber);
+			if(resError = ResError())
+			{
+				if(iTM2DebugEnabled)
+				{
+					iTM2_LOG(@"2-Last - Could not CloseResFile, error %i", resError);
+				}
+				iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"2-Last - Could not CloseResFile, error %i", resError]),nil);
+			}
 			return nil;
 		}
 		SInt16 resourceIndex = Count1Resources(resourceType);
@@ -490,17 +494,15 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"3 - Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
 				}
+				iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"3 - Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 				--resourceIndex;
 				goto nextLoop;
 			}
 			if(iTM2DebugEnabled)
 			{
-				if(iTM2DebugEnabled)
-				{
-					iTM2_LOG(@"Could use Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
-				}
+				iTM2_LOG(@"4 - Could use Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
 			}
 			Str255 resourceName;
 			GetResInfo(H, nil, nil, resourceName);
@@ -508,14 +510,15 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
 				}
+				iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 				--resourceIndex;
 				goto nextLoop;
 			}
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could use GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+				iTM2_LOG(@"6 - Could use GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
 			}
 			HLock(H);
 			NSData * D = [NSData dataWithBytes:*H length:GetHandleSize(H)];
@@ -525,8 +528,9 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"7 - Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex);
 				}
+				iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"7 - Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 			}
 			Str255 dst;
 			memcpy(dst, resourceName+1, resourceName[0]);
@@ -541,8 +545,9 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+				iTM2_LOG(@"8 - Could not CloseResFile, error %i", resError);
 			}
+			iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"8 - Could not CloseResFile, error %i", resError]),nil);
 		}
 		if(wasCurResFile)
 		{
@@ -551,9 +556,10 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i", resError);
+					iTM2_LOG(@"9 - Could not UseResFile, error %i", resError);
 				}
 			}
+			iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"9 - Could not UseResFile, error %i", resError]),nil);
 		}
 		return MD;
 	}
@@ -611,7 +617,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not FSOpenResFile, error %i (fileSystemReferenceNumber: %i)", resError, fileSystemReferenceNumber);
+				iTM2_LOG(@"1 - Could not FSOpenResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -624,7 +630,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not UseResFile, error %i (fileSystemReferenceNumber: %i)", resError, fileSystemReferenceNumber);
+				iTM2_LOG(@"2 - Could not UseResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -641,7 +647,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
+				iTM2_LOG(@"3 - Could not Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -661,7 +667,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not ReleaseResource, error %i (attributeName is %@)", resError, attributeName);
+				iTM2_LOG(@"4 - Could not ReleaseResource, error %i (attributeName is %@)", resError, attributeName);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -673,7 +679,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+				iTM2_LOG(@"5 - Could not CloseResFile, error %i", resError);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -687,7 +693,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i", resError);
+					iTM2_LOG(@"6 - Could not UseResFile, error %i", resError);
 				}
 				if(outErrorPtr)
 					* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -746,7 +752,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not FSOpenResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
 				CloseResFile(fileSystemReferenceNumber);
 				return NO;
@@ -756,7 +762,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"2 - Could not UseResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
 				CloseResFile(fileSystemReferenceNumber);
 				return NO;
@@ -769,12 +775,12 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
+					iTM2_LOG(@"3 - Could not Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
 				}
 			}
 			else if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could use Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
+				iTM2_LOG(@"4 - Could use Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
 			}
 			short resourceID;
 			if(H)
@@ -784,12 +790,12 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not GetResInfo, error %i (attributeName is %@)", resError, attributeName);
+						iTM2_LOG(@"5 - Could not GetResInfo, error %i (attributeName is %@)", resError, attributeName);
 					}
 				}
 				else if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could use GetResInfo, error %i (attributeName is %@)", resError, attributeName);
+					iTM2_LOG(@"6 - Could use GetResInfo, error %i (attributeName is %@)", resError, attributeName);
 				}
 				RemoveResource(H);
 				DisposeHandle(H);
@@ -806,7 +812,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"WARNING: Could not convert a Ptr into a handle");
+					iTM2_LOG(@"7 - WARNING: Could not convert a Ptr into a handle");
 				}
 			}
 			else
@@ -818,20 +824,20 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not AddResource, error %i", resError);
+						iTM2_LOG(@"8 - Could not AddResource, error %i", resError);
 					}
 					DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 				}
 				else if(iTM2DebugEnabled>99)
 				{
-					iTM2_LOG(@"Resource added: %u", resourceID);
+					iTM2_LOG(@"9 - Resource added: %u", resourceID);
 				}
 				// DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 			}
 			CloseResFile(fileSystemReferenceNumber);
 			if(resError = ResError())
 			{
-				iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+				iTM2_LOG(@"10 - Could not CloseResFile, error %i", resError);
 			}
 			if(wasCurResFile)
 			{
@@ -840,7 +846,7 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not UseResFile, error %i", resError);
+						iTM2_LOG(@"11 - Could not UseResFile, error %i", resError);
 					}
 				}
 			}
@@ -907,7 +913,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not FSOpenResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
 				CloseResFile(fileSystemReferenceNumber);
 				if(outErrorPtr)
@@ -921,7 +927,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"2 - Could not UseResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
 				CloseResFile(fileSystemReferenceNumber);
 				if(outErrorPtr)
@@ -1033,7 +1039,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![DFM fileExistsAtPath:path])
+	BOOL isDirectory = NO;
+	if(![DFM fileExistsAtPath:path isDirectory:&isDirectory] || isDirectory)
 	{
 		return NO;
 	}
@@ -1050,15 +1057,23 @@ To Do List:
 			BOOL wasCurResFile = (noErr == ResError());
 			NSDictionary * fileAttributes = [DFM fileAttributesAtPath:path traverseLink:NO];
 			FSpCreateResFile(&spec, [fileAttributes fileHFSCreatorCode], [fileAttributes fileHFSTypeCode], smRoman);
+			if(resError = ResError())
+			{
+				if(iTM2DebugEnabled)
+				{
+					iTM2_LOG(@"0 - Could not FSpCreateResFile, error %i", resError);
+				}
+			}
 			// no error check needed
 			short fileSystemReferenceNumber = FSOpenResFile(&fileSystemReference, fsWrPerm);
 			if(resError = ResError())
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not FSOpenResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
 				CloseResFile(fileSystemReferenceNumber);
+				iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber]),nil);
 				return NO;
 			}
 			UseResFile(fileSystemReferenceNumber);
@@ -1066,8 +1081,9 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"2 - Could not UseResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
+				iTM2_OUTERROR(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"2 - Could not UseResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber]),nil);
 				CloseResFile(fileSystemReferenceNumber);
 				return NO;
 			}
@@ -1090,28 +1106,30 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
+						iTM2_LOG(@"3 - Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
+						iTM2_OUTERROR(3,([NSString stringWithFormat:@"3 - Could not Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 					}
 					--resourceIndex;
 					goto nextLoop;
 				}
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could use Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"4 - Could use Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
 				}
 				GetResInfo(H, &resourceID, nil, resourceName);
 				if(resError = ResError())
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+						iTM2_LOG(@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+						iTM2_OUTERROR(3,([NSString stringWithFormat:@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 					}
 					--resourceIndex;
 					goto nextLoop;
 				}
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could use GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
+					iTM2_LOG(@"6 - Could use GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
 				}
 				Str255 dst;
 				memcpy(dst, resourceName+1, resourceName[0]);
@@ -1124,7 +1142,7 @@ To Do List:
 					{
 						if(iTM2DebugEnabled)
 						{
-							iTM2_LOG(@"Could not RemoveResource, error %i (resourceIndex is %i)", resError, resourceIndex);
+							iTM2_LOG(@"7 - Could not RemoveResource, error %i (resourceIndex is %i)", resError, resourceIndex);
 						}
 					}
 					DisposeHandle(H);
@@ -1148,13 +1166,13 @@ To Do List:
 							{
 								if(iTM2DebugEnabled)
 								{
-									iTM2_LOG(@"Could not AddResource, error %i", resError);
+									iTM2_LOG(@"8 - Could not AddResource, error %i", resError);
 								}
 								DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 							}
 							else if(iTM2DebugEnabled>99)
 							{
-								iTM2_LOG(@"Resource added: %u", resourceID);
+								iTM2_LOG(@"9 - Resource added: %u", resourceID);
 							}
 							// DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 						}
@@ -1185,7 +1203,7 @@ To Do List:
 						{
 							if(iTM2DebugEnabled)
 							{
-								iTM2_LOG(@"WARNING: Could not convert a Ptr into a handle");
+								iTM2_LOG(@"10 - WARNING: Could not convert a Ptr into a handle");
 							}
 							result = NO;
 						}
@@ -1196,7 +1214,7 @@ To Do List:
 							{
 								if(iTM2DebugEnabled)
 								{
-									iTM2_LOG(@"WARNING: Could not find a unique ID %i", resError);
+									iTM2_LOG(@"11 - WARNING: Could not find a unique ID %i", resError);
 								}
 								result = NO;
 							}
@@ -1209,14 +1227,14 @@ To Do List:
 								{
 									if(iTM2DebugEnabled)
 									{
-										iTM2_LOG(@"Could not AddResource, error %i", resError);
+										iTM2_LOG(@"12 - Could not AddResource, error %i", resError);
 									}
 									DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 									result = NO;
 								}
 								else if(iTM2DebugEnabled>99)
 								{
-									iTM2_LOG(@"Resource added: %u", resourceID);
+									iTM2_LOG(@"13 - Resource added: %u", resourceID);
 								}
 								// DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 							}
@@ -1237,7 +1255,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+					iTM2_LOG(@"14 - Could not CloseResFile, error %i", resError);
 				}
 			}
 			if(wasCurResFile)
@@ -1247,7 +1265,7 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not UseResFile, error %i", resError);
+						iTM2_LOG(@"15 - Could not UseResFile, error %i", resError);
 					}
 				}
 			}
@@ -1255,7 +1273,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"ERROR: Some attributes were not accepted (bad data, bad key)%@", badAttributes);
+					iTM2_LOG(@"16 - ERROR: Some attributes were not accepted (bad data, bad key)%@", badAttributes);
 				}
 				result = NO;
 			}
@@ -1282,7 +1300,7 @@ To Do List:
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return D;
 	}
-	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	path = [path stringByResolvingSymlinksInPath];// no finder alias resolution!!!
 	FSRef fileSystemReference;
 	if(CFURLGetFSRef((CFURLRef)[NSURL fileURLWithPath:path], &fileSystemReference))
 	{
@@ -1294,7 +1312,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not FSOpenResFile, error %i (fileSystemReferenceNumber: %i)", resError, fileSystemReferenceNumber);
+				iTM2_LOG(@"1 - Could not FSOpenResFile at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -1307,7 +1325,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not UseResFile, error %i (fileSystemReferenceNumber: %i)", resError, fileSystemReferenceNumber);
+				iTM2_LOG(@"2 - Could not UseResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -1321,7 +1339,8 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not Get1Resource, error %i (resourceID is %i)", resError, resourceID);
+				iTM2_LOG(@"3 - Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID);
+				iTM2_OUTERROR(2,([NSString stringWithFormat:@"Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID]),nil);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -1331,7 +1350,7 @@ To Do List:
 		}
 		if(iTM2DebugEnabled)
 		{
-			iTM2_LOG(@"Could use Get1Resource, error %i (resourceID is %i)", resError, resourceID);
+			iTM2_LOG(@"4 - Could use Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID);
 		}
 		HLock(H);
 		D = [NSData dataWithBytes:*H length:GetHandleSize(H)];
@@ -1341,7 +1360,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not ReleaseResource, error %i (resourceID is %@)", resError, resourceID);
+				iTM2_LOG(@"5 - Could not ReleaseResource, at %@ error %i (resourceID is %@)",path,resError,resourceID);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -1353,7 +1372,7 @@ To Do List:
 		{
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+				iTM2_LOG(@"6 - Could not CloseResFile, error %i", resError);
 			}
 			if(outErrorPtr)
 				* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -1367,7 +1386,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i", resError);
+					iTM2_LOG(@"7 - Could not UseResFile, error %i", resError);
 				}
 				if(outErrorPtr)
 					* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__]
@@ -1392,7 +1411,7 @@ To Do List:
 	{
 		return NO;
 	}
-	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	path = [path stringByResolvingSymlinksInPath];// No Finder alias resolution!!! because I can have to add an extended attribute to a, alias file.
 	BOOL result = YES;
 	FSRef fileSystemReference;
 	if(CFURLGetFSRef((CFURLRef)[NSURL fileURLWithPath:path], &fileSystemReference))
@@ -1411,7 +1430,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not FSOpenResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
 				CloseResFile(fileSystemReferenceNumber);
 				return NO;
@@ -1421,9 +1440,16 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not UseResFile, error %i, fileSystemReferenceNumber: %i", resError, fileSystemReferenceNumber);
+					iTM2_LOG(@"2 - Could not UseResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 				}
 				CloseResFile(fileSystemReferenceNumber);
+				if(resError = ResError())
+				{
+					if(iTM2DebugEnabled)
+					{
+						iTM2_LOG(@"2-End - Could not CloseResFile, at %@ error %i (resourceID is %i)", path,resError,resourceID);
+					}
+				}
 				return NO;
 			}
 			Handle H = Get1Resource(resourceType, resourceID);
@@ -1431,18 +1457,20 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Could not Get1Resource, error %i (resourceID is %i)", resError, resourceID);
+					iTM2_LOG(@"3 - Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID);
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"3 - Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID]),nil);
 				}
 			}
 			else if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Could use Get1Resource, error %i (resourceID is %i)", resError, resourceID);
+				iTM2_LOG(@"4 - Could use Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID);
 			}
 			if(resError = PtrToHand([D bytes], &H, [D length]))
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"WARNING: Could not convert a Ptr into a handle");
+					iTM2_LOG(@"5 - WARNING: Could not convert a Ptr into a handle");
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"5 - WARNING: Could not convert a Ptr into a handle"]),nil);
 				}
 			}
 			else
@@ -1472,20 +1500,21 @@ createSrc:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not AddResource, error %i", resError);
+						iTM2_LOG(@"6 - Could not AddResource, error %i", resError);
 					}
 					DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 				}
 				else if(iTM2DebugEnabled>99)
 				{
-					iTM2_LOG(@"Resource added: %u", resourceID);
+					iTM2_LOG(@"7 - Resource added: %u", resourceID);
 				}
 				// DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 			}
 			CloseResFile(fileSystemReferenceNumber);
 			if(resError = ResError())
 			{
-				iTM2_LOG(@"Could not CloseResFile, error %i", resError);
+				iTM2_LOG(@"8 - Could not CloseResFile, error %i", resError);
+				iTM2_OUTERROR(3,([NSString stringWithFormat:@"8 - Could not CloseResFile, error %i", resError]),nil);
 			}
 			if(wasCurResFile)
 			{
@@ -1494,8 +1523,9 @@ createSrc:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Could not UseResFile, error %i", resError);
+						iTM2_LOG(@"9 - Could not UseResFile, error %i", resError);
 					}
+					iTM2_OUTERROR(3,([NSString stringWithFormat:@"9 - Could not UseResFile, error %i", resError]),nil);
 				}
 			}
 		}
@@ -1507,7 +1537,7 @@ else NSLog(@"No spec");
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSFileManager(iTeXMac2)
 
-@implementation NSData(iTM2ALias)
+@implementation NSData(iTM2Alias)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeAsFinderAliasToURL:options:error:
 - (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
@@ -1517,7 +1547,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"0");
+iTM2_LOG(@"url:%@",url);
 	if(![url isFileURL])
 	{
 		if(outErrorPtr)
@@ -1582,6 +1612,16 @@ To Do List:
 			{
 				return NO;
 			}
+			if(iTM2DebugEnabled)
+			{
+				NSError * error = nil;
+				NSData * d = [NSData aliasDataWithContentsOfURL:url error:&error];
+				if(![self isEqualToData:d])
+				{
+					d = [NSData aliasDataWithContentsOfURL:url error:&error];
+				}
+				NSAssert([self isEqualToData:d],@"**** There is a big problem: the alias is not persistent");
+ 			}
 //iTM2_LOG(@"6");
 		}
 	}
@@ -1589,8 +1629,128 @@ To Do List:
 //iTM2_END;
 	return result;
 }
+
+#if 0
+http://developer.apple.com/technotes/tn/tn1188.html
+/* MakeRelativeAliasFile creates a new alias file located at
+    aliasDest referring to the targetFile.  relative path
+    information is stored in the new file. */
+
+OSErr MakeRelativeAliasFile(FSSpec *targetFile, FSSpec *aliasDest) {
+    FInfo fndrInfo;
+    AliasHandle theAlias;
+    Boolean fileCreated;
+    short rsrc;
+    OSErr err;
+        /* set up locals */
+    theAlias = NULL;
+    fileCreated = false;
+    rsrc = -1;
+        /* set up our the alias' file information */
+    err = FSpGetFInfo(targetFile, &fndrInfo);
+    if (err != noErr) goto bail;
+    if (fndrInfo.fdType == 'APPL')
+        fndrInfo.fdType = kApplicationAliasType;
+    fndrInfo.fdFlags = kIsAlias; /* implicitly clear the inited bit */
+        /* create the new file */
+    FSpCreateResFile(aliasDest, 'TEMP', 'TEMP', smSystemScript);
+    if ((err = ResError()) != noErr) goto bail;
+    fileCreated = true;
+        /* set the file information or the new file */
+    err = FSpSetFInfo(aliasDest, &fndrInfo);
+    if (err != noErr) goto bail;
+        /* create the alias record, relative to the new alias file */
+    err = NewAlias(aliasDest, targetFile, &theAlias);
+    if (err != noErr) goto bail;
+        /* save the resource */
+    rsrc = FSpOpenResFile(aliasDest, fsRdWrPerm);
+    if (rsrc == -1) { err = ResError(); goto bail; }
+    UseResFile(rsrc);
+    AddResource((Handle) theAlias, rAliasType, 0, aliasDest->name);
+    if ((err = ResError()) != noErr) goto bail;
+    theAlias = NULL;
+    CloseResFile(rsrc);
+    rsrc = -1;
+    if ((err = ResError()) != noErr) goto bail;
+        /* done */
+    return noErr;
+bail:
+    if (rsrc != -1) CloseResFile(rsrc);
+    if (fileCreated) FSpDelete(aliasDest);
+    if (theAlias != NULL) DisposeHandle((Handle) theAlias);
+    return err;
+}
+// 10.4 savvy:
+OSErr MakeRelativeAliasFile(FSSpec *targetFile, FSSpec *aliasDest) {
+    FInfo fndrInfo;// only for compatibility
+    AliasHandle theAlias;
+    Boolean fileCreated;
+    short rsrc;
+    OSErr err;
+        /* set up locals */
+    theAlias = NULL;
+    fileCreated = false;
+    rsrc = -1;
+        /* set up our the alias' file information */
+//Deprecated:    err = FSpGetFInfo(targetFile, &fndrInfo);
+	extern OSErr  FSGetCatalogInfo(const FSRef *ref, FSCatalogInfoBitmap whichInfo, FSCatalogInfo *catalogInfo, HFSUniStr255 *outName, FSSpec *fsSpec, FSRef *parentRef) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+    if (err != noErr) goto bail;
+    if (fndrInfo.fdType == 'APPL')
+        fndrInfo.fdType = kApplicationAliasType;
+    fndrInfo.fdFlags = kIsAlias; /* implicitly clear the inited bit */
+        /* create the new file */
+    FSpCreateResFile(aliasDest, 'TEMP', 'TEMP', smSystemScript);// not thread safe
+    if ((err = ResError()) != noErr) goto bail;
+    fileCreated = true;
+        /* set the file information or the new file */
+//Deprecated:    err = FSpSetFInfo(aliasDest, &fndrInfo);
+	extern OSErr  FSSetCatalogInfo(const FSRef *ref, FSCatalogInfoBitmap whichInfo, const FSCatalogInfo *catalogInfo)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+    if (err != noErr) goto bail;
+        /* create the alias record, relative to the new alias file */
+//Deprecated:    err = NewAlias(aliasDest, targetFile, &theAlias);
+
+	extern OSErr 
+FSNewAlias(
+  const FSRef *  fromFile,       /* can be NULL */
+  const FSRef *  target,
+  AliasHandle *  inAlias)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+    if (err != noErr) goto bail;
+        /* save the resource */
+    rsrc = FSpOpenResFile(aliasDest, fsRdWrPerm);
+    if (rsrc == -1) { err = ResError(); goto bail; }
+    UseResFile(rsrc);
+    AddResource((Handle) theAlias, rAliasType, 0, aliasDest->name);
+    if ((err = ResError()) != noErr) goto bail;
+    theAlias = NULL;
+    CloseResFile(rsrc);
+    rsrc = -1;
+    if ((err = ResError()) != noErr) goto bail;
+        /* done */
+    return noErr;
+bail:
+    if (rsrc != -1) CloseResFile(rsrc);
+    if (fileCreated) //Deprecated:FSpDelete(aliasDest);
+	extern OSErr  FSDeleteObject(const FSRef * ref)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+    if (theAlias != NULL) DisposeHandle((Handle) theAlias);
+    return err;
+}
+
+The basic summary is that the Finder alias is a resource file, with one 'alis' resource inside. The sample Apple provides makes a relative alias, but you can also create a non-relative (absolute) alias by passing NULL for the "fromFile" parameter of NewAlias?. There are two important bits of metadata that you must set on the file:
+
+First, set the "kIsAlias" bit in the flags (FileInfo?.finderFlags or FInfo?.fdFlags). When you set it, you must also clear the "kHasBeenInited" bit, which tells the Finder that you've been poking around with the file, so that it can fix it up if needed.
+
+Second, set the file type of the alias (FileInfo?.fileType or FInfo?.fdType). If you look in CarbonCore/Finder.h, you'll see a bunch of special alias file types. These are used by the Finder to provide special icons for certain kinds of aliases. You should make an attempt to set the type correctly, but the list is rather large so it might not be simple to do so for all possible alias targets. If you're just creating one particular type of alias it's easier. (The Apple sample code above checked for the application type, 'APPL', and set the file type to kApplicationAliasType / 'adrp'.)
+
+http://www.cocoadev.com/index.pl?CreatingFinderTypeAliases
+
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  aliasDataWithContentsOfURL:error:
-+ (NSData *)aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
++ (NSData *)aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1601,11 +1761,11 @@ To Do List:
 
 //iTM2_END;
 	return [absoluteURL isFileURL]?
-		[DFM extendedFileAttributeWithResourceType:'alis' resourceID:0 atPath:[absoluteURL path] error:nil]
+		[DFM extendedFileAttributeWithResourceType:'alis' resourceID:0 atPath:[absoluteURL path] error:outErrorPtr]
 		: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathByResolvingDataAlias:relativeTo:error:
-- (NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)error;
+- (NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1652,8 +1812,8 @@ To Do List:
 //iTM2_END;
 	return [NSString stringWithUTF8String:(const char *)path];
 jail:
-	if(error)
-		*error = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:theErr userInfo:nil];
+	if(outErrorPtr)
+		*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:theErr userInfo:nil];
 //iTM2_END;
 	return nil;
 }
@@ -1661,7 +1821,7 @@ jail:
 
 @implementation NSString(iTM2FileManagerKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataAliasRelativeTo:error:
-- (NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)error;
+- (NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1677,8 +1837,8 @@ To Do List:
 	{
 		if(!CFURLGetFSRef ((CFURLRef)[NSURL fileURLWithPath:base], &baseRef))
 		{
-			if(error)
-				*error = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1 userInfo:nil];
+			if(outErrorPtr)
+				*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1 userInfo:nil];
 			return nil;
 		}
 		fromFile = &baseRef;
@@ -1687,8 +1847,8 @@ To Do List:
 	NSString * dirName = [self stringByDeletingLastPathComponent];
 	if(!CFURLGetFSRef ((CFURLRef)[NSURL fileURLWithPath:dirName], &targetParentRef))
 	{
-		if(error)
-			*error = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2 userInfo:nil];
+		if(outErrorPtr)
+			*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2 userInfo:nil];
 		return nil;
 	}
 	NSString * baseName = [self lastPathComponent];
@@ -1731,8 +1891,8 @@ To Do List:
 	}
 	goto theEnd;
 jail:
-	if(error)
-		*error = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:theErr userInfo:nil];
+	if(outErrorPtr)
+		*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:theErr userInfo:nil];
 theEnd:
 //iTM2_END;
 	free(targetName);

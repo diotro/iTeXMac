@@ -77,7 +77,7 @@
 			PBXWorkspaceStateSaveDate = 187380389;
 		};
 		perUserProjectItems = {
-			DC3B424D0A4AE19600E83ABA = DC3B424D0A4AE19600E83ABA /* PBXBookmark */;
+			DC3B424D0A4AE19600E83ABA /* PBXBookmark */ = DC3B424D0A4AE19600E83ABA /* PBXBookmark */;
 		};
 		sourceControlManager = DC520432088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {

@@ -471,7 +471,7 @@ To Do List:
 		// we try to move the project to that folder
 		NSString * expected = [projectFileName lastPathComponent];
 		expected = [enclosingDirectory stringByAppendingPathComponent:expected];
-		if([DFM fileExistsAtPath:expected] || [DFM pathContentOfSymbolicLinkAtPath:path])
+		if([DFM fileExistsAtPath:expected] || [DFM pathContentOfSymbolicLinkAtPath:expected])
 		{
 			if(![DFM removeFileAtPath:expected handler:nil])
 			{
@@ -2818,8 +2818,8 @@ To Do List:
 					[@"This directory contains finder aliases to files the project is aware of.\niTeXMac2" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
 				}
 				path = [subdirectory stringByAppendingPathComponent:key];
-	//iTM2_LOG(@"fileName is: %@",fileName);
-	//iTM2_LOG(@"path is: %@",path);
+iTM2_LOG(@"alias to fileName: %@",fileName);
+iTM2_LOG(@"stored at path: %@",path);
 				[DFM removeFileAtPath:path handler:NULL];
 				if([DFM fileExistsAtPath:fileName])
 				{
@@ -2849,10 +2849,20 @@ To Do List:
 								iTM2_LOG(@"*** ERROR: Could not write an alias to %@ at %@ (report bug)",fileName,path);
 							}
 						}
-						else if(iTM2DebugEnabled)
+						else if(iTM2DebugEnabled>200)
 						{
-							aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
-							NSString * target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
+#warning: there is a big problem here
+							// the operation is not revertible
+							NSAssert1((aliasData = [NSData aliasDataWithContentsOfURL:url error:&localError]),@"Error: alias was just saved at %@",url);
+							if(localError)
+							{
+								[SDC presentError:localError];
+							}
+							NSString * target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:&localError];
+							if(localError)
+							{
+								[SDC presentError:localError];
+							}
 							NSAssert2([target pathIsEqual:[fileName stringByResolvingSymlinksAndFinderAliasesInPath]],@"Error unexpected difference\n%@\nvs\n%@ (report bug)",fileName,target);
 						}
 					}
@@ -5127,7 +5137,7 @@ To Do List:
 				{
 					NSString * lastComponent = [fullPath lastPathComponent];
 					NSString * target = [projectDirName stringByAppendingPathComponent:lastComponent];
-					if([DFM fileExistsAtPath:target] || [DFM pathContentOfSymbolicLinkAtPath:path])
+					if([DFM fileExistsAtPath:target] || [DFM pathContentOfSymbolicLinkAtPath:target])
 					{
 						problem = YES;
 					}

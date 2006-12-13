@@ -2,7 +2,7 @@
 //  iTM2PDFKit.m
 //  iTeXMac2
 //
-//  @version Subversion: $Id$ 
+//  @version Subversion:$Id:iTM2PDFKit.m 314 2006-12-06 13:28:32Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Jun 24 2001.
 //  Copyright © 2005 Laurens'Tribune. All rights reserved.
@@ -15,7 +15,7 @@
 //  See the GNU General Public License for more details. You should have received a copy
 //  of the GNU General Public License along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//  GPL addendum: Any simple modification of the present code which purpose is to remove bug,
+//  GPL addendum:Any simple modification of the present code which purpose is to remove bug,
 //  improve efficiency in both code execution and code reading or writing should be addressed
 //  to the actual developper team.
 */
@@ -33,7 +33,7 @@ NSString * const iTM2PDFKitKey = @"iTM2PDFKit";
 NSString * const iTM2PDFKitScaleFactorKey = @"iTM2PDFKitScaleFactor";
 NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
 
-@interface iTM2ShadowedImageCell: NSImageCell
+@interface iTM2ShadowedImageCell:NSImageCell
 @end
 
 @interface iTM2IconSegmentedControl(PRIVATE_HERE)
@@ -84,8 +84,8 @@ NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -94,7 +94,7 @@ To Do List:
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_iTM2PDFKit_init) replacement:@selector(init) forClass:[self class]])
 	{
-		iTM2_LOG(@"WARNING: No hook available to init Tiger aware PDF documents...");
+		iTM2_LOG(@"WARNING:No hook available to init Tiger aware PDF documents...");
 	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -103,8 +103,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_iTM2PDFKit_init
 - (id)swizzled_iTM2PDFKit_init;
 /*"Description Forthcoming. Not sure this design is that strong. It need some firther investigation.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -122,8 +122,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Mon Jun 02 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -145,8 +145,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -156,8 +156,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
 + (NSString *)inspectorMode;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -167,8 +167,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= PDFDocument
 - (PDFDocument *)PDFDocument;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -178,8 +178,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setPDFDocument:
 - (void)setPDFDocument:(id)PDFDoc;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -195,8 +195,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
 - (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*" Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -227,8 +227,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteWriteToURL:ofType:error:
 - (BOOL)dataCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*" Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -239,8 +239,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:orderFront:
 - (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Mon Jun 02 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -253,14 +253,14 @@ To Do List:
 	NSURL * url = nil;
 	id document = nil;
 	id synchronizer = [self synchronizer];
-    if([synchronizer getLine: &line column: &column sourceBefore: &sourceBefore sourceAfter: &sourceAfter forLocation:thePoint withHint:hint inPageAtIndex:thePage])
+    if([synchronizer getLine:&line column:&column sourceBefore:&sourceBefore sourceAfter:&sourceAfter forLocation:thePoint withHint:hint inPageAtIndex:thePage])
 	{
 		if([sourceBefore length]
 			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceBefore pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
 			url = [NSURL fileURLWithPath:sourceBefore];
 			document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
-			[document getLine: &line column: &column length:&length forHint:hint];
+			[document getLine:&line column:&column length:&length forHint:hint];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
 		}
@@ -268,7 +268,7 @@ To Do List:
 			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceAfter pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
 			document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:sourceAfter] display:NO error:nil];
-			[document getLine: &line column: &column length:&length forHint:hint];
+			[document getLine:&line column:&column length:&length forHint:hint];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
 		}
@@ -286,7 +286,7 @@ To Do List:
 		if(!document)
 		{
 			if([source length] && [[SDC documentClassForType:[SDC typeFromFileExtension:[source pathExtension]]]
-				isSubclassOfClass: [iTM2TextDocument class]])
+				isSubclassOfClass:[iTM2TextDocument class]])
 			{
 				document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:source] display:NO error:nil];
 			}
@@ -313,7 +313,7 @@ To Do List:
 	NSString * path = [self fileName];
 	path = [path stringByDeletingPathExtension];
 	path = [path stringByAppendingPathExtension:@"tex"];
-	matchDocument = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display: NO error: nil];
+	matchDocument = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:NO error:nil];
 	if([matchDocument isKindOfClass:[iTM2TextDocument class]])
 	{
 		unsigned int testLine = 0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
@@ -336,8 +336,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
 - (void)updateIfNeeded;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Jan 18 22:21:11 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue Jan 18 22:21:11 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -352,8 +352,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= autosavingFileType
 - (NSString *)autosavingFileType;
 /*"No autosave.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Jan 18 22:21:11 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue Jan 18 22:21:11 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -366,8 +366,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromFile:ofType:
 - (BOOL)dataCompleteReadFromFile:(NSString *)fileName ofType:(NSString *)type;
 /*" Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -386,8 +386,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteWriteToFile:ofType:
 - (BOOL)dataCompleteWriteToFile:(NSString *)fileName ofType:(NSString *)type;
 /*" Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -400,8 +400,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 - (void)dealloc;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -418,8 +418,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithURL:
 - (id)initWithURL:(NSURL *)URL;
 /*" Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -433,7 +433,7 @@ To Do List:
 		__OrderedFileNames = [[NSMutableArray array] retain];
 		[__IndexForPageCache autorelease];
 		__IndexForPageCache = [[NSMutableDictionary dictionary] retain];
-		NSString * directoryName = [URL isFileURL]? [URL path]: @"";
+		NSString * directoryName = [URL isFileURL]? [URL path]:@"";
 		NSString * baseName = [NSString stringWithFormat:@"%@-", [[directoryName lastPathComponent] stringByDeletingPathExtension]];
 		NSEnumerator * E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
 		NSString * component;
@@ -449,7 +449,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"Refused file: %@",fullPath);
+					iTM2_LOG(@"Refused file:%@",fullPath);
 					break;
 				}
 			}
@@ -471,7 +471,7 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"Refused file: %@",fullPath);
+						iTM2_LOG(@"Refused file:%@",fullPath);
 					}
 				}
 			}
@@ -486,22 +486,22 @@ To Do List:
 			while((component = [E nextObject]) && index++<1)
 			{
 				NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
-//iTM2_LOG(@"fullPath is : %@", fullPath);
+//iTM2_LOG(@"fullPath is :%@", fullPath);
 				PDFDocument * doc = [[PDFDocument allocWithZone:[self zone]] initWithURL:[NSURL fileURLWithPath:fullPath]];
 				if([doc pageCount])
 				{
 					[MRA addObject:component];
 					PDFPage * P = [[doc pageAtIndex:0] retain];
 					[doc removePageAtIndex:0];
-//iTM2_LOG(@"[P document] is: %@", [P document]);
+//iTM2_LOG(@"[P document] is:%@", [P document]);
 					[self insertPage:P atIndex:[self pageCount]];
-//iTM2_LOG(@"[P document] is: %@", [P document]);
-//iTM2_LOG(@"[self pageCount] is now: %i", [self pageCount]);
-//iTM2_LOG(@"[self dataRepresentation] is now: %@", [self dataRepresentation]);
+//iTM2_LOG(@"[P document] is:%@", [P document]);
+//iTM2_LOG(@"[self pageCount] is now:%i", [self pageCount]);
+//iTM2_LOG(@"[self dataRepresentation] is now:%@", [self dataRepresentation]);
 				}
 				else
 				{
-					iTM2_LOG(@"Void pdf document at: %@", fullPath);
+					iTM2_LOG(@"Void pdf document at:%@", fullPath);
 				}
 				[doc release];
 				doc = nil;
@@ -521,8 +521,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_compareAs__OrderedFileNames:
 - (NSComparisonResult)iTM2_compareAs__OrderedFileNames:(NSString *)fileName;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -543,7 +543,7 @@ To Do List:
 		int leftInteger  = [left  intValue];
 		int rightInteger = [right intValue];
 		return leftInteger>rightInteger? NSOrderedDescending:
-			(leftInteger<rightInteger? NSOrderedAscending: NSOrderedSame);
+			(leftInteger<rightInteger? NSOrderedAscending:NSOrderedSame);
 	}
 	return result;
 }
@@ -576,8 +576,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -587,8 +587,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
 + (NSString *)inspectorMode;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -599,8 +599,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
 - (BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 07:52:07 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri May 21 07:52:07 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -610,8 +610,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentDidChangeNotified:
 - (void)PDFDocumentDidChangeNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -643,7 +643,7 @@ To Do List:
 		doc = [document PDFDocument];
 		[pdfView setDocument:doc];
 //		[[self pdfView] setNeedsDisplay:YES];
-//iTM2_LOG(@"UPDATE: %@",NSStringFromRect([self documentViewVisibleRect]));
+//iTM2_LOG(@"UPDATE:%@",NSStringFromRect([self documentViewVisibleRect]));
 		[doc setDelegate:self];
 		if([_drawer state] == NSDrawerOpenState)
 			[self updateTabView];
@@ -655,8 +655,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  album
 - (id)album;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -666,8 +666,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfView
 - (PDFView *)pdfView;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -677,8 +677,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _pdfCompleteWindowDidLoad:
 - (void)_pdfCompleteWindowDidLoad;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -693,7 +693,7 @@ To Do List:
 	[self setPDFOutlines:nil];
 	[_outlinesView setTarget:self];
 	[_outlinesView setAction:@selector(takeDestinationFromSelectedItemRepresentedObject:)];
-	[_tabViewControl setEnabled: ([[self PDFOutlines] countOfChildren]>0) forSegment:1];
+	[_tabViewControl setEnabled:([[self PDFOutlines] countOfChildren]>0) forSegment:1];
 //iTM2_LOG(@"Setting up the pdf inspector:2");
 	// thumbnails
 	[[self PDFThumbnails] setArray:[NSArray array]];
@@ -705,10 +705,10 @@ To Do List:
 	[doc setDelegate:self];
 	[[self pdfView] setDocument:doc];// last thing to do
 //iTM2_LOG(@"The document has been properly connected to the view:\n%@ <-> %@",doc,[self pdfView]);
-	[INC addObserver: self
-		selector: @selector(PDFDocumentDidChangeNotified:)
-			name: iTM2PDFKitDocumentDidChangeNotification
-				object: nil];
+	[INC addObserver:self
+		selector:@selector(PDFDocumentDidChangeNotified:)
+			name:iTM2PDFKitDocumentDidChangeNotification
+				object:nil];
 	#if 0
 	Could not implement the shadow
 	NSTableColumn * column = [_thumbnailTable tableColumnWithIdentifier:@"thumbnail"];
@@ -727,8 +727,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewWillChangeScaleFactor:toScale:
 - (float)PDFViewWillChangeScaleFactor:(PDFView *)sender toScale:(float)scale;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -747,8 +747,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  progressIndicatorIsAnimated
 - (BOOL)progressIndicatorIsAnimated;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -759,8 +759,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProgressIndicatorIsAnimated:
 - (void)setProgressIndicatorIsAnimated:(BOOL)yorn;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -775,8 +775,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _tabViewControlAction:
 - (IBAction)_tabViewControlAction:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -784,15 +784,15 @@ To Do List:
 	PDFDocument * doc = [[self pdfView] document];
     if ([doc isFinding])
 		[doc cancelFindString];
-	[_pdfTabView selectTabViewItemWithIdentifier: ([sender selectedSegment]? @"2":@"1")];
+	[_pdfTabView selectTabViewItemWithIdentifier:([sender selectedSegment]? @"2":@"1")];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -804,8 +804,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDrawer:
 - (IBAction)toggleDrawer:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -817,8 +817,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
 - (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.4:Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -842,8 +842,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillOpen:
 - (void)drawerWillOpen:(NSNotification *) notification;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.4:Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -888,8 +888,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerDidOpen:
 - (void)drawerDidOpen:(NSNotification *)notification;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -901,8 +901,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateTabView
 - (void)updateTabView;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -931,8 +931,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFThumbnails
 - (NSMutableArray *)PDFThumbnails;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -949,8 +949,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateThumbnailTable
 - (void)updateThumbnailTable;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -970,8 +970,8 @@ static BOOL _iTM2PDFThreadedRenderInBackgroundThumbnails = NO;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  renderInBackroundThumbnailAtIndex:
 - (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1003,8 +1003,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  detachedRenderThumbnailsInBackground:
 + (void)detachedRenderThumbnailsInBackground:(id)irrelevant;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1034,7 +1034,7 @@ loop:
 					[MD setObject:[[set mutableCopy] autorelease] forKey:V];
 					[L unlock];
 					e = [[MD objectForKey:V] objectEnumerator];
-					NSNumber * N;
+					NSNumber * N = nil;
 					while(N = [e nextObject])
 					{
 						unsigned int pageIndex = [N unsignedIntValue];
@@ -1090,8 +1090,8 @@ loop:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFOutlineStack
 - (NSMutableArray *)PDFOutlineStack;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1108,8 +1108,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSearchResults
 - (NSMutableArray *)PDFSearchResults;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1126,8 +1126,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doSearchField:
 - (void)doSearchField:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1141,7 +1141,7 @@ To Do List:
 		[doc cancelFindString];
 	[[self PDFOutlineStack] setArray:[NSArray array]];
 	[[self PDFSearchResults] setArray:[NSArray array]];
-	[[self implementation] takeMetaValue:[NSDate dateWithTimeIntervalSinceNow: 0.0] forKey:@"_searchTime"];
+	[[self implementation] takeMetaValue:[NSDate dateWithTimeIntervalSinceNow:0.0] forKey:@"_searchTime"];
     [_searchTable reloadData];
 	[doc setDelegate:self];
     [doc beginFindString:[sender stringValue] withOptions:NSCaseInsensitiveSearch];
@@ -1151,8 +1151,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didMatchString:
 - (void)didMatchString:(PDFSelection *)selection
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1170,7 +1170,7 @@ To Do List:
 	else
 	{
 		NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:label] autorelease];
-		[MAS appendAttributedString: [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+		[MAS appendAttributedString:[[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
 		[[self PDFSearchResults] addObject:[[MAS copy] autorelease]];
 	}
 	PDFOutline * outline = [[page document] outlineItemForSelection:selection];
@@ -1192,11 +1192,11 @@ To Do List:
 		[[self PDFSearchResults] addObject:[self getContextualStringFromSelection:selection]];
 	}
 	unsigned int count = [[self PDFSearchResults] count]/3;
-	[_searchCountText setStringValue: [NSString stringWithFormat:
+	[_searchCountText setStringValue:[NSString stringWithFormat:
 		NSLocalizedStringFromTableInBundle(@"Found %i match(es)", iTM2PDFKitKey, [self classBundle], ""),count]];
 	NSDate * _searchTime = [[self implementation] metaValueForKey:@"_searchTime"];
 	NSDate * newTime = [NSDate date];
-	if (([newTime timeIntervalSinceDate: _searchTime] > 1.0) || (count == 1))
+	if (([newTime timeIntervalSinceDate:_searchTime] > 1.0) || (count == 1))
 	{
 		// Force a reload.
 		[_searchTable reloadData];
@@ -1207,7 +1207,7 @@ To Do List:
 		if (count == 1)
 		{
 			// Select first item (search result) in table view.
-			[_searchTable selectRowIndexes: [NSIndexSet indexSetWithIndex: 0] byExtendingSelection: NO];
+			[_searchTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 		}
 	}
 //iTM2_END;
@@ -1215,7 +1215,7 @@ To Do List:
 }
 // ------------------------------------------------------------------------------------------------------------ startFind
 
-- (void) documentDidBeginDocumentFind: (NSNotification *) notification;
+- (void) documentDidBeginDocumentFind:(NSNotification *) notification;
 {
 	// Empty arrays.
 	[[self PDFSearchResults] removeAllObjects];
@@ -1224,13 +1224,13 @@ To Do List:
 	[_searchTable reloadData];
 	
 	// Note start time.
-	[[self implementation] takeMetaValue:[NSDate dateWithTimeIntervalSinceNow: 0.0] forKey:@"_searchTime"];
+	[[self implementation] takeMetaValue:[NSDate dateWithTimeIntervalSinceNow:0.0] forKey:@"_searchTime"];
 	[_searchCountText setStringValue:@""];
 	[_searchProgress startAnimation:self];
 }
 
 // copyright PDFKitLinker2
-- (void) documentDidEndDocumentFind: (NSNotification *) notification;
+- (void) documentDidEndDocumentFind:(NSNotification *) notification;
 {
 	// Force a reload.
 	[_searchProgress stopAnimation:self];
@@ -1240,7 +1240,7 @@ To Do List:
 	return;
 }
 // ------------------------------------------------------------------------------------- getContextualStringFromSelection
-- (NSAttributedString *) getContextualStringFromSelection: (PDFSelection *) instance
+- (NSAttributedString *) getContextualStringFromSelection:(PDFSelection *) instance
 {
 	NSMutableAttributedString	*attributedSample;
 	NSString					*searchString;
@@ -1258,34 +1258,34 @@ To Do List:
 	#define PREFIX_LENGTH 16
 	#define POSTFIX_LENGTH 64
 	// Extend selection.
-	[instance extendSelectionAtStart: PREFIX_LENGTH];
-	[instance extendSelectionAtEnd: POSTFIX_LENGTH];
+	[instance extendSelectionAtStart:PREFIX_LENGTH];
+	[instance extendSelectionAtEnd:POSTFIX_LENGTH];
 	
 	// Get string from sample.
 	rawSample = [instance string];
 	count = [rawSample length];
 	
 	// String to hold non-<CR> characters from rawSample.
-	sample = [NSMutableString stringWithCapacity: count + PREFIX_LENGTH + POSTFIX_LENGTH];
-	[sample setString: [NSString stringWithCharacters: &ellipse length: 1]];
+	sample = [NSMutableString stringWithCapacity:count + PREFIX_LENGTH + POSTFIX_LENGTH];
+	[sample setString:[NSString stringWithCharacters:&ellipse length:1]];
 	
 	// Keep all characters except <LF>.
 	for (i = 0; i < count; i++)
 	{
 		unichar		oneChar;
 		
-		oneChar = [rawSample characterAtIndex: i];
+		oneChar = [rawSample characterAtIndex:i];
 		if (oneChar == 0x000A)
-			[sample appendString: @" "];
+			[sample appendString:@" "];
 		else
-			[sample appendString: [NSString stringWithCharacters: &oneChar length: 1]];
+			[sample appendString:[NSString stringWithCharacters:&oneChar length:1]];
 	}
 	
 	// Follow with elipses.
-	[sample appendString: [NSString stringWithCharacters: &ellipse length: 1]];
+	[sample appendString:[NSString stringWithCharacters:&ellipse length:1]];
 	
 	// Finally, create attributed string.
- 	attributedSample = [[NSMutableAttributedString alloc] initWithString: sample];
+ 	attributedSample = [[NSMutableAttributedString alloc] initWithString:sample];
 	
 	// Find instances of search string and "bold" them.
 	searchRange.location = 0;
@@ -1293,14 +1293,14 @@ To Do List:
 	do
 	{
 		// Search for the string.
-		foundRange = [sample rangeOfString: searchString options: NSCaseInsensitiveSearch range: searchRange];
+		foundRange = [sample rangeOfString:searchString options:NSCaseInsensitiveSearch range:searchRange];
 		
 		// Did we find it?
 		if (foundRange.location != NSNotFound)
 		{
 			// Bold the text range where the search term was found.
-			[attributedSample setAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [NSFont boldSystemFontOfSize: 
-					[NSFont systemFontSize]], NSFontAttributeName, NULL] range: foundRange];
+			[attributedSample setAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:
+					[NSFont systemFontSize]], NSFontAttributeName, NULL] range:foundRange];
 			
 			// Advance the search range.
 			searchRange.location = foundRange.location + foundRange.length;
@@ -1311,11 +1311,11 @@ To Do List:
 	
 	// Create paragraph style that indicates truncation style.
 	paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	[paragraphStyle setLineBreakMode: NSLineBreakByTruncatingTail];
+	[paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
 	
 	// Add paragraph style.
-    [attributedSample addAttributes: [[NSMutableDictionary alloc] initWithObjectsAndKeys: 
-			paragraphStyle, NSParagraphStyleAttributeName, NULL] range: NSMakeRange(0, [attributedSample length])];
+    [attributedSample addAttributes:[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+			paragraphStyle, NSParagraphStyleAttributeName, NULL] range:NSMakeRange(0, [attributedSample length])];
 	
 	// Clean.
 	[paragraphStyle release];
@@ -1325,8 +1325,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1337,8 +1337,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)theColumn row:(int)rowIndex;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1374,7 +1374,7 @@ To Do List:
 				return label;
 			}
 			NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:label] autorelease];
-			[MAS appendAttributedString: [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+			[MAS appendAttributedString:[[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
 			return MAS;
 		}
 		else
@@ -1385,8 +1385,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
 - (void)tableViewSelectionDidChange:(NSNotification *)notification;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1412,8 +1412,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateSearchTable
 - (void)updateSearchTable;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1425,8 +1425,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFOutlines
 - (iTM2TreeNode *)PDFOutlines;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1437,8 +1437,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPDFOutlines:
 - (void)setPDFOutlines:(iTM2TreeNode *)argument;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1450,8 +1450,8 @@ To Do List:
 ///=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:numberOfChildrenOfItem:
 - (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1461,13 +1461,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:child:ofItem:
 - (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2TreeNode * node = item? : [self PDFOutlines];
+	iTM2TreeNode * node = item? :[self PDFOutlines];
 	PDFOutline * OL = [node value];
 	unsigned int noc = [OL numberOfChildren];
 	[node setCountOfChildren:noc];
@@ -1484,19 +1484,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:isItemExpandable:
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self outlineView: (NSOutlineView *) outlineView numberOfChildrenOfItem: (id) item] > 0;
+    return [self outlineView:(NSOutlineView *) outlineView numberOfChildrenOfItem:(id) item] > 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:objectValueForTableColumn:byItem:
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1507,8 +1507,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDestinationFromSelectedItemRepresentedObject:
 - (void)takeDestinationFromSelectedItemRepresentedObject:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1520,8 +1520,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updatePDFOutlineInformation
 - (void)updatePDFOutlineInformation;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1546,8 +1546,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateOutlineTable
 - (void)updateOutlineTable;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1557,7 +1557,7 @@ To Do List:
 		PDFOutline * OLR = [[[self pdfView] document] outlineRoot];
 		[self setPDFOutlines:[[[iTM2TreeNode allocWithZone:[self zone]] initWithParent:nil value:OLR] autorelease]];
 		[[self PDFOutlines] setCountOfChildren:[OLR numberOfChildren]];
-		[_tabViewControl setEnabled: ([[self PDFOutlines] countOfChildren]>0) forSegment:1];
+		[_tabViewControl setEnabled:([[self PDFOutlines] countOfChildren]>0) forSegment:1];
 	}
 	[_outlinesView reloadData];
 //iTM2_END;
@@ -1567,8 +1567,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewPageChangedNotified:
 - (void)PDFViewPageChangedNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1600,8 +1600,8 @@ iTM2_END;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewScaleChangedNotified:
 - (void)PDFViewScaleChangedNotified:(NSNotification *)notification;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1738,8 +1738,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canSynchronizeOutput
 - (BOOL)canSynchronizeOutput;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1750,8 +1750,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPhysicalPage:synchronizationPoint:withHint:
 - (void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1764,8 +1764,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
 - (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1778,13 +1778,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareViewCompleteSaveContext:
 - (void)prepareViewCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"[self contextDictionary] is: %@", [self contextDictionary]);
+//iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
 	NSView * documentView = [[self pdfView] documentView];
 	NSRect visibleRect = [documentView visibleRect];
 	visibleRect = [documentView absoluteRectWithRect:visibleRect];
@@ -1797,8 +1797,8 @@ To Do List:
 /*"This message is sent each time the contextManager have changed.
 The receiver will take appropriate actions to synchronize its state with its contextManager.
 Subclasses will most certainly override this method because the default implementation does nothing.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/26/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:03/26/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1806,20 +1806,20 @@ iTM2_START;
 	[super contextDidChange];
 	PDFView * V = [self pdfView];
 	[V setBackgroundColor:[self backgroundColor]];
-//iTM2_LOG(@"[V backgroundColor]: %@", [V backgroundColor]);
+//iTM2_LOG(@"[V backgroundColor]:%@", [V backgroundColor]);
 	[V setDisplayMode:[self displayMode]];
-//iTM2_LOG(@"[V backgroundColor]: %@", [V backgroundColor]);
+//iTM2_LOG(@"[V backgroundColor]:%@", [V backgroundColor]);
 	[V setDisplaysPageBreaks:[self displaysPageBreaks]];
-//iTM2_LOG(@"[V displaysPageBreaks]: %@", ([V displaysPageBreaks]? @"Y": @"N"));
+//iTM2_LOG(@"[V displaysPageBreaks]:%@", ([V displaysPageBreaks]? @"Y":@"N"));
 	[V setDisplayBox:[self displayBox]];
 	[V setDisplaysAsBook:[self displaysAsBook]];
-//iTM2_LOG(@"[V displaysAsBook]: %@", ([V displaysAsBook]? @"Y": @"N"));
+//iTM2_LOG(@"[V displaysAsBook]:%@", ([V displaysAsBook]? @"Y":@"N"));
 	[V setShouldAntiAlias:[self shouldAntiAlias]];
-//iTM2_LOG(@"[V shouldAntiAlias]: %@", ([V shouldAntiAlias]? @"Y": @"N"));
+//iTM2_LOG(@"[V shouldAntiAlias]:%@", ([V shouldAntiAlias]? @"Y":@"N"));
 	[V setGreekingThreshold:[self greekingThreshold]];
 	[V setScaleFactor:[self scaleFactor]];
 	[V setAutoScales:[self autoScales]];
-//iTM2_LOG(@"[V autoScales]: %@", ([V autoScales]? @"Y": @"N"));
+//iTM2_LOG(@"[V autoScales]:%@", ([V autoScales]? @"Y":@"N"));
 	[V setNeedsDisplay:YES];
 	NSView * docView = [V documentView];
 	if(docView)
@@ -1909,7 +1909,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBackgroundColor:
 - (void)setBackgroundColor:(NSColor *)argument;
 {
-	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]: nil));
+	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]:nil));
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBox
@@ -2004,14 +2004,14 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= autoZoom:
 - (IBAction)autoZoom:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	BOOL old = [self autoScales];
-	[self setAutoScales: !old];
+	[self setAutoScales:!old];
 	[self contextDidChange];
 	[self validateWindowContent];
 //iTM2_END;
@@ -2020,13 +2020,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateAutoZoom:
 - (BOOL)validateAutoZoom:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self autoScales]? NSOnState:NSOffState)];
+	[sender setState:([self autoScales]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -2036,8 +2036,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canSynchronizeOutput
 - (BOOL)canSynchronizeOutput;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2048,8 +2048,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
 - (void)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2060,8 +2060,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateScrollSynchronizationPointToVisible:
 - (BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2095,13 +2095,13 @@ NSString * const iTM2ToolbarItemIdentifier = @"selectAll";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFKitInspectorToolbarCompleteInstallation
 + (void)PDFKitInspectorToolbarCompleteInstallation;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithBool:YES], @"iTM2PDFKitToolbarAutosavesConfiguration",
 		[NSNumber numberWithBool:YES], @"iTM2PDFKitToolbarShareConfiguration",
 			nil]];
@@ -2134,13 +2134,13 @@ DEFINE_TOOLBAR_ITEM(doZoomToFitToolbarItem)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupToolbarWindowDidLoad
 - (void)setupToolbarWindowDidLoad;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"Setting up the toolbar: 0");
+//iTM2_LOG(@"Setting up the toolbar:0");
 	NSAssert(_toolbarBackForwardView, @"Missing _toolbarBackForwardView connection...");
 	NSSegmentedCell * segmentedCell = [_toolbarBackForwardView cell];
 	[segmentedCell setAction:@selector(goBackForward:)];
@@ -2162,12 +2162,12 @@ To Do List:
 	[segmentedCell setTarget:nil];
 	[_toolbarToolModeView setFrameSize:[segmentedCell cellSize]];
 	//
-//iTM2_LOG(@"Setting up the toolbar: 1");
+//iTM2_LOG(@"Setting up the toolbar:1");
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2PDFKitToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
 	if([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
-//iTM2_LOG(@"Setting up the toolbar: 1-a");
+//iTM2_LOG(@"Setting up the toolbar:1-a");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if([configDictionary count])
 		{
@@ -2181,17 +2181,17 @@ To Do List:
 	}
 	else
 	{
-//iTM2_LOG(@"Setting up the toolbar: 1-b");
+//iTM2_LOG(@"Setting up the toolbar:1-b");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
-//iTM2_LOG(@"configDictionary: %@", configDictionary);
+//iTM2_LOG(@"configDictionary:%@", configDictionary);
 		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
-//iTM2_LOG(@"configDictionary: %@", configDictionary);
+//iTM2_LOG(@"configDictionary:%@", configDictionary);
 		if([configDictionary count])
 			[toolbar setConfigurationFromDictionary:configDictionary];
 		if(![[toolbar items] count])
 		{
 			configDictionary = [SUD dictionaryForKey:key];
-//iTM2_LOG(@"configDictionary: %@", configDictionary);
+//iTM2_LOG(@"configDictionary:%@", configDictionary);
 			[self takeContextValue:nil forKey:key domain:iTM2ContextAllDomainsMask];
 			if([configDictionary count])
 				[toolbar setConfigurationFromDictionary:configDictionary];
@@ -2202,7 +2202,7 @@ To Do List:
 			}
 		}
 	}
-//iTM2_LOG(@"Setting up the toolbar: 2");
+//iTM2_LOG(@"Setting up the toolbar:2");
 	[toolbar setAutosavesConfiguration:YES];
     [toolbar setAllowsUserCustomization:YES];
 //    [toolbar setSizeMode:NSToolbarSizeModeSmall];
@@ -2215,14 +2215,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShareToolbarConfiguration:
 - (void)toggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	BOOL old = [self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool: !old forKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self validateWindowContent];
 //iTM2_END;
 	return;
@@ -2230,21 +2230,21 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShareToolbarConfiguration:
 - (BOOL)validateToggleShareToolbarConfiguration:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
+	[sender setState:([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
 //iTM2_END;
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext:
 - (void)prepareToolbarConfigurationCompleteSaveContext:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2261,13 +2261,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdent willBeInsertedIntoToolbar:(BOOL)willBeInserted;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    // Required delegate method:  Given an item identifier, this method returns an item 
+    // Required delegate method:Given an item identifier, this method returns an item 
     // The toolbar will use this method to obtain toolbar items that can be displayed in the customization sheet, or in the toolbar itself 
     NSToolbarItem * toolbarItem = nil;
 	SEL action = NSSelectorFromString([itemIdent stringByAppendingString:@":"]);
@@ -2320,7 +2320,7 @@ To Do List:
 			[F setFloatValue:[[self pdfView] scaleFactor]];
 		}
 		[F setFrameSize:NSMakeSize([[NF stringForObjectValue:[NSNumber numberWithFloat:[F floatValue]]]
-						sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+						sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[[F cell] font], NSFontAttributeName, nil]].width+8, 22)];
 		[F setTag:421];
 		toolbarItem = [NSToolbarItem seedToolbarItemWithIdentifier:itemIdent forToolbarIdentifier:[toolbar identifier]];
@@ -2346,7 +2346,7 @@ To Do List:
 		[[F cell] setSendsActionOnEndEditing:NO];
 		int maximum = 1000;
 		[F setFrameSize:NSMakeSize([[NF stringForObjectValue:[NSNumber numberWithInt:maximum]]
-						sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+						sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 								[[F cell] font], NSFontAttributeName, nil]].width+8, 22)];
 		if(willBeInserted)
 		{
@@ -2443,13 +2443,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDefaultItemIdentifiers:
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    // Required delegate method:  Returns the ordered list of items to be shown in the toolbar by default    
+    // Required delegate method:Returns the ordered list of items to be shown in the toolbar by default    
     // If during the toolbar's initialization, no overriding values are found in the usermodel, or if the
     // user chooses to revert to the default items this set will be used 
 //iTM2_END;
@@ -2473,13 +2473,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarAllowedItemIdentifiers:
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    // Required delegate method:  Returns the list of all allowed items by identifier.  By default, the toolbar 
+    // Required delegate method:Returns the list of all allowed items by identifier.  By default, the toolbar 
     // does not assume any items are allowed, even the separator.  So, every allowed item must be explicitly listed   
     // The set of allowed items is used to construct the customization palette 
 //iTM2_END;
@@ -2511,13 +2511,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarWillAddItem:
 - (void)toolbarWillAddItem:(NSNotification *)notif;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    // Optional delegate method:  Before an new item is added to the toolbar, this notification is posted.
+    // Optional delegate method:Before an new item is added to the toolbar, this notification is posted.
     // This is the best place to notice a new item is going into the toolbar.  For instance, if you need to 
     // cache a reference to the toolbar item or need to set up some initial state, this is the best place 
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
@@ -2530,13 +2530,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolbarDidRemoveItem:
 - (void)toolbarDidRemoveItem:(NSNotification *)notif;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    // Optional delegate method:  Before an new item is added to the toolbar, this notification is posted.
+    // Optional delegate method:Before an new item is added to the toolbar, this notification is posted.
     // This is the best place to notice a new item is going into the toolbar.  For instance, if you need to 
     // cache a reference to the toolbar item or need to set up some initial state, this is the best place 
     // to do it.  The notification object is the toolbar to which the item is being added.  The item being 
@@ -2552,8 +2552,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rotateLeft:
 - (IBAction)rotateLeft:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2570,8 +2570,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rotateRight:
 - (IBAction)rotateRight:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2588,8 +2588,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePageFrom:
 - (IBAction)takePageFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2611,8 +2611,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePageFrom:
 - (BOOL)validateTakePageFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2631,10 +2631,10 @@ To Do List:
 	NSSize oldSize = [sender frame].size;
 	float width = 8 + MAX(
 		([[NF stringForObjectValue:[NSNumber numberWithInt:[sender intValue]]]
-				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+				sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width),
 		([[NF stringForObjectValue:[NSNumber numberWithInt:99]]
-				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+				sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width));
 	[sender setFrameSize:NSMakeSize(width, oldSize.height)];
 	NSEnumerator * E = [[[[sender window] toolbar] items] objectEnumerator];
@@ -2654,8 +2654,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeScaleFrom:
 - (IBAction)takeScaleFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2671,8 +2671,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeScaleFrom:
 - (BOOL)validateTakeScaleFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2686,10 +2686,10 @@ To Do List:
 	NSSize oldSize = [sender frame].size;
 	float width = 8 + MAX(
 			([[NF stringForObjectValue:[NSNumber numberWithFloat:[sender floatValue]]]
-				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+				sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width),
 			([[NF stringForObjectValue:[NSNumber numberWithFloat:1]]
-				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+				sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 							[[sender cell] font], NSFontAttributeName, nil]].width));
 	[sender setFrameSize:NSMakeSize(width, oldSize.height)];
 	NSEnumerator * E = [[[[sender window] toolbar] items] objectEnumerator];
@@ -2709,8 +2709,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  goBackForward:
 - (IBAction)goBackForward:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2730,8 +2730,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateGoBackForward:
 - (BOOL)validateGoBackForward:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Tue May  3 16:20:26 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2759,8 +2759,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeToolModeFromSegment:
 - (IBAction)takeToolModeFromSegment:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2775,8 +2775,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeToolModeFromSegment:
 - (BOOL)validateTakeToolModeFromSegment:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2819,7 +2819,7 @@ To Do List:
 - (void)trackSelectionCreate:(NSEvent *)theEvent inRect:(NSRect)bounds;
 - (void)trackSelectionDrag:(NSEvent *)theEvent inRect:(NSRect)bounds;
 - (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *) theEvent;
-- (void)setCursorForAreaOfInterest: (PDFAreaOfInterest) area;
+- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest) area;
 - (void)scrollSelectionToVisible:(id)sender;
 @end
 
@@ -2844,14 +2844,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super initialize];
-	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithInt:10], @"iTM2PDFKitSyncMaxNumberOfMatches",
 		[NSNumber numberWithFloat:0.2], @"com.apple.mouse.doubleClickThreshold",
 		[NSDictionary dictionaryWithObjectsAndKeys:
@@ -2866,8 +2866,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupView
 - (void)setupView;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2883,8 +2883,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
 - (id)initWithFrame:(NSRect)rect;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2899,8 +2899,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
 - (id)initWithCoder:(NSCoder *)aDecoder;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2915,8 +2915,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 - (void)dealloc;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2929,8 +2929,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromNib
 - (void)awakeFromNib;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2946,8 +2946,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
 - (id)implementation;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Mon May 10 22:45:25 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2957,8 +2957,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
 - (void)setImplementation:(id)argument;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Mon May 10 22:45:25 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2971,8 +2971,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDocument:
 - (void)setDocument:(PDFDocument *)document;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -2988,7 +2988,7 @@ To Do List:
 		_SyncPointValues = nil;
 		[super setDocument:document];// raise if the document has no pages
 #if 0
-#warning Trick to workaround a bug: the PDFView document view is not properly set up
+#warning Trick to workaround a bug:the PDFView document view is not properly set up
 //iTM2_LOG(@"[[self documentView] bounds] are:%@",NSStringFromRect([[self documentView] bounds]));
 		NSRect frame = [self frame];
 		NSRect smallerFrame = NSInsetRect(frame,5,5);
@@ -3009,8 +3009,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawPage:
 - (void)drawPage:(PDFPage *)page;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3019,7 +3019,7 @@ To Do List:
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
     [I setTarget:self];
-    [I setArgument: &page atIndex:2];
+    [I setArgument:&page atIndex:2];
 	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDrawPage:" signature:sig0 inherited:YES] objectEnumerator];
     SEL selector;
     while(selector = (SEL)[[E nextObject] pointerValue])
@@ -3034,8 +3034,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationCompleteDrawPage:
 - (void)synchronizationCompleteDrawPage:(PDFPage *)page;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3048,7 +3048,7 @@ To Do List:
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
 	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
-    if([N respondsToSelector:@selector(boolValue)]? [N boolValue]: NO)
+    if([N respondsToSelector:@selector(boolValue)]? [N boolValue]:NO)
     {
   		iTM2PDFKitDocument * D = [[[self window] windowController] document];
 		iTM2PDFSynchronizer * syncer = [D synchronizer];
@@ -3083,7 +3083,7 @@ To Do List:
             while(K = [E nextObject])
             {
                 V = [SLs objectForKey:K];
-                [V getValue: &locationRecord];
+                [V getValue:&locationRecord];
                 NSPoint P = NSMakePoint(locationRecord.x, locationRecord.y);
 				inRect.origin.x = P.x + origin.x;
 				inRect.origin.y = P.y + origin.y;
@@ -3121,18 +3121,18 @@ To Do List:
 			[NSGraphicsContext saveGraphicsState]; 
 			[theShadow set];
 			N = [cd objectForKey:@"DisplayBullets"];
-			displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
+			displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]:0;
 			SLs = (NSMutableDictionary *)[syncer synchronizationLocationsForPageIndex:pageIndex];
             E = [SLs objectEnumerator];
 //				[starDimple setScalesWhenResized:YES];
 			while(V = [E nextObject])
 			{
-				[V getValue: &locationRecord];
+				[V getValue:&locationRecord];
 				NSPoint P = NSMakePoint(locationRecord.x, locationRecord.y);
 				if(testForCharacter && !locationRecord.plus && ([page characterIndexNearPoint:P]<0))
 				{
 					// don't draw;
-//iTM2_LOG(@"$$$$  This point does not seem to point to a character: %@", NSStringFromPoint(P));
+//iTM2_LOG(@"$$$$  This point does not seem to point to a character:%@", NSStringFromPoint(P));
 					goto nextWhile;
 				}
 				if(locationRecord.star && (displayBulletsMode & kiTM2PDFSYNCDisplayUserBullets))
@@ -3201,7 +3201,7 @@ To Do List:
 				inRect.origin.x = syncPoint.x + origin.x;
 				inRect.origin.y = syncPoint.y + origin.y;
 				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
+				NSRect bounds = [page boundsForBox:kPDFDisplayBoxCropBox];
 				inRect.origin.x = NSMinX(bounds)+inRect.size.width/2;
 				inRect.origin.y = syncPoint.y - inRect.size.height/2;
 				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
@@ -3225,8 +3225,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusCompleteDrawPage:
 - (void)focusCompleteDrawPage:(PDFPage *)page;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3246,10 +3246,10 @@ To Do List:
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
 	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
-    if([N respondsToSelector:@selector(boolValue)]? [N boolValue]: NO)
+    if([N respondsToSelector:@selector(boolValue)]? [N boolValue]:NO)
     {
 		N = [cd objectForKey:@"DisplayBullets"];
-		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
+		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]:0;
 		if(!(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets))
 		{
 			return;
@@ -3285,7 +3285,7 @@ To Do List:
 		[NSGraphicsContext saveGraphicsState]; 
 		[theShadow set];
 		N = [cd objectForKey:@"DisplayBullets"];
-		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]: 0;
+		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]:0;
 		if(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
 		{
 //				[syncDimple setScalesWhenResized:YES];
@@ -3311,13 +3311,13 @@ To Do List:
 			{
 				if([[destination page] isEqual:page])
 				{
-//iTM2_LOG(@"----     destination on that page: %@", destination);
+//iTM2_LOG(@"----     destination on that page:%@", destination);
 					NSPoint syncPoint = [destination point];
 					inRect.origin.x = syncPoint.x + origin.x;
 					inRect.origin.y = syncPoint.y + origin.y;
 //					[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
 					[[[NSColor redColor] colorWithAlphaComponent:0.2] set];
-					NSRect bounds = [page boundsForBox: kPDFDisplayBoxCropBox];
+					NSRect bounds = [page boundsForBox:kPDFDisplayBoxCropBox];
 					NSBezierPath * path = [NSBezierPath bezierPath];
 					NSPoint point1 = NSMakePoint(NSMidX(inRect),NSMidY(inRect));
 					NSPoint point2 = point1;
@@ -3341,7 +3341,7 @@ To Do List:
 				}
 				else
 				{
-//iTM2_LOG(@"----     destination NOT on that page: %@", destination);
+//iTM2_LOG(@"----     destination NOT on that page:%@", destination);
 				}
 			}
 		}
@@ -3353,8 +3353,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  centeredSubview:
 - (id)centeredSubview;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Jul 17 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:Thu Jul 17 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3365,8 +3365,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusView:
 - (id)focusView;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Jul 17 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:Thu Jul 17 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3377,7 +3377,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCursorForAreaOfInterest:
 - (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
+Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:
 To Do List:
 "*/
@@ -3409,7 +3409,7 @@ To Do List:
 			[[NSCursor crosshairCursor] set];
 			return;
 		default:
-			[super setCursorForAreaOfInterest: area];
+			[super setCursorForAreaOfInterest:area];
 			return;
 	}
 //iTM2_END;
@@ -3418,7 +3418,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  areaOfInterestForMouse:
 - (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *)theEvent;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
+Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:
 To Do List:
 "*/
@@ -3450,7 +3450,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  trackZoom:
 - (BOOL)trackZoom:(NSEvent *)theEvent;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
+Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:
 To Do List:
 "*/
@@ -3546,7 +3546,7 @@ next:
 	[clipView setFrame:R1];
 	/* The focus */
 	focus = [documentView convertPoint:windowFocus fromView:nil];
-	/* The focusZoomed: if documentView and documentViewZoomed are proportional, this works */
+	/* The focusZoomed:if documentView and documentViewZoomed are proportional, this works */
 	focusZoomed.x = NSMidX([documentViewZoomed bounds])
 			+(focus.x-NSMidX([documentView bounds]))*[documentViewZoomed bounds].size.width/[documentView bounds].size.width;
 	focusZoomed.y = NSMidY([documentViewZoomed bounds])
@@ -3657,7 +3657,7 @@ next:
 - (IBAction)goToNextPage:(id)sender
 {
 	PDFPage * page = [self currentPage];
-	PDFDocument * doc = [page document];
+//	PDFDocument * doc = [page document];
 //iTM2_LOG(@"BEFORE %i",[doc indexForPage:page]);
 	[super goToNextPage:sender];
 	page = [self currentPage];
@@ -3670,8 +3670,8 @@ next:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
 - (void)dealloc;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3686,8 +3686,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __SetupPageStringOffsets
 - (void)__SetupPageStringOffsets;
 /*"This must be multi thread safe.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3738,13 +3738,13 @@ To Do List:
 		if(iTM2DebugEnabled)
 		{
 			pageIndex = 0;
-			iTM2_LOG(@"<-><-><->  Number of pages(%u) is: %u", pageIndex, __PageStringOffsets[pageIndex]);
+			iTM2_LOG(@"<-><-><->  Number of pages(%u) is:%u", pageIndex, __PageStringOffsets[pageIndex]);
 			++maxPageIndex;
 			while(++pageIndex<maxPageIndex)
 			{
-				iTM2_LOG(@"<-><-><->  offset at index: %u is %u (= %u is %u)", pageIndex-1, __PageStringOffsets[pageIndex], [self pageIndexForCharacterIndex:__PageStringOffsets[pageIndex]], [self characterOffsetForPageAtIndex:pageIndex - 1]);
+				iTM2_LOG(@"<-><-><->  offset at index:%u is %u (= %u is %u)", pageIndex-1, __PageStringOffsets[pageIndex], [self pageIndexForCharacterIndex:__PageStringOffsets[pageIndex]], [self characterOffsetForPageAtIndex:pageIndex - 1]);
 			}
-			iTM2_LOG(@"<-><-><->  Total number of characters (%u) is: %u", maxPageIndex, __PageStringOffsets[maxPageIndex]);
+			iTM2_LOG(@"<-><-><->  Total number of characters (%u) is:%u", maxPageIndex, __PageStringOffsets[maxPageIndex]);
 		}
 		return;
 	}
@@ -3752,7 +3752,7 @@ To Do List:
 	{
 		[L unlock];
 #warning THIS IS A BAD MANAGEMENT
-		iTM2_LOG(@"Memory management problem: no offest caching available...");
+		iTM2_LOG(@"Memory management problem:no offest caching available...");
 		return;
 	}
 //iTM2_END;
@@ -3761,8 +3761,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pageIndexForCharacterIndex:
 - (unsigned int)pageIndexForCharacterIndex:(unsigned int)characterIndex;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3785,7 +3785,7 @@ To Do List:
 		unsigned int mid = (min + max)/2;
 		if(min == mid)
 		{
-//iTM2_LOG(@"%%%%%%%% character index: %i, page index: %i", characterIndex, min);
+//iTM2_LOG(@"%%%%%%%% character index:%i, page index:%i", characterIndex, min);
 			// beware of void pages.
 			// the only possibility is to have __PageStringOffsets[min] == characterIndex
 			// and then __PageStringOffsets[min] == __PageStringOffsets[min - 1]
@@ -3808,8 +3808,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= characterOffsetForPageAtIndex:
 - (unsigned int)characterOffsetForPageAtIndex:(unsigned int)pageIndex;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3819,13 +3819,13 @@ To Do List:
 	// what is the max valid offset?
 	unsigned int maxValidIndex = __PageStringOffsets[pageCount+2];
 //iTM2_END;
-	return pageIndex <= maxValidIndex? __PageStringOffsets[pageIndex+1]: NSNotFound;
+	return pageIndex <= maxValidIndex? __PageStringOffsets[pageIndex+1]:NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionOfWord:options:range:
 - (iTM2Position)positionOfWord:(NSString *)aWord options:(unsigned)mask range:(NSRange)searchRange;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -3977,7 +3977,7 @@ previousOccurrence:
 					}
 					else
 					{
-						iTM2_LOG(@"****  WARNING: bug in the character offset computation");
+						iTM2_LOG(@"****  WARNING:bug in the character offset computation");
 					}
 				}
 			}
@@ -3995,7 +3995,7 @@ previousOccurrence:
 		}
 		else
 		{
-			iTM2_LOG(@"****  WARNING: bug in the character offset computation");
+			iTM2_LOG(@"****  WARNING:bug in the character offset computation");
 		}
 	}
 //iTM2_END;
@@ -4006,8 +4006,8 @@ previousOccurrence:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionsOfWordBefore:before:here:after:index:
 - (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -4023,13 +4023,13 @@ To Do List:
 	unsigned int characterLimit = __PageStringOffsets[maxValidIndex+1];
 //iTM2_END;
 	return characterLimit?
-		[self positionsOfWordBefore:before here:hit after:after index:hitIndex inRange:NSMakeRange(0, characterLimit)]: nil;
+		[self positionsOfWordBefore:before here:hit after:after index:hitIndex inRange:NSMakeRange(0, characterLimit)]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionsOfWordBefore:before:here:after:index:inRange:
 - (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex inRange:(NSRange)searchRange;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -4073,7 +4073,7 @@ To Do List:
 				// The weight is used as key, the value is a mutable array of positions with the same weight
 				NSMutableDictionary * positions = [NSMutableDictionary dictionary];
 				NSMutableArray * currentDestinations;
-			nextOccurrence:
+nextOccurrence:
 				// the best hit preceding after
 				searchRange.location = NSMaxRange(hitPosition.range);
 				if(searchRange.location < afterPosition.range.location)
@@ -4110,10 +4110,10 @@ To Do List:
 				NSPoint point = [page characterBoundsAtIndex:localHereIndex].origin;
 				[currentDestinations addObject:
 					[[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:point] autorelease]];
-//iTM2_LOG(@"#### position: %@ with weight %i", NSStringFromRange(hitPosition.range), weight);
+//iTM2_LOG(@"#### position:%@ with weight %i", NSStringFromRange(hitPosition.range), weight);
 				// We look for all the occurrences of hit between before and hit, the latter excluded.
 				searchRange.location = NSMaxRange(beforePosition.range);
-			previousHere:
+previousHere:
 				if(searchRange.location<hitPosition.range.location)
 				{
 					searchRange.length = hitPosition.range.location - searchRange.location;
@@ -4126,7 +4126,7 @@ To Do List:
 						point = [page characterBoundsAtIndex:localHereIndex].origin;
 						[currentDestinations addObject:
 							[[[PDFDestination allocWithZone:[self zone]]
-								initWithPage: page atPoint: point] autorelease]];
+								initWithPage:page atPoint:point] autorelease]];
 						goto previousHere;
 						
 					}
@@ -4192,8 +4192,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -4227,7 +4227,7 @@ nextPointValue:
 					if([page characterIndexNearPoint:point] != -1)
 					{
 						[_SyncDestinations addObject:[[[PDFDestination allocWithZone:[self zone]]
-							initWithPage: page atPoint: point] autorelease]];
+							initWithPage:page atPoint:point] autorelease]];
 						[pageSet addObject:page];
 						return YES;
 					}
@@ -4250,52 +4250,52 @@ nextPointValue:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:here:index:
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(hit);
-//iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations: %@", destinations);
+//iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations:%@", destinations);
 //iTM2_END;
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:index:
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(before);
 	NSParameterAssert(hit);
-//iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations: %@", destinations);
+//iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations:%@", destinations);
 //iTM2_END;
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:here:after:index:
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(hit);
 	NSParameterAssert(after);
-//iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations: %@", destinations);
+//iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations:%@", destinations);
 //iTM2_END;
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:after:index:
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -4308,24 +4308,28 @@ To Do List:
 	NSDictionary * hereRecords = [destinations objectForKey:@"here"];
 	NSDictionary * beforeRecords = [destinations objectForKey:@"before"];
 	NSDictionary * afterRecords = [destinations objectForKey:@"after"];
-//iTM2_LOG(@"????    $$$$  hereRecords are: %@", hereRecords);
-//iTM2_LOG(@"????    $$$$  beforeRecords are: %@", beforeRecords);
-//iTM2_LOG(@"????    $$$$  afterRecords are: %@", afterRecords);
+//iTM2_LOG(@"????    $$$$  hereRecords are:%@", hereRecords);
+//iTM2_LOG(@"????    $$$$  beforeRecords are:%@", beforeRecords);
+//iTM2_LOG(@"????    $$$$  afterRecords are:%@", afterRecords);
 	NSDictionary * positions = nil;
 	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)[self document];
+	unsigned int min,max,pageIndex;
+	NSEnumerator * E = nil;
+	NSNumber * N = nil;
+	NSNumber * minN = nil;
+#pragma mark 1 - Positions
 	if([hereRecords count])
 	{
-		NSEnumerator * E = [hereRecords keyEnumerator];
-		NSNumber * N = [E nextObject];
-		unsigned int min = [N unsignedIntValue];
-		unsigned int max = min;
+		E = [hereRecords keyEnumerator];
+		N = [E nextObject];
+		max = min = [N unsignedIntValue];
 		while(N = [E nextObject])
 		{
-			unsigned int pageNumber = [N unsignedIntValue];
-			if(pageNumber<min)
-				min = pageNumber;
-			else if(pageNumber>max)
-				max = pageNumber;
+			pageIndex = [N unsignedIntValue];
+			if(pageIndex<min)
+				min = pageIndex;
+			else if(pageIndex>max)
+				max = pageIndex;
 		}
 		if(min < [document pageCount])
 		{
@@ -4334,16 +4338,16 @@ To Do List:
 				min = [document characterOffsetForPageAtIndex:min-1];
 				if(min == NSNotFound)
 				{
-					defaultPositions:
+defaultPositions:
 					positions = [document
-						positionsOfWordBefore: before here: hit after: after index: hitIndex];
+						positionsOfWordBefore:before here:hit after:after index:hitIndex];
 				}
 				else
 				{
-					setUpMax:
+setUpMax:
 					max = (max < [document pageCount] - 1)?
 						[document characterOffsetForPageAtIndex:max+1]
-						: [document characterOffsetForPageAtIndex:[document pageCount]];
+						:[document characterOffsetForPageAtIndex:[document pageCount]];
 					if(max == NSNotFound)
 					{
 						goto defaultPositions;
@@ -4351,8 +4355,8 @@ To Do List:
 					else
 					{
 						positions = [document
-							positionsOfWordBefore: before here: hit after: after index: hitIndex
-								inRange: NSMakeRange(min, max - min)];
+							positionsOfWordBefore:before here:hit after:after index:hitIndex
+								inRange:NSMakeRange(min, max - min)];
 					}
 				}
 			}
@@ -4365,21 +4369,19 @@ To Do List:
 		else
 		{
 			positions = [document
-				positionsOfWordBefore: before here: hit after: after index: hitIndex];
+				positionsOfWordBefore:before here:hit after:after index:hitIndex];
 		}
 	}
 	else if([beforeRecords count])
 	{
-		NSEnumerator * E = [beforeRecords keyEnumerator];
-		NSNumber * N = nil;
-		NSNumber * minN = nil;
-		unsigned int min = 0;
+		E = [beforeRecords keyEnumerator];
+		min = 0;
 		while(N = [E nextObject])
 		{
-			unsigned int pageNumber = [N unsignedIntValue];
-			if(pageNumber>min)
+			pageIndex = [N unsignedIntValue];
+			if(pageIndex>min)
 			{
-				min = pageNumber;
+				min = pageIndex;
 				minN = N;
 			}
 		}
@@ -4391,9 +4393,9 @@ To Do List:
 				E = [afterRecords keyEnumerator];
 				while(N = [E nextObject])
 				{
-					unsigned int pageNumber = [N unsignedIntValue];
-					if(pageNumber<max)
-						max = pageNumber;
+					pageIndex = [N unsignedIntValue];
+					if(pageIndex<max)
+						max = pageIndex;
 				}
 				if(max<min)
 					max = min;
@@ -4408,14 +4410,14 @@ To Do List:
 				maxOff7 = minOff7 + [page numberOfCharacters];
 			if(lastOff7 == NSNotFound)
 				lastOff7 = maxOff7;
-			NSArray * points = minN? [beforeRecords objectForKey:minN]: nil;
+			NSArray * points = minN? [beforeRecords objectForKey:minN]:nil;
 			if([points count] > 0)
 			{
 				NSPoint point = [[points objectAtIndex:0] pointValue];
 				int charIndex = [page characterIndexNearPoint:point];
 				if(charIndex >= 0)
 					minOff7 += charIndex;
-	//iTM2_LOG(@"????    $$$$????    $$$$????    $$$$????    $$$$  charIndex is: %i", charIndex);
+	//iTM2_LOG(@"????    $$$$????    $$$$????    $$$$????    $$$$  charIndex is:%i", charIndex);
 				unsigned int correction = [before length] + [hit length] + [after length] + 2;
 				if(minOff7>correction)
 					minOff7 -= correction;
@@ -4428,16 +4430,16 @@ To Do List:
 			}
 			unsigned int savedMaxOff7 = maxOff7;
 			positions = [document
-				positionsOfWordBefore: before here: hit after: after index: hitIndex
-					inRange: NSMakeRange(minOff7, maxOff7 - minOff7)];
+				positionsOfWordBefore:before here:hit after:after index:hitIndex
+					inRange:NSMakeRange(minOff7, maxOff7 - minOff7)];
 			if([positions count])
 			{
 				if(maxOff7 < lastOff7)
 				{
 					maxOff7 = lastOff7;
 					positions = [document
-						positionsOfWordBefore: before here: hit after: after index: hitIndex
-							inRange: NSMakeRange(minOff7, maxOff7 - minOff7)];
+						positionsOfWordBefore:before here:hit after:after index:hitIndex
+							inRange:NSMakeRange(minOff7, maxOff7 - minOff7)];
 					if(![positions count])
 					{
 						maxOff7 = savedMaxOff7;
@@ -4446,26 +4448,26 @@ quelquepart:
 						{
 							minOff7 = [document characterOffsetForPageAtIndex:min-1];
 							positions = [document
-								positionsOfWordBefore: before here: hit after: after index: hitIndex
-									inRange: NSMakeRange(minOff7, maxOff7 - minOff7)];
+								positionsOfWordBefore:before here:hit after:after index:hitIndex
+									inRange:NSMakeRange(minOff7, maxOff7 - minOff7)];
 						}
 					}
 				}
 				else
 					goto quelquepart;
 			}
-//iTM2_LOG(@"ssearch range: %u, %u", min, max);
+//iTM2_LOG(@"ssearch range:%u, %u", min, max);
 		}
 		else
 		{
 			positions = [document
-				positionsOfWordBefore: before here: hit after: after index: hitIndex];
+				positionsOfWordBefore:before here:hit after:after index:hitIndex];
 		}
 	}
 	else
 	{
 		positions = [document
-			positionsOfWordBefore: before here: hit after: after index: hitIndex];
+			positionsOfWordBefore:before here:hit after:after index:hitIndex];
 	}
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	if(positions)
@@ -4473,13 +4475,16 @@ quelquepart:
 		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
 		[_SyncDestinations autorelease];
 		_SyncDestinations = [[positions objectForKey:key] retain];
-//iTM2_LOG(@"****  _SyncDestinations are now: %@", _SyncDestinations);
+//iTM2_LOG(@"****  _SyncDestinations are now:%@", _SyncDestinations);
 		// then what shall we do?
 		// let us try first to use the given destinations
 		// the destinations are 3 dictionaries of page numbers/point arrays pairs.
+		unsigned int pageCount;
+		PDFDestination * destination;
 		if([hereRecords count])
 		{
-//iTM2_LOG(@"$$$$  [hereRecords count] is: %i", [hereRecords count]);
+#pragma mark 2 - "Here" records
+//iTM2_LOG(@"$$$$  [hereRecords count] is:%i", [hereRecords count]);
 			// I found a record for a line...
 			// first I remove all the points that do not point to a character
 			// I convert the information to allow comparison between here records and sync destinations
@@ -4490,14 +4495,14 @@ quelquepart:
 			// So we convert to 2 dictionaries where keys are global character indexes
 			// and objects wrapp the original information.
 			// The here records do not really contain more information that the point to be displayed.
-			// The only thing we know is that there is a sync anchor on the same line where the mouseDown: occurred.
+			// The only thing we know is that there is a sync anchor on the same line where the mouseDown:occurred.
 			// TeX can mess things up such that the anchor point can be completely fool...
+#pragma mark 2 - a ) Convert to global
 			NSMutableArray * globalIndexes = [NSMutableArray array];
-			NSEnumerator * E = [hereRecords keyEnumerator];
-			NSNumber * N;
+			E = [hereRecords keyEnumerator];
 			while(N = [E nextObject])
 			{
-				unsigned int pageIndex = [N unsignedIntValue];
+				pageIndex = [N unsignedIntValue];
 				PDFDocument * doc = [self document];
 				if(pageIndex < [doc pageCount])
 				{
@@ -4514,26 +4519,26 @@ quelquepart:
 				}
 				else
 				{
-					iTM2_LOG(@"***  Something WEIRD DID HAPPEN: page number %u was expected to not exceed %u", pageIndex, [doc pageCount]);
+					iTM2_LOG(@"***  Something WEIRD DID HAPPEN:page number %u was expected to not exceed %u", pageIndex, [doc pageCount]);
 				}
 			}
 			// globalIndexes is an array of numbers wrapping global character indexes.
 			// then we try to find the sync destination neerest to the record index
+#pragma mark 2 - b ) Find best match
 			unsigned int minWeight = UINT_MAX;
 			NSMutableArray * syncDestinations = [NSMutableArray array];
 			E = [globalIndexes objectEnumerator];
 			while(N = [E nextObject])
 			{
 				int globalIndex = [N intValue];
-				NSEnumerator * EE = [_SyncDestinations objectEnumerator];
-				PDFDestination * destination;
+				NSEnumerator * EE = [_SyncDestinations objectEnumerator];// _SyncDestinations contains the positions
 				while(destination = [EE nextObject])
 				{
 					PDFPage * page = [destination page];
 					int globalIdx = [page localToGlobalCharacterIndex:
 						[page characterIndexNearPoint:[destination point]]];
 					unsigned weight = globalIdx < globalIndex?
-						globalIndex - globalIdx: globalIdx - globalIndex;
+						globalIndex - globalIdx:globalIdx - globalIndex;
 					weight /= 3;// because some \n characters are sometimes added.
 					if(weight<minWeight)
 					{
@@ -4551,35 +4556,21 @@ quelquepart:
 				[_SyncDestinations autorelease];
 				_SyncDestinations = [syncDestinations retain];
 			}
-#if 0
-			NSMutableDictionary * commonHereRecords = [NSMutableDictionary dictionary];
-			// the keys of the dictionary are page indexes both for hereRecords and _SyncDestinations
-			NSEnumerator * E = [[[NSMutableSet setWithArray:[hereRecords allKeys]]
-				intersectSet: [NSSet setWithArray:[_SyncDestinations allKeys]]] objectEnumerator];
-			NSMutableDictionary * commonSyncDestinations = [NSMutableDictionary dictionary];
-			NSMutableDictionary * commonHereRecords = [NSMutableDictionary dictionary];
-			NSNumber * N;
-			while(N = [E nextObject])
-			{
-				[commonSyncDestinations setObject:[_SyncDestinations objectForKey:N] forKey:N];
-				[commonHereRecords setObject:[hereRecords objectForKey:N] forKey:N];
-			}
-#endif
 		}
 		else
 		{
+#pragma mark 3 - No "Here" records
 			// we try to choose the destinations for which there exist something before and after...
 			NSMutableArray * globalBeforeIndexes = [NSMutableArray array];
 			// globalBeforeIndexes is an array of numbers wrapping global character indexes.
 			if([beforeRecords count])
 			{
-				NSEnumerator * E = [beforeRecords keyEnumerator];
-				NSNumber * N;
-				unsigned int pageCount = [[self document] pageCount];
+				E = [beforeRecords keyEnumerator];
+				pageCount = [[self document] pageCount];
 				while(N = [E nextObject])
 				{
 					
-					unsigned int pageIndex = [N unsignedIntValue];
+					pageIndex = [N unsignedIntValue];
 					if(pageIndex < pageCount)
 					{
 						PDFPage * page = [[self document] pageAtIndex:pageIndex];
@@ -4598,12 +4589,11 @@ quelquepart:
 			NSMutableArray * globalAfterIndexes = [NSMutableArray array];
 			if([afterRecords count])
 			{
-				NSEnumerator * E = [afterRecords keyEnumerator];
-				NSNumber * N;
-				unsigned int pageCount = [[self document] pageCount];
+				E = [afterRecords keyEnumerator];
+				pageCount = [[self document] pageCount];
 				while(N = [E nextObject])
 				{
-					unsigned int pageIndex = [N unsignedIntValue];
+					pageIndex = [N unsignedIntValue];
 					if(pageIndex < pageCount)
 					{
 						PDFPage * page = [[self document] pageAtIndex:pageIndex];
@@ -4620,8 +4610,8 @@ quelquepart:
 				}
 				// now beforeRecords or afterRecords are useless
 			}
-//iTM2_LOG(@"$$$$  globalBeforeIndexes is: %@", globalBeforeIndexes);
-//iTM2_LOG(@"$$$$  globalAfterIndexes is: %@", globalAfterIndexes);
+//iTM2_LOG(@"$$$$  globalBeforeIndexes is:%@", globalBeforeIndexes);
+//iTM2_LOG(@"$$$$  globalAfterIndexes is:%@", globalAfterIndexes);
 			NSMutableArray * oldSyncDestinations = [NSMutableArray arrayWithArray:_SyncDestinations];
 			NSMutableArray * newSyncDestinations = [NSMutableArray array];
 			NSEnumerator * beforeE = [globalBeforeIndexes objectEnumerator];
@@ -4631,7 +4621,7 @@ quelquepart:
 			unsigned int afterIndex;
 			nextAfterIndexLabel:
 			afterNumber = [afterE nextObject];
-			afterIndex = afterNumber? [afterNumber unsignedIntValue]: UINT_MAX;
+			afterIndex = afterNumber? [afterNumber unsignedIntValue]:UINT_MAX;
 			if(beforeIndex < afterIndex)
 			{
 				// now we augment beforeIndex
@@ -4649,7 +4639,6 @@ quelquepart:
 				// then we try to find all the destinations that fit in that intervalle
 				NSRange R = NSMakeRange(beforeIndex, afterIndex - beforeIndex);
 				NSEnumerator * e = [oldSyncDestinations objectEnumerator];
-				PDFDestination * destination;
 				while(destination = [e nextObject])
 				{
 					PDFPage * page = [destination page];
@@ -4686,19 +4675,19 @@ quelquepart:
 		}
 	}
 //iTM2_END;
-	return NO;
+	return [_SyncDestinations count]!=0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __threadedSynchronizeWithStoredDestinationsAndHints:
 - (void)__threadedSynchronizeWithStoredDestinationsAndHints:(id)irrelevant;
 /*"Description Forthcoming. NOT THREADED (problems)
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	[self __synchronizeWithStoredDestinationsAndHints: (id) irrelevant];
+	[self __synchronizeWithStoredDestinationsAndHints:(id) irrelevant];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	[NSThread exit];
@@ -4707,8 +4696,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __synchronizeWithStoredDestinationsAndHints:
 - (BOOL)__synchronizeWithStoredDestinationsAndHints:(id)irrelevant;
 /*"Description Forthcoming. NOT THREADED (problems)
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -4744,10 +4733,17 @@ startAgain:;
 				NSString * beforeWord;
 				NSString * hereWord;
 				NSString * afterWord;
-				unsigned int localHitIndex = [S getWordBefore: &beforeWord here: &hereWord after: &afterWord atIndex:hereIndex];
-//iTM2_LOG(@"####  hit sequence: %@ + %@ + %@, (index: %i)", beforeWord, hereWord, afterWord, hereIndex);
+				unsigned int localHitIndex = [S getWordBefore:&beforeWord here:&hereWord after:&afterWord atIndex:hereIndex];
+				if(iTM2DebugEnabled)
+				{
+					iTM2_LOG(@"####  hit sequence:%@ + %@ + %@, (index:%i)", beforeWord, hereWord, afterWord, hereIndex);
+				}
 				// branching code
-				if([beforeWord length])
+				if(localHitIndex == NSNotFound)
+				{
+					// It is a control
+				}
+				else if([beforeWord length])
 				{
 					if([hereWord length])
 					{
@@ -4798,12 +4794,17 @@ startAgain:;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
 - (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(iTM2DebugEnabled>200)
+	{
+		iTM2_LOG(@"destinations:%@",destinations);
+		iTM2_LOG(@"hint:%@",hint);
+	}
 	NSLock * L = [[[NSLock allocWithZone:[self zone]] init] autorelease];
 	[L lock];
 	NSMutableArray * syncStack = [[self implementation] metaValueForKey:@"_SynchronizationStack"];
@@ -4818,8 +4819,8 @@ To Do List:
 	[syncStack addObject:[NSValue valueWithNonretainedObject:hint]];
 	[L unlock];
 	#if 0
-	[NSThread detachNewThreadSelector: @selector(__threadedSynchronizeWithStoredDestinationsAndHints:)
-		toTarget: self withObject: nil];
+	[NSThread detachNewThreadSelector:@selector(__threadedSynchronizeWithStoredDestinationsAndHints:)
+		toTarget:self withObject:nil];
 	return YES;
 	#else
 	return [self __synchronizeWithStoredDestinationsAndHints:nil];
@@ -4830,8 +4831,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint:
 - (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)point withHint:(NSDictionary *)hint;
 /*"O based.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -4869,15 +4870,15 @@ To Do List:
 							previousWordRange = [S doubleClickAtIndex:clickIndex];
 							if(!previousWordRange.length && clickIndex)
 							{
-								previousWordRange = [S doubleClickAtIndex: --clickIndex];
+								previousWordRange = [S doubleClickAtIndex:--clickIndex];
 								if(!previousWordRange.length && clickIndex)
 								{
-									previousWordRange = [S doubleClickAtIndex: --clickIndex];
+									previousWordRange = [S doubleClickAtIndex:--clickIndex];
 								}
 							}
 						}
 						NSString * previousWord = [S substringWithRange:previousWordRange];
-//iTM2_LOG(@"previous word: %@", previousWord);
+//iTM2_LOG(@"previous word:%@", previousWord);
 						NSRange nextWordRange = NSMakeRange(0, 0);
 						clickIndex = NSMaxRange(wordRange);
 						if(clickIndex < [S length] - 2)
@@ -4886,15 +4887,15 @@ To Do List:
 							nextWordRange = [S doubleClickAtIndex:clickIndex];
 							if(!nextWordRange.length && clickIndex)
 							{
-								nextWordRange = [S doubleClickAtIndex: ++clickIndex];
+								nextWordRange = [S doubleClickAtIndex:++clickIndex];
 								if(!nextWordRange.length && clickIndex)
 								{
-									nextWordRange = [S doubleClickAtIndex: ++clickIndex];
+									nextWordRange = [S doubleClickAtIndex:++clickIndex];
 								}
 							}
 						}
 						NSString * targetString = [page string];
-//iTM2_LOG(@"targetString: %@", targetString);
+//iTM2_LOG(@"targetString:%@", targetString);
 						NSRange R = NSMakeRange(0, [targetString length]);
 						NSMutableArray * pointValues   = [NSMutableArray array];// matching word
 						NSMutableArray * pointValues10 = [NSMutableArray array];// matching previous word too
@@ -4902,7 +4903,7 @@ To Do List:
 						R = [targetString rangeOfString:word options:0L range:R];
 						if(R.length)
 						{
-//iTM2_LOG(@"a string was found: %@ range: %@", [targetString substringWithRange:R], NSStringFromRange(R));
+//iTM2_LOG(@"a string was found:%@ range:%@", [targetString substringWithRange:R], NSStringFromRange(R));
 							if(NSEqualRanges([targetString doubleClickAtIndex:R.location], R))
 							{
 								NSRect characterBounds = [page characterBoundsAtIndex:R.location + MIN(1 + charIndex - wordRange.location, [targetString length]) - 1];
@@ -4911,19 +4912,19 @@ To Do List:
 								// is the previous word available?
 								int clickIndex = R.location;
 								NSString * previousW = (clickIndex>2)?
-									[targetString substringWithRange:[targetString doubleClickAtIndex:clickIndex-2]]: @"";
+									[targetString substringWithRange:[targetString doubleClickAtIndex:clickIndex-2]]:@"";
 								if([previousW isEqualToString:previousWord])
 								{
 									[pointValues10 addObject:pointValue];
 								}
 								else if(iTM2DebugEnabled)
 								{
-									iTM2_LOG(@"previous word match: %@", previousW);
+									iTM2_LOG(@"previous word match:%@", previousW);
 								}
 							}
 							else if(iTM2DebugEnabled)
 							{
-								iTM2_LOG(@"No word match: %@", [targetString substringWithRange:[targetString doubleClickAtIndex:R.location]]);
+								iTM2_LOG(@"No word match:%@", [targetString substringWithRange:[targetString doubleClickAtIndex:R.location]]);
 							}
 							R.location += R.length;
 							R.length = [targetString length] - R.location;
@@ -4977,8 +4978,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
 - (void)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -4994,8 +4995,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  trackMove:
 - (BOOL)trackMove:(NSEvent *)theEvent;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Jul 17 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:Thu Jul 17 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -5113,8 +5114,8 @@ mainLoop:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Jul 17 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:Thu Jul 17 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -5131,7 +5132,7 @@ To Do List:
 				NSWindow * window = [self window];
 				if(otherEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES])
 				{
-					int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
+					int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
 					if(n>0)
 					{
 						float zoom = (modifierFlags & NSShiftKeyMask)?n/100.0:100.0/n;
@@ -5178,7 +5179,7 @@ To Do List:
 		{
 			case kiTM2SelectToolMode:
 			{
-				iTM2_LOG(@"ERROR(minor): The iTM2PDFKitView is not expected to receive a mouseDown: message in kiTM2SelectToolMode...");
+				iTM2_LOG(@"ERROR(minor):The iTM2PDFKitView is not expected to receive a mouseDown:message in kiTM2SelectToolMode...");
 				return;
 			}
 			case kiTM2ScrollToolMode:
@@ -5195,7 +5196,7 @@ To Do List:
 			*/
 		}
 	}
-//iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
+//iTM2_LOG(@"[theEvent clickCount] is:%i", [theEvent clickCount]);
     [super mouseDown:theEvent];
 //iTM2_END;
     return;
@@ -5216,8 +5217,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= zoomToFit:
 - (void)zoomToFit:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -5244,8 +5245,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:
 - (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P;
 /*"O based.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -5256,8 +5257,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollDestinationToVisible:
 - (void)scrollDestinationToVisible:(PDFDestination *)destination;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -5359,8 +5360,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
 - (void)scrollSynchronizationPointToVisible:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -5370,8 +5371,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
 - (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Jul 17 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:Thu Jul 17 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -5384,7 +5385,7 @@ To Do List:
 		int charIndex = [page characterIndexNearPoint:point];
 // there is a bug in
 //				PDFSelection * SELECTION = [page selectionForRange:NSMakeRange(charIndex, 1)];
-//iTM2_LOG(@"................ character: %@, point: %@, bounds: %@", [[page string] substringWithRange:NSMakeRange(charIndex, 1)], NSStringFromPoint(point), (SELECTION? NSStringFromRect([SELECTION boundsForPage:page]): @"No rect"));
+//iTM2_LOG(@"................ character:%@, point:%@, bounds:%@", [[page string] substringWithRange:NSMakeRange(charIndex, 1)], NSStringFromPoint(point), (SELECTION? NSStringFromRect([SELECTION boundsForPage:page]):@"No rect"));
 		NSMutableDictionary * hint = charIndex >= 0?
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:
 				[NSNumber numberWithInt:charIndex], @"character index",
@@ -5424,7 +5425,7 @@ To Do List:
 		[[[[self window] windowController] document]
 			synchronizeWithLocation:point inPageAtIndex:pageIndex withHint:hint orderFront:([theEvent clickCount] > 1)];
 	}
-//iTM2_LOG(@"[theEvent clickCount] is: %i", [theEvent clickCount]);
+//iTM2_LOG(@"[theEvent clickCount] is:%i", [theEvent clickCount]);
 //iTM2_END;
 	return;
 }
@@ -5730,7 +5731,7 @@ To Do List:
 		{
 			return;
 		}
-		_tracking = YES;// while tracking the drawRect: does not behave the same
+		_tracking = YES;// while tracking the drawRect:does not behave the same
 		NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
 		bounds = [pdfView convertRect:bounds fromPage:page];
 		bounds = [self convertRect:bounds fromView:pdfView];
@@ -5790,7 +5791,7 @@ To Do List:
 			}
 		}
 		[[self window] discardCursorRects];
-		_tracking = NO;// while tracking the drawRect: does not behave the same
+		_tracking = NO;// while tracking the drawRect:does not behave the same
 	}
 	else
 	{
@@ -6565,7 +6566,7 @@ mainLoop:
 		return kPDFNoArea;
 	}
 	NSPoint viewMouse = [[NSApp currentEvent] locationInWindow];
-	viewMouse = [self convertPoint: viewMouse fromView: NULL];
+	viewMouse = [self convertPoint:viewMouse fromView:NULL];
 	NSRect selectionRect = [self selectionRect];
 	NSRect rect = selectionRect;
 	if([self mouse:viewMouse inRect:rect])
@@ -6762,15 +6763,15 @@ mainLoop:
 }
 @end
 
-@interface PDFPage_iTM2PDFKit: PDFPage
+@interface PDFPage_iTM2PDFKit:PDFPage
 @end
 
 @implementation PDFPage_iTM2PDFKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 30 13:39:08 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Mon May 30 13:39:08 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6785,8 +6786,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  characterIndexAtPoint:
 - (int)characterIndexAtPoint:(NSPoint)point;
 /*"It fixes some bug but not all of them.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 30 13:39:08 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Mon May 30 13:39:08 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6817,14 +6818,14 @@ To Do List:
 			if(SELECTION)
 			{
 				NSRect bounds = [SELECTION boundsForPage:self];
-//iTM2_LOG(@"+++++++++++++ left character is: %@, bounds is: %@", [[self string] substringWithRange:NSMakeRange(result-1, 1)], NSStringFromRect(bounds));
+//iTM2_LOG(@"+++++++++++++ left character is:%@, bounds is:%@", [[self string] substringWithRange:NSMakeRange(result-1, 1)], NSStringFromRect(bounds));
 			}
 		}
 		PDFSelection * SELECTION = [self selectionForRange:NSMakeRange(result, 1)];
 		if(SELECTION)
 		{
 			NSRect bounds = [SELECTION boundsForPage:self];
-//iTM2_LOG(@"+++++++++++++ center character is: %@, bounds is: %@", [[self string] substringWithRange:NSMakeRange(result, 1)], NSStringFromRect(bounds));
+//iTM2_LOG(@"+++++++++++++ center character is:%@, bounds is:%@", [[self string] substringWithRange:NSMakeRange(result, 1)], NSStringFromRect(bounds));
 		}
 		if(result < [[self string] length] - 1)
 		{
@@ -6832,7 +6833,7 @@ To Do List:
 			if(SELECTION)
 			{
 				NSRect bounds = [SELECTION boundsForPage:self];
-//iTM2_LOG(@"+++++++++++++ right character is: %@, bounds is: %@", [[self string] substringWithRange:NSMakeRange(result+1, 1)], NSStringFromRect(bounds));
+//iTM2_LOG(@"+++++++++++++ right character is:%@, bounds is:%@", [[self string] substringWithRange:NSMakeRange(result+1, 1)], NSStringFromRect(bounds));
 			}
 		}
 	}
@@ -6845,8 +6846,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  globalToLocalCharacterIndex:
 - (int)globalToLocalCharacterIndex:(int)globalIndex;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6858,13 +6859,13 @@ To Do List:
 		return -1;
 	globalIndex -= offset;// local
 //iTM2_END;
-	return globalIndex < [self numberOfCharacters]? globalIndex: -1;
+	return globalIndex < [self numberOfCharacters]? globalIndex:-1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localToGlobalCharacterIndex:
 - (int)localToGlobalCharacterIndex:(int)localIndex;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6880,8 +6881,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  characterIndexNearPoint:
 - (int)characterIndexNearPoint:(NSPoint)point;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6904,15 +6905,15 @@ To Do List:
 }
 @end
 
-@interface PDFView_iTM2PDFKit: PDFView
+@interface PDFView_iTM2PDFKit:PDFView
 @end
 
 @implementation PDFView_iTM2PDFKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 30 13:39:08 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Mon May 30 13:39:08 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6926,8 +6927,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
 - (void)keyDown:(NSEvent *)theEvent
 /*"Bypass the inherited Preview behaviour.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6947,8 +6948,8 @@ NSString * const iTM2PDFKitKeyBindingsIdentifier = @"PDF2";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
 - (NSString *)keyBindingsManagerIdentifier;
 /*"Just to autorelease the window controller of the window.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6959,20 +6960,20 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
 - (id)keyBindingsManager;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [[[self window] firstResponder] isKindOfClass:[NSText class]]?
-		nil: [super keyBindingsManager];
+		nil:[super keyBindingsManager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
 - (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6984,7 +6985,7 @@ To Do List:
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
+Version history:jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -6994,7 +6995,7 @@ To Do List:
         return result;
     if([instruction length])
     {
-//iTM2_LOG(@"instruction is: %@", instruction);
+//iTM2_LOG(@"instruction is:%@", instruction);
 		[[self window] pushKeyStroke:[instruction substringWithRange:NSMakeRange(0, 1)]];
 		return YES;
     }
@@ -7003,8 +7004,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
 - (BOOL)handlesKeyStrokes;
 /*"YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Dec 15 14:34:51 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7015,8 +7016,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deleteBackward:
 - (void)deleteBackward:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7031,8 +7032,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  actualSize:
 - (IBAction)actualSize:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7045,8 +7046,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateActualSize:
 - (BOOL)validateActualSize:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7057,14 +7058,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomIn:
 - (void)doZoomIn:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
-    [[[self window] keyStrokes] getIntegerTrailer: &n];
+    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(n>0)
 		[[self pdfView] setScaleFactor:n / 100.0 * [[self pdfView] scaleFactor]];
     [[self window] flushKeyStrokeEvents:self];
@@ -7075,14 +7076,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomOut:
 - (void)doZoomOut:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
-    [[[self window] keyStrokes] getIntegerTrailer: &n];
+    int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(n>0)
 		[[self pdfView] setScaleFactor:100 * [[self pdfView] scaleFactor] / n];
     [[self window] flushKeyStrokeEvents:self];
@@ -7093,8 +7094,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomToFit:
 - (void)doZoomToFit:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7108,8 +7109,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomToSelection:
 - (void)doZoomToSelection:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7122,14 +7123,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doGoToPreviousPage:
 - (void)doGoToPreviousPage:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int n = 1;
-    [[[self window] keyStrokes] getIntegerTrailer: &n];
+    [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(!n)
 		return;
 	PDFPage * page = [[self pdfView] currentPage];
@@ -7148,14 +7149,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doGoToNextPage:
 - (void)doGoToNextPage:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int n = 1;
-    [[[self window] keyStrokes] getIntegerTrailer: &n];
+    [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(!n)
 		return;
 	PDFPage * page = [[self pdfView] currentPage];
@@ -7176,8 +7177,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doGoForward:
 - (void)doGoForward:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7190,8 +7191,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doGoBack:
 - (void)doGoBack:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7204,14 +7205,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayZoom:
 - (void)displayZoom:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int n = 100;
-    [[[self window] keyStrokes] getIntegerTrailer: &n];
+    [[[self window] keyStrokes] getIntegerTrailer:&n];
     [[self pdfView] setScaleFactor:n/100.0];
     [[self window] flushKeyStrokeEvents:self];
 	[self validateWindowContent];
@@ -7221,14 +7222,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPage:
 - (void)displayPage:(id)sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Jan  5 17:41:55 GMT 2005
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Wed Jan  5 17:41:55 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int n = 1;
-    if(![[[self window] keyStrokes] getIntegerTrailer: &n])
+    if(![[[self window] keyStrokes] getIntegerTrailer:&n])
 		return;
 	if(n<1)
 		n = 1;
@@ -7246,14 +7247,14 @@ To Do List:
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFKitPrintKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-@interface _iTM2SegmentedCell_1: NSSegmentedCell
+@interface _iTM2SegmentedCell_1:NSSegmentedCell
 @end
-@implementation iTM2IconSegmentedControl: NSSegmentedControl
+@implementation iTM2IconSegmentedControl:NSSegmentedControl
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buttonPrevious
 + (void)initialize;
 /*"Public use. Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 11:07:09 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri May 21 11:07:09 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7264,8 +7265,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
 - (id)initWithCoder:(NSCoder *)aDecoder;
 /*"Public use. Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 11:07:09 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri May 21 11:07:09 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7279,8 +7280,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  calcControlSize
 - (void)calcControlSize;
 /*"Public use. Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 11:07:09 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri May 21 11:07:09 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7309,14 +7310,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
 + (void)initialize;
 /*"Public use. Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 11:07:09 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri May 21 11:07:09 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super initialize];
-	[SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithFloat:0.9] ,@"iTM2SmallControlScaleFactor",
 			[NSNumber numberWithFloat:0.8], @"iTM2MiniControlScaleFactor",
 				nil]];
@@ -7326,8 +7327,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
 - (id)init;
 /*"Public use. Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 11:07:09 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri May 21 11:07:09 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7337,8 +7338,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawSegment:inFrame:withView:
 - (void)drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView;
 /*"Public use. Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 11:07:09 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri May 21 11:07:09 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7352,12 +7353,12 @@ To Do List:
 			NSImage * newImage = [[[NSImage allocWithZone:[self zone]] initWithSize:[oldImage size]] autorelease];
 			[self setImage:newImage forSegment:segment];
 			[super drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView];
-			float fraction = [self isEnabledForSegment:segment]? 1: 0.5;
+			float fraction = [self isEnabledForSegment:segment]? 1:0.5;
 			NSControlSize CS = [self controlSize];
 			float factor = (CS == NSRegularControlSize)? 1:
 								((CS == NSSmallControlSize)? [SUD floatForKey:@"iTM2SmallControlScaleFactor"]:
 									[SUD floatForKey:@"iTM2MiniControlScaleFactor"]);
-//NSLog(@"factor is: %f", factor);
+//NSLog(@"factor is:%f", factor);
 			NSSize oldSize = [oldImage size];
 			NSPoint point = NSMakePoint(NSMidX(frame), NSMidY(frame));
 			point.x -= oldSize.width / 2 * factor;
@@ -7375,7 +7376,7 @@ To Do List:
 }
 @end
 
-@interface iTM2PDFKitDefaultsController: iTM2Inspector
+@interface iTM2PDFKitDefaultsController:iTM2Inspector
 - (NSMutableDictionary *)model;
 - (void)setModel:(NSDictionary *)argument;
 - (NSMutableDictionary *)originalModel;
@@ -7423,8 +7424,8 @@ NSString * const iTM2PDFKitViewerDefaultsDidChangeNotification = @"iTM2PDFKitVie
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7434,8 +7435,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
 + (NSString *)inspectorMode;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7447,30 +7448,30 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerPrintInfoNotificationWindowDidLoad
 - (void)registerPrintInfoNotificationWindowDidLoad;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[INC addObserver: self
-		selector: @selector(printInfoDidChangeNotified:)
-			name: iTM2PrintInfoDidChangeNotification
-				object: nil];
+	[INC addObserver:self
+		selector:@selector(printInfoDidChangeNotified:)
+			name:iTM2PrintInfoDidChangeNotification
+				object:nil];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  printInfoDidChangeNotified:
 - (void)printInfoDidChangeNotified:(NSNotification *)aNotification;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2_LOG(@"old: %@", [[aNotification object] dictionary]);
-	iTM2_LOG(@"new: %@", [aNotification userInfo]);
+	iTM2_LOG(@"old:%@", [[aNotification object] dictionary]);
+	iTM2_LOG(@"new:%@", [aNotification userInfo]);
 //iTM2_END;
     return;
 }
@@ -7478,8 +7479,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixDefaultsModelWindowDidLoad
 - (void)fixDefaultsModelWindowDidLoad;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7539,8 +7540,8 @@ defineMODELHOLDER(originalModelSync, setOriginalModelSync)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7555,8 +7556,8 @@ To Do List:
 /*"This message is sent each time the contextManager have changed.
 The receiver will take appropriate actions to synchronize its state with its contextManager.
 Subclasses will most certainly override this method because the default implementation does nothing.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.1.a6: 03/26/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6:03/26/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7574,8 +7575,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  apply
 - (IBAction)apply:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7605,8 +7606,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canApply
 - (BOOL)canApply;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7617,8 +7618,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateApply
 - (BOOL)validateApply:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7629,8 +7630,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revert:
 - (IBAction)revert:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7644,8 +7645,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateRevert:
 - (BOOL)validateRevert:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7670,14 +7671,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBackgroundColor:
 - (void)setBackgroundColor:(NSColor *)argument;
 {
-	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]: nil));
+	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]:nil));
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeBackgroundColorFrom:
 - (IBAction)takeBackgroundColorFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7694,8 +7695,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeBackgroundColorFrom:
 - (BOOL)validateTakeBackgroundColorFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7721,8 +7722,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayBoxFromSelectedTag:
 - (IBAction)takeDisplayBoxFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7735,8 +7736,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayBoxFromSelectedTag:
 - (BOOL)validateTakeDisplayBoxFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7755,14 +7756,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayMode:
 - (void)setDisplayMode:(PDFDisplayMode)argument;
 {
-	SETTER([NSNumber numberWithInt: (int)argument]);
+	SETTER([NSNumber numberWithInt:(int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayModeFromSelectedTag:
 - (IBAction)takeDisplayModeFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7775,8 +7776,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayModeFromSelectedTag:
 - (BOOL)validateTakeDisplayModeFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7794,14 +7795,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGreekingThreshold:
 - (void)setGreekingThreshold:(float)argument;
 {
-	SETTER([NSNumber numberWithFloat: (float)argument]);
+	SETTER([NSNumber numberWithFloat:(float)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGreekingThresholdFrom:
 - (IBAction)takeGreekingThresholdFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7814,8 +7815,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGreekingThresholdFrom:
 - (BOOL)validateTakeGreekingThresholdFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -7833,19 +7834,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setShouldAntiAlias:
 - (void)setShouldAntiAlias:(BOOL)argument;
 {
-	SETTER([NSNumber numberWithBool: (int)argument]);
+	SETTER([NSNumber numberWithBool:(int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShouldAntiAlias:
 - (IBAction)toggleShouldAntiAlias:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setShouldAntiAlias: ![self shouldAntiAlias]];
+	[self setShouldAntiAlias:![self shouldAntiAlias]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -7853,13 +7854,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShouldAntiAlias:
 - (BOOL)validateToggleShouldAntiAlias:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self shouldAntiAlias]? NSOnState:NSOffState)];
+	[sender setState:([self shouldAntiAlias]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -7872,19 +7873,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAutoScales:
 - (void)setAutoScales:(BOOL)argument;
 {
-	SETTER([NSNumber numberWithBool: (int)argument]);
+	SETTER([NSNumber numberWithBool:(int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleAutoScales:
 - (IBAction)toggleAutoScales:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setAutoScales: ![self autoScales]];
+	[self setAutoScales:![self autoScales]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -7892,13 +7893,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleAutoScales:
 - (BOOL)validateToggleAutoScales:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self autoScales]? NSOnState:NSOffState)];
+	[sender setState:([self autoScales]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -7917,13 +7918,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysAsBook:
 - (IBAction)toggleDisplaysAsBook:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setDisplaysAsBook: ![self displaysAsBook]];
+	[self setDisplaysAsBook:![self displaysAsBook]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -7931,13 +7932,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysAsBook:
 - (BOOL)validateToggleDisplaysAsBook:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self displaysAsBook]? NSOnState:NSOffState)];
+	[sender setState:([self displaysAsBook]? NSOnState:NSOffState)];
 //iTM2_END;
     return [self displayMode]>1;
 }
@@ -7950,19 +7951,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplaysPageBreaks:
 - (void)setDisplaysPageBreaks:(BOOL)argument;
 {
-	SETTER([NSNumber numberWithBool: (int)argument]);
+	SETTER([NSNumber numberWithBool:(int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysPageBreaks:
 - (IBAction)toggleDisplaysPageBreaks:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setDisplaysPageBreaks: ![self displaysPageBreaks]];
+	[self setDisplaysPageBreaks:![self displaysPageBreaks]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -7970,13 +7971,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysPageBreaks:
 - (BOOL)validateToggleDisplaysPageBreaks:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self displaysPageBreaks]? NSOnState:NSOffState)];
+	[sender setState:([self displaysPageBreaks]? NSOnState:NSOffState)];
 //iTM2_END;
     return [self isContinuous];
 }
@@ -7995,13 +7996,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContinuous:
 - (IBAction)toggleContinuous:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setContinuous: ![self isContinuous]];
+	[self setContinuous:![self isContinuous]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -8009,13 +8010,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleContinuous:
 - (BOOL)validateToggleContinuous:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self isContinuous]? NSOnState:NSOffState)];
+	[sender setState:([self isContinuous]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -8039,13 +8040,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnableSynchronization:
 - (IBAction)toggleEnableSynchronization:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setEnableSynchronization: ![self enableSynchronization]];
+	[self setEnableSynchronization:![self enableSynchronization]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -8053,13 +8054,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnableSynchronization:
 - (BOOL)validateToggleEnableSynchronization:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self enableSynchronization]? NSOnState:NSOffState)];
+	[sender setState:([self enableSynchronization]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -8078,13 +8079,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFollowFocus:
 - (IBAction)toggleFollowFocus:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setFollowFocus: ![self followFocus]];
+	[self setFollowFocus:![self followFocus]];
 	[self validateWindowContent];
 //iTM2_END;
     return;
@@ -8092,13 +8093,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFollowFocus:
 - (BOOL)validateToggleFollowFocus:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self followFocus]? NSOnState:NSOffState)];
+	[sender setState:([self followFocus]? NSOnState:NSOffState)];
 //iTM2_END;
     return [self enableSynchronization];
 }
@@ -8117,8 +8118,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplayBulletsFromTag:
 - (IBAction)toggleDisplayBulletsFromTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8131,13 +8132,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplayBulletsFromTag:
 - (BOOL)validateToggleDisplayBulletsFromTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: (([self displayBullets]&[sender tag])? NSOnState:NSOffState)];
+	[sender setState:(([self displayBullets]&[sender tag])? NSOnState:NSOffState)];
 //iTM2_END;
     return [self enableSynchronization];
 }
@@ -8147,8 +8148,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showViewerPreferences:
 - (IBAction)showViewerPreferences:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8162,8 +8163,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowViewerPreferences:
 - (BOOL)validateShowViewerPreferences:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8181,8 +8182,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  messageCatcher_iTM2PDFKitInspector:
 - (IBAction)messageCatcher_iTM2PDFKitInspector:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8205,8 +8206,8 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8220,8 +8221,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFKitResponderDidFinishLaunching
 - (void)iTM2PDFKitResponderDidFinishLaunching;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.4:Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8237,8 +8238,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
 - (id)contextManager;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8249,8 +8250,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSinglePages:
 - (IBAction)setSinglePages:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8269,22 +8270,22 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSetSinglePages:
 - (BOOL)validateSetSinglePages:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	int mode = [GETTER(@"DisplayMode") intValue];
-	[sender setState: ((mode == kPDFDisplaySinglePage)|| (mode == kPDFDisplaySinglePageContinuous)? NSOnState:NSOffState)];
+	[sender setState:((mode == kPDFDisplaySinglePage)|| (mode == kPDFDisplaySinglePageContinuous)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFacingPages:
 - (IBAction)setFacingPages:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8303,22 +8304,22 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSetFacingPages:
 - (BOOL)validateSetFacingPages:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	int mode = [GETTER(@"DisplayMode") intValue];
-	[sender setState: ((mode == kPDFDisplayTwoUp)|| (mode == kPDFDisplayTwoUpContinuous)? NSOnState:NSOffState)];
+	[sender setState:((mode == kPDFDisplayTwoUp)|| (mode == kPDFDisplayTwoUpContinuous)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContinuousPage:
 - (IBAction)toggleContinuousPage:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8346,74 +8347,74 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleContinuousPage:
 - (BOOL)validateToggleContinuousPage:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	int mode = [GETTER(@"DisplayMode") intValue];
-	[sender setState: ((mode == kPDFDisplaySinglePageContinuous)|| (mode == kPDFDisplayTwoUpContinuous)? NSOnState:NSOffState)];
+	[sender setState:((mode == kPDFDisplaySinglePageContinuous)|| (mode == kPDFDisplayTwoUpContinuous)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bookMode:
 - (IBAction)bookMode:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	SETTER(@"DisplaysAsBook", [NSNumber numberWithBool: ![GETTER(@"DisplaysAsBook") boolValue]]);
+	SETTER(@"DisplaysAsBook", [NSNumber numberWithBool:![GETTER(@"DisplaysAsBook") boolValue]]);
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateBookMode:
 - (BOOL)validateBookMode:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([GETTER(@"DisplaysAsBook") boolValue]? NSOnState:NSOffState)];
+	[sender setState:([GETTER(@"DisplaysAsBook") boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePageBreaks:
 - (IBAction)togglePageBreaks:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	SETTER(@"DisplaysPageBreaks", [NSNumber numberWithBool: ![GETTER(@"DisplaysPageBreaks") boolValue]]);
+	SETTER(@"DisplaysPageBreaks", [NSNumber numberWithBool:![GETTER(@"DisplaysPageBreaks") boolValue]]);
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePageBreaks:
 - (BOOL)validateTogglePageBreaks:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([GETTER(@"DisplaysPageBreaks") boolValue]? NSOnState:NSOffState)];
+	[sender setState:([GETTER(@"DisplaysPageBreaks") boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayMediaBox:
 - (IBAction)displayMediaBox:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8425,21 +8426,21 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDisplayMediaBox:
 - (BOOL)validateDisplayMediaBox:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([GETTER(@"DisplayBox") intValue] == kPDFDisplayBoxMediaBox? NSOnState:NSOffState)];
+	[sender setState:([GETTER(@"DisplayBox") intValue] == kPDFDisplayBoxMediaBox? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayCropBox:
 - (IBAction)displayCropBox:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8451,19 +8452,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDisplayCropBox:
 - (BOOL)validateDisplayCropBox:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([GETTER(@"DisplayBox") intValue] == kPDFDisplayBoxCropBox? NSOnState:NSOffState)];
+	[sender setState:([GETTER(@"DisplayBox") intValue] == kPDFDisplayBoxCropBox? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
 @end
 
-@interface iTM2PDFKitPrefPane: iTM2PreferencePane
+@interface iTM2PDFKitPrefPane:iTM2PreferencePane
 - (BOOL)isContinuous;
 @end
 
@@ -8471,8 +8472,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8496,8 +8497,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prefPaneIdentifier
 - (NSString *)prefPaneIdentifier;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 1.4:Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8509,8 +8510,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8544,14 +8545,14 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBackgroundColor:
 - (void)setBackgroundColor:(NSColor *)argument;
 {
-	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]: nil));
+	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]:nil));
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeBackgroundColorFrom:
 - (IBAction)takeBackgroundColorFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8568,8 +8569,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeBackgroundColorFrom:
 - (BOOL)validateTakeBackgroundColorFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8595,8 +8596,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayBoxFromSelectedTag:
 - (IBAction)takeDisplayBoxFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8609,8 +8610,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayBoxFromSelectedTag:
 - (BOOL)validateTakeDisplayBoxFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8629,14 +8630,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayMode:
 - (void)setDisplayMode:(PDFDisplayMode)argument;
 {
-	SETTER([NSNumber numberWithInt: (int)argument]);
+	SETTER([NSNumber numberWithInt:(int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayModeFromSelectedTag:
 - (IBAction)takeDisplayModeFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8649,8 +8650,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayModeFromSelectedTag:
 - (BOOL)validateTakeDisplayModeFromSelectedTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8674,8 +8675,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGreekingThresholdFrom:
 - (IBAction)takeGreekingThresholdFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8688,8 +8689,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGreekingThresholdFrom:
 - (BOOL)validateTakeGreekingThresholdFrom:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -8707,19 +8708,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setShouldAntiAlias:
 - (void)setShouldAntiAlias:(BOOL)argument;
 {
-	SETTER([NSNumber numberWithBool: (int)argument]);
+	SETTER([NSNumber numberWithBool:(int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShouldAntiAlias:
 - (IBAction)toggleShouldAntiAlias:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setShouldAntiAlias: ![self shouldAntiAlias]];
+	[self setShouldAntiAlias:![self shouldAntiAlias]];
 	[sender validateWindowContent];
 //iTM2_END;
     return;
@@ -8727,13 +8728,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShouldAntiAlias:
 - (BOOL)validateToggleShouldAntiAlias:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self shouldAntiAlias]? NSOnState:NSOffState)];
+	[sender setState:([self shouldAntiAlias]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -8746,19 +8747,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAutoScales:
 - (void)setAutoScales:(BOOL)argument;
 {
-	SETTER([NSNumber numberWithBool: (int)argument]);
+	SETTER([NSNumber numberWithBool:(int)argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleAutoScales:
 - (IBAction)toggleAutoScales:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setAutoScales: ![self autoScales]];
+	[self setAutoScales:![self autoScales]];
 	[sender validateWindowContent];
 //iTM2_END;
     return;
@@ -8766,13 +8767,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleAutoScales:
 - (BOOL)validateToggleAutoScales:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self autoScales]? NSOnState:NSOffState)];
+	[sender setState:([self autoScales]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -8791,13 +8792,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysAsBook:
 - (IBAction)toggleDisplaysAsBook:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setDisplaysAsBook: ![self displaysAsBook]];
+	[self setDisplaysAsBook:![self displaysAsBook]];
 	[sender validateWindowContent];
 //iTM2_END;
     return;
@@ -8805,13 +8806,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysAsBook:
 - (BOOL)validateToggleDisplaysAsBook:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self displaysAsBook]? NSOnState:NSOffState)];
+	[sender setState:([self displaysAsBook]? NSOnState:NSOffState)];
 //iTM2_END;
     return [self displayMode]>1;
 }
@@ -8830,13 +8831,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysPageBreaks:
 - (IBAction)toggleDisplaysPageBreaks:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setDisplaysPageBreaks: ![self displaysPageBreaks]];
+	[self setDisplaysPageBreaks:![self displaysPageBreaks]];
 	[sender validateWindowContent];
 //iTM2_END;
     return;
@@ -8844,13 +8845,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysPageBreaks:
 - (BOOL)validateToggleDisplaysPageBreaks:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self displaysPageBreaks]? NSOnState:NSOffState)];
+	[sender setState:([self displaysPageBreaks]? NSOnState:NSOffState)];
 //iTM2_END;
     return [self isContinuous];
 }
@@ -8869,13 +8870,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContinuous:
 - (IBAction)toggleContinuous:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setContinuous: ![self isContinuous]];
+	[self setContinuous:![self isContinuous]];
 	[sender validateWindowContent];
 //iTM2_END;
     return;
@@ -8883,13 +8884,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleContinuous:
 - (BOOL)validateToggleContinuous:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self isContinuous]? NSOnState:NSOffState)];
+	[sender setState:([self isContinuous]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -8916,13 +8917,13 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnableSynchronization:
 - (IBAction)toggleEnableSynchronization:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setEnableSynchronization: ![self enableSynchronization]];
+	[self setEnableSynchronization:![self enableSynchronization]];
 	[sender validateWindowContent];
 //iTM2_END;
     return;
@@ -8930,13 +8931,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnableSynchronization:
 - (BOOL)validateToggleEnableSynchronization:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self enableSynchronization]? NSOnState:NSOffState)];
+	[sender setState:([self enableSynchronization]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -8955,13 +8956,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFollowFocus:
 - (IBAction)toggleFollowFocus:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setFollowFocus: ![self followFocus]];
+	[self setFollowFocus:![self followFocus]];
 	[sender validateWindowContent];
 //iTM2_END;
     return;
@@ -8969,13 +8970,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFollowFocus:
 - (BOOL)validateToggleFollowFocus:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self followFocus]? NSOnState:NSOffState)];
+	[sender setState:([self followFocus]? NSOnState:NSOffState)];
 //iTM2_END;
     return [self enableSynchronization];
 }
@@ -8994,8 +8995,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplayBulletsFromTag:
 - (IBAction)toggleDisplayBulletsFromTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -9008,13 +9009,13 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplayBulletsFromTag:
 - (BOOL)validateToggleDisplayBulletsFromTag:(id)sender;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: (([self displayBullets]&[sender tag])? NSOnState:NSOffState)];
+	[sender setState:(([self displayBullets]&[sender tag])? NSOnState:NSOffState)];
 //iTM2_END;
     return [self enableSynchronization];
 }
@@ -9098,8 +9099,8 @@ DEFINE_IMAGE(imageAnnotateTool2AdornDisclosure, @"AnnotateTool2AdornDisclosure")
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawInteriorWithFrame:inView:
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;

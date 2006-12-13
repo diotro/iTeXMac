@@ -1,6 +1,6 @@
 /*
 //
-//  @version Subversion: $Id$ 
+//  @version Subversion:$Id:iTM2TeXStringKit.m 111 2006-07-20 11:12:42Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sat Jun 16 2001.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
@@ -12,8 +12,8 @@
 //  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //  See the GNU General Public License for more details. You should have received a copy
 //  of the GNU General Public License along with this program; if not, write to the Free Software
-//  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-//  GPL addendum: Any simple modification of the present code which purpose is to remove bug,
+//  Foundation, Inc., 59 Temple Place-Suite 330, Boston, MA 02111-1307, USA.
+//  GPL addendum:Any simple modification of the present code which purpose is to remove bug,
 //  improve efficiency in both code execution and code reading or writing should be addressed
 //  to the actual developper team.
 */
@@ -29,8 +29,8 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= backslashCharacter
 + (unichar)backslashCharacter;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -41,8 +41,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commentCharacter
 + (unichar)commentCharacter;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -53,8 +53,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupCharacter
 + (unichar)bgroupCharacter;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -65,8 +65,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= egroupCharacter
 + (unichar)egroupCharacter;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -77,8 +77,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= backslashString
 + (NSString *)backslashString;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -89,8 +89,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commentString
 + (NSString *)commentString;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -101,8 +101,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupString
 + (NSString *)bgroupString;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -113,8 +113,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= egroupString
 + (NSString *)egroupString;
 /*" Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -127,8 +127,8 @@ To Do List:
 /*" Returns YES if there is a '\' at index index. For example "\\ " is a 3 length string.
 For index = 0, 1 and 2, the aFlagPtr* is NO, YES, NO.
 If there is no backslash, aFlagPtr will point to NO, if it is not nil.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -155,8 +155,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:TeXComment:forIndex:
 - (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
 /*" Description Forthcoming
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -165,12 +165,12 @@ To Do List:
     {
         unsigned start, contentsEnd;
 //NSLog(@"GLS");
-        [self getLineStart: &start end:lineEndPtr contentsEnd: &contentsEnd forRange:NSMakeRange(index, 0)];
+        [self getLineStart:&start end:lineEndPtr contentsEnd:&contentsEnd forRange:NSMakeRange(index, 0)];
         if(startPtr) *startPtr = start;
         if(contentsEndPtr) *contentsEndPtr = contentsEnd;
         NSRange R = [self rangeOfString:@"%" options:0 range:NSMakeRange(start, contentsEnd-start)];
         BOOL escaped;
-        if(R.length && ((R.location==start) || ![self isControlAtIndex:R.location-1 escaped: &escaped] || escaped))
+        if(R.length && ((R.location==start) || ![self isControlAtIndex:R.location-1 escaped:&escaped] || escaped))
             *commentPtr = R.location;
         else
             *commentPtr = NSNotFound;
@@ -183,15 +183,15 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isTeXCommentAtIndex:
 - (BOOL)isTeXCommentAtIndex:(unsigned)index;
 /*" Description Forthcoming
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     unsigned int anchor;
 //NSLog(@"GLS");
-    [self getLineStart: &anchor end:nil contentsEnd:nil forRange:NSMakeRange(index, 0)];
+    [self getLineStart:&anchor end:nil contentsEnd:nil forRange:NSMakeRange(index, 0)];
     while(anchor<index)
     {
         NSRange R = [self rangeOfString:@"%" options:0 range:NSMakeRange(anchor, index-anchor)];
@@ -200,7 +200,7 @@ To Do List:
             if(R.location>anchor)
             {
                 BOOL escaped;
-                if([self isControlAtIndex:R.location-1 escaped: &escaped] && !escaped)
+                if([self isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
                     anchor = NSMaxRange(R);
                 else
                     return YES;
@@ -216,19 +216,19 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:
 - (NSRange)groupRangeAtIndex:(unsigned)index;
 /*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self groupRangeAtIndex:index beginDelimiter: '{' endDelimiter: '}'];
+    return [self groupRangeAtIndex:index beginDelimiter:'{' endDelimiter:'}'];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:beginDelimiter:endDelimiter:
 - (NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 /*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -241,7 +241,7 @@ To Do List:
     CharacterAtIndexIMP CAI = (CharacterAtIndexIMP) [self methodForSelector:@selector(characterAtIndex:)];
     #define NextCharacter CAI(self, @selector(characterAtIndex:), scanLocation)
     BOOL escaped = YES;
-    if(!scanLocation || ![self isControlAtIndex:scanLocation-1 escaped: &escaped] || escaped)
+    if(!scanLocation || ![self isControlAtIndex:scanLocation-1 escaped:&escaped] || escaped)
     {
         unichar uchar = NextCharacter;
         if(uchar == bgroup)
@@ -261,7 +261,7 @@ To Do List:
                     {
                         --groupLevel;
                         if (groupLevel == 0)
-                            return NSMakeRange(index, scanLocation - index + 1);
+                            return NSMakeRange(index, scanLocation-index + 1);
                     }
                 }
             }
@@ -275,7 +275,7 @@ To Do List:
                 {
                     if(!scanLocation)
                         return NSMakeRange(NSNotFound, 0);
-                    else if([self isControlAtIndex:scanLocation-1 escaped: &escaped])
+                    else if([self isControlAtIndex:scanLocation-1 escaped:&escaped])
                     {
                         if(escaped)
                         {
@@ -292,7 +292,7 @@ To Do List:
                 {
                     if(!scanLocation)
                         --groupLevel;                        
-                    else if([self isControlAtIndex:scanLocation-1 escaped: &escaped])
+                    else if([self isControlAtIndex:scanLocation-1 escaped:&escaped])
                     {
                         if(escaped)
                         {
@@ -306,7 +306,7 @@ To Do List:
                         --groupLevel;
                     if (groupLevel == 0)
                         return (scanLocation < index)?
-                            NSMakeRange(scanLocation, index - scanLocation + 1):
+                            NSMakeRange(scanLocation, index-scanLocation + 1):
                                 NSMakeRange(NSNotFound, 0);
                 }
             }
@@ -322,20 +322,20 @@ To Do List:
 - (NSRange)groupRangeForRange:(NSRange)range;
 /*"Returns the range of the smallest group in TeX sense, containing range. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 The delimiters of the outer teX group are not part of range.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self groupRangeForRange:range beginDelimiter: '{' endDelimiter: '}'];
+    return [self groupRangeForRange:range beginDelimiter:'{' endDelimiter:'}'];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeForRange:beginDelimiter:endDelimiter:
 - (NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 /*"Returns the range of the smallest group in TeX sense, containing range. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 The delimiters of the outer teX group are not part of range.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -363,7 +363,7 @@ To Do List:
             if(left==0)
                 return NSMakeRange(NSNotFound, 0);
             unsigned previous = left-1;
-            if([self isControlAtIndex:previous escaped: &escaped])
+            if([self isControlAtIndex:previous escaped:&escaped])
             {
                 if(escaped)
                 {
@@ -378,7 +378,7 @@ To Do List:
         }
         else if (uchar == bgroup)
         {
-            if(!left || ![self isControlAtIndex:left-1 escaped: &escaped] || escaped)
+            if(!left || ![self isControlAtIndex:left-1 escaped:&escaped] || escaped)
                 --groupLevel;                        
             if(groupLevel == 0)
             {
@@ -419,23 +419,23 @@ To Do List:
 + (NSRange)TeXAwareDoubleClick:(NSString *)string atIndex:(unsigned)index;
 /*"Description forthcoming. Extends the double click at index...
 This takes TeX commands into account, and \- hyphenation two
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 03/10/2002
-To Do List: implement some kind of balance range for range
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
+To Do List:implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSRange R = [string doubleClickAtIndex:index];
-//NSLog(@"[super doubleClickAtIndex: %i]: %@", index, NSStringFromRange(R));
+//NSLog(@"[super doubleClickAtIndex:%i]:%@", index, NSStringFromRange(R));
     BOOL escaped;
     if(R.location > 0)
     {
-        if([string isControlAtIndex:R.location-1 escaped: &escaped])
+        if([string isControlAtIndex:R.location-1 escaped:&escaped])
         {
             if(!escaped)
             {
                 --R.location, ++R.length;
-//NSLog(@"!escaped [S substringWithRange: %@]: %@", NSStringFromRange(R), [S substringWithRange:R]);
+//NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
                 return R;
             }
         }
@@ -447,7 +447,7 @@ To Do List: implement some kind of balance range for range
     unsigned int top = [string length];
     unsigned int loc = NSMaxRange(R);
     while((loc+1<top) &&
-		  [string isControlAtIndex:loc escaped: &escaped] &&
+		  [string isControlAtIndex:loc escaped:&escaped] &&
 		  !escaped &&
 		  ([string characterAtIndex:loc+1] == '-'))
     {
@@ -467,7 +467,7 @@ To Do List: implement some kind of balance range for range
     }
     while((R.location>1)
 		&& ([string characterAtIndex:R.location-1] == '-')
-			&& [string isControlAtIndex:R.location-2 escaped: &escaped]
+			&& [string isControlAtIndex:R.location-2 escaped:&escaped]
 				&& !escaped)
     {
         R.location -= 2;
@@ -478,13 +478,13 @@ To Do List: implement some kind of balance range for range
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByStrippingTeXTagsInString:
 + (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 02/03/2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:02/03/2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"********  I have to wash: %@", string);
+//iTM2_LOG(@"********  I have to wash:%@", string);
 	// first stripe out the % comments
 	NSEnumerator * E = [[string componentsSeparatedByString:[NSString commentString]] objectEnumerator];
 	NSMutableArray * MRA = [NSMutableArray array];
@@ -494,7 +494,7 @@ To Do List:
 		if(length>0)
 		{
 			BOOL escaped;
-			if([string isControlAtIndex: --length escaped: &escaped] && !escaped)
+			if([string isControlAtIndex:--length escaped:&escaped] && !escaped)
 			{
 				if(length>0)
 					[MRA addObject:[string substringWithRange:NSMakeRange(0, length)]];
@@ -506,7 +506,7 @@ To Do List:
 			}
 		}
 	}
-//iTM2_LOG(@"********  Commented out: %@", MRA);
+//iTM2_LOG(@"********  Commented out:%@", MRA);
 	E = [MRA objectEnumerator];
 	MRA = [NSMutableArray array];
 	while(string = [E nextObject])
@@ -529,14 +529,14 @@ To Do List:
 					{
 						[scanner scanUpToString:[NSString egroupString] intoString:nil];
 						R.location = [scanner scanLocation];
-						if(R.location++<[component length] - 1)
+						if(R.location++<[component length]-1)
 						{
-							R.length = [component length] - R.location;
+							R.length = [component length]-R.location;
 							// we replace all the { and } by spaces (they will not appear as is in the output
 							// and they are not escaped
 							[mra addObject:[[[component substringWithRange:R] componentsSeparatedByStrings:
 								[NSString bgroupString], [NSString egroupString], nil]
-									componentsJoinedByString: @" "]];
+									componentsJoinedByString:@" "]];
 						}
 					}
 					else
@@ -548,21 +548,21 @@ To Do List:
 							R.location = NSMaxRange(R);
 							if(R.location<[component length])
 							{
-								R.length = [component length] - R.location;
+								R.length = [component length]-R.location;
 								// we replace all the { and } by spaces (they will not appear as is in the output
 								// and they are not escaped
 								[mra addObject:[[[component substringWithRange:R] componentsSeparatedByStrings:
 									[NSString bgroupString], [NSString egroupString], nil]
-										componentsJoinedByString: @" "]];
+										componentsJoinedByString:@" "]];
 							}
 						}
 					}
 				}
 				else
 				{
-					[mra addObject: [[component componentsSeparatedByStrings:
+					[mra addObject:[[component componentsSeparatedByStrings:
 						[NSString bgroupString], [NSString egroupString], nil]
-							componentsJoinedByString: @" "]];
+							componentsJoinedByString:@" "]];
 				}
 				escaped = NO;
 			}
@@ -574,7 +574,7 @@ To Do List:
 		}
 		// then we replace multiple space chars by only one
 		e = [[[[[mra componentsJoinedByString:@" "] componentsSeparatedByString:@"~"]
-			componentsJoinedByString: @" "] componentsSeparatedByString: @" "] objectEnumerator];
+			componentsJoinedByString:@" "] componentsSeparatedByString:@" "] objectEnumerator];
 		mra = [NSMutableArray array];
 		while(component = [e nextObject])
 			if([component length])
@@ -582,14 +582,14 @@ To Do List:
 		[MRA addObject:[mra componentsJoinedByString:@" "]];
 	}
 //iTM2_END;
-//iTM2_LOG(@"********  the cleaned result is: %@ (from %@)", [MRA componentsJoinedByString:@"%"], MRA);
+//iTM2_LOG(@"********  the cleaned result is:%@ (from %@)", [MRA componentsJoinedByString:@"%"], MRA);
 	return [MRA componentsJoinedByString:@"%"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getWordBefore:here:after:atIndex:
 - (unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 02/03/2003
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:02/03/2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -605,24 +605,30 @@ To Do List:
 	if(afterPtr) * afterPtr = nil;
 	unsigned int TeXCommentIndex, start, end, contentsEnd;
 	unsigned afterAnchor = 0;// the after word is expected after this anchor
+	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
 startAgain:
-	[self getLineStart: &start end: &end contentsEnd: &contentsEnd TeXComment: &TeXCommentIndex forIndex:hitIndex];
+	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
 	if(TeXCommentIndex != NSNotFound)
 	{
 		// there is a % comment in this line
 		if(hitIndex>=TeXCommentIndex)
 		{
+			if(!alreadyComment)
+			{
+				alreadyComment = YES;
+				alreadyControl = YES;
+			}
 			if(!afterAnchor)
 				afterAnchor = end;
-			// we hit a % commented character: no hope to find it in the output
+			// we hit a % commented character:no hope to find it in the output
 			if(TeXCommentIndex > start)
 			{
 				// There exists uncommented characters
-				hitIndex = TeXCommentIndex - 1;
+				hitIndex = TeXCommentIndex-1;
 			}
 			else if(hitIndex >= [self length])
 			{
-				// No chance to do anything: the source is just one TeX comment or command!!!
+				// No chance to do anything:the source is just one TeX comment or command!!!
 				return 0;
 			}
 			else//if(TeXCommentIndex <= start) &&...
@@ -643,12 +649,17 @@ point1:;
 		if(hereRange.location)
 		{
 			BOOL escaped = NO;
-			if([self isControlAtIndex:hereRange.location - 1 escaped: &escaped] && !escaped)
+			if([self isControlAtIndex:hereRange.location-1 escaped:&escaped] && !escaped)
 			{
 				// this is a control sequence
+				if(!alreadyControl)
+				{
+					inControl = YES;
+					alreadyControl = YES;
+				}
 				if(hereRange.location>start+2)
 				{
-					hitIndex = hereRange.location - 2;
+					hitIndex = hereRange.location-2;
 					goto point1;
 				}
 				else if(start)
@@ -671,34 +682,34 @@ point1:;
 	// what is before? (also as a list of words with no tex tags)
 	// start no longer means the beginning of a line...
 	NSRange R;
-	[self getLineStart: &R.location end:nil contentsEnd:nil forRange:hereRange];
+	[self getLineStart:&R.location end:nil contentsEnd:nil forRange:hereRange];
 	NSString * before = [NSString stringByStrippingTeXTagsInString:
-				[self substringWithRange:NSMakeRange(R.location, hereRange.location - R.location)]];
+				[self substringWithRange:NSMakeRange(R.location, hereRange.location-R.location)]];
 	unsigned int limit = 50;
 	while([before length] < limit && R.location)
 	{
 		--R.location;
 		R.length = 0;
-		[self getLineStart: &R.location end:nil contentsEnd: &contentsEnd forRange:R];
-		if(R.length = contentsEnd - R.location)
+		[self getLineStart:&R.location end:nil contentsEnd:&contentsEnd forRange:R];
+		if(R.length = contentsEnd-R.location)
 			before = [[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]
-				stringByAppendingFormat: @" %@", before];
+				stringByAppendingFormat:@" %@", before];
 	}
 	if(!afterAnchor)
 		afterAnchor = NSMaxRange(hereRange);
 	R.location = afterAnchor;
 	R.length = 0;
-	[self getLineStart:nil end: &end contentsEnd: &contentsEnd forRange:R];
+	[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 	NSString * after = [NSString stringByStrippingTeXTagsInString:
-				[self substringWithRange:NSMakeRange(afterAnchor, contentsEnd - afterAnchor)]];
+				[self substringWithRange:NSMakeRange(afterAnchor, contentsEnd-afterAnchor)]];
 mamita:
 	if([after length] < limit && (end < [self length]))
 	{
 		R.location = end;
 		R.length = 0;
-		[self getLineStart:nil end: &end contentsEnd: &contentsEnd forRange:R];
-		if(R.length = contentsEnd - R.location)
-			after = [after stringByAppendingFormat: @" %@",
+		[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+		if(R.length = contentsEnd-R.location)
+			after = [after stringByAppendingFormat:@" %@",
 				[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]];
 		if(contentsEnd < end)
 			goto mamita;
@@ -749,7 +760,7 @@ nextAfterWord:
 		NSString * beforeWord1 = nil;
 		NSString * beforeWord2 = nil;
 nextBeforeWord:
-		R = [before rangeOfWordAtIndex:R.location - 1];
+		R = [before rangeOfWordAtIndex:R.location-1];
 		if(R.length>1)
 		{
 			if(beforeWord1)
@@ -781,22 +792,22 @@ nextBeforeWord:
 	if(herePtr)	  * herePtr   = [self substringWithRange:hereRange];
 	if(afterPtr)  * afterPtr  = afterWord;
 //iTM2_END;
-	return hitIndex - hereRange.location;
+	return inControl?NSNotFound:hitIndex-hereRange.location;
 }
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2XAttributedString
 /*"Description forthcoming."*/
-@interface iTM2TeXAttributedString_0: NSAttributedString
+@interface iTM2TeXAttributedString_0:NSAttributedString
 @end
 @implementation iTM2TeXAttributedString_0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 02/15/2006
-To Do List: implement some kind of balance range for range
+Version history:jlaurens AT users.sourceforge.net
+- 2.0:02/15/2006
+To Do List:implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
@@ -809,9 +820,9 @@ To Do List: implement some kind of balance range for range
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
 - (NSRange)doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 02/15/2006
-To Do List: implement some kind of balance range for range
+Version history:jlaurens AT users.sourceforge.net
+- 2.0:02/15/2006
+To Do List:implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -819,19 +830,19 @@ To Do List: implement some kind of balance range for range
 	if(R.length)
 		return R;
     R = [super doubleClickAtIndex:index];
-//NSLog(@"[super doubleClickAtIndex: %i]: %@", index, NSStringFromRange(R));
+//NSLog(@"[super doubleClickAtIndex:%i]:%@", index, NSStringFromRange(R));
 	if([iTM2EventObserver isAlternateKeyDown])
 		return R;
     NSString * S = [self string];
     BOOL escaped;
     if(R.location > 0)
     {
-        if([S isControlAtIndex:R.location-1 escaped: &escaped])
+        if([S isControlAtIndex:R.location-1 escaped:&escaped])
         {
             if(!escaped)
             {
                 --R.location, ++R.length;
-//NSLog(@"!escaped [S substringWithRange: %@]: %@", NSStringFromRange(R), [S substringWithRange:R]);
+//NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
                 return R;
             }
         }
@@ -843,7 +854,7 @@ To Do List: implement some kind of balance range for range
     unsigned int top = [S length];
     unsigned int loc = NSMaxRange(R);
     while((loc+1<top) &&
-            [S isControlAtIndex:loc escaped: &escaped] &&
+            [S isControlAtIndex:loc escaped:&escaped] &&
                 !escaped &&
                     ([S characterAtIndex:loc+1] == '-'))
     {
@@ -861,7 +872,7 @@ To Do List: implement some kind of balance range for range
                 break;
         }
     }
-    while((R.location>1) && ([S characterAtIndex:R.location-1] == '-') && [S isControlAtIndex:R.location-2 escaped: &escaped] && !escaped)
+    while((R.location>1) && ([S characterAtIndex:R.location-1] == '-') && [S isControlAtIndex:R.location-2 escaped:&escaped] && !escaped)
     {
         R.location -= 2;
         R.length += 2;

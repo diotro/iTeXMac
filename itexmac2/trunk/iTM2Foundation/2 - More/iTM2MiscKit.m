@@ -83,7 +83,7 @@ To Do List:
 		[sender setImage:I];//size
 	}
 //iTM2_END;
-    return;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeDebugModeFromSenderTag:
 - (void)takeDebugModeFromSenderTag:(id)sender;

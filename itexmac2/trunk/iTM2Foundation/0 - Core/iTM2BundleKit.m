@@ -261,9 +261,9 @@ To Do List:
 	{
 		localError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
 						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-							[NSString stringWithFormat:@"Could not remove\n%@", fullPath], NSLocalizedDescriptionKey,
-							fullPath, @"iTM2BundleKit",
-								nil]]
+							[NSString stringWithFormat:@"Could not remove\n%@", path], NSLocalizedDescriptionKey,
+							path, @"iTM2BundleKit",
+								nil]];
 		[NSApp presentError:localError];
 	}
 	if(create && [DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
@@ -356,7 +356,7 @@ To Do List:
 //iTM2_START;
 	NSString * binaryDirectory = [self temporaryBinaryDirectory];
 	NSString * link = [binaryDirectory stringByAppendingPathComponent:[executable lastPathComponent]];// no stringByStandardizingPath please
-	if(([DFM fileExistsAtPath:link] || [DFM pathContentOfSymbolicLinkAtPath:path])
+	if(([DFM fileExistsAtPath:link] || [DFM pathContentOfSymbolicLinkAtPath:link])
 			&& (![DFM isDeletableFileAtPath:link] || ![DFM removeFileAtPath:link handler:nil]))
 	{
 		if(errorRef)
@@ -431,6 +431,7 @@ To Do List:
 //iTM2_START;
     NSString * path = [self temporaryDirectory];
     path = [path stringByAppendingPathComponent:@"default"];
+	BOOL isDirectory = NO;
     if([DFM fileExistsAtPath:path isDirectory:&isDirectory])
 	{
 		if(isDirectory)
@@ -439,7 +440,7 @@ To Do List:
 		}
 	}
 	else if((![DFM pathContentOfSymbolicLinkAtPath:path]
-			|| [DF removeFileAtPath:path handler:NULL])
+			|| [DFM removeFileAtPath:path handler:NULL])
 				&& [DFM createDirectoryAtPath:path attributes:nil])
 	{
 		return path;

@@ -3179,7 +3179,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	return NO;
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doGoToNextPage:
 - (void)doGoToNextPage:(id)sender;
@@ -3203,7 +3203,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	return NO;
+	return YES;
 }
 @end
 
