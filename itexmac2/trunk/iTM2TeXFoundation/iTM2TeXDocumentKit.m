@@ -91,13 +91,6 @@ To Do List:
 
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 
-@interface iTM2TeXEditor(comment)
-- (void)commentSelectedTextWhenUndoRegistrationEnabled:(id)sender;
-- (void)commentSelectedTextWhenUndoRegistrationDisabled:(id)sender;
-- (void)willChangeSelectedRanges;
-- (void)didChangeSelectedRanges;
-@end
-
 @implementation iTM2TeXEditor
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
 - (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
@@ -440,25 +433,6 @@ To Do List: Nothing at first glance.
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self commentSelectedTextWhenUndoRegistrationEnabled:(id)sender];
-	[self commentSelectedTextWhenUndoRegistrationDisabled:(id)sender];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelectedTextWhenUndoRegistrationDisabled:
-- (void)commentSelectedTextWhenUndoRegistrationDisabled:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- < 1.1: 03/10/2002
-To Do List: Nothing at first glance.
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSUndoManager * UM = [self undoManager];
-	if([UM isUndoRegistrationEnabled])
-	{
-		return;
-	}
 	NSString * commentString = [NSString commentString];
 	NSMutableArray * affectedRanges = [NSMutableArray array];
 	NSMutableArray * replacementStrings = [NSMutableArray array];
@@ -492,77 +466,6 @@ To Do List: Nothing at first glance.
 			[S getLineStart:nil end:&nextStart contentsEnd:nil forRange:R];
 		}
 	}
-	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
-	{
-		unsigned int shift = 0;
-		NSEnumerator * E = [affectedRanges objectEnumerator];// no reverse to properly manage the selection
-		affectedRanges = [NSMutableArray array];
-		// no need to enumerate the replacementStrings
-		while(V = [E nextObject])
-		{
-			R = [V rangeValue];
-			R.location += shift;
-			[self replaceCharactersInRange:R withString:commentString];
-			[S getLineStart:nil end:&R.length contentsEnd:nil forRange:R];
-			R.length -= R.location;
-			V = [NSValue valueWithRange:R];
-			[affectedRanges addObject:V];
-			++shift;
-		}
-		[self didChangeText];
-		[self setSelectedRanges:affectedRanges];
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelectedTextWhenUndoRegistrationEnabled:
-- (void)commentSelectedTextWhenUndoRegistrationEnabled:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- < 1.1: 03/10/2002
-To Do List: Nothing at first glance.
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSUndoManager * UM = [self undoManager];
-	if(![UM isUndoRegistrationEnabled])
-	{
-		return;
-	}
-	NSString * commentString = [NSString commentString];
-	NSMutableArray * affectedRanges = [NSMutableArray array];
-	NSMutableArray * replacementStrings = [NSMutableArray array];
-	NSString * S = [self string];
-	NSArray * selectedRanges = [self selectedRanges];
-	NSEnumerator * E = [selectedRanges objectEnumerator];
-	NSValue * V;
-	NSRange R;
-	while(V = [E nextObject])
-	{
-		NSRange R = [V rangeValue];
-		unsigned int nextStart,top;
-		top = NSMaxRange(R);
-		R.length = 0;
-		[S getLineStart:&R.location end:&nextStart contentsEnd:nil forRange:R];
-		V = [NSValue valueWithRange:R];
-		if(![affectedRanges containsObject:V])
-		{
-			[affectedRanges addObject:V];
-			[replacementStrings addObject:commentString];
-		}
-		while (nextStart<top)
-		{
-			R.location = nextStart;
-			V = [NSValue valueWithRange:R];
-			if(![affectedRanges containsObject:V])
-			{
-				[affectedRanges addObject:V];
-				[replacementStrings addObject:commentString];
-			}
-			[S getLineStart:nil end:&nextStart contentsEnd:nil forRange:R];
-		}
-	}
-	[UM beginUndoGrouping];
 	[self willChangeSelectedRanges];
 	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
 	{
@@ -585,39 +488,7 @@ To Do List: Nothing at first glance.
 		[self setSelectedRanges:affectedRanges];
 	}
 	[self didChangeSelectedRanges];
-	[UM endUndoGrouping];
-iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willChangeSelectedRanges
-- (void)willChangeSelectedRanges;
-/*"Register the actual selected ranges for an eventual undo action.
-Wen undoing a will action becomes a did acion and conversely.
-Version history: jlaurens AT users.sourceforge.net
-- < 1.1: 03/10/2002
-To Do List: Nothing at first glance.
-"*/
-{iTM2_DIAGNOSTIC;
-iTM2_START;
-	NSArray * actualSelectedRange = [self selectedRanges];
-	NSUndoManager * UM = [self undoManager];
-	[UM registerUndoWithTarget:self selector:@selector(setSelectedRanges:) object:actualSelectedRange];
-	[UM registerUndoWithTarget:self selector:@selector(didChangeSelectedRanges) object:nil];
-iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didChangeSelectedRanges
-- (void)didChangeSelectedRanges;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- < 1.1: 03/10/2002
-To Do List: Nothing at first glance.
-"*/
-{iTM2_DIAGNOSTIC;
-iTM2_START;
-	NSUndoManager * UM = [self undoManager];
-	[UM registerUndoWithTarget:self selector:@selector(willChangeSelectedRanges) object:nil];
-iTM2_END;
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uncommentSelectedText:
@@ -629,6 +500,101 @@ To Do List: Nothing at first glance.
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	//Find all the lines that begin with %
+	// 1 - list all the lines
+	NSRange affectedRange;
+	NSMutableArray * affectedRanges = [NSMutableArray array];
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	NSString * S = [self string];
+	NSRange selectedRange;
+	NSArray * selectedRanges = [self selectedRanges];
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	NSValue * V;
+	unsigned comment;
+	affectedRange.length = 1;// all the affected ranges have a 1 length
+	while(V = [E nextObject])
+	{
+		selectedRange = [V rangeValue];
+		unsigned int top = NSMaxRange(selectedRange);
+		unsigned int nextStart;
+		[S getLineStart:&affectedRange.location end:&nextStart contentsEnd:nil TeXComment:&comment forIndex:selectedRange.location];
+		if(comment == affectedRange.location)
+		{
+			// this line starts with a comment character
+			// we record the range we will remove
+			V = [NSValue valueWithRange:affectedRange];
+			if(![affectedRanges containsObject:V])
+			{
+				[affectedRanges addObject:V];
+				[replacementStrings addObject:@""];
+			}
+		}
+		while(nextStart<top)
+		{
+			affectedRange.location = nextStart;
+			[S getLineStart:nil end:&nextStart contentsEnd:nil TeXComment:&comment forIndex:nextStart];
+			if(comment == affectedRange.location)
+			{
+				// this line starts with a comment character
+				// we record the range we will remove
+				V = [NSValue valueWithRange:affectedRange];
+				if(![affectedRanges containsObject:V])
+				{
+					[affectedRanges addObject:V];
+					[replacementStrings addObject:@""];
+				}
+			}
+		}
+	}
+	// Intermediate - is there something to change?
+	if(![affectedRanges count])
+	{
+		return;
+	}
+	// 2 - do not assume any order on affectedRanges
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"locationValueOfRangeValue" ascending:YES] autorelease];
+	NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
+	[affectedRanges sortUsingDescriptors:sortDescriptors];
+	// 3 - now we prepare the modified selected ranges
+	// it is a bit heavy, but it is extremely strong
+	NSMutableArray * newSelectedRanges = [NSMutableArray arrayWithArray:selectedRanges];
+	E = [affectedRanges reverseObjectEnumerator];
+	while(V = [E nextObject])
+	{
+		affectedRange = [V rangeValue];
+		NSEnumerator * e = [newSelectedRanges objectEnumerator];
+		newSelectedRanges = [NSMutableArray array];
+		while(V = [e nextObject])
+		{
+			selectedRange = [V rangeValue];
+			if(selectedRange.location>affectedRange.location)
+			{
+				--selectedRange.location;
+				V = [NSValue valueWithRange:selectedRange];
+			}
+			else if(NSMaxRange(selectedRange)>affectedRange.location)
+			{
+				--selectedRange.length;
+				V = [NSValue valueWithRange:selectedRange];
+			}
+			[newSelectedRanges addObject:V];
+		}
+	}
+	// 4 - Process to the change
+	[self willChangeSelectedRanges];
+	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		NSEnumerator * E = [affectedRanges reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			affectedRange = [V rangeValue];
+			[self replaceCharactersInRange:affectedRange withString:@""];
+		}
+		[self didChangeText];
+		[self setSelectedRanges:newSelectedRanges];
+	}
+	[self didChangeSelectedRanges];
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  shouldChangeTextInRanges:replacementStrings:
@@ -748,6 +714,22 @@ To Do List:
 	}
 //iTM2_END;
 	return range;
+}
+@end
+
+@implementation NSValue(iTM2Location)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= locationValueOfRangeValue
+- (NSNumber *)locationValueOfRangeValue; 
+/*"Subclasses will return YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange range = [self rangeValue];
+//iTM2_END;
+	return [NSNumber numberWithUnsignedInt:range.location];
 }
 @end
 #pragma mark -

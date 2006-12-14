@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB960A90B30C1B50091CC54</string>
+						<string>DCB9614D0B3161FB0091CC54</string>
 						<key>history</key>
 						<array>
 							<string>DCB9604E0B30BE3E0091CC54</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB960AA0B30C1B50091CC54</string>
+						<string>DCB9614E0B3161FB0091CC54</string>
 						<key>history</key>
 						<array>
 							<string>DCB960540B30BE3E0091CC54</string>
@@ -264,46 +264,6 @@
 				<false/>
 				<key>RubberWindowFrame</key>
 				<string>15 193 1029 680 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DCB95FB20B309FB70091CC54</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2PDFKit.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DCB95FB30B309FB70091CC54</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2PDFKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCB960AB0B30C1B50091CC54</string>
-						<key>history</key>
-						<array>
-							<string>DCB9602D0B30B76C0091CC54</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1281, 832}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>94 4 1281 873 0 0 1440 878 </string>
 			</dict>
 		</dict>
 	</array>
@@ -434,23 +394,13 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2PDFKit.m</string>
+								<string>&lt;No Editor&gt;</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
-										<key>PBXProjectModuleLabel</key>
-										<string>iTM2PDFKit.m</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>DCB960A80B30C1B50091CC54</string>
-										<key>history</key>
-										<array>
-											<string>DCB960440B30BE260091CC54</string>
-										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -648,7 +598,6 @@
 		<string>DCB95F9E0B309D3A0091CC54</string>
 		<string>DC691A76088CFF8900F00114</string>
 		<string>DCB95F5F0B307CB50091CC54</string>
-		<string>DCB95FB20B309FB70091CC54</string>
 		<string>DCB960520B30BE3E0091CC54</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DCB9604C0B30BE3E0091CC54</string>
@@ -878,14 +827,12 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2PDFKit.m</string>
+										<string>&lt;No Editor&gt;</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>

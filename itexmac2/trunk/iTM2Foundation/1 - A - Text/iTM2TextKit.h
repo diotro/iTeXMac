@@ -176,7 +176,8 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 
 - (IBAction)doZoomIn:(id)sender;
 - (IBAction)doZoomOut:(id)sender;
-
+- (void)willChangeSelectedRanges;
+- (void)didChangeSelectedRanges;
 
 @end
 

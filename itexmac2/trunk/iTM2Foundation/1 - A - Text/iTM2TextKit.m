@@ -482,6 +482,37 @@ To Do List:
 	[self takeContextFloat:aMagnification forKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willChangeSelectedRanges
+- (void)willChangeSelectedRanges;
+/*"Register the actual selected ranges for an eventual undo action.
+Wen undoing a will action becomes a did acion and conversely.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+iTM2_START;
+	NSArray * actualSelectedRange = [self selectedRanges];
+	NSUndoManager * UM = [self undoManager];
+	[UM registerUndoWithTarget:self selector:@selector(setSelectedRanges:) object:actualSelectedRange];
+	[UM registerUndoWithTarget:self selector:@selector(didChangeSelectedRanges) object:nil];
+iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didChangeSelectedRanges
+- (void)didChangeSelectedRanges;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+iTM2_START;
+	NSUndoManager * UM = [self undoManager];
+	[UM registerUndoWithTarget:self selector:@selector(willChangeSelectedRanges) object:nil];
+iTM2_END;
+    return;
+}
 @end
 
 @implementation NSLayoutManager(iTM2TextKit)
