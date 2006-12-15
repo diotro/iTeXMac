@@ -198,35 +198,20 @@
 					<key>Split0</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
-						<string>DCB9610F0B3157860091CC54</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2TextKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCB9702A0B32E7D10091CC54</string>
-						<key>history</key>
-						<array>
-							<string>DCB962480B318ADD0091CC54</string>
-						</array>
-					</dict>
-					<key>Split1</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
 						<string>DCB963240B3205E90091CC54</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>iTM2TextKit.m</string>
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB9702B0B32E7D10091CC54</string>
+						<string>DCB970940B32EC250091CC54</string>
 						<key>history</key>
 						<array>
 							<string>DCB963250B3205E90091CC54</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
-					<string>2</string>
+					<string>1</string>
 				</dict>
 				<key>StatusBarVisibility</key>
 				<true/>
@@ -256,14 +241,6 @@
 						<string>DCB961E40B3186110091CC54</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>NSSortDescriptor.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCB9702C0B32E7D10091CC54</string>
-						<key>history</key>
-						<array>
-							<string>DCB961E50B3186110091CC54</string>
-						</array>
 					</dict>
 					<key>SplitCount</key>
 					<string>1</string>
@@ -416,7 +393,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCB970290B32E7D10091CC54</string>
+										<string>DCB970930B32EC250091CC54</string>
 										<key>history</key>
 										<array>
 											<string>DC22636A0AE69A4500186582</string>
@@ -655,18 +632,17 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCB9702D0B32E7D10091CC54</string>
+		<string>DCB961E30B3186110091CC54</string>
+		<string>DCB9610E0B3157860091CC54</string>
 		<string>DCB9591B0B3011380091CC54</string>
 		<string>DCB9591C0B3011380091CC54</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
 		<string>DCB959170B3011380091CC54</string>
 		<string>1C0AD2B3069F1EA900FABCE6</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>DCB961E30B3186110091CC54</string>
-		<string>DCB9610E0B3157860091CC54</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>12 84 1396 791 0 0 1440 878 </string>
