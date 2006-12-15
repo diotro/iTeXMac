@@ -199,6 +199,9 @@ To Do List:
 }
 @end
 
+NSString * const iTM2TextIndentationStringKey= @"iTM2TextIndentationString";
+NSString * const iTM2TextIndentationNumberOfSpacesKey= @"iTM2TextIndentationNumberOfSpaces";
+
 @interface NSTextView_iTM2TextKit_Highlight: NSTextView
 @end
 @implementation NSTextView_iTM2TextKit_Highlight
@@ -206,6 +209,11 @@ To Do List:
 {
 	iTM2_INIT_POOL;
 	[self poseAsClass:[NSTextView class]];
+    [SUD registerDefaults:
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            @"   ", iTM2TextIndentationStringKey,
+            [NSNumber numberWithInt:4], iTM2TextIndentationNumberOfSpacesKey,
+                nil]];
 	iTM2_RELEASE_POOL;
 	return;
 }
@@ -512,6 +520,363 @@ iTM2_START;
 	[UM registerUndoWithTarget:self selector:@selector(willChangeSelectedRanges) object:nil];
 iTM2_END;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indentationString
+- (NSString *)indentationString;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [SUD contextStringForKey:iTM2TextIndentationStringKey domain:iTM2ContextAllDomainsMask];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indentSelection:
+- (void)indentSelection:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0:
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * indentationString = [self indentationString];
+	unsigned int numberOfSpaces = ([indentationString length] > 1)?
+			[indentationString length]:
+				[self contextIntegerForKey:iTM2TextIndentationNumberOfSpacesKey domain:iTM2ContextAllDomainsMask];
+	NSString * affectedString;
+	NSRange affectedRange;
+	NSMutableArray * affectedRanges = [NSMutableArray array];
+	NSString * replacementString;
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	NSMutableDictionary * replacementStringsHash = [NSMutableDictionary dictionary];
+	NSString * S = [self string];
+	NSMutableArray * selectedRanges = [[[self selectedRanges] mutableCopy] autorelease];
+	NSRange selectedRange;
+	NSCharacterSet * blackCharacterSet = [NSCharacterSet whitespaceCharacterSet];
+	blackCharacterSet = [blackCharacterSet invertedSet];
+	NSMutableArray * newSelectedRanges = [NSMutableArray array];
+	// 1 - Prepare the affected ranges and replacement strings
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		selectedRange = [V rangeValue];
+		unsigned int nextStart,contentsEnd,top;
+		top = NSMaxRange(selectedRange);
+		selectedRange.length = 0;
+		[S getLineStart:&selectedRange.location end:&nextStart contentsEnd:&contentsEnd forRange:selectedRange];
+		affectedRange.location = selectedRange.location;
+nextLine:
+		affectedRange.length = nextStart - affectedRange.location;// search range
+		NSRange R = [S rangeOfCharacterFromSet:blackCharacterSet options:nil range:affectedRange];
+		affectedRange.length = (R.length>0?R.location:contentsEnd) - affectedRange.location;
+		V = [NSValue valueWithRange:affectedRange];
+		if(![affectedRanges containsObject:V])
+		{
+			[affectedRanges addObject:V];
+			if(affectedRange.length>0)
+			{
+				// this line was already indented
+				// parse the previous indentation then add our own.
+				affectedString = [S substringWithRange:affectedRange];
+				id components = [affectedString componentsSeparatedByString:indentationString];
+				unsigned count = [components count];
+				// if the line header was consistent, the actual number of tabs would be one less than the number of objects in components
+				// and all the object of components would be 0 lengthed
+				NSEnumerator * EE = [components objectEnumerator];
+				NSString * component = nil;
+				while(component = [EE nextObject])
+				{
+					count += [component length]/numberOfSpaces;
+				}
+				components = [NSMutableArray arrayWithCapacity:count];
+				while(count--)
+				{
+					[components addObject:indentationString];
+				}
+				replacementString = [components componentsJoinedByString:@""];
+			}
+			else
+			{
+				// this line was not indented, just add our own indentation
+				replacementString = indentationString;
+			}
+			[replacementStringsHash setObject:replacementString forKey:V];
+		}
+		if(nextStart<top)
+		{
+			affectedRange.location = nextStart;// what about the next line
+			affectedRange.length = 0;// search range
+			[S getLineStart:nil end:&nextStart contentsEnd:&contentsEnd forRange:affectedRange];
+			goto nextLine;
+		}
+		selectedRange.length = nextStart - selectedRange.location;
+		V = [NSValue valueWithRange:selectedRange];
+		[newSelectedRanges addObject:V];
+	}
+	if(![affectedRanges count])
+	{
+		return;
+	}
+	// 2 - Order the affected ranges
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"locationValueOfRangeValue" ascending:YES] autorelease];
+	NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
+	[affectedRanges sortUsingDescriptors:sortDescriptors];
+	// 3 - Order the replacement string
+	replacementStrings = [NSMutableArray arrayWithCapacity:[affectedRanges count]];
+	E = [affectedRanges objectEnumerator];
+	while(V = [E nextObject])
+	{
+		if(replacementString = [replacementStringsHash objectForKey:V])
+		{
+			[replacementStrings addObject:replacementString];
+		}
+		else
+		{
+			[replacementStrings addObject:@""];
+			iTM2_LOG(@"**** There is an awful BUG, some value has disappeared in a dictionary, using a void string instead...");
+		}
+	}
+	// 4 - Alter the new selected ranges
+	NSEnumerator * EE;
+	E = [affectedRanges reverseObjectEnumerator];
+	while(V = [E nextObject])
+	{
+		if(replacementString = [replacementStringsHash objectForKey:V])
+		{
+			affectedRange = [V rangeValue];
+			EE = [newSelectedRanges objectEnumerator];
+			newSelectedRanges = [NSMutableArray arrayWithArray:newSelectedRanges];
+			while(V = [EE nextObject])
+			{
+				selectedRange = [V rangeValue];
+				if(NSMaxRange(selectedRange)<=affectedRange.location)
+				{
+					// no influence
+				}
+				else if(affectedRange.location<selectedRange.location)
+				{
+					[newSelectedRanges removeObject:V];
+					selectedRange.location += [replacementString length] - affectedRange.length;
+					V = [NSValue valueWithRange:selectedRange];
+					[newSelectedRanges addObject:V];
+				}
+				else
+				{
+					[newSelectedRanges removeObject:V];
+					selectedRange.length += [replacementString length] - affectedRange.length;
+					V = [NSValue valueWithRange:selectedRange];
+					[newSelectedRanges addObject:V];
+				}
+			}
+		}
+	}
+	// 5 - Process
+	[self willChangeSelectedRanges];
+	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		E = [affectedRanges reverseObjectEnumerator];
+		EE = [replacementStrings reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			if(replacementString = [EE nextObject])
+			{
+				affectedRange = [V rangeValue];
+				[self replaceCharactersInRange:affectedRange withString:replacementString];
+			}
+			else
+			{
+				iTM2_LOG(@"**** There is an awful BUG, affectedRanges and replacementStrings are not consistent...");
+			}
+		}
+		[self didChangeText];
+		[self setSelectedRanges:newSelectedRanges];
+	}
+	[self didChangeSelectedRanges];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unindentSelection:
+- (void)unindentSelection:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * indentationString = [self indentationString];
+	unsigned int numberOfSpaces = ([indentationString length] > 1)?
+			[indentationString length]:
+				[self contextIntegerForKey:iTM2TextIndentationNumberOfSpacesKey domain:iTM2ContextAllDomainsMask];
+	NSString * affectedString;
+	NSRange affectedRange;
+	NSMutableArray * affectedRanges = [NSMutableArray array];
+	NSString * replacementString;
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	NSMutableDictionary * replacementStringsHash = [NSMutableDictionary dictionary];
+	NSString * S = [self string];
+	NSMutableArray * selectedRanges = [[[self selectedRanges] mutableCopy] autorelease];
+	NSRange selectedRange;
+	NSCharacterSet * blackCharacterSet = [NSCharacterSet whitespaceCharacterSet];
+	blackCharacterSet = [blackCharacterSet invertedSet];
+	NSMutableArray * newSelectedRanges = [NSMutableArray array];
+	// 1 - Prepare the affected ranges and replacement strings
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		selectedRange = [V rangeValue];
+		unsigned int nextStart,contentsEnd,top;
+		top = NSMaxRange(selectedRange);
+		selectedRange.length = 0;
+		[S getLineStart:&selectedRange.location end:&nextStart contentsEnd:&contentsEnd forRange:selectedRange];
+		affectedRange.location = selectedRange.location;
+nextLine:
+		affectedRange.length = nextStart - affectedRange.location;// search range
+		NSRange R = [S rangeOfCharacterFromSet:blackCharacterSet options:nil range:affectedRange];
+		affectedRange.length = (R.length>0?R.location:contentsEnd) - affectedRange.location;
+		if(affectedRange.length>0)
+		{
+			V = [NSValue valueWithRange:affectedRange];
+			if(![affectedRanges containsObject:V])
+			{
+				[affectedRanges addObject:V];
+				// this line was already indented
+				// parse the previous indentation then remove our own.
+				affectedString = [S substringWithRange:affectedRange];
+				id components = [affectedString componentsSeparatedByString:indentationString];
+				unsigned count = [components count];
+				// if the line header was consistent, the actual number of tabs would be one less than the number of objects in components
+				// and all the object of components would be 0 lengthed
+				NSEnumerator * EE = [components objectEnumerator];
+				NSString * component = nil;
+				while(component = [EE nextObject])
+				{
+					count += [component length]/numberOfSpaces;
+				}
+				components = [NSMutableArray arrayWithCapacity:count];
+				while(count--)
+				{
+					[components addObject:indentationString];
+				}
+				[components removeLastObject];
+				[components removeLastObject];
+				replacementString = [components componentsJoinedByString:@""];
+				[replacementStringsHash setObject:replacementString forKey:V];
+			}
+		}
+		if(nextStart<top)
+		{
+			affectedRange.location = nextStart;// what about the next line
+			affectedRange.length = 0;// search range
+			[S getLineStart:nil end:&nextStart contentsEnd:&contentsEnd forRange:affectedRange];
+			goto nextLine;
+		}
+		selectedRange.length = nextStart - selectedRange.location;
+		V = [NSValue valueWithRange:selectedRange];
+		[newSelectedRanges addObject:V];
+	}
+	if(![affectedRanges count])
+	{
+		return;
+	}
+	// 2 - Order the affected ranges
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"locationValueOfRangeValue" ascending:YES] autorelease];
+	NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
+	[affectedRanges sortUsingDescriptors:sortDescriptors];
+	// 3 - Order the replacement string
+	replacementStrings = [NSMutableArray arrayWithCapacity:[affectedRanges count]];
+	E = [affectedRanges objectEnumerator];
+	while(V = [E nextObject])
+	{
+		if(replacementString = [replacementStringsHash objectForKey:V])
+		{
+			[replacementStrings addObject:replacementString];
+		}
+		else
+		{
+			[replacementStrings addObject:@""];
+			iTM2_LOG(@"**** There is an awful BUG, some value has disappeared in a dictionary, using a void string instead...");
+		}
+	}
+	// 4 - Alter the new selected ranges
+	NSEnumerator * EE;
+	E = [affectedRanges reverseObjectEnumerator];
+	while(V = [E nextObject])
+	{
+		if(replacementString = [replacementStringsHash objectForKey:V])
+		{
+			affectedRange = [V rangeValue];
+			EE = [newSelectedRanges objectEnumerator];
+			newSelectedRanges = [NSMutableArray arrayWithArray:newSelectedRanges];
+			while(V = [EE nextObject])
+			{
+				selectedRange = [V rangeValue];
+				if(NSMaxRange(selectedRange)<=affectedRange.location)
+				{
+					// no influence
+				}
+				else if(affectedRange.location<selectedRange.location)
+				{
+					[newSelectedRanges removeObject:V];
+					selectedRange.location += [replacementString length] - affectedRange.length;
+					V = [NSValue valueWithRange:selectedRange];
+					[newSelectedRanges addObject:V];
+				}
+				else
+				{
+					[newSelectedRanges removeObject:V];
+					selectedRange.length += [replacementString length] - affectedRange.length;
+					V = [NSValue valueWithRange:selectedRange];
+					[newSelectedRanges addObject:V];
+				}
+			}
+		}
+	}
+	// 5 - Process
+	[self willChangeSelectedRanges];
+	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		E = [affectedRanges reverseObjectEnumerator];
+		EE = [replacementStrings reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			if(replacementString = [EE nextObject])
+			{
+				affectedRange = [V rangeValue];
+				[self replaceCharactersInRange:affectedRange withString:replacementString];
+			}
+			else
+			{
+				iTM2_LOG(@"**** There is an awful BUG, affectedRanges and replacementStrings are not consistent...");
+			}
+		}
+		[self didChangeText];
+		[self setSelectedRanges:newSelectedRanges];
+	}
+	[self didChangeSelectedRanges];
+//iTM2_END;
+    return;
+}
+@end
+
+@implementation NSValue(iTM2Location)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= locationValueOfRangeValue
+- (NSNumber *)locationValueOfRangeValue; 
+/*"Subclasses will return YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange range = [self rangeValue];
+//iTM2_END;
+	return [NSNumber numberWithUnsignedInt:range.location];
 }
 @end
 

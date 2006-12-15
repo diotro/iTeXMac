@@ -2383,8 +2383,8 @@ To Do List:
 			P = [self convertPoint:P fromView:nil];
 			int clickedColumn = [self columnAtPoint:P];
 			NSTableColumn * clickedTableColumn = [[self tableColumns] objectAtIndex:clickedColumn];
-			NSTableColumn * OTC = [self outlineTableColumn];
-			if([OTC isEqual:clickedTableColumn])
+			NSTableColumn * CTC = [self outlineTableColumn];
+			if([CTC isEqual:clickedTableColumn])
 			{
 				int clickedRow = [self rowAtPoint:P];
 				id clickedItem = [self itemAtRow:clickedRow];
@@ -2448,19 +2448,19 @@ To Do List:
 }
 - (void)expandItem:(id)item expandChildren:(BOOL)expandChildren;
 {
-	NSTableColumn * OTC = [self outlineTableColumn];
-	float oldWidth =  [OTC width];
+	NSTableColumn * CTC = [self outlineTableColumn];
+	float oldWidth =  [CTC width];
 	[super expandItem:item expandChildren:expandChildren];
-	[OTC setWidth:oldWidth];
+	[CTC setWidth:oldWidth];
 	[self sizeToFit];
 	return;
 }
 - (void)collapseItem:(id)item collapseChildren:(BOOL)collapseChildren;
 {
-	NSTableColumn * OTC = [self outlineTableColumn];
-	float oldWidth =  [OTC width];
+	NSTableColumn * CTC = [self outlineTableColumn];
+	float oldWidth =  [CTC width];
 	[super collapseItem:item collapseChildren:collapseChildren];
-	[OTC setWidth:oldWidth];
+	[CTC setWidth:oldWidth];
 	[self sizeToFit];
 	return;
 }

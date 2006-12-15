@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB9614C0B3161FB0091CC54</string>
+						<string>DCB970180B32E5670091CC54</string>
 						<key>history</key>
 						<array>
 							<string>DCB9613B0B3161650091CC54</string>
@@ -242,8 +242,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -366,7 +364,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCB9614B0B3161FB0091CC54</string>
+										<string>DCB970170B32E5670091CC54</string>
 										<key>history</key>
 										<array>
 											<string>DC2F51C00B257DFC00BA57D5</string>
@@ -593,8 +591,8 @@
 		<string>DC099B36088B331B0028F810</string>
 		<string>DCB95E870B303AE60091CC54</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
-		<string>DCBDE2D40B2F4E850087B48A</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DCBDE2D40B2F4E850087B48A</string>
 	</array>
 	<key>WindowString</key>
 	<string>89 45 1345 833 0 0 1440 878 </string>
@@ -618,7 +616,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>&lt;No Editor&gt;</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -819,7 +817,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>&lt;No Editor&gt;</string>
+										<string></string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>

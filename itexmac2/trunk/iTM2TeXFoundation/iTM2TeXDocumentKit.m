@@ -424,8 +424,8 @@ To Do List: Nothing at first glance.
     [self insertText:[self tabAnchor]];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelectedText:
-- (void)commentSelectedText:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelection:
+- (void)commentSelection:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -491,8 +491,8 @@ To Do List: Nothing at first glance.
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uncommentSelectedText:
-- (void)uncommentSelectedText:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uncommentSelection:
+- (void)uncommentSelection:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -717,21 +717,6 @@ To Do List:
 }
 @end
 
-@implementation NSValue(iTM2Location)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= locationValueOfRangeValue
-- (NSNumber *)locationValueOfRangeValue; 
-/*"Subclasses will return YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSRange range = [self rangeValue];
-//iTM2_END;
-	return [NSNumber numberWithUnsignedInt:range.location];
-}
-@end
 #pragma mark -
 #pragma mark =-=-=-=-=-  BOOKMARKS
 @implementation iTM2TeXEditor(Bookmarks)

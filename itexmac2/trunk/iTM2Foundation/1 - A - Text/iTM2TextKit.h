@@ -240,4 +240,8 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 
 @end
 
+@interface NSValue(iTM2Location)
+- (NSNumber *)locationValueOfRangeValue;// for sort descriptors
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit

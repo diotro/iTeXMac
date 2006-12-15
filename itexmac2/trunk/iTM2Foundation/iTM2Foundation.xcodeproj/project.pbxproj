@@ -947,7 +947,7 @@
 		DCF61B9F0854654B003F5F79 /* iTM2TextDocumentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextDocumentKit.h; sourceTree = "<group>"; };
 		DCF61BA00854654B003F5F79 /* iTM2TextDocumentKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextDocumentKit.m; sourceTree = "<group>"; };
 		DCF61BA10854654B003F5F79 /* iTM2TextKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextKit.h; sourceTree = "<group>"; };
-		DCF61BA20854654B003F5F79 /* iTM2TextKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextKit.m; sourceTree = "<group>"; };
+		DCF61BA20854654B003F5F79 /* iTM2TextKit.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextKit.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		DCF61BA60854654B003F5F79 /* iTM2PDFDocumentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PDFDocumentKit.h; sourceTree = "<group>"; };
 		DCF61BA70854654B003F5F79 /* iTM2PDFDocumentKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PDFDocumentKit.m; sourceTree = "<group>"; };
 		DCF61BA80854654B003F5F79 /* iTM2PDFViewKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PDFViewKit.h; sourceTree = "<group>"; };

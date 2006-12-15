@@ -155,8 +155,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 187627265;
-			PBXWorkspaceStateSaveDate = 187627265;
+			PBXPerProjectTemplateStateSaveDate = 187795639;
+			PBXWorkspaceStateSaveDate = 187795639;
 		};
 		perUserProjectItems = {
 			DC10E6270B086FDD00E3BA31 = DC10E6270B086FDD00E3BA31 /* PBXBookmark */;
@@ -180,6 +180,9 @@
 			DCA37E0D0AE3A18500874F9E = DCA37E0D0AE3A18500874F9E /* PBXTextBookmark */;
 			DCA37E0E0AE3A18500874F9E = DCA37E0E0AE3A18500874F9E /* PBXTextBookmark */;
 			DCA37E130AE3A18500874F9E = DCA37E130AE3A18500874F9E /* PBXTextBookmark */;
+			DCB9621E0B3188C00091CC54 /* PBXTextBookmark */ = DCB9621E0B3188C00091CC54 /* PBXTextBookmark */;
+			DCB9622A0B3189CD0091CC54 /* PBXTextBookmark */ = DCB9622A0B3189CD0091CC54 /* PBXTextBookmark */;
+			DCB962340B3189EB0091CC54 /* PBXTextBookmark */ = DCB962340B3189EB0091CC54 /* PBXTextBookmark */;
 			DCBA442C0B028A2F006AF52A = DCBA442C0B028A2F006AF52A /* PBXTextBookmark */;
 			DCBA442D0B028A2F006AF52A = DCBA442D0B028A2F006AF52A /* PBXBookmark */;
 			DCBA442E0B028A2F006AF52A = DCBA442E0B028A2F006AF52A /* PBXBookmark */;
@@ -187,8 +190,8 @@
 			DCBA44320B028A2F006AF52A = DCBA44320B028A2F006AF52A /* PBXBookmark */;
 			DCBA44330B028A2F006AF52A = DCBA44330B028A2F006AF52A /* PBXBookmark */;
 			DCBA44360B028A2F006AF52A = DCBA44360B028A2F006AF52A /* PBXTextBookmark */;
-			DCBDE0CB0B2EF7140087B48A /* PBXTextBookmark */ = DCBDE0CB0B2EF7140087B48A /* PBXTextBookmark */;
-			DCBDE2060B2EFDD20087B48A /* PBXTextBookmark */ = DCBDE2060B2EFDD20087B48A /* PBXTextBookmark */;
+			DCBDE0CB0B2EF7140087B48A = DCBDE0CB0B2EF7140087B48A /* PBXTextBookmark */;
+			DCBDE2060B2EFDD20087B48A = DCBDE2060B2EFDD20087B48A /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -345,7 +348,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 186922417.501563;
+		modificationTime = 187795848.408911;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -358,7 +361,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 186922417.810835;
+		modificationTime = 187795849.147656;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -371,7 +374,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 186922418.138091;
+		modificationTime = 187795849.517972;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -384,7 +387,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 186922418.138274;
+		modificationTime = 187795849.518163;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -397,7 +400,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 186922418.443485;
+		modificationTime = 187795849.888049;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -725,6 +728,36 @@
 			sepNavVisRect = "{{0, 0}, {618, 453}}";
 		};
 	};
+	DCB9621E0B3188C00091CC54 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCA37E7B0AE3AD7800874F9E /* English */;
+		name = "English: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 465;
+		vrLoc = 0;
+	};
+	DCB9622A0B3189CD0091CC54 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCA37E7B0AE3AD7800874F9E /* English */;
+		name = "English: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 465;
+		vrLoc = 0;
+	};
+	DCB962340B3189EB0091CC54 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCA37E7B0AE3AD7800874F9E /* English */;
+		name = "English: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 465;
+		vrLoc = 0;
+	};
 	DCBA442C0B028A2F006AF52A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */;
@@ -819,7 +852,7 @@
 		hitCount = 1;
 		lineNumber = 364;
 		location = iTeXMac2;
-		modificationTime = 187629003.799801;
+		modificationTime = 187795912.658837;
 		state = 1;
 	};
 	DCF929730948EC0E00EE2F46 /* Prepare LaTeX Symbols PlugIn */ = {

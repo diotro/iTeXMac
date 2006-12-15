@@ -426,7 +426,7 @@ To Do List:
 //iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@:",projectRefsToProjectDocumentsMenuItems);
 //iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@:",projectRefsToProjectWindowsMenuItems);
 	// updating with 
-//iTM2_LOG(@"=-=-=-=-=-  INSERTING OTHERS %i", [windowsMenu numberOfItems]);
+//iTM2_LOG(@"=-=-=-=-=-  INSERTING CTHERS %i", [windowsMenu numberOfItems]);
 	if(insertIndex < 0)
 	    insertIndex = 0;// just in case no item was previously added...
 	if(insertIndex > [windowsMenu numberOfItems])

@@ -12,7 +12,7 @@
                 autoZoom = id; 
                 bookMode = id; 
                 centerSelectionInVisibleArea = id; 
-                commentSelectedText = id; 
+                commentSelection = id; 
                 completeLaTeXEnvironment = id; 
                 completionMode = id; 
                 crop = id; 
@@ -50,8 +50,8 @@
                 getInfo = id; 
                 goToPageNumberPanel = id; 
                 imageCorrection = id; 
-                indentSelectedText = id; 
-                indentSelectedTextToPrevious = id; 
+                indentSelection = id; 
+                indentSelectionToPrevious = id; 
                 mailForHelp = id; 
                 matchToProfile = id; 
                 moreCopy = id; 
@@ -152,8 +152,8 @@
                 toggleSyncUserBullets = id; 
                 toggleSynchronizationMode = id; 
                 toggleThreadedPDFRendering = id; 
-                uncommentSelectedText = id; 
-                unindentSelectedText = id; 
+                uncommentSelection = id; 
+                unindentSelection = id; 
                 wrapSelectedText = id; 
             }; 
             CLASS = FirstResponder; 

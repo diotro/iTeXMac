@@ -2127,7 +2127,7 @@ To Do List:
                 [scanner scanLocation]: scanAnchor;
 //NSLog(@"GLS");
             [string getLineStart:nil end: &end contentsEnd:nil forRange:NSMakeRange(scanAnchor, 0)];
-//NSLog(@"OTHER\n<%@>", [string substringWithRange:  NSMakeRange(scanAnchor, end - scanAnchor)]);
+//NSLog(@"CTHER\n<%@>", [string substringWithRange:  NSMakeRange(scanAnchor, end - scanAnchor)]);
             if([scanner scanString:@"on input line" intoString:nil beforeIndex:end])
             {
                 NSRange lineKeyRange;

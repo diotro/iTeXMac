@@ -2106,7 +2106,7 @@ To Do List:
         [self addCursorRect:[self visibleRect] cursor:[NSCursor openHandCursor]];
     return;
 }
-#pragma mark =-=-=-=-=-  OTHER
+#pragma mark =-=-=-=-=-  CTHER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isFlipped
 - (BOOL)isFlipped
 /*"Description forthcoming.

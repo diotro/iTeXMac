@@ -2115,7 +2115,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_DEVELOPMENT__
-#warning *** BUG TRACKING: OTHER TeX menu management
+#warning *** BUG TRACKING: CTHER TeX menu management
 #pragma mark BUG TRACKING
 	id MI = (NSMenuItem *)[[NSApp mainMenu] deepItemWithAction:@selector(projectCurrent:)];
 	if(!MI)
