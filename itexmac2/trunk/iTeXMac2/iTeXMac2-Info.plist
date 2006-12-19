@@ -36,10 +36,6 @@
 				<string>txt</string>
 				<string>text</string>
 			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>text/plain</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>NSStringPboardType</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -48,6 +44,10 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
@@ -62,23 +62,15 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>TEX</string>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>text/plain</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>TeX Document</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>****</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSIsAppleDefaultForType</key>
 			<true/>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.tug.tex</string>
+				<string>comp.text.tex.iTeXMac2.tex</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -94,16 +86,8 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>PDF</string>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/pdf</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>NSPDFPboardType</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>PDF </string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSItemContentTypes</key>
@@ -124,16 +108,8 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>TEXP</string>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/iTeXMac2</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>TeX Project Document</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>i™2∏</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSIsAppleDefaultForType</key>
@@ -156,16 +132,8 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>TEXD</string>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/iTeXMac2</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>TeX Project Wrapper</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>i™2∆</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSIsAppleDefaultForType</key>
@@ -184,16 +152,12 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>TeXCMPlugIn</string>
+				<string>TeXCMPlugin</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>iTM2</string>
 			<key>CFBundleTypeName</key>
 			<string>TeX Contextual Menu Plug-In</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>i™2©</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
@@ -212,20 +176,16 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>iTM2-Style</string>
+				<string>itm2-style</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>iTM2</string>
 			<key>CFBundleTypeName</key>
 			<string>iTeXMac2 Style</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>iTM2</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
-			<false/>
+			<true/>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>comp.text.tex.iTeXMac2.iTM2-Style</string>
@@ -240,20 +200,16 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>iTM2-Variant</string>
+				<string>itm2-variant</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>iTM2</string>
 			<key>CFBundleTypeName</key>
 			<string>iTeXMac2 Style Variant</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>iTM2</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
-			<false/>
+			<true/>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>comp.text.tex.iTeXMac2.iTM2-Variant</string>
@@ -268,26 +224,22 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>iTM2-Symbols</string>
+				<string>itm2-symbols</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>iTM2</string>
 			<key>CFBundleTypeName</key>
 			<string>iTeXMac2 Style Symbols</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>iTM2</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
-			<false/>
+			<true/>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>comp.text.tex.iTeXMac2.iTM2-Symbols</string>
 			</array>
 			<key>LSTypeIsPackage</key>
-			<false/>
+			<true/>
 			<key>NSDocumentClass</key>
 			<string>iTM2InstallDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
@@ -296,16 +248,12 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>iTM2</string>
+				<string>itm2-plugin</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>iTM2</string>
 			<key>CFBundleTypeName</key>
 			<string>iTeXMac2 Plug In</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>iTM2</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
@@ -1833,6 +1781,200 @@
 	<string>iTM2Application</string>
 	<key>OSAScriptingDefinition</key>
 	<string>iTeXMac2.sdef</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TeX Project</string>
+			<key>UTTypeIconFile</key>
+			<string>TEXP</string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.texp</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/tex/project/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>i™2¶</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>texp</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/x-tex-project</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+				<string>public.composite-content </string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TeX Wrapper</string>
+			<key>UTTypeIconFile</key>
+			<string>TEXD</string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.texd</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/tex/wrapper/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>i™2µ</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>texd</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/x-tex-wrapper</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TeX Document</string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.tex</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/tex/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>****</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>tex</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/x-tex</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.plugin</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TeX Contextual Menu Plug-In</string>
+			<key>UTTypeIconFile</key>
+			<string></string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.texcmplugin</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/texcmplugin/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>****</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>TeXCMPlugIn</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plugin</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>iTeXMac2 Plug In</string>
+			<key>UTTypeIconFile</key>
+			<string>iTM2</string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.plugin</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/plugin/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>i™2®</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>iTM2</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.plugin</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>iTeXMac2 Style Plug In</string>
+			<key>UTTypeIconFile</key>
+			<string>iTM2</string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.plugin.style</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/plugin/style</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>i™2ß</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>iTM2-Style</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.plugin</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>iTeXMac2 Variant Plug In</string>
+			<key>UTTypeIconFile</key>
+			<string>iTM2</string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.plugin.variant</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/plugin/variant</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>i™2®</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>iTM2-Variant</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>comp.text.tex.iTeXMac2.plugin</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>iTeXMac2 Symbols Plug In</string>
+			<key>UTTypeIconFile</key>
+			<string>iTM2</string>
+			<key>UTTypeIdentifier</key>
+			<string>comp.text.tex.iTeXMac2.plugin.symbols</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://tex.text.comp/itexmac2/plugin/symbols</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>i™2®</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>iTM2-Symbols</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array/>
 	<key>crashReporterCompanyName</key>
 	<string>Laurens'Tribune</string>
 	<key>crashReporterEmail</key>

@@ -142,19 +142,6 @@ To Do List:
 //iTM2_START;
     return iTM2ProjectInspectorType;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteDealloc
-- (void)projectCompleteDealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [SPC forgetProject:self];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectInfoURLFromFileURL:create:error:
 + (NSURL *)projectInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
@@ -242,6 +229,53 @@ To Do List:
 
 //iTM2_END;
     return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
+- (id)init;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(self = [super init])
+	{
+		[DNC removeObserver:self];
+		[DNC addObserver:self selector:@selector(windowWillCloseNotified:) name:NSWindowWillCloseNotification object:nil];
+	}
+//iTM2_END;
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillCloseNotified:
+- (void)windowWillCloseNotified:(NSNotification *)aNotification;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSWindow * W = [aNotification object];
+	if(self == [SPC projectForSource:W])
+	{
+		[self performSelector:@selector(closeIfNeeded) withObject:nil afterDelay:0];
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteDealloc
+- (void)projectCompleteDealloc;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [SPC forgetProject:self];
+//iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
 - (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
@@ -373,6 +407,31 @@ To Do List:
 //iTM2_START;
     return @"BASE";
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setElementary:
+- (void)setElementary:(BOOL)yorn;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[IMPLEMENTATION takeModelValue:[NSNumber numberWithBool:yorn] forKey:@"Elementary" ofType:iTM2ProjectInfoType];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isElementary
+- (BOOL)isElementary;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[IMPLEMENTATION modelValueForKey:@"Elementary" ofType:iTM2ProjectInfoType] boolValue];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBaseProjectName:
 - (void)setBaseProjectName:(NSString *)baseProjectName;
 /*"Description forthcoming.
@@ -394,6 +453,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"[self fileURL]:%@",[self fileURL]);
+	if([SPC isBaseProject:self])
+	{
+		return;
+	}
 	if([self contextBoolForKey:@"iTM2ProjectDontCloseWhenNoWindowAreVisible" domain:iTM2ContextAllDomainsMask])
 	{
 		return;
@@ -1253,8 +1316,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self windowControllers] count])
+	if([self isElementary])
+	{
 		return;
+	}
+	if([[self windowControllers] count])
+	{
+		return;
+	}
     [super makeWindowControllers];// after the documents are open
     [self addGhostWindowController];
 //iTM2_END;
@@ -1349,6 +1418,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if([self isElementary])
+	{
+		return;
+	}
 	id GWC = [IMPLEMENTATION metaValueForKey:@"_GWC"];
 	if(!GWC)
 	{
@@ -1753,20 +1826,27 @@ To Do List:
 	// if we do nothing the sheet won't display from the correct window.
 	if([self isDocumentEdited])
 	{
-		// try to order some project window front
-		// get the first window except the ghost window,order it front
-		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
-		NSWindow * W = nil;
-		while(W = [E nextObject])
+		if([self isElementary])
 		{
-			if([[[W windowController] document] isEqual:self] && ![W isKindOfClass:[iTM2ProjectGhostWindow class]])
-			{
-				goto orderFront;
-			}
+			[self saveDocument:nil];
 		}
-		W = [[self subdocumentsInspector] window];
+		else
+		{
+			// try to order some project window front
+			// get the first window except the ghost window,order it front
+			NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
+			NSWindow * W = nil;
+			while(W = [E nextObject])
+			{
+				if([[[W windowController] document] isEqual:self] && ![W isKindOfClass:[iTM2ProjectGhostWindow class]])
+				{
+					goto orderFront;
+				}
+			}
+			W = [[self subdocumentsInspector] window];
 orderFront:
-		[W orderFront:self];
+			[W orderFront:self];
+		}
 	}
 #endif
  	NSMethodSignature * MS = [delegate methodSignatureForSelector:shouldCloseSelector];
@@ -2650,7 +2730,7 @@ To Do List:
 			iTM2_LOG(@"WARNING(4): COULD NOT REMOVE FILE AT PATH:\n%@",source);
 		}
 	}
-	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC relaltiveSoftLinksSubdirectory]];
+	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC relativeSoftLinksSubdirectory]];
 	DE = [DFM enumeratorAtPath:subdirectory];
 	// subdirectory variable is free now
 	NSString * dirName = [self fileName];
@@ -4588,7 +4668,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([SPC isBaseProject:self])
+	if([SPC isElementaryProject:self])
 		return nil;
 	if([[self fileName] belongsToFarawayProjectsDirectory])
 		return nil;
@@ -7821,19 +7901,24 @@ To Do List:
 	{
 		return nil;
 	}
+	id projectDocument = nil;
+	NSMutableArray * MRA = [[[SUD stringArrayForKey:@"_iTM2DocumentFileNamesOpenedFromFinder"] mutableCopy] autorelease];
+	if([MRA containsObject:fileName])
+	{
+		[MRA removeObject:fileName];
+		[SUD registerDefaults:[NSDictionary dictionaryWithObject:MRA forKey:@"_iTM2DocumentFileNamesOpenedFromFinder"]];
+newFarawayProject:
+		projectDocument = [self newFarawayProjectForFileName:fileName display:NO error:outErrorPtr];// NO is required unless a ghost window controller is created
+		[projectDocument setElementary:YES];
+		[projectDocument saveDocument:nil];
+		[SPC setProject:projectDocument forFileName:fileName];
+		return projectDocument;
+	}
 	NSString * dirName = [fileName stringByDeletingLastPathComponent];
 	if(![DFM isWritableFileAtPath:dirName])
 	{
 		// no need to go further
-		id projectDocument = [self newFarawayProjectForFileName:fileName display:display error:outErrorPtr];
-		[SPC setProject:projectDocument forFileName:fileName];
-		return projectDocument;
-	}
-	NSString * enclosing = [fileName enclosingProjectFileName];
-	if([enclosing length])
-	{
-		// a file name inside a project cannot be associated to a project
-		return nil;
+		goto newFarawayProject;
 	}
 	// reentrant management,if the panel for that particular file is already running,do nothing...
 	NSEnumerator * E = [[NSApp windows] objectEnumerator];
@@ -7902,7 +7987,6 @@ To Do List:
 			}
 			// we will have a project at projectName
 			// is there an already existing file at that path?
-			id projectDocument = nil;
 			NSURL * absoluteURL = [NSURL fileURLWithPath:projectName];
 			NSString * typeName = [SDC typeFromFileExtension:[projectName pathExtension]];
 			if([SWS isProjectPackageAtPath:projectName] || [DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr])
@@ -8079,7 +8163,7 @@ To Do List:
 //iTM2_LOG(*fileNameRef);
 	iTM2ProjectDocument * projectDocument = [self projectForFileName:*fileNameRef];
 	if(projectDocument)
-		return projectDocument;// this filename is already registered,possibly with a "nil" project
+		return projectDocument;// this filename is already registered,possibly with a "nil" project ("nil" projects are no longer supported, see "Elementary")
 	// reentrant code
 	[SPC setProject:nil forFileName:*fileNameRef];
 	if(![self canGetNewProjectForFileNameRef:fileNameRef error:outErrorPtr])
@@ -8090,13 +8174,14 @@ To Do List:
 //iTM2_LOG(*fileNameRef);
 	// nil is returned for project file names...
 	NSString * projectDocumentType = [SDC projectDocumentType];
+#warning BAD design: assumes there is only one project extension
 	[[SDC typeFromFileExtension:[*fileNameRef pathExtension]] isEqualToString:projectDocumentType]
-	|| ![SDC documentClassForType:projectDocumentType]
-	|| (projectDocument = [self getOpenProjectForFileName:*fileNameRef])
-	|| (projectDocument = [self getProjectInWrapperForFileNameRef:fileNameRef display:display error:outErrorPtr])
-	|| (projectDocument = [self getProjectInHierarchyForFileName:*fileNameRef display:display error:outErrorPtr])
-	|| (projectDocument = [self getFarawayProjectForFileName:*fileNameRef display:display error:outErrorPtr])
-	|| (projectDocument = [self getProjectFromPanelForFileNameRef:fileNameRef display:display error:outErrorPtr]);
+		|| ![SDC documentClassForType:projectDocumentType]
+		|| (projectDocument = [self getOpenProjectForFileName:*fileNameRef])
+		|| (projectDocument = [self getProjectInWrapperForFileNameRef:fileNameRef display:display error:outErrorPtr])
+		|| (projectDocument = [self getProjectInHierarchyForFileName:*fileNameRef display:display error:outErrorPtr])
+		|| (projectDocument = [self getFarawayProjectForFileName:*fileNameRef display:display error:outErrorPtr])
+		|| (projectDocument = [self getProjectFromPanelForFileNameRef:fileNameRef display:display error:outErrorPtr]);
 	if([*fileNameRef belongsToFarawayProjectsDirectory])
 	{
 		*fileNameRef = fileName;
@@ -8227,6 +8312,18 @@ To Do List:
 	}
 //iTM2_END;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isElementaryProject:
+- (BOOL)isElementaryProject:(id)argument;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [self isProject:argument] && [argument isElementary];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isBaseProject:
 - (BOOL)isBaseProject:(id)argument;
@@ -9074,6 +9171,55 @@ To Do List:
 //iTM2_END;
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareOpenDocumentWithContentsOfURL:
+- (void)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL;
+/*"This one is responsible of the management of the project,including the wrapper.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3:07/26/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![absoluteURL isFileURL])
+	{// I only catch file URLs
+		return;
+	}
+	// I do not know exactly what I should do here
+	NSString * fileName = [absoluteURL path];// not a link!
+	fileName = [fileName stringByStandardizingPath];// not a link!
+    id projectDocument = [SPC projectForFileName:fileName];
+	if(projectDocument)
+    {
+//iTM2_LOG(@"1");
+		return;
+    }
+	NSMutableArray * MRA = [[[SUD stringArrayForKey:@"_iTM2DocumentFileNamesOpenedFromFinder"] mutableCopy] autorelease];
+	if(!MRA)
+	{
+		MRA = [NSMutableArray array];
+	}
+	if(![MRA containsObject:fileName])
+	{
+		[MRA addObject:fileName];
+		[SUD registerDefaults:[NSDictionary dictionaryWithObject:MRA forKey:@"_iTM2DocumentFileNamesOpenedFromFinder"]];
+	}
+//iTM2_END;
+	return;
+}
+#if 0
+- (NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType;
+{
+iTM2_LOG(@"fileNameExtensionOrHFSFileType:%@",fileNameExtensionOrHFSFileType);
+	NSString * result = [super typeFromFileExtension:fileNameExtensionOrHFSFileType];
+	return result;
+}
+- (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
+{
+iTM2_LOG(@"inAbsoluteURL:%@",inAbsoluteURL);
+	NSString * result = [super typeForContentsOfURL:inAbsoluteURL error:outError];
+	return result;
+}
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openDocumentWithContentsOfURL:display:error:
 - (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"This one is responsible of the management of the project,including the wrapper.

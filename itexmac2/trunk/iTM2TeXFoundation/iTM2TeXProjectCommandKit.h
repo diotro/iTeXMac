@@ -240,13 +240,13 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 @interface iTM2TeXPCommandManager: NSObject
 
 /*!
-    @method     fixTeXMenu
+    @method     setupTeXMenu
     @abstract   Fix the TeX menu
     @discussion Discussion forthcoming.
     @param      None
     @result     None
 */
-+ (void)fixTeXMenu;
++ (void)setupTeXMenu;
 
 /*!
     @method     commandPerformerForName:

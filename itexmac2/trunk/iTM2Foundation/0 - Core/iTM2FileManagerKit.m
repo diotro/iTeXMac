@@ -1061,7 +1061,7 @@ To Do List:
 			{
 				if(iTM2DebugEnabled)
 				{
-					iTM2_LOG(@"0 - Could not FSpCreateResFile, error %i", resError);
+					iTM2_LOG(@"0 - Could not FSpCreateResFile, error %i (-48 is OK)", resError);
 				}
 			}
 			// no error check needed

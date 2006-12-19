@@ -141,6 +141,25 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 + (NSURL *)projectMetaInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*! 
+    @method     setElementary:
+    @abstract   Marks the receiver as elementary.
+    @discussion An elementary project is not meant to be typeset. It will only contain one file and no more.
+				No subdocuments window.
+    @param      yorn is a flag
+    @result     None
+*/
+- (void)setElementary:(BOOL)yorn;
+
+/*! 
+    @method     isElementary
+    @abstract   Whether the reciever is an elementary project.
+    @discussion See setElementary: for details.
+    @param      None
+    @result     a flag
+*/
+- (BOOL)isElementary;
+
+/*! 
     @method     projectName
     @abstract   The project name of the receiver.
     @discussion If the receiver has a consistent wrapper file name,
@@ -977,20 +996,30 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 /*! 
     @method     finderAliasesSubdirectory
     @abstract   The subdirectory where finder aliases are stored.
-    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Finder Aliases". Subclasser should override this.
+    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Finder Aliases". Subclasser should NOT override this.
     @param      None
     @result     a relative path
 */
 - (NSString*)finderAliasesSubdirectory;
 
 /*! 
-    @method     softLinksSubdirectory
+    @method     absoluteSoftLinksSubdirectory
     @abstract   The subdirectory where soft links are stored.
-    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Soft Links". Subclasser should override this.
+    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Soft Links". Subclasser should NOT override this.
     @param      None
     @result     a relative path
 */
-- (NSString*)softLinksSubdirectory;
+- (NSString*)absoluteSoftLinksSubdirectory;
+
+/*! 
+    @method     relativeSoftLinksSubdirectory
+    @abstract   The subdirectory where relative soft links are stored.
+    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Relative Soft Links". Subclasser NOT should override this.
+				The path stored is relative to the directory containing the *.texp folder.
+    @param      None
+    @result     a relative path
+*/
+- (NSString*)relativeSoftLinksSubdirectory;
 
 /*! 
     @method     newProjectForFileNameRef:display:error:
@@ -1102,6 +1131,15 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     None
 */
 - (void)removeBaseProject:(id)project;
+
+/*! 
+    @method     isElementaryProject:
+    @abstract   Whether the receiver is an elementary project.
+    @discussion An elementary project responds YES to the isElementary message...
+    @param      argument is the object to be tested
+    @result     yorn.
+*/
+- (BOOL)isElementaryProject:(id)argument;
 
 /*! 
     @method     isBaseProject:
@@ -1285,11 +1323,20 @@ extern NSString * const iTM2ProjectAliasPathKey;// unused
 				But when we have wrappers, we have to automatically open (or create) the associated project,
 				and also manage the save as and save to actions in a fancy way.
 				See the inherited method for details on the parameters and the result.
-    @param		fileName.
+    @param		URL.
     @param		display.
     @result		A document.
 */
 - (id)openDocumentWithContentsOfURL:(NSURL *)URL display:(BOOL)display error:(NSError **)error;
+
+/*!
+    @method		prepareOpenDocumentWithContentsOfURL:
+    @abstract	Prepare the receiver to open the given document.
+    @discussion	This methods is used when a file is opened by the Finder. If there is no project for the given argument,
+				a faraway project is created without asking the user.
+    @param		URL.
+*/
+- (void)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL;
 
 @end
 

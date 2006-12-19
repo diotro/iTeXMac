@@ -2214,6 +2214,7 @@ To Do List:
 					[projectDocument takePropertyValue:codeset forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 					
 				}
+				// the project exists, I can create the document
 				NSURL * url = [NSURL fileURLWithPath:targetName];
 				id document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 //iTM2_LOG(@"(4) now is:%@",[NSDate date]);

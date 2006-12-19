@@ -375,7 +375,7 @@ To Do List:
 			{
 				// the current menu item has a window
 				// this window has a document
-				iTM2ProjectDocument * PD = [document project];
+				PD = [document project];
 				key = [NSValue valueWithNonretainedObject:PD];
 				if(document == PD)
 				{
@@ -393,6 +393,7 @@ To Do List:
 				}
 				else if(PD)
 				{
+					// this window is a project document window
 					if(MRA = [projectRefsToProjectDocumentsMenuItems objectForKey:key])
 					{
 						[MRA addObject:MI];
@@ -421,6 +422,26 @@ To Do List:
 			insertIndex = idx;
 		}
 	}
+	// some simplification, if an elementary project only contains 1 document, it is displayed as a single doc
+	E = [projectRefsToProjectDocumentsMenuItems keyEnumerator];
+	while(key = [E nextObject])
+	{
+		PD = [key nonretainedObjectValue];
+		if([PD isElementary])
+		{
+			MRA = [projectRefsToProjectDocumentsMenuItems objectForKey:key];
+			if([MRA count] == 1)
+			{
+				RA = [projectRefsToProjectWindowsMenuItems objectForKey:key];
+				if([RA count] == 0)
+				{
+					MI = [MRA lastObject];
+					[otherMenuItems addObject:MI];// no document for this window
+					[projectRefsToProjectDocumentsMenuItems removeObjectForKey:key];
+				}
+			}
+		}
+	}
 //iTM2_LOG(@"0 - windowsMenu:%@",windowsMenu);
 //iTM2_LOG(@"otherMenuItems:%@:",otherMenuItems);
 //iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@:",projectRefsToProjectDocumentsMenuItems);
@@ -440,6 +461,7 @@ To Do List:
 		while(MI = [E nextObject])
 		{
 	//iTM2_LOG(@"=-=-=-=-=-  inserted document MI is: %@", MI);
+			[MI setIndentationLevel:0];
 			[windowsMenu insertItem:MI atIndex:insertIndex];
 		}
 		[windowsMenu insertItem:[NSMenuItem separatorItem] atIndex:insertIndex];

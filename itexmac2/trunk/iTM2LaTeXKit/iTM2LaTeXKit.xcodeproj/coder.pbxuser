@@ -161,8 +161,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 187886211;
-			PBXWorkspaceStateSaveDate = 187886211;
+			PBXPerProjectTemplateStateSaveDate = 188220873;
+			PBXWorkspaceStateSaveDate = 188220873;
 		};
 		perUserProjectItems = {
 			DC008F240A6ADEF2009236E8 = DC008F240A6ADEF2009236E8 /* PBXTextBookmark */;
@@ -171,12 +171,12 @@
 			DC6A898B0B0470CE0072FC1A = DC6A898B0B0470CE0072FC1A /* PBXTextBookmark */;
 			DC8E239B0B2AC1C80073D255 = DC8E239B0B2AC1C80073D255 /* PBXTextBookmark */;
 			DC8E239F0B2AC1C80073D255 = DC8E239F0B2AC1C80073D255 /* PBXTextBookmark */;
-			DCB9707B0B32EA930091CC54 /* PBXTextBookmark */ = DCB9707B0B32EA930091CC54 /* PBXTextBookmark */;
-			DCB970800B32EBAA0091CC54 /* PBXTextBookmark */ = DCB970800B32EBAA0091CC54 /* PBXTextBookmark */;
-			DCB970810B32EBAA0091CC54 /* PBXTextBookmark */ = DCB970810B32EBAA0091CC54 /* PBXTextBookmark */;
-			DCB970820B32EBAA0091CC54 /* PBXTextBookmark */ = DCB970820B32EBAA0091CC54 /* PBXTextBookmark */;
-			DCB970850B32EBAA0091CC54 /* PBXTextBookmark */ = DCB970850B32EBAA0091CC54 /* PBXTextBookmark */;
-			DCB970860B32EBAA0091CC54 /* PBXTextBookmark */ = DCB970860B32EBAA0091CC54 /* PBXTextBookmark */;
+			DCB9707B0B32EA930091CC54 = DCB9707B0B32EA930091CC54 /* PBXTextBookmark */;
+			DCB970800B32EBAA0091CC54 = DCB970800B32EBAA0091CC54 /* PBXTextBookmark */;
+			DCB970810B32EBAA0091CC54 = DCB970810B32EBAA0091CC54 /* PBXTextBookmark */;
+			DCB970820B32EBAA0091CC54 = DCB970820B32EBAA0091CC54 /* PBXTextBookmark */;
+			DCB970850B32EBAA0091CC54 = DCB970850B32EBAA0091CC54 /* PBXTextBookmark */;
+			DCB970860B32EBAA0091CC54 = DCB970860B32EBAA0091CC54 /* PBXTextBookmark */;
 			DCBA44080B027D5D006AF52A = DCBA44080B027D5D006AF52A /* PBXBookmark */;
 			DCBA440A0B027D5D006AF52A = DCBA440A0B027D5D006AF52A /* PBXTextBookmark */;
 			DCBA440B0B027D5D006AF52A = DCBA440B0B027D5D006AF52A /* PBXTextBookmark */;
@@ -342,11 +342,6 @@
 		name = index.html;
 		path = "/Users/coder/Documents/iTeXMac2/iTM2 Sourceforge/HTML/iTeXMac/index.html";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {2668, 10217}}";
-			sepNavSelRange = "{7112, 0}";
-			sepNavVisRect = "{{600, 2291}, {837, 637}}";
-		};
 	};
 	DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */ = {
 		uiCtxt = {
@@ -486,11 +481,6 @@
 		name = NSTextStorage_iTeXMac2.h;
 		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/build/iTM2Foundation.framework/Headers/NSTextStorage_iTeXMac2.h;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {837, 867}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 0}, {837, 637}}";
-		};
 	};
 	DCBA44100B027D5D006AF52A /* PBXBookmark */ = {
 		isa = PBXBookmark;
@@ -549,11 +539,6 @@
 		name = iTM2TextStorageKit.h;
 		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/../build/iTM2Foundation.framework/Headers/iTM2TextStorageKit.h;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1588, 21182}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 54}, {837, 637}}";
-		};
 	};
 	DCCD2EA809E145B30003EEF9 /* English */ = {
 		uiCtxt = {

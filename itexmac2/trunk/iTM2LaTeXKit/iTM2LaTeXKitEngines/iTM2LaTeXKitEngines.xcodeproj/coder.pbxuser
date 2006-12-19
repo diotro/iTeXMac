@@ -99,11 +99,6 @@
 		name = classes.nib;
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {456, 461}}";
-			sepNavSelRange = "{395, 0}";
-			sepNavVisRect = "{{0, 0}, {456, 461}}";
-		};
 	};
 	DC42E2ED0B2B69CC00FE3465 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -493,8 +488,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 187899012;
-			PBXWorkspaceStateSaveDate = 187899012;
+			PBXPerProjectTemplateStateSaveDate = 188220874;
+			PBXWorkspaceStateSaveDate = 188220874;
 		};
 		perUserProjectItems = {
 			DC3CE95D0B202A940021D7AD = DC3CE95D0B202A940021D7AD /* PBXTextBookmark */;
@@ -517,7 +512,7 @@
 			DC9BC3880ABA0D4D00FAC59E = DC9BC3880ABA0D4D00FAC59E /* PBXTextBookmark */;
 			DC9BC38A0ABA0D4D00FAC59E = DC9BC38A0ABA0D4D00FAC59E /* PBXTextBookmark */;
 			DC9BC38C0ABA0D4D00FAC59E = DC9BC38C0ABA0D4D00FAC59E /* PBXTextBookmark */;
-			DCB973AF0B331C9A0091CC54 /* PBXTextBookmark */ = DCB973AF0B331C9A0091CC54 /* PBXTextBookmark */;
+			DCB973AF0B331C9A0091CC54 = DCB973AF0B331C9A0091CC54 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;

@@ -1505,7 +1505,7 @@ To Do List:
 		[sender setImage:[NSImage imageNamed:@"typesetCurrentProjectToolbarImage"]];
 	}
 //iTM2_END;
-    return YES;
+    return TPD != nil;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doubleTypesetCurrentProject:
 - (IBAction)doubleTypesetCurrentProject:(id)sender;

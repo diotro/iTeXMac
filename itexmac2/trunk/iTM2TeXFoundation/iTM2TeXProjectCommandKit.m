@@ -2056,7 +2056,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [iTM2TeXPCommandManager fixTeXMenu];
+    [iTM2TeXPCommandManager setupTeXMenu];
 //iTM2_END;
     return;
 }
@@ -2088,11 +2088,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self fixTeXMenu];
+	[self setupTeXMenu];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixTeXMenu
-+ (void)fixTeXMenu;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupTeXMenu
++ (void)setupTeXMenu;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2100,13 +2100,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_fixTeXMenu) object:nil];
-	[self performSelector:@selector(_fixTeXMenu) withObject:nil afterDelay:0];
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_setupTeXMenu) object:nil];
+	[self performSelector:@selector(_setupTeXMenu) withObject:nil afterDelay:0];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _fixTeXMenu
-+ (void)_fixTeXMenu;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _setupTeXMenu
++ (void)_setupTeXMenu;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2289,7 +2289,7 @@ To Do List:
 		}
 		_iTM2TeXPBuiltInCommandNames = [[set allObjects] retain];
 		oldNumberOfClasses = newNumberOfClasses;
-		[self fixTeXMenu];
+		[self setupTeXMenu];
 	}
 //iTM2_LOG(@"_iTM2TeXPBuiltInCommandNames are: %@", _iTM2TeXPBuiltInCommandNames);
 //iTM2_END;
@@ -2573,6 +2573,7 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"I HAVE RECEIVED THE ORDER TO START");
 #if 1
+	[project setElementary:NO];
 	if([self mustSaveProjectDocumentsBefore])
 	{
 		[project saveDocument:nil];
@@ -2778,7 +2779,7 @@ To Do List:
 	else if(scriptMode)
 		return [TPD scriptDescriptorForCommandMode:scriptMode] != nil;
 	else
-		return YES;
+		return TPD != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForBaseProject:
 + (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;

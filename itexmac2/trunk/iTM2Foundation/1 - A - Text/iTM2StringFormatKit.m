@@ -1395,6 +1395,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * string = @"";
+	if(![docData length])
+	{
+		return string;
+	}
     NSStringEncoding usedStringEncoding = 0;
     BOOL canStringEncoding = NO;
     NSString * hardStringEncodingString = @"";

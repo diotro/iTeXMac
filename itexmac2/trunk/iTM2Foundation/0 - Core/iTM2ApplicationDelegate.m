@@ -35,6 +35,10 @@ NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 
 /*" This class is registered as the delegate of the iTeXMac2 NSApplication object. We do various stuff here, e.g. registering factory defaults, etc.
 "*/
+
+@interface NSDocumentController(iTM2ApplicationDelegate)
+- (id)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL;
+@end
 @implementation iTM2ApplicationDelegate
 #ifndef HUNTING
 #warning <<<<  HUNTING
@@ -131,5 +135,21 @@ To Do: problem when there is no UI.
     return;
 }
 #warning >>>>  HUNTING
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= application:openFile:
+- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename;
+/*"Updates the templates and macros menus.
+Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
+To Do: problem when there is no UI.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSURL * absoluteURL = [NSURL fileURLWithPath:filename];
+	if([SDC respondsToSelector:@selector(prepareOpenDocumentWithContentsOfURL:)])
+	{
+		[SDC prepareOpenDocumentWithContentsOfURL:absoluteURL];
+	}
+//iTM2_END;
+    return NO;
+}
 #endif
 @end
