@@ -102,6 +102,7 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
 - (NSString *)farawayFileNameForKey:(NSString *)key;// different from absoluteFileNameForKey: for faraway projects
 - (void)_removeKey:(NSString *)key;
+- (void)closeIfNeeded;
 
 @end
 
@@ -382,6 +383,47 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  closeIfNeeded
+- (void)closeIfNeeded
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Mar 30 15:52:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_LOG(@"[self fileURL]:%@",[self fileURL]);
+	if([self contextBoolForKey:@"iTM2ProjectDontCloseWhenNoWindowAreVisible" domain:iTM2ContextAllDomainsMask])
+	{
+		return;
+	}
+	if([[self subdocuments] count])
+	{
+		return;//do nothing
+	}
+	NSArray * WCs = [self windowControllers];
+	NSEnumerator * E = [WCs objectEnumerator];
+	NSWindowController * WC;
+	id GWC = [IMPLEMENTATION metaValueForKey:@"_GWC"];
+	while(WC = [E nextObject])
+	{
+		if([WC isEqual:GWC])
+		{
+			continue;
+		}
+		else if([WC isWindowLoaded])
+		{
+			NSWindow * W = [WC window];
+			if([W isVisible])
+			{
+				return;
+			}
+		}
+	}
+	[self close];
+//iTM2_END;
+	return;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveDocument:
@@ -1259,6 +1301,20 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeWindowController:
+- (void)removeWindowController:(NSWindowController *)windowController;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 1.4: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[super removeWindowController:windowController];
+	[self closeIfNeeded];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addWindowController:
 - (void)addWindowController:(NSWindowController *)windowController;
 /*"Description forthcoming.
@@ -1271,9 +1327,16 @@ To Do List:
 	// this trick is used to force the gost window controller to always be the last in the list
 	// that way,the ghost window is not used when sheets are to be displayed.
 	id GWC = [IMPLEMENTATION metaValueForKey:@"_GWC"];
-	[super removeWindowController:GWC];
-	[super addWindowController:windowController];
-	[super addWindowController:GWC];
+	if(GWC)
+	{
+		[super removeWindowController:GWC];
+		[super addWindowController:windowController];
+		[super addWindowController:GWC];
+	}
+	else
+	{
+		[super addWindowController:windowController];
+	}
 //iTM2_END;
     return;
 }
@@ -1595,6 +1658,27 @@ To Do List:
 //iTM2_END;
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  closeSubdocument:
+- (void)closeSubdocument:(id)document;
+/*"Description forthcoming.This is the preferred method
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([[self subdocuments] containsObject:document])
+    {
+		[[document retain] autorelease];
+		[document saveContext:nil];
+		[SPC setProject:nil forDocument:document];
+        [[self subdocuments] removeObject:document];
+		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
+		[self closeIfNeeded];
+    }
+//iTM2_END;
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSubdocument:
 - (void)removeSubdocument:(id)document;
 /*"Description forthcoming.
@@ -1611,26 +1695,6 @@ To Do List:
 		[self removeKey:key];
         [[self subdocuments] removeObject:document];
 		[SPC setProject:nil forDocument:document];
-		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
-    }
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  closeSubdocument:
-- (void)closeSubdocument:(id)document;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([[self subdocuments] containsObject:document])
-    {
-		[[document retain] autorelease];
-		[document saveContext:nil];
-		[SPC setProject:nil forDocument:document];
-        [[self subdocuments] removeObject:document];
 		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
     }
 //iTM2_END;
@@ -2082,7 +2146,7 @@ To Do List:
 		key = @".";
 	}
 	NSString * base = [self fileName];
-	base = [base stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
+	base = [base stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	base = [base stringByAppendingPathComponent:@"project"];
 	base = [DFM pathContentOfSymbolicLinkAtPath:base];
 	base = [base stringByDeletingLastPathComponent];
@@ -2552,7 +2616,7 @@ To Do List:
 			}
 		}
 	}
-	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
+	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	DE = [DFM enumeratorAtPath:subdirectory];
 	// subdirectory variable is free now
 	while(K = [DE nextObject])
@@ -2586,6 +2650,44 @@ To Do List:
 			iTM2_LOG(@"WARNING(4): COULD NOT REMOVE FILE AT PATH:\n%@",source);
 		}
 	}
+	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC relaltiveSoftLinksSubdirectory]];
+	DE = [DFM enumeratorAtPath:subdirectory];
+	// subdirectory variable is free now
+	NSString * dirName = [self fileName];
+	dirName = [dirName stringByDeletingLastPathComponent];
+	while(K = [DE nextObject])
+	{
+		key = [K isEqualToString:@"project"]?@".":K;
+		source = [subdirectory stringByAppendingPathComponent:key];
+		target = [DFM pathContentOfSymbolicLinkAtPath:source];
+		target = [dirName stringByAppendingPathComponent:target];
+		target = [target stringByStandardizingPath];
+		if([target pathIsEqual:fileName])
+		{
+			// OK,this soft link points to the given named file.
+			// is it this key available
+			target = [self absoluteFileNameForKey:key];
+			if([target pathIsEqual:fileName])
+			{
+				return key;
+			}
+			if([DFM fileExistsAtPath:target])
+			{
+				// clean the soft link
+				// it is certainly a duplicate file
+				if(![DFM removeFileAtPath:source handler:NULL])
+				{
+					iTM2_LOG(@"WARNING(5): COULD NOT REMOVE FILE AT PATH:\n%@",source);
+				}
+				return @"";
+			}
+			return key;
+		}
+		else if([target length] && ![DFM fileExistsAtPath:target] && ![DFM removeFileAtPath:source handler:NULL])
+		{
+			iTM2_LOG(@"WARNING(6): COULD NOT REMOVE FILE AT PATH:\n%@",source);
+		}
+	}
 //iTM2_END;
 	return @"";
 }
@@ -2610,9 +2712,20 @@ To Do List:
 	{
 		return target;
 	}
-	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
+	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	source = [subdirectory stringByAppendingPathComponent:key];
 	target = [DFM pathContentOfSymbolicLinkAtPath:source];
+	if([DFM fileExistsAtPath:target])
+	{
+		return target;
+	}
+	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
+	source = [subdirectory stringByAppendingPathComponent:key];
+	target = [DFM pathContentOfSymbolicLinkAtPath:source];
+	NSString * dirName = [self fileName];
+	dirName = [dirName stringByDeletingLastPathComponent];
+	target = [dirName stringByAppendingPathComponent:target];
+	target = [target stringByStandardizingPath];
 	if([DFM fileExistsAtPath:target])
 	{
 		return target;
@@ -2879,7 +2992,7 @@ iTM2_LOG(@"stored at path: %@",path);
 				iTM2_LOG(@"Could not write alias information in\n%@",subdirectory);
 			}
 			subdirectory = [self fileName];
-			subdirectory = [subdirectory stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
+			subdirectory = [subdirectory stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 			if([DFM fileExistsAtPath:subdirectory isDirectory:&isDirectory] && isDirectory
 				|| [DFM createDeepDirectoryAtPath:subdirectory attributes:nil error:nil])
 			{
@@ -2903,6 +3016,47 @@ iTM2_LOG(@"stored at path: %@",path);
 					else
 					{
 						iTM2_LOG(@"*** ERROR: Could not create a symbolic link %@ at %@ (report bug)",fileName,path);
+					}
+				}
+			}
+			else if(iTM2DebugEnabled)
+			{
+				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not write soft links information in\n%@",subdirectory]
+						forKey:NSLocalizedDescriptionKey]]];
+			}
+			else
+			{
+				iTM2_LOG(@"Could not write soft links information in\n%@",subdirectory);
+			}
+			subdirectory = [self fileName];
+			subdirectory = [subdirectory stringByAppendingPathComponent:[SPC relativeSoftLinksSubdirectory]];
+			if([DFM fileExistsAtPath:subdirectory isDirectory:&isDirectory] && isDirectory
+				|| [DFM createDeepDirectoryAtPath:subdirectory attributes:nil error:nil])
+			{
+				path = [subdirectory stringByAppendingPathComponent:@"Readme.txt"];
+				if(![DFM fileExistsAtPath:path])
+				{
+					[@"This directory contains relative soft links to files the project is aware of.\niTeXMac2" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
+				}
+				path = [subdirectory stringByAppendingPathComponent:key];
+//iTM2_LOG(@"fileName is: %@",fileName);
+//iTM2_LOG(@"path is: %@",path);
+				[DFM removeFileAtPath:path handler:NULL];
+				NSString * dirName = [self fileName];
+				dirName = [dirName stringByDeletingLastPathComponent];
+				NSString * relativeFileName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+				if(![DFM createSymbolicLinkAtPath:path pathContent:relativeFileName])
+				{
+					if(iTM2DebugEnabled)
+					{
+						[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create a symbolic link to %@ at %@",relativeFileName,path]
+								forKey:NSLocalizedDescriptionKey]]];
+					}
+					else
+					{
+						iTM2_LOG(@"*** ERROR: Could not create a symbolic link %@ at %@ (report bug)",relativeFileName,path);
 					}
 				}
 			}
@@ -3032,7 +3186,7 @@ To Do List:
 	{
 		iTM2_LOG(@"*** ERROR: I could not remove %@,please do it for me...",path);
 	}
-	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
+	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	path = [subdirectory stringByAppendingPathComponent:key];
 	if([DFM fileOrLinkExistsAtPath:path] && ![DFM removeFileAtPath:path handler:NULL])
 	{
@@ -6683,8 +6837,8 @@ To Do List:
 //iTM2_END;
     return [[TWSFrontendComponent stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"Finder Aliases"];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  softLinksSubdirectory
-- (NSString*)softLinksSubdirectory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteSoftLinksSubdirectory
+- (NSString*)absoluteSoftLinksSubdirectory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -6694,6 +6848,18 @@ To Do List:
 //iTM2_START;
 //iTM2_END;
     return [[TWSFrontendComponent stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"Soft Links"];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  relativeSoftLinksSubdirectory
+- (NSString*)relativeSoftLinksSubdirectory;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[TWSFrontendComponent stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"Relative Soft Links"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextProjectForFileName:display:error:
 - (id)getContextProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
@@ -7437,7 +7603,7 @@ scanDirectoryContent:
 					}
 					#endif
 				}
-				subdirectory = [projectFileName stringByAppendingPathComponent:[SPC softLinksSubdirectory]];
+				subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 				DE = [DFM enumeratorAtPath:subdirectory];
 				// subdirectory variable is free now
 				while(K = [DE nextObject])
