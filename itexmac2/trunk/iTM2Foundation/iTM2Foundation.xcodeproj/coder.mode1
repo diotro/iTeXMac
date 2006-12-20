@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC7C05EB0B3888EB0079C5D4</string>
+						<string>DC7C086F0B38D5740079C5D4</string>
 						<key>history</key>
 						<array>
 							<string>DC075B880B38807D008858E9</string>
@@ -354,7 +354,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC7C05EA0B3888EB0079C5D4</string>
+										<string>DC7C086E0B38D5740079C5D4</string>
 										<key>history</key>
 										<array>
 											<string>DC22636A0AE69A4500186582</string>
@@ -730,8 +730,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {724, 384}}</string>
-											<string>{{724, 0}, {686, 384}}</string>
+											<string>{{0, 0}, {643, 265}}</string>
+											<string>{{643, 0}, {767, 265}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -746,8 +746,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1410, 384}}</string>
-											<string>{{0, 384}, {1410, 408}}</string>
+											<string>{{0, 0}, {1410, 265}}</string>
+											<string>{{0, 265}, {1410, 527}}</string>
 										</array>
 									</dict>
 								</dict>
