@@ -31,10 +31,12 @@ NSString * const iTM2DistributionOtherPrograms = @"iTM2DistributionGhostScriptBi
 
 NSString * const iTM2DistributionDefault = @"default";
 NSString * const iTM2DistributionBuiltIn = @"built-in";// Not yet used
+NSString * const iTM2DistributionDefaultTeXDist = @"Default TeX Distribution";// from TeXDist design
 NSString * const iTM2DistributiongwTeX = @"gwTeX";// from iinstaller
 NSString * const iTM2DistributionFink = @"fink";
 NSString * const iTM2DistributionTeXLive = @"TeX Live";
 NSString * const iTM2DistributionTeXLiveDVD = @"TeX Live DVD";
+NSString * const iTM2DistributionDefaultTeXDistIntel = @"Default TeX Distribution(Intel)";// from TeXDist design
 NSString * const iTM2DistributiongwTeXIntel = @"gwTeX(Intel)";// from iinstaller
 NSString * const iTM2DistributionFinkIntel = @"fink(Intel)";
 NSString * const iTM2DistributionTeXLiveIntel = @"TeX Live(Intel)";
@@ -44,7 +46,8 @@ NSString * const iTM2DistributionCustom = @"custom";
 
 NSString * const iTM2DistributionDomainTeXMF = @"iTM2DistributionDomainTeXMF";
 NSString * const iTM2DistributionDomainTeXMFPrograms = @"iTM2DistributionDomainTeXMFBinaries";
-NSString * const iTM2DistributionDomainOtherPrograms = @"iTM2DistributionDomainGhostScriptBinaries";
+NSString * const iTM2DistributionDomainOtherPrograms = @"iTM2DistributionDomainOtherBinaries";
+NSString * const iTM2DistributionDomainChostScriptPrograms = @"iTM2DistributionDomainGhostScriptBinaries";
 
 // those should be deprecated because I can retrieve those paths from the TeXMF tree
 NSString * const iTM2DistributionDomainTeXMFDocumentation = @"iTM2DistributionDomainTeXMFDocumentation";
@@ -112,6 +115,8 @@ To do list:
 	// we must make some diagnostic at a project level too
 	BOOL distributionWasNotCorrect = NO;
 	BOOL distributionIsStillNotCorrect = NO;
+#if 0
+	the TeXMF path has no meaning, the programs can find the path by themselves
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
 		goto testTeXMFPrograms;// that's OK
@@ -143,16 +148,25 @@ To do list:
 	// I have to inform the user that his configuration is not correct...
 	distributionIsStillNotCorrect = YES;
 testTeXMFPrograms:
+#endif
 	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	distributionWasNotCorrect = YES;
-	[SUD setObject:iTM2DistributionBuiltIn forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
-	if([DFM fileExistsAtPath:path])
-		goto testOtherPrograms;// that's OK
 	if([NSBundle isI386])
 	{
+		[SUD setObject:iTM2DistributionDefaultTeXDistIntel forKey:iTM2DistributionTeXMFPrograms];
+		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		if([DFM fileExistsAtPath:path])
+			goto testOtherPrograms;// that's OK
+		[SUD setObject:iTM2DistributiongwTeXLiveIntel forKey:iTM2DistributionTeXMFPrograms];
+		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		if([DFM fileExistsAtPath:path])
+			goto testOtherPrograms;// that's OK
+		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFPrograms];
+		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		if([DFM fileExistsAtPath:path])
+			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
 		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 		if([DFM fileExistsAtPath:path])
@@ -163,15 +177,19 @@ testTeXMFPrograms:
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFPrograms];
 	}
+	[SUD setObject:iTM2DistributiongwTeXLive forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	if([DFM fileExistsAtPath:path])
+		goto testOtherPrograms;// that's OK
+	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	if([DFM fileExistsAtPath:path])
+		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFPrograms];
 	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
-	if([DFM fileExistsAtPath:path])
-		goto testOtherPrograms;// that's OK
-	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFPrograms];
 	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
@@ -196,11 +214,15 @@ testOtherPrograms:
 		goto conclusion;// that's OK
 	if([NSBundle isI386])
 	{
-		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
+		[SUD setObject:iTM2DistributiongwTeXLiveIntel forKey:iTM2DistributionOtherPrograms];
 		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionOtherPrograms];
+		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+		if([DFM fileExistsAtPath:path])
+			goto conclusion;// that's OK
+		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
 		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
@@ -209,6 +231,10 @@ testOtherPrograms:
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 	}
+	[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	if([DFM fileExistsAtPath:path])
+		goto conclusion;// that's OK
 	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionOtherPrograms];
 	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
@@ -323,6 +349,7 @@ To Do List:
 DISTRIBUTION(TeXMFDistribution, setTeXMFDistribution)
 DISTRIBUTION(TeXMFProgramsDistribution, setTeXMFProgramsDistribution)
 DISTRIBUTION(OtherProgramsDistribution, setOtherProgramsDistribution)
+DISTRIBUTION(GhostScriptProgramsDistribution, setGhostScriptProgramsDistribution)
 DISTRIBUTION(TeXMFPath, setTeXMFPath)
 DISTRIBUTION(TeXMFProgramsPath, setTeXMFProgramsPath)
 DISTRIBUTION(OtherProgramsPath, setOtherProgramsPath)
@@ -388,7 +415,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * distribution = [self OtherProgramsDistribution];
+	NSString * distribution = [self GhostScriptProgramsDistribution];
+	if(distribution)
+	{
+		[self setOtherProgramsDistribution:distribution];
+		[self setGhostScriptProgramsDistribution:nil];
+	}
+	distribution = [self OtherProgramsDistribution];
 	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
 		return [[self class] defaultOtherProgramsPath];
@@ -399,9 +432,21 @@ To Do List:
 	}
 	else
 	{
+	// I have to manage what once was "GhostScript" and became "Other"
 		NSString * key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
 		NSString * result = [SUD stringForKey:key];
-		return [result length]? result:[[self class] defaultOtherProgramsPath];
+		if([result length])
+		{
+			return result;
+		}
+		NSString * oldKey = [iTM2DistributionDomainGhostScriptPrograms stringByAppendingPathExtension:distribution];
+		result = [SUD stringForKey:oldKey];
+		if([result length])
+		{
+			[SUD setObject:result forKey:key];
+			return result;
+		}
+		return [[self class] defaultOtherProgramsPath];
 	}
 //iTM2_END;
 }
@@ -475,8 +520,13 @@ To Do List:
 	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	if(![distribution length])
 	{
-		iTM2_LOG(@"...........  HUGE ERROR: Missing Other binaries distribution reference in preferences, report bug");
-		return @"Missing Other Programs ";
+		distribution = [SUD stringForKey:iTM2DistributionGhostScriptPrograms];
+		if(![distribution length])
+		{
+			[SUD setObject:distribution forKey:iTM2DistributionOtherPrograms];
+			iTM2_LOG(@"...........  HUGE ERROR: Missing Other binaries distribution reference in preferences, report bug");
+			return @"Missing Other Programs ";
+		}
 	}
 	else if(iTM2DebugEnabled)
 	{
@@ -486,8 +536,17 @@ To Do List:
 	NSString * result = [SUD stringForKey:key];
 	if(![result length])
 	{
-		iTM2_LOG(@"...........  HUGE ERROR: Missing Other binaries %@ distribution path in preferences, report bug", distribution);
-		return @"Missing Other Programs Distribution Path";
+		NSString * oldKey = [iTM2DistributionDomainGhostScriptPrograms stringByAppendingPathExtension:distribution];
+		result = [SUD stringForKey:key];
+		if([result length])
+		{
+			[SUD setObject:result forKey:key];
+		}
+		else
+		{
+			iTM2_LOG(@"...........  HUGE ERROR: Missing Other binaries %@ distribution path in preferences, report bug", distribution);
+			return @"Missing Other Programs Distribution Path";
+		}
 	}
 //iTM2_END;
     return result;
@@ -1278,6 +1337,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
 		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
+		else if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+			[sender selectItemWithTag:iTM2TeXDistributionDefaultTeXDistTag];
 		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
 		else if([distribution pathIsEqual:iTM2DistributionFink])
@@ -1300,6 +1361,7 @@ To Do List:
 			default:
 			case iTM2TeXDistributionDefaultTag: representedObject = iTM2DistributionDefault; break;
 			case iTM2TeXDistributionBuiltInTag: representedObject = iTM2DistributionBuiltIn; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionDefaultTeXDistTag: representedObject = iTM2TeXDistributionDefaultTeXDist; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; [sender setIndentationLevel:1]; break;

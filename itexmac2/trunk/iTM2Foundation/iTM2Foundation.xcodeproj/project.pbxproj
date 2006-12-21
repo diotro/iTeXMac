@@ -3503,6 +3503,7 @@
 			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Prepare OgreKit";
+				iTM2_INFOPLIST_FILE = "";
 			};
 			name = Development;
 		};
@@ -3511,6 +3512,7 @@
 			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Prepare OgreKit";
+				iTM2_INFOPLIST_FILE = "";
 			};
 			name = Deployment;
 		};

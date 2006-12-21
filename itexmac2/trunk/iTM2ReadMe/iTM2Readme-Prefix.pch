@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'iTM2Readme' target in the 'iTM2Readme' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

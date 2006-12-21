@@ -69,6 +69,7 @@ typedef enum
 
 @end
 
+#if 0
 extern NSString * const iTM2DistributionTeXMF;
 extern NSString * const iTM2DistributionTeXMFPrograms;
 extern NSString * const iTM2DistributionOtherPrograms;
@@ -85,11 +86,15 @@ extern NSString * const iTM2DistributionCustom;// for the project or the default
 extern NSString * const iTM2DistributionDomainTeXMF;
 extern NSString * const iTM2DistributionDomainTeXMFPrograms;
 extern NSString * const iTM2DistributionDomainOtherPrograms;
+extern NSString * const iTM2DistributionDomainChostScriptPrograms;
+#endif
 
 typedef enum
 {
       iTM2TeXDistributionDefaultTag = 0,
+      iTM2TeXDistributionDefaultTeXDistTag = -3,
       iTM2TeXDistributionBuiltInTag = 1,
+      iTM2TeXDistributionGWTeXLiveTag = -4,
       iTM2TeXDistributionGWTeXTag = 2,
       iTM2TeXDistributionFinkTag = 3,
       iTM2TeXDistributionTeXLiveTag = 4,
