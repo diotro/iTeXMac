@@ -434,6 +434,15 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 + (void)performCommand:(id)sender;
 
 /*!
+    @method     validatePerformCommand:
+    @abstract   Abstract forthcoming
+    @discussion Private API
+    @param      sender
+    @result     None
+*/
++ (BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
+
+/*!
     @method     performCommandForProject:
     @abstract   Abstract forthcoming
     @discussion Private API

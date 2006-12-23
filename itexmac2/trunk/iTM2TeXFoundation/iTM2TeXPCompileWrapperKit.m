@@ -1941,6 +1941,31 @@ To Do List:
 //iTM2_END;
     return [super menuItemTitleForProject:project];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePerformCommand:
++ (BOOL)validatePerformCommand:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![sender image])
+	{
+		NSImage * I = [NSImage imageNamed:@"compilePerformerImage"];
+		if(!I)
+		{
+			I = [NSImage imageNamed:@"typesetCurrentProjectToolbarImage"];
+			I = [[I copy] autorelease];
+			[I setName:@"compilePerformerImage"];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+		}
+		[sender setImage:I];//size
+	}
+    return [super validatePerformCommand:(id)sender];
+//iTM2_END;
+}
 @end
 
 //#import <iTM2Foundation/iTM2BundleKit.h>

@@ -5,25 +5,25 @@
 	<key>iTM2DistributionDomainOtherBinaries.Default TeX Distribution</key>
 	<string>/usr/local/bin</string>
 	<key>iTM2DistributionDomainTeXMFBinaries.Default TeX Distribution</key>
-	<string>/Library/TeX/.Distributions/DefaultTeX/Contents/Programs/powerpc</string>
+	<string>/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/powerpc</string>
 	<key>iTM2DistributionDomainTeXMF.Default TeX Distribution</key>
 	<string>unused</string>
 	<key>iTM2DistributionDomainOtherBinaries.Default TeX Distribution(Intel)</key>
 	<string>/usr/local/bin</string>
 	<key>iTM2DistributionDomainTeXMFBinaries.Default TeX Distribution(Intel)</key>
-	<string>/Library/TeX/.Distributions/DefaultTeX/Contents/Programs/i386</string>
+	<string>/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/i386</string>
 	<key>iTM2DistributionDomainTeXMF.Default TeX Distribution(Intel)</key>
 	<string>unused</string>
 	<key>iTM2DistributionDomainOtherBinaries.gwTeXLive</key>
 	<string>/usr/local/bin</string>
 	<key>iTM2DistributionDomainTeXMFBinaries.gwTeXLive</key>
-	<string>/usr/local/gwTeXbin/powerpc-apple-darwin-current</string>
+	<string>/usr/local/gwTeX/bin/powerpc-apple-darwin-current</string>
 	<key>iTM2DistributionDomainTeXMF.gwTeXLive</key>
 	<string>/usr/local/gwTeXshare/texmf</string>
 	<key>iTM2DistributionDomainOtherBinaries.gwTeXLive(Intel)</key>
 	<string>/usr/local/bin</string>
 	<key>iTM2DistributionDomainTeXMFBinaries.gwTeXLive(Intel)</key>
-	<string>/usr/local/gwTeXbin/i386-apple-darwin-current</string>
+	<string>/usr/local/gwTeX/bin/i386-apple-darwin-current</string>
 	<key>iTM2DistributionDomainTeXMF.gwTeXLive(Intel)</key>
 	<string>/usr/local/gwTeXshare/texmf</string>
 	<key>iTM2DistributionDomainOtherBinaries.gwTeX</key>

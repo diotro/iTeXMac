@@ -77,6 +77,7 @@ extern NSString * const iTM2DistributionOtherPrograms;
 extern NSString * const iTM2DistributionDefault;
 extern NSString * const iTM2DistributionBuiltIn;// Not yet used
 extern NSString * const iTM2DistributiongwTeX;
+extern NSString * const iTM2DistributionOldgwTeX;
 extern NSString * const iTM2DistributionFink;
 extern NSString * const iTM2DistributionTeXLive;
 extern NSString * const iTM2DistributionTeXLiveDVD;
@@ -95,7 +96,8 @@ typedef enum
       iTM2TeXDistributionDefaultTeXDistTag = -3,
       iTM2TeXDistributionBuiltInTag = 1,
       iTM2TeXDistributionGWTeXLiveTag = -4,
-      iTM2TeXDistributionGWTeXTag = 2,
+      iTM2TeXDistributionOldGWTeXTag = 2,
+      iTM2TeXDistributionGWTeXTag = 6,
       iTM2TeXDistributionFinkTag = 3,
       iTM2TeXDistributionTeXLiveTag = 4,
       iTM2TeXDistributionTeXLiveDVDTag = 5,

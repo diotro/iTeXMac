@@ -32,12 +32,14 @@ NSString * const iTM2DistributionOtherPrograms = @"iTM2DistributionGhostScriptBi
 NSString * const iTM2DistributionDefault = @"default";
 NSString * const iTM2DistributionBuiltIn = @"built-in";// Not yet used
 NSString * const iTM2DistributionDefaultTeXDist = @"Default TeX Distribution";// from TeXDist design
-NSString * const iTM2DistributiongwTeX = @"gwTeX";// from iinstaller
+NSString * const iTM2DistributionOldgwTeX = @"gwTeX";// from iinstaller
+NSString * const iTM2DistributiongwTeX = @"gwTeXLive";// from iinstaller
 NSString * const iTM2DistributionFink = @"fink";
 NSString * const iTM2DistributionTeXLive = @"TeX Live";
 NSString * const iTM2DistributionTeXLiveDVD = @"TeX Live DVD";
 NSString * const iTM2DistributionDefaultTeXDistIntel = @"Default TeX Distribution(Intel)";// from TeXDist design
-NSString * const iTM2DistributiongwTeXIntel = @"gwTeX(Intel)";// from iinstaller
+NSString * const iTM2DistributionOldgwTeXIntel = @"gwTeX(Intel)";// from iinstaller
+NSString * const iTM2DistributiongwTeXIntel = @"gwTeXLive(Intel)";// from iinstaller
 NSString * const iTM2DistributionFinkIntel = @"fink(Intel)";
 NSString * const iTM2DistributionTeXLiveIntel = @"TeX Live(Intel)";
 NSString * const iTM2DistributionTeXLiveDVDIntel = @"TeX Live DVD(Intel)";
@@ -82,7 +84,7 @@ To do list:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id distribution = [NSBundle isI386]? iTM2DistributiongwTeXIntel: iTM2DistributiongwTeX;
+	id distribution = [NSBundle isI386]? iTM2DistributionDefaultTeXDistIntel: iTM2DistributionDefaultTeXDist;
     [SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
 					distribution, iTM2DistributionTeXMF,
 					distribution, iTM2DistributionTeXMFPrograms,
@@ -129,6 +131,10 @@ To do list:
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
 		goto testTeXMFPrograms;// that's OK
+	[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionTeXMF];
+	path = [iTM2TeXProjectDocument defaultTeXMFPath];
+	if([DFM fileExistsAtPath:path])
+		goto testTeXMFPrograms;// that's OK
 	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMF];
 	path = [iTM2TeXProjectDocument defaultTeXMFPath];
 	if([DFM fileExistsAtPath:path])
@@ -159,7 +165,11 @@ testTeXMFPrograms:
 		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
-		[SUD setObject:iTM2DistributiongwTeXLiveIntel forKey:iTM2DistributionTeXMFPrograms];
+		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
+		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		if([DFM fileExistsAtPath:path])
+			goto testOtherPrograms;// that's OK
+		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
 		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
@@ -167,7 +177,7 @@ testTeXMFPrograms:
 		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
-		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
+		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
 		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
@@ -177,7 +187,7 @@ testTeXMFPrograms:
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFPrograms];
 	}
-	[SUD setObject:iTM2DistributiongwTeXLive forKey:iTM2DistributionTeXMFPrograms];
+	[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionTeXMFPrograms];
 	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
@@ -186,6 +196,10 @@ testTeXMFPrograms:
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFPrograms];
+	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	if([DFM fileExistsAtPath:path])
+		goto testOtherPrograms;// that's OK
+	[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionTeXMFPrograms];
 	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
@@ -214,7 +228,11 @@ testOtherPrograms:
 		goto conclusion;// that's OK
 	if([NSBundle isI386])
 	{
-		[SUD setObject:iTM2DistributiongwTeXLiveIntel forKey:iTM2DistributionOtherPrograms];
+		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
+		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+		if([DFM fileExistsAtPath:path])
+			goto conclusion;// that's OK
+		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionOtherPrograms];
 		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
@@ -222,7 +240,7 @@ testOtherPrograms:
 		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
-		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
+		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionOtherPrograms];
 		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
@@ -235,7 +253,11 @@ testOtherPrograms:
 	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
-	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionOtherPrograms];
+	[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionOtherPrograms];
+	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	if([DFM fileExistsAtPath:path])
+		goto conclusion;// that's OK
+	[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionOtherPrograms];
 	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
@@ -439,7 +461,7 @@ To Do List:
 		{
 			return result;
 		}
-		NSString * oldKey = [iTM2DistributionDomainGhostScriptPrograms stringByAppendingPathExtension:distribution];
+		NSString * oldKey = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
 		result = [SUD stringForKey:oldKey];
 		if([result length])
 		{
@@ -520,7 +542,7 @@ To Do List:
 	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	if(![distribution length])
 	{
-		distribution = [SUD stringForKey:iTM2DistributionGhostScriptPrograms];
+		distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 		if(![distribution length])
 		{
 			[SUD setObject:distribution forKey:iTM2DistributionOtherPrograms];
@@ -536,8 +558,8 @@ To Do List:
 	NSString * result = [SUD stringForKey:key];
 	if(![result length])
 	{
-		NSString * oldKey = [iTM2DistributionDomainGhostScriptPrograms stringByAppendingPathExtension:distribution];
-		result = [SUD stringForKey:key];
+		NSString * oldKey = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
+		result = [SUD stringForKey:oldKey];
 		if([result length])
 		{
 			[SUD setObject:result forKey:key];
@@ -651,7 +673,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * projectPrefix = @"";
 	id environment = [[self implementation] iVarDistributionEnvironment];
 	NSNumber * N = [environment objectForKey:iTM2DistributionUsePATHLoginShellKey];
 	return N? [N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHLoginShellKey];
@@ -895,9 +916,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [[self document] TeXMFProgramsDistribution];
-	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel])
+	{
+		return iTM2DistributionDefaultTeXDist;
+	}
+	else if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
+	}
+	else if([distribution pathIsEqual:iTM2DistributionOldgwTeXIntel])
+	{
+		return iTM2DistributionOldgwTeX;
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
@@ -926,7 +955,9 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [[self document] TeXMFProgramsDistribution];
 //iTM2_END;
-    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+    return [distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel]
+		|| [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionOldgwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
@@ -942,9 +973,17 @@ To Do List:
 //iTM2_START;
 	id doc = [self document];
 	NSString * distribution = [doc TeXMFProgramsDistribution];
-	if([distribution pathIsEqual:iTM2DistributiongwTeX])
+	if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+	{
+		[doc setTeXMFProgramsDistribution:iTM2DistributionDefaultTeXDistIntel];
+	}
+	else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
 		[doc setTeXMFProgramsDistribution:iTM2DistributiongwTeXIntel];
+	}
+	else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+	{
+		[doc setTeXMFProgramsDistribution:iTM2DistributionOldgwTeXIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
@@ -971,9 +1010,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [[self document] OtherProgramsDistribution];
-	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel])
+	{
+		return iTM2DistributionDefaultTeXDist;
+	}
+	else if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
+	}
+	else if([distribution pathIsEqual:iTM2DistributionOldgwTeXIntel])
+	{
+		return iTM2DistributionOldgwTeX;
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
@@ -1002,7 +1049,9 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [[self document] OtherProgramsDistribution];
 //iTM2_END;
-    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+    return [distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel]
+		|| [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionOldgwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
@@ -1018,9 +1067,17 @@ To Do List:
 //iTM2_START;
 	id doc = [self document];
 	NSString * distribution = [doc OtherProgramsDistribution];
-	if([distribution pathIsEqual:iTM2DistributiongwTeX])
+	if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+	{
+		[doc setOtherProgramsDistribution:iTM2DistributionDefaultTeXDistIntel];
+	}
+	else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 	{
 		[doc setOtherProgramsDistribution:iTM2DistributiongwTeXIntel];
+	}
+	else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+	{
+		[doc setOtherProgramsDistribution:iTM2DistributionOldgwTeXIntel];
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFink])
 	{
@@ -1341,6 +1398,10 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTeXDistTag];
 		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+			[sender selectItemWithTag:iTM2TeXDistributionOldGWTeXTag];
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
+			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
@@ -1361,8 +1422,9 @@ To Do List:
 			default:
 			case iTM2TeXDistributionDefaultTag: representedObject = iTM2DistributionDefault; break;
 			case iTM2TeXDistributionBuiltInTag: representedObject = iTM2DistributionBuiltIn; [sender setIndentationLevel:1]; break;
-			case iTM2TeXDistributionDefaultTeXDistTag: representedObject = iTM2TeXDistributionDefaultTeXDist; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionDefaultTeXDistTag: representedObject = iTM2DistributionDefaultTeXDist; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionOldGWTeXTag: representedObject = iTM2DistributionOldgwTeX; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; [sender setIndentationLevel:1]; break;
@@ -1458,6 +1520,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
 		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+			[sender selectItemWithTag:iTM2TeXDistributionOldGWTeXTag];
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
@@ -1479,6 +1543,7 @@ To Do List:
 			case iTM2TeXDistributionDefaultTag: representedObject = iTM2DistributionDefault; break;
 			case iTM2TeXDistributionBuiltInTag: representedObject = iTM2DistributionBuiltIn; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionOldGWTeXTag: representedObject = iTM2DistributionOldgwTeX; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; [sender setIndentationLevel:1]; break;
@@ -1614,6 +1679,8 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
 		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+			[sender selectItemWithTag:iTM2TeXDistributionOldGWTeXTag];
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
@@ -1635,6 +1702,7 @@ To Do List:
 			case iTM2TeXDistributionDefaultTag: representedObject = iTM2DistributionDefault; break;
 			case iTM2TeXDistributionBuiltInTag: representedObject = iTM2DistributionBuiltIn; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; [sender setIndentationLevel:1]; break;
+			case iTM2TeXDistributionOldGWTeXTag: representedObject = iTM2DistributionOldgwTeX; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; [sender setIndentationLevel:1]; break;
 			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; [sender setIndentationLevel:1]; break;
@@ -2369,9 +2437,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
-	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributionOldgwTeXIntel])
 	{
-		return iTM2DistributiongwTeX;
+		return iTM2DistributionOldgwTeX;
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
@@ -2400,7 +2468,9 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 //iTM2_END;
-    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+    return [distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel]
+		|| [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionOldgwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
@@ -2417,9 +2487,17 @@ To Do List:
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 	if(flag)
 	{
-		if([distribution pathIsEqual:iTM2DistributiongwTeX])
+		if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+		{
+			[SUD setObject:iTM2DistributionDefaultTeXDistIntel forKey:iTM2DistributionTeXMFPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 		{
 			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+		{
+			[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 		{
@@ -2436,9 +2514,17 @@ To Do List:
 	}
 	else
 	{
-		if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+		if([distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel])
+		{
+			[SUD setObject:iTM2DistributionDefaultTeXDist forKey:iTM2DistributionTeXMFPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 		{
 			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeXIntel])
+		{
+			[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionTeXMFPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 		{
@@ -2466,9 +2552,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
-	if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+	if([distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel])
+	{
+		return iTM2DistributionDefaultTeXDist;
+	}
+	else if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 	{
 		return iTM2DistributiongwTeX;
+	}
+	else if([distribution pathIsEqual:iTM2DistributionOldgwTeXIntel])
+	{
+		return iTM2DistributionOldgwTeX;
 	}
 	else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 	{
@@ -2497,7 +2591,9 @@ To Do List:
 //iTM2_START;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 //iTM2_END;
-    return [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+    return [distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel]
+		|| [distribution pathIsEqual:iTM2DistributiongwTeXIntel]
+		|| [distribution pathIsEqual:iTM2DistributionOldgwTeXIntel]
 		|| [distribution pathIsEqual:iTM2DistributionFinkIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveIntel]
 		|| [distribution pathIsEqual:iTM2DistributionTeXLiveDVDIntel];
@@ -2514,9 +2610,17 @@ To Do List:
 	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	if(flag)
 	{
-		if([distribution pathIsEqual:iTM2DistributiongwTeX])
+		if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+		{
+			[SUD setObject:iTM2DistributionDefaultTeXDistIntel forKey:iTM2DistributionOtherPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 		{
 			[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+		{
+			[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 		{
@@ -2533,9 +2637,17 @@ To Do List:
 	}
 	else
 	{
-		if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
+		if([distribution pathIsEqual:iTM2DistributionDefaultTeXDistIntel])
+		{
+			[SUD setObject:iTM2DistributionDefaultTeXDist forKey:iTM2DistributionOtherPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributiongwTeXIntel])
 		{
 			[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionOtherPrograms];
+		}
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeXIntel])
+		{
+			[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionOtherPrograms];
 		}
 		else if([distribution pathIsEqual:iTM2DistributionFinkIntel])
 		{
@@ -2596,8 +2708,12 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
 		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
+		else if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+			[sender selectItemWithTag:iTM2TeXDistributionDefaultTeXDistTag];
 		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+			[sender selectItemWithTag:iTM2TeXDistributionOldGWTeXTag];
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
@@ -2618,7 +2734,9 @@ To Do List:
 			default:
 			case iTM2TeXDistributionDefaultTag: representedObject = iTM2DistributionDefault; break;
 			case iTM2TeXDistributionBuiltInTag: representedObject = iTM2DistributionBuiltIn; break;
+			case iTM2TeXDistributionDefaultTeXDistTag: representedObject = iTM2DistributionDefaultTeXDist; break;
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; break;
+			case iTM2TeXDistributionOldGWTeXTag: representedObject = iTM2DistributionOldgwTeX; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; break;
 			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; break;
@@ -2720,8 +2838,12 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
 		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
+		else if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+			[sender selectItemWithTag:iTM2TeXDistributionDefaultTeXDistTag];
 		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+			[sender selectItemWithTag:iTM2TeXDistributionOldGWTeXTag];
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
@@ -2742,7 +2864,9 @@ To Do List:
 			default:
 			case iTM2TeXDistributionDefaultTag: representedObject = iTM2DistributionDefault; break;
 			case iTM2TeXDistributionBuiltInTag: representedObject = iTM2DistributionBuiltIn; break;
+			case iTM2TeXDistributionDefaultTeXDistTag: representedObject = iTM2DistributionDefaultTeXDist; break;
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; break;
+			case iTM2TeXDistributionOldGWTeXTag: representedObject = iTM2DistributionOldgwTeX; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; break;
 			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; break;
@@ -2844,8 +2968,12 @@ To Do List:
 			[sender selectItemWithTag:iTM2TeXDistributionDefaultTag];
 		else if([distribution pathIsEqual:iTM2DistributionBuiltIn])
 			[sender selectItemWithTag:iTM2TeXDistributionBuiltInTag];
+		else if([distribution pathIsEqual:iTM2DistributionDefaultTeXDist])
+			[sender selectItemWithTag:iTM2TeXDistributionDefaultTeXDistTag];
 		else if([distribution pathIsEqual:iTM2DistributiongwTeX])
 			[sender selectItemWithTag:iTM2TeXDistributionGWTeXTag];
+		else if([distribution pathIsEqual:iTM2DistributionOldgwTeX])
+			[sender selectItemWithTag:iTM2TeXDistributionOldGWTeXTag];
 		else if([distribution pathIsEqual:iTM2DistributionFink])
 			[sender selectItemWithTag:iTM2TeXDistributionFinkTag];
 		else if([distribution pathIsEqual:iTM2DistributionTeXLive])
@@ -2866,7 +2994,9 @@ To Do List:
 			default:
 			case iTM2TeXDistributionDefaultTag: representedObject = iTM2DistributionDefault; break;
 			case iTM2TeXDistributionBuiltInTag: representedObject = iTM2DistributionBuiltIn; break;
+			case iTM2TeXDistributionDefaultTeXDistTag: representedObject = iTM2DistributionDefaultTeXDist; break;
 			case iTM2TeXDistributionGWTeXTag: representedObject = iTM2DistributiongwTeX; break;
+			case iTM2TeXDistributionOldGWTeXTag: representedObject = iTM2DistributionOldgwTeX; break;
 			case iTM2TeXDistributionFinkTag: representedObject = iTM2DistributionFink; break;
 			case iTM2TeXDistributionTeXLiveTag: representedObject = iTM2DistributionTeXLive; break;
 			case iTM2TeXDistributionTeXLiveDVDTag: representedObject = iTM2DistributionTeXLiveDVD; break;

@@ -9750,6 +9750,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![sender image])
+	{
+		NSImage * I = [NSImage imageNamed:@"projectShowSettings"];
+		if(!I)
+		{
+			I = [NSImage imageNamed:@"showCurrentProjectSettingsToolbarImage"];// this is defined in the TeX Foundation
+			I = [[I copy] autorelease];
+			[I setName:@"projectShowSettings"];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+		}
+		[sender setImage:I];//size
+	}
 //iTM2_END;
     return [SPC currentProject] != nil;
 }
@@ -9781,39 +9794,6 @@ To Do List:
 	iTM2_LOG(@"*** BIG UNEXPECTED PROBLEM");
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateProjectEditUsingRepresentedInspectorMode:
-- (BOOL)validateProjectEditUsingRepresentedInspectorMode:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
-- 2.0: Fri Apr 16 11:39:43 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMenu * M = [sender menu];
-	NSValue * V = [[[M supermenu] itemAtIndex:[[M supermenu] indexOfItemWithSubmenu:M]] representedObject];
-	if([V isKindOfClass:[NSValue class]])
-	{
-		id projectDocument = [V nonretainedObjectValue];
-		if([SPC isProject:projectDocument] || [SPC isBaseProject:projectDocument])
-		{
-			NSString * key = [sender representedObject];
-			if([key isKindOfClass:[NSString class]])
-			{
-				NSString * absolutePath = [projectDocument absoluteFileNameForKey:key];
-				NSString * farawayPath = [projectDocument farawayFileNameForKey:key];
-                [sender setAttributedTitle:([DFM fileExistsAtPath:absolutePath]||[DFM fileExistsAtPath:farawayPath]? nil:
-                    [[[NSAttributedString alloc] initWithString:[sender title]
-                        attributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                            [NSColor redColor],NSForegroundColorAttributeName,
-                                nil]] autorelease])];
-			}
-			return YES;
-		}
-	}
-//iTM2_END;
-	return YES;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectEditUsingRepresentedInspectorMode:
 - (void)projectEditUsingRepresentedInspectorMode:(id)sender;
 /*"Description forthcoming.
@@ -9836,6 +9816,44 @@ To Do List:
 	}
 	iTM2_LOG(@"*** BIG UNEXPECTED PROBLEM");
 	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateProjectEditUsingRepresentedInspectorMode:
+- (BOOL)validateProjectEditUsingRepresentedInspectorMode:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSMenu * M = [sender menu];
+	NSValue * V = [[[M supermenu] itemAtIndex:[[M supermenu] indexOfItemWithSubmenu:M]] representedObject];
+	if([V isKindOfClass:[NSValue class]])
+	{
+		id projectDocument = [V nonretainedObjectValue];
+		if([SPC isProject:projectDocument] || [SPC isBaseProject:projectDocument])
+		{
+			NSString * key = [sender representedObject];
+			if([key isKindOfClass:[NSString class]])
+			{
+				if(![sender image])
+				{
+				#warning FORTHCOMING IMAGES
+					;
+				}
+				NSString * absolutePath = [projectDocument absoluteFileNameForKey:key];
+				NSString * farawayPath = [projectDocument farawayFileNameForKey:key];
+                [sender setAttributedTitle:([DFM fileExistsAtPath:absolutePath]||[DFM fileExistsAtPath:farawayPath]? nil:
+                    [[[NSAttributedString alloc] initWithString:[sender title]
+                        attributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                            [NSColor redColor],NSForegroundColorAttributeName,
+                                nil]] autorelease])];
+			}
+			return YES;
+		}
+	}
+//iTM2_END;
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectAddDocument:
 - (IBAction)projectAddDocument:(id)sender;
