@@ -814,7 +814,6 @@ changeName:
 		NSString * src = [projectFileName enclosingWrapperFileName];
 		NSString * dest = [SDC wrapperPathExtension];
 		dest = [requiredCore stringByAppendingPathExtension:dest];
-		dest = [requiredCore stringByAppendingPathExtension:dest];
 		dest = [expectedDirName stringByAppendingPathComponent:dest];
 		dest = [[NSString farawayProjectsDirectory] stringByAppendingPathComponent:dest];
 		if([DFM movePath:src toPath:dest handler:NULL])
