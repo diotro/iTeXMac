@@ -80,6 +80,11 @@ INTF(iTM2WSMathMenu)
 INTF(iTM2WSMiscMenu)
 INTF(iTM2WSMhoMenu)
 INTF(iTM2WSZodiacMenu)
+INTF(iTM2PiFontMisc1Menu)
+INTF(iTM2PiFontMisc2Menu)
+INTF(iTM2PiFontDigitsMenu)
+INTF(iTM2PiFontArrowsMenu)
+INTF(iTM2PiFontStarsMenu)
 
 @interface iTM2SymbolMenuItemCell: NSMenuItemCell
 {

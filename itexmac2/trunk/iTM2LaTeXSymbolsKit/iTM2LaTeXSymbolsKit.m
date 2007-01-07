@@ -67,8 +67,12 @@ To Do List:
     [self setNumberOfColumns:[O respondsToSelector:@selector(intValue)]? MAX(1, [O intValue]):1];
     [[self menuRepresentation] setImagePosition:NSImageOnly];
     [[self menuRepresentation] setHorizontalEdgePadding:0];
-//NSLog(@"%@ isFlipped %@", NSStringFromClass([[self menuRepresentation] class]), ([[self menuRepresentation] isFlipped]? @"Y": @"N"));
-//NSLog(@"%@ isFlipped %@", NSStringFromClass([_Image class]), ([_Image isFlipped]? @"Y": @"N"));
+//iTM2_LOG(@"%@ isFlipped %@", NSStringFromClass([[self menuRepresentation] class]), ([[self menuRepresentation] isFlipped]? @"Y": @"N"));
+//iTM2_LOG(@"%@ isFlipped %@", NSStringFromClass([_Image class]), ([_Image isFlipped]? @"Y": @"N"));
+//iTM2_LOG(@"number of columns %i", [self numberOfColumns]);
+//iTM2_LOG(@"number of rows %i", [self numberOfRows]);
+//iTM2_LOG(@"_Image path: %@", [[NSBundle bundleForClass:[self class]] pathForImageResource:NSStringFromClass([self class])]);
+//iTM2_LOG(@"_Image size: %@", NSStringFromSize([_Image size]));
     [_Image setFlipped:[[self menuRepresentation] isFlipped]];
 //NSLog(@"[self numberOfColumns] %u", [self numberOfColumns]);
     return;
@@ -159,6 +163,11 @@ IMPL(iTM2WSMathMenu)
 IMPL(iTM2WSMiscMenu)
 IMPL(iTM2WSMhoMenu)
 IMPL(iTM2WSZodiacMenu)
+IMPL(iTM2PiFontMisc1Menu)
+IMPL(iTM2PiFontMisc2Menu)
+IMPL(iTM2PiFontDigitsMenu)
+IMPL(iTM2PiFontArrowsMenu)
+IMPL(iTM2PiFontStarsMenu)
 
 NSString * const iTM2SymbolMenuBugKey = @"iTM2SymbolMenuBug";
 
@@ -214,7 +223,8 @@ To Do List:
 //iTM2_START;
     if(self = [super init])
     {
-        _Bug = [[NSUserDefaults standardUserDefaults] boolForKey:iTM2SymbolMenuBugKey];        
+        _Bug = [[NSUserDefaults standardUserDefaults] boolForKey:iTM2SymbolMenuBugKey];
+//iTM2_LOG(@"Bug:%@",(_Bug?@"Y":@"N"));
     }
     return self;
 }

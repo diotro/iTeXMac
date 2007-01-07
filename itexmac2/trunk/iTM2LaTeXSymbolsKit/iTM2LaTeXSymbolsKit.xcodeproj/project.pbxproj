@@ -145,6 +145,21 @@
 		DC99EA2E0A2608A400F50752 /* iTM2WSZodiacMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B90A2608A400F50752 /* iTM2WSZodiacMenu.dict */; };
 		DC99EA2F0A2608A400F50752 /* iTM2WSZodiacMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9BA0A2608A400F50752 /* iTM2WSZodiacMenu.tiff */; };
 		DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
+		DCB1E7070B50988700B0704A /* iTM2PiFontArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */; };
+		DCB1E7080B50988700B0704A /* iTM2PiFontArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */; };
+		DCB1E7090B50988700B0704A /* iTM2PiFontArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */; };
+		DCB1E70A0B50988700B0704A /* iTM2PiFontDigitsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FB0B50988600B0704A /* iTM2PiFontDigitsIcon.tiff */; };
+		DCB1E70B0B50988700B0704A /* iTM2PiFontDigitsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FC0B50988600B0704A /* iTM2PiFontDigitsMenu.dict */; };
+		DCB1E70C0B50988700B0704A /* iTM2PiFontDigitsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FD0B50988600B0704A /* iTM2PiFontDigitsMenu.tiff */; };
+		DCB1E70D0B50988700B0704A /* iTM2PiFontMisc1Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FE0B50988600B0704A /* iTM2PiFontMisc1Icon.tiff */; };
+		DCB1E70E0B50988700B0704A /* iTM2PiFontMisc1Menu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FF0B50988600B0704A /* iTM2PiFontMisc1Menu.dict */; };
+		DCB1E70F0B50988800B0704A /* iTM2PiFontMisc1Menu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7000B50988600B0704A /* iTM2PiFontMisc1Menu.tiff */; };
+		DCB1E7100B50988800B0704A /* iTM2PiFontMisc2Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7010B50988600B0704A /* iTM2PiFontMisc2Icon.tiff */; };
+		DCB1E7110B50988800B0704A /* iTM2PiFontMisc2Menu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7020B50988600B0704A /* iTM2PiFontMisc2Menu.dict */; };
+		DCB1E7120B50988800B0704A /* iTM2PiFontMisc2Menu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7030B50988600B0704A /* iTM2PiFontMisc2Menu.tiff */; };
+		DCB1E7130B50988800B0704A /* iTM2PiFontStarsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */; };
+		DCB1E7140B50988800B0704A /* iTM2PiFontStarsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */; };
+		DCB1E7150B50988800B0704A /* iTM2PiFontStarsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -315,6 +330,21 @@
 		DC99E9BA0A2608A400F50752 /* iTM2WSZodiacMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSZodiacMenu.tiff; sourceTree = "<group>"; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		DCAF9AB509D811A300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = Resources/English.lproj/iTM2LaTeXSymbolsPanel.nib; sourceTree = SOURCE_ROOT; };
+		DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontArrowsIcon.tiff; sourceTree = "<group>"; };
+		DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontArrowsMenu.dict; sourceTree = "<group>"; };
+		DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontArrowsMenu.tiff; sourceTree = "<group>"; };
+		DCB1E6FB0B50988600B0704A /* iTM2PiFontDigitsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontDigitsIcon.tiff; sourceTree = "<group>"; };
+		DCB1E6FC0B50988600B0704A /* iTM2PiFontDigitsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontDigitsMenu.dict; sourceTree = "<group>"; };
+		DCB1E6FD0B50988600B0704A /* iTM2PiFontDigitsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontDigitsMenu.tiff; sourceTree = "<group>"; };
+		DCB1E6FE0B50988600B0704A /* iTM2PiFontMisc1Icon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc1Icon.tiff; sourceTree = "<group>"; };
+		DCB1E6FF0B50988600B0704A /* iTM2PiFontMisc1Menu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontMisc1Menu.dict; sourceTree = "<group>"; };
+		DCB1E7000B50988600B0704A /* iTM2PiFontMisc1Menu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc1Menu.tiff; sourceTree = "<group>"; };
+		DCB1E7010B50988600B0704A /* iTM2PiFontMisc2Icon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc2Icon.tiff; sourceTree = "<group>"; };
+		DCB1E7020B50988600B0704A /* iTM2PiFontMisc2Menu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontMisc2Menu.dict; sourceTree = "<group>"; };
+		DCB1E7030B50988600B0704A /* iTM2PiFontMisc2Menu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc2Menu.tiff; sourceTree = "<group>"; };
+		DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontStarsIcon.tiff; sourceTree = "<group>"; };
+		DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontStarsMenu.dict; sourceTree = "<group>"; };
+		DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontStarsMenu.tiff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +392,7 @@
 				DC99E9660A2608A400F50752 /* jknappen */,
 				DC99E9760A2608A400F50752 /* LaTeX */,
 				DC99E99B0A2608A400F50752 /* MarVoSym */,
+				DCB1E6F70B50988600B0704A /* PiFont */,
 				DC99E9AB0A2608A400F50752 /* WasySym */,
 				DC00B14009D210E9007D6AD9 /* iTM2LaTeXSymbolsPanel.nib */,
 			);
@@ -586,6 +617,28 @@
 			path = WasySym;
 			sourceTree = "<group>";
 		};
+		DCB1E6F70B50988600B0704A /* PiFont */ = {
+			isa = PBXGroup;
+			children = (
+				DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */,
+				DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */,
+				DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */,
+				DCB1E6FB0B50988600B0704A /* iTM2PiFontDigitsIcon.tiff */,
+				DCB1E6FC0B50988600B0704A /* iTM2PiFontDigitsMenu.dict */,
+				DCB1E6FD0B50988600B0704A /* iTM2PiFontDigitsMenu.tiff */,
+				DCB1E6FE0B50988600B0704A /* iTM2PiFontMisc1Icon.tiff */,
+				DCB1E6FF0B50988600B0704A /* iTM2PiFontMisc1Menu.dict */,
+				DCB1E7000B50988600B0704A /* iTM2PiFontMisc1Menu.tiff */,
+				DCB1E7010B50988600B0704A /* iTM2PiFontMisc2Icon.tiff */,
+				DCB1E7020B50988600B0704A /* iTM2PiFontMisc2Menu.dict */,
+				DCB1E7030B50988600B0704A /* iTM2PiFontMisc2Menu.tiff */,
+				DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */,
+				DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */,
+				DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */,
+			);
+			path = PiFont;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -781,6 +834,21 @@
 				DC99EA2D0A2608A400F50752 /* iTM2WSZodiacIcon.tiff in Resources */,
 				DC99EA2E0A2608A400F50752 /* iTM2WSZodiacMenu.dict in Resources */,
 				DC99EA2F0A2608A400F50752 /* iTM2WSZodiacMenu.tiff in Resources */,
+				DCB1E7070B50988700B0704A /* iTM2PiFontArrowsIcon.tiff in Resources */,
+				DCB1E7080B50988700B0704A /* iTM2PiFontArrowsMenu.dict in Resources */,
+				DCB1E7090B50988700B0704A /* iTM2PiFontArrowsMenu.tiff in Resources */,
+				DCB1E70A0B50988700B0704A /* iTM2PiFontDigitsIcon.tiff in Resources */,
+				DCB1E70B0B50988700B0704A /* iTM2PiFontDigitsMenu.dict in Resources */,
+				DCB1E70C0B50988700B0704A /* iTM2PiFontDigitsMenu.tiff in Resources */,
+				DCB1E70D0B50988700B0704A /* iTM2PiFontMisc1Icon.tiff in Resources */,
+				DCB1E70E0B50988700B0704A /* iTM2PiFontMisc1Menu.dict in Resources */,
+				DCB1E70F0B50988800B0704A /* iTM2PiFontMisc1Menu.tiff in Resources */,
+				DCB1E7100B50988800B0704A /* iTM2PiFontMisc2Icon.tiff in Resources */,
+				DCB1E7110B50988800B0704A /* iTM2PiFontMisc2Menu.dict in Resources */,
+				DCB1E7120B50988800B0704A /* iTM2PiFontMisc2Menu.tiff in Resources */,
+				DCB1E7130B50988800B0704A /* iTM2PiFontStarsIcon.tiff in Resources */,
+				DCB1E7140B50988800B0704A /* iTM2PiFontStarsMenu.dict in Resources */,
+				DCB1E7150B50988800B0704A /* iTM2PiFontStarsMenu.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

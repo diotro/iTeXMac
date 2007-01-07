@@ -65,6 +65,12 @@
         }, 
         {CLASS = iTM2LaTeXSymbolMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
         {CLASS = iTM2LaTeXSymbolsPanel; LANGUAGE = ObjC; SUPERCLASS = NSPanel; }, 
+        {
+            CLASS = iTM2LaTeXSymbolsPanelController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {testImage1 = id; testImage2 = id; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
         {CLASS = iTM2LaTeXVariableMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
         {CLASS = iTM2MVSArrowsMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
         {CLASS = iTM2MVSDeskMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
@@ -77,6 +83,11 @@
         {CLASS = iTM2MathbbNumMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
         {CLASS = iTM2MathfrakCapsMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
         {CLASS = iTM2MathrsfsMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
+        {CLASS = iTM2PiFontArrowsMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
+        {CLASS = iTM2PiFontDigitsMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
+        {CLASS = iTM2PiFontMisc1Menu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
+        {CLASS = iTM2PiFontMisc2Menu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
+        {CLASS = iTM2PiFontStarsMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
         {CLASS = iTM2SymbolMenu; LANGUAGE = ObjC; SUPERCLASS = NSMenu; }, 
         {CLASS = iTM2WSBoxMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 
         {CLASS = iTM2WSMathMenu; LANGUAGE = ObjC; SUPERCLASS = iTM2SymbolMenu; }, 

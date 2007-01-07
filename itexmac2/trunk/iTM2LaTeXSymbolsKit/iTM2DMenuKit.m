@@ -305,9 +305,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    self = [super initWithTitle:aTitle];
-    [self setMenuRepresentation:[[[iTM2GridMenuView alloc] initWithFrame:NSZeroRect] autorelease]];
-    _NOC = 1;
+    if(self = [super initWithTitle:aTitle])
+	{
+		iTM2GridMenuView * MR = [[[iTM2GridMenuView alloc] initWithFrame:NSZeroRect] autorelease];
+		[self setMenuRepresentation:MR];
+		_NOC = 1;
+	}
 //iTM2_END;
     return self;
 }
@@ -321,9 +324,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    self = [super initWithCoder:aDecoder];
-    [self setMenuRepresentation:[[[iTM2GridMenuView alloc] initWithFrame:NSZeroRect] autorelease]];
-    _NOC = 1;
+    if(self = [super initWithCoder:aDecoder])
+	{
+		iTM2GridMenuView * MR = [[[iTM2GridMenuView alloc] initWithFrame:NSZeroRect] autorelease];
+		[self setMenuRepresentation:MR];
+		_NOC = 1;
+	}
 //NSLog(@"COUCOUROUCOUCOU");
     return self;
 }
