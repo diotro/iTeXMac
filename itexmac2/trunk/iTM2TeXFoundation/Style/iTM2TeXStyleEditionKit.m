@@ -926,7 +926,7 @@ To Do List:
 }
 NSString * _iTM2PRIVATE_NewSetName = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSet:
-- (void)addSet:(id)sender;
+- (IBAction)addSet:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -937,6 +937,20 @@ To Do List:
     [self performSelector:@selector(_addSet:) withObject:sender afterDelay:0];
     return;
 }
+#if 0
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateAddSet:
+- (IBAction)validateAddSet:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _addSet:
 - (IBAction)_addSet:(id)sender;
 /*"Description Forthcoming.
@@ -949,11 +963,11 @@ To Do List:
     [self validateWindowContent];
     if(![[self window] attachedSheet])
     {
-        [NSApp beginSheet: addSetPanel
-                modalForWindow: [self window]
-                modalDelegate: self
-                didEndSelector: @selector(addSetSheetDidEnd:returnCode:contextInfo:)
-                contextInfo: nil];
+        [NSApp beginSheet:addSetPanel
+                modalForWindow:[self window]
+                modalDelegate:self
+                didEndSelector:@selector(addSetSheetDidEnd:returnCode:contextInfo:)
+                contextInfo:nil];
     }
     else
     {

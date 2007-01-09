@@ -238,6 +238,34 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 */
 - (NSArray *)componentsBySeparatingPlaceholders;
 
+/*!
+	@method		stringByRemovingPlaceHolderMarkers
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		None.
+    @result     string
+*/
+- (NSString *)stringByRemovingPlaceHolderMarkers;
+
+/*!
+	@method		stringByRemovingPlaceHolderMarkersWithSelection:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		the contents of the selection.
+    @result     string
+*/
+- (NSString *)stringByRemovingPlaceHolderMarkersWithSelection:(NSString *)selection;
+
+/*!
+	@method		stringWithSelection:getSelectedRanges:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		the contents of the selection.
+	@param		a pointer to an array of ranges.
+    @result     string
+*/
+- (NSString *)stringWithSelection:(NSString *)selection getSelectedRanges:(NSArray **)selectedRangesPtr;
+
 @end
 
 @interface NSValue(iTM2Location)

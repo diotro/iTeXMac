@@ -685,7 +685,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _fixFarawayProjectConsistency
-- (BOOL)_fixFarawayProjectConsistency;
+- (BOOL) _fixFarawayProjectConsistency;
 /*"Description Forthcoming.
 You should not send this message by yourself, unless you are named fixFarawayProjectConsistency
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -710,6 +710,7 @@ To Do List:
 	NSString * key = nil;
 	NSString * name = nil;
 	// record all the keyed file names
+	// in the following dictionaries, keys are project keys, values are paths, existing ones
 	NSMutableDictionary * oldExistingFileNames = [NSMutableDictionary dictionary];
 	NSMutableDictionary * oldMovedFileNames = [NSMutableDictionary dictionary];
 	NSMutableDictionary * oldFarawayFileNames  = [NSMutableDictionary dictionary];
@@ -764,9 +765,19 @@ To Do List:
 		// as an external project, I just have to follow the containing directory
 changeName:
 		E = [oldExistingFileNames objectEnumerator];
-		name = [E nextObject];
-		name = [name stringByDeletingLastPathComponent];
-		commonComponents = [name pathComponents];
+		while(name = [E nextObject])
+		{
+			name = [name stringByDeletingLastPathComponent];
+			commonComponents = [name pathComponents];
+			if([commonComponents containsObject:@".Trash"])
+			{
+				commonComponents = nil;			
+			}
+			else
+			{
+				break;
+			}
+		}
 		while(name = [E nextObject])
 		{
 			RA = [name pathComponents];
@@ -775,9 +786,19 @@ changeName:
 		E = [oldMovedFileNames objectEnumerator];
 		if(![commonComponents count])
 		{
-			name = [E nextObject];
-			name = [name stringByDeletingLastPathComponent];
-			commonComponents = [name pathComponents];
+			while(name = [E nextObject])
+			{
+				name = [name stringByDeletingLastPathComponent];
+				commonComponents = [name pathComponents];
+				if([commonComponents containsObject:@".Trash"])
+				{
+					commonComponents = nil;			
+				}
+				else
+				{
+					break;
+				}
+			}
 		}
 		while(name = [E nextObject])
 		{
@@ -785,6 +806,11 @@ changeName:
 			commonComponents = [commonComponents arrayWithCommonFirstObjectsOfArray:RA];
 		}
 		// the commonComponents are not expected to belong to the external project directory
+		if(![commonComponents count])
+		{
+			// all the files have been trashed?
+			return YES;
+		}
 		expectedDirName = [NSString pathWithComponents:commonComponents];
 		if([expectedDirName belongsToFarawayProjectsDirectory])
 		{

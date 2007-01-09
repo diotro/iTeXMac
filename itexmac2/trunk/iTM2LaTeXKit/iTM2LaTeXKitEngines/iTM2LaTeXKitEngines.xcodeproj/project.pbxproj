@@ -584,6 +584,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Info.plist";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "LaTeX Installer";
 			};
 			name = Development;
@@ -599,6 +600,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Info.plist";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "LaTeX Installer";
 			};
 			name = Deployment;
@@ -673,6 +675,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Info.plist";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "LaTeX Doc Extractor";
 			};
 			name = Development;
@@ -687,6 +690,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Info.plist";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "LaTeX Doc Extractor";
 			};
 			name = Deployment;

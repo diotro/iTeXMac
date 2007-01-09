@@ -28,6 +28,7 @@
 #import <iTM2Foundation/iTM2DocumentKit.h>
 #import <iTM2Foundation/iTM2TreeKit.h>
 #import <iTM2Foundation/iTM2MenuKit.h>
+#import <iTM2Foundation/iTM2TextKit.h>
 
 NSString * const iTM2CompletionComponent = @"Completion.localized";
 NSString * const iTM2CompletionMode = @"iTM2CompletionMode";
@@ -52,6 +53,43 @@ NSString * const iTM2CompletionsExtension = @"xml";
 #import <iTM2Foundation/iTM2ContextKit.h>
 
 @interface iTM2CompletionWindow:NSPanel
+@end
+
+@interface iTM2CompletionFormatter:NSFormatter
+{
+@private
+	NSString * selectedString;
+}
+@end
+@implementation iTM2CompletionFormatter
+- (void)dealloc;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[selectedString autorelease];
+	selectedString = nil;
+	[super dealloc];
+//iTM2_END;
+	return;
+}
+- (NSString *)stringForObjectValue:(id)obj;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return selectedString?[obj stringByRemovingPlaceHolderMarkersWithSelection:selectedString]:[obj stringByRemovingPlaceHolderMarkers];
+}
+- (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
+{
+	NSString * str = [self stringForObjectValue:obj];
+	return [[[NSAttributedString alloc] initWithString:(NSString *)str attributes:(NSDictionary *)attrs] autorelease];
+}
+- (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error;
+{
+	if(error)
+	{
+		*error = nil;
+	}
+	return NO;
+}
 @end
 
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
@@ -155,6 +193,12 @@ To Do List:
 	_OriginalString = nil;
 	[_EditedString autorelease];
 	_EditedString = nil;
+	[_ShortCompletionString autorelease];
+	_ShortCompletionString = nil;
+	[_LongCompletionString autorelease];
+	_LongCompletionString = nil;
+	[_SelectedString autorelease];
+	_SelectedString = nil;
 	[_PatriciaControllers autorelease];
 	_PatriciaControllers = nil;
 	[DNC removeObserver:self name:NSWindowWillCloseNotification object:nil];
@@ -277,10 +321,7 @@ grosbois:
 				goto grosbois;
 			}
 		}
-		else
-		{
-			return result1;
-		}
+		return result1;
 	}
 	else
 	{
@@ -295,6 +336,10 @@ grosbois:
 	// is there something to complete with?
 	int selectedRow = 0;
 	_RangeForUserCompletion = [aTextView rangeForUserCompletion];
+	_SelectedRange = [aTextView selectedRange];
+	_SelectedString = [aTextView string];
+	_SelectedString = [_SelectedString substringWithRange:_SelectedRange];
+	_SelectedString = [_SelectedString copy];
 	_EditedRangeForUserCompletion = _RangeForUserCompletion;
 	_Candidates = [[aTextView completionsForPartialWordRange:_RangeForUserCompletion indexOfSelectedItem:&selectedRow] retain];
 	unsigned numberOfRows = [_Candidates count];
@@ -421,6 +466,11 @@ grosbois:
 			[_TextView replaceCharactersInRange:_RangeForUserCompletion withString:_EditedString];
 			[_TextView didChangeText];
 		}
+		if(_SelectedRange.length>0)
+		{
+			_SelectedRange.length = 0;
+			[_TextView replaceCharactersInRange:_SelectedRange withString:_SelectedString];			
+		}
 		[_TextView autorelease];
 		_TextView = nil;
 	}
@@ -458,8 +508,22 @@ iTM2_LOG(@"now enableUndoRegistration");
 	{
 iTM2_LOG(@"still disableUndoRegistration");
 	}
+	NSMutableArray * selectedRanges = nil;
+	replacementString = [_LongCompletionString stringWithSelection:_SelectedString getSelectedRanges:&selectedRanges];
 	replacementString = [replacementString stringByAppendingString:@" "];
 	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	selectedRanges = [NSMutableArray array];
+	NSRange R;
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		R = [V rangeValue];
+		R.location += _RangeForUserCompletion.location;
+		V = [NSValue valueWithRange:R];
+		[selectedRanges addObject:V];
+	}
+	[_TextView setSelectedRanges:selectedRanges];
 #if 0
 useless?
 	if(_EditedString && [_TextView shouldChangeTextInRange:_RangeForUserCompletion replacementString:_EditedString])
@@ -502,7 +566,24 @@ iTM2_LOG(@"now enableUndoRegistration");
 	{
 iTM2_LOG(@"still disableUndoRegistration");
 	}
+	NSMutableArray * selectedRanges = nil;
+	replacementString = [_LongCompletionString stringWithSelection:_SelectedString getSelectedRanges:&selectedRanges];
 	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	selectedRanges = [NSMutableArray array];
+	NSRange R;
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		R = [V rangeValue];
+		R.location += _RangeForUserCompletion.location;
+		V = [NSValue valueWithRange:R];
+		[selectedRanges addObject:V];
+	}
+	if([selectedRanges count])
+	{
+		[_TextView setSelectedRanges:selectedRanges];
+	}
 #if 0
 useless?
 	if(_EditedString && [_TextView shouldChangeTextInRange:_RangeForUserCompletion replacementString:_EditedString])
@@ -632,6 +713,11 @@ useless?
 	{
 		word = _OriginalString;
 	}
+	[_LongCompletionString autorelease];
+	_LongCompletionString = [word copy];
+	word = [word stringByRemovingPlaceHolderMarkersWithSelection:_SelectedString];
+	[_ShortCompletionString autorelease];
+	_ShortCompletionString = [word copy];
 	[_TextView insertCompletion:word forPartialWordRange:_RangeForUserCompletion movement:NSOtherTextMovement isFinal:NO];
 	_EditedRangeForUserCompletion.length = [word length];
 	return;
@@ -1096,7 +1182,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	// we assuma that the arrays given by the various methods are ordered
+	// we assume that the arrays given by the various methods are ordered
 	NSString * preferred1 = nil;
 	NSString * preferred2 = nil;
 	NSMutableArray * result1 = (id)[[iTM2CompletionServer completionServer] completionsForTextView:self partialWordRange:charRange indexOfSelectedItem:indexPtr];
@@ -1241,6 +1327,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[super insertCompletion:(NSString *)replacementString forPartialWordRange:(NSRange)charRange movement:(int)movement isFinal:(BOOL)flag];
 //iTM2_END;
     return;
 }

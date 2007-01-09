@@ -31,7 +31,7 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>i™ac</string>
-	<key>CFBundleVersion</key>
+	<key>CFBundleVersion (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</key>
 	<string>1.0</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>

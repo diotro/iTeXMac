@@ -323,19 +323,17 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC512A2F0B3B1A740092B6C7</string>
+										<string>DCB1DC140B4EAF5300B0704A</string>
 										<key>history</key>
 										<array>
 											<string>DC512A210B3B07200092B6C7</string>
 											<string>DC512A220B3B07200092B6C7</string>
-											<string>DC512A230B3B07200092B6C7</string>
-											<string>DC512A240B3B07200092B6C7</string>
+											<string>DC512A2F0B3B1A740092B6C7</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>DC512A250B3B07200092B6C7</string>
 											<string>DC512A260B3B07200092B6C7</string>
-											<string>DC512A270B3B07200092B6C7</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -393,9 +391,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC5129EC0B3B05470092B6C7</string>
+				<string>DCB1DB6A0B4EAE7900B0704A</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC5129ED0B3B05470092B6C7</string>
+				<string>DCB1DB6B0B4EAE7900B0704A</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -529,13 +527,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC5129EE0B3B05470092B6C7</string>
-		<string>DC5129EF0B3B05470092B6C7</string>
-		<string>DC5129E30B3B04EA0092B6C7</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC5129E20B3B04EA0092B6C7</string>
-		<string>1C0AD2B3069F1EA900FABCE6</string>
-		<string>DC5129C80B3B047F0092B6C7</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ReadMe/iTM2Readme.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

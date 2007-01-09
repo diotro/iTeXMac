@@ -912,6 +912,7 @@
 				);
 				GCC_PREFIX_HEADER = "dvipdfm/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "dvipdfm/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "dvipdfm wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -927,6 +928,7 @@
 				);
 				GCC_PREFIX_HEADER = "dvips/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "dvips/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "dvips wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -942,6 +944,7 @@
 				);
 				GCC_PREFIX_HEADER = "pstopdf/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "pstopdf/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "pstopdf wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -1001,6 +1004,7 @@
 				);
 				GCC_PREFIX_HEADER = "TeX/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "TeX/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "TeX Engines";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -1016,6 +1020,7 @@
 				);
 				GCC_PREFIX_HEADER = "dvipdfm/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "dvipdfm/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "dvipdfm wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -1031,6 +1036,7 @@
 				);
 				GCC_PREFIX_HEADER = "dvips/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "dvips/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "dvips wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -1046,6 +1052,7 @@
 				);
 				GCC_PREFIX_HEADER = "pstopdf/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "pstopdf/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "pstopdf wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -1129,6 +1136,7 @@
 				);
 				GCC_PREFIX_HEADER = "TeX/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "TeX/$(iTM2_INFOPLIST_FILE)";
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "TeX Engines";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};

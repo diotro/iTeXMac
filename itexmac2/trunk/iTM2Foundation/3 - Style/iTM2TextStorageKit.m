@@ -1762,10 +1762,6 @@ To Do List:
     return [[self modeLineAtIndex:lineIndex] syntaxModeAtGlobalLocation:aLocation longestRange:aRangePtr];
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MODE
-#ifndef iTM2TSModeForIndexFCT
-    #define iTM2TSModeForIndexFCT(idx, mode, length, nextModeRef, top)\
-        [self syntaxModeForLocation:idx previousMode:mode effectiveLength:length nextModeIn:nextModeRef before:top];//NSLog(@"iTM2TSModeForIndexFCT-idx:%u, mode:%u, length:%#x, before:%u", idx, mode, length, top)
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fixSyntaxModesInRange:
 - (void)fixSyntaxModesInRange:(NSRange)range;
 /*"Description forthcoming. This is a critical method that gets called every time?
@@ -2005,13 +2001,14 @@ To Do List:
     unsigned parsedMode = kiTM2TextUnknownSyntaxMode;
     unsigned parsedLength = 0;
     unsigned nextMode = kiTM2TextUnknownSyntaxMode;
+	unsigned status;
     // parsedLength is used as a cache
 	_iTM2InternalAssert(![self diagnostic], @"3-BIG PROBLEM IN VALIDATING THE MODE");
     if(globalLocation < topGlobalLocation)
     {
 		fixGlobalLocationMode:
 //NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, topGlobalLocation: %u", globalLocation, topGlobalLocation);
-        parsedMode = iTM2TSModeForIndexFCT(globalLocation, previousMode, &parsedLength, &nextMode, topGlobalLocation);
+        status = [self getSyntaxMode:&parsedMode forLocation:globalLocation previousMode:previousMode effectiveLength:&parsedLength nextModeIn:&nextMode before:topGlobalLocation];
 //NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
 //N+=length;
 #warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED (1)
@@ -2129,19 +2126,21 @@ To Do List:
 	return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode | kiTM2TextEndOfLineSyntaxMask);
     #undef workingML
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
-- (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forCharacter:previousMode:
+- (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
 To Do List: 
 "*/
 {iTM2_DIAGNOSTIC;
+	NSParameterAssert(newModeRef);
 //iTM2_START;
-    return kiTM2TextUnknownSyntaxMode;
+	*newModeRef = kiTM2TextUnknownSyntaxMode;
+	return kiTM2TextNoErrorSyntaxStatus;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned)syntaxModeForLocation:(unsigned)idx previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
+- (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)idx previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2149,13 +2148,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSParameterAssert(newModeRef);
+	*newModeRef = kiTM2TextUnknownSyntaxMode;
     if(lengthRef)
 	{
         *lengthRef = beforeIndex - idx;
 	}
-	if(nextModeRef)
-		*nextModeRef = kiTM2TextUnknownSyntaxMode;
-    return kiTM2TextUnknownSyntaxMode;
+    if(nextModeRef)
+	{
+        *nextModeRef = kiTM2TextUnknownSyntaxMode;
+	}
+    return kiTM2TextNoErrorSyntaxStatus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLModeForPreviousMode:
 - (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
@@ -2215,7 +2218,10 @@ To Do List:
 	// If this mode line is already invalid, we will recompute everything
     // The central question is:
     // Did I insert a new line character?
+	unsigned status;
+	unsigned previousMode,newMode;
     unsigned newEnd, newContentsEnd;
+	unichar theChar;
     NSString * S = [_TextStorage string];
 //NSLog(@"[S length] is:%u", [S length]);
     [S getLineStart:nil end:&newEnd contentsEnd:&newContentsEnd forRange:NSMakeRange(aGlobalLocation, 0)];
@@ -2271,13 +2277,14 @@ To Do List:
             iTM2_LOG(@"/*/*/*/*/*  <:?(  STARTING WITH A BAD MODE LINE!!!");
         }
 		// things are different whether there were characters or not
-		unsigned newMode = kiTM2TextUnknownSyntaxMode;
-		unsigned previousMode = kiTM2TextUnknownSyntaxMode;
+		newMode = kiTM2TextUnknownSyntaxMode;
+		previousMode = kiTM2TextUnknownSyntaxMode;
 		if(aGlobalLocation == _ML->_StartOff7)
 		{
 			// The newly inserted character is the only one of this line
 			previousMode = _ML->_PreviousMode;
-			newMode = [self syntaxModeForCharacter:[S characterAtIndex:aGlobalLocation] previousMode:previousMode];
+			theChar = [S characterAtIndex:aGlobalLocation];
+			status = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
 			[workingML appendSyntaxMode:newMode length:1];
 			if(newMode && (newMode != kiTM2TextUnknownSyntaxMode))
 			{
@@ -2308,7 +2315,8 @@ To Do List:
 			if(kiTM2TextRegularSyntaxMode == previousMode)
 			{
 				// the new character is not expected to modify the previous mode!
-				unsigned newMode = [self syntaxModeForCharacter:[S characterAtIndex:aGlobalLocation] previousMode:previousMode];
+				theChar = [S characterAtIndex:aGlobalLocation];
+				status = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
 				[workingML appendSyntaxMode:newMode length:1];
 			}
 			else if(!previousMode)
@@ -2345,7 +2353,7 @@ To Do List:
 				// parsedLength is used as a cache
 				fixGlobalLocationMode:
 		//NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, newContentsEnd: %u", globalLocation, newContentsEnd);
-				parsedMode = iTM2TSModeForIndexFCT(globalLocation, previousMode, &parsedLength, &nextMode, newContentsEnd);
+				status = [self getSyntaxMode:&parsedMode forLocation:globalLocation previousMode:previousMode effectiveLength:&parsedLength nextModeIn:&nextMode before:newContentsEnd];
 		//NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
 		//N+=length;
 #warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED (2)
@@ -2369,7 +2377,7 @@ To Do List:
 						if(nextMode && nextMode != kiTM2TextUnknownSyntaxMode)
 						{
 							// nextMode is the mode at globalLocation
-		//++N;
+//++N;
 							[workingML appendSyntaxMode:previousMode length:previousLength];
 							++globalLocation;
 							++localLocation;
@@ -2385,7 +2393,7 @@ To Do List:
 					}
 				}
 				// the end of this loop occurs when globalLocation>=newContentsEnd
-			//NSLog(@"END OK: %u", previousLength);
+//NSLog(@"END OK: %u", previousLength);
 				[workingML appendSyntaxMode:previousMode length:previousLength];
 				if([self diagnostic])
 				{
@@ -2461,10 +2469,11 @@ To Do List:
 			}
 			else
 			{
-				unsigned previousMode = aGlobalLocation > [workingML startOffset]?
+				previousMode = aGlobalLocation > [workingML startOffset]?
 					[workingML syntaxModeAtGlobalLocation:aGlobalLocation-1 longestRange:nil]:
 					[workingML previousMode];
-				unsigned newMode = [self syntaxModeForCharacter:[S characterAtIndex:aGlobalLocation] previousMode:previousMode];
+				theChar = [S characterAtIndex:aGlobalLocation];
+				status = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
 				if(availableMode != newMode)
 				{
 					// bad news: the character inserted has not the same mode
@@ -2496,7 +2505,8 @@ To Do List:
 						// we have to compute the syntax mode for the next character
 						++aGlobalLocation;
 						availableMode = [workingML syntaxModeAtGlobalLocation:aGlobalLocation longestRange:nil];
-						newMode = [self syntaxModeForCharacter:[S characterAtIndex:aGlobalLocation] previousMode:newMode];
+						theChar = [S characterAtIndex:aGlobalLocation];
+						status = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:newMode];
 						if(availableMode == newMode)
 						{
 							// Fortunately, the next character has the same syntax word despite its previous mode has changed

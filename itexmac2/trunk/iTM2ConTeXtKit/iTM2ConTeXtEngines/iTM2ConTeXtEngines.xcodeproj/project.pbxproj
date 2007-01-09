@@ -540,6 +540,7 @@
 					"$(SYMROOT)",
 					"$(PROJECT_DIR)/../../build",
 				);
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "TeXExec wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
@@ -553,6 +554,7 @@
 					"$(SYMROOT)",
 					"$(PROJECT_DIR)/../../build",
 				);
+				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
 				PRODUCT_NAME = "TeXExec wrapper";
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};

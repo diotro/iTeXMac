@@ -185,48 +185,7 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DCF26D860B3810790079CF1E</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2ProjectDocumentKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DCF26D870B3810790079CF1E</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2ProjectDocumentKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCF26DDB0B381BB00079CF1E</string>
-						<key>history</key>
-						<array>
-							<string>DCF26D880B3810790079CF1E</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1183, 745}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>38 66 1183 786 0 0 1440 878 </string>
-			</dict>
-		</dict>
-	</array>
+	<array/>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -308,9 +267,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>13</integer>
-									<integer>3</integer>
-									<integer>0</integer>
+									<integer>24</integer>
+									<integer>18</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -349,7 +307,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2ProjectDocumentKit.h</string>
+								<string>iTM2NewDocumentKit-Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -357,14 +315,81 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2ProjectDocumentKit.h</string>
+										<string>iTM2NewDocumentKit-Info.plist</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCF26DDA0B381BB00079CF1E</string>
+										<string>DCB1DD720B4EB70100B0704A</string>
 										<key>history</key>
 										<array>
-											<string>DCF26D2E0B3808A80079CF1E</string>
+											<string>DCB1DB920B4EAF5100B0704A</string>
+											<string>DCB1DB940B4EAF5100B0704A</string>
+											<string>DCB1DB960B4EAF5100B0704A</string>
+											<string>DCB1DB980B4EAF5100B0704A</string>
+											<string>DCB1DB9A0B4EAF5100B0704A</string>
+											<string>DCB1DB9C0B4EAF5100B0704A</string>
+											<string>DCB1DB9E0B4EAF5100B0704A</string>
+											<string>DCB1DBA00B4EAF5100B0704A</string>
+											<string>DCB1DBA20B4EAF5100B0704A</string>
+											<string>DCB1DBA40B4EAF5100B0704A</string>
+											<string>DCB1DBA60B4EAF5100B0704A</string>
+											<string>DCB1DBA80B4EAF5100B0704A</string>
+											<string>DCB1DBA90B4EAF5100B0704A</string>
+											<string>DCB1DBAB0B4EAF5100B0704A</string>
+											<string>DCB1DBAD0B4EAF5100B0704A</string>
+											<string>DCB1DBAF0B4EAF5100B0704A</string>
+											<string>DCB1DBB00B4EAF5100B0704A</string>
+											<string>DCB1DBB20B4EAF5100B0704A</string>
+											<string>DCB1DBB40B4EAF5100B0704A</string>
+											<string>DCB1DBB60B4EAF5100B0704A</string>
+											<string>DCB1DBB80B4EAF5100B0704A</string>
+											<string>DCB1DBBA0B4EAF5100B0704A</string>
+											<string>DCB1DBBC0B4EAF5100B0704A</string>
+											<string>DCB1DBBE0B4EAF5100B0704A</string>
+											<string>DCB1DBC00B4EAF5100B0704A</string>
+											<string>DCB1DBC20B4EAF5100B0704A</string>
+											<string>DCB1DBC40B4EAF5100B0704A</string>
+											<string>DCB1DBC50B4EAF5100B0704A</string>
+											<string>DCB1DBC70B4EAF5100B0704A</string>
+											<string>DCB1DBC90B4EAF5100B0704A</string>
+											<string>DCB1DBCB0B4EAF5100B0704A</string>
+											<string>DCB1DBCC0B4EAF5100B0704A</string>
+											<string>DCB1DC0D0B4EAF5100B0704A</string>
+										</array>
+										<key>prevStack</key>
+										<array>
+											<string>DCB1DBD00B4EAF5100B0704A</string>
+											<string>DCB1DBD10B4EAF5100B0704A</string>
+											<string>DCB1DBD30B4EAF5100B0704A</string>
+											<string>DCB1DBD50B4EAF5100B0704A</string>
+											<string>DCB1DBD70B4EAF5100B0704A</string>
+											<string>DCB1DBD90B4EAF5100B0704A</string>
+											<string>DCB1DBDB0B4EAF5100B0704A</string>
+											<string>DCB1DBDD0B4EAF5100B0704A</string>
+											<string>DCB1DBDF0B4EAF5100B0704A</string>
+											<string>DCB1DBE10B4EAF5100B0704A</string>
+											<string>DCB1DBE30B4EAF5100B0704A</string>
+											<string>DCB1DBE50B4EAF5100B0704A</string>
+											<string>DCB1DBE70B4EAF5100B0704A</string>
+											<string>DCB1DBE80B4EAF5100B0704A</string>
+											<string>DCB1DBEA0B4EAF5100B0704A</string>
+											<string>DCB1DBEC0B4EAF5100B0704A</string>
+											<string>DCB1DBEE0B4EAF5100B0704A</string>
+											<string>DCB1DBEF0B4EAF5100B0704A</string>
+											<string>DCB1DBF10B4EAF5100B0704A</string>
+											<string>DCB1DBF30B4EAF5100B0704A</string>
+											<string>DCB1DBF50B4EAF5100B0704A</string>
+											<string>DCB1DBF70B4EAF5100B0704A</string>
+											<string>DCB1DBF90B4EAF5100B0704A</string>
+											<string>DCB1DBFB0B4EAF5100B0704A</string>
+											<string>DCB1DBFD0B4EAF5100B0704A</string>
+											<string>DCB1DBFF0B4EAF5100B0704A</string>
+											<string>DCB1DC010B4EAF5100B0704A</string>
+											<string>DCB1DC030B4EAF5100B0704A</string>
+											<string>DCB1DC040B4EAF5100B0704A</string>
+											<string>DCB1DC060B4EAF5100B0704A</string>
+											<string>DCB1DC080B4EAF5100B0704A</string>
+											<string>DCB1DC0B0B4EAF5100B0704A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -422,9 +447,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCF26D320B3808A80079CF1E</string>
+				<string>DCB1DD740B4EB70100B0704A</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCF26D330B3808A80079CF1E</string>
+				<string>DCB1DD750B4EB70100B0704A</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -558,15 +583,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCF26D3F0B3808A80079CF1E</string>
-		<string>DCF26D400B3808A80079CF1E</string>
-		<string>DCF26D3B0B3808A80079CF1E</string>
-		<string>DC9DC6EA094844F00079E1B3</string>
-		<string>DCF26D860B3810790079CF1E</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
-		<string>DC8107340ADD9E6F00F870B4</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>45 35 1395 697 0 0 1440 878 </string>
@@ -690,8 +707,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {237, 200}}</string>
-											<string>{{237, 0}, {457, 200}}</string>
+											<string>{{0, 0}, {235, 200}}</string>
+											<string>{{235, 0}, {459, 200}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -754,14 +771,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCF26D350B3808A80079CF1E</string>
+				<string>DCB1DB720B4EAE7900B0704A</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCF26D360B3808A80079CF1E</string>
-				<string>DCF26D370B3808A80079CF1E</string>
-				<string>DCF26D380B3808A80079CF1E</string>
-				<string>DCF26D390B3808A80079CF1E</string>
-				<string>DCF26D3A0B3808A80079CF1E</string>
-				<string>DCF26D3B0B3808A80079CF1E</string>
+				<string>DCB1DB730B4EAE7900B0704A</string>
+				<string>DCB1DB740B4EAE7900B0704A</string>
+				<string>DCB1DB750B4EAE7900B0704A</string>
+				<string>DCB1DB760B4EAE7900B0704A</string>
+				<string>DCB1DB770B4EAE7900B0704A</string>
+				<string>DCB1DB780B4EAE7900B0704A</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -770,7 +787,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

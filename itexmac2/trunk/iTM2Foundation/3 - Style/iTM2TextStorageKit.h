@@ -74,6 +74,14 @@ extern NSString * const iTM2TextSyntaxParserVariantKey;
 
 enum
 {
+	kiTM2TextNoErrorSyntaxStatus = 0,
+	kiTM2TextNoErrorIfNotLastSyntaxStatus,
+	kiTM2TextWaitingSyntaxStatus,
+	kiTM2TextErrorSyntaxStatus
+};
+
+enum
+{
 	kiTM2TextErrorSyntaxMask = 0x7F000000U,// only 7 kinds or independent errors are allowed, 128 different situations
 	kiTM2TextEndOfLineSyntaxMask = 0x80000000U,// EOLs are used to propagate errors, information. If a previousMode has a kiTM2TextEndOfLineSyntaxMask bit set, it comes from the previous line EOL.
 	kiTM2TextModifiersSyntaxMask = 0xFF000000U
@@ -636,7 +644,7 @@ This default implementation does nothing.
 - (unsigned)validEOLModeOfModeLine:(id)modeLine forPreviousMode:(unsigned)mode;
 
 /*!
-    @method     syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
+    @method     getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
     @abstract   Returns the mode for the character at the given index and assuming the given previous mode.
                 The effective length is returned.
                 The returned value in nextModePtr if any is assumed to be different from the one returned by the method.
@@ -652,17 +660,17 @@ This default implementation does nothing.
     @param      beforeIndex is a wall
     @result     a mode
 */
-- (unsigned)syntaxModeForLocation:(unsigned)index previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthPtr nextModeIn:(unsigned *)nextModePtr before:(unsigned)beforeIndex;
+- (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)index previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthPtr nextModeIn:(unsigned *)nextModePtr before:(unsigned)beforeIndex;
 
 /*!
-    @method     syntaxModeForCharacter:previousMode:
+    @method     getSyntaxMode:forCharacter:previousMode:
     @abstract   Returns the mode for the character at the given index and previous mode.
     @discussion Description forthcoming.
     @param      index
     @param      previousMode
     @result     a mode
 */
-- (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 
 /*!
     @method     invalidateModesForCharacterRange:editedAttributesRangeIn:

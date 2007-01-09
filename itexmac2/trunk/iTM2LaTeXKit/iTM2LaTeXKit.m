@@ -2671,14 +2671,15 @@ To Do List:
     return [NSDictionary dictionaryWithDictionary:MD];
 }
 #if 1
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
-- (unsigned)syntaxModeForCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forCharacter:previousMode:
+- (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+	NSParameterAssert(newModeRef);
 //iTM2_START;
 //    if(previousMode != ( previousMode & ~kiTM2TeXErrorSyntaxMask))
 //        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXErrorSyntaxMask);
@@ -2700,14 +2701,14 @@ To Do List:
 			}
 		}
 		else
-			return [super syntaxModeForCharacter:theChar previousMode:kiTM2TeXCommandSyntaxMode];
+			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:kiTM2TeXCommandSyntaxMode];
 		default:
-			return [super syntaxModeForCharacter:theChar previousMode:previousMode];
+			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:previousMode];
 	}
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned)syntaxModeForLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
+- (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2716,17 +2717,22 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * S = [_TextStorage string];
+    NSParameterAssert(newModeRef);
     NSParameterAssert(location<[S length]);
+	unsigned status;
 	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
+	unichar theChar;
+	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
 	if(kiTM2TeXBeginCommandSyntaxMode == switcher)
 	{
-		if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:[S characterAtIndex:location]])
+		theChar = [S characterAtIndex:location];
+		if([set characterIsMember:theChar])
 		{
 			// is it a \include, \includegraphics, \url
 			// scanning from location for the control sequence name
 			unsigned start = location;
 			unsigned end = start + 1;
-			while(end<[S length] && [[NSCharacterSet TeXLetterCharacterSet] characterIsMember:[S characterAtIndex:end]])
+			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
 				++end;
 			if(end == start+15)
 			{
@@ -2736,7 +2742,8 @@ To Do List:
 						* lengthRef = end - start;
 					if(nextModeRef && (end<[S length]))
 					{
-						* nextModeRef = [self syntaxModeForCharacter:[S characterAtIndex:end] previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
+						theChar = [S characterAtIndex:end];
+						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
 					}
 					// now we invalidate the cursor rects in order to have the links properly displayed
 					//the delay is due to the reentrant problem
@@ -2752,7 +2759,8 @@ To Do List:
 						* lengthRef = end - start;
 					if(nextModeRef && (end<[S length]))
 					{
-						* nextModeRef = [self syntaxModeForCharacter:[S characterAtIndex:end] previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
+						theChar = [S characterAtIndex:end];
+						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
 					}
 					// now we invalidate the cursor rects in order to have the links properly displayed
 					//the delay is due to the reentrant problem
@@ -2768,7 +2776,8 @@ To Do List:
 						* lengthRef = end - start;
 					if(nextModeRef && (end<[S length]))
 					{
-						* nextModeRef = [self syntaxModeForCharacter:[S characterAtIndex:end] previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
+						theChar = [S characterAtIndex:end];
+						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
 					}
 					// now we invalidate the cursor rects in order to have the links properly displayed
 					//the delay is due to the reentrant problem
@@ -2780,12 +2789,12 @@ To Do List:
 	}
 	if(nextModeRef)
 	{
-		unsigned result = [super syntaxModeForLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nextModeRef before:beforeIndex];
+		unsigned result = [super getSyntaxMode:newModeRef forLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nextModeRef before:beforeIndex];
 		if((result == kiTM2TeXBeginCommandSyntaxMode) && (*nextModeRef == kiTM2TeXCommandSyntaxMode))
 		{
 			unsigned start = location+1;
 			unsigned end = start;
-			while(end<[S length] && [[NSCharacterSet TeXLetterCharacterSet] characterIsMember:[S characterAtIndex:end]])
+			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
 				++end;
 			if(end == start+15)
 			{
@@ -2806,7 +2815,7 @@ To Do List:
 		return result;
 	}
 	else
-		return [super syntaxModeForLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nil before:beforeIndex];
+		return [super getSyntaxMode:newModeRef forLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nil before:beforeIndex];
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
@@ -2823,9 +2832,9 @@ To Do List:
     switch(switcher)
     {
         case kiTM2TeXBeginCommandSyntaxMode:
-			if(aLocation + 1 < [[self textStorage] length])
+			if(aLocation+1 < [[self textStorage] length])
 			{
-				unsigned nextMode = [self syntaxModeAtIndex:aLocation + 1 longestRange:aRangePtr];
+				unsigned nextMode = [self syntaxModeAtIndex:aLocation+1 longestRange:aRangePtr];
 				unsigned nextSwitcher = nextMode & ~kiTM2TeXErrorSyntaxMask;
 				switch(nextSwitcher)
 				{

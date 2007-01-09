@@ -543,9 +543,11 @@ To Do List:
 //iTM2_START;
     if([sender isKindOfClass:[NSPopUpButton class]])
     {
-        if([[self currentVariant] length])
+		NSString * variant = [self currentVariant];
+        if([variant length])
 		{
-			int index = [sender indexOfItemWithRepresentedObject:[[self currentVariant] lowercaseString]];
+			variant = [variant lowercaseString];
+			int index = [sender indexOfItemWithRepresentedObject:variant];
 			if(index<0)
 			{
                 [sender selectItemAtIndex:0];
@@ -560,10 +562,10 @@ To Do List:
         {
             [sender removeAllItems];
             NSEnumerator * E1 = [[iTM2TextSyntaxParser syntaxParserVariantsForStyle:[self currentStyle]] objectEnumerator];
-            NSString * variant;
             while(variant = [E1 nextObject])
             {
                 [sender addItemWithTitle:variant];
+				variant = [variant lowercaseString];
                 [[sender lastItem] setRepresentedObject:variant];
             }
             if([sender numberOfItems])

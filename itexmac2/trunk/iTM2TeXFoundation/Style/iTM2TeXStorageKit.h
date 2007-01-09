@@ -36,6 +36,14 @@ extern NSString * const iTM2Text2ndSymbolColorAttributeName;
 
 enum
 {
+	kiTM2TeXNoErrorSyntaxStatus = kiTM2TextNoErrorSyntaxStatus,
+	kiTM2TeXNoErrorIfNotLastSyntaxStatus = kiTM2TextNoErrorIfNotLastSyntaxStatus,
+	kiTM2TeXWaitingSyntaxStatus = kiTM2TextWaitingSyntaxStatus,
+	kiTM2TeXErrorSyntaxStatus = kiTM2TextErrorSyntaxStatus
+};
+
+enum
+{
 	kiTM2TeXErrorSyntaxMask = kiTM2TextErrorSyntaxMask,
 	kiTM2TeXModifiersSyntaxMask = kiTM2TextModifiersSyntaxMask,
 	kiTM2TeXEndOfLineSyntaxMask = kiTM2TextEndOfLineSyntaxMask,

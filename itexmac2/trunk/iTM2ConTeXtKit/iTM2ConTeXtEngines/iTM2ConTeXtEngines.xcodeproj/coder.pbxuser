@@ -103,28 +103,28 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 188220871;
-			PBXWorkspaceStateSaveDate = 188220871;
+			PBXPerProjectTemplateStateSaveDate = 189709385;
+			PBXWorkspaceStateSaveDate = 189709385;
 		};
 		perUserProjectItems = {
-			DC3CE95A0B202A920021D7AD = DC3CE95A0B202A920021D7AD /* PBXTextBookmark */;
-			DC42E2E90B2B69CA00FE3465 = DC42E2E90B2B69CA00FE3465 /* PBXTextBookmark */;
-			DC43E3FB09344FCC003C3C86 = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
-			DC81071D0ADD9DBA00F870B4 = DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */;
-			DC81071F0ADD9DBA00F870B4 = DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */;
-			DC8107200ADD9DBA00F870B4 = DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */;
-			DC99E7A80A2456E600F50752 = DC99E7A80A2456E600F50752 /* PBXTextBookmark */;
-			DC99E7A90A2456E600F50752 = DC99E7A90A2456E600F50752 /* PBXBookmark */;
-			DC99E7AA0A2456E600F50752 = DC99E7AA0A2456E600F50752 /* PBXBookmark */;
-			DC99E7AB0A2456E600F50752 = DC99E7AB0A2456E600F50752 /* PBXBookmark */;
-			DC99E7AD0A2456E600F50752 = DC99E7AD0A2456E600F50752 /* PBXTextBookmark */;
-			DC99E7AE0A2456E600F50752 = DC99E7AE0A2456E600F50752 /* PBXBookmark */;
-			DC99E7B00A2456E600F50752 = DC99E7B00A2456E600F50752 /* PBXBookmark */;
-			DC99E7B10A2456E600F50752 = DC99E7B10A2456E600F50752 /* PBXBookmark */;
-			DCB973AA0B331C9A0091CC54 = DCB973AA0B331C9A0091CC54 /* PBXTextBookmark */;
-			DCC541840935A0E50050770C = DCC541840935A0E50050770C /* PBXTextBookmark */;
-			DCC544BB0937AA500050770C = DCC544BB0937AA500050770C /* PBXTextBookmark */;
-			DCC544BC0937AA500050770C = DCC544BC0937AA500050770C /* PBXTextBookmark */;
+			DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
+			DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */;
+			DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */;
+			DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */ = DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */;
+			DC99E7A80A2456E600F50752 /* PBXTextBookmark */ = DC99E7A80A2456E600F50752 /* PBXTextBookmark */;
+			DC99E7A90A2456E600F50752 /* PBXBookmark */ = DC99E7A90A2456E600F50752 /* PBXBookmark */;
+			DC99E7AA0A2456E600F50752 /* PBXBookmark */ = DC99E7AA0A2456E600F50752 /* PBXBookmark */;
+			DC99E7AB0A2456E600F50752 /* PBXBookmark */ = DC99E7AB0A2456E600F50752 /* PBXBookmark */;
+			DC99E7AD0A2456E600F50752 /* PBXTextBookmark */ = DC99E7AD0A2456E600F50752 /* PBXTextBookmark */;
+			DC99E7AE0A2456E600F50752 /* PBXBookmark */ = DC99E7AE0A2456E600F50752 /* PBXBookmark */;
+			DC99E7B00A2456E600F50752 /* PBXBookmark */ = DC99E7B00A2456E600F50752 /* PBXBookmark */;
+			DC99E7B10A2456E600F50752 /* PBXBookmark */ = DC99E7B10A2456E600F50752 /* PBXBookmark */;
+			DCB1DB8A0B4EAF4F00B0704A /* PBXTextBookmark */ = DCB1DB8A0B4EAF4F00B0704A /* PBXTextBookmark */;
+			DCB1DB8E0B4EAF4F00B0704A /* PBXTextBookmark */ = DCB1DB8E0B4EAF4F00B0704A /* PBXTextBookmark */;
+			DCB1DEAA0B4EC13D00B0704A /* PBXTextBookmark */ = DCB1DEAA0B4EC13D00B0704A /* PBXTextBookmark */;
+			DCC541840935A0E50050770C /* PBXTextBookmark */ = DCC541840935A0E50050770C /* PBXTextBookmark */;
+			DCC544BB0937AA500050770C /* PBXTextBookmark */ = DCC544BB0937AA500050770C /* PBXTextBookmark */;
+			DCC544BC0937AA500050770C /* PBXTextBookmark */ = DCC544BC0937AA500050770C /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -133,26 +133,6 @@
 	};
 	DC2CA78D0855D4F500128F14 /* All */ = {
 		activeExec = 0;
-	};
-	DC3CE95A0B202A920021D7AD /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
-		name = "TeXExec wrapper-Info.plist: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 391;
-		vrLoc = 0;
-	};
-	DC42E2E90B2B69CA00FE3465 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
-		name = "TeXExec wrapper-Info.plist: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 391;
-		vrLoc = 0;
 	};
 	DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -368,7 +348,7 @@
 			DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */,
 		);
 	};
-	DCB973AA0B331C9A0091CC54 /* PBXTextBookmark */ = {
+	DCB1DB8A0B4EAF4F00B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */;
 		name = "TeXExec wrapper-Info.plist: 1";
@@ -377,6 +357,39 @@
 		rType = 0;
 		vrLen = 391;
 		vrLoc = 0;
+	};
+	DCB1DB8E0B4EAF4F00B0704A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB1DB8F0B4EAF4F00B0704A /* EnvironmentVariables.plist */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 352;
+		vrLoc = 0;
+	};
+	DCB1DB8F0B4EAF4F00B0704A /* EnvironmentVariables.plist */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.xml;
+		name = EnvironmentVariables.plist;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/Resources/EnvironmentVariables.plist;
+		sourceTree = "<absolute>";
+	};
+	DCB1DEAA0B4EC13D00B0704A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB1DEAB0B4EC13D00B0704A /* EnvironmentVariables.plist */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 352;
+		vrLoc = 0;
+	};
+	DCB1DEAB0B4EC13D00B0704A /* EnvironmentVariables.plist */ = {
+		isa = PBXFileReference;
+		name = EnvironmentVariables.plist;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/Resources/EnvironmentVariables.plist;
+		sourceTree = "<absolute>";
 	};
 	DCC541840935A0E50050770C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

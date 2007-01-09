@@ -30,6 +30,17 @@
 			name = "Scripting Definition";
 			productName = "Scripting Definition";
 		};
+		DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DCB1D94E0B4EACFE00B0704A /* Build configuration list for PBXAggregateTarget "Prepare Build Number" */;
+			buildPhases = (
+				DCB1D93A0B4EACBC00B0704A /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Build Number";
+			productName = "Prepare Build Number";
+		};
 		DCB200320858E250003659F3 /* Install iTM2Foundation */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = DC1E8A9909462DC40037B13F /* Build configuration list for PBXAggregateTarget "Install iTM2Foundation" */;
@@ -399,6 +410,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = iTM2Foundation;
+		};
+		DCB1D93C0B4EACDB00B0704A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
 		};
 		DCB200450858E2A5003659F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1726,6 +1744,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */,
 				DC6BC653094903B2008F8188 /* PBXTargetDependency */,
 			);
 			name = iTM2Foundation;
@@ -2024,6 +2043,7 @@
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
 			targets = (
+				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
 				DC6BC63C09490315008F8188 /* Prepare OgreKit */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
 				8DC2EF4F0486A6940098B216 /* iTM2Foundation */,
@@ -2340,6 +2360,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		DCB1D93A0B4EACBC00B0704A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ../Scripts/PrepareBuildNumber.pl;
+		};
 		DCF61CF00854662D003F5F79 /* Merge the headers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2548,6 +2581,11 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
 			targetProxy = DCB0A02909AF015000D2A37C /* PBXContainerItemProxy */;
+		};
+		DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = DCB1D93C0B4EACDB00B0704A /* PBXContainerItemProxy */;
 		};
 		DCB200460858E2A5003659F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3628,6 +3666,28 @@
 			};
 			name = Deployment;
 		};
+		DCB1D94F0B4EACFE00B0704A /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare Build Number";
+			};
+			name = Development;
+		};
+		DCB1D9500B4EACFE00B0704A /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = "Prepare Build Number";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		DCB7DEA50ADE49DE0084DE9D /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
@@ -3870,6 +3930,15 @@
 			buildConfigurations = (
 				DCB0A00E09AEF96F00D2A37C /* Development */,
 				DCB0A00F09AEF96F00D2A37C /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		DCB1D94E0B4EACFE00B0704A /* Build configuration list for PBXAggregateTarget "Prepare Build Number" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCB1D94F0B4EACFE00B0704A /* Development */,
+				DCB1D9500B4EACFE00B0704A /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

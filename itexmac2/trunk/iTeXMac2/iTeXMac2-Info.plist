@@ -1770,7 +1770,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.0 preview (build __(REVISION)__)</string>
+	<string>2.0 preview  (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>NSAppleScriptEnabled</key>

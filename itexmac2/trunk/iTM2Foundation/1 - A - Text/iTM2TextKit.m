@@ -31,6 +31,8 @@
 
 NSString * const iTM2StartPlaceholder = @"__(";
 NSString * const iTM2StopPlaceholder = @")__";
+NSString * const iTM2StartArgPlaceholder = @"__(ARG:";
+NSString * const iTM2StartOptPlaceholder = @"__(OPT:";
 NSString * const iTM2TextInsertionAnchorKey = @"__(INS)__";
 NSString * const iTM2TextSelectionAnchorKey = @"__(SEL)__";// out of use with perl support
 NSString * const iTM2TextTabAnchorKey = @"__(TAB)__";
@@ -1290,6 +1292,87 @@ To Do List:
 @end
 
 @implementation NSString(iTM2Placeholder)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingPlaceHolderMarkers
+- (NSString *)stringByRemovingPlaceHolderMarkers;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 
+To Do List: ?
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableString * result = [[self mutableCopy] autorelease];
+	[result replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2TextInsertionAnchorKey withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StartArgPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StartOptPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StartPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StopPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+//iTM2_END;
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingPlaceHolderMarkersWithSelection:
+- (NSString *)stringByRemovingPlaceHolderMarkersWithSelection:(NSString *)selection;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 
+To Do List: ?
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableString * result = [[self mutableCopy] autorelease];
+	[result replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2TextInsertionAnchorKey withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:(selection?selection:@"") options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StartArgPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StartOptPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StartPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2StopPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+//iTM2_END;
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringWithSelection:getSelectedRanges:
+- (NSString *)stringWithSelection:(NSString *)selection getSelectedRanges:(NSArray **)selectedRangesPtr;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 
+To Do List: ?
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableString * result = [[self mutableCopy] autorelease];
+	[result replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:(selection?selection:@"") options:0 range:NSMakeRange(0,[result length])];
+	if(selectedRangesPtr)
+	{
+		*selectedRangesPtr = [NSMutableArray array];
+		id components = [result componentsSeparatedByString:iTM2TextInsertionAnchorKey];
+		NSEnumerator * E = [components objectEnumerator];
+		NSString * component;
+		NSRange R;
+		NSValue * V;
+		result = [NSMutableString string];
+		while(component = [E nextObject])
+		{
+			R.location = [component length];
+			[result appendString:component];
+			R.length = 0;
+			if(component = [E nextObject])
+			{
+				R.length = [component length];
+				[result appendString:component];
+				V = [NSValue valueWithRange:R];
+				[(NSMutableArray *)(*selectedRangesPtr) addObject:V];
+			}
+			else if(![result hasSuffix:iTM2TextTabAnchorKey])
+			{
+				[result appendString:iTM2TextTabAnchorKey];
+			}
+		}
+	}
+//iTM2_END;
+	return result;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= componentsBySplittingAtPlaceholders
 - (NSArray *)componentsBySeparatingPlaceholders;
 /*"Description forthcoming.

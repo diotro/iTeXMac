@@ -1173,7 +1173,6 @@ To Do List:
 	NSNumber * N;
 	BOOL hasOn = NO;
 	BOOL hasOff = NO;
-	BOOL excluded = NO;
 	BOOL isDefaults = NO;
 	NSString * keyWithAutoDefault = nil;// the last file key having a default string encoding
 	unsigned int row = [selectedRowIndexes firstIndex];
