@@ -165,12 +165,8 @@
 			PBXWorkspaceStateSaveDate = 190036767;
 		};
 		perUserProjectItems = {
-			DCB1EB640B52C2E800B0704A /* PBXTextBookmark */ = DCB1EB640B52C2E800B0704A /* PBXTextBookmark */;
 			DCB92EA20B53BA20008C1594 /* PBXTextBookmark */ = DCB92EA20B53BA20008C1594 /* PBXTextBookmark */;
-			DCB92F010B53BC02008C1594 /* PBXTextBookmark */ = DCB92F010B53BC02008C1594 /* PBXTextBookmark */;
-			DCB92F030B53BC02008C1594 /* PBXTextBookmark */ = DCB92F030B53BC02008C1594 /* PBXTextBookmark */;
-			DCB92F260B53BDDC008C1594 /* PBXTextBookmark */ = DCB92F260B53BDDC008C1594 /* PBXTextBookmark */;
-			DCB92F820B53CE6E008C1594 /* PBXTextBookmark */ = DCB92F820B53CE6E008C1594 /* PBXTextBookmark */;
+			DCB931520B545D4E008C1594 /* PBXTextBookmark */ = DCB931520B545D4E008C1594 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -277,16 +273,6 @@
 	DC9E4F310858A8A300A86BED /* All */ = {
 		activeExec = 0;
 	};
-	DCB1EB640B52C2E800B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
-		name = iTM2LaTeXEditor;
-		rLen = 15;
-		rLoc = 1414;
-		rType = 0;
-		vrLen = 1387;
-		vrLoc = 450;
-	};
 	DCB92EA20B53BA20008C1594 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
@@ -297,41 +283,7 @@
 		vrLen = 1387;
 		vrLoc = 450;
 	};
-	DCB92F010B53BC02008C1594 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB92F020B53BC02008C1594 /* iTM2AsymptoteKit.m */;
-		rLen = 39;
-		rLoc = 11128;
-		rType = 0;
-	};
-	DCB92F020B53BC02008C1594 /* iTM2AsymptoteKit.m */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.objc;
-		name = iTM2AsymptoteKit.m;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2AsymptoteKit.m;
-		sourceTree = "<absolute>";
-	};
-	DCB92F030B53BC02008C1594 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCBA43A30B027927006AF52A /* iTM2AsymptoteKit.m */;
-		name = "iTM2AsymptoteKit.m: 375";
-		rLen = 0;
-		rLoc = 13512;
-		rType = 0;
-		vrLen = 579;
-		vrLoc = 10884;
-	};
-	DCB92F260B53BDDC008C1594 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
-		name = "iTM2LaTeXKit.h: 176";
-		rLen = 0;
-		rLoc = 5537;
-		rType = 0;
-		vrLen = 1387;
-		vrLoc = 450;
-	};
-	DCB92F820B53CE6E008C1594 /* PBXTextBookmark */ = {
+	DCB931520B545D4E008C1594 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
 		name = "iTM2LaTeXKit.h: 176";

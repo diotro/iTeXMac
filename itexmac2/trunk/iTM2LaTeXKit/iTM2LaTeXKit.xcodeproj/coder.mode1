@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB92F820B53CE6E008C1594</string>
+						<string>DCB931520B545D4E008C1594</string>
 						<key>history</key>
 						<array>
 							<string>DCB92EA20B53BA20008C1594</string>
@@ -550,10 +550,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>DC8A64A8088DBEB50016FAA2</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DCB970830B32EBAA0091CC54</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
-		<string>DC8A64A8088DBEB50016FAA2</string>
 	</array>
 	<key>WindowString</key>
 	<string>199 131 1147 715 0 0 1440 878 </string>
@@ -646,7 +646,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC8A64A8088DBEB50016FAA2</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

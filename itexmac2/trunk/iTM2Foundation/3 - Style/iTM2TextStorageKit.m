@@ -1716,6 +1716,18 @@ To Do List:
     iTM2ModeLine * modeLine = [self modeLineAtIndex:lineIndex];
     return [modeLine syntaxModeAtGlobalLocation:aLocation longestRange:aRangePtr];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartSyntaxModeAtIndex:longestRange:
+- (unsigned)smartSyntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+/*"This has been overriden by a subclasser... No need to further subclassing. Default return value is 0 on (inconsistency?)
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed Dec 17 09:32:38 GMT 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//NSLog(@"Location: %u", aLocation);
+    return [self syntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr];
+}
 #pragma mark =-=-=-=-=-=-=-=-=-=-  ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
@@ -3500,6 +3512,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(argument.location>1)
+	{
+		argument.location-=2;
+		argument.length+=2;
+	}
+	else if(argument.location>0)
+	{
+		argument.location-=1;
+		argument.length+=1;
+	}
     argument = NSIntersectionRange(argument, NSMakeRange(_StartOff7, _Length));
     if(!argument.length)
         return;
@@ -3518,6 +3540,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(argument.location>1)
+	{
+		argument.location-=2;
+		argument.length+=2;
+	}
+	else if(argument.location>0)
+	{
+		argument.location-=1;
+		argument.length+=1;
+	}
     argument = NSIntersectionRange(argument, NSMakeRange(0, _Length));
     if(!argument.length)
         return;

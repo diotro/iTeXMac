@@ -702,6 +702,18 @@ This default implementation does nothing.
 - (unsigned)syntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
 
 /*!
+    @method     smartSyntaxModeAtIndex:longestRange:
+    @abstract   Returns the smart mode for the given index.
+    @discussion The smart mode is smarter than the syntax mode.
+				For example, '\$' has 2 syntax modes, one for '\' and
+				one for '$' but only one smart syntax mode for both characters.
+    @param      aLocation
+    @param      aRangePtr
+    @result     a mode
+*/
+- (unsigned)smartSyntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+
+/*!
     @method     fixSyntaxModesInRange:
     @abstract   Description Forthcoming.
     @discussion Description forthcoming.

@@ -154,8 +154,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 190036560;
-			PBXWorkspaceStateSaveDate = 190036560;
+			PBXPerProjectTemplateStateSaveDate = 190158438;
+			PBXWorkspaceStateSaveDate = 190158438;
 		};
 		perUserProjectItems = {
 			DC08D6030B3CADF300966378 = DC08D6030B3CADF300966378 /* PBXTextBookmark */;
@@ -176,11 +176,9 @@
 			DCA37E0E0AE3A18500874F9E = DCA37E0E0AE3A18500874F9E /* PBXTextBookmark */;
 			DCA37E130AE3A18500874F9E = DCA37E130AE3A18500874F9E /* PBXTextBookmark */;
 			DCB1DEA70B4EC12F00B0704A = DCB1DEA70B4EC12F00B0704A /* PBXBookmark */;
-			DCB92EEB0B53BA70008C1594 /* PBXBookmark */ = DCB92EEB0B53BA70008C1594 /* PBXBookmark */;
-			DCB92FBB0B53D346008C1594 /* PBXBookmark */ = DCB92FBB0B53D346008C1594 /* PBXBookmark */;
+			DCB931510B545D4D008C1594 = DCB931510B545D4D008C1594 /* PBXBookmark */;
 			DCBA442C0B028A2F006AF52A = DCBA442C0B028A2F006AF52A /* PBXTextBookmark */;
 			DCBA442D0B028A2F006AF52A = DCBA442D0B028A2F006AF52A /* PBXBookmark */;
-			DCBA442E0B028A2F006AF52A = DCBA442E0B028A2F006AF52A /* PBXBookmark */;
 			DCBA442F0B028A2F006AF52A = DCBA442F0B028A2F006AF52A /* PBXTextBookmark */;
 			DCBA44320B028A2F006AF52A = DCBA44320B028A2F006AF52A /* PBXBookmark */;
 			DCBA44330B028A2F006AF52A = DCBA44330B028A2F006AF52A /* PBXBookmark */;
@@ -189,6 +187,8 @@
 			DCD38F1D0B4E6F6E00FF736A = DCD38F1D0B4E6F6E00FF736A /* PBXTextBookmark */;
 			DCD38F1F0B4E6F6E00FF736A = DCD38F1F0B4E6F6E00FF736A /* PBXTextBookmark */;
 			DCD38F350B4E722700FF736A = DCD38F350B4E722700FF736A /* PBXTextBookmark */;
+			DCE295110B55968100EC674E /* PBXBookmark */ = DCE295110B55968100EC674E /* PBXBookmark */;
+			DCE295160B55978D00EC674E /* PBXBookmark */ = DCE295160B55978D00EC674E /* PBXBookmark */;
 			DCE54DE10B382D7E003615FA = DCE54DE10B382D7E003615FA /* PBXTextBookmark */;
 			DCE54DE20B382D7E003615FA = DCE54DE20B382D7E003615FA /* PBXTextBookmark */;
 		};
@@ -282,7 +282,7 @@
 			DC31FE080AC9B87F00FF576B /* -[NSException raise] */,
 			DC31FE090AC9B88400FF576B /* -[NSException raise] */,
 			DC31FE0A0AC9B88800FF576B /* -[NSException raise] */,
-			DCEC58F30B17231900A373CC /* iTM2WindowsMenuKit.m:365 */,
+			DCEC58F30B17231900A373CC /* iTM2WindowsMenuKit.m:366 */,
 		);
 	};
 	DC25E1D00990C4E200545F27 /* TEST */ = {
@@ -307,7 +307,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 188407449.695153;
+		modificationTime = 190158541.875109;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -320,7 +320,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 188407449.998714;
+		modificationTime = 190158541.882557;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -333,7 +333,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 188407450.296601;
+		modificationTime = 190158541.895369;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -346,7 +346,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 188407450.296779;
+		modificationTime = 190158541.910914;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -359,7 +359,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 188407450.597645;
+		modificationTime = 190158541.925976;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -670,11 +670,7 @@
 		isa = PBXBookmark;
 		fRef = DCBA43230B011B45006AF52A /* ASY.icns */;
 	};
-	DCB92EEB0B53BA70008C1594 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DCBA43230B011B45006AF52A /* ASY.icns */;
-	};
-	DCB92FBB0B53D346008C1594 /* PBXBookmark */ = {
+	DCB931510B545D4D008C1594 /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = DCBA43230B011B45006AF52A /* ASY.icns */;
 	};
@@ -722,10 +718,6 @@
 	DCBA442D0B028A2F006AF52A /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = DCBA43240B011B45006AF52A /* OUT.icns */;
-	};
-	DCBA442E0B028A2F006AF52A /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DCBA43230B011B45006AF52A /* ASY.icns */;
 	};
 	DCBA442F0B028A2F006AF52A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -811,6 +803,14 @@
 		vrLen = 709;
 		vrLoc = 45612;
 	};
+	DCE295110B55968100EC674E /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DCBA43230B011B45006AF52A /* ASY.icns */;
+	};
+	DCE295160B55978D00EC674E /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DCBA43230B011B45006AF52A /* ASY.icns */;
+	};
 	DCE54DE10B382D7E003615FA /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCA37E7B0AE3AD7800874F9E /* English */;
@@ -831,7 +831,7 @@
 		vrLen = 465;
 		vrLoc = 0;
 	};
-	DCEC58F30B17231900A373CC /* iTM2WindowsMenuKit.m:365 */ = {
+	DCEC58F30B17231900A373CC /* iTM2WindowsMenuKit.m:366 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -841,9 +841,9 @@
 		fileReference = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */;
 		functionName = "+updateWindowsMenu:";
 		hitCount = 1;
-		lineNumber = 365;
+		lineNumber = 366;
 		location = iTeXMac2;
-		modificationTime = 190042945.857316;
+		modificationTime = 190158730.600096;
 		state = 1;
 	};
 	DCF929730948EC0E00EE2F46 /* Prepare LaTeX Symbols PlugIn */ = {

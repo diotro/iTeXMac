@@ -691,7 +691,7 @@
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		DC13E67A085586540063D5A5 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DC13E67C085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = iTeXMac2.nib; sourceTree = "<group>"; };
-		DC13E68B0855867D0063D5A5 /* Test Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC13E68B0855867D0063D5A5 /* Test Application.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Test Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC13E6A1085586E50063D5A5 /* Test Application-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Test Application-Info.plist"; sourceTree = "<group>"; };
 		DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonBack.tiff; sourceTree = "<group>"; };
 		DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonForward.tiff; sourceTree = "<group>"; };

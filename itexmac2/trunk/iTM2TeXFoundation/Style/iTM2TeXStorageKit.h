@@ -40,7 +40,7 @@ enum
 	kiTM2TeXNoErrorIfNotLastSyntaxStatus = kiTM2TextNoErrorIfNotLastSyntaxStatus,
 	kiTM2TeXWaitingSyntaxStatus = kiTM2TextWaitingSyntaxStatus,
 	kiTM2TeXErrorSyntaxStatus = kiTM2TextErrorSyntaxStatus
-};
+};// all this is unused
 
 enum
 {
@@ -63,10 +63,14 @@ typedef enum _iTM2TeXInputMode
     kiTM2TeXCommentSyntaxMode,
     kiTM2TeXMarkSyntaxMode,
     kiTM2TeXDollarSyntaxMode,
+    kiTM2TeXMoreDollarSyntaxMode,
     kiTM2TeXBeginGroupSyntaxMode,
     kiTM2TeXEndGroupSyntaxMode,
     kiTM2TeXDelimiterSyntaxMode,
+    kiTM2TeXParenOpenSyntaxMode,
+    kiTM2TeXParenCloseSyntaxMode,
     kiTM2TeXBeginSubscriptSyntaxMode,
+    kiTM2TeXMoreSubscriptSyntaxMode,
     kiTM2TeXShortSubscriptSyntaxMode,
     kiTM2TeXSubscriptSyntaxMode,
     kiTM2TeXBeginSuperscriptSyntaxMode,
