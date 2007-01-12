@@ -63,7 +63,7 @@ typedef enum _iTM2TeXInputMode
     kiTM2TeXBeginCommentSyntaxMode,
     kiTM2TeXCommentSyntaxMode,
     kiTM2TeXMarkSyntaxMode,
-    kiTM2TeXDollarSyntaxMode,
+    kiTM2TeXDollarSyntaxMode,//10
     kiTM2TeXMoreDollarSyntaxMode,
     kiTM2TeXBeginGroupSyntaxMode,
     kiTM2TeXEndGroupSyntaxMode,

@@ -28,7 +28,7 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit
 
-extern NSString * const iTM2MarkerPlaceholder;
+extern NSString * const iTM2MarkPlaceholder;
 extern NSString * const iTM2StopPlaceholder;
 extern NSString * const iTM2StartPlaceholder;
 extern NSString * const iTM2StartArgPlaceholder;
@@ -231,8 +231,31 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		An index.
+	@result		A range.
 */
 - (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
+
+/*!
+	@method		rangeOfPlaceholderFromIndex:cycle:tabAnchor:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		An index.
+	@param		A flag.
+	@param		A string.
+	@result		A range.
+*/
+- (NSRange)rangeOfPlaceholderFromIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+
+/*!
+	@method		rangeOfPlaceholderToIndex:cycle:tabAnchor:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		An index.
+	@param		A flag.
+	@param		A string.
+	@result		A range.
+*/
+- (NSRange)rangeOfPlaceholderToIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
 
 /*!
 	@method		componentsBySeparatingPlaceholders
@@ -245,22 +268,22 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 - (NSArray *)componentsBySeparatingPlaceholders;
 
 /*!
-	@method		stringByRemovingPlaceHolderMarkers
+	@method		stringByRemovingPlaceHolderMarks
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		None.
     @result     string
 */
-- (NSString *)stringByRemovingPlaceHolderMarkers;
+- (NSString *)stringByRemovingPlaceHolderMarks;
 
 /*!
-	@method		stringByRemovingPlaceHolderMarkersWithSelection:
+	@method		stringByRemovingPlaceHolderMarksWithSelection:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		the contents of the selection.
     @result     string
 */
-- (NSString *)stringByRemovingPlaceHolderMarkersWithSelection:(NSString *)selection;
+- (NSString *)stringByRemovingPlaceHolderMarksWithSelection:(NSString *)selection;
 
 /*!
 	@method		stringWithSelection:getSelectedRanges:

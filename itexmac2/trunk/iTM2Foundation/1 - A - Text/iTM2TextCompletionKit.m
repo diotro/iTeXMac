@@ -75,7 +75,7 @@ NSString * const iTM2CompletionsExtension = @"xml";
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return selectedString?[obj stringByRemovingPlaceHolderMarkersWithSelection:selectedString]:[obj stringByRemovingPlaceHolderMarkers];
+	return selectedString?[obj stringByRemovingPlaceHolderMarksWithSelection:selectedString]:[obj stringByRemovingPlaceHolderMarks];
 }
 - (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
 {
@@ -715,7 +715,7 @@ useless?
 	}
 	[_LongCompletionString autorelease];
 	_LongCompletionString = [word copy];
-	word = [word stringByRemovingPlaceHolderMarkersWithSelection:_SelectedString];
+	word = [word stringByRemovingPlaceHolderMarksWithSelection:_SelectedString];
 	[_ShortCompletionString autorelease];
 	_ShortCompletionString = [word copy];
 	[_TextView insertCompletion:word forPartialWordRange:_RangeForUserCompletion movement:NSOtherTextMovement isFinal:NO];

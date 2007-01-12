@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCE2BFD50B57100300260538</string>
+						<string>DCE2BFFB0B5713E900260538</string>
 						<key>history</key>
 						<array>
 							<string>DC3A9FEF0B56CC170084424F</string>
@@ -359,7 +359,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2TextKit.m</string>
+								<string>iTM2TeXStorageKit.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -367,11 +367,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TextKit.m</string>
+										<string>iTM2TeXStorageKit.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCE2BFD40B57100300260538</string>
+										<string>DCE2BFFA0B5713E900260538</string>
 										<key>history</key>
 										<array>
 											<string>DC08D6660B3CB6B000966378</string>
@@ -382,8 +382,7 @@
 											<string>DCB1EB3B0B52B77400B0704A</string>
 											<string>DCE297910B55A54400EC674E</string>
 											<string>DCE297920B55A54400EC674E</string>
-											<string>DCE2BFAD0B570EF100260538</string>
-											<string>DCE2BFAE0B570EF100260538</string>
+											<string>DCE2BFAF0B570EF100260538</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -394,7 +393,6 @@
 											<string>DCB1EB400B52B77400B0704A</string>
 											<string>DCE297940B55A54400EC674E</string>
 											<string>DCE297950B55A54400EC674E</string>
-											<string>DCE2BFAF0B570EF100260538</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -828,14 +826,12 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TextKit.m</string>
+										<string>&lt;No Editor&gt;</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
