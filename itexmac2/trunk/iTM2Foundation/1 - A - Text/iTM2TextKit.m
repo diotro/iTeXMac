@@ -28,11 +28,14 @@
 #import <iTM2Foundation/iTM2EventKit.h>
 #import <iTM2Foundation/iTM2ValidationKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
+#import "limits.h"
 
+NSString * const iTM2MarkerPlaceholder = @"__";
 NSString * const iTM2StartPlaceholder = @"__(";
 NSString * const iTM2StopPlaceholder = @")__";
 NSString * const iTM2StartArgPlaceholder = @"__(ARG:";
 NSString * const iTM2StartOptPlaceholder = @"__(OPT:";
+NSString * const iTM2StartTextPlaceholder = @"__(TEXT:";
 NSString * const iTM2TextInsertionAnchorKey = @"__(INS)__";
 NSString * const iTM2TextSelectionAnchorKey = @"__(SEL)__";// out of use with perl support
 NSString * const iTM2TextTabAnchorKey = @"__(TAB)__";
@@ -214,7 +217,7 @@ NSString * const iTM2TextIndentationNumberOfSpacesKey= @"iTM2TextIndentationNumb
     [SUD registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"   ", iTM2TextIndentationStringKey,
-            [NSNumber numberWithInt:4], iTM2TextIndentationNumberOfSpacesKey,
+            [NSNumber numberWithUnsignedInt:4], iTM2TextIndentationNumberOfSpacesKey,
                 nil]];
 	iTM2_RELEASE_POOL;
 	return;
@@ -878,7 +881,7 @@ To Do List:
 //iTM2_START;
 	NSRange range = [self rangeValue];
 //iTM2_END;
-	return [NSNumber numberWithUnsignedInt:range.location];
+	return [NSNumber numberWithInt:range.location];
 }
 @end
 
@@ -1427,28 +1430,143 @@ To Do List: ?
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:
 - (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
-/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
+/*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/15/2006
 To Do List: implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(index < [self length])
+	unsigned length = [self length];
+	if(index>=length)
 	{
-		NSRange searchRange;
-		searchRange.location = index >= [iTM2StopPlaceholder length] - 1?
-									index - [iTM2StopPlaceholder length] - 1:index;
-		searchRange.length = [self length] - searchRange.location;
-		NSRange stopR = [self rangeOfString:iTM2StopPlaceholder options:0L range:searchRange];
-		if(stopR.location == NSNotFound)
-			return stopR;
-		searchRange = NSMakeRange(0, stopR.location);
-		NSRange startR = [self rangeOfString:iTM2StartPlaceholder options:NSBackwardsSearch range:searchRange];
-		if(startR.location == NSNotFound)
-			return startR;
-		if((startR.location <= index) && (index < NSMaxRange(stopR)))
-			return NSMakeRange(startR.location, NSMaxRange(stopR) - startR.location);
+		return NSMakeRange(NSNotFound,0);
+	}
+	NSRange startR,stopR;
+	unichar startChar = [iTM2StartPlaceholder characterAtIndex:[iTM2StartPlaceholder length]-1];
+	unichar stopChar = [iTM2StopPlaceholder characterAtIndex:0];
+
+	unsigned idx;
+	unsigned depth = 1;
+
+	NSRange searchRange = {0,0};
+	searchRange.location = MAX(index,5);
+	searchRange.location -= 5;
+	
+	NSRange R;
+nextMarker:
+	searchRange.length = length - searchRange.location;
+	R = [self rangeOfString:iTM2MarkerPlaceholder options:0L range:searchRange];
+	if(R.length)
+	{
+		// is it a start?
+		idx = NSMaxRange(R)+1;
+		if(idx<length)
+		{
+			if([self characterAtIndex:idx]==startChar)
+			{
+				// it is a start place holder
+				startR = R;
+				++startR.length;
+				// now find the balancing stop placeholder
+nextStopMarker:
+				searchRange.location = idx;
+				searchRange.length = length-searchRange.location;
+				if(searchRange.length>2)
+				{
+					R = [self rangeOfString:iTM2MarkerPlaceholder options:0L range:searchRange];
+					if(R.length)
+					{
+						// is it a start?
+						idx = NSMaxRange(R);
+						if(idx+1<length)
+						{
+							if([self characterAtIndex:++idx]==startChar)
+							{
+								++depth;
+								goto nextStopMarker;
+							}
+						}
+						else
+						{
+							return startR;
+						}
+						// is it a stop?
+						if(R.location>searchRange.location)
+						{
+							if([self characterAtIndex:R.location-1]==stopChar)
+							{
+								if(--depth)
+								{
+									// not yet
+									goto nextStopMarker;
+								}
+								else
+								{
+									return NSMakeRange(startR.location, NSMaxRange(R) - startR.location);
+								}
+							}
+						}
+						goto nextStopMarker;
+					}
+				}
+				return startR;
+			}
+		}
+		// is it a stop?
+		if(R.location)
+		{
+			if([self characterAtIndex:R.location-1]==stopChar)
+			{
+				// yes it is
+				stopR = R;
+				--stopR.location;
+				--stopR.length;
+				// find the balancing start
+				searchRange.length = searchRange.location+1;
+				searchRange.location = 0;
+previousStartMarker:
+				if(searchRange.length>2)
+				{
+					R = [self rangeOfString:iTM2MarkerPlaceholder options:NSBackwardsSearch range:searchRange];
+					if(R.length)
+					{
+						// is it a start?
+						idx = NSMaxRange(R);
+						if([self characterAtIndex:++idx]==startChar)
+						{
+							if(--depth)
+							{
+								// not yet
+								searchRange.length = R.location;
+								goto previousStartMarker;
+							}
+							else
+							{
+								return NSMakeRange(R.location, NSMaxRange(stopR) - R.location);
+							}
+						}
+						// is it a stop?
+						if(R.location)
+						{
+							if([self characterAtIndex:R.location-1]==stopChar)
+							{
+								if(R.location>2)
+								{
+									++depth;
+									searchRange.length = R.location-2;
+									goto nextStopMarker;
+								}
+							}
+						}
+					}
+				}
+				return stopR;
+			}
+		}
+		// next
+		searchRange.location = NSMaxRange(R);
+		goto nextMarker;
 	}
 //iTM2_END;
 	return NSMakeRange(NSNotFound, 0);
@@ -1460,7 +1578,7 @@ To Do List: implement some kind of balance range for range
 @implementation iTM2AttributedString_0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
-/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
+/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/15/2006
 To Do List: implement some kind of balance range for range

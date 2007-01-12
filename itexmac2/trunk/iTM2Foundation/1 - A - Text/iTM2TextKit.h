@@ -28,8 +28,14 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit
 
-extern NSString * const iTM2StartPlaceholder;
+extern NSString * const iTM2MarkerPlaceholder;
 extern NSString * const iTM2StopPlaceholder;
+extern NSString * const iTM2StartPlaceholder;
+extern NSString * const iTM2StartArgPlaceholder;
+extern NSString * const iTM2StartOptPlaceholder;
+extern NSString * const iTM2StartTextPlaceholder;
+extern NSString * const iTM2StopPlaceholder;
+
 extern NSString * const iTM2TextTabAnchorKey;
 extern NSString * const iTM2TextSelectionAnchorKey;
 extern NSString * const iTM2TextInsertionAnchorKey;

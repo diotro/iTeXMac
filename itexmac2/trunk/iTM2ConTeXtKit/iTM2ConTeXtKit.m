@@ -2160,14 +2160,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned mode = [self syntaxModeAtIndex:aLocation longestRange:aRangePtr];
+    unsigned mode;
+	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
 	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXBeginCommandSyntaxMode:
 			if(aLocation + 1 < [[self textStorage] length])
 			{
-				unsigned nextMode = [self syntaxModeAtIndex:aLocation + 1 longestRange:aRangePtr];
+				unsigned nextMode;
+				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
 				unsigned nextSwitcher = nextMode & ~kiTM2TeXErrorSyntaxMask;
 				switch(nextSwitcher)
 				{
@@ -2227,14 +2229,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned mode = [self syntaxModeAtIndex:aLocation longestRange:aRangePtr];
+    unsigned mode;
+	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
 	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXBeginCommandSyntaxMode:
 			if(aLocation + 1 < [[self textStorage] length])
 			{
-				unsigned nextMode = [self syntaxModeAtIndex:aLocation + 1 longestRange:aRangePtr];
+				unsigned nextMode;
+				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
 				unsigned nextSwitcher = nextMode & ~kiTM2TeXErrorSyntaxMask;
 				switch(nextSwitcher)
 				{

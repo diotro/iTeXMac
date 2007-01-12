@@ -14,7 +14,7 @@
 //  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //  See the GNU General Public License for more details. You should have received a copy
 //  of the GNU General Public License along with this program; if not, write to the Free Software
-//  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//  Foundation, Inc., 59 Temple Place-Suite 330, Boston, MA 02111-1307, USA.
 //  GPL addendum: Any simple modification of the present code which purpose is to remove bug,
 //  improve efficiency in both code execution and code reading or writing should be addressed
 //  to the actual developper team.
@@ -824,7 +824,7 @@ To Do List:
 			unsigned contentsEnd, TeXComment;
 			[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
 			NSString * string = [S substringWithRange:
-				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment) - start)];
+				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
 			NSScanner * scanner = [NSScanner scannerWithString:string];
 			[scanner scanString:@"{" intoString:nil];
 			NSString * fileName;
@@ -854,7 +854,7 @@ To Do List:
 			unsigned contentsEnd, TeXComment;
 			[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
 			NSString * string = [S substringWithRange:
-				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment) - start)];
+				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
 			NSScanner * scanner = [NSScanner scannerWithString:string];
 			[scanner scanString:@"{" intoString:nil];
 			NSString * fileName;
@@ -884,7 +884,7 @@ To Do List:
 			unsigned contentsEnd, TeXComment;
 			[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
 			NSString * string = [S substringWithRange:
-				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment) - start)];
+				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
 			NSScanner * scanner = [NSScanner scannerWithString:string];
 			[scanner scanString:@"{" intoString:nil];
 			NSString * URLString;
@@ -1408,7 +1408,7 @@ To Do List:
 		// trimming the white spaces in the selected range 
         NSRange CR = SR;
 		NSCharacterSet * set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-		while(CR.length && [set characterIsMember:[S characterAtIndex:CR.location + CR.length - 1]])
+		while(CR.length && [set characterIsMember:[S characterAtIndex:CR.location+CR.length-1]])
 		{
 			--CR.length;
 		}
@@ -1538,7 +1538,7 @@ faaa:
                 goto faaa;
             }
             if(rangePtr)
-                *rangePtr = NSMakeRange(anchor, NSMaxRange(R) - anchor);
+                *rangePtr = NSMakeRange(anchor, NSMaxRange(R)-anchor);
             return [nameStack lastObject];
         }
         else
@@ -1575,7 +1575,7 @@ fakarava:
                 }
 //iTM2_LOG(@"Normal...");
                 if(rangePtr)
-                    *rangePtr = NSMakeRange(R.location, anchor - R.location);
+                    *rangePtr = NSMakeRange(R.location, anchor-R.location);
                 return [nameStack lastObject];
             }
             [nameStack addObject:otherName];
@@ -1618,7 +1618,7 @@ huahine:
         if(NSMaxRange(range)<rightAnchor)
         {
             if(rangePtr)
-                *rangePtr = NSMakeRange(leftAnchor, rightAnchor - leftAnchor);
+                *rangePtr = NSMakeRange(leftAnchor, rightAnchor-leftAnchor);
             return [nameStack lastObject];
         }
         [nameStack removeLastObject];
@@ -1806,15 +1806,15 @@ To Do List:
     faaa:
     if(index < [self length])
     {
-        R = [self rangeOfString:@"\\" options:0L range:NSMakeRange(index, [self length] - index)];
+        R = [self rangeOfString:@"\\" options:0L range:NSMakeRange(index, [self length]-index)];
         if(R.location == NSNotFound)
             goto bail;
         BOOL escaped = NO;
         index = NSMaxRange(R);
-        if(R.location && [self isControlAtIndex:R.location - 1 escaped: &escaped] && !escaped)
+        if(R.location && [self isControlAtIndex:R.location-1 escaped: &escaped] && !escaped)
             goto faaa;
         unsigned anchor = R.location;
-        NSRange searchRange = NSMakeRange(anchor + 1, [self length] - anchor - 1);
+        NSRange searchRange = NSMakeRange(anchor+1, [self length]-anchor-1);
         R = [self rangeOfString:@"end" options:NSAnchoredSearch range:searchRange];
         if(R.location == NSNotFound)
         {
@@ -1850,7 +1850,7 @@ To Do List:
                         stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
                 if(flagPtr)
                     *flagPtr = YES;
-                return NSMakeRange(anchor, [S scanLocation] + 1 - anchor);
+                return NSMakeRange(anchor, [S scanLocation]+1-anchor);
             }
         }
         else
@@ -1869,7 +1869,7 @@ To Do List:
                         stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
                 if(flagPtr)
                     *flagPtr = NO;
-                return NSMakeRange(anchor, [S scanLocation] + 1 - anchor);
+                return NSMakeRange(anchor, [S scanLocation]+1-anchor);
             }
         }
     }
@@ -1899,10 +1899,10 @@ To Do List:
             goto bail;
         BOOL escaped = NO;
         index = R.location;
-        if(R.location && [self isControlAtIndex:R.location - 1 escaped: &escaped] && !escaped)
+        if(R.location && [self isControlAtIndex:R.location-1 escaped: &escaped] && !escaped)
             goto faaa;
         unsigned anchor = R.location;
-        NSRange searchRange = NSMakeRange(anchor + 1, [self length] - anchor - 1);
+        NSRange searchRange = NSMakeRange(anchor+1, [self length]-anchor-1);
         R = [self rangeOfString:@"end" options:NSAnchoredSearch range:searchRange];
         if(R.location == NSNotFound)
         {
@@ -1939,7 +1939,7 @@ To Do List:
                 if(flagPtr)
                     *flagPtr = YES;
 //iTM2_LOG(envirName);
-                return NSMakeRange(anchor, [S scanLocation] + 1 - anchor);
+                return NSMakeRange(anchor, [S scanLocation]+1-anchor);
             }
         }
         else
@@ -1959,7 +1959,7 @@ To Do List:
                 if(flagPtr)
                     *flagPtr = NO;
 //iTM2_LOG(envirName);
-                return NSMakeRange(anchor, [S scanLocation] + 1 - anchor);
+                return NSMakeRange(anchor, [S scanLocation]+1-anchor);
             }
         }
     }
@@ -2692,7 +2692,7 @@ To Do List:
 		case kiTM2LaTeXURLSyntaxMode:
 		if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
 		{
-			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher - kiTM2LaTeXIncludeSyntaxMode]])
+			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher-kiTM2LaTeXIncludeSyntaxMode]])
 				return previousMode;
 			else
 			{
@@ -2731,15 +2731,15 @@ To Do List:
 			// is it a \include, \includegraphics, \url
 			// scanning from location for the control sequence name
 			unsigned start = location;
-			unsigned end = start + 1;
+			unsigned end = start+1;
 			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
 				++end;
 			if(end == start+15)
 			{
-				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
 				{
 					if(lengthRef)
-						* lengthRef = end - start;
+						* lengthRef = end-start;
 					if(nextModeRef && (end<[S length]))
 					{
 						theChar = [S characterAtIndex:end];
@@ -2753,10 +2753,10 @@ To Do List:
 			}
 			else if(end == start+7)
 			{
-				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
 				{
 					if(lengthRef)
-						* lengthRef = end - start;
+						* lengthRef = end-start;
 					if(nextModeRef && (end<[S length]))
 					{
 						theChar = [S characterAtIndex:end];
@@ -2770,10 +2770,10 @@ To Do List:
 			}
 			else if(end == start+3)
 			{
-				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
 				{
 					if(lengthRef)
-						* lengthRef = end - start;
+						* lengthRef = end-start;
 					if(nextModeRef && (end<[S length]))
 					{
 						theChar = [S characterAtIndex:end];
@@ -2798,17 +2798,17 @@ To Do List:
 				++end;
 			if(end == start+15)
 			{
-				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
 					*nextModeRef = kiTM2LaTeXIncludegraphicsSyntaxMode;
 			}
 			else if(end == start+7)
 			{
-				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
 					*nextModeRef = kiTM2LaTeXIncludeSyntaxMode;
 			}
 			else if(end == start+3)
 			{
-				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end - start)]])
+				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
 					*nextModeRef = kiTM2LaTeXURLSyntaxMode;
 			}
 		}
@@ -2827,14 +2827,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned mode = [self syntaxModeAtIndex:aLocation longestRange:aRangePtr];
+    unsigned mode;
+	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
 	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXBeginCommandSyntaxMode:
 			if(aLocation+1 < [[self textStorage] length])
 			{
-				unsigned nextMode = [self syntaxModeAtIndex:aLocation+1 longestRange:aRangePtr];
+				unsigned nextMode;
+				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
 				unsigned nextSwitcher = nextMode & ~kiTM2TeXErrorSyntaxMask;
 				switch(nextSwitcher)
 				{
@@ -2847,7 +2849,7 @@ To Do List:
 							aRangePtr->location -= 1;
 							aRangePtr->length += 1;
 						}
-						return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:nextSwitcher - 1000]];
+						return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:nextSwitcher-1000]];
 					}
 					default:
 						return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
@@ -2862,9 +2864,9 @@ To Do List:
 			{
 				unsigned max = NSMaxRange(*aRangePtr);
 				aRangePtr->location = aLocation;
-				aRangePtr->length = max - aLocation;
+				aRangePtr->length = max-aLocation;
 			}
-            return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher - 1000]];
+            return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher-1000]];
         default:
             return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
     }
@@ -2894,14 +2896,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned mode = [self syntaxModeAtIndex:aLocation longestRange:aRangePtr];
+    unsigned mode;
+	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
 	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXBeginCommandSyntaxMode:
-			if(aLocation + 1 < [[self textStorage] length])
+			if(aLocation+1 < [[self textStorage] length])
 			{
-				unsigned nextMode = [self syntaxModeAtIndex:aLocation + 1 longestRange:aRangePtr];
+				unsigned nextMode;
+				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
 				unsigned nextSwitcher = nextMode & ~kiTM2TeXErrorSyntaxMask;
 				switch(nextSwitcher)
 				{
@@ -2914,7 +2918,7 @@ To Do List:
 							aRangePtr->location -= 1;
 							aRangePtr->length += 1;
 						}
-						return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:nextSwitcher - 1000]];
+						return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:nextSwitcher-1000]];
 					}
 					default:
 						return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
@@ -2929,9 +2933,9 @@ To Do List:
 			{
 				unsigned max = NSMaxRange(*aRangePtr);
 				aRangePtr->location = aLocation;
-				aRangePtr->length = max - aLocation;
+				aRangePtr->length = max-aLocation;
 			}
-            return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher - 1000]];
+            return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher-1000]];
         default:
             return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
     }

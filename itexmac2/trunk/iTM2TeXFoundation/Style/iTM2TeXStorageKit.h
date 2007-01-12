@@ -58,6 +58,7 @@ typedef enum _iTM2TeXInputMode
     kiTM2TeXRegularSyntaxMode = kiTM2TextRegularSyntaxMode,
     kiTM2TeXBeginCommandSyntaxMode = 3,
     kiTM2TeXCommandSyntaxMode,
+	kiTM2TeXDingCommandSyntaxMode,
     kiTM2TeXShortCommandSyntaxMode,
     kiTM2TeXBeginCommentSyntaxMode,
     kiTM2TeXCommentSyntaxMode,
@@ -76,8 +77,8 @@ typedef enum _iTM2TeXInputMode
     kiTM2TeXBeginSuperscriptSyntaxMode,
     kiTM2TeXShortSuperscriptSyntaxMode,
     kiTM2TeXSuperscriptSyntaxMode,
-    kiTM2TeXInputSyntaxMode,
     kiTM2TeXCellSeparatorSyntaxMode,
+    kiTM2TeXInputCommandSyntaxMode,
 	kiTM2TeXUnknownSyntaxMode = kiTM2TextUnknownSyntaxMode
 } iTM2TeXInputMode;// don't change the order unless you know what you are doing
 

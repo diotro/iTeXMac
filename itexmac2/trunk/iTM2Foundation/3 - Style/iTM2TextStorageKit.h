@@ -77,6 +77,9 @@ enum
 	kiTM2TextNoErrorSyntaxStatus = 0,
 	kiTM2TextNoErrorIfNotLastSyntaxStatus,
 	kiTM2TextWaitingSyntaxStatus,
+	kiTM2TextRangeExceededSyntaxStatus,// too big
+	kiTM2TextOutOfRangeSyntaxStatus,// too small
+	kiTM2TextMissingModeSyntaxStatus,
 	kiTM2TextErrorSyntaxStatus
 };
 
@@ -446,15 +449,6 @@ enum
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 
 /*!
-    @method     availableSyntaxModeAtIndex:longestRange:
-    @abstract   The available syntax mode at the given global location.
-    @discussion The return value need not be consistent. The return range is used to invalidate the attributes when the text has changed.
-    @param      aLocation
-    @result     A dictionary of attributes
-*/
-- (unsigned)availableSyntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
-
-/*!
     @method     addAttribute:value:range:
     @abstract   add attributes.
     @discussion For subclassers only yet.
@@ -692,26 +686,28 @@ This default implementation does nothing.
 - (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
 
 /*!
-    @method     syntaxModeAtIndex:longestRange:
+    @method     getSyntaxMode:atIndex:longestRange:
     @abstract   Returns the mode for the given index.
     @discussion Description forthcoming.
+    @param      aModeRef
     @param      aLocation
     @param      aRangePtr
     @result     a mode
 */
-- (unsigned)syntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (unsigned)getSyntaxMode:(unsigned *)modeRef atIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
 
 /*!
-    @method     smartSyntaxModeAtIndex:longestRange:
+    @method     getSmartSyntaxMode:atIndex:longestRange:
     @abstract   Returns the smart mode for the given index.
     @discussion The smart mode is smarter than the syntax mode.
 				For example, '\$' has 2 syntax modes, one for '\' and
 				one for '$' but only one smart syntax mode for both characters.
+    @param      aModeRef
     @param      aLocation
     @param      aRangePtr
     @result     a mode
 */
-- (unsigned)smartSyntaxModeAtIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (unsigned)getSmartSyntaxMode:(unsigned *)aModeRef atIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
 
 /*!
     @method     fixSyntaxModesInRange:
@@ -984,14 +980,28 @@ extern NSString * const iTM2TextDefaultStyle;
 - (void)swapContentsWithModeLine:(iTM2ModeLine *)ML;
 
 /*!
-    @method     syntaxModeAtGlobalLocation:longestRange:
+    @method     getSyntaxMode:atGlobalLocation:longestRange:
     @abstract   The syntax mode at the given location.
     @discussion Beware, if the _EOLMode is 0, the longest range is extended to include the EOL.
+    @param      aModeRef
     @param      aLocation is a global location where we are looking for the mode
     @param      ref is a range reference where the mode range is returned
     @result     A flag indicating whether the increase succeeded.
 */
-- (unsigned)syntaxModeAtGlobalLocation:(unsigned)aLocation longestRange:(NSRangePointer)ref;
+
+- (unsigned)getSyntaxMode:(unsigned *)modeRef atGlobalLocation:(unsigned)aLocation longestRange:(NSRangePointer)ref;
+/*!
+    @method     getSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
+    @abstract   The syntax mode at the given location.
+    @discussion Used with excludeMode = regular text mode.
+    @param      aModeRef
+    @param      excludeMode
+    @param      aLocation is a global location where we are looking for the mode
+    @param      ref is a range reference where the mode range is returned
+    @result     A flag indicating whether the increase succeeded.
+*/
+- (unsigned)getSyntaxMode:(unsigned *)modeRef notEqualTo:(unsigned)excludeMode atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
+
 - (unsigned)numberOfSyntaxWords;
 - (unsigned)syntaxModeAtIndex:(unsigned)index;
 - (unsigned)syntaxLengthAtIndex:(unsigned)index;
