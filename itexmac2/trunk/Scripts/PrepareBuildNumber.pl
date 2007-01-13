@@ -28,5 +28,3 @@ print OUTPUT "#define SVN_BUILD_DATE $DATE\n";
 close OUTPUT;
 printf "\nwarning: Updating the build number to revision $REVISION... DONE\n";
 exit 0;
-
-#
