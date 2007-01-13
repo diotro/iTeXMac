@@ -991,7 +991,7 @@ extern NSString * const iTM2TextDefaultStyle;
 
 - (unsigned)getSyntaxMode:(unsigned *)modeRef atGlobalLocation:(unsigned)aLocation longestRange:(NSRangePointer)ref;
 /*!
-    @method     getSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
+    @method     getPreviousSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
     @abstract   The syntax mode at the given location.
     @discussion Used with excludeMode = regular text mode.
     @param      aModeRef
@@ -1000,7 +1000,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      ref is a range reference where the mode range is returned
     @result     A flag indicating whether the increase succeeded.
 */
-- (unsigned)getSyntaxMode:(unsigned *)modeRef notEqualTo:(unsigned)excludeMode atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
+- (unsigned)getPreviousSyntaxMode:(unsigned *)modeRef notEqualTo:(unsigned)excludeMode atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
 
 - (unsigned)numberOfSyntaxWords;
 - (unsigned)syntaxModeAtIndex:(unsigned)index;

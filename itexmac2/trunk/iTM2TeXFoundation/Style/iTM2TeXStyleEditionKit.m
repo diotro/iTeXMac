@@ -1704,12 +1704,15 @@ To Do List:
         id K, O;
         while((K = [E nextObject]) && (O = [E nextObject]))
         {
-            if(![_Ks containsObject:K])
-            {
-                [_Ks addObject:K];
-                [_EOs setObject:[[O mutableCopy] autorelease] forKey:K];
-                rowHeight = MAX(rowHeight, [O size].height);
-            }
+			NSString * key = K;
+			unsigned index = 0;
+			while([_Ks containsObject:key])
+			{
+				key = [K stringByAppendingFormat:@"-%u",++index];
+			}
+            [_Ks addObject:key];
+			[_EOs setObject:[[O mutableCopy] autorelease] forKey:key];
+			rowHeight = MAX(rowHeight, [O size].height);
         }
         [_Ks sortUsingSelector:@selector(compare:)];
         [tv setRowHeight:rowHeight];
@@ -1731,14 +1734,20 @@ To Do List:
             NSString * s;
             while(s = [e nextObject])
             {
-                if([s length] && ![_Ks containsObject:s])
+                if([s length])
                 {
-                    [_Ks addObject:s];
-                    [_EOs setObject:[[[NSMutableAttributedString allocWithZone:[self zone]]
+					NSString * key = s;
+					unsigned index = 0;
+					while([_Ks containsObject:key])
+					{
+						key = [s stringByAppendingFormat:@"-%u",++index];
+					}
+                    [_Ks addObject:key];
+					id MAS = [[[NSMutableAttributedString allocWithZone:[self zone]]
                         initWithString: @"?" attributes:
                             [NSDictionary dictionaryWithObject:[NSColor redColor]
-                                forKey: NSForegroundColorAttributeName]] autorelease]
-                        forKey: s];
+                                forKey: NSForegroundColorAttributeName]] autorelease];
+                    [_EOs setObject:MAS forKey: key];
                 }
             }
         }

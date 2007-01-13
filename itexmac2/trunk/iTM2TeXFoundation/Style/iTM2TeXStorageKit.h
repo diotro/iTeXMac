@@ -71,7 +71,7 @@ typedef enum _iTM2TeXInputMode
     kiTM2TeXParenOpenSyntaxMode,
     kiTM2TeXParenCloseSyntaxMode,
     kiTM2TeXBeginSubscriptSyntaxMode,
-    kiTM2TeXMoreSubscriptSyntaxMode,
+    kiTM2TeXMoreSubscriptSyntaxMode,//18
     kiTM2TeXShortSubscriptSyntaxMode,
     kiTM2TeXSubscriptSyntaxMode,
     kiTM2TeXBeginSuperscriptSyntaxMode,

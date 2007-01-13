@@ -293,8 +293,30 @@ To Do List:
     [KA setOutputFormat:NSPropertyListXMLFormat_v1_0];
     [KA encodeObject:dictionary forKey:@"iTM2:root"];
     [KA finishEncoding];
+	BOOL result = [MD writeToFile:fileName atomically:YES];
+
+	NSMutableDictionary * md = [NSMutableDictionary dictionary];
+	NSEnumerator * E = [dictionary objectEnumerator];
+	NSString * K;
+	while(K = [E nextObject])
+	{
+		NSMutableData * MD = [NSMutableData data];
+		NSKeyedArchiver * KA = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:MD] autorelease];
+		[KA setOutputFormat:NSPropertyListXMLFormat_v1_0];
+		[KA encodeObject:dictionary forKey:@"iTM2:root"];
+		[KA finishEncoding];
+		[MRA addObject:MD];
+	}
+	if([MRA count])
+	{
+		NSString * newFileName = [fileName stringByAppendingString:@"-new"];
+		if(![MRA writeToFile:newFileName atomically:YES])
+		{
+			iTM2_LOG(@"FAILED");
+		}
+	}
 //iTM2_END;
-    return [MD writeToFile:fileName atomically:YES];
+    return result;
 }
 @end
 
@@ -447,7 +469,7 @@ To Do List:
 			return kiTM2TeXNoErrorSyntaxStatus;
 		}
 	}
-	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = previousMode & ~kiTM2TextModifiersSyntaxMask;
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
 	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
     if([set characterIsMember:theChar])
@@ -935,7 +957,7 @@ To Do List:
 	NSRange r;
     NSParameterAssert(location<[S length]);
 	unsigned status;
-	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = previousMode & ~kiTM2TextModifiersSyntaxMask;
 	unichar theChar;
 	if(kiTM2TeXBeginCommandSyntaxMode == switcher)
 	{
@@ -1160,10 +1182,16 @@ To Do List:
         case kiTM2TeXShortSuperscriptSyntaxMode:
         case kiTM2TeXInputCommandSyntaxMode:
         case kiTM2TeXDingCommandSyntaxMode:
-        case kiTM2TeXErrorSyntaxMode:
         case kiTM2TeXShortCommandSyntaxMode:
         case kiTM2TeXBeginCommandSyntaxMode:
         case kiTM2TeXCellSeparatorSyntaxMode:
+			if(aRangePtr)
+			{
+				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
+			}
+			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
+            return [_AS attributesForMode:s];
+        case kiTM2TeXErrorSyntaxMode:
 			if(aRangePtr)
 			{
 				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
@@ -1180,13 +1208,17 @@ To Do List:
             if(++aLocation < endOffset)
                 return [self attributesAtIndex:aLocation effectiveRange:nil];
             else
-                return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode]];
+			{
+				s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode];
+                return [_AS attributesForMode:s];
+			}
         }
         default:
             iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
 			if(aRangePtr)
 				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
-            return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode]];
+			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
+            return [_AS attributesForMode:s];
     }
 }
 #if 0
@@ -1378,6 +1410,11 @@ To Do List:
 								return D;
 						}
 					}
+					if(aRangePtr)
+						*aRangePtr = r1;
+					s = [S substringWithRange:r1];
+                    if(D = [_AS attributesForSymbol:s])
+                        return D;
                 }
             }
 			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommandSyntaxMode];
@@ -1397,10 +1434,9 @@ To Do List:
         case kiTM2TeXCellSeparatorSyntaxMode:
         case kiTM2TeXInputCommandSyntaxMode:
         case kiTM2TeXErrorSyntaxMode:
-		{
 			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
             return [_AS attributesForMode:s];
-		}
+
         case kiTM2TeXCommandSyntaxMode:
         {
             if(r.location)
@@ -1634,9 +1670,14 @@ To Do List:
                 return [_AS attributesForMode:s];
 			}
         }
+        case kiTM2TeXUnknownSyntaxMode:
+			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXRegularSyntaxMode];
+            return [_AS attributesForMode:s];
+
         default:
 		{
             iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
+status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:&r];
 			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
             return [_AS attributesForMode:s];
 		}

@@ -2290,6 +2290,7 @@ To Do List:
 			}
 			else
 			{
+bailWithError:			
 				[workingML invalidateLocalRange:NSMakeRange(0, UINT_MAX)];
 				// fix the EOL mode lazily
 				[workingML setEOLMode:newMode];
@@ -2307,8 +2308,8 @@ To Do List:
 		{
 			// the character is appended to the line, and the line was not void
 			NSRange previousRange;
-			status = [workingML getSyntaxMode:&previousMode notEqualTo:kiTM2TextRegularSyntaxMode atGlobalLocation:aGlobalLocation-1 longestRange:&previousRange];
-			if(kiTM2TextMissingModeSyntaxStatus == status)
+			status = [workingML getSyntaxMode:&previousMode atGlobalLocation:aGlobalLocation-1 longestRange:&previousRange];
+			if(previousMode == kiTM2TextRegularSyntaxMode)
 			{
 				// the new character is not expected to modify the previous mode!
 				// the previous mode was regular text and should stay so
@@ -2324,14 +2325,32 @@ To Do List:
 				{
 					iTM2_LOG(@"***  FAILURE: could not append a character properly while there was a syntax error...");
 				}
+				goto bailWithError;// just above
 			}
 			else
 			{
+				// the newly appended character may change the previous modes too
+				[workingML deleteModesInRange:previousRange];
 				unsigned globalLocation = previousRange.location;
+deletePreviousRange:
+				if(globalLocation)
+				{
+					status = [workingML getSyntaxMode:&previousMode atGlobalLocation:globalLocation-1 longestRange:&previousRange];
+					if(previousMode != kiTM2TextRegularSyntaxMode)
+					{
+						[workingML deleteModesInRange:previousRange];
+						globalLocation = previousRange.location;
+						goto deletePreviousRange;
+					}
+				}
+				else
+				{
+					previousMode = [workingML previousMode];
+				}
+				// If the previous syntax mode is not regula
 				// we must also recompute all the syntax words that are ending the line and are not regular text
 				// actually, previousRange is the range of the preceding syntax word
 				// remove this last syntax word
-				[workingML deleteModesInRange:previousRange];
 				// everything was valid, but now the invalid range is
 				// from globalLocation to the end
 				unsigned previousLength = 0;
@@ -2340,17 +2359,17 @@ To Do List:
 				// NOW WE ARE FIXING THE ATTRIBUTES...
 				// localLocation is the first character index for which the mode is not yet fixed
 				unsigned localLocation = globalLocation-_ML->_StartOff7;
-			//[workingML describe];
-			//NSLog(@"Looking for globalLocation: %u (?%u)", globalLocation, newContentsEnd);
+//[workingML describe];
+//NSLog(@"Looking for globalLocation: %u (?%u)", globalLocation, newContentsEnd);
 				unsigned parsedMode = kiTM2TextUnknownSyntaxMode;
 				unsigned parsedLength = 0;
 				unsigned nextMode = kiTM2TextUnknownSyntaxMode;
 				// parsedLength is used as a cache
 fixGlobalLocationMode:
-		//NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, newContentsEnd: %u", globalLocation, newContentsEnd);
+//NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, newContentsEnd: %u", globalLocation, newContentsEnd);
 				status = [self getSyntaxMode:&parsedMode forLocation:globalLocation previousMode:previousMode effectiveLength:&parsedLength nextModeIn:&nextMode before:newContentsEnd];
-		//NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
-		//N+=length;
+//NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
+//N+=length;
 #warning INFINITE LOOP DUE TO A RETURNED 0 LENGTH... DUE TO A RANGE EXCEEDED (2)
 				if(parsedMode == previousMode)
 				{
@@ -2831,9 +2850,63 @@ To Do List:
     if(location < [workingML contentsEndOffset])
     {
 		NSRange affectedRange;
-		[workingML getSyntaxMode:nil atGlobalLocation:location longestRange:&affectedRange];
-		_iTM2InternalAssert([workingML deleteModesInRange:NSMakeRange(location, 1)], @"FAILED to delete a character... SAVE, RESTART iTeXMac2 and REPORT BUG.");
+		unsigned mode;
+		[workingML getSyntaxMode:&mode atGlobalLocation:location longestRange:&affectedRange];
+		if(![workingML deleteModesInRange:NSMakeRange(location, 1)])
+		{
+			// the mode line is no longer consistent
+			// replace with a safer one and abort
+			// [[self modeLineAtIndex:first] startOffset] <= location < [[self modeLineAtIndex:first] endOffset]
+			// except when location == [the_text_storage length], and the mode line is the last one
+			// [[self modeLineAtIndex:first] startOffset] <= location <= [[self modeLineAtIndex:first] endOffset]
+			unsigned begin, contentsEnd, end;
+			NSRange R = NSMakeRange(location, 0);
+			NSString * S = [[self textStorage] string];
+			[S getLineStart:&begin end:&end contentsEnd:&contentsEnd forRange:R];
+			workingML = [iTM2ModeLine modeLine];
+			// we create a new line
+			[workingML setEOLLength:end-contentsEnd];
+			// set the EOL length
+			[workingML setStartOffset:begin];
+			// set the offset
+			[workingML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-begin];
+		#ifdef __ELEPHANT_MODELINE__
+		#warning ELEPHANT MODE: For debugging purpose only... see iTM2TextStorageKit.h
+			[_ML->originalString release];
+			_ML->originalString = [[S substringWithRange:NSMakeRange(_ML->_StartOff7, _ML->_EndOff7-_ML->_StartOff7)] retain];
+		#endif
+			// fill it with some contents
+			[self replaceModeLineAtIndex:lineIndex withModeLine:workingML];
+			if(editedAttributesRangePtr)
+			{
+				unsigned offset = [workingML startOffset];
+				* editedAttributesRangePtr = NSMakeRange(offset, [_TS length]-offset);
+			}
+			R = NSMakeRange(0,UINT_MAX);
+			[workingML invalidateLocalRange:R];
+			[self invalidateModesFrom:lineIndex];
+			[self invalidateOffsetsFrom:lineIndex+1];
+			return;
+		}
         [workingML invalidateGlobalRange:affectedRange];
+		if((mode != kiTM2TextRegularSyntaxMode) || (affectedRange.length < 2))
+		{
+			// either a single regular character or a non regular one was deleted
+			// what is before and after is likely to change
+			iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)workingML;
+			while(affectedRange.location>_ML->_StartOff7)
+			{
+				[workingML getSyntaxMode:&mode atGlobalLocation:affectedRange.location-1 longestRange:&affectedRange];
+				if(mode == kiTM2TextRegularSyntaxMode)
+				{
+					break;
+				}
+				else
+				{
+					[workingML invalidateGlobalRange:affectedRange];
+				}
+			}
+		}
         [self invalidateModesFrom:lineIndex];
         [self invalidateOffsetsFrom:lineIndex+1];
 		if(editedAttributesRangePtr)
@@ -3194,21 +3267,21 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_START;
-    NSLog(@"_StartOff7: %i", _StartOff7);
-    NSLog(@"_CommentOff7: %i", _CommentOff7);
-    NSLog(@"_ContentsEndOff7: %i", _ContentsEndOff7);
-    NSLog(@"_EndOff7: %i", _EndOff7);
+    NSLog(@"_StartOff7: %u", _StartOff7);
+    NSLog(@"_CommentOff7: %u", _CommentOff7);
+    NSLog(@"_ContentsEndOff7: %u", _ContentsEndOff7);
+    NSLog(@"_EndOff7: %u", _EndOff7);
     // local coordinates
-    NSLog(@"_UncommentedLength: %i", _UncommentedLength);
-    NSLog(@"_ContentsLength: %i", _ContentsLength);
-    NSLog(@"_Length: %i", _Length);
-    NSLog(@"_EOLLength: %i", _EOLLength);
+    NSLog(@"_UncommentedLength: %u", _UncommentedLength);
+    NSLog(@"_ContentsLength: %u", _ContentsLength);
+    NSLog(@"_Length: %u", _Length);
+    NSLog(@"_EOLLength: %u", _EOLLength);
     NSLog(@"_InvalidLocalRange: %@", NSStringFromRange(_InvalidLocalRange));
     // modes
-    NSLog(@"_PreviousMode: %i", _PreviousMode);
-    NSLog(@"_EOLMode: %i", _EOLMode);
-    NSLog(@"_NumberOfSyntaxWords: %i", _NumberOfSyntaxWords);
-    NSLog(@"_MaxNumberOfSyntaxWords: %i", _MaxNumberOfSyntaxWords);
+    NSLog(@"_PreviousMode: %u", _PreviousMode);
+    NSLog(@"_EOLMode: %u", _EOLMode);
+    NSLog(@"_NumberOfSyntaxWords: %u", _NumberOfSyntaxWords);
+    NSLog(@"_MaxNumberOfSyntaxWords: %u", _MaxNumberOfSyntaxWords);
     unsigned idx = 0;
     while(idx<_NumberOfSyntaxWords)
     {
@@ -4071,8 +4144,8 @@ pano2:
 		return kiTM2TextRangeExceededSyntaxStatus;
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
-- (unsigned)getSyntaxMode:(unsigned *)modeRef notEqualTo:(unsigned)excludeMode atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getPreviousSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
+- (unsigned)getPreviousSyntaxMode:(unsigned *)modeRef notEqualTo:(unsigned)excludeMode atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming. aGlobalLocation is global.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4103,15 +4176,10 @@ next:
 		if(aRangePtr->location > _StartOff7)
 		{
 			status = [self getSyntaxMode:&mode atGlobalLocation:aRangePtr->location-1 longestRange:&r];
-			if(status == kiTM2TextMissingModeSyntaxStatus)
+			if((status == kiTM2TextMissingModeSyntaxStatus) || (mode == excludeMode))
 			{
 				aRangePtr->length -= aRangePtr->location;// now this is a real range
 				return kiTM2TextNoErrorSyntaxStatus;
-			}
-			if(mode == excludeMode)
-			{
-				aRangePtr->length -= aRangePtr->location;// now this is a real range
-				return kiTM2TextMissingModeSyntaxStatus;
 			}
 			if(modeRef)
 			{

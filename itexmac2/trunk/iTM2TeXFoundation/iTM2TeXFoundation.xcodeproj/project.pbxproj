@@ -293,7 +293,7 @@
 		DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXDocumentToolbar.m; sourceTree = "<group>"; };
 		DC05CBD60919FDFD0003E471 /* iTM2TeXProjectCommandKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXProjectCommandKit.h; sourceTree = "<group>"; };
 		DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXProjectCommandKit.m; sourceTree = "<group>"; };
-		DC1C6B32090D983F000F4FDE /* Test TeX Application.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "Test TeX Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC1C6B32090D983F000F4FDE /* Test TeX Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test TeX Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC225F640AE53C1A00186582 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DC225F660AE53C1A00186582 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC225F680AE53C1A00186582 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
