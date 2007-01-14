@@ -2333,7 +2333,7 @@ bailWithError:
 				[workingML deleteModesInRange:previousRange];
 				unsigned globalLocation = previousRange.location;
 deletePreviousRange:
-				if(globalLocation)
+				if(globalLocation>_ML->_StartOff7)
 				{
 					status = [workingML getSyntaxMode:&previousMode atGlobalLocation:globalLocation-1 longestRange:&previousRange];
 					if(previousMode != kiTM2TextRegularSyntaxMode)

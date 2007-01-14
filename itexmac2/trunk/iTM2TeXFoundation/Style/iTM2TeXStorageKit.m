@@ -293,30 +293,8 @@ To Do List:
     [KA setOutputFormat:NSPropertyListXMLFormat_v1_0];
     [KA encodeObject:dictionary forKey:@"iTM2:root"];
     [KA finishEncoding];
-	BOOL result = [MD writeToFile:fileName atomically:YES];
-
-	NSMutableDictionary * md = [NSMutableDictionary dictionary];
-	NSEnumerator * E = [dictionary objectEnumerator];
-	NSString * K;
-	while(K = [E nextObject])
-	{
-		NSMutableData * MD = [NSMutableData data];
-		NSKeyedArchiver * KA = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:MD] autorelease];
-		[KA setOutputFormat:NSPropertyListXMLFormat_v1_0];
-		[KA encodeObject:dictionary forKey:@"iTM2:root"];
-		[KA finishEncoding];
-		[MRA addObject:MD];
-	}
-	if([MRA count])
-	{
-		NSString * newFileName = [fileName stringByAppendingString:@"-new"];
-		if(![MRA writeToFile:newFileName atomically:YES])
-		{
-			iTM2_LOG(@"FAILED");
-		}
-	}
 //iTM2_END;
-    return result;
+	return [MD writeToFile:fileName atomically:YES];
 }
 @end
 
