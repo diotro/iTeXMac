@@ -1979,5 +1979,7 @@
 	<string>Laurens'Tribune</string>
 	<key>crashReporterEmail</key>
 	<string>jlaurens@users.sourceforge.net</string>
+	<key>iTM2SourceVersion</key>
+	<string>SVN_BUILD_NUMBER</string>
 </dict>
 </plist>
