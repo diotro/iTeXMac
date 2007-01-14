@@ -190,6 +190,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>DCB5302D0B59B9DB00CD713D</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>make-diskimage.command</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCB5302E0B59B9DB00CD713D</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>make-diskimage.command</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCB531240B59CBF000CD713D</string>
+						<key>history</key>
+						<array>
+							<string>DCB530F60B59C9C000CD713D</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {925, 727}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>15 105 925 768 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>DCE258740B5835AA00B9CAFF</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2TextStorageKit.m</string>
@@ -204,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB52F7B0B59B54E00CD713D</string>
+						<string>DCB531260B59CBF000CD713D</string>
 						<key>history</key>
 						<array>
 							<string>DCE259B40B584D0400B9CAFF</string>
@@ -244,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB52F7C0B59B54E00CD713D</string>
+						<string>DCB531270B59CBF000CD713D</string>
 						<key>history</key>
 						<array>
 							<string>DCE259B10B584D0400B9CAFF</string>
@@ -284,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB52F7D0B59B54E00CD713D</string>
+						<string>DCB531280B59CBF000CD713D</string>
 						<key>history</key>
 						<array>
 							<string>DCE259B20B584D0400B9CAFF</string>
@@ -324,7 +364,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCB52F7E0B59B54E00CD713D</string>
+						<string>DCB531290B59CBF000CD713D</string>
 						<key>history</key>
 						<array>
 							<string>DCE259B30B584D0400B9CAFF</string>
@@ -421,16 +461,19 @@
 								<string>DCDC062C09E690310038845F</string>
 								<string>DC66983708E0B554004FCA6D</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DCB530B30B59C20E00CD713D</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>0</integer>
+									<integer>51</integer>
+									<integer>50</integer>
+									<integer>49</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {237, 732}}</string>
+							<string>{{0, 478}, {237, 732}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -477,7 +520,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCB52F7A0B59B54E00CD713D</string>
+										<string>DCB531230B59CBF000CD713D</string>
 										<key>history</key>
 										<array>
 											<string>DC22636A0AE69A4500186582</string>
@@ -725,7 +768,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCB52F7F0B59B54E00CD713D</string>
 		<string>DCB52F760B59B1FB00CD713D</string>
 		<string>DCB52F770B59B1FB00CD713D</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
@@ -735,8 +777,9 @@
 		<string>DCB1E8A10B52657800B0704A</string>
 		<string>DCB1E88D0B52567A00B0704A</string>
 		<string>DCE258740B5835AA00B9CAFF</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
+		<string>DCB5302D0B59B9DB00CD713D</string>
 	</array>
 	<key>WindowString</key>
 	<string>12 84 1396 791 0 0 1440 878 </string>
