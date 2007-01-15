@@ -120,7 +120,8 @@ static NSString * const iTM2ProjectContextKeyedFilesKey = @"FileContexts";
 NSString * const iTM2ProjectFileKeyKey = @"iTM2ProjectFileKey";
 NSString * const iTM2ProjectAbsolutePathKey = @"iTM2ProjectAbsolutePath";
 NSString * const iTM2ProjectRelativePathKey = @"iTM2ProjectRelativePath";
-NSString * const iTM2ProjectAliasPathKey = @"iTM2ProjectAliasPathKey";// unused
+NSString * const iTM2ProjectOwnPathKey = @"iTM2ProjectOwnPathKey";
+NSString * const iTM2ProjectOwnAliasKey = @"iTM2ProjectOwnAliasKey";
 
 @interface NSArray(iTM2ProjectDocumentKit)
 - (NSArray *)arrayWithCommonFirstObjectsOfArray:(NSArray *)array;
@@ -1372,12 +1373,13 @@ To Do List:
         {
             iTM2_LOG(@"The documents to be opened are:%@",previouslyOpenDocuments);
         }
-        NSString * dirName = [[self fileName] stringByDeletingLastPathComponent];
+        NSString * dirName = [self fileName];
 		if([dirName belongsToFarawayProjectsDirectory])
 		{
+			dirName = [dirName enclosingWrapperFileName];
 			dirName = [dirName stringByStrippingFarawayProjectsDirectory];
-			dirName = [dirName stringByDeletingLastPathComponent];
 		}
+		dirName = [dirName stringByDeletingLastPathComponent];
         NSEnumerator * E = [previouslyOpenDocuments objectEnumerator];
         NSString * K;
         while(K = [E nextObject])
@@ -2185,28 +2187,28 @@ To Do List:
 			NSString * path = [self fileName];
 			iTM2_LOG(@"WARNING: automatic correction of project named %@\na file name for key %@ was expected to be relative: %@",
 				path,key,result);
-			path = [path stringByDeletingLastPathComponent];
 			if([path belongsToFarawayProjectsDirectory])
 			{
 				if([result belongsToFarawayProjectsDirectory])
 				{
-					result = [result stringByAbbreviatingWithDotsRelativeToDirectory:path];
+					path = [path stringByDeletingLastPathComponent];
 				}
 				else
 				{
+					path = [path enclosingWrapperFileName];
 					path = [path stringByStrippingFarawayProjectsDirectory];
-					result = [result stringByAbbreviatingWithDotsRelativeToDirectory:path];
+					path = [path stringByDeletingLastPathComponent];
 				}
 			}
 			else if([result belongsToFarawayProjectsDirectory])
 			{
-				result = [result stringByStrippingFarawayProjectsDirectory];
-				result = [result stringByAbbreviatingWithDotsRelativeToDirectory:path];
+				result = [result stringByStrippingFarawayProjectsDirectory];// to be revisited
 			}
 			else
 			{
-				result = [result stringByAbbreviatingWithDotsRelativeToDirectory:path];
+				path = [path stringByDeletingLastPathComponent];
 			}
+			result = [result stringByAbbreviatingWithDotsRelativeToDirectory:path];
 			[keyedFileNames setValue:result forKey:key];
 		}
 		return result;
@@ -5520,10 +5522,9 @@ To Do List:
     iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
     NSString * projectFileName = [projectDocument fileName];
     NSString * dirName = [projectFileName stringByStandardizingPath];
-	NSString * EPD = [NSString farawayProjectsDirectory];
 	if([dirName belongsToFarawayProjectsDirectory])
 	{
-		dirName = [dirName substringWithRange:NSMakeRange([EPD length],[dirName length] - [EPD length])];
+		dirName = [dirName stringByStrippingFarawayProjectsDirectory];
 		dirName = [dirName stringByDeletingLastPathComponent];
 	}
 	dirName = [dirName stringByDeletingLastPathComponent];
@@ -5992,17 +5993,26 @@ To Do List:
 	NSString * PFN = [P fileName];
 	if([PFN length])
 	{
-		[self takeContextValue:[[PFN copy] autorelease] forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextAllDomainsMask];
-		[self takeContextValue:[PFN stringByAbbreviatingWithDotsRelativeToDirectory:[FN stringByDeletingLastPathComponent]] forKey:iTM2ProjectRelativePathKey domain:iTM2ContextAllDomainsMask];
-		[self takeContextValue:[P keyForFileName:FN] forKey:iTM2ProjectFileKeyKey domain:iTM2ContextAllDomainsMask];
-//		[self takeContextValue:forKey:iTM2ProjectAliasPathKey domain:iTM2ContextAllDomainsMask];
+		[self takeContextValue:[[PFN copy] autorelease] forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextPrivateMask];
+		[self takeContextValue:[PFN stringByAbbreviatingWithDotsRelativeToDirectory:[FN stringByDeletingLastPathComponent]] forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
+		[self takeContextValue:[P keyForFileName:FN] forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
 	}
 	else
 	{
-		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextAllDomainsMask];
-		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectRelativePathKey domain:iTM2ContextAllDomainsMask];
-		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectFileKeyKey domain:iTM2ContextAllDomainsMask];
+		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextPrivateMask];
+		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
+		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
 	}
+	NSData * aliasData = [FN dataAliasRelativeTo:nil error:nil];
+	if(aliasData)
+	{
+		[self takeContextValue:aliasData forKey:iTM2ProjectOwnAliasKey domain:iTM2ContextPrivateMask];
+	}
+	NSString * key = [P keyForSubdocument:self];
+	[self takeContextValue:key forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
+	[self takeContextValue:FN forKey:iTM2ProjectOwnAbsolutePathKey domain:iTM2ContextPrivateMask];
+	FN = [P relativeFileNameForKey:key];
+	[self takeContextValue:FN forKey:iTM2ProjectOwnRelativePathKey domain:iTM2ContextPrivateMask];
 //iTM2_END;
     return;
 }

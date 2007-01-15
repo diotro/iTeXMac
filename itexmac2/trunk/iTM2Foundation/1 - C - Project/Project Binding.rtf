@@ -1,0 +1,108 @@
+{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf420
+{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww19220\viewh15820\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Notes on project consistency.\
+\
+In iTeXMac2, files belong to projects. There is no binding for such a purpose in the file system.\
+The current design for such a binding is:\
+\
+Any document keeps 7 tracks of its project and itself as private metada:\
+1 Finder Alias to the project\
+2 Full path of the project\
+3 Path of the project relative to the document's enclosing directory\
+4 Finder Alias to itself\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 5 Own full path\
+6 Own path relative to its project\
+7 key in the project (key are unique identifiers of project subdocuments)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+NB: problems with mounted points\
+\
+From the project side, some kind of reverse information is recorded.\
+The projects keeps tracks of its documents in\
+1 a Finder Alias\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 2 Full path of the document\
+3 Path of the document relative to the project as directory\
+4 document key (see above)\
+It keeps tracks of itself with\
+5 Finder Alias to itself\
+6 Own full path\
+\
+There are some problems specific to faraway projects. They will be discussed later on.\
+\
+There are situations where this binding was naturally broken out of iTeXMac2 control, for example from the Finder.\
+More precisely when files are moved, removed, duplicated, remounted, the binding will be most certainly broken.\
+\
+The question is to explain how to recover a consistent state.\
+\
+First we discuss all the possible ways of breaking the binding.\
+\
+Projects can be\
+- untouched\
+- renamed,\
+- moved,\
+- moved and renamed\
+- removed,\
+\
+When projects are removed, there is nothing we can do except retrieve from an archive.\
+\
+The same holds for the documents, files can be\
+- untouched\
+- renamed,\
+- moved,\
+- moved and renamed\
+- removed,\
+\
+Now removed documents must be considered.\
+\
+If the project is included in a wrapper, it is unlikely that the whole project will be broken, but we must consider this situation as well.\
+\
+How do we know that files or projects have been modified since the last save?\
+The proper question is "How do we decide that files or projects have been modified since the last save?"\
+This is based on the Alias and full path information.\
+\
+Let us forget for a little while project design.\
+For each document including projects, we have 3 informations:\
+- the old file name: OFN\
+- the resolved file name (Alias resolved): RFN\
+- the actual file name: AFN\
+In general, we have\
+OFN=RFN=AFN: untouched\
+OFN=RFN\'adAFN: duplicated or remounted\
+OFN=AFN\'adRFN: duplicated or remounted + possibly renamed\
+RFN=AFN\'adOFN: moved\
+OFN\'adAFN\'adRFN\'adOFN: messed around\
+\
+Given a document that is not itself a project, how do we retrieve the project it belongs to?\
+\
+1 - if the document is contained in a wrapper, no problem except possible inconsistency.\
+If the wrapper does not contain any project, this is a big problem\
+We create a project at the proper location then feed it with informations relative to the document\
+If the wrapper contains one project, we must see if this is consistent with the document.\
+the file name->key->file name should cycle\
+\
+The key->file name->key cycle consistency\
+\
+If the project already has a key for the document file name,\
+If this key is the one the document remembers, it is ok.\
+Otherwise, the document was previously known with a different key.\
+It has certainly been renamed.\
+\
+We always have to update the private context!\
+\
+If the given document knows its own key, we see if the project also knows this key\
+If yes, get the relative file name associated with this key\
+If this corresponds to the document file name relative to the project, we are done.\
+If not, \
+If the project does not know the document key, may be it registered the document with another key (how?)\
+Get the project key for the document file name. \
+\
+2 - \
+\
+\
+}

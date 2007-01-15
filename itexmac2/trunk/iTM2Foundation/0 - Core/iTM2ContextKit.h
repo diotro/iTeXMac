@@ -31,12 +31,13 @@ enum
 	iTM2ContextNoDomainMask = 0,// Nothing
 	iTM2ContextStandardLocalMask = 1 << 1,// private to the object
 	iTM2ContextStandardProjectMask = 1 << 2,// share with the default
-	iTM2ContextExtendedProjectMask = 1 << 3,// share the extension with the default
+	iTM2ContextExtendedProjectMask = 1 << 3,// share the extension with the project
 	iTM2ContextExtendedDefaultsMask = 1 << 4,// share the extension with the default
 	iTM2ContextStandardDefaultsMask = 1 << 5,// share with the default
 	iTM2ContextDefaultsMask = iTM2ContextStandardDefaultsMask|iTM2ContextExtendedDefaultsMask,
 	iTM2ContextProjectMask = iTM2ContextStandardProjectMask|iTM2ContextExtendedProjectMask,
-	iTM2ContextStandardMask = iTM2ContextStandardLocalMask|iTM2ContextStandardDefaultsMask|iTM2ContextStandardProjectMask,
+	iTM2ContextPrivateMask = iTM2ContextStandardLocalMask|iTM2ContextStandardProjectMask,
+	iTM2ContextStandardMask = iTM2ContextPrivateMask|iTM2ContextStandardDefaultsMask,
 	iTM2ContextExtendedMask = iTM2ContextExtendedDefaultsMask|iTM2ContextExtendedProjectMask,
 	iTM2ContextAllDomainsMask = ~iTM2ContextNoDomainMask
 };

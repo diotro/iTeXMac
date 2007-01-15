@@ -1053,7 +1053,7 @@ To Do List:
 @implementation iTM2PDFInspector(iTM2KeyStrokeKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
 - (NSString *)keyBindingsManagerIdentifier;
-/*"Just to autorelease the window controller of the window.
+/*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
 To Do List:

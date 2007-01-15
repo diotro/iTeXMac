@@ -57,6 +57,7 @@ extern NSString * const iTM2ProjectDefaultsKey;
 extern NSString * const iTM2NewDocumentEnclosedInWrapperKey;
 extern NSString * const iTM2NewProjectCreationModeKey;
 
+extern NSString * const iTM2PROJECT_PATHComponent;
 
 /*!
     @const      iTM2ProjectPathExtension
@@ -1187,11 +1188,25 @@ extern NSString * const iTM2ProjectAbsolutePathKey;
 extern NSString * const iTM2ProjectRelativePathKey;
 
 /*!
-    @const		iTM2ProjectAliasPathKey
+    @const		iTM2ProjectOwnRelativePathKey
     @abstract   Context key
-    @discussion value: @"iTM2ProjectAliasPathKey"
+    @discussion value: @"iTM2ProjectOwnRelativePathKey"
 */
-extern NSString * const iTM2ProjectAliasPathKey;// unused
+extern NSString * const iTM2ProjectOwnRelativePathKey;
+
+/*!
+    @const		iTM2ProjectOwnAbsolutePathKey
+    @abstract   Context key
+    @discussion value: @"iTM2ProjectOwnAbsolutePathKey"
+*/
+extern NSString * const iTM2ProjectOwnAbsolutePathKey;
+
+/*!
+    @const		iTM2ProjectOwnAliasKey
+    @abstract   Context key
+    @discussion value: @"iTM2ProjectOwnAliasKey"
+*/
+extern NSString * const iTM2ProjectOwnAliasKey;
 
 @interface NSDocument(iTM2ProjectKit)
 
