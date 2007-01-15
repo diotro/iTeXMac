@@ -174,6 +174,9 @@
 			DCEE5B200B5AF90D00E47ED9 /* PBXTextBookmark */ = DCEE5B200B5AF90D00E47ED9 /* PBXTextBookmark */;
 			DCEE5B230B5AF90D00E47ED9 /* PBXTextBookmark */ = DCEE5B230B5AF90D00E47ED9 /* PBXTextBookmark */;
 			DCEE5B240B5AF90D00E47ED9 /* PBXTextBookmark */ = DCEE5B240B5AF90D00E47ED9 /* PBXTextBookmark */;
+			DCEE5DD30B5BB91F00E47ED9 /* PBXTextBookmark */ = DCEE5DD30B5BB91F00E47ED9 /* PBXTextBookmark */;
+			DCEE5DD40B5BB91F00E47ED9 /* PBXTextBookmark */ = DCEE5DD40B5BB91F00E47ED9 /* PBXTextBookmark */;
+			DCEE5DD50B5BB91F00E47ED9 /* PBXTextBookmark */ = DCEE5DD50B5BB91F00E47ED9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -312,7 +315,7 @@
 	DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1764, 52190}}";
-			sepNavSelRange = "{111905, 0}";
+			sepNavSelRange = "{115244, 0}";
 			sepNavVisRect = "{{0, 48342}, {1135, 601}}";
 			sepNavWindowFrame = "{{84, 95}, {1174, 674}}";
 		};
@@ -410,6 +413,36 @@
 		vrLoc = 108878;
 	};
 	DCEE5B240B5AF90D00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
+		name = "iTM2LaTeXKit.h: 176";
+		rLen = 0;
+		rLoc = 5537;
+		rType = 0;
+		vrLen = 1387;
+		vrLoc = 450;
+	};
+	DCEE5DD30B5BB91F00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "iTM2LaTeXKit.m: 3070";
+		rLen = 0;
+		rLoc = 115244;
+		rType = 0;
+		vrLen = 1293;
+		vrLoc = 107999;
+	};
+	DCEE5DD40B5BB91F00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "iTM2LaTeXKit.m: 3070";
+		rLen = 0;
+		rLoc = 115244;
+		rType = 0;
+		vrLen = 1110;
+		vrLoc = 108902;
+	};
+	DCEE5DD50B5BB91F00E47ED9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
 		name = "iTM2LaTeXKit.h: 176";

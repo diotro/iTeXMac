@@ -9,13 +9,13 @@
 		);
 		breakpoints = (
 			DC0090C80A6AFE91009236E8 /* iTM2TeXPCompileWrapperKit.m:537 */,
-			DC2678480A6D4530001B9EC5 /* iTM2ProjectDocumentKit.m:8008 */,
+			DC2678480A6D4530001B9EC5 /* iTM2ProjectDocumentKit.m:8009 */,
 			DC31FE090AC9B88400FF576B /* -[NSException raise] */,
 			DC3E1A720AECFDD8009BC4BA /* iTM2ServerKit.m:561 */,
 			DC00900D0A6AF11C009236E8 /* iTM2TeXPCompileWrapperKit.m:948 */,
 			DC3E17BB0AEC9BC7009BC4BA /* iTM2TeXProjectDocumentKit.m:1075 */,
 			DC9CBE330AEE0F18006215B4 /* iTM2TeXProjectDocumentKit.m:1084 */,
-			DC3E18770AECC83D009BC4BA /* iTM2ProjectDocumentKit.m:7961 */,
+			DC3E18770AECC83D009BC4BA /* iTM2ProjectDocumentKit.m:7962 */,
 			DC3B3D4A0A4AC5D300E83ABA /* iTM2ServerKit.m:1190 */,
 			DC958B800AD694070092F69A /* iTM2TeXProjectDocumentKit.m:770 */,
 			DCBDE2320B2F05D70087B48A /* iTM2FileManagerKit.m:916 */,
@@ -25,7 +25,7 @@
 			DCBDA7950AFFA99000522BD9 /* iTM2TeXDocumentKit.m:718 */,
 			DC1A0C4B0B2EECAB00E75DA8 /* iTM2TeXDocumentKit.m:436 */,
 			DCBDE2590B2F128F0087B48A /* iTM2FileManagerKit.m:1064 */,
-			DC1A0BFA0B2EE42F00E75DA8 /* iTM2ProjectDocumentKit.m:3062 */,
+			DC1A0BFA0B2EE42F00E75DA8 /* iTM2ProjectDocumentKit.m:3063 */,
 			DC9CBE5D0AEE1258006215B4 /* iTM2TeXProjectDocumentKit.m:1153 */,
 			DCF994E30AEE9EB0005740A2 /* iTM2TeXProjectDocumentKit.m:1178 */,
 			DCF995120AEEA55D005740A2 /* iTM2TeXProjectDocumentKit.m:1153 */,
@@ -233,6 +233,8 @@
 			DCEE5D150B5BA15800E47ED9 /* PBXTextBookmark */ = DCEE5D150B5BA15800E47ED9 /* PBXTextBookmark */;
 			DCEE5D160B5BA16100E47ED9 /* PBXTextBookmark */ = DCEE5D160B5BA16100E47ED9 /* PBXTextBookmark */;
 			DCEE5DAF0B5BB65A00E47ED9 /* PBXTextBookmark */ = DCEE5DAF0B5BB65A00E47ED9 /* PBXTextBookmark */;
+			DCEE5DDE0B5BB92000E47ED9 /* PBXTextBookmark */ = DCEE5DDE0B5BB92000E47ED9 /* PBXTextBookmark */;
+			DCEE5DF40B5BBE9200E47ED9 /* PBXTextBookmark */ = DCEE5DF40B5BBE9200E47ED9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -349,7 +351,7 @@
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.m";
 		sourceTree = "<group>";
 	};
-	DC1A0BFA0B2EE42F00E75DA8 /* iTM2ProjectDocumentKit.m:3062 */ = {
+	DC1A0BFA0B2EE42F00E75DA8 /* iTM2ProjectDocumentKit.m:3063 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -359,7 +361,7 @@
 		fileReference = DC1A0BF80B2EE42F00E75DA8 /* iTM2ProjectDocumentKit.m */;
 		functionName = "-_recordHandleToFileURL:";
 		hitCount = 1;
-		lineNumber = 3062;
+		lineNumber = 3063;
 		location = iTM2Foundation;
 		modificationTime = 190543209.488344;
 		state = 1;
@@ -448,7 +450,7 @@
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.m";
 		sourceTree = "<absolute>";
 	};
-	DC2678480A6D4530001B9EC5 /* iTM2ProjectDocumentKit.m:8008 */ = {
+	DC2678480A6D4530001B9EC5 /* iTM2ProjectDocumentKit.m:8009 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -458,7 +460,7 @@
 		fileReference = DC2678460A6D4530001B9EC5 /* iTM2ProjectDocumentKit.m */;
 		functionName = "-getProjectFromPanelForFileNameRef:display:error:";
 		hitCount = 1;
-		lineNumber = 8008;
+		lineNumber = 8009;
 		location = iTM2Foundation;
 		modificationTime = 190543203.643813;
 		state = 1;
@@ -546,7 +548,7 @@
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.m";
 		sourceTree = "<group>";
 	};
-	DC3E18770AECC83D009BC4BA /* iTM2ProjectDocumentKit.m:7961 */ = {
+	DC3E18770AECC83D009BC4BA /* iTM2ProjectDocumentKit.m:7962 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -556,7 +558,7 @@
 		fileReference = DC3E18750AECC83D009BC4BA /* iTM2ProjectDocumentKit.m */;
 		functionName = "-getProjectFromPanelForFileNameRef:display:error:";
 		hitCount = 1;
-		lineNumber = 7961;
+		lineNumber = 7962;
 		location = iTM2Foundation;
 		modificationTime = 190543205.581708;
 		state = 1;
@@ -568,7 +570,7 @@
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.m";
 		sourceTree = "<group>";
 	};
-	DC3E187C0AECC898009BC4BA /* iTM2ProjectDocumentKit.m:7879 */ = {
+	DC3E187C0AECC898009BC4BA /* iTM2ProjectDocumentKit.m:7880 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -578,7 +580,7 @@
 		fileReference = DC3E187A0AECC898009BC4BA /* iTM2ProjectDocumentKit.m */;
 		functionName = "-newFarawayProjectForFileName:display:error:";
 		hitCount = 1;
-		lineNumber = 7879;
+		lineNumber = 7880;
 		location = iTM2Foundation;
 		modificationTime = 190551522.921542;
 		state = 1;
@@ -590,7 +592,7 @@
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.m";
 		sourceTree = "<group>";
 	};
-	DC3E18E40AECCDA7009BC4BA /* iTM2ProjectDocumentKit.m:3496 */ = {
+	DC3E18E40AECCDA7009BC4BA /* iTM2ProjectDocumentKit.m:3497 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -600,7 +602,7 @@
 		fileReference = DC3E18E20AECCDA7009BC4BA /* iTM2ProjectDocumentKit.m */;
 		functionName = "-openSubdocumentForKey:display:error:";
 		hitCount = 1;
-		lineNumber = 3496;
+		lineNumber = 3497;
 		location = iTM2Foundation;
 		modificationTime = 190551564.818208;
 		state = 1;
@@ -748,8 +750,8 @@
 	DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1892, 35479}}";
-			sepNavSelRange = "{20216, 22}";
-			sepNavVisRect = "{{0, 8702}, {1040, 586}}";
+			sepNavSelRange = "{76837, 0}";
+			sepNavVisRect = "{{0, 8729}, {988, 682}}";
 			sepNavWindowFrame = "{{-4, 2}, {1258, 830}}";
 		};
 	};
@@ -1721,7 +1723,7 @@
 			DC3B3D4A0A4AC5D300E83ABA /* iTM2ServerKit.m:1190 */,
 			DC00900D0A6AF11C009236E8 /* iTM2TeXPCompileWrapperKit.m:948 */,
 			DC0090C80A6AFE91009236E8 /* iTM2TeXPCompileWrapperKit.m:537 */,
-			DC2678480A6D4530001B9EC5 /* iTM2ProjectDocumentKit.m:8008 */,
+			DC2678480A6D4530001B9EC5 /* iTM2ProjectDocumentKit.m:8009 */,
 			DC89F31D0A6EEA0E001272DD /* iTM2TeXStorageKit.m:742 */,
 			DC89F31F0A6EEA11001272DD /* iTM2TeXStorageKit.m:858 */,
 			DC89F3210A6EEA13001272DD /* iTM2TeXStorageKit.m:894 */,
@@ -1738,9 +1740,9 @@
 			DC958B800AD694070092F69A /* iTM2TeXProjectDocumentKit.m:770 */,
 			DCF956EE0ADFBF7100672833 /* iTM2PDFSYNCKit.m:904 */,
 			DC3E17BB0AEC9BC7009BC4BA /* iTM2TeXProjectDocumentKit.m:1075 */,
-			DC3E18770AECC83D009BC4BA /* iTM2ProjectDocumentKit.m:7961 */,
-			DC3E187C0AECC898009BC4BA /* iTM2ProjectDocumentKit.m:7879 */,
-			DC3E18E40AECCDA7009BC4BA /* iTM2ProjectDocumentKit.m:3496 */,
+			DC3E18770AECC83D009BC4BA /* iTM2ProjectDocumentKit.m:7962 */,
+			DC3E187C0AECC898009BC4BA /* iTM2ProjectDocumentKit.m:7880 */,
+			DC3E18E40AECCDA7009BC4BA /* iTM2ProjectDocumentKit.m:3497 */,
 			DC3E1A620AECFC12009BC4BA /* iTM2ServerKit.m:733 */,
 			DC3E1A720AECFDD8009BC4BA /* iTM2ServerKit.m:561 */,
 			DC9CBE330AEE0F18006215B4 /* iTM2TeXProjectDocumentKit.m:1084 */,
@@ -1752,13 +1754,13 @@
 			DCBF20B30B1CF676002B1373 /* iTM2PDFSYNCKit.m:904 */,
 			DCBF20B60B1CF699002B1373 /* iTM2PDFSYNCKit.m:1701 */,
 			DCBF20C20B1CF944002B1373 /* iTM2TeXProjectFrontendKit.m:89 */,
-			DC1A0BFA0B2EE42F00E75DA8 /* iTM2ProjectDocumentKit.m:3062 */,
+			DC1A0BFA0B2EE42F00E75DA8 /* iTM2ProjectDocumentKit.m:3063 */,
 			DC1A0C4B0B2EECAB00E75DA8 /* iTM2TeXDocumentKit.m:436 */,
 			DCBDE2320B2F05D70087B48A /* iTM2FileManagerKit.m:916 */,
 			DCBDE2350B2F05DB0087B48A /* iTM2FileManagerKit.m:930 */,
 			DCBDE2590B2F128F0087B48A /* iTM2FileManagerKit.m:1064 */,
 			DCBDE3C70B2FF26F0087B48A /* iTM2FileManagerKit.m:1621 */,
-			DCE54E6D0B384432003615FA /* iTM2ProjectDocumentKit.m:9300 */,
+			DCE54E6D0B384432003615FA /* iTM2ProjectDocumentKit.m:9301 */,
 			DC3A9FEC0B56CB8C0084424F /* iTM2TeXStorageKit.m:1682 */,
 		);
 	};
@@ -1769,7 +1771,7 @@
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.m";
 		sourceTree = "<group>";
 	};
-	DCE54E6D0B384432003615FA /* iTM2ProjectDocumentKit.m:9300 */ = {
+	DCE54E6D0B384432003615FA /* iTM2ProjectDocumentKit.m:9301 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1779,7 +1781,7 @@
 		fileReference = DCE54E6B0B384432003615FA /* iTM2ProjectDocumentKit.m */;
 		functionName = "-openDocumentWithContentsOfURL:display:error:";
 		hitCount = 1;
-		lineNumber = 9300;
+		lineNumber = 9301;
 		location = iTM2Foundation;
 		modificationTime = 190543230.971439;
 		state = 1;
@@ -2026,6 +2028,26 @@
 		name = writeSymbolsAttributes;
 		rLen = 22;
 		rLoc = 20216;
+		rType = 0;
+		vrLen = 1450;
+		vrLoc = 19345;
+	};
+	DCEE5DDE0B5BB92000E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */;
+		name = "iTM2TeXStyleEditionKit.m: 2087";
+		rLen = 0;
+		rLoc = 76837;
+		rType = 0;
+		vrLen = 1450;
+		vrLoc = 19345;
+	};
+	DCEE5DF40B5BBE9200E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */;
+		name = "iTM2TeXStyleEditionKit.m: 2087";
+		rLen = 0;
+		rLoc = 76837;
 		rType = 0;
 		vrLen = 1450;
 		vrLoc = 19345;

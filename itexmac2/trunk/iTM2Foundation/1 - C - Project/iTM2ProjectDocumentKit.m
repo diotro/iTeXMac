@@ -120,7 +120,8 @@ static NSString * const iTM2ProjectContextKeyedFilesKey = @"FileContexts";
 NSString * const iTM2ProjectFileKeyKey = @"iTM2ProjectFileKey";
 NSString * const iTM2ProjectAbsolutePathKey = @"iTM2ProjectAbsolutePath";
 NSString * const iTM2ProjectRelativePathKey = @"iTM2ProjectRelativePath";
-NSString * const iTM2ProjectOwnPathKey = @"iTM2ProjectOwnPathKey";
+NSString * const iTM2ProjectOwnRelativePathKey = @"iTM2ProjectOwnRelativePathKey";
+NSString * const iTM2ProjectOwnAbsolutePathKey = @"iTM2ProjectOwnAbsolutePathKey";
 NSString * const iTM2ProjectOwnAliasKey = @"iTM2ProjectOwnAliasKey";
 
 @interface NSArray(iTM2ProjectDocumentKit)
@@ -5536,7 +5537,7 @@ To Do List:
         int index = [N intValue];
         if(NSLocationInRange(index,R))
         {
-            [projectDocument updateChangeCount:NSChangeDone];
+            [projectDocument updateChangeCount:NSChangeDone];// RAISE
 			NSString * fileKey = [fileKeys objectAtIndex:index];
 			NSString * fullPath = [projectDocument absoluteFileNameForKey:fileKey];
 			if(![fullPath pathIsEqual:[projectDocument fileName]]// don't recycle the project
