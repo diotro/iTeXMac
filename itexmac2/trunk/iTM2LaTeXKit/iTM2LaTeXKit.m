@@ -2681,10 +2681,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	NSParameterAssert(newModeRef);
 //iTM2_START;
-//    if(previousMode != ( previousMode & ~kiTM2TeXErrorSyntaxMask))
-//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXErrorSyntaxMask);
+//    if(previousMode != ( previousMode & ~kiTM2TeXModifiersSyntaxMask))
+//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXModifiersSyntaxMask);
 	// this is for the added modes, but links should not happen here.
-	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = previousMode & ~kiTM2TeXModifiersSyntaxMask;
 	switch(switcher)
 	{
 		case kiTM2LaTeXIncludeSyntaxMode:
@@ -2720,7 +2720,7 @@ To Do List:
     NSParameterAssert(newModeRef);
     NSParameterAssert(location<[S length]);
 	unsigned status;
-	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = previousMode & ~kiTM2TeXModifiersSyntaxMask;
 	unichar theChar;
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
 	if(kiTM2TeXBeginCommandSyntaxMode == switcher)
@@ -2829,7 +2829,7 @@ To Do List:
 //iTM2_START;
     unsigned mode;
 	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXBeginCommandSyntaxMode:
@@ -2837,7 +2837,7 @@ To Do List:
 			{
 				unsigned nextMode;
 				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
-				unsigned nextSwitcher = nextMode & ~kiTM2TeXErrorSyntaxMask;
+				unsigned nextSwitcher = nextMode & ~kiTM2TeXModifiersSyntaxMask;
 				switch(nextSwitcher)
 				{
 					case kiTM2LaTeXIncludeSyntaxMode:
@@ -2898,7 +2898,7 @@ To Do List:
 //iTM2_START;
     unsigned mode;
 	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
+	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
     switch(switcher)
     {
         case kiTM2TeXBeginCommandSyntaxMode:
@@ -2906,7 +2906,7 @@ To Do List:
 			{
 				unsigned nextMode;
 				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
-				unsigned nextSwitcher = nextMode & ~kiTM2TeXErrorSyntaxMask;
+				unsigned nextSwitcher = nextMode & ~kiTM2TeXModifiersSyntaxMask;
 				switch(nextSwitcher)
 				{
 					case kiTM2LaTeXIncludeSyntaxMode:

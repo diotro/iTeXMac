@@ -434,10 +434,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	NSParameterAssert(newModeRef);
 //iTM2_START;
-//    if(previousMode != ( previousMode & ~kiTM2TeXErrorSyntaxMask))
-//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXErrorSyntaxMask);
+//    if(previousMode != ( previousMode & ~kiTM2TeXModifiersSyntaxMask))
+//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXModifiersSyntaxMask);
 //iTM2_LOG(@"C'est %.1S qui s'y colle", &theChar);
-	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
+	unsigned previousError = previousMode & kiTM2TeXModifiersSyntaxMask;
 	if(previousMode & kiTM2TextEndOfLineSyntaxMask)
 	{
 		// this is the first character of the line
@@ -450,9 +450,10 @@ To Do List:
 	unsigned switcher = previousMode & ~kiTM2TextModifiersSyntaxMask;
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
 	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
+	NSString * modeString = @"";
+	unsigned result;
     if([set characterIsMember:theChar])
     {
-		unsigned result;
         switch(switcher)
         {
             case kiTM2TeXRegularSyntaxMode:
@@ -484,7 +485,9 @@ To Do List:
             default:
                 result = kiTM2TeXRegularSyntaxMode;
         }
-		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2TeXModeForModeArray objectAtIndex:result & ~kiTM2TeXErrorSyntaxMask]])
+		unsigned index = result & ~kiTM2TeXModifiersSyntaxMask;
+		modeString = [_iTM2TeXModeForModeArray objectAtIndex:index];
+		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:mode])
 		{
 			* newModeRef = result | previousError;
 			return status;
@@ -872,7 +875,6 @@ To Do List:
             default:
             {
 //NSLog(@"Non letter character: %@", [NSString stringWithCharacters: &theChar length:1]);
-                unsigned result;
                 switch(switcher)
                 {
                     case kiTM2TeXRegularSyntaxMode:
@@ -903,7 +905,7 @@ To Do List:
                         result = kiTM2TeXRegularSyntaxMode;
                 }
 //NSLog(@"mode returned: %u", result);
-				NSString * modeString = [_iTM2TeXModeForModeArray objectAtIndex:result & ~kiTM2TeXErrorSyntaxMask];
+				modeString = [_iTM2TeXModeForModeArray objectAtIndex:result & ~kiTM2TeXModifiersSyntaxMask];
                 if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
 				{
  					* newModeRef = result | previousError;
@@ -912,7 +914,7 @@ To Do List:
                 else
 				{
 //iTM2_LOG(@"AN ERROR OCCURRED");
- 					* newModeRef = result | kiTM2TeXErrorSyntaxMask | previousError;
+ 					* newModeRef = result | kiTM2TeXErrorSyntaxMask | previousError;// REVISIT, this has no meaning
 					return kiTM2TeXNoErrorSyntaxStatus;
 				}
             }
@@ -1357,7 +1359,7 @@ To Do List:
             if(++aLocation < [_TextStorage length])
             {
 				status = [self getSyntaxMode:&nextMode atIndex:aLocation longestRange:&r1];
-				nextMode = nextMode & ~kiTM2TeXErrorSyntaxMask;
+				nextMode = nextMode & ~kiTM2TeXModifiersSyntaxMask;
                 if((kiTM2TeXCommandSyntaxMode == nextMode) || (kiTM2TeXShortCommandSyntaxMode == nextMode) || (kiTM2TeXInputCommandSyntaxMode == nextMode))
                 {
 					--r1.location;
@@ -1531,7 +1533,7 @@ To Do List:
             if(++aLocation < [_TextStorage length])
             {
 				status = [self getSyntaxMode:&nextMode atIndex:aLocation longestRange:&r1];
-				nextMode = nextMode & ~kiTM2TeXErrorSyntaxMask;
+				nextMode = nextMode & ~kiTM2TeXModifiersSyntaxMask;
                 if(kiTM2TeXShortSuperscriptSyntaxMode == nextMode)
                 {
                     --r1.location;

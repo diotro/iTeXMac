@@ -160,34 +160,36 @@
 			PBXWorkspaceStateSaveDate = 190463071;
 		};
 		perUserProjectItems = {
-			DC08D6B40B3D424F00966378 = DC08D6B40B3D424F00966378 /* PBXTextBookmark */;
-			DC10E6270B086FDD00E3BA31 = DC10E6270B086FDD00E3BA31 /* PBXBookmark */;
-			DC10E62A0B086FDD00E3BA31 = DC10E62A0B086FDD00E3BA31 /* PBXBookmark */;
-			DC20A23B0AE2BBF000A125CD = DC20A23B0AE2BBF000A125CD /* PBXTextBookmark */;
-			DC22637C0AE69A4600186582 = DC22637C0AE69A4600186582 /* PBXTextBookmark */;
-			DC2263810AE69A4600186582 = DC2263810AE69A4600186582 /* PBXTextBookmark */;
-			DC6A89FB0B0492C30072FC1A = DC6A89FB0B0492C30072FC1A /* PBXTextBookmark */;
-			DCA37E040AE3A18500874F9E = DCA37E040AE3A18500874F9E /* PBXTextBookmark */;
-			DCA37E0C0AE3A18500874F9E = DCA37E0C0AE3A18500874F9E /* PBXTextBookmark */;
-			DCA37E0D0AE3A18500874F9E = DCA37E0D0AE3A18500874F9E /* PBXTextBookmark */;
-			DCA37E0E0AE3A18500874F9E = DCA37E0E0AE3A18500874F9E /* PBXTextBookmark */;
-			DCA37E130AE3A18500874F9E = DCA37E130AE3A18500874F9E /* PBXTextBookmark */;
-			DCB530390B59B9DC00CD713D = DCB530390B59B9DC00CD713D /* PBXBookmark */;
-			DCB5309A0B59BE1200CD713D = DCB5309A0B59BE1200CD713D /* PBXTextBookmark */;
-			DCB530D10B59C30E00CD713D = DCB530D10B59C30E00CD713D /* PBXTextBookmark */;
-			DCB530D30B59C30E00CD713D = DCB530D30B59C30E00CD713D /* PBXTextBookmark */;
-			DCB5312D0B59CBF400CD713D = DCB5312D0B59CBF400CD713D /* PBXTextBookmark */;
-			DCB5312E0B59CBF400CD713D = DCB5312E0B59CBF400CD713D /* PBXTextBookmark */;
-			DCB531300B59CBF400CD713D = DCB531300B59CBF400CD713D /* PBXTextBookmark */;
-			DCB531310B59CBF400CD713D = DCB531310B59CBF400CD713D /* PBXTextBookmark */;
-			DCBA442C0B028A2F006AF52A = DCBA442C0B028A2F006AF52A /* PBXTextBookmark */;
-			DCBA442D0B028A2F006AF52A = DCBA442D0B028A2F006AF52A /* PBXBookmark */;
-			DCBA442F0B028A2F006AF52A = DCBA442F0B028A2F006AF52A /* PBXTextBookmark */;
-			DCBA44320B028A2F006AF52A = DCBA44320B028A2F006AF52A /* PBXBookmark */;
-			DCBA44330B028A2F006AF52A = DCBA44330B028A2F006AF52A /* PBXBookmark */;
-			DCBA44360B028A2F006AF52A = DCBA44360B028A2F006AF52A /* PBXTextBookmark */;
-			DCC1FAED0B38D75C006E27CB = DCC1FAED0B38D75C006E27CB /* PBXTextBookmark */;
-			DCEE58F70B5A3C6900E47ED9 /* PBXTextBookmark */ = DCEE58F70B5A3C6900E47ED9 /* PBXTextBookmark */;
+			DC08D6B40B3D424F00966378 /* PBXTextBookmark */ = DC08D6B40B3D424F00966378 /* PBXTextBookmark */;
+			DC10E6270B086FDD00E3BA31 /* PBXBookmark */ = DC10E6270B086FDD00E3BA31 /* PBXBookmark */;
+			DC10E62A0B086FDD00E3BA31 /* PBXBookmark */ = DC10E62A0B086FDD00E3BA31 /* PBXBookmark */;
+			DC20A23B0AE2BBF000A125CD /* PBXTextBookmark */ = DC20A23B0AE2BBF000A125CD /* PBXTextBookmark */;
+			DC22637C0AE69A4600186582 /* PBXTextBookmark */ = DC22637C0AE69A4600186582 /* PBXTextBookmark */;
+			DC2263810AE69A4600186582 /* PBXTextBookmark */ = DC2263810AE69A4600186582 /* PBXTextBookmark */;
+			DC6A89FB0B0492C30072FC1A /* PBXTextBookmark */ = DC6A89FB0B0492C30072FC1A /* PBXTextBookmark */;
+			DCA37E040AE3A18500874F9E /* PBXTextBookmark */ = DCA37E040AE3A18500874F9E /* PBXTextBookmark */;
+			DCA37E0C0AE3A18500874F9E /* PBXTextBookmark */ = DCA37E0C0AE3A18500874F9E /* PBXTextBookmark */;
+			DCA37E0D0AE3A18500874F9E /* PBXTextBookmark */ = DCA37E0D0AE3A18500874F9E /* PBXTextBookmark */;
+			DCA37E0E0AE3A18500874F9E /* PBXTextBookmark */ = DCA37E0E0AE3A18500874F9E /* PBXTextBookmark */;
+			DCA37E130AE3A18500874F9E /* PBXTextBookmark */ = DCA37E130AE3A18500874F9E /* PBXTextBookmark */;
+			DCB530390B59B9DC00CD713D /* PBXBookmark */ = DCB530390B59B9DC00CD713D /* PBXBookmark */;
+			DCB5309A0B59BE1200CD713D /* PBXTextBookmark */ = DCB5309A0B59BE1200CD713D /* PBXTextBookmark */;
+			DCBA442C0B028A2F006AF52A /* PBXTextBookmark */ = DCBA442C0B028A2F006AF52A /* PBXTextBookmark */;
+			DCBA442D0B028A2F006AF52A /* PBXBookmark */ = DCBA442D0B028A2F006AF52A /* PBXBookmark */;
+			DCBA442F0B028A2F006AF52A /* PBXTextBookmark */ = DCBA442F0B028A2F006AF52A /* PBXTextBookmark */;
+			DCBA44320B028A2F006AF52A /* PBXBookmark */ = DCBA44320B028A2F006AF52A /* PBXBookmark */;
+			DCBA44330B028A2F006AF52A /* PBXBookmark */ = DCBA44330B028A2F006AF52A /* PBXBookmark */;
+			DCBA44360B028A2F006AF52A /* PBXTextBookmark */ = DCBA44360B028A2F006AF52A /* PBXTextBookmark */;
+			DCC1FAED0B38D75C006E27CB /* PBXTextBookmark */ = DCC1FAED0B38D75C006E27CB /* PBXTextBookmark */;
+			DCEE5AF10B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AF10B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AF20B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AF20B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AF40B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AF40B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AF60B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AF60B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AF80B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AF80B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AF90B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AF90B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AFB0B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AFB0B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AFD0B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AFD0B5AF8EF00E47ED9 /* PBXTextBookmark */;
+			DCEE5AFF0B5AF8EF00E47ED9 /* PBXTextBookmark */ = DCEE5AFF0B5AF8EF00E47ED9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -673,89 +675,6 @@
 		vrLen = 153;
 		vrLoc = 0;
 	};
-	DCB530A00B59BE6400CD713D /* PrepareBuildNumber.pl */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.perl;
-		name = PrepareBuildNumber.pl;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/PrepareBuildNumber.pl;
-		sourceTree = "<absolute>";
-	};
-	DCB530D10B59C30E00CD713D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
-		name = "iTeXMac2-main.m: 102";
-		rLen = 0;
-		rLoc = 3412;
-		rType = 0;
-		vrLen = 687;
-		vrLoc = 3001;
-	};
-	DCB530D30B59C30E00CD713D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
-		name = "iTeXMac2-main.m: 102";
-		rLen = 0;
-		rLoc = 3412;
-		rType = 0;
-		vrLen = 687;
-		vrLoc = 3001;
-	};
-	DCB5312D0B59CBF400CD713D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB530A00B59BE6400CD713D /* PrepareBuildNumber.pl */;
-		name = "PrepareBuildNumber.pl: 26";
-		rLen = 0;
-		rLoc = 857;
-		rType = 0;
-		vrLen = 1006;
-		vrLoc = 0;
-	};
-	DCB5312E0B59CBF400CD713D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB5312F0B59CBF400CD713D /* BuildiTeXMac2.command */;
-		rLen = 0;
-		rLoc = 2147483647;
-		rType = 0;
-	};
-	DCB5312F0B59CBF400CD713D /* BuildiTeXMac2.command */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = BuildiTeXMac2.command;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildiTeXMac2.command;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {871, 505}}";
-			sepNavSelRange = "{38, 0}";
-			sepNavVisRect = "{{0, 0}, {871, 505}}";
-		};
-	};
-	DCB531300B59CBF400CD713D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB530A00B59BE6400CD713D /* PrepareBuildNumber.pl */;
-		name = "PrepareBuildNumber.pl: 26";
-		rLen = 0;
-		rLoc = 857;
-		rType = 0;
-		vrLen = 1006;
-		vrLoc = 0;
-	};
-	DCB531310B59CBF400CD713D /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB531320B59CBF400CD713D /* BuildiTeXMac2.command */;
-		name = "(null): 2";
-		rLen = 0;
-		rLoc = 38;
-		rType = 0;
-		vrLen = 660;
-		vrLoc = 0;
-	};
-	DCB531320B59CBF400CD713D /* BuildiTeXMac2.command */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = BuildiTeXMac2.command;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildiTeXMac2.command;
-		sourceTree = "<absolute>";
-	};
 	DCB93A4607D6FFAA005E5B38 /* README.txt */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1660, 1482}}";
@@ -776,7 +695,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1300, 6545}}";
 			sepNavSelRange = "{3412, 0}";
-			sepNavVisRect = "{{0, 1473}, {871, 505}}";
+			sepNavVisRect = "{{0, 1098}, {871, 505}}";
 			sepNavWindowFrame = "{{91, 86}, {1134, 746}}";
 		};
 	};
@@ -870,15 +789,143 @@
 		modificationTime = 190158730.600096;
 		state = 1;
 	};
-	DCEE58F70B5A3C6900E47ED9 /* PBXTextBookmark */ = {
+	DCEE5AF10B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCB5312F0B59CBF400CD713D /* BuildiTeXMac2.command */;
-		name = "BuildiTeXMac2.command: 2";
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 102";
 		rLen = 0;
-		rLoc = 38;
+		rLoc = 3412;
 		rType = 0;
-		vrLen = 660;
+		vrLen = 902;
+		vrLoc = 2264;
+	};
+	DCEE5AF20B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEE5AF30B5AF8EF00E47ED9 /* make-diskimage.command */;
+		name = "(null): 2";
+		rLen = 2068;
+		rLoc = 10;
+		rType = 0;
+		vrLen = 850;
+		vrLoc = 1228;
+	};
+	DCEE5AF30B5AF8EF00E47ED9 /* make-diskimage.command */ = {
+		isa = PBXFileReference;
+		name = "make-diskimage.command";
+		path = "/Users/coder/Documents/iTeXMac2/svn/Distributions/make-diskimage.command";
+		sourceTree = "<absolute>";
+	};
+	DCEE5AF40B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEE5AF50B5AF8EF00E47ED9 /* backupsvn.command */;
+		name = "(null): 16";
+		rLen = 0;
+		rLoc = 461;
+		rType = 0;
+		vrLen = 461;
 		vrLoc = 0;
+	};
+	DCEE5AF50B5AF8EF00E47ED9 /* backupsvn.command */ = {
+		isa = PBXFileReference;
+		name = backupsvn.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/backupsvn.command;
+		sourceTree = "<absolute>";
+	};
+	DCEE5AF60B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEE5AF70B5AF8EF00E47ED9 /* burn.command */;
+		name = "(null): 2";
+		rLen = 0;
+		rLoc = 51;
+		rType = 0;
+		vrLen = 175;
+		vrLoc = 0;
+	};
+	DCEE5AF70B5AF8EF00E47ED9 /* burn.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = burn.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/burn.command;
+		sourceTree = "<absolute>";
+	};
+	DCEE5AF80B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 102";
+		rLen = 0;
+		rLoc = 3412;
+		rType = 0;
+		vrLen = 902;
+		vrLoc = 2264;
+	};
+	DCEE5AF90B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEE5AFA0B5AF8EF00E47ED9 /* make-diskimage.command */;
+		name = "(null): 2";
+		rLen = 2068;
+		rLoc = 10;
+		rType = 0;
+		vrLen = 850;
+		vrLoc = 1228;
+	};
+	DCEE5AFA0B5AF8EF00E47ED9 /* make-diskimage.command */ = {
+		isa = PBXFileReference;
+		name = "make-diskimage.command";
+		path = "/Users/coder/Documents/iTeXMac2/svn/Distributions/make-diskimage.command";
+		sourceTree = "<absolute>";
+	};
+	DCEE5AFB0B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEE5AFC0B5AF8EF00E47ED9 /* burn.command */;
+		name = "(null): 2";
+		rLen = 0;
+		rLoc = 51;
+		rType = 0;
+		vrLen = 175;
+		vrLoc = 0;
+	};
+	DCEE5AFC0B5AF8EF00E47ED9 /* burn.command */ = {
+		isa = PBXFileReference;
+		name = burn.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/burn.command;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {871, 505}}";
+			sepNavSelRange = "{159, 0}";
+			sepNavVisRect = "{{0, 0}, {871, 505}}";
+		};
+	};
+	DCEE5AFD0B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEE5AFE0B5AF8EF00E47ED9 /* backupsvn.command */;
+		name = "(null): 16";
+		rLen = 0;
+		rLoc = 461;
+		rType = 0;
+		vrLen = 461;
+		vrLoc = 0;
+	};
+	DCEE5AFE0B5AF8EF00E47ED9 /* backupsvn.command */ = {
+		isa = PBXFileReference;
+		name = backupsvn.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/backupsvn.command;
+		sourceTree = "<absolute>";
+	};
+	DCEE5AFF0B5AF8EF00E47ED9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEE5B000B5AF8EF00E47ED9 /* burn.command */;
+		name = "(null): 7";
+		rLen = 0;
+		rLoc = 159;
+		rType = 0;
+		vrLen = 159;
+		vrLoc = 0;
+	};
+	DCEE5B000B5AF8EF00E47ED9 /* burn.command */ = {
+		isa = PBXFileReference;
+		name = burn.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/burn.command;
+		sourceTree = "<absolute>";
 	};
 	DCF929730948EC0E00EE2F46 /* Prepare LaTeX Symbols PlugIn */ = {
 		activeExec = 0;

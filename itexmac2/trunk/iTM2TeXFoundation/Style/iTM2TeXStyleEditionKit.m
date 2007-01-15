@@ -505,11 +505,10 @@ To Do List:
                     if(GI)
                     {
                         id attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                F, NSFontAttributeName,
-                                            GI, NSGlyphInfoAttributeName,
-                                        [AS string], iTM2TextAttributesCharacterAttributeName,
-                                    [AS attribute:iTM2Text2ndSymbolColorAttributeName atIndex:0 effectiveRange:nil],
-                                                iTM2Text2ndSymbolColorAttributeName,
+					F, NSFontAttributeName,
+				GI, NSGlyphInfoAttributeName,
+			[AS string], iTM2TextAttributesCharacterAttributeName,
+		[AS attribute:iTM2Text2ndSymbolColorAttributeName atIndex:0 effectiveRange:nil], iTM2Text2ndSymbolColorAttributeName,
                             nil];
                         NSColor * C = [As objectForKey:NSForegroundColorAttributeName];
                         if(![[NSColor controlTextColor] isEqual:C])

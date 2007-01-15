@@ -20,6 +20,7 @@
 //  to the actual developper team.
 */
 
+//RAISE  *** Selector 'document' sent to dealloced instance 0x170e06c0 of class PDFPage.
 #import <iTM2PDFKit/iTM2PDFKit.h>
 #import <objc/objc-class.h>
 
@@ -495,6 +496,7 @@ To Do List:
 					[doc removePageAtIndex:0];
 //iTM2_LOG(@"[P document] is:%@", [P document]);
 					[self insertPage:P atIndex:[self pageCount]];
+					[P release];
 //iTM2_LOG(@"[P document] is:%@", [P document]);
 //iTM2_LOG(@"[self pageCount] is now:%i", [self pageCount]);
 //iTM2_LOG(@"[self dataRepresentation] is now:%@", [self dataRepresentation]);
@@ -1159,7 +1161,12 @@ To Do List:
 //iTM2_START;
 	selection = [[selection copy] autorelease];
 	[[self PDFSearchResults] addObject:selection];
-	PDFPage * page = [[selection pages] objectAtIndex:0];
+	NSArray * selectionPages = [selection pages];
+	if(![selectionPages count])
+	{
+		return;
+	}
+	PDFPage * page = [selectionPages objectAtIndex:0];
 	unsigned int physicalPageIndex = [[page document] indexForPage:page] + 1;
 	NSString * label = [page label];
 	unsigned int logicalPageIndex = [label intValue];
@@ -1366,7 +1373,12 @@ To Do List:
 		else if(aTableView == _thumbnailTable)
 		{
 			unsigned int physicalPageIndex = rowIndex + 1;
-			PDFPage * page = [[[self pdfView] document] pageAtIndex:rowIndex];
+			PDFDocument * doc = [[self pdfView] document];
+			if(rowIndex>=[doc pageCount])
+			{
+				return nil;
+			}
+			PDFPage * page = [doc pageAtIndex:rowIndex];
 			NSString * label = [page label];
 			unsigned int logicalPageIndex = [label intValue];
 			if(physicalPageIndex == logicalPageIndex)
@@ -1396,15 +1408,23 @@ To Do List:
     int rowIndex = [TV selectedRow];
     if (rowIndex >= 0)
     {
+		PDFView * V = [self pdfView];
 		if(TV == _searchTable)
 		{
-			[[self pdfView] setCurrentSelection:[[self PDFSearchResults] objectAtIndex:3*rowIndex]];
-			[[self pdfView] scrollSelectionToVisible:self];
+			NSArray * results = [self PDFSearchResults];
+			rowIndex *= 3;
+			if(rowIndex < [results count])
+			{
+				PDFSelection * S = [results objectAtIndex:3*rowIndex];
+				[V setCurrentSelection:S];
+				[V scrollSelectionToVisible:self];
+			}
 		}
 		else if(TV == _thumbnailTable)
 		{
-			PDFPage * page = [[[self pdfView] document] pageAtIndex:rowIndex];
-			[[self pdfView] goToPage:page];
+			PDFDocument * D = [V document];
+			PDFPage * page = [D pageAtIndex:rowIndex];
+			[V goToPage:page];
 		}
     }
 	return;
@@ -1526,15 +1546,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	PDFDocument * doc = [[self pdfView] document];
+	PDFView * V = [self pdfView];
+	PDFDocument * doc = [V document];
     if (![doc outlineRoot])
         return;
-    unsigned int newPageIndex = [doc indexForPage:[[self pdfView] currentPage]];
+	PDFPage * P = [V currentPage];
+    unsigned int newPageIndex = [doc indexForPage:P];
 	int row = [_outlinesView numberOfRows];
     while (row--)
     {
-		PDFOutline * OL = [[_outlinesView itemAtRow:row] representedObject];
-        if ([doc indexForPage:[[OL destination] page]] <= newPageIndex)
+		id O = [_outlinesView itemAtRow:row];
+		PDFOutline * OL = [O representedObject];
+		PDFDestination * Dest = [OL destination];
+		P = [Dest page];
+        if ([doc indexForPage:P] <= newPageIndex)
         {
             [_outlinesView selectRow:row byExtendingSelection:NO];
 			[_outlinesView scrollRowToVisible:row];
@@ -9117,5 +9142,86 @@ To Do List:
   	[super drawWithFrame:cellFrame inView:controlView];
 //iTM2_END;
     return;
+}
+@end
+
+@interface PDFPage_iTeXMac2:PDFPage
+@end
+static id PDFPage_iTeXMac2_Storage = nil;
+@implementation PDFPage_iTeXMac2
++ (void)load;
+{
+	[self poseAsClass:[PDFPage class]];
+	return;
+}
++ (void)initialize;
+{
+	[super initialize];
+	PDFPage_iTeXMac2_Storage = [[NSMutableDictionary dictionary] retain];
+	return;
+}
+- (id)init;
+{
+	if(self = [super init])
+	{
+		NSValue * V = [NSValue valueWithNonretainedObject:self];
+		NSNumber * N = [NSNumber numberWithInt:1];
+		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
+	}
+	return self;
+}
+- (id)retain;
+{
+	NSValue * V = [NSValue valueWithNonretainedObject:self];
+	NSNumber * N = [PDFPage_iTeXMac2_Storage objectForKey:V];
+	if(N)
+	{
+		int retainCount = [N intValue];
+		if(retainCount)
+		{
+			N = [NSNumber numberWithInt:++retainCount];
+		}
+	}
+	else
+	{
+		N = [NSNumber numberWithInt:2];
+	}
+	[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
+	return [self retain];
+}
+- (void)release;
+{
+	NSValue * V = [NSValue valueWithNonretainedObject:self];
+	NSNumber * N = [PDFPage_iTeXMac2_Storage objectForKey:V];
+	if(N)
+	{
+		int retainCount = [N intValue];
+		if(retainCount>1)
+		{
+			N = [NSNumber numberWithInt:--retainCount];
+		}
+		else if(retainCount)
+		{
+			N = [NSNumber numberWithInt:--retainCount];// 0 is reached dealloc soon
+		}
+		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
+	}
+	[super release];
+	return;
+}
+- (void)dealloc;
+{
+	NSValue * V = [NSValue valueWithNonretainedObject:self];
+	[PDFPage_iTeXMac2_Storage removeObjectForKey:V];
+	if(iTM2DebugEnabled)
+	{
+		Class zombie = NSClassFromString(@"NSZombie")?:[NSObject class];
+		self->isa = zombie;
+	}
+	else
+	{
+		[super dealloc];
+	}
+	return;
 }
 @end
