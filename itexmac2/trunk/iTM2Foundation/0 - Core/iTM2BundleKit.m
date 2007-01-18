@@ -162,6 +162,16 @@ To Do List:
 #import <sys/sysctl.h>
 #import <mach/machine.h>
 
+NSString * _iTM2_NSLogOutputPath = nil;
+
+@interface iTM2CrashReportController:NSWindowController
+{
+@private
+	NSString * _crashLog;
+	NSString * _consoleLog;
+}
+@end
+
 @implementation NSBundle(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isI386
 + (BOOL)isI386;
@@ -188,108 +198,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return @"iTM2";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  redirectNSLogOutput
-+ (void)redirectNSLogOutput;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 22:54:06 GMT 2005
-To Do List:
-"*/
-{
-//iTM2_START;
-	static BOOL already = NO;
-	if(already)
-	{
-		return;
-	}
-	already = YES;
-	iTM2_INIT_POOL;
-	NSArray * libraries = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-	if(![libraries count])
-	{
-		iTM2_RELEASE_POOL;
-		return;
-	}
-	NSBundle * mainBundle = [NSBundle mainBundle];
-	NSString * version = [mainBundle objectForInfoDictionaryKey:@"iTM2SourceVersion"];
-	if([version isEqual:@"NONE"])
-	{
-		iTM2_RELEASE_POOL;
-		return;
-	}
-	NSString * logPath = [libraries lastObject];
-	logPath = [logPath stringByAppendingPathComponent:@"Logs"];
-	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
-	logPath = [logPath stringByAppendingPathComponent:executable];
-	[DFM createDeepDirectoryAtPath:logPath attributes:nil error:nil];
-	if(![DFM pushDirectory:logPath])
-	{
-		iTM2_RELEASE_POOL;
-		return;
-	}
-	NSMutableString * log = [NSMutableString string];
-	NSArray * availableLogs = [DFM directoryContentsAtPath:logPath];
-	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF endswith[c] 'log'"];
-	availableLogs = [availableLogs filteredArrayUsingPredicate:predicate];
-	NSMutableArray * MRA = [NSMutableArray array];
-	NSEnumerator * E = [availableLogs objectEnumerator];
-	NSString * component;
-	NSMutableDictionary * attributes = nil;
-	while(component = [E nextObject])
-	{
-		attributes = [[[DFM fileAttributesAtPath:component traverseLink:NO] mutableCopy] autorelease];
-		[attributes setObject:component forKey:@"file name"];
-		[MRA addObject:attributes];
-	}
-	NSSortDescriptor * descriptor  = [[[NSSortDescriptor alloc] initWithKey:NSFileModificationDate ascending:NO] autorelease];
-	NSArray * descriptors = [NSArray arrayWithObject:descriptor];
-	[MRA sortUsingDescriptors:descriptors];
-	NSMutableArray * recycles = [NSMutableArray array];
-	while([MRA count]>10)
-	{
-		attributes = [MRA lastObject];
-		[recycles addObject:attributes];
-		[MRA removeLastObject];
-	}
-	E = [recycles objectEnumerator];
-	while(attributes = [E nextObject])
-	{
-		NSNumber * N = [attributes objectForKey:NSFileBusy];
-		if(![N boolValue])
-		{
-			component = [attributes objectForKey:@"file name"];
-			if(![DFM removeFileAtPath:component handler:nil])
-			{
-				[log appendFormat:@"could not remove %@/%@\n",logPath,component];
-			}
-		}
-	}
-	unsigned index = 0;
-	do
-	{
-		component = [NSString stringWithFormat:@"%u",index++];
-		component = [component stringByAppendingPathExtension:@"log"];
-	}
-	while([DFM fileExistsAtPath:component]);
-	logPath = [logPath stringByAppendingPathComponent:component];
-	const char * file = [logPath fileSystemRepresentation];
-	if(!freopen(file, "a", stderr))
-	{
-		[log appendString:@"No file?\n"];
-	}
-	NSString * principalClassName = [mainBundle objectForInfoDictionaryKey:@"NSPrincipalClass"];
-	Class principalClass = NSClassFromString(principalClassName);
-	SEL action = @selector(logWelcomeMessage);
-	if([principalClass respondsToSelector:action])
-	{
-		[principalClass performSelector:action];
-	}
-	NSLog(log);
-	[DFM popDirectory];
-	iTM2_RELEASE_POOL;
-//iTM2_START;
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2FoundationBundle
 + (NSBundle *)iTM2FoundationBundle;
@@ -1390,6 +1298,228 @@ To Do List:
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
+}
+#pragma mark -
+#pragma mark ======  Crash Reporter
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSLogOutputPath
++ (NSString *)NSLogOutputPath;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _iTM2_NSLogOutputPath;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  redirectNSLogOutput
++ (void)redirectNSLogOutput;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{
+//iTM2_START;
+	if(_iTM2_NSLogOutputPath)
+	{
+		return;
+	}
+	_iTM2_NSLogOutputPath = @"";
+	iTM2_INIT_POOL;
+	NSArray * libraries = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+	if(![libraries count])
+	{
+		iTM2_RELEASE_POOL;
+		return;
+	}
+	NSBundle * mainBundle = [NSBundle mainBundle];
+	NSString * version = [mainBundle objectForInfoDictionaryKey:@"iTM2SourceVersion"];
+	if([version isEqual:@"NONE"])
+	{
+		iTM2_RELEASE_POOL;
+		return;
+	}
+	NSString * logPath = [libraries lastObject];
+	logPath = [logPath stringByAppendingPathComponent:@"Logs"];
+	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
+	logPath = [logPath stringByAppendingPathComponent:executable];
+	[DFM createDeepDirectoryAtPath:logPath attributes:nil error:nil];
+	if(![DFM pushDirectory:logPath])
+	{
+		iTM2_RELEASE_POOL;
+		return;
+	}
+	NSMutableString * log = [NSMutableString string];
+	NSArray * availableLogs = [DFM directoryContentsAtPath:logPath];
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF endswith[c] 'log'"];
+	availableLogs = [availableLogs filteredArrayUsingPredicate:predicate];
+	NSMutableArray * MRA = [NSMutableArray array];
+	NSEnumerator * E = [availableLogs objectEnumerator];
+	NSString * component;
+	NSMutableDictionary * attributes = nil;
+	while(component = [E nextObject])
+	{
+		attributes = [[[DFM fileAttributesAtPath:component traverseLink:NO] mutableCopy] autorelease];
+		[attributes setObject:component forKey:@"file name"];
+		[MRA addObject:attributes];
+	}
+	NSSortDescriptor * descriptor  = [[[NSSortDescriptor alloc] initWithKey:NSFileModificationDate ascending:NO] autorelease];
+	NSArray * descriptors = [NSArray arrayWithObject:descriptor];
+	[MRA sortUsingDescriptors:descriptors];
+	NSMutableArray * recycles = [NSMutableArray array];
+	while([MRA count]>10)
+	{
+		attributes = [MRA lastObject];
+		[recycles addObject:attributes];
+		[MRA removeLastObject];
+	}
+	E = [recycles objectEnumerator];
+	while(attributes = [E nextObject])
+	{
+		NSNumber * N = [attributes objectForKey:NSFileBusy];
+		if(![N boolValue])
+		{
+			component = [attributes objectForKey:@"file name"];
+			if(![DFM removeFileAtPath:component handler:nil])
+			{
+				[log appendFormat:@"could not remove %@/%@\n",logPath,component];
+			}
+		}
+	}
+	unsigned index = 0;
+	do
+	{
+		component = [NSString stringWithFormat:@"%u",index++];
+		component = [component stringByAppendingPathExtension:@"log"];
+	}
+	while([DFM fileExistsAtPath:component]);
+	logPath = [logPath stringByAppendingPathComponent:component];
+	const char * file = [logPath fileSystemRepresentation];
+	if(freopen(file, "a", stderr))
+	{
+		_iTM2_NSLogOutputPath = [logPath copy];
+	}
+	else
+	{
+		[log appendString:@"No file?\n"];
+	}
+	NSString * principalClassName = [mainBundle objectForInfoDictionaryKey:@"NSPrincipalClass"];
+	Class principalClass = NSClassFromString(principalClassName);
+	SEL action = @selector(logWelcomeMessage);
+	if([principalClass respondsToSelector:action])
+	{
+		[principalClass performSelector:action];
+	}
+	NSLog(log);
+	[DFM popDirectory];
+	iTM2_RELEASE_POOL;
+//iTM2_START;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  reportCrashIfNeeded
++ (void)reportCrashIfNeeded;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[[iTM2CrashReportController alloc] initWithWindowNibName:NSStringFromClass([iTM2CrashReportController class])] autorelease];
+//iTM2_END;
+    return;
+}
+@end
+
+@implementation iTM2CrashReportController
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
+- (id)initWithWindow:(NSWindow *)aWindow;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDate * lastCrashDate = [SUD valueForKey: @"iTM2LastCrashDate"];
+	NSArray *libraries = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask,YES);
+	NSString * logsPath = [libraries lastObject];
+	logsPath = [logsPath stringByAppendingPathComponent:@"Logs"];
+	NSString * crashPath = [logsPath stringByAppendingPathComponent:@"CrashReporter"];
+	NSBundle * mainBundle = [NSBundle mainBundle];
+	NSString * name = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
+	crashPath = [crashPath stringByAppendingPathComponent:name];
+	crashPath = [crashPath stringByAppendingPathExtension:@"crash"];
+	crashPath = [crashPath stringByAppendingPathExtension:@"log"];
+	NSDictionary * attributes = [DFM fileAttributesAtPath:crashPath traverseLink: YES];
+	NSDate * modificationDate = [attributes fileModificationDate];
+//	if(modificationDate)
+	{
+//		if(!lastCrashDate || ([lastCrashDate compare:modificationDate] == NSOrderedAscending))
+		{
+			NSString * consoleDir = [logsPath stringByAppendingPathComponent:name];
+			
+			NSArray * availableLogs = [DFM directoryContentsAtPath:consoleDir];
+			NSEnumerator * E = [availableLogs objectEnumerator];
+			NSString * component;
+			NSMutableArray * files = [NSMutableArray array];
+			while(component = [E nextObject])
+			{
+				NSString * fullPath = [consoleDir stringByAppendingPathComponent:component];
+				attributes = [DFM fileAttributesAtPath:fullPath traverseLink: YES];
+				NSDate * date = [attributes fileModificationDate];
+				if([date compare:modificationDate] == NSOrderedAscending)
+				{
+					attributes = [[attributes mutableCopy] autorelease];
+					[attributes setObject:fullPath forKey:@"file name"];
+					[files addObject:attributes];
+				}
+			}
+			if([files count])
+			{
+				NSSortDescriptor * descriptor  = [[[NSSortDescriptor alloc] initWithKey:NSFileModificationDate ascending:YES] autorelease];
+				NSArray * descriptors = [NSArray arrayWithObject:descriptor];
+				[files sortUsingDescriptors:descriptors];
+				NSString * consolePath = [files lastObject];
+				if(self = [super initWithWindow:aWindow])
+				{
+					// the crash log
+					NSString * crashLog = [NSString stringWithContentsOfFile:crashPath];
+					NSArray * crashLogs = [crashLog componentsSeparatedByString: @"**********"];
+					[_crashLog autorelease];
+					_crashLog = [[crashLogs lastObject] copy];
+					[_consoleLog autorelease];
+					_consoleLog = [[NSString stringWithContentsOfFile:crashPath] copy];
+					
+					[[self window] makeKeyAndOrderFront:self];
+				}
+				return [self retain];// will be released by itself when closing
+			}
+		}
+	}
+	[SUD setValue:modificationDate forKey:@"iTM2LastCrashDate"];
+	[self dealloc];
+	self = nil;
+//iTM2_END;
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
+- (void)dealloc;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[_crashLog autorelease];
+	_crashLog = nil;
+	[_consoleLog autorelease];
+	_consoleLog = nil;
+	[super dealloc];
+//iTM2_END;
+    return;
 }
 @end
 

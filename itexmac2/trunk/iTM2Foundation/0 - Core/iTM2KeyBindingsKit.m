@@ -36,6 +36,7 @@
 NSString * const iTM2KeyBindingsComponent = @"Key Bindings.localized";// Default system name
 NSString * const iTM2KeyBindingsExtension = @"dict";// Default system name
 NSString * const iTM2SelectorMapExtension = @"selectorMap";// Default system name
+NSString * const iTM2KeyBindingsIdentifierKey = @"iTM2KeyBindingsIdentifier";
 NSString * const iTM2TextKeyBindingsIdentifier = @"Text";
 NSString * const iTM2PDFKeyBindingsIdentifier = @"PDF";
 NSString * const iTM2NoKeyBindingsIdentifier = @"iTM2NoKeyBindings";
@@ -305,7 +306,7 @@ To Do List:
     if([identifier hasPrefix:@"./"])
     {
         // these are absolute paths (or relative to absolute locations...)
-        #warning THE PROJECT HERE? foo.texp/Frontends/main bundle identifer/iTM2KeyBindingsComponent/identifier
+        #warning THE PROJECT HERE? foo.texp/Frontends/main bundle identifier/iTM2KeyBindingsComponent/identifier
         NSString * dirName = [[[SDC currentDocument] fileName] stringByDeletingLastPathComponent];
         NSString * helperIdentifier = identifier;
         NSString * key;
@@ -838,7 +839,8 @@ To Do List:
                             [C cleanSelectionCache:self];
                         return YES;
                     }
-                    else if(_iTM2IMFlags.handlesKeyStrokes && [C isKindOfClass:[NSResponder class]])
+                    else if([C isKindOfClass:[NSResponder class]])
+//                    else if(_iTM2IMFlags.handlesKeyStrokes && [C isKindOfClass:[NSResponder class]])
                     {
                         return [C interpretKeyStroke:characters];
                     }
@@ -1635,7 +1637,7 @@ To Do List:
 //iTM2_START;
 	if([self handlesKeyStrokes] || [self handlesKeyBindings])
 	{
-		[self keyBindingsManagerWithIdentifier:[self keyBindingsManagerIdentifier]];
+		[self keyBindingsManagerWithIdentifier:[self keyBindingsManagerIdentifier]];// is it necessary?
 	}
 //iTM2_END;
     return;
@@ -1690,9 +1692,12 @@ To Do List:
     id KBMI = metaGETTER;
     if(!KBMI)
     {
-        metaSETTER([[[isa inspectorType]
-                stringByAppendingPathComponent: [isa inspectorMode]]
-                    stringByAppendingPathComponent: [isa inspectorVariant]]);
+		KBMI = [super keyBindingsManagerIdentifier];
+		if(![KBMI length])
+		{
+			KBMI = [[isa inspectorType] stringByAppendingPathComponent: [isa inspectorMode]];
+		}
+        metaSETTER(KBMI);
         KBMI = metaGETTER;
     }
     return KBMI;
@@ -1706,16 +1711,21 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * identifier = [self keyBindingsManagerIdentifier];
+	NSString * key = [self keyBindingsManagerIdentifier];
+	NSString * identifier = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	if(![identifier length])
+	{
+		identifier = key;
+	}
 	if(iTM2DebugEnabled)
 	{
 		iTM2_LOG(@"The identifier is: %@", identifier);
 	}
 	[iTM2KeyBindingsManager registerKeyBindingsForIdentifier:identifier];
     return [[[iTM2KeyBindingsManager allocWithZone:[self zone]]
-				initWithIdentifier: identifier
-					handleKeyBindings: [self handlesKeyBindings]
-						handleKeyStrokes: [self handlesKeyStrokes]] autorelease];
+				initWithIdentifier:identifier
+					handleKeyBindings:[self handlesKeyBindings]
+						handleKeyStrokes:[self handlesKeyStrokes]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setKeyBindingsManager:
 - (void)setKeyBindingsManager:(id)argument;

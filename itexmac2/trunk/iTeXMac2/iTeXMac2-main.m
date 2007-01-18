@@ -8,6 +8,8 @@
 //  Copyright Laurens'Tribune 2005. All rights reserved.
 //
 
+#import <Foundation/NSDebug.h>
+
 int main(int argc, char *argv[])
 {
 	NSLog(@"This is %s speaking... soon entering main", argv[0]);
@@ -140,12 +142,10 @@ To Do List:
 	}
 	return;
 }
-- (void)HDCrashReporter_DidFinishLaunching;
+- (void)crashReporter_DidFinishLaunching;
 {
-	if ([HDCrashReporter newCrashLogExists])
-	{
-		[HDCrashReporter doCrashSubmitting];
-	}
+	//do crash recovery
+	//
 	return;
 }
 @end
@@ -185,6 +185,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[iTM2MileStone putMileStoneForKey:@"iTeXMac2 Welcome"];
+	[NSBundle reportCrashIfNeeded];
     int CVN = [SUD integerForKey:iTM2CurrentVersionNumberKey];
     int CCV = [self currentVersion];
     if(!CVN)

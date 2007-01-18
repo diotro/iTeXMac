@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEA90500B5F7826003A869D</string>
+						<string>DCEA91520B6002C4003A869D</string>
 						<key>history</key>
 						<array>
 							<string>DCEA8FE90B5F66EF003A869D</string>
@@ -262,8 +262,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -310,7 +308,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>8</integer>
+									<integer>11</integer>
 									<integer>7</integer>
 									<integer>0</integer>
 								</array>
@@ -346,12 +344,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTeXMac2-main.m</string>
+								<string>iTeXMac2-Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -359,11 +359,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTeXMac2-main.m</string>
+										<string>iTeXMac2-Info.plist</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCEA904F0B5F7826003A869D</string>
+										<string>DCEA91510B6002C4003A869D</string>
 										<key>history</key>
 										<array>
 											<string>DCA37E040AE3A18500874F9E</string>
@@ -376,7 +376,8 @@
 											<string>DCB530390B59B9DC00CD713D</string>
 											<string>DCB5309A0B59BE1200CD713D</string>
 											<string>DCEA8FF40B5F687C003A869D</string>
-											<string>DCEA904E0B5F7826003A869D</string>
+											<string>DCEA90550B5F93D0003A869D</string>
+											<string>DCEA90560B5F93D0003A869D</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -389,6 +390,7 @@
 											<string>DCBA44320B028A2F006AF52A</string>
 											<string>DCBA44330B028A2F006AF52A</string>
 											<string>DCEA8FF60B5F687C003A869D</string>
+											<string>DCEA90570B5F93D0003A869D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

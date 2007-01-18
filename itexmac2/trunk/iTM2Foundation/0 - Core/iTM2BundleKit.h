@@ -107,6 +107,14 @@ extern NSString * const iTM2BundleContentsComponent;
 + (void)redirectNSLogOutput;
 
 /*!
+    @method 	NSLogOutputPath
+    @abstract	path of the redirected NSLog output.
+    @discussion	Discussion forthcoming.
+    @result		The path, or a void string i there is no redirection.
+*/
++ (NSString *)NSLogOutputPath;
+
+/*!
     @method 	searchPathsForSupportInDomains:withName:application's given name.
     @discussion	Returns objects of
                 1- ~/Library/Application\ Support/APPLICATION_NAME
