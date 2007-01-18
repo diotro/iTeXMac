@@ -25,6 +25,8 @@
 #import <objc/objc.h>
 #import <objc/objc-class.h>
 #import <objc/objc-runtime.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
+
 #ifdef __iTM2_AUTO_VALIDATION_OFF__
 #warning Auto validation is OFF, undefine the __iTM2_AUTO_VALIDATION_OFF__ preprocessor macro
 @implementation NSObject(iTM2Validation)
@@ -549,6 +551,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSTextView_iTM2Validation poseAsClass:[NSTextView class]];
 //iTM2_END;
@@ -770,6 +773,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSWindow_iTM2ValidationKit_Validation poseAsClass:[NSWindow class]];
 	[NSDocument_iTM2Validation poseAsClass:[NSDocument class]];// swizzling does not work

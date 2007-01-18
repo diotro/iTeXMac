@@ -161,6 +161,7 @@ To Do List:
 "*/
 {
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSTextView_iTM2MiscKit poseAsClass:[NSTextView class]];
 //iTM2_END;
@@ -392,6 +393,7 @@ To Do List:
 "*/
 {
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSPageLayout_iTeXMac2 poseAsClass:[NSPageLayout class]];
 	[super initialize];
@@ -425,6 +427,7 @@ To Do List:
 "*/
 {
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSPrintInfo_iTeXMac2 poseAsClass:[NSPrintInfo class]];
 //iTM2_END;
@@ -823,6 +826,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSToolbar_iTeXMac2 poseAsClass:[NSToolbar class]];
 //iTM2_END;

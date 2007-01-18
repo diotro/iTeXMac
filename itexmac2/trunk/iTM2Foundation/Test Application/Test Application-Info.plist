@@ -12,14 +12,11 @@
 				<string>PDF</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>MyDocumentType1</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
+			<string>MyDocumentType1</string><key>CFBundleTypeRole</key>
+			<string>Editor</string><key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
-			<string>iTM2PDFDocument</string>
-			<key>NSPersistentStoreTypeKey</key>
+			<string>iTM2PDFDocument</string><key>NSPersistentStoreTypeKey</key>
 			<string>XML</string>
 		</dict>
 		<dict>
@@ -28,14 +25,11 @@
 				<string>*</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>MyDocumentType</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
+			<string>MyDocumentType</string><key>CFBundleTypeRole</key>
+			<string>Editor</string><key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
-			<string>iTM2TextDocument</string>
-			<key>NSPersistentStoreTypeKey</key>
+			<string>iTM2TextDocument</string><key>NSPersistentStoreTypeKey</key>
 			<string>XML</string>
 		</dict>
 	</array>

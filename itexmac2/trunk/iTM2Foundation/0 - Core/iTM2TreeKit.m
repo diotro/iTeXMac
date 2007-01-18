@@ -24,6 +24,8 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
 
 #import <iTM2Foundation/iTM2TreeKit.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
+
 #define iTM2_DIAGNOSTIC
 @implementation iTM2TreeNode
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
@@ -717,6 +719,7 @@ To Do List:
 + (void)load;
 {
 	NSAutoreleasePool * P = [[NSAutoreleasePool alloc] init];
+	[NSBundle redirectNSLogOutput];
 
 #if 1
 	iTM2PatriciaController * PC = [[[iTM2PatriciaController alloc] init] autorelease];

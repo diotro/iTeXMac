@@ -26,6 +26,7 @@
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 #import <iTM2Foundation/MoreFilesX.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
@@ -379,6 +380,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_removeFileAtPath:handler:)replacement:@selector(removeFileAtPath:handler:)forClass:[NSFileManager class]])
 	{

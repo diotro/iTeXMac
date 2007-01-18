@@ -33,6 +33,7 @@
 #import <iTM2Foundation/iTM2PDFViewKit.h>
 #import <iTM2Foundation/iTM2ValidationKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 //#import <unistd.h>
 //#import <fcntl.h>
@@ -2347,6 +2348,7 @@ NSString * const iTM2PDFPreferA4PaperKey = @"iTM2PDFPreferA4Paper";
 /*"Description forthcoming."*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
         [NSNumber numberWithBool:NO], iTM2PDFPreferA4PaperKey,

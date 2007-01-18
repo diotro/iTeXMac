@@ -781,6 +781,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
     [NSFormatter_iTeXMac2 poseAsClass:[NSFormatter class]];
 //iTM2_END;

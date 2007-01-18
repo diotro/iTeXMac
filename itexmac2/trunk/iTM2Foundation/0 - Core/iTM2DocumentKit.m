@@ -61,6 +61,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) replacement:@selector(canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) forClass:[self class]])
 	{
@@ -3367,7 +3368,6 @@ To Do List:
 	{
 		// I thought update was automatic for menus, but it seems that it is not the case,
 		// at least for the inspector menu, so I must update them the hard way
-		[DNC addObserver:self selector:@selector(windowDidChangeMainStatusNotified:) name:NSWindowDidBecomeMainNotification object:nil];
 		[DNC addObserver:self selector:@selector(windowDidChangeMainStatusNotified:) name:NSWindowDidResignMainNotification object:nil];
 	}
 //iTM2_END;

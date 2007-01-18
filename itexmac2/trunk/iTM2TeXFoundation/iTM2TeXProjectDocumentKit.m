@@ -22,6 +22,7 @@
 */
 
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 //#import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
 
 NSString * const iTM2TeXProjectInfoType = @"info";// = iTM2ProjectInfoType
@@ -53,6 +54,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSDocumentController_iTM2TeXProject poseAsClass:[iTM2DocumentController class]];
 //iTM2_END;
@@ -1714,6 +1716,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"Localization is not complete" forKey:@"TeX Project Menu Items"];
 //iTM2_END;

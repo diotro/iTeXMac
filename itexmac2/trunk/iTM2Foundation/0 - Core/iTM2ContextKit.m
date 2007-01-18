@@ -27,6 +27,7 @@
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2ContextDidChangeNotification = @"iTM2ContextDidChange";
 
@@ -923,6 +924,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSDocument_iTM2ContextKit poseAsClass:[NSDocument class]];
 //iTM2_END;

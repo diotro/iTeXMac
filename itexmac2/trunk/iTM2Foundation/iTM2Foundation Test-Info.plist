@@ -12,10 +12,8 @@
 				<string>text</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Base text document</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
+			<string>Base text document</string><key>CFBundleTypeRole</key>
+			<string>Editor</string><key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>

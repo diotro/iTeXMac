@@ -1552,6 +1552,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(tile) replacement:@selector(swizzle_iTM2ViewKit_tile) forClass:self])
 	{

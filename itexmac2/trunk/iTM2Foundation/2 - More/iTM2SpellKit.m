@@ -1496,6 +1496,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	// before Tiger, the following poseAsClass: were performed in the iTM2SpellKitCompleteInstallation
 	// this broke NSTextView bindings in Tiger
@@ -2742,6 +2743,7 @@ To Do List:
 + (void)load;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 	[self poseAsClass:[NSTextView class]];
 	iTM2_RELEASE_POOL;
 }
@@ -2767,6 +2769,7 @@ To Do List:
 + (void)load;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 	[self poseAsClass:[NSObject class]];
 	iTM2_RELEASE_POOL;
 	return;

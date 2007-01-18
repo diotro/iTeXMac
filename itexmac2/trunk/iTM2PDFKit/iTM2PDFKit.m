@@ -92,6 +92,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_iTM2PDFKit_init) replacement:@selector(init) forClass:[self class]])
 	{
@@ -6801,6 +6802,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(![SUD boolForKey:@"iTM2NOPDFPageCharacterIndexAtPointFix"])
 		[self poseAsClass:[PDFPage class]];
@@ -6943,6 +6945,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[self poseAsClass:[PDFView class]];
 //iTM2_END;
@@ -8237,6 +8240,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2PDFKitResponder"];
 //iTM2_END;
@@ -8504,6 +8508,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 	id controller = [[[iTM2PDFKitDefaultsController alloc] init] autorelease];
 	[controller setModel:[NSMutableDictionary dictionary]];
 	PDFView * V = [[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
@@ -9145,13 +9150,17 @@ To Do List:
 }
 @end
 
+#warning THIS IS DEBUG CODE
 @interface PDFPage_iTeXMac2:PDFPage
 @end
 static id PDFPage_iTeXMac2_Storage = nil;
 @implementation PDFPage_iTeXMac2
 + (void)load;
 {
+	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 	[self poseAsClass:[PDFPage class]];
+	iTM2_RELEASE_POOL;
 	return;
 }
 + (void)initialize;
@@ -9187,7 +9196,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 		N = [NSNumber numberWithInt:2];
 	}
 	[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
-	return [self retain];
+	return [super retain];
 }
 - (void)release;
 {
@@ -9202,6 +9211,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 		}
 		else if(retainCount)
 		{
+			iTM2_LOG(@"DEALLOC %@",self);
 			N = [NSNumber numberWithInt:--retainCount];// 0 is reached dealloc soon
 		}
 		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];

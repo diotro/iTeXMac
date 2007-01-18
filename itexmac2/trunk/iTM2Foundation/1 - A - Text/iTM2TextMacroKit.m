@@ -25,6 +25,7 @@
 #import <iTM2Foundation/iTM2TextKit.h>
 #import <iTM2Foundation/iTM2StringKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
+#import <iTM2Foundation/iTM2KeyBindingsKit.h>
 //#import <iTM2Foundation/iTM2LiteScanner.h>
 //#import <iTM2Foundation/iTM2TextKit.h>
 
@@ -54,19 +55,19 @@ To Do List:
     id temp = [[before mutableCopy] autorelease];
     [temp replaceOccurrencesOfString:iTM2MacroNameOld withString:iTM2MacroNameKey
         options: 0L range: NSMakeRange(0, [(NSString *)temp length])];
-    [temp replaceOccurrencesOfString:iTM2TextSelectionOld withString:iTM2TextSelectionAnchorKey
+    [temp replaceOccurrencesOfString:iTM2TextSelectionOld withString:iTM2TextSELPlaceholder
         options: 0L range: NSMakeRange(0, [(NSString *)temp length])];
     [result setMacroBefore:temp];
     temp = [[selected mutableCopy] autorelease];
     [temp replaceOccurrencesOfString:iTM2MacroNameOld withString:iTM2MacroNameKey
         options: 0L range: NSMakeRange(0, [(NSString *)temp length])];
-    [temp replaceOccurrencesOfString:iTM2TextSelectionOld withString:iTM2TextSelectionAnchorKey
+    [temp replaceOccurrencesOfString:iTM2TextSelectionOld withString:iTM2TextSELPlaceholder
         options: 0L range: NSMakeRange(0, [(NSString *)temp length])];
     [result setMacroSelected:temp];
     temp = [[after mutableCopy] autorelease];
     [temp replaceOccurrencesOfString:iTM2MacroNameOld withString:iTM2MacroNameKey
         options: 0L range: NSMakeRange(0, [(NSString *)temp length])];
-    [temp replaceOccurrencesOfString:iTM2TextSelectionOld withString:iTM2TextSelectionAnchorKey
+    [temp replaceOccurrencesOfString:iTM2TextSelectionOld withString:iTM2TextSELPlaceholder
         options: 0L range: NSMakeRange(0, [(NSString *)temp length])];
     [result setMacroAfter:temp];
     [result setToolTip:[NSString string]];
@@ -116,11 +117,11 @@ To Do List:
 				R.length = [MS length];
 				[MS replaceOccurrencesOfString:iTM2MacroNameKey withString:iTM2MacroNameKey options:0L range:R];
 				R.length = [MS length];
-				[MS replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextSelectionAnchorKey options:0L range:R];
+				[MS replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextSELPlaceholder options:0L range:R];
 				R.length = [MS length];
 				[MS replaceOccurrencesOfString:iTM2MacroInsertionKey withString:iTM2MacroInsertionKey options:0L range:R];
 				R.length = [MS length];
-				[MS replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:iTM2TextTabAnchorKey options:0L range:R];
+				[MS replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:iTM2TextTABPlaceholder options:0L range:R];
 				R.length = [MS length];
 				[MS replaceOccurrencesOfString:iTM2MacroToolTipKey withString:iTM2MacroToolTipKey options:0L range:R];
 			}
@@ -282,23 +283,23 @@ To Do List:
         }
         if([selection length])
         {
-            [before replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:selection
+            [before replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:selection
                                         options: 0L range: NSMakeRange(0, [before length])];
-            [selected replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:selection
+            [selected replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:selection
                                         options: 0L range: NSMakeRange(0, [selected length])];
-            [after replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:selection
+            [after replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:selection
                                         options: 0L range: NSMakeRange(0, [after length])];
         }
         else
         {
-            [before replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
+            [before replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextTABPlaceholder
                                         options: 0L range: NSMakeRange(0, [before length])];
-            [selected replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
+            [selected replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextTABPlaceholder
                                         options: 0L range: NSMakeRange(0, [selected length])];
-            [after replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
+            [after replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextTABPlaceholder
                                         options: 0L range: NSMakeRange(0, [after length])];
             {
-                NSRange foundRange = [before rangeOfString:iTM2TextTabAnchorKey
+                NSRange foundRange = [before rangeOfString:iTM2TextTABPlaceholder
                                                     options: 0 range: NSMakeRange(0, [before length])];
                 if(foundRange.length)
                 {
@@ -307,17 +308,17 @@ To Do List:
                     after = (id)[[[before substringWithRange:NSMakeRange(i, [before length] - i)]
                                     stringByAppendingString: selected]
                                             stringByAppendingString: after];
-                    selected = (id)iTM2TextTabAnchorKey;
+                    selected = (id)iTM2TextTABPlaceholder;
                     before = (id)newBefore;
                 }
             }
         }
         NSString * anchor = [NSTextView tabAnchor];
-        [before replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:anchor
+        [before replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:anchor
                                     options: 0L range: NSMakeRange(0, [before length])];
-        [selected replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:anchor
+        [selected replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:anchor
                                     options: 0L range: NSMakeRange(0, [selected length])];
-        [after replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:anchor
+        [after replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:anchor
                                     options: 0L range: NSMakeRange(0, [after length])];
         aRangePtr->location = [before length];
         aRangePtr->length = [selected length];
@@ -332,10 +333,10 @@ To Do List:
             [result replaceOccurrencesOfString:iTM2MacroNameKey withString:name
                                     options: 0L range: NSMakeRange(0, [result length])];
         if([selection length])
-            [result replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:selection
+            [result replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:selection
                                         options: 0L range: NSMakeRange(0, [result length])];
         else
-            [result replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
+            [result replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextTABPlaceholder
                                         options: 0L range: NSMakeRange(0, [result length])];
         return result;
     }
@@ -408,7 +409,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [SUD stringForKey:iTM2UDTabAnchorStringKey];
+    return [SUD stringForKey:iTM2TextTabAnchorStringKey];
 }
 //=-=-=-=-=-=-=-=-=-=-=  performInsertActionWithArguments:attributes:
 - (BOOL)performInsertActionWithArguments:(NSArray *)arguments attributes:(NSDictionary *)attributes;
@@ -467,41 +468,295 @@ To Do List:
 // this new part concerns the new macro design. 2006
     if([argument isKindOfClass:[NSString class]])
 	{
-        argument = [argument componentsBySeparatingPlaceholders];
-		NSMutableArray * MRA = [NSMutableArray array];
-		NSEnumerator * E;
-		NSMutableString * MS;
-here:
-		E = [argument objectEnumerator];
-		while(MS = [E nextObject])
+		argument = [argument stringByRemovingTipPlaceHolders];
+		NSRange _RangeForUserCompletion = [self selectedRange];
+		NSString * _Tab = nil;
+		unsigned idx = [self numberOfSpacesPerTab];
+		if(idx<=0)
 		{
-			if([MS isKindOfClass:[NSString class]])
+			_Tab = @"\t";
+		}
+		else
+		{
+			NSMutableString * MS = [NSMutableString string];
+			while(idx--)
 			{
-				MS = [[MS mutableCopy] autorelease];
-				NSString * cachedSelection = [self cachedSelection];
-				if([cachedSelection isEqualToString:tabAnchor])
-					cachedSelection = [NSString string];
-				if([cachedSelection length])
+				[MS appendString:@" "];
+			}
+			_Tab = [MS copy];
+		}
+		NSRange _SelectedRange = [self selectedRange];
+		NSString * S = [self string];
+		NSString * _OriginalSelectedString = [S substringWithRange:_SelectedRange];
+		// Get the indentation level at the line where we are going to insert things
+		int numberOfSpacesPerTab = [self numberOfSpacesPerTab]?:4;
+		numberOfSpacesPerTab = abs(numberOfSpacesPerTab);
+		unsigned start, contentsEnd;
+		NSRange R = _RangeForUserCompletion;
+		R.length = 0;
+		[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:R];
+		unsigned _IndentationLevel = 0;
+		unsigned currentLength = 0;
+		while(start<contentsEnd)
+		{
+			unichar theChar = [S characterAtIndex:start++];
+			if(theChar == ' ')
+			{
+				++currentLength;
+			}
+			else if(theChar == '\t')
+			{
+				++_IndentationLevel;
+				_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
+				currentLength = 0;
+			}
+			else
+			{
+				break;
+			}
+		}
+		_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
+		
+		// get the indentation in the original selected string, starting at the second line
+		// then split the selection into lines in order to manage the indentation
+		// ensuring that the white prefix is of the apropriate format
+		NSMutableArray * replacementLines = [NSMutableArray array];
+		R = NSMakeRange(0,0);
+		[_OriginalSelectedString getLineStart:nil end:&R.location contentsEnd:nil forRange:R];
+		NSString * blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(0,R.location)];
+		[replacementLines addObject:blackString];
+		NSMutableArray * whitePrefixes = [NSMutableArray array];
+		NSMutableArray * blackStrings = [NSMutableArray array];
+		unsigned indentationOfTheSelectedString = 0;
+		NSNumber * N;
+		unsigned end;
+		unsigned lineIndentation = 0;
+		if(R.location < [_OriginalSelectedString length])
+		{
+			indentationOfTheSelectedString = UINT_MAX;
+			do
+			{
+				[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+				lineIndentation = 0;
+				while(R.location<contentsEnd)
 				{
-					[MS replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:cachedSelection
-												options: 0L range: NSMakeRange(0, [MS length])];
+					unichar theChar = [_OriginalSelectedString characterAtIndex:R.location++];
+					if(theChar == ' ')
+					{
+						++currentLength;
+					}
+					else if(theChar == '\t')
+					{
+						++lineIndentation;
+						lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+						currentLength = 0;
+					}
+					else
+					{
+						break;
+					}
+				}
+				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+				if(lineIndentation<indentationOfTheSelectedString)
+				{
+					indentationOfTheSelectedString = lineIndentation;
+				}
+				N = [NSNumber numberWithUnsignedInt:lineIndentation];
+				[whitePrefixes addObject:N];
+				blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(R.location,end-R.location)];
+				[blackStrings addObject:blackString];
+				R.location = end;
+			}
+			while(R.location < [_OriginalSelectedString length]);
+		}
+		NSEnumerator * whiteE = [whitePrefixes objectEnumerator];
+		NSEnumerator * blackE = [blackStrings objectEnumerator];
+		while((N = [whiteE nextObject]) && (blackString = [blackE nextObject]))
+		{
+			lineIndentation = [N unsignedIntValue];
+			lineIndentation -= indentationOfTheSelectedString;
+			if(lineIndentation)
+			{
+				NSMutableString * MS = [NSMutableString string];
+				while(lineIndentation--)
+				{
+					[MS appendString:_Tab];
+				}
+				[MS appendString:blackString];
+				[replacementLines addObject:MS];
+			}
+			else
+			{
+				[replacementLines addObject:blackString];
+			}
+		}
+
+		NSString * completion = argument;
+		NSMutableString * longCompletionString = [NSMutableString string];
+		R = NSMakeRange(0,0);
+		[completion getLineStart:nil end:&R.location contentsEnd:nil forRange:R];// first line
+		blackString = [completion substringWithRange:NSMakeRange(0,R.location)];
+		[longCompletionString appendString:blackString];
+		if(R.location < [completion length])
+		{
+			do
+			{
+				[completion getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+				lineIndentation = 0;
+				unsigned currentLength = 0;
+				int numberOfSpacesPerTab = [self numberOfSpacesPerTab]?:4;
+				while(R.location<contentsEnd)
+				{
+					unichar theChar = [completion characterAtIndex:R.location++];
+					if(theChar == ' ')
+					{
+						++currentLength;
+					}
+					else if(theChar == '\t')
+					{
+						++lineIndentation;
+						lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+						currentLength = 0;
+					}
+					else
+					{
+						break;
+					}
+				}
+				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+				NSMutableString * whitePrefix = [NSMutableString string];
+				while(lineIndentation--)
+				{
+					[whitePrefix appendString:_Tab];
+				}
+				NSMutableString * line = [NSMutableString stringWithString:whitePrefix];
+				blackString = [completion substringWithRange:NSMakeRange(R.location,end-R.location)];
+				NSRange searchRange = NSMakeRange(0,0);
+				searchRange.length = [blackString length] - searchRange.location;
+				NSRange SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+				if(SELRange.length)
+				{
+					NSString * s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
+					[line appendString:s];
+					NSEnumerator * replacementE = [replacementLines objectEnumerator];
+					s = [replacementE nextObject];
+					[line appendString:s];
+					while(s = [replacementE nextObject])
+					{
+						[line appendString:whitePrefix];
+						[line appendString:s];
+					}
+next:
+					searchRange.location = NSMaxRange(SELRange);
+					if([blackString length]>searchRange.location)
+					{
+						searchRange.length = [blackString length] - searchRange.location;
+						SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+						if(SELRange.length)
+						{
+							s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
+							[line appendString:s];
+							replacementE = [replacementLines objectEnumerator];
+							s = [replacementE nextObject];
+							[line appendString:s];
+							while(s = [replacementE nextObject])
+							{
+								[line appendString:whitePrefix];
+								[line appendString:s];
+							}
+							goto next;
+						}
+					}
 				}
 				else
 				{
-					[MS replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
-												options: 0L range: NSMakeRange(0, [MS length])];
+					[line appendString:blackString];
 				}
-				[MS replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:tabAnchor
-											options: 0L range: NSMakeRange(0, [MS length])];
-				[MRA addObject:MS];
+				[longCompletionString appendString:line];
+			}
+			while(R.location < [completion length]);
+		}
+
+		NSArray * components = [longCompletionString componentsSeparatedByString:iTM2TextINSPlaceholder];
+		NSString * replacementString = [components componentsJoinedByString:@""];
+		NSMutableArray * selectedRanges = [NSMutableArray array];
+		NSEnumerator * E = [components objectEnumerator];
+		NSString * component;
+		R = _RangeForUserCompletion;
+		NSValue * V = nil;
+		while(component = [E nextObject])
+		{
+			R.location += [component length];
+			R.length = 0;
+			if(component = [E nextObject])
+			{
+				R.length = [component length];
+				V = [NSValue valueWithRange:R];
+				[selectedRanges addObject:V];
+			}
+			else
+			{
+				break;
 			}
 		}
-		[self insertStringArray:MRA];
+		if(![selectedRanges count])
+		{
+			// is there any place holder?
+			R = [replacementString rangeOfPlaceholderFromIndex:0 cycle:NO tabAnchor:tabAnchor];
+			if(R.length)
+			{
+				if(NSMaxRange(R)<[replacementString length])
+				{
+					R.location = [replacementString length];
+					replacementString = [replacementString stringByAppendingString:iTM2TextTABPlaceholder];
+					R.length = [replacementString length] - R.location;
+				}
+			}
+			else
+			{
+				R.location = [replacementString length];
+				R.length = 0;
+			}
+			R.location += _RangeForUserCompletion.location;
+			NSValue * V = [NSValue valueWithRange:R];
+			[selectedRanges addObject:V];
+		}
+		// if the last placeholder is selected wherease there is a placeholder before, remove the corresponding selected range
+		R = [replacementString rangeOfPlaceholderToIndex:[replacementString length] cycle:NO tabAnchor:tabAnchor];
+		if(R.length)
+		{
+			if(R.location)
+			{
+				if([replacementString rangeOfPlaceholderToIndex:R.location-1 cycle:NO tabAnchor:tabAnchor].length)
+				{
+					R.location += _RangeForUserCompletion.location;
+					V = [NSValue valueWithRange:R];
+					if([selectedRanges containsObject:V])
+					{
+						[selectedRanges removeObject:V];
+						R.location = NSMaxRange(R);
+						R.length = 0;
+						V = [NSValue valueWithRange:R];
+						[selectedRanges addObject:V];
+					}
+				}
+			}
+		}
+		if([self shouldChangeTextInRange:_SelectedRange replacementString:replacementString])
+		{
+			[self replaceCharactersInRange:_SelectedRange withString:replacementString];
+			[self didChangeText];
+			[self setSelectedRanges:selectedRanges];
+		}
 		return;
 	}
 	if([argument isKindOfClass:[NSArray class]])
 	{
-		goto here;
+		NSEnumerator * E = [argument objectEnumerator];
+		while(argument = [E nextObject])
+		{
+			[self insertMacro:argument tabAnchor:tabAnchor];
+		}
 	}
     if([argument isKindOfClass:[NSString class]])
         argument = [[[iTM2TextMacro alloc] initWithString:argument] autorelease];
@@ -555,23 +810,23 @@ here:
         cachedSelection = [NSString string];
     if([cachedSelection length])
     {
-        [before replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:cachedSelection
+        [before replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:cachedSelection
                                     options: 0L range: NSMakeRange(0, [before length])];
-        [selected replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:cachedSelection
+        [selected replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:cachedSelection
                                     options: 0L range: NSMakeRange(0, [selected length])];
-        [after replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:cachedSelection
+        [after replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:cachedSelection
                                     options: 0L range: NSMakeRange(0, [after length])];
     }
     else
     {
-        [before replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
+        [before replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextTABPlaceholder
                                     options: 0L range: NSMakeRange(0, [before length])];
-        [selected replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
+        [selected replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextTABPlaceholder
                                     options: 0L range: NSMakeRange(0, [selected length])];
-        [after replaceOccurrencesOfString:iTM2TextSelectionAnchorKey withString:iTM2TextTabAnchorKey
+        [after replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:iTM2TextTABPlaceholder
                                     options: 0L range: NSMakeRange(0, [after length])];
         {
-            NSRange foundRange = [before rangeOfString:iTM2TextTabAnchorKey
+            NSRange foundRange = [before rangeOfString:iTM2TextTABPlaceholder
                                                 options: 0 range: NSMakeRange(0, [before length])];
             if(foundRange.length)
             {
@@ -579,16 +834,16 @@ here:
                 int i = NSMaxRange(foundRange);
                 after = [[[[[before substringWithRange:NSMakeRange(i, [before length] - i)]
         stringByAppendingString: selected] stringByAppendingString: after] mutableCopy] autorelease];
-                selected = [[iTM2TextTabAnchorKey mutableCopy] autorelease];
+                selected = [[iTM2TextTABPlaceholder mutableCopy] autorelease];
                 before = [[newBefore mutableCopy] autorelease];
             }
         }
     }
-    [before replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:tabAnchor
+    [before replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:tabAnchor
                                 options: 0L range: NSMakeRange(0, [before length])];
-    [selected replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:tabAnchor
+    [selected replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:tabAnchor
                                 options: 0L range: NSMakeRange(0, [selected length])];
-    [after replaceOccurrencesOfString:iTM2TextTabAnchorKey withString:tabAnchor
+    [after replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:tabAnchor
                                 options: 0L range: NSMakeRange(0, [after length])];
     if([after length] && [tabAnchor length] && ![after hasSuffix:tabAnchor])
         after = (id)[after stringByAppendingString:tabAnchor];
@@ -613,6 +868,33 @@ here:
 //NSLog(@"%@ %#x IS DONE 4", __PRETTY_FUNCTION__, self);
     [self breakTypingFlow];
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
+- (BOOL)executeStringInstruction:(NSString *)instruction;
+/*"Description forthcoming. 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([super executeStringInstruction:instruction])
+	{
+		return YES;
+	}
+	[self insertMacro:instruction];
+//iTM2_END;
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyStrokes
+- (BOOL)handlesKeyStrokes;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return YES;
 }
 @end
 
@@ -898,3 +1180,4 @@ To Do List:
     return;
 }
 @end
+

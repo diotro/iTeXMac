@@ -24,6 +24,7 @@
 #import "iTM2TeXProjectDocumentKit.h"
 #import "iTM2TeXProjectFrontendKit.h"
 #import "iTM2TeXProjectTaskKit.h"
+#import <iTM2Foundation/iTM2BundleKit.h>
 #import <Carbon/Carbon.h>
 //#import <objc/objc-runtime.h>
 
@@ -65,6 +66,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSDocumentController_iTM2TeXProjectFrontend poseAsClass:[iTM2DocumentController class]];
 //iTM2_END;
@@ -117,6 +119,7 @@ To Do List:
 				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
 			}
 			NSString * projectFileName = [TPD fileName];
+#warning THIS SHOULD BE REVISITED
 			if([projectFileName belongsToFarawayProjectsDirectory])
 			{
 				output = [projectFileName stringByDeletingLastPathComponent];
@@ -161,6 +164,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[SUD setObject:@"LaTeX" forKey:iTM2TeXProjectDefaultBaseNameKey];
 //iTM2_START;
@@ -2838,8 +2842,8 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(newProjectPanelControllerClass) replacement:@selector(swizzled_newProjectPanelControllerClass) forClass:[iTM2ProjectController class]])
 	{
@@ -2971,8 +2975,8 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(project) replacement:@selector(swizzled_project) forClass:[NSDocument class]])
 	{

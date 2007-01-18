@@ -28,17 +28,22 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit
 
-extern NSString * const iTM2MarkPlaceholder;
-extern NSString * const iTM2StopPlaceholder;
-extern NSString * const iTM2StartPlaceholder;
-extern NSString * const iTM2StartArgPlaceholder;
-extern NSString * const iTM2StartOptPlaceholder;
-extern NSString * const iTM2StartTextPlaceholder;
-extern NSString * const iTM2StopPlaceholder;
+extern NSString * const iTM2TextMarkPlaceholder;
+extern NSString * const iTM2TextStartPlaceholder;
+extern NSString * const iTM2TextStopPlaceholder;
+extern NSString * const iTM2TextStartARGPlaceholder;
+extern NSString * const iTM2TextStartOPTPlaceholder;
+extern NSString * const iTM2TextStartTEXTPlaceholder;
+extern NSString * const iTM2TextStartFILEPlaceholder;
+extern NSString * const iTM2TextStartTIPPlaceholder;
 
-extern NSString * const iTM2TextTabAnchorKey;
-extern NSString * const iTM2TextSelectionAnchorKey;
-extern NSString * const iTM2TextInsertionAnchorKey;
+extern NSString * const iTM2TextTABPlaceholder;
+extern NSString * const iTM2TextSELPlaceholder;
+extern NSString * const iTM2TextINSPlaceholder;
+
+extern NSString * const iTM2TextPlaceholder;
+extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
+extern NSString * const iTM2TextTabAnchorStringKey;
 
 @interface NSText(iTeXMac2)
 
@@ -215,6 +220,7 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 @end
 
 @interface NSTextView(Placeholder)
+- (IBAction)selectFirstPlaceholder:(id)sender;
 - (IBAction)selectNextPlaceholder:(id)sender;
 - (IBAction)selectPreviousPlaceholder:(id)sender;
 + (NSString *)tabAnchorKey;
@@ -222,9 +228,19 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 - (void)selectNextTabAnchor:(id)sender;
 - (void)selectPreviousTabAnchor:(id)sender;
 - (void)selectNextTabAnchorAndDelete:(id)sender;
+- (unsigned)numberOfSpacesPerTab;
 @end
 
-@interface NSString(iTM2Placeholder)
+@interface NSString(iTM2TextPlaceholder)
+
+/*!
+	@method		stringByRemovingTipPlaceHolders
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		None.
+	@result		A string.
+*/
+- (NSString *)stringByRemovingTipPlaceHolders;
 
 /*!
 	@method		rangeOfPlaceholderAtIndex:
@@ -258,16 +274,6 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 - (NSRange)rangeOfPlaceholderToIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
 
 /*!
-	@method		componentsBySeparatingPlaceholders
-	@abstract	Abstract forthcoming.
-	@discussion	Turns the receiver into a list of strings, each one being a placeholder (enclosed in a "__(" ")__" pair)
-				or contains no place holder at all. Placeholders are not allowed inside placeholders, "__(" and ")__" are added to ensure that.
-	@param		None.
-    @result     An array of strings
-*/
-- (NSArray *)componentsBySeparatingPlaceholders;
-
-/*!
 	@method		stringByRemovingPlaceHolderMarks
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
@@ -286,14 +292,34 @@ extern NSString * const iTM2TextInsertionAnchorKey;
 - (NSString *)stringByRemovingPlaceHolderMarksWithSelection:(NSString *)selection;
 
 /*!
-	@method		stringWithSelection:getSelectedRanges:
+	@method		stringWithSelection:tabAnchor:indentationLevel:getSelectedRanges:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		the contents of the selection.
+	@param		level.
 	@param		a pointer to an array of ranges.
+	@param		the tab anchor.
     @result     string
 */
-- (NSString *)stringWithSelection:(NSString *)selection getSelectedRanges:(NSArray **)selectedRangesPtr;
+- (NSString *)stringWithSelection:(NSString *)selection tabAnchor:(NSString *)tabAnchor indentationLevel:(unsigned)level getSelectedRanges:(NSArray **)selectedRangesPtr;
+
+/*!
+	@method		indentationLevelWithNumberOfSpacesPerTab:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		numberOfSpacesPerTab.
+    @result     level
+*/
+- (unsigned)indentationLevelWithNumberOfSpacesPerTab:(unsigned)numberOfSpacesPerTab;
+
+/*!
+	@method		numberOfSpacesPerTab
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		None.
+    @result     level.
+*/
+- (unsigned)numberOfSpacesPerTab;
 
 @end
 

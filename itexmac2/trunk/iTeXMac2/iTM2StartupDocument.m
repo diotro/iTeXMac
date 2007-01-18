@@ -81,6 +81,7 @@ To Do List:
 {
 //iTM2_START;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
     [iTM2Application_FixMenuShortcut poseAsClass:[iTM2Application class]];
     iTM2_RELEASE_POOL;
     return;

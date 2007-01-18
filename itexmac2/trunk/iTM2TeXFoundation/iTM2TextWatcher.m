@@ -23,6 +23,7 @@
 
 #import "iTM2TextWatcher.h"
 #import "iTM2TeXStringKit.h"
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2UDMatchDelimiterKey = @"iTM2-Text: Match Delimiter";
 
@@ -244,6 +245,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSTextView_iTM2TextWatcher poseAsClass:[NSTextView class]];
 	[iTM2MileStone registerMileStone:@"!!!   No delimiter watching available, report BUG" forKey:@"iTM2TextWatcher"];

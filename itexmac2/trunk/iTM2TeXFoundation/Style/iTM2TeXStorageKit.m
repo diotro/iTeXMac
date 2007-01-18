@@ -312,6 +312,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 //iTM2_LOG(@"iTM2TeXParser");
     if(!_iTM2TeXModeForModeArray)
@@ -487,7 +488,7 @@ To Do List:
         }
 		unsigned index = result & ~kiTM2TeXModifiersSyntaxMask;
 		modeString = [_iTM2TeXModeForModeArray objectAtIndex:index];
-		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:mode])
+		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
 		{
 			* newModeRef = result | previousError;
 			return status;
@@ -1677,6 +1678,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
     if(!_iTM2TeXPTeXLetterCharacterSet)
     {

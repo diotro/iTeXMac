@@ -20,8 +20,6 @@
 
 #import <Foundation/NSString.h>
 
-extern NSString * const iTM2UDTabAnchorStringKey;
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)
 
 @interface NSString(iTeXMac2)

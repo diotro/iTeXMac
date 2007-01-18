@@ -454,8 +454,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 189708601;
-			PBXWorkspaceStateSaveDate = 189708601;
+			PBXPerProjectTemplateStateSaveDate = 190774078;
+			PBXWorkspaceStateSaveDate = 190774078;
 		};
 		perUserProjectItems = {
 			DC5B8C3F0AE776FD0076589D /* PBXTextBookmark */ = DC5B8C3F0AE776FD0076589D /* PBXTextBookmark */;
@@ -476,8 +476,8 @@
 			DC9BC3880ABA0D4D00FAC59E /* PBXTextBookmark */ = DC9BC3880ABA0D4D00FAC59E /* PBXTextBookmark */;
 			DC9BC38A0ABA0D4D00FAC59E /* PBXTextBookmark */ = DC9BC38A0ABA0D4D00FAC59E /* PBXTextBookmark */;
 			DC9BC38C0ABA0D4D00FAC59E /* PBXTextBookmark */ = DC9BC38C0ABA0D4D00FAC59E /* PBXTextBookmark */;
-			DCB1DC1F0B4EAF5600B0704A /* PBXTextBookmark */ = DCB1DC1F0B4EAF5600B0704A /* PBXTextBookmark */;
 			DCB1DDA40B4EB96000B0704A /* PBXTextBookmark */ = DCB1DDA40B4EB96000B0704A /* PBXTextBookmark */;
+			DCBD483A0B5EFECA00B01DE0 /* PBXTextBookmark */ = DCBD483A0B5EFECA00B01DE0 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;
@@ -507,23 +507,6 @@
 	DC9DC6E5094844DF0079E1B3 /* All */ = {
 		activeExec = 0;
 	};
-	DCB1DC1F0B4EAF5600B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC200B4EAF5600B0704A /* classes.nib */;
-		name = "(null): 17";
-		rLen = 0;
-		rLoc = 395;
-		rType = 0;
-		vrLen = 395;
-		vrLoc = 0;
-	};
-	DCB1DC200B4EAF5600B0704A /* classes.nib */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text;
-		name = classes.nib;
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";
-		sourceTree = "<absolute>";
-	};
 	DCB1DDA40B4EB96000B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCB1DDA50B4EB96000B0704A /* classes.nib */;
@@ -535,6 +518,23 @@
 		vrLoc = 0;
 	};
 	DCB1DDA50B4EB96000B0704A /* classes.nib */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text;
+		name = classes.nib;
+		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";
+		sourceTree = "<absolute>";
+	};
+	DCBD483A0B5EFECA00B01DE0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCBD483B0B5EFECA00B01DE0 /* classes.nib */;
+		name = "(null): 17";
+		rLen = 0;
+		rLoc = 395;
+		rType = 0;
+		vrLen = 395;
+		vrLoc = 0;
+	};
+	DCBD483B0B5EFECA00B01DE0 /* classes.nib */ = {
 		isa = PBXFileReference;
 		name = classes.nib;
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/Resources/English.lproj/iTM2EngineLaTeXInstaller.nib/classes.nib";

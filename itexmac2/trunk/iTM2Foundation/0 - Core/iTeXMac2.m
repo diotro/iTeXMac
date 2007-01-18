@@ -24,6 +24,7 @@
 
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2DebugEnabledKey = @"iTM2DebugEnabled";
 NSString * const iTM2CurrentVersionNumberKey = @"iTM2CurrentVersionNumber";
@@ -106,6 +107,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	iTM2DebugEnabled = [SUD integerForKey:iTM2DebugEnabledKey];
 	if(iTM2DebugEnabled)
@@ -201,6 +203,7 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 + (void)load;
 {
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 	if([SUD boolForKey:@"iTM2PatchPerformActionForItemAtIndex"])
 	{
 		[self poseAsClass:[NSMenu class]];

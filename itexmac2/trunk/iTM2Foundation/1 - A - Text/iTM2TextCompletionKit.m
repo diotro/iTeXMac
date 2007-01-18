@@ -41,8 +41,7 @@ NSString * const iTM2CompletionsExtension = @"xml";
 - (int)runCompletionForTextView:(NSTextView *)aTextView;
 - (void)updateCompletion;
 - (void)cancelCompletion;
-- (void)concludeCompletion;
-- (void)concludeCompletionAndInsertSpace;
+- (void)concludeCompletionAndInsertSpace:(BOOL)yorn;
 - (void)forwardKeyEvent:(NSEvent *)theEvent;
 + (void)reloadCompletionsAtPath:(NSString *)path;
 + (NSArray *)completionsWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
@@ -189,6 +188,8 @@ To Do List:
 	_Candidates = nil;
 	[_TextView autorelease];
 	_TextView = nil;
+	[_Tab autorelease];
+	_Tab = nil;
 	[_OriginalString autorelease];
 	_OriginalString = nil;
 	[_EditedString autorelease];
@@ -197,8 +198,10 @@ To Do List:
 	_ShortCompletionString = nil;
 	[_LongCompletionString autorelease];
 	_LongCompletionString = nil;
-	[_SelectedString autorelease];
-	_SelectedString = nil;
+	[_ReplacementLines autorelease];
+	_ReplacementLines = nil;
+	[_OriginalSelectedString autorelease];
+	_OriginalSelectedString = nil;
 	[_PatriciaControllers autorelease];
 	_PatriciaControllers = nil;
 	[DNC removeObserver:self name:NSWindowWillCloseNotification object:nil];
@@ -334,115 +337,225 @@ grosbois:
 	// clean any previous discussion
 	[self cancelCompletion];
 	// is there something to complete with?
-	int selectedRow = 0;
 	_RangeForUserCompletion = [aTextView rangeForUserCompletion];
-	_SelectedRange = [aTextView selectedRange];
-	_SelectedString = [aTextView string];
-	_SelectedString = [_SelectedString substringWithRange:_SelectedRange];
-	_SelectedString = [_SelectedString copy];
-	_EditedRangeForUserCompletion = _RangeForUserCompletion;
-	_Candidates = [[aTextView completionsForPartialWordRange:_RangeForUserCompletion indexOfSelectedItem:&selectedRow] retain];
+	if(!_RangeForUserCompletion.length)
+	{
+		return 3;
+	}
+	_TextView = [aTextView retain];
+	int selectedRow = 0;
+	_Candidates = [_TextView completionsForPartialWordRange:_RangeForUserCompletion indexOfSelectedItem:&selectedRow];
 	unsigned numberOfRows = [_Candidates count];
 	if(!numberOfRows)
 	{
-		[_Candidates autorelease];
-		_Candidates = nil;
 		return 4;
 	}
-	if(_TextView = [aTextView retain])
+	[_Candidates retain];
+	unsigned idx = [_TextView numberOfSpacesPerTab];
+	if(idx<=0)
 	{
-		[DNC addObserver:self selector:@selector(windowWillCloseNotified:) name:NSWindowWillCloseNotification object:[aTextView window]];
-		NSUndoManager * undoManager = [_TextView undoManager];
-		if(_ShouldEnableUndoRegistration = [undoManager isUndoRegistrationEnabled])
+		_Tab = @"\t";
+	}
+	else
+	{
+		NSMutableString * MS = [NSMutableString string];
+		while(idx--)
 		{
-			NSLog(@"disableUndoRegistration");
-			[undoManager disableUndoRegistration];
+			[MS appendString:@" "];
 		}
-		[_OriginalString autorelease];
-		if(_RangeForUserCompletion.length)
+		_Tab = [MS copy];
+	}
+	_SelectedRange = [_TextView selectedRange];
+	NSString * S = [_TextView string];
+	_OriginalSelectedString = [S substringWithRange:_SelectedRange];
+	_OriginalSelectedString = [_OriginalSelectedString copy];
+	// Get the indentation level at the line where we are going to insert things
+	int numberOfSpacesPerTab = [_TextView numberOfSpacesPerTab]?:4;
+	numberOfSpacesPerTab = abs(numberOfSpacesPerTab);
+	unsigned start, contentsEnd;
+	NSRange R = _RangeForUserCompletion;
+	R.length = 0;
+	[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:R];
+	_IndentationLevel = 0;
+	unsigned currentLength = 0;
+	while(start<contentsEnd)
+	{
+		unichar theChar = [S characterAtIndex:start++];
+		if(theChar == ' ')
 		{
-			_OriginalString = [_TextView string];
-			_OriginalString = [_OriginalString substringWithRange:_RangeForUserCompletion];
-			_OriginalString = [_OriginalString copy];
+			++currentLength;
+		}
+		else if(theChar == '\t')
+		{
+			++_IndentationLevel;
+			_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
+			currentLength = 0;
 		}
 		else
 		{
-			_OriginalString = @"";
+			break;
 		}
-		//where should I draw the window
-		NSLayoutManager * layoutManager = [aTextView layoutManager];
-		NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:_RangeForUserCompletion actualCharacterRange:nil];
-		NSTextContainer * container = [layoutManager textContainerForGlyphAtIndex:glyphRange.location effectiveRange:nil];
-		NSRect rect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:container];
-		rect = [_TextView convertRect:rect toView:nil];
-		NSWindow * textViewWindow = [_TextView window];
-		NSPoint aPoint = rect.origin;
-		aPoint = [textViewWindow convertBaseToScreen:aPoint];
-		aPoint.x-=4;
-		aPoint.y-=1;
-		NSWindow * W = [self window];
-	//	[textViewWindow addChildWindow:W ordered:NSWindowAbove];
-		[W setFrameTopLeftPoint:aPoint];
-		// where should I put this window
-		[_TableView setDataSource:self];
-		[_TableView setDelegate:self];
-		[_TableView setTarget:self];
-		[_TableView setDoubleAction:@selector(_concludeCompletion:)];
-		[_TableView setAllowsMultipleSelection:NO];
-		[_TableView reloadData];
-		NSTableColumn * TC = [_TableView tableColumnWithIdentifier:@"completion"];
-		NSAssert(TC,@"Missing in iTM2CompletionController.nib a column with a \"completion\" identifier, report BUG");
-		NSCell * cell = nil;
-		unsigned row = 0;
-		NSSize size = NSZeroSize;
-		float maxWidth = 0;
-		float maxHeight = 0;
-		while(row<numberOfRows)
-		{
-			cell = [TC dataCellForRow:row];
-			NSString * aString = [_Candidates objectAtIndex:row];
-			[cell setStringValue:aString];
-			size = [cell cellSize];
-			if(size.width>maxWidth)
-			{
-				maxWidth = size.width;
-			}
-			rect = [_TableView rectOfRow:row];
-			if(NSMaxY(rect)>maxHeight)
-			{
-				maxHeight = NSMaxY(rect);
-			}
-			++row;
-		}
-		id aView = [_TableView enclosingScrollView];
-		rect = [aView bounds];
-		rect = [_TableView convertRect:rect fromView:aView];
-		maxWidth += rect.size.width;
-		aView = [aView contentView];
-		maxWidth -= rect.size.width;
-		maxWidth += 2*[_TableView intercellSpacing].width;
-		maxWidth += 10;
-		rect = [W frame];
-		rect.size.width = maxWidth;
-		maxHeight += 4;
-		rect.size.height = maxHeight;
-		[_TableView selectRow:selectedRow byExtendingSelection:NO];
-		[self updateCompletion];
-#if 0
-		aView = [_TableView enclosingScrollView];
-		rect = [[aView contentView] bounds];
-		rect = [_TableView convertRect:rect fromView:aView];
-		NSLog(NSStringFromSize(rect.size));
-		rect = [_TableView bounds];
-		NSLog(NSStringFromSize(rect.size));
-#endif
-		[W setFrame:rect display:NO];// one of the latest thing to do
-		[W setFrameTopLeftPoint:aPoint];
-		[W makeKeyAndOrderFront:self];
-	//	return [NSApp runModalForWindow:W];
-		return 5;
 	}
-	return 0;
+	_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
+	
+	// get the indentation in the original selected string, starting at the second line
+	// then split the selection into lines in order to manage the indentation
+	// ensuring that the white prefix is of the apropriate format
+	NSMutableArray * replacementLines = [NSMutableArray array];
+	R = NSMakeRange(0,0);
+	[_OriginalSelectedString getLineStart:nil end:&R.location contentsEnd:nil forRange:R];
+	NSString * blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(0,R.location)];
+	[replacementLines addObject:blackString];
+	NSMutableArray * whitePrefixes = [NSMutableArray array];
+	NSMutableArray * blackStrings = [NSMutableArray array];
+	unsigned indentationOfTheSelectedString = 0;
+	NSNumber * N;
+	unsigned end;
+	unsigned lineIndentation = 0;
+	if(R.location < [_OriginalSelectedString length])
+	{
+		indentationOfTheSelectedString = UINT_MAX;
+		do
+		{
+			[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+			lineIndentation = 0;
+			while(R.location<contentsEnd)
+			{
+				unichar theChar = [_OriginalSelectedString characterAtIndex:R.location++];
+				if(theChar == ' ')
+				{
+					++currentLength;
+				}
+				else if(theChar == '\t')
+				{
+					++lineIndentation;
+					lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+					currentLength = 0;
+				}
+				else
+				{
+					break;
+				}
+			}
+			lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+			if(lineIndentation<indentationOfTheSelectedString)
+			{
+				indentationOfTheSelectedString = lineIndentation;
+			}
+			N = [NSNumber numberWithUnsignedInt:lineIndentation];
+			[whitePrefixes addObject:N];
+			blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(R.location,end-R.location)];
+			[blackStrings addObject:blackString];
+			R.location = end;
+		}
+		while(R.location < [_OriginalSelectedString length]);
+	}
+	NSEnumerator * whiteE = [whitePrefixes objectEnumerator];
+	NSEnumerator * blackE = [blackStrings objectEnumerator];
+	while((N = [whiteE nextObject]) && (blackString = [blackE nextObject]))
+	{
+		lineIndentation = [N unsignedIntValue];
+		lineIndentation -= indentationOfTheSelectedString;
+		if(lineIndentation)
+		{
+			NSMutableString * MS = [NSMutableString string];
+			while(lineIndentation--)
+			{
+				[MS appendString:_Tab];
+			}
+			[MS appendString:blackString];
+			[replacementLines addObject:MS];
+		}
+		else
+		{
+			[replacementLines addObject:blackString];
+		}
+	}
+	_ReplacementLines = [replacementLines copy];
+
+	_EditedRangeForUserCompletion = _RangeForUserCompletion;
+	[DNC addObserver:self selector:@selector(windowWillCloseNotified:) name:NSWindowWillCloseNotification object:[_TextView window]];
+	NSUndoManager * undoManager = [_TextView undoManager];
+	if(_ShouldEnableUndoRegistration = [undoManager isUndoRegistrationEnabled])
+	{
+		NSLog(@"disableUndoRegistration");
+		[undoManager disableUndoRegistration];
+	}
+	_OriginalString = [_TextView string];
+	_OriginalString = [_OriginalString substringWithRange:_RangeForUserCompletion];
+	_OriginalString = [_OriginalString copy];
+	//where should I draw the window
+	NSLayoutManager * layoutManager = [_TextView layoutManager];
+	NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:_RangeForUserCompletion actualCharacterRange:nil];
+	NSTextContainer * container = [layoutManager textContainerForGlyphAtIndex:glyphRange.location effectiveRange:nil];
+	NSRect rect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:container];
+	rect = [_TextView convertRect:rect toView:nil];
+	NSWindow * textViewWindow = [_TextView window];
+	NSPoint aPoint = rect.origin;
+	aPoint = [textViewWindow convertBaseToScreen:aPoint];
+	aPoint.x-=4;
+	aPoint.y-=1;
+	NSWindow * W = [self window];
+//	[textViewWindow addChildWindow:W ordered:NSWindowAbove];
+	[W setFrameTopLeftPoint:aPoint];
+	// where should I put this window
+	[_TableView setDataSource:self];
+	[_TableView setDelegate:self];
+	[_TableView setTarget:self];
+	[_TableView setDoubleAction:@selector(_concludeCompletion:)];
+	[_TableView setAllowsMultipleSelection:NO];
+	[_TableView reloadData];
+	NSTableColumn * TC = [_TableView tableColumnWithIdentifier:@"completion"];
+	NSAssert(TC,@"Missing in iTM2CompletionController.nib a column with a \"completion\" identifier, report BUG");
+	NSCell * cell = nil;
+	unsigned row = 0;
+	NSSize size = NSZeroSize;
+	float maxWidth = 0;
+	float maxHeight = 0;
+	while(row<numberOfRows)
+	{
+		cell = [TC dataCellForRow:row];
+		NSString * aString = [_Candidates objectAtIndex:row];
+		[cell setStringValue:aString];
+		size = [cell cellSize];
+		if(size.width>maxWidth)
+		{
+			maxWidth = size.width;
+		}
+		rect = [_TableView rectOfRow:row];
+		if(NSMaxY(rect)>maxHeight)
+		{
+			maxHeight = NSMaxY(rect);
+		}
+		++row;
+	}
+	id aView = [_TableView enclosingScrollView];
+	rect = [aView bounds];
+	rect = [_TableView convertRect:rect fromView:aView];
+	maxWidth += rect.size.width;
+	aView = [aView contentView];
+	maxWidth -= rect.size.width;
+	maxWidth += 2*[_TableView intercellSpacing].width;
+	maxWidth += 10;
+	rect = [W frame];
+	rect.size.width = maxWidth;
+	maxHeight += 4;
+	rect.size.height = maxHeight;
+	[_TableView selectRow:selectedRow byExtendingSelection:NO];
+	[self updateCompletion];
+#if 0
+	aView = [_TableView enclosingScrollView];
+	rect = [[aView contentView] bounds];
+	rect = [_TableView convertRect:rect fromView:aView];
+	NSLog(NSStringFromSize(rect.size));
+	rect = [_TableView bounds];
+	NSLog(NSStringFromSize(rect.size));
+#endif
+	[W setFrame:rect display:NO];// one of the latest thing to do
+	[W setFrameTopLeftPoint:aPoint];
+	[W makeKeyAndOrderFront:self];
+//	return [NSApp runModalForWindow:W];
+	return 5;
 }
 - (void)cancelCompletion;
 {
@@ -469,11 +582,25 @@ grosbois:
 		if(_SelectedRange.length>0)
 		{
 			_SelectedRange.length = 0;
-			[_TextView replaceCharactersInRange:_SelectedRange withString:_SelectedString];			
+			[_TextView replaceCharactersInRange:_SelectedRange withString:_OriginalSelectedString];			
 		}
 		[_TextView autorelease];
 		_TextView = nil;
 	}
+	[_Tab autorelease];
+	_Tab = nil;
+	[_OriginalString autorelease];
+	_OriginalString = nil;
+	[_EditedString autorelease];
+	_EditedString = nil;
+	[_ShortCompletionString autorelease];
+	_ShortCompletionString = nil;
+	[_LongCompletionString autorelease];
+	_LongCompletionString = nil;
+	[_ReplacementLines autorelease];
+	_ReplacementLines = nil;
+	[_OriginalSelectedString autorelease];
+	_OriginalSelectedString = nil;
 	[_Candidates autorelease];
 	_Candidates = nil;
 	NSWindow * W = [self window];
@@ -489,13 +616,11 @@ grosbois:
 }
 - (void)_concludeCompletion:(id)sender;
 {
-	[self concludeCompletion];
+	[self concludeCompletionAndInsertSpace:NO];
 	return;
 }
-- (void)concludeCompletionAndInsertSpace;
+- (void)concludeCompletionAndInsertSpace:(BOOL)yorn;
 {
-	NSString * replacementString = [_TextView string];
-	replacementString = [replacementString substringWithRange:_EditedRangeForUserCompletion];
 	[_TextView insertCompletion:_OriginalString forPartialWordRange:_RangeForUserCompletion movement:NSCancelTextMovement isFinal:NO];
 	NSUndoManager * undoManager = [_TextView undoManager];
 	if(_ShouldEnableUndoRegistration)
@@ -508,21 +633,79 @@ iTM2_LOG(@"now enableUndoRegistration");
 	{
 iTM2_LOG(@"still disableUndoRegistration");
 	}
-	NSMutableArray * selectedRanges = nil;
-	replacementString = [_LongCompletionString stringWithSelection:_SelectedString getSelectedRanges:&selectedRanges];
-	replacementString = [replacementString stringByAppendingString:@" "];
-	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
-	NSEnumerator * E = [selectedRanges objectEnumerator];
-	selectedRanges = [NSMutableArray array];
-	NSRange R;
-	NSValue * V;
-	while(V = [E nextObject])
+	NSArray * components = [_LongCompletionString componentsSeparatedByString:iTM2TextINSPlaceholder];
+	NSString * replacementString = [components componentsJoinedByString:@""];
+	if(yorn)
 	{
-		R = [V rangeValue];
+		replacementString = [replacementString stringByAppendingString:@" "];
+	}
+	NSMutableArray * selectedRanges = [NSMutableArray array];
+	NSEnumerator * E = [components objectEnumerator];
+	NSString * component;
+	NSRange R = _RangeForUserCompletion;
+	NSValue * V = nil;
+	while(component = [E nextObject])
+	{
+		R.location += [component length];
+		R.length = 0;
+		if(component = [E nextObject])
+		{
+			R.length = [component length];
+			V = [NSValue valueWithRange:R];
+			[selectedRanges addObject:V];
+		}
+		else
+		{
+			break;
+		}
+	}
+	NSString * tabAnchor = [_TextView tabAnchor];
+	if(![selectedRanges count])
+	{
+		// is there any place holder?
+		R = [replacementString rangeOfPlaceholderFromIndex:0 cycle:NO tabAnchor:tabAnchor];
+		if(R.length)
+		{
+			if(NSMaxRange(R)<[replacementString length])
+			{
+				R.location = [replacementString length];
+				replacementString = [replacementString stringByAppendingString:iTM2TextTABPlaceholder];
+				R.length = [replacementString length] - R.location;
+			}
+		}
+		else
+		{
+			R.location = [replacementString length];
+			R.length = 0;
+		}
 		R.location += _RangeForUserCompletion.location;
-		V = [NSValue valueWithRange:R];
+		NSValue * V = [NSValue valueWithRange:R];
 		[selectedRanges addObject:V];
 	}
+	// if the last placeholder is selected wherease there is a placeholder before, remove the corresponding selected range
+	R = [replacementString rangeOfPlaceholderToIndex:[replacementString length] cycle:NO tabAnchor:tabAnchor];
+	if(R.length)
+	{
+		if(R.location)
+		{
+			if([replacementString rangeOfPlaceholderToIndex:R.location-1 cycle:NO tabAnchor:tabAnchor].length)
+			{
+				R.location += _RangeForUserCompletion.location;
+				V = [NSValue valueWithRange:R];
+				if([selectedRanges containsObject:V])
+				{
+					[selectedRanges removeObject:V];
+					R.location = NSMaxRange(R);
+					R.length = 0;
+					V = [NSValue valueWithRange:R];
+					[selectedRanges addObject:V];
+				}
+			}
+		}
+	}
+	
+	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
+	// always select placeholders from the start
 	[_TextView setSelectedRanges:selectedRanges];
 #if 0
 useless?
@@ -532,75 +715,15 @@ useless?
 		[_TextView didChangeText];
 	}
 #endif
-	[_TextView autorelease];
-	_TextView = nil;
 	[_Candidates autorelease];
 	_Candidates = nil;
+	[_TextView autorelease];
+	_TextView = nil;
 	NSWindow * W = [self window];
 	[[W parentWindow] removeChildWindow:W];
 	[W orderOut:self];
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  concludeCompletion
-- (void)concludeCompletion;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon Nov  6 07:59:41 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * replacementString = [_TextView string];
-	NSRange fullRange = NSMakeRange(0,[replacementString length]);
-	_EditedRangeForUserCompletion = NSIntersectionRange(fullRange,_EditedRangeForUserCompletion);// There is a bug, when the text is edited (chars are removed, but I do not know the exact situation) the _EditedRangeForUserCompletion turns out to be in an inconsistent state
-	replacementString = [replacementString substringWithRange:_EditedRangeForUserCompletion];
-	[_TextView insertCompletion:_OriginalString forPartialWordRange:_RangeForUserCompletion movement:NSCancelTextMovement isFinal:NO];
-	NSUndoManager * undoManager = [_TextView undoManager];
-	if(_ShouldEnableUndoRegistration)
-	{
-		[undoManager enableUndoRegistration];
-iTM2_LOG(@"now enableUndoRegistration");
-		_ShouldEnableUndoRegistration = NO;
-	}
-	else
-	{
-iTM2_LOG(@"still disableUndoRegistration");
-	}
-	NSMutableArray * selectedRanges = nil;
-	replacementString = [_LongCompletionString stringWithSelection:_SelectedString getSelectedRanges:&selectedRanges];
-	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
-	NSEnumerator * E = [selectedRanges objectEnumerator];
-	selectedRanges = [NSMutableArray array];
-	NSRange R;
-	NSValue * V;
-	while(V = [E nextObject])
-	{
-		R = [V rangeValue];
-		R.location += _RangeForUserCompletion.location;
-		V = [NSValue valueWithRange:R];
-		[selectedRanges addObject:V];
-	}
-	if([selectedRanges count])
-	{
-		[_TextView setSelectedRanges:selectedRanges];
-	}
-#if 0
-useless?
-	if(_EditedString && [_TextView shouldChangeTextInRange:_RangeForUserCompletion replacementString:_EditedString])
-	{
-		[_TextView replaceCharactersInRange:_RangeForUserCompletion withString:_EditedString];
-		[_TextView didChangeText];
-	}
-#endif
-	[_TextView autorelease];
-	_TextView = nil;
-	[_Candidates autorelease];
-	_Candidates = nil;
-	NSWindow * W = [self window];
-	[[W parentWindow] removeChildWindow:W];
-	[W orderOut:self];
-	[self updateCompletion];
-//iTM2_END;
+//	W = [_TextView window];
+//	[W makeFirstResponder:_TextView];
 	return;
 }
 - (void)forwardKeyEvent:(NSEvent *)theEvent;
@@ -708,18 +831,103 @@ useless?
 	int row = [_TableView selectedRow];
 	NSTableColumn * tableColumn = [_TableView tableColumnWithIdentifier:@"completion"];
 	id dataSource = [_TableView dataSource];
-	NSString * word = [dataSource tableView:_TableView objectValueForTableColumn:tableColumn row:row];
-	if(![word isKindOfClass:[NSString class]])
+	NSString * completion = [dataSource tableView:_TableView objectValueForTableColumn:tableColumn row:row];
+	if(![completion isKindOfClass:[NSString class]])
 	{
-		word = _OriginalString;
+		completion = _OriginalString;
+	}
+	NSMutableString * longCompletionString = [NSMutableString string];
+	NSRange R = NSMakeRange(0,0);
+	[completion getLineStart:nil end:&R.location contentsEnd:nil forRange:R];// first line
+	NSString * blackString = [completion substringWithRange:NSMakeRange(0,R.location)];
+	[longCompletionString appendString:blackString];
+	unsigned end, contentsEnd;
+	unsigned lineIndentation = 0;
+	if(R.location < [completion length])
+	{
+		do
+		{
+			[completion getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+			lineIndentation = 0;
+			unsigned currentLength = 0;
+			int numberOfSpacesPerTab = [_TextView numberOfSpacesPerTab]?:4;
+			while(R.location<contentsEnd)
+			{
+				unichar theChar = [completion characterAtIndex:R.location++];
+				if(theChar == ' ')
+				{
+					++currentLength;
+				}
+				else if(theChar == '\t')
+				{
+					++lineIndentation;
+					lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+					currentLength = 0;
+				}
+				else
+				{
+					break;
+				}
+			}
+			lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+			NSMutableString * whitePrefix = [NSMutableString string];
+			while(lineIndentation--)
+			{
+				[whitePrefix appendString:_Tab];
+			}
+			NSMutableString * line = [NSMutableString stringWithString:whitePrefix];
+			blackString = [completion substringWithRange:NSMakeRange(R.location,end-R.location)];
+			NSRange searchRange = NSMakeRange(0,0);
+			searchRange.length = [blackString length] - searchRange.location;
+			NSRange SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+			if(SELRange.length)
+			{
+				NSString * s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
+				[line appendString:s];
+				NSEnumerator * replacementE = [_ReplacementLines objectEnumerator];
+				s = [replacementE nextObject];
+				[line appendString:s];
+				while(s = [replacementE nextObject])
+				{
+					[line appendString:whitePrefix];
+					[line appendString:s];
+				}
+next:
+				searchRange.location = NSMaxRange(SELRange);
+				if([blackString length]>searchRange.location)
+				{
+					searchRange.length = [blackString length] - searchRange.location;
+					SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+					if(SELRange.length)
+					{
+						s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
+						[line appendString:s];
+						replacementE = [_ReplacementLines objectEnumerator];
+						s = [replacementE nextObject];
+						[line appendString:s];
+						while(s = [replacementE nextObject])
+						{
+							[line appendString:whitePrefix];
+							[line appendString:s];
+						}
+						goto next;
+					}
+				}
+			}
+			else
+			{
+				[line appendString:blackString];
+			}
+			[longCompletionString appendString:line];
+		}
+		while(R.location < [completion length]);
 	}
 	[_LongCompletionString autorelease];
-	_LongCompletionString = [word copy];
-	word = [word stringByRemovingPlaceHolderMarksWithSelection:_SelectedString];
+	_LongCompletionString = [longCompletionString copy];
 	[_ShortCompletionString autorelease];
-	_ShortCompletionString = [word copy];
-	[_TextView insertCompletion:word forPartialWordRange:_RangeForUserCompletion movement:NSOtherTextMovement isFinal:NO];
-	_EditedRangeForUserCompletion.length = [word length];
+	_ShortCompletionString = [[_LongCompletionString stringByRemovingPlaceHolderMarks] copy];
+	[_TextView insertCompletion:_ShortCompletionString forPartialWordRange:_RangeForUserCompletion movement:NSOtherTextMovement isFinal:NO];
+	_EditedRangeForUserCompletion.length = [completion length];
 	return;
 #if 0
 	NSString * string = [_TextView string];
@@ -1517,10 +1725,10 @@ To Do List:
 			return;
 		case NSCarriageReturnCharacter:
 		case NSEnterCharacter:
-			[[self windowController] concludeCompletion];
+			[[self windowController] concludeCompletionAndInsertSpace:NO];
 			return;
 		case ' ':
-			[[self windowController] concludeCompletionAndInsertSpace];
+			[[self windowController] concludeCompletionAndInsertSpace:YES];
 			return;
 		case NSBackspaceCharacter:
         case NSDeleteCharacter:

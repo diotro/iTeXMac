@@ -29,6 +29,7 @@
 #if 1
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectSpellKit.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const TWSSpellingFileKey = @"spelling";
 NSString * const TWSSpellComponent = @"spell";
@@ -45,6 +46,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[self poseAsClass:[iTM2SpellContextController class]];
 //iTM2_END;

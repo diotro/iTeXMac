@@ -84,8 +84,7 @@
                 rotateLeft = id; 
                 rotateRight = id; 
                 scrollTool = id; 
-                selectNextPlaceholder = id; 
-                selectPreviousPlaceholder = id; 
+                selectFirstPlaceholder = id; 
                 selectTool = id; 
                 setCircleAnnotation = id; 
                 setFacingPages = id; 

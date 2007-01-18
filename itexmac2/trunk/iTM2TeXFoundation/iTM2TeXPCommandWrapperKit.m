@@ -1260,6 +1260,7 @@ To Do List:
 + (void)load;\
 {iTM2_DIAGNOSTIC;\
 	iTM2_INIT_POOL;\
+	[NSBundle redirectNSLogOutput];\
 	[NSObject class];\
 	iTM2_RELEASE_POOL;\
 	return;\

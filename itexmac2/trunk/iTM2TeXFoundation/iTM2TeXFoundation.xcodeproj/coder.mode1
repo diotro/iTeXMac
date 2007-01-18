@@ -259,21 +259,21 @@
 								<string>0867D691FE84028FC02AAC07</string>
 								<string>DCC7F3CA0854AC9200F3EB8A</string>
 								<string>DC7E918908903606007D0CB2</string>
-								<string>DCF37F1509D4150300B124FB</string>
-								<string>DCAF9A3909D810A400AFD95F</string>
+								<string>DC99EA05088315BD007AF81F</string>
+								<string>DCC7F3F10854AC9200F3EB8A</string>
 								<string>1C37FBAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>11</integer>
-									<integer>2</integer>
+									<integer>77</integer>
+									<integer>52</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {294, 753}}</string>
+							<string>{{0, 736}, {294, 753}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -310,7 +310,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2TeXStyleEditionKit.m</string>
+								<string>CompileFileExtensions.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -318,11 +318,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TeXStyleEditionKit.m</string>
+										<string>CompileFileExtensions.plist</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCEE5DF40B5BBE9200E47ED9</string>
+										<string>DCBD484F0B5EFECD00B01DE0</string>
 										<key>history</key>
 										<array>
 											<string>DC08D6660B3CB6B000966378</string>
@@ -332,8 +332,10 @@
 											<string>DCB1EB3A0B52B77400B0704A</string>
 											<string>DCB1EB3B0B52B77400B0704A</string>
 											<string>DCE259F70B585D0200B9CAFF</string>
-											<string>DCEE5C630B5B73DF00E47ED9</string>
-											<string>DCEE5C640B5B73DF00E47ED9</string>
+											<string>DCEE5EF70B5BD7CF00E47ED9</string>
+											<string>DCEE5EF80B5BD7CF00E47ED9</string>
+											<string>DCEE5EF90B5BD7CF00E47ED9</string>
+											<string>DCEE5EFE0B5BD7CF00E47ED9</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -344,8 +346,8 @@
 											<string>DCB1EB400B52B77400B0704A</string>
 											<string>DCE259F90B585D0200B9CAFF</string>
 											<string>DCEE5C660B5B73DF00E47ED9</string>
-											<string>DCEE5C670B5B73DF00E47ED9</string>
-											<string>DCEE5C680B5B73DF00E47ED9</string>
+											<string>DCEE5EFC0B5BD7CF00E47ED9</string>
+											<string>DCEE5EFD0B5BD7CF00E47ED9</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -403,9 +405,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCEE5BF60B5AF96F00E47ED9</string>
+				<string>DCBD480A0B5EFEBA00B01DE0</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCEE5BF70B5AF96F00E47ED9</string>
+				<string>DCBD480B0B5EFEBA00B01DE0</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -549,10 +551,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCEE5BFF0B5AF96F00E47ED9</string>
+		<string>DCBD48120B5EFEBA00B01DE0</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>3 45 1345 833 0 0 1440 878 </string>
@@ -678,8 +679,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {708, 393}}</string>
-											<string>{{708, 0}, {446, 393}}</string>
+											<string>{{0, 0}, {706, 406}}</string>
+											<string>{{706, 0}, {448, 406}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -694,8 +695,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1154, 393}}</string>
-											<string>{{0, 393}, {1154, 399}}</string>
+											<string>{{0, 0}, {1154, 406}}</string>
+											<string>{{0, 406}, {1154, 386}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -742,14 +743,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCEE5BF90B5AF96F00E47ED9</string>
+				<string>DCBD480C0B5EFEBA00B01DE0</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCEE5BFA0B5AF96F00E47ED9</string>
-				<string>DCEE5BFB0B5AF96F00E47ED9</string>
-				<string>DCEE5BFC0B5AF96F00E47ED9</string>
-				<string>DCEE5BFD0B5AF96F00E47ED9</string>
-				<string>DCEE5BFE0B5AF96F00E47ED9</string>
-				<string>DCEE5BFF0B5AF96F00E47ED9</string>
+				<string>DCBD480D0B5EFEBA00B01DE0</string>
+				<string>DCBD480E0B5EFEBA00B01DE0</string>
+				<string>DCBD480F0B5EFEBA00B01DE0</string>
+				<string>DCBD48100B5EFEBA00B01DE0</string>
+				<string>DCBD48110B5EFEBA00B01DE0</string>
+				<string>DCBD48120B5EFEBA00B01DE0</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

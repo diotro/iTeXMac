@@ -32,7 +32,6 @@
 #import <iTM2Foundation/iTM2TextFieldKit.h>
 #import <iTM2Foundation/iTM2ViewKit.h>
 //#import <iTM2Foundation/iTM2TeXTextStorage.h>
-//#import <iTM2Foundation/iTM2TextMacroKit.h>
 #import <iTM2Foundation/iTM2LiteScanner.h>
 #warning IS USED iTM2TeXTextStorage
 
@@ -899,7 +898,7 @@ To Do List: ...
                         S = [[_MainTextView string] substringWithRange:R];
                     }
                     else
-                        S = [SUD objectForKey:iTM2UDTabAnchorStringKey];
+                        S = [SUD objectForKey:iTM2TextPlaceholder];
                     [cache setObject:(S?:@"") forKey:O];
                 }
                 [replacement replaceObjectAtIndex:idx withObject:[cache objectForKey:O]];

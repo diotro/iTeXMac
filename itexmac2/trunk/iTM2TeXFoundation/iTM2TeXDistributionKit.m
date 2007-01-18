@@ -60,7 +60,7 @@ NSString * const iTM2DistributionsComponent = @"PATHs";
 NSString * const iTM2DistributionSDictionaryKey = @"PATHs dictionary";
 
 @implementation iTM2MainInstaller(iTM2TeXProjectTaskKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  load;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  load
 + (void)load;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -69,6 +69,7 @@ To do list:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"The PATHs.plist is missing" forKey:@"PATHs and TeX Distributions"];
 //iTM2_END;

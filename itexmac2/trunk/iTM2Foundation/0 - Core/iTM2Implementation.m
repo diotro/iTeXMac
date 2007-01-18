@@ -24,6 +24,7 @@
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2ItemPropertyListXMLFormatKey = @"iTM2ItemPropertyListXMLFormat";
 NSString * const iTM2MainType = @"main";
@@ -1409,6 +1410,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
     if(!_iTM2ImplementationNotificationCenter)
          _iTM2ImplementationNotificationCenter = [[NSNotificationCenter alloc] init];
@@ -1641,6 +1643,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSObject_iTM2Implementation poseAsClass:[NSObject class]];
 //iTM2_END;

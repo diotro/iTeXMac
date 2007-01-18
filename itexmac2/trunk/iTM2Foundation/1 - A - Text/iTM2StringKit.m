@@ -26,29 +26,9 @@
 #import <iTM2Foundation/iTM2StringFormatKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 
-NSString * const iTM2UDTabAnchorStringKey = @"iTM2UDTabAnchorString";
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)
 /*"Description forthcoming."*/
 @implementation NSString(iTeXMac2)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-//iTM2_START;
-    [SUD registerDefaults:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [self bullet], iTM2UDTabAnchorStringKey,
-                nil]];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bullet
 + (NSString *)bullet;
 /*"Description forthcoming.

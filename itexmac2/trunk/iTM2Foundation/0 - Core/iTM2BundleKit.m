@@ -22,10 +22,11 @@
 */
 
 #import <sys/stat.h>
+#import <stdio.h>
 #import <AppKit/AppKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
-//#import <iTM2Foundation/iTM2FileManagerKit.h>
+#import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
@@ -62,6 +63,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSBundle_iTeXMac2 poseAsClass:[NSBundle class]];
 //iTM2_END;
@@ -186,6 +188,108 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return @"iTM2";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  redirectNSLogOutput
++ (void)redirectNSLogOutput;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{
+//iTM2_START;
+	static BOOL already = NO;
+	if(already)
+	{
+		return;
+	}
+	already = YES;
+	iTM2_INIT_POOL;
+	NSArray * libraries = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+	if(![libraries count])
+	{
+		iTM2_RELEASE_POOL;
+		return;
+	}
+	NSBundle * mainBundle = [NSBundle mainBundle];
+	NSString * version = [mainBundle objectForInfoDictionaryKey:@"iTM2SourceVersion"];
+	if([version isEqual:@"NONE"])
+	{
+		iTM2_RELEASE_POOL;
+		return;
+	}
+	NSString * logPath = [libraries lastObject];
+	logPath = [logPath stringByAppendingPathComponent:@"Logs"];
+	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
+	logPath = [logPath stringByAppendingPathComponent:executable];
+	[DFM createDeepDirectoryAtPath:logPath attributes:nil error:nil];
+	if(![DFM pushDirectory:logPath])
+	{
+		iTM2_RELEASE_POOL;
+		return;
+	}
+	NSMutableString * log = [NSMutableString string];
+	NSArray * availableLogs = [DFM directoryContentsAtPath:logPath];
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF endswith[c] 'log'"];
+	availableLogs = [availableLogs filteredArrayUsingPredicate:predicate];
+	NSMutableArray * MRA = [NSMutableArray array];
+	NSEnumerator * E = [availableLogs objectEnumerator];
+	NSString * component;
+	NSMutableDictionary * attributes = nil;
+	while(component = [E nextObject])
+	{
+		attributes = [[[DFM fileAttributesAtPath:component traverseLink:NO] mutableCopy] autorelease];
+		[attributes setObject:component forKey:@"file name"];
+		[MRA addObject:attributes];
+	}
+	NSSortDescriptor * descriptor  = [[[NSSortDescriptor alloc] initWithKey:NSFileModificationDate ascending:NO] autorelease];
+	NSArray * descriptors = [NSArray arrayWithObject:descriptor];
+	[MRA sortUsingDescriptors:descriptors];
+	NSMutableArray * recycles = [NSMutableArray array];
+	while([MRA count]>10)
+	{
+		attributes = [MRA lastObject];
+		[recycles addObject:attributes];
+		[MRA removeLastObject];
+	}
+	E = [recycles objectEnumerator];
+	while(attributes = [E nextObject])
+	{
+		NSNumber * N = [attributes objectForKey:NSFileBusy];
+		if(![N boolValue])
+		{
+			component = [attributes objectForKey:@"file name"];
+			if(![DFM removeFileAtPath:component handler:nil])
+			{
+				[log appendFormat:@"could not remove %@/%@\n",logPath,component];
+			}
+		}
+	}
+	unsigned index = 0;
+	do
+	{
+		component = [NSString stringWithFormat:@"%u",index++];
+		component = [component stringByAppendingPathExtension:@"log"];
+	}
+	while([DFM fileExistsAtPath:component]);
+	logPath = [logPath stringByAppendingPathComponent:component];
+	const char * file = [logPath fileSystemRepresentation];
+	if(!freopen(file, "a", stderr))
+	{
+		[log appendString:@"No file?\n"];
+	}
+	NSString * principalClassName = [mainBundle objectForInfoDictionaryKey:@"NSPrincipalClass"];
+	Class principalClass = NSClassFromString(principalClassName);
+	SEL action = @selector(logWelcomeMessage);
+	if([principalClass respondsToSelector:action])
+	{
+		[principalClass performSelector:action];
+	}
+	NSLog(log);
+	[DFM popDirectory];
+	iTM2_RELEASE_POOL;
+//iTM2_START;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2FoundationBundle
 + (NSBundle *)iTM2FoundationBundle;

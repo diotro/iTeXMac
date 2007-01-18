@@ -444,6 +444,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 				and let the receiver -tryToReallyPerform:with:.
 				If this does not return YES, the selector is mapped into a translated selector through the receiver's selector map.
 				Then -tryToReallyPerform:with: is tried once again.
+				It is used by the PDF viewer to navigate the PDF with key stokes.
     @param      The key stroke is expected to be a 1 length string.
     @result     yorn
 */

@@ -1132,6 +1132,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2PDFSYNCResponder"];
 //iTM2_END;
@@ -2271,6 +2272,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSTextView_iTM2IOSynch poseAsClass:[NSTextView class]];
 //iTM2_END;

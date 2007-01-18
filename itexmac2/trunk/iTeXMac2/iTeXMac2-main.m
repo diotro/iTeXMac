@@ -10,13 +10,9 @@
 
 int main(int argc, char *argv[])
 {
-	printf("This is %s speaking...", argv[0]);
+	NSLog(@"This is %s speaking... soon entering main", argv[0]);
     return NSApplicationMain(argc, (const char **) argv);
 }
-
-#import <Cocoa/Cocoa.h>
-#import <Foundation/NSDebug.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
 
 @implementation iTM2Application(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentVersion
@@ -71,6 +67,35 @@ To Do List:
 //    return 60;// iTM2 preview 11
 //    return 61;// iTM2 preview 12
     return 62;// iTM2 preview 16
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= logWelcomeMessage
++ (void)logWelcomeMessage;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
+- 2.0: 2007
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSString * executable = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleExecutable"];
+    NSLog(@"Welcome to %@ version %@", executable, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]);
+    if(iTM2DebugEnabled)
+    {
+		NSLog(@"RUNNING IN DEBUG LEVEL %i: more comments are available, at the cost of a performance degradation", iTM2DebugEnabled);
+        NSLog(@"Please, set the iTM2DebugEnabled defaults value to '0' if you want to come back to the normal behaviour use one of");
+        NSLog(@"terminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DebugEnabled '0'");
+        NSLog(@"terminal%% defaults delete comp.text.TeX.iTeXMac2 iTM2DebugEnabled");
+		NSLog(@"Cocoa debug flags: NSDebugEnabled: %@, NSZombieEnabled: %@, NSHangOnUncaughtException: %@",
+			(NSDebugEnabled? @"Y": @"N"), (NSZombieEnabled? @"Y": @"N"), (NSHangOnUncaughtException? @"Y": @"N"));
+	}
+	else
+    {
+		NSLog(@"RUNNING IN 0 DEBUG LEVEL. To have more comments available for debugging purpose");
+        NSLog(@"Please, set the iTM2DebugEnabled defaults value to some positive (the higher the more precise):");
+        NSLog(@"terminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DebugEnabled '10000'");
+	}
+//iTM2_END
+	return;
 }
 @end
 #import <OgreKit/OgreKit.h>
@@ -143,6 +168,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"No Welcome" forKey:@"iTeXMac2 Welcome"];
 //iTM2_END;
@@ -159,24 +185,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[iTM2MileStone putMileStoneForKey:@"iTeXMac2 Welcome"];
-    NSString * executable = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleExecutable"];
-    NSLog(@"\n\n;-)\n\nWelcome to %@ version %@", executable, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]);
-    if(iTM2DebugEnabled)
-    {
-		NSLog(@"RUNNING IN DEBUG LEVEL %i: more comments are available, at the cost of a performance degradation", iTM2DebugEnabled);
-        NSLog(@"Please, set the iTM2DebugEnabled defaults value to '0' if you want to come back to the normal behaviour use one of");
-        NSLog(@"terminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DebugEnabled '0'");
-        NSLog(@"terminal%% defaults delete comp.text.TeX.iTeXMac2 iTM2DebugEnabled");
-		NSLog(@"Cocoa debug flags: NSDebugEnabled: %@, NSZombieEnabled: %@, NSHangOnUncaughtException: %@",
-			(NSDebugEnabled? @"Y": @"N"), (NSZombieEnabled? @"Y": @"N"), (NSHangOnUncaughtException? @"Y": @"N"));
-	}
-	else
-    {
-		NSLog(@"RUNNING IN 0 DEBUG LEVEL. To have more comments available for debugging purpose");
-        NSLog(@"Please, set the iTM2DebugEnabled defaults value to some positive (the higher the more precise):");
-        NSLog(@"terminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DebugEnabled '10000'");
-	}
-    NSLog(@"\n\n;-)\n\n");
     int CVN = [SUD integerForKey:iTM2CurrentVersionNumberKey];
     int CCV = [self currentVersion];
     if(!CVN)
@@ -205,6 +213,7 @@ To Do List:
 + (void)load;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 	[self poseAsClass:[NSApplication class]];
 	iTM2_RELEASE_POOL;
 	return;
@@ -223,6 +232,7 @@ To Do List:
 + (void)load;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 	NSEnumerator * E = [[iTM2RuntimeBrowser realInstanceSelectorsOfClass:[NSAutoreleasePool class] withSuffix:@"" signature:nil inherited:NO] objectEnumerator];
 	SEL selector;
 	while(selector = (SEL)[[E nextObject] pointerValue])
@@ -251,6 +261,7 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 + (void)xload;
 {iTM2_DIAGNOSTIC;
 	NSAutoreleasePool * P = [[NSAutoreleasePool alloc] init];
+	[NSBundle redirectNSLogOutput];
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(release) replacement:@selector(swizzled_release) forClass:[NSAutoreleasePool class]];
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(release) replacement:@selector(swizzled_NSObject_release) forClass:[NSObject class]];
 	[P release];

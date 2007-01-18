@@ -25,6 +25,7 @@
 #import <iTM2Foundation/iTM2WindowKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2FrameSavedWindowKey = @"Saved";
 NSString * const iTM2FrameFixedWindowKey = @"Fixed";
@@ -168,6 +169,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSWindow_iTM2WindowKit poseAsClass:[NSWindow class]];
 //iTM2_END;
@@ -346,6 +348,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	if(!DNC)
 	{
@@ -423,6 +426,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSMenu_MOI poseAsClass:[NSMenu class]];
 //iTM2_END;

@@ -99,6 +99,14 @@ extern NSString * const iTM2BundleContentsComponent;
 + (NSBundle *)iTeXMac2Bundle;
 
 /*!
+    @method 	redirectNSLogOutput
+    @abstract	redirect the NSLog output.
+    @discussion	Call this message in your +load methods.
+    @result		None.
+*/
++ (void)redirectNSLogOutput;
+
+/*!
     @method 	searchPathsForSupportInDomains:withName:application's given name.
     @discussion	Returns objects of
                 1- ~/Library/Application\ Support/APPLICATION_NAME

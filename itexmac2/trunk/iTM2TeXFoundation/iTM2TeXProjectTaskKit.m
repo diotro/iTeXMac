@@ -23,6 +23,7 @@
 
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2TeXProjectTaskTable = @"Task";
 
@@ -1344,6 +1345,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2TaskController_TeXProject poseAsClass:[iTM2TaskController class]];
 //iTM2_END;
@@ -1451,6 +1453,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
     if(!_iTM2LogColors)
         _iTM2LogColors = [[NSDictionary dictionaryWithObjectsAndKeys:
@@ -1503,6 +1506,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
     if(!_iTM2TeXFilenameCharacterSet)
         _iTM2TeXFilenameCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
@@ -1533,6 +1537,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
     [self registerParser];
 //iTM2_END;

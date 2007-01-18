@@ -358,6 +358,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"No Localized menu items available for iTM2StringFormatController" forKey:@"iTM2StringFormatControllerLocalizedMenuItems"];
 //iTM2_END;

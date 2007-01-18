@@ -1957,6 +1957,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 //iTM2_LOG(@"iTM2TeXParser");
     if(!_iTM2ConTeXtModeForModeArray)

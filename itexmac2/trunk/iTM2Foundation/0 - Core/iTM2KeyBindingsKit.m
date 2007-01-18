@@ -643,12 +643,13 @@ To Do List:
         {
             unsigned flags = [theEvent modifierFlags];
             unichar U = [CIM characterAtIndex:0];
+			NSString * unmodifiedCharacters = [NSString stringWithCharacters:&U length:1];
             NSString * key = [NSString stringWithFormat:@"%@%@%@%@%@",
                         (flags & NSCommandKeyMask? @"@": @""),
                         (flags & NSControlKeyMask? @"^": @""),
                         (flags & NSAlternateKeyMask? @"~": @""),
                         (flags & NSShiftKeyMask? @"$": @""),
-                        [NSString stringWithCharacters:&U length:1]];
+                        unmodifiedCharacters];
             if([key isEqualToString:_DEC])
             {
                 [self toggleDeepEscape:self];
@@ -663,7 +664,7 @@ To Do List:
             key = [NSString stringWithFormat:@"%@%@%@",
                         (flags & NSCommandKeyMask? @"@": @""),
                         (flags & NSControlKeyMask? @"^": @""),
-                        [NSString stringWithCharacters:&U length:1]];
+                        unmodifiedCharacters];
             if([key isEqualToString:_DEC])
             {
                 [self toggleDeepEscape:self];
@@ -697,12 +698,13 @@ To Do List:
     {
         unsigned flags = [[NSApp currentEvent] modifierFlags];
         unichar U = [theString characterAtIndex:0];
+		NSString * unmodifiedCharacters = [NSString stringWithCharacters:&U length:1];
         NSString * key = [NSString stringWithFormat:@"%@%@%@%@%@",
                     (flags & NSCommandKeyMask? @"@": @""),
                     (flags & NSControlKeyMask? @"^": @""),
                     (flags & NSAlternateKeyMask? @"~": @""),
                     (flags & NSShiftKeyMask? @"$": @""),
-                    [NSString stringWithCharacters:&U length:1]];
+                    unmodifiedCharacters];
         if([key isEqualToString:_DEC])
         {
             [self toggleDeepEscape:self];
@@ -717,7 +719,7 @@ To Do List:
         key = [NSString stringWithFormat:@"%@%@%@",
                     (flags & NSCommandKeyMask? @"@": @""),
                     (flags & NSControlKeyMask? @"^": @""),
-                    [NSString stringWithCharacters:&U length:1]];
+                    unmodifiedCharacters];
         if([key isEqualToString:_DEC])
         {
             [self toggleDeepEscape:self];
@@ -746,70 +748,77 @@ To Do List:
 //iTM2_LOG(@"[self currentKeyBindings] are:%@", [self currentKeyBindings]);
     [self setCurrentClient:C];
 //iTM2_LOG(@"C is: %@", C);
-    NSString * S = [theEvent characters];//[event charactersIgnoringModifiers];
+    NSString * characters = [theEvent characters];//[event charactersIgnoringModifiers];
 //NSLog(@"S: %@", S);
-    if([S length] == 1)
+    if([characters length] == 1)
     {
         NSString * CIM = [theEvent charactersIgnoringModifiers];
 //iTM2_LOG(@"CIM: %@", CIM);
         if([CIM length])
         {
             unichar U = [CIM characterAtIndex:0];
+			NSString * unmodifiedCharacters = [NSString stringWithCharacters:&U length:1];
             if(!_iTM2IMFlags.isDeepEscaped && !_iTM2IMFlags.isEscaped)
             {
 				NSString * instruction = nil;
+				NSString * currentKey = nil;
 				if(_iTM2IMFlags.handlesKeyBindings)
 				{
 					unsigned flags = [theEvent modifierFlags];
 					if(U == [[theEvent characters] characterAtIndex:0])
 					{
 						// the character typed might only be sensitive to the shift key
-						[self setCurrentKey:[NSString stringWithFormat:@"%@%@%@%@%@",
+						currentKey = [NSString stringWithFormat:@"%@%@%@%@%@",
 							(flags & NSCommandKeyMask? @"@": @""),
 							(flags & NSControlKeyMask? @"^": @""),
 							(flags & NSAlternateKeyMask? @"~": @""),
 							(flags & NSShiftKeyMask? @"$": @""),
-							[NSString stringWithCharacters:&U length:1]]];
-						instruction = [[self currentKeyBindings] objectForKey:[self currentKey]];
+							unmodifiedCharacters];
+						[self setCurrentKey:currentKey];
+						instruction = [[self currentKeyBindings] objectForKey:currentKey];
 //NSLog(@"1 - <%@>", [self currentKey]);
 						if(!instruction)
 						{
-							[self setCurrentKey:[NSString stringWithFormat:@"%@%@%@%@",
+							currentKey = [NSString stringWithFormat:@"%@%@%@%@",
 								(flags & NSCommandKeyMask? @"@": @""),
 								(flags & NSControlKeyMask? @"^": @""),
 								(flags & NSAlternateKeyMask? @"~": @""),
-								[NSString stringWithCharacters:&U length:1]]];
-							instruction = [[self currentKeyBindings] objectForKey:[self currentKey]];
+								unmodifiedCharacters];
+							[self setCurrentKey:currentKey];
+							instruction = [[self currentKeyBindings] objectForKey:currentKey];
 //NSLog(@"2 - <%@>", [self currentKey]);
 						}
 					}
 					else
 					{
-						[self setCurrentKey:[NSString stringWithFormat:@"%@%@%@",
+						currentKey = [NSString stringWithFormat:@"%@%@%@",
 							(flags & NSCommandKeyMask? @"@": @""),
 							(flags & NSControlKeyMask? @"^": @""),
-							[S substringWithRange:NSMakeRange(0, 1)]]];
-						instruction = [[self currentKeyBindings] objectForKey:[self currentKey]];
+							characters];
+						[self setCurrentKey:currentKey];
+						instruction = [[self currentKeyBindings] objectForKey:currentKey];
 //NSLog(@"3 - <%@>", [self currentKey]);
 						if(!instruction)
 						{
-							[self setCurrentKey:[NSString stringWithFormat:@"%@%@%@%@%@",
+							currentKey = [NSString stringWithFormat:@"%@%@%@%@%@",
 								(flags & NSCommandKeyMask? @"@": @""),
 								(flags & NSControlKeyMask? @"^": @""),
 								(flags & NSAlternateKeyMask? @"~": @""),
 								(flags & NSShiftKeyMask? @"$": @""),
-								[NSString stringWithCharacters:&U length:1]]];
-							instruction = [[self currentKeyBindings] objectForKey:[self currentKey]];
+								unmodifiedCharacters];
+							[self setCurrentKey:currentKey];
+							instruction = [[self currentKeyBindings] objectForKey:currentKey];
 //NSLog(@"4 - <%@>", [self currentKey]);
 						}
 						if(!instruction)
 						{
-							[self setCurrentKey:[NSString stringWithFormat:@"%@%@%@%@",
+							currentKey = [NSString stringWithFormat:@"%@%@%@%@",
 								(flags & NSCommandKeyMask? @"@": @""),
 								(flags & NSControlKeyMask? @"^": @""),
 								(flags & NSAlternateKeyMask? @"~": @""),
-								[NSString stringWithCharacters:&U length:1]]];
-							instruction = [[self currentKeyBindings] objectForKey:[self currentKey]];
+								unmodifiedCharacters];
+							[self setCurrentKey:currentKey];
+							instruction = [[self currentKeyBindings] objectForKey:currentKey];
 //NSLog(@"5 - <%@>", [self currentKey]);
 						}
 					}
@@ -817,7 +826,9 @@ To Do List:
                 _iTM2IMFlags.isEscaped = 0;
                 _iTM2IMFlags.canEscape = 1;
                 if(instruction)
+				{
                     return [self client:C executeInstruction:instruction];
+				}
                 else
                 {
                     id V = [[self currentKeyBindings] objectForKey:@"complete"];
@@ -829,10 +840,12 @@ To Do List:
                     }
                     else if(_iTM2IMFlags.handlesKeyStrokes && [C isKindOfClass:[NSResponder class]])
                     {
-                        return [C interpretKeyStroke:[theEvent characters]];
+                        return [C interpretKeyStroke:characters];
                     }
                     else
+					{
                         return NO;
+					}
                 }
             }
         }
@@ -856,7 +869,9 @@ To Do List:
     {
         NSEnumerator * E = [instruction objectEnumerator];
         while(instruction = [E nextObject])
+		{
             result = [self client:C executeInstruction:instruction] || result;
+		}
     }
     else if([instruction isKindOfClass:[NSDictionary class]])
     {
@@ -885,7 +900,7 @@ To Do List:
         }
         else if(!stringSel)
         {
-            [self setCurrentKeyBindings:instruction];
+            [self setCurrentKeyBindings:instruction];// this is where we wait for a further key stroke
             if([C respondsToSelector:@selector(cleanSelectionCache:)])
                 [C cleanSelectionCache:self];
             return YES;
@@ -900,19 +915,11 @@ To Do List:
  //NSLog(instruction);
 		result = [C executeStringInstruction:instruction];
     }
-	#if 0
-    else if([instruction isKindOfClass:[iTM2KeyStrokeRecord class]])
-    {
- //NSLog(instruction);
-		result = [iTM2MacrosServer executeMacroWithKey:[instruction key]
-			inCategory: [instruction category]
-				ofDomain: [instruction domain]];
-    }
-	#endif
- //NSLog(@"1");
     [self escapeCurrentKeyBindingsIfAllowed];
     if(result)
+	{
         [C cleanSelectionCache:self];
+	}
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEscape:
@@ -1235,8 +1242,27 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSRange R = [instruction rangeOfString:@":"];
+	if(R.length)
+	{
+		R.length = R.location + 1;
+		R.location = 0;
+		NSString * selectorName = [instruction substringWithRange:R];
+		SEL action = NSSelectorFromString(selectorName);
+		if([self respondsToSelector:action])
+		{
+			R.location = R.length;
+			R.length = [instruction length] - R.location;
+			NSString * argument = [instruction substringWithRange:R];
+			argument = [argument stringByRemovingTipPlaceHolders];
+			if([self tryToPerform:action with:argument])
+			{
+				return YES;
+			}
+		}
+	}
 //iTM2_END;
-    return [self tryToPerform:NSSelectorFromString(instruction) with:nil];
+    return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyStrokeEvents
 - (id)keyStrokeEvents;
@@ -1590,22 +1616,6 @@ To Do List:
 		return YES;
 	selector = (SEL)[[[[self keyBindingsManager] selectorMap] objectForKey:[NSValue valueWithPointer:selector]] pointerValue];
     return selector != NULL && [self tryToReallyPerform:selector with:nil];
-}
-@end
-
-@implementation NSTextView(iTM2KeyBindingsKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
-- (BOOL)executeStringInstruction:(NSString *)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [super executeStringInstruction:instruction] || ([self insertText:instruction], YES);
 }
 @end
 
@@ -1992,7 +2002,8 @@ To do list: problem when more than one key is pressed.
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self keyBindingsManager] client:self performKeyEquivalent:theEvent]
+	iTM2KeyBindingsManager * KBM = [self keyBindingsManager];
+    return [KBM client:self performKeyEquivalent:theEvent]
                 || [super performKeyEquivalent:theEvent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  interpretKeyEvents:

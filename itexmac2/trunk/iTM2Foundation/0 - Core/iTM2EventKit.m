@@ -20,6 +20,7 @@
 */
 
 #import <iTM2Foundation/iTM2EventKit.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 #import <Carbon/Carbon.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2EventObserver
@@ -75,6 +76,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2FlagsChangedResponder"];
 //iTM2_END;
@@ -145,6 +147,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[NSWindow_iTeXMac2_FlagsChanged poseAsClass:[NSWindow class]];
 //iTM2_END;

@@ -19,6 +19,7 @@
 */
 
 #import <iTM2TeXFoundation/iTM2TeXStringKit.h>
+#import <iTM2Foundation/iTM2BundleKit.h>
 
 @interface NSString(MY_OWN_PRIVACY)
 - (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
@@ -811,6 +812,7 @@ To Do List:implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 	[iTM2TeXAttributedString_0 poseAsClass:[NSAttributedString class]];
 //iTM2_END;

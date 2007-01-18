@@ -80,6 +80,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
+	[NSBundle redirectNSLogOutput];
 //iTM2_START;
 //	[NSObject_iTM2RuntimeBrowser poseAsClass:[NSObject class]];// methods are likely to change when posed as class...
     if(!iTM2RuntimeBrowserDictionary)
