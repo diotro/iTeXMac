@@ -10,5 +10,4 @@
     #import <iTM2Foundation/iTM2Foundation.h>
     #import <iTM2TeXFoundation/iTM2TeXFoundation.h>
 	#import <OgreKit/OgreKit.h>
-	#import <HDCrashReporter/crashReporter.h>
 #endif

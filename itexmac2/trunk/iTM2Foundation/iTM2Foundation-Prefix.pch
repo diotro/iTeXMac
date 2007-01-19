@@ -3,8 +3,6 @@
 //
 
 #ifdef __OBJC__
-    #import <AddressBook/AddressBook.h>
-    #import <Message/NSMailDelivery.h>
     #import <Cocoa/Cocoa.h>
     #import <Carbon/Carbon.h>
     #import "iTeXMac2.h"

@@ -2633,3 +2633,32 @@ To Do List:
     return;
 }
 @end
+
+@interface NSApplication(iTMEStyleMenuItem)
+@end
+
+@implementation NSApplication(iTMEStyleMenuItem)
+- (IBAction)styleMenuItem:(id)sender;
+{
+	return;// message catcher
+}
+- (BOOL)validateStyleMenuItem:(id)sender;
+{
+	[sender setAction:NULL];
+	if(![sender image])
+	{
+		NSImage * I = [NSImage imageNamed:@"iTM2FontsAndColors"];
+		if(!I)
+		{
+			NSString * path = [[iTM2Implementation classBundle] pathForImageResource:@"iTM2FontsAndColors"];
+			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path];
+			I = [[I copy] autorelease];
+			[I setName:@"iTM2FontsAndColors"];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+		}
+		[sender setImage:I];//size
+	}
+	return YES;// message catcher
+}
+@end

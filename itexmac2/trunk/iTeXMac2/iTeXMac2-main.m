@@ -101,7 +101,6 @@ To Do List:
 }
 @end
 #import <OgreKit/OgreKit.h>
-#import <HDCrashReporter/crashReporter.h>
 @interface NSObject(OgreKit)
 - (void)setShouldHackFindMenu:(BOOL)yorn;
 - (void)setUseStylesInFindPanel:(BOOL)yorn;

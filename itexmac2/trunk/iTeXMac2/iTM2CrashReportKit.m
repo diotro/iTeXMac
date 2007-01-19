@@ -24,6 +24,8 @@
 //
 
 #import "iTM2CrashReportKit.h"
+#import <AddressBook/AddressBook.h>
+#import <Message/NSMailDelivery.h>
 
 @interface iTM2CrashReportController:NSWindowController
 {
@@ -38,7 +40,7 @@
 @end
 
 
-@interface NSBundle(iTM2CrashReportKit)
+@implementation NSBundle(iTM2CrashReportKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  reportCrashIfNeeded
 + (void)reportCrashIfNeeded;
 /*"Description Forthcoming.
