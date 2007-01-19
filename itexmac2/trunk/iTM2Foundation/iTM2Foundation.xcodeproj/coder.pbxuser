@@ -478,6 +478,12 @@
 			DC70514C0B60565F009FD188 /* PBXTextBookmark */ = DC70514C0B60565F009FD188 /* PBXTextBookmark */;
 			DC70514D0B60565F009FD188 /* PBXTextBookmark */ = DC70514D0B60565F009FD188 /* PBXTextBookmark */;
 			DC70514E0B60565F009FD188 /* PBXTextBookmark */ = DC70514E0B60565F009FD188 /* PBXTextBookmark */;
+			DC70519A0B605BF1009FD188 /* PBXTextBookmark */ = DC70519A0B605BF1009FD188 /* PBXTextBookmark */;
+			DC70519B0B605BF1009FD188 /* PBXTextBookmark */ = DC70519B0B605BF1009FD188 /* PBXTextBookmark */;
+			DC70519C0B605BF1009FD188 /* PBXTextBookmark */ = DC70519C0B605BF1009FD188 /* PBXTextBookmark */;
+			DC70519D0B605BF1009FD188 /* PBXTextBookmark */ = DC70519D0B605BF1009FD188 /* PBXTextBookmark */;
+			DC70519E0B605BF1009FD188 /* PBXTextBookmark */ = DC70519E0B605BF1009FD188 /* PBXTextBookmark */;
+			DC70519F0B605BF1009FD188 /* PBXTextBookmark */ = DC70519F0B605BF1009FD188 /* PBXTextBookmark */;
 			DC7D734B0AE7DEC6006B4016 = DC7D734B0AE7DEC6006B4016 /* PBXTextBookmark */;
 			DC7D734D0AE7DEC6006B4016 = DC7D734D0AE7DEC6006B4016 /* PBXTextBookmark */;
 			DC97A5C70AFFADDA0026AD23 = DC97A5C70AFFADDA0026AD23 /* PBXTextBookmark */;
@@ -4364,6 +4370,66 @@
 		vrLen = 1556;
 		vrLoc = 2887;
 	};
+	DC70519A0B605BF1009FD188 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B570854654B003F5F79 /* iTM2BundleKit.m */;
+		name = "iTM2BundleKit.m: 1403";
+		rLen = 0;
+		rLoc = 50049;
+		rType = 0;
+		vrLen = 791;
+		vrLoc = 49660;
+	};
+	DC70519B0B605BF1009FD188 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B570854654B003F5F79 /* iTM2BundleKit.m */;
+		name = "iTM2BundleKit.m: 1547";
+		rLen = 0;
+		rLoc = 54079;
+		rType = 0;
+		vrLen = 791;
+		vrLoc = 49660;
+	};
+	DC70519C0B605BF1009FD188 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B570854654B003F5F79 /* iTM2BundleKit.m */;
+		name = "iTM2BundleKit.m: 1547";
+		rLen = 0;
+		rLoc = 54079;
+		rType = 0;
+		vrLen = 1151;
+		vrLoc = 51077;
+	};
+	DC70519D0B605BF1009FD188 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC7050D20B604D0D009FD188 /* NSKeyValueBinding.h */;
+		name = "+ (void)exposeBinding:(NSString *)binding;    // bindings specified here will be exposed automatically in -exposedBindings (unless implementations explicitly filter them out, for example in subclasses)";
+		rLen = 202;
+		rLoc = 818;
+		rType = 0;
+		vrLen = 2693;
+		vrLoc = 0;
+	};
+	DC70519E0B605BF1009FD188 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC704FC70B60306A009FD188 /* appcast */;
+		name = "appcast: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 16127;
+		vrLoc = 19285;
+	};
+	DC70519F0B605BF1009FD188 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B6C0854654B003F5F79 /* iTM2KeyBindingsKit.h */;
+		name = "iTM2KeyBindingsKit.h: 658";
+		rLen = 0;
+		rLoc = 24978;
+		rType = 0;
+		vrLen = 1556;
+		vrLoc = 2887;
+	};
 	DC78632508CC290700D4AA33 /* iTM2PDFToolbarDelegate.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1124, 1496}}";
@@ -5739,7 +5805,7 @@
 	DCF61B570854654B003F5F79 /* iTM2BundleKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2068, 26299}}";
-			sepNavSelRange = "{50168, 0}";
+			sepNavSelRange = "{54079, 0}";
 			sepNavVisRect = "{{0, 24533}, {1095, 673}}";
 			sepNavWindowFrame = "{{31, 85}, {1134, 746}}";
 		};

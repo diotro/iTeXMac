@@ -72,7 +72,6 @@
 		DC7051520B605799009FD188 /* iTM2CrashReportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7051500B605799009FD188 /* iTM2CrashReportKit.m */; };
 		DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */; };
 		DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */; };
-		DC7E483B0AD6D7D000202CF2 /* HDCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */; };
 		DC7E4C1D0AD6D7F300202CF2 /* HDCrashReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC0D4EF90AD6C63F0024D73F /* HDCrashReporter.framework */; };
 		DC89306C08FC2DDA007A4673 /* iTM2MetaPostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */; };
 		DC89307008FC2DED007A4673 /* iTM2MetaPostKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */; };
@@ -201,13 +200,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DC0D4ED00AD6C43E0024D73F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC0D4EC70AD6C39C0024D73F;
-			remoteInfo = "Prepare HDCrashReporter";
-		};
 		DC6BC5D50948FCCD008F8188 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -349,7 +341,6 @@
 		DC74C82107D8532800E10C57 /* iTM2StartupDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupDocument.h; sourceTree = "<group>"; };
 		DC781BAC07F9B8DA00FCD972 /* iTM2WindowsMenuKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2WindowsMenuKit.h; sourceTree = "<group>"; };
 		DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2WindowsMenuKit.m; sourceTree = "<group>"; };
-		DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HDCrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2MetaPostKit.framework; path = ../build/iTM2MetaPostKit.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
@@ -500,7 +491,6 @@
 				DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */,
 				DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */,
 				DC0D4EFE0AD6C6400024D73F /* HDCrashReporter.framework in Frameworks */,
-				DC7E483B0AD6D7D000202CF2 /* HDCrashReporter.framework in Frameworks */,
 				DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */,
 				DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */,
 			);
@@ -567,7 +557,6 @@
 				DC6BC5E90948FD59008F8188 /* Prepare iTM2NewDocumentKit.framework */,
 				DC6BC5F40948FD8B008F8188 /* Prepare iTM2ConTeXtKit.framework */,
 				DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */,
-				DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */,
 				DC5127F20B3AD4290092B6C7 /* iTM2Readme.app */,
 				DCB530180B59B8C800CD713D /* GetSourceVersion */,
 			);
@@ -812,7 +801,6 @@
 			);
 			dependencies = (
 				DCB5305E0B59BBB500CD713D /* PBXTargetDependency */,
-				DC0D4ED10AD6C43E0024D73F /* PBXTargetDependency */,
 				DC6BC5D60948FCCD008F8188 /* PBXTargetDependency */,
 				DC6BC5E00948FCFB008F8188 /* PBXTargetDependency */,
 				DC6BC5ED0948FD80008F8188 /* PBXTargetDependency */,
@@ -825,21 +813,6 @@
 			productName = iTeXMac2;
 			productReference = DC4F6A33085A2E33004868B8 /* iTeXMac2.app */;
 			productType = "com.apple.product-type.application";
-		};
-		DC0D4EC70AD6C39C0024D73F /* Prepare HDCrashReporter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC0D4EC90AD6C39C0024D73F /* Build configuration list for PBXNativeTarget "Prepare HDCrashReporter" */;
-			buildPhases = (
-				DC0D4EC80AD6C39C0024D73F /* Synchronize */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Prepare HDCrashReporter";
-			productName = "Prepare LaTeX Kit";
-			productReference = DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 		DC5127ED0B3AD4290092B6C7 /* Prepare iTM2Readme */ = {
 			isa = PBXNativeTarget;
@@ -992,7 +965,6 @@
 				DCB530900B59BDC300CD713D /* Prepare Build Number */,
 				DCB530170B59B8C800CD713D /* GetSourceVersion */,
 				DCFD96CE0858F4490034D83E /* TeX CM PlugIn */,
-				DC0D4EC70AD6C39C0024D73F /* Prepare HDCrashReporter */,
 				DC6BC59A0948FB3E008F8188 /* Prepare iTM2LaTeXKit */,
 				DC6BC5D80948FCEC008F8188 /* Prepare iTM2MetaPostKit */,
 				DC6BC5E30948FD59008F8188 /* Prepare iTM2NewDocumentKit */,
@@ -1130,20 +1102,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		DC0D4EC80AD6C39C0024D73F /* Synchronize */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Synchronize;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2SynchronizeHDCrashReporter.sh\n";
-		};
 		DC25E1CB0990C46600545F27 /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1387,11 +1345,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DC0D4ED10AD6C43E0024D73F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC0D4EC70AD6C39C0024D73F /* Prepare HDCrashReporter */;
-			targetProxy = DC0D4ED00AD6C43E0024D73F /* PBXContainerItemProxy */;
-		};
 		DC6BC5D60948FCCD008F8188 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DC6BC59A0948FB3E008F8188 /* Prepare iTM2LaTeXKit */;
@@ -1535,24 +1488,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		DC0D4ECA0AD6C39C0024D73F /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = HDCrashReporter;
-				SYMROOT = "$(PROJECT_DIR)/build";
-			};
-			name = Development;
-		};
-		DC0D4ECB0AD6C39C0024D73F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = HDCrashReporter;
-				SYMROOT = "$(PROJECT_DIR)/build";
-			};
-			name = Deployment;
-		};
 		DC25E1D70990C51D00545F27 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1888,15 +1823,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DC0D4EC90AD6C39C0024D73F /* Build configuration list for PBXNativeTarget "Prepare HDCrashReporter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC0D4ECA0AD6C39C0024D73F /* Development */,
-				DC0D4ECB0AD6C39C0024D73F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
 		DC25E1D60990C51D00545F27 /* Build configuration list for PBXAggregateTarget "TEST" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

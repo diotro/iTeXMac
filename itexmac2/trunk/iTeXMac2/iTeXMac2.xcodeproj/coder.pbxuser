@@ -236,9 +236,6 @@
 		vrLen = 997;
 		vrLoc = 1562;
 	};
-	DC0D4EC70AD6C39C0024D73F /* Prepare HDCrashReporter */ = {
-		activeExec = 0;
-	};
 	DC20A23B0AE2BBF000A125CD /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC5D13880855B6DE003786EF /* English */;
