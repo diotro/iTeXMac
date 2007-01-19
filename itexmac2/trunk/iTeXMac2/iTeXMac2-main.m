@@ -79,8 +79,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * executable = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleExecutable"];
-    NSLog(@"Welcome to %@ version %@", executable, [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]);
+    NSString * executable = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
+    NSLog(@"Welcome to %@ version %@", executable, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]);
     if(iTM2DebugEnabled)
     {
 		NSLog(@"RUNNING IN DEBUG LEVEL %i: more comments are available, at the cost of a performance degradation", iTM2DebugEnabled);
@@ -157,8 +157,9 @@ To Do List:
 }
 @end
 
+#import "iTM2CrashReportKit.h"
 
-@implementation NSApplication(iTMWelcome)
+@implementation NSApplication(iTM2Welcome)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.

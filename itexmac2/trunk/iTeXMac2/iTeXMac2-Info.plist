@@ -1975,9 +1975,9 @@
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
-	<key>crashReporterCompanyName</key>
+	<key>iTM2CompanyName</key>
 	<string>Laurens'Tribune</string>
-	<key>crashReporterEmail</key>
+	<key>iTM2CompanyEmail</key>
 	<string>jlaurens@users.sourceforge.net</string>
 	<key>iTM2SourceVersion</key>
 	<string>SVN_BUILD_NUMBER</string>

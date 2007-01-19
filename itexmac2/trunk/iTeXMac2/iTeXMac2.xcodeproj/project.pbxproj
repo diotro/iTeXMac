@@ -68,6 +68,9 @@
 		DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */; };
 		DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */; };
 		DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */; };
+		DC7051510B605799009FD188 /* iTM2CrashReportKit.h in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC70514F0B605799009FD188 /* iTM2CrashReportKit.h */; };
+		DC7051520B605799009FD188 /* iTM2CrashReportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7051500B605799009FD188 /* iTM2CrashReportKit.m */; };
+		DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */; };
 		DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */; };
 		DC7E483B0AD6D7D000202CF2 /* HDCrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7E483A0AD6D7D000202CF2 /* HDCrashReporter.framework */; };
 		DC7E4C1D0AD6D7F300202CF2 /* HDCrashReporter.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC0D4EF90AD6C63F0024D73F /* HDCrashReporter.framework */; };
@@ -305,6 +308,7 @@
 				DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */,
 				DC7E4C1D0AD6D7F300202CF2 /* HDCrashReporter.framework in Copy Frameworks */,
 				DCA37D7F0AE391AD00874F9E /* iTM2HelpSupport.h in Copy Frameworks */,
+				DC7051510B605799009FD188 /* iTM2CrashReportKit.h in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +341,10 @@
 		DC6BC5F40948FD8B008F8188 /* Prepare iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2ConTeXtKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2BibTeXSupportKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptKit.framework; path = /System/Library/Frameworks/AppleScriptKit.framework; sourceTree = "<absolute>"; };
+		DC70514F0B605799009FD188 /* iTM2CrashReportKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2CrashReportKit.h; sourceTree = "<group>"; };
+		DC7051500B605799009FD188 /* iTM2CrashReportKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2CrashReportKit.m; sourceTree = "<group>"; };
+		DC70516A0B60590A009FD188 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CrashReportController.nib; sourceTree = "<group>"; };
+		DC7051700B605916009FD188 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2CrashReportController.nib; sourceTree = "<group>"; };
 		DC74C82007D8532800E10C57 /* iTeXMac2-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTeXMac2-Prefix.pch"; sourceTree = "<group>"; };
 		DC74C82107D8532800E10C57 /* iTM2StartupDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupDocument.h; sourceTree = "<group>"; };
 		DC781BAC07F9B8DA00FCD972 /* iTM2WindowsMenuKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2WindowsMenuKit.h; sourceTree = "<group>"; };
@@ -608,6 +616,7 @@
 		DCA37E780AE3AD7800874F9E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */,
 				DCA37E7A0AE3AD7800874F9E /* Credits.rtf */,
 				DCA37E7C0AE3AD7800874F9E /* InfoPlist.strings */,
 				DCA37E7E0AE3AD7800874F9E /* iTeXMac2 Help */,
@@ -764,6 +773,8 @@
 				DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */,
 				DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */,
 				DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */,
+				DC70514F0B605799009FD188 /* iTM2CrashReportKit.h */,
+				DC7051500B605799009FD188 /* iTM2CrashReportKit.m */,
 				DCFFA6C60855B7C900607AAA /* iTeXMac2 CM PlugIn */,
 			);
 			name = iTeXMac2;
@@ -1103,6 +1114,7 @@
 				DCA37F6E0AE3AD7B00874F9E /* iTeXMac2.sdef in Resources */,
 				DCBA43250B011B45006AF52A /* ASY.icns in Resources */,
 				DCBA43260B011B45006AF52A /* OUT.icns in Resources */,
+				DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1352,6 +1364,7 @@
 				DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */,
 				DCCE70A7091B58D200960441 /* iTM2AppleScriptSupport.m in Sources */,
 				DCA37D7E0AE391AD00874F9E /* iTM2HelpSupport.m in Sources */,
+				DC7051520B605799009FD188 /* iTM2CrashReportKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1432,6 +1445,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC70516A0B60590A009FD188 /* English */,
+				DC7051700B605916009FD188 /* French */,
+			);
+			name = iTM2CrashReportController.nib;
+			sourceTree = "<group>";
+		};
 		DCA37E7A0AE3AD7800874F9E /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
