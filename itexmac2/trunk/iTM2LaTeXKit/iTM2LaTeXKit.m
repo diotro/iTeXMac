@@ -1990,7 +1990,7 @@ static id _iTM2LaTeXModeForModeArray = nil;
 + (void)load;
 {
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(postNotificationName:object:userInfo:) replacement:@selector(swizzled_postNotificationName:object:userInfo:) forClass:self];
 	iTM2_RELEASE_POOL;
 	return;
@@ -2629,7 +2629,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 //iTM2_LOG(@"iTM2TeXParser");
     if(!_iTM2LaTeXModeForModeArray)

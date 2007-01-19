@@ -88,7 +88,8 @@ To Do List:
                     [NSNumber numberWithInt:0], iTM2CurrentVersionNumberKey,
                                 nil]];
 	Class C = NSClassFromString(@"iTM2DocumentController");// trick to avoid file dependency
-	[[[C alloc] init] autorelease];// creates the document controller
+	id sdc = [[[C alloc] init] autorelease];
+	NSAssert(sdc==SDC,@"*** BUG: the document controller is not what is expected");// creates the document controller
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
@@ -107,7 +108,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	iTM2DebugEnabled = [SUD integerForKey:iTM2DebugEnabledKey];
 	if(iTM2DebugEnabled)
@@ -203,7 +204,7 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 + (void)load;
 {
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 	if([SUD boolForKey:@"iTM2PatchPerformActionForItemAtIndex"])
 	{
 		[self poseAsClass:[NSMenu class]];

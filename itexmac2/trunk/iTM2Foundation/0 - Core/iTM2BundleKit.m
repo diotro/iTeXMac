@@ -63,7 +63,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSBundle_iTeXMac2 poseAsClass:[NSBundle class]];
 //iTM2_END;
@@ -163,7 +163,6 @@ To Do List:
 #import <mach/machine.h>
 
 NSString * _iTM2_NSLogOutputPath = nil;
-
 @implementation NSBundle(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isI386
 + (BOOL)isI386;
@@ -1304,8 +1303,60 @@ To Do List:
 //iTM2_START;
     return _iTM2_NSLogOutputPath;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  redirectNSLogOutput
-+ (void)redirectNSLogOutput;
+@end
+
+@interface NSApplication_iTM2BundleKit: NSApplication
+@end
+
+@implementation NSApplication(iTM2BundleKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++ (void)load;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+//iTM2_START;
+	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(run) replacement:@selector(swizzle_iTM2BundleKit_run) forClass:[NSApplication class]])
+	{
+		iTM2_LOG(@"..........  ERROR: Bad configuration, things won't work as expected...");
+	}
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2BundleKit_run
+- (void)swizzle_iTM2BundleKit_run;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+//iTM2_START;
+	// this must occur very early, the stuff in the bundles will be correctly coded
+//iTM2_LOG(@".....     START: LOAD THE BUNDLES");
+	[NSBundle loadPlugIns];
+//iTM2_LOG(@".....     END:   LOAD THE BUNDLES");
+	if(iTM2DebugEnabled)
+	{
+		[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithBool:YES], @"NSShowNonLocalizedStrings", nil]];
+	}
+	iTM2_RELEASE_POOL;
+	[self swizzle_iTM2BundleKit_run];
+	// Don't add code below, it won't ever be reached...
+//iTM2_END;
+    return;
+}
+@end
+
+#import <Foundation/NSDebug.h>
+
+void iTM2RedirectNSLogOutput()
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -1326,15 +1377,44 @@ To Do List:
 		return;
 	}
 	NSMutableString * logOutput = [NSMutableString string];
+#if 0
+	This cannott be used because it causes the main application object to be initialized as side effect
+	thus preventing the proper document controller to be used
 	NSBundle * mainBundle = [NSBundle mainBundle];
 	NSString * version = [mainBundle objectForInfoDictionaryKey:@"iTM2SourceVersion"];
+	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
+#elif 1
+	NSProcessInfo * PI = [NSProcessInfo processInfo];
+	id components = [PI arguments];
+	NSString * bundlePath = [components objectAtIndex:0];
+	components = [[[bundlePath pathComponents] mutableCopy] autorelease];
+	while(![[components lastObject] isEqual:@"Contents"])
+	{
+		[components removeLastObject];
+	}
+	[components removeLastObject];
+	bundlePath = [NSString pathWithComponents:components];
+	NSBundle * mainBundle = [NSBundle bundleWithPath:bundlePath];
+	NSString * version = [mainBundle objectForInfoDictionaryKey:@"iTM2SourceVersion"];
+	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
+#else
+	NSProcessInfo * PI = [NSProcessInfo processInfo];
+	NSArray * arguments = [PI arguments];
+	NSString * infoPListPath = [arguments objectAtIndex:0];
+	infoPListPath = [infoPListPath stringByDeletingLastPathComponent];
+	infoPListPath = [infoPListPath stringByDeletingLastPathComponent];
+	infoPListPath = [infoPListPath stringByAppendingPathComponent:@"Info"];
+	infoPListPath = [infoPListPath stringByAppendingPathExtension:@"plist"];
+	NSDictionary * infoPList = [NSDictionary dictionaryWithContentsOfFile:infoPListPath];
+	NSString * version = [infoPList objectForKey:@"iTM2SourceVersion"];
+	NSString * executable = [infoPList objectForKey:(NSString *)kCFBundleExecutableKey];
+#endif
 	if([version isEqual:@"NONE"])
 	{
 		goto end;
 	}
 	NSString * logPath = [libraries lastObject];
 	logPath = [logPath stringByAppendingPathComponent:@"Logs"];
-	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
 	logPath = [logPath stringByAppendingPathComponent:executable];
 	[DFM createDeepDirectoryAtPath:logPath attributes:nil error:nil];
 	if([DFM pushDirectory:logPath])
@@ -1395,69 +1475,28 @@ To Do List:
 		[DFM popDirectory];
 	}
 end:
-	;
-	NSString * principalClassName = [mainBundle objectForInfoDictionaryKey:@"NSPrincipalClass"];
-	Class principalClass = NSClassFromString(principalClassName);
-	SEL action = @selector(logWelcomeMessage);
-	if([principalClass respondsToSelector:action])
-	{
-		[principalClass performSelector:action];
+    NSLog(@"Welcome to %@ version %@", executable, version);
+	NSString * identifier = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
+    if(iTM2DebugEnabled)
+    {
+		NSLog(@"RUNNING IN DEBUG LEVEL %i: more comments are available, at the cost of a performance degradation", iTM2DebugEnabled);
+        NSLog(@"Please, set the iTM2DebugEnabled defaults value to '0' if you want to come back to the normal behaviour use one of");
+        NSLog(@"terminal%% defaults write %@ iTM2DebugEnabled '0'",identifier);
+        NSLog(@"terminal%% defaults delete %@ iTM2DebugEnabled",identifier);
+		NSLog(@"Cocoa debug flags: NSDebugEnabled: %@, NSZombieEnabled: %@, NSHangOnUncaughtException: %@",
+			(NSDebugEnabled? @"Y": @"N"), (NSZombieEnabled? @"Y": @"N"), (NSHangOnUncaughtException? @"Y": @"N"));
+	}
+	else
+    {
+		NSLog(@"RUNNING IN 0 DEBUG LEVEL. To have more comments available for debugging purpose");
+        NSLog(@"Please, set the iTM2DebugEnabled defaults value to some positive (the higher the more precise):");
+        NSLog(@"terminal%% defaults write %@ iTM2DebugEnabled '10000'",identifier);
 	}
 	NSLog(logOutput);
 	iTM2_RELEASE_POOL;
 //iTM2_START;
     return;
 }
-@end
-
-@interface NSApplication_iTM2BundleKit: NSApplication
-@end
-
-@implementation NSApplication(iTM2BundleKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-//iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(run) replacement:@selector(swizzle_iTM2BundleKit_run) forClass:[NSApplication class]])
-	{
-		iTM2_LOG(@"..........  ERROR: Bad configuration, things won't work as expected...");
-	}
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2BundleKit_run
-- (void)swizzle_iTM2BundleKit_run;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-//iTM2_START;
-	// this must occur very early, the stuff in the bundles will be correctly coded
-//iTM2_LOG(@".....     START: LOAD THE BUNDLES");
-	[NSBundle loadPlugIns];
-//iTM2_LOG(@".....     END:   LOAD THE BUNDLES");
-	if(iTM2DebugEnabled)
-	{
-		[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithBool:YES], @"NSShowNonLocalizedStrings", nil]];
-	}
-	iTM2_RELEASE_POOL;
-	[self swizzle_iTM2BundleKit_run];
-	// Don't add code below, it won't ever be reached...
-//iTM2_END;
-    return;
-}
-@end
 
 @implementation NSObject(iTM2BundleKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classBundle

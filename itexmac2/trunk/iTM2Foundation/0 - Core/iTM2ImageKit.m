@@ -28,12 +28,13 @@
 #define DEFINE_IMAGE(SELECTOR, NAME)\
 + (NSImage *)SELECTOR;\
 {\
-	static NSImage * I = nil;\
+	NSString * name = [NSString stringWithFormat:@"iTM2:%@",NAME];\
+	NSImage * I = [NSImage imageNamed:name];\
 	if(!I)\
 	{\
 		I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:\
             [[iTM2Implementation classBundle] pathForImageResource:NAME]];\
-		[I setName:[NSString stringWithFormat:@"iTM2:%@", NAME]];\
+		[I setName:name];\
 	}\
     return I;\
 }

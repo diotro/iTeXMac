@@ -632,6 +632,15 @@ extern NSString * const iTM2InspectorTable;
 @interface NSWindowController(iTM2DocumenKit)
 
 /*!
+    @method		smallImageLogo
+    @abstract	Abstract forthcoming.
+    @discussion	Description forthcoming.
+    @param		None.
+    @result		an image.
+*/
++ (NSImage *)smallImageLogo;
+
+/*!
     @method		isInstanceUnique
     @abstract	Is the instance unique.
     @discussion	Default inspectors are unique: the same document is not viewed through different inspectors of the same type, mode and variant.

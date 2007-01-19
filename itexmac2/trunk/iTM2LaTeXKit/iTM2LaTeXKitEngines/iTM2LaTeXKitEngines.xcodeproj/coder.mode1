@@ -196,6 +196,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -322,7 +324,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCBD483A0B5EFECA00B01DE0</string>
+										<string>DC0BB7010B610DA000C7F0A1</string>
 										<key>history</key>
 										<array>
 											<string>DC9BC3770ABA0D4D00FAC59E</string>
@@ -334,7 +336,7 @@
 											<string>DC9BC37F0ABA0D4D00FAC59E</string>
 											<string>DC80337C0ABECAB30087FC8F</string>
 											<string>DC5B8C3F0AE776FD0076589D</string>
-											<string>DCB1DDA40B4EB96000B0704A</string>
+											<string>DCBD483A0B5EFECA00B01DE0</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -404,9 +406,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCBD483C0B5EFECA00B01DE0</string>
+				<string>DC0BB7030B610DA000C7F0A1</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCBD483D0B5EFECA00B01DE0</string>
+				<string>DC0BB7040B610DA000C7F0A1</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>

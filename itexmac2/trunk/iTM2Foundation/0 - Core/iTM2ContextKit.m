@@ -924,7 +924,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSDocument_iTM2ContextKit poseAsClass:[NSDocument class]];
 //iTM2_END;

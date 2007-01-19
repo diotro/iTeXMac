@@ -312,7 +312,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 //iTM2_LOG(@"iTM2TeXParser");
     if(!_iTM2TeXModeForModeArray)
@@ -1678,7 +1678,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
     if(!_iTM2TeXPTeXLetterCharacterSet)
     {

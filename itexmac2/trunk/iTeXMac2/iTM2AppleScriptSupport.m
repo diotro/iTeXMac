@@ -225,7 +225,7 @@ To Do List:
 + (void)load;
 {
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 	[NSGetCommand_iTM2 poseAsClass:[NSGetCommand class]];
 	iTM2_RELEASE_POOL;
 }

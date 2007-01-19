@@ -46,7 +46,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[self poseAsClass:[iTM2SpellContextController class]];
 //iTM2_END;

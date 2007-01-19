@@ -4920,7 +4920,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
     iTM2FontAttributeNameHash = [NSFontAttributeName hash];
     iTM2ForegroundColorAttributeNameHash = [NSForegroundColorAttributeName hash];

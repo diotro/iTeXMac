@@ -144,7 +144,7 @@ To Do List:
 {
     iTM2_INIT_POOL;
 //iTM2_START;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 	static BOOL firstTime = YES;
     if([SUD boolForKey:@"iTM2DontSwizzleScriptSuiteRegistry"])
     {

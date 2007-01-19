@@ -41,6 +41,26 @@ NSString * const iTM2TeXProjectHelpPage = @"pgs/004.htm";
 @end
 
 @implementation iTM2TeXPCommandsInspector
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
++ (NSImage *)smallImageLogo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings(small)"];
+	if(I)
+	{
+		return I;
+	}
+	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectSettings"] copy];
+	[I setScalesWhenResized:YES];
+	[I setSize:NSMakeSize(16,16)];
+	[I setName:@"iTM2:showCurrentProjectSettings(small)"];
+    return I;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
 /*"Description Forthcoming.

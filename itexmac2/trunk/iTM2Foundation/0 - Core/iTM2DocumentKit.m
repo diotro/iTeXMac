@@ -61,7 +61,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) replacement:@selector(canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) forClass:[self class]])
 	{
@@ -2570,6 +2570,18 @@ To Do List:
 @end
 
 @implementation NSWindowController(iTM2DocumenKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
++ (NSImage *)smallImageLogo;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerServer
 + (id)windowControllerServer;
 /*"Description Forthcoming.

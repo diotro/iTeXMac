@@ -628,7 +628,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	_iTM2SharedMacrosServer = [[self alloc] init];
 //iTM2_END;

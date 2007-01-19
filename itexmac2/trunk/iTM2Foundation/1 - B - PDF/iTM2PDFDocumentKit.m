@@ -2348,7 +2348,7 @@ NSString * const iTM2PDFPreferA4PaperKey = @"iTM2PDFPreferA4Paper";
 /*"Description forthcoming."*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
         [NSNumber numberWithBool:NO], iTM2PDFPreferA4PaperKey,
@@ -2730,16 +2730,15 @@ To Do List:
 		[toolbarItem setToolTip:
             NSLocalizedStringFromTableInBundle([itemIdent stringByAppendingString:@"ToolTip"], @"Toolbar", myBUNDLE, "")];
 		NSString * imageName = [itemIdent stringByAppendingString:@"ToolbarImage"];
-		NSString * imagePath = [myBUNDLE pathForResource:imageName ofType:@"tif"];
-		NSImage * I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath];
-		if(I)
-			[toolbarItem setImage:I];
-		else	
+		NSString * imagePath = [myBUNDLE pathForImageResource:imageName];
+		NSString * name = [NSString stringWithFormat:@"iTM2:%@",itemIdent]
+		NSImage * I = [NSImage imageNamed:name];
+		if(!I)
 		{
-			imagePath = [myBUNDLE pathForResource:imageName ofType:@"tiff"];
-			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath];
-			[toolbarItem setImage:I];
+			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:itemIdent];
+			[I setName:name];
 		}
+		[toolbarItem setImage:I];
 		[toolbarItem setAction:action];
 		if([self respondsToSelector:action])
 			[toolbarItem setTarget:self];

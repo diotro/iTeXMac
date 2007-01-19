@@ -1952,12 +1952,12 @@ To Do List:
 //iTM2_START;
 	if(![sender image])
 	{
-		NSImage * I = [NSImage imageNamed:@"compilePerformerImage"];
+		NSImage * I = [NSImage imageNamed:@"iTM2:compilePerformer"];
 		if(!I)
 		{
-			I = [NSImage imageNamed:@"typesetCurrentProjectToolbarImage"];
-			I = [[I copy] autorelease];
-			[I setName:@"compilePerformerImage"];
+			I = [NSImage imageNamed:@"iTM2:typesetCurrentProject"];
+			I = [I copy];
+			[I setName:@"iTM2:compilePerformer"];
 			[I setScalesWhenResized:YES];
 			[I setSize:NSMakeSize(16,16)];
 		}

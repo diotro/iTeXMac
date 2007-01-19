@@ -380,7 +380,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_removeFileAtPath:handler:)replacement:@selector(removeFileAtPath:handler:)forClass:[NSFileManager class]])
 	{

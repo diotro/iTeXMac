@@ -76,6 +76,8 @@ To Do List:
             [MI setTarget:nil];
             [MI setRepresentedObject:mode];
             [MRA addObject:MI];
+			NSImage * I = [inspectorClass smallImageLogo];
+			[MI setImage:I];
         }
 	}
 	if([MRA count])
@@ -116,10 +118,15 @@ To Do List:
 		{
 			NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle: S
 							action: @selector(projectEditDocumentUsingRepresentedObject:) keyEquivalent: @""] autorelease];
-			[MI setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
 			[M addItem:MI];
 			[MI setTarget:nil];
-			[MI setRepresentedObject:[MD objectForKey:S]];
+			S = [MD objectForKey:S];
+			[MI setRepresentedObject:S];
+			NSString * path = [self absoluteFileNameForKey:S];
+			NSImage * I = [SWS iconForFile:path];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+			[MI setImage:I];
 		}
 	}
 #endif
@@ -373,6 +380,8 @@ To Do List:
 			WC = [W windowController];
 			if(document = [WC document])
 			{
+				NSImage * I = [[WC class] smallImageLogo];
+				[MI setImage:I];
 				// the current menu item has a window
 				// this window has a document
 				PD = [document project];
@@ -403,7 +412,10 @@ To Do List:
 						MRA = [NSMutableArray arrayWithObject:MI];
 						[projectRefsToProjectDocumentsMenuItems setObject:MRA forKey:key];
 					}
-					[MI setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+					if(![MI image])
+					{
+						[MI setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+					}
 				}
 				else
 				{
@@ -713,7 +725,10 @@ up1:
 		{
 //iTM2_LOG(@"=-=-=-=-=-  inserted document mi is: %@", mi);
 			[windowsMenu insertItem:mi atIndex:insertIndex];
-			[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+			if(![mi image])
+			{
+				[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+			}
 		}
 		[projectRefsToProjectDocumentsMenuItems removeObjectForKey:key];
 		RA = [projectRefsToProjectWindowsMenuItems objectForKey:key];
@@ -723,7 +738,10 @@ up1:
 		{
 //iTM2_LOG(@"=-=-=-=-=-  inserted project item mi is: %@", mi);
 			[windowsMenu insertItem:mi atIndex:insertIndex];
-			[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+			if(![mi image])
+			{
+				[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
+			}
 		}
 		[projectRefsToProjectWindowsMenuItems removeObjectForKey:key];
 //iTM2_LOG(@"=-=-=-=-=-  inserted project MI is: %@", MI);

@@ -12,6 +12,11 @@
 			DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7204 */,
 			DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7188 */,
 			DCBDA0060AFC831000522BD9 /* iTM2PDFKit.m:1826 */,
+			DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3350 */,
+			DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6966 */,
+			DCE48F550B1DDB5A009DCF57 /* iTM2PDFKit.m:4217 */,
+			DCE48F660B1DDF88009DCF57 /* iTM2PDFSYNCKit.m:1693 */,
+			DCE48F700B1DDFF6009DCF57 /* iTM2PDFSYNCKit.m:903 */,
 		);
 		breakpointsGroup = DC99EC7A0A27C6B600F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DC520431088B1FD300DE6E7F /* Code sense */;
@@ -141,14 +146,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 190766487;
-			PBXWorkspaceStateSaveDate = 190766487;
+			PBXPerProjectTemplateStateSaveDate = 190906605;
+			PBXWorkspaceStateSaveDate = 190906605;
 		};
 		perUserProjectItems = {
-			DCBD43880B5EDD9B00B01DE0 /* PBXBookmark */ = DCBD43880B5EDD9B00B01DE0 /* PBXBookmark */;
-			DCBD43B00B5EE11E00B01DE0 /* PBXTextBookmark */ = DCBD43B00B5EE11E00B01DE0 /* PBXTextBookmark */;
-			DCBD48220B5EFEC600B01DE0 /* PBXTextBookmark */ = DCBD48220B5EFEC600B01DE0 /* PBXTextBookmark */;
-			DCBD48230B5EFEC600B01DE0 /* PBXTextBookmark */ = DCBD48230B5EFEC600B01DE0 /* PBXTextBookmark */;
+			DC0BB7180B610DA100C7F0A1 /* PBXTextBookmark */ = DC0BB7180B610DA100C7F0A1 /* PBXTextBookmark */;
+			DC0BB71B0B610DA100C7F0A1 /* PBXTextBookmark */ = DC0BB71B0B610DA100C7F0A1 /* PBXTextBookmark */;
+			DC1BA6750B60D479003660EF /* PBXTextBookmark */ = DC1BA6750B60D479003660EF /* PBXTextBookmark */;
+			DC1BA6760B60D479003660EF /* PBXTextBookmark */ = DC1BA6760B60D479003660EF /* PBXTextBookmark */;
 			DCE2954F0B55989F00EC674E /* PBXTextBookmark */ = DCE2954F0B55989F00EC674E /* PBXTextBookmark */;
 			DCE295510B55989F00EC674E /* PBXTextBookmark */ = DCE295510B55989F00EC674E /* PBXTextBookmark */;
 		};
@@ -156,10 +161,50 @@
 		userBuildSettings = {
 		};
 	};
+	DC0BB7180B610DA100C7F0A1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCAF9A6009D810F900AFD95F /* French */;
+		name = "French: 7";
+		rLen = 0;
+		rLoc = 237;
+		rType = 0;
+		vrLen = 272;
+		vrLoc = 0;
+	};
+	DC0BB71B0B610DA100C7F0A1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
+		name = "iTM2PDFKit.m: 6998";
+		rLen = 256;
+		rLoc = 235058;
+		rType = 0;
+		vrLen = 1357;
+		vrLoc = 234905;
+	};
 	DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */ = {
 		uiCtxt = {
 			sepNavWindowFrame = "{{176, 36}, {1210, 690}}";
 		};
+	};
+	DC1BA6750B60D479003660EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCAF9A6009D810F900AFD95F /* French */;
+		name = "French: 7";
+		rLen = 0;
+		rLoc = 237;
+		rType = 0;
+		vrLen = 272;
+		vrLoc = 0;
+	};
+	DC1BA6760B60D479003660EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
+		name = "iTM2PDFKit.m: 6998";
+		rLen = 256;
+		rLoc = 235058;
+		rType = 0;
+		vrLen = 1357;
+		vrLoc = 234905;
 	};
 	DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6430 */ = {
 		isa = PBXFileBreakpoint;
@@ -173,7 +218,7 @@
 		hitCount = 1;
 		lineNumber = 6430;
 		location = iTM2PDFKit;
-		modificationTime = 190774024.328709;
+		modificationTime = 190895002.331367;
 		state = 1;
 	};
 	DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {
@@ -187,8 +232,8 @@
 	DC2CA6700855D08300128F14 /* iTM2PDFKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2636, 157046}}";
-			sepNavSelRange = "{235073, 256}";
-			sepNavVisRect = "{{0, 118905}, {1242, 800}}";
+			sepNavSelRange = "{235058, 256}";
+			sepNavVisRect = "{{0, 118864}, {1242, 800}}";
 			sepNavWindowFrame = "{{94, 4}, {1281, 873}}";
 		};
 	};
@@ -332,40 +377,6 @@
 			sepNavVisRect = "{{0, 0}, {929, 628}}";
 		};
 	};
-	DCBD43880B5EDD9B00B01DE0 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-	};
-	DCBD43B00B5EE11E00B01DE0 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCAF9A6009D810F900AFD95F /* French */;
-		name = "French: 7";
-		rLen = 0;
-		rLoc = 237;
-		rType = 0;
-		vrLen = 272;
-		vrLoc = 0;
-	};
-	DCBD48220B5EFEC600B01DE0 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCAF9A6009D810F900AFD95F /* French */;
-		name = "French: 7";
-		rLen = 0;
-		rLoc = 237;
-		rType = 0;
-		vrLen = 272;
-		vrLoc = 0;
-	};
-	DCBD48230B5EFEC600B01DE0 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 7000";
-		rLen = 256;
-		rLoc = 235073;
-		rType = 0;
-		vrLen = 1368;
-		vrLoc = 234931;
-	};
 	DCBDA0060AFC831000522BD9 /* iTM2PDFKit.m:1826 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -378,7 +389,7 @@
 		hitCount = 1;
 		lineNumber = 1826;
 		location = iTM2PDFKit;
-		modificationTime = 190774000.688316;
+		modificationTime = 190894725.825141;
 		state = 2;
 	};
 	DCBDA0080AFC843C00522BD9 /* iTM2PDFKit.m:7204 */ = {
@@ -393,7 +404,7 @@
 		hitCount = 1;
 		lineNumber = 7204;
 		location = iTM2PDFKit;
-		modificationTime = 190774024.465537;
+		modificationTime = 190895004.529414;
 		state = 1;
 	};
 	DCBDA00B0AFC847A00522BD9 /* iTM2PDFKit.m:6966 */ = {
@@ -408,7 +419,7 @@
 		hitCount = 1;
 		lineNumber = 6966;
 		location = iTM2PDFKit;
-		modificationTime = 190766574.576814;
+		modificationTime = 190895009.147908;
 		state = 1;
 	};
 	DCBDA00E0AFC84B500522BD9 /* iTM2PDFKit.m:7188 */ = {
@@ -423,7 +434,7 @@
 		hitCount = 1;
 		lineNumber = 7188;
 		location = iTM2PDFKit;
-		modificationTime = 190774024.596644;
+		modificationTime = 190895004.529726;
 		state = 1;
 	};
 	DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */ = {
@@ -466,7 +477,7 @@
 		hitCount = 1;
 		lineNumber = 4217;
 		location = iTM2PDFKit;
-		modificationTime = 190738219.853636;
+		modificationTime = 190895011.461006;
 		state = 1;
 	};
 	DCE48F640B1DDF88009DCF57 /* iTM2PDFSYNCKit.m */ = {
@@ -488,7 +499,7 @@
 		hitCount = 1;
 		lineNumber = 1693;
 		location = iTM2TeXFoundation;
-		modificationTime = 190738205.811306;
+		modificationTime = 190895013.675887;
 		state = 1;
 	};
 	DCE48F700B1DDFF6009DCF57 /* iTM2PDFSYNCKit.m:903 */ = {
@@ -503,7 +514,7 @@
 		hitCount = 1;
 		lineNumber = 903;
 		location = iTM2TeXFoundation;
-		modificationTime = 190738210.293902;
+		modificationTime = 190895015.878681;
 		state = 1;
 	};
 	DCF94D740ADEE23C00672833 /* iTM2PDFKit.m:3350 */ = {
@@ -518,7 +529,7 @@
 		hitCount = 1;
 		lineNumber = 3350;
 		location = iTM2PDFKit;
-		modificationTime = 190738232.717764;
+		modificationTime = 190895006.715759;
 		state = 1;
 	};
 }

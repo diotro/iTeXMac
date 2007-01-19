@@ -719,7 +719,7 @@ To Do List:
 + (void)load;
 {
 	NSAutoreleasePool * P = [[NSAutoreleasePool alloc] init];
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 
 #if 1
 	iTM2PatriciaController * PC = [[[iTM2PatriciaController alloc] init] autorelease];

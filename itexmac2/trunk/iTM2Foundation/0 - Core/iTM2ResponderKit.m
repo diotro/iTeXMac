@@ -274,7 +274,7 @@ To Do List: retain?
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"Responders are missing" forKey:@"iTM2AutoInstallResponder"];
 	[DNC addObserver:self selector:@selector(applicationWillFinishLaunchingNotified:) name:NSApplicationWillFinishLaunchingNotification object:nil];

@@ -92,7 +92,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_iTM2PDFKit_init) replacement:@selector(init) forClass:[self class]])
 	{
@@ -6802,7 +6802,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	if(![SUD boolForKey:@"iTM2NOPDFPageCharacterIndexAtPointFix"])
 		[self poseAsClass:[PDFPage class]];
@@ -6945,7 +6945,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[self poseAsClass:[PDFView class]];
 //iTM2_END;
@@ -8240,7 +8240,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2PDFKitResponder"];
 //iTM2_END;
@@ -8508,7 +8508,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 	id controller = [[[iTM2PDFKitDefaultsController alloc] init] autorelease];
 	[controller setModel:[NSMutableDictionary dictionary]];
 	PDFView * V = [[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
@@ -9158,7 +9158,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 + (void)load;
 {
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 	[self poseAsClass:[PDFPage class]];
 	iTM2_RELEASE_POOL;
 	return;

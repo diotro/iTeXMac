@@ -6029,7 +6029,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(windowTitleForDocumentDisplayName:)
 		replacement:@selector(iTM2_Swizzled_windowTitleForDocumentDisplayName:)
@@ -8474,7 +8474,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithFloat:1],iTM2OtherProjectWindowsAlphaValue,// to be improved...
@@ -8588,7 +8588,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSApplication_iTM2ProjectDocumentKit poseAsClass:[NSApplication class]];
 //iTM2_END;
@@ -8632,7 +8632,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSDocument_iTM2ProjectDocumentKit poseAsClass:[NSDocument class]];
 	[NSWindowController_iTM2ProjectDocumentKit poseAsClass:[NSWindowController class]];
@@ -9095,7 +9095,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2PDocumentController poseAsClass:[iTM2DocumentController class]];
 //iTM2_END;
@@ -9530,7 +9530,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(iTM2ProjectDocumentKit_swizzle_terminate:)replacement:@selector(terminate:)forClass:[self class]])
 	{
@@ -9794,12 +9794,13 @@ To Do List:
 //iTM2_START;
 	if(![sender image])
 	{
-		NSImage * I = [NSImage imageNamed:@"projectShowSettings"];
+		NSString * name = @"iTM2:projectShowSettings(small)";
+		NSImage * I = [NSImage imageNamed:name];
 		if(!I)
 		{
-			I = [NSImage imageNamed:@"showCurrentProjectSettingsToolbarImage"];// this is defined in the TeX Foundation
-			I = [[I copy] autorelease];
-			[I setName:@"projectShowSettings"];
+			I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings"];// this is defined in the TeX Foundation
+			I = [I copy];
+			[I setName:name];
 			[I setScalesWhenResized:YES];
 			[I setSize:NSMakeSize(16,16)];
 		}
@@ -9828,7 +9829,8 @@ To Do List:
 			if([key isKindOfClass:[NSString class]])
 			{
 				NSString * path = [projectDocument absoluteFileNameForKey:key];
-                [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:YES error:nil];
+				NSURL * url = [NSURL fileURLWithPath:path];
+                [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
 			}
 			return;
 		}
@@ -11128,7 +11130,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2StringFormatController_iTM2ProjectDocumentKit poseAsClass:[iTM2StringFormatController class]];
 //iTM2_END;

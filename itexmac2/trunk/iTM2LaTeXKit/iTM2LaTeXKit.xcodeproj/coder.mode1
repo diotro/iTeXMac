@@ -201,14 +201,6 @@
 						<string>DC3A99D20B56302E0084424F</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>iTM2LaTeXKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCBD48380B5EFEC800B01DE0</string>
-						<key>history</key>
-						<array>
-							<string>DCEE5EF50B5BD7CF00E47ED9</string>
-						</array>
 					</dict>
 					<key>SplitCount</key>
 					<string>1</string>
@@ -244,10 +236,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCBD48390B5EFEC800B01DE0</string>
+						<string>DC0BB7000B610D9F00C7F0A1</string>
 						<key>history</key>
 						<array>
-							<string>DCEE5EF60B5BD7CF00E47ED9</string>
+							<string>DCBD48390B5EFEC800B01DE0</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -277,6 +269,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -391,23 +385,13 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2LaTeXKit.m</string>
+								<string>&lt;No Editor&gt;</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
-										<key>PBXProjectModuleLabel</key>
-										<string>iTM2LaTeXKit.m</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>DCBD48350B5EFEC800B01DE0</string>
-										<key>history</key>
-										<array>
-											<string>DCEE5EF40B5BD7CF00E47ED9</string>
-										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -464,9 +448,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCBD48360B5EFEC800B01DE0</string>
+				<string>DC0BB6FE0B610D9F00C7F0A1</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCBD48370B5EFEC800B01DE0</string>
+				<string>DC0BB6FF0B610D9F00C7F0A1</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>

@@ -53,7 +53,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2PDFResponder"];
 //iTM2_END;

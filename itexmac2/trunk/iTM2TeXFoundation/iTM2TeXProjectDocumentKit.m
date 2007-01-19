@@ -54,7 +54,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSDocumentController_iTM2TeXProject poseAsClass:[iTM2DocumentController class]];
 //iTM2_END;
@@ -116,6 +116,26 @@ NSString * const iTM2TeXProjectBaseComponent = @"Base Projects.localized";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectDocumentKit
 /*"Description forthcoming."*/
 @implementation iTM2TeXProjectDocument
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
++ (NSImage *)smallImageLogo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings(small)"];
+	if(I)
+	{
+		return I;
+	}
+	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectSettings"] copy];
+	[I setScalesWhenResized:YES];
+	[I setSize:NSMakeSize(16,16)];
+	[I setName:@"iTM2:showCurrentProjectSettings(small)"];
+    return I;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
@@ -362,6 +382,26 @@ To Do List:
 NSString * iTM2ProjectLocalizedChooseMaster = nil;
 
 @implementation iTM2TeXSubdocumentsInspector
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
++ (NSImage *)smallImageLogo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectFiles(small)"];
+	if(I)
+	{
+		return I;
+	}
+	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectFiles"] copy];
+	[I setScalesWhenResized:YES];
+	[I setSize:NSMakeSize(16,16)];
+	[I setName:@"iTM2:showCurrentProjectFiles(small)"];
+    return I;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
 /*"Description Forthcoming.
@@ -1716,7 +1756,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"Localization is not complete" forKey:@"TeX Project Menu Items"];
 //iTM2_END;

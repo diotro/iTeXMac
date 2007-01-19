@@ -1410,7 +1410,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
     if(!_iTM2ImplementationNotificationCenter)
          _iTM2ImplementationNotificationCenter = [[NSNotificationCenter alloc] init];
@@ -1643,7 +1643,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSObject_iTM2Implementation poseAsClass:[NSObject class]];
 //iTM2_END;

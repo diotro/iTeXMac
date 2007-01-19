@@ -99,14 +99,6 @@ extern NSString * const iTM2BundleContentsComponent;
 + (NSBundle *)iTeXMac2Bundle;
 
 /*!
-    @method 	redirectNSLogOutput
-    @abstract	redirect the NSLog output.
-    @discussion	Call this message in your +load methods.
-    @result		None.
-*/
-+ (void)redirectNSLogOutput;
-
-/*!
     @method 	NSLogOutputPath
     @abstract	path of the redirected NSLog output.
     @discussion	Discussion forthcoming.
@@ -472,5 +464,7 @@ extern NSString * const iTM2BundleContentsComponent;
 + (BOOL)loadNibNamed:(NSString *)aNibName owner:(id)owner;
 
 @end
+
+void iTM2RedirectNSLogOutput(void); // call this while entering any +load message
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSBundle(iTeXMac2)

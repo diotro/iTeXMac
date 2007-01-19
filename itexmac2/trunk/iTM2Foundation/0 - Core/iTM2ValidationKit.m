@@ -88,7 +88,7 @@ To Do List:
 				strcpy(name+8, selectorName);
 				if((name[8]>='a') && (name[8]<='z'))
 					name[8] = iTM2ValidationANSICapitals[name[8]-'a'];
-			//iTM2_LOG(@"selector name: <%s>", name);
+//iTM2_LOG(@"validator name: <%s>", name);
 				SEL validatorAction = sel_getUid(name);
 				free(name); name = nil;
 				if(validatorAction)
@@ -516,9 +516,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"sender is: %@ (action: %@, target: %@)", sender, NSStringFromSelector([sender action]), [sender target]);
-	int status = [isa target:self validateUserInterfaceItem:sender];
-    return status == iTM2ValidationStatusYES?YES:
-		(status == iTM2ValidationStatusNO?NO:[super validateMenuItem:sender]);
+	if([sender action])
+	{
+		int status = [isa target:self validateUserInterfaceItem:sender];
+		if(status == iTM2ValidationStatusYES)
+		{
+			return YES;
+		}
+		if(status == iTM2ValidationStatusNO)
+		{
+			return NO;
+		}
+	}
+    return [sender submenu]!=nil || [super validateMenuItem:sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowsContents
 - (BOOL)validateWindowsContents;
@@ -551,7 +561,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSTextView_iTM2Validation poseAsClass:[NSTextView class]];
 //iTM2_END;
@@ -633,7 +643,7 @@ To Do List:
     strcpy(name+8, selectorName);
     if((name[8]>='a') && (name[8]<='z'))
         name[8] = iTM2ValidationANSICapitals[name[8]-'a'];
-//iTM2_LOG(@"selector name: <%s>", name);
+//iTM2_LOG(@"validator name: <%s>", name);
     SEL validatorAction = sel_getUid(name);
     free(name);
     name = nil;
@@ -645,7 +655,14 @@ To Do List:
 //iTM2_END;
 	id result = objc_msgSend(validatorTarget, validatorAction, sender);
 //iTM2_LOG(@"%@: %#x", NSStringFromSelector(validatorAction), result);
-	return (int)result & 0xFF?iTM2ValidationStatusYES:iTM2ValidationStatusNO;//BOOL
+	if((int)result & 0xFF)
+	{
+		return iTM2ValidationStatusYES;
+	}
+	else
+	{
+		return iTM2ValidationStatusNO;
+	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
 - (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
@@ -656,7 +673,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return ([sender action] && ([isa target:self validateUserInterfaceItem:sender] != iTM2ValidationStatusNO)) || [sender submenu];
+//iTM2_LOG(@"sender is: %@ (action: %@, target: %@)", sender, NSStringFromSelector([sender action]), [sender target]);
+    return [sender action] && ([isa target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusNO)?NO:YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
 + (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
@@ -667,7 +685,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return ([sender action] && ([self target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusYES)) || [sender hasSubmenu];
+    return [sender action] && ([self target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusNO)?NO:YES;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ValidationSwizzle_validateMenuItem:
@@ -682,6 +700,34 @@ To Do List:
     return [isa target:self validateUserInterfaceItem:sender] || [self iTM2ValidationSwizzle_validateMenuItem:(id <NSMenuItem>) sender];
 }
 #endif
+@end
+
+@implementation iTM2Application(ValidationKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
+- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed Jan 19 23:19:59 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_LOG(@"sender is: %@ (action: %@, target: %@)", sender, NSStringFromSelector([sender action]), [sender target]);
+	if([sender action])
+	{
+		int status = [isa target:self validateUserInterfaceItem:sender];
+		if(status == iTM2ValidationStatusYES)
+		{
+			return YES;
+		}
+		if(status == iTM2ValidationStatusNO)
+		{
+			[isa target:self validateUserInterfaceItem:sender];
+			return NO;
+		}
+	}
+    return ([sender submenu]!=nil) || [super validateMenuItem:sender];
+}
 @end
 
 @interface NSTabView_iTM2ValidationKit : NSTabView
@@ -773,7 +819,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSWindow_iTM2ValidationKit_Validation poseAsClass:[NSWindow class]];
 	[NSDocument_iTM2Validation poseAsClass:[NSDocument class]];// swizzling does not work

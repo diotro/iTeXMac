@@ -117,7 +117,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[NSApplication_iTM2InstallationKit poseAsClass:[NSApplication class]];
 //iTM2_END;

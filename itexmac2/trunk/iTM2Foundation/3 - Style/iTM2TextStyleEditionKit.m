@@ -2644,16 +2644,18 @@ To Do List:
 }
 - (BOOL)validateStyleMenuItem:(id)sender;
 {
-	[sender setAction:NULL];
+	[sender setAction:@selector(submenuAction:)];
 	if(![sender image])
 	{
-		NSImage * I = [NSImage imageNamed:@"iTM2FontsAndColors"];
+		NSString * identifier = @"iTM2FontsAndColors";
+		NSString * name = [NSString stringWithFormat:@"iTM2:%@", identifier];
+		NSImage * I = [NSImage imageNamed:name];
 		if(!I)
 		{
-			NSString * path = [[iTM2Implementation classBundle] pathForImageResource:@"iTM2FontsAndColors"];
+			NSString * path = [[iTM2Implementation classBundle] pathForImageResource:identifier];
 			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path];
-			I = [[I copy] autorelease];
-			[I setName:@"iTM2FontsAndColors"];
+			I = [I copy];
+			[I setName:name];
 			[I setScalesWhenResized:YES];
 			[I setSize:NSMakeSize(16,16)];
 		}

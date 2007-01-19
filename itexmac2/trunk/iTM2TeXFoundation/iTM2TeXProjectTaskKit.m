@@ -168,6 +168,26 @@ To Do List:
     [self cleanLog:self];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
++ (NSImage *)smallImageLogo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectTerminal(small)"];
+	if(I)
+	{
+		return I;
+	}
+	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectTerminal"] copy];
+	[I setScalesWhenResized:YES];
+	[I setSize:NSMakeSize(16,16)];
+	[I setName:@"iTM2:showCurrentProjectTerminal(small)"];
+    return I;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
 /*"Description Forthcoming.
@@ -1345,7 +1365,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2TaskController_TeXProject poseAsClass:[iTM2TaskController class]];
 //iTM2_END;
@@ -1453,7 +1473,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
     if(!_iTM2LogColors)
         _iTM2LogColors = [[NSDictionary dictionaryWithObjectsAndKeys:
@@ -1506,7 +1526,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
     if(!_iTM2TeXFilenameCharacterSet)
         _iTM2TeXFilenameCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
@@ -1537,7 +1557,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
     [self registerParser];
 //iTM2_END;

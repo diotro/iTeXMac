@@ -219,7 +219,7 @@ NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab
 + (void)load;
 {
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 	[self poseAsClass:[NSTextView class]];
     [SUD registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1877,7 +1877,7 @@ To Do List: implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2AttributedString_0 poseAsClass:[NSAttributedString class]];
 //iTM2_END;

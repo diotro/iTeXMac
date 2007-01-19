@@ -1,5 +1,15 @@
 // !$*UTF8*$!
 {
+	DC0BB7240B610DA300C7F0A1 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCCD2DC609E06C760003EEF9 /* English */;
+		name = "English: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 881;
+		vrLoc = 0;
+	};
 	DC0EF842094856570018276F /* dvipdfm wrapper */ = {
 		activeExec = 0;
 	};
@@ -270,10 +280,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 190774093;
-			PBXWorkspaceStateSaveDate = 190774093;
+			PBXPerProjectTemplateStateSaveDate = 190906612;
+			PBXWorkspaceStateSaveDate = 190906612;
 		};
 		perUserProjectItems = {
+			DC0BB7240B610DA300C7F0A1 /* PBXTextBookmark */ = DC0BB7240B610DA300C7F0A1 /* PBXTextBookmark */;
 			DCB1DB920B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DB920B4EAF5100B0704A /* PBXTextBookmark */;
 			DCB1DB960B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DB960B4EAF5100B0704A /* PBXTextBookmark */;
 			DCB1DB980B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DB980B4EAF5100B0704A /* PBXTextBookmark */;
@@ -336,7 +347,6 @@
 			DCB1DC060B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DC060B4EAF5100B0704A /* PBXTextBookmark */;
 			DCB1DC080B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DC080B4EAF5100B0704A /* PBXTextBookmark */;
 			DCB1DC0B0B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DC0B0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCBD48500B5EFECF00B01DE0 /* PBXTextBookmark */ = DCBD48500B5EFECF00B01DE0 /* PBXTextBookmark */;
 			DCBD48510B5EFECF00B01DE0 /* PBXTextBookmark */ = DCBD48510B5EFECF00B01DE0 /* PBXTextBookmark */;
 			DCEE5F0E0B5BD7D100E47ED9 /* PBXTextBookmark */ = DCEE5F0E0B5BD7D100E47ED9 /* PBXTextBookmark */;
 			DCEE5F0F0B5BD7D100E47ED9 /* PBXTextBookmark */ = DCEE5F0F0B5BD7D100E47ED9 /* PBXTextBookmark */;
@@ -1493,16 +1503,6 @@
 		name = "iTM2NewDocumentKit-Info.plist";
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2NewDocumentKit/iTM2NewDocumentKit-Info.plist";
 		sourceTree = "<absolute>";
-	};
-	DCBD48500B5EFECF00B01DE0 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCCD2DC609E06C760003EEF9 /* English */;
-		name = "English: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 881;
-		vrLoc = 0;
 	};
 	DCBD48510B5EFECF00B01DE0 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

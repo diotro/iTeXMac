@@ -1260,7 +1260,7 @@ To Do List:
 + (void)load;\
 {iTM2_DIAGNOSTIC;\
 	iTM2_INIT_POOL;\
-	[NSBundle redirectNSLogOutput];\
+	iTM2RedirectNSLogOutput();\
 	[NSObject class];\
 	iTM2_RELEASE_POOL;\
 	return;\
@@ -1468,20 +1468,20 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil];
+	NSImage * I = nil;
 	if([[[TPD taskController] currentTask] isRunning])
 	{
 		[[TPD taskController] stop];
-		[sender setImage:[NSImage imageNamed:@"typesetCurrentProjectToolbarImage"]];
+		I = [NSImage imageNamed:@"iTM2:typesetCurrentProject"];
 	}
 	else
 	{
 		NSString * commandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 		id performer = [iTM2TeXPCommandManager commandPerformerForName:(commandName?:@"Compile")];
 		[performer performCommandForProject: TPD];
-		NSImage * I = [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"];
-//iTM2_LOG(@"[NSImage imageNamed:@\"stopTypesetCurrentProjectToolbarImage\"] is: %@", [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"]);
-		[sender setImage:I];
+		I = [NSImage imageNamed:@"iTM2:stopTypesetCurrentProject"];
 	}
+	[sender setImage:I];
 //iTM2_END;
     return;
 }  
@@ -1497,14 +1497,9 @@ To Do List:
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:sender];
 	iTM2TaskController * TC = [TPD taskController];
 	NSTask * T = [TC currentTask];
-	if([T isRunning])
-	{
-		[sender setImage:[NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"]];
-	}
-	else
-	{
-		[sender setImage:[NSImage imageNamed:@"typesetCurrentProjectToolbarImage"]];
-	}
+	NSString * name = [T isRunning]?@"iTM2:stopTypesetCurrentProject":@"iTM2:typesetCurrentProject";
+	NSImage * I = [NSImage imageNamed:name];
+	[sender setImage:I];
 //iTM2_END;
     return TPD != nil;
 }  
@@ -1518,19 +1513,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil];
+	NSImage * I = nil;
 	if([[[TPD taskController] currentTask] isRunning])
 	{
 		[[TPD taskController] stop];
-		[sender setImage:[NSImage imageNamed:@"typesetCurrentProjectToolbarImage"]];
+		I = [NSImage imageNamed:@"iTM2:typesetCurrentProject"];
 	}
 	else
 	{
 		[[iTM2TeXPCommandManager commandPerformerForName:@"Typeset"]//very bad design...
 			performCommandForProject: TPD];
-		NSImage * I = [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"];
-//iTM2_LOG(@"[NSImage imageNamed:@\"stopTypesetCurrentProjectToolbarImage\"] is: %@", [NSImage imageNamed:@"stopTypesetCurrentProjectToolbarImage"]);
-		[sender setImage:I];
+		I = [NSImage imageNamed:@"iTM2:stopTypesetCurrentProject"];
 	}
+	[sender setImage:I];
 //iTM2_END;
     return;
 }  
@@ -1557,7 +1552,7 @@ To Do List:
 DEFINE_TOOLBAR_ITEM(stopTypesetCurrentProjectToolbarItem)
 + (NSToolbarItem *)typesetCurrentProjectToolbarItem;
 {
-	[NSToolbarItem stopTypesetCurrentProjectToolbarItem];// initialize the image named @"stopTypesetCurrentProjectToolbarImage" as desired side effect
+	[NSToolbarItem stopTypesetCurrentProjectToolbarItem];// initialize the image named @"iTM2:stopTypesetCurrentProject" as desired side effect
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier:[self identifierFromSelector:_cmd] inBundle:[iTM2TeXPIndexInspector classBundle]];
 	NSRect frame = NSMakeRect(0, 0, 32, 32);
 	iTM2MixedButton * B = [[[iTM2MixedButton alloc] initWithFrame:frame] autorelease];

@@ -812,7 +812,7 @@ To Do List:implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	[NSBundle redirectNSLogOutput];
+	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2TeXAttributedString_0 poseAsClass:[NSAttributedString class]];
 //iTM2_END;
