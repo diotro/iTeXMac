@@ -103,6 +103,7 @@
                 stringEncodingEditList = id; 
                 stringEncodingMissingLocale = id; 
                 stringEncodingToggleAuto = id; 
+                styleMenuItem = id; 
                 takeDebugModeFromSenderTag = id; 
                 takeEOLFromTag = id; 
                 takePDFDisplayOrientationFromTag = id; 
