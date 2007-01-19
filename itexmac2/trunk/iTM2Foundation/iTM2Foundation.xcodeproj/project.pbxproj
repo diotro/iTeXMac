@@ -134,6 +134,9 @@
 		DC691851088C6E9A00F00114 /* iTM2StartupKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC69184F088C6E9A00F00114 /* iTM2StartupKit.m */; };
 		DC6F02A9097A8E57009939A6 /* iTM2PerlKitServer.h in Headers */ = {isa = PBXBuildFile; fileRef = DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC6F02AA097A8E57009939A6 /* iTM2PerlKitServer.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */; };
+		DC704F5A0B602022009FD188 /* iTM2CrashReportController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC704F580B602022009FD188 /* iTM2CrashReportController.nib */; };
+		DC7050470B60389B009FD188 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7050300B60389B009FD188 /* AddressBook.framework */; };
+		DC7050480B60389B009FD188 /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7050310B60389B009FD188 /* Message.framework */; };
 		DC78632708CC290700D4AA33 /* iTM2PDFToolbarDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DC78632508CC290700D4AA33 /* iTM2PDFToolbarDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC78632808CC290700D4AA33 /* iTM2PDFToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC78632608CC290700D4AA33 /* iTM2PDFToolbarDelegate.m */; };
 		DC78632C08CC293700D4AA33 /* iTM2CursorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC78632A08CC293700D4AA33 /* iTM2CursorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -747,6 +750,9 @@
 		DC6BC63D09490315008F8188 /* Prepare OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare OgreKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PerlKitServer.h; sourceTree = "<group>"; };
 		DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PerlKitServer.m; sourceTree = "<group>"; };
+		DC704F590B602022009FD188 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CrashReportController.nib; sourceTree = "<group>"; };
+		DC7050300B60389B009FD188 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
+		DC7050310B60389B009FD188 /* Message.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Message.framework; path = /System/Library/Frameworks/Message.framework; sourceTree = "<absolute>"; };
 		DC78632508CC290700D4AA33 /* iTM2PDFToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PDFToolbarDelegate.h; sourceTree = "<group>"; };
 		DC78632608CC290700D4AA33 /* iTM2PDFToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PDFToolbarDelegate.m; sourceTree = "<group>"; };
 		DC78632A08CC293700D4AA33 /* iTM2CursorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2CursorKit.h; sourceTree = "<group>"; };
@@ -1053,6 +1059,8 @@
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
 				DCC7F34D0854A96000F3EB8A /* Carbon.framework in Frameworks */,
 				DCFFC18F08E1A5890011D2B7 /* PreferencePanes.framework in Frameworks */,
+				DC7050470B60389B009FD188 /* AddressBook.framework in Frameworks */,
+				DC7050480B60389B009FD188 /* Message.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1172,6 +1180,8 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC7050300B60389B009FD188 /* AddressBook.framework */,
+				DC7050310B60389B009FD188 /* Message.framework */,
 				DCCDD0A108F46F0200DAF639 /* OgreKit.framework */,
 				DCC7F34C0854A96000F3EB8A /* Carbon.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
@@ -1600,6 +1610,7 @@
 				DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */,
 				DCBDA1EB0AFE0DDB00522BD9 /* iTM2CompletionServer.nib */,
 				DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */,
+				DC704F580B602022009FD188 /* iTM2CrashReportController.nib */,
 				DCDA12F40908E59B005E9B57 /* Toolbar.strings */,
 				DC25E2E809917C6600545F27 /* iTM2CreateMacroIndex.pl */,
 				DCCF02EF0A5DC5C100B4B720 /* Aqua2_Add_Inactive.tif */,
@@ -2167,6 +2178,7 @@
 				DC2B4AC00AD405930039FCBA /* resizeTopRightCursor.png in Resources */,
 				DCBDA1E30AFE0D3D00522BD9 /* iTM2CompletionInspector.nib in Resources */,
 				DCBDA1F10AFE0DDB00522BD9 /* iTM2CompletionServer.nib in Resources */,
+				DC704F5A0B602022009FD188 /* iTM2CrashReportController.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2736,6 +2748,14 @@
 				DCAF9AF609D8131800AFD95F /* French */,
 			);
 			name = iTM2TaskInspector.nib;
+			sourceTree = "<group>";
+		};
+		DC704F580B602022009FD188 /* iTM2CrashReportController.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC704F590B602022009FD188 /* English */,
+			);
+			name = iTM2CrashReportController.nib;
 			sourceTree = "<group>";
 		};
 		DC8AD53B0A3ABD37006C28A5 /* KeyBindings.resources.tgz */ = {
