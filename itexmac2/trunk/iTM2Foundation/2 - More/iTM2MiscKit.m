@@ -61,7 +61,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[NSWorkspace sharedWorkspace] launchApplication:@"Console"];
+	NSString * logPath = [NSBundle NSLogOutputPath];
+	[SWS openFile:logPath withApplication:@"Console"];
 //iTM2_END;
     return;
 }

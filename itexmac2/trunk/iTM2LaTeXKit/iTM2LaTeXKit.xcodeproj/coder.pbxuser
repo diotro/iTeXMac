@@ -161,12 +161,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 190906592;
-			PBXWorkspaceStateSaveDate = 190906592;
+			PBXPerProjectTemplateStateSaveDate = 190952237;
+			PBXWorkspaceStateSaveDate = 190952237;
 		};
 		perUserProjectItems = {
-			DC0BB7000B610D9F00C7F0A1 /* PBXTextBookmark */ = DC0BB7000B610D9F00C7F0A1 /* PBXTextBookmark */;
-			DCBD48390B5EFEC800B01DE0 /* PBXTextBookmark */ = DCBD48390B5EFEC800B01DE0 /* PBXTextBookmark */;
+			DC0BB7000B610D9F00C7F0A1 = DC0BB7000B610D9F00C7F0A1 /* PBXTextBookmark */;
+			DCBD48390B5EFEC800B01DE0 = DCBD48390B5EFEC800B01DE0 /* PBXTextBookmark */;
+			DCEF60360B61B40500A19262 /* PBXTextBookmark */ = DCEF60360B61B40500A19262 /* PBXTextBookmark */;
+			DCEF60460B61B41E00A19262 /* PBXTextBookmark */ = DCEF60460B61B41E00A19262 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -345,5 +347,25 @@
 	};
 	DCE417E20AB61E7400FB432D /* Build & Install Engines */ = {
 		activeExec = 0;
+	};
+	DCEF60360B61B40500A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
+		name = "iTM2LaTeXKit.h: 176";
+		rLen = 0;
+		rLoc = 5537;
+		rType = 0;
+		vrLen = 1387;
+		vrLoc = 450;
+	};
+	DCEF60460B61B41E00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
+		name = "iTM2LaTeXKit.h: 176";
+		rLen = 0;
+		rLoc = 5537;
+		rType = 0;
+		vrLen = 1387;
+		vrLoc = 450;
 	};
 }

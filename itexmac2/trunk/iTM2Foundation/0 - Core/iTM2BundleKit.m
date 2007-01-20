@@ -1301,7 +1301,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return _iTM2_NSLogOutputPath;
+	if([DFM fileExistsAtPath:_iTM2_NSLogOutputPath])
+	{
+		return _iTM2_NSLogOutputPath;
+	}
+	NSArray * libraries = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSLocalDomainMask,NO);
+	NSString * library = [libraries lastObject];
+	NSNumber * N = [NSNumber numberWithUnsignedInt:getuid()];
+	NSString * path = [N description];
+	path = [path stringByAppendingPathComponent:@"console"];
+	path = [path stringByAppendingPathExtension:@"log"];
+	path = [@"Console" stringByAppendingPathComponent:path];
+	path = [@"Logs" stringByAppendingPathComponent:path];
+	path = [library stringByAppendingPathComponent:path];
+    return path;
 }
 @end
 

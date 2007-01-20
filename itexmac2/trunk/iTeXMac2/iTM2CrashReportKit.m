@@ -70,6 +70,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDate * lastCrashDate = [SUD valueForKey: @"iTM2LastCrashDate"];
+	if(!lastCrashDate)
+	{
+		lastCrashDate = [SUD valueForKey: @"HDCrashReporter.lastCrashDate"];
+	}
 	NSArray *libraries = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask,YES);
 	NSString * logsPath = [libraries lastObject];
 	logsPath = [logsPath stringByAppendingPathComponent:@"Logs"];
@@ -81,6 +85,7 @@ To Do List:
 	crashPath = [crashPath stringByAppendingPathExtension:@"log"];
 	id attributes = [DFM fileAttributesAtPath:crashPath traverseLink: YES];
 	NSDate * modificationDate = [attributes fileModificationDate];
+	[SUD setValue:nil forKey:@"HDCrashReporter.lastCrashDate"];
 	[SUD setValue:modificationDate forKey:@"iTM2LastCrashDate"];
 	if(modificationDate)
 	{

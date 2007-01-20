@@ -46,7 +46,6 @@ To Do List:
 }
 @end
 
-NSString * const iTM2TextAttributesCharacterAttributeName = @"iTM2Character";
 NSString * const iTM2TextAttributesModesIdentifier = @"modes";
 NSString * const iTM2TextAttributesSymbolsIdentifier = @"symbols";
 NSString * const iTM2TextAttributesSymbolIdentifier = @"symbol";
@@ -347,6 +346,7 @@ To Do List:
 			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
 			NSString * p;
 			while(p = [e nextObject])
+			{
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesSymbolsExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
@@ -359,7 +359,8 @@ To Do List:
 				else if(iTM2DebugEnabled)
 				{
 					iTM2_LOG(@"Ignoring path while reading symbols sets: %@", p);
-				}            
+				}
+			}
 		}
 		else
 		{

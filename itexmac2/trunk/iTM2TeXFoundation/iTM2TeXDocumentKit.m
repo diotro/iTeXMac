@@ -677,7 +677,11 @@ To Do List:
 				{
 					// this should always occur?
 					NSMutableString * replacementString = [[[string substringWithRange:actualCharRange] mutableCopy] autorelease];
-					[replacementString insertString:@" " atIndex:1];
+					NSUndoManager * UM = [self undoManager];
+					if(![UM isUndoing] && ![UM isRedoing])
+					{
+						[replacementString insertString:@" " atIndex:1];
+					}
 					if([self shouldChangeTextInRange:actualCharRange replacementString:replacementString])
 					{
 						[self replaceCharactersInRange:actualCharRange withString:replacementString];

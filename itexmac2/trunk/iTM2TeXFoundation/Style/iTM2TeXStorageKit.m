@@ -23,9 +23,10 @@
 
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 
-NSString * const iTM2TextAttributesSymbolsExtension = @"iTM2-Symbols";
+NSString * const iTM2TextAttributesSymbolsExtension = @"rtf";
 NSString * const iTM2TextAttributesDraftSymbolsExtension = @"DraftSymbols";
 NSString * const iTM2Text2ndSymbolColorAttributeName = @"iTM2Text2ndSymbolColorAttribute";
+NSString * const iTM2TextAttributesCharacterAttributeName = @"iTM2Character";
 
 @implementation iTM2MainInstaller(TeXStorageKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXStorageCompleteInstallation
@@ -274,8 +275,41 @@ To Do List:
     NSData * D = [NSData dataWithContentsOfFile:fileName];
     if([D length])
     {
-        NSKeyedUnarchiver * KU = [[[NSKeyedUnarchiver alloc] initForReadingWithData:D] autorelease];
-        return [KU decodeObjectForKey:@"iTM2:root"];
+		NSError * error = nil;
+		NSTextStorage * TS = [[[NSTextStorage alloc] initWithData:D options:nil documentAttributes:nil error:&error] autorelease];
+		if(error)
+		{
+			NSLog(@"%@",error);
+		}
+		NSLayoutManager * LM = [[[NSLayoutManager alloc] init] autorelease];
+		[TS addLayoutManager:LM]; 
+		NSMutableDictionary * result = [NSMutableDictionary dictionary];
+		NSString * S = [TS string];
+		unsigned start = 0, contentsEnd;
+		NSRange R = NSMakeRange(0,0);
+		while(start<[S length])
+		{
+			[S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
+			if((contentsEnd-start>2) && ([S characterAtIndex:start+1]=='='))
+			{
+				NSMutableDictionary * attributes = [[[TS attributesAtIndex:start effectiveRange:nil] mutableCopy] autorelease];
+				NSFont * font = [attributes objectForKey:NSFontAttributeName];
+				if(font)
+				{
+					NSString * command = [S substringWithRange:NSMakeRange(start+2, contentsEnd-start-2)];
+					NSString * character = [S substringWithRange:NSMakeRange(start,1)];
+					[attributes setObject:character forKey:iTM2TextAttributesCharacterAttributeName];
+					NSRange charRange = NSMakeRange(start,1);
+					NSRange glyphRange = [LM glyphRangeForCharacterRange:charRange actualCharacterRange:nil];
+					NSGlyph glyph = [LM glyphAtIndex:glyphRange.location];
+					NSGlyphInfo * GI = [NSGlyphInfo glyphInfoWithGlyph:glyph forFont:font baseString:command];
+					[attributes setObject:GI forKey:NSGlyphInfoAttributeName];
+					[result setObject:attributes forKey:command];
+				}
+			}
+			start = R.location;
+		}
+		return result;
     }
     return [NSDictionary dictionary];
 }
@@ -288,13 +322,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMutableData * MD = [NSMutableData data];
-    NSKeyedArchiver * KA = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:MD] autorelease];
-    [KA setOutputFormat:NSPropertyListXMLFormat_v1_0];
-    [KA encodeObject:dictionary forKey:@"iTM2:root"];
-    [KA finishEncoding];
+	NSEnumerator * E = [dictionary keyEnumerator];
+	NSString * command;
+	NSMutableAttributedString * MAS =
+		[[[NSMutableAttributedString alloc] initWithString:@"% iTeXMac2 style symbols file\n% each line is 'c=\\command'\n"] autorelease];
+	while(command = [E nextObject])
+	{
+		NSMutableDictionary * attributes = [[[dictionary objectForKey:command] mutableCopy] autorelease];
+		NSString * S = [attributes objectForKey:iTM2TextAttributesCharacterAttributeName];
+		NSAttributedString * AS = [[[NSAttributedString alloc] initWithString:S attributes:attributes] autorelease];
+		[MAS appendAttributedString:AS];
+		S = [NSString stringWithFormat:@"=%@\n",command];
+		AS = [[[NSAttributedString alloc] initWithString:S] autorelease];
+		[MAS appendAttributedString:AS];
+	}
+	NSData * data = [MAS dataFromRange:NSMakeRange(0,[MAS length]) documentAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+		NSRTFTextDocumentType, NSDocumentTypeDocumentAttribute, nil] error:nil];
 //iTM2_END;
-	return [MD writeToFile:fileName atomically:YES];
+	return [data writeToFile:fileName options:NSAtomicWrite error:nil];
 }
 @end
 
