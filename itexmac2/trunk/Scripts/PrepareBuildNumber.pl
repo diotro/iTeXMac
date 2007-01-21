@@ -51,6 +51,20 @@ printf "Getting the svn revision number (CONFIGURATION is Deployment)...";
 			}
 		}
 	}
+	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/.." -regex ".*iTM2.*\.m" -print0`);
+	while(my $FILE = shift(@CANDIDATES))
+	{
+		printf "\n$FILE";
+		$revision=`/usr/local/bin/svn info "$FILE"`;
+		if( $revision =~ m/.*Revision: (\d*).*/s )
+		{
+			$revision="$1";
+			if($revision > $REVISION)
+			{
+				$REVISION = $revision;
+			}
+		}
+	}
 }
 else
 {
