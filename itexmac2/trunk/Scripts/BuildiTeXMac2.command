@@ -28,3 +28,4 @@ SUMMARY:
 "
 grep -s "warning" "$LOG"
 grep -s "In function" "$LOG"
+grep -s "FAILED" "$LOG"
