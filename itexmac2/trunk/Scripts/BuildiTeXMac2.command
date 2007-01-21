@@ -3,6 +3,7 @@
 # XCode 2.2 compliant, version 1
 DIR="$(dirname "$0")/.."
 cd "$DIR"
+mkdir -p build
 TEMP_LOG="$DIR/build/iTM2.build.log"
 rm -f "$TEMP_LOG"
 echo "iTM2 tree root: $(pwd)"
