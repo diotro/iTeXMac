@@ -7,8 +7,37 @@ $TARGET_BUILD_DIR = "$ENV{TARGET_BUILD_DIR}";
 $REVISION=0;
 if($CONFIGURATION =~ m/Deployment/)
 {
-printf "Getting the svn revision number ($CONFIGURATION is Deployment)...";
-	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/.." -regex ".*\.mode1" -print0`);
+printf "Getting the svn revision number (CONFIGURATION is Deployment)...";
+	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/.." -regex ".*iTM2.*\.mode1" -print0`);
+	while(my $FILE = shift(@CANDIDATES))
+	{
+		printf "\n$FILE";
+		$revision=`/usr/local/bin/svn info "$FILE"`;
+		if( $revision =~ m/.*Revision: (\d*).*/s )
+		{
+			$revision="$1";
+			if($revision > $REVISION)
+			{
+				$REVISION = $revision;
+			}
+		}
+	}
+	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/.." -regex ".*iTM2.*\.pbxproj" -print0`);
+	while(my $FILE = shift(@CANDIDATES))
+	{
+		printf "\n$FILE";
+		$revision=`/usr/local/bin/svn info "$FILE"`;
+		if( $revision =~ m/.*Revision: (\d*).*/s )
+		{
+			$revision="$1";
+			if($revision > $REVISION)
+			{
+				$REVISION = $revision;
+			}
+		}
+	}
+	$USER = "$ENV{USER}";
+	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/.." -regex ".*iTM2.*/$USER\.pbxuser" -print0`);
 	while(my $FILE = shift(@CANDIDATES))
 	{
 		printf "\n$FILE";
