@@ -26,4 +26,5 @@ cat "$LOG"
 echo "=================
 SUMMARY:
 "
+grep -s "warning" "$LOG"
 grep -s "In function" "$LOG"

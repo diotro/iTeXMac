@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF641C0B640D4D00A19262</string>
+						<string>DCEF64620B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF63EC0B63E73C00A19262</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF641D0B640D4D00A19262</string>
+						<string>DCEF64630B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF63DA0B63E68A00A19262</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF641E0B640D4D00A19262</string>
+						<string>DCEF64640B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF63C50B63E65300A19262</string>
@@ -324,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF641F0B640D4D00A19262</string>
+						<string>DCEF64650B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF639B0B63E35000A19262</string>
@@ -364,7 +364,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF64200B640D4D00A19262</string>
+						<string>DCEF64660B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF63240B63861300A19262</string>
@@ -404,7 +404,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF64210B640D4D00A19262</string>
+						<string>DCEF64670B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF614E0B62CF2C00A19262</string>
@@ -444,7 +444,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF64220B640D4D00A19262</string>
+						<string>DCEF64680B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF63110B6384E200A19262</string>
@@ -484,7 +484,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF64230B640D4D00A19262</string>
+						<string>DCEF64690B6417B600A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF5FC50B61A18900A19262</string>
@@ -629,7 +629,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2TreeKit.m</string>
+								<string>BuildiTeXMac2.command</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -637,11 +637,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TreeKit.m</string>
+										<string>BuildiTeXMac2.command</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCEF641B0B640D4D00A19262</string>
+										<string>DCEF64600B6417B600A19262</string>
 										<key>history</key>
 										<array>
 											<string>DC5B932A0AE789E70076589D</string>
@@ -671,7 +671,9 @@
 											<string>DCEF63FC0B64093900A19262</string>
 											<string>DCEF640A0B640D0100A19262</string>
 											<string>DCEF64180B640D4D00A19262</string>
-											<string>DCEF64190B640D4D00A19262</string>
+											<string>DCEF64580B6417B600A19262</string>
+											<string>DCEF64590B6417B600A19262</string>
+											<string>DCEF645B0B6417B600A19262</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -712,6 +714,8 @@
 											<string>DCEF63FE0B64093900A19262</string>
 											<string>DCEF640C0B640D0100A19262</string>
 											<string>DCEF641A0B640D4D00A19262</string>
+											<string>DCEF645D0B6417B600A19262</string>
+											<string>DCEF645E0B6417B600A19262</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
