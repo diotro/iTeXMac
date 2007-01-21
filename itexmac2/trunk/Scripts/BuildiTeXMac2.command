@@ -19,10 +19,10 @@ else
     echo "xcodebuild -target \"All\" -configuration \"Development\" clean build"
     xcodebuild -target "All" -configuration "Development" clean build > "$TEMP_LOG"
 fi
-VERSION="$($DIR/../build/iTeXMac2.app/Contents/MacOS/GetSourceVersion)"
+VERSION="$($DIR/build/iTeXMac2.app/Contents/MacOS/GetSourceVersion)"
 LOG="$DIR/build/iTM2_$VERSION.build.log"
 mv -f "$TEMP_LOG" "$LOG"
-cat "$TEMP_LOG"
+cat "$LOG"
 echo "=================
 SUMMARY:
 "
