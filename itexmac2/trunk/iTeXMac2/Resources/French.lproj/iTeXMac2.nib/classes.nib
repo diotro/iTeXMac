@@ -168,6 +168,12 @@
         }, 
         {ACTIONS = {showPreferences = id; }; CLASS = NSObject; LANGUAGE = ObjC; }, 
         {
+            ACTIONS = {checkForUpdates = id; }; 
+            CLASS = SUUpdater; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
             ACTIONS = {checkForUpdate = id; }; 
             CLASS = iTM2ApplicationDelegate; 
             LANGUAGE = ObjC; 
