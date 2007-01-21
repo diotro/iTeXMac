@@ -30,6 +30,7 @@
 #import <iTM2Foundation/iTM2ValidationKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2MacroKit.h>
 #import "limits.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit
@@ -210,7 +211,6 @@ NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab
 	[self poseAsClass:[NSTextView class]];
     [SUD registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSString bullet], iTM2TextTabAnchorStringKey,
             @"   ", iTM2TextIndentationStringKey,
             [NSNumber numberWithUnsignedInt:4], iTM2TextNumberOfSpacesPerTabKey,
                 nil]];

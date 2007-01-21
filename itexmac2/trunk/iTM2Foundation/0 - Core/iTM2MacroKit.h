@@ -223,7 +223,7 @@ extern NSString * const iTM2MacroToolTipKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users.sourceforge.net and others.
 */
-- (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+//- (BOOL)executeMacroWithKey:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
 
 /*!
 	@method			macroLocaleOfType:forKey:forContext:inCategory:ofDomain:
@@ -294,6 +294,8 @@ extern NSString * const iTM2MacroToolTipKey;
 @end
 
 @interface NSString(iTM2TextPlaceholder)
+
++ (NSString *)bullet;
 
 /*!
 	@method		stringByRemovingTipPlaceHolders

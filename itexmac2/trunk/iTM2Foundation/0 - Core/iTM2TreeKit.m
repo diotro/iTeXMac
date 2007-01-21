@@ -3742,7 +3742,6 @@ nextTest2:
 						if(countOfChildCharsFromPtr)
 						{
 #pragma mark >---+ "];: splitAndInsertLeaf if there are more characters in the node
-splitAndInsertLeaf:
 							// I must split the node and insert a leaf string node between node and its child
 							// all the characters of stringCharsPtr are common
 							// newChild is the child before the split

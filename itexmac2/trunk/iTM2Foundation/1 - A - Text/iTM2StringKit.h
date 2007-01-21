@@ -24,7 +24,6 @@
 
 @interface NSString(iTeXMac2)
 /*"Class methods"*/
-+ (NSString *)bullet;
 /*"Setters and Getters"*/
 - (BOOL)getIntegerTrailer:(int *)intPtr;
 - (NSRange)rangeForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;

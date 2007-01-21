@@ -26,6 +26,7 @@
 #import <iTM2Foundation/iTM2StringKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
+#import <iTM2Foundation/iTM2MacroKit.h>
 //#import <iTM2Foundation/iTM2LiteScanner.h>
 //#import <iTM2Foundation/iTM2TextKit.h>
 

@@ -28,6 +28,7 @@
 #import <iTM2Foundation/iTM2DocumentKit.h>
 #import <iTM2Foundation/iTM2TreeKit.h>
 #import <iTM2Foundation/iTM2MenuKit.h>
+#import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2TextKit.h>
 
 NSString * const iTM2CompletionComponent = @"Completion.localized";

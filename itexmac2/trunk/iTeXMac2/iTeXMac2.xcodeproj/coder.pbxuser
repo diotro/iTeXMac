@@ -342,6 +342,28 @@
 			DCEF63290B63861300A19262 /* PBXTextBookmark */ = DCEF63290B63861300A19262 /* PBXTextBookmark */;
 			DCEF632A0B63861300A19262 /* PBXTextBookmark */ = DCEF632A0B63861300A19262 /* PBXTextBookmark */;
 			DCEF632B0B63861300A19262 /* PBXTextBookmark */ = DCEF632B0B63861300A19262 /* PBXTextBookmark */;
+			DCEF63740B638B5000A19262 /* PBXTextBookmark */ = DCEF63740B638B5000A19262 /* PBXTextBookmark */;
+			DCEF63770B638B5100A19262 /* PBXBookmark */ = DCEF63770B638B5100A19262 /* PBXBookmark */;
+			DCEF63780B638B5100A19262 /* PBXTextBookmark */ = DCEF63780B638B5100A19262 /* PBXTextBookmark */;
+			DCEF637B0B638B5100A19262 /* PBXTextBookmark */ = DCEF637B0B638B5100A19262 /* PBXTextBookmark */;
+			DCEF637D0B638B5100A19262 /* PBXTextBookmark */ = DCEF637D0B638B5100A19262 /* PBXTextBookmark */;
+			DCEF63810B638B5100A19262 /* PBXTextBookmark */ = DCEF63810B638B5100A19262 /* PBXTextBookmark */;
+			DCEF63830B638B5100A19262 /* PBXTextBookmark */ = DCEF63830B638B5100A19262 /* PBXTextBookmark */;
+			DCEF63850B638B5100A19262 /* PBXTextBookmark */ = DCEF63850B638B5100A19262 /* PBXTextBookmark */;
+			DCEF63860B638B5100A19262 /* PBXTextBookmark */ = DCEF63860B638B5100A19262 /* PBXTextBookmark */;
+			DCEF63890B638C3900A19262 /* PBXTextBookmark */ = DCEF63890B638C3900A19262 /* PBXTextBookmark */;
+			DCEF638A0B638C3900A19262 /* PBXTextBookmark */ = DCEF638A0B638C3900A19262 /* PBXTextBookmark */;
+			DCEF638B0B638C3900A19262 /* PBXTextBookmark */ = DCEF638B0B638C3900A19262 /* PBXTextBookmark */;
+			DCEF638C0B638C3900A19262 /* PBXTextBookmark */ = DCEF638C0B638C3900A19262 /* PBXTextBookmark */;
+			DCEF638D0B638C3900A19262 /* PBXTextBookmark */ = DCEF638D0B638C3900A19262 /* PBXTextBookmark */;
+			DCEF638E0B638C3900A19262 /* PBXTextBookmark */ = DCEF638E0B638C3900A19262 /* PBXTextBookmark */;
+			DCEF638F0B638C3900A19262 /* PBXTextBookmark */ = DCEF638F0B638C3900A19262 /* PBXTextBookmark */;
+			DCEF63920B63E27D00A19262 /* PBXTextBookmark */ = DCEF63920B63E27D00A19262 /* PBXTextBookmark */;
+			DCEF63930B63E27D00A19262 /* PBXTextBookmark */ = DCEF63930B63E27D00A19262 /* PBXTextBookmark */;
+			DCEF63940B63E27D00A19262 /* PBXTextBookmark */ = DCEF63940B63E27D00A19262 /* PBXTextBookmark */;
+			DCEF63950B63E27D00A19262 /* PBXTextBookmark */ = DCEF63950B63E27D00A19262 /* PBXTextBookmark */;
+			DCEF63960B63E27D00A19262 /* PBXTextBookmark */ = DCEF63960B63E27D00A19262 /* PBXTextBookmark */;
+			DCEF63970B63E27D00A19262 /* PBXTextBookmark */ = DCEF63970B63E27D00A19262 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -915,7 +937,7 @@
 	DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1400, 33830}}";
-			sepNavSelRange = "{51921, 0}";
+			sepNavSelRange = "{51912, 0}";
 			sepNavVisRect = "{{0, 33075}, {1400, 755}}";
 			sepNavWindowFrame = "{{-4, 50}, {1439, 828}}";
 		};
@@ -923,8 +945,8 @@
 	DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1300, 7769}}";
-			sepNavSelRange = "{13520, 0}";
-			sepNavVisRect = "{{0, 5950}, {1095, 673}}";
+			sepNavSelRange = "{12788, 154}";
+			sepNavVisRect = "{{0, 7096}, {1095, 673}}";
 			sepNavWindowFrame = "{{91, 86}, {1134, 746}}";
 		};
 	};
@@ -1321,7 +1343,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "(null): 12";
 		rLen = 0;
-		rLoc = 742;
+		rLoc = 297;
 		rType = 0;
 		vrLen = 771;
 		vrLoc = 0;
@@ -1333,8 +1355,8 @@
 		path = /Users/coder/Documents/iTeXMac2/svn/Distributions/latest.xml;
 		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1188, 782}}";
-			sepNavSelRange = "{906, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1180, 782}}";
+			sepNavSelRange = "{899, 0}";
 			sepNavVisRect = "{{0, 0}, {993, 782}}";
 			sepNavWindowFrame = "{{15, 18}, {1032, 855}}";
 		};
@@ -1344,7 +1366,7 @@
 		fRef = DCEF61450B62CD5500A19262 /* latest.xml */;
 		name = "(null): 17";
 		rLen = 0;
-		rLoc = 881;
+		rLoc = 874;
 		rType = 0;
 		vrLen = 881;
 		vrLoc = 0;
@@ -1482,7 +1504,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "latest.xml: 17";
 		rLen = 0;
-		rLoc = 881;
+		rLoc = 874;
 		rType = 0;
 		vrLen = 881;
 		vrLoc = 0;
@@ -1552,7 +1574,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "latest.xml: 17";
 		rLen = 0;
-		rLoc = 881;
+		rLoc = 874;
 		rType = 0;
 		vrLen = 881;
 		vrLoc = 0;
@@ -1622,7 +1644,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "latest.xml: 17";
 		rLen = 0;
-		rLoc = 906;
+		rLoc = 899;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -1642,7 +1664,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "latest.xml: 17";
 		rLen = 0;
-		rLoc = 906;
+		rLoc = 899;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -1780,7 +1802,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "latest.xml: 17";
 		rLen = 0;
-		rLoc = 906;
+		rLoc = 899;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -1850,7 +1872,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "latest.xml: 17";
 		rLen = 0;
-		rLoc = 906;
+		rLoc = 899;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -1920,7 +1942,7 @@
 		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
 		name = "latest.xml: 17";
 		rLen = 0;
-		rLoc = 906;
+		rLoc = 899;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -2750,6 +2772,250 @@
 		rLoc = 51923;
 		rType = 0;
 		vrLen = 1204;
+		vrLoc = 50734;
+	};
+	DCEF63740B638B5000A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: setFrequency:";
+		rLen = 0;
+		rLoc = 13520;
+		rType = 0;
+		vrLen = 959;
+		vrLoc = 12561;
+	};
+	DCEF63770B638B5100A19262 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
+	};
+	DCEF63780B638B5100A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
+		name = "latest.xml: 17";
+		rLen = 0;
+		rLoc = 899;
+		rType = 0;
+		vrLen = 899;
+		vrLoc = 0;
+	};
+	DCEF637B0B638B5100A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF637C0B638B5100A19262 /* products.rss */;
+		rLen = 0;
+		rLoc = 2147483640;
+		rType = 0;
+	};
+	DCEF637C0B638B5100A19262 /* products.rss */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.xml;
+		name = products.rss;
+		path = /Users/coder/Documents/iTeXMac2/svn/Distributions/products.rss;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1206, 734}}";
+			sepNavSelRange = "{0, 899}";
+			sepNavVisRect = "{{0, 0}, {1206, 734}}";
+		};
+	};
+	DCEF637D0B638B5100A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF637E0B638B5100A19262 /* products.rss */;
+		name = "(null): 1";
+		rLen = 899;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 899;
+		vrLoc = 0;
+	};
+	DCEF637E0B638B5100A19262 /* products.rss */ = {
+		isa = PBXFileReference;
+		name = products.rss;
+		path = /Users/coder/Documents/iTeXMac2/svn/Distributions/products.rss;
+		sourceTree = "<absolute>";
+	};
+	DCEF63810B638B5100A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF63820B638B5100A19262 /* send-feed.command */;
+		rLen = 0;
+		rLoc = "-2147483546";
+		rType = 0;
+	};
+	DCEF63820B638B5100A19262 /* send-feed.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = "send-feed.command";
+		path = "/Users/coder/Documents/iTeXMac2/svn/Distributions/send-feed.command";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1206, 734}}";
+			sepNavSelRange = "{292, 99}";
+			sepNavVisRect = "{{0, 0}, {1206, 734}}";
+		};
+	};
+	DCEF63830B638B5100A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF63840B638B5100A19262 /* send-feed.command */;
+		name = "(null): 13";
+		rLen = 0;
+		rLoc = 190;
+		rType = 0;
+		vrLen = 303;
+		vrLoc = 0;
+	};
+	DCEF63840B638B5100A19262 /* send-feed.command */ = {
+		isa = PBXFileReference;
+		name = "send-feed.command";
+		path = "/Users/coder/Documents/iTeXMac2/svn/Distributions/send-feed.command";
+		sourceTree = "<absolute>";
+	};
+	DCEF63850B638B5100A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */;
+		name = "iTeXMac2-Info.plist: 1987";
+		rLen = 0;
+		rLoc = 51912;
+		rType = 0;
+		vrLen = 1206;
+		vrLoc = 50734;
+	};
+	DCEF63860B638B5100A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: setFrequency:";
+		rLen = 0;
+		rLoc = 13520;
+		rType = 0;
+		vrLen = 989;
+		vrLoc = 10960;
+	};
+	DCEF63890B638C3900A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: setFrequency:";
+		rLen = 0;
+		rLoc = 13520;
+		rType = 0;
+		vrLen = 959;
+		vrLoc = 12561;
+	};
+	DCEF638A0B638C3900A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF63820B638B5100A19262 /* send-feed.command */;
+		name = "send-feed.command: 13";
+		rLen = 0;
+		rLoc = 190;
+		rType = 0;
+		vrLen = 303;
+		vrLoc = 0;
+	};
+	DCEF638B0B638C3900A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF63820B638B5100A19262 /* send-feed.command */;
+		name = "rsync -avz latest.xml ${SOURCEFORGE_USER}@itexmac.sourceforge.net:/home/groups/i/it/itexmac/htdocs";
+		rLen = 99;
+		rLoc = 292;
+		rType = 0;
+		vrLen = 403;
+		vrLoc = 0;
+	};
+	DCEF638C0B638C3900A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
+		name = "latest.xml: 17";
+		rLen = 0;
+		rLoc = 899;
+		rType = 0;
+		vrLen = 899;
+		vrLoc = 0;
+	};
+	DCEF638D0B638C3900A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF637C0B638B5100A19262 /* products.rss */;
+		name = "products.rss: 1";
+		rLen = 899;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 899;
+		vrLoc = 0;
+	};
+	DCEF638E0B638C3900A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */;
+		name = "iTeXMac2-Info.plist: 1987";
+		rLen = 0;
+		rLoc = 51912;
+		rType = 0;
+		vrLen = 1206;
+		vrLoc = 50734;
+	};
+	DCEF638F0B638C3900A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: setFrequency:";
+		rLen = 0;
+		rLoc = 13520;
+		rType = 0;
+		vrLen = 989;
+		vrLoc = 10960;
+	};
+	DCEF63920B63E27D00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: setFrequency:";
+		rLen = 0;
+		rLoc = 13520;
+		rType = 0;
+		vrLen = 959;
+		vrLoc = 12561;
+	};
+	DCEF63930B63E27D00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: frequency";
+		rLen = 154;
+		rLoc = 12788;
+		rType = 0;
+		vrLen = 959;
+		vrLoc = 12561;
+	};
+	DCEF63940B63E27D00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF63820B638B5100A19262 /* send-feed.command */;
+		name = "rsync -avz latest.xml ${SOURCEFORGE_USER}@itexmac.sourceforge.net:/home/groups/i/it/itexmac/htdocs";
+		rLen = 99;
+		rLoc = 292;
+		rType = 0;
+		vrLen = 403;
+		vrLoc = 0;
+	};
+	DCEF63950B63E27D00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF61430B62CD5500A19262 /* latest.xml */;
+		name = "latest.xml: 17";
+		rLen = 0;
+		rLoc = 899;
+		rType = 0;
+		vrLen = 899;
+		vrLoc = 0;
+	};
+	DCEF63960B63E27D00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF637C0B638B5100A19262 /* products.rss */;
+		name = "products.rss: 1";
+		rLen = 899;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 899;
+		vrLoc = 0;
+	};
+	DCEF63970B63E27D00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */;
+		name = "iTeXMac2-Info.plist: 1987";
+		rLen = 0;
+		rLoc = 51912;
+		rType = 0;
+		vrLen = 1206;
 		vrLoc = 50734;
 	};
 	DCF929730948EC0E00EE2F46 /* Prepare LaTeX Symbols PlugIn */ = {

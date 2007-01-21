@@ -28,6 +28,8 @@
 #import <iTM2Foundation/iTM2TaskKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2MenuKit.h>
+#import <iTM2Foundation/iTM2ContextKit.h>
+#import <iTM2Foundation/iTM2NotificationKit.h>
 
 NSString * const iTM2TextMarkPlaceholder = @"__";
 NSString * const iTM2TextStartPlaceholder = @"__(";
@@ -645,6 +647,10 @@ To Do List:
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	_iTM2SharedMacrosServer = [[self alloc] init];
+    [SUD registerDefaults:
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSString bullet], iTM2TextTabAnchorStringKey,
+                nil]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
@@ -1844,6 +1850,18 @@ To Do List:
 @end
 
 @implementation NSString(iTM2TextPlaceholder)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bullet
++ (NSString *)bullet;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSString * _Bullet = nil;
+    return _Bullet? _Bullet: (_Bullet = [[NSString stringWithUTF8String:"•"] copy]);
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingTipPlaceHolders
 - (NSString *)stringByRemovingTipPlaceHolders;
 /*"Description forthcoming.

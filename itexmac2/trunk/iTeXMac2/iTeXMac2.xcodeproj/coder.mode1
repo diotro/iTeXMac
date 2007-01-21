@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF632A0B63861300A19262</string>
+						<string>DCEF63930B63E27D00A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF621D0B62EBDF00A19262</string>
@@ -230,6 +230,126 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>DCEF637F0B638B5100A19262</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>send-feed.command</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCEF63800B638B5100A19262</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>send-feed.command</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCEF63940B63E27D00A19262</string>
+						<key>history</key>
+						<array>
+							<string>DCEF638A0B638C3900A19262</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1245, 766}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>61 24 1245 807 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>DCEF63750B638B5100A19262</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>latest.xml</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCEF63760B638B5100A19262</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>latest.xml</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCEF63950B63E27D00A19262</string>
+						<key>history</key>
+						<array>
+							<string>DCEF63770B638B5100A19262</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1032, 814}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>15 18 1032 855 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>DCEF63790B638B5100A19262</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>products.rss</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCEF637A0B638B5100A19262</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>products.rss</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCEF63960B63E27D00A19262</string>
+						<key>history</key>
+						<array>
+							<string>DCEF637B0B638B5100A19262</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1245, 766}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>15 66 1245 807 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>DCEF626A0B62F49600A19262</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTeXMac2-Info.plist</string>
@@ -244,7 +364,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF632B0B63861300A19262</string>
+						<string>DCEF63970B63E27D00A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF62490B62F15900A19262</string>
@@ -409,7 +529,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCEF63290B63861300A19262</string>
+										<string>DCEF63920B63E27D00A19262</string>
 										<key>history</key>
 										<array>
 											<string>DCA37E040AE3A18500874F9E</string>
@@ -656,10 +776,13 @@
 		<string>DC69174E088BFB5600F00114</string>
 		<string>DC691935088C8CD600F00114</string>
 		<string>DCA37E670AE3AA5D00874F9E</string>
-		<string>DCEF626A0B62F49600A19262</string>
-		<string>DCEF62670B62F49600A19262</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
+		<string>DCEF626A0B62F49600A19262</string>
+		<string>DCEF63790B638B5100A19262</string>
+		<string>DCEF63750B638B5100A19262</string>
+		<string>DCEF637F0B638B5100A19262</string>
+		<string>DCEF62670B62F49600A19262</string>
 	</array>
 	<key>WindowString</key>
 	<string>50 37 1364 818 0 0 1440 878 </string>
