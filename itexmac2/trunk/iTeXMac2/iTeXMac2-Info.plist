@@ -1769,8 +1769,10 @@
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleVersion</key>
+	<key>XCFBundleVersion</key>
 	<string>2.0 preview  (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
+	<key>CFBundleVersion</key>
+	<string>SVN_BUILD_NUMBER</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>NSAppleScriptEnabled</key>
@@ -1981,5 +1983,7 @@
 	<string>jlaurens@users.sourceforge.net</string>
 	<key>iTM2SourceVersion</key>
 	<string>SVN_BUILD_NUMBER</string>
+	<key>SUFeedURL</key> 
+	<string>http://itexmac.sourceforge.net/latest.xml</string> 
 </dict>
 </plist>

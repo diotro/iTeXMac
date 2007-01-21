@@ -67,7 +67,6 @@
 		DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */; };
 		DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */; };
 		DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */; };
-		DC7051510B605799009FD188 /* iTM2CrashReportKit.h in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC70514F0B605799009FD188 /* iTM2CrashReportKit.h */; };
 		DC7051520B605799009FD188 /* iTM2CrashReportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7051500B605799009FD188 /* iTM2CrashReportKit.m */; };
 		DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */; };
 		DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */; };
@@ -78,7 +77,6 @@
 		DC8A635E088D917D0016FAA2 /* iTM2Foundation.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */; };
 		DC8A635F088D917D0016FAA2 /* iTM2TeXFoundation.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */; };
 		DCA37D7E0AE391AD00874F9E /* iTM2HelpSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */; };
-		DCA37D7F0AE391AD00874F9E /* iTM2HelpSupport.h in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */; };
 		DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA60AE3939100874F9E /* AddressBook.framework */; };
 		DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA70AE3939100874F9E /* Message.framework */; };
 		DCA37F0C0AE3AD7800874F9E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E7A0AE3AD7800874F9E /* Credits.rtf */; };
@@ -190,6 +188,11 @@
 		DCBA43260B011B45006AF52A /* OUT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCBA43240B011B45006AF52A /* OUT.icns */; };
 		DCCE70A7091B58D200960441 /* iTM2AppleScriptSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */; };
 		DCE7E7CA08F2712A00DBB513 /* OgreKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
+		DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEF60CB0B6216E100A19262 /* Sparkle.framework */; };
+		DCEF60E00B6216E800A19262 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCEF60CB0B6216E100A19262 /* Sparkle.framework */; };
+		DCEF62380B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCEF62370B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif */; };
+		DCEF62430B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCEF623B0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib */; };
+		DCEF62440B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCEF623D0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings */; };
 		DCFD96D40858F4FB0034D83E /* iTeXMac2CMPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFFA6CD0855B7C900607AAA /* iTeXMac2CMPlugIn.m */; };
 		DCFD96DD0858F5700034D83E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCFFA6C70855B7C900607AAA /* InfoPlist.strings */; };
 		DCFD96DE0858F5700034D83E /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCFFA6CB0855B7C900607AAA /* Localized.strings */; };
@@ -268,6 +271,13 @@
 			remoteGlobalIDString = DCB530170B59B8C800CD713D;
 			remoteInfo = GetSourceVersion;
 		};
+		DCEF60990B6214C900A19262 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCEF60820B62148A00A19262 /* Prepare Sparkle */;
+			remoteInfo = "Prepare Sparkle";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -296,8 +306,7 @@
 				DC01A94D08FE777A00BFF6EF /* iTM2PDFKit.framework in Copy Frameworks */,
 				DC89307008FC2DED007A4673 /* iTM2MetaPostKit.framework in Copy Frameworks */,
 				DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */,
-				DCA37D7F0AE391AD00874F9E /* iTM2HelpSupport.h in Copy Frameworks */,
-				DC7051510B605799009FD188 /* iTM2CrashReportKit.h in Copy Frameworks */,
+				DCEF60E00B6216E800A19262 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +473,13 @@
 		DCBA43240B011B45006AF52A /* OUT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OUT.icns; sourceTree = "<group>"; };
 		DCCE70A4091B58D200960441 /* iTM2AppleScriptSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AppleScriptSupport.h; sourceTree = "<group>"; };
 		DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2AppleScriptSupport.m; sourceTree = "<group>"; };
+		DCEF60870B62148A00A19262 /* Prepare Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare Sparkle.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCEF60CB0B6216E100A19262 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../build/Sparkle.framework; sourceTree = SOURCE_ROOT; };
+		DCEF62370B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2SoftwareUpdatePrefPane.tif; sourceTree = "<group>"; };
+		DCEF623C0B62ED7700A19262 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2SoftwareUpdatePrefPane.nib; sourceTree = "<group>"; };
+		DCEF623E0B62ED7700A19262 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2SoftwareUpdatePrefPane.strings; sourceTree = "<group>"; };
+		DCEF62CC0B62FDCC00A19262 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2SoftwareUpdatePrefPane.nib; sourceTree = "<group>"; };
+		DCEF62CE0B62FE2500A19262 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2SoftwareUpdatePrefPane.strings; sourceTree = "<group>"; };
 		DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2LaTeXSymbolsKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFD96E60858F5980034D83E /* TeX CM PlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TeX CM PlugIn-Info.plist"; sourceTree = "<group>"; };
 		DCFFA6C80855B7C900607AAA /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -488,6 +504,7 @@
 				DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */,
 				DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */,
 				DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */,
+				DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +544,7 @@
 				DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */,
 				DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */,
 				DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */,
+				DCEF60CB0B6216E100A19262 /* Sparkle.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -553,6 +571,7 @@
 				DC6BC6700949099D008F8188 /* Prepare iTM2BibTeXSupportKit.bundle */,
 				DC5127F20B3AD4290092B6C7 /* iTM2Readme.app */,
 				DCB530180B59B8C800CD713D /* GetSourceVersion */,
+				DCEF60870B62148A00A19262 /* Prepare Sparkle.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -611,6 +630,9 @@
 				DCA37E8C0AE3AD7800874F9E /* iTeXMac2 Help */,
 				DCA37E920AE3AD7800874F9E /* Icons */,
 				DCA37EEC0AE3AD7800874F9E /* iTeXMac2.sdef */,
+				DCEF623B0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib */,
+				DCEF623D0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings */,
+				DCEF62370B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -795,6 +817,7 @@
 			);
 			dependencies = (
 				DCB5305E0B59BBB500CD713D /* PBXTargetDependency */,
+				DCEF609A0B6214C900A19262 /* PBXTargetDependency */,
 				DC6BC5D60948FCCD008F8188 /* PBXTargetDependency */,
 				DC6BC5E00948FCFB008F8188 /* PBXTargetDependency */,
 				DC6BC5ED0948FD80008F8188 /* PBXTargetDependency */,
@@ -914,6 +937,21 @@
 			productReference = DCB530180B59B8C800CD713D /* GetSourceVersion */;
 			productType = "com.apple.product-type.tool";
 		};
+		DCEF60820B62148A00A19262 /* Prepare Sparkle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCEF60840B62148A00A19262 /* Build configuration list for PBXNativeTarget "Prepare Sparkle" */;
+			buildPhases = (
+				DCEF60830B62148A00A19262 /* Synchronize */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Prepare Sparkle";
+			productName = "Prepare LaTeX Kit";
+			productReference = DCEF60870B62148A00A19262 /* Prepare Sparkle.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		DCF929730948EC0E00EE2F46 /* Prepare LaTeX Symbols PlugIn */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DCF929760948EC0F00EE2F46 /* Build configuration list for PBXNativeTarget "Prepare LaTeX Symbols PlugIn" */;
@@ -959,6 +997,7 @@
 				DCB530900B59BDC300CD713D /* Prepare Build Number */,
 				DCB530170B59B8C800CD713D /* GetSourceVersion */,
 				DCFD96CE0858F4490034D83E /* TeX CM PlugIn */,
+				DCEF60820B62148A00A19262 /* Prepare Sparkle */,
 				DC6BC59A0948FB3E008F8188 /* Prepare iTM2LaTeXKit */,
 				DC6BC5D80948FCEC008F8188 /* Prepare iTM2MetaPostKit */,
 				DC6BC5E30948FD59008F8188 /* Prepare iTM2NewDocumentKit */,
@@ -1081,6 +1120,9 @@
 				DCBA43250B011B45006AF52A /* ASY.icns in Resources */,
 				DCBA43260B011B45006AF52A /* OUT.icns in Resources */,
 				DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */,
+				DCEF62380B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif in Resources */,
+				DCEF62430B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib in Resources */,
+				DCEF62440B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1290,6 +1332,20 @@
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/iTM2CheckExecutable.sh;
 		};
+		DCEF60830B62148A00A19262 /* Synchronize */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Synchronize;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2SynchronizeSparkle.sh\n";
+		};
 		DCF9297A0948EC2100EE2F46 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1389,6 +1445,11 @@
 			target = DCB530170B59B8C800CD713D /* GetSourceVersion */;
 			targetProxy = DCB5305D0B59BBB500CD713D /* PBXContainerItemProxy */;
 		};
+		DCEF609A0B6214C900A19262 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCEF60820B62148A00A19262 /* Prepare Sparkle */;
+			targetProxy = DCEF60990B6214C900A19262 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1461,6 +1522,24 @@
 				DCA37E910AE3AD7800874F9E /* French */,
 			);
 			name = NewDocuments.resources.tgz;
+			sourceTree = "<group>";
+		};
+		DCEF623B0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCEF623C0B62ED7700A19262 /* English */,
+				DCEF62CC0B62FDCC00A19262 /* French */,
+			);
+			name = iTM2SoftwareUpdatePrefPane.nib;
+			sourceTree = "<group>";
+		};
+		DCEF623D0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCEF623E0B62ED7700A19262 /* English */,
+				DCEF62CE0B62FE2500A19262 /* French */,
+			);
+			name = iTM2SoftwareUpdatePrefPane.strings;
 			sourceTree = "<group>";
 		};
 		DCFFA6C70855B7C900607AAA /* InfoPlist.strings */ = {
@@ -1555,8 +1634,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				INFOPLIST_FILE = "$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = iTeXMac2;
 			};
@@ -1569,8 +1650,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				INFOPLIST_FILE = "$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = iTeXMac2;
 			};
@@ -1798,6 +1881,22 @@
 			};
 			name = Deployment;
 		};
+		DCEF60850B62148A00A19262 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "Prepare Sparkle";
+			};
+			name = Development;
+		};
+		DCEF60860B62148A00A19262 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "Prepare Sparkle";
+			};
+			name = Deployment;
+		};
 		DCF929770948EC0F00EE2F46 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */;
@@ -1939,6 +2038,15 @@
 			buildConfigurations = (
 				DCB530940B59BDF000CD713D /* Development */,
 				DCB530950B59BDF000CD713D /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		DCEF60840B62148A00A19262 /* Build configuration list for PBXNativeTarget "Prepare Sparkle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCEF60850B62148A00A19262 /* Development */,
+				DCEF60860B62148A00A19262 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

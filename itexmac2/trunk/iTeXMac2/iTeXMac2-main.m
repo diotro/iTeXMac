@@ -111,12 +111,6 @@ To Do List:
 	}
 	return;
 }
-- (void)crashReporter_DidFinishLaunching;
-{
-	//do crash recovery
-	//
-	return;
-}
 @end
 
 @implementation OgreTextFinder(OgreKit)
@@ -364,3 +358,100 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 }
 @end
 #endif
+
+#import <Sparkle/Sparkle.h>
+
+@implementation iTM2MainInstaller(iTM2SoftwareUpdatePrefPane)
++ (void)iTM2SoftwareUpdatePrefPane_CompleteInstallation;
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	NSDictionary * D = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:86400],SUScheduledCheckIntervalKey,nil];
+	[SUD registerDefaults:D];
+	iTM2_RELEASE_POOL;
+	return;
+}
+@end
+
+@interface iTM2SoftwareUpdatePrefPane: iTM2PreferencePane
+@end
+
+@implementation iTM2SoftwareUpdatePrefPane: iTM2PreferencePane
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
+- (NSString *)prefPaneIdentifier;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 09/21/2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return @"0.SU";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frequency
+- (int)frequency;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 09/21/2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	int frequency = [SUD integerForKey:SUScheduledCheckIntervalKey];
+	if(frequency<2)
+	{
+		[SUD setInteger:1 forKey:SUScheduledCheckIntervalKey];
+		return 0;
+	}
+	if(frequency<86401)
+	{
+		[SUD setInteger:86400 forKey:SUScheduledCheckIntervalKey];
+		return 1;
+	}
+	if(frequency<592201)
+	{
+		[SUD setInteger:592200 forKey:SUScheduledCheckIntervalKey];
+		return 2;
+	}
+	if(frequency<17766001)
+	{
+		[SUD setInteger:17766000 forKey:SUScheduledCheckIntervalKey];
+		return 3;
+	}
+	[SUD setInteger:UINT_MAX forKey:SUScheduledCheckIntervalKey];
+//iTM2_END;
+    return 4;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setFrequency
+- (void)setFrequency:(int)value;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 09/21/2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self willChangeValueForKey:@"frequency"];
+	switch(value)
+	{
+		case 0:
+			[SUD setInteger:1 forKey:SUScheduledCheckIntervalKey];
+		break;
+		case 1:
+			[SUD setInteger:84600 forKey:SUScheduledCheckIntervalKey];
+		break;
+		case 2:
+			[SUD setInteger:592200 forKey:SUScheduledCheckIntervalKey];
+		break;
+		case 3:
+			[SUD setInteger:17766000 forKey:SUScheduledCheckIntervalKey];
+		break;
+		default:
+			[SUD setInteger:INT_MAX forKey:SUScheduledCheckIntervalKey];
+		break;
+	}
+	[self didChangeValueForKey:@"frequency"];
+//iTM2_END;
+    return 0;
+}
+@end
