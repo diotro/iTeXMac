@@ -1984,6 +1984,6 @@
 	<key>iTM2SourceVersion</key>
 	<string>SVN_BUILD_NUMBER</string>
 	<key>SUFeedURL</key> 
-	<string>http://itexmac.sourceforge.net/latest.xml</string> 
+	<string>http://itexmac.sourceforge.net/products.rss</string> 
 </dict>
 </plist>
