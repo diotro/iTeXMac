@@ -29,6 +29,7 @@
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
+#import <iTM2Foundation/iTM2TextKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 
 #define TABLE @"iTM2KeyBindingsKit"

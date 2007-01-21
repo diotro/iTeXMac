@@ -28,23 +28,6 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit
 
-extern NSString * const iTM2TextMarkPlaceholder;
-extern NSString * const iTM2TextStartPlaceholder;
-extern NSString * const iTM2TextStopPlaceholder;
-extern NSString * const iTM2TextStartARGPlaceholder;
-extern NSString * const iTM2TextStartOPTPlaceholder;
-extern NSString * const iTM2TextStartTEXTPlaceholder;
-extern NSString * const iTM2TextStartFILEPlaceholder;
-extern NSString * const iTM2TextStartTIPPlaceholder;
-
-extern NSString * const iTM2TextTABPlaceholder;
-extern NSString * const iTM2TextSELPlaceholder;
-extern NSString * const iTM2TextINSPlaceholder;
-
-extern NSString * const iTM2TextPlaceholder;
-extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
-extern NSString * const iTM2TextTabAnchorStringKey;
-
 @interface NSText(iTeXMac2)
 
 /*!
@@ -216,110 +199,6 @@ extern NSString * const iTM2TextTabAnchorStringKey;
 	@param		an NSColor object.
 */
 + (NSColor *)textRangeHighlightColor;
-
-@end
-
-@interface NSTextView(Placeholder)
-- (IBAction)selectFirstPlaceholder:(id)sender;
-- (IBAction)selectNextPlaceholder:(id)sender;
-- (IBAction)selectPreviousPlaceholder:(id)sender;
-+ (NSString *)tabAnchorKey;
-- (NSString *)tabAnchor;
-- (void)selectNextTabAnchor:(id)sender;
-- (void)selectPreviousTabAnchor:(id)sender;
-- (void)selectNextTabAnchorAndDelete:(id)sender;
-- (unsigned)numberOfSpacesPerTab;
-@end
-
-@interface NSString(iTM2TextPlaceholder)
-
-/*!
-	@method		stringByRemovingTipPlaceHolders
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		None.
-	@result		A string.
-*/
-- (NSString *)stringByRemovingTipPlaceHolders;
-
-/*!
-	@method		rangeOfPlaceholderAtIndex:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		An index.
-	@result		A range.
-*/
-- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
-
-/*!
-	@method		rangeOfPlaceholderFromIndex:cycle:tabAnchor:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		An index.
-	@param		A flag.
-	@param		A string.
-	@result		A range.
-*/
-- (NSRange)rangeOfPlaceholderFromIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
-
-/*!
-	@method		rangeOfPlaceholderToIndex:cycle:tabAnchor:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		An index.
-	@param		A flag.
-	@param		A string.
-	@result		A range.
-*/
-- (NSRange)rangeOfPlaceholderToIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
-
-/*!
-	@method		stringByRemovingPlaceHolderMarks
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		None.
-    @result     string
-*/
-- (NSString *)stringByRemovingPlaceHolderMarks;
-
-/*!
-	@method		stringByRemovingPlaceHolderMarksWithSelection:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		the contents of the selection.
-    @result     string
-*/
-- (NSString *)stringByRemovingPlaceHolderMarksWithSelection:(NSString *)selection;
-
-/*!
-	@method		stringWithSelection:tabAnchor:indentationLevel:getSelectedRanges:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		the contents of the selection.
-	@param		level.
-	@param		a pointer to an array of ranges.
-	@param		the tab anchor.
-    @result     string
-*/
-- (NSString *)stringWithSelection:(NSString *)selection tabAnchor:(NSString *)tabAnchor indentationLevel:(unsigned)level getSelectedRanges:(NSArray **)selectedRangesPtr;
-
-/*!
-	@method		indentationLevelWithNumberOfSpacesPerTab:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		numberOfSpacesPerTab.
-    @result     level
-*/
-- (unsigned)indentationLevelWithNumberOfSpacesPerTab:(unsigned)numberOfSpacesPerTab;
-
-/*!
-	@method		numberOfSpacesPerTab
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		None.
-    @result     level.
-*/
-- (unsigned)numberOfSpacesPerTab;
 
 @end
 

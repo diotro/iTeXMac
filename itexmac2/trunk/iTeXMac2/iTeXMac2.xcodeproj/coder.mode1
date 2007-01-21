@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF62F30B63041400A19262</string>
+						<string>DCEF632A0B63861300A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF621D0B62EBDF00A19262</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF62F40B63041400A19262</string>
+						<string>DCEF632B0B63861300A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF62490B62F15900A19262</string>
@@ -302,8 +302,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -356,11 +354,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>12</integer>
+									<integer>7</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 255}, {310, 759}}</string>
+							<string>{{0, 0}, {310, 759}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -390,12 +390,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2SoftwareUpdatePrefPane.strings</string>
+								<string>iTeXMac2-main.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -403,11 +405,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2SoftwareUpdatePrefPane.strings</string>
+										<string>iTeXMac2-main.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCEF62F20B63041400A19262</string>
+										<string>DCEF63290B63861300A19262</string>
 										<key>history</key>
 										<array>
 											<string>DCA37E040AE3A18500874F9E</string>
@@ -423,13 +425,12 @@
 											<string>DC7051E60B6062DA009FD188</string>
 											<string>DCEF60EF0B621A9200A19262</string>
 											<string>DCEF60F00B621A9200A19262</string>
-											<string>DCEF61D40B62E50200A19262</string>
 											<string>DCEF62600B62F49600A19262</string>
 											<string>DCEF628D0B62F99B00A19262</string>
 											<string>DCEF62D70B62FFB200A19262</string>
-											<string>DCEF62D80B62FFB200A19262</string>
 											<string>DCEF62D90B62FFB200A19262</string>
-											<string>DCEF62DA0B62FFB200A19262</string>
+											<string>DCEF631A0B63852900A19262</string>
+											<string>DCEF62D80B62FFB200A19262</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -446,7 +447,6 @@
 											<string>DCEF60F20B621A9200A19262</string>
 											<string>DCEF60F30B621A9200A19262</string>
 											<string>DCEF61D70B62E50200A19262</string>
-											<string>DCEF61D80B62E50200A19262</string>
 											<string>DCEF62630B62F49600A19262</string>
 											<string>DCEF62640B62F49600A19262</string>
 											<string>DCEF62650B62F49600A19262</string>
@@ -455,6 +455,7 @@
 											<string>DCEF62DC0B62FFB200A19262</string>
 											<string>DCEF62DD0B62FFB200A19262</string>
 											<string>DCEF62DE0B62FFB200A19262</string>
+											<string>DCEF631B0B63852900A19262</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -657,8 +658,8 @@
 		<string>DCA37E670AE3AA5D00874F9E</string>
 		<string>DCEF626A0B62F49600A19262</string>
 		<string>DCEF62670B62F49600A19262</string>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>50 37 1364 818 0 0 1440 878 </string>

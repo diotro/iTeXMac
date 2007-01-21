@@ -1183,11 +1183,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * result = [NSMutableArray array];
-	NSEnumerator * E = [[self embeddedBundles] objectEnumerator];
+	NSArray * Bs = [self embeddedBundles];
+	NSEnumerator * E = [Bs objectEnumerator];
 	NSBundle * B;
 	while(B = [E nextObject])
 	{
-		NSArray * intermediate = [B pathForImageResource:name];
+		NSArray * intermediate = [B allPathsForImageResource:name];
 		[result addObjectsFromArray:intermediate];
 	}
 	NSString * path = [self pathForImageResource:name];
