@@ -1173,6 +1173,31 @@ To Do List:
 //iTM2_END;
     return [self allPathsForResource:component ofType:type inDirectory:@""];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allPathsForImageResource:
+- (NSArray *)allPathsForImageResource:(NSString *)name;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/05/2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * result = [NSMutableArray array];
+	NSEnumerator * E = [[self embeddedBundles] objectEnumerator];
+	NSBundle * B;
+	while(B = [E nextObject])
+	{
+		NSArray * intermediate = [B pathForImageResource:name];
+		[result addObjectsFromArray:intermediate];
+	}
+	NSString * path = [self pathForImageResource:name];
+	if([path length])
+	{
+		[result addObject:path];
+	}
+//iTM2_END;
+    return result;
+}
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleForClass:localizedStringForKey:value:table:
 + (NSString *)bundleForClass:(Class)aClass localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
@@ -1422,7 +1447,7 @@ To Do List:
 	NSString * version = [infoPList objectForKey:@"iTM2SourceVersion"];
 	NSString * executable = [infoPList objectForKey:(NSString *)kCFBundleExecutableKey];
 #endif
-	if([version isEqual:@"NONE"])
+	if([version isEqual:@"0"])
 	{
 		goto end;
 	}

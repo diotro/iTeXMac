@@ -324,6 +324,7 @@ extern NSString * const iTM2BundleContentsComponent;
 */
 - (NSArray *)allPathsForResource:(NSString *)component ofType:(NSString *)type;
 - (NSArray *)allPathsForResource:(NSString *)component ofType:(NSString *)type inDirectory:(NSString *)subpath;
+- (NSArray *)allPathsForImageResource:(NSString *)component;
 
 /*!
 	@method			pathsForResource:ofType:inDirectory:domains:

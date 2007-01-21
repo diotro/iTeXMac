@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF605A0B61B97200A19262</string>
+						<string>DCEF62E30B63020700A19262</string>
 						<key>history</key>
 						<array>
-							<string>DCEF5F7D0B619E4E00A19262</string>
+							<string>DCEF61600B62D4CA00A19262</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -230,6 +230,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>DCEF61620B62D4CA00A19262</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>iTM2BundleKit.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCEF61630B62D4CA00A19262</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>iTM2BundleKit.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCEF62E40B63020700A19262</string>
+						<key>history</key>
+						<array>
+							<string>DCEF614E0B62CF2C00A19262</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1082, 692}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>113 50 1082 733 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>DCEF5FC30B61A18900A19262</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>crashReporter.m</string>
@@ -244,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF605B0B61B97200A19262</string>
+						<string>DCEF62E50B63020700A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF5FC50B61A18900A19262</string>
@@ -284,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCEF605C0B61B97200A19262</string>
+						<string>DCEF62E60B63020700A19262</string>
 						<key>history</key>
 						<array>
 							<string>DCEF5F720B619D3E00A19262</string>
@@ -342,8 +382,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -381,18 +419,20 @@
 								<string>DCF61BAA0854654B003F5F79</string>
 								<string>DCF61BAD0854654B003F5F79</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DCEF61BF0B62E41000A19262</string>
+								<string>DCEF612B0B62CD4800A19262</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>94</integer>
-									<integer>85</integer>
-									<integer>0</integer>
+									<integer>133</integer>
+									<integer>132</integer>
+									<integer>131</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 1091}, {376, 732}}</string>
+							<string>{{0, 1889}, {376, 732}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -422,12 +462,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>INFOPLIST_PREFIX_HEADER</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -435,7 +477,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string></string>
+										<string>INFOPLIST_PREFIX_HEADER</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>DCEF62E20B63020700A19262</string>
 										<key>history</key>
 										<array>
 											<string>DC5B932A0AE789E70076589D</string>
@@ -458,6 +504,8 @@
 											<string>DC7051D30B6062DA009FD188</string>
 											<string>DC47D30C0B60C01300206267</string>
 											<string>DC1BA4100B60CC54003660EF</string>
+											<string>DCEF61C00B62E41000A19262</string>
+											<string>DCEF61C20B62E41000A19262</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -480,6 +528,7 @@
 											<string>DCBD43950B5EE05800B01DE0</string>
 											<string>DC49C0080B5F025000E53121</string>
 											<string>DC7051D70B6062DA009FD188</string>
+											<string>DCEF61C40B62E41000A19262</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -673,10 +722,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DCEF5F7F0B619E4E00A19262</string>
 		<string>DCEF5FC30B61A18900A19262</string>
+		<string>DCEF61620B62D4CA00A19262</string>
 		<string>DCEF5F7B0B619E4E00A19262</string>
+		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>12 86 1396 791 0 0 1440 878 </string>

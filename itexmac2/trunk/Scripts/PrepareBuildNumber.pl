@@ -25,7 +25,7 @@ printf "Getting the svn revision number ($CONFIGURATION is Deployment)...";
 }
 else
 {
-	$REVISION = "NONE";
+	$REVISION = "0";
 }
 $INFOPLIST_PREFIX_HEADER="$TARGET_BUILD_DIR/INFOPLIST_PREFIX_HEADER";
 printf "\nUpdating $INFOPLIST_PREFIX_HEADER";

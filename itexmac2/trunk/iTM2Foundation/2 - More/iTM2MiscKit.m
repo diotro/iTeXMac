@@ -740,7 +740,8 @@ To Do List:
 	if(!I)
 	{
 		NSString * component = [anIdentifier stringByAppendingString:@"ToolbarImage"];
-		NSString * imagePath = [[NSBundle mainBundle] pathsForImageResource:component];
+		NSArray * paths = [[NSBundle mainBundle] allPathForImageResource:component];
+		NSString * imagePath = [paths lastObject];
 		if(I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath])
 		{
 			[I setName:imageName];

@@ -169,6 +169,11 @@
 			DCBD48390B5EFEC800B01DE0 = DCBD48390B5EFEC800B01DE0 /* PBXTextBookmark */;
 			DCEF60360B61B40500A19262 /* PBXTextBookmark */ = DCEF60360B61B40500A19262 /* PBXTextBookmark */;
 			DCEF60460B61B41E00A19262 /* PBXTextBookmark */ = DCEF60460B61B41E00A19262 /* PBXTextBookmark */;
+			DCEF60AB0B62157C00A19262 /* PBXTextBookmark */ = DCEF60AB0B62157C00A19262 /* PBXTextBookmark */;
+			DCEF60AE0B62157C00A19262 /* PBXTextBookmark */ = DCEF60AE0B62157C00A19262 /* PBXTextBookmark */;
+			DCEF60B00B62157C00A19262 /* PBXTextBookmark */ = DCEF60B00B62157C00A19262 /* PBXTextBookmark */;
+			DCEF60B40B62157C00A19262 /* PBXTextBookmark */ = DCEF60B40B62157C00A19262 /* PBXTextBookmark */;
+			DCEF60B60B62157C00A19262 /* PBXTextBookmark */ = DCEF60B60B62157C00A19262 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -367,5 +372,75 @@
 		rType = 0;
 		vrLen = 1387;
 		vrLoc = 450;
+	};
+	DCEF60AB0B62157C00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
+		name = "iTM2LaTeXKit.h: 176";
+		rLen = 0;
+		rLoc = 5537;
+		rType = 0;
+		vrLen = 1387;
+		vrLoc = 450;
+	};
+	DCEF60AE0B62157C00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF60AF0B62157C00A19262 /* BuildAll.command */;
+		rLen = 0;
+		rLoc = 2147483647;
+		rType = 0;
+	};
+	DCEF60AF0B62157C00A19262 /* BuildAll.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = BuildAll.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll.command;
+		sourceTree = "<absolute>";
+	};
+	DCEF60B00B62157C00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF60B10B62157C00A19262 /* BuildAll.command */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 339;
+		vrLoc = 0;
+	};
+	DCEF60B10B62157C00A19262 /* BuildAll.command */ = {
+		isa = PBXFileReference;
+		name = BuildAll.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll.command;
+		sourceTree = "<absolute>";
+	};
+	DCEF60B40B62157C00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF60B50B62157C00A19262 /* BuildAll-sudo.command */;
+		rLen = 0;
+		rLoc = 2147483647;
+		rType = 0;
+	};
+	DCEF60B50B62157C00A19262 /* BuildAll-sudo.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = "BuildAll-sudo.command";
+		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll-sudo.command";
+		sourceTree = "<absolute>";
+	};
+	DCEF60B60B62157C00A19262 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEF60B70B62157C00A19262 /* BuildAll-sudo.command */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 152;
+		vrLoc = 0;
+	};
+	DCEF60B70B62157C00A19262 /* BuildAll-sudo.command */ = {
+		isa = PBXFileReference;
+		name = "BuildAll-sudo.command";
+		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll-sudo.command";
+		sourceTree = "<absolute>";
 	};
 }

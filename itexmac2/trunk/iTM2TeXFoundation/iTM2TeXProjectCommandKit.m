@@ -2771,7 +2771,7 @@ To Do List:
 	if(!I)
 	{
 		NSString * path = [[NSBundle bundleForClass:self] pathForImageResource:@"iTeXMac2Mini"];
-		I = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
+		I = [[NSImage alloc] initWithContentsOfFile:path];
 		[I setName:@"iTeXMac2Mini"];
 	}
 	[sender setMixedStateImage:I];// this does not work yet, may be in leopard...
