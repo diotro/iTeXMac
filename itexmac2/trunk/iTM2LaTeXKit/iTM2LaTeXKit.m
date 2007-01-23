@@ -2004,6 +2004,82 @@ static id _iTM2LaTeXModeForModeArray = nil;
 @end
 #endif
 
+@implementation NSTextView(iTM2LaTeX)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useLaTeXPackage:
+- (IBAction)useLaTeXPackage:(id)sender;
+/*".
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL escaped;
+	unsigned end;
+    if([sender isKindOfClass:[NSControl class]])
+	{
+		// what?
+		NSString * packageName = [sender title];
+		NSString * actionName = [NSString stringWithFormat:@"useLaTeXPackage_%@:",packageName];
+		SEL action = NSSelectorFromString(actionName);
+		if([self respondsToSelector:action])
+		{
+			[self performSelector:action withObject:nil];
+			return;
+		}
+		NSString * what = [NSString stringWithFormat:@"__(INS)__\\usepackage{%@}\n__(INS)__",packageName];
+		// where
+		// find the last usepackage used
+		NSString * S = [self string];
+		NSRange searchRange = NSMakeRange(0,[S length]);
+		NSRange R;
+mordor:
+		R = [S rangeOfString:@"usepackage" options:nil range:searchRange];
+		if(R.length)
+		{
+			if((R.location>0) && [S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+			{
+next_usepackage:
+				searchRange.location = NSMaxRange(R);
+				searchRange.length = [S length] - searchRange.location;
+				NSRange nextR = [S rangeOfString:@"usepackage" options:nil range:searchRange];
+				if(nextR.length)
+				{
+					R = nextR;
+					goto next_usepackage;
+				}
+				else
+				{
+conclude:
+					[S getLineStart:nil end:&end contentsEnd:nil forRange:R];
+					[self setSelectedRange:NSMakeRange(end,0)];
+					[self insertMacro:what];
+					return;
+				}
+			}
+			searchRange.location = NSMaxRange(R);
+			searchRange.length = [S length] - searchRange.location;
+			goto mordor;
+		}
+		// No usepackage found, this is the first
+next_documentclass:
+		R = [S rangeOfString:@"documentclass" options:nil range:R];
+		if(R.length)
+		{
+			if((R.location>0) &&[S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+			{
+				goto conclude;
+			}
+			goto next_documentclass;
+		}
+//		[[self window] makeKeyAndOrderFront:self];
+	}
+    NSBeep();
+//iTM2_END;
+    return;
+}
+@end
+
 @implementation NSTextStorage(LaTeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  LaTeXSectionMenu
 - (NSMenu *)LaTeXSectionMenu;

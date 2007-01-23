@@ -161,12 +161,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 190906585;
-			PBXWorkspaceStateSaveDate = 190906585;
+			PBXPerProjectTemplateStateSaveDate = 191246254;
+			PBXWorkspaceStateSaveDate = 191246254;
 		};
 		perUserProjectItems = {
 			DC0BB6F40B610D9F00C7F0A1 /* PBXTextBookmark */ = DC0BB6F40B610D9F00C7F0A1 /* PBXTextBookmark */;
-			DC3AA6070B56DF3E0084424F /* PBXTextBookmark */ = DC3AA6070B56DF3E0084424F /* PBXTextBookmark */;
+			DC5310B90B66472800BD0276 /* PBXTextBookmark */ = DC5310B90B66472800BD0276 /* PBXTextBookmark */;
 			DCCD305909E186E50003EEF9 /* PBXTextBookmark */ = DCCD305909E186E50003EEF9 /* PBXTextBookmark */;
 			DCCD305B09E186E50003EEF9 /* PBXTextBookmark */ = DCCD305B09E186E50003EEF9 /* PBXTextBookmark */;
 			DCCF01CD0A5D800B00B4B720 /* PBXTextBookmark */ = DCCF01CD0A5D800B00B4B720 /* PBXTextBookmark */;
@@ -187,16 +187,6 @@
 	};
 	DC2741E7090CE39000C2D1D2 /* iTM2ConTeXtKit */ = {
 		activeExec = 0;
-	};
-	DC3AA6070B56DF3E0084424F /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCCD2EE209E148FD0003EEF9 /* English */;
-		name = "English: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 231;
-		vrLoc = 0;
 	};
 	DC43E38D09337285003C3C86 /* Build & Install Engines */ = {
 		activeExec = 0;
@@ -240,6 +230,16 @@
 	DC52042D088B1FD300DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
+	};
+	DC5310B90B66472800BD0276 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCCD2EE209E148FD0003EEF9 /* English */;
+		name = "English: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 231;
+		vrLoc = 0;
 	};
 	DC5D6C0D09498CF300EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;

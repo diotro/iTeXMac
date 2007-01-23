@@ -104,16 +104,15 @@
 
 @end
 
-@interface NSTextView(iTM2TextKit_Highlight)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection_MACRO)
+/*"Description forthcoming."*/
+@interface NSTextStorage(iTM2Selection_MACRO)
 
-/*!
-    @method		insertStringArray:
-    @abstract	Insert the list of texts at the insertion location.
-    @discussion	This also manages the selected range. The text are concatenated
-    @param		A list of strings.
-    @result		None.
-*/
-- (void)insertStringArray:(NSArray *)textArray;
+- (void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
+
+@end
+
+@interface NSTextView(iTM2TextKit_Highlight)
 
 /*!
     @method		extendSelectionWithRange:
@@ -172,6 +171,9 @@
 - (IBAction)doZoomOut:(id)sender;
 - (void)willChangeSelectedRanges;
 - (void)didChangeSelectedRanges;
+
+- (void)insertMacro:(id)sender;
+- (void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
 
 @end
 

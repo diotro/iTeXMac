@@ -146,14 +146,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 190906605;
-			PBXWorkspaceStateSaveDate = 190906605;
+			PBXPerProjectTemplateStateSaveDate = 191246293;
+			PBXWorkspaceStateSaveDate = 191246293;
 		};
 		perUserProjectItems = {
 			DC0BB7180B610DA100C7F0A1 /* PBXTextBookmark */ = DC0BB7180B610DA100C7F0A1 /* PBXTextBookmark */;
 			DC0BB71B0B610DA100C7F0A1 /* PBXTextBookmark */ = DC0BB71B0B610DA100C7F0A1 /* PBXTextBookmark */;
-			DC1BA6750B60D479003660EF /* PBXTextBookmark */ = DC1BA6750B60D479003660EF /* PBXTextBookmark */;
-			DC1BA6760B60D479003660EF /* PBXTextBookmark */ = DC1BA6760B60D479003660EF /* PBXTextBookmark */;
+			DC5310CD0B66472B00BD0276 /* PBXTextBookmark */ = DC5310CD0B66472B00BD0276 /* PBXTextBookmark */;
+			DC5310CE0B66472B00BD0276 /* PBXTextBookmark */ = DC5310CE0B66472B00BD0276 /* PBXTextBookmark */;
 			DCE2954F0B55989F00EC674E /* PBXTextBookmark */ = DCE2954F0B55989F00EC674E /* PBXTextBookmark */;
 			DCE295510B55989F00EC674E /* PBXTextBookmark */ = DCE295510B55989F00EC674E /* PBXTextBookmark */;
 		};
@@ -185,26 +185,6 @@
 		uiCtxt = {
 			sepNavWindowFrame = "{{176, 36}, {1210, 690}}";
 		};
-	};
-	DC1BA6750B60D479003660EF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCAF9A6009D810F900AFD95F /* French */;
-		name = "French: 7";
-		rLen = 0;
-		rLoc = 237;
-		rType = 0;
-		vrLen = 272;
-		vrLoc = 0;
-	};
-	DC1BA6760B60D479003660EF /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
-		name = "iTM2PDFKit.m: 6998";
-		rLen = 256;
-		rLoc = 235058;
-		rType = 0;
-		vrLen = 1357;
-		vrLoc = 234905;
 	};
 	DC2B4D030AD481990039FCBA /* iTM2PDFKit.m:6430 */ = {
 		isa = PBXFileBreakpoint;
@@ -327,6 +307,26 @@
 	DC520431088B1FD300DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
+	};
+	DC5310CD0B66472B00BD0276 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCAF9A6009D810F900AFD95F /* French */;
+		name = "French: 7";
+		rLen = 0;
+		rLoc = 237;
+		rType = 0;
+		vrLen = 272;
+		vrLoc = 0;
+	};
+	DC5310CE0B66472B00BD0276 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
+		name = "iTM2PDFKit.m: 6998";
+		rLen = 256;
+		rLoc = 235058;
+		rType = 0;
+		vrLen = 1357;
+		vrLoc = 234905;
 	};
 	DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;

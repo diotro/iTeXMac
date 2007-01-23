@@ -187,9 +187,6 @@
 		DCD403F1099498B0006B91DF /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
 		DCD403F2099498B0006B91DF /* iTM2MacroKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD403EF099498B0006B91DF /* iTM2MacroKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCD403F3099498B0006B91DF /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
-		DCD404A80994B5CA006B91DF /* iTM2TextMacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */; };
-		DCD404A90994B5CA006B91DF /* iTM2TextMacroKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD404A60994B5CA006B91DF /* iTM2TextMacroKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCD404AA0994B5CA006B91DF /* iTM2TextMacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */; };
 		DCD7929E0AA446620042AA60 /* iTM2PrefsController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCD792980AA446620042AA60 /* iTM2PrefsController.nib */; };
 		DCD7B6630AA8DC230042AA60 /* iTM2MacroPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD7B6580AA8DC220042AA60 /* iTM2MacroPrefPane.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCD7B6640AA8DC230042AA60 /* iTM2MacroPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD7B6590AA8DC220042AA60 /* iTM2MacroPrefPane.m */; };
@@ -767,7 +764,7 @@
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
-		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextCompletionKit.h; sourceTree = "<group>"; };
 		DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextCompletionKit.m; sourceTree = "<group>"; };
 		DC99ECBE0A284EA800F50752 /* Project.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Project.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -857,8 +854,6 @@
 		DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove.tif; sourceTree = "<group>"; };
 		DCD403EF099498B0006B91DF /* iTM2MacroKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit.h; sourceTree = "<group>"; };
 		DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit.m; sourceTree = "<group>"; };
-		DCD404A60994B5CA006B91DF /* iTM2TextMacroKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextMacroKit.h; sourceTree = "<group>"; };
-		DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextMacroKit.m; sourceTree = "<group>"; };
 		DCD792990AA446620042AA60 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DCD7B6580AA8DC220042AA60 /* iTM2MacroPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroPrefPane.h; sourceTree = "<group>"; };
 		DCD7B6590AA8DC220042AA60 /* iTM2MacroPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroPrefPane.m; sourceTree = "<group>"; };
@@ -1459,8 +1454,6 @@
 				DCF61BA20854654B003F5F79 /* iTM2TextKit.m */,
 				DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */,
 				DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */,
-				DCD404A60994B5CA006B91DF /* iTM2TextMacroKit.h */,
-				DCD404A70994B5CA006B91DF /* iTM2TextMacroKit.m */,
 				DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */,
 				DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */,
 			);
@@ -1725,7 +1718,6 @@
 				DC6F02A9097A8E57009939A6 /* iTM2PerlKitServer.h in Headers */,
 				DC25E50F0991FA7600545F27 /* iTM2TaskKit.h in Headers */,
 				DCD403F2099498B0006B91DF /* iTM2MacroKit.h in Headers */,
-				DCD404A90994B5CA006B91DF /* iTM2TextMacroKit.h in Headers */,
 				DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */,
 				DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */,
 				DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */,
@@ -2465,7 +2457,6 @@
 				DC6F02AA097A8E57009939A6 /* iTM2PerlKitServer.m in Sources */,
 				DC25E5100991FA7600545F27 /* iTM2TaskKit.m in Sources */,
 				DCD403F3099498B0006B91DF /* iTM2MacroKit.m in Sources */,
-				DCD404AA0994B5CA006B91DF /* iTM2TextMacroKit.m in Sources */,
 				DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */,
 				DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */,
 				DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */,
@@ -2525,7 +2516,6 @@
 				DC25E50E0991FA7600545F27 /* iTM2TaskKit.m in Sources */,
 				DC25E43F0991F6B900545F27 /* Task.m in Sources */,
 				DCD403F1099498B0006B91DF /* iTM2MacroKit.m in Sources */,
-				DCD404A80994B5CA006B91DF /* iTM2TextMacroKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

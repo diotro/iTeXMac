@@ -31,6 +31,7 @@
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
+#import <iTM2Foundation/iTM2KeyBindingsKit.h>
 #import "limits.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit
@@ -226,70 +227,354 @@ NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab
 @end
 
 @implementation NSTextView(iTM2TextKit_Highlight)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertStringArray:
-- (void)insertStringArray:(NSArray *)textArray;
-/*Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon Jan 10 21:45:41 GMT 2005
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:
+- (void)insertMacro:(id)argument;
+/*"Description forthcoming. argument is either a dictionary with strings for keys "before", "selected" and "after" or a string playing the role of before keyed object (the other strings are blank). When the argument is a NSMenuItem (or so) we add a pretreatment replacing the argument by its represented object.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"textArray is: %@", textArray);
-    [self breakTypingFlow];
-	NSMutableArray * rangeArray = [NSMutableArray array];
-	NSEnumerator * E = [textArray objectEnumerator];
-	NSString * S;// not always an NSString but...
-mainLoop:
-	if(S = [E nextObject])
+    [self insertMacro:argument tabAnchor:[self tabAnchor]];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:tabAnchor:
+- (void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
+/*"Description forthcoming. argument is either a dictionary with strings for keys "before", "selected" and "after" or a string playing the role of before keyed object (the other strings are blank). When the argument is a NSMenuItem (or so) we add a pretreatment replacing the argument by its represented object.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(!tabAnchor)
+        tabAnchor = @"";
+    if([argument conformsToProtocol:@protocol(NSMenuItem)])
+        argument = [argument representedObject];
+// this new part concerns the new macro design. 2006
+    if([argument isKindOfClass:[NSString class]])
 	{
-		if([S isKindOfClass:[NSString class]])
+		argument = [argument stringByRemovingTipPlaceHolders];
+		NSRange _RangeForUserCompletion = [self selectedRange];
+		NSString * _Tab = nil;
+		unsigned idx = [self numberOfSpacesPerTab];
+		if(idx<=0)
 		{
-			if([S isEqualToString:iTM2TextINSPlaceholder])
-			{
-				NSRange R = [self selectedRange];
-subLoop:
-				if(S = [E nextObject])
-				{
-					if([S isKindOfClass:[NSString class]])
-					{
-						if([S isEqualToString:iTM2TextINSPlaceholder])
-						{
-							R.length = [self selectedRange].location-R.location;
-							[rangeArray addObject:[NSValue valueWithRange:R]];
-							goto mainLoop;
-						}
-						else
-						{
-							[self insertText:S];
-						}
-						goto subLoop;
-					}
-					else
-					{
-						iTM2_LOG(@"Ignored object: %@", S);
-					}
-				}
-				R.length = 0;
-				[rangeArray addObject:[NSValue valueWithRange:R]];
-			}
-			else
-			{
-				[self insertText:S];
-			}
-			goto mainLoop;
+			_Tab = @"\t";
 		}
 		else
 		{
-			iTM2_LOG(@"Ignored object: %@", S);
+			NSMutableString * MS = [NSMutableString string];
+			while(idx--)
+			{
+				[MS appendString:@" "];
+			}
+			_Tab = [MS copy];
+		}
+		NSRange _SelectedRange = [self selectedRange];
+		NSString * S = [self string];
+		NSString * _OriginalSelectedString = [S substringWithRange:_SelectedRange];
+		// Get the indentation level at the line where we are going to insert things
+		int numberOfSpacesPerTab = [self numberOfSpacesPerTab]?:4;
+		numberOfSpacesPerTab = abs(numberOfSpacesPerTab);
+		unsigned start, contentsEnd;
+		NSRange R = _RangeForUserCompletion;
+		R.length = 0;
+		[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:R];
+		unsigned _IndentationLevel = 0;
+		unsigned currentLength = 0;
+		while(start<contentsEnd)
+		{
+			unichar theChar = [S characterAtIndex:start++];
+			if(theChar == ' ')
+			{
+				++currentLength;
+			}
+			else if(theChar == '\t')
+			{
+				++_IndentationLevel;
+				_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
+				currentLength = 0;
+			}
+			else
+			{
+				break;
+			}
+		}
+		_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
+		
+		// get the indentation in the original selected string, starting at the second line
+		// then split the selection into lines in order to manage the indentation
+		// ensuring that the white prefix is of the apropriate format
+		NSMutableArray * replacementLines = [NSMutableArray array];
+		R = NSMakeRange(0,0);
+		[_OriginalSelectedString getLineStart:nil end:&R.location contentsEnd:nil forRange:R];
+		NSString * blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(0,R.location)];
+		[replacementLines addObject:blackString];
+		NSMutableArray * whitePrefixes = [NSMutableArray array];
+		NSMutableArray * blackStrings = [NSMutableArray array];
+		unsigned indentationOfTheSelectedString = 0;
+		NSNumber * N;
+		unsigned end;
+		unsigned lineIndentation = 0;
+		if(R.location < [_OriginalSelectedString length])
+		{
+			indentationOfTheSelectedString = UINT_MAX;
+			do
+			{
+				[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+				lineIndentation = 0;
+				while(R.location<contentsEnd)
+				{
+					unichar theChar = [_OriginalSelectedString characterAtIndex:R.location++];
+					if(theChar == ' ')
+					{
+						++currentLength;
+					}
+					else if(theChar == '\t')
+					{
+						++lineIndentation;
+						lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+						currentLength = 0;
+					}
+					else
+					{
+						break;
+					}
+				}
+				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+				if(lineIndentation<indentationOfTheSelectedString)
+				{
+					indentationOfTheSelectedString = lineIndentation;
+				}
+				N = [NSNumber numberWithUnsignedInt:lineIndentation];
+				[whitePrefixes addObject:N];
+				blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(R.location,end-R.location)];
+				[blackStrings addObject:blackString];
+				R.location = end;
+			}
+			while(R.location < [_OriginalSelectedString length]);
+		}
+		NSEnumerator * whiteE = [whitePrefixes objectEnumerator];
+		NSEnumerator * blackE = [blackStrings objectEnumerator];
+		while((N = [whiteE nextObject]) && (blackString = [blackE nextObject]))
+		{
+			lineIndentation = [N unsignedIntValue];
+			lineIndentation -= indentationOfTheSelectedString;
+			if(lineIndentation)
+			{
+				NSMutableString * MS = [NSMutableString string];
+				while(lineIndentation--)
+				{
+					[MS appendString:_Tab];
+				}
+				[MS appendString:blackString];
+				[replacementLines addObject:MS];
+			}
+			else
+			{
+				[replacementLines addObject:blackString];
+			}
+		}
+
+		NSString * completion = argument;
+		NSMutableString * longCompletionString = [NSMutableString string];
+		R = NSMakeRange(0,0);
+		[completion getLineStart:nil end:&R.location contentsEnd:nil forRange:R];// first line
+		blackString = [completion substringWithRange:NSMakeRange(0,R.location)];
+		[longCompletionString appendString:blackString];
+		if(R.location < [completion length])
+		{
+			do
+			{
+				[completion getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+				lineIndentation = 0;
+				unsigned currentLength = 0;
+				int numberOfSpacesPerTab = [self numberOfSpacesPerTab]?:4;
+				while(R.location<contentsEnd)
+				{
+					unichar theChar = [completion characterAtIndex:R.location++];
+					if(theChar == ' ')
+					{
+						++currentLength;
+					}
+					else if(theChar == '\t')
+					{
+						++lineIndentation;
+						lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+						currentLength = 0;
+					}
+					else
+					{
+						break;
+					}
+				}
+				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+				NSMutableString * whitePrefix = [NSMutableString string];
+				while(lineIndentation--)
+				{
+					[whitePrefix appendString:_Tab];
+				}
+				NSMutableString * line = [NSMutableString stringWithString:whitePrefix];
+				blackString = [completion substringWithRange:NSMakeRange(R.location,end-R.location)];
+				NSRange searchRange = NSMakeRange(0,0);
+				searchRange.length = [blackString length] - searchRange.location;
+				NSRange SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+				if(SELRange.length)
+				{
+					NSString * s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
+					[line appendString:s];
+					NSEnumerator * replacementE = [replacementLines objectEnumerator];
+					s = [replacementE nextObject];
+					[line appendString:s];
+					while(s = [replacementE nextObject])
+					{
+						[line appendString:whitePrefix];
+						[line appendString:s];
+					}
+next:
+					searchRange.location = NSMaxRange(SELRange);
+					if([blackString length]>searchRange.location)
+					{
+						searchRange.length = [blackString length] - searchRange.location;
+						SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+						if(SELRange.length)
+						{
+							s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
+							[line appendString:s];
+							replacementE = [replacementLines objectEnumerator];
+							s = [replacementE nextObject];
+							[line appendString:s];
+							while(s = [replacementE nextObject])
+							{
+								[line appendString:whitePrefix];
+								[line appendString:s];
+							}
+							goto next;
+						}
+					}
+				}
+				else
+				{
+					[line appendString:blackString];
+				}
+				[longCompletionString appendString:line];
+			}
+			while(R.location < [completion length]);
+		}
+
+		NSArray * components = [longCompletionString componentsSeparatedByString:iTM2TextINSPlaceholder];
+		NSString * replacementString = [components componentsJoinedByString:@""];
+		NSMutableArray * selectedRanges = [NSMutableArray array];
+		NSEnumerator * E = [components objectEnumerator];
+		NSString * component;
+		R = _RangeForUserCompletion;
+		NSValue * V = nil;
+		while(component = [E nextObject])
+		{
+			R.location += [component length];
+			R.length = 0;
+			if(component = [E nextObject])
+			{
+				R.length = [component length];
+				V = [NSValue valueWithRange:R];
+				[selectedRanges addObject:V];
+			}
+			else
+			{
+				break;
+			}
+		}
+		if(![selectedRanges count])
+		{
+			// is there any place holder?
+			R = [replacementString rangeOfPlaceholderFromIndex:0 cycle:NO tabAnchor:tabAnchor];
+			if(R.length)
+			{
+				if(NSMaxRange(R)<[replacementString length])
+				{
+					R.location = [replacementString length];
+					replacementString = [replacementString stringByAppendingString:iTM2TextTABPlaceholder];
+					R.length = [replacementString length] - R.location;
+				}
+			}
+			else
+			{
+				R.location = [replacementString length];
+				R.length = 0;
+			}
+			R.location += _RangeForUserCompletion.location;
+			NSValue * V = [NSValue valueWithRange:R];
+			[selectedRanges addObject:V];
+		}
+		// if the last placeholder is selected wherease there is a placeholder before, remove the corresponding selected range
+		R = [replacementString rangeOfPlaceholderToIndex:[replacementString length] cycle:NO tabAnchor:tabAnchor];
+		if(R.length)
+		{
+			if(R.location)
+			{
+				if([replacementString rangeOfPlaceholderToIndex:R.location-1 cycle:NO tabAnchor:tabAnchor].length)
+				{
+					R.location += _RangeForUserCompletion.location;
+					V = [NSValue valueWithRange:R];
+					if([selectedRanges containsObject:V])
+					{
+						[selectedRanges removeObject:V];
+						R.location = NSMaxRange(R);
+						R.length = 0;
+						V = [NSValue valueWithRange:R];
+						[selectedRanges addObject:V];
+					}
+				}
+			}
+		}
+		if([self shouldChangeTextInRange:_SelectedRange replacementString:replacementString])
+		{
+			[self replaceCharactersInRange:_SelectedRange withString:replacementString];
+			[self didChangeText];
+			[self setSelectedRanges:selectedRanges];
+		}
+		return;
+	}
+	if([argument isKindOfClass:[NSArray class]])
+	{
+		NSEnumerator * E = [argument objectEnumerator];
+		while(argument = [E nextObject])
+		{
+			[self insertMacro:argument tabAnchor:tabAnchor];
 		}
 	}
-//iTM2_LOG(@"rangeArray is: %@", rangeArray);
-	if([rangeArray count])
-		[self setSelectedRanges:rangeArray];
+    NSLog(@"Don't know what to do with this argument: %@", argument);
 //iTM2_END;
-    [self breakTypingFlow];
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
+- (BOOL)executeStringInstruction:(NSString *)instruction;
+/*"Description forthcoming. 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([super executeStringInstruction:instruction])
+	{
+		return YES;
+	}
+	[self insertMacro:instruction];
+//iTM2_END;
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyStrokes
+- (BOOL)handlesKeyStrokes;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendSelectionWithRange:
 - (void)extendSelectionWithRange:(NSRange)range;
@@ -958,6 +1243,34 @@ To Do List: implement some kind of balance range for range
 	NSRange otherRange = [[self string] rangeOfPlaceholderAtIndex:index];
 //iTM2_END;
 	return otherRange.length? otherRange: [super doubleClickAtIndex:index];
+}
+@end
+
+#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection_MACRO)
+/*"Description forthcoming."*/
+@implementation NSTextStorage(iTM2Selection_MACRO)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertMacro:inRangeValue:
+- (void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if([argument isKindOfClass:[NSString class]] || [argument isKindOfClass:[NSDictionary class]])
+    {
+        NSTextView * TV = [self mainTextView];
+        if([rangeValue respondsToSelector:@selector(rangeValue)])
+            [TV setSelectedRange:[rangeValue rangeValue]];
+        [TV insertMacro:argument];        
+    }
+    else
+    {
+        NSLog(@"JL, you should have raised an exception!!! (code 1789)");
+    }
+    return;
 }
 @end
 

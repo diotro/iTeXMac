@@ -380,8 +380,16 @@ To Do List:
 			WC = [W windowController];
 			if(document = [WC document])
 			{
-				NSImage * I = [[WC class] smallImageLogo];
-				[MI setImage:I];
+				if(![MI image])
+				{
+					NSImage * I = [[WC class] smallImageLogo];
+					if(!I)
+					{
+						NSString * FN = [document fileName];
+						I = [SWS iconForFile:FN];
+					}
+					[MI setImage:I];
+				}
 				// the current menu item has a window
 				// this window has a document
 				PD = [document project];

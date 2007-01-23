@@ -21,11 +21,6 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-extern NSString * const iTM2MacroNameKey;
-extern NSString * const iTM2MacroSelectionKey;
-extern NSString * const iTM2MacroInsertionKey;
-extern NSString * const iTM2MacroToolTipKey;
-
 /*!
 	@header			iTM2PerlKitServer
 	@abstract		Abstract forthcoming.

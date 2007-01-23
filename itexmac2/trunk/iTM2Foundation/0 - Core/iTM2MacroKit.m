@@ -1622,7 +1622,18 @@ To Do List:
 }
 @end
 
-@implementation NSTextView(Placeholder)
+@implementation NSTextView(iTM2MacroKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabAnchor
++ (NSString *)tabAnchor;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [SUD stringForKey:iTM2TextTabAnchorStringKey];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectFirstPlaceholder:
 - (IBAction)selectFirstPlaceholder:(id)sender;
 /*Description Forthcoming.
@@ -2484,5 +2495,194 @@ To Do List: implement some kind of balance range for range
 	result += (2*currentLength)/numberOfSpacesPerTab;
 //iTM2_END;
 	return result;
+}
+@end
+
+@implementation iTM2AppleScriptMacro
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithScript:
+- (id)initWithScript:(NSString *)argument;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(self = [super init])
+    {
+        [self setScript:argument];
+    }
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
+- (void)dealloc;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self setScript:nil];
+    [self setToolTip:nil];
+    [super dealloc];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  script
+- (NSString *)script;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _Script;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScript:
+- (void)setScript:(NSString *)argument;
+/*"Description forthcoming.
+No copy made, just retain.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(argument && ![argument isKindOfClass:[NSString class]])
+        [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:%@.",
+            __PRETTY_FUNCTION__, argument];
+    if(![_Script isEqualToString:argument])
+    {
+        [_Script autorelease];
+        _Script = [argument retain];
+    }
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolTip
+- (NSString *)toolTip;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _ToolTip;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolTip:
+- (void)setToolTip:(NSString *)argument;
+/*"Description forthcoming.
+No copy made, just retain.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(argument && ![argument isKindOfClass:[NSString class]])
+        [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:%@.",
+            __PRETTY_FUNCTION__, argument];
+    if(![_ToolTip isEqualToString:argument])
+    {
+        [_ToolTip autorelease];
+        _ToolTip = [argument retain];
+    }
+    return;
+}
+@end
+
+@implementation iTM2AppleScriptFileMacro
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithPath:
+- (id)initWithPath:(NSString *)argument;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(self = [super init])
+    {
+        [self setPath:argument];
+    }
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
+- (void)dealloc;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self setPath:nil];
+    [self setToolTip:nil];
+    [super dealloc];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  path
+- (NSString *)path;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _Path;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPath:
+- (void)setPath:(NSString *)argument;
+/*"Description forthcoming.
+No copy made, just retain.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(argument && ![argument isKindOfClass:[NSString class]])
+        [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:%@.",
+            __PRETTY_FUNCTION__, argument];
+    if(![_Path isEqualToString:argument])
+    {
+        [_Path autorelease];
+        _Path = [argument retain];
+    }
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toolTip
+- (NSString *)toolTip;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _ToolTip;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setToolTip:
+- (void)setToolTip:(NSString *)argument;
+/*"Description forthcoming.
+No copy made, just retain.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1: 06/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#warning DID YOU IMPLEMENT THE TOOLTIP SHORTCUT
+    if(argument && ![argument isKindOfClass:[NSString class]])
+        [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:%@.",
+            __PRETTY_FUNCTION__, argument];
+    if(![_ToolTip isEqualToString:argument])
+    {
+        [_ToolTip autorelease];
+        _ToolTip = [argument retain];
+    }
+    return;
 }
 @end

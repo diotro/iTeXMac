@@ -308,29 +308,6 @@ To Do List:
 
 /*"Description forthcoming."*/
 @implementation NSTextView(iTM2LaTeXSymbolsKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useLaTeXPackage:
-- (IBAction)useLaTeXPackage:(id)sender;
-/*".
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if([sender isKindOfClass:[NSControl class]])
-	{
-		[self insertMacro: [NSDictionary dictionaryWithObject:
-//		[self tryToPerform: @selector(insertMacro:)with: [NSDictionary dictionaryWithObject:
-#warning THE JAPANESE IS NOT YET SUPPORTED
-                [NSString stringWithFormat:@"\\usepackage{%@}\n", [sender title]]
-                    forKey: @"selected"]];
-//		[[self window] makeKeyAndOrderFront:self];
-	}
-    else
-        NSBeep();
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeSymbolsInstruction:
 - (void)executeSymbolsInstruction:(id)instruction;
 /*"Description forthcoming.

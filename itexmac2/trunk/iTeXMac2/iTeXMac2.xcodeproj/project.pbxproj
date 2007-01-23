@@ -275,7 +275,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DCEF60820B62148A00A19262 /* Prepare Sparkle */;
+			remoteGlobalIDString = DCEF60820B62148A00A19262;
 			remoteInfo = "Prepare Sparkle";
 		};
 /* End PBXContainerItemProxy section */

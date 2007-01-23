@@ -39,9 +39,6 @@ extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
 extern NSString * const iTM2TextTabAnchorStringKey;
 
 extern NSString * const iTM2MacroServerComponent;
-extern NSString * const iTM2MacroNameKey;
-extern NSString * const iTM2MacroInsertionKey;
-extern NSString * const iTM2MacroToolTipKey;
 
 /*!
 	@header			iTM2MacroKit
@@ -281,7 +278,7 @@ extern NSString * const iTM2MacroToolTipKey;
 
 @end
 
-@interface NSTextView(Placeholder)
+@interface NSTextView(iTM2MacroKit)
 - (IBAction)selectFirstPlaceholder:(id)sender;
 - (IBAction)selectNextPlaceholder:(id)sender;
 - (IBAction)selectPreviousPlaceholder:(id)sender;
@@ -293,7 +290,7 @@ extern NSString * const iTM2MacroToolTipKey;
 - (unsigned)numberOfSpacesPerTab;
 @end
 
-@interface NSString(iTM2TextPlaceholder)
+@interface NSString(iTM2MacroKit)
 
 + (NSString *)bullet;
 
@@ -364,4 +361,32 @@ extern NSString * const iTM2MacroToolTipKey;
 */
 - (unsigned)indentationLevelWithNumberOfSpacesPerTab:(unsigned)numberOfSpacesPerTab;
 
+@end
+
+@interface iTM2AppleScriptMacro: NSObject
+{
+@private
+    NSString * _Script;
+    NSString * _ToolTip;
+}
+- (id)initWithScript:(NSString *)argument;
+- (void)dealloc;
+- (NSString *)script;
+- (void)setScript:(NSString *)argument;
+- (NSString *)toolTip;
+- (void)setToolTip:(NSString *)argument;
+@end
+
+@interface iTM2AppleScriptFileMacro: NSObject
+{
+@private
+    NSString * _Path;
+    NSString * _ToolTip;
+}
+- (id)initWithPath:(NSString *)argument;
+- (void)dealloc;
+- (NSString *)path;
+- (void)setPath:(NSString *)argument;
+- (NSString *)toolTip;
+- (void)setToolTip:(NSString *)argument;
 @end

@@ -25,6 +25,7 @@
 		DC00B14209D210EA007D6AD9 /* iTM2LaTeXSymbolsPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC00B14009D210E9007D6AD9 /* iTM2LaTeXSymbolsPanel.nib */; };
 		DC21DF9B08610F3700CA362C /* iTM2DMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9808610F3700CA362C /* iTM2DMenuKit.m */; };
 		DC21DF9C08610F3700CA362C /* iTM2LaTeXSymbolsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */; };
+		DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */; };
 		DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */; };
 		DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC99E9BB0A2608A400F50752 /* iTM2AMSArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */; };
@@ -201,13 +202,14 @@
 		DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2LaTeXSymbolsKit-Info.plist"; sourceTree = "<group>"; };
 		DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
 		DC5B69990A4B6BEC00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
 		DC5B699A0A4B6BEC00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B699B0A4B6BEC00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5B699C0A4B6BEC00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		DC5B699D0A4B6BEC00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5D709A0949E31200EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2LaTeXKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC81AE8708871B9A00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
@@ -356,6 +358,7 @@
 				DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */,
 				DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */,
 				DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */,
+				DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +418,7 @@
 			children = (
 				DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */,
 				DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */,
+				DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
@@ -436,7 +440,7 @@
 			children = (
 				8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */,
 				DC81AE8708871B9A00943C99 /* iTeXMac2.app */,
-				DC5D709A0949E31200EBA96C /* iTM2TeXFoundation.framework */,
+				DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -661,9 +665,9 @@
 			productReference = 8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
-		DC5D70990949E31200EBA96C /* Prepare iTM2TeXFoundation */ = {
+		DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DC5D709C0949E31300EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2TeXFoundation" */;
+			buildConfigurationList = DC5D709C0949E31300EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2LaTeXKit" */;
 			buildPhases = (
 				DC5D70A40949E32C00EBA96C /* Synchronize */,
 			);
@@ -671,9 +675,9 @@
 			);
 			dependencies = (
 			);
-			name = "Prepare iTM2TeXFoundation";
+			name = "Prepare iTM2LaTeXKit";
 			productName = "Prepare iTM2TeXFoundation";
-			productReference = DC5D709A0949E31200EBA96C /* iTM2TeXFoundation.framework */;
+			productReference = DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DC81AE8608871B9A00943C99 /* iTeXMac2 */ = {
@@ -703,7 +707,7 @@
 			mainGroup = 089C166AFE841209C02AAC07 /* iTM2PDFKit */;
 			projectDirPath = "";
 			targets = (
-				DC5D70990949E31200EBA96C /* Prepare iTM2TeXFoundation */,
+				DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */,
 				8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */,
 				DC9E4F310858A8A300A86BED /* All */,
 				DC81AE8608871B9A00943C99 /* iTeXMac2 */,
@@ -867,7 +871,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2TeXFoundation\n";
+			shellScript = "../Scripts/iTM2SynchronizeFramework.sh \"$PRODUCT_NAME\"\n";
 		};
 		DC81AE8A08871BA700943C99 /* Really build iTeXMac2 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -900,7 +904,7 @@
 /* Begin PBXTargetDependency section */
 		DC5D70B10949E3A200EBA96C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DC5D70990949E31200EBA96C /* Prepare iTM2TeXFoundation */;
+			target = DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */;
 			targetProxy = DC5D70B00949E3A200EBA96C /* PBXContainerItemProxy */;
 		};
 		DC8A6215088D7E230016FAA2 /* PBXTargetDependency */ = {
@@ -933,7 +937,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = iTM2TeXFoundation;
+				PRODUCT_NAME = iTM2LaTeXKit;
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
 			name = Development;
@@ -942,7 +946,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = iTM2TeXFoundation;
+				PRODUCT_NAME = iTM2LaTeXKit;
 				SYMROOT = "$(PROJECT_DIR)/build";
 			};
 			name = Deployment;
@@ -951,6 +955,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2LaTeXSymbolsKit;
 			};
 			name = Development;
@@ -959,6 +968,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B699D0A4B6BEC00F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2LaTeXSymbolsKit;
 			};
 			name = Deployment;
@@ -1043,7 +1057,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DC5D709C0949E31300EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2TeXFoundation" */ = {
+		DC5D709C0949E31300EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2LaTeXKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC5D709D0949E31300EBA96C /* Development */,

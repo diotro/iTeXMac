@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -325,7 +323,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC0BB7240B610DA300C7F0A1</string>
+										<string>DC5310D10B66472C00BD0276</string>
 										<key>history</key>
 										<array>
 											<string>DCB1DB920B4EAF5100B0704A</string>
@@ -337,7 +335,6 @@
 											<string>DCB1DBA00B4EAF5100B0704A</string>
 											<string>DCB1DBA20B4EAF5100B0704A</string>
 											<string>DCB1DBA40B4EAF5100B0704A</string>
-											<string>DCB1DBA60B4EAF5100B0704A</string>
 											<string>DCB1DBA80B4EAF5100B0704A</string>
 											<string>DCB1DBA90B4EAF5100B0704A</string>
 											<string>DCB1DBAB0B4EAF5100B0704A</string>
@@ -361,7 +358,7 @@
 											<string>DCB1DBCC0B4EAF5100B0704A</string>
 											<string>DCEE5F0E0B5BD7D100E47ED9</string>
 											<string>DCEE5F0F0B5BD7D100E47ED9</string>
-											<string>DCBD48510B5EFECF00B01DE0</string>
+											<string>DC0BB7240B610DA300C7F0A1</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -375,7 +372,6 @@
 											<string>DCB1DBDF0B4EAF5100B0704A</string>
 											<string>DCB1DBE10B4EAF5100B0704A</string>
 											<string>DCB1DBE30B4EAF5100B0704A</string>
-											<string>DCB1DBE50B4EAF5100B0704A</string>
 											<string>DCB1DBE70B4EAF5100B0704A</string>
 											<string>DCB1DBE80B4EAF5100B0704A</string>
 											<string>DCB1DBEA0B4EAF5100B0704A</string>
@@ -455,9 +451,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC0BB7250B610DA300C7F0A1</string>
+				<string>DC530FCA0B66307600BD0276</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC0BB7260B610DA300C7F0A1</string>
+				<string>DC530FCB0B66307600BD0276</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -592,7 +588,6 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>45 35 1395 697 0 0 1440 878 </string>

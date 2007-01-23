@@ -171,5 +171,9 @@ extern NSString * const iTM2ToolbarLaTeXSectionItemIdentifier;
 + (NSToolbarItem *)LaTeXLabelToolbarItem;
 @end
 
+@interface NSTextView(iTM2LaTeX)
+- (IBAction)useLaTeXPackage:(id)sender;
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2LaTeXKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
