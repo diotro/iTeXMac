@@ -37,6 +37,7 @@ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMA
 
 	Created by Brent Simmons on Wed Apr 17 2002.
 	Copyright (c) 2002 Brent Simmons. All rights reserved.
+	Modified by Jerome Laurens, bad code sometimes
 */
 
 
@@ -70,7 +71,10 @@ int compareNewsItems(id item1, id item2, void *context)
 	/*
 	Create an empty feed. Useful for synthetic feeds.
 	*/
-	
+//JL-ADDENDUM<
+	self = [super init];
+	if(self){
+//>JL-ADDENDUM
 	NSMutableDictionary *header;
 
 	flRdf = NO;
@@ -87,12 +91,24 @@ int compareNewsItems(id item1, id item2, void *context)
 	
 	version = [[NSString alloc] initWithString: @"synthetic"];
 	
+//JL-ADDENDUM<
+	}
+//>JL-ADDENDUM
 	return (self);
 	} /*initWithTitle*/
 	
 	
 - (RSS *) initWithData: (NSData *) rssData normalize: (BOOL) fl {
 	
+//JL-ADDENDUM<
+	if(!rssData)
+	{
+		[self dealloc];
+		return nil;// shoudl return error
+	}
+	self = [super init];
+	if(self){
+//>JL-ADDENDUM
 	CFXMLTreeRef tree;
 	
 	flRdf = NO;
@@ -129,6 +145,9 @@ int compareNewsItems(id item1, id item2, void *context)
 	
 	CFRelease (tree);
 	
+//JL-ADDENDUM<
+	}
+//>JL-ADDENDUM
 	return (self);
 	} /*initWithData*/
 
@@ -154,12 +173,18 @@ int compareNewsItems(id item1, id item2, void *context)
 
 	rssData = [NSURLConnection sendSynchronousRequest: request returningResponse: &response error: &error];
 	
+//JL-ADDENDUM<
+#if 0
+//>JL-ADDENDUM
 	if (rssData == nil)
 	{
 		NSException *exception = [NSException exceptionWithName: @"RSSDownloadFailed"
 														 reason: [error localizedFailureReason] userInfo: [error userInfo] ];
 		[exception raise];
 	}
+//JL-ADDENDUM<
+#endif
+//>JL-ADDENDUM
 	
 	return [self initWithData: rssData normalize: fl];	
 } /*initWithUrl*/
