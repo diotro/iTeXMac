@@ -1334,7 +1334,7 @@
 		};
 		DCEF60830B62148A00A19262 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (

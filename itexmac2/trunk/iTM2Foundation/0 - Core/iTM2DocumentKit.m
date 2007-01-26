@@ -574,7 +574,7 @@ To Do List:
 			[NSApp reportException:localException];
 			NS_ENDHANDLER
 		}
-iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
+//iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
 	}
 //iTM2_END;
     return YES;
@@ -3520,7 +3520,7 @@ NSEnumerator * E = [[M itemArray] objectEnumerator];
 id mi;
 while(mi = [E nextObject])
 {
-iTM2_LOG(@"mi:%@, action:%@, target:%@", mi, NSStringFromSelector([mi action]), [mi target]);
+//iTM2_LOG(@"mi:%@, action:%@, target:%@", mi, NSStringFromSelector([mi action]), [mi target]);
 }
 #endif
 			}

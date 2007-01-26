@@ -724,7 +724,7 @@ To Do List:
 	while([findContexts count] > wall)
 		[findContexts removeLastObject];
 	[findContexts insertObject: [NSDictionary dictionaryWithDictionary: context] atIndex: 0];
-iTM2_LOG(@"CONTEXT RECORDED: %@", [findContexts objectAtIndex: 0]);
+//iTM2_LOG(@"CONTEXT RECORDED: %@", [findContexts objectAtIndex: 0]);
 	[self takeContextValue: findContexts forKey: @"iTM2TextFinderContexts"];
     return;
 }
@@ -738,7 +738,7 @@ To Do List:
 {
 //iTM2_START;
 //iTM2_END;
-iTM2_LOG(@"[self findContexts] are: %@", [self findContexts]);
+//iTM2_LOG(@"[self findContexts] are: %@", [self findContexts]);
 	return [[self findContexts] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:objectValueForItemAtIndex:
@@ -753,7 +753,7 @@ To Do List:
 	NSArray * findContexts = [self findContexts];
 	if((index < 0) || !(index < [findContexts count]))
 		return nil;
-iTM2_LOG(@"[findContexts objectAtIndex: index] is: %@", [findContexts objectAtIndex: index]);
+//iTM2_LOG(@"[findContexts objectAtIndex: index] is: %@", [findContexts objectAtIndex: index]);
 	return [[findContexts objectAtIndex: index] objectForKey: @"FindString"];
 //iTM2_END;
     return nil;

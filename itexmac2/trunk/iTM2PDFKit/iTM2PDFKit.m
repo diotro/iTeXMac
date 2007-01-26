@@ -1598,7 +1598,7 @@ Version history:jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	[[[self window] toolbar] validateVisibleItems];
 	PDFView * pdfView = [self pdfView];
 	PDFPage * page = [pdfView currentPage];
@@ -1620,7 +1620,7 @@ iTM2_START;
 		[self updatePDFOutlineInformation];
 		[self contextDidChangeComplete];
 	}
-iTM2_END;
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewScaleChangedNotified:
@@ -1828,7 +1828,7 @@ Version history:jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	[super contextDidChange];
 	PDFView * V = [self pdfView];
 	[V setBackgroundColor:[self backgroundColor]];
@@ -1870,7 +1870,7 @@ iTM2_START;
 		iTM2_LOG(@"NO VIEW...");
 	}
 	[self contextDidChangeComplete];
-iTM2_END;
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedSynchronizeDocumentView:

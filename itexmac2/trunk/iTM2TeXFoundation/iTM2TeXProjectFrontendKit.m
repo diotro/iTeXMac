@@ -563,7 +563,11 @@ To Do List:
 		window = [[self inspectorAddedWithMode:[iTM2TeXPTaskInspector inspectorMode]] window];
 	if(mainWindow && ![window isEqual:mainWindow] 
 		&& ![self contextBoolForKey:iTM2TeXProjectNoTerminalBehindKey domain:iTM2ContextAllDomainsMask])
-		[window orderWindow:NSWindowBelow relativeTo:[mainWindow windowNumber]];
+	{
+		NSWindow * W = [mainWindow parentWindow]?:mainWindow;
+		int windowNumber = [W windowNumber];
+		[window orderWindow:NSWindowBelow relativeTo:windowNumber];
+	}
 	else
 		[window orderFront:self];
     [self validateWindowsContents];
@@ -3147,10 +3151,16 @@ To Do List:
 							action:@selector(projectEditDocumentUsingRepresentedObject1:) keyEquivalent:@""] autorelease];
 			[M addItem:MI];
 			[MI setTarget:nil];
+			NSString * key = [MD objectForKey:S];
+			NSString * path = [PD absoluteFileNameForKey:key];
+			NSImage * I = [SWS iconForFile:path];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+			[MI setImage:I];
 			[MI setRepresentedObject:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					[NSValue valueWithNonretainedObject:PD], @"project",
-					[MD objectForKey:S], @"key",
+					key, @"key",
 						nil]];
 		}
 	}

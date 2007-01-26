@@ -1549,7 +1549,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"url:%@",url);
+//iTM2_LOG(@"url:%@",url);
 	if(![url isFileURL])
 	{
 		if(outErrorPtr)

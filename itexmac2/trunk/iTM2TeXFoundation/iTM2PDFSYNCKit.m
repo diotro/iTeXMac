@@ -1709,11 +1709,14 @@ laSuite:
 					{
 						if(force)
 						{
-							[[WC window] makeKeyAndOrderFront:self];
+							[W makeKeyAndOrderFront:self];
 						}
 						else if(![WC isKindOfClass:[iTM2ExternalInspector class]])
 						{
-							[[WC window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
+							NSWindow * window = [NSApp keyWindow];
+							window = [window parentWindow]?:window;
+							int windowNumber = [window windowNumber];
+							[W orderWindow:NSWindowBelow relativeTo:windowNumber];
 						}
 					}
 					result = YES;
@@ -1741,11 +1744,14 @@ laSuite:
 				{
 					if(yorn && (force || ![WC isKindOfClass:[iTM2ExternalInspector class]]))
 					{
-						[[WC window] makeKeyAndOrderFront:self];
+						[W makeKeyAndOrderFront:self];
 					}
 					else
 					{
-						[[WC window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
+						NSWindow * window = [NSApp keyWindow];
+						window = [window parentWindow]?:window;
+						int windowNumber = [window windowNumber];
+						[W orderWindow:NSWindowBelow relativeTo:windowNumber];
 					}
 					result = YES;
 				}

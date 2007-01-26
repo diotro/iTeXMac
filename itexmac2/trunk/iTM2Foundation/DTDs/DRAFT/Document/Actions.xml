@@ -10,31 +10,31 @@
 
 <LIST>
     <ITEM KEY="part">
-        <ARG>\part{__(INS)____(SEL)____(INS)__}
+        <ARG>\part{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="chapter">
-        <ARG>\chapter{__(INS)____(SEL)____(INS)__}
+        <ARG>\chapter{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="section">
-        <ARG>\section{__(INS)____(SEL)____(INS)__}
+        <ARG>\section{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="subsection">
-        <ARG>\subsection{__(INS)____(SEL)____(INS)__}
+        <ARG>\subsection{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="subsubsection">
-        <ARG>\subsubsection{__(INS)____(SEL)____(INS)__}
+        <ARG>\subsubsection{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="paragraph">
-        <ARG>\paragraph{__(INS)____(SEL)____(INS)__}
+        <ARG>\paragraph{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="subparagraph">
-        <ARG>\subparagraph{__(INS)____(SEL)____(INS)__}
+        <ARG>\subparagraph{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="document/book/10pt">
@@ -178,35 +178,35 @@ __(INS)__
 \end{document}</ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/name">
-        <ARG>\name{__(INS)____(SEL)____(INS)__}
+        <ARG>\name{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/address">
-        <ARG>\address{__(INS)____(SEL)____(INS)__}
+        <ARG>\address{__(SEL:)__}
  </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/signature">
-        <ARG>\signature{__(INS)____(SEL)____(INS)__}
+        <ARG>\signature{__(SEL:)__}
  </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/date">
-        <ARG>\date{__(INS)____(SEL)____(INS)__}
+        <ARG>\date{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/opening">
-        <ARG>\opening{__(INS)____(SEL)____(INS)__}
+        <ARG>\opening{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/closing">
-        <ARG>\closing{__(INS)____(SEL)____(INS)__}
+        <ARG>\closing{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/encl">
-        <ARG>\encl{__(INS)____(SEL)____(INS)__}
+        <ARG>\encl{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/cc">
-        <ARG>\cc{__(INS)____(SEL)____(INS)__}
+        <ARG>\cc{__(SEL:)__}
 </ARG>
     </ITEM>
     <ITEM KEY="document/Options/landscape">
@@ -324,7 +324,7 @@ __(INS)__
         <ARG>\parskip </ARG>
     </ITEM>
     <ITEM KEY="Format/marginal_notes/marginpar">
-        <ARG>\marginpar[__(INS)____(SEL)____(INS)__]{}</ARG>
+        <ARG>\marginpar[__(SEL:)__]{}</ARG>
     </ITEM>
     <ITEM KEY="Format/marginal_notes/normalmarginpar">
         <ARG>\normalmarginpar</ARG>
@@ -342,52 +342,52 @@ __(INS)__
         <ARG>\marginparpush </ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/newcounter">
-        <ARG>\newcounter{__(INS)____(SEL)____(INS)__}[]</ARG>
+        <ARG>\newcounter{__(SEL:)__}[]</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/setcounter">
-        <ARG>\setcounter{__(INS)____(SEL)____(INS)__}{}</ARG>
+        <ARG>\setcounter{__(SEL:)__}{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/addtocounter">
-        <ARG>\addtocounter{__(INS)____(SEL)____(INS)__}{}</ARG>
+        <ARG>\addtocounter{__(SEL:)__}{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/value">
-        <ARG>\value{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\value{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/the">
         <ARG>\the__(INS)__</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/arabic">
-        <ARG>\arabic{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\arabic{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/roman">
-        <ARG>\roman{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\roman{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/Roman">
-        <ARG>\Roman{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\Roman{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/alph">
-        <ARG>\alph{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\alph{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/Alph">
-        <ARG>\Alph{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\Alph{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/fnsymbol">
-        <ARG>\fnsymbol{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\fnsymbol{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/stepcounter">
-        <ARG>\stepcounter{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\stepcounter{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/refstepcounter">
-        <ARG>\refstepcounter{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\refstepcounter{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/footnote">
-        <ARG>\footnote[__(INS)____(SEL)____(INS)__]{}</ARG>
+        <ARG>\footnote[__(SEL:)__]{}</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/footnotemark">
-        <ARG>\footnotemark[__(INS)____(SEL)____(INS)__]</ARG>
+        <ARG>\footnotemark[__(SEL:)__]</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/footnotetext">
-        <ARG>\footnotetext[__(INS)____(SEL)____(INS)__]{}</ARG>
+        <ARG>\footnotetext[__(SEL:)__]{}</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/parameters/footnotesep">
         <ARG>\footnotesep </ARG>
@@ -402,7 +402,7 @@ __(INS)__
         <ARG>\vspace</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/title_page">
-        <ARG>\title{__(INS)__TITLE HERE__(INS)__}
+        <ARG>\title{__(INS:TITLE HERE)__}
 \author{AUTHOR NAME HERE}
 \date{DATE HERE}
 \maketitle
@@ -434,13 +434,13 @@ __(INS)__
         <ARG>\thispagestyle{myheadings}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Left_heading">
-        <ARG>\markleft{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\markleft{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Right_heading">
-        <ARG>\markright{__(INS)____(SEL)____(INS)__}</ARG>
+        <ARG>\markright{__(SEL:)__}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Both_headings">
-        <ARG>\markboth{__(INS)____(SEL)____(INS)__}{RIGHT HERE}</ARG>
+        <ARG>\markboth{__(SEL:)__}{RIGHT HERE}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/page_numbering/arabic">
         <ARG>\pagenumbering{arabic}</ARG>
@@ -459,7 +459,7 @@ __(INS)__
     </ITEM>
     <ITEM KEY="Layout/landscape">
         <ARG>\begin{landscape}
-__(SEL)__
+__(SEL:)__
 \end{landscape}</ARG>
     </ITEM>
     <ITEM KEY="Layout/Use_lscape_Pkg">

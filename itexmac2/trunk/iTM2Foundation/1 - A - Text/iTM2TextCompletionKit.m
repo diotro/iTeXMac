@@ -352,7 +352,7 @@ grosbois:
 		return 4;
 	}
 	[_Candidates retain];
-	unsigned idx = [_TextView numberOfSpacesPerTab];
+	int idx = [_TextView numberOfSpacesPerTab];
 	if(idx<=0)
 	{
 		_Tab = @"\t";
@@ -627,14 +627,14 @@ grosbois:
 	if(_ShouldEnableUndoRegistration)
 	{
 		[undoManager enableUndoRegistration];
-iTM2_LOG(@"now enableUndoRegistration");
+//iTM2_LOG(@"now enableUndoRegistration");
 		_ShouldEnableUndoRegistration = NO;
 	}
 	else
 	{
-iTM2_LOG(@"still disableUndoRegistration");
+//iTM2_LOG(@"still disableUndoRegistration");
 	}
-	NSArray * components = [_LongCompletionString componentsSeparatedByString:iTM2TextINSPlaceholder];
+	NSArray * components = [_LongCompletionString componentsSeparatedByINSPlaceholder];
 	NSString * replacementString = [components componentsJoinedByString:@""];
 	if(yorn)
 	{
@@ -1839,12 +1839,12 @@ To Do List:
 }
 - (id)transformedValue:(id)value;
 {
-iTM2_LOG(@"value:%@",value);
+//iTM2_LOG(@"value:%@",value);
     return value;
 }
 - (id)reverseTransformedValue:(id)value;
 {
-iTM2_LOG(@"value:%@",([value evaluateWithObject:[NSNull null]]?@"Y":@"N"));
+//iTM2_LOG(@"value:%@",([value evaluateWithObject:[NSNull null]]?@"Y":@"N"));
     return value;
 }
 @end
@@ -1927,7 +1927,7 @@ static id iTM2SharedCompletionInspector = nil;
 }
 - (void)insertObject:(id)anObject inCompletionSetsAtIndex:(int)index;
 {
-iTM2_LOG(@"anObject:%@",anObject);
+//iTM2_LOG(@"anObject:%@",anObject);
 	return;
 }
 - (void)removeObjectFromCompletionSetsAtIndex:(int) index;

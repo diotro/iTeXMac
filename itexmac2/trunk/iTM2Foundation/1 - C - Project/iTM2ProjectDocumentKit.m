@@ -467,6 +467,10 @@ To Do List:
 	{
 		return;//do nothing
 	}
+	if(![self shouldCloseWhenLastSubdocumentClosed])
+	{
+		return;//do nothing
+	}
 	NSArray * WCs = [self windowControllers];
 	NSEnumerator * E = [WCs objectEnumerator];
 	NSWindowController * WC;
@@ -488,7 +492,34 @@ To Do List:
 	}
 	[self close];
 //iTM2_END;
-	return;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shouldCloseWhenLastSubdocumentClosed
+- (BOOL)shouldCloseWhenLastSubdocumentClosed;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Mar 30 15:52:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [IMPLEMENTATION metaValueForSelector:_cmd];
+//iTM2_END;
+	return [N boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setShouldCloseWhenLastSubdocumentClosed:
+- (void)setShouldCloseWhenLastSubdocumentClosed:(BOOL)yorn;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Mar 30 15:52:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [NSNumber numberWithBool:yorn];
+	[IMPLEMENTATION takeMetaValue:N forSelector:_cmd];
+//iTM2_END;
+    return;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveDocument:
@@ -1394,7 +1425,8 @@ To Do List:
         NS_HANDLER
         iTM2_LOG(@"***  CATCHED exception:%@",[localException reason]);
         NS_ENDHANDLER
-    }	
+    }
+	[self setShouldCloseWhenLastSubdocumentClosed:YES];
 //iTM2_END;
     return;
 }
@@ -2177,7 +2209,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([key length])
+	if([key isEqual:iTM2ProjectLastKeyKey])
+	{
+		return @"";
+	}
+	else if([key length])
 	{
 		NSMutableDictionary * keyedFileNames = [self keyedFileNames];
 		NSString * result = [keyedFileNames valueForKey:key];
@@ -3039,8 +3075,8 @@ To Do List:
 					[@"This directory contains finder aliases to files the project is aware of.\niTeXMac2" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
 				}
 				path = [subdirectory stringByAppendingPathComponent:key];
-iTM2_LOG(@"alias to fileName: %@",fileName);
-iTM2_LOG(@"stored at path: %@",path);
+//iTM2_LOG(@"alias to fileName: %@",fileName);
+//iTM2_LOG(@"stored at path: %@",path);
 				[DFM removeFileAtPath:path handler:NULL];
 				if([DFM fileExistsAtPath:fileName])
 				{
@@ -6205,29 +6241,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForFileNamesKey];
-	// we keep track of the information about the documents recently declared with no projects
-	// they are expected to belong to the 
-	NSEnumerator * E = [[SDC documents] objectEnumerator];
-	NSDocument * document;
-	while(document = [E nextObject])
-	{
-		id projectDocument = [SPC projectForFileName:[document fileName]];
-		if(projectDocument && (projectDocument != document))
-		{
-			iTM2_LOG(@"***  WARNING: weird situation,the document named %@ should not belong to the SDC but to one of the projects...",[document fileName]);
-		}
-		NSValue * V = [NSValue valueWithNonretainedObject:projectDocument];
-		id key = [document fileName];
-		if(key)
-		{
-			[CACHED_PROJECTS setObject:V forKey:key];
-			key = [key stringByDeletingPathExtension];
-			[CACHED_PROJECTS setObject:V forKey:key];
-		}
-		key = [NSValue valueWithNonretainedObject:document];
-		[CACHED_PROJECTS setObject:V forKey:key];
-	}
+	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForFileNamesKey];
     [IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsBaseForNamesKey];
 //iTM2_END;
 return;
@@ -6886,14 +6900,20 @@ To Do List:
 //iTM2_START;
 	if([projectDocument isKindOfClass:[iTM2ProjectDocument class]])
 	{
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"document:%@",projectDocument);
+		}
 		// testing consistency
-		// we are not authorized to register a project document with the same name as a previously registered document
+		// we are not authorized to register a project document with the same name as a previously registered project document
 		NSEnumerator * E = [PROJECTS objectEnumerator];
 		id P;
 		NSString * FN = [projectDocument fileName];
 		while(P = (id)[[E nextObject] nonretainedObjectValue])
 		{
-			NSAssert1(![[P fileName] pathIsEqual:FN],@"You cannot register 2 different project documents with that file name:\n%@",FN);
+//iTM2_LOG(@"PROBLEM");if([[P fileName] pathIsEqual:FN]){
+//iTM2_LOG(@"PROBLEM");}
+			NSAssert2(![[P fileName] pathIsEqual:FN],@"You cannot register 2 different project documents with that file name:\n%@==%@",FN,[P fileName]);
 		}
 		[PROJECTS addObject:[NSValue valueWithNonretainedObject:projectDocument]];
 		[self setProject:projectDocument forDocument:projectDocument];
@@ -9176,6 +9196,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"document:%@",document);
+	}
     [super addDocument:document];
 	[SPC registerProject:document];
 //iTM2_END;
@@ -9250,13 +9274,13 @@ To Do List:
 #if 0
 - (NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType;
 {
-iTM2_LOG(@"fileNameExtensionOrHFSFileType:%@",fileNameExtensionOrHFSFileType);
+//iTM2_LOG(@"fileNameExtensionOrHFSFileType:%@",fileNameExtensionOrHFSFileType);
 	NSString * result = [super typeFromFileExtension:fileNameExtensionOrHFSFileType];
 	return result;
 }
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
 {
-iTM2_LOG(@"inAbsoluteURL:%@",inAbsoluteURL);
+//iTM2_LOG(@"inAbsoluteURL:%@",inAbsoluteURL);
 	NSString * result = [super typeForContentsOfURL:inAbsoluteURL error:outError];
 	return result;
 }
@@ -9319,6 +9343,19 @@ To Do List:
 		}
 		return D;
 	}
+	else
+	{
+		iTM2_LOG(@"No document for %@",absoluteURL);
+		iTM2_LOG(@"[self documents] %@",[self documents]);
+		NSEnumerator * E = [[self documents] objectEnumerator];
+		id D;
+		while(D = [E nextObject])
+		{
+			iTM2_LOG(@"[D fileName] %@",[D fileName]);
+			iTM2_LOG(@"[D fileURL] %@",[D fileURL]);
+		}
+	}
+	// There was no already existing documents
 	BOOL isDirectory = NO;
 	if(![DFM fileExistsAtPath:fileName isDirectory:&isDirectory])
 	{
@@ -9338,7 +9375,7 @@ To Do List:
 			// get an embedded project
 			NSURL * url = [NSURL fileURLWithPath:projectName];
 			NSAssert1(![url isEqual:absoluteURL],@"What is this project name:<%@>",projectName);
-			return [self openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
+			return [self openDocumentWithContentsOfURL:url display:display error:outErrorPtr];// second registerProject
 		}
 		else
 		{
@@ -9353,7 +9390,7 @@ To Do List:
 	else if([SWS isProjectPackageAtPath:fileName])
 	{
 #warning WE DO NOT MANAGE read access yet?
-		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
+		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];//first registerProject, second registerProject
 	}
 	else if(isDirectory)
 	{

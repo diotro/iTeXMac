@@ -212,8 +212,8 @@ NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab
 	[self poseAsClass:[NSTextView class]];
     [SUD registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
-            @"   ", iTM2TextIndentationStringKey,
-            [NSNumber numberWithUnsignedInt:4], iTM2TextNumberOfSpacesPerTabKey,
+            @"	", iTM2TextIndentationStringKey,
+            [NSNumber numberWithUnsignedInt:-4], iTM2TextNumberOfSpacesPerTabKey,
                 nil]];
 	iTM2_RELEASE_POOL;
 	return;
@@ -248,86 +248,204 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(!tabAnchor)
+     if(!tabAnchor)
         tabAnchor = @"";
     if([argument conformsToProtocol:@protocol(NSMenuItem)])
         argument = [argument representedObject];
 // this new part concerns the new macro design. 2006
     if([argument isKindOfClass:[NSString class]])
 	{
-		argument = [argument stringByRemovingTipPlaceHolders];
-		NSRange _RangeForUserCompletion = [self selectedRange];
-		NSString * _Tab = nil;
-		unsigned idx = [self numberOfSpacesPerTab];
-		if(idx<=0)
-		{
-			_Tab = @"\t";
-		}
-		else
-		{
-			NSMutableString * MS = [NSMutableString string];
-			while(idx--)
-			{
-				[MS appendString:@" "];
-			}
-			_Tab = [MS copy];
-		}
-		NSRange _SelectedRange = [self selectedRange];
+//iTM2_LOG(@"argument:%@",argument);
+		NSRange selectedRange = [self selectedRange];
 		NSString * S = [self string];
-		NSString * _OriginalSelectedString = [S substringWithRange:_SelectedRange];
-		// Get the indentation level at the line where we are going to insert things
-		int numberOfSpacesPerTab = [self numberOfSpacesPerTab]?:4;
-		numberOfSpacesPerTab = abs(numberOfSpacesPerTab);
-		unsigned start, contentsEnd;
-		NSRange R = _RangeForUserCompletion;
-		R.length = 0;
-		[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:R];
-		unsigned _IndentationLevel = 0;
-		unsigned currentLength = 0;
-		while(start<contentsEnd)
+		int numberOfSpacesPerTab = [self numberOfSpacesPerTab];
+		unsigned indentationLevelAtInsertLocation = [S indentationLevelAtIndex:selectedRange.location withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+		
+		argument = [argument stringByRemovingTipPlaceHolders];
+		argument = [argument stringByNormalizingIndentationWithNumberOfSpacesPerTab:numberOfSpacesPerTab];
+
+		NSMutableString * replacementString = [NSMutableString string];
+		
+		// auxiliary variables
+		NSString * string;
+		NSRange range;
+		NSRange searchRange, SELRange;
+		NSArray * components;
+		NSEnumerator * E;
+		unsigned currentIndentation;
+		NSString * line;
+		
+		searchRange.location = 0;
+		searchRange.length = [argument length];
+		if(selectedRange.length)
 		{
-			unichar theChar = [S characterAtIndex:start++];
-			if(theChar == ' ')
+			// we must ignore the __(SEL:template)___
+			SELRange = [argument rangeOfSELPlaceholderFromIndex:searchRange.location getTemplate:nil];
+			if(SELRange.length)
 			{
-				++currentLength;
+				// prepare the selection
+				NSString * selectedString = [S substringWithRange:selectedRange];// this will not move!
+				selectedString = [NSString stringWithFormat:@"%@%@%@",iTM2TextStartSELPlaceholder,selectedString,iTM2TextStopPlaceholder];
+				NSArray * selectedLines = [selectedString lineComponents];
+				
+				// first copy what is before the SEL placeholder
+				// we start with full lines
+				string = [argument substringToIndex:SELRange.location];
+				// split into lines
+				// copy each line of this head string managing indentation properly
+				
+nextSELRange:
+				components = [string lineComponents];
+				E = [components objectEnumerator];
+				currentIndentation = indentationLevelAtInsertLocation;
+				line = [E nextObject];// there is at least one object
+				[replacementString appendString:line];
+//iTM2_LOG(@"replacementString:%@",replacementString);
+				// the other lines have special indentation
+				while(line = [E nextObject])
+				{
+					unsigned relativeIndentation = [line indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+					// this is the actual level
+					// this is what we would have if the macro were inserted exactly at the left margin
+					currentIndentation = indentationLevelAtInsertLocation+relativeIndentation;
+					line = [line stringWithIndentationLevel:currentIndentation atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+					[replacementString appendString:line];
+//iTM2_LOG(@"replacementString:%@",replacementString);
+				}
+				// all the lines have been inserted
+				// now we insert the selection, adding the current indentation
+				E = [selectedLines objectEnumerator];
+				line = [E nextObject];
+				[replacementString appendString:line];
+//iTM2_LOG(@"replacementString:%@",replacementString);
+				// the other lines have special indentation
+				while(line = [E nextObject])
+				{
+					unsigned relativeIndentation = [line indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+					// this is the actual level
+					// this is what we would have if the macro were inserted exactly at the left margin
+					unsigned localIndentation = currentIndentation+relativeIndentation;
+					line = [line stringWithIndentationLevel:localIndentation atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+					[replacementString appendString:line];
+//iTM2_LOG(@"replacementString:%@",replacementString);
+				}
+				// then we append the remaining part of the argument
+				// there might be other selection placeholders
+				searchRange.location = NSMaxRange(SELRange);
+				searchRange.length = [argument length] - searchRange.location;
+				SELRange = [argument rangeOfSELPlaceholderFromIndex:searchRange.location getTemplate:nil];
+				if(SELRange.length)
+				{
+					// first copy what is before the SEL placeholder
+					range = searchRange;
+					range.length = SELRange.location - searchRange.location;
+					string = [argument substringWithRange:range];
+					goto nextSELRange;
+				}
+				argument = [argument substringFromIndex:searchRange.location];
 			}
-			else if(theChar == '\t')
+		}
+		//
+//iTM2_LOG(@"replacementString:%@",replacementString);
+		components = [argument lineComponents];
+		E = [components objectEnumerator];
+		line = [E nextObject];// there is at least one object
+		[replacementString appendString:line];
+		// the other lines have special indentation
+		while(line = [E nextObject])
+		{
+			unsigned relativeIndentation = [line indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+			// this is the actual level
+			// this is what we would have if the macro were inserted exactly at the left margin
+			currentIndentation = indentationLevelAtInsertLocation+relativeIndentation;
+			line = [line stringWithIndentationLevel:currentIndentation atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+			[replacementString appendString:line];
+		}
+//iTM2_LOG(@"replacementString:%@",replacementString);
+		[replacementString appendString:iTM2TextTABPlaceholder];
+		NSMutableArray * selectedRanges = [NSMutableArray array];
+		unsigned index = 0;
+		while(index<[replacementString length])
+		{
+			NSString * template;
+			range = [argument rangeOfINSPlaceholderFromIndex:index getTemplate:&template];
+			if(range.length)
 			{
-				++_IndentationLevel;
-				_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
-				currentLength = 0;
+				[replacementString replaceCharactersInRange:range withString:template];
+				range.length = [template length];
+				NSValue * V = [NSValue valueWithRange:range];
+				[selectedRanges addObject:V];
+				index += range.length;
 			}
 			else
 			{
 				break;
 			}
 		}
-		_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
+		if([self shouldChangeTextInRange:selectedRange replacementString:replacementString])
+		{
+			[self replaceCharactersInRange:selectedRange withString:replacementString];
+			[self didChangeText];
+			if([selectedRanges count])
+			{
+				[self setSelectedRanges:selectedRanges];
+			}
+			else
+			{
+				range = NSMakeRange(selectedRange.location+[replacementString length],0);
+				[self selectFirstPlaceholder:self];
+			}
+		}
+		return;
+	}
+#if 0
+	{
+		// Get the indentation level at the line where we are going to insert things
+		// we record this level and we will propagate it if the insterted material
+		// spans on many lines
+		// the indentation level is an integer specifying how many _Tab's are used to indent
+		// We get the extent of the contents of the line
+		unsigned start, contentsEnd, end;
+		NSRange R = selectedRange;
+		R.length = 0;
+		[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:R];
 		
 		// get the indentation in the original selected string, starting at the second line
 		// then split the selection into lines in order to manage the indentation
 		// ensuring that the white prefix is of the apropriate format
+		// the indentation comes from the selected text and also from the macro itself
+		// if the selection should be inserted in an indented place,
+		// indentation should be fixed accordingly
 		NSMutableArray * replacementLines = [NSMutableArray array];
+		// replacementLines will hold the selection split into lines
+		// each line has a proper indentation relative to the first line of the text where the selection starts
+		// except the first line which will be inserted continuously in the text
 		R = NSMakeRange(0,0);
 		[_OriginalSelectedString getLineStart:nil end:&R.location contentsEnd:nil forRange:R];
+		// now R.location is the first index of the second line
 		NSString * blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(0,R.location)];
+		blackString = [iTM2TextStartSELPlaceholder stringByAppendingString:blackString];
 		[replacementLines addObject:blackString];
+		// now, the first object is the first line of the selection
+		// we prepended the iTM2TextStartSELPlaceholder, the stop placeholder will be appended to the last replacement line
+		// for the rest of the selection, we just record the white prefix and black line content
+		// the white prefix is a level of indentation
 		NSMutableArray * whitePrefixes = [NSMutableArray array];
 		NSMutableArray * blackStrings = [NSMutableArray array];
 		unsigned indentationOfTheSelectedString = 0;
 		NSNumber * N;
-		unsigned end;
 		unsigned lineIndentation = 0;
 		if(R.location < [_OriginalSelectedString length])
 		{
-			indentationOfTheSelectedString = UINT_MAX;
+			
+			indentationOfTheSelectedString = UINT_MAX;// it will decrease as there is a second line
 			do
 			{
 				[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 				lineIndentation = 0;
 				while(R.location<contentsEnd)
 				{
-					unichar theChar = [_OriginalSelectedString characterAtIndex:R.location++];
+					theChar = [_OriginalSelectedString characterAtIndex:R.location++];
 					if(theChar == ' ')
 					{
 						++currentLength;
@@ -356,14 +474,19 @@ To Do List:
 			}
 			while(R.location < [_OriginalSelectedString length]);
 		}
+		else
+		{
+			// there was no second line in the selection
+			// R.location == [_OriginalSelectedString length]
+		}
 		NSEnumerator * whiteE = [whitePrefixes objectEnumerator];
 		NSEnumerator * blackE = [blackStrings objectEnumerator];
 		while((N = [whiteE nextObject]) && (blackString = [blackE nextObject]))
 		{
 			lineIndentation = [N unsignedIntValue];
-			lineIndentation -= indentationOfTheSelectedString;
-			if(lineIndentation)
+			if(lineIndentation>indentationOfTheSelectedString)
 			{
+				lineIndentation-=indentationOfTheSelectedString;
 				NSMutableString * MS = [NSMutableString string];
 				while(lineIndentation--)
 				{
@@ -377,24 +500,30 @@ To Do List:
 				[replacementLines addObject:blackString];
 			}
 		}
-
-		NSString * completion = argument;
-		NSMutableString * longCompletionString = [NSMutableString string];
+		blackString = [replacementLines lastObject];
+		blackString = [blackString stringByAppendingString:iTM2TextStopPlaceholder];
+		[replacementLines removeLastObject];
+		[replacementLines addObject:blackString];
+		// now the replacement lines are ready
+		
+		// let's work now on the soon inserted macro
+		NSString * completion = argument;// this is the starting macro
+		NSMutableString * longCompletionString = [NSMutableString string];// this is the resulting macro, once we have inserted the selection, indentation...
+		// first we clean the white prefix, using only _Tab string
 		R = NSMakeRange(0,0);
-		[completion getLineStart:nil end:&R.location contentsEnd:nil forRange:R];// first line
+		[completion getLineStart:nil end:&R.location contentsEnd:nil forRange:R];// range of the first line
 		blackString = [completion substringWithRange:NSMakeRange(0,R.location)];
 		[longCompletionString appendString:blackString];
 		if(R.location < [completion length])
 		{
 			do
 			{
-				[completion getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+				[completion getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];// range of the next line
 				lineIndentation = 0;
-				unsigned currentLength = 0;
-				int numberOfSpacesPerTab = [self numberOfSpacesPerTab]?:4;
+				currentLength = 0;
 				while(R.location<contentsEnd)
 				{
-					unichar theChar = [completion characterAtIndex:R.location++];
+					theChar = [completion characterAtIndex:R.location++];
 					if(theChar == ' ')
 					{
 						++currentLength;
@@ -411,6 +540,8 @@ To Do List:
 					}
 				}
 				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+				// we found the line indentation
+				// now we normalize the white prefix:
 				NSMutableString * whitePrefix = [NSMutableString string];
 				while(lineIndentation--)
 				{
@@ -418,12 +549,78 @@ To Do List:
 				}
 				NSMutableString * line = [NSMutableString stringWithString:whitePrefix];
 				blackString = [completion substringWithRange:NSMakeRange(R.location,end-R.location)];
+				
 				NSRange searchRange = NSMakeRange(0,0);
 				searchRange.length = [blackString length] - searchRange.location;
-				NSRange SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+//				NSRange SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
+				NSRange SELRange;
+				if([_OriginalSelectedString length])
+				{
+					SELRange = [blackString rangeOfSELPlaceholderFromIndex:searchRange.location template:nil];
+				}
+				else
+				{
+					NSString * template = @"";
+					SELRange = [blackString rangeOfSELPlaceholderFromIndex:searchRange.location template:&template];
+					replacementLines = [NSMutableArray array];
+
+					if(R.location < [template length])
+					{
+						
+						indentationOfTheSelectedString = UINT_MAX;// it will decrease as there is a second line
+						do
+						{
+							[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+							lineIndentation = 0;
+							while(R.location<contentsEnd)
+							{
+								theChar = [_OriginalSelectedString characterAtIndex:R.location++];
+								if(theChar == ' ')
+								{
+									++currentLength;
+								}
+								else if(theChar == '\t')
+								{
+									++lineIndentation;
+									lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+									currentLength = 0;
+								}
+								else
+								{
+									break;
+								}
+							}
+							lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
+							if(lineIndentation<indentationOfTheSelectedString)
+							{
+								indentationOfTheSelectedString = lineIndentation;
+							}
+							N = [NSNumber numberWithUnsignedInt:lineIndentation];
+							[whitePrefixes addObject:N];
+							blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(R.location,end-R.location)];
+							[blackStrings addObject:blackString];
+							R.location = end;
+						}
+						while(R.location < [_OriginalSelectedString length]);
+					}
+					else
+					{
+						// there was no second line in the selection
+						// R.location == [_OriginalSelectedString length]
+					}
+
+
+
+
+
+					
+				}
 				if(SELRange.length)
 				{
-					NSString * s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
+					// copy what is before the selection
+					
+					R = NSMakeRange(searchRange.location,SELRange.location-searchRange.location);
+					NSString * s = [blackString substringWithRange:R];
 					[line appendString:s];
 					NSEnumerator * replacementE = [replacementLines objectEnumerator];
 					s = [replacementE nextObject];
@@ -460,16 +657,18 @@ next:
 					[line appendString:blackString];
 				}
 				[longCompletionString appendString:line];
+				R.location = end;
+				R.length = 0;
 			}
 			while(R.location < [completion length]);
 		}
 
-		NSArray * components = [longCompletionString componentsSeparatedByString:iTM2TextINSPlaceholder];
+		NSArray * components = [longCompletionString componentsSeparatedByINSPlaceholder];
 		NSString * replacementString = [components componentsJoinedByString:@""];
 		NSMutableArray * selectedRanges = [NSMutableArray array];
 		NSEnumerator * E = [components objectEnumerator];
 		NSString * component;
-		R = _RangeForUserCompletion;
+		R = selectedRange;
 		NSValue * V = nil;
 		while(component = [E nextObject])
 		{
@@ -504,7 +703,7 @@ next:
 				R.location = [replacementString length];
 				R.length = 0;
 			}
-			R.location += _RangeForUserCompletion.location;
+			R.location += selectedRange.location;
 			NSValue * V = [NSValue valueWithRange:R];
 			[selectedRanges addObject:V];
 		}
@@ -516,7 +715,7 @@ next:
 			{
 				if([replacementString rangeOfPlaceholderToIndex:R.location-1 cycle:NO tabAnchor:tabAnchor].length)
 				{
-					R.location += _RangeForUserCompletion.location;
+					R.location += selectedRange.location;
 					V = [NSValue valueWithRange:R];
 					if([selectedRanges containsObject:V])
 					{
@@ -537,6 +736,7 @@ next:
 		}
 		return;
 	}
+#endif
 	if([argument isKindOfClass:[NSArray class]])
 	{
 		NSEnumerator * E = [argument objectEnumerator];
@@ -784,12 +984,12 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	NSArray * actualSelectedRange = [self selectedRanges];
 	NSUndoManager * UM = [self undoManager];
 	[UM registerUndoWithTarget:self selector:@selector(setSelectedRanges:) object:actualSelectedRange];
 	[UM registerUndoWithTarget:self selector:@selector(didChangeSelectedRanges) object:nil];
-iTM2_END;
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  didChangeSelectedRanges
@@ -800,10 +1000,10 @@ Version history: jlaurens AT users.sourceforge.net
 To Do List: Nothing at first glance.
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	NSUndoManager * UM = [self undoManager];
 	[UM registerUndoWithTarget:self selector:@selector(willChangeSelectedRanges) object:nil];
-iTM2_END;
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indentationString

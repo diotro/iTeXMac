@@ -735,6 +735,27 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 */
 - (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outErrorPtr;
 
+/*! 
+    @method     shouldCloseWhenLastSubdocumentClosed
+    @abstract   Close when last subdocument closed.
+    @discussion Whether the receiver should close when its last subdocument closed.
+    @param      None
+    @result     a flag
+*/
+- (BOOL)shouldCloseWhenLastSubdocumentClosed;
+
+/*! 
+    @method     setShouldCloseWhenLastSubdocumentClosed:
+    @abstract   Set the receiver closing behavior.
+    @discussion Sets whether the receiver should close when its last subdocument closed.
+				At initialization time, this flag is set to NO.
+				This flag is automatically set to YES while exiting the showWindows method.
+    @param      yorn
+    @result     None
+*/
+- (void)setShouldCloseWhenLastSubdocumentClosed:(BOOL)yorn;
+
+
 @end
 
 

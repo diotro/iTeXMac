@@ -52,19 +52,19 @@
 		<key>ToolbarVisible</key>
 		<false/>
 		<key>ViewHeight</key>
-		<integer>694</integer>
+		<integer>385</integer>
 		<key>ViewStyle</key>
 		<string>qrsb</string>
 		<key>WindowBounds</key>
 		<dict>
 			<key>bottom</key>
-			<integer>859</integer>
+			<integer>632</integer>
 			<key>left</key>
-			<integer>91</integer>
+			<integer>412</integer>
 			<key>right</key>
-			<integer>1321</integer>
+			<integer>1187</integer>
 			<key>top</key>
-			<integer>165</integer>
+			<integer>247</integer>
 		</dict>
 	</dict>
 </dict>

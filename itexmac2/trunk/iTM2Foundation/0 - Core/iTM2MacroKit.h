@@ -24,15 +24,16 @@
 extern NSString * const iTM2TextMarkPlaceholder;
 extern NSString * const iTM2TextStartPlaceholder;
 extern NSString * const iTM2TextStopPlaceholder;
+extern NSString * const iTM2TextStartINSPlaceholder;
 extern NSString * const iTM2TextStartARGPlaceholder;
 extern NSString * const iTM2TextStartOPTPlaceholder;
 extern NSString * const iTM2TextStartTEXTPlaceholder;
 extern NSString * const iTM2TextStartFILEPlaceholder;
 extern NSString * const iTM2TextStartTIPPlaceholder;
+extern NSString * const iTM2TextStartSELPlaceholder;
 
 extern NSString * const iTM2TextTABPlaceholder;
 extern NSString * const iTM2TextSELPlaceholder;
-extern NSString * const iTM2TextINSPlaceholder;
 
 extern NSString * const iTM2TextPlaceholder;
 extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
@@ -304,9 +305,38 @@ extern NSString * const iTM2MacroServerComponent;
 - (NSString *)stringByRemovingTipPlaceHolders;
 
 /*!
-	@method		rangeOfPlaceholderAtIndex:
+	@method		stringByRemovingSELTemplates
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
+	@param		None.
+	@result		A string.
+*/
+- (NSString *)stringByRemovingSELTemplates;
+
+/*!
+	@method		rangeOfSELPlaceholderFromIndex:getTemplate:
+	@abstract	Abstract forthcoming.
+	@discussion	Range of the first occurrence of "__(SEL:...)__". Returns the "..." in templateRef if relevant.
+	@param		index.
+	@param		templateRef.
+	@result		A range.
+*/
+- (NSRange)rangeOfSELPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
+
+/*!
+	@method		rangeOfINSPlaceholderFromIndex:getTemplate:
+	@abstract	Abstract forthcoming.
+	@discussion	Range of the first occurrence of "__(INS:...)__". Returns the "..." in templateRef if relevant.
+	@param		index.
+	@param		templateRef.
+	@result		A range.
+*/
+- (NSRange)rangeOfINSPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
+
+/*!
+	@method		rangeOfPlaceholderAtIndex:
+	@abstract	Abstract forthcoming.
+	@discussion	Removes everything inside "__(SEL:...)__", such that there are only "__(SEL:)__" remaining.
 	@param		An index.
 	@result		A range.
 */
@@ -353,13 +383,52 @@ extern NSString * const iTM2MacroServerComponent;
 - (NSString *)stringByRemovingPlaceHolderMarksWithSelection:(NSString *)selection;
 
 /*!
-	@method		indentationLevelWithNumberOfSpacesPerTab:
+	@method		componentsSeparatedByINSPlaceholder
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
+	@param		None.
+    @result     Array
+*/
+- (NSArray *)componentsSeparatedByINSPlaceholder;
+
+/*!
+	@method		indentationLevelAtIndex:withNumberOfSpacesPerTab:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		index.
 	@param		numberOfSpacesPerTab.
     @result     level
 */
-- (unsigned)indentationLevelWithNumberOfSpacesPerTab:(unsigned)numberOfSpacesPerTab;
+- (unsigned)indentationLevelAtIndex:(unsigned)index withNumberOfSpacesPerTab:(unsigned)numberOfSpacesPerTab;
+
+/*!
+	@method		stringWithIndentationLevel:atIndex:withNumberOfSpacesPerTab:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		level.
+	@param		index.
+	@param		numberOfSpacesPerTab.
+    @result     the new string
+*/
+- (NSString *)stringWithIndentationLevel:(unsigned)indentation atIndex:(unsigned)index withNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
+
+/*!
+	@method		stringByNormalizingIndentationWithNumberOfSpacesPerTab:
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		numberOfSpacesPerTab.
+    @result     Normalized NSString instance
+*/
+- (NSString *)stringByNormalizingIndentationWithNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
+
+/*!
+	@method		lineComponents
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@param		None.
+    @result     NSArray, receiver split into lines
+*/
+- (NSArray *)lineComponents;
 
 @end
 

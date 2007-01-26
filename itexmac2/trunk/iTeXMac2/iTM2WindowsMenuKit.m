@@ -387,6 +387,8 @@ To Do List:
 					{
 						NSString * FN = [document fileName];
 						I = [SWS iconForFile:FN];
+						[I setScalesWhenResized:YES];
+						[I setSize:NSMakeSize(16,16)];
 					}
 					[MI setImage:I];
 				}
@@ -586,7 +588,7 @@ otherUp:
 					}
 					else
 					{
-						child = node;
+						child = node;// crashed once: see 23 janvier 2007 22:07:58 HNEC
 						goto otherUp;
 					}
 				}

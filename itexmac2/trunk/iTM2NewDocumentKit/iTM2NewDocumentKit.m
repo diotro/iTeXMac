@@ -1544,7 +1544,7 @@ To Do List:
 					}
 				}
 			}
-			// Modify the project file, to sync with the possibly podified file names
+			// Modify the project file, to sync with the possibly modified file names
 			NSArray * enclosedProjects = [targetName enclosedProjectFileNames];
 			iTM2TeXProjectDocument * PD = nil;
 			NSEnumerator * E = [enclosedProjects objectEnumerator];
@@ -1555,17 +1555,18 @@ To Do List:
 				// originalPath is no longer used
 				// open the project document
 				NSURL * url = [NSURL fileURLWithPath:originalPath];
-				PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
+				PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];// first registerProject
+//iTM2_LOG(@"[SDC documents]:%@",[SDC documents]);
 				// filter out the declared files
 				NSMutableDictionary * keyedFileNames = [PD keyedFileNames];
 				NSEnumerator * e = [keyedFileNames keyEnumerator];
 				NSString * key = nil;
+				id document;
 				while(key = [e nextObject])
 				{
 //iTM2_LOG(@"key is: %@", key);
-					id document = [PD subdocumentForKey:key];
 //iTM2_LOG(@"document is: %@", document);
-					if(document)
+					if(document = [PD subdocumentForKey:key])
 					{
 						// then change the file name:
 						originalPath = [document fileName];
@@ -1589,9 +1590,8 @@ To Do List:
 //iTM2_LOG(@"Open document saved");
 						}
 					}
-					else
+					else if(originalPath = [PD absoluteFileNameForKey:key])
 					{
-						originalPath = [PD absoluteFileNameForKey:key];
 						convertedPath = [self convertedString:originalPath withDictionary:filter];
 						NSURL * url = [NSURL fileURLWithPath:convertedPath];
 						if(![convertedPath pathIsEqual:originalPath])
@@ -1611,9 +1611,12 @@ To Do List:
 						}
 //iTM2_LOG(@"originalPath is: %@", originalPath);
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
-						[document saveDocument:self];
-						[document close];
+						if(PD != document)
+						{
+							[document saveDocument:self];
+							[document close];
 //iTM2_LOG(@"Document saved and closed");
+						}
 					}
 				}
 				[PD saveDocument:self];
@@ -1647,9 +1650,10 @@ To Do List:
 					[SWS setIcon:I forFile:targetName options:NSExclude10_4ElementsIconCreationOption];
 				}
 			}
-			// I must create a project here before calling the next stuff
-			NSURL * url = [NSURL fileURLWithPath:targetName];
-			[SDC openDocumentWithContentsOfURL:url display:YES error:nil];
+			// what are the available documents
+			// I must create a project here before calling the next stuff, is it really true?
+//			NSURL * url = [NSURL fileURLWithPath:targetName];
+//			[SDC openDocumentWithContentsOfURL:url display:YES error:nil];//second registerProject
 		}
 		else
 		{

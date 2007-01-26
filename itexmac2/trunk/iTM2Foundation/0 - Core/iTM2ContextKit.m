@@ -130,12 +130,15 @@ To Do List:
 			return result;
 		}
 		id contextManager = [self contextManager];
-		if((contextManager != self) && (result = [contextManager contextValueForKey:aKey domain:mask]))
+		if((self != contextManager && SUD != contextManager) && (result = [contextManager contextValueForKey:aKey domain:mask]))
 		{
 			return result;
 		}
 	}
-	result = [SUD contextValueForKey:aKey domain:mask];
+	if(mask & iTM2ContextDefaultsMask)
+	{
+		result = [SUD contextValueForKey:aKey domain:mask];
+	}
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
@@ -152,6 +155,7 @@ To Do List:
 	if(mask & iTM2ContextStandardLocalMask)
 	{
 		NSDictionary * D = [self contextDictionary];
+		id contextManager = [self contextManager];
 		if(D)
 		{
 			id old = [D valueForKey:aKey];
@@ -161,15 +165,16 @@ To Do List:
 				didChange |= iTM2ContextStandardLocalMask;
 			}
 		}
-		id contextManager = [self contextManager];
-		if(self != contextManager)
+		if(self != contextManager && SUD != contextManager)
 		{
 			didChange |= [contextManager takeContextValue:object forKey:aKey domain:mask];
 		}
-		id afterObject = [self contextValueForKey:aKey domain:iTM2ContextStandardLocalMask];
-		NSAssert(([object isEqual:afterObject] || (object == afterObject) || !(didChange&iTM2ContextStandardLocalMask)),@"Inconsistancy: THIS IS A BUG");
 	}
-	if(didChange |= [SUD takeContextValue:object forKey:aKey domain:mask])
+	if(mask & iTM2ContextDefaultsMask)
+	{
+		didChange |= [SUD takeContextValue:object forKey:aKey domain:mask];
+	}
+	if(didChange)
 	{
 		[self notifyContextChange];
 	}

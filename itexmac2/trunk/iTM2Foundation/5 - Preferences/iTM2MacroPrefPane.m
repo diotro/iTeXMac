@@ -1499,7 +1499,8 @@ To Do List:
 			{
 				[SDC presentError:localError];
 			}
-			M = [self macroMenuWithXMLElement:[xmlDoc rootElement] forContext:context ofCategory:category inDomain:domain error:&localError];
+			NSXMLElement * rootElement = [xmlDoc rootElement];
+			M = [self macroMenuWithXMLElement:rootElement forContext:context ofCategory:category inDomain:domain error:&localError];
 			[menuNode setValue:M forKeyPath:@"value.menu"];
 		}
 	}
@@ -1569,17 +1570,29 @@ To Do List:
 		}
 		NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
 			initWithTitle:name action:NULL keyEquivalent: @""] autorelease];
-		if([ID length])
-		{
-			[MI setRepresentedObject:[NSArray arrayWithObjects:ID, context, category, domain, nil]];
-			SEL action = [leafNode action];
-			[MI setAction:(!leafNode || action == @selector(noop:) || !action && ![leafNode argument]?@selector(___catch:):@selector(___insertMacro:))];
-			[MI setTarget:self];
-		}
 		[MI setToolTip:[leafNode tooltip]];
 		id submenuList = [[element elementsForName:@"MENU"] lastObject];
 		NSMenu * M = [self macroMenuWithXMLElement:submenuList forContext:context ofCategory:category inDomain:domain error:outErrorPtr];
 		[MI setSubmenu:M];
+		if([ID length])
+		{
+			[MI setRepresentedObject:[NSArray arrayWithObjects:ID, context, category, domain, nil]];
+			SEL action = [leafNode action];
+			if(!leafNode || action == @selector(noop:) || !action && ![leafNode argument])
+			{
+				// no action;
+				if(!M)
+				{
+					[MI setAction:@selector(___catch:)];
+					[MI setTarget:self];
+				}
+			}
+			else
+			{
+				[MI setAction:@selector(___insertMacro:)];
+				[MI setTarget:self];
+			}
+		}
 		return MI;
 	}
 	else
@@ -1725,6 +1738,7 @@ To Do List:
 		if([ID length])
 			return YES;
 	}
+	iTM2_LOG(@"sender is:%@",sender);
 //iTM2_END;
     return [sender hasSubmenu];
 }

@@ -65,7 +65,7 @@ iTM2Linkbin ()
     then
 		ln -s "$1" "${iTM2_TARGET}"
 		iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/bin";
-		if [ ${iTM2_Debug} > 99 ]
+		if [ ${iTM2_Debug} -gt 99 ]
 		then
 			"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify comment "iTM2_Launch script (1): iTM2PREFIX is ${iTM2PREFIX}"
 		fi
@@ -80,7 +80,7 @@ iTM2LinkPrograms ()
     then
 		ln -s "$1" "${iTM2_TARGET}"
 		iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/Programs";
-		if [ ${iTM2_Debug} > 99 ]
+		if [ ${iTM2_Debug} -gt 99 ]
 		then
 			"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify comment "iTM2_Launch script (2): iTM2PREFIX is ${iTM2PREFIX}"
 		fi
@@ -238,6 +238,7 @@ else
 	export iTM2_PWD_Real="$(dirname "${TWSMaster}")"
 	export iTM2_PWD="${iTM2_PWD_Real}"
 fi
+#BAD
 #"${iTM2_CMD_Notify}" notify comment "##### DIAGNOSTIC"
 if [ $# -gt 0 ]
 then

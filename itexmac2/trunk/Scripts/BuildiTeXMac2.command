@@ -28,6 +28,7 @@ echo "=================
 SUMMARY:
 "
 grep -s "warning" "$LOG"
+echo "POSSIBLE ERRORS:"
 grep -s "In function" "$LOG"
 grep -s "reference to undefined" "$LOG"
 grep -s "FAILED" "$LOG"

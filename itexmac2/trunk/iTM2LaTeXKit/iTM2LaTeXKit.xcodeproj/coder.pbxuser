@@ -161,18 +161,28 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 191246264;
-			PBXWorkspaceStateSaveDate = 191246264;
+			PBXPerProjectTemplateStateSaveDate = 191527686;
+			PBXWorkspaceStateSaveDate = 191527686;
 		};
 		perUserProjectItems = {
-			DC5310BC0B66472800BD0276 /* PBXTextBookmark */ = DC5310BC0B66472800BD0276 /* PBXTextBookmark */;
-			DC5310BD0B66472800BD0276 /* PBXTextBookmark */ = DC5310BD0B66472800BD0276 /* PBXTextBookmark */;
-			DC5310BE0B66472800BD0276 /* PBXTextBookmark */ = DC5310BE0B66472800BD0276 /* PBXTextBookmark */;
-			DC5310BF0B66472800BD0276 /* PBXTextBookmark */ = DC5310BF0B66472800BD0276 /* PBXTextBookmark */;
-			DC5310C00B66472800BD0276 /* PBXTextBookmark */ = DC5310C00B66472800BD0276 /* PBXTextBookmark */;
-			DC5310C20B66472800BD0276 /* PBXTextBookmark */ = DC5310C20B66472800BD0276 /* PBXTextBookmark */;
-			DCEF64750B6417BC00A19262 /* PBXTextBookmark */ = DCEF64750B6417BC00A19262 /* PBXTextBookmark */;
-			DCEF64770B6417BC00A19262 /* PBXTextBookmark */ = DCEF64770B6417BC00A19262 /* PBXTextBookmark */;
+			DC5779AA0B68B4ED002DCDC6 /* PBXTextBookmark */ = DC5779AA0B68B4ED002DCDC6 /* PBXTextBookmark */;
+			DC5779B00B68B4ED002DCDC6 /* PBXTextBookmark */ = DC5779B00B68B4ED002DCDC6 /* PBXTextBookmark */;
+			DC5779B30B68B4ED002DCDC6 /* PBXTextBookmark */ = DC5779B30B68B4ED002DCDC6 /* PBXTextBookmark */;
+			DC5779B70B68B4ED002DCDC6 /* PBXTextBookmark */ = DC5779B70B68B4ED002DCDC6 /* PBXTextBookmark */;
+			DC5779B80B68B4ED002DCDC6 /* PBXTextBookmark */ = DC5779B80B68B4ED002DCDC6 /* PBXTextBookmark */;
+			DC5779BA0B68B4ED002DCDC6 /* PBXTextBookmark */ = DC5779BA0B68B4ED002DCDC6 /* PBXTextBookmark */;
+			DC67B0C80B68D2EF00960125 /* PBXTextBookmark */ = DC67B0C80B68D2EF00960125 /* PBXTextBookmark */;
+			DC67B0CA0B68D2EF00960125 /* PBXTextBookmark */ = DC67B0CA0B68D2EF00960125 /* PBXTextBookmark */;
+			DC67B0CC0B68D2EF00960125 /* PBXTextBookmark */ = DC67B0CC0B68D2EF00960125 /* PBXTextBookmark */;
+			DC67B0CD0B68D2EF00960125 /* PBXTextBookmark */ = DC67B0CD0B68D2EF00960125 /* PBXTextBookmark */;
+			DC67B0CE0B68D2EF00960125 /* PBXTextBookmark */ = DC67B0CE0B68D2EF00960125 /* PBXTextBookmark */;
+			DC67B0D00B68D2EF00960125 /* PBXTextBookmark */ = DC67B0D00B68D2EF00960125 /* PBXTextBookmark */;
+			DC67B6D30B6A96D500960125 /* PBXTextBookmark */ = DC67B6D30B6A96D500960125 /* PBXTextBookmark */;
+			DC67B6D40B6A96D600960125 /* PBXTextBookmark */ = DC67B6D40B6A96D600960125 /* PBXTextBookmark */;
+			DC67B6D50B6A96D600960125 /* PBXTextBookmark */ = DC67B6D50B6A96D600960125 /* PBXTextBookmark */;
+			DC67B6D60B6A96D600960125 /* PBXTextBookmark */ = DC67B6D60B6A96D600960125 /* PBXTextBookmark */;
+			DC67B6D70B6A96D600960125 /* PBXTextBookmark */ = DC67B6D70B6A96D600960125 /* PBXTextBookmark */;
+			DC67B6D80B6A96D600960125 /* PBXTextBookmark */ = DC67B6D80B6A96D600960125 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -245,46 +255,75 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
-	DC5310BC0B66472800BD0276 /* PBXTextBookmark */ = {
+	DC5779AA0B68B4ED002DCDC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		rLen = 0;
-		rLoc = "-2147481585";
+		fRef = DC5779AB0B68B4ED002DCDC6 /* NSXMLDocument.h */;
+		name = "NSXMLElement *)rootElement";
+		rLen = 26;
+		rLoc = 4980;
 		rType = 0;
+		vrLen = 922;
+		vrLoc = 4629;
 	};
-	DC5310BD0B66472800BD0276 /* PBXTextBookmark */ = {
+	DC5779AB0B68B4ED002DCDC6 /* NSXMLDocument.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = NSXMLDocument.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSXMLDocument.h;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {2404, 4420}}";
+			sepNavSelRange = "{4980, 26}";
+			sepNavVisRect = "{{0, 2754}, {1035, 614}}";
+			sepNavWindowFrame = "{{38, 165}, {1074, 687}}";
+		};
+	};
+	DC5779B00B68B4ED002DCDC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = "iTM2LaTeXKit.m: 2007";
-		rLen = 140;
-		rLoc = 66486;
+		fRef = DC5779B10B68B4ED002DCDC6 /* iTM2MacroPrefPane.h */;
+		name = "@interface iTM2GenericScriptButton: NSPopUpButton";
+		rLen = 50;
+		rLoc = 3120;
 		rType = 0;
-		vrLen = 2351;
-		vrLoc = 76335;
+		vrLen = 1195;
+		vrLoc = 2172;
 	};
-	DC5310BE0B66472800BD0276 /* PBXTextBookmark */ = {
+	DC5779B10B68B4ED002DCDC6 /* iTM2MacroPrefPane.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = iTM2MacroPrefPane.h;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/build/iTM2Foundation.framework/Versions/A/Headers/iTM2MacroPrefPane.h;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1092, 1598}}";
+			sepNavSelRange = "{3367, 0}";
+			sepNavVisRect = "{{0, 967}, {1035, 614}}";
+			sepNavWindowFrame = "{{15, 186}, {1074, 687}}";
+		};
+	};
+	DC5779B30B68B4ED002DCDC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
-		name = "iTM2LaTeXKit.h: 176";
-		rLen = 0;
-		rLoc = 5616;
+		name = iTM2GenericScriptButton;
+		rLen = 23;
+		rLoc = 2501;
 		rType = 0;
-		vrLen = 1387;
-		vrLoc = 450;
+		vrLen = 955;
+		vrLoc = 2116;
 	};
-	DC5310BF0B66472800BD0276 /* PBXTextBookmark */ = {
+	DC5779B70B68B4ED002DCDC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
-		name = "iTM2LaTeXKit.h: useLaTeXPackage:";
-		rLen = 0;
-		rLoc = 5470;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = iTM2LaTeXScriptGraphicsButton;
+		rLen = 29;
+		rLoc = 17917;
 		rType = 0;
-		vrLen = 1150;
-		vrLoc = 4466;
+		vrLen = 660;
+		vrLoc = 17661;
 	};
-	DC5310C00B66472800BD0276 /* PBXTextBookmark */ = {
+	DC5779B80B68B4ED002DCDC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DC5310C10B66472800BD0276 /* BuildAll.command */;
+		fRef = DC5779B90B68B4ED002DCDC6 /* BuildAll.command */;
 		name = "(null): 1";
 		rLen = 0;
 		rLoc = 0;
@@ -292,15 +331,22 @@
 		vrLen = 430;
 		vrLoc = 0;
 	};
-	DC5310C10B66472800BD0276 /* BuildAll.command */ = {
+	DC5779B90B68B4ED002DCDC6 /* BuildAll.command */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
 		name = BuildAll.command;
 		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll.command;
 		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {993, 782}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {993, 782}}";
+			sepNavWindowFrame = "{{15, 18}, {1032, 855}}";
+		};
 	};
-	DC5310C20B66472800BD0276 /* PBXTextBookmark */ = {
+	DC5779BA0B68B4ED002DCDC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DC5310C30B66472800BD0276 /* BuildAll-sudo.command */;
+		fRef = DC5779BB0B68B4ED002DCDC6 /* BuildAll-sudo.command */;
 		name = "(null): 1";
 		rLen = 0;
 		rLoc = 0;
@@ -308,14 +354,169 @@
 		vrLen = 152;
 		vrLoc = 0;
 	};
-	DC5310C30B66472800BD0276 /* BuildAll-sudo.command */ = {
+	DC5779BB0B68B4ED002DCDC6 /* BuildAll-sudo.command */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = "BuildAll-sudo.command";
+		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll-sudo.command";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {993, 782}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {993, 782}}";
+			sepNavWindowFrame = "{{15, 18}, {1032, 855}}";
+		};
+	};
+	DC5D6FE80949DFAE00EBA96C /* Prepare iTM2TeXFoundation */ = {
+		activeExec = 0;
+	};
+	DC67B0C80B68D2EF00960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC67B0C90B68D2EF00960125 /* NSXMLDocument.h */;
+		name = "NSXMLElement *)rootElement";
+		rLen = 26;
+		rLoc = 4980;
+		rType = 0;
+		vrLen = 922;
+		vrLoc = 4629;
+	};
+	DC67B0C90B68D2EF00960125 /* NSXMLDocument.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = NSXMLDocument.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSXMLDocument.h;
+		sourceTree = "<absolute>";
+	};
+	DC67B0CA0B68D2EF00960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC67B0CB0B68D2EF00960125 /* iTM2MacroPrefPane.h */;
+		name = "@interface iTM2GenericScriptButton: NSPopUpButton";
+		rLen = 50;
+		rLoc = 3120;
+		rType = 0;
+		vrLen = 1234;
+		vrLoc = 2133;
+	};
+	DC67B0CB0B68D2EF00960125 /* iTM2MacroPrefPane.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = iTM2MacroPrefPane.h;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/build/iTM2Foundation.framework/Versions/A/Headers/iTM2MacroPrefPane.h;
+		sourceTree = "<absolute>";
+	};
+	DC67B0CC0B68D2EF00960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
+		name = iTM2GenericScriptButton;
+		rLen = 23;
+		rLoc = 2501;
+		rType = 0;
+		vrLen = 955;
+		vrLoc = 2116;
+	};
+	DC67B0CD0B68D2EF00960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = iTM2LaTeXScriptGraphicsButton;
+		rLen = 29;
+		rLoc = 17917;
+		rType = 0;
+		vrLen = 660;
+		vrLoc = 17661;
+	};
+	DC67B0CE0B68D2EF00960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC67B0CF0B68D2EF00960125 /* BuildAll.command */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 430;
+		vrLoc = 0;
+	};
+	DC67B0CF0B68D2EF00960125 /* BuildAll.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = BuildAll.command;
+		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll.command;
+		sourceTree = "<absolute>";
+	};
+	DC67B0D00B68D2EF00960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC67B0D10B68D2EF00960125 /* BuildAll-sudo.command */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 152;
+		vrLoc = 0;
+	};
+	DC67B0D10B68D2EF00960125 /* BuildAll-sudo.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
 		name = "BuildAll-sudo.command";
 		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll-sudo.command";
 		sourceTree = "<absolute>";
 	};
-	DC5D6FE80949DFAE00EBA96C /* Prepare iTM2TeXFoundation */ = {
-		activeExec = 0;
+	DC67B6D30B6A96D500960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC5779AB0B68B4ED002DCDC6 /* NSXMLDocument.h */;
+		name = "NSXMLElement *)rootElement";
+		rLen = 26;
+		rLoc = 4980;
+		rType = 0;
+		vrLen = 922;
+		vrLoc = 4629;
+	};
+	DC67B6D40B6A96D600960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC5779B10B68B4ED002DCDC6 /* iTM2MacroPrefPane.h */;
+		name = "iTM2MacroPrefPane.h: 94";
+		rLen = 0;
+		rLoc = 3367;
+		rType = 0;
+		vrLen = 1234;
+		vrLoc = 2133;
+	};
+	DC67B6D50B6A96D600960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */;
+		name = iTM2GenericScriptButton;
+		rLen = 23;
+		rLoc = 2501;
+		rType = 0;
+		vrLen = 955;
+		vrLoc = 2116;
+	};
+	DC67B6D60B6A96D600960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = iTM2LaTeXScriptGraphicsButton;
+		rLen = 29;
+		rLoc = 17917;
+		rType = 0;
+		vrLen = 660;
+		vrLoc = 17661;
+	};
+	DC67B6D70B6A96D600960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC5779B90B68B4ED002DCDC6 /* BuildAll.command */;
+		name = "BuildAll.command: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 430;
+		vrLoc = 0;
+	};
+	DC67B6D80B6A96D600960125 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC5779BB0B68B4ED002DCDC6 /* BuildAll-sudo.command */;
+		name = "BuildAll-sudo.command: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 152;
+		vrLoc = 0;
 	};
 	DC81AD250887161F00943C99 /* iTeXMac2 */ = {
 		activeExec = 0;
@@ -326,16 +527,16 @@
 	DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1043, 3060}}";
-			sepNavSelRange = "{5470, 0}";
-			sepNavVisRect = "{{0, 2400}, {1043, 660}}";
+			sepNavSelRange = "{2501, 23}";
+			sepNavVisRect = "{{0, 969}, {1043, 660}}";
 			sepNavWindowFrame = "{{107, 14}, {1082, 733}}";
 		};
 	};
 	DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1764, 53567}}";
-			sepNavSelRange = "{66486, 140}";
-			sepNavVisRect = "{{0, 37886}, {1135, 601}}";
+			sepNavSelRange = "{17917, 29}";
+			sepNavVisRect = "{{0, 8668}, {1135, 601}}";
 			sepNavWindowFrame = "{{84, 95}, {1174, 674}}";
 		};
 	};
@@ -400,51 +601,5 @@
 	};
 	DCE417E20AB61E7400FB432D /* Build & Install Engines */ = {
 		activeExec = 0;
-	};
-	DCEF64750B6417BC00A19262 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEF64760B6417BC00A19262 /* BuildAll.command */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 339;
-		vrLoc = 0;
-	};
-	DCEF64760B6417BC00A19262 /* BuildAll.command */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = BuildAll.command;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll.command;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {993, 782}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 0}, {993, 782}}";
-			sepNavWindowFrame = "{{15, 18}, {1032, 855}}";
-		};
-	};
-	DCEF64770B6417BC00A19262 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEF64780B6417BC00A19262 /* BuildAll-sudo.command */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 152;
-		vrLoc = 0;
-	};
-	DCEF64780B6417BC00A19262 /* BuildAll-sudo.command */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = "BuildAll-sudo.command";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Scripts/BuildAll-sudo.command";
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {993, 782}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 0}, {993, 782}}";
-			sepNavWindowFrame = "{{15, 18}, {1032, 855}}";
-		};
 	};
 }
