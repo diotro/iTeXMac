@@ -2167,8 +2167,10 @@ To Do List: ?
 	S = [components componentsJoinedByString:@""];
 	NSMutableString * result = [[S mutableCopy] autorelease];
 	[result replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:@"__(INS)__" withString:@"" options:0 range:NSMakeRange(0,[result length])];// compatibility
 	[result replaceOccurrencesOfString:iTM2TextINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:iTM2TextStartINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextStartSELPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextStartARGPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextStartOPTPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
@@ -2240,13 +2242,19 @@ To Do List: ?
 //iTM2_START;
 	NSMutableString * result = [[[self stringByRemovingTipPlaceHolders] mutableCopy] autorelease];
 	[result replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+	[result replaceOccurrencesOfString:@"__(INS)__" withString:@"" options:0 range:NSMakeRange(0,[result length])];// compatibility
 	[result replaceOccurrencesOfString:iTM2TextINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+
+	[result replaceOccurrencesOfString:iTM2TextStartINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextStartARGPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextStartOPTPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextStartTEXTPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
 	[result replaceOccurrencesOfString:iTM2TextStartFILEPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
+
 	if([selection length])
 	{
+		//- (NSRange)rangeOfSELPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
+
 		selection = [NSString stringWithFormat:@"%@%@%@",iTM2TextStartSELPlaceholder,selection,iTM2TextStopPlaceholder];
 		[result replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:selection options:0 range:NSMakeRange(0,[result length])];
 	}

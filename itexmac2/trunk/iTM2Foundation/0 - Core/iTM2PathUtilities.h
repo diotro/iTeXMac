@@ -19,6 +19,7 @@
 */
 
 extern NSString * const iTM2PathComponentsSeparator;
+extern NSString * const iTM2PathDotComponent;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
 /*"Description forthcoming."*/

@@ -695,6 +695,19 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 
 /*! 
+    @method     getContextValueForKey:fileKey:domain:
+    @abstract   Abstract forthcoming.
+    @discussion The project is expected to manage the contexts of the files it owns.
+				The standard user defaults database is used in the end of the chain.
+				This is used only by subclassers when overriding.
+    @param      \p aKey is the context key
+    @param      \p fileKey is the file key
+	@param		\p mask is a context domain mask
+    @result     An object.
+*/
+- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+
+/*! 
     @method     takeContextValue:forKey:fileKey:domain:
     @abstract   Abstract forthcoming.
     @discussion See the \p -contextValueForKey:fileKey: comment.
@@ -705,6 +718,19 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     yorn whether something has changed.
 */
 - (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+
+/*! 
+    @method     setContextValue:forKey:fileKey:domain:
+    @abstract   Abstract forthcoming.
+    @discussion See the \p -contextValueForKey:fileKey: comment.
+				This should only be used by subclassers.
+    @param      the value, possibly nil.
+    @param      \p aKey is the context key
+    @param      \p fileKey is the file key
+	@param		\p mask is a context domain mask
+    @result     yorn whether something has changed.
+*/
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 
 /*! 
     @method     addFileName:

@@ -1243,7 +1243,7 @@ static id _iTM2MacroController = nil;
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained later
 	// list all the *.iTM2-macros files
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
+	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
 	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
@@ -1316,7 +1316,7 @@ static id _iTM2MacroController = nil;
 					NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
 					if(localError)
 					{
-						iTM2_LOG(@"The macro file might be corrupted at\n%@", url);
+						iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
 					}
 					else
 					{
@@ -1348,9 +1348,15 @@ static id _iTM2MacroController = nil;
 	metaSETTER(rootNode);
 	return rootNode;
 }
-
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setRunningTree:
 - (void)setRunningTree:(id)aTree;
-{
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
 	id old = metaGETTER;
 	if([old isEqual:aTree] || (old == aTree))
 	{
@@ -1376,19 +1382,30 @@ To Do List:
 	if(!leafNode)
 	{
 		iTM2_LOG(@"No macro with ID: %@ forContext:%@ ofCategory:%@ inDomain:%@",ID,context,category,domain);
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"[leafNode countOfChildren]:%i",[leafNode countOfChildren]);
+		}
 	}
 //iTM2_END;
 	return leafNode;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= menuTree
 - (id)menuTree;
-{
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
 	id result = metaGETTER;
 	if(result)
 	{
 		return result;
 	}
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
+	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained
 	// list all the *.iTM2-macros files
 	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
@@ -1500,6 +1517,7 @@ To Do List:
 				[SDC presentError:localError];
 			}
 			NSXMLElement * rootElement = [xmlDoc rootElement];
+			context = @"";// no context supported
 			M = [self macroMenuWithXMLElement:rootElement forContext:context ofCategory:category inDomain:domain error:&localError];
 			[menuNode setValue:M forKeyPath:@"value.menu"];
 		}

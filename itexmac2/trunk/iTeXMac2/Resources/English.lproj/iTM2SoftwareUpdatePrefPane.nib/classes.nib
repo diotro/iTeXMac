@@ -24,7 +24,7 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            ACTIONS = {checkForUpdate = id; takeCheckFrequencyFromSelectedTag = id; }; 
+            ACTIONS = {checkForUpdate = id; }; 
             CLASS = iTM2SoftwareUpdatePrefPane; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSPreferencePane; 

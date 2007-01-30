@@ -141,7 +141,8 @@ enum
 /*! 
     @method		contextValueForKey:domain:
     @abstract	The context value for the given key.
-    @discussion	Comes from the context dictionary if any, at least from the context manager.
+    @discussion	Wraps the getContextValue:forKey:domain: method below.
+				You are not expected to overide this method but the above mentioned one.
     @param		key
     @param		mask
     @result		None
@@ -149,16 +150,39 @@ enum
 - (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
+    @method		getContextValueForKey:domain:
+    @abstract	The context value for the given key.
+    @discussion	Comes from the context dictionary if any, at least from the context manager.
+    @param		key
+    @param		mask
+    @result		None
+*/
+- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+
+/*! 
     @method		takeContextValue:forKey:domain:
     @abstract	Records the given context value for the given key.
-    @discussion	It forwards the request to the context manager,
-                unless subclassers have overriden the contextDictionary to return a valid mutable dictionary.
+    @discussion	Wraps the setContextValue:forKey:domain: method below.
+				You are not expected to overide this method but the above mentioned one.
     @param		value
     @param		key
     @param		mask
     @result     yorn whether something has changed.
 */
 - (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+
+/*! 
+    @method		setContextValue:forKey:domain:
+    @abstract	Records the given context value for the given key.
+    @discussion	It forwards the request to the context manager,
+                unless subclassers have overriden the contextDictionary to return a valid mutable dictionary.
+				Use the -takeContextValue:forKey:domain: above, except when overiding the method.
+    @param		value
+    @param		key
+    @param		mask
+    @result     yorn whether something has changed.
+*/
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
     @method		contextFontForKey:domain:

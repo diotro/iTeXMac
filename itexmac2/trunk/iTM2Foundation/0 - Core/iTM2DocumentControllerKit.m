@@ -204,9 +204,12 @@ To Do List: see the warning below
 		[doc makeWindowControllers];
 		NSEnumerator * E = [[doc windowControllers] objectEnumerator];
 		NSWindowController * WC;
-		int keyWindowNumber = [[NSApp keyWindow] windowNumber];
+		NSWindow * W;
 		while(WC = [E nextObject])
-			[[WC window] orderWindow:NSWindowBelow relativeTo:keyWindowNumber];
+		{
+			W = [WC window];
+			[W orderBelowFront:self];
+		}
 		[doc displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:NO];
 		return doc;
 	}

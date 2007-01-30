@@ -24,6 +24,7 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2PathComponentsSeparator = @"/";
+NSString * const iTM2PathDotComponent = @".";
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
 /*"Description forthcoming."*/

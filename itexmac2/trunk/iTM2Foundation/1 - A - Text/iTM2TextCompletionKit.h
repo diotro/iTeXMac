@@ -44,7 +44,7 @@ extern NSString * const iTM2CompletionsExtension;
 // this is subject to changes
 @private
 	IBOutlet NSTableView * _TableView;
-	id _Candidates;
+	id _LongCandidates;
 	id _TextView;
 	NSString * _Tab;
 	NSString * _OriginalString;

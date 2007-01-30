@@ -1417,7 +1417,7 @@ To Do List:
 	}
 	NSMutableString * logOutput = [NSMutableString string];
 #if 0
-	This cannott be used because it causes the main application object to be initialized as side effect
+	This cannot be used because it causes the main application object to be initialized as side effect
 	thus preventing the proper document controller to be used
 	NSBundle * mainBundle = [NSBundle mainBundle];
 	NSString * version = [mainBundle objectForInfoDictionaryKey:@"iTM2SourceVersion"];
@@ -1448,7 +1448,7 @@ To Do List:
 	NSString * version = [infoPList objectForKey:@"iTM2SourceVersion"];
 	NSString * executable = [infoPList objectForKey:(NSString *)kCFBundleExecutableKey];
 #endif
-	if([version isEqual:@"0"])
+	if([version isEqual:@"97531"])
 	{
 		goto end;
 	}

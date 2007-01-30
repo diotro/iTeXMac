@@ -121,6 +121,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
+    return [self getContextValueForKey:aKey domain:mask];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
+- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
 	id result = nil;
 	if(mask & iTM2ContextStandardLocalMask)
 	{
@@ -143,6 +155,22 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
 - (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
+	unsigned int didChange = [self setContextValue:object forKey:aKey domain:mask];
+	id afterObject = [self contextValueForKey:aKey domain:mask];
+//iTM2_LOG(@"afterObject:%@",afterObject);
+	NSAssert(([object isEqual:afterObject] || (object == afterObject)),@"Inconsistancy: THIS IS A BUG");
+    return didChange;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -770,8 +798,8 @@ To Do List:
 //iTM2_START;
     return (mask & iTM2ContextDefaultsMask)?[self objectForKey:aKey]: nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -1016,8 +1044,8 @@ NSString * const iTM2ContextExtensionsKey = @"iTM2ContextExtensions";
 NSString * const iTM2ContextTypesKey = @"iTM2ContextTypes";
 
 @implementation NSDocument(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:domain:
-- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
+- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -1027,7 +1055,7 @@ To Do List:
 //iTM2_START;
 	// if there is no context value, looking in the general stuff for the file extension
 	id result = nil;
-	if(result = [super contextValueForKey:aKey domain:mask&~iTM2ContextStandardDefaultsMask])
+	if(result = [super getContextValueForKey:aKey domain:mask&~iTM2ContextStandardDefaultsMask])
 	{
 		return result;
 	}
@@ -1067,11 +1095,11 @@ To Do List:
 			}
 		}
 	}
-	result = [super contextValueForKey:aKey domain:mask];// debug design
+	result = [super getContextValueForKey:aKey domain:mask];// debug design
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -1079,7 +1107,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	unsigned int didChange = [super takeContextValue:object forKey:aKey domain:mask];
+	unsigned int didChange = [super setContextValue:object forKey:aKey domain:mask];
 	// Set the value in the user defaults data base with the file extension and document type
 	if(mask & iTM2ContextExtendedDefaultsMask)
 	{

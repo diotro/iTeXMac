@@ -9211,7 +9211,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 		}
 		else if(retainCount)
 		{
-			iTM2_LOG(@"DEALLOC %@",self);
+			iTM2_LOG(@"WILL DEALLOC %@ (%#x)",self, self);
 			N = [NSNumber numberWithInt:--retainCount];// 0 is reached dealloc soon
 		}
 		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
@@ -9221,6 +9221,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 }
 - (void)dealloc;
 {
+	iTM2_LOG(@"DEALLOC %#x", self);
 	NSValue * V = [NSValue valueWithNonretainedObject:self];
 	[PDFPage_iTeXMac2_Storage removeObjectForKey:V];
 	if(iTM2DebugEnabled)

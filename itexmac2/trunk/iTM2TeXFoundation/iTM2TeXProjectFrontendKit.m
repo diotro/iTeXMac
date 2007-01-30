@@ -212,7 +212,10 @@ To Do List:
 	{
 		iTM2_LOG(@"No Name Given");
 	}
-	iTM2_LOG(@"NO COMMAND WRAPPER FOR NAME:-%@- ([self commandWrappers] are:%@), may be you need to update", name, [self commandWrappers]);
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"NO COMMAND WRAPPER FOR NAME:-%@- ([self commandWrappers] are:%@), may be you need to update", name, [self commandWrappers]);
+	}
 #warning WHAT HAPPENS WHEN A NAME IS NOT KNOWN, IS IT STILL THERE ONCE saved?
     return nil;
 }
@@ -564,12 +567,12 @@ To Do List:
 	if(mainWindow && ![window isEqual:mainWindow] 
 		&& ![self contextBoolForKey:iTM2TeXProjectNoTerminalBehindKey domain:iTM2ContextAllDomainsMask])
 	{
-		NSWindow * W = [mainWindow parentWindow]?:mainWindow;
-		int windowNumber = [W windowNumber];
-		[window orderWindow:NSWindowBelow relativeTo:windowNumber];
+		[window orderBelowFront:self];
 	}
 	else
+	{
 		[window orderFront:self];
+	}
     [self validateWindowsContents];
     return;
 }

@@ -2956,31 +2956,7 @@ To do list:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [self window];
-	NSWindow * mainWindow = [NSApp mainWindow];
-	NSWindow * keyWindow = [NSApp keyWindow];
-	NSWindow * frontWindow = [[[NSApp orderedWindows] reverseObjectEnumerator] nextObject];
-	int WN;
-	if(mainWindow)
-	{
-		if(keyWindow)
-		{
-			WN = MIN([mainWindow windowNumber],[keyWindow windowNumber]);
-		}
-		else
-		{
-			WN = [mainWindow windowNumber];
-		}
-	}
-	else if(keyWindow)
-	{
-		WN = [keyWindow windowNumber];
-	}
-	else
-	{
-		WN = [frontWindow windowNumber];
-	}
-	[W orderWindow:NSWindowBelow relativeTo:WN];
-	[W displayIfNeeded];
+	[W orderBelowFront:self];
 //iTM2_END;
     return;
 }

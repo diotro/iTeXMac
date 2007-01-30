@@ -1375,10 +1375,15 @@ To Do List:
 //iTM2_LOG(@"NSApp is: %@", NSApp);
 //iTM2_LOG(@"[NSApp keyWindow] is:%@", [NSApp keyWindow]);
     NS_DURING
+	NSWindow * W = [self window];
     if([self contextBoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask])
-        [[self window] makeKeyAndOrderFront:self];
+	{
+        [W makeKeyAndOrderFront:self];
+	}
     else
-        [[self window] orderWindow:NSWindowBelow relativeTo:[[NSApp keyWindow] windowNumber]];
+	{
+        [W orderBelowFront:self];
+	}
     NS_HANDLER
     iTM2_LOG(@"*** Exception catched: %@", [localException reason]);
     NS_ENDHANDLER

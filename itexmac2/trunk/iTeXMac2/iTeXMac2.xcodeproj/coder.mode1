@@ -221,6 +221,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -322,10 +324,10 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC5779BF0B68B4EF002DCDC6</string>
+										<string>DC128B760B6EB186009DE896</string>
 										<key>history</key>
 										<array>
-											<string>DC08C11B0B66C1BC00EEDBBD</string>
+											<string>DC5779BF0B68B4EF002DCDC6</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -383,9 +385,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC5779C00B68B4EF002DCDC6</string>
+				<string>DC128B770B6EB186009DE896</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC5779C10B68B4EF002DCDC6</string>
+				<string>DC128B780B6EB186009DE896</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -520,7 +522,6 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>50 37 1364 818 0 0 1440 878 </string>

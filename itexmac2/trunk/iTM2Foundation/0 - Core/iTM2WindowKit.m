@@ -131,6 +131,65 @@ To Do List:
 //iTM2_END;
     return NSOrderedSame;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderBelowFront:
+- (void)orderBelowFront:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSWindow * mainWindow = [NSApp mainWindow];
+	NSWindow * parentWindow;
+	while(parentWindow = [mainWindow parentWindow])
+	{
+		mainWindow = parentWindow;
+	}
+	NSWindow * keyWindow = [NSApp keyWindow];
+	while(parentWindow = [keyWindow parentWindow])
+	{
+		keyWindow = parentWindow;
+	}
+	NSArray * orderedWindows = [NSApp orderedWindows];
+	int WN;
+	if(mainWindow)
+	{
+		if(keyWindow)
+		{
+			if([orderedWindows indexOfObject:keyWindow] > [orderedWindows indexOfObject:mainWindow])
+			{
+				WN = [keyWindow windowNumber];
+			}
+			else
+			{
+				WN = [mainWindow windowNumber];
+			}
+		}
+		else
+		{
+			WN = [mainWindow windowNumber];
+		}
+	}
+	else if(keyWindow)
+	{
+		WN = [keyWindow windowNumber];
+	}
+	else
+	{
+		NSEnumerator * E = [orderedWindows objectEnumerator];
+		NSWindow * frontWindow = [E nextObject];
+		while(parentWindow = [frontWindow parentWindow])
+		{
+			frontWindow = parentWindow;
+		}
+		WN = [frontWindow windowNumber];
+	}
+	[self orderWindow:NSWindowBelow relativeTo:WN];
+	[self displayIfNeeded];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowsMenuItemTitle
 - (NSString *)windowsMenuItemTitle;
 /*"Gives a default value, useful for window observer?

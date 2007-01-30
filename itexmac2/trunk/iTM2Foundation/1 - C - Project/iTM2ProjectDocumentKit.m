@@ -2248,6 +2248,14 @@ To Do List:
 			result = [result stringByAbbreviatingWithDotsRelativeToDirectory:path];
 			[keyedFileNames setValue:result forKey:key];
 		}
+		#if 0
+		else if([key isEqual:@"."])
+		{
+			result = [self fileName];
+			result = [result lastPathComponent];
+			[keyedFileNames setValue:result forKey:key];
+		}
+		#endif
 		return result;
 	}
 //iTM2_END;
@@ -4034,6 +4042,7 @@ To Do List:
 		}
 	}
 	[self takeContextValue:mra forKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
+iTM2_LOG(@"[IMPLEMENTATION modelOfType:iTM2ProjectMetaType]:%@",[IMPLEMENTATION modelOfType:iTM2ProjectMetaType]);
 //iTM2_END;
     return YES;
 }
@@ -4285,8 +4294,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:domain:
-- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
+- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -4295,19 +4304,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id result = nil;
-	if(result = [super contextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
+	if(result = [super getContextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
 	{
 		return result;
 	}
 	NSString * fileKey = @".";
-	if(result = [self contextValueForKey:aKey fileKey:fileKey domain:mask&iTM2ContextStandardLocalMask])
+	if(result = [self getContextValueForKey:aKey fileKey:fileKey domain:mask&iTM2ContextStandardLocalMask])
 	{
 		return result;
 	}
-    return [super contextValueForKey:aKey domain:mask];
+    return [super getContextValueForKey:aKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -4318,13 +4327,26 @@ To Do List:
 	iTM2ProjectDocument * project = [self project];
 	id contextManager = [self contextManager];
 	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
-	unsigned int didChange = [super takeContextValue:object forKey:aKey domain:mask];
+	unsigned int didChange = [super setContextValue:object forKey:aKey domain:mask];
 	NSString * fileKey = @".";// weird...
 //iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
-    return didChange |= [self takeContextValue:object forKey:aKey fileKey:fileKey domain:mask];
+    return didChange |= [self setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:fileKey:domain;
 - (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6:03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
+//iTM2_END;
+    return [self getContextValueForKey:aKey fileKey:fileKey domain:mask];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:fileKey:domain;
+- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -4391,7 +4413,7 @@ To Do List:
 			}
 		}
 	}
-    return [fileKey isEqual:@"."]?[super contextValueForKey:aKey domain:mask]:nil;// not self, reentrant code management
+    return [fileKey isEqual:@"."]?[super getContextValueForKey:aKey domain:mask]:nil;// not self, reentrant code management
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:fileKey:domain:
 - (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
@@ -4402,9 +4424,21 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
+	return [self setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:fileKey:domain:
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6:03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
 	NSParameterAssert(aKey != nil);
 	NSString * fileName = [self relativeFileNameForKey:fileKey];// not the file name!
-	if(![fileName length] && ![fileKey isEqual:iTM2ProjectDefaultsKey])
+	if(![fileName length] && ![fileKey isEqual:iTM2ProjectDefaultsKey] && ![fileKey isEqual:@"."])
 	{
 		return NO;
 	}
@@ -4436,9 +4470,6 @@ To Do List:
 				didChange = iTM2ContextStandardLocalMask;
 			}
 		}
-		id afterObject = [self contextValueForKey:aKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
-//iTM2_LOG(@"afterObject:%@",afterObject);
-		NSAssert(([object isEqual:afterObject] || (object == afterObject) || !(didChange&iTM2ContextStandardLocalMask)),@"Inconsistancy: THIS IS A BUG");
 	}
 	if(mask & iTM2ContextStandardProjectMask)
 	{
@@ -4491,54 +4522,29 @@ To Do List:
 					didChange |= iTM2ContextExtendedProjectMask;
 				}
 			}
-		}
-		NSString * type = [SDC typeFromFileExtension:extension];
-		if([type length])
-		{
-			if(server = [implementation iVarContextTypes])
+			NSString * typeFromFileExtension = [SDC typeFromFileExtension:extension];
+			if([typeFromFileExtension length])
 			{
-				if(D = [server valueForKey:type])
+				if(server = [implementation iVarContextTypes])
 				{
-					D = [[D mutableCopy] autorelease];
-					old = [D valueForKey:aKey];
-					if(![old isEqual:object] && (old != object))
+					if(D = [server valueForKey:typeFromFileExtension])
 					{
-						[D takeValue:object forKey:aKey];
-						[server takeValue:D forKey:type];
-						didChange |= iTM2ContextExtendedProjectMask;
+						D = [[D mutableCopy] autorelease];
+						old = [D valueForKey:aKey];
+						if(![old isEqual:object] && (old != object))
+						{
+							[D takeValue:object forKey:aKey];
+							[server takeValue:D forKey:typeFromFileExtension];
+							didChange |= iTM2ContextExtendedProjectMask;
+						}
 					}
-				}
-				else if(object)
-				{
-					D = [NSMutableDictionary dictionary];
-					[D takeValue:object forKey:aKey];
-					[server takeValue:D forKey:type];
-					didChange |= iTM2ContextExtendedProjectMask;
-				}
-			}
-		}
-		NSString * typeFromFileExtension = [SDC typeFromFileExtension:extension];
-		if([typeFromFileExtension length] && ![typeFromFileExtension isEqual:type])
-		{
-			if(server = [implementation iVarContextTypes])
-			{
-				if(D = [server valueForKey:typeFromFileExtension])
-				{
-					D = [[D mutableCopy] autorelease];
-					old = [D valueForKey:aKey];
-					if(![old isEqual:object] && (old != object))
+					else if(object)
 					{
+						D = [NSMutableDictionary dictionary];
 						[D takeValue:object forKey:aKey];
 						[server takeValue:D forKey:typeFromFileExtension];
 						didChange |= iTM2ContextExtendedProjectMask;
 					}
-				}
-				else if(object)
-				{
-					D = [NSMutableDictionary dictionary];
-					[D takeValue:object forKey:aKey];
-					[server takeValue:D forKey:typeFromFileExtension];
-					didChange |= iTM2ContextExtendedProjectMask;
 				}
 			}
 		}
@@ -8845,8 +8851,8 @@ To Do List:
 	[self setHasProject:NO];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:domain:
-- (id)contextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
+- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -8855,7 +8861,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id result = nil;
-	if(result = [super contextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
+	if(result = [super getContextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
 	{
 		return result;
 	}
@@ -8868,16 +8874,16 @@ To Do List:
 		NSString * fileKey = [project keyForFileName:fileName];
 		if([fileKey length])
 		{
-			if(result = [project contextValueForKey:aKey fileKey:fileKey domain:mask])
+			if(result = [project getContextValueForKey:aKey fileKey:fileKey domain:mask])
 			{
 				return result;
 			}
 		}
 	}
-    return [super contextValueForKey:aKey domain:mask];
+    return [super getContextValueForKey:aKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:domain:
-- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -8894,7 +8900,7 @@ To Do List:
 		NSString * fileKey = [project keyForFileName:fileName];
 		if([fileKey length])
 		{
-			[project takeContextValue:object forKey:aKey fileKey:fileKey domain:mask];
+			[project setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
 		}
 		else if(project)
 		{
@@ -8902,7 +8908,7 @@ To Do List:
 //iTM2_LOG([project keyForFileName:fileName]);
 		}
 	}
-	BOOL didChange = [super takeContextValue:object forKey:aKey domain:mask];// last to be sure we have registered
+	BOOL didChange = [super setContextValue:object forKey:aKey domain:mask];// last to be sure we have registered
 //iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
     return didChange;
 }

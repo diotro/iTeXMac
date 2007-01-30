@@ -1713,10 +1713,7 @@ laSuite:
 						}
 						else if(![WC isKindOfClass:[iTM2ExternalInspector class]])
 						{
-							NSWindow * window = [NSApp keyWindow];
-							window = [window parentWindow]?:window;
-							int windowNumber = [window windowNumber];
-							[W orderWindow:NSWindowBelow relativeTo:windowNumber];
+							[W orderBelowFront:self];
 						}
 					}
 					result = YES;
@@ -1748,10 +1745,7 @@ laSuite:
 					}
 					else
 					{
-						NSWindow * window = [NSApp keyWindow];
-						window = [window parentWindow]?:window;
-						int windowNumber = [window windowNumber];
-						[W orderWindow:NSWindowBelow relativeTo:windowNumber];
+						[W orderBelowFront:self];
 					}
 					result = YES;
 				}

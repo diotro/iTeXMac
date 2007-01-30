@@ -44,6 +44,7 @@ extern NSString * const iTM2DocumentEditedStatusNotification;
 - (BOOL)positionShouldBeObserved; // YES to record the window position from one session to the other
 - (NSString *)windowsMenuItemTitle;
 - (NSComparisonResult)compareUsingLevel:(id)rhs;
+- (void)orderBelowFront:(id)sender;
 @end
 
 @interface NSObject(iTM2WindowKitDelegation)
