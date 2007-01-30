@@ -49,6 +49,21 @@ To Do List:
 //iTM2_START;
     return YES;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
++ (NSString *)macroDomain;
+{
+    return @"Text";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
++ (NSString *)macroCategory;
+{
+    return @"LaTeX";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContext
++ (NSString *)macroContext;
+{
+    return @"";
+}
 @end
 
 NSString * const iTM2ToolbarLaTeXLabelItemIdentifier = @"LaTeXLabel";
@@ -546,7 +561,11 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"Font_Series-Boldface" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
+#warning: MISSING we should guess the environment, math or text and use the appropriate command
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\textbf{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
@@ -557,7 +576,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"Font_Series-Italic" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\textit{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
@@ -568,7 +590,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"text-underline" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\underline{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignCenter:
@@ -579,7 +604,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"text-center" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\begin{center}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignRight:
@@ -590,7 +618,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"text-flushright" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\begin{flushright}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignLeft:
@@ -601,7 +632,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"text-flushleft" forContext:@"Text" ofCategory:@"LaTeX" inDomain:@"Text"];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\begin{flushleft}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subscript:
@@ -612,7 +646,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"math-subscript" forContext:@"Math" ofCategory:@"LaTeX" inDomain:@"Text"];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"_{math}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
@@ -623,7 +660,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	[SMC executeMacroWithID:@"math-superscript" forContext:@"Math" ofCategory:@"LaTeX" inDomain:@"Text"];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"^{math}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
 #if 0
@@ -912,8 +952,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\label{__(a label identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\label{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -970,8 +1012,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\ref{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\ref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1020,8 +1064,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\eqref{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\eqref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1070,7 +1116,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro:[NSString stringWithFormat:@"\\ref{%@}__(SEL)__", [sender representedObject]]];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	NSString * knownReference = [sender representedObject];
+	NSDictionary * substitutions = [NSDictionary dictionaryWithObject:knownReference forKey:@"identifier"];
+	[SMC executeMacroWithID:@"\\ref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:substitutions target:self];
 //iTM2_END;
     return;
 }
@@ -1116,8 +1167,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\chapter{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\chapter{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1142,8 +1195,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\part{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\part{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1168,8 +1223,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\section{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\section{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1194,8 +1251,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\subsection{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\subsection{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1220,8 +1279,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\subsubsection{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\subsubsection{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1246,8 +1307,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\paragraph{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\paragraph{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }
@@ -1272,8 +1335,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self insertMacro: NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"\\subparagraph{__(a labeled identifier)__}", "Inserting a  macro")];
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	[SMC executeMacroWithID:@"\\subparagraph{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 //iTM2_END;
     return;
 }

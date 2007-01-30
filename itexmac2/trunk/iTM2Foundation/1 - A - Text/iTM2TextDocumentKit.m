@@ -33,6 +33,7 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
 #import <iTM2Foundation/iTM2ImageKit.h>
+#import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2ViewKit.h>
 
 #define TABLE @"iTM2TextKit"
@@ -1967,6 +1968,61 @@ To Do List:
 	[self setupTextEditorScrollers];
 	return;
 //iTM2_END;
+}
+#pragma mark =-=-=-=-=-  MACROS
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomainKey
+- (NSString *)macroDomainKey;
+{
+    return [[[super macroDomainKey]
+		stringByAppendingPathExtension:[[self class] inspectorMode]]
+			stringByAppendingPathExtension:[[self class] inspectorType]];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategoryKey
+- (NSString *)macroCategoryKey;
+{
+    return [[[super macroCategoryKey]
+		stringByAppendingPathExtension:[[self class] inspectorMode]]
+			stringByAppendingPathExtension:[[self class] inspectorType]];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContextKey
+- (NSString *)macroContextKey;
+{
+    return [[[super macroContextKey]
+		stringByAppendingPathExtension:[[self class] inspectorMode]]
+			stringByAppendingPathExtension:[[self class] inspectorType]];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupMacroWindowWillLoad
+- (void)setupMacroWindowWillLoad;
+/*"You will be able to remove this when the macroDomain is retrieved properly by objects.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue May  3 16:20:26 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * key = [self macroDomainKey];
+	NSString * macroDomain = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	if(![macroDomain length])
+	{
+		macroDomain = [isa macroDomain];
+		[self setMacroDomain:macroDomain];
+	}
+	key = [self macroCategoryKey];
+	NSString * macroCategory = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	if(![macroCategory length])
+	{
+		macroCategory = [isa macroCategory];
+		[self setMacroCategory:macroCategory];
+	}
+	key = [self macroContextKey];
+	NSString * macroContext = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	if(!macroContext)
+	{
+		macroContext = [isa macroContext];
+		[self setMacroContext:macroContext];
+	}
+//iTM2_END;
+    return;
 }
 @end
 

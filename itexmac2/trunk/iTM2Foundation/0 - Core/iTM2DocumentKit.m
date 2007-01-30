@@ -34,6 +34,7 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2ValidationKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
+#import <iTM2Foundation/iTM2WindowKit.h>
 #import <objc/objc-class.h>
 
 NSString * const iTM2UDKeepBackupFileKey = @"iTM2KeepBackupFile";

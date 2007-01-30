@@ -31,63 +31,8 @@
 	@version		1
 */
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroController
+#import <iTM2Foundation/iTM2PreferencesKit.h>
 
-#import <iTM2Foundation/iTM2Implementation.h>
-
-#define SMC [iTM2MacroController sharedMacroController]
-
-/*!
-    @class       iTM2MacroController
-    @superclass  iTM2Object
-    @abstract    The macros manager
-    @discussion  (comprehensive description)
-*/
-@interface iTM2MacroController: iTM2Object
-/*!
-    @method     sharedMacroController
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @result     (description)
-*/
-+ (id)sharedMacroController;
-
-/*!
-    @method     runningTree
-    @abstract   The macro running tree
-    @discussion Lazy initializer.
-    @result     The macro running tree
-*/
-- (id)runningTree;
-
-/*!
-    @method     setRunningTree:
-    @abstract   Set the macro running tree
-    @discussion Designated setter.
-    @param      aTree
-    @result     None
-*/
-- (void)setRunningTree:(id)aTree;
-
-/*!
-    @method     macroRunningNodeForID:context:ofCategory:inDomain:
-    @abstract   Abstract forthcoming
-    @discussion Primitive getter. The returned object will be asked for its name, action, ...
-    @param      ID
-    @param      context
-    @param      category
-    @param      domain
-    @result     a leaf macro tree node
-*/
-- (id)macroRunningNodeForID:(NSString *)ID context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
-
-- (id)menuTree;
-- (void)setMenuTree:(id)aTree;
-- (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
-
+@interface iTM2MacroPrefPane: iTM2PreferencePane
 @end
 
-@interface iTM2GenericScriptButton: NSPopUpButton
-+ (NSString *)domain;//see the LaTeX kit for definitions... should be overriden by subclassers
-+ (NSString *)category;//see the LaTeX kit for definitions... should be overriden by subclassers
-@end

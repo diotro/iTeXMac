@@ -104,14 +104,6 @@
 
 @end
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection_MACRO)
-/*"Description forthcoming."*/
-@interface NSTextStorage(iTM2Selection_MACRO)
-
-- (void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
-
-@end
-
 @interface NSTextView(iTM2TextKit_Highlight)
 
 /*!
@@ -171,9 +163,6 @@
 - (IBAction)doZoomOut:(id)sender;
 - (void)willChangeSelectedRanges;
 - (void)didChangeSelectedRanges;
-
-- (void)insertMacro:(id)sender;
-- (void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
 
 @end
 

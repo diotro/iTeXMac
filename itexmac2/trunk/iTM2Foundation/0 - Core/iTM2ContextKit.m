@@ -715,7 +715,22 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START
-    return [self windowController]?:[super currentContextManager];// delegate?
+	id delegate = [self delegate];
+	if(delegate)
+	{
+		return delegate;
+	}
+	NSWindowController * windowController = [self windowController];
+	if(windowController)
+	{
+		return windowController;
+	}
+	NSWindow * parentWindow = [self parentWindow];
+	if(parentWindow)
+	{
+		return parentWindow;
+	}
+    return [super currentContextManager];
 }
 @end
 

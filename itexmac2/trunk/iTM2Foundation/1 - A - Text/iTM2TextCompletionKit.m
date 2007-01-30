@@ -206,12 +206,17 @@ To Do List:
 }
 - (iTM2PatriciaController *)patriciaControllerForTextView:(NSTextView *)aTextView;
 {
-	NSString * completionMode = aTextView?[aTextView contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask]:@"Default";
+	NSString * macroDomain = aTextView?[aTextView macroDomain]:@"";
+	NSString * completionMode = aTextView?[aTextView macroCategory]:@"";
+	NSString * macroContext = aTextView?[aTextView macroContext]:@"";
 	iTM2PatriciaController * patriciaController = [_PatriciaControllers objectForKey:completionMode];
 	if(![patriciaController isKindOfClass:[iTM2PatriciaController class]])
 	{
 		patriciaController = [[[iTM2PatriciaController allocWithZone:[self zone]] init] autorelease];
 		[_PatriciaControllers setObject:patriciaController forKey:completionMode];
+		// read all the macros identifiers
+		NSArray * strings = [[iTM2MacroController sharedMacroController] IDsForContext:macroContext ofCategory:completionMode inDomain:macroDomain];
+		[patriciaController addStrings:strings];
 		// now read all the completion files
 		NSBundle * mainBundle = [NSBundle mainBundle];
 		NSArray * allPaths = [mainBundle allPathsForResource:completionMode ofType:@"xml" inDirectory:iTM2CompletionComponent];
@@ -222,7 +227,7 @@ To Do List:
 		while(path = [E nextObject])
 		{
 			url = [NSURL fileURLWithPath:path];
-			NSArray * strings = [[self class] completionsWithContentsOfURL:url error:&error];
+			strings = [[self class] completionsWithContentsOfURL:url error:&error];
 			[patriciaController addStrings:strings];
 		}
 //		NSArray * strings = [NSArray arrayWithObjects:@"\\a",@"\\ab",@"\\abc",nil];

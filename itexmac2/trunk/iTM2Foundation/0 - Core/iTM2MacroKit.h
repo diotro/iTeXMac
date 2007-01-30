@@ -99,6 +99,76 @@ extern NSString * const iTM2MacroServerComponent;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroServer
 
+#import <iTM2Foundation/iTM2Implementation.h>
+
+#define SMC [iTM2MacroController sharedMacroController]
+
+extern NSString * const iTM2MacrosDirectoryName;
+extern NSString * const iTM2MacrosPathExtension;
+
+
+/*!
+    @class       iTM2MacroController
+    @superclass  iTM2Object
+    @abstract    The macros manager
+    @discussion  (comprehensive description)
+*/
+@interface iTM2MacroController: iTM2Object
+/*!
+    @method     sharedMacroController
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @result     (description)
+*/
++ (id)sharedMacroController;
+
+/*!
+    @method     runningTree
+    @abstract   The macro running tree
+    @discussion Lazy initializer.
+    @result     The macro running tree
+*/
+- (id)runningTree;
+
+/*!
+    @method     setRunningTree:
+    @abstract   Set the macro running tree
+    @discussion Designated setter.
+    @param      aTree
+    @result     None
+*/
+- (void)setRunningTree:(id)aTree;
+
+/*!
+    @method     macroRunningNodeForID:context:ofCategory:inDomain:
+    @abstract   Abstract forthcoming
+    @discussion Primitive getter. The returned object will be asked for its name, action, ...
+    @param      ID
+    @param      context
+    @param      category
+    @param      domain
+    @result     a leaf macro tree node
+*/
+- (id)macroRunningNodeForID:(NSString *)ID context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+
+/*!
+    @method     IDsForContext:ofCategory:inDomain:
+    @abstract   Abstract forthcoming
+    @discussion This array of macro identifiers is used by the completion manager to complete strings
+				It is expected that the macros do have human readable identifiers, ...
+    @param      context
+    @param      category
+    @param      domain
+    @result     an array of strings
+*/
+- (NSArray *)IDsForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+
+- (id)menuTree;
+- (void)setMenuTree:(id)aTree;
+- (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain substitutions:(NSDictionary *)substitutions target:(id)target;
+
+@end
+
 @interface iTM2MacroServer: NSObject
 
 /*!
@@ -280,15 +350,18 @@ extern NSString * const iTM2MacroServerComponent;
 @end
 
 @interface NSTextView(iTM2MacroKit)
++ (NSString *)tabAnchorKey;
+- (NSString *)tabAnchor;
+- (IBAction)selectNextTabAnchor:(id)sender;
+- (IBAction)selectPreviousTabAnchor:(id)sender;
+- (IBAction)selectNextTabAnchorAndDelete:(id)sender;
+- (unsigned)numberOfSpacesPerTab;
 - (IBAction)selectFirstPlaceholder:(id)sender;
 - (IBAction)selectNextPlaceholder:(id)sender;
 - (IBAction)selectPreviousPlaceholder:(id)sender;
-+ (NSString *)tabAnchorKey;
-- (NSString *)tabAnchor;
-- (void)selectNextTabAnchor:(id)sender;
-- (void)selectPreviousTabAnchor:(id)sender;
-- (void)selectNextTabAnchorAndDelete:(id)sender;
-- (unsigned)numberOfSpacesPerTab;
+- (IBAction)selectINSPlaceholders:(id)sender;
+- (void)insertMacro:(id)sender;
+- (void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
 @end
 
 @interface NSString(iTM2MacroKit)
@@ -458,4 +531,30 @@ extern NSString * const iTM2MacroServerComponent;
 - (void)setPath:(NSString *)argument;
 - (NSString *)toolTip;
 - (void)setToolTip:(NSString *)argument;
+@end
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection_MACRO)
+/*"Description forthcoming."*/
+@interface NSTextStorage(iTM2Selection_MACRO)
+
+- (void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
+
+@end
+
+@interface iTM2GenericScriptButton: NSPopUpButton
+@end
+
+@interface NSObject(iTM2MacroKit)
+- (NSString *)macroDomainKey;
++ (NSString *)macroDomain;
+- (NSString *)macroDomain;
+- (void)setMacroDomain:(NSString *)argument;
+- (NSString *)macroCategoryKey;
++ (NSString *)macroCategory;
+- (NSString *)macroCategory;
+- (void)setMacroCategory:(NSString *)argument;
+- (NSString *)macroContextKey;
++ (NSString *)macroContext;
+- (NSString *)macroContext;
+- (void)setMacroContext:(NSString *)argument;
 @end

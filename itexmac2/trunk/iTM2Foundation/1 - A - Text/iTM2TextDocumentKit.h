@@ -273,6 +273,15 @@ extern NSString * const iTM2TextInspectorType;
 */
 - (BOOL)isStringEncodingHardCoded;
 
+/*!
+	@method		setupMacroWindowWillLoad
+	@abstract	Set up macro stuff before window is loaded.
+	@discussion Description forthcoming.
+	@param		None
+	@result		None
+*/
+- (void)setupMacroWindowWillLoad;
+
 @end
 
 @interface iTM2TextDocument(Scripting)
