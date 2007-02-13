@@ -166,6 +166,7 @@ typedef struct
 {
 @private
 	unsigned int * __PageStringOffsets;
+	id __CachedPageStrings;
 }
 /*!
     @method     characterOffsetForPageAtIndex:
@@ -213,6 +214,15 @@ typedef struct
 */
 - (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)here after:(NSString *)after index:(unsigned int)hitIndex;
 - (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex inRange:(NSRange)searchRange;
+
+/*!
+    @method     stringForPage:
+    @abstract   Cached string of the given page
+    @discussion (comprehensive description)
+    @result     (description)
+*/
+- (NSString *)stringForPage:(PDFPage *)page;
+
 @end
 
 @interface iTM2IconSegmentedControl: NSSegmentedControl

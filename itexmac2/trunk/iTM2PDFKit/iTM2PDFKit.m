@@ -3704,10 +3704,39 @@ To Do List:
 //iTM2_START;
 	free(__PageStringOffsets);
 	__PageStringOffsets = nil;
+	[__CachedPageStrings release];
+	__CachedPageStrings = nil;
 	[self willDealloc];
 	[super dealloc];
 //iTM2_END;
 	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForPage:
+- (NSString *)stringForPage:(PDFPage *)page;
+/*"Description Forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(!__CachedPageStrings)
+	{
+		__CachedPageStrings = [[NSMutableDictionary dictionary] retain];
+	}
+	if(page)
+	{
+		NSValue * V = [NSValue valueWithNonretainedObject:page];
+		id result = [__CachedPageStrings objectForKey:V];
+		if(!result)
+		{
+			result = [page string];
+			[__CachedPageStrings setObject:result forKey:V];
+		}
+		return result;
+	}
+//iTM2_END;
+	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __SetupPageStringOffsets
 - (void)__SetupPageStringOffsets;
@@ -3884,7 +3913,7 @@ To Do List:
 	// from now on the searchRange is local to the page indexed
 nextPage:
 	page = [self pageAtIndex:pageIndex];
-	pageString = [page string];
+	pageString = [self stringForPage:page];
 	numberOfCharacters = [pageString length];
 	if(numberOfCharacters>0)
 	{
@@ -3946,7 +3975,7 @@ backwards:
 		return position;
 	}
 	page = [self pageAtIndex:pageIndex];
-	pageString = [page string];
+	pageString = [self stringForPage:page];
 	numberOfCharacters = [pageString length];
 	characterOffset = [self characterOffsetForPageAtIndex:pageIndex];
 	if(characterOffset == NSNotFound)
@@ -3994,7 +4023,7 @@ previousOccurrence:
 				if(pageIndex--)
 				{
 					page = [self pageAtIndex:pageIndex];
-					pageString = [page string];
+					pageString = [self stringForPage:page];
 					numberOfCharacters = [pageString length];
 					if(characterOffset >= numberOfCharacters)
 					{
@@ -4012,7 +4041,7 @@ previousOccurrence:
 	else if(pageIndex--)
 	{
 		page = [self pageAtIndex:pageIndex];
-		pageString = [page string];
+		pageString = [self stringForPage:page];
 		numberOfCharacters = [pageString length];
 		if(characterOffset >= numberOfCharacters)
 		{
@@ -4206,9 +4235,10 @@ previousHere:
 
 @interface iTM2PDFKitView(SyncHRONIZE)
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations;
-- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex;
-- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex;
-- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
 - (void)scrollSynchronizationPointToVisible:(id)sender;
 - (BOOL)__synchronizeWithStoredDestinationsAndHints:(id)irrelevant;
@@ -4274,7 +4304,7 @@ nextPointValue:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:here:index:
-- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
 /*"Description Forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -4288,7 +4318,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:index:
-- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
 /*"Description Forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -4303,7 +4333,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:here:after:index:
-- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
 /*"Description Forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -4316,6 +4346,420 @@ To Do List:
 //iTM2_LOG(@"COUCOUCOUCOUCOUCOUCOUCOUCOUCOU destinations:%@", destinations);
 //iTM2_END;
 	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:after:index:oldDestination:
+- (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex oldDestination:(PDFDestination *)oldDestination;
+/*"Description Forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(!oldDestination)
+	{
+		return [self _synchronizeWithDestinations:destinations before:before here:hit after:after index:hitIndex];
+	}
+	NSParameterAssert([before length]);
+	NSParameterAssert([hit length]);
+	NSParameterAssert([after length]);
+	hitIndex = MIN(hitIndex, [hit length] - 1);
+	// if destinations are available, we should use them!!!
+	NSDictionary * hereRecords = [destinations objectForKey:@"here"];
+	NSDictionary * beforeRecords = [destinations objectForKey:@"before"];
+	NSDictionary * afterRecords = [destinations objectForKey:@"after"];
+//iTM2_LOG(@"????    $$$$  hereRecords are:%@", hereRecords);
+//iTM2_LOG(@"????    $$$$  beforeRecords are:%@", beforeRecords);
+//iTM2_LOG(@"????    $$$$  afterRecords are:%@", afterRecords);
+	NSDictionary * positions = nil;
+	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)[self document];
+	unsigned int min,max,pageIndex;
+	NSEnumerator * E = nil;
+	NSNumber * N = nil;
+	NSNumber * minN = nil;
+	if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
+	{
+		return YES;
+	}
+#pragma mark 1 - Positions
+	if([hereRecords count])
+	{
+		E = [hereRecords keyEnumerator];
+		N = [E nextObject];
+		max = min = [N unsignedIntValue];
+		while(N = [E nextObject])
+		{
+			pageIndex = [N unsignedIntValue];
+			if(pageIndex<min)
+				min = pageIndex;
+			else if(pageIndex>max)
+				max = pageIndex;
+		}
+		if(min < [document pageCount])
+		{
+			if(min)
+			{
+				min = [document characterOffsetForPageAtIndex:min-1];
+				if(min == NSNotFound)
+				{
+defaultPositions:
+					positions = [document
+						positionsOfWordBefore:before here:hit after:after index:hitIndex];
+				}
+				else
+				{
+setUpMax:
+					max = (max < [document pageCount] - 1)?
+						[document characterOffsetForPageAtIndex:max+1]
+						:[document characterOffsetForPageAtIndex:[document pageCount]];
+					if(max == NSNotFound)
+					{
+						goto defaultPositions;
+					}
+					else
+					{
+						positions = [document
+							positionsOfWordBefore:before here:hit after:after index:hitIndex
+								inRange:NSMakeRange(min, max - min)];
+					}
+				}
+			}
+			else
+			{
+				min = 0;
+				goto setUpMax;
+			}
+		}
+		else
+		{
+			positions = [document
+				positionsOfWordBefore:before here:hit after:after index:hitIndex];
+		}
+	}
+	else if([beforeRecords count])
+	{
+		E = [beforeRecords keyEnumerator];
+		min = 0;
+		while(N = [E nextObject])
+		{
+			pageIndex = [N unsignedIntValue];
+			if(pageIndex>min)
+			{
+				min = pageIndex;
+				minN = N;
+			}
+		}
+		if(min < [document pageCount])
+		{
+			unsigned int max = min;
+			if([afterRecords count])
+			{
+				E = [afterRecords keyEnumerator];
+				while(N = [E nextObject])
+				{
+					pageIndex = [N unsignedIntValue];
+					if(pageIndex<max)
+						max = pageIndex;
+				}
+				if(max<min)
+					max = min;
+			}
+			unsigned int lastOff7 = [document characterOffsetForPageAtIndex:[document pageCount]];
+			unsigned int maxOff7 = [document characterOffsetForPageAtIndex:min+1];
+			unsigned int minOff7 = [document characterOffsetForPageAtIndex:min];
+			if(minOff7 == NSNotFound)
+				return NO;
+			PDFPage * page = [[self document] pageAtIndex:min];
+			if(maxOff7 == NSNotFound)
+				maxOff7 = minOff7 + [page numberOfCharacters];
+			if(lastOff7 == NSNotFound)
+				lastOff7 = maxOff7;
+			NSArray * points = minN? [beforeRecords objectForKey:minN]:nil;
+			if([points count] > 0)
+			{
+				NSPoint point = [[points objectAtIndex:0] pointValue];
+				int charIndex = [page characterIndexNearPoint:point];
+				if(charIndex >= 0)
+					minOff7 += charIndex;
+	//iTM2_LOG(@"????    $$$$????    $$$$????    $$$$????    $$$$  charIndex is:%i", charIndex);
+				unsigned int correction = [before length] + [hit length] + [after length] + 2;
+				if(minOff7>correction)
+					minOff7 -= correction;
+				else
+					minOff7 = 0;
+				if(correction < lastOff7 - maxOff7)
+					maxOff7 += correction;
+				else
+					maxOff7 = lastOff7;
+			}
+			unsigned int savedMaxOff7 = maxOff7;
+			positions = [document
+				positionsOfWordBefore:before here:hit after:after index:hitIndex
+					inRange:NSMakeRange(minOff7, maxOff7 - minOff7)];
+			if([positions count])
+			{
+				if(maxOff7 < lastOff7)
+				{
+					maxOff7 = lastOff7;
+					positions = [document
+						positionsOfWordBefore:before here:hit after:after index:hitIndex
+							inRange:NSMakeRange(minOff7, maxOff7 - minOff7)];
+					if(![positions count])
+					{
+						maxOff7 = savedMaxOff7;
+quelquepart:
+						if(minOff7)
+						{
+							minOff7 = [document characterOffsetForPageAtIndex:min-1];
+							positions = [document
+								positionsOfWordBefore:before here:hit after:after index:hitIndex
+									inRange:NSMakeRange(minOff7, maxOff7 - minOff7)];
+						}
+					}
+				}
+				else
+					goto quelquepart;
+			}
+//iTM2_LOG(@"ssearch range:%u, %u", min, max);
+		}
+		else
+		{
+			positions = [document
+				positionsOfWordBefore:before here:hit after:after index:hitIndex];
+		}
+	}
+	else
+	{
+		positions = [document
+			positionsOfWordBefore:before here:hit after:after index:hitIndex];
+	}
+	if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
+	{
+		return YES;
+	}
+	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
+	if(positions)
+	{
+		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+		[_SyncDestinations autorelease];
+		_SyncDestinations = [[positions objectForKey:key] retain];
+//iTM2_LOG(@"****  _SyncDestinations are now:%@", _SyncDestinations);
+		// then what shall we do?
+		// let us try first to use the given destinations
+		// the destinations are 3 dictionaries of page numbers/point arrays pairs.
+		unsigned int pageCount;
+		PDFDestination * destination;
+		if([hereRecords count])
+		{
+#pragma mark 2 - "Here" records
+//iTM2_LOG(@"$$$$  [hereRecords count] is:%i", [hereRecords count]);
+			// I found a record for a line...
+			// first I remove all the points that do not point to a character
+			// I convert the information to allow comparison between here records and sync destinations
+			// The best thing is to consider character indexes in the whole string of the document.
+			// Due to the fact that a page break can occur in the middle of a phrase,
+			// we cannot rely on choosing common page numbers for records and destinations.
+			// BTW, it might be something interesting in the major part of the real situations.
+			// So we convert to 2 dictionaries where keys are global character indexes
+			// and objects wrapp the original information.
+			// The here records do not really contain more information that the point to be displayed.
+			// The only thing we know is that there is a sync anchor on the same line where the mouseDown:occurred.
+			// TeX can mess things up such that the anchor point can be completely fool...
+#pragma mark 2 - a ) Convert to global
+			NSMutableArray * globalIndexes = [NSMutableArray array];
+			E = [hereRecords keyEnumerator];
+			while(N = [E nextObject])
+			{
+				if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
+				{
+					return YES;
+				}
+				pageIndex = [N unsignedIntValue];
+				PDFDocument * doc = [self document];
+				if(pageIndex < [doc pageCount])
+				{
+					PDFPage * page = [doc pageAtIndex:pageIndex];
+					NSEnumerator * EE = [[hereRecords objectForKey:N] objectEnumerator];
+					NSValue *  V;
+					while(V = [EE nextObject])
+					{
+						int localIndex = [page characterIndexNearPoint:[V pointValue]];
+						if(localIndex>=0)
+							[globalIndexes addObject:
+								[NSNumber numberWithInt:[page localToGlobalCharacterIndex:localIndex]]];
+					}
+				}
+				else
+				{
+					iTM2_LOG(@"***  Something WEIRD DID HAPPEN:page number %u was expected to not exceed %u", pageIndex, [doc pageCount]);
+				}
+			}
+			// globalIndexes is an array of numbers wrapping global character indexes.
+			// then we try to find the sync destination neerest to the record index
+#pragma mark 2 - b ) Find best match
+			unsigned int minWeight = UINT_MAX;
+			NSMutableArray * syncDestinations = [NSMutableArray array];
+			E = [globalIndexes objectEnumerator];
+			while(N = [E nextObject])
+			{
+				int globalIndex = [N intValue];
+				NSEnumerator * EE = [_SyncDestinations objectEnumerator];// _SyncDestinations contains the positions
+				while(destination = [EE nextObject])
+				{
+					PDFPage * page = [destination page];
+					int globalIdx = [page localToGlobalCharacterIndex:
+						[page characterIndexNearPoint:[destination point]]];
+					unsigned weight = globalIdx < globalIndex?
+						globalIndex - globalIdx:globalIdx - globalIndex;
+					weight /= 3;// because some \n characters are sometimes added.
+					if(weight<minWeight)
+					{
+						syncDestinations = [NSMutableArray arrayWithObject:destination];
+						minWeight = weight;
+					}
+					else if (weight==minWeight)
+					{
+						[syncDestinations addObject:destination];
+					}
+				}//while
+			}
+			if([syncDestinations count])
+			{
+				[_SyncDestinations autorelease];
+				_SyncDestinations = [syncDestinations retain];
+			}
+		}
+		else
+		{
+#pragma mark 3 - No "Here" records
+			// we try to choose the destinations for which there exist something before and after...
+			NSMutableArray * globalBeforeIndexes = [NSMutableArray array];
+			// globalBeforeIndexes is an array of numbers wrapping global character indexes.
+			if([beforeRecords count])
+			{
+				E = [beforeRecords keyEnumerator];
+				pageCount = [[self document] pageCount];
+				while(N = [E nextObject])
+				{
+					
+					pageIndex = [N unsignedIntValue];
+					if(pageIndex < pageCount)
+					{
+						PDFPage * page = [[self document] pageAtIndex:pageIndex];
+						NSEnumerator * EE = [[beforeRecords objectForKey:N] objectEnumerator];
+						NSValue *  V;
+						while(V = [EE nextObject])
+						{
+							int localIndex = [page characterIndexNearPoint:[V pointValue]];
+							if(localIndex>=0)
+								[globalBeforeIndexes addObject:
+									[NSNumber numberWithInt:[page localToGlobalCharacterIndex:localIndex]]];
+						}
+					}
+				}
+			}
+			if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
+			{
+				return YES;
+			}
+			NSMutableArray * globalAfterIndexes = [NSMutableArray array];
+			if([afterRecords count])
+			{
+				E = [afterRecords keyEnumerator];
+				pageCount = [[self document] pageCount];
+				while(N = [E nextObject])
+				{
+					pageIndex = [N unsignedIntValue];
+					if(pageIndex < pageCount)
+					{
+						PDFPage * page = [[self document] pageAtIndex:pageIndex];
+						NSEnumerator * EE = [[afterRecords objectForKey:N] objectEnumerator];
+						NSValue *  V;
+						while(V = [EE nextObject])
+						{
+							int localIndex = [page characterIndexNearPoint:[V pointValue]];
+							if(localIndex>=0)
+								[globalAfterIndexes addObject:
+									[NSNumber numberWithInt:[page localToGlobalCharacterIndex:localIndex]]];
+						}
+					}
+				}
+				// now beforeRecords or afterRecords are useless
+			}
+//iTM2_LOG(@"$$$$  globalBeforeIndexes is:%@", globalBeforeIndexes);
+//iTM2_LOG(@"$$$$  globalAfterIndexes is:%@", globalAfterIndexes);
+			if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
+			{
+				return YES;
+			}
+			NSMutableArray * oldSyncDestinations = [NSMutableArray arrayWithArray:_SyncDestinations];
+			NSMutableArray * newSyncDestinations = [NSMutableArray array];
+			NSEnumerator * beforeE = [globalBeforeIndexes objectEnumerator];
+			unsigned int beforeIndex = [[beforeE nextObject] unsignedIntValue];
+			NSEnumerator * afterE = [globalAfterIndexes objectEnumerator];
+			NSNumber * afterNumber;
+			unsigned int afterIndex;
+			nextAfterIndexLabel:
+			afterNumber = [afterE nextObject];
+			afterIndex = afterNumber? [afterNumber unsignedIntValue]:UINT_MAX;
+			if(beforeIndex < afterIndex)
+			{
+				// now we augment beforeIndex
+				unsigned int nextBeforeIndex = UINT_MAX;
+				NSNumber * beforeNumber;
+				while(beforeNumber = [beforeE nextObject])
+				{
+					nextBeforeIndex = [beforeNumber unsignedIntValue];
+					if(nextBeforeIndex < afterIndex)
+						beforeIndex = nextBeforeIndex;
+					else
+						break;
+				}
+				// OK we found a good intervalle
+				// then we try to find all the destinations that fit in that intervalle
+				NSRange R = NSMakeRange(beforeIndex, afterIndex - beforeIndex);
+				NSEnumerator * e = [oldSyncDestinations objectEnumerator];
+				while(destination = [e nextObject])
+				{
+					PDFPage * page = [destination page];
+					int globalIdx = [page localToGlobalCharacterIndex:
+						[page characterIndexNearPoint:[destination point]]];
+					if(globalIdx<0)
+					{
+						[oldSyncDestinations removeObject:destination];
+					}
+					else if(NSLocationInRange(globalIdx, R))
+					{
+						[oldSyncDestinations removeObject:destination];
+						[newSyncDestinations addObject:destination];
+					}
+				}
+				// next loop:
+				if(beforeNumber)
+				{
+					beforeIndex = nextBeforeIndex;
+					goto nextAfterIndexLabel;
+				}
+			}
+			else
+				goto nextAfterIndexLabel;
+			if([newSyncDestinations count])
+			{
+				[_SyncDestinations autorelease];
+				PDFDestination * hitDestination = [_SyncDestinations objectAtIndex:0];
+				_SyncDestinations = [[NSArray arrayWithObject:hitDestination] retain];
+				//[self scrollDestinationToVisible:hitDestination];// no go to, it does not work well...
+				if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
+				{
+					return YES;
+				}
+				[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
+				return YES;
+			}
+		}
+	}
+//iTM2_END;
+	return [_SyncDestinations count]!=0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:after:index:
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(unsigned int)hitIndex;
@@ -4713,7 +5157,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	[self __synchronizeWithStoredDestinationsAndHints:(id) irrelevant];
+	[self __synchronizeWithStoredDestinationsAndHints:(id)irrelevant];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	[NSThread exit];
@@ -4745,6 +5189,7 @@ startAgain:;
 			[[[syncStack lastObject] nonretainedObjectValue] autorelease];
 			[syncStack removeLastObject];
 		}
+		PDFDestination * oldDestination = [_SyncDestinations count]?[_SyncDestinations objectAtIndex:0]:nil;
 		[L unlock];
 		[L release];
 		L = nil;
@@ -4752,6 +5197,21 @@ startAgain:;
 		if(S)
 		{
 			// okay guyes, let's go to the party.
+			// use the selected ranges to narrow the search
+			NSValue * V = [hint objectForKey:@"old selected range"];
+			if(V)
+			{
+				NSRange oldRange = [V rangeValue];
+				if(V = [hint objectForKey:@"new selected range"])
+				{
+					NSRange newRange = [V rangeValue];
+					newRange = NSUnionRange(oldRange,newRange);
+					if(newRange.length>1000)
+					{
+						oldDestination = nil;
+					}
+				}
+			}
 			// we just use the hint to find words before and after the hint and switch to the appropriate _synchronize... method
 			unsigned int hereIndex = [[hint objectForKey:@"character index"] unsignedIntValue];// The mousedown occurred here.
 			if(hereIndex < [S length])
@@ -4764,6 +5224,8 @@ startAgain:;
 				{
 					iTM2_LOG(@"####  hit sequence:%@ + %@ + %@, (index:%i)", beforeWord, hereWord, afterWord, hereIndex);
 				}
+				// using the hint to narrow the search
+				//
 				// branching code
 				if(localHitIndex == NSNotFound)
 				{
@@ -4775,11 +5237,11 @@ startAgain:;
 					{
 						if([afterWord length])
 						{
-							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord after:afterWord index:localHitIndex];
+							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord after:afterWord index:localHitIndex oldDestination:oldDestination];
 						}
 						else
 						{
-							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord index:localHitIndex];
+							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord index:localHitIndex oldDestination:oldDestination];
 						}
 					}
 #if 0
@@ -4793,11 +5255,11 @@ startAgain:;
 				{
 					if([afterWord length])
 					{
-						result = [self _synchronizeWithDestinations:destinations here:hereWord after:afterWord index:localHitIndex];
+						result = [self _synchronizeWithDestinations:destinations here:hereWord after:afterWord index:localHitIndex oldDestination:oldDestination];
 					}
 					else
 					{
-						result = [self _synchronizeWithDestinations:destinations here:hereWord index:localHitIndex];
+						result = [self _synchronizeWithDestinations:destinations here:hereWord index:localHitIndex oldDestination:oldDestination];
 					}
 				}
 			}
@@ -4920,7 +5382,7 @@ To Do List:
 								}
 							}
 						}
-						NSString * targetString = [page string];
+						NSString * targetString = [document stringForPage:page];
 //iTM2_LOG(@"targetString:%@", targetString);
 						NSRange R = NSMakeRange(0, [targetString length]);
 						NSMutableArray * pointValues   = [NSMutableArray array];// matching word
@@ -4984,7 +5446,7 @@ To Do List:
 				if(wordRange.length)
 				{
 					NSString * word = [S substringWithRange:wordRange];
-					NSString * targetString = [page string];
+					NSString * targetString = [document stringForPage:page];
 					NSRange R = NSMakeRange(0, [targetString length]);
 					NSMutableArray * rangeValues = [NSMutableArray array];
 					stillMore:
@@ -5404,6 +5866,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	PDFDocument * document = [self document];
 	PDFPage * page = [self pageForPoint:point nearest:NO];
 	if(page)
 	{
@@ -5415,10 +5878,10 @@ To Do List:
 		NSMutableDictionary * hint = charIndex >= 0?
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:
 				[NSNumber numberWithInt:charIndex], @"character index",
-				[page string], @"container",
+				[document stringForPage:page], @"container",
 					nil]:
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:
-				[page string], @"container",
+				[document stringForPage:page], @"container",
 					nil];
 		unsigned int pageIndex = [[page document] indexForPage:page];
 		PDFSelection * selection;
@@ -6822,9 +7285,11 @@ To Do List:
 	int result = [super characterIndexAtPoint:point];
 	if(result < 0)
 		return result;
-	if([[self string] characterAtIndex:result] == ' ')
+	PDFDocument * document = [self document];
+	NSString * string = [document stringForPage:self];
+	if([string characterAtIndex:result] == ' ')
 	{
-		if(result < [[self string] length] - 1)
+		if(result < [string length] - 1)
 		{
 			int newResult = result + 1;
 			PDFSelection * SELECTION = [self selectionForRange:NSMakeRange(newResult, 1)];
@@ -6845,22 +7310,22 @@ To Do List:
 			if(SELECTION)
 			{
 				NSRect bounds = [SELECTION boundsForPage:self];
-//iTM2_LOG(@"+++++++++++++ left character is:%@, bounds is:%@", [[self string] substringWithRange:NSMakeRange(result-1, 1)], NSStringFromRect(bounds));
+//iTM2_LOG(@"+++++++++++++ left character is:%@, bounds is:%@", [string substringWithRange:NSMakeRange(result-1, 1)], NSStringFromRect(bounds));
 			}
 		}
 		PDFSelection * SELECTION = [self selectionForRange:NSMakeRange(result, 1)];
 		if(SELECTION)
 		{
 			NSRect bounds = [SELECTION boundsForPage:self];
-//iTM2_LOG(@"+++++++++++++ center character is:%@, bounds is:%@", [[self string] substringWithRange:NSMakeRange(result, 1)], NSStringFromRect(bounds));
+//iTM2_LOG(@"+++++++++++++ center character is:%@, bounds is:%@", [string substringWithRange:NSMakeRange(result, 1)], NSStringFromRect(bounds));
 		}
-		if(result < [[self string] length] - 1)
+		if(result < [string length] - 1)
 		{
 			PDFSelection * SELECTION = [self selectionForRange:NSMakeRange(result+1, 1)];
 			if(SELECTION)
 			{
 				NSRect bounds = [SELECTION boundsForPage:self];
-//iTM2_LOG(@"+++++++++++++ right character is:%@, bounds is:%@", [[self string] substringWithRange:NSMakeRange(result+1, 1)], NSStringFromRect(bounds));
+//iTM2_LOG(@"+++++++++++++ right character is:%@, bounds is:%@", [string substringWithRange:NSMakeRange(result+1, 1)], NSStringFromRect(bounds));
 			}
 		}
 	}
@@ -7008,8 +7473,8 @@ To Do List:
 //iTM2_START;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
-- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -7018,7 +7483,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL result = [super tryToExecuteStringInstruction:instruction];
+    BOOL result = [super tryToExecuteMacro:instruction];
     if(result)
         return result;
     if([instruction length])
