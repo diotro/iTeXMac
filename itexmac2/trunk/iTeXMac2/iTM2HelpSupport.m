@@ -21,7 +21,7 @@
 //
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
-//
+//OPEN_MAX limits.h
 
 #import "iTM2HelpSupport.h"
 

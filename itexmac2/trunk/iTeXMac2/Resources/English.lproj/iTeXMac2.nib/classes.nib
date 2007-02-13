@@ -14,7 +14,6 @@
                 centerSelectionInVisibleArea = id; 
                 commentSelection = id; 
                 completeLaTeXEnvironment = id; 
-                completionMode = id; 
                 crop = id; 
                 displayConsoleDebug = id; 
                 displayCropBox = id; 
@@ -42,7 +41,6 @@
                 doZoomIn = id; 
                 doZoomOut = id; 
                 doZoomToSelection = id; 
-                editCompletions = id; 
                 editExportImageOptions = id; 
                 findAndScrollSynchronizationPointToVisible = id; 
                 flipHorizontal = id; 
@@ -52,6 +50,8 @@
                 imageCorrection = id; 
                 indentSelection = id; 
                 indentSelectionToPrevious = id; 
+                macroEdit = id; 
+                macroMode = id; 
                 mailForHelp = id; 
                 matchToProfile = id; 
                 moreCopy = id; 
@@ -73,18 +73,23 @@
                 projectAddCurrentDocument = id; 
                 projectAddDocument = id; 
                 projectChooseMaster = id; 
+                projectClean = id; 
                 projectCurrent = id; 
                 projectCurrentCreate = id; 
                 projectCurrentNone = id; 
                 projectDocuments = id; 
                 projectNoDocument = id; 
                 projectShowSettings = id; 
+                projectToggleNormal = id; 
+                projectToggleStandalone = id; 
+                projectToggleWrapper = id; 
                 reportBug = id; 
                 requestFeature = id; 
                 rotateLeft = id; 
                 rotateRight = id; 
                 scrollTool = id; 
                 selectFirstPlaceholder = id; 
+                selectLastPlaceholderAndClean = id; 
                 selectTool = id; 
                 setCircleAnnotation = id; 
                 setFacingPages = id; 
@@ -142,6 +147,7 @@
                 toggleShowsControls = id; 
                 toggleShowsInvisibles = id; 
                 toggleSmartInsert = id; 
+                toggleSmartMacros = id; 
                 toggleSmartSelection = id; 
                 toggleSmartUndo = id; 
                 toggleSmartUpdate = id; 
