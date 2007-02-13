@@ -638,34 +638,6 @@ To Do List:
 	[SMC executeMacroWithID:@"\\begin{flushleft}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subscript:
-- (void)subscript:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-To Do List:
-"*/
-{
-//iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"_{math}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
-- (void)superscript:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-To Do List:
-"*/
-{
-//iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"^{math}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
-    return;
-}
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  turnOffKerning:
 - (void)turnOffKerning:(id)sender;
@@ -828,12 +800,12 @@ To Do List: Nothing at first glance.
     NSRange R = [self selectedRange];
     if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-        [self insertText:@"\\"];
+        [self insertText:[NSString backslashString]];
     }
     else
     {
         [[self undoManager] beginUndoGrouping];
-        [self insertText:@"\\"];
+        [self insertText:[NSString backslashString]];
         [self insertNewline:self];
         [[self undoManager] endUndoGrouping];
     }
@@ -1871,7 +1843,7 @@ To Do List:
     faaa:
     if(index < [self length])
     {
-        R = [self rangeOfString:@"\\" options:0L range:NSMakeRange(index, [self length]-index)];
+        R = [self rangeOfString:[NSString backslashString] options:0L range:NSMakeRange(index, [self length]-index)];
         if(R.location == NSNotFound)
             goto bail;
         BOOL escaped = NO;
@@ -1959,7 +1931,7 @@ To Do List:
     faaa:
     if(index <= [self length])
     {
-        NSRange R = [self rangeOfString:@"\\" options:NSBackwardsSearch range:NSMakeRange(0, index)];
+        NSRange R = [self rangeOfString:[NSString backslashString] options:NSBackwardsSearch range:NSMakeRange(0, index)];
         if(R.location == NSNotFound)
             goto bail;
         BOOL escaped = NO;
@@ -2070,6 +2042,31 @@ static id _iTM2LaTeXModeForModeArray = nil;
 #endif
 
 @implementation NSTextView(iTM2LaTeX)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartLaTeXMacroWithMacro:substitutions;
+- (NSString *)smartLaTeXMacroWithMacro:(NSString *)macro substitutions:(NSDictionary *)substitutions;
+/*"Description forthcoming. Will be completely overriden by subclassers.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([substitutions count])
+	{
+		id argument = [[argument mutableCopy] autorelease];
+		NSEnumerator * E = [substitutions keyEnumerator];
+		NSString * old;
+		while(old = [E nextObject])
+		{
+			NSString * new = [substitutions objectForKey:old];
+			NSRange searchRange = NSMakeRange(0,[argument length]);
+			[argument replaceOccurrencesOfString:old withString:new options:nil range:searchRange];
+		}
+		macro = [NSString stringWithString:argument];
+	}
+//iTM2_END;
+    return macro;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useLaTeXPackage:
 - (IBAction)useLaTeXPackage:(id)sender;
 /*".
@@ -2092,7 +2089,7 @@ To Do List:
 			[self performSelector:action withObject:nil];
 			return;
 		}
-		NSString * what = [NSString stringWithFormat:@"__(INS)__\\usepackage{%@}\n__(INS)__",packageName];
+		NSString * what = [NSString stringWithFormat:@"@(@INS@)@\\usepackage{%@}\n@(@INS@)@",packageName];
 		// where
 		// find the last usepackage used
 		NSString * S = [self string];
@@ -2827,10 +2824,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	NSParameterAssert(newModeRef);
 //iTM2_START;
-//    if(previousMode != ( previousMode & ~kiTM2TeXModifiersSyntaxMask))
-//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXModifiersSyntaxMask);
+//    if(previousMode != ( previousMode & ~kiTM2TeXFlagsSyntaxMask))
+//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXFlagsSyntaxMask);
 	// this is for the added modes, but links should not happen here.
-	unsigned switcher = previousMode & ~kiTM2TeXModifiersSyntaxMask;
+	unsigned switcher = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	switch(switcher)
 	{
 		case kiTM2LaTeXIncludeSyntaxMode:
@@ -2847,7 +2844,7 @@ To Do List:
 			}
 		}
 		else
-			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:kiTM2TeXCommandSyntaxMode];
+			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:kiTM2TeXCommandContinueSyntaxMode];
 		default:
 			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:previousMode];
 	}
@@ -2866,10 +2863,10 @@ To Do List:
     NSParameterAssert(newModeRef);
     NSParameterAssert(location<[S length]);
 	unsigned status;
-	unsigned switcher = previousMode & ~kiTM2TeXModifiersSyntaxMask;
+	unsigned switcher = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unichar theChar;
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
-	if(kiTM2TeXBeginCommandSyntaxMode == switcher)
+	if(kiTM2TeXCommandStartSyntaxMode == switcher)
 	{
 		theChar = [S characterAtIndex:location];
 		if([set characterIsMember:theChar])
@@ -2936,7 +2933,7 @@ To Do List:
 	if(nextModeRef)
 	{
 		unsigned result = [super getSyntaxMode:newModeRef forLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nextModeRef before:beforeIndex];
-		if((result == kiTM2TeXBeginCommandSyntaxMode) && (*nextModeRef == kiTM2TeXCommandSyntaxMode))
+		if((result == kiTM2TeXCommandStartSyntaxMode) && (*nextModeRef == kiTM2TeXCommandContinueSyntaxMode))
 		{
 			unsigned start = location+1;
 			unsigned end = start;
@@ -2975,15 +2972,15 @@ To Do List:
 //iTM2_START;
     unsigned mode;
 	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
+	unsigned switcher = mode & ~kiTM2TeXFlagsSyntaxMask;
     switch(switcher)
     {
-        case kiTM2TeXBeginCommandSyntaxMode:
+        case kiTM2TeXCommandStartSyntaxMode:
 			if(aLocation+1 < [[self textStorage] length])
 			{
 				unsigned nextMode;
 				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
-				unsigned nextSwitcher = nextMode & ~kiTM2TeXModifiersSyntaxMask;
+				unsigned nextSwitcher = nextMode & ~kiTM2TeXFlagsSyntaxMask;
 				switch(nextSwitcher)
 				{
 					case kiTM2LaTeXIncludeSyntaxMode:
@@ -3044,15 +3041,15 @@ To Do List:
 //iTM2_START;
     unsigned mode;
 	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
+	unsigned switcher = mode & ~kiTM2TeXFlagsSyntaxMask;
     switch(switcher)
     {
-        case kiTM2TeXBeginCommandSyntaxMode:
+        case kiTM2TeXCommandStartSyntaxMode:
 			if(aLocation+1 < [[self textStorage] length])
 			{
 				unsigned nextMode;
 				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
-				unsigned nextSwitcher = nextMode & ~kiTM2TeXModifiersSyntaxMask;
+				unsigned nextSwitcher = nextMode & ~kiTM2TeXFlagsSyntaxMask;
 				switch(nextSwitcher)
 				{
 					case kiTM2LaTeXIncludeSyntaxMode:
