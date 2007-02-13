@@ -442,7 +442,7 @@ To Do List:
     symbolAttributes = [_SymbolsAttributes objectForKey:symbol];
     if(symbolAttributes)
     {
-        NSDictionary * commandAttributes = [self attributesForMode:@"command"];
+        NSDictionary * commandAttributes = [self attributesForMode:iTM2TeXCommandSyntaxModeName];
         NSColor * commandColor = [commandAttributes objectForKey:NSForegroundColorAttributeName];
         if(commandColor)
         {

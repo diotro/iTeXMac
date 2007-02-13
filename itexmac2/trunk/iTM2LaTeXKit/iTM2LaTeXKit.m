@@ -2824,23 +2824,42 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	NSParameterAssert(newModeRef);
 //iTM2_START;
-//    if(previousMode != ( previousMode & ~kiTM2TeXFlagsSyntaxMask))
-//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXFlagsSyntaxMask);
-	// this is for the added modes, but links should not happen here.
-	unsigned switcher = previousMode & ~kiTM2TeXFlagsSyntaxMask;
-	switch(switcher)
+	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
+	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
+	if(previousModifier & kiTM2TeXEndOfLineSyntaxMask)
+	{
+		// this is the first character of the line
+		if(theChar == ' ')
+		{
+			* newModeRef = kiTM2TeXWhitePrefixSyntaxMode | previousError | previousModifier;
+			return kiTM2TeXNoErrorSyntaxStatus;
+		}
+		previousModifier &= ~kiTM2TeXEndOfLineSyntaxMask;
+	}
+	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
+	unsigned newModifier = previousModifier;
+	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
+	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
+	NSString * modeString = @"";
+	unsigned newMode;
+
+	switch(previousModeWithoutModifiers)
 	{
 		case kiTM2LaTeXIncludeSyntaxMode:
 		case kiTM2LaTeXIncludegraphicsSyntaxMode:
 		case kiTM2LaTeXURLSyntaxMode:
-		if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
+		if([set characterIsMember:theChar])
 		{
-			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher-kiTM2LaTeXIncludeSyntaxMode]])
-				return previousMode;
+			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:previousModeWithoutModifiers-kiTM2LaTeXIncludeSyntaxMode]])
+			{
+				* newModeRef = newMode | previousError | newModifier;
+				return kiTM2TeXNoErrorSyntaxStatus;
+			}
 			else
 			{
 	//iTM2_LOG(@"AN ERROR OCCURRED");
-				return previousMode | kiTM2TeXErrorFontSyntaxMask;
+				* newModeRef = newMode | previousError | newModifier | kiTM2TeXErrorFontSyntaxMask;
+				return kiTM2TeXErrorSyntaxStatus;
 			}
 		}
 		else
@@ -2859,16 +2878,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSParameterAssert(newModeRef);
     NSString * S = [_TextStorage string];
-    NSParameterAssert(newModeRef);
     NSParameterAssert(location<[S length]);
+	NSString * substring;
+	NSRange r;
 	unsigned status;
-	unsigned switcher = previousMode & ~kiTM2TeXFlagsSyntaxMask;
-	unichar theChar;
+//	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
+//	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
+	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
+	unichar theChar = [S characterAtIndex:location];
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
-	if(kiTM2TeXCommandStartSyntaxMode == switcher)
+	if(kiTM2TeXCommandStartSyntaxMode == previousModeWithoutModifiers)
 	{
-		theChar = [S characterAtIndex:location];
 		if([set characterIsMember:theChar])
 		{
 			// is it a \include, \includegraphics, \url
@@ -2879,10 +2901,14 @@ To Do List:
 				++end;
 			if(end == start+15)
 			{
-				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				if([@"includegraphics" isEqualToString:substring])
 				{
 					if(lengthRef)
+					{
 						* lengthRef = end-start;
+					}
 					if(nextModeRef && (end<[S length]))
 					{
 						theChar = [S characterAtIndex:end];
@@ -2891,41 +2917,52 @@ To Do List:
 					// now we invalidate the cursor rects in order to have the links properly displayed
 					//the delay is due to the reentrant problem
 					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					return kiTM2LaTeXIncludegraphicsSyntaxMode;
+					* newModeRef = kiTM2LaTeXIncludegraphicsSyntaxMode;
+					return kiTM2TeXNoErrorSyntaxStatus;
 				}
 			}
 			else if(end == start+7)
 			{
-				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				if([@"include" isEqualToString:substring])
 				{
 					if(lengthRef)
+					{
 						* lengthRef = end-start;
+					}
 					if(nextModeRef && (end<[S length]))
 					{
 						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
+						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludeSyntaxMode];
 					}
 					// now we invalidate the cursor rects in order to have the links properly displayed
 					//the delay is due to the reentrant problem
 					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					return kiTM2LaTeXIncludeSyntaxMode;
+					* newModeRef = kiTM2LaTeXIncludeSyntaxMode;
+					return kiTM2TeXNoErrorSyntaxStatus;
 				}
 			}
 			else if(end == start+3)
 			{
-				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				if([@"url" isEqualToString:substring])
 				{
 					if(lengthRef)
+					{
 						* lengthRef = end-start;
+					}
 					if(nextModeRef && (end<[S length]))
 					{
 						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
+						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXURLSyntaxMode];
 					}
 					// now we invalidate the cursor rects in order to have the links properly displayed
 					//the delay is due to the reentrant problem
 					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					return kiTM2LaTeXURLSyntaxMode;
+					* newModeRef = kiTM2LaTeXURLSyntaxMode;
+					return kiTM2TeXNoErrorSyntaxStatus;
 				}
 			}
 		}

@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1140B81231000BBCDDD</string>
+						<string>DCC4B2530B81DCC500BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DC5DCFDE0B7C621100462C93</string>
@@ -368,7 +368,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCC4B1110B81231000BBCDDD</string>
+										<string>DCC4B2510B81DCC500BBCDDD</string>
 										<key>history</key>
 										<array>
 											<string>DC23FA790B732F65006261D8</string>
@@ -581,9 +581,9 @@
 		<string>DC691935088C8CD600F00114</string>
 		<string>DC69174E088BFB5600F00114</string>
 		<string>DCC4B11C0B81231000BBCDDD</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DC5DCFAC0B7C618A00462C93</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>50 37 1364 818 0 0 1440 878 </string>

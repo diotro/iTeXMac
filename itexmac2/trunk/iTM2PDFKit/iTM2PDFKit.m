@@ -5331,7 +5331,7 @@ To Do List:
 	_SyncPointValues = nil;
 	if(aCurrentPhysicalPage<0)
 		return NO;// no hint for the page, I do not synchronize yet
-	iTM2XtdPDFDocument * document = [self document];
+	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)[self document];
 	if(aCurrentPhysicalPage < [document pageCount])
 	{
 		PDFPage * page = [document pageAtIndex:aCurrentPhysicalPage];
@@ -5866,7 +5866,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-	iTM2XtdPDFDocument * document = [self document];
+	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)[self document];
 	PDFPage * page = [self pageForPoint:point nearest:NO];
 	if(page)
 	{
@@ -7285,7 +7285,7 @@ To Do List:
 	int result = [super characterIndexAtPoint:point];
 	if(result < 0)
 		return result;
-	iTM2XtdPDFDocument * document = [self document];
+	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)[self document];
 	NSString * string = [document stringForPage:self];
 	if([string characterAtIndex:result] == ' ')
 	{

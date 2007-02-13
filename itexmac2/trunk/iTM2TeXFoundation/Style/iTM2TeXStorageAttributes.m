@@ -145,8 +145,7 @@ CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifie
 				newModifier = previousModifier;
 				break;
         }
-		unsigned index = newMode;
-		modeString = [_iTM2TeXModeForModeArray objectAtIndex:index];
+		modeString = [_iTM2TeXModeForModeArray objectAtIndex:newMode];
 		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
 		{
 			* newModeRef = newMode | previousError | newModifier;
@@ -1017,9 +1016,9 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert(newModeRef);
     NSString * S = [_TextStorage string];
+    NSParameterAssert(location<[S length]);
 	NSString * substring;
 	NSRange r;
-    NSParameterAssert(location<[S length]);
 	unsigned status;
 //	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
 //	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;

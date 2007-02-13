@@ -1126,7 +1126,7 @@ To Do List: see the warning below
 			{
 				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
 			}
-			document = [SDC documentForURL:url];
+			//document = [SDC documentForURL:url];
 		}
 	}
 #warning NYI: -all not supported
