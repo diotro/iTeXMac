@@ -4,11 +4,6 @@
 <dict>
 	<key>items</key>
 	<array>
-		<string>\ding{207}</string>
-		<string>\ding{208}</string>
-		<string>\ding{209}</string>
-		<string>\ding{210}</string>
-		<string>\ding{211}</string>
 		<string>\ding{172}</string>
 		<string>\ding{173}</string>
 		<string>\ding{174}</string>
@@ -44,6 +39,11 @@
 		<string>\ding{204}</string>
 		<string>\ding{205}</string>
 		<string>\ding{206}</string>
+		<string>\ding{207}</string>
+		<string>\ding{208}</string>
+		<string>\ding{209}</string>
+		<string>\ding{210}</string>
+		<string>\ding{211}</string>
 	</array>
 	<key>numberOfColumns</key>
 	<integer>5</integer>

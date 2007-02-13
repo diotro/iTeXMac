@@ -4,34 +4,34 @@
 <dict>
 	<key>items</key>
 	<array>
-		<string>\mathscr{__(SEL)__}</string>
+		<string>\mathscr{}</string>
 		<string>noop:</string>
-		<string>\mathscr{A}</string>
-		<string>\mathscr{B}</string>
-		<string>\mathscr{C}</string>
-		<string>\mathscr{D}</string>
-		<string>\mathscr{E}</string>
-		<string>\mathscr{F}</string>
-		<string>\mathscr{G}</string>
-		<string>\mathscr{H}</string>
-		<string>\mathscr{I}</string>
-		<string>\mathscr{J}</string>
-		<string>\mathscr{K}</string>
-		<string>\mathscr{L}</string>
-		<string>\mathscr{M}</string>
-		<string>\mathscr{N}</string>
-		<string>\mathscr{O}</string>
-		<string>\mathscr{P}</string>
-		<string>\mathscr{Q}</string>
-		<string>\mathscr{R}</string>
-		<string>\mathscr{S}</string>
-		<string>\mathscr{T}</string>
-		<string>\mathscr{U}</string>
-		<string>\mathscr{V}</string>
-		<string>\mathscr{W}</string>
-		<string>\mathscr{X}</string>
-		<string>\mathscr{Y}</string>
-		<string>\mathscr{Z}</string>
+		<string>mathbb{}|A</string>
+		<string>mathbb{}|B</string>
+		<string>mathbb{}|C</string>
+		<string>mathbb{}|D</string>
+		<string>mathbb{}|E</string>
+		<string>mathbb{}|F</string>
+		<string>mathbb{}|G</string>
+		<string>mathbb{}|H</string>
+		<string>mathbb{}|I</string>
+		<string>mathbb{}|J</string>
+		<string>mathbb{}|K</string>
+		<string>mathbb{}|L</string>
+		<string>mathbb{}|M</string>
+		<string>mathbb{}|N</string>
+		<string>mathbb{}|O</string>
+		<string>mathbb{}|P</string>
+		<string>mathbb{}|Q</string>
+		<string>mathbb{}|R</string>
+		<string>mathbb{}|S</string>
+		<string>mathbb{}|T</string>
+		<string>mathbb{}|U</string>
+		<string>mathbb{}|V</string>
+		<string>mathbb{}|W</string>
+		<string>mathbb{}|X</string>
+		<string>mathbb{}|Y</string>
+		<string>mathbb{}|Z</string>
 	</array>
 	<key>numberOfColumns</key>
 	<integer>4</integer>

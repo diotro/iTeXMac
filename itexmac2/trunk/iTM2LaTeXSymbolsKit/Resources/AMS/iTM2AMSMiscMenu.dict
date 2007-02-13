@@ -12,8 +12,8 @@
 		<string>\llcorner </string>
 		<string>\lrcorner </string>
 		<string>\urcorner </string>
-		<string>\widehat{__(SEL)__}</string>
-		<string>\widetilde{__(SEL)__}</string>
+		<string>\widehat{}</string>
+		<string>\widetilde{}</string>
 		<string>noop:</string>
 		<string>noop:</string>
 	</array>

@@ -19,9 +19,9 @@
 		<string>\notbackslash</string>
 		<string>\notslash</string>
 		<string>\APLminus</string>
-		<string>\APLnot{__(SEL)__}</string>
-		<string>\APLcirc{__(SEL)__}</string>
-		<string>\APLvert{__(SEL)__}</string>
+		<string>\APLnot{}</string>
+		<string>\APLcirc{}</string>
+		<string>\APLvert{}</string>
 	</array>
 	<key>numberOfColumns</key>
 	<integer>3</integer>

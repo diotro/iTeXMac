@@ -4,20 +4,20 @@
 <dict>
 	<key>items</key>
 	<array>
-                <string>\`{__(SEL)__}</string>
-                <string>\~{__(SEL)__}</string>
-                <string>\v{__(SEL)__}</string>
-                <string>\c{__(SEL)__}</string>
-                <string>\'{__(SEL)__}</string>
-                <string>\={__(SEL)__}</string>
-                <string>\H{__(SEL)__}</string>
-                <string>\d{__(SEL)__}</string>
-                <string>\^{__(SEL)__}</string>
-                <string>\.{__(SEL)__}</string>
-                <string>\t{__(SEL)__}</string>
-                <string>\b{__(SEL)__}</string>
-                <string>\"{__(SEL)__}</string>
-                <string>\u{__(SEL)__}</string>
+                <string>\`{}</string>
+                <string>\~{}</string>
+                <string>\v{}</string>
+                <string>\c{}</string>
+                <string>\'{}</string>
+                <string>\={}</string>
+                <string>\H{}</string>
+                <string>\d{}</string>
+                <string>\^{}</string>
+                <string>\.{}</string>
+                <string>\t{}</string>
+                <string>\b{}</string>
+                <string>\"{}</string>
+                <string>\u{}</string>
                 <string>noop:</string>
                 <string>noop:</string>
 	</array>
