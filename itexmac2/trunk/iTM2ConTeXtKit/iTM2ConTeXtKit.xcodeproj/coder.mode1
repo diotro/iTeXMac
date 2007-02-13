@@ -185,7 +185,40 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>DCF1A1880B73B0A800FE1A90</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>iTM2ConTeXtKit.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCF1A1890B73B0A800FE1A90</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>iTM2ConTeXtKit.m</string>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1234, 747}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>14 39 1234 788 0 0 1440 878 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -268,7 +301,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>31</integer>
+									<integer>3</integer>
+									<integer>1</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -307,24 +342,17 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Inspector.strings</string>
+								<string>&lt;No Editor&gt;</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
-										<key>PBXProjectModuleLabel</key>
-										<string>Inspector.strings</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>DC5310B90B66472800BD0276</string>
 										<key>history</key>
 										<array>
 											<string>DCCD305909E186E50003EEF9</string>
 											<string>DCCF01CD0A5D800B00B4B720</string>
-											<string>DC0BB6F40B610D9F00C7F0A1</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -386,9 +414,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC530F890B66307500BD0276</string>
+				<string>DCF1A1860B73B0A800FE1A90</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC530F8A0B66307500BD0276</string>
+				<string>DCF1A1870B73B0A800FE1A90</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -522,8 +550,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC530F910B66307500BD0276</string>
+		<string>DCF1A1880B73B0A800FE1A90</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DCF1A1910B73B0A800FE1A90</string>
 		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -650,8 +679,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {150, 372}}</string>
-											<string>{{150, 0}, {1130, 372}}</string>
+											<string>{{0, 0}, {150, 379}}</string>
+											<string>{{150, 0}, {1130, 379}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -666,8 +695,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1280, 372}}</string>
-											<string>{{0, 372}, {1280, 359}}</string>
+											<string>{{0, 0}, {1280, 379}}</string>
+											<string>{{0, 379}, {1280, 352}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -714,14 +743,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC530F8B0B66307500BD0276</string>
+				<string>DCF1A18B0B73B0A800FE1A90</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC530F8C0B66307500BD0276</string>
-				<string>DC530F8D0B66307500BD0276</string>
-				<string>DC530F8E0B66307500BD0276</string>
-				<string>DC530F8F0B66307500BD0276</string>
-				<string>DC530F900B66307500BD0276</string>
-				<string>DC530F910B66307500BD0276</string>
+				<string>DCF1A18C0B73B0A800FE1A90</string>
+				<string>DCF1A18D0B73B0A800FE1A90</string>
+				<string>DCF1A18E0B73B0A800FE1A90</string>
+				<string>DCF1A18F0B73B0A800FE1A90</string>
+				<string>DCF1A1900B73B0A800FE1A90</string>
+				<string>DCF1A1910B73B0A800FE1A90</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -730,7 +759,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

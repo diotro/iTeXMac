@@ -2034,7 +2034,7 @@ To Do List:
 			}
 		}
 		else
-			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:kiTM2TeXCommandSyntaxMode];
+			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:kiTM2TeXCommandContinueSyntaxMode];
 		default:
 			return [super getSyntaxMode:newModeRef forCharacter:theChar previousMode:previousMode];
 	}
@@ -2054,7 +2054,7 @@ To Do List:
 	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
 	unichar theChar, status;
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
-	if(kiTM2TeXBeginCommandSyntaxMode == switcher)
+	if(kiTM2TeXCommandStartSyntaxMode == switcher)
 	{
 		theChar = [S characterAtIndex:location];
 		if([set characterIsMember:theChar])
@@ -2124,7 +2124,7 @@ To Do List:
 	if(nextModeRef)
 	{
 		status = [super getSyntaxMode:newModeRef forLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nextModeRef before:beforeIndex];
-		if((*newModeRef == kiTM2TeXBeginCommandSyntaxMode) && (*nextModeRef == kiTM2TeXCommandSyntaxMode))
+		if((*newModeRef == kiTM2TeXCommandStartSyntaxMode) && (*nextModeRef == kiTM2TeXCommandContinueSyntaxMode))
 		{
 			unsigned start = location+1;
 			unsigned end = start;
@@ -2166,7 +2166,7 @@ To Do List:
 	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
     switch(switcher)
     {
-        case kiTM2TeXBeginCommandSyntaxMode:
+        case kiTM2TeXCommandStartSyntaxMode:
 			if(aLocation + 1 < [[self textStorage] length])
 			{
 				unsigned nextMode;
@@ -2235,7 +2235,7 @@ To Do List:
 	unsigned switcher = mode & ~kiTM2TeXErrorSyntaxMask;
     switch(switcher)
     {
-        case kiTM2TeXBeginCommandSyntaxMode:
+        case kiTM2TeXCommandStartSyntaxMode:
 			if(aLocation + 1 < [[self textStorage] length])
 			{
 				unsigned nextMode;
