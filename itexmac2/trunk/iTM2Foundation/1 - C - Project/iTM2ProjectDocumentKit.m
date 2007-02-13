@@ -4070,8 +4070,6 @@ To Do List:
 		}
 	}
 	[self takeContextValue:mra forKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
-#warning FAILED
-iTM2_LOG(@"[IMPLEMENTATION modelOfType:iTM2ProjectMetaType]:%@",[IMPLEMENTATION modelOfType:iTM2ProjectMetaType]);
 //iTM2_END;
     return YES;
 }

@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4AFC30B81067F00BBCDDD</string>
+						<string>DCC4B1CD0B81D8C500BBCDDD</string>
 						<key>history</key>
 						<array>
-							<string>DCC4A6500B80A12400BBCDDD</string>
+							<string>DCC4B1CC0B81D8C500BBCDDD</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -237,8 +237,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -367,7 +365,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCC4AFC20B81067F00BBCDDD</string>
+										<string>DCC4B1CB0B81D8C500BBCDDD</string>
 										<key>history</key>
 										<array>
 											<string>DCC4AF540B80E49D00BBCDDD</string>
@@ -564,16 +562,16 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCC4AFC40B81067F00BBCDDD</string>
+		<string>DCC4B1C70B81D76B00BBCDDD</string>
 		<string>DCC4AF7F0B80E51E00BBCDDD</string>
 		<string>DCC4AF800B80E51E00BBCDDD</string>
 		<string>DC691A76088CFF8900F00114</string>
 		<string>DC09A036088BE9470028F810</string>
 		<string>DCC4AF610B80E49D00BBCDDD</string>
-		<string>DCC4A0AF0B7E92D400BBCDDD</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>DCC4A0AF0B7E92D400BBCDDD</string>
+		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>55 56 1368 821 0 0 1440 878 </string>
@@ -795,21 +793,19 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2PDFKit.m</string>
+										<string>iTM2ProjectDocumentKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{0, 0}, {1393, 582}}</string>
+										<string>{{0, 0}, {1393, 350}}</string>
 										<key>RubberWindowFrame</key>
 										<string>5 197 1393 681 0 0 1440 878 </string>
 									</dict>
@@ -820,9 +816,11 @@
 								</dict>
 							</array>
 							<key>Proportion</key>
-							<string>582pt</string>
+							<string>350pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -833,14 +831,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 587}, {1393, 53}}</string>
+								<string>{{0, 355}, {1393, 285}}</string>
 								<key>RubberWindowFrame</key>
 								<string>5 197 1393 681 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
 							<key>Proportion</key>
-							<string>53pt</string>
+							<string>285pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -1277,22 +1275,40 @@
 			<string>100 100 700 500 0 0 1280 1002 </string>
 		</dict>
 		<dict>
+			<key>FirstTimeWindowDisplayed</key>
+			<false/>
 			<key>Identifier</key>
 			<string>windowTool.bookmarks</string>
+			<key>IsVertical</key>
+			<true/>
 			<key>Layout</key>
 			<array>
 				<dict>
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>ContentConfiguration</key>
+							<dict>
+								<key>PBXProjectModuleGUID</key>
+								<string>DCC4B1C60B81D76B00BBCDDD</string>
+								<key>PBXProjectModuleLabel</key>
+								<string>Bookmarks</string>
+							</dict>
+							<key>GeometryConfiguration</key>
+							<dict>
+								<key>Frame</key>
+								<string>{{0, 0}, {401, 180}}</string>
+								<key>RubberWindowFrame</key>
+								<string>106 655 401 200 0 0 1440 878 </string>
+							</dict>
 							<key>Module</key>
 							<string>PBXBookmarksModule</string>
 							<key>Proportion</key>
-							<string>100%</string>
+							<string>180pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>100%</string>
+					<string>180pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -1302,9 +1318,19 @@
 				<string>PBXBookmarksModule</string>
 			</array>
 			<key>StatusbarIsVisible</key>
-			<integer>0</integer>
+			<false/>
+			<key>TableOfContents</key>
+			<array>
+				<string>DCC4B1C70B81D76B00BBCDDD</string>
+				<string>DCC4B1C80B81D76B00BBCDDD</string>
+				<string>DCC4B1C60B81D76B00BBCDDD</string>
+			</array>
 			<key>WindowString</key>
-			<string>538 42 401 187 0 0 1280 1002 </string>
+			<string>106 655 401 200 0 0 1440 878 </string>
+			<key>WindowToolGUID</key>
+			<string>DCC4B1C70B81D76B00BBCDDD</string>
+			<key>WindowToolIsVisible</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

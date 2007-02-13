@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1B20B81D76800BBCDDD</string>
+						<string>DCC4B1E60B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4B0E00B811E5D00BBCDDD</string>
@@ -230,6 +230,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>DCC4ABFF0B80AAD300BBCDDD</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>iTM2MacroKit.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCC4AC000B80AAD300BBCDDD</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>iTM2MacroKit.m</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCC4B1E70B81D9C000BBCDDD</string>
+						<key>history</key>
+						<array>
+							<string>DCC4AC010B80AAD300BBCDDD</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1425, 784}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>2 51 1425 825 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>DCC4AD280B80AFFF00BBCDDD</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2TextStorageKit.m</string>
@@ -244,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1B30B81D76800BBCDDD</string>
+						<string>DCC4B1E80B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4AD6A0B80B47200BBCDDD</string>
@@ -284,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1B40B81D76800BBCDDD</string>
+						<string>DCC4B1E90B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B30B80A48100BBCDDD</string>
@@ -310,46 +350,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>DCC4ABFF0B80AAD300BBCDDD</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2MacroKit.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DCC4AC000B80AAD300BBCDDD</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2MacroKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCC4B1B50B81D76800BBCDDD</string>
-						<key>history</key>
-						<array>
-							<string>DCC4AC010B80AAD300BBCDDD</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1425, 784}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>2 51 1425 825 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>DCC4A30F0B7F7C7B00BBCDDD</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2MacroKit.h</string>
@@ -364,7 +364,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1B60B81D76800BBCDDD</string>
+						<string>DCC4B1EA0B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6AC0B80A48100BBCDDD</string>
@@ -404,7 +404,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1B70B81D76800BBCDDD</string>
+						<string>DCC4B1EB0B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6AA0B80A48100BBCDDD</string>
@@ -444,7 +444,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1B80B81D76800BBCDDD</string>
+						<string>DCC4B1EC0B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6AB0B80A48100BBCDDD</string>
@@ -484,7 +484,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1B90B81D76900BBCDDD</string>
+						<string>DCC4B1ED0B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6AD0B80A48100BBCDDD</string>
@@ -524,7 +524,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1BA0B81D76900BBCDDD</string>
+						<string>DCC4B1EE0B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6AE0B80A48100BBCDDD</string>
@@ -564,7 +564,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1BB0B81D76900BBCDDD</string>
+						<string>DCC4B1EF0B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6AF0B80A48100BBCDDD</string>
@@ -604,7 +604,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1BC0B81D76900BBCDDD</string>
+						<string>DCC4B1F00B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B00B80A48100BBCDDD</string>
@@ -644,7 +644,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1BD0B81D76900BBCDDD</string>
+						<string>DCC4B1F10B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B10B80A48100BBCDDD</string>
@@ -684,7 +684,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1BE0B81D76900BBCDDD</string>
+						<string>DCC4B1F20B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B20B80A48100BBCDDD</string>
@@ -724,7 +724,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1BF0B81D76900BBCDDD</string>
+						<string>DCC4B1F30B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B40B80A48100BBCDDD</string>
@@ -764,7 +764,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1C00B81D76900BBCDDD</string>
+						<string>DCC4B1F40B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B50B80A48100BBCDDD</string>
@@ -804,7 +804,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1C10B81D76900BBCDDD</string>
+						<string>DCC4B1F50B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B60B80A48100BBCDDD</string>
@@ -844,7 +844,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1C20B81D76900BBCDDD</string>
+						<string>DCC4B1F60B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B70B80A48100BBCDDD</string>
@@ -884,7 +884,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC4B1C30B81D76900BBCDDD</string>
+						<string>DCC4B1F70B81D9C000BBCDDD</string>
 						<key>history</key>
 						<array>
 							<string>DCC4A6B80B80A48100BBCDDD</string>
@@ -1044,7 +1044,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCC4B1B10B81D76800BBCDDD</string>
+										<string>DCC4B1E50B81D9C000BBCDDD</string>
 										<key>history</key>
 										<array>
 											<string>DCCDA5240B7DC35600FAE57E</string>
@@ -1295,13 +1295,13 @@
 		<string>DCC4A3600B7F80BF00BBCDDD</string>
 		<string>DCC4A35D0B7F80BF00BBCDDD</string>
 		<string>DCC4A30F0B7F7C7B00BBCDDD</string>
-		<string>DCC4ABFF0B80AAD300BBCDDD</string>
 		<string>DC5DD1670B7C86BF00462C93</string>
 		<string>DCC4AD280B80AFFF00BBCDDD</string>
 		<string>DCC4AEE00B80DC9500BBCDDD</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DCC4ABFF0B80AAD300BBCDDD</string>
 		<string>DCC4B0DE0B811E5D00BBCDDD</string>
 	</array>
 	<key>WindowString</key>

@@ -1,7 +1,9 @@
 #!/bin/sh
 # BuildiTeXMac2: use this to build iTeXMac2 from the command line
 # XCode 2.2 compliant, version 1
-DIR="$(dirname "$0")/.."
+DIR="$(dirname "$0")"
+"$DIR/CleanSourceTree.command"
+DIR="$(dirname "$DIR")"
 cd "$DIR"
 mkdir -p build
 TEMP_LOG="$DIR/build/iTM2.build.log"
@@ -29,6 +31,7 @@ SUMMARY:
 "
 grep -s "warning" "$LOG"
 echo "POSSIBLE ERRORS:"
+grep -s ": error:" "$LOG"
 grep -s "In function" "$LOG"
 grep -s "reference to undefined" "$LOG"
 grep -s "FAILED" "$LOG"

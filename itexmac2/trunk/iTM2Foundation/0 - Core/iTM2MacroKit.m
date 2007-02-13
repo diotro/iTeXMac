@@ -395,6 +395,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 @interface iTM2MacroController(PRIVATE)
 - (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
 - (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
+- (void)setSelectedMode:(NSString *)mode;
 @end
 
 @implementation iTM2MacroController

@@ -1213,8 +1213,8 @@ To Do List:
 //iTM2_START;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
-- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)instruction;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1223,7 +1223,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL result = [super tryToExecuteStringInstruction:instruction];
+    BOOL result = [super tryToExecuteMacro:instruction];
     if(result)
         return result;
     if([instruction length])
