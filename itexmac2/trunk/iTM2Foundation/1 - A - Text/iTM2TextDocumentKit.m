@@ -35,6 +35,7 @@
 #import <iTM2Foundation/iTM2ImageKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2ViewKit.h>
+#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 
 #define TABLE @"iTM2TextKit"
 #define BUNDLE [iTM2TextDocument classBundle]
@@ -309,7 +310,7 @@ bolbite:
 						}
 					}
 //iTM2_LOG(@"Search words: %@+%@+%@+%@+%@", prevW2, prevW1, hereWord, nextW1, nextW2);
-					NSRange charRange = [documentString rangeForLine:(lineRef? * lineRef:0) nextLine:nil];
+					NSRange charRange = [TS getRangeForLine:(lineRef? * lineRef:0)];
 					if(!charRange.length)
 						charRange = NSMakeRange(0, [documentString length]);
 					unsigned charAnchor = charRange.location + charRange.length / 2;
@@ -536,8 +537,8 @@ match12345:
 		hereR = [[[beforeMatches objectForKey:N] objectAtIndex:0] rangeValue];
 		if(lineRef)
 		{
-			* lineRef = [documentString lineForRange:hereR];
-			charRange = [documentString rangeForLine:* lineRef nextLine:nil];
+			* lineRef = [TS lineNumberAtIndex:hereR.location];
+			charRange = [TS getRangeForLine:* lineRef];
 			if(columnRef)
 				* columnRef = hereR.location + characterIndex - charRange.location;
 		}
@@ -551,8 +552,8 @@ match12345:
 		hereR = [[[afterMatches objectForKey:N] objectAtIndex:0] rangeValue];
 		if(lineRef)
 		{
-			* lineRef = [documentString lineForRange:hereR];
-			charRange = [documentString rangeForLine:* lineRef nextLine:nil];
+			* lineRef = [TS lineNumberAtIndex:hereR.location];
+			charRange = [TS getRangeForLine:* lineRef];
 			if(columnRef)
 				* columnRef = hereR.location + characterIndex - charRange.location;
 		}
@@ -1922,8 +1923,11 @@ To Do List:
 //iTM2_START;
 	[view saveContext:self];
 	iTM2TextInspector * inspector = [[[isa allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass([self class])] autorelease];
+	NSDocument * document = [self document];
+	[document addWindowController:inspector];
 	[inspector window];
 	id result = [[[[inspector textView] enclosingScrollView] retain] autorelease];
+	[document removeWindowController:inspector];
 	[result removeFromSuperviewWithoutNeedingDisplay];
 //iTM2_END;
 	return result;

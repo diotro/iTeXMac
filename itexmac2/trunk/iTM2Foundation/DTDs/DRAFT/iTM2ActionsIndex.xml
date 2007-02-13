@@ -11,9 +11,9 @@
     <ITEM KEY="part" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\part{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -21,9 +21,9 @@
     <ITEM KEY="chapter" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\chapter{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -31,9 +31,9 @@
     <ITEM KEY="section" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\section{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -41,9 +41,9 @@
     <ITEM KEY="subsection" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\subsection{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -51,9 +51,9 @@
     <ITEM KEY="subsubsection" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\subsubsection{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -61,9 +61,9 @@
     <ITEM KEY="paragraph" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\paragraph{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -71,9 +71,9 @@
     <ITEM KEY="subparagraph" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\subparagraph{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -83,7 +83,7 @@
             <ARG>\documentclass{book}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -95,7 +95,7 @@
             <ARG>\documentclass[11pt]{book}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -107,7 +107,7 @@
             <ARG>\documentclass[12pt]{book}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -119,7 +119,7 @@
             <ARG>\documentclass{amsbook}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -131,7 +131,7 @@
             <ARG>\documentclass[11pt]{amsbook}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -143,7 +143,7 @@
             <ARG>\documentclass[12pt]{amsbook}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -155,7 +155,7 @@
             <ARG>\documentclass{report}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -167,7 +167,7 @@
             <ARG>\documentclass[11pt]{report}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -179,7 +179,7 @@
             <ARG>\documentclass[12pt]{report}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -191,7 +191,7 @@
             <ARG>\documentclass{article}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -203,7 +203,7 @@
             <ARG>\documentclass[11pt]{article}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -215,7 +215,7 @@
             <ARG>\documentclass[12pt]{article}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -227,7 +227,7 @@
             <ARG>\documentclass{amsart}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -239,7 +239,7 @@
             <ARG>\documentclass[11pt]{amsart}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -251,7 +251,7 @@
             <ARG>\documentclass[12pt]{amsart}
 \begin{document}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{document}
@@ -275,7 +275,7 @@
             <ARG>\begin{document}
 \begin{letter}
 </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>
 
 \end{letter}
@@ -285,9 +285,9 @@
     <ITEM KEY="document/letter/macros/name" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\name{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -295,9 +295,9 @@
     <ITEM KEY="document/letter/macros/address" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\address{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
  </ARG>
         </ARGLIST>
@@ -305,9 +305,9 @@
     <ITEM KEY="document/letter/macros/signature" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\signature{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
  </ARG>
         </ARGLIST>
@@ -315,9 +315,9 @@
     <ITEM KEY="document/letter/macros/date" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\date{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -325,9 +325,9 @@
     <ITEM KEY="document/letter/macros/opening" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\opening{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -335,9 +335,9 @@
     <ITEM KEY="document/letter/macros/closing" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\closing{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -345,9 +345,9 @@
     <ITEM KEY="document/letter/macros/encl" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\encl{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -355,9 +355,9 @@
     <ITEM KEY="document/letter/macros/cc" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\cc{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 </ARG>
         </ARGLIST>
@@ -479,9 +479,9 @@
     <ITEM KEY="Format/marginal_notes/marginpar" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\marginpar[</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>]{}</ARG>
         </ARGLIST>
     </ITEM>
@@ -503,36 +503,36 @@
     <ITEM KEY="Format/numbering/newcounter" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\newcounter{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}[]</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/setcounter" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\setcounter{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}{}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/addtocounter" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\addtocounter{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}{}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/value" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\value{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
@@ -542,99 +542,99 @@
     <ITEM KEY="Format/numbering/style/arabic" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\arabic{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/style/roman" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\roman{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/style/Roman" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\Roman{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/style/alph" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\alph{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/style/Alph" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\Alph{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/fnsymbol" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\fnsymbol{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/stepcounter" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\stepcounter{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/numbering/refstepcounter" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\refstepcounter{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/footnote/footnote" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\footnote[</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>]{}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/footnote/footnotemark" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\footnotemark[</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>]</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Format/footnote/footnotetext" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\footnotetext[</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>]{}</ARG>
         </ARGLIST>
     </ITEM>
@@ -653,9 +653,9 @@
     <ITEM KEY="Page_Style/title_page" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\title{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>TITLE HERE</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}
 \author{AUTHOR NAME HERE}
 \date{DATE HERE}
@@ -691,27 +691,27 @@
     <ITEM KEY="Page_Style/this_page_style/Left_heading" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\markleft{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Right_heading" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\markright{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Both_headings" ACT="insertMacro:">
         <ARGLIST>
             <ARG>\markboth{</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>__(SEL)__</ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
             <ARG>}{RIGHT HERE}</ARG>
         </ARGLIST>
     </ITEM>
@@ -746,37 +746,37 @@
     <ITEM KEY="%!iTeXMac/project" ACT="insertDirective:">
         <ARGLIST>
             <ARG>%!iTeXMac(project): </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="%!iTeXMac/input" ACT="insertDirective:">
         <ARGLIST>
             <ARG>%!iTeXMac(input): </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="%!iTeXMac/compile" ACT="insertDirective:">
         <ARGLIST>
             <ARG>%!iTeXMac(compile): </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="%!iTeXMac/typeset" ACT="insertDirective:">
         <ARGLIST>
             <ARG>%!iTeXMac(typeset): </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="%!iTeXMac/bibtex" ACT="insertDirective:">
         <ARGLIST>
             <ARG>%!iTeXMac(bibtex): </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
         </ARGLIST>
     </ITEM>
     <ITEM KEY="%!iTeXMac/makeindex" ACT="insertDirective:">
         <ARGLIST>
             <ARG>%!iTeXMac(makeindex): </ARG>
-            <ARG>__(INS)__</ARG>
+            <ARG>@@{@@.</ARG>
         </ARGLIST>
     </ITEM>
 </LIST>

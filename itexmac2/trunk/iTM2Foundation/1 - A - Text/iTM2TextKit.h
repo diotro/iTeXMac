@@ -102,19 +102,6 @@
 */
 - (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
 
-@end
-
-@interface NSTextView(iTM2TextKit_Highlight)
-
-/*!
-    @method		extendSelectionWithRange:
-    @abstract	Add the range to the currently selected ranges.
-    @discussion	Discussion forthcoming.
-    @param		A range of characters.
-    @result		None.
-*/
-- (void)extendSelectionWithRange:(NSRange)range;
-
 /*!
     @method		visibleRange
     @abstract	Returns the visible range of characters.
@@ -133,13 +120,18 @@
 */
 - (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
 
+@end
+
+@interface NSTextView(iTM2TextKit)
+
 /*!
-	@method		secondaryHighlightAtIndices:lengths:
-	@abstract	Highlights and scrolls to visible a range of characters.
-	@discussion	Uses the receiver's textView's highlightAndScrollToVisibleRange: message with the right argument..
-	@param		an NSString object.
+    @method		extendSelectionWithRange:
+    @abstract	Add the range to the currently selected ranges.
+    @discussion	Discussion forthcoming.
+    @param		A range of characters.
+    @result		None.
 */
-- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
+- (void)extendSelectionWithRange:(NSRange)range;
 
 /*!
 	@method		scaleFactor

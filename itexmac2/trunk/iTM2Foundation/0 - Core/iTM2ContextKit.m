@@ -166,7 +166,16 @@ To Do List:
 	unsigned int didChange = [self setContextValue:object forKey:aKey domain:mask];
 	id afterObject = [self contextValueForKey:aKey domain:mask];
 //iTM2_LOG(@"afterObject:%@",afterObject);
-	NSAssert(([object isEqual:afterObject] || (object == afterObject)),@"Inconsistancy: THIS IS A BUG");
+	if([object isEqual:afterObject] || (object == afterObject))
+	{
+		return didChange;
+	}
+	if(iTM2DebugEnabled)
+	{
+		didChange = [self setContextValue:object forKey:aKey domain:mask];
+		afterObject = [self contextValueForKey:aKey domain:mask];
+		iTM2_LOG(@"object:%@ <> afterObject %@", object,afterObject);
+	}
     return didChange;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:

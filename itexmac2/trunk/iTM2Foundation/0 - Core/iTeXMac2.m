@@ -71,7 +71,7 @@ void iTM2_LOG(NSString *fmt, ...)
 #endif
 
 //#import <iTM2Foundation/iTM2DocumentControllerKit.h>
-
+static char * iTM2Application_sendApplicationDefinedEvent = nil;
 @implementation iTM2Application
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
 + (void)initialize;
@@ -90,9 +90,43 @@ To Do List:
 	Class C = NSClassFromString(@"iTM2DocumentController");// trick to avoid file dependency
 	id sdc = [[[C alloc] init] autorelease];
 	NSAssert(sdc==SDC,@"*** BUG: the document controller is not what is expected");// creates the document controller
+	const char * name = "sendApplicationDefinedEventOfSubtypeXX:";
+	iTM2Application_sendApplicationDefinedEvent = (char *)NSZoneMalloc(NSDefaultMallocZone(),strlen(name)+1);
+	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
+	iTM2Application_sendApplicationDefinedEvent[strlen(name)+1]='\0';
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sendEvent:
+-(void)sendEvent:(NSEvent*)event;
+/*"Registers some defaults: initialize iTM2DefaultsController.
+Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([event type] == NSApplicationDefined)
+	{
+		if(iTM2Application_sendApplicationDefinedEvent)
+		{
+			int subtype = [event subtype];
+			strncpy(iTM2Application_sendApplicationDefinedEvent+strlen("sendApplicationDefinedEventOfSubtype"),(const char*)&subtype,2);
+			SEL action = sel_getUid(iTM2Application_sendApplicationDefinedEvent);
+			iTM2_LOG(@"CATCHED event:%s",iTM2Application_sendApplicationDefinedEvent);
+			if(![self tryToPerform:action with:event])
+			{
+				[super sendEvent:event];
+			}
+			strncpy(iTM2Application_sendApplicationDefinedEvent+strlen("sendApplicationDefinedEventOfSubtype"),"__",2);
+			iTM2_LOG(@"END:%s",iTM2Application_sendApplicationDefinedEvent);
+			return;
+		}
+	}
+	[super sendEvent:event];
+//iTM2_END;
+	return;
 }
 @end
 

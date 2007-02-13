@@ -287,18 +287,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 @interface NSResponder(iTM2KeyBindingsKit)
 
 /*!
-    @method		executeInstruction:
-    @abstract	Execute the given instruction.
-    @discussion	This is one of the central methods to enhance Mac OS X key binding mechanism.
-                Here we can not only send messages as Mac OS X can do, but we can also use methods with parameters.
-                Those parameters are property list objects which covers a great range of possibilities.
-    @param		An instruction.
-    @result		A flag indicating whether the receiver has executed the given instruction.
-*/
-- (BOOL)executeStringInstruction:(NSString *)instruction;
-- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
-
-/*!
     @method		keyBindingsManager
     @abstract	This is the key binding manager.
     @discussion	The default implementation just returns next responder's key bindings manager.
@@ -336,20 +324,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 
 - (id)keyBindingsManagerWithIdentifier:(NSString *)identifier;
 - (id)lazyKeyBindingsManager;
-
-@end
-
-@interface NSText(iTM2KeyBindingsKit)
-
-/*!
-    @method		executeInstruction:
-    @abstract	Execute the given instruction.
-    @discussion	If the inherited method does not work, and if the given instruction is a string,
-                it just insert this string using insertText: and returns YES.
-    @param		An instruction.
-    @result		A flag indicating whether the receiver has executed the given instruction.
-*/
-- (BOOL)executeStringInstruction:(NSString *)instruction;
 
 @end
 
@@ -506,15 +480,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @result     yorn
 */
 - (BOOL)interpretKeyStroke:(NSString *)key;
-
-/*
-    @method     executeMacroWithIdentifier:
-    @abstract	Execute the macro with the given identifier
-    @discussion	Discussion forthcoming.
-				The default implementation does nothing more than returning NO.
-    @result     yorn
-*/
-- (BOOL)executeMacroWithIdentifier:(NSString *)key;
 
 @end
 

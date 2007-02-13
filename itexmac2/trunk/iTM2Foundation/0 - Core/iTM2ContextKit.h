@@ -420,7 +420,7 @@ enum
     @param      key
     @result     A value
 */
-- (id)contextValueForKey:(NSString *)key domain:(unsigned int)mask;
+- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
     @method     takeContextValue:forKey:
@@ -453,7 +453,7 @@ enum
     @param      key is the context value key
     @result     yorn whether something has changed.
 */
-- (unsigned int)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
     @method     documentCompleteSaveContext:

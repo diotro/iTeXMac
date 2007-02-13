@@ -32,19 +32,7 @@
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 
-NSString * const iTM2TextMarkPlaceholder = @"__";
-NSString * const iTM2TextStartPlaceholder = @"__(";
-NSString * const iTM2TextStopPlaceholder = @")__";
-NSString * const iTM2TextStartINSPlaceholder = @"__(INS:";
-NSString * const iTM2TextStartARGPlaceholder = @"__(ARG:";
-NSString * const iTM2TextStartOPTPlaceholder = @"__(OPT:";
-NSString * const iTM2TextStartTEXTPlaceholder = @"__(TEXT:";
-NSString * const iTM2TextStartFILEPlaceholder = @"__(FILE:";
-NSString * const iTM2TextStartTIPPlaceholder = @"__(TIP:";
-NSString * const iTM2TextStartSELPlaceholder = @"__(SEL:";
-NSString * const iTM2TextINSPlaceholder = @"__(INS:)__";
-NSString * const iTM2TextSELPlaceholder = @"__(SEL:)__";// out of use with perl support
-NSString * const iTM2TextTABPlaceholder = @"__(TAB)__";
+NSString * const iTM2TextPlaceholderMark = @"@@";
 
 NSString * const iTM2TextTabAnchorStringKey = @"iTM2TextTabAnchorString";
 
@@ -56,6 +44,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 
 @interface iTM2MacroRootNode: iTM2TreeNode
 - (id)objectInChildrenWithDomain:(NSString *)domain;
+- (NSArray *)availableDomains;
 @end
 
 @implementation iTM2MacroRootNode
@@ -63,11 +52,32 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 {
 	return [self objectInChildrenWithValue:domain forKeyPath:@"value.domain"];
 }
+- (NSArray *)availableDomains;
+{
+	NSMutableArray * result = [NSMutableArray array];
+	NSArray * children = [self children];
+	NSEnumerator * E = [children objectEnumerator];
+	id child;
+	id domain;
+	while(child = [E nextObject])
+	{
+		domain = [child valueForKeyPath:@"value.domain"];
+		if(domain && ![result containsObject:domain])
+		{
+			[result addObject:domain];
+		}
+	}
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"description" ascending:YES] autorelease];
+	NSArray * SDs = [NSArray arrayWithObject:SD];
+	[result sortUsingDescriptors:SDs];
+	return result;
+}
 @end
 
 @interface iTM2MacroDomainNode: iTM2TreeNode
 - (id)initWithParent:(iTM2TreeNode *)parent domain:(NSString *)domain;
 - (id)objectInChildrenWithCategory:(NSString *)category;
+- (NSArray *)availableCategories;
 @end
 
 @implementation iTM2MacroDomainNode
@@ -82,6 +92,26 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 - (id)objectInChildrenWithCategory:(NSString *)category;
 {
 	return [self objectInChildrenWithValue:category forKeyPath:@"value.category"];
+}
+- (NSArray *)availableCategories;
+{
+	NSMutableArray * result = [NSMutableArray array];
+	NSArray * children = [self children];
+	NSEnumerator * E = [children objectEnumerator];
+	id child;
+	id category;
+	while(child = [E nextObject])
+	{
+		category = [child valueForKeyPath:@"value.category"];
+		if(category && ![result containsObject:category])
+		{
+			[result addObject:category];
+		}
+	}
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"description" ascending:YES] autorelease];
+	NSArray * SDs = [NSArray arrayWithObject:SD];
+	[result sortUsingDescriptors:SDs];
+	return result;
 }
 @end
 
@@ -108,6 +138,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 @interface iTM2MacroContextNode: iTM2TreeNode
 - (id)initWithParent:(iTM2TreeNode *)parent context:(NSString *)context;
 - (id)objectInChildrenWithID:(NSString *)ID;
+- (NSArray *)availableIDs;
 @end
 
 @implementation iTM2MacroContextNode: iTM2TreeNode
@@ -116,12 +147,98 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 	if(self = [super initWithParent:parent])
 	{
 		[self setValue:context forKeyPath:@"value.context"];
+		[self addObserver:self
+             forKeyPath:@"children" 
+                 options:(NSKeyValueObservingOptionNew |
+                            NSKeyValueObservingOptionOld)
+                    context:NULL];
 	}
 	return self;
 }
 - (id)objectInChildrenWithID:(NSString *)ID;
 {
-	return [self objectInChildrenWithValue:ID forKeyPath:@"value.ID"];
+	id D = [self valueForKeyPath:@"value.cachedChildrenID"];
+	if(!D)
+	{
+		D = [NSMutableDictionary dictionary];
+		NSArray * children = [self children];
+		NSEnumerator * E = [children objectEnumerator];
+		id child;
+		while(child = [E nextObject])
+		{
+			NSString * ID = [child valueForKeyPath:@"value.ID"];
+			[D setObject:child forKey:ID];
+		}
+		[self setValue:D forKeyPath:@"value.cachedChildrenID"];
+	}
+	return [D objectForKey:ID];
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+{
+	id D = [self valueForKeyPath:@"value.cachedChildrenID"];
+	if(!D)
+	{
+		D = [NSMutableDictionary dictionary];
+		[self setValue:D forKeyPath:@"value.cachedChildrenID"];
+	}
+	NSString * ID;
+    if ([keyPath isEqual:@"children"])
+	{
+//		NSNumber * kind = [change objectForKey:NSKeyValueChangeKindKey];
+		NSArray * new = [change objectForKey:NSKeyValueChangeNewKey];
+		NSEnumerator * newE = [new objectEnumerator];
+		NSArray * old = [change objectForKey:NSKeyValueChangeOldKey];
+		NSEnumerator * oldE = [old objectEnumerator];
+//		NSIndexSet * indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
+		id child;
+		while(child = [oldE nextObject])
+		{
+			if(ID = [child valueForKeyPath:@"value.ID"])
+			{
+				[D removeObjectForKey:ID];
+			}
+		}
+		while(child = [newE nextObject])
+		{
+			[child addObserver:self forKeyPath:@"value.ID" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:NULL];
+		}
+		return;
+    }
+	else if([keyPath isEqual:@"value.ID"])
+	{
+		[object removeObserver:self forKeyPath:keyPath];
+		if(ID = [object valueForKeyPath:keyPath])
+		{
+			[D setObject:object forKey:ID];
+		}
+	}
+#if 0
+	if([[self superclass] instancesRespondToSelector:_cmd])
+	{
+		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
+#endif
+	return;
+}
+- (NSArray *)availableIDs;
+{
+	NSMutableArray * result = [NSMutableArray array];
+	NSArray * children = [self children];
+	NSEnumerator * E = [children objectEnumerator];
+	id child;
+	id ID;
+	while(child = [E nextObject])
+	{
+		ID = [child valueForKeyPath:@"value.ID"];
+		if(ID && ![result containsObject:ID])
+		{
+			[result addObject:ID];
+		}
+	}
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"description" ascending:YES] autorelease];
+	NSArray * SDs = [NSArray arrayWithObject:SD];
+	[result sortUsingDescriptors:SDs];
+	return result;
 }
 @end
 
@@ -133,6 +250,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 - (NSString *)description;
 - (NSString *)tooltip;
 - (NSString *)ID;
+- (NSString *)mode;
 @end
 
 @implementation iTM2MacroLeafNode: iTM2TreeNode
@@ -226,7 +344,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 {
 	NSXMLElement * element = [self valueForKeyPath:@"value.element"];
 	NSError * localError = nil;
-	NSArray * nodes = [element nodesForXPath:@"ARG" error:&localError];
+	NSArray * nodes = [element nodesForXPath:@"INS" error:&localError];
 	if(localError)
 	{
 		iTM2_LOG(@"localError: %@", localError);
@@ -245,6 +363,26 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 - (NSString *)ID;
 {
 	return [self valueForKeyPath:@"value.ID"];
+}
+- (NSString *)mode;
+{
+	NSXMLElement * element = [self valueForKeyPath:@"value.element"];
+	NSError * localError = nil;
+	NSArray * nodes = [element nodesForXPath:@"@MODE" error:&localError];
+	if(localError)
+	{
+		iTM2_LOG(@"localError: %@", localError);
+		return @"Error: MODE atribute?";
+	}
+	NSXMLNode * node = [nodes lastObject];
+	if(node)
+	{
+		return [node stringValue];
+	}
+	else
+	{
+		return @"";
+	}
 }
 @end
 
@@ -460,7 +598,10 @@ To Do List:
 		iTM2_LOG(@"No macro with ID: %@ forContext:%@ ofCategory:%@ inDomain:%@",ID,context,category,domain);
 		if(iTM2DebugEnabled)
 		{
-			iTM2_LOG(@"[leafNode countOfChildren]:%i",[leafNode countOfChildren]);
+			iTM2_LOG(@"[rootNode countOfChildren]:%i",[rootNode countOfChildren]);
+			iTM2_LOG(@"[domainNode countOfChildren]:%i",[domainNode countOfChildren]);
+			iTM2_LOG(@"[categoryNode countOfChildren]:%i",[categoryNode countOfChildren]);
+			iTM2_LOG(@"[contextNode countOfChildren]:%i",[contextNode countOfChildren]);
 		}
 	}
 //iTM2_END;
@@ -600,8 +741,6 @@ To Do List:
 //iTM2_END;
 	return M;
 }
-
-#pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuWithXMLElement:forContext:ofCategory:inDomain:error:
 - (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
@@ -655,7 +794,7 @@ To Do List:
 	else if([name isEqualToString:@"ITEM"])
 	{
 		NSString * ID = [[element attributeForName:@"ID"] stringValue];
-		iTM2MacroLeafNode * leafNode = [[iTM2MacroController sharedMacroController] macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
+		iTM2MacroLeafNode * leafNode = [SMC macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
 		name = [leafNode name];
 		if(!leafNode)
 		{
@@ -671,7 +810,7 @@ To Do List:
 		{
 			[MI setRepresentedObject:[NSArray arrayWithObjects:ID, context, category, domain, nil]];
 			SEL action = [leafNode action];
-			if(!leafNode || action == @selector(noop:) || !action && ![leafNode argument])
+			if([ID hasPrefix:@"."] || !leafNode || action == @selector(noop:))
 			{
 				// no action;
 				if(!M)
@@ -778,34 +917,36 @@ To Do List:
 		}
 		if([ID length])
 		{
-			[[iTM2MacroController sharedMacroController] executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain substitutions:nil target:nil];
-			NSMenu * recentMenu = [self macroMenuForContext:context ofCategory:@"Recent" inDomain:domain error:nil];
-			int index = [recentMenu indexOfItemWithTitle:[sender title]];
-			if(index!=-1)
+			if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain substitutions:nil target:nil])
 			{
-				[recentMenu removeItemAtIndex:index];
-			}
-			NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle:[sender title] action:[sender action] keyEquivalent:@""] autorelease];
-			[MI setTarget:self];
-			[MI setRepresentedObject:RA];
-			[recentMenu insertItem:MI atIndex:1];
-			NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-			index = 0;
-			int max = [SUD integerForKey:@"iTM2NumberOfRecentMacros"];
-			while([recentMenu numberOfItems] > max)
-			{
-				[recentMenu removeItemAtIndex:[recentMenu numberOfItems]-1];
-			}
-			while(++index < [recentMenu numberOfItems])
-			{ 
-				MI = [recentMenu itemAtIndex:index];
-				RA = [MI  representedObject];
-				if(RA)
+				NSMenu * recentMenu = [self macroMenuForContext:context ofCategory:@"Recent" inDomain:domain error:nil];
+				int index = [recentMenu indexOfItemWithTitle:[sender title]];
+				if(index!=-1)
 				{
-					[MD setObject:RA forKey:[MI title]];
+					[recentMenu removeItemAtIndex:index];
 				}
+				NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle:[sender title] action:[sender action] keyEquivalent:@""] autorelease];
+				[MI setTarget:self];
+				[MI setRepresentedObject:RA];
+				[recentMenu insertItem:MI atIndex:1];
+				NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+				index = 0;
+				int max = [SUD integerForKey:@"iTM2NumberOfRecentMacros"];
+				while([recentMenu numberOfItems] > max)
+				{
+					[recentMenu removeItemAtIndex:[recentMenu numberOfItems]-1];
+				}
+				while(++index < [recentMenu numberOfItems])
+				{ 
+					MI = [recentMenu itemAtIndex:index];
+					RA = [MI  representedObject];
+					if(RA)
+					{
+						[MD setObject:RA forKey:[MI title]];
+					}
+				}
+				[SUD setObject:MD forKey:[NSString pathWithComponents:[NSArray arrayWithObjects:@"", @"Recent", domain, nil]]];
 			}
-			[SUD setObject:MD forKey:[NSString pathWithComponents:[NSArray arrayWithObjects:@"", @"Recent", domain, nil]]];
 		}
 	}
 	else if(RA)
@@ -835,7 +976,6 @@ To Do List:
 //iTM2_END;
     return [sender hasSubmenu];
 }
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithID:forContext:ofCategory:inDomain:substitutions:target:
 - (BOOL)executeMacroWithID:(NSString *)ID forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain substitutions:(NSDictionary *)substitutions target:(id)target;
 /*"Description forthcoming.
@@ -846,28 +986,77 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2MacroLeafNode * leafNode = [self macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
-	SEL action = [leafNode action];
-	if(!action)
+	if(!target)
 	{
-		action = NSSelectorFromString(@"insertMacro:");
+		target = [[NSApp keyWindow] firstResponder];
 	}
+	BOOL result = NO;
+	SEL action = [leafNode action];
 	id argument = [leafNode argument];
-	if([substitutions count])
+	NSString * mode = [leafNode mode];
+	if(!argument)
 	{
-		argument = [[argument mutableCopy] autorelease];
-		NSEnumerator * E = [substitutions keyEnumerator];
-		NSString * old;
-		while(old = [E nextObject])
+		argument = ID;
+	}
+	NSMethodSignature * MS;
+	if(action)
+	{
+		MS = [target methodSignatureForSelector:action];
+		if(!MS)
 		{
-			NSString * new = [substitutions objectForKey:old];
-			NSRange searchRange = NSMakeRange(0,[argument length]);
-			[argument replaceOccurrencesOfString:old withString:new options:nil range:searchRange];
+			iTM2_LOG(@"FAILED, Unsupported Action in macro:%@",NSStringFromSelector(action));
 		}
 	}
-	if([target respondsToSelector:action])
+	else
 	{
+		action = NSSelectorFromString(ID);
+		MS = [target methodSignatureForSelector:action];
+		if(!MS)
+		{
+			action = NSSelectorFromString(@"insertMacro:substitutions:mode:");
+			if(MS = [target methodSignatureForSelector:action])
+			{
+				NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+				[I setTarget:target];
+				[I setSelector:action];
+				[I setArgument:&argument atIndex:2];
+				[I setArgument:&substitutions atIndex:3];
+				[I setArgument:&mode atIndex:4];
+				NS_DURING
+				[I invoke];
+				result = YES;
+				NS_HANDLER
+				iTM2_LOG(@"Exception catched:%@",[localException reason]);
+				NS_ENDHANDLER
+				return result;
+			}
+			else
+			{
+				return NO;
+			}
+		}
+	}
+	if([MS numberOfArguments] == 3)
+	{
+		NS_DURING
 		[target performSelector:action withObject:argument];
-		return YES;
+		result = YES;
+		NS_HANDLER
+		NS_ENDHANDLER
+		return result;
+	}
+	else if([MS numberOfArguments] == 2)
+	{
+		NS_DURING
+		[target performSelector:action];
+		result = YES;
+		NS_HANDLER
+		NS_ENDHANDLER
+		return result;
+	}
+	else if(MS)
+	{
+		return NO;
 	}
 	if([[[NSApp keyWindow] firstResponder] tryToPerform:action with:argument]
 		|| [[[NSApp mainWindow] firstResponder] tryToPerform:action with:argument])
@@ -881,7 +1070,326 @@ To Do List:
 //iTM2_END;
     return NO;
 }
+#pragma mark =-=-=-=-=-  PREFERENCES
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableDomains
+- (NSArray *)availableDomains;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self runningTree] availableDomains];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedDomain
+- (NSString *)selectedDomain;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	if(!MD)
+	{
+		MD = [NSMutableDictionary dictionary];
+		[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	}
+	NSString * key = @".";
+	id result = [MD objectForKey:key];
+	NSArray * availableDomains = [self availableDomains];
+	if([availableDomains containsObject:result])
+	{
+		// do nothing
+	}
+	else if(result = [[self availableDomains] lastObject])
+	{
+		MD = [[MD mutableCopy] autorelease];
+		[MD setObject:result forKey:key];
+		[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	}
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedDomain:
+- (void)setSelectedDomain:(NSString *)domain;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * old = [self selectedDomain];
+	if(![old isEqual:domain])
+	{
+		[self willChangeValueForKey:@"availableModes"];
+		[self willChangeValueForKey:@"selectedDomain"];
+		if(domain)
+		{
+			id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+			MD = [[MD mutableCopy] autorelease];
+			NSString * key = @".";
+			[MD setValue:domain forKey:key];
+			[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+		}
+		[self didChangeValueForKey:@"selectedDomain"];
+		[self didChangeValueForKey:@"availableModes"];
+		[self setSelectedMode:nil];
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableModes
+- (NSArray *)availableModes;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * domain = [self selectedDomain];
+	id node = [[self runningTree] objectInChildrenWithDomain:domain];
+//iTM2_END;
+    return [node availableCategories];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedMode
+- (NSString *)selectedMode;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	if(!MD)
+	{
+		MD = [NSMutableDictionary dictionary];
+		[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	}
+	NSString * key = [self selectedDomain]?:@"";
+	id result = [MD objectForKey:key];
+	NSArray * availableModes = [self availableModes];
+	if([availableModes containsObject:result])
+	{
+		// do nothing
+	}
+	else if(result = [[self availableModes] lastObject])
+	{
+		MD = [[MD mutableCopy] autorelease];
+		[MD setObject:result forKey:key];
+		[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	}
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedMode:
+- (void)setSelectedMode:(NSString *)mode;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * old = [self selectedMode];
+	if(![old isEqual:mode])
+	{
+		[self willChangeValueForKey:@"availableMacros"];
+		[self willChangeValueForKey:@"selectedMode"];
+		if(mode)
+		{
+			id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+			MD = [[MD mutableCopy] autorelease];
+			NSString * key = [self selectedDomain]?:@"";
+			[MD setValue:mode forKey:key];
+			[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+		}
+		[self didChangeValueForKey:@"selectedMode"];
+		[self didChangeValueForKey:@"availableMacros"];
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _X_availableMacros
+- (NSArray *)_X_availableMacros;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * domain = [self selectedDomain];
+	id node = [[self runningTree] objectInChildrenWithDomain:domain];
+	NSString * mode = [self selectedMode];
+	node = [node objectInChildrenWithCategory:mode];
+	node = [node objectInChildrenWithContext:@""];
+//iTM2_END;
+    return [node children];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfAvailableMacros
+- (unsigned int)countOfAvailableMacros;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableMacros] count];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableMacrosAtIndex:
+- (id)objectInAvailableMacrosAtIndex:(int) index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableMacros] objectAtIndex:index];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inAvailableMacrosAtIndex:
+- (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromAvailableMacrosAtIndex:
+- (void)removeObjectFromAvailableMacrosAtIndex:(int)index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroSortDescriptors
+- (NSArray *)macroSortDescriptors;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSSortDescriptor * SD = [[[NSSortDescriptor allocWithZone:[self zone]] initWithKey:@"value.ID" ascending:YES] autorelease];
+//iTM2_END;
+    return [NSArray arrayWithObject:SD];
+}
+#pragma mark =-=-=-=-=-  MENU DELEGATE
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuNeedsUpdate:
+- (void)menuNeedsUpdate:(NSMenu *)menu;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// availableModes:
+	NSArray * itemArray = [menu itemArray];
+	NSEnumerator * E = [itemArray objectEnumerator];
+	NSMenuItem * MI = nil;
+	SEL action = @selector(takeMacroModeFromRepresentedObject:);
+	NSMutableArray * availableModes = [NSMutableArray array];
+	NSString * mode;
+	while(MI = [E nextObject])
+	{
+		if([MI action] == action)
+		{
+			mode = [MI representedObject];
+			if(![availableModes containsObject:mode])
+			{
+				[availableModes addObject:mode];
+			}
+		}
+	}
+	// expected modes:
+	id firstResponder = [NSApp keyWindow];
+	NSString * domain = [firstResponder macroDomain];
+	iTM2MacroRootNode * rootNode = [self runningTree];
+	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
+	NSArray * expectedModes = [domainNode availableCategories];
+	//
+	if([expectedModes isEqual:availableModes])
+	{
+		return;
+	}
+	// remove items with takeMacroModeFromRepresentedObject:
+	E = [itemArray objectEnumerator];
+	while(MI = [E nextObject])
+	{
+		if([MI action] == action)
+		{
+			[menu removeItem:MI];
+		}
+	}
+	// recover the "Mode:" title menu item
+	int index = [menu indexOfItemWithRepresentedObject:@"iTM2_PRIVATE_MacroModeMenuItem"];
+	++index;
 
+	E = [expectedModes objectEnumerator];
+	while(mode = [E nextObject])
+	{
+		MI = [[[NSMenuItem allocWithZone:[menu zone]] initWithTitle:[mode description] action:action keyEquivalent:@""] autorelease];
+		[MI setRepresentedObject:mode];
+		[MI setIndentationLevel:1];
+		[menu insertItem:MI atIndex:index++];
+	}
+	MI = [NSMenuItem separatorItem];
+	[menu insertItem:MI atIndex:index++];
+	[menu cleanSeparators];
+//iTM2_END;
+	return;
+}
+@end
+
+#import <iTM2Foundation/iTM2InstallationKit.h>
+
+@implementation iTM2MainInstaller(iTM2MacroKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroKitCompleteInstallation
++ (void)iTM2MacroKitCompleteInstallation;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMenu * M = [NSApp mainMenu];
+	NSMenuItem * MI = [M deepItemWithAction:@selector(macroMode:)];
+	if(MI)
+	{
+		M = [MI menu];
+		[MI setAction:NULL];
+		[MI setRepresentedObject:@"iTM2_PRIVATE_MacroModeMenuItem"];
+		[M setDelegate:SMC];
+	}
+	else
+	{
+		iTM2_LOG(@"No macros menu");
+	}
+//iTM2_END;
+    return;
+}
 @end
 
 NSString * const iTM2MacroDomainKey = @"iTM2MacroDomain";
@@ -919,11 +1427,17 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroDomain:
 - (void)setMacroDomain:(NSString *)argument;
 {
-	NSString * key = [self macroDomainKey];
-	[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask];
+	argument = [argument description];
+	NSString * old = [self macroDomain];
+	if(![old isEqual:argument])
+	{
+		NSString * key = [self macroDomainKey];
+		[self willChangeValueForKey:@"macroDomain"];
+		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
+		[self didChangeValueForKey:@"macroDomain"];
+	}
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategoryKey
+}//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategoryKey
 - (NSString *)macroCategoryKey;
 {
     return iTM2MacroCategoryKey;
@@ -953,8 +1467,15 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroCategory:
 - (void)setMacroCategory:(NSString *)argument;
 {
-	NSString * key = [self macroCategoryKey];
-	[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask];
+	argument = [argument description];
+	NSString * old = [self macroCategory];
+	if(![old isEqual:argument])
+	{
+		NSString * key = [self macroCategoryKey];
+		[self willChangeValueForKey:@"macroCategory"];
+		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
+		[self didChangeValueForKey:@"macroCategory"];
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContextKey
@@ -987,9 +1508,32 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroContext:
 - (void)setMacroContext:(NSString *)argument;
 {
-	NSString * key = [self macroContextKey];
-	[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask];
+	argument = [argument description];
+	NSString * old = [self macroContext];
+	if(![old isEqual:argument])
+	{
+		NSString * key = [self macroContextKey];
+		[self willChangeValueForKey:@"macroContext"];
+		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
+		[self didChangeValueForKey:@"macroContext"];
+	}
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeMacro:
+- (BOOL)executeMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for macro.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	return [SMC executeMacroWithID:macro forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
 }
 @end
 
@@ -1002,12 +1546,48 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategoryKey
 - (NSString *)macroCategoryKey;
 {
-    return [self superview]?[[self superview] macroCategoryKey]:[[self window] macroCategoryKey];
+    return [self superview]?[[self superview] macroCategoryKey]:([[self nextResponder] macroCategoryKey]?:[[self window] macroCategoryKey]);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroCategory:
+- (void)setMacroCategory:(NSString *)argument;
+{
+	id superview = [self superview];
+	if(superview)
+	{
+		[superview setMacroCategory:argument];
+	}
+	id nextResponder = [self nextResponder];
+	if(nextResponder)
+	{
+		[nextResponder setMacroCategory:argument];
+	}
+	id window = [self window];
+	if(window)
+	{
+		[window setMacroCategory:argument];
+	}
+	[super setMacroCategory:argument];
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContextKey
 - (NSString *)macroContextKey;
 {
     return [self superview]?[[self superview] macroContextKey]:[[self window] macroContextKey];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for macro.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [super tryToExecuteMacro:macro]
+			|| [[self superview] tryToExecuteMacro:macro]
+				|| [[self window] tryToExecuteMacro:macro];// not good
 }
 @end
 
@@ -1022,10 +1602,41 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 {
     return [self delegate]?[[self delegate] macroCategoryKey]:([self windowController]?[[self windowController] macroCategoryKey]:[super macroCategoryKey]);
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroCategory:
+- (void)setMacroCategory:(NSString *)argument;
+{
+	id delegate = [self delegate];
+	if(delegate)
+	{
+		[delegate setMacroCategory:argument];
+	}
+	id windowController = [self windowController];
+	if(windowController)
+	{
+		[windowController setMacroCategory:argument];
+	}
+	[super setMacroCategory:argument];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContextKey
 - (NSString *)macroContextKey;
 {
     return [self delegate]?[[self delegate] macroContextKey]:([self windowController]?[[self windowController] macroContextKey]:[super macroContextKey]);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for macro.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [super tryToExecuteMacro:macro]
+			|| [[self delegate] executeMacro:macro]
+				|| [[self windowController] tryToExecuteMacro:macro];
 }
 @end
 
@@ -1040,14 +1651,98 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 {
     return [self document]?[[self document] macroCategoryKey]:[super macroCategoryKey];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroCategory:
+- (void)setMacroCategory:(NSString *)argument;
+{
+	id document = [self document];
+	if(document)
+	{
+		[document setMacroCategory:argument];
+	}
+	[super setMacroCategory:argument];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContextKey
 - (NSString *)macroContextKey;
 {
     return [self document]?[[self document] macroContextKey]:[super macroContextKey];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for macro.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [super tryToExecuteMacro:macro]
+			|| [[self document] executeMacro:macro]
+				|| (([self owner] != self) && [[self owner] executeMacro:macro]);
+}
 @end
 
+NSString * const iTM2DontUseSmartMacrosKey = @"iTM2DontUseSmartMacros";
+
 @implementation NSResponder(iTM2MacroKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartMacros:
+- (IBAction)toggleSmartMacros:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Jan 18 22:21:11 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    BOOL old = [self contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask];
+    [self takeContextBool:!old forKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextPrivateMask|iTM2ContextProjectMask];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartMacros:
+- (BOOL)validateToggleSmartMacros:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Jan 18 22:21:11 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState:([self contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeMacroModeFromRepresentedObject:
+- (IBAction)takeMacroModeFromRepresentedObject:(id)sender;
+{
+	id newMode = [sender representedString];
+	if(newMode)
+	{
+		[self setMacroCategory:newMode];
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakeMacroModeFromRepresentedObject:
+- (BOOL)validateTakeMacroModeFromRepresentedObject:(id)sender;
+{
+	id representedMode = [sender representedString];
+	id currentMode = [self macroCategory];
+	[sender setState:([currentMode isEqual:representedMode]?NSOnState:NSOffState)];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroEdit:
+- (IBAction)macroEdit:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// order front the pref panel
+//iTM2_END;
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomainKey
 - (NSString *)macroDomainKey;
 {
@@ -1058,16 +1753,71 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 {
     return [self nextResponder]?[[self nextResponder] macroCategoryKey]:[super macroCategoryKey];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroCategory:
+- (void)setMacroCategory:(NSString *)argument;
+{
+	id nextResponder = [self nextResponder];
+	if(nextResponder)
+	{
+		[nextResponder setMacroCategory:argument];
+	}
+	[super setMacroCategory:argument];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContextKey
 - (NSString *)macroContextKey;
 {
     return [self nextResponder]?[[self nextResponder] macroContextKey]:[super macroContextKey];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
+- (BOOL)executeMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for instruction.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [self tryToExecuteMacro:macro];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for macro.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange R = [macro rangeOfString:@":"];
+	if(R.length)
+	{
+		R.length = R.location + 1;
+		R.location = 0;
+		NSString * selectorName = [macro substringWithRange:R];
+		SEL action = NSSelectorFromString(selectorName);
+		if([self respondsToSelector:action])
+		{
+			R.location = R.length;
+			R.length = [macro length] - R.location;
+			NSString * argument = [macro substringWithRange:R];
+			if([self tryToPerform:action with:argument])
+			{
+				return YES;
+			}
+		}
+	}
+//iTM2_END;
+    return NO;
+}
 @end
 
 @implementation iTM2GenericScriptButton
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= menu
-- (NSMenu *)menu;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroMenu
+- (NSMenu *)macroMenu;// don't call this "menu"!
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1112,8 +1862,36 @@ To Do List:
 	NSView * superview = [self superview];
 	[self removeFromSuperviewWithoutNeedingDisplay];
 	[superview addSubview:self];
-	[self setMenu:[self menu]];
+	[DNC addObserver:self selector:@selector(popUpButtonCellWillPopUpNotification:) name:NSPopUpButtonCellWillPopUpNotification object:[self cell]];
 	[[self cell] setAutoenablesItems:YES];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= popUpButtonCellWillPopUpNotification:
+- (void)popUpButtonCellWillPopUpNotification:(NSNotification *)notification;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self setMenu:[self macroMenu]];
+	[DNC removeObserver:self];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
+- (void)dealloc;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[DNC removeObserver:self];
+	[super dealloc];
 //iTM2_END;
     return;
 }
@@ -1577,44 +2355,6 @@ nextITEM:
 	return nil;
 }
 @end
-
-#import <iTM2Foundation/iTM2InstallationKit.h>
-
-@implementation iTM2MainInstaller(iTM2MacroKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroKitCompleteInstallation
-+ (void)iTM2MacroKitCompleteInstallation;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 06/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * path = [[self classBundle] pathForAuxiliaryExecutable:@"bin/iTM2CreateMacrosHashTable.pl"];
-    if([path length])
-	{
-		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
-		[TW setLaunchPath:path];
-		[TW addArgument:@"--directory"];
-//		NSString * P = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:NO];
-//		[TW addArgument:P];
-		[TW addArgument:@"/Users"];
-		iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
-		[TC addTaskWrapper:TW];
-		[TC setMute:YES];
-		[TC setDeaf:YES];
-		[TC start];
-		[TC becomeStandalone];
-	}
-	else
-	{
-		iTM2_LOG(@"ERROR: bad configuration, bin/iTM2CreateMacrosHashTable.pl is missing");
-	}
-//iTM2_END;
-	return;
-}
-@end
-
 
 @interface NSObject(RIEN)
 - (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
@@ -2695,6 +3435,10 @@ To Do List:
 }
 @end
 
+@interface NSTextView(PRIVATE)
+- (IBAction)selectFirstPlaceholder:(id)sender;
+@end
+
 @implementation NSTextView(iTM2MacroKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabAnchor
 + (NSString *)tabAnchor;
@@ -2716,38 +3460,65 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	// first I remove the selection, if it was a place holder
-	NSRange selectedRange = [self selectedRange];
-	NSTextStorage * TS = [self textStorage];
-	NSString * S = [TS string];
+	NSString * S = [self string];
 	NSString * tabAnchor = [self tabAnchor];
-	NSRange markRange = [S rangeOfPlaceholderFromIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor];
-	if(NSEqualRanges(selectedRange,markRange))
+	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor];
+	if(!firstPlaceholderRange.length)
 	{
-		// if this is a SEL placeholder, just remove the markers
-		NSRange R;
-		R = [S rangeOfString:iTM2TextStartSELPlaceholder options:NSAnchoredSearch range:selectedRange];
-		if(R.length)
-		{
-			R = selectedRange;
-			R.location += [iTM2TextStartSELPlaceholder length];
-			R.length -= [iTM2TextStopPlaceholder length] + [iTM2TextStartSELPlaceholder length];
-			NSString * replacement = [S substringWithRange:R];
-			[self insertText:replacement];
-			selectedRange.length = 0;
-		}
-		else
-		{
-			[self insertText:@""];
-			selectedRange.length = 0;
-		}
+		return;
 	}
-	markRange = [S rangeOfPlaceholderFromIndex:0 cycle:NO tabAnchor:tabAnchor];
-	if(markRange.length)
+	// if it is already selected, remove, replace it
+	NSRange selectedRange = [self selectedRange];
+	if(!NSEqualRanges(selectedRange,firstPlaceholderRange))
 	{
-		[self setSelectedRange:markRange];
+		[self setSelectedRange:firstPlaceholderRange];
 		[self scrollRangeToVisible:[self selectedRange]];
 		return;
+	}
+	if(selectedRange.length>6)// does the selection match: "@@.+@@\."
+	{
+		switch([S characterAtIndex:selectedRange.location+2])
+		{
+			case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderARG:// keep the content
+				selectedRange.location+=3;
+				selectedRange.length -= 6;
+				S = [S substringWithRange:selectedRange];
+				[self insertText:S];
+				goto doSelect;
+			
+			case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderOPT:default:// remove the content
+				[self insertText:@""];
+doSelect:
+				firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
+				if(firstPlaceholderRange.length)
+				{
+					[self setSelectedRange:firstPlaceholderRange];
+					[self scrollRangeToVisible:[self selectedRange]];
+				}
+				return;
+		}
+	}
+		// remove the content
+	[self insertText:@""];
+	goto doSelect;
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectLastPlaceholderAndClean:
+- (IBAction)selectLastPlaceholderAndClean:(id)sender;
+/*Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon Jan 10 21:45:41 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * S = [self string];
+	NSString * tabAnchor = [self tabAnchor];
+	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor];
+	if(firstPlaceholderRange.length)
+	{
+		[self selectFirstPlaceholder:sender];
 	}
 //iTM2_END;
     return;
@@ -2761,39 +3532,45 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	// first I remove the selection, if it was a place holder
-	NSRange selectedRange = [self selectedRange];
-	NSTextStorage * TS = [self textStorage];
-	NSString * S = [TS string];
+	NSString * S = [self string];
 	NSString * tabAnchor = [self tabAnchor];
-	NSRange markRange = [S rangeOfPlaceholderFromIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor];
-	if(NSEqualRanges(selectedRange,markRange))
+	NSRange selectedRange = [self selectedRange];
+	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:NSMaxRange(selectedRange) cycle:YES tabAnchor:tabAnchor];
+	if(!firstPlaceholderRange.length)
 	{
-		// if this is a SEL placeholder, just remove the markers
-		NSRange R;
-		R = [S rangeOfString:iTM2TextStartSELPlaceholder options:NSAnchoredSearch range:selectedRange];
-		if(R.length)
-		{
-			R = selectedRange;
-			R.location += [iTM2TextStartSELPlaceholder length];
-			R.length -= [iTM2TextStopPlaceholder length] + [iTM2TextStartSELPlaceholder length];
-			NSString * replacement = [S substringWithRange:R];
-			[self insertText:replacement];
-			selectedRange.length = 0;
-		}
-		else
-		{
-			[self insertText:@""];
-			selectedRange.length = 0;
-		}
-	}
-	markRange = [S rangeOfPlaceholderFromIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor];
-	if(markRange.length)
-	{
-		[self setSelectedRange:markRange];
-		[self scrollRangeToVisible:[self selectedRange]];
 		return;
 	}
+	// if it is already selected, remove, replace it
+	if(!NSEqualRanges(selectedRange,firstPlaceholderRange))
+	{
+		[self setSelectedRange:selectedRange];
+		[self scrollRangeToVisible:selectedRange];
+		return;
+	}
+	if(selectedRange.length>6)
+	{
+		switch([S characterAtIndex:selectedRange.location+2])
+		{
+			case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderARG:// keep the content
+				selectedRange.location+=3;
+				selectedRange.length -= 6;
+				S = [S substringWithRange:selectedRange];
+				[self insertText:S];
+				goto doSelect;
+			
+			case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderOPT:default:// remove the content
+				[self insertText:@""];
+doSelect:
+				firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
+				if(firstPlaceholderRange.length)
+				{
+					[self setSelectedRange:firstPlaceholderRange];
+					[self scrollRangeToVisible:[self selectedRange]];
+				}
+				return;
+		}
+	}
+	goto doSelect;
 //iTM2_END;
     return;
 }
@@ -2806,73 +3583,45 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	// first I remove the selection, if it was a place holder
-	NSRange selectedRange = [self selectedRange];
-	NSTextStorage * TS = [self textStorage];
-	NSString * S = [TS string];
+	NSString * S = [self string];
 	NSString * tabAnchor = [self tabAnchor];
-	NSRange markRange = [S rangeOfPlaceholderFromIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor];
-	if(NSEqualRanges(selectedRange,markRange))
+	NSRange selectedRange = [self selectedRange];
+	NSRange firstPlaceholderRange = [S rangeOfPreviousPlaceholderBeforeIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor];
+	if(!firstPlaceholderRange.length)
 	{
-		// if this is a SEL placeholder, just remove the markers
-		NSRange R;
-		R = [S rangeOfString:iTM2TextStartSELPlaceholder options:NSAnchoredSearch range:selectedRange];
-		if(R.length)
-		{
-			R = selectedRange;
-			R.location += [iTM2TextStartSELPlaceholder length];
-			R.length -= [iTM2TextStopPlaceholder length] + [iTM2TextStartSELPlaceholder length];
-			NSString * replacement = [S substringWithRange:R];
-			[self insertText:replacement];
-			selectedRange.length = 0;
-		}
-		else
-		{
-			[self insertText:@""];
-			selectedRange.length = 0;
-		}
-	}
-	markRange = [S rangeOfPlaceholderToIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor];
-	if(markRange.length)
-	{
-		[self setSelectedRange:markRange];
-		[self scrollRangeToVisible:[self selectedRange]];
 		return;
 	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectINSPlaceholders:
-- (IBAction)selectINSPlaceholders:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableArray * selectedRanges = [NSMutableArray array];
-	NSValue * V;
-	NSRange R;
-	unsigned index = 0;
-	NSString * string = [self string];
-	NSString * replacementString;
-next:
-	R = [string rangeOfINSPlaceholderFromIndex:index getTemplate:&replacementString];
-	if(R.length)
+	// if it is already selected, remove, replace it
+	if(!NSEqualRanges(selectedRange,firstPlaceholderRange))
 	{
-		if([self shouldChangeTextInRange:R replacementString:replacementString])
-		{
-			[self replaceCharactersInRange:R withString:replacementString];
-			R.length = [replacementString length];
-			[self didChangeText];
-		}
-		V = [NSValue valueWithRange:R];
-		[selectedRanges addObject:V];
-		index = NSMaxRange(R);
-		goto next;
+		[self setSelectedRange:selectedRange];
+		[self scrollRangeToVisible:selectedRange];
+		return;
 	}
-	[self setSelectedRanges:selectedRanges];
+	if(selectedRange.length>6)
+	{
+		switch([S characterAtIndex:selectedRange.location+2])
+		{
+			case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderARG:// keep the content
+				selectedRange.location+=3;
+				selectedRange.length -= 6;
+				S = [S substringWithRange:selectedRange];
+				[self insertText:S];
+				goto doSelect;
+			
+			case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderOPT:default:// remove the content
+				[self insertText:@""];
+doSelect:
+				firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
+				if(firstPlaceholderRange.length)
+				{
+					[self setSelectedRange:firstPlaceholderRange];
+					[self scrollRangeToVisible:[self selectedRange]];
+				}
+				return;
+		}
+	}
+	goto doSelect;
 //iTM2_END;
     return;
 }
@@ -2910,96 +3659,6 @@ To Do List:
 //iTM2_START;
     return [self contextIntegerForKey:iTM2TextNumberOfSpacesPerTabKey domain:iTM2ContextAllDomainsMask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectNextTabAnchor:
-- (void)selectNextTabAnchor:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSString * S = [self string];
-    int anchor = NSMaxRange([self selectedRange]);
-    NSString * anchorString = [self tabAnchor];
-    NSRange foundRange = [S rangeOfString:anchorString options:0 range:NSMakeRange(anchor, [S length]-anchor)];
-    if(!foundRange.length)
-        foundRange = [S rangeOfString:anchorString options:0
-                            range: NSMakeRange(0, MIN([S length], anchor + [anchorString length]-1))];
-    if(!foundRange.length)
-    {
-        foundRange = NSMakeRange(NSMaxRange([self selectedRange]), 0);
-        [self postNotificationWithToolTip:
-            [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"No %@ tab anchor found.",
-                @"TeX", [NSBundle bundleForClass:[self class]],
-                    @"Status displayed when navigating within tab anchors."), anchorString]];
-        iTM2Beep();
-        [self setSelectedRange:NSMakeRange(anchor, 0)];
-    }
-    else
-        [self setSelectedRange:foundRange];
-    [self scrollRangeToVisible:foundRange];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectNextTabAnchorAndDelete:
-- (void)selectNextTabAnchorAndDelete:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
-- 1.2: 06/21/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self selectNextTabAnchor:sender];
-    if([self selectedRange].length) [self deleteBackward:sender];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectPreviousTabAnchorAndDelete:
-- (void)selectPreviousTabAnchorAndDelete:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
-- 1.2: 06/21/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self selectPreviousTabAnchor:sender];
-    if([self selectedRange].length) [self deleteBackward:sender];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectPreviousTabAnchor:
-- (void)selectPreviousTabAnchor:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSString * S = [self string];
-    int anchor = [self selectedRange].location;
-    NSString * anchorString = [self tabAnchor];
-    NSRange foundRange = [S rangeOfString:anchorString options:NSBackwardsSearch
-                                range: NSMakeRange(0, anchor)];
-    if(!foundRange.length)
-    {
-        anchor = (anchor < [iTM2TextTABPlaceholder length])? 0:anchor-[anchorString length] + 1;
-        foundRange = [S rangeOfString:anchorString options:NSBackwardsSearch
-                            range: NSMakeRange(anchor, [S length]-anchor)];
-    }
-    if(!foundRange.length)
-    {
-        foundRange = NSMakeRange([self selectedRange].location, 0);
-        [self postNotificationWithToolTip:
-            [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"No %@ tab anchor found.",
-                @"TeX", [NSBundle bundleForClass:[self class]],
-                    @"Status displayed when navigating within tab anchors."), anchorString]];
-        iTM2Beep();
-    }
-    [self setSelectedRange:foundRange];
-    [self scrollRangeToVisible:foundRange];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cachedSelection
 - (NSString *)cachedSelection;
 /*"Description forthcoming.
@@ -3011,6 +3670,37 @@ To Do List:
 //iTM2_START;
     return [[self string] substringWithRange:[self selectedRange]];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for macro.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange R = [macro rangeOfString:@":"];
+	if(R.length)
+	{
+		R.length = R.location + 1;
+		R.location = 0;
+		NSString * selectorName = [macro substringWithRange:R];
+		SEL action = NSSelectorFromString(selectorName);
+		if([self respondsToSelector:action])
+		{
+			R.location = R.length;
+			R.length = [macro length] - R.location;
+			NSString * argument = [macro substringWithRange:R];
+			if([self tryToPerform:action with:argument])
+			{
+				return YES;
+			}
+		}
+	}
+//iTM2_END;
+    return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:
 - (void)insertMacro:(id)argument;
 /*"Description forthcoming. argument is either a dictionary with strings for keys "before", "selected" and "after" or a string playing the role of before keyed object (the other strings are blank). When the argument is a NSMenuItem (or so) we add a pretreatment replacing the argument by its represented object.
@@ -3020,11 +3710,281 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self insertMacro:argument tabAnchor:[self tabAnchor]];
+    [self insertMacro:argument substitutions:nil mode:nil];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:tabAnchor:
-- (void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getReplacementString:affectedCharRange:forMacro:substitutions:mode:
+- (void)getReplacementString:(NSString **)replacementStringRef affectedCharRange:(NSRangePointer)affectedCharRangePtr forMacro:(NSString *)macro substitutions:(NSDictionary *)substitutions mode:(NSString *)mode;
+/*"Description forthcoming. Will be completely overriden by subclassers.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange affectedCharRange = [self selectedRange];
+	if(affectedCharRangePtr)
+	{
+		* affectedCharRangePtr = affectedCharRange;
+	}
+	NSRange range;
+	NSEnumerator * E;
+	NSString * string1, * string2;
+	NSMutableString * replacementString;
+	if([substitutions count])
+	{
+		replacementString = [[macro mutableCopy] autorelease];
+		E = [substitutions keyEnumerator];
+		while(string1 = [E nextObject])
+		{
+			string2 = [substitutions objectForKey:string1];
+			range = NSMakeRange(0,[replacementString length]);
+			[replacementString replaceOccurrencesOfString:string1 withString:string2 options:nil range:range];
+		}
+		macro = [NSString stringWithString:replacementString];
+	}
+	NSString * S = [self string];
+	NSRange selectedRange = [self selectedRange];
+	NSString * selectedString = [S substringWithRange:selectedRange];
+	unsigned numberOfSpacesPerTab = [self numberOfSpacesPerTab];
+	selectedString = [selectedString stringByNormalizingIndentationWithNumberOfSpacesPerTab:numberOfSpacesPerTab];
+	NSArray * components = [selectedString lineComponents];
+	NSMutableArray * MRA = [NSMutableArray array];
+	E = [components objectEnumerator];
+	unsigned lineIndentation = 0;
+	unsigned indentation = [S indentationLevelAtIndex:selectedRange.location withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+	while(string1 = [E nextObject])
+	{
+		lineIndentation = [string1 indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+		if(lineIndentation>indentation)
+		{
+			lineIndentation-=indentation;
+			string1 = [string1 stringWithIndentationLevel:lineIndentation atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+		}
+		[MRA addObject:string1];
+	}
+	selectedString = [MRA componentsJoinedByString:@"__iTM2_INDENTATION_PREFIX__"];
+	// managing the parameters, this is LaTeX specific
+	replacementString = [NSMutableString string];
+	NSString * tabAnchor = [self tabAnchor];
+	range = [macro rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor];
+	NSScanner * scanner;
+#warning FAILED: this should live in the latex code
+	if([macro hasPrefix:@"\\"] && !range.length)
+	{
+		components = [macro componentsSeparatedByString:@"|"];
+		macro = [components objectAtIndex:0];
+		MRA = [NSMutableArray arrayWithArray:components];
+		[MRA removeObjectAtIndex:0];
+		scanner = [NSScanner scannerWithString:macro];
+		NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"[{"];
+		E = [MRA objectEnumerator];
+		while([scanner scanUpToCharactersFromSet:set intoString:&string2])
+		{
+			[replacementString appendString:string2];
+			
+			if([scanner scanString:@"[" intoString:nil])
+			{
+				[scanner scanUpToString:@"]" intoString:&string2]||(string2=@"");
+				if([scanner scanString:@"]" intoString:nil])
+				{
+					string1 = [E nextObject];
+					[replacementString appendString:@"@@[[@@["];
+					string2 = [string2 length]?string2:(string1?:selectedString);
+					[replacementString appendString:string2];
+					[replacementString appendString:@"@@.]@@."];
+				}
+				else
+				{
+					[replacementString appendString:string2];
+					break;
+				}
+			}
+			else if([scanner scanString:@"{" intoString:nil])
+			{
+				[scanner scanUpToString:@"}" intoString:&string2]||(string2=@"");
+				if([scanner scanString:@"}" intoString:nil])
+				{
+					[replacementString appendString:@"{@@{"];
+					string1 = [E nextObject];
+					string2 = [string2 length]?string2:(string1?:selectedString);
+					[replacementString appendString:string2];
+					[replacementString appendString:@"@@.}"];
+				}
+				else
+				{
+					[replacementString appendString:string2];
+					break;
+				}
+			}
+		}
+		range.location = [scanner scanLocation];
+		range.length = [macro length] - range.location;
+		string1 = [macro substringWithRange:range];
+		[replacementString appendString:string1];
+	}
+	else
+	{
+		replacementString = [macro mutableCopy];
+	}
+	if(selectedRange.length==0)
+	{
+		// just change the placeholder marks
+		range = NSMakeRange(0,[replacementString length]);
+		[replacementString replaceOccurrencesOfString:@"@@\"" withString:@"@@{" options:nil range:range];
+		[replacementString replaceOccurrencesOfString:@"@@'" withString:@"@@[" options:nil range:range];
+ //iTM2_END;
+		goto manageTheIndentation;
+	}
+	macro = [NSString stringWithString:replacementString];
+	replacementString = [NSMutableString string];
+	unsigned startType = 0,stopType;
+	NSRange startRange = NSMakeRange(0,0);
+	NSRange stopRange = NSMakeRange(0,0);
+	range = NSMakeRange(0,0);
+	unsigned index = 0;
+	
+nextRange:
+	startRange = [macro rangeOfNextPlaceholderMarkAfterIndex:index getType:&startType];
+	if(startRange.length)
+	{
+		range.location = NSMaxRange(stopRange);
+		range.length = startRange.location - range.location;
+		string1 = [macro substringWithRange:range];
+		[replacementString appendString:string1];
+nextStopRange:
+		index = NSMaxRange(startRange);
+		stopRange = [macro rangeOfNextPlaceholderMarkAfterIndex:index getType:&stopType];
+		if(stopRange.length)
+		{
+			index = NSMaxRange(stopRange);
+			if(startType == kiTM2TextPlaceholderHLT)
+			{
+				range = startRange;
+				range.length = NSMaxRange(stopRange) - range.location;
+				string1 = [macro substringWithRange:range];
+				[replacementString appendString:string1];
+				goto nextRange;
+			}
+			else if(stopType == kiTM2TextPlaceholderHLT)
+			{
+				switch(startType)
+				{
+					case kiTM2TextPlaceholderINS://When no content, use the selection
+					case kiTM2TextPlaceholderTAB://When no content, use the selection
+						if((stopRange.location == NSMaxRange(startRange)) && [selectedString length])
+						{
+							string1 = [macro substringWithRange:startRange];
+							[replacementString appendString:string1];
+							[replacementString appendString:selectedString];
+							string1 = [macro substringWithRange:stopRange];
+							[replacementString appendString:string1];
+						}
+						else
+						{
+							range = startRange;
+							range.length = NSMaxRange(stopRange) - range.location;
+							string1 = [macro substringWithRange:range];
+							[replacementString appendString:string1];
+						}
+						goto nextRange;
+					case kiTM2TextPlaceholderARG://When no selection, use the content
+					case kiTM2TextPlaceholderOPT://When no selection, use the content
+						if([selectedString length])
+						{
+							string1 = [macro substringWithRange:startRange];
+							[replacementString appendString:string1];
+							[replacementString appendString:selectedString];
+							string1 = [macro substringWithRange:stopRange];
+							[replacementString appendString:string1];
+						}
+						else
+						{
+							range = startRange;
+							range.length = NSMaxRange(stopRange) - range.location;
+							string1 = [macro substringWithRange:range];
+							[replacementString appendString:string1];
+						}
+						goto nextRange;
+				}
+			}
+			else
+			{
+				range = startRange;
+				range.length = stopRange.location - range.location;
+				string1 = [macro substringWithRange:range];
+				[replacementString appendString:string1];
+				startType = stopType;
+				startRange = stopRange;
+				goto nextStopRange;
+			}
+		}
+		else
+		{
+			range = startRange;
+			range.length = [macro length] - range.location;
+			string1 = [macro substringWithRange:range];
+			[replacementString appendString:string1];
+		}
+	}
+	else
+	{
+		range.location = NSMaxRange(stopRange);
+		range.length = [macro length] - range.location;
+		string1 = [macro substringWithRange:range];
+		[replacementString appendString:string1];
+	}
+manageTheIndentation:
+	// now manage the indentation
+	MRA = [NSMutableArray array];
+	components = [replacementString lineComponents];
+	E = [components objectEnumerator];
+	unsigned indentationLevel = [S indentationLevelAtIndex:affectedCharRange.location withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+	unsigned currentIndentationLevel = 0, localIndentationLevel = 0;
+	range.location = 27;
+	string1 = [E nextObject];
+	[MRA addObject:string1];//no indentation on the first line
+	while(string1 = [E nextObject])
+	{
+		if([string1 hasPrefix:@"__iTM2_INDENTATION_PREFIX__"])
+		{
+			range.length = [string1 length]-range.location;
+			string1 = [string1 substringWithRange:range];
+			if(currentIndentationLevel)
+			{
+				localIndentationLevel = currentIndentationLevel + [string1 indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+				string1 = [string1 stringWithIndentationLevel:localIndentationLevel atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+			}
+		}
+		else
+		{
+			currentIndentationLevel = indentationLevel + [string1 indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+			string1 = [string1 stringWithIndentationLevel:currentIndentationLevel atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
+		}
+		[MRA addObject:string1];
+	}
+	macro = [MRA componentsJoinedByString:@""];
+	replacementString = [NSMutableString stringWithString:macro];
+	if(index = [replacementString length])
+	{
+		range = [replacementString rangeOfPreviousPlaceholderBeforeIndex:index cycle:NO tabAnchor:tabAnchor];
+		if(range.length)
+		{
+			if(NSMaxRange(range)<index)
+			{
+				[replacementString appendString:@"@@{@@."];
+			}
+		}
+	}
+	if(replacementStringRef)
+	{
+		* replacementStringRef = replacementString;
+	}
+ //iTM2_END;
+   return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:substitutions:mode:
+- (void)insertMacro:(id)argument substitutions:(NSDictionary *)substitutions mode:(NSString*)mode;
 /*"Description forthcoming. argument is either a dictionary with strings for keys "before", "selected" and "after" or a string playing the role of before keyed object (the other strings are blank). When the argument is a NSMenuItem (or so) we add a pretreatment replacing the argument by its represented object.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3032,501 +3992,71 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-     if(!tabAnchor)
-        tabAnchor = @"";
     if([argument conformsToProtocol:@protocol(NSMenuItem)])
         argument = [argument representedObject];
 // this new part concerns the new macro design. 2006
     if([argument isKindOfClass:[NSString class]])
 	{
 //iTM2_LOG(@"argument:%@",argument);
-		NSRange selectedRange = [self selectedRange];
-		NSString * S = [self string];
-		int numberOfSpacesPerTab = [self numberOfSpacesPerTab];
-		unsigned indentationLevelAtInsertLocation = [S indentationLevelAtIndex:selectedRange.location withNumberOfSpacesPerTab:numberOfSpacesPerTab];
-		
-		argument = [argument stringByRemovingTipPlaceHolders];
-		argument = [argument stringByNormalizingIndentationWithNumberOfSpacesPerTab:numberOfSpacesPerTab];
-
-		NSMutableString * replacementString = [NSMutableString string];
-		
-		// auxiliary variables
-		NSString * string;
-		NSRange range;
-		NSRange searchRange, SELRange;
-		NSArray * components;
-		NSEnumerator * E;
-		unsigned currentIndentation;
-		NSString * line;
-		
-		searchRange.location = 0;
-		searchRange.length = [argument length];
-		if(selectedRange.length)
+		NSString * replacementString = argument;		
+		NSString ** replacementStringRef = &argument;		
+		NSRange affectedCharRange = [self selectedRange];
+		NSRangePointer affectedCharRangePtr = &affectedCharRange;
+		NSString * category = [self macroCategory];
+		if([category length])
 		{
-			// we must ignore the __(SEL:template)___
-			SELRange = [argument rangeOfSELPlaceholderFromIndex:searchRange.location getTemplate:nil];
-			if(SELRange.length)
+			NSString * action = [NSString stringWithFormat:@"getReplacementString:affectedCharRange:for%@Macro:substitutions:mode:",category];
+			SEL selector = NSSelectorFromString(action);
+			NSMethodSignature * MS = [self methodSignatureForSelector:selector];
+			NSMethodSignature * myMS = [self methodSignatureForSelector:@selector(getReplacementString:affectedCharRange:forMacro:substitutions:mode:)];
+			if([MS isEqual:myMS])
 			{
-				// prepare the selection
-				NSString * selectedString = [S substringWithRange:selectedRange];// this will not move!
-				selectedString = [NSString stringWithFormat:@"%@%@%@",iTM2TextStartSELPlaceholder,selectedString,iTM2TextStopPlaceholder];
-				NSArray * selectedLines = [selectedString lineComponents];
-				
-				// first copy what is before the SEL placeholder
-				// we start with full lines
-				string = [argument substringToIndex:SELRange.location];
-				// split into lines
-				// copy each line of this head string managing indentation properly
-				
-nextSELRange:
-				components = [string lineComponents];
-				E = [components objectEnumerator];
-				currentIndentation = indentationLevelAtInsertLocation;
-				line = [E nextObject];// there is at least one object
-				[replacementString appendString:line];
-//iTM2_LOG(@"replacementString:%@",replacementString);
-				// the other lines have special indentation
-				while(line = [E nextObject])
-				{
-					unsigned relativeIndentation = [line indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
-					// this is the actual level
-					// this is what we would have if the macro were inserted exactly at the left margin
-					currentIndentation = indentationLevelAtInsertLocation+relativeIndentation;
-					line = [line stringWithIndentationLevel:currentIndentation atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
-					[replacementString appendString:line];
-//iTM2_LOG(@"replacementString:%@",replacementString);
-				}
-				// all the lines have been inserted
-				// now we insert the selection, adding the current indentation
-				E = [selectedLines objectEnumerator];
-				line = [E nextObject];
-				[replacementString appendString:line];
-//iTM2_LOG(@"replacementString:%@",replacementString);
-				// the other lines have special indentation
-				while(line = [E nextObject])
-				{
-					unsigned relativeIndentation = [line indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
-					// this is the actual level
-					// this is what we would have if the macro were inserted exactly at the left margin
-					unsigned localIndentation = currentIndentation+relativeIndentation;
-					line = [line stringWithIndentationLevel:localIndentation atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
-					[replacementString appendString:line];
-//iTM2_LOG(@"replacementString:%@",replacementString);
-				}
-				// then we append the remaining part of the argument
-				// there might be other selection placeholders
-				searchRange.location = NSMaxRange(SELRange);
-				searchRange.length = [argument length] - searchRange.location;
-				SELRange = [argument rangeOfSELPlaceholderFromIndex:searchRange.location getTemplate:nil];
-				if(SELRange.length)
-				{
-					// first copy what is before the SEL placeholder
-					range = searchRange;
-					range.length = SELRange.location - searchRange.location;
-					string = [argument substringWithRange:range];
-					goto nextSELRange;
-				}
-				argument = [argument substringFromIndex:searchRange.location];
-			}
-		}
-		//
-//iTM2_LOG(@"replacementString:%@",replacementString);
-		components = [argument lineComponents];
-		E = [components objectEnumerator];
-		line = [E nextObject];// there is at least one object
-		[replacementString appendString:line];
-		// the other lines have special indentation
-		while(line = [E nextObject])
-		{
-			unsigned relativeIndentation = [line indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
-			// this is the actual level
-			// this is what we would have if the macro were inserted exactly at the left margin
-			currentIndentation = indentationLevelAtInsertLocation+relativeIndentation;
-			line = [line stringWithIndentationLevel:currentIndentation atIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
-			[replacementString appendString:line];
-		}
-//iTM2_LOG(@"replacementString:%@",replacementString);
-		[replacementString appendString:iTM2TextTABPlaceholder];
-		NSMutableArray * selectedRanges = [NSMutableArray array];
-		unsigned index = 0;
-		while(index<[replacementString length])
-		{
-			NSString * template;
-			range = [argument rangeOfINSPlaceholderFromIndex:index getTemplate:&template];
-			if(range.length)
-			{
-				[replacementString replaceCharactersInRange:range withString:template];
-				range.length = [template length];
-				NSValue * V = [NSValue valueWithRange:range];
-				[selectedRanges addObject:V];
-				index += range.length;
+				NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+				[I setTarget:self];
+				[I setArgument:&replacementStringRef atIndex:2];
+				[I setArgument:&affectedCharRangePtr atIndex:3];
+				[I setArgument:&substitutions atIndex:4];
+				[I setArgument:&mode atIndex:5];
+				[I setSelector:selector];
+				NS_DURING
+				[I invoke];
+				affectedCharRange = * affectedCharRangePtr;
+				replacementString = * replacementStringRef;
+				NS_HANDLER
+				iTM2_LOG(@"EXCEPTION Catched: %@", localException);
+				NS_ENDHANDLER
 			}
 			else
 			{
-				break;
+				[self getReplacementString:replacementStringRef affectedCharRange:affectedCharRangePtr forMacro:argument substitutions:substitutions mode:mode];
+				affectedCharRange = * affectedCharRangePtr;
+				replacementString = * replacementStringRef;
 			}
-		}
-		if([self shouldChangeTextInRange:selectedRange replacementString:replacementString])
-		{
-			[self replaceCharactersInRange:selectedRange withString:replacementString];
-			[self didChangeText];
-			if([selectedRanges count])
-			{
-				[self setSelectedRanges:selectedRanges];
-			}
-			else
-			{
-				range = NSMakeRange(selectedRange.location+[replacementString length],0);
-				[self selectFirstPlaceholder:self];
-			}
-		}
-		return;
-	}
-#if 0
-	{
-		// Get the indentation level at the line where we are going to insert things
-		// we record this level and we will propagate it if the insterted material
-		// spans on many lines
-		// the indentation level is an integer specifying how many _Tab's are used to indent
-		// We get the extent of the contents of the line
-		unsigned start, contentsEnd, end;
-		NSRange R = selectedRange;
-		R.length = 0;
-		[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:R];
-		
-		// get the indentation in the original selected string, starting at the second line
-		// then split the selection into lines in order to manage the indentation
-		// ensuring that the white prefix is of the apropriate format
-		// the indentation comes from the selected text and also from the macro itself
-		// if the selection should be inserted in an indented place,
-		// indentation should be fixed accordingly
-		NSMutableArray * replacementLines = [NSMutableArray array];
-		// replacementLines will hold the selection split into lines
-		// each line has a proper indentation relative to the first line of the text where the selection starts
-		// except the first line which will be inserted continuously in the text
-		R = NSMakeRange(0,0);
-		[_OriginalSelectedString getLineStart:nil end:&R.location contentsEnd:nil forRange:R];
-		// now R.location is the first index of the second line
-		NSString * blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(0,R.location)];
-		blackString = [iTM2TextStartSELPlaceholder stringByAppendingString:blackString];
-		[replacementLines addObject:blackString];
-		// now, the first object is the first line of the selection
-		// we prepended the iTM2TextStartSELPlaceholder, the stop placeholder will be appended to the last replacement line
-		// for the rest of the selection, we just record the white prefix and black line content
-		// the white prefix is a level of indentation
-		NSMutableArray * whitePrefixes = [NSMutableArray array];
-		NSMutableArray * blackStrings = [NSMutableArray array];
-		unsigned indentationOfTheSelectedString = 0;
-		NSNumber * N;
-		unsigned lineIndentation = 0;
-		if(R.location < [_OriginalSelectedString length])
-		{
-			
-			indentationOfTheSelectedString = UINT_MAX;// it will decrease as there is a second line
-			do
-			{
-				[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-				lineIndentation = 0;
-				while(R.location<contentsEnd)
-				{
-					theChar = [_OriginalSelectedString characterAtIndex:R.location++];
-					if(theChar == ' ')
-					{
-						++currentLength;
-					}
-					else if(theChar == '\t')
-					{
-						++lineIndentation;
-						lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-						currentLength = 0;
-					}
-					else
-					{
-						break;
-					}
-				}
-				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-				if(lineIndentation<indentationOfTheSelectedString)
-				{
-					indentationOfTheSelectedString = lineIndentation;
-				}
-				N = [NSNumber numberWithUnsignedInt:lineIndentation];
-				[whitePrefixes addObject:N];
-				blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(R.location,end-R.location)];
-				[blackStrings addObject:blackString];
-				R.location = end;
-			}
-			while(R.location < [_OriginalSelectedString length]);
 		}
 		else
 		{
-			// there was no second line in the selection
-			// R.location == [_OriginalSelectedString length]
+			[self getReplacementString:replacementStringRef affectedCharRange:affectedCharRangePtr forMacro:argument substitutions:substitutions mode:mode];
+			affectedCharRange = * affectedCharRangePtr;
+			replacementString = * replacementStringRef;
 		}
-		NSEnumerator * whiteE = [whitePrefixes objectEnumerator];
-		NSEnumerator * blackE = [blackStrings objectEnumerator];
-		while((N = [whiteE nextObject]) && (blackString = [blackE nextObject]))
+		if([self contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextPrivateMask|iTM2ContextExtendedMask])
 		{
-			lineIndentation = [N unsignedIntValue];
-			if(lineIndentation>indentationOfTheSelectedString)
-			{
-				lineIndentation-=indentationOfTheSelectedString;
-				NSMutableString * MS = [NSMutableString string];
-				while(lineIndentation--)
-				{
-					[MS appendString:_Tab];
-				}
-				[MS appendString:blackString];
-				[replacementLines addObject:MS];
-			}
-			else
-			{
-				[replacementLines addObject:blackString];
-			}
+			replacementString = [replacementString stringByRemovingPlaceholderMarks];
 		}
-		blackString = [replacementLines lastObject];
-		blackString = [blackString stringByAppendingString:iTM2TextStopPlaceholder];
-		[replacementLines removeLastObject];
-		[replacementLines addObject:blackString];
-		// now the replacement lines are ready
-		
-		// let's work now on the soon inserted macro
-		NSString * completion = argument;// this is the starting macro
-		NSMutableString * longCompletionString = [NSMutableString string];// this is the resulting macro, once we have inserted the selection, indentation...
-		// first we clean the white prefix, using only _Tab string
-		R = NSMakeRange(0,0);
-		[completion getLineStart:nil end:&R.location contentsEnd:nil forRange:R];// range of the first line
-		blackString = [completion substringWithRange:NSMakeRange(0,R.location)];
-		[longCompletionString appendString:blackString];
-		if(R.location < [completion length])
+		if([self shouldChangeTextInRange:affectedCharRange replacementString:replacementString])
 		{
-			do
-			{
-				[completion getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];// range of the next line
-				lineIndentation = 0;
-				currentLength = 0;
-				while(R.location<contentsEnd)
-				{
-					theChar = [completion characterAtIndex:R.location++];
-					if(theChar == ' ')
-					{
-						++currentLength;
-					}
-					else if(theChar == '\t')
-					{
-						++lineIndentation;
-						lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-						currentLength = 0;
-					}
-					else
-					{
-						break;
-					}
-				}
-				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-				// we found the line indentation
-				// now we normalize the white prefix:
-				NSMutableString * whitePrefix = [NSMutableString string];
-				while(lineIndentation--)
-				{
-					[whitePrefix appendString:_Tab];
-				}
-				NSMutableString * line = [NSMutableString stringWithString:whitePrefix];
-				blackString = [completion substringWithRange:NSMakeRange(R.location,end-R.location)];
-				
-				NSRange searchRange = NSMakeRange(0,0);
-				searchRange.length = [blackString length] - searchRange.location;
-//				NSRange SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
-				NSRange SELRange;
-				if([_OriginalSelectedString length])
-				{
-					SELRange = [blackString rangeOfSELPlaceholderFromIndex:searchRange.location template:nil];
-				}
-				else
-				{
-					NSString * template = @"";
-					SELRange = [blackString rangeOfSELPlaceholderFromIndex:searchRange.location template:&template];
-					replacementLines = [NSMutableArray array];
-
-					if(R.location < [template length])
-					{
-						
-						indentationOfTheSelectedString = UINT_MAX;// it will decrease as there is a second line
-						do
-						{
-							[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-							lineIndentation = 0;
-							while(R.location<contentsEnd)
-							{
-								theChar = [_OriginalSelectedString characterAtIndex:R.location++];
-								if(theChar == ' ')
-								{
-									++currentLength;
-								}
-								else if(theChar == '\t')
-								{
-									++lineIndentation;
-									lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-									currentLength = 0;
-								}
-								else
-								{
-									break;
-								}
-							}
-							lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-							if(lineIndentation<indentationOfTheSelectedString)
-							{
-								indentationOfTheSelectedString = lineIndentation;
-							}
-							N = [NSNumber numberWithUnsignedInt:lineIndentation];
-							[whitePrefixes addObject:N];
-							blackString = [_OriginalSelectedString substringWithRange:NSMakeRange(R.location,end-R.location)];
-							[blackStrings addObject:blackString];
-							R.location = end;
-						}
-						while(R.location < [_OriginalSelectedString length]);
-					}
-					else
-					{
-						// there was no second line in the selection
-						// R.location == [_OriginalSelectedString length]
-					}
-
-
-
-
-
-					
-				}
-				if(SELRange.length)
-				{
-					// copy what is before the selection
-					
-					R = NSMakeRange(searchRange.location,SELRange.location-searchRange.location);
-					NSString * s = [blackString substringWithRange:R];
-					[line appendString:s];
-					NSEnumerator * replacementE = [replacementLines objectEnumerator];
-					s = [replacementE nextObject];
-					[line appendString:s];
-					while(s = [replacementE nextObject])
-					{
-						[line appendString:whitePrefix];
-						[line appendString:s];
-					}
-next:
-					searchRange.location = NSMaxRange(SELRange);
-					if([blackString length]>searchRange.location)
-					{
-						searchRange.length = [blackString length] - searchRange.location;
-						SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
-						if(SELRange.length)
-						{
-							s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
-							[line appendString:s];
-							replacementE = [replacementLines objectEnumerator];
-							s = [replacementE nextObject];
-							[line appendString:s];
-							while(s = [replacementE nextObject])
-							{
-								[line appendString:whitePrefix];
-								[line appendString:s];
-							}
-							goto next;
-						}
-					}
-				}
-				else
-				{
-					[line appendString:blackString];
-				}
-				[longCompletionString appendString:line];
-				R.location = end;
-				R.length = 0;
-			}
-			while(R.location < [completion length]);
-		}
-
-		NSArray * components = [longCompletionString componentsSeparatedByINSPlaceholder];
-		NSString * replacementString = [components componentsJoinedByString:@""];
-		NSMutableArray * selectedRanges = [NSMutableArray array];
-		NSEnumerator * E = [components objectEnumerator];
-		NSString * component;
-		R = selectedRange;
-		NSValue * V = nil;
-		while(component = [E nextObject])
-		{
-			R.location += [component length];
-			R.length = 0;
-			if(component = [E nextObject])
-			{
-				R.length = [component length];
-				V = [NSValue valueWithRange:R];
-				[selectedRanges addObject:V];
-			}
-			else
-			{
-				break;
-			}
-		}
-		if(![selectedRanges count])
-		{
-			// is there any place holder?
-			R = [replacementString rangeOfPlaceholderFromIndex:0 cycle:NO tabAnchor:tabAnchor];
-			if(R.length)
-			{
-				if(NSMaxRange(R)<[replacementString length])
-				{
-					R.location = [replacementString length];
-					replacementString = [replacementString stringByAppendingString:iTM2TextTABPlaceholder];
-					R.length = [replacementString length] - R.location;
-				}
-			}
-			else
-			{
-				R.location = [replacementString length];
-				R.length = 0;
-			}
-			R.location += selectedRange.location;
-			NSValue * V = [NSValue valueWithRange:R];
-			[selectedRanges addObject:V];
-		}
-		// if the last placeholder is selected wherease there is a placeholder before, remove the corresponding selected range
-		R = [replacementString rangeOfPlaceholderToIndex:[replacementString length] cycle:NO tabAnchor:tabAnchor];
-		if(R.length)
-		{
-			if(R.location)
-			{
-				if([replacementString rangeOfPlaceholderToIndex:R.location-1 cycle:NO tabAnchor:tabAnchor].length)
-				{
-					R.location += selectedRange.location;
-					V = [NSValue valueWithRange:R];
-					if([selectedRanges containsObject:V])
-					{
-						[selectedRanges removeObject:V];
-						R.location = NSMaxRange(R);
-						R.length = 0;
-						V = [NSValue valueWithRange:R];
-						[selectedRanges addObject:V];
-					}
-				}
-			}
-		}
-		if([self shouldChangeTextInRange:_SelectedRange replacementString:replacementString])
-		{
-			[self replaceCharactersInRange:_SelectedRange withString:replacementString];
+			[self replaceCharactersInRange:affectedCharRange withString:replacementString];
 			[self didChangeText];
-			[self setSelectedRanges:selectedRanges];
+			[self selectFirstPlaceholder:self];
 		}
 		return;
 	}
-#endif
 	if([argument isKindOfClass:[NSArray class]])
 	{
 		NSEnumerator * E = [argument objectEnumerator];
 		while(argument = [E nextObject])
 		{
-			[self insertMacro:argument tabAnchor:tabAnchor];
+			[self insertMacro:argument substitutions:substitutions mode:mode];
 		}
 	}
     NSLog(@"Don't know what to do with this argument: %@", argument);
@@ -3535,12 +4065,7 @@ next:
 }
 @end
 
-@interface NSString(iTM2TextPlaceholder_PRIVATE)
-- (NSRange)__rangeOfPlaceholderStartingAtIndex:(unsigned)index;
-- (NSRange)__rangeOfPlaceholderEndingAtIndex:(unsigned)index;
-@end
-
-@implementation NSString(iTM2TextPlaceholder)
+@implementation NSString(PRIVATE)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bullet
 + (NSString *)bullet;
 /*"Description forthcoming.
@@ -3552,31 +4077,6 @@ To Do List:
 //iTM2_START;
     static NSString * _Bullet = nil;
     return _Bullet? _Bullet: (_Bullet = [[NSString stringWithUTF8String:"•"] copy]);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingTipPlaceHolders
-- (NSString *)stringByRemovingTipPlaceHolders;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List: ?
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSRange R = [self rangeOfString:iTM2TextStartTIPPlaceholder];
-	if(R.length)
-	{
-		R = [self rangeOfPlaceholderAtIndex:R.location];
-		NSRange r;
-		r.location = NSMaxRange(R);
-		r.length = [self length] - r.location;
-		NSString * avant = [self substringWithRange:r];
-		r = NSMakeRange(0,R.location);
-		NSString * apres = [self substringWithRange:r];
-		avant = [avant length]? ([apres length]?[avant stringByAppendingString:apres]:avant):apres;
-		return [avant stringByRemovingTipPlaceHolders];
-	}
-//iTM2_END;
-	return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineComponents
 - (NSArray *)lineComponents;
@@ -3608,6 +4108,429 @@ To Do List: ?
 //iTM2_END;
 	return lines;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingPlaceholderMarks
+- (NSString *)stringByRemovingPlaceholderMarks;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 
+To Do List: ?
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableString * result = [NSMutableString stringWithCapacity:[self length]];
+	NSRange selectRange, markRange;
+	unsigned length = [self length];
+	NSString * substring;
+	selectRange.location = 0;
+next:
+	markRange = [self rangeOfNextPlaceholderMarkAfterIndex:selectRange.location getType:nil];
+	if(markRange.length)
+	{
+		selectRange.length=markRange.location-selectRange.location;
+		substring = [self substringWithRange:selectRange];
+		[result appendString:substring];
+		selectRange.location = NSMaxRange(markRange);
+		goto next;
+	}
+	selectRange.length=length-selectRange.location;
+	substring = [self substringWithRange:selectRange];// the trailer
+	[result appendString:substring];
+//iTM2_END;
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderMarkAfterIndex:getType:
+- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(unsigned *)typeRef;
+/*"Description forthcoming. Just assume that there is no placeholder mark ending at index or index+1
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned length = [self length];
+	NSRange searchRange, markRange;
+	searchRange.location = index;
+nextMark:
+	searchRange.length = length - searchRange.location;
+	markRange = [self rangeOfString:iTM2TextPlaceholderMark options:nil range:searchRange];
+	if(markRange.length)
+	{
+whatIsAfter:
+		searchRange.location = NSMaxRange(markRange);
+		if(searchRange.location<length)
+		{
+			unichar theChar = [self characterAtIndex:searchRange.location];
+			switch(theChar)
+			{
+				case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderARG: case kiTM2TextPlaceholderOPT: case kiTM2TextPlaceholderHLT:
+					++markRange.length;
+					if(typeRef)
+					{
+						*typeRef = theChar;
+					}
+					return markRange;
+				case '@':
+					++markRange.location;
+					goto whatIsAfter;
+				default:
+					goto nextMark;
+					
+			}
+			// unreachable point
+		}
+	}
+//iTM2_END;
+	return NSMakeRange(NSNotFound,0);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderMarkBeforeIndex:getType:
+- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(unsigned *)typeRef;
+/*"Description forthcoming. The leading "@" is before index, index excluded
+This will catch a marker starting at index and below
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned length = [self length];
+	NSRange searchRange, markRange;
+	searchRange.location = 0;
+	markRange.location = MIN(index+1,length);
+nextMark:
+	searchRange.length=markRange.location;
+	markRange = [self rangeOfString:iTM2TextPlaceholderMark options:NSBackwardsSearch range:searchRange];
+	if(markRange.length)
+	{
+		// markRange.location + 2 <= searchRange.length <= MAX(index-1,length-2)
+		index = NSMaxRange(markRange);
+		if(index<length)
+		{
+			unichar theChar = [self characterAtIndex:index];
+			switch(theChar)
+			{
+				case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderARG: case kiTM2TextPlaceholderOPT: case kiTM2TextPlaceholderHLT:
+					++markRange.length;
+					if(typeRef)
+					{
+						*typeRef=theChar;
+					}
+					return markRange;
+				default:
+					break;
+			}
+		}
+		goto nextMark;
+	}
+//iTM2_END;
+	return NSMakeRange(NSNotFound,0);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:
+- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 02/02/2007
+To Do List: implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange startRange, stopRange;
+	unsigned depth;
+	unsigned anchor = MAX(index,2)-2;
+	unsigned type;
+nextStop:
+	stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:anchor getType:&type];
+	if(stopRange.length)
+	{
+		switch(type)
+		{
+			case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderARG: case kiTM2TextPlaceholderOPT:
+				if(stopRange.location<=index)
+				{
+					// this is a start mark containing index
+					// we have to find a balancing stop mark to the right
+					startRange = stopRange;
+					depth = 1;
+otherNextStop:
+					anchor = NSMaxRange(stopRange);
+					stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:anchor getType:&type];
+					if(stopRange.length)
+					{
+						switch(type)
+						{
+							case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderARG: case kiTM2TextPlaceholderOPT:
+								++depth;
+								goto otherNextStop;
+							case kiTM2TextPlaceholderHLT:
+								--depth;
+								if(depth)
+								{
+									goto otherNextStop;
+								}
+								else
+								{
+									startRange.length = NSMaxRange(stopRange)-startRange.location;
+									return startRange;
+								}
+							default:
+								goto otherNextStop;
+						}
+					}
+					return NSMakeRange(NSNotFound,0);
+				}
+				else
+				{
+					// this is a start to the right
+					depth = 1;
+otherNextStopAfter:
+					anchor = NSMaxRange(stopRange);
+					stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:anchor getType:&type];
+					if(stopRange.length)
+					{
+						switch(type)
+						{
+							case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderARG: case kiTM2TextPlaceholderOPT:
+								++depth;
+								goto otherNextStopAfter;
+							case kiTM2TextPlaceholderHLT:
+								--depth;
+								if(depth)
+								{
+									goto otherNextStopAfter;
+								}
+								else
+								{
+									// find the balancing start
+previousStart:
+									startRange.location = MAX(index,2)-2;
+									depth = 1;
+otherPreviousStart:
+									startRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:startRange.location getType:&type];
+									if(startRange.length)
+									{
+										switch(type)
+										{
+											case kiTM2TextPlaceholderHLT:
+												++depth;
+												goto otherPreviousStart;
+											case kiTM2TextPlaceholderINS: case kiTM2TextPlaceholderTAB: case kiTM2TextPlaceholderARG: case kiTM2TextPlaceholderOPT:
+												if(--depth)
+												{
+													goto otherPreviousStart;
+												}
+												else
+												{
+													startRange.length=NSMaxRange(stopRange)-startRange.location;
+													return startRange;
+												}
+											default:
+												goto otherNextStopAfter;
+										}
+									}
+									// no balancing mark available
+									return NSMakeRange(NSNotFound,0);
+								}
+							default:
+								goto otherNextStopAfter;
+						}
+					}
+					// no balancing mark available
+					return NSMakeRange(NSNotFound,0);
+				}
+			case kiTM2TextPlaceholderHLT:
+				goto previousStart;
+
+			default:
+				anchor = NSMaxRange(stopRange);
+				goto nextStop;
+		}
+	}
+//iTM2_END;
+	return NSMakeRange(NSNotFound, 0);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderAfterIndex:cycle:tabAnchor:
+- (NSRange)rangeOfNextPlaceholderAfterIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 02/15/2006
+To Do List: implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange range = [self rangeOfPlaceholderAtIndex:index];
+	if(range.length)
+	{
+		return range;
+	}
+	NSRange markRange = [self rangeOfNextPlaceholderMarkAfterIndex:index getType:nil];
+	NSRange smallerRange;
+	if(markRange.length)
+	{
+		range = [self rangeOfPlaceholderAtIndex:markRange.location];
+		if(range.length)
+		{
+nextRange1:
+			markRange = [self rangeOfNextPlaceholderMarkAfterIndex:range.location+3 getType:nil];
+			if(markRange.length)
+			{
+				if(NSMaxRange(markRange)<NSMaxRange(range))
+				{
+					smallerRange = [self rangeOfPlaceholderAtIndex:markRange.location];
+					if(smallerRange.length)
+					{
+						range = smallerRange;
+						goto nextRange1;
+					}
+				}
+			}
+			return range;
+		}
+	}
+	if(cycle)
+	{
+		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil];
+		if(markRange.length)
+		{
+			if(NSMaxRange(markRange)<=index)
+			{
+				range = [self rangeOfPlaceholderAtIndex:markRange.location];
+				if(range.length)
+				{
+nextRange2:
+					markRange = [self rangeOfNextPlaceholderMarkAfterIndex:range.location+3 getType:nil];
+					if(markRange.length)
+					{
+						if(NSMaxRange(markRange)<NSMaxRange(range))
+						{
+							smallerRange = [self rangeOfPlaceholderAtIndex:markRange.location];
+							if(smallerRange.length)
+							{
+								range = smallerRange;
+								goto nextRange2;
+							}
+						}
+					}
+					return range;
+				}
+			}
+		}
+	}
+	// placeholder markers only
+	markRange= [self rangeOfNextPlaceholderMarkAfterIndex:index getType:nil];
+	if(markRange.length)
+	{
+		return markRange;
+	}
+	if(cycle)
+	{
+		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil];
+		if(markRange.length)
+		{
+			if(NSMaxRange(markRange)<=index)
+			{
+				return markRange;
+			}
+		}
+	}
+	// tabAnchor only
+	if([tabAnchor length])
+	{
+		unsigned length = [self length];
+		NSRange searchRange = NSMakeRange(index, length - index);
+		range = [self rangeOfString:tabAnchor options:nil range:searchRange];
+		if(range.length)
+		{
+			return range;
+		}
+		if(cycle)
+		{
+			searchRange = NSMakeRange(0,MIN(length,index+[tabAnchor length]-1));
+			range = [self rangeOfString:tabAnchor options:nil range:searchRange];
+			if(range.length)
+			{
+				return range;
+			}
+		}
+	}
+	return NSMakeRange(NSNotFound,0);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderBeforeIndex:cycle:tabAnchor:
+- (NSRange)rangeOfPreviousPlaceholderBeforeIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 02/15/2006
+To Do List: implement NSBackwardsSearch
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange range = [self rangeOfPlaceholderAtIndex:index];
+	if(range.length)
+	{
+		return range;
+	}
+	NSRange markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:index getType:nil];
+	if(markRange.length)
+	{
+		range = [self rangeOfPlaceholderAtIndex:markRange.location];
+		if(range.length)
+		{
+			return range;
+		}
+	}
+	unsigned length = [self length];
+	if(cycle)
+	{
+		markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:length getType:nil];
+		if(markRange.length)
+		{
+			if(index<=markRange.location)
+			{
+				range = [self rangeOfPlaceholderAtIndex:markRange.location];
+				if(range.length)
+				{
+					return range;
+				}
+			}
+		}
+	}
+	// placeholder markers only
+	markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:index getType:nil];
+	if(markRange.length)
+	{
+		return markRange;
+	}
+	if(cycle)
+	{
+		markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:length getType:nil];
+		if(markRange.length)
+		{
+			if(index<=markRange.location)
+			{
+				return markRange;
+			}
+		}
+	}
+	// tabAnchor only
+	if([tabAnchor length])
+	{
+		NSRange searchRange = NSMakeRange(0, index);
+		range = [self rangeOfString:tabAnchor options:NSBackwardsSearch range:searchRange];
+		if(range.length)
+		{
+			return range;
+		}
+		if(cycle)
+		{
+			searchRange = NSMakeRange(index,length-index);
+			range = [self rangeOfString:tabAnchor options:NSBackwardsSearch range:searchRange];
+			if(range.length)
+			{
+				return range;
+			}
+		}
+	}
+	return NSMakeRange(NSNotFound,0);
+}
+#pragma mark =-=-=-=-=-  INDENTATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByNormalizingIndentationWithNumberOfSpacesPerTab:
 - (NSString *)stringByNormalizingIndentationWithNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
 /*"Description forthcoming.
@@ -3679,829 +4602,6 @@ To Do List: ?
 	}
 //iTM2_END;
 	return normalized;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfINSPlaceholderFromIndex:getTemplate:
-- (NSRange)rangeOfINSPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List: ?
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSRange searchRange = NSMakeRange(index,[self length]-index);
-	NSRange result = [self rangeOfString:iTM2TextStartINSPlaceholder options:nil range:searchRange];
-	if(result.length)
-	{
-		result = [self __rangeOfPlaceholderStartingAtIndex:result.location];
-		if(result.length)
-		{
-			if(templateRef)
-			{
-				NSRange R = result;
-				R.location += [iTM2TextStartINSPlaceholder length];
-				R.length -= [iTM2TextStartINSPlaceholder length];
-				R.length -= [iTM2TextStopPlaceholder length];
-				* templateRef = [self substringWithRange:R];
-			}
-		}
-	}
-//iTM2_END;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfSELPlaceholderFromIndex:getTemplate:
-- (NSRange)rangeOfSELPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List: ?
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSRange searchRange = NSMakeRange(index,[self length]-index);
-	NSRange result = [self rangeOfString:iTM2TextStartSELPlaceholder options:nil range:searchRange];
-	if(result.length)
-	{
-		result = [self __rangeOfPlaceholderStartingAtIndex:result.location];
-		if(result.length)
-		{
-			if(templateRef)
-			{
-				NSRange R = result;
-				R.location += [iTM2TextStartSELPlaceholder length];
-				R.length -= [iTM2TextStartSELPlaceholder length];
-				R.length -= [iTM2TextStopPlaceholder length];
-				* templateRef = [self substringWithRange:R];
-			}
-		}
-	}
-//iTM2_END;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingSELTemplates
-- (NSString *)stringByRemovingSELTemplates;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List: ?
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableString * normalized = [NSMutableString string];
-	NSRange SELRange, searchRange;
-	NSString * S;
-	searchRange.location = 0;
-	searchRange.length = [self length];
-nextSELRange:
-	if(searchRange.location<[self length])
-	{
-		searchRange.length = [self length] - searchRange.location;
-		SELRange = [self rangeOfString:iTM2TextStartSELPlaceholder options:nil range:searchRange];
-		if(SELRange.length)
-		{
-			SELRange = [self rangeOfPlaceholderAtIndex:SELRange.location];
-			if(SELRange.length)
-			{
-				[normalized appendString:iTM2TextSELPlaceholder];
-				searchRange.location = NSMaxRange(SELRange);
-				goto nextSELRange;
-			}
-			else
-			{
-				S = [self substringWithRange:searchRange];
-				[normalized appendString:S];
-			}
-		}
-		else
-		{
-			S = [self substringWithRange:searchRange];
-			[normalized appendString:S];
-		}
-	}
-//iTM2_END;
-	return normalized;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingPlaceHolderMarks
-- (NSString *)stringByRemovingPlaceHolderMarks;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List: ?
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * S = [self stringByRemovingTipPlaceHolders];
-	NSArray * components = [S componentsSeparatedByINSPlaceholder];
-	S = [components componentsJoinedByString:@""];
-	NSMutableString * result = [[S mutableCopy] autorelease];
-	[result replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:@"__(INS)__" withString:@"" options:0 range:NSMakeRange(0,[result length])];// compatibility
-	[result replaceOccurrencesOfString:iTM2TextINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartSELPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartARGPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartOPTPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartTEXTPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartFILEPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStopPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-//iTM2_END;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= componentsSeparatedByINSPlaceholder
-- (NSArray *)componentsSeparatedByINSPlaceholder;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List: ?
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableArray * result = [NSMutableArray array];
-	NSRange searchRange = NSMakeRange(0,[self length]);
-	NSRange foundRange, R, placeholderRange;
-	NSString * S;
-nextINS:
-	foundRange = [self rangeOfString:iTM2TextStartINSPlaceholder options:nil range:searchRange];
-	if(foundRange.length)
-	{
-		placeholderRange = [self rangeOfPlaceholderAtIndex:foundRange.location];
-		if(placeholderRange.length)
-		{
-			R = searchRange;
-			R.length = placeholderRange.location - R.location;
-			S = [self substringWithRange:R];
-			[result addObject:S];
-			R = placeholderRange;
-			R.location+=[iTM2TextStartINSPlaceholder length];
-			R.length-=[iTM2TextStartINSPlaceholder length];
-			S = [self substringWithRange:R];
-			[result addObject:S];
-			searchRange.location = NSMaxRange(placeholderRange);
-			searchRange.length = [self length] - searchRange.location;
-			goto nextINS;
-		}
-		else
-		{
-			iTM2_LOG(@"Inconsistent receiver with respect to macros:%@",self);
-			foundRange.length = [self length] - foundRange.location;
-			S = [self substringWithRange:foundRange];
-			[result addObject:S];
-			// finish
-		}
-	}
-	else
-	{
-		S = [self substringWithRange:searchRange];
-		[result addObject:S];
-	}
-//iTM2_END;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingPlaceHolderMarksWithSelection:
-- (NSString *)stringByRemovingPlaceHolderMarksWithSelection:(NSString *)selection;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List: ?
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableString * result = [[[self stringByRemovingTipPlaceHolders] mutableCopy] autorelease];
-	[result replaceOccurrencesOfString:iTM2TextTABPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:@"__(INS)__" withString:@"" options:0 range:NSMakeRange(0,[result length])];// compatibility
-	[result replaceOccurrencesOfString:iTM2TextINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-
-	[result replaceOccurrencesOfString:iTM2TextStartINSPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartARGPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartOPTPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartTEXTPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStartFILEPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-
-	if([selection length])
-	{
-		//- (NSRange)rangeOfSELPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
-
-		selection = [NSString stringWithFormat:@"%@%@%@",iTM2TextStartSELPlaceholder,selection,iTM2TextStopPlaceholder];
-		[result replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:selection options:0 range:NSMakeRange(0,[result length])];
-	}
-	else
-	{
-		[result replaceOccurrencesOfString:iTM2TextSELPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	}
-	[result replaceOccurrencesOfString:iTM2TextStartPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-	[result replaceOccurrencesOfString:iTM2TextStopPlaceholder withString:@"" options:0 range:NSMakeRange(0,[result length])];
-//iTM2_END;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __rangeOfPlaceholderStartingAtIndex:
-- (NSRange)__rangeOfPlaceholderStartingAtIndex:(unsigned)index;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	unichar startChar = [iTM2TextStartPlaceholder characterAtIndex:[iTM2TextStartPlaceholder length]-1];
-	unichar stopChar  = [iTM2TextStopPlaceholder  characterAtIndex:0];
-	unsigned length = [self length];
-	unsigned depth = 1;
-	unsigned idx;
-	NSRange markR;
-	NSRange searchRange;
-	searchRange.location = index + 1;
-nextMark:
-	searchRange.length = length - searchRange.location;
-	markR = [self rangeOfString:iTM2TextMarkPlaceholder options:nil range:searchRange];
-	if(markR.length)
-	{
-		// stop or start?
-		idx = NSMaxRange(markR);
-		// is it a start?
-		if(idx<length)
-		{
-			if([self characterAtIndex:idx] == startChar)
-			{
-				// it is a start place holder
-				// we are getting deeper in placeholder grouping
-				++depth;
-			}
-		}
-		// is it a stop?
-		if([self characterAtIndex:markR.location-1] == stopChar)
-		{
-			// is is a stop placeholder, get out
-			if(--depth==0)
-			{
-				return NSMakeRange(index,NSMaxRange(markR)-index);
-			}
-		}
-		// go to the next marker
-		searchRange.location = NSMaxRange(markR);
-		goto nextMark;
-	}
-//iTM2_END;
-	return NSMakeRange(NSNotFound,0);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __rangeOfPlaceholderEndingAtIndex:
-- (NSRange)__rangeOfPlaceholderEndingAtIndex:(unsigned)index;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 02/15/2006
-To Do List: implement some kind of balance range for range
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	unichar startChar = [iTM2TextStartPlaceholder characterAtIndex:[iTM2TextStartPlaceholder length]-1];
-	unichar stopChar  = [iTM2TextStopPlaceholder  characterAtIndex:0];
-	unsigned depth = 1;
-	unsigned idx;
-	NSRange markR;
-	NSRange searchRange;
-	searchRange.location = 0;
-	searchRange.length = index;
-previousMark:
-	markR = [self rangeOfString:iTM2TextMarkPlaceholder options:NSBackwardsSearch range:searchRange];
-	if(markR.length)
-	{
-		// stop or start?
-		idx = NSMaxRange(markR);
-		// is it a start?
-		if([self characterAtIndex:idx] == startChar)
-		{
-			// is is a start placeholder, get out
-			if(--depth==0)
-			{
-				return NSMakeRange(markR.location,index - markR.location);
-			}
-		}
-		// is it a stop?
-		if(markR.location)
-		{
-			if([self characterAtIndex:markR.location-1] == stopChar)
-			{
-				// it is a stop place holder
-				// we are getting deeper in placeholder grouping
-				++depth;
-			}
-		}
-		// go to the previous marker
-		searchRange.location = NSMaxRange(markR);
-		goto previousMark;
-	}
-//iTM2_END;
-	return NSMakeRange(NSNotFound,0);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:
-- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 02/15/2006
-To Do List: implement some kind of balance range for range
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	unsigned length = [self length];
-	if(index>=length)
-	{
-		return NSMakeRange(NSNotFound,0);
-	}
-	unichar startChar = [iTM2TextStartPlaceholder characterAtIndex:[iTM2TextStartPlaceholder length]-1];
-	unichar stopChar  = [iTM2TextStopPlaceholder  characterAtIndex:0];
-
-	unsigned idx;
-	unsigned top = UINT_MAX;
-	
-	NSRange searchRange = NSMakeRange(0,0);
-	searchRange.location = index+1;
-	
-	NSRange markR;
-	if(searchRange.location<length)
-	{
-		searchRange.length = length-searchRange.location;
-		markR = [self rangeOfString:iTM2TextMarkPlaceholder options:nil range:searchRange];
-		if(markR.length)
-		{
-			if(markR.location<top)
-			{
-				top = NSMaxRange(markR)-1;
-			}
-nextMark:
-			// is it a start?
-			idx = NSMaxRange(markR);
-			if(idx<length)
-			{
-				if([self characterAtIndex:idx] == startChar)
-				{
-					markR = [self __rangeOfPlaceholderStartingAtIndex:markR.location];
-					if(markR.length)
-					{
-						searchRange.location = NSMaxRange(markR);
-						if(searchRange.location<length)
-						{
-							searchRange.length = length-searchRange.location;
-							markR = [self rangeOfString:iTM2TextMarkPlaceholder options:nil range:searchRange];
-							if(markR.length)
-							{
-								if(markR.location<top)
-								{
-									top = NSMaxRange(markR)-1;
-								}
-								goto nextMark;
-							}
-						}
-					}
-					// no closed placeholder range:
-					return NSMakeRange(NSNotFound,0);
-				}
-			}
-			// is it a stop?
-			if(markR.location)
-			{
-				if([self characterAtIndex:markR.location-1] == stopChar)
-				{
-					// it is a stop placeholder
-					// close this 
-					markR = [self __rangeOfPlaceholderEndingAtIndex:top];// this is not the real top but it saves computational time
-					if(markR.length)
-					{
-						searchRange.location = NSMaxRange(markR);
-						return NSMakeRange(markR.location,idx-markR.location);
-					}
-					// no closed placeholder range:
-					return NSMakeRange(NSNotFound,0);
-				}
-			}
-		}
-		else
-		{
-			// there is no placeholder range in [index+1,length]
-			// the only possibility is to have a stop placeholder mark ending at index exactly
-			searchRange.length = index;
-			searchRange.location = 0;
-			markR = [self rangeOfString:iTM2TextMarkPlaceholder options:NSBackwardsSearch|NSAnchoredSearch range:searchRange];
-			if(markR.length)
-			{
-				return [self __rangeOfPlaceholderEndingAtIndex:index];
-			}
-		}
-	}
-//iTM2_END;
-	return NSMakeRange(NSNotFound, 0);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderFromIndex:cycle:tabAnchor:
-- (NSRange)rangeOfPlaceholderFromIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 02/15/2006
-To Do List: implement some kind of balance range for range
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// next stop placeholder
-	// preceding start placeholder
-	// if the index is in an apropriate range, it's okay
-	// start from the beginning if necessary
-	NSRange stopR = NSMakeRange(NSNotFound,0);
-	unsigned length = [self length];
-	if(index>length)
-	{
-		return stopR;
-	}
-	NSRange searchRange = NSMakeRange(0,0);
-	NSRange markR;
-	// a TAB anchor?
-	if([tabAnchor length])
-	{
-		searchRange.location = index;
-		searchRange.length = length-searchRange.location;
-		markR = [self rangeOfString:tabAnchor options:nil range:searchRange];
-		if(markR.length)
-		{
-			return markR;
-		}
-	}
-
-	unichar startChar = [iTM2TextStartPlaceholder characterAtIndex:[iTM2TextStartPlaceholder length]-1];
-	unichar stopChar  = [iTM2TextStopPlaceholder  characterAtIndex:0];
-
-	unsigned idx;
-	unsigned floor = 0;
-
-	searchRange.location = MAX(index,2)-2;	
-	searchRange.length = length-searchRange.location;
-	stopR = [self rangeOfString:iTM2TextStopPlaceholder options:nil range:searchRange];
-	if(stopR.length)
-	{
-		searchRange.location = floor;
-		searchRange.length = stopR.location-searchRange.location;
-previousMark:
-		markR = [self rangeOfString:iTM2TextMarkPlaceholder options:NSBackwardsSearch range:searchRange];
-		if(markR.length)
-		{
-			// is it a start?
-			idx = NSMaxRange(markR);// we do have idx < length!
-			if([self characterAtIndex:idx]==startChar)
-			{
-				// it is a start place holder
-				return NSMakeRange(markR.location, NSMaxRange(stopR)-markR.location);
-			}
-			// the first time, it can be a stop
-			if(markR.location && ([self characterAtIndex:markR.location-1]==stopChar))
-			{
-nextStop:
-				floor = NSMaxRange(stopR);
-				searchRange.location = floor;
-				searchRange.length = length-searchRange.location;
-				stopR = [self rangeOfString:iTM2TextStopPlaceholder options:nil range:searchRange];
-				if(stopR.length)
-				{
-					searchRange.location = floor;
-					searchRange.length = stopR.location-searchRange.location;
-morePreviousMark:
-					markR = [self rangeOfString:iTM2TextMarkPlaceholder options:NSBackwardsSearch range:searchRange];
-					if(markR.length)
-					{
-						// is it a start?
-						idx = NSMaxRange(markR);// we do have idx < length!
-						if([self characterAtIndex:idx]==startChar)
-						{
-							// it is a start place holder
-							return NSMakeRange(markR.location, NSMaxRange(stopR)-markR.location);
-						}
-						// it is neither a start nor a stop place holder
-						// most certainly an error
-						searchRange.length = markR.location-searchRange.location;
-						goto morePreviousMark;
-					}
-					goto nextStop;
-				}
-				goto below;
-			}
-			searchRange.length = markR.location-searchRange.location;
-			goto previousMark;
-		}
-		floor = NSMaxRange(stopR);
-		searchRange.location = floor;
-		goto nextStop;
-	}
-below:
-	searchRange.length = length-searchRange.location;
-	if(!cycle)
-	{
-		return NSMakeRange(NSNotFound,0);
-	}
-	searchRange.location = 0;
-	searchRange.length = index-searchRange.location;
-	// a TAB anchor?
-	if([tabAnchor length])
-	{
-		markR = [self rangeOfString:tabAnchor options:nil range:searchRange];
-		if(markR.length)
-		{
-			return markR;
-		}
-	}
-	searchRange.length = index-searchRange.location;
-	stopR = [self rangeOfString:iTM2TextStopPlaceholder options:nil range:searchRange];
-	if(stopR.length)
-	{
-		searchRange.length = stopR.location-searchRange.location;
-previousMarkBefore:
-		markR = [self rangeOfString:iTM2TextMarkPlaceholder options:NSBackwardsSearch range:searchRange];
-		if(markR.length)
-		{
-			// is it a start?
-			idx = NSMaxRange(markR);
-			if([self characterAtIndex:idx]==startChar)
-			{
-				// it is a start place holder
-				return NSMakeRange(markR.location, NSMaxRange(stopR)-markR.location);
-			}
-			if(markR.location && ([self characterAtIndex:markR.location-1]==stopChar))
-			{
-nextStopBefore:
-				searchRange.length = index-searchRange.location;
-				stopR = [self rangeOfString:iTM2TextStopPlaceholder options:nil range:searchRange];
-				if(stopR.length)
-				{
-					searchRange.length = stopR.location-searchRange.location;
-morePreviousMarkBefore:
-					markR = [self rangeOfString:iTM2TextMarkPlaceholder options:NSBackwardsSearch range:searchRange];
-					if(markR.length)
-					{
-						// is it a start?
-						idx = NSMaxRange(markR);
-						if([self characterAtIndex:idx]==startChar)
-						{
-							// it is a start place holder
-							return NSMakeRange(markR.location, NSMaxRange(stopR)-markR.location);
-						}
-						// it is neither a start nor a stop place holder
-						// most certainly an error
-						searchRange.length = markR.location-searchRange.location;
-						goto morePreviousMarkBefore;
-					}
-					searchRange.location = NSMaxRange(stopR);
-					goto nextStopBefore;
-				}
-				goto final;
-			}
-			// it is neither a start nor a stop place holder
-			// most certainly an error
-			searchRange.length = markR.location-searchRange.location;
-			goto previousMarkBefore;
-		}
-		searchRange.location = NSMaxRange(stopR);
-		goto nextStopBefore;
-	}
-final:
-	// If I reach this point, it means that I have not found any atomic placeholder
-	// select the start and stop markers
-	searchRange.location = MIN(length,MAX(index,2)-2);
-	searchRange.length = length-searchRange.location;
-	stopR = [self rangeOfString:iTM2TextStopPlaceholder options:nil range:searchRange];
-	if(stopR.length)
-	{
-		return stopR;
-	}
-	NSRange startR = NSMakeRange(NSNotFound,0);
-	startR = [self rangeOfString:iTM2TextStartPlaceholder options:nil range:searchRange];
-	if(startR.length)
-	{
-		return startR;
-	}
-	if(!cycle)
-	{
-		return NSMakeRange(NSNotFound,0);
-	}
-	searchRange.location = 0;
-	searchRange.length = index-searchRange.location;
-	stopR = [self rangeOfString:iTM2TextStopPlaceholder options:nil range:searchRange];
-	if(stopR.length)
-	{
-		return stopR;
-	}
-	startR = [self rangeOfString:iTM2TextStartPlaceholder options:nil range:searchRange];
-	if(startR.length)
-	{
-		return startR;
-	}
-	return NSMakeRange(NSNotFound,0);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderToIndex:cycle:tabAnchor:
-- (NSRange)rangeOfPlaceholderToIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- 2.0: 02/15/2006
-To Do List: implement NSBackwardsSearch
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// next stop placeholder
-	// preceding start placeholder
-	// if the index is in an apropriate range, it's okay
-	// restart from the end if necessary
-	NSRange startR = NSMakeRange(NSNotFound,0);
-	unsigned length = [self length];
-	if(index>length)
-	{
-		index = length;
-	}
-	NSRange searchRange = NSMakeRange(0,index);
-	NSRange markR;
-	// a TAB anchor?
-	if([tabAnchor length])
-	{
-		markR = [self rangeOfString:tabAnchor options:NSBackwardsSearch range:searchRange];
-		if(markR.length)
-		{
-			return markR;
-		}
-	}
-	
-	unichar startChar = [iTM2TextStartPlaceholder characterAtIndex:[iTM2TextStartPlaceholder length]-1];
-	unichar stopChar  = [iTM2TextStopPlaceholder characterAtIndex:0];
-
-	unsigned top = length;
-
-	unsigned idx;
-	
-	searchRange.location = 0;
-	searchRange.length = MIN(index+2,length);
-	
-	startR = [self rangeOfString:iTM2TextStartPlaceholder options:NSBackwardsSearch range:searchRange];
-	if(startR.length)
-	{
-		searchRange.location = NSMaxRange(startR);
-nextMark:
-		searchRange.length = top-searchRange.location;
-		markR = [self rangeOfString:iTM2TextMarkPlaceholder options:nil range:searchRange];
-		if(markR.length)
-		{
-			// is it a stop?
-			if([self characterAtIndex:markR.location-1]==stopChar)
-			{
-				// it is a stop place holder
-				return NSMakeRange(startR.location, NSMaxRange(markR)-startR.location);
-			}
-			// is it a start?
-			idx = NSMaxRange(markR);
-			if((idx < length) && ([self characterAtIndex:markR.location]==startChar))
-			{
-				searchRange.location = 0;
-				top = startR.location;
-				searchRange.length = top;
-previousStart:
-				startR = [self rangeOfString:iTM2TextStartPlaceholder options:NSBackwardsSearch range:searchRange];
-				if(startR.length)
-				{
-					searchRange.location = NSMaxRange(startR);
-moreNextMark:
-					searchRange.length = top-searchRange.location;
-					markR = [self rangeOfString:iTM2TextMarkPlaceholder options:nil range:searchRange];
-					if(markR.length)
-					{
-						// is it a stop?
-						if([self characterAtIndex:markR.location-1]==stopChar)
-						{
-							// it is a stop place holder
-							return NSMakeRange(startR.location, NSMaxRange(markR)-startR.location);
-						}
-						// it is neither a start nor a stop place holder
-						// most certainly an error
-						searchRange.location = NSMaxRange(markR);
-						goto moreNextMark;
-					}
-					top = startR.location;
-					searchRange.location = 0;
-					searchRange.length = top;
-					goto previousStart;
-				}
-				goto below;
-			}
-			// it is neither a start nor a stop place holder
-			// most certainly an error
-			searchRange.location = NSMaxRange(markR);
-			goto nextMark;
-		}
-		top = startR.location;
-		searchRange.location = 0;
-		searchRange.length = top;
-		goto previousStart;
-	}
-below:
-	if(!cycle)
-	{
-		return NSMakeRange(NSNotFound,0);
-	}
-	// a TAB anchor?
-	if([tabAnchor length])
-	{
-		searchRange.location = index;
-		searchRange.length = length-index;
-		markR = [self rangeOfString:tabAnchor options:NSBackwardsSearch range:searchRange];
-		if(markR.length)
-		{
-			return markR;
-		}
-	}
-	top = length;
-	unsigned floor = MAX(index,2)-2;
-	searchRange.location = floor;
-	searchRange.length = top-searchRange.location;
-	startR = [self rangeOfString:iTM2TextStartPlaceholder options:NSBackwardsSearch range:searchRange];
-	if(startR.length)
-	{
-		searchRange.location = NSMaxRange(startR);
-nextMarkAfter:
-		searchRange.length = top-searchRange.location;// we do not want a stop after a different start
-		markR = [self rangeOfString:iTM2TextMarkPlaceholder options:nil range:searchRange];
-		if(markR.length)
-		{
-			// is it a stop?
-			if(markR.location && ([self characterAtIndex:markR.location-1]==stopChar))
-			{
-				// it is a stop place holder
-				return NSMakeRange(startR.location, NSMaxRange(markR)-startR.location);
-			}
-			// is is a start
-			idx = NSMaxRange(markR);
-			if((idx < length) && ([self characterAtIndex:idx]==startChar))
-			{
-				searchRange.location = floor;
-previousStartAfter:
-				searchRange.length = top-searchRange.location;
-				startR = [self rangeOfString:iTM2TextStartPlaceholder options:NSBackwardsSearch range:searchRange];
-				if(startR.length)
-				{
-					searchRange.location = NSMaxRange(startR);
-moreNextMarkAfter:
-					searchRange.length = top-searchRange.location;// we do not want a stop after a different start
-					markR = [self rangeOfString:iTM2TextMarkPlaceholder options:nil range:searchRange];
-					if(markR.length)
-					{
-						// is it a stop?
-						if([self characterAtIndex:markR.location-1]==stopChar)
-						{
-							// it is a stop place holder
-							return NSMakeRange(startR.location, NSMaxRange(markR)-startR.location);
-						}
-						// it is neither a start nor a stop place holder
-						// most certainly an error
-						searchRange.location = NSMaxRange(markR);
-						goto moreNextMarkAfter;
-					}
-					top = startR.location;
-					searchRange.location = floor;
-					goto previousStartAfter;
-				}
-				goto final;
-			}
-			// it is neither a start nor a stop place holder
-			// most certainly an error
-			searchRange.location = NSMaxRange(markR);
-			goto nextMarkAfter;
-		}
-		top = startR.location;
-		searchRange.location = floor;
-		goto previousStartAfter;
-	}
-final:
-	// If I reach this point, it means that I have not found any atomic placeholder
-	// select the start and stop markers
-	searchRange.location = 0;	
-	searchRange.length = floor;	
-	startR = [self rangeOfString:iTM2TextStartPlaceholder options:NSBackwardsSearch range:searchRange];
-	if(startR.length)
-	{
-		return startR;
-	}
-	NSRange stopR = NSMakeRange(NSNotFound,0);
-	stopR = [self rangeOfString:iTM2TextStopPlaceholder options:NSBackwardsSearch range:searchRange];
-	if(stopR.length)
-	{
-		return stopR;
-	}
-	if(!cycle)
-	{
-		return NSMakeRange(NSNotFound,0);
-	}
-	searchRange.location = floor;
-	searchRange.length = length-searchRange.location;
-	startR = [self rangeOfString:iTM2TextStartPlaceholder options:NSBackwardsSearch range:searchRange];
-	if(startR.length)
-	{
-		return startR;
-	}
-	stopR = [self rangeOfString:iTM2TextStopPlaceholder options:NSBackwardsSearch range:searchRange];
-	if(stopR.length)
-	{
-		return stopR;
-	}
-	return NSMakeRange(NSNotFound,0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringWithIndentationLevel:atIndex:withNumberOfSpacesPerTab:
 - (NSString *)stringWithIndentationLevel:(unsigned)indentation atIndex:(unsigned)index withNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
@@ -4822,4 +4922,3 @@ To Do List:
     return;
 }
 @end
-

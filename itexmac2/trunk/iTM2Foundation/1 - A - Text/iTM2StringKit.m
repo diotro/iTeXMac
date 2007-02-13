@@ -125,8 +125,8 @@ To Do List:
     if(aRangePtr) * aRangePtr = NSMakeRange(NSNotFound, 0);
     return [NSString string];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeForLine:nextLine:
-- (NSRange)rangeForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLine:
+- (NSRange)getRangeForLine:(unsigned int)aLine;
 /*"Given a 1 based line number, it returns the line range including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -136,24 +136,21 @@ To Do List:
 //iTM2_START;
     if((aLine == NSNotFound)|| (!aLine))
         return NSMakeRange(NSNotFound, 0);
-    unsigned int start, end;
+    unsigned int end;
     unsigned int top = [self length];
     NSRange range = NSMakeRange(0, 0);
     typedef void (*GetLineStartIMP) (id, SEL, unsigned *, unsigned *, unsigned *, NSRange);
     GetLineStartIMP GLS = (GetLineStartIMP)
         [self methodForSelector:@selector(getLineStart:end:contentsEnd:forRange:)];
-    if(!aNextLinePtr)
-        aNextLinePtr = &end;
-    * aNextLinePtr = 0;
-    next:
-    GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), &start, aNextLinePtr, nil, range);
+next:
+    GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &range.location, nil, range);
     if(--aLine == 0)
     {
-        return NSMakeRange(start, * aNextLinePtr - start);
+		range.length=end-range.location;
+        return range;
     }
-    else if(* aNextLinePtr < top)
+    else if(end<top)
     {
-        range.location = * aNextLinePtr;
         goto next;
     }
     else
@@ -161,8 +158,8 @@ To Do List:
         return NSMakeRange(NSNotFound, 0);
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeForLineRange:nextLine:
-- (NSRange)rangeForLineRange:(NSRange)aLineRange nextLine:(unsigned int *)aNextLinePtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLineRange:
+- (NSRange)getRangeForLineRange:(NSRange)aLineRange;
 /*"Given a line range number, it returns the range including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -170,54 +167,26 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned int start, end;
+    unsigned int start;
     NSRange range = NSMakeRange(0, 0);
     typedef void (*GetLineStartIMP) (id, SEL, unsigned *, unsigned *, unsigned *, NSRange);
     GetLineStartIMP GLS = (GetLineStartIMP)
         [self methodForSelector:@selector(getLineStart:end:contentsEnd:forRange:)];
-    if(!aNextLinePtr) aNextLinePtr = &end;
-    * aNextLinePtr = 0;
     while (aLineRange.location-->0)
     {
 //NSLog(@"GLS");
-        GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), &start, aNextLinePtr, nil, range);
-        range.location = * aNextLinePtr;
+        GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &range.location, nil, range);
     }
+	GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), &start, nil, nil, range);
     while (--aLineRange.length>0)
     {
 //NSLog(@"GLS");
-        GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, aNextLinePtr, nil, range);
-        range.location = * aNextLinePtr;
+        GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &range.location, nil, range);
     }
-    return NSMakeRange(start, * aNextLinePtr - start);
+    return NSMakeRange(start,range.location-start);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeContentForLine:nextLine:
-- (NSRange)rangeContentForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
-/*"Given a line number, it returns the line range NOT including the ending characters.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    unsigned start, end, contentsEnd;
-    NSRange range = NSMakeRange(0, 0);
-    typedef void (*GetLineStartIMP) (id, SEL, unsigned *, unsigned *, unsigned *, NSRange);
-    GetLineStartIMP GLS = (GetLineStartIMP)
-        [self methodForSelector:@selector(getLineStart:end:contentsEnd:forRange:)];
-    if(!aNextLinePtr)
-        aNextLinePtr = &end;
-    * aNextLinePtr = 0;
-    while (aLine-->0)
-    {
-//NSLog(@"GLS");
-        GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), &start, aNextLinePtr, &contentsEnd, range);
-        range.location = end;
-    }
-    return NSMakeRange(start, contentsEnd - start);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineForRange:
-- (unsigned)lineForRange:(NSRange)aRange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineNumberAtIndex:
+- (unsigned)lineNumberAtIndex:(unsigned)index;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -226,21 +195,19 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int result = 0;
-    unsigned end = 0;
     unsigned contentsEnd = 0;
-    int ceiling = MIN(aRange.location + 1, [self length]);
+    int ceiling = MIN(index + 1, [self length]);
     NSRange range = NSMakeRange(0, 0);
     typedef void (*GetLineStartIMP) (id, SEL, unsigned *, unsigned *, unsigned *, NSRange);
     GetLineStartIMP GLS = (GetLineStartIMP)
         [self methodForSelector:@selector(getLineStart:end:contentsEnd:forRange:)];
-    while (end < ceiling)
+    while (range.location < ceiling)
     {
         ++result;
 //NSLog(@"GLS");
-        GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &end, &contentsEnd, range);
-        range.location = end;
+        GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &range.location, &contentsEnd, range);
     }
-    if((aRange.location > contentsEnd) || ([self length] == 0))
+    if((index > contentsEnd) || ([self length] == 0))
         ++result;
     return result;
 }
@@ -253,7 +220,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned result = [self lineForRange:NSMakeRange([self length], 0)];
+	unsigned index = [self length];
+    unsigned result = [self lineNumberAtIndex:index];
 //NSLog(@"%@: %d lines", self, result);
     return result;
 }

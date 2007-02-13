@@ -21,21 +21,17 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-extern NSString * const iTM2TextMarkPlaceholder;
-extern NSString * const iTM2TextStartPlaceholder;
-extern NSString * const iTM2TextStopPlaceholder;
-extern NSString * const iTM2TextStartINSPlaceholder;
-extern NSString * const iTM2TextStartARGPlaceholder;
-extern NSString * const iTM2TextStartOPTPlaceholder;
-extern NSString * const iTM2TextStartTEXTPlaceholder;
-extern NSString * const iTM2TextStartFILEPlaceholder;
-extern NSString * const iTM2TextStartTIPPlaceholder;
-extern NSString * const iTM2TextStartSELPlaceholder;
+extern NSString * const iTM2TextPlaceholderMark;
 
-extern NSString * const iTM2TextTABPlaceholder;
-extern NSString * const iTM2TextSELPlaceholder;
+enum
+{
+	kiTM2TextPlaceholderINS = '{',// select what is enclosed, keep the contents when going to the next placeholder. When no content given, use the selection.
+	kiTM2TextPlaceholderTAB = '[',// select what is enclosed, remove when going to the next placeholder. When no content given, use the selection.
+	kiTM2TextPlaceholderARG = '"',// use the selection, keep when going to the next placeholder, not in the output. When no selection given, use the content.
+	kiTM2TextPlaceholderOPT = '\'',// use the selection, remove when going to the next placeholder, not in the output. When no selection given, use the content.
+	kiTM2TextPlaceholderHLT = '.'// stop the placeholder
+};
 
-extern NSString * const iTM2TextPlaceholder;
 extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
 extern NSString * const iTM2TextTabAnchorStringKey;
 
@@ -349,19 +345,31 @@ extern NSString * const iTM2MacrosPathExtension;
 
 @end
 
+@interface NSResponder(iTM2MacroKit)
+/*!
+    @method		executeInstruction:
+    @abstract	Execute the given macro.
+    @discussion	This is one of the central methods to enhance Mac OS X key binding mechanism.
+                Here we can not only send messages as Mac OS X can do, but we can also use methods with parameters.
+                Those parameters are property list objects which covers a great range of possibilities.
+    @param		An macro.
+    @result		A flag indicating whether the receiver has executed the given macro.
+*/
+- (BOOL)executeMacro:(NSString *)macro;
+- (BOOL)tryToExecuteMacro:(NSString *)macro;//fake
+
+@end
+
 @interface NSTextView(iTM2MacroKit)
 + (NSString *)tabAnchorKey;
 - (NSString *)tabAnchor;
-- (IBAction)selectNextTabAnchor:(id)sender;
-- (IBAction)selectPreviousTabAnchor:(id)sender;
-- (IBAction)selectNextTabAnchorAndDelete:(id)sender;
 - (unsigned)numberOfSpacesPerTab;
 - (IBAction)selectFirstPlaceholder:(id)sender;
 - (IBAction)selectNextPlaceholder:(id)sender;
 - (IBAction)selectPreviousPlaceholder:(id)sender;
-- (IBAction)selectINSPlaceholders:(id)sender;
 - (void)insertMacro:(id)sender;
-- (void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor;
+- (void)insertMacro:(id)argument substitutions:(NSDictionary *)substitutions mode:(NSString*)mode;
+- (void)getReplacementString:(NSString **)replacementStringRef affectedCharRange:(NSRangePointer)affectedCharRangePtr forMacro:(NSString *)macro substitutions:(NSDictionary *)substitutions mode:(NSString *)mode;
 @end
 
 @interface NSString(iTM2MacroKit)
@@ -369,54 +377,36 @@ extern NSString * const iTM2MacrosPathExtension;
 + (NSString *)bullet;
 
 /*!
-	@method		stringByRemovingTipPlaceHolders
+	@method		rangeOfNextPlaceholderMarkAfterIndex:getType:
 	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		None.
-	@result		A string.
-*/
-- (NSString *)stringByRemovingTipPlaceHolders;
-
-/*!
-	@method		stringByRemovingSELTemplates
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		None.
-	@result		A string.
-*/
-- (NSString *)stringByRemovingSELTemplates;
-
-/*!
-	@method		rangeOfSELPlaceholderFromIndex:getTemplate:
-	@abstract	Abstract forthcoming.
-	@discussion	Range of the first occurrence of "__(SEL:...)__". Returns the "..." in templateRef if relevant.
+	@discussion	Dicussion forthcoming.
 	@param		index.
-	@param		templateRef.
+	@param		typeRef.
 	@result		A range.
 */
-- (NSRange)rangeOfSELPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
+- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(unsigned*)typeRef;
 
 /*!
-	@method		rangeOfINSPlaceholderFromIndex:getTemplate:
+	@method		rangeOfNextPlaceholderMarkAfterIndex:getType:
 	@abstract	Abstract forthcoming.
-	@discussion	Range of the first occurrence of "__(INS:...)__". Returns the "..." in templateRef if relevant.
+	@discussion	Dicussion forthcoming.
 	@param		index.
-	@param		templateRef.
+	@param		typeRef.
 	@result		A range.
 */
-- (NSRange)rangeOfINSPlaceholderFromIndex:(unsigned int)index getTemplate:(NSString **)templateRef;
+- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(unsigned*)typeRef;
 
 /*!
 	@method		rangeOfPlaceholderAtIndex:
 	@abstract	Abstract forthcoming.
-	@discussion	Removes everything inside "__(SEL:...)__", such that there are only "__(SEL:)__" remaining.
+	@discussion	Removes everything inside "@(@SEL:...@)@", such that there are only "@(@SEL:@)@" remaining.
 	@param		An index.
 	@result		A range.
 */
 - (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
 
 /*!
-	@method		rangeOfPlaceholderFromIndex:cycle:tabAnchor:
+	@method		rangeOfNextPlaceholderAfterIndex:cycle:tabAnchor:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		An index.
@@ -424,10 +414,10 @@ extern NSString * const iTM2MacrosPathExtension;
 	@param		A string.
 	@result		A range.
 */
-- (NSRange)rangeOfPlaceholderFromIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+- (NSRange)rangeOfNextPlaceholderAfterIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
 
 /*!
-	@method		rangeOfPlaceholderToIndex:cycle:tabAnchor:
+	@method		rangeOfPreviousPlaceholderBeforeIndex:cycle:tabAnchor:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		An index.
@@ -435,34 +425,16 @@ extern NSString * const iTM2MacrosPathExtension;
 	@param		A string.
 	@result		A range.
 */
-- (NSRange)rangeOfPlaceholderToIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+- (NSRange)rangeOfPreviousPlaceholderBeforeIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
 
 /*!
-	@method		stringByRemovingPlaceHolderMarks
+	@method		stringByRemovingPlaceholderMarks
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		None.
     @result     string
 */
-- (NSString *)stringByRemovingPlaceHolderMarks;
-
-/*!
-	@method		stringByRemovingPlaceHolderMarksWithSelection:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		the contents of the selection.
-    @result     string
-*/
-- (NSString *)stringByRemovingPlaceHolderMarksWithSelection:(NSString *)selection;
-
-/*!
-	@method		componentsSeparatedByINSPlaceholder
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		None.
-    @result     Array
-*/
-- (NSArray *)componentsSeparatedByINSPlaceholder;
+- (NSString *)stringByRemovingPlaceholderMarks;
 
 /*!
 	@method		indentationLevelAtIndex:withNumberOfSpacesPerTab:
@@ -538,6 +510,20 @@ extern NSString * const iTM2MacrosPathExtension;
 @interface NSTextStorage(iTM2Selection_MACRO)
 
 - (void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
+
+@end
+
+@interface NSText(iTM2KeyBindingsKit)
+
+/*!
+    @method		executeMacro:
+    @abstract	Execute the given macro.
+    @discussion	If the inherited method does not work, and if the given macro is a string,
+                it just insert this string using insertText: and returns YES.
+    @param		An macro.
+    @result		A flag indicating whether the receiver has executed the given macro.
+*/
+- (BOOL)executeMacro:(NSString *)macro;
 
 @end
 

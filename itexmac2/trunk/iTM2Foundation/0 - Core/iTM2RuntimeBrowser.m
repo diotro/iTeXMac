@@ -574,6 +574,8 @@ To Do List:
 //iTM2_START;
 	if(!target->super_class)
 		return NO;
+	else if(!strncmp(target->name,"NSKVO",5))
+		return NO;
 	else if(!strcmp(target->super_class->name, className))
 		return YES;
 	else

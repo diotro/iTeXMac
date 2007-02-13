@@ -5,116 +5,116 @@
 	<key>0</key>
 	<dict>
 		<key>(</key>
-		<string>\left(&lt;#SEL#&gt;\right)</string>
+		<string>\left(@@"@@.\right)</string>
 		<key>[</key>
-		<string>\left[&lt;#SEL#&gt;\right]</string>
+		<string>\left[@@"@@.\right]</string>
 		<key>^|</key>
-		<string>\left\|&lt;#SEL#&gt;\right\|</string>
+		<string>\left\|@@"@@.\right\|</string>
 		<key>complete</key>
 		<true/>
 		<key>toolTip</key>
 		<string>LaTeX delimiters delimiteur: (, [, {, [, ], |, \|.</string>
 		<key>{</key>
-		<string>\left\{&lt;#SEL#&gt;\right\}</string>
+		<string>\left\{@@"@@.\right\}</string>
 		<key>|</key>
-		<string>\left|&lt;#SEL#&gt;\right|</string>
+		<string>\left|@@"@@.\right|</string>
 		<key>]</key>
-		<string>\left]&lt;#SEL#&gt;\right[</string>
+		<string>\left]@@"@@.\right[</string>
 	</dict>
 	<key>1</key>
 	<dict>
 		<key>(</key>
-		<string>(&lt;#SEL#&gt;)</string>
+		<string>(@@"@@.)</string>
 		<key>[</key>
-		<string>[&lt;#SEL#&gt;]</string>
+		<string>[@@"@@.]</string>
 		<key>^|</key>
-		<string>\|&lt;#SEL#&gt;\|</string>
+		<string>\|@@"@@.\|</string>
 		<key>complete</key>
 		<true/>
 		<key>toolTip</key>
 		<string>Size 1 delimiteur: (, [, {, [, ], |, \|.</string>
 		<key>{</key>
-		<string>\{&lt;#SEL#&gt;\}</string>
+		<string>\{@@"@@.\}</string>
 		<key>|</key>
-		<string>|&lt;#SEL#&gt;|</string>
+		<string>|@@"@@.|</string>
 		<key>]</key>
-		<string>]&lt;#SEL#&gt;[</string>
+		<string>]@@"@@.[</string>
 	</dict>
 	<key>2</key>
 	<dict>
 		<key>(</key>
-		<string>\bigl(&lt;#SEL#&gt;\bigr)</string>
+		<string>\bigl(@@"@@.\bigr)</string>
 		<key>[</key>
-		<string>\bigl[&lt;#SEL#&gt;\bigr]</string>
+		<string>\bigl[@@"@@.\bigr]</string>
 		<key>^|</key>
-		<string>\bigl\|&lt;#SEL#&gt;\bigr\|</string>
+		<string>\bigl\|@@"@@.\bigr\|</string>
 		<key>complete</key>
 		<true/>
 		<key>toolTip</key>
 		<string>Size 2 delimiteur: (, [, {, [, ], |, \|.</string>
 		<key>{</key>
-		<string>\bigl\{&lt;#SEL#&gt;\bigr\}</string>
+		<string>\bigl\{@@"@@.\bigr\}</string>
 		<key>|</key>
-		<string>\bigl|&lt;#SEL#&gt;\bigr|</string>
+		<string>\bigl|@@"@@.\bigr|</string>
 		<key>]</key>
-		<string>\bigl]&lt;#SEL#&gt;\bigr[</string>
+		<string>\bigl]@@"@@.\bigr[</string>
 	</dict>
 	<key>3</key>
 	<dict>
 		<key>(</key>
-		<string>\Bigl(&lt;#SEL#&gt;\Bigr)</string>
+		<string>\Bigl(@@"@@.\Bigr)</string>
 		<key>[</key>
-		<string>\Bigl[&lt;#SEL#&gt;\Bigr]</string>
+		<string>\Bigl[@@"@@.\Bigr]</string>
 		<key>^|</key>
-		<string>\Bigl\|&lt;#SEL#&gt;\Bigr\|</string>
+		<string>\Bigl\|@@"@@.\Bigr\|</string>
 		<key>complete</key>
 		<true/>
 		<key>toolTip</key>
 		<string>Size 3 delimiteur: (, [, {, [, ], |, \|.</string>
 		<key>{</key>
-		<string>\Bigl\{&lt;#SEL#&gt;\Bigr\}</string>
+		<string>\Bigl\{@@"@@.\Bigr\}</string>
 		<key>|</key>
-		<string>\Bigl|&lt;#SEL#&gt;\Bigr|</string>
+		<string>\Bigl|@@"@@.\Bigr|</string>
 		<key>]</key>
-		<string>\Bigl]&lt;#SEL#&gt;\Bigr[</string>
+		<string>\Bigl]@@"@@.\Bigr[</string>
 	</dict>
 	<key>4</key>
 	<dict>
 		<key>(</key>
-		<string>\biggl(&lt;#SEL#&gt;\biggr)</string>
+		<string>\biggl(@@"@@.\biggr)</string>
 		<key>[</key>
-		<string>\biggl[&lt;#SEL#&gt;\biggr]</string>
+		<string>\biggl[@@"@@.\biggr]</string>
 		<key>^|</key>
-		<string>\biggl\|&lt;#SEL#&gt;\biggr\|</string>
+		<string>\biggl\|@@"@@.\biggr\|</string>
 		<key>complete</key>
 		<true/>
 		<key>toolTip</key>
 		<string>Size 4 delimiteur: (, [, {, [, ], |, \|.</string>
 		<key>{</key>
-		<string>\biggl\{&lt;#SEL#&gt;\biggr\}</string>
+		<string>\biggl\{@@"@@.\biggr\}</string>
 		<key>|</key>
-		<string>\biggl|&lt;#SEL#&gt;\biggr|</string>
+		<string>\biggl|@@"@@.\biggr|</string>
 		<key>]</key>
-		<string>\biggl]&lt;#SEL#&gt;\biggr[</string>
+		<string>\biggl]@@"@@.\biggr[</string>
 	</dict>
 	<key>5</key>
 	<dict>
 		<key>(</key>
-		<string>\Biggl(&lt;#SEL#&gt;\Biggr)</string>
+		<string>\Biggl(@@"@@.\Biggr)</string>
 		<key>[</key>
-		<string>\Biggl[&lt;#SEL#&gt;\Biggr]</string>
+		<string>\Biggl[@@"@@.\Biggr]</string>
 		<key>^|</key>
-		<string>\Biggl\|&lt;#SEL#&gt;\Biggr\|</string>
+		<string>\Biggl\|@@"@@.\Biggr\|</string>
 		<key>complete</key>
 		<true/>
 		<key>toolTip</key>
 		<string>Size 5 delimiteur: (, [, {, [, ], |, \|.</string>
 		<key>{</key>
-		<string>\Biggl\{&lt;#SEL#&gt;\Biggr\}</string>
+		<string>\Biggl\{@@"@@.\Biggr\}</string>
 		<key>|</key>
-		<string>\Biggl|&lt;#SEL#&gt;\Biggr|</string>
+		<string>\Biggl|@@"@@.\Biggr|</string>
 		<key>]</key>
-		<string>\Biggl]&lt;#SEL#&gt;\Biggr[</string>
+		<string>\Biggl]@@"@@.\Biggr[</string>
 	</dict>
 	<key>complete</key>
 	<true/>

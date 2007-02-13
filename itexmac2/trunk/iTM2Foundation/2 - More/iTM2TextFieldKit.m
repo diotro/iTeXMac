@@ -181,11 +181,11 @@ To Do List:
 		if([[F maximum] isEqual:[NSDecimalNumber notANumber]])
 		{
 			// the maximum has not yet been set
-			[F setMaximum:(NSDecimalNumber *)[NSDecimalNumber numberWithInt:[TS lineForRange:NSMakeRange([(NSTextStorage *)TS length], 0)]]];
+			[F setMaximum:(NSDecimalNumber *)[NSDecimalNumber numberWithInt:[TS lineNumberAtIndex:[(NSTextStorage *)TS length]]]];
 			// will it be updated???
 		}
 		int old = [self intValue];
-		int new = [TS lineForRange:[TV selectedRange]];
+		int new = [TS lineNumberAtIndex:[TV selectedRange].location];
 		if(old != new)
 		{
 			[self setIntValue:new];
@@ -219,7 +219,7 @@ To Do List:
         NSNumberFormatter * F = [self formatter];
         int old = [[F maximum] intValue];
         NSTextStorage * TS = [[TV layoutManager] textStorage];
-        int new = [TS lineForRange:NSMakeRange([TS length], 0)];// REALLY KEEP the TS for performance reasons
+        int new = [TS lineNumberAtIndex:[TS length]];// REALLY KEEP the TS for performance reasons
         if(old != new)
         {
             [F setMaximum:(NSDecimalNumber *)[NSDecimalNumber numberWithInt:new]];

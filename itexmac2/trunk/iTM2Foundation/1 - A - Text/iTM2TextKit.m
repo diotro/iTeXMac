@@ -32,6 +32,7 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
+#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 #import "limits.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit
@@ -101,7 +102,7 @@ To Do List:
 }
 @end
 
-@implementation NSText(iTM2TextKit_Highlight)
+@implementation NSTextView(iTM2TextKit_Highlight)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLine:column:length:
 - (void)highlightAndScrollToVisibleLine:(unsigned int)aLine column:(unsigned int)column length:(unsigned int)length;
 /*"Description forthcoming.
@@ -111,7 +112,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSRange R = [[self string] rangeForLine:aLine nextLine:nil];
+	NSTextStorage * TS = [self textStorage];
+	NSRange R = [TS getRangeForLine:aLine];
 	if(R.location != NSNotFound)
 	{
 		if((column != NSNotFound ) && (column < R.length + 1))
@@ -137,7 +139,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSRange R = [[self string] rangeForLine:aLine nextLine:nil];
+	NSTextStorage * TS = [self textStorage];
+    NSRange R = [TS getRangeForLine:aLine];
     if(R.location != NSNotFound)
         [self highlightAndScrollToVisibleRange:R];
 	else
@@ -145,18 +148,6 @@ To Do List:
 		iTM2_LOG(@"Line %i out of bounds", aLine);
 	}
 //iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLineRange:
-- (void)highlightAndScrollToVisibleLineRange:(NSRange)aLineRange;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self highlightAndScrollToVisibleRange:[[self string] rangeForLineRange:aLineRange nextLine:nil]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleRange:
@@ -175,14 +166,18 @@ To Do List:
 	[self setNeedsDisplay:YES];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightRange:cleanBefore:
-- (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
-/*"Does nothing. Subclasses will do the job.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightAndScrollToVisibleLineRange:
+- (void)highlightAndScrollToVisibleLineRange:(NSRange)aLineRange;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSTextStorage * TS = [self textStorage];
+	NSRange range = [TS getRangeForLineRange:aLineRange];
+    [self highlightAndScrollToVisibleRange:range];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  secondaryHighlightAtIndices:lengths:
@@ -194,6 +189,92 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSTextStorage * TS = [self textStorage];
+    NSEnumerator * E1 = [[TS layoutManagers] objectEnumerator];
+    NSLayoutManager * LM;
+    NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSColor secondarySelectedControlColor], NSBackgroundColorAttributeName, nil];
+	NSRange R = NSMakeRange(0, 0);
+    while (LM = [E1 nextObject])
+    {
+		R.length = [TS length];
+		[LM removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:R];
+		R.length = 1;
+        id O;
+        NSEnumerator * E2 = [indices objectEnumerator];
+        while(O = [E2 nextObject])
+        {
+            R.location = [O intValue];
+            [LM addTemporaryAttributes:attributes forCharacterRange:R];
+        }
+        E2 = [lengths objectEnumerator];
+        while(O = [E2 nextObject])
+        {
+            [LM addTemporaryAttributes:attributes forCharacterRange:[O rangeValue]];
+        }
+    }
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= visibleRange
+- (NSRange)visibleRange;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSRect rect = [self visibleRect];
+    unsigned topLeftIndex = [self characterIndexForPoint:
+        [[self window] convertBaseToScreen:
+            [self convertPoint:NSMakePoint(NSMinX(rect), NSMinY(rect))
+                toView: nil]]];
+    unsigned botRightIndex = [self characterIndexForPoint:
+        [[self window] convertBaseToScreen:
+            [self convertPoint:NSMakePoint(NSMaxX(rect), NSMaxY(rect))
+                toView: nil]]];
+    if(topLeftIndex>botRightIndex)
+        [NSException raise:NSGenericException format:@"%@ view not flipped", __PRETTY_FUNCTION__];
+    return NSMakeRange(topLeftIndex, botRightIndex-topLeftIndex);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightRange:cleanBefore:
+- (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
+/*"Does nothing. Subclasses will do the job.
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSLayoutManager * LM = [self layoutManager];
+    NSString * S = [self string];
+	unsigned length = [S length];
+    NSRange effectiveRange = NSMakeRange(0,length);
+    aRange = NSIntersectionRange(aRange,effectiveRange);
+	unsigned index = 0;
+	NSDictionary * attributes;
+	if(aFlag)
+	{
+next:
+		attributes = [LM temporaryAttributesAtCharacterIndex:index effectiveRange:&effectiveRange];
+		if(effectiveRange.length)
+		{
+			if([attributes objectForKey:NSBackgroundColorAttributeName])
+			{
+				[LM removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:effectiveRange];
+			}
+			index = NSMaxRange(effectiveRange);
+			if(index<length)
+			{
+				goto next;
+			}
+		}
+	}
+	if(aRange.length)
+	{
+		NSColor * C = [NSColor textRangeHighlightColor];
+		attributes = [NSDictionary dictionaryWithObject:C forKey: NSBackgroundColorAttributeName];
+		[LM addTemporaryAttributes:attributes forCharacterRange: aRange];
+	}
     return;
 }
 @end
@@ -226,23 +307,7 @@ NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab
 }
 @end
 
-@implementation NSTextView(iTM2TextKit_Highlight)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
-- (BOOL)executeStringInstruction:(NSString *)instruction;
-/*"Description forthcoming. 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([super executeStringInstruction:instruction])
-	{
-		return YES;
-	}
-	[self insertMacro:instruction];
-//iTM2_END;
-    return YES;
-}
+@implementation NSTextView(iTM2TextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyStrokes
 - (BOOL)handlesKeyStrokes;
 /*"Description Forthcoming.
@@ -280,82 +345,6 @@ To Do List:
 		[self breakUndoCoalescing];
 	else
 		[super breakTypingFlow];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= visibleRange
-- (NSRange)visibleRange;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSRect rect = [self visibleRect];
-    unsigned topLeftIndex = [self characterIndexForPoint:
-        [[self window] convertBaseToScreen:
-            [self convertPoint:NSMakePoint(NSMinX(rect), NSMinY(rect))
-                toView: nil]]];
-    unsigned botRightIndex = [self characterIndexForPoint:
-        [[self window] convertBaseToScreen:
-            [self convertPoint:NSMakePoint(NSMaxX(rect), NSMaxY(rect))
-                toView: nil]]];
-    if(topLeftIndex>botRightIndex)
-        [NSException raise:NSGenericException format:@"%@ view not flipped", __PRETTY_FUNCTION__];
-    return NSMakeRange(topLeftIndex, botRightIndex-topLeftIndex);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightRange:cleanBefore:
-- (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
-/*"Does nothing. Subclasses will do the job.
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSLayoutManager * LM = [self layoutManager];
-    NSString * S = [self string];
-    NSRange R = NSMakeRange(0, [S length]);
-    aRange = NSIntersectionRange(aRange, R);
-    [LM removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:R];
-	if(aRange.length)
-		[LM addTemporaryAttributes:
-			[NSDictionary dictionaryWithObject:[NSColor textRangeHighlightColor]
-				forKey: NSBackgroundColorAttributeName]
-					forCharacterRange: aRange];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  secondaryHighlightAtIndices:lengths:
-- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSEnumerator * E1 = [[[[self layoutManager] textStorage] layoutManagers] objectEnumerator];
-    NSLayoutManager * LM;
-    NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSColor secondarySelectedControlColor], NSBackgroundColorAttributeName, nil];
-	NSRange R = NSMakeRange(0, 0);
-    while (LM = [E1 nextObject])
-    {
-		R.length = [[[self layoutManager] textStorage] length];
-		[LM removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:R];
-		R.length = 1;
-        id O;
-        NSEnumerator * E2 = [indices objectEnumerator];
-        while(O = [E2 nextObject])
-        {
-            R.location = [O intValue];
-            [LM addTemporaryAttributes:attributes forCharacterRange:R];
-        }
-        E2 = [lengths objectEnumerator];
-        while(O = [E2 nextObject])
-        {
-            [LM addTemporaryAttributes:attributes forCharacterRange:[O rangeValue]];
-        }
-    }
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doZoomIn:
@@ -496,6 +485,126 @@ To Do List:
 //iTM2_END;
     return [SUD contextStringForKey:iTM2TextIndentationStringKey domain:iTM2ContextAllDomainsMask];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indentSelection:
+- (void)indentSelection:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0:
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * selectedRanges = [self selectedRanges];
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"locationValueOfRangeValue" ascending:YES] autorelease];
+	NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
+	selectedRanges = [selectedRanges sortedArrayUsingDescriptors:sortDescriptors];
+
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	NSMutableArray * affectedRanges = [NSMutableArray array];
+	NSMutableArray * newSelectedRanges = [NSMutableArray array];
+	unsigned off7 = 0;
+	
+	NSString * indentationString = [self indentationString];
+	unsigned int numberOfSpaces = ([indentationString length] > 1)?
+			[indentationString length]:
+				[self contextIntegerForKey:iTM2TextNumberOfSpacesPerTabKey domain:iTM2ContextAllDomainsMask];
+
+	NSString * indentationPrefix = [@"" stringWithIndentationLevel:1 atIndex:0 withNumberOfSpacesPerTab:numberOfSpaces];
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	NSValue * V;
+	NSRange range, searchRange,foundRange;
+	unsigned start, end, contentsEnd,top;
+	NSString * S = [self string];
+	NSCharacterSet * blackCharacterSet = [NSCharacterSet whitespaceCharacterSet];
+	blackCharacterSet = [blackCharacterSet invertedSet];
+	NSString * whitePrefix;
+	NSString * normalizedPrefix;
+	while(V = [E nextObject])
+	{
+		range = [V rangeValue];
+		top = NSMaxRange(range);
+		searchRange = range;
+		searchRange.length = 0;
+		[S getLineStart:&start end:&end contentsEnd:&contentsEnd forRange:searchRange];
+nextLine:
+		searchRange = NSMakeRange(start,contentsEnd-start);
+		foundRange = [S rangeOfCharacterFromSet:blackCharacterSet options:nil range:searchRange];
+		if(foundRange.length)
+		{
+			searchRange.length = foundRange.location - searchRange.location;
+			whitePrefix = [S substringWithRange:searchRange];
+			normalizedPrefix = [whitePrefix stringByNormalizingIndentationWithNumberOfSpacesPerTab:numberOfSpaces];
+			if([whitePrefix isEqual:normalizedPrefix])
+			{
+				searchRange.length = 0;
+				whitePrefix = indentationPrefix;
+			}
+			else
+			{
+				whitePrefix = [indentationPrefix stringByAppendingString:normalizedPrefix];
+			}
+			V = [NSValue valueWithRange:searchRange];
+			if(![affectedRanges containsObject:V])
+			{
+				[affectedRanges addObject:V];
+				[replacementStrings addObject:whitePrefix];
+				range = NSMakeRange(start,end-start);
+				range.location += off7;
+				range.length += [whitePrefix length];
+				off7 += [whitePrefix length];
+				V = [NSValue valueWithRange:range];
+				[newSelectedRanges addObject:V];
+			}
+		}
+		if(end<top)
+		{
+			start = end;
+			searchRange.location = start;
+			searchRange.length = 0;
+			[S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:searchRange];
+			goto nextLine;
+		}
+	}
+
+	if([affectedRanges count] && [self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		E = [affectedRanges reverseObjectEnumerator];
+		NSEnumerator * EE = [replacementStrings reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			if(S = [EE nextObject])
+			{
+				range = [V rangeValue];
+				[self replaceCharactersInRange:range withString:S];
+			}
+			else
+			{
+				iTM2_LOG(@"**** There is an awful BUG, affectedRanges and replacementStrings are not consistent...");
+			}
+		}
+		[self didChangeText];
+		range = [self selectedRange];
+		if(!range.length)
+		{
+			if([selectedRanges count]>1)
+			{
+				[self setSelectedRanges:newSelectedRanges];
+			}
+			else if(V = [selectedRanges lastObject])
+			{
+				range = [V rangeValue];
+				if(range.length)
+				{
+					[self setSelectedRanges:newSelectedRanges];
+				}
+			}
+		}
+	}
+
+//iTM2_END;
+    return;
+}
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indentSelection:
 - (void)indentSelection:(id)sender;
 /*"Description forthcoming.
@@ -662,6 +771,133 @@ nextLine:
 //iTM2_END;
     return;
 }
+#endif
+#if 1
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unindentSelection:
+- (void)unindentSelection:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * selectedRanges = [self selectedRanges];
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"locationValueOfRangeValue" ascending:YES] autorelease];
+	NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
+	selectedRanges = [selectedRanges sortedArrayUsingDescriptors:sortDescriptors];
+
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	NSMutableArray * affectedRanges = [NSMutableArray array];
+	NSMutableArray * newSelectedRanges = [NSMutableArray array];
+	unsigned off7 = 0;
+	
+	NSString * indentationString = [self indentationString];
+	unsigned int numberOfSpaces = ([indentationString length] > 1)?
+			[indentationString length]:
+				[self contextIntegerForKey:iTM2TextNumberOfSpacesPerTabKey domain:iTM2ContextAllDomainsMask];
+
+	NSEnumerator * E = [selectedRanges objectEnumerator];
+	NSValue * V;
+	NSRange range, searchRange,foundRange;
+	unsigned start, end, contentsEnd,top;
+	NSString * S = [self string];
+	NSCharacterSet * blackCharacterSet = [NSCharacterSet whitespaceCharacterSet];
+	blackCharacterSet = [blackCharacterSet invertedSet];
+	NSString * whitePrefix;
+	NSString * newPrefix;
+	unsigned indentationLevel;
+	while(V = [E nextObject])
+	{
+		range = [V rangeValue];
+		top = NSMaxRange(range);
+		searchRange = range;
+		searchRange.length = 0;
+		[S getLineStart:&start end:&end contentsEnd:&contentsEnd forRange:searchRange];
+nextLine:
+		searchRange = NSMakeRange(start,contentsEnd-start);
+		foundRange = [S rangeOfCharacterFromSet:blackCharacterSet options:nil range:searchRange];
+		if(foundRange.length)
+		{
+			searchRange.length = foundRange.location - searchRange.location;
+			whitePrefix = [S substringWithRange:searchRange];
+			indentationLevel = [whitePrefix indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpaces];
+			if(indentationLevel--)
+			{
+				newPrefix = [whitePrefix stringWithIndentationLevel:indentationLevel atIndex:0 withNumberOfSpacesPerTab:numberOfSpaces];
+				if([whitePrefix hasSuffix:newPrefix])
+				{
+					searchRange.length = [whitePrefix length] - [newPrefix length];
+					newPrefix = @"";
+				}
+				else
+				{
+					searchRange.length = [whitePrefix length];
+				}
+				V = [NSValue valueWithRange:searchRange];
+				if(![affectedRanges containsObject:V])
+				{
+					[affectedRanges addObject:V];
+					[replacementStrings addObject:newPrefix];
+					range = NSMakeRange(start,end-start);
+					range.location -= off7;
+					searchRange.length -= [newPrefix length];
+					range.length -= searchRange.length;
+					off7 += searchRange.length;
+					V = [NSValue valueWithRange:range];
+					[newSelectedRanges addObject:V];
+				}
+			}
+		}
+		if(end<top)
+		{
+			start = end;
+			searchRange.location = start;
+			searchRange.length = 0;
+			[S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:searchRange];
+			goto nextLine;
+		}
+	}
+	
+	if([affectedRanges count] && [self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		E = [affectedRanges reverseObjectEnumerator];
+		NSEnumerator * EE = [replacementStrings reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			if(S = [EE nextObject])
+			{
+				range = [V rangeValue];
+				[self replaceCharactersInRange:range withString:S];
+			}
+			else
+			{
+				iTM2_LOG(@"**** There is an awful BUG, affectedRanges and replacementStrings are not consistent...");
+			}
+		}
+		[self didChangeText];
+		range = [self selectedRange];
+		if(!range.length)
+		{
+			if([selectedRanges count]>1)
+			{
+				[self setSelectedRanges:newSelectedRanges];
+			}
+			else if(V = [selectedRanges lastObject])
+			{
+				range = [V rangeValue];
+				if(range.length)
+				{
+					[self setSelectedRanges:newSelectedRanges];
+				}
+			}
+		}
+	}
+
+//iTM2_END;
+    return;
+}
+#else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unindentSelection:
 - (void)unindentSelection:(id)sender;
 /*"Description forthcoming.
@@ -825,6 +1061,7 @@ nextLine:
 //iTM2_END;
     return;
 }
+#endif
 @end
 
 @implementation NSValue(iTM2Location)

@@ -916,7 +916,7 @@ To Do List:
     else if([instruction isKindOfClass:[NSString class]])
     {
  //NSLog(instruction);
-		result = [C executeStringInstruction:instruction];
+		result = [C executeMacro:instruction];
     }
     [self escapeCurrentKeyBindingsIfAllowed];
     if(result)
@@ -1174,98 +1174,6 @@ To Do List:
         [super postNotificationWithStatus:status];
 //iTM2_END;
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tryToReallyPerform:with:
-- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
-/*"YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMethodSignature * MS = [self methodSignatureForSelector:action];
-    NSMethodSignature * myMS = [self methodSignatureForSelector:@selector(__reallyPerformSelectorTemplate:)];
-    NSMethodSignature * myOtherMS = [self methodSignatureForSelector:@selector(forwardInvocation:)];
-    if([MS isEqual:myMS])
-    {
-        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
-        [I setSelector:action];
-        if(argument)
-            [I setArgument:&argument atIndex:2];
-        [I invokeWithTarget:self];
-        BOOL result;
-        [I getReturnValue:&result];
-        return result;
-    }
-    if([MS isEqual:myOtherMS])
-    {
-        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
-        [I setSelector:action];
-        if(argument)
-            [I setArgument:&argument atIndex:2];
-        [I invokeWithTarget:self];
-        return YES;
-    }
-	return [[self nextResponder] tryToReallyPerform:action with:argument];
-//iTM2_END;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __reallyPerformSelectorTemplate:
-- (BOOL)__reallyPerformSelectorTemplate:(id)argument;
-/*"YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return NO;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
-- (BOOL)executeStringInstruction:(NSString *)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [self tryToExecuteStringInstruction:instruction];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
-- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSRange R = [instruction rangeOfString:@":"];
-	if(R.length)
-	{
-		R.length = R.location + 1;
-		R.location = 0;
-		NSString * selectorName = [instruction substringWithRange:R];
-		SEL action = NSSelectorFromString(selectorName);
-		if([self respondsToSelector:action])
-		{
-			R.location = R.length;
-			R.length = [instruction length] - R.location;
-			NSString * argument = [instruction substringWithRange:R];
-			argument = [argument stringByRemovingTipPlaceHolders];
-			if([self tryToPerform:action with:argument])
-			{
-				return YES;
-			}
-		}
-	}
-//iTM2_END;
-    return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyStrokeEvents
 - (id)keyStrokeEvents;
@@ -1620,6 +1528,53 @@ To Do List:
 	selector = (SEL)[[[[self keyBindingsManager] selectorMap] objectForKey:[NSValue valueWithPointer:selector]] pointerValue];
     return selector != NULL && [self tryToReallyPerform:selector with:nil];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tryToReallyPerform:with:
+- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSMethodSignature * MS = [self methodSignatureForSelector:action];
+    NSMethodSignature * myMS = [self methodSignatureForSelector:@selector(__reallyPerformSelectorTemplate:)];
+    NSMethodSignature * myOtherMS = [self methodSignatureForSelector:@selector(forwardInvocation:)];
+    if([MS isEqual:myMS])
+    {
+        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+        [I setSelector:action];
+        if(argument)
+            [I setArgument:&argument atIndex:2];
+        [I invokeWithTarget:self];
+        BOOL result;
+        [I getReturnValue:&result];
+        return result;
+    }
+    if([MS isEqual:myOtherMS])
+    {
+        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+        [I setSelector:action];
+        if(argument)
+            [I setArgument:&argument atIndex:2];
+        [I invokeWithTarget:self];
+        return YES;
+    }
+	return [[self nextResponder] tryToReallyPerform:action with:argument];
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __reallyPerformSelectorTemplate:
+- (BOOL)__reallyPerformSelectorTemplate:(id)argument;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return NO;
+}
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2KeyBindingsManager
@@ -1747,21 +1702,6 @@ To Do List:
         metaSETTER(argument);
     }
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
-- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [super tryToExecuteStringInstruction:instruction]
-			|| [[self document] executeStringInstruction:instruction]
-				|| (([self owner] != self) && [[self owner] executeStringInstruction:instruction]);
 }
 @end
 
@@ -1930,20 +1870,68 @@ To Do List:
     return NO;
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
-- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
+@end
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSApplication(iTM2KeyStrokeKit)
+/*"Description forthcoming."*/
+@implementation NSApplication(iTM2KeyBindingsKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tryToReallyPerform:with:
+- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
+/*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+    NSMethodSignature * MS = [self methodSignatureForSelector:action];
+    NSMethodSignature * myMS = [self methodSignatureForSelector:@selector(__reallyPerformSelectorTemplate:)];
+    NSMethodSignature * myOtherMS = [self methodSignatureForSelector:@selector(forwardInvocation:)];
+    if([MS isEqual:myMS])
+    {
+        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+        [I setSelector:action];
+        if(argument)
+            [I setArgument:&argument atIndex:2];
+        [I invokeWithTarget:self];
+        BOOL result;
+        [I getReturnValue:&result];
+        return result;
+    }
+    if([MS isEqual:myOtherMS])
+    {
+        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+        [I setSelector:action];
+        if(argument)
+            [I setArgument:&argument atIndex:2];
+        [I invokeWithTarget:self];
+        return YES;
+    }
+    if([[self nextResponder] tryToReallyPerform:action with:argument])
+        return YES;
+    MS = [[self delegate] methodSignatureForSelector:action];
+    if([MS isEqual:myMS])
+    {
+        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+        [I setSelector:action];
+        if(argument)
+            [I setArgument:&argument atIndex:2];
+        [I invokeWithTarget:[self delegate]];
+        BOOL result;
+        [I getReturnValue:&result];
+        return result;
+    }
+    if([MS isEqual:myMS])
+    {
+        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+        [I setSelector:action];
+        if(argument)
+            [I setArgument:&argument atIndex:2];
+        [I invokeWithTarget:[self delegate]];
+        return YES;
+    }
+    return NO;
 //iTM2_END;
-    return [super tryToExecuteStringInstruction:instruction]
-			|| [[self delegate] executeStringInstruction:instruction]
-				|| [[self windowController] tryToExecuteStringInstruction:instruction];
 }
 @end
 
@@ -1986,21 +1974,6 @@ To Do List:
 		return [[self window] keyBindingsManager];
 	}
 	return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteStringInstruction:
-- (BOOL)tryToExecuteStringInstruction:(NSString *)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [super tryToExecuteStringInstruction:instruction]
-			|| [[self superview] tryToExecuteStringInstruction:instruction]
-				|| [[self window] tryToExecuteStringInstruction:instruction];
 }
 @end
 
@@ -2122,69 +2095,6 @@ To Do List:
 }
 @end
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSApplication(iTM2KeyStrokeKit)
-/*"Description forthcoming."*/
-@implementation NSApplication(iTM2KeyStrokeKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tryToReallyPerform:with:
-- (BOOL)tryToReallyPerform:(SEL)action with:(id)argument;
-/*"YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMethodSignature * MS = [self methodSignatureForSelector:action];
-    NSMethodSignature * myMS = [self methodSignatureForSelector:@selector(__reallyPerformSelectorTemplate:)];
-    NSMethodSignature * myOtherMS = [self methodSignatureForSelector:@selector(forwardInvocation:)];
-    if([MS isEqual:myMS])
-    {
-        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
-        [I setSelector:action];
-        if(argument)
-            [I setArgument:&argument atIndex:2];
-        [I invokeWithTarget:self];
-        BOOL result;
-        [I getReturnValue:&result];
-        return result;
-    }
-    if([MS isEqual:myOtherMS])
-    {
-        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
-        [I setSelector:action];
-        if(argument)
-            [I setArgument:&argument atIndex:2];
-        [I invokeWithTarget:self];
-        return YES;
-    }
-    if([[self nextResponder] tryToReallyPerform:action with:argument])
-        return YES;
-    MS = [[self delegate] methodSignatureForSelector:action];
-    if([MS isEqual:myMS])
-    {
-        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
-        [I setSelector:action];
-        if(argument)
-            [I setArgument:&argument atIndex:2];
-        [I invokeWithTarget:[self delegate]];
-        BOOL result;
-        [I getReturnValue:&result];
-        return result;
-    }
-    if([MS isEqual:myMS])
-    {
-        NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
-        [I setSelector:action];
-        if(argument)
-            [I setArgument:&argument atIndex:2];
-        [I invokeWithTarget:[self delegate]];
-        return YES;
-    }
-    return NO;
-//iTM2_END;
-}
-@end
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSObject(iTM2KeyStrokeKit)
 /*"Description forthcoming."*/
 @implementation NSObject(iTM2KeyStrokeKit)
@@ -2211,33 +2121,6 @@ To Do List:
 //iTM2_START;
     return NO;
 //iTM2_END;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithIdentifier:
-- (BOOL)executeMacroWithIdentifier:(NSString *)key;
-/*"YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return NO;
-//	+ (BOOL) executeMacroWithKey: (NSString *) key inCategory: (NSString *) category ofDomain: (NSString *) domain;
-
-//iTM2_END;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
-- (BOOL)executeStringInstruction:(NSString *)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return NO;
 }
 @end
 

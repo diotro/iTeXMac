@@ -1779,12 +1779,12 @@ To Do List: ...
         NSLog([findTextView string]);
 //NSLog(@"[[findTextView string] length]:%i", [[findTextView string] length]);
         id O = [template objectForKey:iTM2AREFindKey];
-        [findTextView insertMacro:(O? O:@"") tabAnchor:@""];
+        [findTextView insertMacro:(O? O:@"")];
         NSLog([replaceTextView string]);
 //NSLog(@"[[replaceTextView string] length]:%i", [[replaceTextView string] length]);
         [replaceTextView setSelectedRange:NSMakeRange(0, [[replaceTextView string] length])];
         O = [template objectForKey:iTM2AREReplaceKey];
-        [replaceTextView insertMacro:(O? O:@"") tabAnchor:@""];
+        [replaceTextView insertMacro:(O? O:@"")];
         [self postNotificationWithToolTip:([template objectForKey:iTM2AREToolTipKey]? :@"")];
         NSNumber * N;
         N = [template objectForKey:iTM2AREFindModeKey];

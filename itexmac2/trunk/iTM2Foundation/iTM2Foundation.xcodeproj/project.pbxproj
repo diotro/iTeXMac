@@ -861,14 +861,14 @@
 		DCD7B6800AA8DDA50042AA60 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MacroPrefPane.nib; sourceTree = "<group>"; };
 		DCD7B6820AA8DDA50042AA60 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroPrefPane.strings; sourceTree = "<group>"; };
 		DCD7D68B0A4398DD0096B1A9 /* alphax */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = alphax; sourceTree = "<group>"; };
-		DCD7D68C0A4398DD0096B1A9 /* Alpha X-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Alpha X-Info.plist"; sourceTree = "<group>"; };
+		DCD7D68C0A4398DD0096B1A9 /* AlphaX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "AlphaX-Info.plist"; sourceTree = "<group>"; };
 		DCD7D68D0A4398DD0096B1A9 /* bbedit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = bbedit; sourceTree = "<group>"; };
 		DCD7D68E0A4398DD0096B1A9 /* bbedit lite */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "bbedit lite"; sourceTree = "<group>"; };
 		DCD7D68F0A4398DD0096B1A9 /* BBEdit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BBEdit-Info.plist"; sourceTree = "<group>"; };
 		DCD7D6900A4398DD0096B1A9 /* BBEdit Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BBEdit Lite-Info.plist"; sourceTree = "<group>"; };
 		DCD7D6910A4398DD0096B1A9 /* emacs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = emacs; sourceTree = "<group>"; };
 		DCD7D6920A4398DD0096B1A9 /* Emacs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Emacs-Info.plist"; sourceTree = "<group>"; };
-		DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Alpha X.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD7D6A70A43992D0096B1A9 /* AlphaX.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlphaX.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BBEdit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BBEdit Lite.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Emacs.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1117,7 +1117,7 @@
 				DC25E42E0991F5F000545F27 /* iTM2TaskKit Test.octest */,
 				DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */,
 				DC99ECBE0A284EA800F50752 /* Project.octest */,
-				DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */,
+				DCD7D6A70A43992D0096B1A9 /* AlphaX.iTM2 */,
 				DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */,
 				DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */,
 				DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */,
@@ -1342,7 +1342,7 @@
 				DCC7F8B60854DC0F00F3EB8A /* command */,
 				DCC7F8B80854DC0F00F3EB8A /* External Text Editor-Info.plist */,
 				DCD7D68B0A4398DD0096B1A9 /* alphax */,
-				DCD7D68C0A4398DD0096B1A9 /* Alpha X-Info.plist */,
+				DCD7D68C0A4398DD0096B1A9 /* AlphaX-Info.plist */,
 				DCD7D68D0A4398DD0096B1A9 /* bbedit */,
 				DCD7D68F0A4398DD0096B1A9 /* BBEdit-Info.plist */,
 				DCD7D68E0A4398DD0096B1A9 /* bbedit lite */,
@@ -1406,10 +1406,10 @@
 				DCF61B7E0854654B003F5F79 /* iTM2ValidationKit.m */,
 				DCF61B540854654B003F5F79 /* iTM2ApplicationDelegate.h */,
 				DCF61B550854654B003F5F79 /* iTM2ApplicationDelegate.m */,
-				DCF61D17085469AF003F5F79 /* iTM2DocumentControllerKit.h */,
-				DCF61D18085469AF003F5F79 /* iTM2DocumentControllerKit.m */,
 				DCF61B810854654B003F5F79 /* iTM2WindowKit.h */,
 				DCF61B820854654B003F5F79 /* iTM2WindowKit.m */,
+				DCF61D17085469AF003F5F79 /* iTM2DocumentControllerKit.h */,
+				DCF61D18085469AF003F5F79 /* iTM2DocumentControllerKit.m */,
 				DCF61BAE0854654B003F5F79 /* iTM2AutoKit.h */,
 				DCF61BAF0854654B003F5F79 /* iTM2AutoKit.m */,
 				DCF61B600854654B003F5F79 /* iTM2DocumentKit.h */,
@@ -1955,9 +1955,9 @@
 			productReference = DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
-		DCD7D69C0A43992D0096B1A9 /* Alpha X */ = {
+		DCD7D69C0A43992D0096B1A9 /* AlphaX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DCD7D6A30A43992D0096B1A9 /* Build configuration list for PBXNativeTarget "Alpha X" */;
+			buildConfigurationList = DCD7D6A30A43992D0096B1A9 /* Build configuration list for PBXNativeTarget "AlphaX" */;
 			buildPhases = (
 				DCD7D69F0A43992D0096B1A9 /* Copy Command */,
 			);
@@ -1966,9 +1966,9 @@
 			dependencies = (
 				DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */,
 			);
-			name = "Alpha X";
+			name = AlphaX;
 			productName = "External Text Editor";
-			productReference = DCD7D6A70A43992D0096B1A9 /* Alpha X.iTM2 */;
+			productReference = DCD7D6A70A43992D0096B1A9 /* AlphaX.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
 		DCD7D6AB0A4399620096B1A9 /* BBEdit */ = {
@@ -2051,7 +2051,7 @@
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
 				8DC2EF4F0486A6940098B216 /* iTM2Foundation */,
 				DCB200320858E250003659F3 /* Install iTM2Foundation */,
-				DCD7D69C0A43992D0096B1A9 /* Alpha X */,
+				DCD7D69C0A43992D0096B1A9 /* AlphaX */,
 				DCD7D6AB0A4399620096B1A9 /* BBEdit */,
 				DCD7D6B90A4399790096B1A9 /* BBEdit Lite */,
 				DCD7D6C90A4399990096B1A9 /* Emacs */,
@@ -2656,7 +2656,7 @@
 		};
 		DCD7D6E50A439AA60096B1A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DCD7D69C0A43992D0096B1A9 /* Alpha X */;
+			target = DCD7D69C0A43992D0096B1A9 /* AlphaX */;
 			targetProxy = DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */;
 		};
 		DCE5C5730AC823940054C760 /* PBXTargetDependency */ = {
@@ -3713,7 +3713,7 @@
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
-				PRODUCT_NAME = "Alpha X";
+				PRODUCT_NAME = AlphaX;
 			};
 			name = Development;
 		};
@@ -3722,7 +3722,7 @@
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
-				PRODUCT_NAME = "Alpha X";
+				PRODUCT_NAME = AlphaX;
 			};
 			name = Deployment;
 		};
@@ -3954,7 +3954,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		DCD7D6A30A43992D0096B1A9 /* Build configuration list for PBXNativeTarget "Alpha X" */ = {
+		DCD7D6A30A43992D0096B1A9 /* Build configuration list for PBXNativeTarget "AlphaX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DCD7D6A40A43992D0096B1A9 /* Development */,

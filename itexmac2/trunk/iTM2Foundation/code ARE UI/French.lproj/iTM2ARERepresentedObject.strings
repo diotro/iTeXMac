@@ -3,50 +3,50 @@
 <plist version="1.0">
 <dict>
 	<key>(?!re)</key>
-	<string>(?!__(INS)__re__(INS)__)__(TAB)__</string>
+	<string>(?!@@{re@@.)</string>
 	<key>(?:re)</key>
-	<string>(?:__(INS)__re__(INS)__)__(TAB)__</string>
+	<string>(?:@@{re@@.)</string>
 	<key>(?=re)</key>
-	<string>(?=__(INS)__re__(INS)__)__(TAB)__</string>
+	<string>(?=@@{re@@.)</string>
 	<key>(re)</key>
-	<string>(__(INS)__re__(INS)__)__(TAB)__</string>
+	<string>(@@{re@@.)</string>
 	<key>Back Reference</key>
-	<string>\__(INS)__n__(INS)__</string>
+	<string>\@@{n@@.</string>
 	<key>Whole match</key>
 	<string>\0</string>
 	<key>[.abc.]</key>
-	<string>[.__(INS)__abc__(INS)__.]__(TAB)__</string>
+	<string>[.@@{abc@@..]</string>
 	<key>[=x=]</key>
-	<string>[=__(INS)__x__(INS)__=]__(TAB)__</string>
+	<string>[=@@{x@@.=]</string>
 	<key>[[:abc:]]</key>
-	<string>[:__(INS)__abc__(INS)__:]__(TAB)__</string>
+	<string>[:@@{abc@@.:]</string>
 	<key>[]</key>
-	<string>[__(INS)__]__(TAB)__</string>
+	<string>[]</string>
 	<key>[^]</key>
-	<string>[^__(INS)__]__(TAB)__</string>
+	<string>[^@@{@@.]</string>
 	<key>[a-z]</key>
-	<string>[__(INS)__a-z__(INS)__]__(TAB)__</string>
+	<string>[@@{a-z@@.]</string>
 	<key>\Uxxxxxxxx</key>
-	<string>\U__(INS)__xxxxxxxx__(INS)__</string>
+	<string>\U@@{xxxxxxxx@@.</string>
 	<key>\oo</key>
-	<string>\__(INS)__oo__(INS)__</string>
+	<string>\@@{oo@@.</string>
 	<key>\ooo</key>
-	<string>\__(INS)__ooo__(INS)__</string>
+	<string>\@@{ooo@@.</string>
 	<key>\uxxxx</key>
-	<string>\u__(INS)__xxxx__(INS)__</string>
+	<string>\u@@{xxxx@@.</string>
 	<key>\xhhh</key>
-	<string>\x__(INS)__hhh__(INS)__</string>
+	<string>\x@@{hhh@@.</string>
 	<key>{i,j}</key>
-	<string>{__(INS)__i,j__(INS)__}__(TAB)__</string>
+	<string>{@@{i,j@@.}</string>
 	<key>{i,j}?</key>
-	<string>{__(INS)__i,j__(INS)__}?__(TAB)__</string>
+	<string>{@@{i,j@@.}?</string>
 	<key>{i,}</key>
-	<string>{__(INS)__i__(INS)__,}__(TAB)__</string>
+	<string>{@@{i@@.,}</string>
 	<key>{i,}?</key>
-	<string>{__(INS)__i__(INS)__,}?__(TAB)__</string>
+	<string>{@@{i@@.,}?</string>
 	<key>{i}</key>
-	<string>{__(INS)__i__(INS)__}__(TAB)__</string>
+	<string>{@@{i@@.}</string>
 	<key>{i}?</key>
-	<string>{__(INS)__i__(INS)__}?__(TAB)__</string>
+	<string>{@@{i@@.}?</string>
 </dict>
 </plist>

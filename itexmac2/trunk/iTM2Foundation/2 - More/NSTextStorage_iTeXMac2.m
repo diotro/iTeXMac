@@ -259,8 +259,8 @@ To Do List:
     }
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineForRange:
-- (unsigned int)lineForRange:(NSRange)aRange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineNumberAtIndex:
+- (unsigned int)lineNumberAtIndex:(unsigned)index;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -268,7 +268,7 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self string] lineForRange:aRange];
+	return [[self string] lineNumberAtIndex:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= length
 - (unsigned int)length;
@@ -280,6 +280,43 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [[self string] length];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:forRange:
+- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr forRange:(NSRange)range;
+/*"Given a range, it returns the line number of the first char of the range.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: improve the search avoiding the whole scan of the string, refer to the midle of the string or to the first visible character.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * string = [self string];
+	[string getLineStart:startPtr end:lineEndPtr contentsEnd:contentsEndPtr forRange:range];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLine:
+- (NSRange)getRangeForLine:(unsigned int)aLine;
+/*"Given a 1 based line number, it returns the line range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * string = [self string];
+	return [string getRangeForLine:aLine];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLineRange:
+- (NSRange)getRangeForLineRange:(NSRange)aLineRange;
+/*"Given a line range number, it returns the range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * string = [self string];
+	return [string getRangeForLineRange:(NSRange)aLineRange];
 }
 @end
 

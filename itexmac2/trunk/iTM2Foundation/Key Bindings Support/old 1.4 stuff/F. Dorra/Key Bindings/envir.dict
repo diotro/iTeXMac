@@ -11,9 +11,12 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&amp;&lt;#TAB#&gt;\\&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\end{bmatrix}&lt;#TAB#&gt;</string>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{bmatrix}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{bmatrix} </string>
+			<string>\begin{bmatrix}
+ </string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -25,7 +28,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>}{&lt;#TAB#&gt;}</string>
+			<string>}{}</string>
 			<key>before</key>
 			<string>\stackrel{</string>
 		</dict>
@@ -59,11 +62,13 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\end{center}&lt;#TAB#&gt;</string>
+			<string>
+\end{center}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{center}</string>
+			<string>\begin{center}
+</string>
 			<key>selected</key>
-			<string>&lt;#SEL#&gt;</string>
+			<string>@@"@@.</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -82,7 +87,8 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\end{landscape}</string>
+			<string>
+\end{landscape}</string>
 			<key>before</key>
 			<string>\begin{landscape}</string>
 		</dict>
@@ -96,9 +102,12 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&amp;&lt;#TAB#&gt;\\&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\end{matrix}&lt;#TAB#&gt;</string>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{matrix}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{matrix} </string>
+			<string>\begin{matrix}
+ </string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -140,11 +149,14 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&amp;\text{&lt;#TAB#&gt;}\\&lt;#TAB#&gt;&amp;\text{&lt;#TAB#&gt;}\end{cases}&lt;#TAB#&gt;</string>
+			<string>&amp;\text{}\\
+&lt;#TAB#&gt;&amp;\text{}
+\end{cases}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{cases}</string>
+			<string>\begin{cases}
+</string>
 			<key>selected</key>
-			<string>&lt;#SEL#&gt;</string>
+			<string>@@"@@.</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -156,11 +168,14 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\end{enumerate}&lt;#TAB#&gt;</string>
+			<string>
+
+\end{enumerate}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{enumerate}\item  </string>
+			<string>\begin{enumerate}
+\item  </string>
 			<key>selected</key>
-			<string>&lt;#SEL#&gt;</string>
+			<string>@@"@@.</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -172,7 +187,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>cm]{&lt;#TAB#&gt;}</string>
+			<string>cm]{}</string>
 			<key>before</key>
 			<string>\includegraphics[width=</string>
 		</dict>
@@ -186,11 +201,13 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\end{itemize}&lt;#TAB#&gt;</string>
+			<string>
+\end{itemize}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{itemize}\item  </string>
+			<string>\begin{itemize}
+\item  </string>
 			<key>selected</key>
-			<string>&lt;#SEL#&gt;</string>
+			<string>@@"@@.</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -202,9 +219,11 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\end{multicols}</string>
+			<string>
+\end{multicols}</string>
 			<key>before</key>
-			<string>\begin{multicols}{2} </string>
+			<string>\begin{multicols}{2}
+ </string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -216,11 +235,12 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\\&lt;#TAB#&gt;\end{multline*}&lt;#TAB#&gt;</string>
+			<string>\\&lt;#TAB#&gt;
+\end{multline*}&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\begin{multline*} </string>
 			<key>selected</key>
-			<string>&lt;#SEL#&gt;</string>
+			<string>@@"@@.</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -232,9 +252,12 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&amp;&lt;#TAB#&gt;\\&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\end{pmatrix}&lt;#TAB#&gt;</string>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{pmatrix}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{pmatrix} </string>
+			<string>\begin{pmatrix}
+ </string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -246,9 +269,12 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string> ,&lt;#TAB#&gt;)% (largeur, hauteur) unit par d{\'e}faut un point. Pour changer : \setlength{\unitlength} ci dessus.\end{picture}&lt;#TAB#&gt;</string>
+			<string> ,&lt;#TAB#&gt;)% (largeur, hauteur) unit par d{\'e}faut un point. Pour changer : \setlength{\unitlength} ci dessus.
+\end{picture}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>%\setlength{\unitlength}{1cm}\begin{picture}(</string>
+			<string>
+%\setlength{\unitlength}{1cm}
+\begin{picture}(</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -260,11 +286,13 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\end{minipage}</string>
+			<string>
+\end{minipage}</string>
 			<key>before</key>
-			<string>\begin{minipage}[b]{7.5cm}</string>
+			<string>\begin{minipage}[b]{7.5cm}
+</string>
 			<key>selected</key>
-			<string>&lt;#SEL#&gt;</string>
+			<string>@@"@@.</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -290,9 +318,13 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string> }% Du type {cl|r}pour chaque colonne : c pour centre l pour gauche r pour droite et | pour une sparation par un trait vertical.&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\\&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\end{tabular}&lt;#TAB#&gt;</string>
+			<string> }% Du type {cl|r}pour chaque colonne : c pour centre l pour gauche r pour droite et | pour une sparation par un trait vertical.
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{tabular}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{tabular}{</string>
+			<string>
+\begin{tabular}{</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -304,11 +336,13 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>\end{verbatim}</string>
+			<string>
+\end{verbatim}</string>
 			<key>before</key>
-			<string>\begin{verbatim}</string>
+			<string>\begin{verbatim}
+</string>
 			<key>selected</key>
-			<string>&lt;#SEL#&gt;</string>
+			<string>@@"@@.</string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>
@@ -322,9 +356,12 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&amp;&lt;#TAB#&gt;\\&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\end{vmatrix}&lt;#TAB#&gt;</string>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{vmatrix}&lt;#TAB#&gt;</string>
 			<key>before</key>
-			<string>\begin{vmatrix} </string>
+			<string>\begin{vmatrix}
+ </string>
 		</dict>
 		<key>selector</key>
 		<string>insertMacro:</string>

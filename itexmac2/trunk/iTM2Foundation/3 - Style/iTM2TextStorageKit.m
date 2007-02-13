@@ -22,6 +22,7 @@
 */
 
 #import <iTM2Foundation/iTM2TextStorageKit.h>
+#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
@@ -40,11 +41,11 @@ typedef struct
 } iTM2ModeLineDef;
 
 NSString * const iTM2TextDefaultKey = @"default";// MUST BE LOWERCASE
-NSString * const iTM2TextWhitePrefixKey = @"_white_prefix";// MUST BE LOWERCASE
+NSString * const iTM2TextWhitePrefixKey = @"white prefix";// MUST BE LOWERCASE
 NSString * const iTM2TextErrorKey = @"error";// MUST BE LOWERCASE TOO
-NSString * const iTM2TextSelectionKey = @"_selection";// MUST BE LOWERCASE TOO
-NSString * const iTM2TextInsertionKey = @"_insertion";// MUST BE LOWERCASE TOO
-NSString * const iTM2TextBackgroundKey = @"_background";// MUST BE LOWERCASE TOO
+NSString * const iTM2TextSelectionKey = @"selection";// MUST BE LOWERCASE TOO
+NSString * const iTM2TextInsertionKey = @"insertion";// MUST BE LOWERCASE TOO
+NSString * const iTM2TextBackgroundKey = @"background";// MUST BE LOWERCASE TOO
 NSString * const iTM2TextModeAttributeName = @"iTM2Mode";
 NSString * const iTM2NoBackgroundAttributeName = @"iTM2NoBackgroundAttribute";
 NSString * const iTM2CursorIsWhiteAttributeName = @"iTM2CursorIsWhiteAttribute";
@@ -363,6 +364,9 @@ To Do List:
                     iTM2_LOG(@"-+-+-+-+-+-+-+-+-+-+     8-3: BIG PROBLEM");
                 }
             }
+			[self edited:NSTextStorageEditedCharacters range:range changeInLength:1];
+			[self invalidateAttributesInRange:editedAttributesRange];
+			return;
         }
         else if(stringLength)
         {
@@ -384,14 +388,14 @@ To Do List:
         {
             unsigned delta = newLength-originalLength;
             [_SP textStorageDidInsertCharactersAtIndex:range.location count:delta editedAttributesRangeIn:&editedAttributesRange];
-                if(iTM2DebugEnabled > 999999)
-                {
-                    iTM2_LOG(@"CHARACTERS INSERTED %@", NSStringFromRange(range));
-                    if([_SP diagnostic])
-                    {
-                        iTM2_LOG(@"-+-+-+-+-+-+-+-+-+-+     8-4: BIG PROBLEM");
-                    }
-                }
+			if(iTM2DebugEnabled > 999999)
+			{
+				iTM2_LOG(@"CHARACTERS INSERTED %@", NSStringFromRange(range));
+				if([_SP diagnostic])
+				{
+					iTM2_LOG(@"-+-+-+-+-+-+-+-+-+-+     8-4: BIG PROBLEM");
+				}
+			}
         }
         else
         {
@@ -503,15 +507,30 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(iTM2DebugEnabled > 1000 && (aLocation >= [_TextModel length]))
+	unsigned length = [_TextModel length];
+    if(iTM2DebugEnabled > 1000 && (aLocation >= length))
     {
-		iTM2_LOG(@"idx: %u (%u)", aLocation, [_TextModel length]);
+		iTM2_LOG(@"idx: %u (%u)", aLocation, length);
     }
-    [self ensureAttributesAreFixedInRange:NSMakeRange(aLocation, MIN(1, [_TextModel length]-aLocation))];
+    [self ensureAttributesAreFixedInRange:NSMakeRange(aLocation, MIN(1, length-aLocation))];
+	NSRange R;
 	if(_SP)
-		return [_SP attributesAtIndex:aLocation longestEffectiveRange:aRangePtr inRange:aRangeLimit];
+	{
+		id attributes = [_SP attributesAtIndex:aLocation longestEffectiveRange:aRangePtr inRange:aRangeLimit];
+		if(aRangePtr && aRangePtr->length==0)
+		{
+			R = NSMakeRange(aLocation, length-aLocation);
+			*aRangePtr = R;
+			R.length = MIN(R.length,30);
+			iTM2_LOG(@"***  ERROR: 0 length atribute range at %@",[_TextModel substringWithRange:R]);
+		}
+		return attributes;
+	}
 	if(aRangePtr)
-		*aRangePtr = NSMakeRange(aLocation, [_TextModel length]-aLocation);
+	{
+		R = NSMakeRange(aLocation, length-aLocation);
+		*aRangePtr = R;
+	}
 	return nil;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTING ATTRIBUTES
@@ -729,6 +748,125 @@ To Do List:
 	[self contextDidChangeComplete];
 //iTM2_END;
     return;
+}
+#pragma mark =-=-=-=-=-=-=-=-=-=-  INDEXING
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineNumberAtIndex:
+- (unsigned int)lineNumberAtIndex:(unsigned)index;
+/*"Given a range, it returns the line number of the first char of the range.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: improve the search avoiding the whole scan of the string, refer to the midle of the string or to the first visible character.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextSyntaxParser * TSP = [self syntaxParser];
+	return TSP?[TSP lineIndexForLocation:index]:[super lineNumberAtIndex:index];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:forRange:
+- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr forRange:(NSRange)range;
+/*"Given a range, it returns the line number of the first char of the range.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: improve the search avoiding the whole scan of the string, refer to the midle of the string or to the first visible character.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextSyntaxParser * TSP = [self syntaxParser];
+	if(!TSP)
+	{
+		[super getLineStart:startPtr end:lineEndPtr contentsEnd:contentsEndPtr forRange:range];
+		return;
+	}
+	unsigned start = range.location;
+	unsigned stop = NSMaxRange(range);
+	unsigned index;
+	iTM2ModeLine * ML = nil;
+	if(startPtr)
+	{
+		index = [TSP lineIndexForLocation:start];
+		ML = [TSP modeLineAtIndex:index];
+		*startPtr = [ML startOffset];
+		if(lineEndPtr || contentsEndPtr)
+		{
+			if(stop<=[ML endOffset])
+			{
+conclude:
+				if(lineEndPtr)
+				{
+					*lineEndPtr = [ML endOffset];
+				}
+				if(contentsEndPtr)
+				{
+					*contentsEndPtr = [ML contentsEndOffset];
+				}
+				return;
+			}
+			index = [TSP lineIndexForLocation:stop];
+			ML = [TSP modeLineAtIndex:index];
+			if(stop==[ML startOffset])
+			{
+				--index;
+				ML = [TSP modeLineAtIndex:index];
+			}
+			goto conclude;
+		}
+	}
+	if(lineEndPtr || contentsEndPtr)
+	{
+		index = [TSP lineIndexForLocation:stop];
+		ML = [TSP modeLineAtIndex:index];
+		if((stop == [ML startOffset])
+			&& (start<stop))
+		{
+			--index;
+			ML = [TSP modeLineAtIndex:index];
+		}
+		goto conclude;
+	}
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLine:
+- (NSRange)getRangeForLine:(unsigned int)aLine;
+/*"Given a 1 based line number, it returns the line range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextSyntaxParser * TSP = [self syntaxParser];
+	if(!TSP)
+	{
+		return [super getRangeForLine:aLine];
+	}
+	iTM2ModeLine * ML = [TSP modeLineAtIndex:aLine];
+	unsigned start = [ML startOffset];
+	unsigned end = [ML endOffset];
+	return NSMakeRange(start,end-start);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLineRange:
+- (NSRange)getRangeForLineRange:(NSRange)aLineRange;
+/*"Given a line range number, it returns the range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextSyntaxParser * TSP = [self syntaxParser];
+	if(!TSP)
+	{
+		return [super getRangeForLineRange:aLineRange];
+	}
+	iTM2ModeLine * ML = [TSP modeLineAtIndex:aLineRange.location];
+	unsigned start = [ML startOffset];
+	if(aLineRange.length>1)
+	{
+		aLineRange.location += aLineRange.length-1;
+		ML = [TSP modeLineAtIndex:aLineRange.location];
+	}
+	unsigned end = [ML endOffset];
+	return NSMakeRange(start,end-start);
 }
 @end
 
@@ -1806,7 +1944,7 @@ ValidateNextModeLine:;
 		_iTM2InternalAssert([[modeLine originalString] isEqualToString:[[_TS string] substringWithRange:NSMakeRange(start, end-start)]], ([NSString stringWithFormat:@"original is\n<%@> != expected string is:\n<%@>", [modeLine originalString], [[_TS string] substringWithRange:NSMakeRange(start, end-start)]]));
 		#endif
         mode = [self validEOLModeOfModeLine:modeLine forPreviousMode:mode];
-		if(mode && (mode != kiTM2TextUnknownSyntaxMode))
+		if(mode && ((mode & ~kiTM2TextFlagsSyntaxMask) != kiTM2TextUnknownSyntaxMode))
 		{
 			[self validateModesUpTo:first];
 			int firewall = 543;
@@ -2006,7 +2144,7 @@ To Do List:
 	_iTM2InternalAssert(![self diagnostic], @"3-BIG PROBLEM IN VALIDATING THE MODE");
     if(globalLocation < topGlobalLocation)
     {
-		fixGlobalLocationMode:
+fixGlobalLocationMode:
 //NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, topGlobalLocation: %u", globalLocation, topGlobalLocation);
         status = [self getSyntaxMode:&parsedMode forLocation:globalLocation previousMode:previousMode effectiveLength:&parsedLength nextModeIn:&nextMode before:topGlobalLocation];
 //NSLog(@"next mode is %u, with length: %u previousMode: %u, nextMode: %u", mode, length, previousMode, nextMode);
@@ -2172,7 +2310,7 @@ To Do List:
 //NSLog(@"Character: %@", [NSString stringWithCharacters:&argument length:1]);
 //NSLog(@"previousMode: %u", previousMode);
 //NSLog(@"result: %u", previousMode-1);
-    return kiTM2TextRegularSyntaxMode | kiTM2TextEndOfLineSyntaxMask;
+    return previousMode | kiTM2TextRegularSyntaxMode | kiTM2TextEndOfLineSyntaxMask;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COMMUNICATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= textStorageWillReplaceCharactersInRange:withString:
@@ -2197,6 +2335,147 @@ To Do List:
 //iTM2_END;
     return;
 }
+#if 1
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharacterAtIndex:
+- (void)textStorageDidInsertCharacterAtIndex:(unsigned)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+/*"This new version is stronger.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 05/15/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if 0
+#warning build FAILED, this is for debugging
+    [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1 editedAttributesRangeIn:editedAttributesRangePtr];
+#else
+	unsigned lineIndex = [self lineIndexForLocation:aGlobalLocation];
+	[self invalidateOffsetsFrom:lineIndex+1];
+#undef _ML
+	iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)[self modeLineAtIndex:lineIndex];
+#undef workingML
+	#define workingML ((iTM2ModeLine *)_ML)
+	// If this mode line is already invalid, we will recompute everything
+    // The central question is:
+    // Did I insert a new line character?
+    unsigned newEnd, newContentsEnd;
+    NSString * S = [_TextStorage string];
+//NSLog(@"[S length] is:%u", [S length]);
+    [S getLineStart:nil end:&newEnd contentsEnd:&newContentsEnd forRange:NSMakeRange(aGlobalLocation, 0)];
+    //EOLs<newStart<=aGlobalLocation<newEnd
+#ifdef __ELEPHANT_MODELINE__
+#warning ELEPHANT MODE: For debugging purpose only... see iTM2TextStorageKit.h
+	// the mode line was valid, there is some computation to save
+    // The central question is:
+    // Did I insert a new line character?
+	[_ML -> originalString release];
+	_ML -> originalString = [[S substringWithRange:NSMakeRange(_ML->_StartOff7, newEnd-_ML->_StartOff7)] retain];
+    //EOLs<newStart<=aGlobalLocation<newEnd
+#endif
+	NSRange R;
+	if(aGlobalLocation+1 == newContentsEnd)// we just appended a normal character to the line
+	{
+		[workingML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:1];
+		[workingML invalidateGlobalRange:NSMakeRange(aGlobalLocation, 1)];
+		if(aGlobalLocation>_ML->_StartOff7)
+		{
+			[self attributesAtIndex:aGlobalLocation-1 effectiveRange:&R];
+			[workingML invalidateGlobalRange:R];
+			if(R.location>_ML->_StartOff7)
+			{
+				[self attributesAtIndex:R.location-1 effectiveRange:&R];
+				if(R.length<4)// "@(@"
+				{
+					[workingML invalidateGlobalRange:R];
+				}
+			}
+		}
+		if([self diagnostic])
+		{
+			iTM2_LOG(@"***  FAILURE: Could not append a character properly (1-lighter)");
+		}
+		if(editedAttributesRangePtr)
+		{
+			*editedAttributesRangePtr = [workingML invalidGlobalRange];
+		}
+		[self invalidateModesFrom:lineIndex];
+		return;
+	}
+    else
+	{
+		// the character inserted is not at the end
+		if(iTM2DebugEnabled > 999999)
+		{
+			iTM2_LOG(@"/*/*/*/*/*  <:?) I AM INSERTING ONE CHARACTER AT LOCATION %u OF MODE LINE AT INDEX: %u", aGlobalLocation, lineIndex);
+		}
+		if([workingML diagnostic])
+		{
+			iTM2_LOG(@"/*/*/*/*/*  <:?(  STARTING WITH A BAD MODE LINE!!!");
+		}
+		if(aGlobalLocation < newContentsEnd)
+		{
+//iTM2_LOG(@"IT IS NOT AN EOL INSERTED");
+			// this is not an EOL character inserted
+			NSAssert([workingML enlargeSyntaxModeAtGlobalLocation:aGlobalLocation length:1],
+				@"INTERNAL INCONSISTENCY: UNEXPECTED SITUATION, CASE 1: NOT ENLARGED");
+			[self attributesAtIndex:aGlobalLocation effectiveRange:&R];
+			[workingML invalidateGlobalRange:R];
+			if(R.location>_ML->_StartOff7)
+			{
+				[self attributesAtIndex:R.location-1 effectiveRange:&R];
+				if(R.length<4)// "@(@"
+				{
+					[workingML invalidateGlobalRange:R];
+					if(R.location>_ML->_StartOff7)
+					{
+						[self attributesAtIndex:R.location-1 effectiveRange:&R];
+						if(R.length<4)// "@(@"
+						{
+							[workingML invalidateGlobalRange:R];
+						}
+					}
+				}
+			}
+			if([self diagnostic])
+			{
+				iTM2_LOG(@"/*/*/*/*/*  <:?( BAD ENLARGED MODE LINE!!!");
+			}
+			if([self diagnostic])
+			{
+				iTM2_LOG(@"***  FAILURE: Could not insert a character");
+			}
+			if(editedAttributesRangePtr)
+			{
+				*editedAttributesRangePtr = [workingML invalidGlobalRange];
+			}
+			[self invalidateModesFrom:lineIndex];
+			return;
+	//NSLog(@"I am invalidating the range");
+		}
+		else
+		{
+			// an EOL character was inserted
+			if(iTM2DebugEnabled > 999999)
+			{
+				iTM2_LOG(@"/*/*/*/*/*  <:/ MANQUE DE BOL, C'EST UN EOL!!!!! AT LOCATION %u", aGlobalLocation);
+			}
+			[self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1 editedAttributesRangeIn:editedAttributesRangePtr];
+		}
+		
+		if([self diagnostic])
+		{
+			iTM2_LOG(@"/*/*/*/*/*  <:( Bordel, pas moyen d'inserer UN caractere...");
+		}
+		else if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"/*/*/*/*/*  <:) HOURRRRRRRRRRA pour l'insertion");
+		}
+	}
+#endif
+	return;
+}
+#elif
+#warning FAILED menu item to toggle smart undo
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharacterAtIndex:
 - (void)textStorageDidInsertCharacterAtIndex:(unsigned)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
@@ -2207,7 +2486,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if 0
-    [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1];
+    [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1 editedAttributesRangeIn:editedAttributesRangePtr];
 #else
 	unsigned lineIndex = [self lineIndexForLocation:aGlobalLocation];
 	[self invalidateOffsetsFrom:lineIndex+1];
@@ -2235,7 +2514,7 @@ To Do List:
 	_ML -> originalString = [[S substringWithRange:NSMakeRange(_ML->_StartOff7, newEnd-_ML->_StartOff7)] retain];
     //EOLs<newStart<=aGlobalLocation<newEnd
 #endif
-	if([self badModeIndex] <= lineIndex)
+	if([self badModeIndex] <= lineIndex)// the attributes need computations
 	{
 		if(aGlobalLocation+1 == newContentsEnd)// we just appended a normal character to the line
 		{
@@ -2249,6 +2528,7 @@ To Do List:
 			{
 				*editedAttributesRangePtr = [workingML invalidGlobalRange];
 			}
+			[self invalidateModesFrom:lineIndex];
 			return;
 		}
 		else//if(aGlobalLocation+1 == newEnd)// we just appended an EOL character to the line thus creating a void new line
@@ -2595,6 +2875,7 @@ nextAvailableMode:
 #endif
 	return;
 }
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:
 - (void)textStorageDidReplaceCharactersAtIndex:(unsigned)location count:(unsigned)oldCount withCount:(unsigned)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.

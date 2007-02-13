@@ -10,37 +10,37 @@
 
 <LIST>
     <ITEM KEY="part">
-        <ARG>\part{__(SEL:)__}
+        <ARG>\part{}
 </ARG>
     </ITEM>
     <ITEM KEY="chapter">
-        <ARG>\chapter{__(SEL:)__}
+        <ARG>\chapter{}
 </ARG>
     </ITEM>
     <ITEM KEY="section">
-        <ARG>\section{__(SEL:)__}
+        <ARG>\section{}
 </ARG>
     </ITEM>
     <ITEM KEY="subsection">
-        <ARG>\subsection{__(SEL:)__}
+        <ARG>\subsection{}
 </ARG>
     </ITEM>
     <ITEM KEY="subsubsection">
-        <ARG>\subsubsection{__(SEL:)__}
+        <ARG>\subsubsection{}
 </ARG>
     </ITEM>
     <ITEM KEY="paragraph">
-        <ARG>\paragraph{__(SEL:)__}
+        <ARG>\paragraph{}
 </ARG>
     </ITEM>
     <ITEM KEY="subparagraph">
-        <ARG>\subparagraph{__(SEL:)__}
+        <ARG>\subparagraph{}
 </ARG>
     </ITEM>
     <ITEM KEY="document/book/10pt">
         <ARG>\documentclass{book}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -48,7 +48,7 @@ __(INS)__
     <ITEM KEY="document/book/11pt">
         <ARG>\documentclass[11pt]{book}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -56,7 +56,7 @@ __(INS)__
     <ITEM KEY="document/book/12pt">
         <ARG>\documentclass[12pt]{book}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -64,7 +64,7 @@ __(INS)__
     <ITEM KEY="document/amsbook/10pt">
         <ARG>\documentclass{amsbook}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -72,7 +72,7 @@ __(INS)__
     <ITEM KEY="document/amsbook/11pt">
         <ARG>\documentclass[11pt]{amsbook}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -80,7 +80,7 @@ __(INS)__
     <ITEM KEY="document/amsbook/12pt">
         <ARG>\documentclass[12pt]{amsbook}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -88,7 +88,7 @@ __(INS)__
     <ITEM KEY="document/report/10pt">
         <ARG>\documentclass{report}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -96,7 +96,7 @@ __(INS)__
     <ITEM KEY="document/report/11pt">
         <ARG>\documentclass[11pt]{report}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -104,7 +104,7 @@ __(INS)__
     <ITEM KEY="document/report/12pt">
         <ARG>\documentclass[12pt]{report}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -112,7 +112,7 @@ __(INS)__
     <ITEM KEY="document/article/10pt">
         <ARG>\documentclass{article}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -120,7 +120,7 @@ __(INS)__
     <ITEM KEY="document/article/11pt">
         <ARG>\documentclass[11pt]{article}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -128,7 +128,7 @@ __(INS)__
     <ITEM KEY="document/article/12pt">
         <ARG>\documentclass[12pt]{article}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -136,7 +136,7 @@ __(INS)__
     <ITEM KEY="document/amsart/10pt">
         <ARG>\documentclass{amsart}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -144,7 +144,7 @@ __(INS)__
     <ITEM KEY="document/amsart/11pt">
         <ARG>\documentclass[11pt]{amsart}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -152,7 +152,7 @@ __(INS)__
     <ITEM KEY="document/amsart/12pt">
         <ARG>\documentclass[12pt]{amsart}
 \begin{document}
-__(INS)__
+@@{@@.
 
 \end{document}
 </ARG>
@@ -172,41 +172,41 @@ __(INS)__
     <ITEM KEY="document/letter/macros/begin/end_doc/letter">
         <ARG>\begin{document}
 \begin{letter}
-__(INS)__
+@@{@@.
 
 \end{letter}
 \end{document}</ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/name">
-        <ARG>\name{__(SEL:)__}
+        <ARG>\name{}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/address">
-        <ARG>\address{__(SEL:)__}
+        <ARG>\address{}
  </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/signature">
-        <ARG>\signature{__(SEL:)__}
+        <ARG>\signature{}
  </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/date">
-        <ARG>\date{__(SEL:)__}
+        <ARG>\date{}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/opening">
-        <ARG>\opening{__(SEL:)__}
+        <ARG>\opening{}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/closing">
-        <ARG>\closing{__(SEL:)__}
+        <ARG>\closing{}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/encl">
-        <ARG>\encl{__(SEL:)__}
+        <ARG>\encl{}
 </ARG>
     </ITEM>
     <ITEM KEY="document/letter/macros/cc">
-        <ARG>\cc{__(SEL:)__}
+        <ARG>\cc{}
 </ARG>
     </ITEM>
     <ITEM KEY="document/Options/landscape">
@@ -324,7 +324,7 @@ __(INS)__
         <ARG>\parskip </ARG>
     </ITEM>
     <ITEM KEY="Format/marginal_notes/marginpar">
-        <ARG>\marginpar[__(SEL:)__]{}</ARG>
+        <ARG>\marginpar[]{}</ARG>
     </ITEM>
     <ITEM KEY="Format/marginal_notes/normalmarginpar">
         <ARG>\normalmarginpar</ARG>
@@ -342,52 +342,52 @@ __(INS)__
         <ARG>\marginparpush </ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/newcounter">
-        <ARG>\newcounter{__(SEL:)__}[]</ARG>
+        <ARG>\newcounter{}[]</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/setcounter">
-        <ARG>\setcounter{__(SEL:)__}{}</ARG>
+        <ARG>\setcounter{}{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/addtocounter">
-        <ARG>\addtocounter{__(SEL:)__}{}</ARG>
+        <ARG>\addtocounter{}{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/value">
-        <ARG>\value{__(SEL:)__}</ARG>
+        <ARG>\value{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/the">
-        <ARG>\the__(INS)__</ARG>
+        <ARG>\the@@{@@.</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/arabic">
-        <ARG>\arabic{__(SEL:)__}</ARG>
+        <ARG>\arabic{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/roman">
-        <ARG>\roman{__(SEL:)__}</ARG>
+        <ARG>\roman{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/Roman">
-        <ARG>\Roman{__(SEL:)__}</ARG>
+        <ARG>\Roman{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/alph">
-        <ARG>\alph{__(SEL:)__}</ARG>
+        <ARG>\alph{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/style/Alph">
-        <ARG>\Alph{__(SEL:)__}</ARG>
+        <ARG>\Alph{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/fnsymbol">
-        <ARG>\fnsymbol{__(SEL:)__}</ARG>
+        <ARG>\fnsymbol{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/stepcounter">
-        <ARG>\stepcounter{__(SEL:)__}</ARG>
+        <ARG>\stepcounter{}</ARG>
     </ITEM>
     <ITEM KEY="Format/numbering/refstepcounter">
-        <ARG>\refstepcounter{__(SEL:)__}</ARG>
+        <ARG>\refstepcounter{}</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/footnote">
-        <ARG>\footnote[__(SEL:)__]{}</ARG>
+        <ARG>\footnote[]{}</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/footnotemark">
-        <ARG>\footnotemark[__(SEL:)__]</ARG>
+        <ARG>\footnotemark[]</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/footnotetext">
-        <ARG>\footnotetext[__(SEL:)__]{}</ARG>
+        <ARG>\footnotetext[]{}</ARG>
     </ITEM>
     <ITEM KEY="Format/footnote/parameters/footnotesep">
         <ARG>\footnotesep </ARG>
@@ -434,13 +434,13 @@ __(INS)__
         <ARG>\thispagestyle{myheadings}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Left_heading">
-        <ARG>\markleft{__(SEL:)__}</ARG>
+        <ARG>\markleft{}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Right_heading">
-        <ARG>\markright{__(SEL:)__}</ARG>
+        <ARG>\markright{}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/this_page_style/Both_headings">
-        <ARG>\markboth{__(SEL:)__}{RIGHT HERE}</ARG>
+        <ARG>\markboth{}{RIGHT HERE}</ARG>
     </ITEM>
     <ITEM KEY="Page_Style/page_numbering/arabic">
         <ARG>\pagenumbering{arabic}</ARG>
@@ -459,7 +459,7 @@ __(INS)__
     </ITEM>
     <ITEM KEY="Layout/landscape">
         <ARG>\begin{landscape}
-__(SEL:)__
+@@{@@.
 \end{landscape}</ARG>
     </ITEM>
     <ITEM KEY="Layout/Use_lscape_Pkg">
@@ -467,21 +467,21 @@ __(SEL:)__
 </ARG>
     </ITEM>
     <ITEM KEY="%!iTeXMac/project" ACT="insertDirective:">
-        <ARG>%!iTeXMac(project): __(INS)__</ARG>
+        <ARG>%!iTeXMac(project): @@{@@.</ARG>
     </ITEM>
     <ITEM KEY="%!iTeXMac/input" ACT="insertDirective:">
-        <ARG>%!iTeXMac(input): __(INS)__</ARG>
+        <ARG>%!iTeXMac(input): @@{@@.</ARG>
     </ITEM>
     <ITEM KEY="%!iTeXMac/compile" ACT="insertDirective:">
-        <ARG>%!iTeXMac(compile): __(INS)__</ARG>
+        <ARG>%!iTeXMac(compile): @@{@@.</ARG>
     </ITEM>
     <ITEM KEY="%!iTeXMac/typeset" ACT="insertDirective:">
-        <ARG>%!iTeXMac(typeset): __(INS)__</ARG>
+        <ARG>%!iTeXMac(typeset): @@{@@.</ARG>
     </ITEM>
     <ITEM KEY="%!iTeXMac/bibtex" ACT="insertDirective:">
-        <ARG>%!iTeXMac(bibtex): __(INS)__</ARG>
+        <ARG>%!iTeXMac(bibtex): @@{@@.</ARG>
     </ITEM>
     <ITEM KEY="%!iTeXMac/makeindex" ACT="insertDirective:">
-        <ARG>%!iTeXMac(makeindex): __(INS)__</ARG>
+        <ARG>%!iTeXMac(makeindex): @@{@@.</ARG>
     </ITEM>
 </LIST>

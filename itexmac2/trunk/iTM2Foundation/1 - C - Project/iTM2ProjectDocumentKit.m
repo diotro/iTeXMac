@@ -521,6 +521,17 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autosavingFileType
+- (NSString *)autosavingFileType;
+/*"Autosave is disabled for these documents.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [self contextBoolForKey:@"iTM2AutosaveProjectDocuments" domain:iTM2ContextAllDomainsMask]?[super autosavingFileType]:nil;
+}
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveDocument:
 - (IBAction)saveDocument:(id)sender;
@@ -2150,9 +2161,26 @@ To Do List:
 //iTM2_START;
 	NSEnumerator * E = [[self subdocuments] objectEnumerator];
 	NSDocument * D;
+	NSString * name;
 	while(D = [E nextObject])
-		if([[D fileName] pathIsEqual:fileName] || [[D originalFileName] pathIsEqual:fileName])
+	{
+		name = [D fileName];
+		if([name pathIsEqual:fileName])
+		{
 			return D;
+		}
+		name = [D originalFileName];
+		if([name pathIsEqual:fileName])
+		{
+			return D;
+		}
+		name = [self keyForSubdocument:D];
+		name = [self farawayFileNameForKey:name];
+		if([name pathIsEqual:fileName])
+		{
+			return D;
+		}
+	}
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  subdocumentForURL:
@@ -4042,6 +4070,7 @@ To Do List:
 		}
 	}
 	[self takeContextValue:mra forKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
+#warning FAILED
 iTM2_LOG(@"[IMPLEMENTATION modelOfType:iTM2ProjectMetaType]:%@",[IMPLEMENTATION modelOfType:iTM2ProjectMetaType]);
 //iTM2_END;
     return YES;
@@ -10011,6 +10040,91 @@ To Do List:
 	NSDocument * currentDocument = [[[SDC currentDocument] retain] autorelease];
 //iTM2_END;
 	return currentDocument != nil && [currentDocument project] == nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectToggleStandalone:
+- (IBAction)projectToggleStandalone:(id)sender;
+/*"Description forthcoming. Does nothing, just a catcher
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateProjectToggleStandalone:
+- (BOOL)validateProjectToggleStandalone:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id PD = [SPC currentProject];
+	NSString * name = [PD fileName];
+	[sender setState:([name belongsToFarawayProjectsDirectory]?NSOnState:NSOffState)];
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectToggleNormal:
+- (IBAction)projectToggleNormal:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateProjectToggleNormal:
+- (BOOL)validateProjectToggleNormal:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id PD = [SPC currentProject];
+	NSString * name = [PD fileName];
+	name = [name enclosingWrapperFileName];
+	[sender setState:(![name length]?NSOnState:NSOffState)];
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectToggleWrapper:
+- (IBAction)projectToggleWrapper:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// if it is a normal project things are pretty easy
+	// I just have to change the name of the enclosing wrapper
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateProjectToggleWrapper:
+- (BOOL)validateProjectToggleWrapper:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
+- 2.0: Fri Apr 16 11:39:43 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id PD = [SPC currentProject];
+	NSString * name = [PD fileName];
+	name = [name enclosingWrapperFileName];
+	[sender setState:([name length] &&![name belongsToFarawayProjectsDirectory]?NSOnState:NSOffState)];
+//iTM2_END;
+	return NO;
 }
 @end
 

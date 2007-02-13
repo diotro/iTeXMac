@@ -11,7 +11,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\bigr)&lt;#TAB#&gt;</string>
+			<string>@@"@@.\bigr)&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\bigl(</string>
 		</dict>
@@ -25,7 +25,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\Bigr)&lt;#TAB#&gt;</string>
+			<string>@@"@@.\Bigr)&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\Bigl(</string>
 		</dict>
@@ -39,7 +39,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\biggr)&lt;#TAB#&gt;</string>
+			<string>@@"@@.\biggr)&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\biggl(</string>
 		</dict>
@@ -53,7 +53,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\Biggr)&lt;#TAB#&gt;</string>
+			<string>@@"@@.\Biggr)&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\Biggl(</string>
 		</dict>
@@ -67,7 +67,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;]\hskip -1pt ]&lt;#TAB#&gt;</string>
+			<string>@@"@@.]\hskip -1pt ]&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>[\hskip -1pt [</string>
 		</dict>
@@ -171,7 +171,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\bigr\}&lt;#TAB#&gt;</string>
+			<string>@@"@@.\bigr\}&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\bigl\{</string>
 		</dict>
@@ -185,7 +185,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\Bigr\}&lt;#TAB#&gt;</string>
+			<string>@@"@@.\Bigr\}&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\Bigl\{</string>
 		</dict>
@@ -199,7 +199,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\biggr\}&lt;#TAB#&gt;</string>
+			<string>@@"@@.\biggr\}&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\biggl\{</string>
 		</dict>
@@ -213,7 +213,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\Biggr\}&lt;#TAB#&gt;</string>
+			<string>@@"@@.\Biggr\}&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\Biggl\{</string>
 		</dict>
@@ -227,7 +227,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\bigr]&lt;#TAB#&gt;</string>
+			<string>@@"@@.\bigr]&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\bigl[</string>
 		</dict>
@@ -241,7 +241,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\Bigr]&lt;#TAB#&gt;</string>
+			<string>@@"@@.\Bigr]&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\Bigl[</string>
 		</dict>
@@ -255,7 +255,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\biggr]&lt;#TAB#&gt;</string>
+			<string>@@"@@.\biggr]&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\biggl[</string>
 		</dict>
@@ -269,7 +269,7 @@
 		<key>argument</key>
 		<dict>
 			<key>after</key>
-			<string>&lt;#SEL#&gt;\Biggr]&lt;#TAB#&gt;</string>
+			<string>@@"@@.\Biggr]&lt;#TAB#&gt;</string>
 			<key>before</key>
 			<string>\Biggl[</string>
 		</dict>

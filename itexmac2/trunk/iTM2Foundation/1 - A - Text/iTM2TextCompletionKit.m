@@ -65,8 +65,8 @@ NSString * const iTM2CompletionsExtension = @"xml";
 //iTM2_START;
 //iTM2_END;
 	return [obj isKindOfClass:[NSString class]]?
-		[obj stringByRemovingPlaceHolderMarks]:
-		[[obj string] stringByRemovingPlaceHolderMarks];
+		[obj stringByRemovingPlaceholderMarks]:
+		[[obj string] stringByRemovingPlaceholderMarks];
 }
 - (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
 {
@@ -352,6 +352,7 @@ grosbois:
 	unsigned numberOfRows = [_LongCandidates count];
 	if(!numberOfRows)
 	{
+		_LongCandidates = nil;
 		return 4;
 	}
 	[_LongCandidates retain];
@@ -510,96 +511,11 @@ grosbois:
 	{
 		completion = _OriginalString;
 	}
-	NSMutableString * longCompletionString = [NSMutableString string];
-	NSRange R = NSMakeRange(0,0);
-	[completion getLineStart:nil end:&R.location contentsEnd:nil forRange:R];// first line
-	NSString * blackString = [completion substringWithRange:NSMakeRange(0,R.location)];
-	[longCompletionString appendString:blackString];
-	unsigned end, contentsEnd;
-	unsigned lineIndentation = 0;
-	if(R.location < [completion length])
-	{
-		do
-		{
-			[completion getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-			lineIndentation = 0;
-			unsigned currentLength = 0;
-			int numberOfSpacesPerTab = [_TextView numberOfSpacesPerTab]?:4;
-			while(R.location<contentsEnd)
-			{
-				unichar theChar = [completion characterAtIndex:R.location++];
-				if(theChar == ' ')
-				{
-					++currentLength;
-				}
-				else if(theChar == '\t')
-				{
-					++lineIndentation;
-					lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-					currentLength = 0;
-				}
-				else
-				{
-					break;
-				}
-			}
-			lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-			NSMutableString * whitePrefix = [NSMutableString string];
-			while(lineIndentation--)
-			{
-				[whitePrefix appendString:_Tab];
-			}
-			NSMutableString * line = [NSMutableString stringWithString:whitePrefix];
-			blackString = [completion substringWithRange:NSMakeRange(R.location,end-R.location)];
-			NSRange searchRange = NSMakeRange(0,0);
-			searchRange.length = [blackString length] - searchRange.location;
-			NSRange SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
-			if(SELRange.length)
-			{
-				NSString * s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
-				[line appendString:s];
-				NSEnumerator * replacementE = [_ReplacementLines objectEnumerator];
-				s = [replacementE nextObject];
-				[line appendString:s];
-				while(s = [replacementE nextObject])
-				{
-					[line appendString:whitePrefix];
-					[line appendString:s];
-				}
-next:
-				searchRange.location = NSMaxRange(SELRange);
-				if([blackString length]>searchRange.location)
-				{
-					searchRange.length = [blackString length] - searchRange.location;
-					SELRange = [blackString rangeOfString:iTM2TextSELPlaceholder options:nil range:searchRange];
-					if(SELRange.length)
-					{
-						s = [blackString substringWithRange:NSMakeRange(searchRange.location,SELRange.location-searchRange.location)];
-						[line appendString:s];
-						replacementE = [_ReplacementLines objectEnumerator];
-						s = [replacementE nextObject];
-						[line appendString:s];
-						while(s = [replacementE nextObject])
-						{
-							[line appendString:whitePrefix];
-							[line appendString:s];
-						}
-						goto next;
-					}
-				}
-			}
-			else
-			{
-				[line appendString:blackString];
-			}
-			[longCompletionString appendString:line];
-		}
-		while(R.location < [completion length]);
-	}
 	[_LongCompletionString autorelease];
-	_LongCompletionString = [longCompletionString copy];
+	[_TextView getReplacementString:&_LongCompletionString affectedCharRange:nil forMacro:completion substitutions:nil mode:nil];
+	_LongCompletionString = [_LongCompletionString copy];
 	[_ShortCompletionString autorelease];
-	_ShortCompletionString = [[_LongCompletionString stringByRemovingPlaceHolderMarks] copy];
+	_ShortCompletionString = [[_LongCompletionString stringByRemovingPlaceholderMarks] copy];
 	[_TextView insertCompletion:_ShortCompletionString forPartialWordRange:_RangeForUserCompletion movement:NSOtherTextMovement isFinal:NO];
 	_EditedRangeForUserCompletion.length = [completion length];
 	return;
@@ -920,88 +836,26 @@ next:
 	{
 //iTM2_LOG(@"still disableUndoRegistration");
 	}
-	NSArray * components = [_LongCompletionString componentsSeparatedByINSPlaceholder];
-	NSString * replacementString = [components componentsJoinedByString:@""];
+	NSString * replacementString = _LongCompletionString;
 	if(yorn)
 	{
 		replacementString = [replacementString stringByAppendingString:@" "];
 	}
-	NSMutableArray * selectedRanges = [NSMutableArray array];
-	NSEnumerator * E = [components objectEnumerator];
-	NSString * component;
-	NSRange R = _RangeForUserCompletion;
-	NSValue * V = nil;
-	while(component = [E nextObject])
-	{
-		R.location += [component length];
-		R.length = 0;
-		if(component = [E nextObject])
-		{
-			R.length = [component length];
-			V = [NSValue valueWithRange:R];
-			[selectedRanges addObject:V];
-		}
-		else
-		{
-			break;
-		}
-	}
-	NSString * tabAnchor = [_TextView tabAnchor];
-	if(![selectedRanges count])
-	{
-		// is there any place holder?
-		R = [replacementString rangeOfPlaceholderFromIndex:0 cycle:NO tabAnchor:tabAnchor];
-		if(R.length)
-		{
-			if(NSMaxRange(R)<[replacementString length])
-			{
-				R.location = [replacementString length];
-				replacementString = [replacementString stringByAppendingString:iTM2TextTABPlaceholder];
-				R.length = [replacementString length] - R.location;
-			}
-		}
-		else
-		{
-			R.location = [replacementString length];
-			R.length = 0;
-		}
-		R.location += _RangeForUserCompletion.location;
-		NSValue * V = [NSValue valueWithRange:R];
-		[selectedRanges addObject:V];
-	}
-	// if the last placeholder is selected wherease there is a placeholder before, remove the corresponding selected range
-	R = [replacementString rangeOfPlaceholderToIndex:[replacementString length] cycle:NO tabAnchor:tabAnchor];
-	if(R.length)
-	{
-		if(R.location)
-		{
-			if([replacementString rangeOfPlaceholderToIndex:R.location-1 cycle:NO tabAnchor:tabAnchor].length)
-			{
-				R.location += _RangeForUserCompletion.location;
-				V = [NSValue valueWithRange:R];
-				if([selectedRanges containsObject:V])
-				{
-					[selectedRanges removeObject:V];
-					R.location = NSMaxRange(R);
-					R.length = 0;
-					V = [NSValue valueWithRange:R];
-					[selectedRanges addObject:V];
-				}
-			}
-		}
-	}
-	
 	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
+	NSTextStorage * TS = [_TextView textStorage];
+	NSString * S = [TS string];
+	
 	// always select placeholders from the start
-	[_TextView setSelectedRanges:selectedRanges];
-#if 0
-useless?
-	if(_EditedString && [_TextView shouldChangeTextInRange:_RangeForUserCompletion replacementString:_EditedString])
+	NSRange selectedRange = [_TextView selectedRange];
+	NSRange markRange = [S rangeOfPreviousPlaceholderMarkBeforeIndex:selectedRange.location getType:nil];
+	if(markRange.length)
 	{
-		[_TextView replaceCharactersInRange:_RangeForUserCompletion withString:_EditedString];
-		[_TextView didChangeText];
+		if(NSMaxRange(markRange)!=selectedRange.location)
+		{
+			[_TextView insertText:@"@@{@@."];
+		}
 	}
-#endif
+	[_TextView selectFirstPlaceholder:self];
 	[_LongCandidates autorelease];
 	_LongCandidates = nil;
 	[_TextView autorelease];
@@ -1649,145 +1503,6 @@ To Do List:
     return;
 }
 #endif
-@end
-
-#import <iTM2Foundation/iTM2ResponderKit.h>
-
-@implementation iTM2SharedResponder(TextCompletion)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionMode:
-- (void)completionMode:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// just a message catcher;
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateCompletionMode:
-- (BOOL)validateCompletionMode:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![sender isKindOfClass:[NSMenuItem class]])
-	{
-		return NO;
-	}
-	NSMenu * M = [sender menu];
-	NSArray * completionModes = [[iTM2CompletionServer completionServer] completionModes];
-	NSEnumerator * E = [completionModes objectEnumerator];
-	NSString * mode = nil;
-	NSMutableSet * expectedModes = [NSMutableSet set];
-	while(mode = [E nextObject])
-	{
-		[expectedModes addObject:mode];
-	}
-	NSArray * itemArray = [M itemArray];
-	E = [itemArray objectEnumerator];
-	NSMenuItem * MI = nil;
-	SEL action = @selector(chooseCompletionMode:);
-	NSMutableSet * availableModes = [NSMutableSet set];
-	id firstResponder = [NSApp keyWindow];
-	firstResponder = firstResponder?[firstResponder firstResponder]:self;
-	NSString * currentMode = [firstResponder contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
-	while(MI = [E nextObject])
-	{
-		if([MI action] == action)
-		{
-			NSString * representedMode = [MI representedObject];
-			[availableModes addObject:representedMode];
-			[MI setEnabled:([currentMode isEqual:representedMode]?NSOnState:NSOffState)];
-		}
-	}
-	if([availableModes isEqual:expectedModes])
-	{
-//iTM2_END;
-		return YES;
-	}
-	// the things have changed since the last time it was validated...
-	E = [itemArray objectEnumerator];
-	while(MI = [E nextObject])
-	{
-		if([MI action] == action)
-		{
-			[M removeItem:MI];
-		}
-	}
-	// 
-	int index = [M indexOfItem:sender] + 1;
-	itemArray = [expectedModes allObjects];
-	itemArray = [itemArray sortedArrayUsingSelector:@selector(compare:)];
-	E = [itemArray objectEnumerator];
-	while(mode = [E nextObject])
-	{
-		MI = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:mode action:action keyEquivalent:@""] autorelease];
-		[MI setRepresentedObject:mode];
-		[MI setIndentationLevel:1];
-		[M insertItem:MI atIndex:index++];
-		[MI setState:([currentMode isEqual:mode]?NSOnState:NSOffState)];
-	}
-	MI = [NSMenuItem separatorItem];
-	[M insertItem:MI atIndex:index++];
-	[M cleanSeparators];
-//iTM2_END;
-	return NO;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseCompletionMode:
-- (void)chooseCompletionMode:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * representedString = [sender representedString];
-	if(representedString)
-	{
-		[self takeContextValue:representedString forKey:iTM2CompletionMode domain:iTM2ContextDefaultsMask|iTM2ContextProjectMask];// the mode is not standard
-	}
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseCompletionMode:
-- (BOOL)validateChooseCompletionMode:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * representedString = [sender representedString];
-	NSString * completionMode = [self contextValueForKey:iTM2CompletionMode domain:iTM2ContextDefaultsMask|iTM2ContextProjectMask];// the mode is not standard
-	[sender setState:([representedString isEqual:completionMode]?NSOnState:NSOffState)];
-//iTM2_END;
-	return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editCompletions:
-- (void)editCompletions:(id)sender;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * completionMode = [self contextValueForKey:iTM2CompletionMode domain:iTM2ContextAllDomainsMask];
-	iTM2CompletionInspector * inspector = [iTM2CompletionInspector completionInspector];
-	[inspector setSelectedCompletionSet:completionMode];
-	NSWindow * window = [inspector window];// load the window
-	[window makeKeyAndOrderFront:self];
-//iTM2_END;
-	return;
-}
 @end
 
 @implementation iTM2CompletionWindow

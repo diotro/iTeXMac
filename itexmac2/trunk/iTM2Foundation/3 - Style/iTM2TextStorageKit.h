@@ -85,9 +85,10 @@ enum
 
 enum
 {
-	kiTM2TextErrorSyntaxMask = 0x7F000000U,// only 7 kinds or independent errors are allowed, 128 different situations
-	kiTM2TextEndOfLineSyntaxMask = 0x80000000U,// EOLs are used to propagate errors, information. If a previousMode has a kiTM2TextEndOfLineSyntaxMask bit set, it comes from the previous line EOL.
-	kiTM2TextModifiersSyntaxMask = 0xFF000000U
+	kiTM2TextErrorSyntaxMask = 0xFF000000U,// only 8 kinds or independent errors are allowed, 256 different situations, bits 24 -> 31
+	kiTM2TextModifiersSyntaxMask = 0x00FF0000U,// only 8 kinds or running
+	kiTM2TextFlagsSyntaxMask = kiTM2TextErrorSyntaxMask|kiTM2TextModifiersSyntaxMask,
+	kiTM2TextEndOfLineSyntaxMask = 0x00010000U,// EOLs are used to propagate errors, information. If a previousMode has a kiTM2TextEndOfLineSyntaxMask bit set, it comes from the previous line EOL. bits 20
 };
 
 /*!
@@ -113,7 +114,7 @@ enum
     kiTM2TextErrorSyntaxMode = 0,
     kiTM2TextWhitePrefixSyntaxMode,
     kiTM2TextRegularSyntaxMode,
-	kiTM2TextUnknownSyntaxMode = UINT_MAX & ~kiTM2TextModifiersSyntaxMask
+	kiTM2TextUnknownSyntaxMode = UINT_MAX & ~kiTM2TextFlagsSyntaxMask
 };
 
 /*!
@@ -233,15 +234,6 @@ enum
     id _TS;
     id _AS;
 }
-
-/*!
-    @method     addParserToTextStorage
-    @abstract   Designated kind of initializer.
-    @discussion The standard [[  alloc] init] should not be used because this method takes care of the connexions.
-    @param      TS is an iTM2TextStorage
-    @result     The syntax parser created if any.
-*/
-////+ (id) addParserToTextStorage: (iTM2TextStorage *) TS;
 
 /*!
     @method     syntaxParserStyle
@@ -642,10 +634,11 @@ This default implementation does nothing.
     @abstract   Returns the mode for the character at the given index and assuming the given previous mode.
                 The effective length is returned.
                 The returned value in nextModePtr if any is assumed to be different from the one returned by the method.
-				beforeIndex is just an hint: no need to look for the mode at indexes from beforIndex.
+				beforeIndex is just an hint: no real need to look for the mode at indexes from beforIndex.
 				The nextMode, if available, is the mode of the first character after the effective range
 				where we can find the resulting mode.
 				The effective length can lead to a character location after beforeIndex.
+				It should do so to avoid bad state.
     @discussion Description forthcoming.
     @param      index
     @param      previousMode

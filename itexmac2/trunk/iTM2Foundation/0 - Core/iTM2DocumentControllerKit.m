@@ -33,6 +33,7 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2AutoKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/iTM2WindowKit.h>
 
 #define TABLE @"iTM2DocumentKit"
 #define BUNDLE [iTM2Document classBundle]

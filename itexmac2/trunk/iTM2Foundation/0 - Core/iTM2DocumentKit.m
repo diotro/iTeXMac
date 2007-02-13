@@ -1801,7 +1801,8 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-	if([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask])
+	if([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask]
+		&& !iTM2DebugEnabled)
 	{
 		return NO;
 	}
@@ -3236,36 +3237,7 @@ To Do List:
 //iTM2_START;
     return key? [[IMPLEMENTATION metaValueForKey:@"_modelBackups_"] valueForKey:key]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartUndo:
-- (IBAction)toggleSmartUndo:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	BOOL old = [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartUndo:
-- (BOOL)validateToggleSmartUndo:(id) sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask]?NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
 @end
-
-#import <iTM2Foundation/iTM2ResponderKit.h>
 
 @interface iTM2InspectorResponder:iTM2AutoInstallResponder
 @end
@@ -3298,12 +3270,13 @@ To Do List:
     if([newTitle length])
     {
 		[sender setAction:NULL];
-        [[sender menu] setSubmenu:[[[iTM2InspectorMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease] forItem:sender];
+		NSMenu * submenu = [[[iTM2InspectorMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+        [[sender menu] setSubmenu:submenu forItem:sender];
+        [submenu update];
 //iTM2_LOG(@"UPDATING THE SUBMENU (%@)", NSStringFromSelector([sender action]));
-        [[sender submenu] update];
 //iTM2_LOG(@"UPDATING THE SUBMENU (%@)", [sender submenu]);
 //iTM2_END;
-        return [[sender submenu] numberOfItems]>0;
+        return [submenu numberOfItems]>0;
     }
     else
     {
@@ -3314,34 +3287,9 @@ To Do List:
         return NO;
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartUndo:
-- (IBAction)toggleSmartUndo:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	BOOL old = [SUD boolForKey:iTM2UDSmartUndoKey];
-	[SUD setBool:!old forKey:iTM2UDSmartUndoKey];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartUndo:
-- (BOOL)validateToggleSmartUndo:(id) sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([SUD boolForKey:iTM2UDSmartUndoKey]?NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
 @end
+
+#import <iTM2Foundation/iTM2ResponderKit.h>
 
 @implementation iTM2InspectorMenu
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithTitle:
@@ -3491,15 +3439,6 @@ if([set count]<[variants count])
 			if([M numberOfItems] > 1)
 			{
 				[self setSubmenu:M forItem:MI];
-#if 0
-//iTM2_LOG(@"M is:%@", M);
-NSEnumerator * E = [[M itemArray] objectEnumerator];
-id mi;
-while(mi = [E nextObject])
-{
-//iTM2_LOG(@"mi:%@, action:%@, target:%@", mi, NSStringFromSelector([mi action]), [mi target]);
-}
-#endif
 			}
 			else if([M numberOfItems] > 0)
 			{
@@ -3554,22 +3493,6 @@ To Do List:
 	{
 		[doc replaceInspectorMode:mode variant:variant];
 	}
-#if 0
-	NSEnumerator * E = [[[sender menu] itemArray] objectEnumerator];
-	while(sender = [E nextObject])
-	{
-		NSMenu * m = [sender submenu];
-		if(m)
-		{
-			iTM2_LOG(@"menu item with submenu:%@", sender);
-			NSEnumerator * e = [[m itemArray] objectEnumerator];
-			while(sender = [e nextObject])
-			{
-				iTM2_LOG(@"submenu item:%@ (%@)", sender, NSStringFromSelector([sender action]));
-			}
-		}
-	}
-#endif
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleInspector:
@@ -3620,8 +3543,24 @@ To Do List:
     [sender setState:([WC isKindOfClass:[iTM2ExternalInspector class]] && [[WC inspectorVariant] isEqual:[sender title]]?
             NSOnState:NSOffState)];
 //iTM2_LOG(@"filename is:%@", [[WC document] fileName]);
-//iTM2_END;
+	if(![sender image])
+	{
+		NSString * appName = [sender title];
+		NSString * name = [NSString stringWithFormat:@"%@ mini icon",appName];
+		NSImage * I = [NSImage imageNamed:name];
+		if(!I)
+		{
+			NSString * fullPath = [SWS fullPathForApplication:appName];
+			I = [SWS iconForFile:fullPath];
+			I = [I copy];
+			[I setName:name];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+		}
+		[sender setImage:I];
+	}
 	NSDocument * D = [WC document];
+//iTM2_END;
     return [[D fileName] length] > 0 && ![D isDocumentEdited];
 }
 @end
@@ -3631,6 +3570,58 @@ NSString * const iTM2UDLevelsOfUndoKey = @"iTM2LevelsOfUndo";
 
 @interface iTM2UndoManager(PRIVATE)
 - (void)undoPastSaveSheetDidEnd:(NSWindow *) unused returnCode:(int) returnCode irrelevantInfo:(void *) irrelevant;
+@end
+
+@implementation NSResponder(iTM2UndoManager)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartUndo:
+- (IBAction)toggleSmartUndo:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartUndo:
+- (BOOL)validateToggleSmartUndo:(id) sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[sender setState:([self hasSmartUndo]?NSOnState:NSOffState)];
+//iTM2_END;
+    return [self canToggleSmartUndo];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canToggleSmartUndo
+- (BOOL)canToggleSmartUndo;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (12/18/2001).
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hasSmartUndo
+- (BOOL)hasSmartUndo;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (12/18/2001).
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+}
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2UndoManager
@@ -3663,32 +3654,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSWindow * mainWindow = [NSApp mainWindow];
-	id document = [[mainWindow windowController] document];
-    if([document contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask])
-    {
-        if(![document isDocumentEdited])
-        {
-            NSString * undoMenuItemTitle = [self undoMenuItemTitle];
-            NSString * titre;
-            if([[self undoMenuItemTitle] hasPrefix:@"&"])
-                titre = [undoMenuItemTitle substringWithRange:NSMakeRange(1, [undoMenuItemTitle length]-1)];
-            else
-                titre = undoMenuItemTitle;
-            NSBeginAlertSheet(
-                NSLocalizedStringFromTableInBundle(@"Warning", TABLE, BUNDLE, ""),
-                titre,
-                [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Don't %@", TABLE, BUNDLE, nil), titre],
-                nil,
-                mainWindow,
-                self,
-                NULL,
-                @selector(_undoPastSaveSheetDidDismiss:returnCode:irrelevantInfo:),
-                nil,
-                NSLocalizedStringFromTableInBundle(@"Undo past saved?", TABLE, BUNDLE,
-        "You are about to undo past the last point this file was saved. Do you want to do this?"));
-            return;
-        }
+	NSWindow * keyWindow = [NSApp keyWindow];
+    if([keyWindow hasSmartUndo] && ![keyWindow isDocumentEdited])
+	{
+		NSString * undoMenuItemTitle = [self undoMenuItemTitle];
+		NSString * titre;
+		if([[self undoMenuItemTitle] hasPrefix:@"&"])
+			titre = [undoMenuItemTitle substringWithRange:NSMakeRange(1, [undoMenuItemTitle length]-1)];
+		else
+			titre = undoMenuItemTitle;
+		NSBeginAlertSheet(
+			NSLocalizedStringFromTableInBundle(@"Warning", TABLE, BUNDLE, ""),
+			titre,
+			[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Don't %@", TABLE, BUNDLE, nil), titre],
+			nil,
+			keyWindow,
+			self,
+			NULL,
+			@selector(_undoPastSaveSheetDidDismiss:returnCode:irrelevantInfo:),
+			nil,
+			NSLocalizedStringFromTableInBundle(@"Undo past saved?", TABLE, BUNDLE,
+	"You are about to undo past the last point this file was saved. Do you want to do this?"));
+		return;
     }
     [super undo];
     return;

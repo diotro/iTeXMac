@@ -988,6 +988,12 @@ extern NSString * const iTM2UDLevelsOfUndoKey;
 @interface iTM2UndoManager: NSUndoManager
 @end
 
+@interface NSResponder(iTM2UndoManager)
+- (IBAction)toggleSmartUndo:(id)sender;
+- (BOOL)hasSmartUndo;
+- (BOOL)canToggleSmartUndo;
+@end
+
 extern NSString * const iTM2ExternalInspectorMode;
 
 /*!

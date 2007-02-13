@@ -26,10 +26,9 @@
 /*"Class methods"*/
 /*"Setters and Getters"*/
 - (BOOL)getIntegerTrailer:(int *)intPtr;
-- (NSRange)rangeForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
-- (NSRange)rangeForLineRange:(NSRange)aLineRange nextLine:(unsigned int *)aNextLinePtr;
-- (NSRange)rangeContentForLine:(unsigned int)aLine nextLine:(unsigned int *)aNextLinePtr;
-- (unsigned)lineForRange:(NSRange)aRange;
+- (NSRange)getRangeForLine:(unsigned int)aLine;
+- (NSRange)getRangeForLineRange:(NSRange)aLineRange;
+- (unsigned)lineNumberAtIndex:(unsigned)index;
 - (unsigned)numberOfLines;
 //- (NSString *) commentedStringForKey: (NSString *) aKey value: (NSString *) aValue;
 - (NSString *)stringForCommentedKey:(NSString *)aKey forRange:(NSRange)aRange effectiveRange:(NSRangePointer)aRangePtr inHeader:(BOOL)aFlag;
