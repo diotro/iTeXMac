@@ -279,6 +279,11 @@ then
 	"${iTM2_CMD_Notify}" notify error "$0 FAILED(${iTM2_Status})."
 	exit ${iTM2_Status}
 fi
+PDFOUTPUT="${OUTPUT%.*}.pdf"
+if [ -L "${PDFOUTPUT}" ]
+then	
+	rm -f "${PDFOUTPUT}"
+fi
 iTM2_Command_Compile --master "${iTM2_PWD}/${OUTPUT%.*}" --switch dvi
 iTM2_Status="$?"
 if [ "${iTM2ExportOutput:-0}" != "0" ]
@@ -299,16 +304,15 @@ if [ -s "${OUTPUT}" ]
 then	
 	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
 fi
-OUTPUT="${OUTPUT%.*}.pdf"
-if [ -s "${OUTPUT}" ]
+if [ -s "${PDFOUTPUT}" ]
 then	
 	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ] && [ -w "${iTM2_PWD_Real}" ]
 	then
-		mv -f "${OUTPUT}" "${iTM2_PWD_Real}"
+		mv -f "${PDFOUTPUT}" "${iTM2_PWD_Real}"
 	fi
-	iTeXMac2 update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 update -file "${iTM2_PWD_Real}/${PDFOUTPUT}" -project "${TWSProject}"
 else
-	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${PDFOUTPUT}" -project "${TWSProject}"
 	OUTPUT="${OUTPUT%.*}.aux"
 	if [ -s "${OUTPUT}" ]
 	then

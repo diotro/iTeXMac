@@ -312,6 +312,11 @@ if [ -f "${iTM2_DOT_PDFSYNC}" ]
 then
 	rm -f "${iTM2_DOT_PDFSYNC}"
 fi
+PDFOUTPUT="${OUTPUT%.*}.pdf"
+if [ -L "${PDFOUTPUT}" ]
+then	
+	rm -f "${PDFOUTPUT}"
+fi
 "${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
 "${iTM2_PDFTeX_EnginePath}" ${iTM2_PDFTeX_Arguments} "${TWSMasterBase}"
 iTM2_Status="$?"
@@ -331,16 +336,15 @@ if [ -s "${OUTPUT}" ]
 then	
 	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
 fi
-OUTPUT="${OUTPUT%.*}.pdf"
-if [ -s "${OUTPUT}" ]
+if [ -s "${PDFOUTPUT}" ]
 then	
 	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ] && [ -w "${iTM2_PWD_Real}" ]
 	then
-		mv -f "${OUTPUT}" "${iTM2_PWD_Real}"
+		mv -f "${PDFOUTPUT}" "${iTM2_PWD_Real}"
 	fi
-	iTeXMac2 update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 update -file "${iTM2_PWD_Real}/${PDFOUTPUT}" -project "${TWSProject}"
 else
-	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${PDFOUTPUT}" -project "${TWSProject}"
 	OUTPUT="${OUTPUT%.*}.aux"
 	if [ -s "${OUTPUT}" ]
 	then
