@@ -1519,7 +1519,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:nil];
-	[TPD takeContextBool: ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] forKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
+	[TPD takeContextBool: ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextPrivateMask] forKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
 	[TPD updateChangeCount:NSChangeDone];
     return;
 //iTM2_END;
@@ -1965,6 +1965,33 @@ To Do List:
 	}
     return [super validatePerformCommand:(id)sender];
 //iTM2_END;
+}
+@end
+
+@implementation iTM2Window(iTM2UndoManager)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hasSmartUndo
+- (BOOL)hasSmartUndo;// smart undo is disabled in continuous mode
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net.
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id TPD = [SPC projectForSource:self];
+//iTM2_END;
+    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextPrivateMask] && [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canToggleSmartUndo
+- (BOOL)canToggleSmartUndo;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net.
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id TPD = [SPC projectForSource:self];
+//iTM2_END;
+    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextPrivateMask];
 }
 @end
 

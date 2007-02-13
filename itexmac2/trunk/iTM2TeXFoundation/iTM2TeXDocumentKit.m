@@ -92,6 +92,38 @@ To Do List:
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 
 @implementation iTM2TeXEditor
+#if 0
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:tabAnchor:substitutions:
+- (void)insertMacro:(id)argument tabAnchor:(NSString *)tabAnchor substitutions:(NSDictionary *)substitutions;
+/*"Description forthcoming.
+- 2.0: 01/30/2007
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![argument isKindOfClass:[NSString class]])
+	{
+		[super insertMacro:argument tabAnchor:tabAnchor substitutions:(NSDictionary *)substitutions];
+	}
+	NSRange R = [argument rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor];
+	if(R.length)
+	{
+		[super insertMacro:argument tabAnchor:tabAnchor substitutions:(NSDictionary *)substitutions];
+	}
+	if([argument hasSuffix:@":"])
+	{
+		[super insertMacro:argument tabAnchor:tabAnchor substitutions:(NSDictionary *)substitutions];
+	}
+	if([argument hasSuffix:@"..."])
+	{
+		[super insertMacro:argument tabAnchor:tabAnchor substitutions:(NSDictionary *)substitutions];
+	}
+	
+	[super insertMacro:argument tabAnchor:tabAnchor substitutions:(NSDictionary *)substitutions];
+//iTM2_END;
+    return;
+}
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
 - (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
 /*"Subclasses will return YES.
@@ -233,6 +265,56 @@ To Do List:
 - (void)moveWordLeftAndModifySelection:(id)sender;
 - (void)moveUpAndModifySelection:(id)sender;
 #endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subscript:
+- (void)subscript:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+To Do List:
+"*/
+{
+//iTM2_START;
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	NSRange selectedRange = [self selectedRange];
+	if(selectedRange.length)
+	{
+		NSString * selectedText = [self string];
+		selectedText = [selectedText substringWithRange:selectedRange];
+		NSDictionary * substitutions = [NSDictionary dictionaryWithObject:selectedText forKey:@"argument#1"];
+		[SMC executeMacroWithID:@"_{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:substitutions target:self];
+	}
+	else
+	{
+		[SMC executeMacroWithID:@"_{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
+- (void)superscript:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+To Do List:
+"*/
+{
+//iTM2_START;
+	NSString * macroDomain = [self macroDomain];
+	NSString * macroCategory = [self macroCategory];
+	NSString * macroContext = [self macroContext];
+	NSRange selectedRange = [self selectedRange];
+	if(selectedRange.length)
+	{
+		NSString * selectedText = [self string];
+		selectedText = [selectedText substringWithRange:selectedRange];
+		NSDictionary * substitutions = [NSDictionary dictionaryWithObject:selectedText forKey:@"argument#1"];
+		[SMC executeMacroWithID:@"^{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:substitutions target:self];
+	}
+	else
+	{
+		[SMC executeMacroWithID:@"^{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	}
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
 - (void)insertUnderscore:(id)sender;
 /*"Tabs are inserted only at the beginning of the line.
@@ -251,7 +333,7 @@ To Do List: Nothing at first glance.
         BOOL escaped;
         NSRange R = [self selectedRange];
         if(!R.location || ![[self string] isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
-            [self insertMacro:@"_{__(SEL)__}"];
+            [self subscript:self];
         else
             [self insertText:@"_"];
     }
@@ -280,9 +362,14 @@ To Do List: Nothing at first glance.
         {
             index = [self selectedRange].location;
             if(!index || ([[self string] characterAtIndex:index-1] != '^'))
-                [self insertMacro:@"^{__(SEL)__}"];
+				[self superscript:self];
             else
-                [self insertMacro:@"{__(SEL)__}"];
+			{
+				NSString * macroDomain = [self macroDomain];
+				NSString * macroCategory = [self macroCategory];
+				NSString * macroContext = [self macroContext];
+                [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+			}
         }
         else
         {
@@ -307,12 +394,12 @@ To Do List: Nothing at first glance.
     NSRange R = [self selectedRange];
     if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-        [self insertText:@"\\"];
+        [self insertText:[NSString backslashString]];
     }
     else
     {
         [[self undoManager] beginUndoGrouping];
-        [self insertText:@"\\"];
+        [self insertText:[NSString backslashString]];
         [self insertNewline:self];
         [[self undoManager] endUndoGrouping];
     }
@@ -330,7 +417,7 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSRange R = [self selectedRange];
     if(!R.location || ![[self string] isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
-        [self insertMacro:@"$__(SEL)__$"];
+        [self insertMacro:@"$@(@SEL@)@$"];
     else
         [self insertText:@"$"];
     return;
@@ -350,7 +437,10 @@ To Do List: Nothing at first glance.
 	
     if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-        [self insertMacro:@"{__(SEL)__}"];
+		NSString * macroDomain = [self macroDomain];
+		NSString * macroCategory = [self macroCategory];
+		NSString * macroContext = [self macroContext];
+        [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
     }
     else
         [self insertText:@"{"];
@@ -369,7 +459,7 @@ To Do List: Nothing at first glance.
     NSString * S = [self string];
     NSRange R = [self selectedRange];
     NSString * macro = (!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)?
-	@"(__(SEL)__)__(INS)__": @"(__(SEL)__\\)__(INS)__";
+		@"(@@{@@.)": @"(@@{@@.\\)";
     [self insertMacro:macro];
     return;
 }
@@ -385,29 +475,35 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
-    if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
+	unsigned start, contentsEnd;
+	BOOL BOL, EOL;
+	NSString * macro;
+	if(!R.location || ![S isControlAtIndex:R.location-1 escaped:&escaped])
     {
-        [self insertMacro:@"[__(SEL)__]"];
+		macro = @"[@@{@@.]";
+		[self insertMacro:macro];
     }
-    else// this follows an unescaped \: insert "[\]"
+    else if(escaped)// this is a dimension after a "\\"
+    {
+		[S getLineStart:nil end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(R.location, 0)];
+		macro = R.location == contentsEnd? @"[@@{@@.]":@"[@@{@@.]\n";
+		[self insertMacro:macro];
+    }
+    else// this follows an unescaped \: insert "[...\]", manage line indentation
     {
         [[self undoManager] beginUndoGrouping];
-        {
-            unsigned start, contentsEnd;
-            BOOL BOL, EOL;
 //NSLog(@"GLS");
-            [[self string] getLineStart: &start end: nil contentsEnd: &contentsEnd
-                forRange: NSMakeRange(R.location-1, 0)];
-            BOL = (start == R.location - 1);
-            EOL = (R.location == contentsEnd);
-            if(!BOL)
-            {
-                [self setSelectedRange:NSMakeRange(R.location - 1, 1)];
-                [self insertNewline:self];
-            }
-            [self insertMacro:
-                [NSString stringWithFormat:@"%@[__(SEL)__\\]%@", (BOL? @"":@"\\"), (EOL? @"":@"\n")]];
-        }
+		[S getLineStart:&start end:nil contentsEnd:&contentsEnd
+			forRange: NSMakeRange(R.location-1, 0)];
+		EOL = (R.location == contentsEnd);
+		BOL = (start == R.location-1);
+		if(!BOL)
+		{
+			[self setSelectedRange:NSMakeRange(R.location-1, 1)];
+			[self insertNewline:self];
+		}
+		macro = [NSString stringWithFormat:@"%@[@@[@@.\\]%@", (BOL? @"":@"\\"),(EOL? @"":@"\n")];
+		[self insertMacro:macro];
         [[self undoManager] endUndoGrouping];
     }
     return;
@@ -615,7 +711,7 @@ To Do List:
 	// There is a problem for text editing:
 	// if you have in your text the "alpha" word as is, no the name of a TeX command
 	// and if you want to insert \foo just before "alpha"
-	// you place the cursor before the firts a, the insert \, f, o, o, ' '
+	// you place the cursor before the first a, the insert \, f, o, o, ' '
 	// What you want is "\foo alpha"
 	// but what you end up with is "foo \alpha"
 	// The fact is when you insert the first '\', alpha becomes \alpha and is interpreted as one glyph
@@ -663,10 +759,13 @@ To Do List:
 		NSRange selectedRange = [self selectedRange];
 		if(!NSEqualRanges(expectedSelectedRange,selectedRange))
 		{
-			// there si a one glyph problem
+			// there is a one glyph problem,
+			// in the string "x{", insert "\" then "u" after the "x"
+			// if "\{" is laid out as one glyph,
+			// you end up with "x\{u" instead of "x\u{"
 			// what is the glyph and its command name counterpart
 			NSLayoutManager * LM = [self layoutManager];
-			NSRange charRange = selectedRange;
+			NSRange charRange = expectedSelectedRange;
 			charRange.length = 1;
 			NSString * string = [self string];
 			if(NSMaxRange(charRange)<=[string length])
@@ -766,7 +865,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * macro = NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"%! TEX bookmark: __(a labeled identifier)__", "Inserting a  macro");
+		TABLE, BUNDLE, @"%! TEX bookmark: @(@identifier@)@", "Inserting a  macro");
 	unsigned start, end, contentsEnd;
 	NSRange selectedRange = [self selectedRange];
 	[[[self textStorage] string] getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:selectedRange];

@@ -47,9 +47,15 @@ enum
 {
 	kiTM2TeXErrorSyntaxMask = kiTM2TextErrorSyntaxMask,
 	kiTM2TeXModifiersSyntaxMask = kiTM2TextModifiersSyntaxMask,
+	kiTM2TeXFlagsSyntaxMask = kiTM2TextFlagsSyntaxMask,
 	kiTM2TeXEndOfLineSyntaxMask = kiTM2TextEndOfLineSyntaxMask,
-	kiTM2TeXErrorFontSyntaxMask = 1 << 24,// 24, up to 30
-	kiTM2TeXErrorSyntaxSyntaxMask = 1 << 25
+	kiTM2TeXCommandSyntaxMask = kiTM2TextEndOfLineSyntaxMask << 1,
+	kiTM2TeXMathDisplaySyntaxMask = kiTM2TeXCommandSyntaxMask << 1,
+	kiTM2TeXMathInlineSyntaxMask = kiTM2TeXMathDisplaySyntaxMask << 1,
+	kiTM2TeXSubscriptSyntaxMask = kiTM2TeXMathInlineSyntaxMask << 1,
+	kiTM2TeXSuperscriptSyntaxMask = kiTM2TeXSubscriptSyntaxMask << 1,
+	kiTM2TeXErrorFontSyntaxMask = 1 << 24,// 24, up to 31
+	kiTM2TeXErrorSyntaxSyntaxMask = kiTM2TeXErrorFontSyntaxMask << 1
 };
 
 typedef enum _iTM2TeXInputMode 
@@ -57,29 +63,49 @@ typedef enum _iTM2TeXInputMode
     kiTM2TeXErrorSyntaxMode = kiTM2TextErrorSyntaxMode,
     kiTM2TeXWhitePrefixSyntaxMode = kiTM2TextWhitePrefixSyntaxMode,
     kiTM2TeXRegularSyntaxMode = kiTM2TextRegularSyntaxMode,
-    kiTM2TeXBeginCommandSyntaxMode = 3,
-    kiTM2TeXCommandSyntaxMode,
-	kiTM2TeXDingCommandSyntaxMode,
-    kiTM2TeXShortCommandSyntaxMode,
-    kiTM2TeXBeginCommentSyntaxMode,
-    kiTM2TeXCommentSyntaxMode,
-    kiTM2TeXMarkSyntaxMode,
-    kiTM2TeXDollarSyntaxMode,//10
-    kiTM2TeXMoreDollarSyntaxMode,
-    kiTM2TeXBeginGroupSyntaxMode,
-    kiTM2TeXEndGroupSyntaxMode,
-    kiTM2TeXDelimiterSyntaxMode,
-    kiTM2TeXParenOpenSyntaxMode,
-    kiTM2TeXParenCloseSyntaxMode,
-    kiTM2TeXBeginSubscriptSyntaxMode,
-    kiTM2TeXMoreSubscriptSyntaxMode,//18
-    kiTM2TeXShortSubscriptSyntaxMode,
-    kiTM2TeXSubscriptSyntaxMode,
-    kiTM2TeXBeginSuperscriptSyntaxMode,
-    kiTM2TeXShortSuperscriptSyntaxMode,
-    kiTM2TeXSuperscriptSyntaxMode,
-    kiTM2TeXCellSeparatorSyntaxMode,
-    kiTM2TeXInputCommandSyntaxMode,
+//	command related
+//	work modes
+    kiTM2TeXCommandStartSyntaxMode = 3,// unescaped '\', also used in running mode
+    kiTM2TeXCommandEscapedCharacterSyntaxMode,// non letter following kiTM2TeXCommandStartSyntaxMode
+    kiTM2TeXCommandContinueSyntaxMode,// letters following
+//	named commands
+    kiTM2TeXCommandInputSyntaxMode,// this is the only active TeX command supported
+//	comment related
+    kiTM2TeXCommentStartSyntaxMode,// the first unescaped '%'
+    kiTM2TeXCommentContinueSyntaxMode,// everything that follows kiTM2TeXCommentStartSyntaxMode
+    kiTM2TeXMarkSyntaxMode,// the '!' after an unescaped '%'
+    kiTM2TeXMarkContinueSyntaxMode,// everything that follows kiTM2TeXMarkSyntaxMode
+//	Delimiters, work mode, running mode can switch to math
+    kiTM2TeXGroupOpenSyntaxMode,// unescaped '{'
+    kiTM2TeXGroupCloseSyntaxMode,// unescaped '}'
+    kiTM2TeXParenOpenSyntaxMode,// unescaped '('
+    kiTM2TeXParenCloseSyntaxMode,// unescaped ')'
+    kiTM2TeXBracketOpenSyntaxMode,// unescaped '['
+    kiTM2TeXBracketCloseSyntaxMode,// unescaped ']'
+//  Maths
+//	work mode
+    kiTM2TeXMathSwitchSyntaxMode,// first unescaped '$', also running mode
+    kiTM2TeXMathSwithContinueSyntaxMode,// second unescaped '$'
+//	running modes
+	kiTM2TeXMathInlineBeginSyntaxMode,// '(' in "\("
+	kiTM2TeXMathInlineEndSyntaxMode,// ')' in "\)"
+	kiTM2TeXMathDisplayBeginSyntaxMode,// '[' in "\["
+	kiTM2TeXMathDisplayEndSyntaxMode,// ']' in "\]"
+//	Sub|Sub scripts
+    kiTM2TeXSubStartSyntaxMode,// first unescaped '_'
+    kiTM2TeXSubShortSyntaxMode,// "_?" with a non kiTM2TeXGroupOpenSyntaxMode
+    kiTM2TeXSubscriptSyntaxMode,// to be defined precisely
+    kiTM2TeXSuperStartSyntaxMode,// first unescaped '^'
+    kiTM2TeXSuperContinueSyntaxMode,// next '^' after the kiTM2TeXSuperStartSyntaxMode ("^^")
+    kiTM2TeXSuperShortSyntaxMode,// "^?" with a non kiTM2TeXGroupOpenSyntaxMode
+    kiTM2TeXSuperscriptSyntaxMode,// to be defined precisely
+//	Cells
+    kiTM2TeXCellSeparatorSyntaxMode,// '&' alone
+//	Placeholders
+    kiTM2TeXAtStartSyntaxMode,// free "@"
+    kiTM2TeXAtContinueSyntaxMode,// "@" after unescaped "@"
+    kiTM2TeXPlaceholderTypeSyntaxMode,// one of "{[\"\'" after unescaped "@"
+//  Everything else
 	kiTM2TeXUnknownSyntaxMode = kiTM2TextUnknownSyntaxMode
 } iTM2TeXInputMode;// don't change the order unless you know what you are doing
 
@@ -160,6 +186,15 @@ typedef enum _iTM2TeXInputMode
     @result	None.
 */
 + (BOOL)writeSymbolsAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName;
+
+/*!
+    @method	attributesForSymbol:
+    @abstract	Abstarct forthcoming.
+    @discussion	Description forthcoming
+    @param	symbol.
+    @result	Attributes.
+*/
+- (NSDictionary *)attributesForSymbol:(NSString *)symbol;
 
 @end
 

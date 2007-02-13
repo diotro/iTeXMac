@@ -219,7 +219,7 @@ fi
 OUTPUT="${OUTPUT%.*}.log"
 if [ -s "${OUTPUT}" ]
 then	
-	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
+	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dont-order-front
 fi
 OUTPUT="${OUTPUT%.*}.pdf"
 if [ -s "${OUTPUT}" ]
@@ -228,7 +228,7 @@ then
 	then
 		mv -f "${OUTPUT}" "${iTM2_PWD_Real}"
 	fi
-	iTeXMac2 update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
+	iTeXMac2 update -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}" -dont-order-front
 else
 	iTeXMac2 markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 	OUTPUT="${OUTPUT%.*}.aux"

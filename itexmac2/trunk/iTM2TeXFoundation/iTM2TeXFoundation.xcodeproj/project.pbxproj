@@ -301,6 +301,7 @@
 		DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test TeX Application-main.m"; sourceTree = "<group>"; };
 		DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test TeX Application-Prefix.pch"; sourceTree = "<group>"; };
 		DC225F860AE53F8D00186582 /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
+		DC23F5C10B713A51006261D8 /* TEST.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TEST.tex; path = Style/TEST.tex; sourceTree = SOURCE_ROOT; };
 		DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmarkToolbarImage.png; sourceTree = "<group>"; };
 		DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = showCurrentProjectFilesToolbarImage.png; sourceTree = "<group>"; };
 		DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typesetCurrentProjectToolbarImage.png; sourceTree = "<group>"; };
@@ -445,6 +446,7 @@
 		DCCD2FFB09E180760003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCD3A6640A38FA0400B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
 		DCE5C2990AC7C3C40054C760 /* iTM2_Gobble */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Gobble; sourceTree = "<group>"; };
+		DCEA0C390B78BA3700F48911 /* iTM2TeXStorageAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStorageAttributes.m; sourceTree = "<group>"; };
 		DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "iTeXMac2 Server"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -577,6 +579,7 @@
 				DCF37F1509D4150300B124FB /* Resources */,
 				DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */,
 				DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */,
+				DCEA0C390B78BA3700F48911 /* iTM2TeXStorageAttributes.m */,
 				DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */,
 				DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */,
 			);
@@ -716,6 +719,7 @@
 		DCF37F1509D4150300B124FB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DC23F5C10B713A51006261D8 /* TEST.tex */,
 				DCAF9A3509D810A400AFD95F /* iTM2TextStyle_TeX-Xtd.strings */,
 				DCAF9A3709D810A400AFD95F /* iTM2TextStyle_TeX.strings */,
 				DCAF9A3909D810A400AFD95F /* iTM2XtdTeXParserSymbolsInspector.nib */,

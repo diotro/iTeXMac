@@ -2344,6 +2344,7 @@ To Do List:
 	{
 		return NO;
 	}
+	NSTextStorage * TS = [self textStorage];
 	NSString * S = [self string];
 	NSPoint hitPoint = [event locationInWindow];
 	hitPoint = [self convertPoint:hitPoint fromView:nil];
@@ -2351,8 +2352,8 @@ To Do List:
 	unsigned int glyphIndex = [LM glyphIndexForPoint:hitPoint inTextContainer:[self textContainer]];
 	unsigned charIndex = [LM characterIndexForGlyphAtIndex:glyphIndex];
 	unsigned start, contentsEnd;
-	[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 1)];
-	unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
+	[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 1)];
+	unsigned line = [TS lineNumberAtIndex:charIndex];
 	unsigned column = charIndex - start;
 	NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
@@ -2361,29 +2362,6 @@ To Do List:
 //iTM2_END;
     return result;
 }
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  jumpToOutput:
-- (void)jumpToOutput:(NSEvent *)event;
-/*"Description forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 1.3:Mon Jun 30 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSDocument * D = [[[self window] windowController] document];
-    NSString * S = [self string];
-    unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:[[self layoutManager] glyphIndexForPoint:
-        [self convertPoint:[event locationInWindow] fromView:nil]
-            inTextContainer:[self textContainer]]];
-    unsigned start;
-    [S getLineStart:&start end:nil contentsEnd:nil forRange:NSMakeRange(charIndex, 1)];
-    unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
-    [SDC displayPageForLine:line column:charIndex - start source:[D fileName] withHint:hint orderFront:YES force:YES];
-//iTM2_END;
-    return;
-}
-#endif
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFSynchronizer
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
@@ -2426,6 +2404,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSTextView * TV = [self textView];
+	NSTextStorage * TS = [TV textStorage];
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
 	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"FollowFocus"];
@@ -2433,13 +2412,20 @@ To Do List:
 	{
 		NSDocument * D = [self document];
 		NSString * S = [TV string];
-		unsigned charIndex = [TV selectedRange].location;
+		NSRange selectedRange = [TV selectedRange];
+		unsigned charIndex = selectedRange.location;
 		unsigned start, contentsEnd;
-		[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 0)];
-		unsigned line = [S lineForRange:NSMakeRange(charIndex, 1)];
+		[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 0)];
+		unsigned line = [TS lineNumberAtIndex:charIndex];
 		unsigned column = charIndex - start;
+		NSValue * oldValue = [[notification userInfo] objectForKey:@"NSOldSelectedCharacterRange"];
+		NSValue * newValue = [NSValue valueWithRange:selectedRange];
 		NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
+				[NSNumber numberWithUnsignedInt:charIndex], @"character index",
+				S, @"container",
+				oldValue,@"old selected range",
+				newValue,@"new selected range",
+					nil];
 		if(![SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
 			orderFront:NO force:NO])// side effect:text document opens pdf document as when focus is on
 		{
@@ -2454,7 +2440,11 @@ To Do List:
 					charIndex = range.location;
 					column = charIndex - start;
 					hint = [NSDictionary dictionaryWithObjectsAndKeys:
-						[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
+						[NSNumber numberWithUnsignedInt:charIndex], @"character index",
+						S, @"container",
+						oldValue,@"old selected range",
+						newValue,@"new selected range",
+							nil];
 					[SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
 						orderFront:NO force:NO];
 				}

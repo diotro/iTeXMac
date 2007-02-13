@@ -91,5 +91,5 @@ if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify comment "$0 complete."
 fi
-iTeXMac2 update -file "${INPUT_DIRECTORY}/${OUTPUT}" -project "${TWSProject}"
+iTeXMac2 update -file "${INPUT_DIRECTORY}/${OUTPUT}" -project "${TWSProject}" -dont-order-front
 exit 0

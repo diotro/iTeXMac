@@ -92,8 +92,13 @@ To Do List:
 		NSEnumerator * E = [subdocuments objectEnumerator];
 		BOOL displayed = NO;
 		while(D = [E nextObject])
+		{
+iTM2_LOG([D fileName]);
 			if([D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force])
+			{
 				displayed = YES;
+			}
+		}
 		if(displayed)
 			return YES;
 		if(!force)

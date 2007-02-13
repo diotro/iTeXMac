@@ -45,6 +45,305 @@ To Do List: Nothing
 }
 @end
 
+static NSArray * _iTM2TeXModeForModeArray = nil;
+
+#define _TextStorage (iTM2TextStorage *)_TS
+
+NSString * const iTM2TeXCommandSyntaxModeName = @"\\.*";
+NSString * const iTM2TeXGroupSyntaxModeName = @"{}";
+NSString * const iTM2TeXParenSyntaxModeName = @"()";
+NSString * const iTM2TeXBracketSyntaxModeName = @"[]";
+NSString * const iTM2TeXCommentSyntaxModeName = @"%";
+NSString * const iTM2TeXMarkSyntaxModeName = @"%!";
+NSString * const iTM2TeXMathToggleSyntaxModeName = @"$";
+NSString * const iTM2TeXMathDisplayToggleSyntaxModeName = @"$$";
+NSString * const iTM2TeXMathInlineSwitchSyntaxModeName = @"\\(\\)";
+NSString * const iTM2TeXMathDisplaySwitchSyntaxModeName = @"\\[\\]";
+NSString * const iTM2TeXSubSyntaxModeName = @"_";
+NSString * const iTM2TeXSubContinueSyntaxModeName = @"__.";
+NSString * const iTM2TeXSubShortSyntaxModeName = @"_.";
+NSString * const iTM2TeXSubLongSyntaxModeName = @"_{}";
+NSString * const iTM2TeXSuperSyntaxModeName = @"^";
+NSString * const iTM2TeXSuperContinueSyntaxModeName = @"^^.";
+NSString * const iTM2TeXSuperShortSyntaxModeName = @"^.";
+NSString * const iTM2TeXSuperLongSyntaxModeName = @"^{}";
+NSString * const iTM2TeXAmpersandSyntaxModeName = @"&";
+NSString * const iTM2TeXPlaceholderSyntaxModeName = @"@@.";
+
+#undef iTM2_ATTRIBUTE_ASSERT
+#define iTM2_ATTRIBUTE_ASSERT(CONDITION,REASON) if(iTM2DebugEnabled>99&&!(CONDITION)) {ERROR=REASON;goto returnERROR;}
+
+@implementation iTM2TeXParser
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
++ (void)load;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+//iTM2_START;
+//iTM2_LOG(@"iTM2TeXParser");
+    if(!_iTM2TeXModeForModeArray)
+	{
+        _iTM2TeXModeForModeArray = [[NSArray arrayWithObjects:
+			iTM2TextErrorKey, iTM2TextWhitePrefixKey, iTM2TextDefaultKey,// +3
+			iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName, // +4
+			iTM2TeXCommentSyntaxModeName,iTM2TeXCommentSyntaxModeName,iTM2TeXMarkSyntaxModeName,iTM2TeXMarkSyntaxModeName,// +4
+			iTM2TeXGroupSyntaxModeName, iTM2TeXGroupSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXBracketSyntaxModeName, iTM2TeXBracketSyntaxModeName, // +6
+			iTM2TeXMathToggleSyntaxModeName,iTM2TeXMathDisplayToggleSyntaxModeName,iTM2TeXMathInlineSwitchSyntaxModeName,iTM2TeXMathInlineSwitchSyntaxModeName,iTM2TeXMathDisplaySwitchSyntaxModeName,iTM2TeXMathDisplaySwitchSyntaxModeName,// +6
+			iTM2TeXSubSyntaxModeName, iTM2TeXSubShortSyntaxModeName, iTM2TeXSubLongSyntaxModeName,// +3
+			iTM2TeXSuperSyntaxModeName, iTM2TeXSuperContinueSyntaxModeName, iTM2TeXSuperShortSyntaxModeName, iTM2TeXSuperLongSyntaxModeName,// +4
+			iTM2TeXAmpersandSyntaxModeName,// +1
+			iTM2TeXPlaceholderSyntaxModeName, iTM2TeXPlaceholderSyntaxModeName, iTM2TeXPlaceholderSyntaxModeName,// +4
+				nil] retain];
+	}
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
++ (NSString *)syntaxParserStyle;
+/*"Designated initializer.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return @"TeX";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModesAttributes
++ (NSDictionary *)defaultModesAttributes;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed Dec 17 09:32:38 GMT 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * MRA = [NSMutableArray array];
+	NSDictionary * attributes;
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor blackColor], NSForegroundColorAttributeName,
+        iTM2TextDefaultKey, iTM2TextModeAttributeName,nil];
+	[MRA addObject:attributes];
+    attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor redColor], NSForegroundColorAttributeName,
+        iTM2TextErrorKey, iTM2TextModeAttributeName,nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor colorWithCalibratedRed:0 green:0 blue:0.75 alpha:1], NSForegroundColorAttributeName,
+		iTM2TeXCommandSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+
+    NSMutableDictionary * input = [[attributes mutableCopy] autorelease];
+	[input setObject:@"\\input" forKey:iTM2TextModeAttributeName];
+	[input setObject:@"" forKey:NSLinkAttributeName];
+	[MRA addObject:input];
+
+    attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+        iTM2TeXGroupSyntaxModeName, iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXParenSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXBracketSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor colorWithCalibratedRed:0 green:0.75 blue:0 alpha:1], NSForegroundColorAttributeName,
+		iTM2TeXCommentSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor colorWithCalibratedRed:0.5 green:0.25 blue:0 alpha:1], NSForegroundColorAttributeName,
+		iTM2TeXMarkSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor orangeColor], NSForegroundColorAttributeName,
+		iTM2TeXMathToggleSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor orangeColor], NSForegroundColorAttributeName,
+		iTM2TeXMathDisplayToggleSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor orangeColor], NSForegroundColorAttributeName,
+		iTM2TeXMathInlineSwitchSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor orangeColor], NSForegroundColorAttributeName,
+		iTM2TeXMathDisplaySwitchSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSubSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSubContinueSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSubShortSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSubLongSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSuperSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSuperContinueSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSuperShortSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor purpleColor], NSForegroundColorAttributeName,
+		iTM2TeXSuperLongSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor brownColor], NSForegroundColorAttributeName,
+        iTM2TeXAmpersandSyntaxModeName, iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor colorWithCalibratedRed:0.25 green:0.75 blue:0 alpha:0.666], NSForegroundColorAttributeName,
+		iTM2TeXPlaceholderSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+
+	NSEnumerator * E = [MRA objectEnumerator];
+    NSMutableDictionary * MD = [[[super defaultModesAttributes] mutableCopy] autorelease];
+	while(attributes = [E nextObject])
+	{
+		NSString * key = [attributes objectForKey:iTM2TextModeAttributeName];
+		[MD setObject:attributes forKey:key];
+	}
+    return [NSDictionary dictionaryWithDictionary:MD];
+}
+#undef iTM2_WITH_SYMBOLS
+#include "iTM2TeXStorageAttributes.m"
+@end
+
+@implementation iTM2XtdTeXParser
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
++ (NSString *)syntaxParserStyle;
+/*"Designated initializer.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return @"TeX-Xtd";
+}
+#define iTM2_WITH_SYMBOLS
+#include "iTM2TeXStorageAttributes.m"
+@end
+
+@implementation NSCharacterSet(iTM2TeXStorageKit)
+static id _iTM2TeXPTeXLetterCharacterSet = nil;
+static id _iTM2TeXPTeXFileNameLetterCharacterSet = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
++ (void)load;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+    iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+//iTM2_START;
+    if(!_iTM2TeXPTeXLetterCharacterSet)
+    {
+        id set = [[[NSCharacterSet characterSetWithRange:NSMakeRange('a', 26)] mutableCopy] autorelease];
+        [set addCharactersInRange:NSMakeRange('A', 26)];
+//        [set addCharactersInString:@"@"];
+        _iTM2TeXPTeXLetterCharacterSet = [set copy];
+    }
+    if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
+    {
+        id set = [[[NSCharacterSet letterCharacterSet] mutableCopy] autorelease];
+        [set addCharactersInString:@"_$^0123456789.-+*()[]/"];
+        _iTM2TeXPTeXFileNameLetterCharacterSet = [set copy];
+    }
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXLetterCharacterSet;
++ (NSCharacterSet *)TeXLetterCharacterSet;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _iTM2TeXPTeXLetterCharacterSet;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
++ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _iTM2TeXPTeXFileNameLetterCharacterSet;
+}
+@end
+
 @implementation iTM2TeXParserAttributesServer
 @end
 
@@ -98,7 +397,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super setAttributes: (NSDictionary *) dictionary forMode: (NSString *) mode];
-    if([mode isEqualToString:@"command"])
+    if([mode isEqualToString:iTM2TeXCommandSyntaxModeName])
     {
         [_CachedSymbolsAttributes release];
         _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
@@ -343,1425 +642,5 @@ To Do List:
 }
 @end
 
-static NSArray * _iTM2TeXModeForModeArray = nil;
-
-#define _TextStorage (iTM2TextStorage *)_TS
-
-@implementation iTM2TeXParser
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-//iTM2_LOG(@"iTM2TeXParser");
-    if(!_iTM2TeXModeForModeArray)
-	{
-        _iTM2TeXModeForModeArray = [[NSArray arrayWithObjects:
-			iTM2TextErrorKey, iTM2TextWhitePrefixKey, iTM2TextDefaultKey,
-			@"command", @"command", @"command", @"command",
-			@"comment", @"comment",
-			@"mark",
-			@"math", @"math",
-			@"group", @"group",
-			@"delimiter", @"delimiter", @"delimiter",
-			@"subscript", @"subscript", @"subscript", @"subscript",
-			@"superscript", @"superscript", @"superscript",
-			@"cellSeparator", @"input", nil] retain];
-	}
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+ (NSString *)syntaxParserStyle;
-/*"Designated initializer.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2: 12/05/2003
-To Do List: Nothing
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return @"TeX";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModesAttributes
-+ (NSDictionary *)defaultModesAttributes;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSDictionary * regular = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor blackColor], NSForegroundColorAttributeName,
-        iTM2TextDefaultKey, iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * error = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor redColor], NSForegroundColorAttributeName,
-        iTM2TextErrorKey, iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * command = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor colorWithCalibratedRed:0 green:0 blue:0.75 alpha:1], NSForegroundColorAttributeName,
-        @"command", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * comment = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor colorWithCalibratedRed:0 green:0.75 blue:0 alpha:1], NSForegroundColorAttributeName,
-        @"comment", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * mark = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor colorWithCalibratedRed:0.5 green:0.25 blue:0 alpha:1], NSForegroundColorAttributeName,
-        @"mark", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * math = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor orangeColor], NSForegroundColorAttributeName,
-        @"math", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * group = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor purpleColor], NSForegroundColorAttributeName,
-        @"group", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * delimiter = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor purpleColor], NSForegroundColorAttributeName,
-        @"delimiter", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * sub = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor purpleColor], NSForegroundColorAttributeName,
-        @"subscript", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * sup = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor purpleColor], NSForegroundColorAttributeName,
-        @"superscript", iTM2TextModeAttributeName,
-            nil];
-    NSDictionary * cellSep = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor brownColor], NSForegroundColorAttributeName,
-        @"cellSeparator", iTM2TextModeAttributeName,
-            nil];
-    NSMutableDictionary * input = [[command mutableCopy] autorelease];
-	[input setObject:@"input" forKey:iTM2TextModeAttributeName];
-	[input setObject:@"" forKey:NSLinkAttributeName];
-    NSMutableDictionary * MD = [[[super defaultModesAttributes] mutableCopy] autorelease];
-    [MD setObject:error forKey:[error objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:regular forKey:[regular objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:command forKey:[command objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:comment forKey:[comment objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:mark forKey:[mark objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:math forKey:[math objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:group forKey:[group objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:delimiter forKey:[delimiter objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:sub forKey:[sub objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:sup forKey:[sup objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:cellSep forKey:[cellSep objectForKey:iTM2TextModeAttributeName]];
-    [MD setObject:[[input copy] autorelease] forKey:[input objectForKey:iTM2TextModeAttributeName]];
-    return [NSDictionary dictionaryWithDictionary:MD];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forCharacter:previousMode:
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Dec 12 22:44:56 GMT 2003
-To Do List: 
-"*/
-{iTM2_DIAGNOSTIC;
-	NSParameterAssert(newModeRef);
-//iTM2_START;
-//    if(previousMode != ( previousMode & ~kiTM2TeXModifiersSyntaxMask))
-//        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXModifiersSyntaxMask);
-//iTM2_LOG(@"C'est %.1S qui s'y colle", &theChar);
-	unsigned previousError = previousMode & kiTM2TeXModifiersSyntaxMask;
-	if(previousMode & kiTM2TextEndOfLineSyntaxMask)
-	{
-		// this is the first character of the line
-		if(theChar == ' ')
-		{
-			* newModeRef = kiTM2TeXWhitePrefixSyntaxMode | previousError;
-			return kiTM2TeXNoErrorSyntaxStatus;
-		}
-	}
-	unsigned switcher = previousMode & ~kiTM2TextModifiersSyntaxMask;
-	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
-	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
-	NSString * modeString = @"";
-	unsigned result;
-    if([set characterIsMember:theChar])
-    {
-        switch(switcher)
-        {
-            case kiTM2TeXRegularSyntaxMode:
-            case kiTM2TeXCommandSyntaxMode:
-            case kiTM2TeXInputCommandSyntaxMode:
-                result = previousMode;
-			break;
-            case kiTM2TeXBeginCommandSyntaxMode:
-                result = kiTM2TeXCommandSyntaxMode;
-			break;
-			case kiTM2TeXWhitePrefixSyntaxMode:
-                result = kiTM2TeXRegularSyntaxMode;
-			break;
-            case kiTM2TeXCommentSyntaxMode:
-                result = previousMode;
-			break;
-            case kiTM2TeXBeginCommentSyntaxMode:
-                result = kiTM2TeXCommentSyntaxMode;
-			break;
-            case kiTM2TeXMarkSyntaxMode:
-                result = previousMode;
-			break;
-            case kiTM2TeXBeginSubscriptSyntaxMode:
-                result = kiTM2TeXShortSubscriptSyntaxMode;
-			break;
-            case kiTM2TeXBeginSuperscriptSyntaxMode:
-                result = kiTM2TeXShortSuperscriptSyntaxMode;
-			break;
-            default:
-                result = kiTM2TeXRegularSyntaxMode;
-        }
-		unsigned index = result & ~kiTM2TeXModifiersSyntaxMask;
-		modeString = [_iTM2TeXModeForModeArray objectAtIndex:index];
-		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
-		{
-			* newModeRef = result | previousError;
-			return status;
-		}
-		else
-		{
-//iTM2_LOG(@"AN ERROR OCCURRED");
-			* newModeRef = result | kiTM2TeXErrorFontSyntaxMask | previousError;
-			return status;
-		}
-    }
-    else
-    {
-        switch(theChar)
-        {
-            case ' ':
-                switch(switcher)
-                {
-                    case kiTM2TeXErrorSyntaxMode:
-                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    case kiTM2TeXRegularSyntaxMode:
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                    case kiTM2TeXUnknownSyntaxMode:
-						* newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-						* newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                     case kiTM2TeXBeginCommentSyntaxMode:
-						* newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-                    default:
- 						* newModeRef = kiTM2TeXRegularSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-    
-            case '\\':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                    case kiTM2TeXShortCommandSyntaxMode:
-                    case kiTM2TeXCommandSyntaxMode:
-                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    case kiTM2TeXDollarSyntaxMode:
-                    case kiTM2TeXDelimiterSyntaxMode:
-                    case kiTM2TeXParenOpenSyntaxMode:
-                    case kiTM2TeXParenCloseSyntaxMode:
-                    case kiTM2TeXInputCommandSyntaxMode:
-                    case kiTM2TeXErrorSyntaxMode:
-                        * newModeRef = kiTM2TeXBeginCommandSyntaxMode | previousError;
-						return kiTM2TeXWaitingSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXBeginCommandSyntaxMode | previousError;
-						return kiTM2TeXWaitingSyntaxStatus;
-                }
-    
-            case '{':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                    case kiTM2TeXInputCommandSyntaxMode:
-                    case kiTM2TeXWhitePrefixSyntaxMode:
-                        * newModeRef = kiTM2TeXBeginGroupSyntaxMode | previousError;
-						return kiTM2TeXWaitingSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXBeginGroupSyntaxMode | previousError;
-						return kiTM2TeXWaitingSyntaxStatus ;
-                }
-
-            case '}':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = kiTM2TeXEndGroupSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXEndGroupSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-            case '(':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = kiTM2TeXParenOpenSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSuperscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSubscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSubscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXParenOpenSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-				}
-            case ')':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = kiTM2TeXParenCloseSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSuperscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSubscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSubscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXParenCloseSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-				}
-            case '[':
-            case ']':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = kiTM2TeXDelimiterSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSuperscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSubscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSubscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXDelimiterSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-				}
-            case '$':
-                switch(switcher)
-                  {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = kiTM2TeXDollarSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXDollarSyntaxMode:
-                        * newModeRef = kiTM2TeXMoreDollarSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXDollarSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-    
-            case '%':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = kiTM2TeXBeginCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXBeginCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-            
-            case '&':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = kiTM2TeXCellSeparatorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXCellSeparatorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-            
-            case '!':
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXMarkSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSuperscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSubscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXShortSubscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        * newModeRef = kiTM2TeXRegularSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-            case '^':
-                switch(switcher)
-                {
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        * newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        * newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        * newModeRef = previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXMoreSubscriptSyntaxMode:
-                    case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSubscriptSyntaxMode:
-                        * newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
- 						* newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
- 						* newModeRef = kiTM2TeXBeginSuperscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-
-            case '_':
-                switch(switcher)
-                {
-                    case kiTM2TeXBeginCommandSyntaxMode:
-  						* newModeRef = kiTM2TeXShortCommandSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginCommentSyntaxMode:
- 						* newModeRef = kiTM2TeXCommentSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
- 						* newModeRef = previousMode;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSuperscriptSyntaxMode:
-                    case kiTM2TeXMoreSubscriptSyntaxMode:
- 						* newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXBeginSubscriptSyntaxMode:
- 						* newModeRef = kiTM2TeXMoreSubscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                    case kiTM2TeXInputCommandSyntaxMode:
- 						* newModeRef = kiTM2TeXErrorSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
- 						* newModeRef = kiTM2TeXBeginSubscriptSyntaxMode | previousError;
-						return kiTM2TeXNoErrorSyntaxStatus;
-                }
-            
-            default:
-            {
-//NSLog(@"Non letter character: %@", [NSString stringWithCharacters: &theChar length:1]);
-                switch(switcher)
-                {
-                    case kiTM2TeXRegularSyntaxMode:
-                        result = kiTM2TeXRegularSyntaxMode;
-                    break;
-                    case kiTM2TeXBeginCommandSyntaxMode:
-                        result = kiTM2TeXShortCommandSyntaxMode;
-                    break;
-                    case kiTM2TeXBeginSuperscriptSyntaxMode:
-                        result = kiTM2TeXShortSuperscriptSyntaxMode;
-                    break;
-                    case kiTM2TeXBeginSubscriptSyntaxMode:
-                        result = kiTM2TeXShortSubscriptSyntaxMode;
-                    break;
-                    case kiTM2TeXCommentSyntaxMode:
-                    case kiTM2TeXMarkSyntaxMode:
-                        result = previousMode;
-                    break;
-                    case kiTM2TeXBeginCommentSyntaxMode:
-                        result = kiTM2TeXCommentSyntaxMode;
-                    break;
-                    case kiTM2TeXInputCommandSyntaxMode:
-                        result = kiTM2TeXRegularSyntaxMode;
-                    break;
-//                    case kiTM2TeXMoreDollarSyntaxMode:
-//                    case kiTM2TeXWhitePrefixSyntaxMode:
-                    default:
-                        result = kiTM2TeXRegularSyntaxMode;
-                }
-//NSLog(@"mode returned: %u", result);
-				modeString = [_iTM2TeXModeForModeArray objectAtIndex:result & ~kiTM2TeXModifiersSyntaxMask];
-                if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
-				{
- 					* newModeRef = result | previousError;
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
-                else
-				{
-//iTM2_LOG(@"AN ERROR OCCURRED");
- 					* newModeRef = result | kiTM2TeXErrorSyntaxMask | previousError;// REVISIT, this has no meaning
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
-            }
-        }
-    }
-}
-#if 1
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Dec 12 22:44:56 GMT 2003
-To Do List: 
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSParameterAssert(newModeRef);
-    NSString * S = [_TextStorage string];
-	NSString * s;
-	NSRange r;
-    NSParameterAssert(location<[S length]);
-	unsigned status;
-	unsigned switcher = previousMode & ~kiTM2TextModifiersSyntaxMask;
-	unichar theChar;
-	if(kiTM2TeXBeginCommandSyntaxMode == switcher)
-	{
-		NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
-		theChar = [S characterAtIndex:location];
-		if([set characterIsMember:theChar])
-		{
-			// is it a \input
-			// scanning from location for the control sequence name
-			unsigned start = location;
-			unsigned end = start+1;
-			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
-				++end;
-			if(end == start+5)
-			{
-				r = NSMakeRange(start, end-start);
-				s = [S substringWithRange:r];
-				if([@"input" isEqualToString:s])
-				{
-					if(lengthRef)
-						* lengthRef = end-start;
-					if(nextModeRef && (end<[S length]))
-					{
-						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2TeXInputCommandSyntaxMode];
-					}
-					// now we invalidate the cursor rects in order to have the links properly displayed
-					//the delay is due to the reentrant problem
-					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					* newModeRef = kiTM2TeXInputCommandSyntaxMode;
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
-			}
-			if(end == start+4)
-			{
-				r = NSMakeRange(start, end-start);
-				s = [S substringWithRange:r];
-				if([@"ding" isEqualToString:s])
-				{
-					if(lengthRef)
-						* lengthRef = end-start;
-					if(nextModeRef && (end<[S length]))
-					{
-						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2TeXInputCommandSyntaxMode];
-					}
-					* newModeRef = kiTM2TeXDingCommandSyntaxMode;
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
-			}
-			if(lengthRef)
-				* lengthRef = end-start;
-			if(nextModeRef)
-			{
-				* nextModeRef = kiTM2TeXUnknownSyntaxMode;
-			}
-			* newModeRef = kiTM2TeXCommandSyntaxMode;
-			return kiTM2TeXNoErrorSyntaxStatus;
-		}
-		else
-		{
-			if(lengthRef)
-				* lengthRef = 1;
-			if(nextModeRef && (location+1<[S length]))
-			{
-				* nextModeRef = kiTM2TeXUnknownSyntaxMode;
-			}
-			* newModeRef = kiTM2TeXShortCommandSyntaxMode;
-			return kiTM2TeXNoErrorSyntaxStatus;
-		}
-	}
-	else if(lengthRef) // && (switcher != kiTM2TeXBeginCommandSyntaxMode)
-	{
-		* lengthRef = 1;
-		theChar = [S characterAtIndex:location];
-		status = [self getSyntaxMode:newModeRef forCharacter:theChar previousMode:switcher];
-		if(kiTM2TeXBeginCommandSyntaxMode != *newModeRef)
-		{
-//NSLog(@"0: character: %@", [NSString stringWithCharacters: &C length:1]);
-//NSLog(@"1: nextMode: %u, switcher: %u", nextMode, switcher);
-			beforeIndex = MIN(beforeIndex, [S length]);
-			while(++location < beforeIndex)
-			{
-				switcher = *newModeRef;
-				theChar = [S characterAtIndex:location];
-				status = [self getSyntaxMode:newModeRef forCharacter:theChar previousMode:switcher];
-//NSLog(@"2: nextMode: %u, switcher: %u", nextMode, switcher);
-				if(*newModeRef == switcher)
-					* lengthRef += 1;
-				else
-				{
-					if(nextModeRef)
-						* nextModeRef = *newModeRef;
-					* newModeRef = switcher;
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
-			}
-		}
-		if(nextModeRef)
-			* nextModeRef = kiTM2TextUnknownSyntaxMode;
-		return kiTM2TeXNoErrorSyntaxStatus;
-	}
-	else// if(!lengthRef) && (switcher != kiTM2TeXBeginCommandSyntaxMode)
-	{
-		if(nextModeRef)
-			* nextModeRef = kiTM2TextUnknownSyntaxMode;
-		theChar = [S characterAtIndex:location];
-		status = [self getSyntaxMode:newModeRef forCharacter:theChar previousMode:switcher];
-//NSLog(@"nextMode: %u, switcher: %u", nextMode, switcher);
-		return status;
-	}
-}
-#else
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned)getSyntaxMode:(unsigned *)nextModeRef forLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Dec 12 22:44:56 GMT 2003
-To Do List: 
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSParameterAssert(nextModeRef);
-    NSString * S = [_TextStorage string];
-	unichar theChar;
-    if(location<[S length])
-    {
-        if(lengthRef)
-        {
-            * lengthRef = 1;
-			theChar = [S characterAtIndex:location];
-            unsigned nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
-//NSLog(@"0: character: %@", [NSString stringWithCharacters: &C length:1]);
-//NSLog(@"1: nextMode: %u, previousMode: %u", nextMode, previousMode);
-            beforeIndex = MIN(beforeIndex, [S length]);
-            while(++location < beforeIndex)
-            {
-                previousMode = nextMode;
-				theChar = [S characterAtIndex:location];
-                nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
-//NSLog(@"2: nextMode: %u, previousMode: %u", nextMode, previousMode);
-                if(nextMode == previousMode)
-                    * lengthRef += 1;
-                else
-                {
-                    if(nextModeRef)
-                        * nextModeRef = nextMode;
-                    return previousMode;
-                }
-            }
-            if(nextModeRef)
-                * nextModeRef = 0;
-            return nextMode;
-        }
-        else
-        {
-            if(nextModeRef)
-                * nextModeRef = 0;
-			theChar = [S characterAtIndex:location];
-            unsigned nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
-//NSLog(@"nextMode: %u, previousMode: %u", nextMode, previousMode);
-            return nextMode;
-        }
-    }
-    else
-    {
-//iTM2_LOG(@"location: %i <=  [S length] %i", location, [S length]);
-        if(lengthRef)
-            * lengthRef = 0;
-        return [self EOLModeForPreviousMode:previousMode];
-    }
-}
-#endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLModeForPreviousMode:
-- (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Dec 12 22:44:56 GMT 2003
-To Do List: 
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//NSLog(@"Character: %@", [NSString stringWithCharacters: &argument length:1]);
-//NSLog(@"previousMode: %u", previousMode);
-//NSLog(@"result: %u", previousMode-1);
-    return kiTM2TeXRegularSyntaxMode | kiTM2TeXEndOfLineSyntaxMask;// beware, you must use the kiTM2TextEndOfLineSyntaxMask
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    unsigned mode;
-	//unsigned status = 
-	[self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
-	NSString * s;
-	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
-    switch(switcher)
-    {
-        case kiTM2TeXRegularSyntaxMode:
-        case kiTM2TextWhitePrefixSyntaxMode:
-        case kiTM2TeXCommandSyntaxMode:
-        case kiTM2TeXCommentSyntaxMode:
-        case kiTM2TeXMarkSyntaxMode:
-        case kiTM2TeXDollarSyntaxMode:
-        case kiTM2TeXMoreDollarSyntaxMode:
-        case kiTM2TeXDelimiterSyntaxMode:
-        case kiTM2TeXParenOpenSyntaxMode:
-        case kiTM2TeXParenCloseSyntaxMode:
-        case kiTM2TeXSubscriptSyntaxMode:
-        case kiTM2TeXBeginGroupSyntaxMode:
-        case kiTM2TeXEndGroupSyntaxMode:
-        case kiTM2TeXBeginSubscriptSyntaxMode:
-        case kiTM2TeXMoreSubscriptSyntaxMode:
-        case kiTM2TeXShortSubscriptSyntaxMode:
-        case kiTM2TeXSuperscriptSyntaxMode:
-        case kiTM2TeXBeginSuperscriptSyntaxMode:
-        case kiTM2TeXShortSuperscriptSyntaxMode:
-        case kiTM2TeXInputCommandSyntaxMode:
-        case kiTM2TeXDingCommandSyntaxMode:
-        case kiTM2TeXShortCommandSyntaxMode:
-        case kiTM2TeXBeginCommandSyntaxMode:
-        case kiTM2TeXCellSeparatorSyntaxMode:
-			if(aRangePtr)
-			{
-				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
-			}
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-        case kiTM2TeXErrorSyntaxMode:
-			if(aRangePtr)
-			{
-				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
-			}
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-        case kiTM2TeXBeginCommentSyntaxMode:
-        {
-            unsigned lineIndex = [self lineIndexForLocation:aLocation];
-            iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
-            unsigned endOffset = [ML startOffset]+[ML contentsLength];
-            if(aRangePtr)
-                * aRangePtr = NSMakeRange(aLocation, endOffset-aLocation);
-            if(++aLocation < endOffset)
-                return [self attributesAtIndex:aLocation effectiveRange:nil];
-            else
-			{
-				s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode];
-                return [_AS attributesForMode:s];
-			}
-        }
-        default:
-            iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
-			if(aRangePtr)
-				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
-			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
-            return [_AS attributesForMode:s];
-    }
-}
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxModeAtIndex:longestEffectiveRange:
-- (unsigned)syntaxModeAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr;
-/*"BUGGY
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//NSLog(@"Location: %u", aLocation);
-    unsigned lineIndex = [self lineIndexForLocation:aLocation];
-    iTM2ModeLine * modeLine = [self modeLineAtIndex:lineIndex];
-    unsigned mode;
-	unsigned status = [modeLine getSyntaxMode:&mode atGlobalLocation:aLocation longestRange:aRangePtr];
-	if(aRangePtr)
-	{
-		unsigned n = MIN([self badOffsetIndex], [self numberOfModeLines])-1;
-meursault:
-		aLocation = [modeLine endOffset];
-		if(NSMaxRange(*aRangePtr) >= aLocation)
-		{
-			// there is a chance that the nextLine is involved
-			if((++lineIndex<n) || (lineIndex = [self lineIndexForLocation:aLocation], lineIndex < [self numberOfModeLines]))
-			{
-				modeLine = [self modeLineAtIndex:lineIndex];
-				NSRange nextRange;
-				if((aLocation < [modeLine endOffset]) && ([modeLine getSyntaxMode:&mode atGlobalLocation:aLocation longestRange:&nextRange],mode))
-				{
-					aRangePtr -> length += nextRange.length;
-					goto meursault;
-				}
-			}
-		}
-	}
-	return mode;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:longestEffectiveRange:inRange:
-- (NSDictionary *)xattributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
-/*"Description forthcoming. BUGGY
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    unsigned mode = [self syntaxModeAtIndex:aLocation longestEffectiveRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
-	NSString * modeString;
-    switch(switcher)
-    {
-        case kiTM2TeXRegularSyntaxMode:
-        case kiTM2TextWhitePrefixSyntaxMode:
-        case kiTM2TeXCommandSyntaxMode:
-        case kiTM2TeXCommentSyntaxMode:
-        case kiTM2TeXMarkSyntaxMode:
-        case kiTM2TeXDollarSyntaxMode:
-        case kiTM2TeXDelimiterSyntaxMode:
-        case kiTM2TeXParenOpenSyntaxMode:
-        case kiTM2TeXParenCloseSyntaxMode:
-        case kiTM2TeXSubscriptSyntaxMode:
-        case kiTM2TeXBeginGroupSyntaxMode:
-        case kiTM2TeXEndGroupSyntaxMode:
-        case kiTM2TeXBeginSubscriptSyntaxMode:
-        case kiTM2TeXShortSubscriptSyntaxMode:
-        case kiTM2TeXSuperscriptSyntaxMode:
-        case kiTM2TeXBeginSuperscriptSyntaxMode:
-        case kiTM2TeXShortSuperscriptSyntaxMode:
-        case kiTM2TeXInputCommandSyntaxMode:
-        case kiTM2TeXErrorSyntaxMode:
-        case kiTM2TeXShortCommandSyntaxMode:
-        case kiTM2TeXBeginCommandSyntaxMode:
-        case kiTM2TeXCellSeparatorSyntaxMode:
-			if(aRangePtr)
-				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
-            return [_AS attributesForMode:[_iTM2TeXModeForModeArray objectAtIndex:switcher]];
-        case kiTM2TeXBeginCommentSyntaxMode:
-        {
-            unsigned lineIndex = [self lineIndexForLocation:aLocation];
-            iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
-            unsigned endOffset = [ML startOffset]+[ML contentsLength];
-            if(aRangePtr)
-                * aRangePtr = NSMakeRange(aLocation, endOffset-aLocation);
-            if(++aLocation < endOffset)
-                return [self attributesAtIndex:aLocation effectiveRange:nil];
-            else
-			{
-				modeString = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode];
-                return [_AS attributesForMode:modeString];
-			}
-        }
-        default:
-            iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
-			if(aRangePtr)
-				* aRangePtr = NSMakeRange(aLocation, NSMaxRange(* aRangePtr)-aLocation);
-			modeString = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
-            return [_AS attributesForMode:modeString];
-    }
-}
-#endif
-@end
-
-@implementation iTM2XtdTeXParser
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
-+ (NSString *)syntaxParserStyle;
-/*"Designated initializer.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2: 12/05/2003
-To Do List: Nothing
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return @"TeX-Xtd";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSRange r;
-	unsigned mode;
-    unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:&r];
-#if 0
-    if(mode & kiTM2TeXErrorSyntaxModeSyntaxMask)
-    {
-        if(aRangePtr)
-        {
-            aRangePtr -> location = aLocation;
-            aRangePtr -> length = 1;
-        }
-		s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
-        return [_AS attributesForMode:s];
-    }
-#endif
-    if(aRangePtr)
-		*aRangePtr = r;
-	unsigned int switcher = mode & ~kiTM2TeXModifiersSyntaxMask;
-	NSString * S = [_TextStorage string];
-    NSRange r1;
-	NSString * s;
-	NSDictionary * D;
-	unsigned nextMode;
-    switch(switcher)
-    {
-        case kiTM2TeXRegularSyntaxMode:
-		{
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-		}
-        case kiTM2TeXBeginCommandSyntaxMode:
-        {
-            if(++aLocation < [_TextStorage length])
-            {
-				status = [self getSyntaxMode:&nextMode atIndex:aLocation longestRange:&r1];
-				nextMode = nextMode & ~kiTM2TeXModifiersSyntaxMask;
-                if((kiTM2TeXCommandSyntaxMode == nextMode) || (kiTM2TeXShortCommandSyntaxMode == nextMode) || (kiTM2TeXInputCommandSyntaxMode == nextMode))
-                {
-					--r1.location;
-					++r1.length;
-                    if(aRangePtr)
-						*aRangePtr = r1;
-					s = [S substringWithRange:r1];
-                    if(D = [_AS attributesForSymbol:s])
-                        return D;
-                }
-                if(kiTM2TeXDingCommandSyntaxMode == nextMode)
-                {
-					--r1.location;
-					++r1.length;
-					r.location = NSMaxRange(r1);
-					r.length = MIN([S length]-r.location,5);
-					if(r.length && ([S characterAtIndex:r.location]=='{'))
-					{
-						r = [S rangeOfString:@"}" options:0 range:r];
-						if(r.length)
-						{
-							r.length = NSMaxRange(r) - r1.location;
-							r.location = r1.location;
-							if(aRangePtr)
-								*aRangePtr = r;
-							s = [S substringWithRange:r];
-							if(D = [_AS attributesForSymbol:s])
-								return D;
-						}
-					}
-					if(aRangePtr)
-						*aRangePtr = r1;
-					s = [S substringWithRange:r1];
-                    if(D = [_AS attributesForSymbol:s])
-                        return D;
-                }
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommandSyntaxMode];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TextWhitePrefixSyntaxMode:
-        case kiTM2TeXBeginGroupSyntaxMode:
-        case kiTM2TeXEndGroupSyntaxMode:
-        case kiTM2TeXCommentSyntaxMode:
-        case kiTM2TeXMarkSyntaxMode:
-        case kiTM2TeXDollarSyntaxMode:
-        case kiTM2TeXMoreDollarSyntaxMode:
-        case kiTM2TeXDelimiterSyntaxMode:
-        case kiTM2TeXParenOpenSyntaxMode:
-        case kiTM2TeXSuperscriptSyntaxMode:
-        case kiTM2TeXSubscriptSyntaxMode:
-        case kiTM2TeXCellSeparatorSyntaxMode:
-        case kiTM2TeXInputCommandSyntaxMode:
-        case kiTM2TeXErrorSyntaxMode:
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-
-        case kiTM2TeXCommandSyntaxMode:
-        {
-            if(r.location)
-            {
-				--r.location;
-				++r.length;
-				aLocation = NSMaxRange(r);
-				if(aLocation+2<[S length])
-				{
-					if(([S characterAtIndex:aLocation] == '{')
-						&&([S characterAtIndex:aLocation+2] == '}'))
-					{
-						r1 = NSMakeRange(r.location, r.length+3);
-						if(aRangePtr)
-							*aRangePtr = r1;
-						s = [S substringWithRange:r1];
-						if(D = [_AS attributesForSymbol:s])
-						{
-							return D;
-						}
-					}
-				}
-				if(aRangePtr)
-					*aRangePtr = r;
-				s = [S substringWithRange:r];
-				if(D = [_AS attributesForSymbol:s])
-					return D;
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommandSyntaxMode];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TeXDingCommandSyntaxMode:
-        {
-            if(r.location)
-            {
-				--r.location;
-				++r.length;
-				aLocation = NSMaxRange(r);
-				r1.location = NSMaxRange(r);
-				r1.length = MIN([S length]-r1.location,5);
-				if(r1.length && ([S characterAtIndex:r1.location]=='{'))
-				{
-					r1 = [S rangeOfString:@"}" options:0 range:r1];
-					if(r1.length)
-					{
-						r1.length = NSMaxRange(r1) - r.location;
-						r1.location = r.location;
-						if(aRangePtr)
-							*aRangePtr = r1;
-						s = [S substringWithRange:r1];
-						if(D = [_AS attributesForSymbol:s])
-							return D;
-					}
-				}
-				if(aRangePtr)
-					*aRangePtr = r;
-				s = [S substringWithRange:r];
-				if(D = [_AS attributesForSymbol:s])
-					return D;
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXDingCommandSyntaxMode];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TeXShortCommandSyntaxMode:
-        {
-            if(aLocation && aLocation < [_TextStorage length])
-            {
-                NSRange r = NSMakeRange(aLocation-1, 2);// this is the whole short command including the leading backslash
-				++aLocation;//aLocation now points to the next character after the short command
-				// now we are looking for stuff like \^{o}
-				if(aLocation+2<[_TextStorage length])
-				{
-					if(([S characterAtIndex:aLocation] == '{')
-						&&([S characterAtIndex:aLocation+2] == '}'))
-					{
-						r1 = NSMakeRange(r.location, r.length+3);
-						if(aRangePtr)
-							*aRangePtr = r1;
-						s = [S substringWithRange:r1];
-						if(D = [_AS attributesForSymbol:s])
-						{
-							return D;
-						}
-					}
-				}
-                if(aRangePtr)
-					*aRangePtr = r;
-				s = [S substringWithRange:r];
-                if(D = [_AS attributesForSymbol:s])
-				{
-//iTM2_LOG(@"There is a symbol in range: %@", NSStringFromRange(r));
-                    return D;
-				}
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommandSyntaxMode];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TeXShortSuperscriptSyntaxMode:
-        {
-            if(aLocation && aLocation < [_TextStorage length])
-            {
-                r = NSMakeRange(aLocation-1, 2);
-                if(aRangePtr)
-					*aRangePtr = r;
-				s = [S substringWithRange:r];
-                if(D = [_AS attributesForSymbol:s])
-                    return D;
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:mode];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TeXBeginSuperscriptSyntaxMode:
-        {
-            if(++aLocation < [_TextStorage length])
-            {
-				status = [self getSyntaxMode:&nextMode atIndex:aLocation longestRange:&r1];
-				nextMode = nextMode & ~kiTM2TeXModifiersSyntaxMask;
-                if(kiTM2TeXShortSuperscriptSyntaxMode == nextMode)
-                {
-                    --r1.location;
-                    ++r1.length;
-                    if(aRangePtr)
-                         *aRangePtr = r1;
-					s = [S substringWithRange:r1];
-                    if(D = [_AS attributesForSymbol:s])
-                        return D;
-                }
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TeXShortSubscriptSyntaxMode:
-        {
-            if(aLocation && aLocation < [_TextStorage length])
-            {
-                NSRange r = NSMakeRange(aLocation-1, 2);
-				if(aRangePtr)
-					*aRangePtr = r;
-				s = [S substringWithRange:r];
-                if(D = [_AS attributesForSymbol:s])
-				{
-                    return D;
-				}
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TeXParenCloseSyntaxMode:
-        {
-			if(aLocation+2 < [_TextStorage length])
-			{
-				r1.location = aLocation;
-				r1.length = 3;
-				s = [S substringWithRange:r1];
-				if(D = [_AS attributesForSymbol:s])
-				{
-					if(aRangePtr)
-						 *aRangePtr = r1;
-					return D;
-				}
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-		}
-        case kiTM2TeXMoreSubscriptSyntaxMode:
-			if(!aLocation)
-			{
-				s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
-				return [_AS attributesForMode:s];
-			}
-			--aLocation;
-			switcher = kiTM2TeXBeginSubscriptSyntaxMode;
-        case kiTM2TeXBeginSubscriptSyntaxMode:
-        {
-			if(aLocation+8 < [_TextStorage length])
-			{
-				r1.location = aLocation;
-				r1.length = 9;
-				s = [S substringWithRange:r1];
-				if(D = [_AS attributesForSymbol:s])
-				{
-					if(aRangePtr)
-						 *aRangePtr = r1;
-					return D;
-				}
-            }
-			if(aLocation+2 < [_TextStorage length])
-			{
-				r1.location = aLocation;
-				r1.length = 3;
-				s = [S substringWithRange:r1];
-				if(D = [_AS attributesForSymbol:s])
-				{
-					if(aRangePtr)
-						 *aRangePtr = r1;
-					return D;
-				}
-            }
-			if(++aLocation < [_TextStorage length])
-            {
-				status = [self getSyntaxMode:&nextMode atIndex:aLocation longestRange: &r1];
-                if((kiTM2TeXShortSubscriptSyntaxMode == nextMode)
-					|| (kiTM2TeXMoreSubscriptSyntaxMode == nextMode))
-                {
-                    --r1.location;
-                    ++r1.length;
-					if(aRangePtr)
-						 *aRangePtr = r1;
-					s = [S substringWithRange:r1];
-                    if(D = [_AS attributesForSymbol:s])
-					{
-                        return D;
-					}
-                }
-            }
-			s = [_iTM2TeXModeForModeArray objectAtIndex:switcher];
-            return [_AS attributesForMode:s];
-        }
-        case kiTM2TeXBeginCommentSyntaxMode:
-        {
-            unsigned lineIndex = [self lineIndexForLocation:aLocation];
-            iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
-            unsigned endOffset = [ML startOffset]+[ML contentsLength];
-            if(aRangePtr)
-                * aRangePtr = NSMakeRange(aLocation, endOffset-aLocation);
-            if(++aLocation < endOffset)
-                return [self attributesAtIndex:aLocation effectiveRange:nil];
-            else
-			{
-				s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentSyntaxMode];
-                return [_AS attributesForMode:s];
-			}
-        }
-        case kiTM2TeXUnknownSyntaxMode:
-			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXRegularSyntaxMode];
-            return [_AS attributesForMode:s];
-
-        default:
-		{
-            iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", mode, mode, switcher, switcher);
-status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:&r];
-			s = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
-            return [_AS attributesForMode:s];
-		}
-    }
-}
-@end
-
-@implementation NSCharacterSet(iTM2TeXStorageKit)
-static id _iTM2TeXPTeXLetterCharacterSet = nil;
-static id _iTM2TeXPTeXFileNameLetterCharacterSet = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-    if(!_iTM2TeXPTeXLetterCharacterSet)
-    {
-        id set = [[[NSCharacterSet characterSetWithRange:NSMakeRange('a', 26)] mutableCopy] autorelease];
-        [set addCharactersInRange:NSMakeRange('A', 26)];
-        [set addCharactersInString:@"@"];
-        _iTM2TeXPTeXLetterCharacterSet = [set copy];
-    }
-    if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
-    {
-        id set = [[[NSCharacterSet letterCharacterSet] mutableCopy] autorelease];
-        [set addCharactersInString:@"_$^0123456789.-+*()[]/"];
-        _iTM2TeXPTeXFileNameLetterCharacterSet = [set copy];
-    }
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXLetterCharacterSet;
-+ (NSCharacterSet *)TeXLetterCharacterSet;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _iTM2TeXPTeXLetterCharacterSet;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
-+ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _iTM2TeXPTeXFileNameLetterCharacterSet;
-}
-@end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXStorageKit

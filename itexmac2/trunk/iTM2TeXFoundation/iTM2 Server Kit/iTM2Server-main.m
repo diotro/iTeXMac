@@ -160,12 +160,12 @@ void iTeXMac2Usage(int argc, const char *argv[])
     NSLog(@"");
     NSLog(@"To let iTeXMac2 edit one particular file:");
     NSLog(@"========================================");
-    NSLog(@"  %s -conversation conversationID edit -file fileName [-line lineNumber] [-column columnNumber] [-dontOrderFront]", argv[0]);
+    NSLog(@"  %s -conversation conversationID edit -file fileName [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[0]);
     NSLog(@"  When not absolute, path are relative to the current directory.");
     NSLog(@"");
     NSLog(@"To let iTeXMac2 display one particular file:");
     NSLog(@"===========================================");
-    NSLog(@"  %s -conversation conversationID display -file fileName [-source sourceName] [-line lineNumber] [-column columnNumber] [-dontOrderFront]", argv[0]);
+    NSLog(@"  %s -conversation conversationID display -file fileName [-source sourceName] [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[0]);
     NSLog(@"  When not absolute, fileName is relative to the current directory.");
     NSLog(@"  When not absolute, sourceName is relative to the directory of fileName.");
     NSLog(@"");

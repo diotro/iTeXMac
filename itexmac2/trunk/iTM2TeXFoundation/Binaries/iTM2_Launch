@@ -23,13 +23,69 @@ if ! [ -w "${iTM2_Device}" ]
 then
     iTM2_Device="/dev/null"
 fi
-iTM2Command="$1"
 # Sanity check: TWSMaster must be a readable file, no condition on TWSFront, TWSProject, TWSWrapper
+# working directory?
+if [ ${#TWSProject} -gt 0 ]
+then
+	export iTM2_PWD="$(dirname "${TWSProject}")"
+	iTM2_PWD_Real="${iTM2_PWD##*Projects.put_aside}"
+	export iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
+	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
+	then
+		export iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+#		export iTM2_PWD="${iTM2_PWD}/Factory"
+		if [ "$iTM2_PWD_Real" == "$iTM2_PWD" ]
+		then
+			exit 1
+		fi
+		mkdir -p "$iTM2_PWD"
+		rm -f "$iTM2_PWD/.iTM2-src"
+		ln -s "$iTM2_PWD_Real" "$iTM2_PWD/.iTM2-src"
+		IFS="
+		"
+		pushd "$iTM2_PWD_Real"
+		iTM2_PREFIX=".iTM2-src"
+		iTM2_LEVEL=1
+		while [ 1 ]
+		do
+			CANDIDATES=$(find . -maxdepth $iTM2_LEVEL -mindepth $iTM2_LEVEL -type d -not -regex ".*\.texp.*" -not -regex ".*/\..*" -print)
+			if [ ${#CANDIDATES} -eq 0 ]
+			then
+				break
+			fi
+			iTM2_PREFIX="../$iTM2_PREFIX"
+			for DIR in ${CANDIDATES}
+			do
+				mkdir -p "$iTM2_PWD/$DIR"
+				rm -f "$iTM2_PWD/$DIR/.iTM2-src"
+				ln -s "$iTM2_PREFIX/$DIR" "$iTM2_PWD/$DIR/.iTM2-src"
+			done
+			iTM2_LEVEL=$(expr $iTM2_LEVEL + 1)
+		done
+
+		CANDIDATES=$(find . -type f -not -regex ".*\.texp.*" -not -regex ".*/\..*" -print)
+		for DIR in ${CANDIDATES}
+		do
+			rm -f "$iTM2_PWD/$DIR"
+			ln -s ".iTM2-src/$(basename "$DIR")" "$iTM2_PWD/$DIR"
+		done
+		popd
+
+		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
+		then
+			ln -sf "{TWSMaster}" "${iTM2_PWD}"
+		fi
+	fi
+else
+	export iTM2_PWD_Real="$(dirname "${TWSMaster}")"
+	export iTM2_PWD="${iTM2_PWD_Real}"
+fi
+# binaries
 iTM2BinaryPATH="iTM2_HOME/Library/bin"
 if [ -d "${TWSProject}" ]
 then
-	pushd "$(dirname "${TWSProject}")"
-	iTM2BinaryPATH="$(basename "${TWSProject}")/.iTM2"
+	pushd "$iTM2_PWD"
+	iTM2BinaryPATH="$iTM2_PWD/.iTM2"
 	if [ ! -w "${TWSProject}" ]
 	then
 		"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify error "Project MUST BE writable (${TWSProject})"
@@ -133,6 +189,7 @@ if [ "${iTM2_Debug}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify comment "iTM2_Launch script (3): PATH is {$PATH}"
 fi
+iTM2Command="$1"
 iTM2Cached="${iTM2BinaryPATH}/${iTM2Command}-cached"
 if [ "${iTM2_XLR8:-0}" != "0" ] && [ 0 -eq 1 ]
 then
@@ -189,54 +246,6 @@ then
 $(printenv)
 The binaries are (${iTM2BinaryPATH}):
 $(ls -al "${iTM2BinaryPATH}")"
-fi
-# working directory?
-if [ ${#TWSProject} -gt 0 ]
-then
-	export iTM2_PWD="$(dirname "${TWSProject}")"
-	iTM2_PWD_Real="${iTM2_PWD##*Projects.put_aside}"
-	export iTM2_PWD_Real="${iTM2_PWD_Real%/*.texd*}"
-	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ]
-	then
-		export iTM2_PWD_Real="$(dirname "${TWSMaster}")"
-		if [ ${#TEXINPUTS} -gt 0 ]
-		then
-			export TEXINPUTS=".:${iTM2_PWD_Real}:${TEXINPUTS}:"
-		else
-			export TEXINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#MPINPUTS} -gt 0 ]
-		then
-			export MPINPUTS=".:${iTM2_PWD_Real}:${MPINPUTS}:"
-		else
-			export MPINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#MFINPUTS} -gt 0 ]
-		then
-			export MFINPUTS=".:${iTM2_PWD_Real}:${MFINPUTS}:"
-		else
-			export MFINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#BIBINPUTS} -gt 0 ]
-		then
-			export BIBINPUTS=".:${iTM2_PWD_Real}:${BIBINPUTS}:"
-		else
-			export BIBINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#BSTINPUTS} -gt 0 ]
-		then
-			export BSTINPUTS=".:${iTM2_PWD_Real}:${BSTINPUTS}:"
-		else
-			export BSTINPUTS=".:${iTM2_PWD_Real}:"
-		fi
-		if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
-		then
-			ln -sf "{TWSMaster}" "${iTM2_PWD}"
-		fi
-	fi
-else
-	export iTM2_PWD_Real="$(dirname "${TWSMaster}")"
-	export iTM2_PWD="${iTM2_PWD_Real}"
 fi
 #BAD
 #"${iTM2_CMD_Notify}" notify comment "##### DIAGNOSTIC"

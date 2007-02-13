@@ -33,7 +33,7 @@ NSString * const iTM2ServerColumnKey = @"-column";
 NSString * const iTM2ServerLineKey = @"-line";
 NSString * const iTM2ServerSourceKey = @"-source";
 NSString * const iTM2ServerProjectKey = @"-project";
-NSString * const iTM2ServerDontOrderFrontKey = @"-dontorderfront";
+NSString * const iTM2ServerDontOrderFrontKey = @"-dont-order-front";
 
 NSString * const iTM2ProcessInfoEnvironmentKey = @"iTM2ProcessInfoEnvironment";
 
