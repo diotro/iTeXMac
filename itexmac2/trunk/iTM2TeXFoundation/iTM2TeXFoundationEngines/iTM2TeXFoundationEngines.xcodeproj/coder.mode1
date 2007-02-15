@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC3339FF0B826914008603C5</string>
+						<string>DC333A9C0B827339008603C5</string>
 						<key>history</key>
 						<array>
 							<string>DC3339940B825D95008603C5</string>
@@ -224,46 +224,6 @@
 				<false/>
 				<key>RubberWindowFrame</key>
 				<string>0 36 1062 842 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC333A000B826914008603C5</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2_Engine_PDFTeX</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC333A010B826914008603C5</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2_Engine_PDFTeX</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC333A030B826914008603C5</string>
-						<key>history</key>
-						<array>
-							<string>DC333A020B826914008603C5</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1311, 717}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>15 115 1311 758 0 0 1440 878 </string>
 			</dict>
 		</dict>
 	</array>
@@ -405,7 +365,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC3339FA0B826914008603C5</string>
+										<string>DC333A9B0B827339008603C5</string>
 										<key>history</key>
 										<array>
 											<string>DCB1DBA80B4EAF5100B0704A</string>
@@ -414,7 +374,6 @@
 											<string>DCB1DBCB0B4EAF5100B0704A</string>
 											<string>DCEE5F0F0B5BD7D100E47ED9</string>
 											<string>DCCDA3FB0B7D1F7600FAE57E</string>
-											<string>DCCDA5340B7DC35A00FAE57E</string>
 											<string>DCCDA5360B7DC35A00FAE57E</string>
 											<string>DC3339F50B826914008603C5</string>
 											<string>DC3339F60B826914008603C5</string>
@@ -429,7 +388,6 @@
 											<string>DCEE5F120B5BD7D100E47ED9</string>
 											<string>DCCDA3FD0B7D1F7600FAE57E</string>
 											<string>DCCDA5380B7DC35A00FAE57E</string>
-											<string>DCCDA5390B7DC35A00FAE57E</string>
 											<string>DCCDA53B0B7DC35A00FAE57E</string>
 											<string>DC3339F80B826914008603C5</string>
 											<string>DC3339F90B826914008603C5</string>
@@ -628,7 +586,6 @@
 	<array>
 		<string>DC3339930B825D93008603C5</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC333A000B826914008603C5</string>
 		<string>DC3339FD0B826914008603C5</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/iTM2TeXFoundationEngines.xcodeproj</string>
 	</array>

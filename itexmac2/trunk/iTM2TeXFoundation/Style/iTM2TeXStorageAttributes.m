@@ -1677,7 +1677,7 @@ returnOutAttributes:
 		*aRangePtr = range;
 	}
 #ifdef iTM2_WITH_SYMBOLS
-	substring = [S substringWithRange:range];
+	substring = [S substringWithRange:range];// out of range in the extended latex mode
 	if(attributes = [_AS attributesForSymbol:substring])
 	{
 		if(iTM2DebugEnabled>9999)

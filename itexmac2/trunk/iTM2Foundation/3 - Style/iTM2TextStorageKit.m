@@ -4412,7 +4412,7 @@ pano2:
     {
         if(aRangePtr)
 		{
-            * aRangePtr = NSMakeRange(aGlobalLocation, 1);
+            * aRangePtr = NSMakeRange(aGlobalLocation, 0);
 		}
 		if(aGlobalLocation > _EndOff7)
 		{

@@ -1,15 +1,5 @@
 // !$*UTF8*$!
 {
-	DC0BB7240B610DA300C7F0A1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCCD2DC609E06C760003EEF9 /* English */;
-		name = "English: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 881;
-		vrLoc = 0;
-	};
 	DC0EF842094856570018276F /* dvipdfm wrapper */ = {
 		activeExec = 0;
 	};
@@ -104,7 +94,7 @@
 		vrLen = 901;
 		vrLoc = 8579;
 	};
-	DC3339FA0B826914008603C5 /* PBXTextBookmark */ = {
+	DC333A9B0B827339008603C5 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4C0094840CC0079E1B3 /* iTM2_Engine_XeTeX */;
 		name = "iTM2_Engine_XeTeX: 212";
@@ -114,7 +104,7 @@
 		vrLen = 969;
 		vrLoc = 7526;
 	};
-	DC3339FF0B826914008603C5 /* PBXTextBookmark */ = {
+	DC333A9C0B827339008603C5 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
 		name = "iTM2_Engine_PDFTeX: 365";
@@ -123,20 +113,6 @@
 		rType = 0;
 		vrLen = 1022;
 		vrLoc = 11482;
-	};
-	DC333A020B826914008603C5 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = DCCDA5350B7DC35A00FAE57E /* iTM2_Engine_PDFTeX */;
-	};
-	DC333A030B826914008603C5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCCDA5350B7DC35A00FAE57E /* iTM2_Engine_PDFTeX */;
-		name = "iTM2_Engine_PDFTeX: 1";
-		rLen = 12504;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1129;
-		vrLoc = 10787;
 	};
 	DC3865880948B02100352215 /* iTeXMac2 */ = {
 		activeExec = 0;
@@ -219,16 +195,6 @@
 			sepNavVisRect = "{{0, 0}, {1105, 663}}";
 			sepNavWindowFrame = "{{61, 39}, {1144, 792}}";
 		};
-	};
-	DC5310D10B66472C00BD0276 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCCD2DC609E06C760003EEF9 /* English */;
-		name = "English: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 881;
-		vrLoc = 0;
 	};
 	DC5B692E0A4B679400F7DE47 /* Framework */ = {
 		uiCtxt = {
@@ -382,93 +348,29 @@
 			PBXWorkspaceStateSaveDate = 193093006;
 		};
 		perUserProjectItems = {
-			DC0BB7240B610DA300C7F0A1 = DC0BB7240B610DA300C7F0A1 /* PBXTextBookmark */;
 			DC3339940B825D95008603C5 /* PBXBookmark */ = DC3339940B825D95008603C5 /* PBXBookmark */;
 			DC3339F50B826914008603C5 /* PBXTextBookmark */ = DC3339F50B826914008603C5 /* PBXTextBookmark */;
 			DC3339F60B826914008603C5 /* PBXTextBookmark */ = DC3339F60B826914008603C5 /* PBXTextBookmark */;
 			DC3339F70B826914008603C5 /* PBXTextBookmark */ = DC3339F70B826914008603C5 /* PBXTextBookmark */;
 			DC3339F80B826914008603C5 /* PBXTextBookmark */ = DC3339F80B826914008603C5 /* PBXTextBookmark */;
 			DC3339F90B826914008603C5 /* PBXTextBookmark */ = DC3339F90B826914008603C5 /* PBXTextBookmark */;
-			DC3339FA0B826914008603C5 /* PBXTextBookmark */ = DC3339FA0B826914008603C5 /* PBXTextBookmark */;
-			DC3339FF0B826914008603C5 /* PBXTextBookmark */ = DC3339FF0B826914008603C5 /* PBXTextBookmark */;
-			DC333A020B826914008603C5 /* PBXBookmark */ = DC333A020B826914008603C5 /* PBXBookmark */;
-			DC333A030B826914008603C5 /* PBXTextBookmark */ = DC333A030B826914008603C5 /* PBXTextBookmark */;
-			DC5310D10B66472C00BD0276 = DC5310D10B66472C00BD0276 /* PBXTextBookmark */;
-			DCB1DB920B4EAF5100B0704A = DCB1DB920B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DB960B4EAF5100B0704A = DCB1DB960B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DB980B4EAF5100B0704A = DCB1DB980B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DB9A0B4EAF5100B0704A = DCB1DB9A0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DB9C0B4EAF5100B0704A = DCB1DB9C0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DB9E0B4EAF5100B0704A = DCB1DB9E0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBA00B4EAF5100B0704A = DCB1DBA00B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBA20B4EAF5100B0704A = DCB1DBA20B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBA40B4EAF5100B0704A = DCB1DBA40B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBA80B4EAF5100B0704A = DCB1DBA80B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBA90B4EAF5100B0704A = DCB1DBA90B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBAB0B4EAF5100B0704A = DCB1DBAB0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBAD0B4EAF5100B0704A = DCB1DBAD0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBAF0B4EAF5100B0704A = DCB1DBAF0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBB00B4EAF5100B0704A = DCB1DBB00B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBB20B4EAF5100B0704A = DCB1DBB20B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBB40B4EAF5100B0704A = DCB1DBB40B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBB60B4EAF5100B0704A = DCB1DBB60B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBB80B4EAF5100B0704A = DCB1DBB80B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBBA0B4EAF5100B0704A = DCB1DBBA0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBBC0B4EAF5100B0704A = DCB1DBBC0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBBE0B4EAF5100B0704A = DCB1DBBE0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBC00B4EAF5100B0704A = DCB1DBC00B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBC20B4EAF5100B0704A = DCB1DBC20B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBC40B4EAF5100B0704A = DCB1DBC40B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBC50B4EAF5100B0704A = DCB1DBC50B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBC70B4EAF5100B0704A = DCB1DBC70B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBC90B4EAF5100B0704A = DCB1DBC90B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBCB0B4EAF5100B0704A = DCB1DBCB0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBCC0B4EAF5100B0704A = DCB1DBCC0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBD00B4EAF5100B0704A = DCB1DBD00B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBD10B4EAF5100B0704A = DCB1DBD10B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBD50B4EAF5100B0704A = DCB1DBD50B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBD70B4EAF5100B0704A = DCB1DBD70B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBD90B4EAF5100B0704A = DCB1DBD90B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBDB0B4EAF5100B0704A = DCB1DBDB0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBDD0B4EAF5100B0704A = DCB1DBDD0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBDF0B4EAF5100B0704A = DCB1DBDF0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBE10B4EAF5100B0704A = DCB1DBE10B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBE30B4EAF5100B0704A = DCB1DBE30B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBE70B4EAF5100B0704A = DCB1DBE70B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBE80B4EAF5100B0704A = DCB1DBE80B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBEA0B4EAF5100B0704A = DCB1DBEA0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBEC0B4EAF5100B0704A = DCB1DBEC0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBEE0B4EAF5100B0704A = DCB1DBEE0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBEF0B4EAF5100B0704A = DCB1DBEF0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBF10B4EAF5100B0704A = DCB1DBF10B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBF30B4EAF5100B0704A = DCB1DBF30B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBF50B4EAF5100B0704A = DCB1DBF50B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBF70B4EAF5100B0704A = DCB1DBF70B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBF90B4EAF5100B0704A = DCB1DBF90B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBFB0B4EAF5100B0704A = DCB1DBFB0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBFD0B4EAF5100B0704A = DCB1DBFD0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DBFF0B4EAF5100B0704A = DCB1DBFF0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DC010B4EAF5100B0704A = DCB1DC010B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DC030B4EAF5100B0704A = DCB1DC030B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DC040B4EAF5100B0704A = DCB1DC040B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DC060B4EAF5100B0704A = DCB1DC060B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DC080B4EAF5100B0704A = DCB1DC080B4EAF5100B0704A /* PBXTextBookmark */;
-			DCB1DC0B0B4EAF5100B0704A = DCB1DC0B0B4EAF5100B0704A /* PBXTextBookmark */;
-			DCCDA3FB0B7D1F7600FAE57E = DCCDA3FB0B7D1F7600FAE57E /* PBXTextBookmark */;
-			DCCDA3FC0B7D1F7600FAE57E = DCCDA3FC0B7D1F7600FAE57E /* PBXTextBookmark */;
-			DCCDA3FD0B7D1F7600FAE57E = DCCDA3FD0B7D1F7600FAE57E /* PBXTextBookmark */;
-			DCCDA3FE0B7D1F7600FAE57E = DCCDA3FE0B7D1F7600FAE57E /* PBXTextBookmark */;
-			DCCDA5340B7DC35A00FAE57E = DCCDA5340B7DC35A00FAE57E /* PBXTextBookmark */;
-			DCCDA5360B7DC35A00FAE57E = DCCDA5360B7DC35A00FAE57E /* PBXTextBookmark */;
-			DCCDA5370B7DC35A00FAE57E = DCCDA5370B7DC35A00FAE57E /* PBXTextBookmark */;
-			DCCDA5380B7DC35A00FAE57E = DCCDA5380B7DC35A00FAE57E /* PBXTextBookmark */;
-			DCCDA5390B7DC35A00FAE57E = DCCDA5390B7DC35A00FAE57E /* PBXTextBookmark */;
-			DCCDA53B0B7DC35A00FAE57E = DCCDA53B0B7DC35A00FAE57E /* PBXTextBookmark */;
-			DCCDA53C0B7DC35A00FAE57E = DCCDA53C0B7DC35A00FAE57E /* PBXTextBookmark */;
-			DCEE5F0E0B5BD7D100E47ED9 = DCEE5F0E0B5BD7D100E47ED9 /* PBXTextBookmark */;
-			DCEE5F0F0B5BD7D100E47ED9 = DCEE5F0F0B5BD7D100E47ED9 /* PBXTextBookmark */;
-			DCEE5F110B5BD7D100E47ED9 = DCEE5F110B5BD7D100E47ED9 /* PBXTextBookmark */;
-			DCEE5F120B5BD7D100E47ED9 = DCEE5F120B5BD7D100E47ED9 /* PBXTextBookmark */;
+			DC333A9B0B827339008603C5 /* PBXTextBookmark */ = DC333A9B0B827339008603C5 /* PBXTextBookmark */;
+			DC333A9C0B827339008603C5 /* PBXTextBookmark */ = DC333A9C0B827339008603C5 /* PBXTextBookmark */;
+			DCB1DBA80B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DBA80B4EAF5100B0704A /* PBXTextBookmark */;
+			DCB1DBAF0B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DBAF0B4EAF5100B0704A /* PBXTextBookmark */;
+			DCB1DBC40B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DBC40B4EAF5100B0704A /* PBXTextBookmark */;
+			DCB1DBCB0B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DBCB0B4EAF5100B0704A /* PBXTextBookmark */;
+			DCB1DBD00B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DBD00B4EAF5100B0704A /* PBXTextBookmark */;
+			DCB1DBE70B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DBE70B4EAF5100B0704A /* PBXTextBookmark */;
+			DCB1DBEE0B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DBEE0B4EAF5100B0704A /* PBXTextBookmark */;
+			DCB1DC030B4EAF5100B0704A /* PBXTextBookmark */ = DCB1DC030B4EAF5100B0704A /* PBXTextBookmark */;
+			DCCDA3FB0B7D1F7600FAE57E /* PBXTextBookmark */ = DCCDA3FB0B7D1F7600FAE57E /* PBXTextBookmark */;
+			DCCDA3FD0B7D1F7600FAE57E /* PBXTextBookmark */ = DCCDA3FD0B7D1F7600FAE57E /* PBXTextBookmark */;
+			DCCDA5360B7DC35A00FAE57E /* PBXTextBookmark */ = DCCDA5360B7DC35A00FAE57E /* PBXTextBookmark */;
+			DCCDA5380B7DC35A00FAE57E /* PBXTextBookmark */ = DCCDA5380B7DC35A00FAE57E /* PBXTextBookmark */;
+			DCCDA53B0B7DC35A00FAE57E /* PBXTextBookmark */ = DCCDA53B0B7DC35A00FAE57E /* PBXTextBookmark */;
+			DCEE5F0F0B5BD7D100E47ED9 /* PBXTextBookmark */ = DCEE5F0F0B5BD7D100E47ED9 /* PBXTextBookmark */;
+			DCEE5F120B5BD7D100E47ED9 /* PBXTextBookmark */ = DCEE5F120B5BD7D100E47ED9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;
@@ -616,159 +518,6 @@
 	DC9DC71A09484CB90079E1B3 /* TeX Engines */ = {
 		activeExec = 0;
 	};
-	DCB1DB920B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DB930B4EAF5100B0704A /* iTM2LaTeXDocExtractorWrapper-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 777;
-		vrLoc = 0;
-	};
-	DCB1DB930B4EAF5100B0704A /* iTM2LaTeXDocExtractorWrapper-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXDocExtractorWrapper-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DB960B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DB970B4EAF5100B0704A /* iTeXMac2-Info-simple.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 947;
-		vrLoc = 0;
-	};
-	DCB1DB970B4EAF5100B0704A /* iTeXMac2-Info-simple.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTeXMac2-Info-simple.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2-Info-simple.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DB980B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DB990B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 642;
-		vrLoc = 0;
-	};
-	DCB1DB990B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Prepare iTM2TeXFoundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/Prepare iTM2TeXFoundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DB9A0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DB9B0B4EAF5100B0704A /* iTM2EDITORKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 822;
-		vrLoc = 0;
-	};
-	DCB1DB9B0B4EAF5100B0704A /* iTM2EDITORKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2EDITORKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2EDITORKit/iTM2EDITORKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DB9C0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DB9D0B4EAF5100B0704A /* iTM2TeXFoundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1041;
-		vrLoc = 0;
-	};
-	DCB1DB9D0B4EAF5100B0704A /* iTM2TeXFoundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2TeXFoundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DB9E0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DB9F0B4EAF5100B0704A /* Test TeX Application-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1047;
-		vrLoc = 0;
-	};
-	DCB1DB9F0B4EAF5100B0704A /* Test TeX Application-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Test TeX Application-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/Test TeX Application/Test TeX Application-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBA00B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBA10B4EAF5100B0704A /* iTM2LaTeXKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 737;
-		vrLoc = 0;
-	};
-	DCB1DBA10B4EAF5100B0704A /* iTM2LaTeXKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBA20B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBA30B4EAF5100B0704A /* Header docs-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 735;
-		vrLoc = 0;
-	};
-	DCB1DBA30B4EAF5100B0704A /* Header docs-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Header docs-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Header docs-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBA40B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBA50B4EAF5100B0704A /* iTM2PDFKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1047;
-		vrLoc = 0;
-	};
-	DCB1DBA50B4EAF5100B0704A /* iTM2PDFKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2PDFKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
 	DCB1DBA80B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4C4094840CC0079E1B3 /* TeX Engines-Info.plist */;
@@ -778,57 +527,6 @@
 		rType = 0;
 		vrLen = 859;
 		vrLoc = 0;
-	};
-	DCB1DBA90B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBAA0B4EAF5100B0704A /* EnvironmentVariables.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 293;
-		vrLoc = 0;
-	};
-	DCB1DBAA0B4EAF5100B0704A /* EnvironmentVariables.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = EnvironmentVariables.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2BibTeXSupportKit/Resources/EnvironmentVariables.plist;
-		sourceTree = "<absolute>";
-	};
-	DCB1DBAB0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBAC0B4EAF5100B0704A /* PATHs.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1942;
-		vrLoc = 0;
-	};
-	DCB1DBAC0B4EAF5100B0704A /* PATHs.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = PATHs.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/Resources/PATHs.plist;
-		sourceTree = "<absolute>";
-	};
-	DCB1DBAD0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBAE0B4EAF5100B0704A /* iTM2TEMPLATE_PLUGIN-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 836;
-		vrLoc = 0;
-	};
-	DCB1DBAE0B4EAF5100B0704A /* iTM2TEMPLATE_PLUGIN-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2TEMPLATE_PLUGIN-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TEMPLATE_PLUGIN/iTM2TEMPLATE_PLUGIN-Info.plist";
-		sourceTree = "<absolute>";
 	};
 	DCB1DBAF0B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -840,176 +538,6 @@
 		vrLen = 763;
 		vrLoc = 0;
 	};
-	DCB1DBB00B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBB10B4EAF5100B0704A /* TEST-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 607;
-		vrLoc = 0;
-	};
-	DCB1DBB10B4EAF5100B0704A /* TEST-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "TEST-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/TEST-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBB20B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBB30B4EAF5100B0704A /* iTM2MetaPostKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1048;
-		vrLoc = 0;
-	};
-	DCB1DBB30B4EAF5100B0704A /* iTM2MetaPostKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2MetaPostKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/iTM2MetaPostKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBB40B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBB50B4EAF5100B0704A /* iTM2BibTeXSupportKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1046;
-		vrLoc = 0;
-	};
-	DCB1DBB50B4EAF5100B0704A /* iTM2BibTeXSupportKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2BibTeXSupportKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2BibTeXSupportKit/iTM2BibTeXSupportKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBB60B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBB70B4EAF5100B0704A /* NSCFString=SCALAR(0x180fea8)ls-R.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 705;
-		vrLoc = 0;
-	};
-	DCB1DBB70B4EAF5100B0704A /* NSCFString=SCALAR(0x180fea8)ls-R.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "NSCFString=SCALAR(0x180fea8)ls-R.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/NSCFString=SCALAR(0x180fea8)ls-R.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBB80B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBB90B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 642;
-		vrLoc = 0;
-	};
-	DCB1DBB90B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Prepare iTM2TeXFoundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/Prepare iTM2TeXFoundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBBA0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBBB0B4EAF5100B0704A /* LaTeXMK-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 849;
-		vrLoc = 0;
-	};
-	DCB1DBBB0B4EAF5100B0704A /* LaTeXMK-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "LaTeXMK-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeXMK/LaTeXMK-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBBC0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBBD0B4EAF5100B0704A /* iTM2ConTeXtKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 737;
-		vrLoc = 0;
-	};
-	DCB1DBBD0B4EAF5100B0704A /* iTM2ConTeXtKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2ConTeXtKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBBE0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBBF0B4EAF5100B0704A /* ConTeXtURLs.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 446;
-		vrLoc = 0;
-	};
-	DCB1DBBF0B4EAF5100B0704A /* ConTeXtURLs.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = ConTeXtURLs.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/Resources/ConTeXtURLs.plist;
-		sourceTree = "<absolute>";
-	};
-	DCB1DBC00B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBC10B4EAF5100B0704A /* Prepare iTM2Foundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1045;
-		vrLoc = 0;
-	};
-	DCB1DBC10B4EAF5100B0704A /* Prepare iTM2Foundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Prepare iTM2Foundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/Prepare iTM2Foundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBC20B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBC30B4EAF5100B0704A /* Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 980;
-		vrLoc = 0;
-	};
-	DCB1DBC30B4EAF5100B0704A /* Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = Info.plist;
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Tiny XML Validator/Info.plist";
-		sourceTree = "<absolute>";
-	};
 	DCB1DBC40B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4AF094840CC0079E1B3 /* pstopdf wrapper-Info.plist */;
@@ -1019,57 +547,6 @@
 		rType = 0;
 		vrLen = 763;
 		vrLoc = 0;
-	};
-	DCB1DBC50B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBC60B4EAF5100B0704A /* iTM2LaTeXSymbolsKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 765;
-		vrLoc = 0;
-	};
-	DCB1DBC60B4EAF5100B0704A /* iTM2LaTeXSymbolsKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXSymbolsKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBC70B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBC80B4EAF5100B0704A /* TeX CM PlugIn-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1096;
-		vrLoc = 0;
-	};
-	DCB1DBC80B4EAF5100B0704A /* TeX CM PlugIn-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "TeX CM PlugIn-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2 CM PlugIn/TeX CM PlugIn-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBC90B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBCA0B4EAF5100B0704A /* iTM2LaTeXInstallerWrapper-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 777;
-		vrLoc = 0;
-	};
-	DCB1DBCA0B4EAF5100B0704A /* iTM2LaTeXInstallerWrapper-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXInstallerWrapper-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/iTM2LaTeXInstallerWrapper-Info.plist";
-		sourceTree = "<absolute>";
 	};
 	DCB1DBCB0B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1081,23 +558,6 @@
 		vrLen = 757;
 		vrLoc = 0;
 	};
-	DCB1DBCC0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBCD0B4EAF5100B0704A /* INFOPLIST_PREFIX_HEADER */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 29;
-		vrLoc = 0;
-	};
-	DCB1DBCD0B4EAF5100B0704A /* INFOPLIST_PREFIX_HEADER */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text;
-		name = INFOPLIST_PREFIX_HEADER;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/build/INFOPLIST_PREFIX_HEADER;
-		sourceTree = "<absolute>";
-	};
 	DCB1DBD00B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC497094840CC0079E1B3 /* dvips wrapper-Info.plist */;
@@ -1107,159 +567,6 @@
 		rType = 0;
 		vrLen = 757;
 		vrLoc = 0;
-	};
-	DCB1DBD10B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBD20B4EAF5100B0704A /* iTM2LaTeXDocExtractorWrapper-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 777;
-		vrLoc = 0;
-	};
-	DCB1DBD20B4EAF5100B0704A /* iTM2LaTeXDocExtractorWrapper-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXDocExtractorWrapper-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBD50B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBD60B4EAF5100B0704A /* iTeXMac2-Info-simple.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 947;
-		vrLoc = 0;
-	};
-	DCB1DBD60B4EAF5100B0704A /* iTeXMac2-Info-simple.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTeXMac2-Info-simple.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2-Info-simple.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBD70B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBD80B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 642;
-		vrLoc = 0;
-	};
-	DCB1DBD80B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Prepare iTM2TeXFoundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/Prepare iTM2TeXFoundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBD90B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBDA0B4EAF5100B0704A /* iTM2EDITORKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 822;
-		vrLoc = 0;
-	};
-	DCB1DBDA0B4EAF5100B0704A /* iTM2EDITORKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2EDITORKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2EDITORKit/iTM2EDITORKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBDB0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBDC0B4EAF5100B0704A /* iTM2TeXFoundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1041;
-		vrLoc = 0;
-	};
-	DCB1DBDC0B4EAF5100B0704A /* iTM2TeXFoundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2TeXFoundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBDD0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBDE0B4EAF5100B0704A /* Test TeX Application-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1047;
-		vrLoc = 0;
-	};
-	DCB1DBDE0B4EAF5100B0704A /* Test TeX Application-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Test TeX Application-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/Test TeX Application/Test TeX Application-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBDF0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBE00B4EAF5100B0704A /* iTM2LaTeXKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 737;
-		vrLoc = 0;
-	};
-	DCB1DBE00B4EAF5100B0704A /* iTM2LaTeXKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBE10B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBE20B4EAF5100B0704A /* Header docs-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 735;
-		vrLoc = 0;
-	};
-	DCB1DBE20B4EAF5100B0704A /* Header docs-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Header docs-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Header docs-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBE30B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBE40B4EAF5100B0704A /* iTM2PDFKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1047;
-		vrLoc = 0;
-	};
-	DCB1DBE40B4EAF5100B0704A /* iTM2PDFKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2PDFKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit-Info.plist";
-		sourceTree = "<absolute>";
 	};
 	DCB1DBE70B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1271,57 +578,6 @@
 		vrLen = 859;
 		vrLoc = 0;
 	};
-	DCB1DBE80B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBE90B4EAF5100B0704A /* EnvironmentVariables.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 293;
-		vrLoc = 0;
-	};
-	DCB1DBE90B4EAF5100B0704A /* EnvironmentVariables.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = EnvironmentVariables.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2BibTeXSupportKit/Resources/EnvironmentVariables.plist;
-		sourceTree = "<absolute>";
-	};
-	DCB1DBEA0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBEB0B4EAF5100B0704A /* PATHs.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1942;
-		vrLoc = 0;
-	};
-	DCB1DBEB0B4EAF5100B0704A /* PATHs.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = PATHs.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/Resources/PATHs.plist;
-		sourceTree = "<absolute>";
-	};
-	DCB1DBEC0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBED0B4EAF5100B0704A /* iTM2TEMPLATE_PLUGIN-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 836;
-		vrLoc = 0;
-	};
-	DCB1DBED0B4EAF5100B0704A /* iTM2TEMPLATE_PLUGIN-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2TEMPLATE_PLUGIN-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TEMPLATE_PLUGIN/iTM2TEMPLATE_PLUGIN-Info.plist";
-		sourceTree = "<absolute>";
-	};
 	DCB1DBEE0B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC48B094840CC0079E1B3 /* dvipdfm wrapper-Info.plist */;
@@ -1332,176 +588,6 @@
 		vrLen = 763;
 		vrLoc = 0;
 	};
-	DCB1DBEF0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBF00B4EAF5100B0704A /* TEST-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 607;
-		vrLoc = 0;
-	};
-	DCB1DBF00B4EAF5100B0704A /* TEST-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "TEST-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2Foundation/TEST-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBF10B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBF20B4EAF5100B0704A /* iTM2MetaPostKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1048;
-		vrLoc = 0;
-	};
-	DCB1DBF20B4EAF5100B0704A /* iTM2MetaPostKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2MetaPostKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/iTM2MetaPostKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBF30B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBF40B4EAF5100B0704A /* iTM2BibTeXSupportKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1046;
-		vrLoc = 0;
-	};
-	DCB1DBF40B4EAF5100B0704A /* iTM2BibTeXSupportKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2BibTeXSupportKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2BibTeXSupportKit/iTM2BibTeXSupportKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBF50B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBF60B4EAF5100B0704A /* NSCFString=SCALAR(0x180fea8)ls-R.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 705;
-		vrLoc = 0;
-	};
-	DCB1DBF60B4EAF5100B0704A /* NSCFString=SCALAR(0x180fea8)ls-R.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "NSCFString=SCALAR(0x180fea8)ls-R.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/NSCFString=SCALAR(0x180fea8)ls-R.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBF70B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBF80B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 642;
-		vrLoc = 0;
-	};
-	DCB1DBF80B4EAF5100B0704A /* Prepare iTM2TeXFoundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Prepare iTM2TeXFoundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2PDFKit/Prepare iTM2TeXFoundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBF90B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBFA0B4EAF5100B0704A /* LaTeXMK-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 849;
-		vrLoc = 0;
-	};
-	DCB1DBFA0B4EAF5100B0704A /* LaTeXMK-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "LaTeXMK-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeXMK/LaTeXMK-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBFB0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBFC0B4EAF5100B0704A /* iTM2ConTeXtKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 737;
-		vrLoc = 0;
-	};
-	DCB1DBFC0B4EAF5100B0704A /* iTM2ConTeXtKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2ConTeXtKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DBFD0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DBFE0B4EAF5100B0704A /* ConTeXtURLs.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 446;
-		vrLoc = 0;
-	};
-	DCB1DBFE0B4EAF5100B0704A /* ConTeXtURLs.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = ConTeXtURLs.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/Resources/ConTeXtURLs.plist;
-		sourceTree = "<absolute>";
-	};
-	DCB1DBFF0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC000B4EAF5100B0704A /* Prepare iTM2Foundation-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1045;
-		vrLoc = 0;
-	};
-	DCB1DC000B4EAF5100B0704A /* Prepare iTM2Foundation-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "Prepare iTM2Foundation-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/Prepare iTM2Foundation-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DC010B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC020B4EAF5100B0704A /* Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 980;
-		vrLoc = 0;
-	};
-	DCB1DC020B4EAF5100B0704A /* Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = Info.plist;
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/Tiny XML Validator/Info.plist";
-		sourceTree = "<absolute>";
-	};
 	DCB1DC030B4EAF5100B0704A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4AF094840CC0079E1B3 /* pstopdf wrapper-Info.plist */;
@@ -1511,81 +597,6 @@
 		rType = 0;
 		vrLen = 763;
 		vrLoc = 0;
-	};
-	DCB1DC040B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC050B4EAF5100B0704A /* iTM2LaTeXSymbolsKit-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 765;
-		vrLoc = 0;
-	};
-	DCB1DC050B4EAF5100B0704A /* iTM2LaTeXSymbolsKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXSymbolsKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DC060B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC070B4EAF5100B0704A /* TeX CM PlugIn-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1096;
-		vrLoc = 0;
-	};
-	DCB1DC070B4EAF5100B0704A /* TeX CM PlugIn-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "TeX CM PlugIn-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2 CM PlugIn/TeX CM PlugIn-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DC080B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC090B4EAF5100B0704A /* iTM2LaTeXInstallerWrapper-Info.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 777;
-		vrLoc = 0;
-	};
-	DCB1DC090B4EAF5100B0704A /* iTM2LaTeXInstallerWrapper-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2LaTeXInstallerWrapper-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKitEngines/LaTeX Installer/iTM2LaTeXInstallerWrapper-Info.plist";
-		sourceTree = "<absolute>";
-	};
-	DCB1DC0B0B4EAF5100B0704A /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC0C0B4EAF5100B0704A /* INFOPLIST_PREFIX_HEADER */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 29;
-		vrLoc = 0;
-	};
-	DCB1DC0C0B4EAF5100B0704A /* INFOPLIST_PREFIX_HEADER */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text;
-		name = INFOPLIST_PREFIX_HEADER;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/build/INFOPLIST_PREFIX_HEADER;
-		sourceTree = "<absolute>";
-	};
-	DCB1DC0E0B4EAF5100B0704A /* iTM2NewDocumentKit-Info.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = "iTM2NewDocumentKit-Info.plist";
-		path = "/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2NewDocumentKit/iTM2NewDocumentKit-Info.plist";
-		sourceTree = "<absolute>";
 	};
 	DCCD2DB409E06C450003EEF9 /* English */ = {
 		uiCtxt = {
@@ -1619,16 +630,6 @@
 		vrLen = 881;
 		vrLoc = 0;
 	};
-	DCCDA3FC0B7D1F7600FAE57E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-		name = TWSMaster;
-		rLen = 9;
-		rLoc = 10078;
-		rType = 0;
-		vrLen = 1133;
-		vrLoc = 9498;
-	};
 	DCCDA3FD0B7D1F7600FAE57E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCCD2DC609E06C760003EEF9 /* English */;
@@ -1638,38 +639,6 @@
 		rType = 0;
 		vrLen = 881;
 		vrLoc = 0;
-	};
-	DCCDA3FE0B7D1F7600FAE57E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-		name = TWSMaster;
-		rLen = 9;
-		rLoc = 10078;
-		rType = 0;
-		vrLen = 1133;
-		vrLoc = 9498;
-	};
-	DCCDA5340B7DC35A00FAE57E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCCDA5350B7DC35A00FAE57E /* iTM2_Engine_PDFTeX */;
-		name = "iTeXMac2 update";
-		rLen = 15;
-		rLoc = 11826;
-		rType = 0;
-		vrLen = 1031;
-		vrLoc = 11011;
-	};
-	DCCDA5350B7DC35A00FAE57E /* iTM2_Engine_PDFTeX */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text;
-		name = iTM2_Engine_PDFTeX;
-		path = "/Volumes/HD2/iTeXMac2/svn/itexmac2/build/iTM2TeXFoundation.framework/PlugIns/TeX Engines.iTM2/Contents/MacOS/bin/iTM2_Engine_PDFTeX";
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1272, 7300}}";
-			sepNavSelRange = "{12504, 0}";
-			sepNavVisRect = "{{0, 6071}, {1272, 685}}";
-		};
 	};
 	DCCDA5360B7DC35A00FAE57E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1681,16 +650,6 @@
 		vrLen = 1052;
 		vrLoc = 3695;
 	};
-	DCCDA5370B7DC35A00FAE57E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-		name = TWSMaster;
-		rLen = 9;
-		rLoc = 10078;
-		rType = 0;
-		vrLen = 1138;
-		vrLoc = 11080;
-	};
 	DCCDA5380B7DC35A00FAE57E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
@@ -1701,23 +660,6 @@
 		vrLen = 1138;
 		vrLoc = 11080;
 	};
-	DCCDA5390B7DC35A00FAE57E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCCDA53A0B7DC35A00FAE57E /* iTM2_Engine_PDFTeX */;
-		name = "iTeXMac2 update";
-		rLen = 15;
-		rLoc = 11826;
-		rType = 0;
-		vrLen = 1031;
-		vrLoc = 11011;
-	};
-	DCCDA53A0B7DC35A00FAE57E /* iTM2_Engine_PDFTeX */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text;
-		name = iTM2_Engine_PDFTeX;
-		path = "/Volumes/HD2/iTeXMac2/svn/itexmac2/build/iTM2TeXFoundation.framework/PlugIns/TeX Engines.iTM2/Contents/MacOS/bin/iTM2_Engine_PDFTeX";
-		sourceTree = "<absolute>";
-	};
 	DCCDA53B0B7DC35A00FAE57E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC9DC48A094840CC0079E1B3 /* iTM2_Engine_dvipdfm */;
@@ -1727,16 +669,6 @@
 		rType = 0;
 		vrLen = 1052;
 		vrLoc = 3695;
-	};
-	DCCDA53C0B7DC35A00FAE57E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
-		name = TWSMaster;
-		rLen = 9;
-		rLoc = 10078;
-		rType = 0;
-		vrLen = 991;
-		vrLoc = 11327;
 	};
 	DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */ = {
 		isa = PBXBookmarkGroup;
@@ -1749,16 +681,6 @@
 		isa = PBXBookmark;
 		fRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */;
 	};
-	DCEE5F0E0B5BD7D100E47ED9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC0E0B4EAF5100B0704A /* iTM2NewDocumentKit-Info.plist */;
-		name = "iTM2NewDocumentKit-Info.plist: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 880;
-		vrLoc = 0;
-	};
 	DCEE5F0F0B5BD7D100E47ED9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCCD2DB409E06C450003EEF9 /* English */;
@@ -1767,16 +689,6 @@
 		rLoc = 0;
 		rType = 0;
 		vrLen = 267;
-		vrLoc = 0;
-	};
-	DCEE5F110B5BD7D100E47ED9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB1DC0E0B4EAF5100B0704A /* iTM2NewDocumentKit-Info.plist */;
-		name = "iTM2NewDocumentKit-Info.plist: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 880;
 		vrLoc = 0;
 	};
 	DCEE5F120B5BD7D100E47ED9 /* PBXTextBookmark */ = {
