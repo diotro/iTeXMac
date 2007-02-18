@@ -38,6 +38,7 @@
 #import <iTM2Foundation/iTM2WindowKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2textFieldKit.h>
+#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 
 #define TABLE @"TextStyle"
 #define BUNDLE [iTM2TextStyleDocument classBundle]
@@ -326,6 +327,72 @@ To Do List: Nothing
 //iTM2_START;
     return nil;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= saveDocument:
+- (void)saveDocument:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: Mon Jun  7 21:48:56 GMT 2004
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateSaveDocument:
+- (BOOL)validateSaveDocument:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: Mon Jun  7 21:48:56 GMT 2004
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= saveDocumentAs:
+- (void)saveDocumentAs:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: Mon Jun  7 21:48:56 GMT 2004
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateSaveDocumentAs:
+- (BOOL)validateSaveDocumentAs:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: Mon Jun  7 21:48:56 GMT 2004
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= saveDocumentTo:
+- (void)saveDocumentTo:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: Mon Jun  7 21:48:56 GMT 2004
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateSaveDocumentTo:
+- (BOOL)validateSaveDocumentTo:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: Mon Jun  7 21:48:56 GMT 2004
+To Do List: Nothing
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return NO;
+}
 @end
 
 @interface iTM2TextStyleInspector(PRIVATE)
@@ -434,12 +501,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super windowDidLoad];
-    [[self window] setDelegate:self];
+	// replaceing the textstorage
     // now changing for an iTM2TextStorage!!!
-    NSLayoutManager * LM = [[self sampleTextView] layoutManager];
+	NSTextView * STV = [self sampleTextView];
+    NSLayoutManager * LM = [STV layoutManager];
     NSTextStorage * oldTS = [LM textStorage];
     if(![oldTS isKindOfClass:[iTM2TextStorage class]])
-        [LM replaceTextStorage:[[[iTM2TextStorage allocWithZone:[oldTS zone]] initWithString:[oldTS string]] autorelease]];
+	{
+		iTM2TextStorage * TS = [[[iTM2TextStorage allocWithZone:[self zone]] initWithString:[oldTS string]] autorelease];
+        [LM replaceTextStorage:TS];
+	}
     // now validating the user interface
     [self validateWindowContent];
 //iTM2_END;
@@ -1119,6 +1190,7 @@ To Do List: Nothing
     BOOL _SameXHeight;
 }
 - (void)setFont:(NSFont *)newF atIndex:(unsigned)location;
+- (void)syntaxParserAttributesDidChange;
 @end
 
 enum {
@@ -1141,7 +1213,84 @@ To Do List:
 //iTM2_START;
     if([[self superclass] instancesRespondToSelector:_cmd])
         [super awakeFromNib];
-    [[self layoutManager] replaceTextStorage:[[[iTM2TextStorage allocWithZone:[self zone]] init] autorelease]];
+	iTM2TextStorage * TS = [[[iTM2TextStorage allocWithZone:[self zone]] init] autorelease];
+    [[self layoutManager] replaceTextStorage:TS];
+	[TS setAttributesChangeDelegate:self];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserAttributesDidChange
+- (void)syntaxParserAttributesDidChange;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	[SP setUpAllTextViews];
+	NSArray * LMs = [TS layoutManagers];
+	NSEnumerator * E = [LMs objectEnumerator];
+	NSLayoutManager * LM;
+	NSRange range = NSMakeRange(0, [TS length]);
+	while(LM = [E nextObject])
+	{
+		range.length = [LM firstUnlaidCharacterIndex];
+		[LM invalidateGlyphsForCharacterRange:range changeInLength:0 actualCharacterRange:nil];
+		[LM invalidateLayoutForCharacterRange:range isSoft:NO actualCharacterRange:nil];
+	}
+	NSWindow * W = [self window];
+	NSWindowController * WC = [W windowController];
+	NSDocument * D = [WC document];
+	[D updateChangeCount:NSChangeDone];
+	[WC validateWindowContent];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage:wouldSetAttributes:range:
+- (void)textStorage:(iTM2TextStorage *)TS wouldSetAttributes:(id)attributes range:(NSRange)range;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
+	if(![attributes isEqual:oldD])
+	{
+		NSMutableDictionary * newD = [[attributes mutableCopy] autorelease];
+		NSString * mode = [oldD objectForKey:iTM2TextModeAttributeName];
+		[newD setValue:mode forKey:iTM2TextModeAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self performSelector:@selector(syntaxParserAttributesDidChange) withObject:nil afterDelay:0];
+	}	
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage:wouldAddAttribute:value:range:
+- (void)textStorage:(iTM2TextStorage *)TS wouldAddAttribute:(NSString *)name value:(id)value range:(NSRange)range;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
+	id oldValue = [oldD objectForKey:name];
+	if(![value isEqual:oldValue])
+	{
+		NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+		[newD setValue:value forKey:name];
+		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self performSelector:@selector(syntaxParserAttributesDidChange) withObject:nil afterDelay:0];
+	}	
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedRange:affinity:stillSelecting:
@@ -1155,6 +1304,54 @@ To Do List:
 //iTM2_START;
     [super setSelectedRange:charRange affinity:affinity stillSelecting:stillSelectingFlag];
     [[[self window] windowController] validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeAttributes:
+- (void)changeAttributes:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange range = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
+	NSDictionary * newD = [sender convertAttributes:oldD];
+	if(![oldD isEqual:newD])
+	{
+		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self syntaxParserAttributesDidChange];
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeDocumentBackgroundColor:
+- (void)changeDocumentBackgroundColor:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+    NSString * mode = iTM2TextBackgroundSyntaxModeName;
+	NSDictionary * oldD = [[SP attributesServer] attributesForMode:mode];
+	id oldValue = [oldD objectForKey:NSBackgroundColorAttributeName];
+	id value = [sender color];
+	if(![value isEqual:oldValue])
+	{
+		NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+		[newD setValue:value forKey:NSBackgroundColorAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self syntaxParserAttributesDidChange];
+    }
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeFont:
@@ -1219,18 +1416,9 @@ To Do List:
 		else
 			[MD removeObjectForKey:NSFontAttributeName];
         D = [NSDictionary dictionaryWithDictionary:MD];
-        [[SP attributesServer] setAttributes:D forMode:[D objectForKey:iTM2TextModeAttributeName]];
-        NSEnumerator * E = [[TS layoutManagers] objectEnumerator];
-        NSLayoutManager * LM;
-        NSRange range = NSMakeRange(0, [TS length]);
-        while(LM = [E nextObject])
-        {
-            [LM invalidateGlyphsForCharacterRange:range changeInLength:0 actualCharacterRange:nil];
-            [LM invalidateLayoutForCharacterRange:range isSoft:NO actualCharacterRange:nil];
-        }
-        NSWindowController * WC = [[self window] windowController];
-        [[WC document] updateChangeCount:NSChangeDone];
-        [WC validateWindowContent];
+		NSString * mode = [D objectForKey:iTM2TextModeAttributeName];
+        [[SP attributesServer] setAttributes:D forMode:mode];
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1247,6 +1435,223 @@ To Do List:
     [[[self window] windowController] validateWindowContent];
 //iTM2_END;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  subscript:
+- (void)subscript:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange selectedRange = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:selectedRange.location effectiveRange:nil];
+	NSNumber * N = [oldD objectForKey:NSSuperscriptAttributeName];
+	int level = [N intValue];
+	--level;
+	N = [NSNumber numberWithInt:level];
+	NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+	[newD setValue:N forKey:NSSuperscriptAttributeName];
+	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+	[[SP attributesServer] setAttributes:newD forMode:mode];
+	[self syntaxParserAttributesDidChange];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  superscript:
+- (void)superscript:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange selectedRange = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:selectedRange.location effectiveRange:nil];
+	NSNumber * N = [oldD objectForKey:NSSuperscriptAttributeName];
+	int level = [N intValue];
+	++level;
+	N = [NSNumber numberWithInt:level];
+	NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+	[newD setValue:N forKey:NSSuperscriptAttributeName];
+	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+	[[SP attributesServer] setAttributes:newD forMode:mode];
+	[self syntaxParserAttributesDidChange];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  underline:
+- (void)underline:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange selectedRange = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:selectedRange.location effectiveRange:nil];
+	NSNumber * N = [NSNumber numberWithInt:1];
+	NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+	[newD setValue:N forKey:NSUnderlineStyleAttributeName];
+	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+	[[SP attributesServer] setAttributes:newD forMode:mode];
+	[self syntaxParserAttributesDidChange];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  unscript:
+- (void)unscript:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange selectedRange = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:selectedRange.location effectiveRange:nil];
+	NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+	[newD setValue:nil forKey:NSSuperscriptAttributeName];
+	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+	[[SP attributesServer] setAttributes:newD forMode:mode];
+	[self syntaxParserAttributesDidChange];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  alignCenter:
+- (void)alignCenter:(id)sender
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange range = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
+	NSParagraphStyle * oldParagraphStyle = [oldD objectForKey:NSParagraphStyleAttributeName];
+	if(!oldParagraphStyle)
+	{
+		oldParagraphStyle = [NSParagraphStyle defaultParagraphStyle];
+	}
+	if([oldParagraphStyle alignment] != NSCenterTextAlignment)
+	{
+		NSMutableParagraphStyle *newParagraphStyle = [[oldParagraphStyle mutableCopy] autorelease];
+		[newParagraphStyle setAlignment:NSCenterTextAlignment];
+		NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
+		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self syntaxParserAttributesDidChange];
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  alignLeft:
+- (void)alignLeft:(id)sender
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange range = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
+	NSParagraphStyle * oldParagraphStyle = [oldD objectForKey:NSParagraphStyleAttributeName];
+	if(!oldParagraphStyle)
+	{
+		oldParagraphStyle = [NSParagraphStyle defaultParagraphStyle];
+	}
+	if([oldParagraphStyle alignment] != NSLeftTextAlignment)
+	{
+		NSMutableParagraphStyle *newParagraphStyle = [[oldParagraphStyle mutableCopy] autorelease];
+		[newParagraphStyle setAlignment:NSLeftTextAlignment];
+		NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
+		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self syntaxParserAttributesDidChange];
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  alignRight:
+- (void)alignRight:(id)sender
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange range = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
+	NSParagraphStyle * oldParagraphStyle = [oldD objectForKey:NSParagraphStyleAttributeName];
+	if(!oldParagraphStyle)
+	{
+		oldParagraphStyle = [NSParagraphStyle defaultParagraphStyle];
+	}
+	if([oldParagraphStyle alignment] != NSRightTextAlignment)
+	{
+		NSMutableParagraphStyle *newParagraphStyle = [[oldParagraphStyle mutableCopy] autorelease];
+		[newParagraphStyle setAlignment:NSRightTextAlignment];
+		NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
+		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self syntaxParserAttributesDidChange];
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  alignJustified:
+- (void)alignJustified:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSRange range = [self selectedRange];
+	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
+	NSParagraphStyle * oldParagraphStyle = [oldD objectForKey:NSParagraphStyleAttributeName];
+	if(!oldParagraphStyle)
+	{
+		oldParagraphStyle = [NSParagraphStyle defaultParagraphStyle];
+	}
+	if([oldParagraphStyle alignment] != NSJustifiedTextAlignment)
+	{
+		NSMutableParagraphStyle *newParagraphStyle = [[oldParagraphStyle mutableCopy] autorelease];
+		[newParagraphStyle setAlignment:NSJustifiedTextAlignment];
+		NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
+		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
+		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
+		[[SP attributesServer] setAttributes:newD forMode:mode];
+		[self syntaxParserAttributesDidChange];
+	}
+//iTM2_END;
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSameXHeight:
 - (IBAction)toggleSameXHeight:(id)sender;
@@ -1300,10 +1705,7 @@ To Do List:
     {
 //iTM2_LOG(@"REPLACING");
         NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:D];
-		if(newC)
-			[MD setObject:newC forKey:NSForegroundColorAttributeName];
-		else
-			[MD removeObjectForKey:NSForegroundColorAttributeName];
+		[MD setValue:newC forKey:NSForegroundColorAttributeName];
         D = [NSDictionary dictionaryWithDictionary:MD];
         NSString * mode = [D objectForKey:iTM2TextModeAttributeName];
         if(![mode length])
@@ -1312,10 +1714,7 @@ To Do List:
             return;
         }
         [[SP attributesServer] setAttributes:D forMode:[D objectForKey:iTM2TextModeAttributeName]];
-        [SP setUpAllTextViews];
-        NSWindowController * WC = [[self window] windowController];
-        [[WC document] updateChangeCount:NSChangeDone];
-        [WC validateWindowContent];
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1363,7 +1762,8 @@ To Do List:
     NSColor * newC = [newVisibleC isEqual:[NSColor textBackgroundColor]]? nil:newVisibleC;
     iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
-    NSDictionary * D = [SP attributesAtIndex:[self selectedRange].location effectiveRange:nil];
+	NSRange selectedRange = [self selectedRange];
+    NSDictionary * D = [SP attributesAtIndex:selectedRange.location effectiveRange:nil];
     NSColor * oldC = [D objectForKey:NSBackgroundColorAttributeName];
 //iTM2_LOG(@"oldC is: %@", oldC);
 //iTM2_LOG(@"newC is: %@", newC);
@@ -1371,16 +1771,10 @@ To Do List:
     if(![oldC isEqual:newC] && (newC || oldC))
     {
         NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:D];
-		if(newC)
-			[MD setObject:newC forKey:NSBackgroundColorAttributeName];
-		else
-			[MD removeObjectForKey:NSBackgroundColorAttributeName];
+		[MD setValue:newC forKey:NSBackgroundColorAttributeName];
         D = [NSDictionary dictionaryWithDictionary:MD];
         [[SP attributesServer] setAttributes:D forMode:[D objectForKey:iTM2TextModeAttributeName]];
-        [SP setUpAllTextViews];
-        NSWindowController * WC = [[self window] windowController];
-        [[WC document] updateChangeCount:NSChangeDone];
-        [WC validateWindowContent];
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1428,22 +1822,16 @@ To Do List:
     NSColor * newC = [newVisibleC isEqual:[NSColor selectedTextColor]]? nil:newVisibleC;
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:[self selectedTextAttributes]];
 //iTM2_LOG(@"OLD [self selectedTextAttributes] are:%@", [self selectedTextAttributes]);
-    [MD addEntriesFromDictionary:[[SP attributesServer] attributesForMode:iTM2TextSelectionKey]];
+    [MD addEntriesFromDictionary:[[SP attributesServer] attributesForMode:iTM2TextSelectionSyntaxModeName]];
     NSString * key = NSForegroundColorAttributeName;
     NSColor * oldC = [MD objectForKey:key];
     if(![oldC isEqual:newC] && (newC || oldC))
     {
-		if(newC)
-			[MD setObject:newC forKey:key];
-		else
-			[MD removeObjectForKey:key];
+		[MD setValue:newC forKey:key];
 //        [MD setObject:[NSNumber numberWithInt:1] forKey:NSUnderlineStyleAttributeName];
         NSDictionary * D = [NSDictionary dictionaryWithDictionary:MD];
-        [[SP attributesServer] setAttributes:D forMode:iTM2TextSelectionKey];
-        [SP setUpAllTextViews];
-        NSWindowController * WC = [[self window] windowController];
-        [[WC document] updateChangeCount:NSChangeDone];
-        [WC validateWindowContent];
+        [[SP attributesServer] setAttributes:D forMode:iTM2TextSelectionSyntaxModeName];
+		[self syntaxParserAttributesDidChange];
 //iTM2_LOG(@"NEW [self selectedTextAttributes] are:%@", [self selectedTextAttributes]);
     }
     return;
@@ -1485,21 +1873,15 @@ To Do List:
     NSColor * newVisibleC = [sender color];
     NSColor * newC = [newVisibleC isEqual:[NSColor selectedTextBackgroundColor]]? nil:newVisibleC;
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:[self selectedTextAttributes]];
-    [MD addEntriesFromDictionary:[[SP attributesServer] attributesForMode:iTM2TextSelectionKey]];
+    [MD addEntriesFromDictionary:[[SP attributesServer] attributesForMode:iTM2TextSelectionSyntaxModeName]];
     NSString * key = NSBackgroundColorAttributeName;
     NSColor * oldC = [MD objectForKey:key];
     if(![oldC isEqual:newC] && (newC || oldC))
     {
-		if(newC)
-			[MD setObject:newC forKey:key];
-		else
-			[MD removeObjectForKey:key];
+		[MD setValue:newC forKey:key];
         NSDictionary * D = [NSDictionary dictionaryWithDictionary:MD];
-        [[SP attributesServer] setAttributes:D forMode:iTM2TextSelectionKey];
-        [SP setUpAllTextViews];
-        NSWindowController * WC = [[self window] windowController];
-        [[WC document] updateChangeCount:NSChangeDone];
-        [WC validateWindowContent];
+        [[SP attributesServer] setAttributes:D forMode:iTM2TextSelectionSyntaxModeName];
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1540,21 +1922,15 @@ To Do List:
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
     NSColor * newVisibleC = [sender color];
     NSColor * newC = ([newVisibleC isEqual:[NSColor textColor]]? nil:newVisibleC);
-    NSString * mode = iTM2TextInsertionKey;
+    NSString * mode = iTM2TextInsertionSyntaxModeName;
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:
                                         [[SP attributesServer] attributesForMode:mode]];
     NSColor * oldC = [MD objectForKey:key];
     if(![oldC isEqual:newC] && (newC || oldC))
     {
-		if(newC)
-			[MD setObject:newC forKey:key];
-		else
-			[MD removeObjectForKey:key];
+		[MD setValue:newC forKey:key];
         [[SP attributesServer] setAttributes:[NSDictionary dictionaryWithDictionary:MD] forMode:mode];
-        [SP setUpAllTextViews];
-        NSWindowController * WC = [[self window] windowController];
-        [[WC document] updateChangeCount:NSChangeDone];
-        [WC validateWindowContent];
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1598,7 +1974,7 @@ To Do List:
     if(newVisibleC && ![newVisibleC alphaComponent])
         newVisibleC = [NSColor textBackgroundColor];
     NSColor * newC = ([newVisibleC isEqual:[NSColor textBackgroundColor]]? nil:newVisibleC);
-    NSString * mode = iTM2TextBackgroundKey;
+    NSString * mode = iTM2TextBackgroundSyntaxModeName;
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:
                                     [[SP attributesServer] attributesForMode:mode]];
     NSColor * oldC = [MD objectForKey:key];
@@ -1609,10 +1985,7 @@ To Do List:
 		else
 			[MD removeObjectForKey:key];
         [[SP attributesServer] setAttributes:[NSDictionary dictionaryWithDictionary:MD] forMode:mode];
-        [SP setUpAllTextViews];
-        NSWindowController * WC = [[self window] windowController];
-        [[WC document] updateChangeCount:NSChangeDone];
-        [WC validateWindowContent];
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1629,7 +2002,7 @@ To Do List:
     NSString * key = NSBackgroundColorAttributeName;
     iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
-    NSString * mode = iTM2TextBackgroundKey;
+    NSString * mode = iTM2TextBackgroundSyntaxModeName;
 	NSDictionary * attributes = [[SP attributesServer] attributesForMode:mode];
     NSColor * C = [attributes objectForKey:key];
     if(!C || ![C alphaComponent])
@@ -1669,17 +2042,18 @@ To Do List:
     NSRange range = [self selectedRange];
     iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
+	NSDictionary * D = nil;
     if(range.length)
     {
         unsigned top = NSMaxRange(range);
-        NSDictionary * D = [SP attributesAtIndex:range.location effectiveRange:&range];
+        D = [SP attributesAtIndex:range.location effectiveRange:&range];
         mode = [D objectForKey:iTM2TextModeAttributeName];
-        next:
+next:
         range.location += range.length;
         if(top > range.location)
         {
-            NSDictionary * d = [SP attributesAtIndex:range.location effectiveRange:&range];
-            NSString * m = [d objectForKey:iTM2TextModeAttributeName];
+            D = [SP attributesAtIndex:range.location effectiveRange:&range];
+            NSString * m = [D objectForKey:iTM2TextModeAttributeName];
             if([m isEqualToString:mode])
                 goto next;
             else
@@ -1690,11 +2064,32 @@ To Do List:
 			}
         }
     }
-	mode = [[SP attributesAtIndex:range.location effectiveRange:nil] objectForKey:iTM2TextModeAttributeName];
-	if([mode length])
-		mode = NSLocalizedStringFromTableInBundle(mode, [@"iTM2TextStyle_" stringByAppendingString:[[SP class] syntaxParserStyle]], [SP classBundle], "Description forthcoming");
 	else
+	{
+		unsigned start,contentsEnd;
+		[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:range];
+		if(range.location<contentsEnd)
+		{
+			D = [SP attributesAtIndex:range.location effectiveRange:nil];
+		}
+		else if(range.location>start)
+		{
+			D = [SP attributesAtIndex:range.location-1 effectiveRange:nil];
+		}
+		else
+		{
+			D = [SP attributesAtIndex:range.location effectiveRange:nil];
+		}
+		mode = [D objectForKey:iTM2TextModeAttributeName];
+	}
+	if([mode length])
+	{
+		mode = NSLocalizedStringFromTableInBundle(mode, [@"iTM2TextStyle_" stringByAppendingString:[[SP class] syntaxParserStyle]], [SP classBundle], "Description forthcoming");
+	}
+	else
+	{
 		mode = NSLocalizedStringFromTableInBundle(@"No mode", TABLE, BUNDLE, "Description forthcoming");
+	}
     [sender setStringValue:mode];
     return YES;
 }
@@ -1709,7 +2104,7 @@ To Do List:
 //iTM2_START;
     iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
-    NSString * mode = iTM2TextBackgroundKey;
+    NSString * mode = iTM2TextBackgroundSyntaxModeName;
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:
                                     [[SP attributesServer] attributesForMode:mode]];
     BOOL oldFlag = [[MD objectForKey:iTM2NoBackgroundAttributeName] boolValue];
@@ -1733,7 +2128,7 @@ To Do List:
 //iTM2_START;
     iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
-    NSString * mode = iTM2TextBackgroundKey;
+    NSString * mode = iTM2TextBackgroundSyntaxModeName;
     BOOL oldFlag = [[[[SP attributesServer] attributesForMode:mode] objectForKey:iTM2NoBackgroundAttributeName] boolValue];
     [sender setState:(oldFlag? NSOnState:NSOffState)];
     return YES;
@@ -1749,7 +2144,7 @@ To Do List:
 //iTM2_START;
     iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
-    NSString * mode = iTM2TextBackgroundKey;
+    NSString * mode = iTM2TextBackgroundSyntaxModeName;
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:[[SP attributesServer] attributesForMode:mode]];
     BOOL was = [[MD objectForKey:iTM2CursorIsWhiteAttributeName] boolValue];
     [MD setObject:[NSNumber numberWithBool:!was] forKey:iTM2CursorIsWhiteAttributeName];
@@ -1772,7 +2167,7 @@ To Do List:
 //iTM2_START;
     iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
-    NSString * mode = iTM2TextBackgroundKey;
+    NSString * mode = iTM2TextBackgroundSyntaxModeName;
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:[[SP attributesServer] attributesForMode:mode]];
     BOOL cursorIsWhite = [[MD objectForKey:iTM2CursorIsWhiteAttributeName] boolValue];
     [sender setState:(cursorIsWhite? NSOnState:NSOffState)];
@@ -1785,6 +2180,61 @@ To Do List:
     return YES;
 }
 @end
+#if 0
+APPKIT_EXTERN NSString *NSFontAttributeName;             // NSFont, default Helvetica 12
+APPKIT_EXTERN NSString *NSParagraphStyleAttributeName;   // NSParagraphStyle, default defaultParagraphStyle
+APPKIT_EXTERN NSString *NSForegroundColorAttributeName;  // NSColor, default blackColor
+APPKIT_EXTERN NSString *NSUnderlineStyleAttributeName;   // int, default 0: no underline
+APPKIT_EXTERN NSString *NSSuperscriptAttributeName;      // int, default 0
+APPKIT_EXTERN NSString *NSBackgroundColorAttributeName;  // NSColor, default nil: no background
+APPKIT_EXTERN NSString *NSAttachmentAttributeName;       // NSTextAttachment, default nil
+APPKIT_EXTERN NSString *NSLigatureAttributeName;         // int, default 1: default ligatures, 0: no ligatures, 2: all ligatures
+APPKIT_EXTERN NSString *NSBaselineOffsetAttributeName;   // float, in points; offset from baseline, default 0
+APPKIT_EXTERN NSString *NSKernAttributeName;             // float, amount to modify default kerning, if 0, kerning off
+APPKIT_EXTERN NSString *NSLinkAttributeName;		 // NSURL (preferred) or NSString
+
+APPKIT_EXTERN NSString *NSStrokeWidthAttributeName		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // float, in percent of font point size, default 0: no stroke; positive for stroke alone, negative for stroke and fill (a typical value for outlined text would be 3.0)
+APPKIT_EXTERN NSString *NSStrokeColorAttributeName		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSColor, default nil: same as foreground color */
+APPKIT_EXTERN NSString *NSUnderlineColorAttributeName		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSColor, default nil: same as foreground color */
+APPKIT_EXTERN NSString *NSStrikethroughStyleAttributeName	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // int, default 0: no strikethrough */
+APPKIT_EXTERN NSString *NSStrikethroughColorAttributeName	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSColor, default nil: same as foreground color */
+APPKIT_EXTERN NSString *NSShadowAttributeName			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSShadow, default nil: no shadow */
+APPKIT_EXTERN NSString *NSObliquenessAttributeName		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // float; skew to be applied to glyphs, default 0: no skew */
+APPKIT_EXTERN NSString *NSExpansionAttributeName		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // float; log of expansion factor to be applied to glyphs, default 0: no expansion */
+APPKIT_EXTERN NSString *NSCursorAttributeName			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSCursor, default IBeamCursor */
+APPKIT_EXTERN NSString *NSToolTipAttributeName			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSString, default nil: no tooltip */
+
+/* An integer value.  The value is interpreted as Apple Type Services kCharacterShapeType selector + 1.
+ * default is 0 (disable). 1 is kTraditionalCharactersSelector and so on.
+ * Refer to <ATS/SFNTLayoutTypes.h>
+ */
+APPKIT_EXTERN NSString *NSCharacterShapeAttributeName;
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_2
+/* An NSGlyphInfo object.  This provides a means to override the standard glyph generation.  NSLayoutManager will assign the glyph specified by this glyph info to the entire attribute range, provided that its contents match the specified base string, and that the specified glyph is available in the font specified by NSFontAttributeName.
+*/
+APPKIT_EXTERN NSString *NSGlyphInfoAttributeName;
+#endif
+
+/* This defines currently supported values for NSUnderlineStyleAttributeName and NSStrikethroughAttributeName, as of Mac OS X version 10.3.  The style, pattern, and optionally by-word mask are or'd together to produce the value.  The previous constants are still supported, but deprecated (except for NSUnderlineByWordMask); including NSUnderlineStrikethroughMask in the underline style will still produce a strikethrough, but that is deprecated in favor of setting NSStrikethroughStyleAttributeName using the values described here.
+*/
+enum {
+    NSUnderlineStyleNone		= 0x00,
+    NSUnderlineStyleSingle		= 0x01,
+    NSUnderlineStyleThick		= 0x02,
+    NSUnderlineStyleDouble		= 0x09
+};
+
+enum {
+    NSUnderlinePatternSolid		= 0x0000,
+    NSUnderlinePatternDot		= 0x0100,
+    NSUnderlinePatternDash		= 0x0200,
+    NSUnderlinePatternDashDot		= 0x0300,
+    NSUnderlinePatternDashDotDot	= 0x0400
+};
+
+APPKIT_EXTERN unsigned NSUnderlineByWordMask; 
+#endif
 
 @interface iTM2TextSyntaxParserAttributesDocument(PRIVATE)
 - (void)setSyntaxParserVariant:(NSString *)SPV;
@@ -2045,9 +2495,9 @@ To Do List:
     }
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) type;
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2132,12 +2582,14 @@ To Do List:
 //iTM2_END;
 	return;
 }
+#if 0
 - (void)textDidChange:(NSNotification *)notification;
 {
 	NSTextStorage * TS = [[self textView] textStorage];
 	NSLog(@"TS is: <%@> (<%@>)", TS, [TS string]);
 	return;
 }
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesServer:
 - (id)attributesServer;
 /*"Description Forthcoming..
@@ -2266,7 +2718,8 @@ To Do List:
 	NSString * fileName = [absoluteURL path];
     NSString * stylePath = [fileName stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
 	iTM2TextSyntaxParserAttributesServer * AS = [self attributesServer];
-	if(![[AS class] writeModesAttributes:[AS modesAttributes] toFile:stylePath error:outErrorPtr])
+	NSDictionary * modesAttributes = [AS modesAttributes];
+	if(![[AS class] writeModesAttributes:modesAttributes toFile:stylePath error:outErrorPtr])
 	{
 		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Could not write the modes attributes at path:%@", stylePath]),nil);
 //iTM2_END;
@@ -2548,15 +3001,22 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * name = [sender stringValue];
-    if(![[self variant] isEqualToString:name])
+	NSString * variant = [self variant];
+    if(![variant pathIsEqual:name])
     {
-        if(![[[iTM2TextSyntaxParser syntaxParserVariantsForStyle:[self style]] allKeys] containsObject:[name lowercaseString]])
+		NSString * style = [self style];
+		NSDictionary * variants = [iTM2TextSyntaxParser syntaxParserVariantsForStyle:style];
+		NSArray * lowerKeys = [variants valueForKeyPath:@"allKeys.@lowercaseString"];
+		NSString * lowerName = [name lowercaseString];
+        if(![lowerKeys containsObject:lowerName])
         {
-            [self setVariant:[[name copy] autorelease]];
+			name = [[name copy] autorelease];
+            [self setVariant:name];
             [NSApp stopModalWithCode:1];
         }
     }
-    [[sender window] validateContent];
+	NSWindow * W = [sender window];
+    [W validateContent];
 //iTM2_END;
     return;
 }

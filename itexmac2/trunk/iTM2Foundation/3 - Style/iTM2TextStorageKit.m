@@ -40,12 +40,12 @@ typedef struct
 @defs(iTM2ModeLine)
 } iTM2ModeLineDef;
 
-NSString * const iTM2TextDefaultKey = @"default";// MUST BE LOWERCASE
-NSString * const iTM2TextWhitePrefixKey = @"white prefix";// MUST BE LOWERCASE
-NSString * const iTM2TextErrorKey = @"error";// MUST BE LOWERCASE TOO
-NSString * const iTM2TextSelectionKey = @"selection";// MUST BE LOWERCASE TOO
-NSString * const iTM2TextInsertionKey = @"insertion";// MUST BE LOWERCASE TOO
-NSString * const iTM2TextBackgroundKey = @"background";// MUST BE LOWERCASE TOO
+NSString * const iTM2TextDefaultSyntaxModeName = @"default";// MUST BE LOWERCASE
+NSString * const iTM2TextWhitePrefixSyntaxModeName = @"white prefix";// MUST BE LOWERCASE
+NSString * const iTM2TextErrorSyntaxModeName = @"error";// MUST BE LOWERCASE TOO
+NSString * const iTM2TextSelectionSyntaxModeName = @"selection";// MUST BE LOWERCASE TOO
+NSString * const iTM2TextInsertionSyntaxModeName = @"insertion";// MUST BE LOWERCASE TOO
+NSString * const iTM2TextBackgroundSyntaxModeName = @"background";// MUST BE LOWERCASE TOO
 NSString * const iTM2TextModeAttributeName = @"iTM2Mode";
 NSString * const iTM2NoBackgroundAttributeName = @"iTM2NoBackgroundAttribute";
 NSString * const iTM2CursorIsWhiteAttributeName = @"iTM2CursorIsWhiteAttribute";
@@ -543,8 +543,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//NSLog(@"someone has asked..., %@", attributes);
-//NSLog(@"_TextModel %@", _TextModel);
+	if([_ACD methodSignatureForSelector:@selector(textStorage:wouldSetAttributes:range:)])
+	{
+		[_ACD textStorage:self wouldSetAttributes:attributes range:aRange];
+	}
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addAttribute:value:range:
@@ -556,7 +559,36 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[self syntaxParser] addAttribute:name value:value range:range];
+//iTM2_END;
+	if([_ACD methodSignatureForSelector:@selector(textStorage:wouldAddAttribute:value:range:)])
+	{
+		[_ACD textStorage:self wouldAddAttribute:name value:value range:range];
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesChangeDelegate
+- (id)attributesChangeDelegate;
+/*"Does nothing: no one should change the attributes except the receiver itself.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return _ACD;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setAttributesChangeDelegate:
+- (void)setAttributesChangeDelegate:(id)delegate;
+/*"Does nothing: no one should change the attributes except the receiver itself.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	_ACD = delegate;
+//iTM2_END;
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SYNTAX COLORING
@@ -1344,6 +1376,18 @@ RoseRouge:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setAttributes:range:
+- (void)setAttributes:(NSDictionary *)attributes range:(NSRange)range;
+/*"Does nothing: no one should change the attributes except the receiver itself.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addAttribute:value:range:
 - (void)addAttribute:(NSString *)name value:(id)value range:(NSRange)range;
 /*"Does nothing: no one should change the attributes except the receiver itself.
@@ -1353,6 +1397,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  TEXTVIEW
@@ -1389,12 +1434,12 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"TV: %@", TV);
 	NSRange charRange = NSMakeRange(0, [[TV string] length]);
-	NSDictionary * attributes = [_AS attributesForMode:iTM2TextDefaultKey];
+	NSDictionary * attributes = [_AS attributesForMode:iTM2TextDefaultSyntaxModeName];
 	NSColor * foreColor = [attributes objectForKey:NSForegroundColorAttributeName];
-	attributes = [_AS attributesForMode:iTM2TextSelectionKey];
-	NSColor * insertionColor = [[_AS attributesForMode:iTM2TextInsertionKey]
+	attributes = [_AS attributesForMode:iTM2TextSelectionSyntaxModeName];
+	NSColor * insertionColor = [[_AS attributesForMode:iTM2TextInsertionSyntaxModeName]
 										objectForKey: NSForegroundColorAttributeName];
-	NSDictionary * background = [_AS attributesForMode:iTM2TextBackgroundKey];
+	NSDictionary * background = [_AS attributesForMode:iTM2TextBackgroundSyntaxModeName];
 	BOOL drawsBackground = ![[background objectForKey:iTM2NoBackgroundAttributeName] boolValue];
 	BOOL cursorIsWhite = [[background objectForKey:iTM2CursorIsWhiteAttributeName] boolValue];
 	if([[TV string] length])// unless infinite loop
@@ -1432,10 +1477,21 @@ To Do List:
 	NSLayoutManager * LM = [TV layoutManager];
 	[LM invalidateDisplayForCharacterRange:charRange];
 	#if 1
+	NS_DURING
 	{// this is a block
+		charRange.length = [LM firstUnlaidCharacterIndex];
 		[LM invalidateGlyphsForCharacterRange:charRange changeInLength:0 actualCharacterRange:nil];
 		[LM invalidateLayoutForCharacterRange:charRange isSoft:NO actualCharacterRange:nil];
 	}
+	NS_HANDLER
+	iTM2DebugEnabled = 10000;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[TV textStorage];
+	if([TS respondsToSelector:@selector(syntaxParser)])
+	{
+		id SP = [TS syntaxParser];
+		[SP diagnostic];
+	}
+	NS_ENDHANDLER
 	#endif
 //iTM2_END;
     return;
@@ -1855,7 +1911,7 @@ To Do List:
         aRangePtr -> location = aLocation;
         aRangePtr -> length = [_TextStorage length]-aLocation;
     }
-    return [_AS attributesForMode:iTM2TextDefaultKey];
+    return [_AS attributesForMode:iTM2TextDefaultSyntaxModeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:longestEffectiveRange:inRange:
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
@@ -4627,7 +4683,7 @@ NSString * const iTM2TextStyleComponent = @"Styles.localized";
 
 NSString * const iTM2TextStyleExtension = @"iTM2-Style";
 NSString * const iTM2TextVariantExtension = @"iTM2-Variant";
-NSString * const iTM2TextAttributesModesComponent = @"modes";
+NSString * const iTM2TextAttributesModesComponent = @"modes.rtf";
 
 NSString * const iTM2TextAttributesDidChangeNotification = @"iTM2TextAttributesDidChange";
 
@@ -4650,25 +4706,25 @@ To Do List:
     NSDictionary * regular = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
         [NSColor blackColor], NSForegroundColorAttributeName,
-        iTM2TextDefaultKey, iTM2TextModeAttributeName,
+        iTM2TextDefaultSyntaxModeName, iTM2TextModeAttributeName,
             nil];
     NSDictionary * error = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
         [NSColor redColor], NSForegroundColorAttributeName,
-        iTM2TextErrorKey, iTM2TextModeAttributeName,
+        iTM2TextErrorSyntaxModeName, iTM2TextModeAttributeName,
             nil];
     NSDictionary * _selection = [NSDictionary dictionaryWithObjectsAndKeys:
-        iTM2TextSelectionKey, iTM2TextModeAttributeName,
+        iTM2TextSelectionSyntaxModeName, iTM2TextModeAttributeName,
             nil];
     NSDictionary * _whitePrefix = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont userFixedPitchFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        iTM2TextWhitePrefixKey, iTM2TextModeAttributeName,
+        iTM2TextWhitePrefixSyntaxModeName, iTM2TextModeAttributeName,
             nil];
     NSDictionary * _background = [NSDictionary dictionaryWithObjectsAndKeys:
-        iTM2TextBackgroundKey, iTM2TextModeAttributeName,
+        iTM2TextBackgroundSyntaxModeName, iTM2TextModeAttributeName,
             nil];
     NSDictionary * _insertion = [NSDictionary dictionaryWithObjectsAndKeys:
-        iTM2TextInsertionKey, iTM2TextModeAttributeName,
+        iTM2TextInsertionSyntaxModeName, iTM2TextModeAttributeName,
             nil];
     return [NSDictionary dictionaryWithObjectsAndKeys:
             regular, [regular objectForKey:iTM2TextModeAttributeName],
@@ -4731,7 +4787,8 @@ To Do List:
 	NSString * directory = [[iTM2TextStyleComponent stringByAppendingPathComponent:style]
 								stringByAppendingPathExtension: iTM2TextStyleExtension];
 	NSString * support = [[NSBundle mainBundle] pathForSupportDirectory:directory inDomain:NSUserDomainMask create:YES];
-    NSString * stylePath = [[support stringByAppendingPathComponent:variant] stringByAppendingPathExtension:iTM2TextVariantExtension];
+    NSString * stylePath = [support stringByAppendingPathComponent:variant];
+    stylePath = [stylePath stringByAppendingPathExtension:iTM2TextVariantExtension];
 	NSError * localError = nil;
     if([DFM createDeepDirectoryAtPath:stylePath attributes:nil error:&localError])
     {
@@ -5023,15 +5080,20 @@ To Do List:
 	NSMutableDictionary * modesAttributes = [NSMutableDictionary dictionary];
 	NSString * variantComponent = [iTM2TextDefaultVariant stringByAppendingPathExtension:iTM2TextVariantExtension];
 	NSString * stylePath;
-	NSEnumerator * E = [[self builtInStylePaths] objectEnumerator];
+	NSBundle * MB = [NSBundle mainBundle];
+	NSString * style = [[self syntaxParserClass] syntaxParserStyle];
+	NSArray * paths = [MB pathsForBuiltInResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent];
+iTM2_LOG(@"builtIn:%@",paths);
+	NSEnumerator * E = [paths objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
-		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
+		stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
-			[modesAttributes addEntriesFromDictionary:[[self class] modesAttributesWithContentsOfFile:
-				[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent] error:outErrorPtr]];
+			stylePath = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+			[modesAttributes addEntriesFromDictionary:[[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr]];
 		}
 	}
     variant = [variant lowercaseString];
@@ -5041,25 +5103,29 @@ To Do List:
 		E = [[self builtInStylePaths] objectEnumerator];
 		while(stylePath = [E nextObject])
 		{
-			stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+			stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
+			stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
 			BOOL isDir = NO;
 			if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 			{
-				NSString * path = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
-				NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:path error:outErrorPtr];
+				stylePath = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+				NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr];
 				[modesAttributes addEntriesFromDictionary:D];
 			}
 		}
 	}
-	E = [[self otherStylePaths] objectEnumerator];
+	paths = [MB pathsForSupportResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent];
+iTM2_LOG(@"support:%@",paths);
+	E = [paths objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
-		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
+		stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
-			NSString * path = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
-			NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:path error:outErrorPtr];
+			stylePath= [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+			NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr];
 			[modesAttributes addEntriesFromDictionary:D];
 		}
 	}
@@ -5130,27 +5196,159 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+iTM2_LOG(@"fileName:%@",fileName);
     NSData * D = [NSData dataWithContentsOfFile:fileName options:0 error:outErrorPtr];
-    NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-    if([D length])
-    {
-        NSKeyedUnarchiver * KU = [[[NSKeyedUnarchiver alloc] initForReadingWithData:D] autorelease];
-        [KU setClass:[iTM2TextModeAttributesDictionary class] forClassName:@"NSDictionary"];
-        NSEnumerator * E = [[KU decodeObjectForKey:@"iTM2:root"] objectEnumerator];
-        id O;
-        while(O = [E nextObject])
-        {
-            id K = [O objectForKey:iTM2TextModeAttributeName];
-            if(K)
+	NSMutableDictionary * MD = nil;
+	if(!D)// either a missing file or a real error
+	{
+		fileName = [fileName stringByDeletingPathExtension];
+		D = [NSData dataWithContentsOfFile:fileName options:0 error:outErrorPtr];
+		if(!D)
+		{
+			if(outErrorPtr && !*outErrorPtr)
 			{
-				if(O)
-					[MD setObject:O forKey:K];
-				else
-					[MD removeObjectForKey:K];
+				iTM2_REPORTERROR(1,@"Missing file?",nil);
 			}
-        }
-    }
-    return MD;
+			return nil;
+		}
+		if([D length])
+		{
+			MD = [NSMutableDictionary dictionary];
+			NSKeyedUnarchiver * KU = [[[NSKeyedUnarchiver alloc] initForReadingWithData:D] autorelease];
+//			[KU setClass:[iTM2TextModeAttributesDictionary class] forClassName:@"NSDictionary"];
+			NSEnumerator * E = [[KU decodeObjectForKey:@"iTM2:root"] objectEnumerator];
+			id O;
+			while(O = [E nextObject])
+			{
+				id K = [O objectForKey:iTM2TextModeAttributeName];
+				if(K)
+				{
+					if(O)
+						[MD setObject:O forKey:K];
+					else
+						[MD removeObjectForKey:K];
+				}
+			}
+			return MD;
+		}
+		return [NSDictionary dictionary];
+	}
+	NSAttributedString * AS = [[[NSAttributedString alloc] initWithData:D options:nil documentAttributes:nil error:outErrorPtr] autorelease];
+	NSString * S = [AS string];
+	if(!AS)
+	{
+		return [NSDictionary dictionary];
+	}
+	// parse by lines
+	NSMutableArray * linesRA = [NSMutableArray array];
+	NSMutableArray * attributesRA = [NSMutableArray array];
+	id attributes = nil;
+	NSString * line;
+	NSRange R = NSMakeRange(0,0);
+	unsigned nextStart = 0, contentsEnd = 0;
+	do
+	{
+		R.location = nextStart;
+		R.length = 0;
+		[S getLineStart:nil end:&nextStart contentsEnd:&contentsEnd forRange:R];
+		R.length = nextStart - R.location;
+		if(contentsEnd>R.location)
+		{
+			line = [S substringWithRange:R];
+			[linesRA addObject:line];
+			attributes = [AS attributesAtIndex:R.location effectiveRange:nil];
+			[attributesRA addObject:attributes];
+		}
+	}
+	while(nextStart<[S length]);
+	// remove the comments
+	NSEnumerator * E = [linesRA objectEnumerator];
+	linesRA = [NSMutableArray array];
+	NSEnumerator * EE = [attributesRA objectEnumerator];
+	attributesRA = [NSMutableArray array];
+	NSScanner * scanner = nil;
+	while(line = [E nextObject])
+	{
+		attributes = [EE nextObject];
+		scanner = [NSScanner scannerWithString:line];
+		[scanner setCaseSensitive:NO];
+		if([scanner scanString:@"###" intoString:nil])
+		{
+			// ignore line
+		}
+		else
+		{
+			[linesRA addObject:line];
+			[attributesRA addObject:attributes];
+		}
+	}
+	// scan the modes
+	MD = [NSMutableDictionary dictionary];
+	NSString * mode;
+	E = [linesRA objectEnumerator];
+	EE = [attributesRA objectEnumerator];
+	BOOL noBackgroundColor = NO;
+	BOOL cursorIsWhite = NO;
+	while(line = [E nextObject])
+	{
+		attributes = [EE nextObject];
+		scanner = [NSScanner scannerWithString:line];
+		[scanner setCaseSensitive:NO];
+		if([scanner scanString:@"mode" intoString:nil] && [scanner scanString:@":" intoString:nil])
+		{
+			mode = nil;
+		}
+		else if([scanner scanString:iTM2NoBackgroundAttributeName intoString:nil])
+		{
+			noBackgroundColor = YES;
+		}
+		else if([scanner scanString:iTM2CursorIsWhiteAttributeName intoString:nil])
+		{
+			cursorIsWhite = YES;
+		}
+		else
+		{
+			if(!mode)
+			{
+				mode = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			}
+			attributes = [[attributes mutableCopy] autorelease];
+			[attributes setObject:mode forKey:iTM2TextModeAttributeName];
+			[MD setObject:attributes forKey:mode];
+		}
+	}
+	if(noBackgroundColor || cursorIsWhite)
+	{
+		mode = iTM2TextBackgroundSyntaxModeName;
+		attributes = [MD objectForKey:mode];
+		if(attributes = [MD objectForKey:mode])
+		{
+			attributes = [[attributes mutableCopy] autorelease];
+		}
+		else
+		{
+			attributes = [NSMutableDictionary dictionary];
+		}
+		NSNumber * N = [NSNumber numberWithBool:YES];
+		if(noBackgroundColor)
+		{
+			[attributes setObject:N forKey:iTM2NoBackgroundAttributeName];
+		}
+		else
+		{
+			[attributes removeObjectForKey:iTM2NoBackgroundAttributeName];
+		}
+		if(cursorIsWhite)
+		{
+			[attributes setObject:N forKey:iTM2CursorIsWhiteAttributeName];
+		}
+		else
+		{
+			[attributes removeObjectForKey:iTM2CursorIsWhiteAttributeName];
+		}
+		[MD setObject:attributes forKey:mode];
+	}
+	return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeModesAttributes:toFile:error:
 + (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outErrorPtr;
@@ -5161,15 +5359,49 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMutableData * MD = [NSMutableData data];
-    NSKeyedArchiver * KA = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:MD] autorelease];
-    [KA setClassName:@"NSDictionary" forClass:[iTM2TextModeAttributesDictionary class]];
-    [KA setOutputFormat:NSPropertyListXMLFormat_v1_0];
-    [KA encodeObject:[dictionary allValues] forKey:@"iTM2:root"];
-    [KA finishEncoding];
-//iTM2_LOG(@"MD is: %@", MD);
+	NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] initWithString:@"### This is a style for iTeXMac2 syntax coloring\n"] autorelease];
+	NSAttributedString * buffer = nil;
+	NSEnumerator * E = [dictionary keyEnumerator];
+	NSString * mode;
+	id attributes;
+	while(mode = [E nextObject])
+	{
+		if([mode isEqual:@"_selection"]||[mode isEqual:@"_insertion"]||[mode isEqual:@"_white_prefix"])
+		{
+			// old designed
+			continue;
+		}
+		buffer = [[[NSMutableAttributedString alloc] initWithString:@"mode:\n"] autorelease];
+		[MAS appendAttributedString:buffer];
+		attributes = [dictionary objectForKey:mode];
+		buffer = [[[NSMutableAttributedString alloc] initWithString:mode attributes:attributes] autorelease];
+		[MAS appendAttributedString:buffer];
+		buffer = [[[NSMutableAttributedString alloc] initWithString:@"\n"] autorelease];
+		[MAS appendAttributedString:buffer];
+	}
+	mode = iTM2TextBackgroundSyntaxModeName;
+	attributes = [dictionary objectForKey:mode];
+	NSNumber * N = [attributes objectForKey:iTM2CursorIsWhiteAttributeName];
+	if([N boolValue])
+	{
+		buffer = [[[NSMutableAttributedString alloc] initWithString:iTM2CursorIsWhiteAttributeName] autorelease];
+		[MAS appendAttributedString:buffer];
+		buffer = [[[NSMutableAttributedString alloc] initWithString:@"\n"] autorelease];
+		[MAS appendAttributedString:buffer];
+	}
+	N = [attributes objectForKey:iTM2NoBackgroundAttributeName];
+	if([N boolValue])
+	{
+		buffer = [[[NSMutableAttributedString alloc] initWithString:iTM2NoBackgroundAttributeName] autorelease];
+		[MAS appendAttributedString:buffer];
+		buffer = [[[NSMutableAttributedString alloc] initWithString:@"\n"] autorelease];
+		[MAS appendAttributedString:buffer];
+	}
+	NSRange range = NSMakeRange(0,[MAS length]);
+	NSData * D = [MAS RTFFromRange:range documentAttributes:nil];
+iTM2_LOG(@"fileName:%@",fileName);
 //iTM2_END;
-    return [MD writeToFile:fileName options:NSAtomicWrite error:outErrorPtr];
+    return [D writeToFile:fileName options:NSAtomicWrite error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  character:isMemberOfCoveredCharacterSetForMode:
 - (BOOL)character:(unichar)theChar isMemberOfCoveredCharacterSetForMode:(NSString *)mode;

@@ -3132,6 +3132,7 @@ To Do List:
     [self setDocumentEdited:NO];// validate the user interface as side effect
 	[self backupModel];
     [self loadContext:self];
+//	[self validateWindowContent]; too early?
 //iTM2_LOG(@"should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
     return;
 }

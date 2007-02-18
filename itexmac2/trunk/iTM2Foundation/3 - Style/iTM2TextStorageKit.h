@@ -128,6 +128,7 @@ enum
 @private
     id _Model;
     id _SP;
+	id _ACD;
 }
 
 /*!
@@ -210,6 +211,53 @@ enum
     @result     None
 */
 - (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string;
+
+/*!
+    @method     attributesChangeDelegate
+    @abstract   The delegate for the attributes change.
+    @discussion The attributes are not expected to change in response to a standard user action,
+				like setting the font or color using the font or color panel.
+				However, when editing the syntax style, one has to catch the messages sent by the UI to the model.
+				Every attributes change is forwarded to the delegate.
+    @result     None
+*/
+- (id)attributesChangeDelegate;
+
+/*!
+    @method     setAttributesChangeDelegate:
+    @abstract   Set the delegate for the attributes change.
+    @discussion The delegate is not owned by the receiver.
+				The delegate should implement the iTM2AttributesChangeProtocol informal protocol:
+    @result     None
+*/
+- (void)setAttributesChangeDelegate:(id)delegate;
+
+@end
+
+@interface NSObject(iTM2AttributesChangeProtocol)
+
+/*!
+    @method     textStorage:wouldSetAttributes:range:
+    @abstract   Informal protocol for an attributes change protocol.
+    @discussion The text storage is receiveing a <code>setAttributes:range:</code> message.
+	@param		TS is the text storage
+	@param		attributes are the new attributes
+	@param		range is the range
+    @result     None
+*/
+- (void)textStorage:(iTM2TextStorage *)TS wouldSetAttributes:(id)attributes range:(NSRange)range;
+
+/*!
+    @method     textStorage:wouldAddAttribute:value:range:
+    @abstract   Informal protocol for an attributes change protocol.
+    @discussion The text storage is receiveing a <code>addAttribute:value:range:</code> message.
+	@param		TS is the text storage
+	@param		name is the name of the added attribute
+	@param		value is the value of the added attribute
+	@param		range is the range
+    @result     None
+*/
+- (void)textStorage:(iTM2TextStorage *)TS wouldAddAttribute:(NSString *)name value:(id)value range:(NSRange)range;
 
 @end
 
@@ -439,6 +487,16 @@ enum
     @result     A dictionary of attributes
 */
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+
+/*!
+    @method     setAttributes:range:
+    @abstract   set attributes.
+    @discussion For subclassers only yet.
+    @param      attributes
+    @param      range
+    @result     None.
+*/
+- (void)setAttributes:(NSDictionary *)attributes range:(NSRange)range;
 
 /*!
     @method     addAttribute:value:range:
@@ -719,12 +777,13 @@ This default implementation does nothing.
 extern NSString * const iTM2TextSyntaxParserName;
 extern NSString * const iTM2TextModesAttributesExtension;
 extern NSString * const iTM2TextSymbolsAttributesExtension;
-extern NSString * const iTM2TextDefaultKey;
-extern NSString * const iTM2TextWhitePrefixKey;
-extern NSString * const iTM2TextErrorKey;
-extern NSString * const iTM2TextSelectionKey;
-extern NSString * const iTM2TextBackgroundKey;
-extern NSString * const iTM2TextInsertionKey;
+extern NSString * const iTM2TextDefaultSyntaxModeName;
+extern NSString * const iTM2TextWhitePrefixSyntaxModeName;
+extern NSString * const iTM2TextErrorSyntaxModeName;
+extern NSString * const iTM2TextSelectionSyntaxModeName;
+extern NSString * const iTM2TextBackgroundSyntaxModeName;
+extern NSString * const iTM2TextInsertionSyntaxModeName;
+
 extern NSString * const iTM2TextModeAttributeName;
 extern NSString * const iTM2NoBackgroundAttributeName;
 extern NSString * const iTM2CursorIsWhiteAttributeName;
@@ -1040,11 +1099,11 @@ extern NSString * const iTM2TextDefaultVariant;
     @abstract	The default modes attributes of the receiver's instances.
     @discussion	If no external definition is found, these will be used.
                 At least, you must define mode named:
-                - iTM2TextDefaultKey,
-                - iTM2TextErrorKey,
-                - iTM2TextSelectionKey,
-                - iTM2TextInsertionKey,
-                - iTM2TextBackgroundKey.
+                - iTM2TextDefaultSyntaxModeName,
+                - iTM2TextErrorSyntaxModeName,
+                - iTM2TextSelectionSyntaxModeName,
+                - iTM2TextInsertionSyntaxModeName,
+                - iTM2TextBackgroundSyntaxModeName.
                 This is the minimal set that ensures that everything works ok.
                 So, subclassers should add their own stuff to this dictionary to ensure some kind of forward compatibility.
     @param	None.

@@ -89,7 +89,7 @@ To Do List:
     if(!_iTM2TeXModeForModeArray)
 	{
         _iTM2TeXModeForModeArray = [[NSArray arrayWithObjects:
-			iTM2TextErrorKey, iTM2TextWhitePrefixKey, iTM2TextDefaultKey,// +3
+			iTM2TextErrorSyntaxModeName, iTM2TextWhitePrefixSyntaxModeName, iTM2TextDefaultSyntaxModeName,// +3
 			iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName, // +4
 			iTM2TeXCommentSyntaxModeName,iTM2TeXCommentSyntaxModeName,iTM2TeXMarkSyntaxModeName,iTM2TeXMarkSyntaxModeName,// +4
 			iTM2TeXGroupSyntaxModeName, iTM2TeXGroupSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXBracketSyntaxModeName, iTM2TeXBracketSyntaxModeName, // +6
@@ -128,12 +128,12 @@ To Do List:
 	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
         [NSColor blackColor], NSForegroundColorAttributeName,
-        iTM2TextDefaultKey, iTM2TextModeAttributeName,nil];
+        iTM2TextDefaultSyntaxModeName, iTM2TextModeAttributeName,nil];
 	[MRA addObject:attributes];
     attributes = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
         [NSColor redColor], NSForegroundColorAttributeName,
-        iTM2TextErrorKey, iTM2TextModeAttributeName,nil];
+        iTM2TextErrorSyntaxModeName, iTM2TextModeAttributeName,nil];
 	[MRA addObject:attributes];
 	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,

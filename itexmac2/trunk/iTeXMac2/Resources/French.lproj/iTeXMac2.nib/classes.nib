@@ -64,7 +64,11 @@
                 openDocumentQuicklyOther = id; 
                 openDocumentQuicklyText = id; 
                 orderFrontLaTeXSymbolsPanel = id; 
+                orderFrontLinkPanel = id; 
+                orderFrontListPanel = id; 
                 orderFrontProjectPreferencesPanel = id; 
+                orderFrontSpacingPanel = id; 
+                orderFrontTablePanel = id; 
                 parseAllText = id; 
                 parseSelectedText = id; 
                 parseVisibleText = id; 
@@ -115,10 +119,6 @@
                 takePDFNewPageModeFromTag = id; 
                 takePDFPageLayoutModeFromTag = id; 
                 takePDFStickModeFromTag = id; 
-                textAlignCenter = id; 
-                textAlignJustified = id; 
-                textAlignLeft = id; 
-                textAlignRight = id; 
                 textBold = id; 
                 textItalic = id; 
                 textStyleEdit = id; 

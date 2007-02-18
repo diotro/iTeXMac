@@ -462,7 +462,9 @@ extern NSString * const iTM2InspectorTable;
 				If you want some method to performed before the others, prefix it with "prepare".
 				
 				It is recommanded that you have one level of indirection in your various file reading method.
-				For example, the dataCompleteReadFromURL:ofType:error: is just a wrapper over the 
+				For example, the dataCompleteReadFromURL:ofType:error: is just a wrapper over the loadDataRepresentation:ofType:
+				
+				If you override this method, do not forget to update the file modification date, see some auto update kit method.
     @param      absoluteURL is the new document url.
     @param      The document type.
     @param      outputError.
