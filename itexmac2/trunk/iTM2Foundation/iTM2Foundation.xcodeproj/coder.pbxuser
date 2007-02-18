@@ -11,8 +11,8 @@
 			DCC631F60AA2F32300073E93 /* _NSKVODeallocateLog */,
 			DC31FE080AC9B87F00FF576B /* -[NSException raise] */,
 			DCC2E2E40B85FFE000591965 /* iTM2TextStorageKit.m:5464 */,
-			DC146A940B87794800E86DA3 /* iTM2TextStyleEditionKit.m:1572 */,
-			DC146A9B0B87796200E86DA3 /* iTM2TextStyleEditionKit.m:1541 */,
+			DC146A940B87794800E86DA3 /* iTM2TextStyleEditionKit.m:1573 */,
+			DC146A9B0B87796200E86DA3 /* iTM2TextStyleEditionKit.m:1542 */,
 			DC146C7D0B87D26800E86DA3 /* iTM2TextStorageKit.m:1492 */,
 		);
 		breakpointsGroup = DCEAAA5009B8E99900D29409 /* XCBreakpointsBucket */;
@@ -407,6 +407,15 @@
 			DC146CF90B87DC1A00E86DA3 /* PBXTextBookmark */ = DC146CF90B87DC1A00E86DA3 /* PBXTextBookmark */;
 			DC146CFA0B87DC1A00E86DA3 /* PBXTextBookmark */ = DC146CFA0B87DC1A00E86DA3 /* PBXTextBookmark */;
 			DC146CFB0B87DC1A00E86DA3 /* PBXTextBookmark */ = DC146CFB0B87DC1A00E86DA3 /* PBXTextBookmark */;
+			DC146CFF0B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146CFF0B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D020B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D020B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D040B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D040B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D060B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D060B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D070B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D070B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D080B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D080B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D090B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D090B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D0A0B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D0A0B87DEAC00E86DA3 /* PBXTextBookmark */;
+			DC146D0B0B87DEAC00E86DA3 /* PBXTextBookmark */ = DC146D0B0B87DEAC00E86DA3 /* PBXTextBookmark */;
 			DCB26A660B8487FC00868348 = DCB26A660B8487FC00868348 /* PBXTextBookmark */;
 			DCB26A690B8487FC00868348 = DCB26A690B8487FC00868348 /* PBXTextBookmark */;
 			DCB26AE20B84981F00868348 = DCB26AE20B84981F00868348 /* PBXTextBookmark */;
@@ -565,7 +574,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1057;
 		vrLoc = 52063;
@@ -575,7 +584,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1265";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1455;
 		vrLoc = 42838;
@@ -585,7 +594,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1057;
 		vrLoc = 52063;
@@ -595,7 +604,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1265";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1455;
 		vrLoc = 42838;
@@ -605,7 +614,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1057;
 		vrLoc = 52063;
@@ -615,7 +624,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1265";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1455;
 		vrLoc = 42838;
@@ -625,7 +634,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1093;
 		vrLoc = 52017;
@@ -635,7 +644,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1285";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1252;
 		vrLoc = 42838;
@@ -645,7 +654,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1084;
 		vrLoc = 52046;
@@ -655,7 +664,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -665,7 +674,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1084;
 		vrLoc = 52046;
@@ -675,7 +684,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -685,7 +694,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1084;
 		vrLoc = 52046;
@@ -695,7 +704,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1084;
 		vrLoc = 52046;
@@ -715,7 +724,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -803,7 +812,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -860,7 +869,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -910,7 +919,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -960,7 +969,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -1010,7 +1019,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1286";
 		rLen = 0;
-		rLoc = 45745;
+		rLoc = 45787;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 42838;
@@ -1030,7 +1039,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = setAlignment;
 		rLen = 12;
-		rLoc = 55539;
+		rLoc = 55581;
 		rType = 0;
 		vrLen = 1507;
 		vrLoc = 50464;
@@ -1065,7 +1074,7 @@
 		vrLen = 1137;
 		vrLoc = 4200;
 	};
-	DC146A940B87794800E86DA3 /* iTM2TextStyleEditionKit.m:1572 */ = {
+	DC146A940B87794800E86DA3 /* iTM2TextStyleEditionKit.m:1573 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1075,7 +1084,7 @@
 		fileReference = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		functionName = "-alignLeft:";
 		hitCount = 1;
-		lineNumber = 1572;
+		lineNumber = 1573;
 		location = iTM2Foundation;
 		modificationTime = 193452347.807326;
 		state = 1;
@@ -1095,7 +1104,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = setAlignment;
 		rLen = 12;
-		rLoc = 55539;
+		rLoc = 55581;
 		rType = 0;
 		vrLen = 1507;
 		vrLoc = 50464;
@@ -1130,7 +1139,7 @@
 		vrLen = 1137;
 		vrLoc = 4200;
 	};
-	DC146A9B0B87796200E86DA3 /* iTM2TextStyleEditionKit.m:1541 */ = {
+	DC146A9B0B87796200E86DA3 /* iTM2TextStyleEditionKit.m:1542 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1140,7 +1149,7 @@
 		fileReference = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		functionName = "-alignCenter:";
 		hitCount = 1;
-		lineNumber = 1541;
+		lineNumber = 1542;
 		location = iTM2Foundation;
 		modificationTime = 193452349.602324;
 		state = 1;
@@ -1160,7 +1169,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = setAlignment;
 		rLen = 12;
-		rLoc = 55539;
+		rLoc = 55581;
 		rType = 0;
 		vrLen = 1507;
 		vrLoc = 50464;
@@ -1210,7 +1219,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = setAlignment;
 		rLen = 12;
-		rLoc = 55539;
+		rLoc = 55581;
 		rType = 0;
 		vrLen = 1506;
 		vrLoc = 50463;
@@ -1260,7 +1269,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = setAlignment;
 		rLen = 12;
-		rLoc = 55539;
+		rLoc = 55581;
 		rType = 0;
 		vrLen = 1132;
 		vrLoc = 50463;
@@ -1310,7 +1319,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = setAlignment;
 		rLen = 12;
-		rLoc = 55539;
+		rLoc = 55581;
 		rType = 0;
 		vrLen = 1132;
 		vrLoc = 50463;
@@ -1370,7 +1379,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: validateEditModeName:";
 		rLen = 170;
-		rLoc = 75101;
+		rLoc = 75143;
 		rType = 0;
 		vrLen = 1023;
 		vrLoc = 51976;
@@ -1380,7 +1389,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: textAlignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1509;
 		vrLoc = 50463;
@@ -1420,7 +1429,7 @@
 		comments = "error: parse error before '-' token";
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		rLen = 1;
-		rLoc = 1563;
+		rLoc = 1564;
 		rType = 1;
 	};
 	DC146B830B87B8DA00E86DA3 /* PBXTextBookmark */ = {
@@ -1428,7 +1437,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignCenter:";
 		rLen = 0;
-		rLoc = 54725;
+		rLoc = 54767;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 50044;
@@ -1438,7 +1447,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1506;
 		vrLoc = 50463;
@@ -1478,7 +1487,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignCenter:";
 		rLen = 0;
-		rLoc = 54725;
+		rLoc = 54767;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 50044;
@@ -1488,7 +1497,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1490";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1011;
 		vrLoc = 50207;
@@ -1498,7 +1507,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1506;
 		vrLoc = 50463;
@@ -1538,7 +1547,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1496";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1016;
 		vrLoc = 50282;
@@ -1548,7 +1557,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1571";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1341;
 		vrLoc = 50680;
@@ -1588,7 +1597,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1495";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1046;
 		vrLoc = 50304;
@@ -1598,7 +1607,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1570";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1315;
 		vrLoc = 50691;
@@ -1638,7 +1647,7 @@
 		comments = "warning: 'NSDictionary' may not respond to '-allSyntaxModeNames'";
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		rLen = 1;
-		rLoc = 3010;
+		rLoc = 3011;
 		rType = 1;
 	};
 	DC146BBC0B87BF3D00E86DA3 /* PBXTextBookmark */ = {
@@ -1646,7 +1655,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 2980";
 		rLen = 0;
-		rLoc = 107229;
+		rLoc = 107271;
 		rType = 0;
 		vrLen = 701;
 		vrLoc = 104747;
@@ -1686,7 +1695,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 2962";
 		rLen = 0;
-		rLoc = 106758;
+		rLoc = 106800;
 		rType = 0;
 		vrLen = 537;
 		vrLoc = 104703;
@@ -1726,7 +1735,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 2971";
 		rLen = 0;
-		rLoc = 106806;
+		rLoc = 106848;
 		rType = 0;
 		vrLen = 671;
 		vrLoc = 104777;
@@ -1736,7 +1745,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1525";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1146;
 		vrLoc = 50050;
@@ -1766,7 +1775,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1600";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1474;
 		vrLoc = 50274;
@@ -1796,7 +1805,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1500";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1048;
 		vrLoc = 49720;
@@ -1816,7 +1825,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1365;
 		vrLoc = 50143;
@@ -1846,7 +1855,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1500";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1048;
 		vrLoc = 49746;
@@ -1866,7 +1875,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1365;
 		vrLoc = 50169;
@@ -1896,7 +1905,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1532";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 787;
 		vrLoc = 50568;
@@ -1916,7 +1925,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1126;
 		vrLoc = 50922;
@@ -1946,7 +1955,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1552";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 999;
 		vrLoc = 50705;
@@ -1966,7 +1975,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1389;
 		vrLoc = 50956;
@@ -1996,7 +2005,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1553";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1027;
 		vrLoc = 50722;
@@ -2016,7 +2025,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1608";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1421;
 		vrLoc = 50956;
@@ -2046,7 +2055,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1559";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1020;
 		vrLoc = 50914;
@@ -2066,7 +2075,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 51164;
@@ -2096,7 +2105,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1559";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1020;
 		vrLoc = 50914;
@@ -2116,7 +2125,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 51164;
@@ -2146,7 +2155,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1559";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1020;
 		vrLoc = 50914;
@@ -2166,7 +2175,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 51164;
@@ -2196,7 +2205,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1559";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1020;
 		vrLoc = 50914;
@@ -2216,7 +2225,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 51164;
@@ -2246,7 +2255,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1559";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1020;
 		vrLoc = 50914;
@@ -2266,7 +2275,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 51164;
@@ -2296,7 +2305,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1559";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1020;
 		vrLoc = 50914;
@@ -2316,7 +2325,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 51164;
@@ -2346,7 +2355,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1559";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1020;
 		vrLoc = 50914;
@@ -2366,7 +2375,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 51164;
@@ -2396,7 +2405,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1560";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 50906;
@@ -2416,7 +2425,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1366;
 		vrLoc = 51191;
@@ -2463,7 +2472,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1560";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 50906;
@@ -2483,7 +2492,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1366;
 		vrLoc = 51191;
@@ -2523,7 +2532,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1560";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 50906;
@@ -2543,7 +2552,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1366;
 		vrLoc = 51191;
@@ -2598,7 +2607,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1560";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 50906;
@@ -2618,7 +2627,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1366;
 		vrLoc = 51191;
@@ -2658,7 +2667,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1560";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1049;
 		vrLoc = 50906;
@@ -2678,7 +2687,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1366;
 		vrLoc = 51191;
@@ -2718,7 +2727,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1561";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1070;
 		vrLoc = 50889;
@@ -2755,7 +2764,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: alignRight:";
 		rLen = 0;
-		rLoc = 57218;
+		rLoc = 57260;
 		rType = 0;
 		vrLen = 1369;
 		vrLoc = 51181;
@@ -2795,7 +2804,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1561";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1070;
 		vrLoc = 50944;
@@ -2805,7 +2814,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1283";
 		rLen = 0;
-		rLoc = 44420;
+		rLoc = 44462;
 		rType = 0;
 		vrLen = 1272;
 		vrLoc = 43213;
@@ -2865,7 +2874,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1561";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1070;
 		vrLoc = 50944;
@@ -2875,7 +2884,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = AddAttri;
 		rLen = 8;
-		rLoc = 43529;
+		rLoc = 43571;
 		rType = 0;
 		vrLen = 1182;
 		vrLoc = 42500;
@@ -2935,7 +2944,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1561";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1070;
 		vrLoc = 50944;
@@ -2945,7 +2954,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = AddAttri;
 		rLen = 8;
-		rLoc = 43529;
+		rLoc = 43571;
 		rType = 0;
 		vrLen = 1182;
 		vrLoc = 42500;
@@ -3005,7 +3014,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1571";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1179;
 		vrLoc = 50954;
@@ -3015,7 +3024,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = AddAttri;
 		rLen = 8;
-		rLoc = 43529;
+		rLoc = 43571;
 		rType = 0;
 		vrLen = 1290;
 		vrLoc = 42500;
@@ -3075,7 +3084,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1571";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1179;
 		vrLoc = 50954;
@@ -3085,7 +3094,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = AddAttri;
 		rLen = 8;
-		rLoc = 43529;
+		rLoc = 43571;
 		rType = 0;
 		vrLen = 1290;
 		vrLoc = 42500;
@@ -3145,7 +3154,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = "iTM2TextStyleEditionKit.m: 1571";
 		rLen = 0;
-		rLoc = 54897;
+		rLoc = 54939;
 		rType = 0;
 		vrLen = 1179;
 		vrLoc = 50960;
@@ -3155,7 +3164,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = AddAttri;
 		rLen = 8;
-		rLoc = 43529;
+		rLoc = 43571;
 		rType = 0;
 		vrLen = 1296;
 		vrLoc = 42500;
@@ -3271,6 +3280,106 @@
 		vrLoc = 44742;
 	};
 	DC146CFB0B87DC1A00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B530854654B003F5F79 /* iTeXMac2.m */;
+		name = "int iTM2DebugEnabled;";
+		rLen = 22;
+		rLoc = 4643;
+		rType = 0;
+		vrLen = 854;
+		vrLoc = 4588;
+	};
+	DC146CFF0B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
+		name = "iTM2TextStyleEditionKit.m: 1572";
+		rLen = 0;
+		rLoc = 54939;
+		rType = 0;
+		vrLen = 1146;
+		vrLoc = 50988;
+	};
+	DC146D020B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC146D030B87DEAC00E86DA3 /* INFOPLIST_PREFIX_HEADER */;
+		rLen = 0;
+		rLoc = 2147483647;
+		rType = 0;
+	};
+	DC146D030B87DEAC00E86DA3 /* INFOPLIST_PREFIX_HEADER */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text;
+		name = INFOPLIST_PREFIX_HEADER;
+		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/Scripts/INFOPLIST_PREFIX_HEADER;
+		sourceTree = "<absolute>";
+	};
+	DC146D040B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC146D050B87DEAC00E86DA3 /* INFOPLIST_PREFIX_HEADER */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 82;
+		vrLoc = 0;
+	};
+	DC146D050B87DEAC00E86DA3 /* INFOPLIST_PREFIX_HEADER */ = {
+		isa = PBXFileReference;
+		name = INFOPLIST_PREFIX_HEADER;
+		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/Scripts/INFOPLIST_PREFIX_HEADER;
+		sourceTree = "<absolute>";
+	};
+	DC146D060B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
+		name = AddAttri;
+		rLen = 8;
+		rLoc = 43571;
+		rType = 0;
+		vrLen = 1334;
+		vrLoc = 42500;
+	};
+	DC146D070B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */;
+		name = "iTM2TextStorageKit.m: 5710";
+		rLen = 0;
+		rLoc = 208352;
+		rType = 0;
+		vrLen = 1614;
+		vrLoc = 47519;
+	};
+	DC146D080B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61BDB0854654B003F5F79 /* iTM2TextStyleEditionKit.h */;
+		name = "iTM2TextStyleEditionKit.h: 122";
+		rLen = 0;
+		rLoc = 4571;
+		rType = 0;
+		vrLen = 1137;
+		vrLoc = 4200;
+	};
+	DC146D090B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B600854654B003F5F79 /* iTM2DocumentKit.h */;
+		name = "iTM2DocumentKit.h: 1059";
+		rLen = 0;
+		rLoc = 46808;
+		rType = 0;
+		vrLen = 2205;
+		vrLoc = 20540;
+	};
+	DC146D0A0B87DEAC00E86DA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B610854654B003F5F79 /* iTM2DocumentKit.m */;
+		name = "iTM2DocumentKit.m: 3930";
+		rLen = 0;
+		rLoc = 135518;
+		rType = 0;
+		vrLen = 1145;
+		vrLoc = 44742;
+	};
+	DC146D0B0B87DEAC00E86DA3 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCF61B530854654B003F5F79 /* iTeXMac2.m */;
 		name = "int iTM2DebugEnabled;";
@@ -3399,7 +3508,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 193452342.380261;
+		modificationTime = 193453140.510089;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -4138,7 +4247,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = iTM2CursorIsWhiteAttributeName;
 		rLen = 30;
-		rLoc = 77586;
+		rLoc = 77628;
 		rType = 0;
 		vrLen = 1300;
 		vrLoc = 64587;
@@ -4148,12 +4257,12 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = iTM2CursorIsWhiteAttributeName;
 		rLen = 30;
-		rLoc = 77586;
+		rLoc = 77628;
 		rType = 0;
 		vrLen = 1300;
 		vrLoc = 64587;
 	};
-	DCC2ED780B863C5200591965 /* iTM2TextStyleEditionKit.m:1339 */ = {
+	DCC2ED780B863C5200591965 /* iTM2TextStyleEditionKit.m:1340 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4163,7 +4272,7 @@
 		fileReference = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		functionName = "-changeDocumentBackgroundColor:";
 		hitCount = 1;
-		lineNumber = 1339;
+		lineNumber = 1340;
 		location = iTM2Foundation;
 		modificationTime = 193447399.341554;
 		state = 1;
@@ -4180,10 +4289,10 @@
 		comments = "error: 'attributes' undeclared (first use in this function)";
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		rLen = 0;
-		rLoc = 1328;
+		rLoc = 1329;
 		rType = 1;
 	};
-	DCC2EE230B86534D00591965 /* iTM2TextStyleEditionKit.m:1294 */ = {
+	DCC2EE230B86534D00591965 /* iTM2TextStyleEditionKit.m:1295 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4193,12 +4302,12 @@
 		fileReference = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		functionName = "-textStorage:wouldAddAttribute:value:range:";
 		hitCount = 1;
-		lineNumber = 1294;
+		lineNumber = 1295;
 		location = iTM2Foundation;
 		modificationTime = 193361810.222746;
 		state = 1;
 	};
-	DCC2EE250B86534F00591965 /* iTM2TextStyleEditionKit.m:1271 */ = {
+	DCC2EE250B86534F00591965 /* iTM2TextStyleEditionKit.m:1272 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4208,7 +4317,7 @@
 		fileReference = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		functionName = "-textStorage:wouldSetAttributes:range:";
 		hitCount = 1;
-		lineNumber = 1271;
+		lineNumber = 1272;
 		location = iTM2Foundation;
 		modificationTime = 193361812.51605;
 		state = 1;
@@ -4303,7 +4412,7 @@
 		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
 		name = iTM2CursorIsWhiteAttributeName;
 		rLen = 30;
-		rLoc = 77586;
+		rLoc = 77628;
 		rType = 0;
 		vrLen = 814;
 		vrLoc = 64443;
@@ -4532,7 +4641,7 @@
 	DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2810, 114200}}";
-			sepNavSelRange = "{51329, 0}";
+			sepNavSelRange = "{208352, 0}";
 			sepNavVisRect = "{{0, 28198}, {1200, 721}}";
 			sepNavWindowFrame = "{{70, 52}, {1239, 826}}";
 		};
@@ -5014,9 +5123,9 @@
 			DCC631F60AA2F32300073E93 /* _NSKVODeallocateLog */,
 			DC31FE080AC9B87F00FF576B /* -[NSException raise] */,
 			DCC2E2E40B85FFE000591965 /* iTM2TextStorageKit.m:5464 */,
-			DCC2ED780B863C5200591965 /* iTM2TextStyleEditionKit.m:1339 */,
-			DCC2EE230B86534D00591965 /* iTM2TextStyleEditionKit.m:1294 */,
-			DCC2EE250B86534F00591965 /* iTM2TextStyleEditionKit.m:1271 */,
+			DCC2ED780B863C5200591965 /* iTM2TextStyleEditionKit.m:1340 */,
+			DCC2EE230B86534D00591965 /* iTM2TextStyleEditionKit.m:1295 */,
+			DCC2EE250B86534F00591965 /* iTM2TextStyleEditionKit.m:1272 */,
 			DCC2EE5A0B86557300591965 /* iTM2TextStorageKit.m:546 */,
 			DCC2EE5C0B86557500591965 /* iTM2TextStorageKit.m:563 */,
 			DCC2EEF30B865EE000591965 /* iTM2TextStyleEditionKit.m:1214 */,
@@ -5150,7 +5259,7 @@
 	DCF61B600854654B003F5F79 /* iTM2DocumentKit.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1856, 21180}}";
-			sepNavSelRange = "{21970, 0}";
+			sepNavSelRange = "{46808, 0}";
 			sepNavVisRect = "{{604, 8997}, {1135, 667}}";
 			sepNavWindowFrame = "{{15, 60}, {1174, 772}}";
 		};
@@ -5158,7 +5267,7 @@
 	DCF61B610854654B003F5F79 /* iTM2DocumentKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {6338, 78600}}";
-			sepNavSelRange = "{45083, 112}";
+			sepNavSelRange = "{135518, 0}";
 			sepNavVisRect = "{{0, 26775}, {1103, 671}}";
 			sepNavWindowFrame = "{{15, 63}, {1142, 776}}";
 		};

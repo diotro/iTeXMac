@@ -1257,6 +1257,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	// received when unlinking, when listing
 	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
 	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
 	if(![attributes isEqual:oldD])

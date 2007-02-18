@@ -190,6 +190,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>DC146D000B87DEAC00E86DA3</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>INFOPLIST_PREFIX_HEADER</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DC146D010B87DEAC00E86DA3</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>INFOPLIST_PREFIX_HEADER</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DC146D040B87DEAC00E86DA3</string>
+						<key>history</key>
+						<array>
+							<string>DC146D020B87DEAC00E86DA3</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1311, 717}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>61 73 1311 758 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>DC14665F0B867C4800E86DA3</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2TextStyleEditionKit.m</string>
@@ -204,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC146CF60B87DC1A00E86DA3</string>
+						<string>DC146D060B87DEAC00E86DA3</string>
 						<key>history</key>
 						<array>
 							<string>DC1466530B867A6500E86DA3</string>
@@ -244,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC146CF70B87DC1A00E86DA3</string>
+						<string>DC146D070B87DEAC00E86DA3</string>
 						<key>history</key>
 						<array>
 							<string>DC146CA20B87D62E00E86DA3</string>
@@ -284,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC146CF80B87DC1A00E86DA3</string>
+						<string>DC146D080B87DEAC00E86DA3</string>
 						<key>history</key>
 						<array>
 							<string>DC146BCB0B87C06900E86DA3</string>
@@ -324,7 +364,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC146CF90B87DC1A00E86DA3</string>
+						<string>DC146D090B87DEAC00E86DA3</string>
 						<key>history</key>
 						<array>
 							<string>DC1466920B86842700E86DA3</string>
@@ -364,7 +404,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC146CFA0B87DC1A00E86DA3</string>
+						<string>DC146D0A0B87DEAC00E86DA3</string>
 						<key>history</key>
 						<array>
 							<string>DC1466860B8683F500E86DA3</string>
@@ -404,7 +444,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC146CFB0B87DC1A00E86DA3</string>
+						<string>DC146D0B0B87DEAC00E86DA3</string>
 						<key>history</key>
 						<array>
 							<string>DC146C610B87D05100E86DA3</string>
@@ -567,7 +607,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC146CF50B87DC1A00E86DA3</string>
+										<string>DC146CFF0B87DEAC00E86DA3</string>
 										<key>history</key>
 										<array>
 											<string>DCBCA1D90B7DC9EA007E8702</string>
@@ -782,7 +822,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC146CE40B87DB1000E86DA3</string>
 		<string>DC14661F0B8672B600E86DA3</string>
 		<string>DC1466200B8672B600E86DA3</string>
 		<string>DC14661D0B8672B600E86DA3</string>
@@ -797,6 +836,7 @@
 		<string>DC14665F0B867C4800E86DA3</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DC146D000B87DEAC00E86DA3</string>
 	</array>
 	<key>WindowString</key>
 	<string>12 85 1396 791 0 0 1440 878 </string>
