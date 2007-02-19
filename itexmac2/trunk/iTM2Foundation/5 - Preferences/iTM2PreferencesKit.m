@@ -458,7 +458,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self window] orderFront:self];
+	NSWindow * W = [self window];
+	[W orderFront:self];
 	NSPreferencePane * old = [[self prefPanes] objectForKey:[self selectedPrefPaneIdentifier]];
 	[old willUnselect];
 	NSPreferencePane * new = [[self prefPanes] objectForKey:([identifier length]? identifier:@"")];
@@ -477,31 +478,38 @@ To Do List:
 	// inserting the new view
 	if((V = [new mainView]) || (V = [new loadMainView]))
 	{
-		float deltaHeight = [V frame].size.height - [container frame].size.height;
-		float deltaWidth = [V frame].size.width - [container frame].size.width;
+		// The idea is to resize the window such that the new view will fit
+		
+		NSRect containerRect = [container bounds];
+		containerRect = [container convertRect:containerRect toView:nil];
+		NSRect VRect = [V frame];
+		VRect = [container convertRect:VRect toView:nil];
+		
+		float deltaHeight = VRect.size.height - containerRect.size.height;
+		float deltaWidth = VRect.size.width - containerRect.size.width;
 		if(deltaWidth<0)
 			deltaWidth = 0;
 		NSRect newWindowFrame = [[self window] frame];
 		newWindowFrame.size.height += deltaHeight;
 		newWindowFrame.origin.y -= deltaHeight;
 		newWindowFrame.size.width += deltaWidth;
-		[[self window] setFrame:newWindowFrame display:YES animate:YES];
-		NSSize size = [[[self window] contentView] frame].size;
+		[W setFrame:newWindowFrame display:YES animate:YES];
+		NSSize size = [[W contentView] frame].size;
 		size.width = [V frame].size.width;
-		[[self window] setContentMinSize:size];
+		[W setContentMinSize:size];
 		size.width *= 100;
-		[[self window] setContentMaxSize:size];
+		[W setContentMaxSize:size];
 		[container addSubview:V];
 		[container setAutoresizesSubviews:YES];
-		[V centerInSuperview];
 		[V setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
-		[[V window] makeFirstResponder:[new initialKeyView]];
+		[V centerInSuperview];
+		[W makeFirstResponder:[new initialKeyView]];
 		[V validateWindowContent];
 	}
 	[old didUnselect];
 	[new didSelect];
 	[self setSelectedPrefPaneIdentifier:[new prefPaneIdentifier]];
-	[[[self window] toolbar] setSelectedItemIdentifier:[self selectedPrefPaneIdentifier]];
+	[[W toolbar] setSelectedItemIdentifier:[self selectedPrefPaneIdentifier]];
 //iTM2_START;
     return;
 }

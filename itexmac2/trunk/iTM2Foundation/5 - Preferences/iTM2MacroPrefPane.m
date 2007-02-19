@@ -516,7 +516,7 @@ To Do List:
 				editableMacrosDocument = [otherMacrosDocuments lastObject];
 				editableMacrosDocument = [[editableMacrosDocument copy] autorelease];
 				
-				NSString * repositoryPath = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
+				NSString * repositoryPath = [[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 				NSURL * repositoryURL = [NSURL fileURLWithPath:repositoryPath];
 				NSURL * url = [NSURL URLWithString:[subpath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:repositoryURL];
 				[editableMacrosDocument setURI:[url absoluteString]];
@@ -764,7 +764,7 @@ To Do List:
 			if([url isFileURL])
 			{
 				NSString * path = [url path];
-				NSArray * components = [path componentsSeparatedByString:iTM2MacroServerComponent];
+				NSArray * components = [path componentsSeparatedByString:iTM2MacroControllerComponent];
 				if([components count]>1)
 				{
 					path = [components lastObject];
@@ -1012,6 +1012,37 @@ To Do List:
 
 #pragma mark -
 
+#import <iTM2Foundation/iTeXMac2.h>
+
+@implementation iTM2MacroPrefPane
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
+- (NSString *)prefPaneIdentifier;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 09/21/2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return @"3.Macro";
+}
+#if 0
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willUnselect
+- (void)willUnselect;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[super willUnselect];
+    return;
+}
+#endif
+@end
+
 @interface iTM2PrettyNameOfKeyCodeTransformer: NSValueTransformer
 @end
 
@@ -1051,7 +1082,7 @@ To Do List:
 		return result;
 	}
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
+	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 	iTM2MacroEditNode * root = [[[iTM2MacroEditNode alloc] init] autorelease];// this will be retained
 	// list all the *.iTM2-macros files
 	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
@@ -1220,7 +1251,7 @@ To Do List:
 	[self willChangeValueForKey:@"sourceTree"];
 	metaSETTER(aTree);
 	[self didChangeValueForKey:@"sourceTree"];
-	[self setRunningTree:nil];
+	[self setMacroTree:nil];
 	return;
 }
 
@@ -1626,36 +1657,7 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTeXMac2.h>
-
-@implementation iTM2MacroPrefPane
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
-- (NSString *)prefPaneIdentifier;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 09/21/2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return @"3.Macro";
-}
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willUnselect
-- (void)willUnselect;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super willUnselect];
-    return;
-}
-#endif
-#pragma mark =-=-=-=-=-  OUTLINE VIEW DELEGATE
+@implementation iTM2MacroPrefPane(OUtLineViewDelegate)
 // may be we should use bindings instead of delegation
 // unfortunately, bindings are opaque
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification;

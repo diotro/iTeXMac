@@ -1,6 +1,11 @@
 {
     IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
         {
             CLASS = NSPreferencePane; 
             LANGUAGE = ObjC; 
@@ -12,10 +17,17 @@
             }; 
             SUPERCLASS = NSObject; 
         }, 
+        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
         {
-            ACTIONS = {save = id; }; 
+            CLASS = iTM2MacroArrayController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {
+            ACTIONS = {apply = id; cancel = id; }; 
             CLASS = iTM2MacroController; 
             LANGUAGE = ObjC; 
+            OUTLETS = {keysArrayController = id; macrosArrayController = iTM2MacroArrayController; }; 
             SUPERCLASS = NSObject; 
         }, 
         {CLASS = iTM2MacroPrefPane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }
