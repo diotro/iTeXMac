@@ -45,6 +45,8 @@
 	<string>i™ac</string>
 	<key>CFBundleVersion</key>
 	<string>1.0 (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
+	<key>iTM2SourceVersion</key>
+	<string>97531</string>
 	<key>NSAppleScriptEnabled</key>
 	<string>YES</string>
 	<key>NSMainNibFile</key>
