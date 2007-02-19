@@ -42,7 +42,7 @@ To Do List:
 		[_Value autorelease];
 		_Value = nil;
 		[_Children autorelease];
-		_Children = [[NSMutableArray array] retain];
+		_Children = nil;
 		_Parent = nil;
 		[self setParent:nil];
     }
@@ -61,7 +61,7 @@ To Do List:
     {
 		[self setValue:anObject];
 		[_Children autorelease];
-		_Children = [[NSMutableArray array] retain];
+		_Children = nil;
 		[self setParent:aParent];
     }
     return self;
@@ -79,7 +79,7 @@ To Do List:
     {
 		[self setValue:[NSMutableDictionary dictionary]];
 		[_Children autorelease];
-		_Children = [[NSMutableArray array] retain];
+		_Children = nil;
 		[self setParent:aParent];
     }
     return self;
@@ -97,7 +97,7 @@ To Do List:
     {
 		[self setNonretainedValue:anObject];
 		[_Children autorelease];
-		_Children = [[NSMutableArray array] retain];
+		_Children = nil;
 		[self setParent:aParent];
     }
     return self;
@@ -259,7 +259,7 @@ To Do List:
 		{
 			[_Parent addObjectInChildren:self];
 		}
-		[self release];
+		[self autorelease];
 	}
     return;
 }
@@ -296,10 +296,26 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	while(argument < [self countOfChildren])
-		[_Children removeLastObject];
-	while(argument > [self countOfChildren])
-		[_Children addObject:[NSNull null]];
+	if(argument < [self countOfChildren])
+	{
+		do
+		{
+			[_Children removeLastObject];
+		}
+		while(argument < [self countOfChildren]);
+	}
+	else if(argument > [self countOfChildren])
+	{
+		if(!_Children)
+		{
+			_Children = [[NSMutableArray array] retain];
+		}
+		do
+		{
+			[_Children addObject:[NSNull null]];
+		}
+		while(argument > [self countOfChildren]);
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInChildrenAtIndex:
@@ -322,7 +338,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-    return [_Children indexOfObject:anObject];
+    return _Children?[_Children indexOfObject:anObject]:NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addObjectInChildren:
 - (void)addObjectInChildren:(id)node;
@@ -338,6 +354,10 @@ To Do List:
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:[_Children count]];
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
+	if(!_Children)
+	{
+		_Children = [[NSMutableArray array] retain];
+	}
     [_Children addObject:node];
 	[node setParent:self];
 	[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
@@ -352,6 +372,10 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	if(!_Children)
+	{
+		return;
+	}
 	unsigned index = [_Children indexOfObject:anObject];
 	if(index != NSNotFound)
 	{
@@ -375,6 +399,10 @@ To Do List:
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
+	if(!_Children)
+	{
+		_Children = [[NSMutableArray array] retain];
+	}
 	[_Children insertObject:node atIndex:index];
 	[node setParent:self];
 	[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
