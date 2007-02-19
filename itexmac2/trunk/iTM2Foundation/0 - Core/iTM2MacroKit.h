@@ -532,15 +532,15 @@ extern NSString * const iTM2MacrosPathExtension;
 
 @interface NSObject(iTM2MacroKit)
 - (NSString *)macroDomainKey;
-+ (NSString *)macroDomain;
+- (NSString *)defaultMacroDomain;
 - (NSString *)macroDomain;
 - (void)setMacroDomain:(NSString *)argument;
 - (NSString *)macroCategoryKey;
-+ (NSString *)macroCategory;
+- (NSString *)defaultMacroCategory;
 - (NSString *)macroCategory;
 - (void)setMacroCategory:(NSString *)argument;
 - (NSString *)macroContextKey;
-+ (NSString *)macroContext;
+- (NSString *)defaultMacroContext;
 - (NSString *)macroContext;
 - (void)setMacroContext:(NSString *)argument;
 @end

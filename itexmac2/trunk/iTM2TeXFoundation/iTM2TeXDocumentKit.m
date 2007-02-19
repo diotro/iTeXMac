@@ -84,6 +84,16 @@ To Do List:
 //iTM2_START;
     return iTM2TeXInspectorMode;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
+- (NSString *)defaultMacroCategory;
+{
+    return @"TeX";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroContext
+- (NSString *)defaultMacroContext;
+{
+    return @"";
+}
 @end
 
 @implementation iTM2TeXWindow

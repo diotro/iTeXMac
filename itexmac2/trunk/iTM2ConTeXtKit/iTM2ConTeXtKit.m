@@ -45,6 +45,16 @@ To Do List:
 //iTM2_END;
     return iTM2ConTeXtInspectorMode;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
+- (NSString *)defaultMacroCategory;
+{
+    return @"ConTeXt";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroContext
+- (NSString *)defaultMacroContext;
+{
+    return @"";
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
 - (BOOL)windowPositionShouldBeObserved;
 /*"Subclasses will return YES.

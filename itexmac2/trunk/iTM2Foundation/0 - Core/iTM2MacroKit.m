@@ -31,6 +31,7 @@
 #import <iTM2Foundation/iTM2MenuKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
+#import <iTM2Foundation/iTM2InheritanceKit.h>
 
 NSString * const iTM2TextPlaceholderMark = @"@@";
 
@@ -1403,10 +1404,10 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 {
     return iTM2MacroDomainKey;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
-+ (NSString *)macroDomain;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroDomain
+- (NSString *)defaultMacroDomain;
 {
-    return @"";
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
 - (NSString *)macroDomain;
@@ -1417,22 +1418,22 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 	{
 		return result;
 	}
-	result = [[self class] macroDomain];
-	if([result length])
+	result = [self inheritedValueForKey:@"defaultMacroDomain"];
+	if(![result length])
 	{
-		return result;
+		result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask];
 	}
-	result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask];
+	[self setMacroDomain:result];
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroDomain:
 - (void)setMacroDomain:(NSString *)argument;
 {
 	argument = [argument description];
-	NSString * old = [self macroDomain];
+	NSString * key = [self macroDomainKey];
+	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
 	if(![old isEqual:argument])
 	{
-		NSString * key = [self macroDomainKey];
 		[self willChangeValueForKey:@"macroDomain"];
 		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
 		[self didChangeValueForKey:@"macroDomain"];
@@ -1443,10 +1444,10 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 {
     return iTM2MacroCategoryKey;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
-+ (NSString *)macroCategory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
+- (NSString *)defaultMacroCategory;
 {
-    return @"";
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
 - (NSString *)macroCategory;
@@ -1457,22 +1458,22 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 	{
 		return result;
 	}
-	result = [[self class] macroCategory];
-	if([result length])
+	result = [self inheritedValueForKey:@"defaultMacroCategory"];
+	if(![result length])
 	{
-		return result;
+		result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask];
 	}
-	result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask];
+	[self setMacroCategory:result];
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroCategory:
 - (void)setMacroCategory:(NSString *)argument;
 {
+	NSString * key = [self macroCategoryKey];
 	argument = [argument description];
-	NSString * old = [self macroCategory];
+	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
 	if(![old isEqual:argument])
 	{
-		NSString * key = [self macroCategoryKey];
 		[self willChangeValueForKey:@"macroCategory"];
 		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
 		[self didChangeValueForKey:@"macroCategory"];
@@ -1484,10 +1485,10 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 {
     return iTM2MacroContextKey;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContext
-+ (NSString *)macroContext;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroContext
+- (NSString *)defaultMacroContext;
 {
-    return @"";
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContext
 - (NSString *)macroContext;
@@ -1498,22 +1499,22 @@ NSString * const iTM2MacroContextKey = @"iTM2MacroContext";
 	{
 		return result;
 	}
-	result = [[self class] macroContext];
-	if([result length])
+	result = [self inheritedValueForKey:@"defaultMacroContext"];
+	if(![result length])
 	{
-		return result;
+		result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask];
 	}
-	result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask];
+	[self setMacroContext:result];
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroContext:
 - (void)setMacroContext:(NSString *)argument;
 {
 	argument = [argument description];
-	NSString * old = [self macroContext];
+	NSString * key = [self macroContextKey];
+	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
 	if(![old isEqual:argument])
 	{
-		NSString * key = [self macroContextKey];
 		[self willChangeValueForKey:@"macroContext"];
 		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
 		[self didChangeValueForKey:@"macroContext"];
@@ -1726,8 +1727,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakeMacroModeFromRepresentedObject:
 - (BOOL)validateTakeMacroModeFromRepresentedObject:(id)sender;
 {
-	id representedMode = [sender representedString];
-	id currentMode = [self macroCategory];
+	NSString * representedMode = [sender representedString];
+	NSString * currentMode = [self macroCategory];
 	[sender setState:([currentMode isEqual:representedMode]?NSOnState:NSOffState)];
     return YES;
 }

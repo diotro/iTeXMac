@@ -49,18 +49,13 @@ To Do List:
 //iTM2_START;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
-+ (NSString *)macroDomain;
-{
-    return @"Text";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
-+ (NSString *)macroCategory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
+- (NSString *)defaultMacroCategory;
 {
     return @"LaTeX";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContext
-+ (NSString *)macroContext;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroContext
+- (NSString *)defaultMacroContext;
 {
     return @"";
 }
