@@ -143,6 +143,8 @@
 		DC78632D08CC293700D4AA33 /* iTM2CursorKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC78632B08CC293700D4AA33 /* iTM2CursorKit.m */; };
 		DC78634108CC29F400D4AA33 /* iTM2RepToolbarDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DC78633F08CC29F400D4AA33 /* iTM2RepToolbarDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC78634208CC29F400D4AA33 /* iTM2RepToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC78634008CC29F400D4AA33 /* iTM2RepToolbarDelegate.m */; };
+		DC7A7A490B89C37900BD830B /* iTM2InheritanceKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7A7A470B89C37900BD830B /* iTM2InheritanceKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC7A7A510B89C3C100BD830B /* iTM2InheritanceKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7A7A500B89C3C100BD830B /* iTM2InheritanceKit.m */; };
 		DC8303F1086EA056004799EB /* iTM2AppleScriptKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC8303EE086EA056004799EB /* iTM2AppleScriptKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC8303F2086EA056004799EB /* iTM2AppleScriptKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8303EF086EA056004799EB /* iTM2AppleScriptKit.m */; };
 		DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD53B0A3ABD37006C28A5 /* KeyBindings.resources.tgz */; };
@@ -756,6 +758,8 @@
 		DC78632B08CC293700D4AA33 /* iTM2CursorKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2CursorKit.m; sourceTree = "<group>"; };
 		DC78633F08CC29F400D4AA33 /* iTM2RepToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2RepToolbarDelegate.h; sourceTree = "<group>"; };
 		DC78634008CC29F400D4AA33 /* iTM2RepToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2RepToolbarDelegate.m; sourceTree = "<group>"; };
+		DC7A7A470B89C37900BD830B /* iTM2InheritanceKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2InheritanceKit.h; sourceTree = "<group>"; };
+		DC7A7A500B89C3C100BD830B /* iTM2InheritanceKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2InheritanceKit.m; sourceTree = "<group>"; };
 		DC815F360ADC4DBE00AFCED2 /* Prepare CamelBones.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare CamelBones.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8303EE086EA056004799EB /* iTM2AppleScriptKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AppleScriptKit.h; sourceTree = "<group>"; };
 		DC8303EF086EA056004799EB /* iTM2AppleScriptKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2AppleScriptKit.m; sourceTree = "<group>"; };
@@ -1416,6 +1420,8 @@
 				DCF61B610854654B003F5F79 /* iTM2DocumentKit.m */,
 				DCF61B620854654B003F5F79 /* iTM2EventKit.h */,
 				DCF61B630854654B003F5F79 /* iTM2EventKit.m */,
+				DC7A7A470B89C37900BD830B /* iTM2InheritanceKit.h */,
+				DC7A7A500B89C3C100BD830B /* iTM2InheritanceKit.m */,
 				DCD403EF099498B0006B91DF /* iTM2MacroKit.h */,
 				DCD403F0099498B0006B91DF /* iTM2MacroKit.m */,
 				DCF61B6C0854654B003F5F79 /* iTM2KeyBindingsKit.h */,
@@ -1723,6 +1729,7 @@
 				DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */,
 				DCD7B6630AA8DC230042AA60 /* iTM2MacroPrefPane.h in Headers */,
 				DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */,
+				DC7A7A490B89C37900BD830B /* iTM2InheritanceKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2462,6 +2469,7 @@
 				DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */,
 				DCD7B6640AA8DC230042AA60 /* iTM2MacroPrefPane.m in Sources */,
 				DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */,
+				DC7A7A510B89C3C100BD830B /* iTM2InheritanceKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

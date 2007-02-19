@@ -1162,6 +1162,21 @@ To Do List:
 //iTM2_START;
     return iTM2DefaultInspectorMode;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroDomain
+- (NSString *)defaultMacroDomain;
+{
+    return @"Text";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
+- (NSString *)defaultMacroCategory;
+{
+    return @"";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroContext
+- (NSString *)defaultMacroContext;
+{
+    return @"";
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 - (void)dealloc;
 /*"Description Forthcoming.
@@ -2116,6 +2131,11 @@ To Do List:
 @end
 
 @implementation iTM2TextWindow
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
++ (NSString *)macroDomain;
+{
+    return @"Text";
+}
 @end
 
 @implementation iTM2TextEditor

@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC146AFF0B877B1200E86DA3</string>
+						<string>DC7A74B80B89AEA200BD830B</string>
 						<key>history</key>
 						<array>
-							<string>DCC4B2530B81DCC500BBCDDD</string>
+							<string>DC146D400B889EC300E86DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -368,14 +368,14 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC146AFC0B877B1200E86DA3</string>
+										<string>DC7A74B50B89AEA200BD830B</string>
 										<key>history</key>
 										<array>
 											<string>DC23FA790B732F65006261D8</string>
 											<string>DC23FA7A0B732F65006261D8</string>
 											<string>DCEA0C310B78B64600F48911</string>
 											<string>DC5DCFA60B7C618A00462C93</string>
-											<string>DCC4B2510B81DCC500BBCDDD</string>
+											<string>DC146D3E0B889EC300E86DA3</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -440,9 +440,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC146AFD0B877B1200E86DA3</string>
+				<string>DC7A74B60B89AEA200BD830B</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC146AFE0B877B1200E86DA3</string>
+				<string>DC7A74B70B89AEA200BD830B</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -576,10 +576,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC146B060B877B1200E86DA3</string>
+		<string>DC7A74BF0B89AEA200BD830B</string>
 		<string>DC5DCFAC0B7C618A00462C93</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2-404/iTeXMac2/iTeXMac2.xcodeproj</string>
+		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2-408/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>50 37 1364 818 0 0 1440 878 </string>
@@ -703,8 +703,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {578, 415}}</string>
-											<string>{{578, 0}, {854, 415}}</string>
+											<string>{{0, 0}, {575, 418}}</string>
+											<string>{{575, 0}, {857, 418}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -719,8 +719,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1432, 415}}</string>
-											<string>{{0, 415}, {1432, 380}}</string>
+											<string>{{0, 0}, {1432, 418}}</string>
+											<string>{{0, 418}, {1432, 377}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -767,14 +767,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC146B000B877B1200E86DA3</string>
+				<string>DC7A74B90B89AEA200BD830B</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC146B010B877B1200E86DA3</string>
-				<string>DC146B020B877B1200E86DA3</string>
-				<string>DC146B030B877B1200E86DA3</string>
-				<string>DC146B040B877B1200E86DA3</string>
-				<string>DC146B050B877B1200E86DA3</string>
-				<string>DC146B060B877B1200E86DA3</string>
+				<string>DC7A74BA0B89AEA200BD830B</string>
+				<string>DC7A74BB0B89AEA200BD830B</string>
+				<string>DC7A74BC0B89AEA200BD830B</string>
+				<string>DC7A74BD0B89AEA200BD830B</string>
+				<string>DC7A74BE0B89AEA200BD830B</string>
+				<string>DC7A74BF0B89AEA200BD830B</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -827,8 +827,6 @@
 							<string>425pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -864,8 +862,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC5DCFA20B7C611B00462C93</string>
-				<string>DC5DCFA30B7C611B00462C93</string>
+				<string>DC146D420B889EC300E86DA3</string>
+				<string>DC146D430B889EC300E86DA3</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>
@@ -874,7 +872,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
