@@ -486,6 +486,7 @@ To Do List:
         metaSETTER(argument);
     return;
 }
+#pragma mark =-=-=-=-=-=-=-=-=-=-  META
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaValues
 - (id)metaValues;
 /*"Description forthcoming.
@@ -494,6 +495,15 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(!_MetaValueDictionary)
+	{
+		_MetaValueDictionary = [[NSMutableDictionary dictionary] retain];
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"metaValues available");
+		}
+	}
 //iTM2_START;
     return _MetaValueDictionary;
 }
@@ -1659,6 +1669,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if([key hasSuffix:@"_meta"])
+	{
+		NSRange range = NSMakeRange(0,[key length]-5);
+		if(range.length)
+		{
+			NSString * path = [key substringWithRange:range];
+			path = [@"implementation.metaValues" stringByAppendingPathExtension:path];
+			return [self valueForKeyPath:path];
+		}
+	}
+	else if([key isEqual:@"metaValues"])
+	{
+		return [self valueForKeyPath:@"implementation.metaValues"];
+	}
 	return [[[self class] defaultModel] objectForKey:key]?
 		[[self implementation] modelValueForKey:key ofType:iTM2MainType]:
 		[super valueForUndefinedKey:key];
@@ -1672,6 +1696,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if([key hasSuffix:@"_meta"])
+	{
+		NSRange range = NSMakeRange(0,[key length]-5);
+		if(range.length)
+		{
+			NSString * path = [key substringWithRange:range];
+			path = [@"implementation.metaValues" stringByAppendingPathExtension:path];
+			[self willChangeValueForKey:key];
+			[self setValue:value forKeyPath:path];
+			[self didChangeValueForKey:key];
+			return;
+		}
+	}
+	else if([key isEqual:@"metaValues"])
+	{
+		[self setValue:value forKeyPath:@"implementation.metaValues"];
+		return;
+	}
 	if([[[self class] defaultModel] objectForKey:key])
 	{
 		[self willChangeValueForKey:key];
