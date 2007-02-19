@@ -232,8 +232,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //NSLog(NSStringFromRect([[self superview] bounds]));
-    if([self superview])
-        [self setFrameCenter:[[self superview] boundsCenter]];
+	NSView * SV = [self superview];
+    if(SV)
+	{
+		NSPoint center = [SV boundsCenter];
+        [self setFrameCenter:center];
+		[self resizeWithOldSuperviewSize:[SV bounds].size];
+	}
 //NSLog(NSStringFromRect([self frame]));
     return;
 }
