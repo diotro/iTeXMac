@@ -37,7 +37,8 @@ NSString * const iTM2TextPlaceholderMark = @"@@";
 
 NSString * const iTM2TextTabAnchorStringKey = @"iTM2TextTabAnchorString";
 
-NSString * const iTM2MacroServerComponent = @"Macros.localized";
+NSString * const iTM2MacroControllerComponent = @"Macros.localized";
+NSString * const iTM2MacroPersonalComponent = @"Personal";
 NSString * const iTM2MacroServerSummaryComponent = @"Summary";
 NSString * const iTM2MacrosDirectoryName = @"Macros";
 NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
@@ -119,6 +120,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 @interface iTM2MacroCategoryNode: iTM2TreeNode
 - (id)initWithParent:(iTM2TreeNode *)parent category:(NSString *)category;
 - (id)objectInChildrenWithContext:(NSString *)context;
+- (id)objectInChildrenWithMutableContext:(NSString *)context;
 @end
 
 @implementation iTM2MacroCategoryNode
@@ -134,15 +136,38 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 {
 	return [self objectInChildrenWithValue:context forKeyPath:@"value.context"];
 }
+- (id)objectInChildrenWithMutableContext:(NSString *)context;
+{
+	return [self objectInChildrenWithValue:context forKeyPath:@"value.mutableContext"];
+}
 @end
 
 @interface iTM2MacroContextNode: iTM2TreeNode
 - (id)initWithParent:(iTM2TreeNode *)parent context:(NSString *)context;
 - (id)objectInChildrenWithID:(NSString *)ID;
 - (NSArray *)availableIDs;
+- (void)honorPromise;
+- (NSURL *)personalURL;
+- (NSXMLDocument *)documentForURL:(NSURL *)url;
+- (void)setDocument:(NSXMLDocument *)document forURL:(NSURL *)url;
 @end
 
-@implementation iTM2MacroContextNode: iTM2TreeNode
+@interface iTM2MacroLeafNode: iTM2TreeNode
+- (id)initWithParent:(iTM2TreeNode *)parent ID:(NSString *)ID element:(NSXMLElement *)element;
+- (NSString *)name;
+- (SEL)action;
+- (NSString *)argument;
+- (NSString *)description;
+- (NSString *)tooltip;
+- (NSString *)ID;
+- (NSString *)mode;
+- (BOOL)isMutable;
+@end
+
+@interface iTM2MacroMutableLeafNode: iTM2MacroLeafNode
+@end
+
+@implementation iTM2MacroContextNode
 - (id)initWithParent:(iTM2TreeNode *)parent context:(NSString *)context;
 {
 	if(self = [super initWithParent:parent])
@@ -158,6 +183,7 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 }
 - (id)objectInChildrenWithID:(NSString *)ID;
 {
+	[self honorPromise];
 	id D = [self valueForKeyPath:@"value.cachedChildrenID"];
 	if(!D)
 	{
@@ -221,6 +247,11 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 #endif
 	return;
 }
+- (NSArray *)children;
+{
+	[self honorPromise];
+	return [super children];
+}
 - (NSArray *)availableIDs;
 {
 	NSMutableArray * result = [NSMutableArray array];
@@ -241,17 +272,134 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 	[result sortUsingDescriptors:SDs];
 	return result;
 }
+- (void)addURLPromise:(NSURL *)url;
+{
+	NSMutableArray * URLsPromise = [self valueForKeyPath:@"value.URLsPromise"];
+	if(!URLsPromise)
+	{
+		URLsPromise = [NSMutableArray array];
+		[self setValue:URLsPromise forKeyPath:@"value.URLsPromise"];
+		URLsPromise = [self valueForKeyPath:@"value.URLsPromise"];
+	}
+	[URLsPromise addObject:url];
+	iTM2_LOG(@"URLsPromise:%@",URLsPromise);
+	return;
+}
+- (void)honorPromise;
+{
+	NSMutableArray * URLsPromise = [[[self valueForKeyPath:@"value.URLsPromise"] retain] autorelease];// for the reentrant
+	if(![URLsPromise count])
+	{
+		return;
+	}
+	[self setValue:[NSMutableArray array] forKeyPath:@"value.URLsPromise"];//reentrant management
+	NSMutableDictionary * documentsByURLs = [self valueForKeyPath:@"value.documentsByURLs"];
+	if(!documentsByURLs)
+	{
+		documentsByURLs = [NSMutableDictionary dictionary];
+		[self setValue:documentsByURLs forKeyPath:@"value.documentsByURLs"];
+	}
+	NSEnumerator * E = [URLsPromise objectEnumerator];
+	NSURL * url;
+	NSBundle * MB = [NSBundle mainBundle];
+	NSString * dir = [MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:NO];
+	while(url = [E nextObject])
+	{
+		if(![[documentsByURLs allKeys] containsObject:url])
+		{
+			Class C = [iTM2MacroLeafNode class];
+			if([url isFileURL])
+			{
+				NSString * path = [url path];
+				if([DFM isWritableFileAtPath:path])
+				{
+					if([path belongsToDirectory:dir])
+					{
+						C = [iTM2MacroMutableLeafNode class];
+					}
+				}
+			}
+			NSError * localError =  nil;
+//			NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodePreserveAll error:&localError] autorelease];// raise for an unknown reason
+			NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:nil error:&localError] autorelease];
+			if(localError)
+			{
+				iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
+			}
+			else
+			{
+				[documentsByURLs setObject:document forKey:url];
+				// now create the children
+				// also manage the mutability
+				NSEnumerator * e = [[document nodesForXPath:@"//ACTION" error:&localError] objectEnumerator];
+				NSXMLElement * element = nil;
+				while(element = [e nextObject])
+				{
+					NSString * ID = [[element attributeForName:@"ID"] stringValue];
+					iTM2MacroLeafNode * child = (iTM2MacroLeafNode *)[self objectInChildrenWithID:ID];
+					if(!child)
+					{
+						//iTM2MacroLeafNode * node = 
+						[[[C alloc] initWithParent:self ID:ID element:element] autorelease];
+					}
+					if(iTM2DebugEnabled)
+					{
+						child = (iTM2MacroLeafNode *)[self objectInChildrenWithID:ID];
+						iTM2_LOG(@"child:%@",child);
+					}
+				}
+			}
+		}
+	}
+	return;
+}
+- (NSURL *)personalURL;
+{
+	// what is the URL of the personal macros?
+	NSString * path = [iTM2MacroPersonalComponent stringByAppendingPathExtension:iTM2MacrosPathExtension];
+	id aNode = [self parent];
+	NSString * component = [aNode valueForKeyPath:@"value.category"];
+	path = [component stringByAppendingPathComponent:path];
+	aNode = [aNode parent];
+	component = [aNode valueForKeyPath:@"value.domain"];
+	path = [component stringByAppendingPathComponent:path];
+	NSBundle * MB = [NSBundle mainBundle];
+	component = [MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:NO];
+	path = [component stringByAppendingPathComponent:path];
+	NSURL * url = [NSURL fileURLWithPath:path];
+	return url;
+}
+- (NSXMLDocument *)documentForURL:(NSURL *)url;
+{
+	NSMutableDictionary * documentsByURLs = [self valueForKeyPath:@"value.documentsByURLs"];
+	return [documentsByURLs objectForKey:url];
+}
+- (void)setDocument:(NSXMLDocument *)document forURL:(NSURL *)url;
+{
+	NSMutableDictionary * documentsByURLs = [self valueForKeyPath:@"value.documentsByURLs"];
+	if(!documentsByURLs)
+	{
+		documentsByURLs = [NSMutableDictionary dictionary];
+		[self setValue:documentsByURLs forKeyPath:@"value.documentsByURLs"];
+	}
+	[documentsByURLs setObject:document forKey:url];
+	return; 
+}
 @end
 
-@interface iTM2MacroLeafNode: iTM2TreeNode
-- (id)initWithParent:(iTM2TreeNode *)parent ID:(NSString *)ID element:(NSXMLElement *)element;
-- (NSString *)name;
-- (SEL)action;
-- (NSString *)argument;
-- (NSString *)description;
-- (NSString *)tooltip;
-- (NSString *)ID;
-- (NSString *)mode;
+@interface iTM2MacroMutableContextNode: iTM2MacroContextNode
+@end
+
+@implementation iTM2MacroMutableContextNode
+- (id)initWithParent:(iTM2TreeNode *)parent context:(NSString *)context;
+{
+	if(self = [super initWithParent:parent context:context])
+	{
+		[self setValue:nil forKeyPath:@"value.context"];
+		[self setValue:context forKeyPath:@"value.mutableContext"];
+	}
+	return self;
+}
 @end
 
 @implementation iTM2MacroLeafNode: iTM2TreeNode
@@ -263,6 +411,10 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 		[self setValue:element forKeyPath:@"value.element"];
 	}
 	return self;
+}
+- (BOOL)isMutable;
+{
+	return NO;
 }
 - (NSString *)description;
 {
@@ -387,6 +539,106 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 }
 @end
 
+@implementation iTM2MacroMutableLeafNode
+- (id)init;
+{
+	if(self = [super init])
+	{
+		[self setValue:[NSMutableDictionary dictionary]];
+	}
+	return self;
+}
+- (BOOL)isMutable;
+{
+	return YES;
+}
+- (void)setParent:(id)contextNode;
+{
+	NSString * ID = [self valueForKeyPath:@"value.ID"];
+	[super setParent:contextNode];
+	if(contextNode)
+	{
+		if(ID)
+		{
+			// what is the URL of the personal macros?
+			// is there a document for that url?
+			NSURL * url = [contextNode personalURL];
+			NSXMLDocument * xmlDoc = [contextNode documentForURL:url];
+			id rootElement = [xmlDoc rootElement];
+			// postpone and look for an already existing element
+			id element = [self valueForKeyPath:@"value.element"];
+			id attribute = nil;
+			NSString * value = [element name];
+			if([value isEqual:@"ACTION"])
+			{
+				if(attribute = [element attributeForName:@"ID"])
+				{
+					value = [attribute stringValue];
+					if(![value isEqual:ID])
+					{
+						[element removeAttributeForName:@"ID"];
+						attribute = [NSXMLNode attributeWithName:@"ID" stringValue:ID];
+						[element addAttribute:attribute];
+					}
+				}
+				else
+				{
+					attribute = [NSXMLNode attributeWithName:@"ID" stringValue:ID];
+					[element addAttribute:attribute];
+				}
+here:
+				if(!xmlDoc)
+				{
+					NSBundle * B = [NSBundle bundleForClass:[self class]];
+					NSString * path = [iTM2MacroPersonalComponent stringByAppendingPathExtension:iTM2MacrosPathExtension];
+					NSArray * RA = [B allPathsForResource:iTM2MacroPersonalComponent ofType:@"template" inDirectory:iTM2MacroControllerComponent];// add ".template" unless it appears in the macro tree
+					path = [RA lastObject];
+					if([DFM fileExistsAtPath:path])
+					{
+						NSError * localError = nil;
+						NSURL * theURL = [NSURL fileURLWithPath:path];
+						NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:theURL options:0 error:&localError] autorelease];
+						if(localError)
+						{
+							[SDC presentError:localError];
+						}
+						if(!xmlDoc)
+						{
+							return;//broken
+						}
+						[contextNode setDocument:xmlDoc forURL:url];
+					}
+					else
+					{
+						return;//broken
+					}
+				}
+				id rootDocument = [element rootDocument];
+				if([rootDocument isEqual:xmlDoc])
+				{
+					// that's absolutely perfect: this is the same document
+					return;
+				}
+				[element detach];// just in case it belongs to another rootDocument
+				[rootElement addChild:element];
+				[self setValue:element forKeyPath:@"value.element"];
+				return;
+			}
+			element = [NSXMLElement elementWithName:@"ACTION"];
+			attribute = [NSXMLNode attributeWithName:@"ID" stringValue:ID];
+			[element addAttribute:attribute];
+			goto here;
+		}
+	}
+	else
+	{
+		id element = [self valueForKeyPath:@"value.element"];
+		[element detach];
+	}
+	return;
+}
+@end
+
 @interface iTM2MacroMenuNode: iTM2MacroContextNode
 @end
 
@@ -397,11 +649,31 @@ NSString * const iTM2MacrosPathExtension = @"iTM2-macros";
 - (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
 - (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
 - (void)setSelectedMode:(NSString *)mode;
+- (void)readMacrosAtPath:(NSString *)repository inRootNode:(iTM2MacroRootNode *)rootNode mutable:(BOOL)flag;
 @end
 
 @implementation iTM2MacroController
 
 static id _iTM2MacroController = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
++ (void)load;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+//iTM2_START;
+    [SUD registerDefaults:
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSString bullet], iTM2TextTabAnchorStringKey,
+                nil]];
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
 
 + (id)sharedMacroController;
 {
@@ -416,13 +688,13 @@ static id _iTM2MacroController = nil;
 	}
 	else if(self = [super init])
 	{
-		[self setRunningTree:nil];
+		[self setMacroTree:nil];
 		[self setValue:nil forKey:@"sourceTree"];// dirty trick to avoid header declaration
 	}
 	return _iTM2MacroController = self;
 }
 
-- (id)runningTree;
+- (id)macroTree;
 {
 	id result = metaGETTER;
 	if(result)
@@ -432,8 +704,9 @@ static id _iTM2MacroController = nil;
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained later
 	// list all the *.iTM2-macros files
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
-	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
+	NSBundle * MB = [NSBundle mainBundle];
+	[MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
+	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSURL * repositoryURL = nil;
@@ -448,7 +721,7 @@ static id _iTM2MacroController = nil;
 			while(subpath = [DE nextObject])
 			{
 				NSString * extension = [subpath pathExtension];
-				if([extension isEqual:@"iTM2-macros"])
+				if([extension isEqual:iTM2MacrosPathExtension])
 				{
 					NSMutableArray * components = [[[subpath pathComponents] mutableCopy] autorelease];
 					[components removeLastObject];
@@ -501,34 +774,7 @@ static id _iTM2MacroController = nil;
 					{
 						iTM2_LOG(@"url:%@",url);
 					}
-					NSError * localError =  nil;
-					NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
-					if(localError)
-					{
-						iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
-					}
-					else
-					{
-						// now create the children
-						e = [[document nodesForXPath:@"//ACTION" error:&localError] objectEnumerator];
-						NSXMLElement * element = nil;
-						while(element = [e nextObject])
-						{
-							[element detach];// no longer belongs to the document
-							NSString * ID = [[element attributeForName:@"ID"] stringValue];
-							iTM2MacroLeafNode * child = (iTM2MacroLeafNode *)[contextNode objectInChildrenWithID:ID];
-							if(!child)
-							{
-								//iTM2MacroLeafNode * node = 
-								[[[iTM2MacroLeafNode alloc] initWithParent:contextNode ID:ID element:element] autorelease];
-							}
-							if(iTM2DebugEnabled)
-							{
-								child = (iTM2MacroLeafNode *)[contextNode objectInChildrenWithID:ID];
-								iTM2_LOG(@"child:%@",child);
-							}
-						}
-					}
+					[contextNode addURLPromise:url];
 				}
 			}
 			[DFM popDirectory];
@@ -537,8 +783,8 @@ static id _iTM2MacroController = nil;
 	metaSETTER(rootNode);
 	return rootNode;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setRunningTree:
-- (void)setRunningTree:(id)aTree;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroTree:
+- (void)setMacroTree:(id)aTree;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -563,7 +809,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2MacroRootNode * rootNode = [self runningTree];
+	iTM2MacroRootNode * rootNode = [self macroTree];
 	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
 	iTM2MacroCategoryNode * categoryNode = [domainNode objectInChildrenWithCategory:category];
 	iTM2MacroContextNode * contextNode = [categoryNode objectInChildrenWithContext:context];
@@ -588,7 +834,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2MacroRootNode * rootNode = [self runningTree];
+	iTM2MacroRootNode * rootNode = [self macroTree];
 	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
 	iTM2MacroCategoryNode * categoryNode = [domainNode objectInChildrenWithCategory:category];
 #warning NO context in macros
@@ -624,10 +870,11 @@ To Do List:
 		return result;
 	}
 	// Create a Macros.localized in the Application\ Support folder as side effect
-	[[NSBundle mainBundle] pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES];
+	NSBundle * MB = [NSBundle mainBundle];
+	[MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained
 	// list all the *.iTM2-macros files
-	NSArray * RA = [[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
+	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSURL * repositoryURL = nil;
@@ -1073,6 +1320,24 @@ To Do List:
     return NO;
 }
 #pragma mark =-=-=-=-=-  PREFERENCES
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromNib
+- (void)awakeFromNib;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if ([[self superclass] instancesRespondToSelector:_cmd])
+	{
+		[super awakeFromNib];
+	}
+	NSNumber * N = [NSNumber numberWithUnsignedInt:0];
+	[self setValue:N forKey:@"selectedTabViewItemIndex"];// unless the segmented control is not properly highlighted
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableDomains
 - (NSArray *)availableDomains;
 /*"Desription Forthcoming.
@@ -1083,7 +1348,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [[self runningTree] availableDomains];
+    return [[self macroTree] availableDomains];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedDomain
 - (NSString *)selectedDomain;
@@ -1155,7 +1420,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * domain = [self selectedDomain];
-	id node = [[self runningTree] objectInChildrenWithDomain:domain];
+	id node = [[self macroTree] objectInChildrenWithDomain:domain];
 //iTM2_END;
     return [node availableCategories];
 }
@@ -1228,7 +1493,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * domain = [self selectedDomain];
-	id node = [[self runningTree] objectInChildrenWithDomain:domain];
+	id node = [[self macroTree] objectInChildrenWithDomain:domain];
 	NSString * mode = [self selectedMode];
 	node = [node objectInChildrenWithCategory:mode];
 	node = [node objectInChildrenWithContext:@""];
@@ -1268,6 +1533,36 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSString * domain = [self selectedDomain];
+	id node = [self macroTree];
+	node = [node objectInChildrenWithDomain:domain];
+	NSString * mode = [self selectedMode];
+	node = [node objectInChildrenWithCategory:mode];
+	node = [node objectInChildrenWithContext:@""];
+	NSString * ID = [object valueForKeyPath:@"value.ID"];
+	NSArray * IDs = [node availableIDs];
+	if([IDs containsObject:ID])
+	{
+		// do nothing, this is already there
+		return;
+	}
+	ID = @"macro";
+	if([IDs containsObject:ID])
+	{
+		unsigned index = 0;
+		do
+		{
+			ID = [NSString stringWithFormat:@"macro %i",++index];
+		}
+		while([IDs containsObject:ID]);
+	}
+	[object setValue:ID forKeyPath:@"value.ID"];
+	[object setParent:node];
+	IDs = [node availableIDs];
+	if(![IDs containsObject:ID])
+	{
+		iTM2_LOG(@"***  THE MACRO WAS NOT ADDED");
+	}
 //iTM2_END;
     return;
 }
@@ -1280,6 +1575,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	id O = [[self _X_availableMacros] objectAtIndex:index];
+	if([O isMutable])
+	{
+		[O setParent:nil];
+	}
 //iTM2_END;
     return;
 }
@@ -1295,6 +1595,133 @@ To Do List:
 	NSSortDescriptor * SD = [[[NSSortDescriptor allocWithZone:[self zone]] initWithKey:@"value.ID" ascending:YES] autorelease];
 //iTM2_END;
     return [NSArray arrayWithObject:SD];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  apply
+- (IBAction)apply:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canApply
+- (BOOL)canApply;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancel
+- (IBAction)cancel:(id)sender;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canCancel
+- (BOOL)canCancel;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedMacro
+- (id)selectedMacro;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [self valueForKey:@"selectedTabViewItemIndex_meta"];
+	unsigned index = [N unsignedIntValue];
+	if(index)
+	{
+		// the key part is selected
+		return nil;
+	}
+	else
+	{
+		// the macro part is selected
+		id MAC = [self valueForKey:@"macrosArrayController"];
+		NSIndexSet * indexSet = [MAC selectionIndexes];
+		if([indexSet count]==1)
+		{
+			index = [indexSet firstIndex];
+			NSArray * AOs = [MAC arrangedObjects];
+			return [AOs objectAtIndex:index];
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+-(unsigned int)selectedTabViewItemIndex;
+{
+	return [[self valueForKey:@"selectedTabViewItemIndex_meta"] unsignedIntValue];
+}
+-(void)setSelectedTabViewItemIndex:(unsigned int)index;
+{
+	[self willChangeValueForKey:@"selectedMacro"];
+	[self willChangeValueForKey:@"selectedTabViewItemIndex"];
+	NSNumber * N = [NSNumber numberWithUnsignedInt:index];
+	[self setValue:N forKey:@"selectedTabViewItemIndex_meta"];
+	[self didChangeValueForKey:@"selectedTabViewItemIndex"];
+	[self didChangeValueForKey:@"selectedMacro"];
+	return;
+}
+-(id)macrosArrayController;// nib outlets won't accept kvc (10.4)
+{
+	return metaGETTER;
+}
+-(void)setMacrosArrayController:(id)argument;
+{
+	[self willChangeValueForKey:@"selectedMacro"];
+	metaSETTER(argument);
+	[self didChangeValueForKey:@"selectedMacro"];
+	return;
+}
+-(id)keysArrayController;
+{
+	return metaGETTER;
+}
+-(void)setKeysArrayController:(id)argument;
+{
+	[self willChangeValueForKey:@"selectedMacro"];
+	metaSETTER(argument);
+	[self didChangeValueForKey:@"selectedMacro"];
+	return;
+}
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
+{
+	[self willChangeValueForKey:@"selectedMacro"];
+	[self didChangeValueForKey:@"selectedMacro"];
+	return;
+}
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification;
+{
+	[self willChangeValueForKey:@"selectedMacro"];
+	[self didChangeValueForKey:@"selectedMacro"];
+	return;
 }
 #pragma mark =-=-=-=-=-  MENU DELEGATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuNeedsUpdate:
@@ -1327,7 +1754,7 @@ To Do List:
 	// expected modes:
 	id firstResponder = [NSApp keyWindow];
 	NSString * domain = [firstResponder macroDomain];
-	iTM2MacroRootNode * rootNode = [self runningTree];
+	iTM2MacroRootNode * rootNode = [self macroTree];
 	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
 	NSArray * expectedModes = [domainNode availableCategories];
 	//
@@ -3011,435 +3438,174 @@ To Do List:
 //iTM2_END;
 	return;
 }
-#pragma mark -
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexWithContentsOfFile:
-- (id)indexWithContentsOfFile:(NSString*)path error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroEdit:
+- (IBAction)macroEdit:(id)sender;
+/*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	*outErrorPtr = nil;
-	NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:outErrorPtr] autorelease];
-	if(*outErrorPtr)
-	{
-		return nil;
-	}
-	else
-	{
-		// parse the doc
-		NSXMLElement * element = [xmlDoc rootElement];
-		if([[element name] isEqualToString:@"LIST"])
-		{
-			NSString * prefixKey = [[element attributeForName:@"KEY"] stringValue]?:@"";
-			NSMutableDictionary * result = [NSMutableDictionary dictionary];
-			NSEnumerator * E = [[element elementsForName:@"ITEM"] objectEnumerator];
-			while(element = [E nextObject])
-			{
-				[result setObject:element forKey:[NSString stringWithFormat:@"%@%@", prefixKey, [[element attributeForName:@"KEY"] stringValue]]];
-			}
-			return result;
-		}
-		else
-		{
-			iTM2_OUTERROR(1,([NSString stringWithFormat:@"The root element must be a LIST node\n%@",path]),nil);
-		}
-	}
-//iTM2_END;
-	return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macrosIndexWithContentsOfFile:error:
-- (id)macrosIndexWithContentsOfFile:(NSString *)path error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	* outErrorPtr = nil;
-	NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:outErrorPtr] autorelease];
-	if(* outErrorPtr)
-	{
-		return nil;
-	}
-	else if(xmlDoc)
-	{
-		NSXMLElement * element = [xmlDoc rootElement];
-		if([[element name] isEqualToString:@"LIST"])
-		{
-			NSString * base = [path stringByDeletingPathExtension];
-			NSMutableDictionary * result = [NSMutableDictionary dictionary];
-			NSString * prefixKey = [[element attributeForName:@"KEY"] stringValue]?:@"";
-			NSEnumerator * E = [[element elementsForName:@"ITEM"] objectEnumerator];
-			while(element = [E nextObject])
-			{
-				NSString * P = [element stringValue];
-				if([P hasPrefix:@"."])
-				{
-					P = [base stringByAppendingPathComponent:P];
-				}
-				[result setObject:P forKey:[NSString stringWithFormat:@"%@%@", prefixKey, [[element attributeForName:@"KEY"] stringValue]]];
-			}
-			return result;
-		}
-		else if(outErrorPtr)
-		{
-			*outErrorPtr = [NSError errorWithDomain:@"iTM2MacrosKit" code:2 userInfo:
-				[NSDictionary dictionaryWithObjectsAndKeys:
-					@"Bad file format", NSLocalizedDescriptionKey,
-					@"The root element must be a LIST node", NSLocalizedFailureReasonErrorKey,
-					@"Reinstall and report bug if this does not solve thee problem", NSLocalizedRecoverySuggestionErrorKey,
-					[NSArray arrayWithObjects:nil], NSLocalizedRecoveryOptionsErrorKey,
-					path, NSFilePathErrorKey,
-						nil]];
-		}
-	}
-//iTM2_END;
-	return nil;
-}
-#pragma mark -
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuWithXMLElement:forContext:ofCategory:inDomain:error:
-- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * name = [element name];
-	if([name isEqualToString:@"LIST"])
-	{
-		NSString * prefix = [[element attributeForName:@"KEY"] stringValue];
-		if(!prefix)
-			prefix = @"";
-		if([element childCount])
-		{
-			NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-			id child = [element childAtIndex:0];
-			do
-			{
-				NSMenuItem * MI = [self macroMenuItemWithXMLElement:child forContext:context ofCategory:category inDomain:domain error:outErrorPtr];
-				if(MI)
-					[M addItem:MI];
-			}
-			while(child = [child nextSibling]);
-			return M;
-		}
-	}
-	else if(element)
-	{
-		iTM2_LOG(@"ERROR: unknown name %@.", name);
-	}
-//iTM2_END;
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroMenuItemWithXMLElement:forContext:ofCategory:inDomain:error:
-- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * name = [element name];
-	if([name isEqualToString:@"SEP"])
-	{
-		return [NSMenuItem separatorItem];
-	}
-	else if([name isEqualToString:@"ITEM"])
-	{
-		NSString * key = [[element attributeForName:@"KEY"] stringValue];
-		context = [[element attributeForName:@"CONT"] stringValue]?:context;
-		category = [[element attributeForName:@"CAT"] stringValue]?:category;
-		domain = [[element attributeForName:@"DOM"] stringValue]?:domain;
-		NSString * toolTip = [[[element elementsForName:@"TIP"] lastObject] stringValue];
-		NSString * name = [[[element elementsForName:@"NAME"] lastObject] stringValue];
-		if(![name length])
-		{
-			name = [self macroLocaleOfType:@"Name" forKey:key context:context ofCategory:category inDomain:domain];
-		}
-		NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
-			initWithTitle: name action: NULL keyEquivalent: @""] autorelease];
-		if([key length])
-		{
-			[MI setRepresentedObject:[NSArray arrayWithObjects:key, context, category, domain, nil]];
-			[MI setTarget:self];
-			[MI setAction:@selector(___insertMacro:)];
-		}
-		[MI setToolTip:toolTip];
-		id list = [[element elementsForName:@"LIST"] lastObject];
-		NSMenu * M = [self macroMenuWithXMLElement:list forContext:context ofCategory:category inDomain:domain error:outErrorPtr];
-		[MI setSubmenu:M];
-		return MI;
-	}
-	else
-	{
-		iTM2_LOG(@"ERROR: unknown name %@.", name);
-	}
-//iTM2_END;
-    return nil;
-}
-#pragma mark -
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMacrosSummaries
-- (void)loadMacrosSummaries;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 06/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-//iTM2_START;
-	if(!_iTM2_MacroServer_Data)
-		_iTM2_MacroServer_Data = [[NSMutableDictionary dictionary] retain];
-	// read the built in stuff
-	// inside frameworks then bundles.
-	NSArray * frameworks = [NSBundle allFrameworks];
-	NSMutableArray * plugins = [NSMutableArray arrayWithArray:[NSBundle allBundles]];
-	[plugins removeObjectsInArray:frameworks];// plugins are bundles
-	NSBundle * mainBundle = [NSBundle mainBundle];
-	[plugins removeObject:mainBundle];// plugins are bundles, except the main one
-	// sorting the frameworks and plugins
-	// separating them according to their domain
-	NSString * networkPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSNetworkDomainMask create:NO];
-	networkPrefix = [networkPrefix stringByAppendingString:iTM2PathComponentsSeparator];
-	NSString * localPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSLocalDomainMask create:NO];
-	localPrefix = [localPrefix stringByAppendingString:iTM2PathComponentsSeparator];
-	NSString * userPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSUserDomainMask create:NO];
-	userPrefix = [userPrefix stringByAppendingString:iTM2PathComponentsSeparator];
-	
-	NSMutableArray * networkFrameworks = [NSMutableArray array];
-	NSMutableArray * localFrameworks = [NSMutableArray array];
-	NSMutableArray * userFrameworks = [NSMutableArray array];
-	NSMutableArray * otherFrameworks = [NSMutableArray array];
-	NSEnumerator * E = [frameworks objectEnumerator];
-	NSBundle * B = nil;
-	while(B = [E nextObject])
-	{
-		NSString * P = [B bundlePath];
-		if([P hasPrefix:userPrefix])
-			[userFrameworks addObject:B];
-		else if([P hasPrefix:localPrefix])
-			[localFrameworks addObject:B];
-		else if([P hasPrefix:networkPrefix])
-			[networkFrameworks addObject:B];
-		else
-			[otherFrameworks addObject:B];
-	}
-	NSMutableArray * networkPlugIns = [NSMutableArray array];
-	NSMutableArray * localPlugIns = [NSMutableArray array];
-	NSMutableArray * userPlugIns = [NSMutableArray array];
-	NSMutableArray * otherPlugIns = [NSMutableArray array];
-	E = [plugins objectEnumerator];
-	while(B = [E nextObject])
-	{
-		NSString * P = [B bundlePath];
-		if([P hasPrefix:userPrefix])
-			[userPlugIns addObject:B];
-		else if([P hasPrefix:localPrefix])
-			[localPlugIns addObject:B];
-		else if([P hasPrefix:networkPrefix])
-			[networkPlugIns addObject:B];
-		else
-			[otherPlugIns addObject:B];
-	}
-	// load
-	#define RELOAD(ARRAY)\
-	E = [ARRAY objectEnumerator];\
-	while(B = [E nextObject]) [self loadMacrosSummariesAtPath:[B pathForResource:iTM2MacroServerComponent ofType:nil]];
-	RELOAD(otherFrameworks);
-	RELOAD(otherPlugIns);
-	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForResource:iTM2MacroServerComponent ofType:nil]];
-	RELOAD(networkFrameworks);
-	RELOAD(networkPlugIns);
-	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSNetworkDomainMask create:NO]];
-	RELOAD(localFrameworks);
-	RELOAD(localPlugIns);
-	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSLocalDomainMask create:NO]];
-	RELOAD(userFrameworks);
-	RELOAD(userPlugIns);
-	[self loadMacrosSummariesAtPath:
-		[mainBundle pathForSupportDirectory:iTM2MacroServerComponent inDomain:NSUserDomainMask create:YES]];
-	#undef RELOAD
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMacrosSummaryAtPath:
-- (void)loadMacrosSummaryAtPath:(NSString *)path;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 06/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;NSNotFound
-	NSArray * components = [path pathComponents];
-	int index = [components indexOfObject:iTM2MacroServerComponent];
-	if(index==NSNotFound)
-	{
-		return;
-	}
-	NSString * domain = @"";
-	NSString * category = @"";
-	NSString * context = @"";
-	if(++index < [components count]-1)
-	{
-		domain = [components objectAtIndex:index];
-	}
-	if(++index < [components count]-1)
-	{
-		category = [components objectAtIndex:index];
-	}
-	if(++index < [components count]-1)
-	{
-		context = [components objectAtIndex:index];
-	}
-	NSMutableDictionary * MD = [self storageForContext:context ofCategory:category inDomain:domain];
-	NSMutableDictionary * URLs = [MD objectForKey:@"./URLs"];
-	if(!URLs)
-	{
-		URLs = [NSMutableDictionary dictionary];
-		[MD setObject:URLs forKey:@"./URLs"];
-	}
-	NSMutableDictionary * CUTs = [MD objectForKey:@"./CUTs"];
-	if(!CUTs)
-	{
-		CUTs = [NSMutableDictionary dictionary];
-		[MD setObject:URLs forKey:@"./CUTs"];
-	}
-	NSURL * sourceURL = [NSURL fileURLWithPath:path];
-	path = [path stringByDeletingLastPathComponent];
-	NSURL * URL = [NSURL fileURLWithPath:path];
-	NSError * localError = nil;
-	NSXMLDocument * source = [[[NSXMLDocument alloc] initWithContentsOfURL:sourceURL options:0 error:&localError] autorelease];
-	if(localError)
-	{
-		iTM2_REPORTERROR(1,(@"There was an error while creating the document"), localError);
-	}
-	id node = [source rootElement];
-	if(node = [node nextNode])
-	{
-		NSString * name = [node name];
-		if([name isEqualToString:@"LIST"])
-		{
-			while(node = [node nextNode])
-			{
-				NSString * name = [node name];
-				if([name isEqualToString:@"ITEM"])
-				{
-					id keyAttribute = [node attributeForName:@"KEY"];
-					[URLs setObject:URL forKey:[keyAttribute stringValue]];
-				}
-				else if([name isEqualToString:@"CUTS"])
-				{
-					while(node = [node nextNode])
-					{
-						NSString * name = [node name];
-						if([name isEqualToString:@"CUT"])
-						{
-							id keyAttribute = [node attributeForName:@"KEY"];
-							id cutAttribute = [node attributeForName:@"CUT"];
-							[URLs setObject:[keyAttribute stringValue] forKey:[cutAttribute stringValue]];
-						}
-					}
-				}
-			}
-		}
-	}
+	// order front the pref panel
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMacrosSummariesAtPath:
-- (void)loadMacrosSummariesAtPath:(NSString *)path;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomainKey
+- (NSString *)macroDomainKey;
+{
+    return [self nextResponder]?[[self nextResponder] macroDomainKey]:[super macroDomainKey];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategoryKey
+- (NSString *)macroCategoryKey;
+{
+    return [self nextResponder]?[[self nextResponder] macroCategoryKey]:[super macroCategoryKey];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMacroCategory:
+- (void)setMacroCategory:(NSString *)argument;
+{
+	id nextResponder = [self nextResponder];
+	if(nextResponder)
+	{
+		[nextResponder setMacroCategory:argument];
+	}
+	[super setMacroCategory:argument];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContextKey
+- (NSString *)macroContextKey;
+{
+    return [self nextResponder]?[[self nextResponder] macroContextKey]:[super macroContextKey];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
+- (BOOL)executeMacro:(NSString *)macro;
 /*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for instruction.
+The key and its modifiers are 
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 06/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-	if(![path length])
-		return;
-	if(!_iTM2_MacroServer_Data)
-		_iTM2_MacroServer_Data = [[NSMutableDictionary dictionary] retain];
-	iTM2_INIT_POOL;
 //iTM2_START;
-	// We find all the Summary.xml files inside
-	// then read them and append the result to the server data base.
-	NSString * summary = [path stringByAppendingPathComponent:iTM2MacroServerSummaryComponent];
-	summary = [summary stringByAppendingPathExtension:@"xml"];
-	if([DFM fileExistsAtPath:summary])
+//iTM2_END;
+    return [self tryToExecuteMacro:macro];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
+- (BOOL)tryToExecuteMacro:(NSString *)macro;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for macro.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange R = [macro rangeOfString:@":"];
+	if(R.length)
 	{
-		[self loadMacrosSummaryAtPath:summary];
-	}
-	NSEnumerator * domainE = [[DFM directoryContentsAtPath:path] objectEnumerator];
-	NSString * domain;
-	while(domain = [domainE nextObject])
-	{
-		domain = [path stringByAppendingPathComponent:domain];
-		// is it a directory?
-		BOOL isDirectory = NO;
-		if([DFM fileExistsAtPath:domain isDirectory:&isDirectory] && isDirectory)
+		R.length = R.location + 1;
+		R.location = 0;
+		NSString * selectorName = [macro substringWithRange:R];
+		SEL action = NSSelectorFromString(selectorName);
+		if([self respondsToSelector:action])
 		{
-			summary = [domain stringByAppendingPathComponent:iTM2MacroServerSummaryComponent];
-			summary = [summary stringByAppendingPathExtension:@"xml"];
-			if([DFM fileExistsAtPath:summary])
+			R.location = R.length;
+			R.length = [macro length] - R.location;
+			NSString * argument = [macro substringWithRange:R];
+			if([self tryToPerform:action with:argument])
 			{
-				[self loadMacrosSummaryAtPath:summary];
-			}
-			NSEnumerator * categoryE = [[DFM directoryContentsAtPath:domain] objectEnumerator];
-			NSString * category;
-			while(category = [categoryE nextObject])
-			{
-				category = [domain stringByAppendingPathComponent:category];
-				// is it a directory?
-				BOOL isDirectory = NO;
-				if([DFM fileExistsAtPath:category isDirectory:&isDirectory] && isDirectory)
-				{
-					summary = [category stringByAppendingPathComponent:iTM2MacroServerSummaryComponent];
-					summary = [summary stringByAppendingPathExtension:@"xml"];
-					if([DFM fileExistsAtPath:summary])
-					{
-						[self loadMacrosSummaryAtPath:summary];
-					}
-					NSEnumerator * contextE = [[DFM directoryContentsAtPath:category] objectEnumerator];
-					NSString * context;
-					while(context = [contextE nextObject])
-					{
-						context = [category stringByAppendingPathComponent:context];
-						// is it a directory?
-						BOOL isDirectory = NO;
-						if([DFM fileExistsAtPath:context isDirectory:&isDirectory] && isDirectory)
-						{
-							summary = [category stringByAppendingPathComponent:iTM2MacroServerSummaryComponent];
-							summary = [summary stringByAppendingPathExtension:@"xml"];
-							if([DFM fileExistsAtPath:summary])
-							{
-								[self loadMacrosSummaryAtPath:summary];
-							}
-						}
-					}
-				}
+				return YES;
 			}
 		}
 	}
 //iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
+    return NO;
 }
 @end
 
-@interface NSTextView(PRIVATE)
-- (IBAction)selectFirstPlaceholder:(id)sender;
+@implementation iTM2GenericScriptButton
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroMenu
+- (NSMenu *)macroMenu;// don't call this "menu"!
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * name = NSStringFromClass([self class]);
+	NSRange R1 = [name rangeOfString:@"Script"];
+	if(R1.length)
+	{
+		NSRange R2 = [name rangeOfString:@"Button"];
+		if(R2.length && (R1.location += R1.length, (R2.location > R1.location)))
+		{
+			R1.length = R2.location - R1.location;
+			NSString * context = [name substringWithRange:R1];
+			NSString * category = [self macroCategory];
+			NSString * domain = [self macroDomain];
+			NSMenu * M = [SMC macroMenuForContext:context ofCategory:category inDomain:domain error:nil];
+			M = [[M deepCopy] autorelease];
+			// insert a void item for the title
+			[M insertItem:[[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease] atIndex:0];// for the title
+			return M;
+		}
+	}
+//iTM2_END;
+    return [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+}
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
+- (void)awakeFromNib;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([[iTM2GenericScriptButton superclass] instancesRespondToSelector:_cmd])
+		[super awakeFromNib];
+	[[self retain] autorelease];
+	NSView * superview = [self superview];
+	[self removeFromSuperviewWithoutNeedingDisplay];
+	[superview addSubview:self];
+	[DNC addObserver:self selector:@selector(popUpButtonCellWillPopUpNotification:) name:NSPopUpButtonCellWillPopUpNotification object:[self cell]];
+	[[self cell] setAutoenablesItems:YES];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= popUpButtonCellWillPopUpNotification:
+- (void)popUpButtonCellWillPopUpNotification:(NSNotification *)notification;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self setMenu:[self macroMenu]];
+	[DNC removeObserver:self];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
+- (void)dealloc;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[DNC removeObserver:self];
+	[super dealloc];
+//iTM2_END;
+    return;
+}
 @end
+
+#pragma mark -
 
 @implementation NSTextView(iTM2MacroKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabAnchor
@@ -4922,5 +5088,44 @@ To Do List:
         NSLog(@"JL, you should have raised an exception!!! (code 1789)");
     }
     return;
+}
+@end
+
+/*"Description forthcoming."*/
+@interface iTM2MacroArrayController: NSArrayController
+@end
+
+@implementation iTM2MacroArrayController
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  canRemove
+- (BOOL)canRemove;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSIndexSet * indexSet = [self selectionIndexes];
+	NSArray * RA = [self arrangedObjects];
+	unsigned int index = [indexSet firstIndex];
+	while(index != NSNotFound)
+	{
+		id O = [RA objectAtIndex:index];
+		if([O respondsToSelector:@selector(isMutable)] && [O isMutable])
+		{
+			return YES;
+		}
+		index = [indexSet indexGreaterThanIndex:index];
+	}
+	RA = [self content];
+//iTM2_END;
+    return NO;
+}
+- (void)insertObject:(id)object atArrangedObjectIndex:(unsigned int)index;    // inserts into the content objects and the arranged objects (as specified by index in the arranged objects) - will raise an exception if the object does not match all filters currently applied
+{
+	[super insertObject:(id)object atArrangedObjectIndex:(unsigned int)index];
+	NSArray * arrangedObjects = [self arrangedObjects];
+	index = [arrangedObjects indexOfObject:object];
+	[self setSelectionIndex:index];
+	return;
 }
 @end

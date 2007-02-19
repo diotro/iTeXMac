@@ -35,7 +35,7 @@ enum
 extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
 extern NSString * const iTM2TextTabAnchorStringKey;
 
-extern NSString * const iTM2MacroServerComponent;
+extern NSString * const iTM2MacroControllerComponent;
 
 /*!
 	@header			iTM2MacroKit
@@ -119,21 +119,21 @@ extern NSString * const iTM2MacrosPathExtension;
 + (id)sharedMacroController;
 
 /*!
-    @method     runningTree
+    @method     macroTree
     @abstract   The macro running tree
     @discussion Lazy initializer.
     @result     The macro running tree
 */
-- (id)runningTree;
+- (id)macroTree;
 
 /*!
-    @method     setRunningTree:
+    @method     setMacroTree:
     @abstract   Set the macro running tree
     @discussion Designated setter.
     @param      aTree
     @result     None
 */
-- (void)setRunningTree:(id)aTree;
+- (void)setMacroTree:(id)aTree;
 
 /*!
     @method     macroRunningNodeForID:context:ofCategory:inDomain:
