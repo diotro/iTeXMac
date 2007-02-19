@@ -168,6 +168,7 @@
 		perUserProjectItems = {
 			DC7A7ACD0B89D97B00BD830B /* PBXTextBookmark */ = DC7A7ACD0B89D97B00BD830B /* PBXTextBookmark */;
 			DC7A7AD90B89DA9F00BD830B /* PBXTextBookmark */ = DC7A7AD90B89DA9F00BD830B /* PBXTextBookmark */;
+			DC7A7BC80B89E79200BD830B /* PBXTextBookmark */ = DC7A7BC80B89E79200BD830B /* PBXTextBookmark */;
 			DCB26B200B849B1500868348 = DCB26B200B849B1500868348 /* PBXTextBookmark */;
 			DCB26B220B849B1500868348 = DCB26B220B849B1500868348 /* PBXTextBookmark */;
 			DCBCA42D0B7E333E007E8702 = DCBCA42D0B7E333E007E8702 /* PBXTextBookmark */;
@@ -416,6 +417,16 @@
 		name = "@end";
 		rLen = 5;
 		rLoc = 28365;
+		rType = 0;
+		vrLen = 600;
+		vrLoc = 27821;
+	};
+	DC7A7BC80B89E79200BD830B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */;
+		name = "iTM2TeXDocumentKit.m: smartDoubleClickAtIndex:";
+		rLen = 0;
+		rLoc = 49490;
 		rType = 0;
 		vrLen = 600;
 		vrLoc = 27821;
@@ -762,7 +773,7 @@
 	DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1496, 28440}}";
-			sepNavSelRange = "{28365, 5}";
+			sepNavSelRange = "{49490, 0}";
 			sepNavVisRect = "{{0, 16151}, {961, 520}}";
 			sepNavWindowFrame = "{{129, 29}, {1284, 780}}";
 		};

@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'Tiny XML Validator' target in the 'Tiny XML Validator' project
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif

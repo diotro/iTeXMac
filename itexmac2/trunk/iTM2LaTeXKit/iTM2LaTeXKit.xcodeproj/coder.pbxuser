@@ -178,6 +178,8 @@
 			DC7A7B4F0B89DEB500BD830B /* PBXTextBookmark */ = DC7A7B4F0B89DEB500BD830B /* PBXTextBookmark */;
 			DC7A7BAC0B89E34800BD830B /* PBXTextBookmark */ = DC7A7BAC0B89E34800BD830B /* PBXTextBookmark */;
 			DC7A7BAD0B89E34800BD830B /* PBXTextBookmark */ = DC7A7BAD0B89E34800BD830B /* PBXTextBookmark */;
+			DC7A7BC60B89E79200BD830B /* PBXTextBookmark */ = DC7A7BC60B89E79200BD830B /* PBXTextBookmark */;
+			DC7A7BC70B89E79200BD830B /* PBXTextBookmark */ = DC7A7BC70B89E79200BD830B /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -373,6 +375,26 @@
 		vrLen = 825;
 		vrLoc = 1612;
 	};
+	DC7A7BC60B89E79200BD830B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "iTM2LaTeXKit.m: 3245";
+		rLen = 0;
+		rLoc = 121935;
+		rType = 0;
+		vrLen = 655;
+		vrLoc = 67943;
+	};
+	DC7A7BC70B89E79200BD830B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "iTM2LaTeXKit.m: 3245";
+		rLen = 0;
+		rLoc = 121935;
+		rType = 0;
+		vrLen = 825;
+		vrLoc = 1612;
+	};
 	DC81AD250887161F00943C99 /* iTeXMac2 */ = {
 		activeExec = 0;
 		executables = (
@@ -405,7 +427,7 @@
 	DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1982, 64900}}";
-			sepNavSelRange = "{1968, 245}";
+			sepNavSelRange = "{121935, 0}";
 			sepNavVisRect = "{{0, 746}, {1135, 569}}";
 			sepNavWindowFrame = "{{84, 95}, {1174, 674}}";
 		};
