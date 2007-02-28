@@ -248,7 +248,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>itm2-plugin</string>
+				<string>iTM2</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>iTM2</string>
@@ -1769,8 +1769,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>XCFBundleVersion</key>
-	<string>2.0 preview  (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
 	<key>CFBundleVersion</key>
 	<string>SVN_BUILD_NUMBER</string>
 	<key>LSHasLocalizedDisplayName</key>
@@ -1783,6 +1781,8 @@
 	<string>iTM2Application</string>
 	<key>OSAScriptingDefinition</key>
 	<string>iTeXMac2.sdef</string>
+	<key>SUFeedURL</key>
+	<string>http://itexmac.sourceforge.net/products.rss</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -1977,13 +1977,13 @@
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
-	<key>iTM2CompanyName</key>
-	<string>Laurens'Tribune</string>
+	<key>XCFBundleVersion</key>
+	<string>2.0 preview  (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
 	<key>iTM2CompanyEmail</key>
 	<string>jlaurens@users.sourceforge.net</string>
+	<key>iTM2CompanyName</key>
+	<string>Laurens'Tribune</string>
 	<key>iTM2SourceVersion</key>
 	<string>SVN_BUILD_NUMBER</string>
-	<key>SUFeedURL</key> 
-	<string>http://itexmac.sourceforge.net/products.rss</string> 
 </dict>
 </plist>

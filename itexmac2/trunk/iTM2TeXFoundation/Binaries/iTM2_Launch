@@ -120,7 +120,6 @@ else
 	mkdir "${iTM2BinaryPATH}"
 	chmod -R u+rwx "${iTM2BinaryPATH}"
 fi
-echo "iTM2BinaryPATH is:${iTM2BinaryPATH}"
 iTM2SHORT="0"
 iTM2Linkbin ()
 {
@@ -128,8 +127,13 @@ iTM2Linkbin ()
     rm -Rf "${iTM2_TARGET}"
     if ( [ -d "$1" ] ) && ( [ -d "$1/bin" ] )
     then
-		ln -s "$1" "${iTM2_TARGET}"
-		iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/bin";
+		if [ ${#1} -gt ${#iTM2_TARGET} ]
+		then
+			ln -s "$1" "${iTM2_TARGET}"
+			iTM2PREFIX="${iTM2PREFIX}:${iTM2_TARGET}/bin";
+		else
+			iTM2PREFIX="${iTM2PREFIX}:$1/bin";
+		fi
 		if [ ${iTM2_Debug} -gt 99 ]
 		then
 			"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify comment "iTM2_Launch script (1): iTM2PREFIX is ${iTM2PREFIX}"
@@ -174,11 +178,7 @@ then
 	iTM2Linkbin "/Network/Library/Application Support/iTeXMac2"
 fi
 iTM2_BUILTIN_EXECUTABLE_PATH="$(dirname "$0")"
-echo "! $iTM2PREFIX"
-echo "! $iTM2BinaryPATH"
 iTM2Linkbin "$(dirname "$iTM2_BUILTIN_EXECUTABLE_PATH")"
-echo "! $iTM2PREFIX"
-echo "! $iTM2BinaryPATH"
 iTM2Linkbin "${iTM2BinaryPATH}"
 # Now we are setting the PATH variable
 if [ ${#iTM2_PATH_Other_Programs} -gt 0 ]
