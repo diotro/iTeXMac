@@ -76,36 +76,9 @@ iTM2_Compile_Extension="$(echo "${iTM2_Compile_Extension##*.}" | tr [:upper:] [:
 iTM2_Compile_Engine="iTM2_Compile_${iTM2_Compile_Extension}"
 iTM2_Compile_Wrapped="${!iTM2_Compile_Engine}"
 # the iTM2_Compile_Engine now contains the name of the environment variable that knows the command to launch
-iTM2_Compile_EnginePath="$(which "${iTM2_Compile_Wrapped}")"
+iTM2_Compile_EnginePath="$(/bin/zsh -c "which \"${iTM2_Compile_Wrapped}\"")"
+#"
 # the iTM2_Compile_EnginePath now contains the full path of the command to launch, or something weird if there is no command
-if [ ! -x "${iTM2_Compile_EnginePath}" ]
-then
-	"${iTM2_CMD_Notify}" notify echo "pwd is $(pwd)"
-	"${iTM2_CMD_Notify}" notify echo "PATH is ${PATH}"
-	"${iTM2_CMD_Notify}" notify echo "Looking for \"${iTM2_Compile_Wrapped}\" (from ${iTM2_Compile_Engine})"
-	oldIFS="$IFS"
-	IFS=":"
-	# there were an error concerning a missing 'x' flag
-	for COMPONENT in ${PATH}
-	do
-		if [ ${#COMPONENT} -gt 0 ]
-		then
-			iTM2_Compile_EnginePath="${COMPONENT}/${iTM2_Compile_Wrapped}"
-"${iTM2_CMD_Notify}" notify echo "Testing ${iTM2_Compile_EnginePath}"
-			if [ -x "${iTM2_Compile_EnginePath}" ] && ! [ -d "${iTM2_Compile_EnginePath}" ]
-			then
-				break
-			elif [ -e "${iTM2_Compile_EnginePath}" ]
-			then
-				"${iTM2_CMD_Notify}" notify error "${iTM2_Compile_EnginePath} should really be executable, report BUG!"
-				exit 1
-			else
-				iTM2_Compile_EnginePath=""
-			fi
-		fi
-	done
-	IFS="$oldIFS"
-fi
 if [ -x "${iTM2_Compile_EnginePath}" ]
 then
         if [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
@@ -125,19 +98,10 @@ then
 		fi
 		
 else
+		iTeXMac2 error -project "${TWSProject}" -reason "iTeXMac2 cannot handle the ${iTM2_Compile_Extension} file extension, maybe bad project settings, or a missing plug-in."
 		"${iTM2_CMD_Notify}" notify error "Could not manage the extension ${iTM2_Compile_Extension}, no switcher found."
 		"${iTM2_CMD_Notify}" notify error "Go to the project settings panel, select advanced settings and the compile tab view."
 		"${iTM2_CMD_Notify}" notify error "Select the ${iTM2_Compile_Extension} file extension and choose an appropriate action."
 		"${iTM2_CMD_Notify}" notify error "For exotic extension (not listed), define your own iTM2_Compile_${iTM2_Compile_Extension} command."
-		oldIFS="$IFS"
-		IFS=":"
-		for COMPONENT in ${PATH}
-		do
-			if [ ${#COMPONENT} -gt 0 ]
-			then
-				"${iTM2_CMD_Notify}" notify echo "Available files at ${COMPONENT} are"
-				ls -1 "${COMPONENT}"
-			fi
-		done
 		exit 1
 fi

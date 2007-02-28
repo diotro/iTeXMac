@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# bash does not like spaces in PATH
 # Note that this seems to be bash since 10.2.6
 # this is iTM2_Launch for iTeXMac2 1.0
 # © 2006 jlaurens AT users.sourceforge.net
@@ -46,7 +47,7 @@ then
 		pushd "$iTM2_PWD_Real"
 		iTM2_PREFIX=".iTM2-src"
 		iTM2_LEVEL=1
-		while [ 1 ]
+		while [ ${iTM2_LEVEL} -lt 5 ]
 		do
 			CANDIDATES=$(find . -maxdepth $iTM2_LEVEL -mindepth $iTM2_LEVEL -type d -not -regex ".*\.texp.*" -not -regex ".*/\..*" -print)
 			if [ ${#CANDIDATES} -eq 0 ]
@@ -64,10 +65,17 @@ then
 		done
 
 		CANDIDATES=$(find . -type f -not -regex ".*\.texp.*" -not -regex ".*/\..*" -print)
+		iTM2_LIMIT=10
 		for DIR in ${CANDIDATES}
 		do
 			rm -f "$iTM2_PWD/$DIR"
 			ln -s ".iTM2-src/$(basename "$DIR")" "$iTM2_PWD/$DIR"
+			if [ ${iTM2_LIMIT} -gt 0 ]
+			then
+				break
+			else
+				iTM2_LIMIT=$(expr iTM2_LIMIT - 1)
+			fi
 		done
 		popd
 
@@ -112,6 +120,7 @@ else
 	mkdir "${iTM2BinaryPATH}"
 	chmod -R u+rwx "${iTM2BinaryPATH}"
 fi
+echo "iTM2BinaryPATH is:${iTM2BinaryPATH}"
 iTM2SHORT="0"
 iTM2Linkbin ()
 {
@@ -146,6 +155,7 @@ iTM2LinkPrograms ()
 # the binary path:
 iTM2PREFIX=""
 iTM2Linkbin "${iTM2_HOME}/Library/TeX"
+iTM2Linkbin "${iTM2_HOME}/Library/texmf"
 iTM2LinkPrograms "${iTM2_HOME}/Library/TeX/Distributions/Default"
 iTM2Linkbin "${iTM2_HOME}/Library/Application Support/iTeXMac2"
 if [ ${#iTM2_TemporaryDirectory} -gt 0 ]
@@ -153,16 +163,23 @@ then
 	iTM2Linkbin "${iTM2_TemporaryDirectory}"
 fi
 iTM2Linkbin "/Library/TeX"
+iTM2Linkbin "/Library/texmf"
 iTM2LinkPrograms "/Library/TeX/Distributions/Default"
 iTM2Linkbin "/Library/Application Support/iTeXMac2"
 if [ ${#iTM2UseNetwork} -gt 0 ]
 then
 	iTM2Linkbin "/Network/Library/TeX"
+	iTM2Linkbin "/Network/Library/texmf"
 	iTM2LinkPrograms "/Network/Library/TeX"
 	iTM2Linkbin "/Network/Library/Application Support/iTeXMac2"
 fi
 iTM2_BUILTIN_EXECUTABLE_PATH="$(dirname "$0")"
+echo "! $iTM2PREFIX"
+echo "! $iTM2BinaryPATH"
 iTM2Linkbin "$(dirname "$iTM2_BUILTIN_EXECUTABLE_PATH")"
+echo "! $iTM2PREFIX"
+echo "! $iTM2BinaryPATH"
+iTM2Linkbin "${iTM2BinaryPATH}"
 # Now we are setting the PATH variable
 if [ ${#iTM2_PATH_Other_Programs} -gt 0 ]
 then
@@ -174,15 +191,15 @@ then
 fi
 if [ ${#iTM2PREFIX} -gt 0 ]
 then
-    PATH=".:$iTM2PREFIX:$iTM2BinaryPATH:$PATH"
-fi
-if [ ${#iTM2_PATH_Suffix} -gt 0 ]
-then
-    PATH="$iTM2_PATH_Suffix:$PATH"
+    PATH=".:$iTM2PREFIX:$iTM2BinaryPATH/bin:$PATH"
 fi
 if [ ${#iTM2_PATH_Prefix} -gt 0 ]
 then
-    PATH="$PATH:$iTM2_PATH_Prefix"
+    PATH="$iTM2_PATH_Prefix:$PATH"
+fi
+if [ ${#iTM2_PATH_Suffix} -gt 0 ]
+then
+    PATH="$PATH:$iTM2_PATH_Suffix"
 fi
 # iTM2_CMD_Notify is only available now
 if [ "${iTM2_Debug}" != "0" ]
@@ -218,7 +235,7 @@ Are they what was expected?"
     exit 1
 fi
 # the specific environment: (this is time consuming when debugging)
-if [ "${iTM2_Debug:-0}" != "0" ]
+if [ "${iTM2_Debug}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify start comment
     "${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
@@ -229,18 +246,19 @@ then
 	"${iTM2_CMD_Notify}" notify stop comment
 fi
 # Then, let us transform scripts stored into environment variables into real shell scripts.
+mkdir -p "${iTM2BinaryPATH}/bin"
 for iTM2SCRIPT in ${!iTM2_ShellScript_*}
 do
 	iTM2NAME="iTM2_${iTM2SCRIPT#iTM2_ShellScript_}"
-	echo "${!iTM2SCRIPT}" > "${iTM2BinaryPATH}/${iTM2NAME}"
-	chmod u+x "${iTM2BinaryPATH}/${iTM2NAME}"
+	echo "${!iTM2SCRIPT}" > "${iTM2BinaryPATH}/bin/${iTM2NAME}"
+	chmod u+x "${iTM2BinaryPATH}/bin/${iTM2NAME}"
 	eval "${iTM2SCRIPT}=\"customized\""
-	if [ "${iTM2_Debug}" != "0" ]
+	if [ "${iTM2_Debug:-0}" != "0" ]
 	then
-		"${iTM2_CMD_Notify}" notify comment "customized script ${iTM2SCRIPT}: {$(which ${iTM2NAME})}"
+		"${iTM2_CMD_Notify}" notify comment "customized script ${iTM2SCRIPT}: {$(/bin/zsh -c "which ${iTM2NAME}")}"
 	fi
 done
-if [ "${iTM2_Debug}" != "0" ]
+if [ "${iTM2_Debug}:-0" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify comment "The environment is:
 $(printenv)
@@ -254,32 +272,12 @@ then
     iTM2IndirectCommand="iTM2_${iTM2Command}"
     iTM2WrappedCommand="${!iTM2IndirectCommand}"
 #echo "! iTM2WrappedCommand: ${iTM2WrappedCommand}"
-    iTM2CommandPath="$(which "${iTM2WrappedCommand}")"
+    iTM2CommandPath="$(/bin/zsh -c "which \"${iTM2WrappedCommand}\"")"
+#"
 #echo "! iTM2CommandPath: ${iTM2CommandPath}"
 #echo "! PATH: ${PATH}"
 #echo "the iTM2CommandPath is: ${iTM2CommandPath}"
 # This is a bug, the which command does not work and I must do the work by myself
-    if [ ! -x "${iTM2CommandPath}" ]
-	then
-#echo "iTM2Command is: $iTM2Command"
-#echo "iTM2IndirectCommand is: $iTM2IndirectCommand"
-#echo "iTM2WrappedCommand is: $iTM2WrappedCommand"
-		oldIFS="$IFS"
-		IFS=":"
-		for COMPONENT in ${PATH}; do
-			echo "the component is \"${COMPONENT}\""
-			if [ ${#COMPONENT} -gt 0 ]
-			then
-				iTM2CommandPath="${COMPONENT}/${iTM2WrappedCommand}"
-				if [ -x "${iTM2CommandPath}" ]
-				then
-					break
-				else
-					iTM2CommandPath=""
-				fi
-			fi
-		done
-	fi
 	if [ -x "${iTM2CommandPath}" ]
 	then
 		if [ "${iTM2_RunSilently:-0}" == "0" ]

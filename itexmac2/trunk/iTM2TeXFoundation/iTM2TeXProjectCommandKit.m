@@ -2710,8 +2710,9 @@ To Do List: to be improved...
 		[TW setEnvironmentString:[NSString farawayProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
 		[TW setEnvironmentString:[project getTeXMFProgramsPath] forKey:@"iTM2_PATH_TeX_Programs"];
 		[TW setEnvironmentString:[project getOtherProgramsPath] forKey:@"iTM2_PATH_Other_Programs"];
-		[TW setEnvironmentString:[project getPATHPrefix] forKey:@"iTM2_PATH_Prefix"];
-		[TW setEnvironmentString:[project getPATHSuffix] forKey:@"iTM2_PATH_Suffix"];
+		[TW setEnvironmentString:[project getCompletePATHPrefix] forKey:@"iTM2_PATH_Prefix"];
+		[TW setEnvironmentString:[project getCompletePATHSuffix] forKey:@"iTM2_PATH_Suffix"];
+		[TW setEnvironmentString:[project getCompleteTEXMFOUTPUT] forKey:@"iTM2_TEXMFOUTPUT"];
 		if([project getPATHUsesLoginShell])
 		{
 			[TW setEnvironmentString:@"YES" forKey:@"iTM2_PATH_UsesLoginShell"];

@@ -270,7 +270,21 @@ if [ -f "${iTM2_DOT_PDFSYNC}" ]
 then
 	rm -f "${iTM2_DOT_PDFSYNC}"
 fi
-"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_TeX_EnginePath} ${iTM2_TeX_Arguments} \"${TARGET}\""
+if [ "${iTM2_TeX_fmt:0:2}" == "fr" ]
+then
+	iTM2_Preparator="$(which FrenchPro)"
+	if [ ${#iTM2_Preparator} -eq 0 ]
+	then
+		iTeXMac2 error -project "${TWSProject}" -reason "FrenchPro is not available, install FrenchPro or change the project settings."
+	fi
+fi
+if [ ${#iTM2_Preparator} -gt 0 ]
+then
+	/bin/sh -c "\"${iTM2_Preparator}\" \"${iTM2_TeX_EnginePath}\" ${iTM2_TeX_Arguments} \"${TWSMasterBase}\""
+else
+	/bin/sh -c "\"${iTM2_TeX_EnginePath}\" ${iTM2_TeX_Arguments} \"${TWSMasterBase}\""
+fi
+"${iTM2_CMD_Notify}" notify comment "Performing ${iTM2_Preparator} ${iTM2_TeX_EnginePath} ${iTM2_TeX_Arguments} \"${TARGET}\""
 "${iTM2_TeX_EnginePath}" ${iTM2_TeX_Arguments} "${TWSMasterBase}"
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
@@ -299,11 +313,6 @@ then
 		iTeXMac2 markerror -file "${iTM2_PWD_Real}/${OUTPUT}" -project "${TWSProject}"
 	fi
 fi
-OUTPUT="${OUTPUT%.*}.log"
-if [ -s "${OUTPUT}" ]
-then	
-	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
-fi
 if [ -s "${PDFOUTPUT}" ]
 then	
 	if [ ${#iTM2_PWD_Real} -lt ${#iTM2_PWD} ] && [ -w "${iTM2_PWD_Real}" ]
@@ -323,6 +332,11 @@ else
 	then
 		rm -f "${OUTPUT}"
 	fi
+fi
+OUTPUT="${OUTPUT%.*}.log"
+if [ -s "${OUTPUT}" ]
+then	
+	iTeXMac2 log -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dont-order-front
 fi
 if [ "${iTM2_Status}" != "0" ]
 then

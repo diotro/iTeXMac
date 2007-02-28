@@ -679,6 +679,43 @@ To Do List:
 	return N? [N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHLoginShellKey];
 //iTM2_END;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  usesPATHPrefix:
+- (BOOL)usesPATHPrefix;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+//iTM2_END;
+    return [[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesPATHPrefix:
+- (void)setUsesPATHPrefix:(BOOL)new;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+//	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
+    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue];
+	if(old != new)
+	{
+		[self willChangeValueForKey:@"usesPATHPrefix"];
+		[environment setObject:[NSNumber numberWithBool: new] forKey:iTM2DistributionUsePATHPrefixKey];
+		[self updateChangeCount:NSChangeDone];
+		[self didChangeValueForKey:@"usesPATHPrefix"];
+	}
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPATHPrefix
 - (NSString *)getPATHPrefix;
 /*"Description forthcoming.
@@ -688,29 +725,104 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * projectPrefix = @"";
 	id environment = [[self implementation] iVarDistributionEnvironment];
-	NSNumber * N = [environment objectForKey:iTM2DistributionUsePATHPrefixKey];
-	BOOL flag = N?[N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHPrefixKey];
-	if(flag)
+	NSString * result = [environment objectForKey:iTM2DistributionPATHPrefixKey];
+	return result;
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPATHPrefix:
+- (void)setPATHPrefix:(NSString *)new;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id environment = [[self implementation] iVarDistributionEnvironment];
+	NSString * old = [environment objectForKey:iTM2DistributionPATHPrefixKey];
+	if(![old pathIsEqual:new])
 	{
-		projectPrefix = [environment objectForKey:iTM2DistributionPATHPrefixKey]?: @"";
-		NSString * SUDPrefix = [SUD objectForKey:iTM2DistributionPATHPrefixKey]?: @"";
-		if([projectPrefix length])
+		[self willChangeValueForKey:@"PATHPrefix"];
+		[environment setObject:new forKey:iTM2DistributionPATHPrefixKey];
+		[self updateChangeCount:NSChangeDone];
+		[self didChangeValueForKey:@"PATHPrefix"];
+		[self validateWindowsContents];
+	}
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getCompletePATHPrefix
+- (NSString *)getCompletePATHPrefix;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * SUDPrefix = @"";
+	NSString * projectPrefix = @"";
+	if([self usesPATHPrefix])
+	{
+		projectPrefix = [self getPATHPrefix];
+	}
+	if([SUD boolForKey:iTM2DistributionUsePATHPrefixKey])
+	{
+		SUDPrefix = [SUD objectForKey:iTM2DistributionPATHPrefixKey]?: @"";
+	}
+	if([projectPrefix length])
+	{
+		if([SUDPrefix length])
 		{
-			if([SUDPrefix length])
-			{
-				return [NSString stringWithFormat:@"%@:%@", projectPrefix, SUDPrefix];
-			}
-			else
-				return projectPrefix;
+			return [NSString stringWithFormat:@"%@:%@", projectPrefix, SUDPrefix];
 		}
 		else
-			return SUDPrefix;
+		{
+			return projectPrefix;
+		}
 	}
 	else
-		return projectPrefix;
+	{
+		return SUDPrefix;
+	}
 //iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  usesPATHSuffix
+- (BOOL)usesPATHSuffix;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+//iTM2_END;
+    return [[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesPATHSuffix:
+- (void)setUsesPATHSuffix:(BOOL)new;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+//	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
+    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue];
+	if(old != new)
+	{
+		[self willChangeValueForKey:@"usesPATHSuffix"];
+		[environment setObject:[NSNumber numberWithBool: new] forKey:iTM2DistributionUsePATHSuffixKey];
+		[self updateChangeCount:NSChangeDone];
+		[self didChangeValueForKey:@"usesPATHSuffix"];
+	}
+//iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPATHSuffix
 - (NSString *)getPATHSuffix;
@@ -721,32 +833,149 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * projectSuffix = @"";
-	id environment = [[self implementation] iVarDistributionEnvironment];
-	NSNumber * N = [environment objectForKey:iTM2DistributionUsePATHSuffixKey];
-	BOOL flag = N?[N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHSuffixKey];
-	if(flag)
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+	NSString * result = [environment objectForKey:iTM2DistributionPATHSuffixKey];
+	return result;
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPATHSuffix:
+- (void)setPATHSuffix:(NSString *)new;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+	NSString * old = [environment objectForKey:iTM2DistributionPATHSuffixKey];
+	if(![old pathIsEqual:new])
 	{
-		projectSuffix = [environment objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
-		NSString * SUDSuffix = [SUD objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
-		if([projectSuffix length])
+		[self willChangeValueForKey:@"PATHSuffix"];
+		[environment setObject:new forKey:iTM2DistributionPATHSuffixKey];
+		[self updateChangeCount:NSChangeDone];
+		[self didChangeValueForKey:@"PATHSuffix"];
+		[self validateWindowsContents];
+	}
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getCompletePATHSuffix
+- (NSString *)getCompletePATHSuffix;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * SUDSuffix = @"";
+	NSString * projectSuffix = @"";
+	if([self usesPATHSuffix])
+	{
+		projectSuffix = [self getPATHSuffix];
+	}
+	if([SUD boolForKey:iTM2DistributionUsePATHSuffixKey])
+	{
+		SUDSuffix = [SUD objectForKey:iTM2DistributionPATHSuffixKey]?: @"";
+	}
+	if([projectSuffix length])
+	{
+		if([SUDSuffix length])
 		{
-			if([SUDSuffix length])
-			{
-				return [NSString stringWithFormat:@"%@:%@", projectSuffix, SUDSuffix];
-			}
-			else
-				return projectSuffix;
+			return [NSString stringWithFormat:@"%@:%@", projectSuffix, SUDSuffix];
 		}
 		else
-			return SUDSuffix;
+		{
+			return projectSuffix;
+		}
 	}
 	else
-		return projectSuffix;
+	{
+		return SUDSuffix;
+	}
 //iTM2_END;
+}
+#pragma mark =-=-=-=-=-  Output directory
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  usesTEXMFOUTPUT
+- (BOOL)usesTEXMFOUTPUT;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+	NSNumber * N = [environment objectForKey:iTM2DistributionUseOutputDirectoryKey];
+//iTM2_END;
+    return [N boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesTEXMFOUTPUT:
+- (void)setUsesTEXMFOUTPUT:(BOOL)new;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+	NSNumber * N = [environment objectForKey:iTM2DistributionUseOutputDirectoryKey];
+    BOOL old = [N boolValue];
+	if(old != new)
+	{
+		[self willChangeValueForKey:@"usesTEXMFOUTPUT"];
+		N = [NSNumber numberWithBool: new];
+		[environment setObject:N forKey:iTM2DistributionUseOutputDirectoryKey];
+		[self updateChangeCount:NSChangeDone];
+		[self didChangeValueForKey:@"usesTEXMFOUTPUT"];
+	}
+//iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTEXMFOUTPUT
 - (NSString *)getTEXMFOUTPUT;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+	NSString * old = [environment objectForKey:iTM2DistributionOutputDirectoryKey];
+//iTM2_END;
+    return old;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTEXMFOUTPUT:
+- (void)setTEXMFOUTPUT:(id)new;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 23 23:02:08 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id implementation = [self implementation];
+	id environment = [implementation iVarDistributionEnvironment];
+	NSString * old = [environment objectForKey:iTM2DistributionOutputDirectoryKey];
+	if(![old pathIsEqual:new])
+	{
+		[self willChangeValueForKey:@"TEXMFOUTPUT"];
+		[environment setObject:new forKey:iTM2DistributionOutputDirectoryKey];
+		[self updateChangeCount:NSChangeDone];
+		[self didChangeValueForKey:@"TEXMFOUTPUT"];
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getCompleteTEXMFOUTPUT
+- (NSString *)getCompleteTEXMFOUTPUT;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -1095,79 +1324,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-#pragma mark =-=-=-=-=-  Output directory
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputDirectory:
-- (IBAction)toggleOutputDirectory:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    BOOL old = [[environment objectForKey:iTM2DistributionUseOutputDirectoryKey] boolValue];
-    [environment setObject:[NSNumber numberWithBool: !old] forKey:iTM2DistributionUseOutputDirectoryKey];
-	[[self document] updateChangeCount:NSChangeDone];
-    [sender validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputDirectory:
-- (BOOL)validateToggleOutputDirectory:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    [sender setState: ([[environment objectForKey:iTM2DistributionUseOutputDirectoryKey] boolValue]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeOutputDirectoryFromStringValue:
-- (IBAction)takeOutputDirectoryFromStringValue:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-	NSString * old = [environment objectForKey:iTM2DistributionOutputDirectoryKey];
-	NSString * new = [sender stringValue];
-	if(![old pathIsEqual:new])
-	{
-		[environment setObject:new forKey:iTM2DistributionOutputDirectoryKey];
-		[[self document] updateChangeCount:NSChangeDone];
-		[sender validateWindowContent];
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeOutputDirectoryFromStringValue:
-- (BOOL)validateTakeOutputDirectoryFromStringValue:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    [sender setStringValue:[(iTM2TeXProjectDocument *)[self document] getTEXMFOUTPUT]];
-	if([[environment objectForKey:iTM2DistributionUseOutputDirectoryKey] boolValue])
-		return YES;
-	if(sender == [[sender window] firstResponder])
-		[[sender window] makeFirstResponder:nil];
-//iTM2_END;
-    return NO;
-}
 #pragma mark =-=-=-=-=-  PATH
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHLoginShell:
 - (IBAction)togglePATHLoginShell:(id)sender;
@@ -1202,153 +1358,6 @@ To Do List:
     [sender setState: ([[environment objectForKey:iTM2DistributionUsePATHLoginShellKey] boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHPrefix:
-- (IBAction)togglePATHPrefix:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id document = [self document];
-	id implementation = [document implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-//	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue];
-    [environment setObject:[NSNumber numberWithBool: !old] forKey:iTM2DistributionUsePATHPrefixKey];
-	[[self document] updateChangeCount:NSChangeDone];
-    [sender validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHPrefix:
-- (BOOL)validateTogglePATHPrefix:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    [sender setState: ([[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePATHPrefixFromStringValue:
-- (IBAction)takePATHPrefixFromStringValue:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-	NSString * old = [environment objectForKey:iTM2DistributionPATHPrefixKey];
-	NSString * new = [sender stringValue];
-	if(![old pathIsEqual:new])
-	{
-		[environment setObject:new forKey:iTM2DistributionPATHPrefixKey];
-		[[self document] updateChangeCount:NSChangeDone];
-		[sender validateWindowContent];
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePATHPrefixFromStringValue:
-- (BOOL)validateTakePATHPrefixFromStringValue:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    [sender setStringValue:[(iTM2TeXProjectDocument *)[self document] getPATHPrefix]];
-	if([[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue])
-		return YES;
-	if(sender == [[sender window] firstResponder])
-		[[sender window] makeFirstResponder:nil];
-//iTM2_END;
-    return NO;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePATHSuffix:
-- (IBAction)togglePATHSuffix:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue];
-    [environment setObject:[NSNumber numberWithBool: !old] forKey:iTM2DistributionUsePATHSuffixKey];
-	[[self document] updateChangeCount:NSChangeDone];
-    [sender validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePATHSuffix:
-- (BOOL)validateTogglePATHSuffix:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    [sender setState: ([[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takePATHSuffixFromStringValue:
-- (IBAction)takePATHSuffixFromStringValue:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-	NSString * old = [environment objectForKey:iTM2DistributionPATHSuffixKey];
-	NSString * new = [sender stringValue];
-	if(![old pathIsEqual:new])
-	{
-		[environment setObject:new forKey:iTM2DistributionPATHSuffixKey];
-		[[self document] updateChangeCount:NSChangeDone];
-		[sender validateWindowContent];
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePATHSuffixFromStringValue:
-- (BOOL)validateTakePATHSuffixFromStringValue:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    [sender setStringValue:[(iTM2TeXProjectDocument *)[self document] getPATHSuffix]];
-	if([[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue])
-		return YES;
-	if(sender == [[sender window] firstResponder])
-		[[sender window] makeFirstResponder:nil];
-//iTM2_END;
-    return NO;
 }
 #pragma mark =-=-=-=-=-  DISTRIBUTIONS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFDistributionFromPopUp:

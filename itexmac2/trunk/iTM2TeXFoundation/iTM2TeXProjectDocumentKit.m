@@ -360,7 +360,8 @@ To Do List:
 	if([absoluteURL isFileURL])
 	{
 		NSString * path = [absoluteURL path];
-		NSString * prefix = [[NSBundle mainBundle] pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
+		NSBundle * MB = [NSBundle mainBundle];
+		NSString * prefix = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
 		if([path hasPrefix:prefix])
 		{
 			[SPC updateTeXBaseProjectsNotified:nil];
@@ -1813,12 +1814,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[NSBundle mainBundle] pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
-	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:iTM2TeXProjectBaseComponent ofType:@""] reverseObjectEnumerator];
+	NSBundle * MB = [NSBundle mainBundle];
+	[MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
+	NSArray * paths = [MB allPathsForResource:iTM2TeXProjectBaseComponent ofType:@""];
+	NSEnumerator * E = [paths reverseObjectEnumerator];
 	NSString * path = nil;
 	while(path = [E nextObject])
 	{
-		NSEnumerator * e = [[DFM directoryContentsAtPath:path] objectEnumerator];
+		paths = [DFM directoryContentsAtPath:path];
+		NSEnumerator * e = [paths objectEnumerator];
 		NSString * component = nil;
 		NSString * requiredExtension = [SDC projectPathExtension];
 		while(component = [e nextObject])

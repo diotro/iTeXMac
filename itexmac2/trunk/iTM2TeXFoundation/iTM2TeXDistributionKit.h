@@ -139,6 +139,9 @@ typedef enum
 - (BOOL)getPATHUsesLoginShell;
 - (NSString *)getPATHPrefix;
 - (NSString *)getPATHSuffix;
+- (NSString *)getCompletePATHPrefix;
+- (NSString *)getCompletePATHSuffix;
+- (NSString *)getCompleteTEXMFOUTPUT;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2DistributionServer

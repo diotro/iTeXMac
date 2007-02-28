@@ -793,10 +793,13 @@ To Do List:
 	NSString * component;
 	while(component = [DE nextObject])
 	{
-		NSBundle * B = [NSBundle bundleWithPath:[path stringByAppendingPathComponent:component]];
-		if([[B infoDictionary] count])// this is a real bundle
+		component = [path stringByAppendingPathComponent:component];
+		NSBundle * B = [NSBundle bundleWithPath:component];
+		NSDictionary * ID = [B infoDictionary];
+		NSString * identifier = [ID objectForKey:(NSString *)kCFBundleIdentifierKey];
+		if([identifier length])
 		{
-			[DE skipDescendents];// be shalow
+			[DE skipDescendents];// be shalow if there is an identifier
 			[result addObject:B];
 		}
 	}
@@ -813,7 +816,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [NSBundle allBundlesAtPath:[self pathForSupportDirectory:@"" inDomain:domainMask create:NO]];
+	NSString * path = [self pathForSupportDirectory:@"" inDomain:domainMask create:NO];
+    return [NSBundle allBundlesAtPath:path];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= embeddedBundles
 - (NSArray *)embeddedBundles;
@@ -825,9 +829,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * result = [NSMutableArray array];
-	[result addObjectsFromArray:[NSBundle allBundlesAtPath:[self privateFrameworksPath]]];
-	[result addObjectsFromArray:[NSBundle allBundlesAtPath:[self sharedFrameworksPath]]];
-	[result addObjectsFromArray:[NSBundle allBundlesAtPath:[self builtInPlugInsPath]]];
+	NSString * path = [self privateFrameworksPath];
+	NSArray * RA = [NSBundle allBundlesAtPath:path];
+	[result addObjectsFromArray:RA];
+	path = [self sharedFrameworksPath];
+	RA = [NSBundle allBundlesAtPath:path];
+	[result addObjectsFromArray:RA];
+	path = [self builtInPlugInsPath];
+	RA = [NSBundle allBundlesAtPath:path];
+	[result addObjectsFromArray:RA];
 //iTM2_END;
 	return result;
 }
@@ -874,35 +884,53 @@ To Do List:
 		name = [name stringByDeletingPathExtension];
 	}
 	NSMutableArray * result = [NSMutableArray array];
-	NSEnumerator * E = [[self embeddedBundles] objectEnumerator];
+	NSArray * RA = [self embeddedBundles];
+	NSEnumerator * E = [RA objectEnumerator];
 	NSBundle * B;
 	while(B = [E nextObject])
 	{
-		[result addObjectsFromArray:[B pathsForSupportResource:name ofType:type inDirectory:subpath]];
+		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
+		[result addObjectsFromArray:RA];
 	}
-	E = [[self supportBundlesInDomain:NSNetworkDomainMask] objectEnumerator];
+	NSString * path;
+	RA = [self supportBundlesInDomain:NSNetworkDomainMask];
+	E = [RA objectEnumerator];
 	while(B = [E nextObject])
 	{
-		[result addObjectsFromArray:[B pathsForSupportResource:name ofType:type inDirectory:subpath]];
+		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
+		[result addObjectsFromArray:RA];
+		path = [B pathForResource:name ofType:type inDirectory:subpath];
+		if(path = [B pathForResource:name ofType:type inDirectory:subpath])
+		{
+			[result addObject:path];
+		}
 	}
-	E = [[self supportBundlesInDomain:NSLocalDomainMask] objectEnumerator];
+	RA = [self supportBundlesInDomain:NSLocalDomainMask];
+	E = [RA objectEnumerator];
 	while(B = [E nextObject])
 	{
-		[result addObjectsFromArray:[B pathsForSupportResource:name ofType:type inDirectory:subpath]];
+		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
+		[result addObjectsFromArray:RA];
+		path = [B pathForResource:name ofType:type inDirectory:subpath];
+		if(path = [B pathForResource:name ofType:type inDirectory:subpath])
+		{
+			[result addObject:path];
+		}
 	}
 	if([type isEqualToString:iTM2LocalizedExtension])
 	{
 		// from preview 13 to 14, folders in the application support directory now are localizable
 		// if I am looking for a .localized folder and I just find a not localized one,
 		// turn the old into the new...
-		E = [[self supportBundlesInDomain:NSUserDomainMask] objectEnumerator];
+		RA = [self supportBundlesInDomain:NSUserDomainMask];
+		E = [RA objectEnumerator];
 		NSMutableArray * paths = [NSMutableArray array];
 		while(B = [E nextObject])
 		{
-			[paths addObjectsFromArray:[B pathsForSupportResource:name ofType:@"" inDirectory:subpath domains:NSUserDomainMask]];
+			RA = [B pathsForSupportResource:name ofType:@"" inDirectory:subpath domains:NSUserDomainMask];
+			[paths addObjectsFromArray:RA];
 		}
 		E = [paths objectEnumerator];
-		NSString * path;
 		while(path = [E nextObject])
 		{
 			NSString * newPath = [path stringByAppendingPathExtension:iTM2LocalizedExtension];
@@ -920,14 +948,20 @@ To Do List:
 			}
 		}
 	}
-	E = [[self supportBundlesInDomain:NSUserDomainMask] objectEnumerator];
+	RA = [self supportBundlesInDomain:NSUserDomainMask];
+	E = [RA objectEnumerator];
 	while(B = [E nextObject])
 	{
-		[result addObjectsFromArray:[B pathsForSupportResource:name ofType:type inDirectory:subpath]];
+		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
+		[result addObjectsFromArray:RA];
+		if(path = [B pathForResource:name ofType:type inDirectory:subpath])
+		{
+			[result addObject:path];
+		}
 	}
 	// resource in the Application Support, not in any bundle
-	[result addObjectsFromArray:[self pathsForSupportResource:name ofType:type inDirectory:subpath
-		domains: NSAllDomainsMask]];
+	RA = [self pathsForSupportResource:name ofType:type inDirectory:subpath domains: NSAllDomainsMask];
+	[result addObjectsFromArray:RA];
 //iTM2_END;
     return result;
 }
@@ -948,6 +982,7 @@ To Do List:
 	NSString * pathExtension = nil;
 	NSEnumerator * DE = nil;
 	NSMutableArray * result = [NSMutableArray array];
+	NSArray * RA = nil;
 	if(name)
 	{
 		name = [name lowercaseString];
@@ -959,7 +994,8 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					RA = [DFM directoryContentsAtPath:path];
+					DE = [RA objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -969,7 +1005,7 @@ To Do List:
 						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
-						[result addObject:lastName];
+							[result addObject:lastName];
 						}
 					}
 				}
@@ -979,7 +1015,8 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					RA = [DFM directoryContentsAtPath:path];
+					DE = [RA objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -989,7 +1026,7 @@ To Do List:
 						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
-						[result addObject:lastName];
+							[result addObject:lastName];
 						}
 					}
 				}
@@ -999,7 +1036,8 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					RA = [DFM directoryContentsAtPath:path];
+					DE = [RA objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1009,7 +1047,7 @@ To Do List:
 						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
-						[result addObject:lastName];
+							[result addObject:lastName];
 						}
 					}
 				}
@@ -1022,7 +1060,8 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					RA = [DFM directoryContentsAtPath:path];
+					DE = [RA objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1032,7 +1071,7 @@ To Do List:
 						if([lastName pathIsEqual:name])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
-						[result addObject:lastName];
+							[result addObject:lastName];
 						}
 					}
 				}
@@ -1042,7 +1081,8 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					RA = [DFM directoryContentsAtPath:path];
+					DE = [RA objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1052,7 +1092,7 @@ To Do List:
 						if([lastName pathIsEqual:name])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
-						[result addObject:lastName];
+							[result addObject:lastName];
 						}
 					}
 				}
@@ -1062,7 +1102,8 @@ To Do List:
 				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+					RA = [DFM directoryContentsAtPath:path];
+					DE = [RA objectEnumerator];
 					while(lastComponent = [DE nextObject])
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1072,7 +1113,7 @@ To Do List:
 						if([lastName pathIsEqual:name])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
-						[result addObject:lastName];
+							[result addObject:lastName];
 						}
 					}
 				}
@@ -1088,7 +1129,8 @@ To Do List:
 			path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
-				DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+				RA = [DFM directoryContentsAtPath:path];
+				DE = [RA objectEnumerator];
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
@@ -1106,7 +1148,8 @@ To Do List:
 			path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
-				NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+				RA = [DFM directoryContentsAtPath:path];
+				DE = [RA objectEnumerator];
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
@@ -1124,7 +1167,8 @@ To Do List:
 			path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
-				NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
+				RA = [DFM directoryContentsAtPath:path];
+				DE = [RA objectEnumerator];
 				while(lastComponent = [DE nextObject])
 				{
 					lastName = [lastComponent lowercaseString];
@@ -1156,8 +1200,10 @@ To Do List:
 		name = [name stringByDeletingPathExtension];
 	}
 	NSMutableArray * result = [NSMutableArray array];
-	[result addObjectsFromArray:[self pathsForSupportResource:name ofType:type inDirectory:subpath]];
-	[result addObjectsFromArray:[self pathsForBuiltInResource:name ofType:type inDirectory:subpath]];
+	NSArray * RA = [self pathsForSupportResource:name ofType:type inDirectory:subpath];
+	[result addObjectsFromArray:RA];
+	RA = [self pathsForBuiltInResource:name ofType:type inDirectory:subpath];
+	[result addObjectsFromArray:RA];
 //iTM2_END;
     return result;
 }
@@ -1188,8 +1234,8 @@ To Do List:
 	NSBundle * B;
 	while(B = [E nextObject])
 	{
-		NSArray * intermediate = [B allPathsForImageResource:name];
-		[result addObjectsFromArray:intermediate];
+		NSArray * RA = [B allPathsForImageResource:name];
+		[result addObjectsFromArray:RA];
 	}
 	NSString * path = [self pathForImageResource:name];
 	if([path length])

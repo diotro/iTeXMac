@@ -965,7 +965,9 @@ To Do List:
     int oldNORs = [[IMPLEMENTATION metaValueForKey:@"_numberOfLines"] intValue];
     id LP = [iTM2LogParser logParserForKey:[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask]];
     NSTextView * TV = [self outputView];
+	NSRange visibleRange = [TV visibleRange];
     NSTextStorage * TS = [TV textStorage];
+iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
     [TS beginEditing];
     unsigned int begin = 0;
     [[TS mutableString] getLineStart: &begin end:nil contentsEnd:nil forRange:NSMakeRange([TS length], 0)];
@@ -990,7 +992,16 @@ To Do List:
     [TS endEditing];
     [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInt:[lines count]] forKey:@"_numberOfLines"];
     [[self smartView] reloadData];
-    [TV scrollRangeToVisible:NSMakeRange([TS length], 0)];
+	if(NSMaxRange(visibleRange)+1>=begin)
+	{
+		[TV scrollRangeToVisible:NSMakeRange([TS length], 0)];
+		visibleRange = [TV visibleRange];
+iTM2_LOG(@"DID SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
+	}
+	else
+	{
+iTM2_LOG(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
+	}
 	[TV setEditable:NO];
     [self validateWindowContent];
     return;

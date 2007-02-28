@@ -34,6 +34,7 @@ NSString * const iTM2ServerLineKey = @"-line";
 NSString * const iTM2ServerSourceKey = @"-source";
 NSString * const iTM2ServerProjectKey = @"-project";
 NSString * const iTM2ServerDontOrderFrontKey = @"-dont-order-front";
+NSString * const iTM2ServerReasonKey = @"-reason";
 
 NSString * const iTM2ProcessInfoEnvironmentKey = @"iTM2ProcessInfoEnvironment";
 
@@ -76,6 +77,7 @@ NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length"
 + (unsigned int)getLineFromContext:(NSDictionary *)context;
 + (unsigned int)getColumnFromContext:(NSDictionary *)context;
 + (BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
++ (NSString *)getReasonFromContext:(NSDictionary *)context;
 + (void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
 @end
 
@@ -264,7 +266,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performProjectActionWithContextNotified:
 + (void)performProjectActionWithContextNotified:(NSNotification *)notification;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -278,7 +280,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getVerbFromContext:
 + (NSString *)getVerbFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -310,7 +312,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doPerformProjectActionWithContext:
 + (void)doPerformProjectActionWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -346,7 +348,7 @@ To Do List: see the warning below
 #pragma mark =-=-=-=-=-  Getters
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getProjectNameFromContext:
 + (NSString *)getProjectNameFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -373,7 +375,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getFileNameFromContext:
 + (NSString *)getFileNameFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -402,7 +404,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getFileNamesFromContext:
 + (NSArray *)getFileNamesFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -447,7 +449,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getSourceNameFromContext:
 + (NSString *)getSourceNameFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -476,7 +478,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineFromContext:
 + (unsigned int)getLineFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -501,7 +503,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getColumnFromContext:
 + (unsigned int)getColumnFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -526,7 +528,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getDontOrderFrontFromContext:
 + (BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -547,6 +549,31 @@ To Do List: see the warning below
 	}
 //iTM2_END;
     return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getReasonFromContext:
++ (NSString *)getReasonFromContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		argument = [argument lowercaseString];
+		if([argument isEqual:iTM2ServerReasonKey])
+		{
+			argument = [E nextObject];
+//iTM2_END;
+			return argument;
+		}
+	}
+//iTM2_END;
+    return @"Unknown";
 }
 #pragma mark =-=-=-=-=-  typesetting responders
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= compilePerformedWithContext:
@@ -812,7 +839,7 @@ nextValue:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= editPerformedWithContext:
 + (void)editPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below
@@ -865,6 +892,24 @@ To Do List: see the warning below
 	{
 		[doc showWindowsBelowFront:self];
 	}
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= errorPerformedWithContext:
++ (void)errorPerformedWithContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"context: %@", context);
+#else
+    NSString * reason = [self getReasonFromContext:context];
+	iTM2_REPORTERROR(1,reason,nil);
 #endif
 //iTM2_END;
     return;
@@ -924,7 +969,7 @@ To Do List: see the warning below
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= notifyPerformedWithContext:
 + (void)notifyPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0
 To Do List: None
@@ -992,7 +1037,7 @@ To Do List: None
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openPerformedWithContext:
 + (void)openPerformedWithContext:(NSDictionary *)context;
-/*"This is the answer to the notification sent by the former "e_Helper" tool.
+/*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List: see the warning below

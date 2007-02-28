@@ -2463,26 +2463,49 @@ To Do List:
 	NSString * basePath;
 	NSString * plugInPath;
     NSDirectoryEnumerator * DE;
-    basePath = [[NSBundle mainBundle] builtInPlugInsPath];
+	NSBundle * MB = [NSBundle mainBundle];
+    basePath = [MB builtInPlugInsPath];
+    DE = [DFM enumeratorAtPath:basePath];
+	NSString * path;
+	while(plugInPath = [DE nextObject])
+	{
+		path = [basePath stringByAppendingPathComponent:plugInPath];
+		if([self registerPlugInAtPath:path])
+		{
+            [DE skipDescendents];
+		}
+	}
+	NSString * mainBundlename = [MB bundleName];
+    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask withName:mainBundlename create:NO];
     DE = [DFM enumeratorAtPath:basePath];
 	while(plugInPath = [DE nextObject])
-		if([self registerPlugInAtPath:[basePath stringByAppendingPathComponent:plugInPath]])
+	{
+		path = [basePath stringByAppendingPathComponent:plugInPath];
+		if([self registerPlugInAtPath:path])
+		{
             [DE skipDescendents];
-    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask withName:[[NSBundle mainBundle] bundleName] create:NO];
+		}
+	}
+    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask withName:mainBundlename create:NO ];
     DE = [DFM enumeratorAtPath:basePath];
 	while(plugInPath = [DE nextObject])
-		if([self registerPlugInAtPath:[basePath stringByAppendingPathComponent:plugInPath]])
+	{
+		path = [basePath stringByAppendingPathComponent:plugInPath];
+		if([self registerPlugInAtPath:path])
+		{
             [DE skipDescendents];
-    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask withName:[[NSBundle mainBundle] bundleName] create:NO ];
+		}
+	}
+    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask withName:mainBundlename create:YES];
     DE = [DFM enumeratorAtPath:basePath];
 	while(plugInPath = [DE nextObject])
-		if([self registerPlugInAtPath:[basePath stringByAppendingPathComponent:plugInPath]])
+	{
+		path = [basePath stringByAppendingPathComponent:plugInPath];
+		if([self registerPlugInAtPath:path])
+		{
             [DE skipDescendents];
-    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask withName:[[NSBundle mainBundle] bundleName] create:YES];
-    DE = [DFM enumeratorAtPath:basePath];
-	while(plugInPath = [DE nextObject])
-		if([self registerPlugInAtPath:[basePath stringByAppendingPathComponent:plugInPath]])
-            [DE skipDescendents];
+		}
+	}
 	if(iTM2DebugEnabled)
 	{
 		iTM2_LOG(@"Here are the registered inspectors: %@", [iTM2ExternalInspectorServer mutableDictionary]);

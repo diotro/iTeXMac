@@ -42,6 +42,7 @@ NSString * const iTM2TeX_USE_progname = @"iTM2_TeX_USE_progname";
 NSString * const iTM2TeX_progname = @"iTM2_TeX_progname";
 NSString * const iTM2TeX_USE_jobname = @"iTM2_TeX_USE_jobname";
 NSString * const iTM2TeX_jobname = @"iTM2_TeX_jobname";
+NSString * const iTM2TeX_USE_French_Pro = @"iTM2_TeX_USE_French_Pro";
 NSString * const iTM2TeX_shell_escape = @"iTM2_AllTeX_shell_escape";
 NSString * const iTM2TeX_src_specials = @"iTM2_TeX_src_specials";
 NSString * const iTM2TeX_src_specials_where_no_cr = @"iTM2_TeX_src_specials_where_no_cr";
@@ -109,6 +110,7 @@ To Do List:
                 @"", iTM2TeX_progname,
                 [NSNumber numberWithBool:NO], iTM2TeX_USE_jobname,
                 @"", iTM2TeX_jobname,
+                [NSNumber numberWithBool:NO], iTM2TeX_USE_French_Pro,
                 [NSNumber numberWithBool:NO], iTM2TeX_USE_output_comment,
                 @"", iTM2TeX_output_comment,
                 [NSNumber numberWithBool:NO], iTM2TeX_USE_output_directory,
@@ -381,6 +383,30 @@ To Do List:
 	}
     else
         return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFrenchPro:
+- (IBAction)toggleFrenchPro:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self toggleModelFlagForKey:iTM2TeX_USE_French_Pro];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFrenchPro:
+- (BOOL)validateToggleFrenchPro:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([self modelFlagForKey:iTM2TeX_USE_French_Pro]? NSOnState:NSOffState)];
+    return YES;
 }
 #pragma mark =-=-=-=-=-  Translate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTable:
@@ -870,6 +896,7 @@ NSString * const iTM2PDFTeX_USE_progname = @"iTM2_PDFTeX_USE_progname";
 NSString * const iTM2PDFTeX_progname = @"iTM2_PDFTeX_progname";
 NSString * const iTM2PDFTeX_USE_jobname = @"iTM2_PDFTeX_USE_jobname";
 NSString * const iTM2PDFTeX_jobname = @"iTM2_PDFTeX_jobname";
+NSString * const iTM2PDFTeX_USE_French_Pro = @"iTM2_PDFTeX_USE_French_Pro";
 //NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
 NSString * const iTM2PDFTeX_pdfsync = @"iTM2_PDFTeX_PDFSYNC";
 NSString * const iTM2PDFTeX_src_specials = @"iTM2_PDFTeX_src_specials";
@@ -949,6 +976,7 @@ To Do List:
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_enc,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_mltex,
 // NO PLEASE                [NSNumber numberWithBool:NO], iTM2TeX_shell_escape,
+                [NSNumber numberWithBool:NO], iTM2PDFTeX_USE_French_Pro,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_halt_on_error,
                 [NSNumber numberWithBool:YES], iTM2PDFTeX_src_specials,
 				@"", iTM2PDFTeXMoreArgumentKey,
@@ -1206,6 +1234,30 @@ To Do List:
 	}
     else
         return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFrenchPro:
+- (IBAction)toggleFrenchPro:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self toggleModelFlagForKey:iTM2PDFTeX_USE_French_Pro];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFrenchPro:
+- (BOOL)validateToggleFrenchPro:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_French_Pro]? NSOnState:NSOffState)];
+    return YES;
 }
 #pragma mark =-=-=-=-=-  Translate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTable:
@@ -1748,6 +1800,7 @@ NSString * const iTM2XeTeX_USE_progname = @"iTM2_XeTeX_USE_progname";
 NSString * const iTM2XeTeX_progname = @"iTM2_XeTeX_progname";
 NSString * const iTM2XeTeX_USE_jobname = @"iTM2_XeTeX_USE_jobname";
 NSString * const iTM2XeTeX_jobname = @"iTM2_XeTeX_jobname";
+NSString * const iTM2XeTeX_USE_French_Pro = @"iTM2_XeTeX_USE_French_Pro";
 //NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
 NSString * const iTM2XeTeX_src_specials = @"iTM2_XeTeX_src_specials";
 NSString * const iTM2XeTeX_src_specials_where_no_cr = @"iTM2_XeTeX_src_specials_where_no_cr";
@@ -1815,6 +1868,7 @@ To Do List:
                 @"", iTM2XeTeX_progname,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_USE_jobname,
                 @"", iTM2XeTeX_jobname,
+                [NSNumber numberWithBool:NO], iTM2XeTeX_USE_French_Pro,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_USE_output_comment,
                 @"", iTM2XeTeX_output_comment,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_USE_output_directory,
@@ -2087,6 +2141,30 @@ To Do List:
 	}
     else
         return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFrenchPro:
+- (IBAction)toggleFrenchPro:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self toggleModelFlagForKey:iTM2XeTeX_USE_French_Pro];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFrenchPro:
+- (BOOL)validateToggleFrenchPro:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_French_Pro]? NSOnState:NSOffState)];
+    return YES;
 }
 #pragma mark =-=-=-=-=-  Translate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTable:

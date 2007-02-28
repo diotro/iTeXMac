@@ -24,17 +24,11 @@
                 switchToSimpleSettings = id; 
                 takeOtherProgramsDistributionFromPopUp = id; 
                 takeOtherProgramsPathFromStringValue = id; 
-                takeOutputDirectoryFromStringValue = id; 
-                takePATHPrefixFromStringValue = id; 
-                takePATHSuffixFromStringValue = id; 
                 takeTeXMFDistributionFromPopUp = id; 
                 takeTeXMFPathFromStringValue = id; 
                 takeTeXMFProgramsDistributionFromPopUp = id; 
                 takeTeXMFProgramsPathFromStringValue = id; 
-                toggleOutputDirectory = id; 
                 togglePATHLoginShell = id; 
-                togglePATHPrefix = id; 
-                togglePATHSuffix = id; 
                 toggleShellEscape = id; 
             }; 
             CLASS = iTM2TeXPXtdCommandsInspector; 

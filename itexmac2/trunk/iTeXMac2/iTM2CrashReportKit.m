@@ -167,7 +167,7 @@ To Do List:
 		NSBeep();
 		return;
 	}
-	NSString * body = _crashDescription;
+	NSString * body = _crashDescription?:@"";
 	if(!_dontSendReport)
 	{
 		body = [body stringByAppendingString:@"\n==============\n\n"];
@@ -183,15 +183,17 @@ To Do List:
 	BOOL result = NO;
 	if ([NSMailDelivery hasDeliveryClassBeenConfigured])
 	{  
-		ABPerson * me = [[ABAddressBook sharedAddressBook] me];  
-		int index = [[me valueForProperty: kABEmailProperty] indexForIdentifier: [[me valueForProperty: kABEmailProperty] primaryIdentifier]]; 
-		NSMutableDictionary *headers = [NSMutableDictionary dictionary];
-		[headers setObject: [[me valueForProperty: kABEmailProperty] valueAtIndex: index] forKey:@"From"];
-		[headers setObject: email forKey:@"To"];
-		[headers setObject: subject forKey:@"Subject"];
-		[headers setObject: @"Apple Message" forKey:@"X-Mailer"];
-		[headers setObject: @"multipart/mixed" forKey:@"Content-Type"];
-		[headers setObject: @"1.0" forKey:@"Mime-Version"];
+		ABPerson * me = [[ABAddressBook sharedAddressBook] me];
+		id Email = [me valueForProperty: kABEmailProperty];
+		id primaryIdentifier = [Email primaryIdentifier];
+		NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+			primaryIdentifier,@"From",
+			email,@"To",
+			subject,@"Subject",
+			@"Apple Message",@"X-Mailer",
+			@"multipart/mixed",@"Content-Type",
+			@"1.0",@"Mime-Version",
+				nil];
 
 		NSAttributedString * AS = [[[NSAttributedString alloc] initWithString:body] autorelease];
 		result = [NSMailDelivery deliverMessage: AS
@@ -201,8 +203,10 @@ To Do List:
 	}
 	if(!result)
 	{
+		email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		subject = [subject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		body = [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		NSString * encodedURLString = [NSString stringWithFormat:@"mailto:%@?SUBJECT=%@&BODY=%@", email, subject, body];
-		encodedURLString = [encodedURLString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 		if (encodedURLString)
 		{
 			NSURL * url = [NSURL URLWithString: encodedURLString];

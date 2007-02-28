@@ -211,8 +211,21 @@ if [ -L "${PDFOUTPUT}" ]
 then	
 	rm -f "${PDFOUTPUT}"
 fi
-"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_XeTeX_EnginePath} ${iTM2_XeTeX_Arguments} \"${TWSMasterBase}\""
-"${iTM2_XeTeX_EnginePath}" ${iTM2_XeTeX_Arguments} "${TWSMasterBase}"
+if [ "${iTM2_XeTeX_fmt:0:2}" == "fr" ]
+then
+	iTM2_Preparator="$(which FrenchPro)"
+	if [ ${#iTM2_Preparator} -eq 0 ]
+	then
+		iTeXMac2 error -project "${TWSProject}" -reason "FrenchPro is not available, install FrenchPro or change the project settings."
+	fi
+fi
+"${iTM2_CMD_Notify}" notify comment "Performing ${iTM2_Preparator} ${iTM2_XeTeX_EnginePath} ${iTM2_XeTeX_Arguments} \"${TWSMasterBase}\""
+if [ ${#iTM2_Preparator} -gt 0 ]
+then
+	/bin/sh -c "\"${iTM2_Preparator}\" \"${iTM2_XeTeX_EnginePath}\" ${iTM2_XeTeX_Arguments} \"${TWSMasterBase}\""
+else
+	/bin/sh -c "\"${iTM2_XeTeX_EnginePath}\" ${iTM2_XeTeX_Arguments} \"${TWSMasterBase}\""
+fi
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then

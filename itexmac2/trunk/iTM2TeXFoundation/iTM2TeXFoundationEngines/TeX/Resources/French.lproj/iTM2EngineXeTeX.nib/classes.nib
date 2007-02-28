@@ -16,6 +16,7 @@
                 switchInteraction = id; 
                 toggleEnc = id; 
                 toggleFileLineError = id; 
+                toggleFrenchPro = id; 
                 toggleHaltOnError = id; 
                 toggleIni = id; 
                 toggleJobName = id; 

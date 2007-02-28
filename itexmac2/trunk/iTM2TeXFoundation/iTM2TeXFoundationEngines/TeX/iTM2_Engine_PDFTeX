@@ -317,8 +317,22 @@ if [ -L "${PDFOUTPUT}" ]
 then	
 	rm -f "${PDFOUTPUT}"
 fi
-"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
-"${iTM2_PDFTeX_EnginePath}" ${iTM2_PDFTeX_Arguments} "${TWSMasterBase}"
+if [ "${iTM2_PDFTeX_fmt:0:2}" == "fr" ]
+then
+	iTM2_Preparator="$(/bin/zsh -c "which FrenchPro")"
+	if ! [ -x "${iTM2_Preparator}" ]
+	then
+		iTeXMac2 error -project "${TWSProject}" -reason "FrenchPro is not available, install FrenchPro or change the project settings."
+		iTM2_Preparator=""
+	fi
+fi
+"${iTM2_CMD_Notify}" notify comment "Performing ${iTM2_Preparator} ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
+if [ ${#iTM2_Preparator} -gt 0 ]
+then
+	/bin/sh -c "\"${iTM2_Preparator}\" \"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
+else
+	/bin/sh -c "\"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
+fi
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
@@ -330,11 +344,6 @@ if [ "${iTM2_PDFTeX_output_format:-pdf}" == "dvi" ] # no external viewer support
 then
 	"${iTM2_CMD_Notify}" notify comment "Swicthing to a dvi to ps filter for ${iTM2_PWD}/${OUTPUT%.*}"
 	iTM2_Command_Compile --master "${iTM2_PWD}/${OUTPUT%.*}" --switch dvi
-fi
-OUTPUT="${OUTPUT%.*}.log"
-if [ -s "${OUTPUT}" ]
-then	
-	iTeXMac2 update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dontorderfront
 fi
 if [ -s "${PDFOUTPUT}" ]
 then	
@@ -355,6 +364,11 @@ else
 	then
 		rm -f "${OUTPUT}"
 	fi
+fi
+OUTPUT="${OUTPUT%.*}.log"
+if [ -s "${OUTPUT}" ]
+then	
+	iTeXMac2 log -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}" -dont-order-front
 fi
 if [ "${iTM2_Debug}" != "0" ]
 then
