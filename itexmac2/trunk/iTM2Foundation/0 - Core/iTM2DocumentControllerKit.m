@@ -193,15 +193,18 @@ To Do List: see the warning below
 		[doc displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:YES];
 		return doc;
 	}
+	NSURL * url = nil;
 	if(yorn)
 	{
-		doc = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES error:nil];
+		url = [NSURL fileURLWithPath:fileName];
+		doc = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
 		[doc displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:YES];
 		return doc;
 	}
 	else
 	{
-		doc = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:NO error:nil];
+		url = [NSURL fileURLWithPath:fileName];
+		doc = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 		[doc makeWindowControllers];
 		NSEnumerator * E = [[doc windowControllers] objectEnumerator];
 		NSWindowController * WC;

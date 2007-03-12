@@ -1144,7 +1144,7 @@ To Do List:
         {
 			if(outErrorPtr)
 			{
-				*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+				*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"NSPropertyListSerialization error string:'%@'", errorString]
 						forKey:NSLocalizedDescriptionKey]];
 			}

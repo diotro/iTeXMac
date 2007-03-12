@@ -499,7 +499,7 @@ grosbois:
 	[_TableView selectRow:selectedRow byExtendingSelection:NO];
 	[self updateCompletion];
 	[self showCompletionWindow];
-	return 5;
+	return 0;
 }
 - (void)updateCompletion;
 {
@@ -1280,7 +1280,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![self contextBoolForKey:@"iTM2NoExtendedCompletion" domain:iTM2ContextAllDomainsMask] && ![[iTM2CompletionServer completionServer] runCompletionForTextView:self])
+	if(![self contextBoolForKey:@"iTM2NoExtendedCompletion" domain:iTM2ContextAllDomainsMask] && [[iTM2CompletionServer completionServer] runCompletionForTextView:self] != 0)
 	{
 		[super complete:sender];
 	}

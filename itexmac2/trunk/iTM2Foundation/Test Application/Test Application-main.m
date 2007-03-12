@@ -62,8 +62,51 @@ int main(int argc, char *argv[])
 }
 @end
 
+#import <iTM2Foundation/iTM2TextDocumentKit.h>
+
+@implementation iTM2TextEditor(Test)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionary
+- (id)contextDictionary;
+/*"Subclasses will most certainly override this method.
+Default implementation returns the NSUserDefaults shared instance.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = [self valueForKeyPath:@"implementation.metaValues.contextDictionary"];
+	if(result)
+	{
+		return result;
+	}
+	result = [NSMutableDictionary dictionary];
+	[self setValue:result forKeyPath:@"implementation.metaValues.contextDictionary"];
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
+- (BOOL)handlesKeyBindings;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
+@end
+
+#import <iTM2Foundation/iTM2PreferencesKit.h>
+
 static id text = nil;
-@implementation NSApplication(O)
+@implementation iTM2Application(Test)
+- (void)prefsControllerDidFinishLaunching;
+{
+	[[iTM2PrefsController sharedPrefsController] displayPrefsPaneWithIdentifier:@"3.Macro"];
+}
 - (BOOL)canEditText;
 {
 	return YES;

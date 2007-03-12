@@ -1049,12 +1049,12 @@ To Do List:
     while(logicalPage>PC)
     {
         id V = [self viewWithTag:logicalPage];
-        NSAssert2(V, @"%@ %#x inconsistency: tags are mixed up(1)", __PRETTY_FUNCTION__, self);
+        NSAssert2(V, @"%@ %#x inconsistency: tags are mixed up(1)", __iTM2_PRETTY_FUNCTION__, self);
         [V removeFromSuperviewWithoutNeedingDisplay];
         --logicalPage;
     }
     NSAssert2(([[self subviews] count] == PC), @"%@ %#x inconsistency:tags are mixed up(2)",
-		__PRETTY_FUNCTION__, self);
+		__iTM2_PRETTY_FUNCTION__, self);
     if(![self selectedView])
         [self selectViewWithTag:PC];
     // the page layout must be set too:

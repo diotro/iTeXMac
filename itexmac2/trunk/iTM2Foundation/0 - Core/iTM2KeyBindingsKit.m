@@ -34,8 +34,6 @@
 
 #define TABLE @"iTM2KeyBindingsKit"
 
-NSString * const iTM2KeyBindingsComponent = @"Key Bindings.localized";// Default system name
-NSString * const iTM2KeyBindingsExtension = @"dict";// Default system name
 NSString * const iTM2SelectorMapExtension = @"selectorMap";// Default system name
 NSString * const iTM2KeyBindingsIdentifierKey = @"iTM2KeyBindingsIdentifier";
 NSString * const iTM2TextKeyBindingsIdentifier = @"Text";
@@ -87,6 +85,16 @@ To Do List:
 //iTM2_END;
 }
 @end
+
+@interface NSObject(PRIVATE)
+- (id)keyBindingTree;
+- (id)objectInChildrenWithDomain:(NSString *)key;
+- (id)objectInChildrenWithCategory:(NSString *)key;
+- (id)objectInChildrenWithContext:(NSString *)key;
+- (id)objectInChildrenWithKey:(NSString *)key;
+- (id)macroKeyStroke;
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2KeyBindingsManager
 /*"Description forthcoming. This input manager does not make use of #{doCommandBySelector:}"*/
 @implementation iTM2KeyBindingsManager
@@ -243,7 +251,7 @@ To Do List:
 		[selectorMap addEntriesFromDictionary:[self selectorMapForIdentifier:shorterIdentifier]];
 	}
 	NSDictionary * D;
-	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2KeyBindingsExtension inDirectory:iTM2KeyBindingsComponent] reverseObjectEnumerator];
+	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2KeyBindingPathExtension inDirectory:iTM2MacroControllerComponent] reverseObjectEnumerator];
 	NSString * path;
 	while(path = [E nextObject])
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
@@ -254,7 +262,7 @@ To Do List:
 		{
 			iTM2_LOG(@"???  No key bindings at path: %@, please report incident", path);
 		}
-	E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2KeyBindingsComponent] reverseObjectEnumerator];
+	E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2MacroControllerComponent] reverseObjectEnumerator];
 	while(path = [E nextObject])
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
 		{
@@ -307,7 +315,7 @@ To Do List:
     if([identifier hasPrefix:@"./"])
     {
         // these are absolute paths (or relative to absolute locations...)
-        #warning THE PROJECT HERE? foo.texp/Frontends/main bundle identifier/iTM2KeyBindingsComponent/identifier
+        #warning THE PROJECT HERE? foo.texp/Frontends/main bundle identifier/iTM2MacroControllerComponent/identifier
         NSString * dirName = [[[SDC currentDocument] fileName] stringByDeletingLastPathComponent];
         NSString * helperIdentifier = identifier;
         NSString * key;
@@ -355,8 +363,8 @@ otherShorter:
     }
 	if(result = [self getKeyBindingsForIdentifier:identifier])
 		return result;
-    result = [NSDictionary dictionary];
 	[self setKeyBindings:result forIdentifier:identifier];
+	[result autorelease];
 //iTM2_END;
     return result;
 }
@@ -440,8 +448,6 @@ To Do List:
     {
         [_SM autorelease];
         _SM = [[isa selectorMapForIdentifier:identifier] retain];
-        [_RKB autorelease];
-        _RKB = [[isa keyBindingsForIdentifier:identifier] retain];
         [_KBS autorelease];
         _KBS = [[NSMutableArray array] retain];
         [_DEC autorelease];
@@ -452,7 +458,7 @@ To Do List:
 		_iTM2IMFlags.handlesKeyBindings = handlesKeyBindings? 1: 0;
 		if(iTM2DebugEnabled)
 		{
-			iTM2_LOG(@"Identifier is: %@ (%@)", identifier, _RKB);
+			iTM2_LOG(@"Identifier is: %@", identifier);
 		}
     }
     return self;
@@ -466,8 +472,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [NSString stringWithFormat:@"<%@ %#x, identifier:%@, handlesKeyBindings:%@, handlesKeyStrokes:%@>",
-		NSStringFromClass(isa), self, [_iTM2_KeyBindings_Dictionary allKeysForObject:_RKB], (_iTM2IMFlags.handlesKeyBindings? @"Y":@"N"), (_iTM2IMFlags.handlesKeyStrokes? @"Y":@"N")];
+	return [NSString stringWithFormat:@"<%@ %#x, handlesKeyBindings:%@, handlesKeyStrokes:%@>",
+		NSStringFromClass(isa), self, (_iTM2IMFlags.handlesKeyBindings? @"Y":@"N"), (_iTM2IMFlags.handlesKeyStrokes? @"Y":@"N")];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
 - (void)dealloc;
@@ -479,8 +485,6 @@ To Do List:
 //iTM2_START;
     [_SM autorelease];
     _SM = nil;
-    [_RKB autorelease];
-    _RKB = nil;
     [_KBS autorelease];
     _KBS = nil;
     [_CK autorelease];
@@ -538,35 +542,55 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id result = [_KBS lastObject];
-    if(!result)
-        return _RKB;
-    else
+    if(result)
+	{
         return result;
+	}
+	if(!_CC)
+	{
+		return nil;
+	}
+	result = [SMC keyBindingTree];
+	NSString * key = [_CC macroDomain];
+	result = [result objectInChildrenWithDomain:key];
+	key = [_CC macroCategory];
+	result = [result objectInChildrenWithCategory:key];
+	result = [result objectInChildrenWithContext:@""];
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentKeyBindings:
-- (void)setCurrentKeyBindings:(NSDictionary *)dict;
+- (void)setCurrentKeyBindings:(id)keyBindings;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([dict count])
+    if([keyBindings countOfChildren])
     {
-        [_KBS addObject:dict];
+        [_KBS addObject:keyBindings];
+#warning DEBUG NYI: this is a problem
+#if 0
         {
-            id V = [dict objectForKey:@"permanent"];
+            id V = [keyBindings objectForKey:@"permanent"];
             _iTM2IMFlags.isPermanent = [V respondsToSelector:@selector(boolValue)] && [V boolValue]? 1:0;
         }
+#endif
         _iTM2IMFlags.canEscape = 0;
+#if 0
         {
-            NSString * toolTip = [dict objectForKey:@"toolTip"];
+            NSString * toolTip = [keyBindings objectForKey:@"toolTip"];
             [self postNotificationWithStatus:
                     ([toolTip isKindOfClass:[NSString class]]? toolTip:[NSString string])];
     //                if([toolTip isKindOfClass:[NSString class]] && [toolTip length])
     //                    [self postNotificationWithStatus:toolTip];
         }
+#endif
     }
+	else if(!keyBindings)
+	{
+		[_KBS removeAllObjects];
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentClient:
@@ -586,16 +610,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  rootKeyBindings
-- (NSDictionary *)rootKeyBindings;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _RKB;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  escapeCurrentKeyBindingsIfAllowed
 - (void)escapeCurrentKeyBindingsIfAllowed;
 /*"Description forthcoming.
@@ -611,11 +625,14 @@ To Do List:
         while(([_KBS count] > 0) && (!_iTM2IMFlags.isPermanent))
         {
             [_KBS removeLastObject];
+#if 0
             {
                 id V = [[_KBS lastObject] objectForKey:@"permanent"];
                 _iTM2IMFlags.isPermanent = [V respondsToSelector:@selector(boolValue)] && [V boolValue]? 1:0;
             }
+#endif
         }
+#if 0
         {
             NSString * toolTip = [[self currentKeyBindings] objectForKey:@"toolTip"];
             [self postNotificationWithStatus:
@@ -623,6 +640,7 @@ To Do List:
 //                if([toolTip isKindOfClass:[NSString class]] && [toolTip length])
 //                    [self postNotificationWithStatus:toolTip];
         }
+#endif
     }
     return;
 }
@@ -747,183 +765,60 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	id macroKeyStroke = [theEvent macroKeyStroke];
+	if(!macroKeyStroke)
+	{
+		return NO;
+	}
 //iTM2_LOG(@"[self currentKeyBindings] are:%@", [self currentKeyBindings]);
     [self setCurrentClient:C];
-//iTM2_LOG(@"C is: %@", C);
-    NSString * characters = [theEvent characters];//[event charactersIgnoringModifiers];
-//NSLog(@"S: %@", S);
-    if([characters length] == 1)
-    {
-        NSString * CIM = [theEvent charactersIgnoringModifiers];
-//iTM2_LOG(@"CIM: %@", CIM);
-        if([CIM length])
-        {
-            unichar U = [CIM characterAtIndex:0];
-			NSString * unmodifiedCharacters = [NSString stringWithCharacters:&U length:1];
-            if(!_iTM2IMFlags.isDeepEscaped && !_iTM2IMFlags.isEscaped)
-            {
-				NSString * instruction = nil;
-				NSString * currentKey = nil;
-				if(_iTM2IMFlags.handlesKeyBindings)
+	if(!_iTM2IMFlags.isDeepEscaped && !_iTM2IMFlags.isEscaped)
+	{
+		if([C handlesKeyBindings])
+		{
+			NSString * key = [macroKeyStroke string];
+			id node = [self currentKeyBindings];
+			node = [node objectInChildrenWithKey:key];
+			if([node countOfChildren]>0)
+			{
+				// down a level
+				[self setCurrentKeyBindings:node];// this is where we wait for a further key stroke
+				if([C respondsToSelector:@selector(cleanSelectionCache:)])
 				{
-					unsigned flags = [theEvent modifierFlags];
-					if(U == [[theEvent characters] characterAtIndex:0])
-					{
-						// the character typed might only be sensitive to the shift key
-						currentKey = [NSString stringWithFormat:@"%@%@%@%@%@",
-							(flags & NSCommandKeyMask? @"@": @""),
-							(flags & NSControlKeyMask? @"^": @""),
-							(flags & NSAlternateKeyMask? @"~": @""),
-							(flags & NSShiftKeyMask? @"$": @""),
-							unmodifiedCharacters];
-						[self setCurrentKey:currentKey];
-						instruction = [[self currentKeyBindings] objectForKey:currentKey];
-//NSLog(@"1 - <%@>", [self currentKey]);
-						if(!instruction)
-						{
-							currentKey = [NSString stringWithFormat:@"%@%@%@%@",
-								(flags & NSCommandKeyMask? @"@": @""),
-								(flags & NSControlKeyMask? @"^": @""),
-								(flags & NSAlternateKeyMask? @"~": @""),
-								unmodifiedCharacters];
-							[self setCurrentKey:currentKey];
-							instruction = [[self currentKeyBindings] objectForKey:currentKey];
-//NSLog(@"2 - <%@>", [self currentKey]);
-						}
-					}
-					else
-					{
-						currentKey = [NSString stringWithFormat:@"%@%@%@",
-							(flags & NSCommandKeyMask? @"@": @""),
-							(flags & NSControlKeyMask? @"^": @""),
-							characters];
-						[self setCurrentKey:currentKey];
-						instruction = [[self currentKeyBindings] objectForKey:currentKey];
-//NSLog(@"3 - <%@>", [self currentKey]);
-						if(!instruction)
-						{
-							currentKey = [NSString stringWithFormat:@"%@%@%@%@%@",
-								(flags & NSCommandKeyMask? @"@": @""),
-								(flags & NSControlKeyMask? @"^": @""),
-								(flags & NSAlternateKeyMask? @"~": @""),
-								(flags & NSShiftKeyMask? @"$": @""),
-								unmodifiedCharacters];
-							[self setCurrentKey:currentKey];
-							instruction = [[self currentKeyBindings] objectForKey:currentKey];
-//NSLog(@"4 - <%@>", [self currentKey]);
-						}
-						if(!instruction)
-						{
-							currentKey = [NSString stringWithFormat:@"%@%@%@%@",
-								(flags & NSCommandKeyMask? @"@": @""),
-								(flags & NSControlKeyMask? @"^": @""),
-								(flags & NSAlternateKeyMask? @"~": @""),
-								unmodifiedCharacters];
-							[self setCurrentKey:currentKey];
-							instruction = [[self currentKeyBindings] objectForKey:currentKey];
-//NSLog(@"5 - <%@>", [self currentKey]);
-						}
-					}
+					[C cleanSelectionCache:self];
 				}
-                _iTM2IMFlags.isEscaped = 0;
-                _iTM2IMFlags.canEscape = 1;
-                if(instruction)
+				return YES;
+			}
+			else if(node)
+			{
+				_iTM2IMFlags.isEscaped = 0;
+				_iTM2IMFlags.canEscape = 1;
+				NSString * ID = [node ID];
+				NSString * domain = [C macroDomain];
+				NSString * category = [C macroCategory];
+				NSString * context = @"";//[C macroContext];
+				if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain substitutions:nil target:C])
 				{
-                    return [self client:C executeInstruction:instruction];
+					[self setCurrentKeyBindings:nil];
+					return YES;
 				}
-                else
-                {
-                    id V = [[self currentKeyBindings] objectForKey:@"complete"];
-                    if([V respondsToSelector:@selector(boolValue)] && [V boolValue])
-                    {
-                        if([C respondsToSelector:@selector(cleanSelectionCache:)])
-                            [C cleanSelectionCache:self];
-                        return YES;
-                    }
-                    else if([C isKindOfClass:[NSResponder class]])
+			}
+		}
+		_iTM2IMFlags.isEscaped = 0;
+		_iTM2IMFlags.canEscape = 1;
+		if([C isKindOfClass:[NSResponder class]])
 //                    else if(_iTM2IMFlags.handlesKeyStrokes && [C isKindOfClass:[NSResponder class]])
-                    {
-                        return [C interpretKeyStroke:characters];
-                    }
-                    else
-					{
-                        return NO;
-					}
-                }
-            }
-        }
-    }
+		{
+			NSString * characters = [theEvent characters];
+			return [C interpretKeyStroke:characters];
+		}
+		else
+		{
+			return NO;
+		}
+	}
     _iTM2IMFlags.isEscaped = 0;
     return NO;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeInstruction:
-- (BOOL)client:(id)C executeInstruction:(id)instruction;
-/*"Description forthcoming.
-If the event is a 1 char key down, it will ask the current key binding for instruction.
-The key and its modifiers are 
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"instruction is: %@, client is: %@", instruction, C);
-    BOOL result = NO;
-    if([instruction isKindOfClass:[NSArray class]])
-    {
-        NSEnumerator * E = [instruction objectEnumerator];
-        while(instruction = [E nextObject])
-		{
-            result = [self client:C executeInstruction:instruction] || result;
-		}
-    }
-    else if([instruction isKindOfClass:[NSDictionary class]])
-    {
-        NSString * toolTip = [instruction objectForKey:@"toolTip"];
-        NSString * stringSel = [instruction objectForKey:@"selector"];
-        if([toolTip length])
-            [self postNotificationWithStatus:([toolTip isKindOfClass:[NSString class]]? toolTip:nil)];
-        if([stringSel isKindOfClass:[NSString class]])
-        {
-            SEL selector = NSSelectorFromString(stringSel);
-            if([self respondsToSelector:selector])
-            {
-                [self performSelector:selector withObject:[instruction objectForKey:@"argument"]];
-                result = YES;
-            }
-            else if([C respondsToSelector:selector])
-            {
-                [C performSelector:selector withObject:[instruction objectForKey:@"argument"]];
-                result = YES;
-            }
-            else
-            {
-                result = [C isKindOfClass:[NSResponder class]]
-                                && [C tryToPerform:selector with:[instruction objectForKey:@"argument"]];
-            }
-        }
-        else if(!stringSel)
-        {
-            [self setCurrentKeyBindings:instruction];// this is where we wait for a further key stroke
-            if([C respondsToSelector:@selector(cleanSelectionCache:)])
-                [C cleanSelectionCache:self];
-            return YES;
-        }
-        else
-        {
-            NSLog(@"%@ unrecognized object: %@", __PRETTY_FUNCTION__, stringSel);
-        }
-    }
-    else if([instruction isKindOfClass:[NSString class]])
-    {
- //NSLog(instruction);
-		result = [C executeMacro:instruction];
-    }
-    [self escapeCurrentKeyBindingsIfAllowed];
-    if(result)
-	{
-        [C cleanSelectionCache:self];
-	}
-    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEscape:
 - (IBAction)toggleEscape:(id)sender;
@@ -993,7 +888,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2_LOG(@"loading: %@", __PRETTY_FUNCTION__, sender);
+    iTM2_LOG(@"loading: %@", sender);
     if([sender isKindOfClass:[NSString class]])
     {
         id result = [isa keyBindingsForIdentifier:sender];
@@ -1008,12 +903,12 @@ To Do List:
             return;
         }
         [self postNotificationWithStatus:[NSString stringWithFormat:@"Nothing at:%@", sender]];
-        iTM2_LOG(@"bad file at: %@ (relative path)", __PRETTY_FUNCTION__, sender);
+        iTM2_LOG(@"bad file at: %@ (relative path)", sender);
         NSBeep();
         return;
     }
     [self postNotificationWithStatus:@"Internal error, ignored"];
-    iTM2_LOG(@"bad argument: %@", __PRETTY_FUNCTION__, sender);
+    iTM2_LOG(@"bad argument: %@", sender);
     NSBeep();
     return;
 }
@@ -1068,18 +963,6 @@ To Do List:
 //iTM2_END;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
-- (NSString *)keyBindingsManagerIdentifier;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return @"";
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
 - (id)keyBindingsManager;
 /*"Description forthcoming.
@@ -1089,35 +972,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self nextResponder] keyBindingsManager];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerForClient:
-- (id)keyBindingsManagerForClient:(id)client;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [[self nextResponder] keyBindingsManagerForClient:self];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerWithIdentifier:
-- (id)keyBindingsManagerWithIdentifier:(NSString *)identifier;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
     if(([self handlesKeyBindings] || [self handlesKeyStrokes])
         && ![self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask])
     {
+iTM2_LOG(@"KBM:%@",[self valueForKeyPath:@"implementation.metaValues.KeyBindingsManager"]);
 		id KBM = metaGETTER;
+iTM2_LOG(@"KBM:%@",KBM);
         if(!KBM)
         {
-			KBM = [self lazyKeyBindingsManager];
+			NSString * identifier = [self macroCategory];
+			KBM = [[[iTM2KeyBindingsManager allocWithZone:[self zone]]
+						initWithIdentifier:identifier
+							handleKeyBindings:[self handlesKeyBindings]
+								handleKeyStrokes:[self handlesKeyStrokes]] autorelease];
             metaSETTER(KBM);
 			if(iTM2DebugEnabled > 1000)
 			{
@@ -1129,25 +996,19 @@ To Do List:
     else
         return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyKeyBindingsManager
-- (id)lazyKeyBindingsManager;
-/*"Description Forthcoming.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resetKeyBindingsManager;
+- (void)resetKeyBindingsManager;
+/*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+- 1.4: Thu May 13 21:02:03 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * identifier = [self keyBindingsManagerIdentifier];
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"The identifier is: %@", identifier);
-	}
-	[iTM2KeyBindingsManager registerKeyBindingsForIdentifier:identifier];
-    return [[[iTM2KeyBindingsManager allocWithZone:[self zone]]
-				initWithIdentifier: identifier
-					handleKeyBindings: [self handlesKeyBindings]
-						handleKeyStrokes: [self handlesKeyStrokes]] autorelease];
+	[self setValue:nil forKeyPath:@"implementation.metaValues.KeyBindingsManager"];
+	[self keyBindingsManager];
+//iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanSelectionCache:
 - (void)cleanSelectionCache:(id)irrelevant;
@@ -1582,22 +1443,6 @@ To Do List:
 #import <iTM2Foundation/iTM2BundleKit.h>
 
 @implementation NSWindowController(iTM2KeyBindingsKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyBindingsWindowWillLoad
-- (void)keyBindingsWindowWillLoad;
-/*"YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([self handlesKeyStrokes] || [self handlesKeyBindings])
-	{
-		[self keyBindingsManagerWithIdentifier:[self keyBindingsManagerIdentifier]];// is it necessary?
-	}
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyStrokes
 - (BOOL)handlesKeyStrokes;
 /*"YES.
@@ -1625,127 +1470,9 @@ To Do List:
         || [super interpretKeyStroke:key];
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
-- (id)keyBindingsManager;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [super keyBindingsManager]?:[self keyBindingsManagerWithIdentifier:[self keyBindingsManagerIdentifier]];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
-- (NSString *)keyBindingsManagerIdentifier;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    id KBMI = metaGETTER;
-    if(!KBMI)
-    {
-		KBMI = [super keyBindingsManagerIdentifier];
-		if(![KBMI length])
-		{
-			KBMI = [[isa inspectorType] stringByAppendingPathComponent: [isa inspectorMode]];
-		}
-        metaSETTER(KBMI);
-        KBMI = metaGETTER;
-    }
-    return KBMI;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyKeyBindingsManager
-- (id)lazyKeyBindingsManager;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * key = [self keyBindingsManagerIdentifier];
-	NSString * identifier = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
-	if(![identifier length])
-	{
-		identifier = key;
-	}
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"The identifier is: %@", identifier);
-	}
-	[iTM2KeyBindingsManager registerKeyBindingsForIdentifier:identifier];
-    return [[[iTM2KeyBindingsManager allocWithZone:[self zone]]
-				initWithIdentifier:identifier
-					handleKeyBindings:[self handlesKeyBindings]
-						handleKeyStrokes:[self handlesKeyStrokes]] autorelease];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setKeyBindingsManager:
-- (void)setKeyBindingsManager:(id)argument;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(metaGETTER != argument)
-    {
-        if(argument)
-        {
-            NSParameterAssert([argument respondsToSelector:@selector(client:interpretKeyEvent:)]);
-            NSParameterAssert([argument respondsToSelector:@selector(client:performKeyEquivalent:)]);
-        }
-        metaSETTER(argument);
-    }
-    return;
-}
 @end
 
 @implementation NSWindow(iTM2KeyBindingsKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
-- (NSString *)keyBindingsManagerIdentifier;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    id KBMI = metaGETTER;
-    if(!KBMI)
-    {
-        metaSETTER(NSStringFromClass(isa));
-        KBMI = metaGETTER;
-    }
-    return KBMI?:@"";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
-- (id)keyBindingsManager;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [super keyBindingsManager]?:([[self windowController] keyBindingsManager]?:[self keyBindingsManagerWithIdentifier:[self keyBindingsManagerIdentifier]]);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerForClient:
-- (id)keyBindingsManagerForClient:(id)client;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [super keyBindingsManagerForClient:self]?:[[self windowController] keyBindingsManagerForClient:self];
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyStroke:
 - (BOOL)interpretKeyStroke:(NSString *)key;
 /*"YES.
@@ -1954,29 +1681,6 @@ To Do List:
 }
 @end
 
-@implementation NSView(iTM2KeyBindingsKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager:
-- (id)keyBindingsManager;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([self handlesKeyStrokes])
-	{
-		id result;
-		if(result = [super keyBindingsManager])
-			return result;
-		if(result = [[self superview] keyBindingsManager])
-			return result;
-		return [[self window] keyBindingsManager];
-	}
-	return nil;
-}
-@end
-
 @implementation NSText_iTM2KeyBindingsKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performKeyEquivalent:
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
@@ -2162,111 +1866,6 @@ To Do List:
 //iTM2_START;
     [sender setState:([self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask]? NSOffState:NSOnState)];
     return YES;
-}
-@end
-
-@interface _iTM2KeyCodesController: iTM2KeyCodesController
-{
-	id keyCodes;
-}
-@end
-
-@implementation iTM2KeyCodesController
-+ (id)sharedController;
-{
-	static id controller = nil;
-	return controller?:(controller = [[_iTM2KeyCodesController alloc] init]);
-}
-@end
-
-@implementation _iTM2KeyCodesController
-- (id)init;
-{
-	if(self = [super init])
-	{
-		keyCodes = [[NSMutableDictionary dictionary] retain];
-		NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"iTM2KeyCodes" ofType:@"xml"];
-		if([RA count])
-		{
-			NSString * path = [RA objectAtIndex:0];
-			NSURL * url = [NSURL fileURLWithPath:path];
-			NSError * localError = nil;
-			NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
-			if(localError)
-			{
-				[SDC presentError:localError];
-			}
-			else
-			{
-				NSArray * nodes = [doc nodesForXPath:@"/*/KEY" error:&localError];
-				if(localError)
-				{
-					[SDC presentError:localError];
-				}
-				else
-				{
-					NSEnumerator * E = [nodes objectEnumerator];
-					id node = nil;
-					while(node = [E nextObject])
-					{
-						NSString * KEY = [node stringValue];//case sensitive
-						if([KEY length])
-						{
-							if(node = [node attributeForName:@"CODE"])
-							{
-								NSString * stringCode = [node stringValue];
-								NSScanner * scanner = [NSScanner scannerWithString:stringCode];
-								unsigned int code = 0;
-								if([scanner scanHexInt:&code])
-								{
-									NSNumber * codeValue = [NSNumber numberWithUnsignedInt:code];
-									[keyCodes setObject:codeValue forKey:KEY];
-								}
-							}
-						}
-					}
-					iTM2_LOG(@"availableKeyCodes are: %@", keyCodes);
-				}
-			}
-		}
-	}
-	return self;
-}
-- (void)release;
-{
-	[keyCodes release];
-	keyCodes = nil;
-	[super release];
-	return;
-}
-- (unsigned int)keyCodeForName:(NSString *)name;
-{
-	NSNumber * N = [keyCodes objectForKey:name];
-	if(N)
-	{
-		return [N unsignedIntValue];
-	}
-	if([name length])
-	{
-		return [name characterAtIndex:0];
-	}
-	return 0;
-}
-- (NSString *)nameForKeyCode:(unsigned int) code;
-{
-	NSNumber * N = [NSNumber numberWithUnsignedInt:code];
-	NSArray * keys = [keyCodes allKeysForObject:N];
-	if([keys count])
-	{
-		return [keys lastObject];
-	}
-	unichar c = code;
-	return [NSString stringWithCharacters:&c length:1];
-}
-- (NSString *)localizedNameForCodeName:(NSString *)codeName;
-{
-	NSString * result = NSLocalizedStringWithDefaultValue(codeName, @"iTM2KeyCodes", [NSBundle bundleForClass:[self class]], @"NO LOCALIZATION", "");
-	return [result isEqualToString:@"NO LOCALIZATION"]?codeName:result;
 }
 @end
 

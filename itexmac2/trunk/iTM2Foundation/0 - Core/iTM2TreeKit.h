@@ -125,6 +125,15 @@
 - (void)setNonretainedValue:(id)argument;
 
 /*!
+	@method		prepareChildren
+	@abstract	Prepare the children of the node.
+	@discussion	Entry point for lazy initialization of children.
+				The default implementation does nothing.
+	@result		None.
+*/
+- (void)prepareChildren;
+
+/*!
 	@method		children
 	@abstract	The children of the node.
 	@discussion	Read only array of the children of the node.

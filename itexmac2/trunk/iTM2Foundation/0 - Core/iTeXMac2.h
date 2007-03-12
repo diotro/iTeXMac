@@ -36,6 +36,7 @@ enum{
 	iTM2DebugEnabled_traceAllFunctionsMask = 1
 };
 
+#define __iTM2_PRETTY_FUNCTION__ [NSString stringWithUTF8String:__PRETTY_FUNCTION__]
 #if __iTM2_DEVELOPMENT__
 	#define iTM2_DIAGNOSTIC if(iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#x\n", __PRETTY_FUNCTION__, (int)self)
 // enclose some protion of code with
@@ -56,11 +57,17 @@ enum{
 #if 1
 #define iTM2_START NSLog(@"%s %#x START(%@)", __PRETTY_FUNCTION__, self, [[NSDate date] description])
 #define iTM2_END   NSLog(@"%s %#x END", __PRETTY_FUNCTION__, self)
-#define iTM2_LOG   NSLog(@"%s %#x", __PRETTY_FUNCTION__, self);NSLog
+#define iTM2_LOG\
+	NSLog(@"file:%s line:%i", __FILE__, __LINE__);\
+	NSLog(@"%s %#x", __PRETTY_FUNCTION__, self);\
+	NSLog
 #else
 #define iTM2_START NSLog(@"%s %@ START(%@)", __PRETTY_FUNCTION__, self, [[NSDate date] description])
 #define iTM2_END   NSLog(@"%s %@ END", __PRETTY_FUNCTION__, self)
-#define iTM2_LOG   NSLog(@"%s %@", __PRETTY_FUNCTION__, self);NSLog
+#define iTM2_LOG\
+	NSLog(@"file:%s line:%i", __FILE__, __LINE__);\
+	NSLog(@"%s %#x", __PRETTY_FUNCTION__, self);\
+	NSLog
 #endif
 
 #define iTM2_STRONG_GETSET(source, className, getter, setter)\
@@ -109,7 +116,7 @@ extern int iTM2DebugEnabled;
 #define iTM2_OUTERROR(TAG,STRING,UNDERLYING)\
 if(outErrorPtr)\
 {\
-	*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:TAG\
+	*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:STRING,NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
 				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])];\
@@ -130,7 +137,7 @@ else\
 }
 
 #define iTM2_REPORTERROR(TAG, STRING, UNDERLYING)\
-[NSApp presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:(int)TAG\
+[NSApp presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:(int)TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@\n%@",(STRING),[(NSError *)UNDERLYING localizedDescription]],NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
 				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])]];iTM2_LOG(@"Reporting error:%i,%@,%@",TAG,(STRING),(UNDERLYING))

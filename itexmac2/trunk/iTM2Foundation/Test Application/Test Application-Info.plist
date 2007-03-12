@@ -52,6 +52,6 @@
 	<key>NSMainNibFile</key>
 	<string>iTeXMac2</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<string>iTM2Application</string>
 </dict>
 </plist>

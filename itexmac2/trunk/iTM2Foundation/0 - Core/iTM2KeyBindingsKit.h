@@ -26,15 +26,6 @@
 @class NSDictionay, NSMutableArray, NSEvent, NSTextView;
 
 /*!
-    @const		iTM2KeyBindingsComponent
-    @abstract	Key bindings component key: @"KeyBindings".
-    @discussion	Key bindings are stored at various "Application Support/iTeXMac2/KeyBindings" locations.
-				In the built in resources forlder are available only the "KeyBindings" preferably localized.
-*/
-
-extern NSString * const iTM2KeyBindingsComponent;
-
-/*!
     @const		iTM2TextKeyBindingsIdentifier
     @abstract	Text Key bindings name key.
     @discussion	The key for an identifier for the text.
@@ -91,8 +82,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 @interface iTM2KeyBindingsManager: NSObject
 {
 @private
-    NSDictionary * _SM;
-    NSDictionary * _RKB;
+    id _SM;
     NSMutableArray * _KBS;
     NSString * _CK;
     NSString * _DEC;
@@ -170,16 +160,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 - (id)initWithIdentifier:(NSString *)identifier handleKeyBindings:(BOOL)handlesKeyBindings handleKeyStrokes:(BOOL)handlesKeyStrokes;
 
 /*!
-    @method		rootKeyBindings
-    @abstract	The root key bindings.
-    @discussion	The root of the dictionary hierarchy.
-                Contains the first char of any keystroke sequence.
-    @param		None.
-    @result		A dictionary.
-*/
-- (NSDictionary *)rootKeyBindings;
-
-/*!
     @method		currentKeyBindings
     @abstract	The current key binding.
     @discussion	Some keystrokes can imply loading another key bindings dictionary.
@@ -187,7 +167,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @param		None.
     @result		None.
 */
-- (NSDictionary *)currentKeyBindings;
+- (id)currentKeyBindings;
 
 /*!
     @method		client:performKeyEquivalent:
@@ -229,21 +209,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @result		NO iff this event could not be interpreted..
 */
 - (BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
-
-/*!
-    @method		client:executeInstruction:
-    @abstract	The receiver will execute the given instruction for the given client.
-    @discussion	If the instruction is an array, each object is executed separately.
-                If the instruction is a dictionary, the value for key "selector" is executed
-                with the value for key "argument" as argument. If the client cannot execute this instruction,
-                the receiver itself will try to. If you want to add support for another kind oif instruction,
-                either make your client support this instruction or make the receiver support it.
-                If the instruction is simply a string, it is inserted in the text stream.
-    @param		C is the client.
-    @param		theEvent is the event.
-    @result		NO iff this instruction could not be executed..
-*/
-- (BOOL)client:(id)C executeInstruction:(id)instruction;
 
 /*!
     @method		toggleEscape:
@@ -306,24 +271,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 */
 - (id)keyBindingsManager;
 
-/*!
-    @method		keyBindingsManagerForClient:
-    @abstract	This is the key binding manager for the given client.
-    @discussion	The default implementation just returns next responder's key bindings manager for the given client.
-                NSWindow's implementation returns its window controller's key binding manager for the given client.
-                NSView's implementation returns the first one found amongst
-                - its next responder's key bindings manager,
-                - its superview's key bindings manager,
-                - its window's key binding manager
-				all for the given client.
-
-    @param		client is a NSResponder...
-    @result		a key binding manager.
-*/
-- (id)keyBindingsManagerForClient:(id)client;
-
-- (id)keyBindingsManagerWithIdentifier:(NSString *)identifier;
-- (id)lazyKeyBindingsManager;
+- (void)resetKeyBindingsManager;
 
 @end
 
@@ -492,15 +440,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 @interface NSResponder(iTM2KeyBindingsKitSupport)
 
 /*
-    @method		keyBindingsManagerIdentifier
-    @abstract	Abstract frothcoming
-    @discussion	Discussion forthcoming.
-    @param		None
-    @result		void string
-*/
-- (NSString *)keyBindingsManagerIdentifier;
-
-/*
     @method		handlesKeyBindings
     @abstract	Whether the receiver can use key bindings
     @discussion	The default implementation returns NO. Should be subclassed.
@@ -535,14 +474,13 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 */
 - (IBAction)flushKeyBindings:(id)irrelevant;
 
+- (void)resetKeyBindingsManager;
+
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindow(iTM2KeyStrokeKit)
 
 @interface NSWindowController(iTM2KeyBindingsKit)
-
-- (NSString *)keyBindingsManagerIdentifier;
-- (void)setKeyBindingsManager:(id)argument;
 
 /*
     @method     handlesKeyStrokes
@@ -568,55 +506,3 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 @interface iTM2KeyBindingsResponder: iTM2AutoInstallResponder
 - (IBAction)toggleNoKeyBindings:(id)irrelevant;
 @end
-
-#import <iTM2Foundation/iTM2Implementation.h>
-/*
-    @class		the key codes controller
-    @abstract	Translate key codes into names and localized names.
-    @discussion	Discussion forthcoming.
-*/
-@interface iTM2KeyCodesController: iTM2Object
-
-/*
-    @method     sharedController
-    @abstract	The shared key codes controller.
-    @discussion	Discussion forthcoming.
-    @param	    None
-    @result     A controller
-*/
-+ (id)sharedController;
-
-@end
-
-@interface iTM2KeyCodesController(methods)
-
-/*!
-    @method     keyCodeForName:
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      name (description)
-    @result     (description)
-*/
-- (unsigned int)keyCodeForName:(NSString *)name;
-
-/*!
-    @method     nameForKeyCode:
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      code (description)
-    @result     (description)
-*/
-- (NSString *)nameForKeyCode:(unsigned int)code;
-
-/*!
-    @method     localizedNameForCodeName:
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      codeName (description)
-    @result     (description)
-*/
-- (NSString *)localizedNameForCodeName:(NSString *)codeName;
-
-@end
-
-#define KCC [iTM2KeyCodesController sharedController]

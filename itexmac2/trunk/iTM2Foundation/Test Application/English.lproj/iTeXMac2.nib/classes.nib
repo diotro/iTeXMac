@@ -5,6 +5,7 @@
                 EOLDefault = id; 
                 OgreFindMenuItemAction = id; 
                 actualSize = id; 
+                addSelectionToCompletion = id; 
                 annotateTool = id; 
                 assignProfile = id; 
                 autoZoom = id; 
@@ -48,6 +49,8 @@
                 imageCorrection = id; 
                 indentSelectedText = id; 
                 indentSelectedTextToPrevious = id; 
+                macroEdit = id; 
+                macroMode = id; 
                 mailForHelp = id; 
                 matchToProfile = id; 
                 moreCopy = id; 
@@ -137,6 +140,7 @@
                 toggleShowsControls = id; 
                 toggleShowsInvisibles = id; 
                 toggleSmartInsert = id; 
+                toggleSmartMacros = id; 
                 toggleSmartSelection = id; 
                 toggleSmartUpdate = id; 
                 toggleSyncAllBullets = id; 
@@ -168,6 +172,7 @@
             SUPERCLASS = NSObject; 
         }, 
         {CLASS = iTM2TextEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
+        {CLASS = iTM2Window; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
         {CLASS = "java.lang.Object"; LANGUAGE = Java; }
     ); 
     IBVersion = 1; 

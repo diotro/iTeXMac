@@ -148,11 +148,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setParent:nil];
-	[_Value autorelease];
-	_Value = nil;
-	[_NonretainedValue autorelease];
-	_NonretainedValue = nil;
+	// first remove the children DO NOT CHANGE THAT ORDER
 	NSEnumerator * E = [_Children objectEnumerator];
 	id child;
 	while(child = [E nextObject])
@@ -164,6 +160,13 @@ To Do List:
 	}
 	[_Children autorelease];
 	_Children = nil;
+	// then remove the leaf DO NOT CHANGE THAT ORDER
+	[_Value autorelease];
+	_Value = nil;
+	[_NonretainedValue autorelease];
+	_NonretainedValue = nil;
+	// last operation! DO NOT CHANGE THAT ORDER
+	[self setParent:nil];
 	[super dealloc];
     return;
 }
@@ -263,6 +266,37 @@ To Do List:
 	}
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareChildren
+- (void)prepareChildren;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 2.0: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _prepareChildren
+- (void)_prepareChildren;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 2.0: Sat May 24 2003
+To Do List:
+"*/
+{
+//iTM2_START;
+	// reentrant management
+	if([self valueForKeyPath:@"value._prepareChildren"])
+	{
+		return;
+	}
+	[self setValue:@"_prepareChildren" forKeyPath:@"value._prepareChildren"];
+	[self prepareChildren];
+	[self setValue:nil forKeyPath:@"value._prepareChildren"];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  children
 - (id)children;
 /*"Description Forthcoming.
@@ -272,6 +306,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
     return [[_Children copy] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfChildren
@@ -284,6 +319,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
     return [_Children count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCountOfChildren:
@@ -296,6 +332,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	if(argument < [self countOfChildren])
 	{
 		do
@@ -327,6 +364,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
     return index < [_Children count]? [_Children objectAtIndex:index]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexOfObjectInChildren:
@@ -338,6 +376,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
     return _Children?[_Children indexOfObject:anObject]:NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addObjectInChildren:
@@ -351,6 +390,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:[_Children count]];
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
@@ -372,6 +412,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	if(!_Children)
 	{
 		return;
@@ -396,6 +437,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
@@ -417,6 +459,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 	[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:IS forKey:@"children"];
@@ -438,6 +481,7 @@ To Do List:
 {
 //iTM2_START;
     // implementation specific code
+	[self _prepareChildren];
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 	[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:IS forKey:@"children"];
 	id object = [[_Children objectAtIndex:index] retain];
@@ -456,6 +500,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	NSEnumerator * E = [_Children objectEnumerator];
 	iTM2TreeNode * N = nil;
 	if(anObject)
@@ -480,6 +525,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	NSEnumerator * E = [_Children objectEnumerator];
 	iTM2TreeNode * N = nil;
 	if(anObject)
@@ -504,6 +550,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	iTM2TreeNode * N = [self objectInChildrenWithValue:anObject];
 	if(N)
 	{
@@ -528,6 +575,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	iTM2TreeNode * N = [self objectInChildrenWithNonretainedValue:anObject];
 	if(N)
 	{
@@ -552,6 +600,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	NSEnumerator * E = [_Children objectEnumerator];
 	iTM2TreeNode * N = nil;
 	if(anObject)
@@ -576,6 +625,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
+	[self _prepareChildren];
 	iTM2TreeNode * N = [self objectInChildrenWithValue:anObject forKeyPath:path];
 	if(N)
 	{

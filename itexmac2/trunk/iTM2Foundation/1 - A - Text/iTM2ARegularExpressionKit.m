@@ -38,7 +38,7 @@ To Do List: ...
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     if (argument && ![argument isKindOfClass:[NSString class]]) 
-        [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.", __PRETTY_FUNCTION__ , argument];
+        [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.", __iTM2_PRETTY_FUNCTION__ , argument];
     BOOL isValid = NO;
     void *re;
 
@@ -176,7 +176,7 @@ To Do List: ...
         [self dealloc];
         self = nil;
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__ , string];
+            __iTM2_PRETTY_FUNCTION__ , string];
     }
     return self;
 }
@@ -396,14 +396,14 @@ To Do List: ...
                     else
                         [NSException raise:NSInternalInconsistencyException format:
                             @"%@ valid range value expected here too (%i, %i, %i, %i)",
-                                __PRETTY_FUNCTION__,
+                                __iTM2_PRETTY_FUNCTION__,
                                     pmatch->rm_so, ppmatch->rm_so, ppmatch->rm_eo, pmatch->rm_eo];
                     #endif
                 }
             }
             else
                 [NSException raise:NSInternalInconsistencyException format:
-                        @"%@ valid range value expected (%i, %i).", __PRETTY_FUNCTION__,
+                        @"%@ valid range value expected (%i, %i).", __iTM2_PRETTY_FUNCTION__,
                                     pmatch->rm_so, pmatch->rm_eo];
         }
     }
@@ -598,7 +598,7 @@ To Do List: ...
 //iTM2_START;
     if(NSMaxRange(searchRange)>[self length])
         [NSException raise:NSRangeException format:@"%@ bad range:%@ (good %@).",
-            __PRETTY_FUNCTION__,
+            __iTM2_PRETTY_FUNCTION__,
                 NSStringFromRange(searchRange), NSStringFromRange(NSMakeRange(0, [self length]))];
     void * buffer = (void *)CFStringGetCharactersPtr((CFStringRef)self);
     void * buffer1 = nil;
@@ -634,7 +634,7 @@ To Do List: ...
 //iTM2_START;
     if(NSMaxRange(searchRange)>[self length])
         [NSException raise:NSRangeException format:@"%@ bad range:%@ (good %@).",
-            __PRETTY_FUNCTION__,
+            __iTM2_PRETTY_FUNCTION__,
                 NSStringFromRange(searchRange), NSStringFromRange(NSMakeRange(0, [self length]))];
 //NSLog(@"RE: %@", RE);
 //NSLog(@"searchRange: %@", NSStringFromRange(searchRange));
@@ -719,7 +719,7 @@ To Do List: ...
         NSValue * V = [RA objectAtIndex:0];
         if(![V isKindOfClass:[NSValue class]])
             [NSException raise:NSRangeException format:@"%@ NSValue expected:got %@.",
-                __PRETTY_FUNCTION__, V];
+                __iTM2_PRETTY_FUNCTION__, V];
         else
         {
             NSRange R = [V rangeValue];
@@ -754,7 +754,7 @@ To Do List: ...
 {iTM2_DIAGNOSTIC;
     if (string && ![string isKindOfClass:[NSArray class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__ , string];
+            __iTM2_PRETTY_FUNCTION__ , string];
     if (string && ![string isEqualToString:@""]) {
         iTM2ARegularExpression *expression = [[iTM2ARegularExpression allocWithZone:[self zone]] initWithString:string];
         if (expression) {

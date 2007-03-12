@@ -70,6 +70,8 @@ void iTM2_LOG(NSString *fmt, ...)
 }
 #endif
 
+#import <ExceptionHandling/NSExceptionHandler.h>
+
 //#import <iTM2Foundation/iTM2DocumentControllerKit.h>
 static char * iTM2Application_sendApplicationDefinedEvent = nil;
 @implementation iTM2Application
@@ -98,11 +100,77 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= exceptionHandlerDidFinishLaunching
+- (void)exceptionHandlerDidFinishLaunching;
+/*"Install the event handler.
+Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
+	[handler setExceptionHandlingMask:NSLogAndHandleEveryExceptionMask];
+	[handler setDelegate: self];
+//iTM2_END;
+    return;
+}
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(unsigned int)aMask;
+// mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey
+{
+	NSDictionary * userInfo = [exception userInfo];
+	NSArray * stackTrace = [userInfo objectForKey:NSStackTraceKey];
+	iTM2_LOG(@"stackTrace:%@",stackTrace);
+#if 0
+// smorr AT indev DOT ca (Debugging an ignored exception on cocoa-dev)
+NSLog(@"Error: %@",exception);
+fprintf(stderr, "------ STACK TRACE ------\n");
+id trace;
+if (trace = [[exception userInfo] objectForKey:NSStackTraceKey])
+{
+NSString* str = [NSString stringWithFormat:@"/usr/bin/atos -p %d %@ | tail -n +4 | c++filt | cat -n", getpid(), trace];
+FILE* fp;
+if(fp = popen([str UTF8String], "r"))
+{
+unsigned char resBuf[512];
+size_t len;
+while( len = fread(resBuf, 1, sizeof(resBuf), fp))
+fwrite(resBuf, 1, len, stderr);
+pclose(fp);
+}
+}
+fprintf(stderr, "-------------------------\n");
+
+	NSLog(@"Error: %@",exception);
+	fprintf(stderr, "------ STACK TRACE ------\n");	
+	id trace;
+	if (trace = [[exception userInfo] objectForKey:NSStackTraceKey])
+	{
+		NSString* str = [NSString stringWithFormat:@"/usr/bin/atos -p %d %@ | tail -n +4 | c++filt | cat -n", getpid(), trace];
+		FILE* fp;
+		if(fp = popen([str UTF8String], "r"))
+		{
+			unsigned char resBuf[512];
+			size_t len;
+			while( len = fread(resBuf, 1, sizeof(resBuf), fp))
+				fwrite(resBuf, 1, len, stderr);
+			pclose(fp);
+		}
+	}
+	fprintf(stderr, "-------------------------\n");
+#endif
+	return YES;
+}
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(unsigned int)aMask;
+// mask is NSHandle<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey
+{
+	return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sendEvent:
 -(void)sendEvent:(NSEvent*)event;
-/*"Registers some defaults: initialize iTM2DefaultsController.
+/*"Catches application defined events.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
-- < 1.1: 03/10/2002
+- 2.0
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -167,7 +235,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentVersion
 + (int)currentVersion;
-/*"This is the build number.
+/*"This is the build number. OLD STUFF
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.3: 03/10/2002
 To Do List:

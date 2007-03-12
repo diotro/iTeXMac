@@ -172,7 +172,7 @@ To Do List: ...
 //iTM2_START;
     if (argument && ![argument isKindOfClass:[NSArray class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ NSArray argument expected:got %@.",
-            __PRETTY_FUNCTION__ , argument];
+            __iTM2_PRETTY_FUNCTION__ , argument];
     else if(![_AllRanges isEqual:argument])
     {
         [_AllRanges autorelease];
@@ -194,7 +194,7 @@ To Do List: ...
 //iTM2_START;
     if (argument && ![argument isKindOfClass:[NSArray class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ NSArray argument expected:got %@.",
-            __PRETTY_FUNCTION__ , argument];
+            __iTM2_PRETTY_FUNCTION__ , argument];
     else if(![_AllRanges isEqual:argument])
     {
         [_AllRanges autorelease];
@@ -229,7 +229,7 @@ To Do List: ...
 //iTM2_START;
     if (argument && ![argument isKindOfClass:[NSWindowController class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ NSWindowController argument expected:got %@.",
-            __PRETTY_FUNCTION__ , argument];
+            __iTM2_PRETTY_FUNCTION__ , argument];
     else if(![_WC isEqual:argument])
     {
         [_WC release];
@@ -262,7 +262,7 @@ To Do List: ...
     if (argument && ![argument isKindOfClass:[iTM2ARegularExpression class]]) 
         [NSException raise:NSInvalidArgumentException format:
             @"%@ iTM2ARegularExpression argument expected: got %@.",
-                __PRETTY_FUNCTION__ , argument];
+                __iTM2_PRETTY_FUNCTION__ , argument];
     else if(![_RE isEqual:argument])
     {
         [_RE autorelease];
@@ -317,7 +317,7 @@ To Do List: ...
 //iTM2_START;
     if (argument && ![argument isKindOfClass:[NSWindow class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ NSWindow argument expected:got %@.",
-            __PRETTY_FUNCTION__ , argument];
+            __iTM2_PRETTY_FUNCTION__ , argument];
     else
     {
         [_WC setWindow:argument];
@@ -843,28 +843,28 @@ To Do List: ...
 //NSLog(@"replacement: %@", replacement);
     if(![replacement isKindOfClass:[NSArray class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ non nil NSArray argument expected:got %@.",
-            __PRETTY_FUNCTION__, replacement];
+            __iTM2_PRETTY_FUNCTION__, replacement];
     if(!NSLocationInRange(index, NSMakeRange(0, [[self allRanges] count])))
         [NSException raise:NSInvalidArgumentException format:@"%@ bad index:got 0 <= %i < %i.",
-            __PRETTY_FUNCTION__, index, [[self allRanges] count]];
+            __iTM2_PRETTY_FUNCTION__, index, [[self allRanges] count]];
 
     // preparing the replacement, no clever process
     NSArray * RA = [[self allRanges] objectAtIndex:index];
     if(![RA isKindOfClass:[NSArray class]]) 
         [NSException raise:NSInternalInconsistencyException format:@"%@ NSArray expected:got %@.",
-            __PRETTY_FUNCTION__, replacement];
+            __iTM2_PRETTY_FUNCTION__, replacement];
     if([RA count])
     {
         NSValue * V = [RA objectAtIndex:0];
         if(![V isKindOfClass:[NSValue class]])
             [NSException raise:NSInternalInconsistencyException format:
                 @"%@ NSValue object expected: got %@.",
-                    __PRETTY_FUNCTION__, V];
+                    __iTM2_PRETTY_FUNCTION__, V];
         
         NSRange ACR = [V rangeValue];
         if(NSMaxRange(ACR)>[[_MainTextView string] length])
             [NSException raise:NSInternalInconsistencyException format:@"%@ bad character range:got %@ (%i).",
-                __PRETTY_FUNCTION__, V, [[_MainTextView string] length]];
+                __iTM2_PRETTY_FUNCTION__, V, [[_MainTextView string] length]];
 
         replacement = [[replacement mutableCopy] autorelease];
         NSMutableDictionary * cache = [NSMutableDictionary dictionary];
@@ -884,7 +884,7 @@ To Do List: ...
                         if(![V isKindOfClass:[NSValue class]])
                             [NSException raise:NSInternalInconsistencyException format:
                                 @"%@ NSValue object expected: got %@.",
-                                    __PRETTY_FUNCTION__, V];
+                                    __iTM2_PRETTY_FUNCTION__, V];
                         NSRange R = [V rangeValue];
                         if(n>0)
                         {
@@ -892,7 +892,7 @@ To Do List: ...
                             if(NSMaxRange(R)>ACR.length)
                         [NSException raise:NSInternalInconsistencyException format:
                     @"%@ bad subexpression range: got %@ (%@).",
-                __PRETTY_FUNCTION__, NSStringFromRange(R), NSStringFromRange(ACR)];
+                __iTM2_PRETTY_FUNCTION__, NSStringFromRange(R), NSStringFromRange(ACR)];
                             R.location += ACR.location;
                         }
                         S = [[_MainTextView string] substringWithRange:R];
@@ -906,7 +906,7 @@ To Do List: ...
             else if(![O isKindOfClass:[NSString class]])
                 [NSException raise:NSInternalInconsistencyException format:
                     @"%@ NSString or NSNumber object expected: got %@.",
-                        __PRETTY_FUNCTION__, O];
+                        __iTM2_PRETTY_FUNCTION__, O];
             ++idx;
         }
         NSString * RS = [replacement componentsJoinedByString:@""];
@@ -2044,7 +2044,7 @@ To Do List: ...
 //iTM2_START;
     if (allRanges && ![allRanges isKindOfClass:[NSArray class]]) 
         [NSException raise:NSInvalidArgumentException format:@"%@ NSArray argument expected:got %@.",
-            __PRETTY_FUNCTION__ , allRanges];
+            __iTM2_PRETTY_FUNCTION__ , allRanges];
     else
     {
         int index = 0;
@@ -2110,7 +2110,7 @@ To Do List: ...
     {
         if(![ranges isKindOfClass:[NSArray class]])
             [NSException raise:NSInvalidArgumentException format:@"%@ NSArray argument expected:got %@.",
-                __PRETTY_FUNCTION__, ranges];
+                __iTM2_PRETTY_FUNCTION__, ranges];
         else if([ranges count])
         {
             NSRange bigRange = NSMakeRange(0, [[_MainTextView string] length]);
@@ -2118,13 +2118,13 @@ To Do List: ...
             NSValue * V = [E nextObject];
             if (![V isKindOfClass:[NSValue class]]) 
                 [NSException raise:NSInvalidArgumentException format:@"%@ NSValue object expected:got %@.",
-                    __PRETTY_FUNCTION__ , V];
+                    __iTM2_PRETTY_FUNCTION__ , V];
 
             NSRange lightRange = [V rangeValue];
             if((lightRange.location<0) || (NSMaxRange(lightRange)>bigRange.length))
                 [NSException raise:NSInternalInconsistencyException format:
                     @"%@ valid range value expected: got %@.",
-                        __PRETTY_FUNCTION__ , V];
+                        __iTM2_PRETTY_FUNCTION__ , V];
             if(lightRange.length)
             {
                 NSMutableArray * MRA = [NSMutableArray array];
@@ -2133,14 +2133,14 @@ To Do List: ...
                     if (![V isKindOfClass:[NSValue class]]) 
                         [NSException raise:NSInvalidArgumentException format:
                             @"%@ NSValue object expected here too: got %@.",
-                                __PRETTY_FUNCTION__ , V];
+                                __iTM2_PRETTY_FUNCTION__ , V];
                     else
                     {
                         NSRange r = [V rangeValue];
                         if((r.location<0) || (NSMaxRange(r)>lightRange.length))
                             [NSException raise:NSInternalInconsistencyException format:
                                 @"%@ valid range value expected: got %@.",
-                                    __PRETTY_FUNCTION__ , V];
+                                    __iTM2_PRETTY_FUNCTION__ , V];
                         else
                         {
                             r.location += lightRange.location;// don't forget the offset!!!
@@ -2182,7 +2182,7 @@ To Do List: ...
     }
     else
         [NSException raise:NSInvalidArgumentException format:@"%@ Missing argument.",
-            __PRETTY_FUNCTION__];
+            __iTM2_PRETTY_FUNCTION__];
     return;
 }
 @end
@@ -2691,7 +2691,7 @@ To Do List:
     }
     else if(RA)
         [NSException raise:NSInvalidArgumentException format:@"%@ NSArray expected:got %@",
-            __PRETTY_FUNCTION__, RA];
+            __iTM2_PRETTY_FUNCTION__, RA];
     return;
 }
 @end

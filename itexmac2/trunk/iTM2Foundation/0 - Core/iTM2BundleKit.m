@@ -262,7 +262,7 @@ To Do List:
 	if([DFM pathContentOfSymbolicLinkAtPath:path]
 		&& ![DFM removeFileAtPath:path handler:NULL])
 	{
-		localError = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+		localError = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 							[NSString stringWithFormat:@"Could not remove\n%@", path], NSLocalizedDescriptionKey,
 							path, @"iTM2BundleKit",

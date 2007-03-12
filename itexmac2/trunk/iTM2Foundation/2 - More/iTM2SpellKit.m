@@ -1036,7 +1036,7 @@ To Do List:
             return;
         }
     }
-    NSLog(@"%@ %#x PROBLEM: could not add %@", __PRETTY_FUNCTION__, self, newArgument);
+    iTM2_LOG(@"PROBLEM: could not add %@", newArgument);
     iTM2Beep();
 //NSLog(@"ignored words: %@", iVarIgnoredWords);
 //iTM2_END;

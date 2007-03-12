@@ -552,19 +552,19 @@ To Do List:
 
     NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 
-//NSLog(@"%@ %#x IS DONE 1", __PRETTY_FUNCTION__, self);
+//NSLog(@"%@ %#x IS DONE 1", __iTM2_PRETTY_FUNCTION__, self);
     if(before)
         [MD setObject: before forKey: @"before"];
-//NSLog(@"%@ %#x IS DONE 2", __PRETTY_FUNCTION__, self);
+//NSLog(@"%@ %#x IS DONE 2", __iTM2_PRETTY_FUNCTION__, self);
     if(selected)
         [MD setObject: selected forKey: @"selected"];
-//NSLog(@"%@ %#x IS DONE 3", __PRETTY_FUNCTION__, self);
+//NSLog(@"%@ %#x IS DONE 3", __iTM2_PRETTY_FUNCTION__, self);
     if(after)
         [MD setObject: after forKey: @"after"];
-//NSLog(@"%@ %#x IS DONE 4", __PRETTY_FUNCTION__, self);
+//NSLog(@"%@ %#x IS DONE 4", __iTM2_PRETTY_FUNCTION__, self);
     if([MD count])
         [[self insertionTarget] insertMacro: MD inRangeValue: [self insertionRangeValue]];
-//NSLog(@"%@ %#x IS DONE", __PRETTY_FUNCTION__, self);
+//NSLog(@"%@ %#x IS DONE", __iTM2_PRETTY_FUNCTION__, self);
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertionSelected

@@ -101,7 +101,7 @@ To Do List:
 "*/
 {
 // THIS IS NOT EVENT BETA
-NSLog(@"%s target: %@, invocation: %@", __PRETTY_FUNCTION__, name, invocation);
+iTM2_LOG(@"target: %@, invocation: %@", name, invocation);
 	// this uses NSInvocation
     // Define a Perl context
 	Class target = NSClassFromString(name);
@@ -141,7 +141,7 @@ To Do List:
 	if([MS numberOfArguments] == 2)
 		result = [C performSelector:aSelector];
 	NS_HANDLER
-	NSLog(@"%s Exception catched: %@", __PRETTY_FUNCTION__, [localException reason]);
+	iTM2_LOG(@"Exception catched: %@", [localException reason]);
 	NS_ENDHANDLER
 //iTM2_END;
 	return result;
@@ -174,7 +174,7 @@ To Do List:
 		}
 	}
 	NS_HANDLER
-	NSLog(@"%s Exception catched: %@", __PRETTY_FUNCTION__, [localException reason]);
+	iTM2_LOG(@"Exception catched: %@", [localException reason]);
 	NS_ENDHANDLER
 //iTM2_END;
 	return result;
@@ -223,7 +223,7 @@ To Do List:
 		}
 	}
 	NS_HANDLER
-	NSLog(@"%s Exception catched: %@", __PRETTY_FUNCTION__, [localException reason]);
+	iTM2_LOG(@"Exception catched: %@", [localException reason]);
 	NS_ENDHANDLER
 //iTM2_END;
 	return result;
@@ -320,7 +320,7 @@ To Do List:
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[self poseAsClass:[NSObject class]];
-	NSLog(@"%s, poseAsClass %#x", __PRETTY_FUNCTION__, self);
+	iTM2_LOG(@"poseAsClass");
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 }

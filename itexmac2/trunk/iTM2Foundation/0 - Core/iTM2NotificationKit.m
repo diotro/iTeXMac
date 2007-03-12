@@ -162,7 +162,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTimer class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSTimer argument expected:%@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         [_Timer invalidate];
@@ -193,7 +193,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(_CurrentStatus != argument)
     {
         [_CurrentStatus autorelease];
@@ -223,7 +223,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(_CurrentToolTip != argument)
     {
         [_CurrentToolTip autorelease];

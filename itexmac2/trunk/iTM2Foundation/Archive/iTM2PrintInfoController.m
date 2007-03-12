@@ -49,7 +49,7 @@ To Do List:
 {
     if(argument && ![argument isKindOfClass: [NSView class]])
         [NSException raise: NSInvalidArgumentException format: @"%@ NSView argument expected: %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     [_PLAV autorelease];
     _PLAV = [argument retain];
     return;

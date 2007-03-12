@@ -19,15 +19,21 @@
         }, 
         {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
         {
+            CLASS = iTM2KeyBindingOutlineView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSOutlineView; 
+        }, 
+        {CLASS = iTM2KeyCodesController; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
             CLASS = iTM2MacroArrayController; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSArrayController; 
         }, 
         {
-            ACTIONS = {apply = id; cancel = id; }; 
+            ACTIONS = {apply = id; browse = id; cancel = id; edit = id; }; 
             CLASS = iTM2MacroController; 
             LANGUAGE = ObjC; 
-            OUTLETS = {keysArrayController = id; macrosArrayController = iTM2MacroArrayController; }; 
+            OUTLETS = {keysTreeController = id; macrosArrayController = iTM2MacroArrayController; }; 
             SUPERCLASS = NSObject; 
         }, 
         {CLASS = iTM2MacroPrefPane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }

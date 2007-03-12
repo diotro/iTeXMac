@@ -99,7 +99,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTextView class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSTextView class expected, got:%@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         NSTextView * old = metaGETTER;
@@ -202,7 +202,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTextView class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSTextView class expected, got:%@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         NSTextView * old = metaGETTER;
@@ -272,7 +272,7 @@ To Do List:
     if(argument && ![argument isKindOfClass:[iTM2TaskController class]])
         [NSException raise:NSInvalidArgumentException format:
             @"%@ iTM2TaskController argument expected: got %@.",
-                __PRETTY_FUNCTION__, argument];
+                __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         iTM2TaskController * oldTC = [metaGETTER nonretainedObjectValue];
@@ -586,7 +586,7 @@ To Do List:
     {
         if(![argument conformsToProtocol:@protocol(iTM2TaskInspector)])
             [NSException raise:NSInvalidArgumentException format:@"%@ protocol iTM2TaskInspector argument expected:got %@.",
-                __PRETTY_FUNCTION__, argument];
+                __iTM2_PRETTY_FUNCTION__, argument];
         else
         {
             NSValue * V = [NSValue valueWithNonretainedObject:argument];
@@ -666,7 +666,7 @@ To Do List:
 //iTM2_START;
     if(![argument isKindOfClass:[iTM2TaskWrapper class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ iTM2TaskWrapper argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         [[[self implementation] metaValueForKey:@"_Wrappers"] addObject:argument];
@@ -699,7 +699,7 @@ To Do List:
 //iTM2_START;
     if(![argument isKindOfClass:[iTM2TaskWrapper class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ iTM2TaskWrapper argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if([argument isEqual:_CurrentWrapper])
     {
         [_CurrentWrapper release];
@@ -1793,7 +1793,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(![argument pathIsEqual:iVarLaunchPath])
         [IMPLEMENTATION takeMetaValue:[[argument copy] autorelease] forKey:iTM2TaskLaunchPathKey];
     return;
@@ -1820,7 +1820,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSArray class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSArray argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(![argument isEqual:iVarArguments])
         [IMPLEMENTATION takeMetaValue:[[argument copy] autorelease] forKey:iTM2TaskArgumentsKey];
     return;
@@ -1836,7 +1836,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if([argument length])
     {
         [[self arguments] addObject:argument];
@@ -1854,7 +1854,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSArray class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSArray argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         NSEnumerator * E = [argument objectEnumerator];
@@ -1891,7 +1891,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSDictionary class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSDictionary argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(![argument isEqual:iVarTaskEnvironment])
         [IMPLEMENTATION takeMetaValue:[[argument mutableCopy] autorelease] forKey:iTM2TaskEnvironmentKey];
     return;
@@ -1907,7 +1907,7 @@ To Do List:
 //iTM2_START;
     if(![argument isKindOfClass:[NSDictionary class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSDictionary argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(![argument isEqual:[self environment]])
     {
         [[self environment] setDictionary:argument];
@@ -1925,7 +1925,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSDictionary class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSDictionary argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         [[self environment] addEntriesFromDictionary:argument];
@@ -1944,10 +1944,10 @@ To Do List:
 	NSAssert(key != nil, @"Unexpected nil key");
     if(![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(![key isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString key expected:got %@.",
-            __PRETTY_FUNCTION__, key];
+            __iTM2_PRETTY_FUNCTION__, key];
     else
     {
         [[self environment] setObject:argument forKey:key];
@@ -1965,7 +1965,7 @@ To Do List:
 //iTM2_START;
     if(path && ![path isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, path];
+            __iTM2_PRETTY_FUNCTION__, path];
     else if([path length])
     {
         NSString * oldPATH = [[self environment] objectForKey:iTM2TaskPATHKey];
@@ -1995,7 +1995,7 @@ To Do List:
 //iTM2_START;
     if(path && ![path isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, path];
+            __iTM2_PRETTY_FUNCTION__, path];
     else if([path length])
     {
 		path = [path stringByStandardizingPath];
@@ -2044,7 +2044,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(![argument pathIsEqual:iVarCurrentDirectoryPath])
         [IMPLEMENTATION takeMetaValue:[[argument copy] autorelease] forKey:iTM2TaskCurrentDirectoryPathKey];
     return;
@@ -2115,7 +2115,6 @@ To Do List:
     [I setArgument:&ghost atIndex:2];// release
     [I setArgument:&ghost atIndex:3];// release
     return;
-//NSLog(@"%@ %#x end", __PRETTY_FUNCTION__, self);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskDidTerminate:
 - (void)taskDidTerminate:(iTM2TaskController *)sender;

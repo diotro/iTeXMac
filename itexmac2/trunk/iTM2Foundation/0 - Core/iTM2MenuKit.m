@@ -196,7 +196,7 @@ To Do List: Better management of the nil arg
     id result = nil;
     if(!anObject)
         [NSException raise:NSInvalidArgumentException format:@"%@ no nil argument.",
-            __PRETTY_FUNCTION__];
+            __iTM2_PRETTY_FUNCTION__];
     if((anObject) && (depth>0))
     {
 		--depth;

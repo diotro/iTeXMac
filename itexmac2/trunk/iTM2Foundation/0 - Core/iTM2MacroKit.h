@@ -100,7 +100,8 @@ extern NSString * const iTM2MacroControllerComponent;
 #define SMC [iTM2MacroController sharedMacroController]
 
 extern NSString * const iTM2MacrosDirectoryName;
-extern NSString * const iTM2MacrosPathExtension;
+extern NSString * const iTM2MacroPathExtension;
+extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 
 
 /*!
@@ -162,6 +163,7 @@ extern NSString * const iTM2MacrosPathExtension;
 - (id)menuTree;
 - (void)setMenuTree:(id)aTree;
 - (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain substitutions:(NSDictionary *)substitutions target:(id)target;
+- (id)treeForPathExtension:(NSString *)requiredPathExtension contextNodeClass:(Class)aClass;
 
 @end
 
@@ -347,7 +349,7 @@ extern NSString * const iTM2MacrosPathExtension;
 
 @interface NSResponder(iTM2MacroKit)
 /*!
-    @method		executeInstruction:
+    @method		executeMacro:
     @abstract	Execute the given macro.
     @discussion	This is one of the central methods to enhance Mac OS X key binding mechanism.
                 Here we can not only send messages as Mac OS X can do, but we can also use methods with parameters.
@@ -544,3 +546,106 @@ extern NSString * const iTM2MacrosPathExtension;
 - (NSString *)macroContext;
 - (void)setMacroContext:(NSString *)argument;
 @end
+
+/*
+    @class		the key codes controller
+    @abstract	Translate key codes into names and localized names.
+    @discussion	Discussion forthcoming.
+*/
+@interface iTM2KeyCodesController: iTM2Object
+
+/*
+    @method     sharedController
+    @abstract	The shared key codes controller.
+    @discussion	Discussion forthcoming.
+    @param	    None
+    @result     A controller
+*/
++ (id)sharedController;
+
+@end
+
+@interface iTM2KeyCodesController(methods)
+
+/*!
+    @method     orderedCodeNames
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      name (description)
+    @result     (description)
+*/
+- (NSArray *)orderedCodeNames;
+
+/*!
+    @method     keyCodeForName:
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      name (description)
+    @result     (description)
+*/
+- (unichar)keyCodeForName:(NSString *)name;
+
+/*!
+    @method     nameForKeyCode:
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      code (description)
+    @result     (description)
+*/
+- (NSString *)nameForKeyCode:(unichar)code;
+
+/*!
+    @method     localizedNameForCodeName:
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      codeName (description)
+    @result     (description)
+*/
+- (NSString *)localizedNameForCodeName:(NSString *)codeName;
+
+/*!
+    @method     codeNameForLocalizedName:
+    @abstract   (brief description)
+    @discussion (comprehensive description)
+    @param      codeName (description)
+    @result     (description)
+*/
+- (NSString *)codeNameForLocalizedName:(NSString *)localizedName;
+
+@end
+
+#define KCC [iTM2KeyCodesController sharedController]
+
+#import <iTM2Foundation/iTM2TreeKit.h>
+
+@interface iTM2MacroLeafNode: iTM2TreeNode
+- (NSString *)name;
+- (SEL)action;
+- (NSString *)argument;
+- (NSString *)ID;
+- (void)setID:(NSString *)newID;
+- (BOOL)isMutable;
+- (BOOL)isVisible;
+- (BOOL)shouldShowArgument;
+- (NSXMLElement *)XMLElement;
+- (NSMutableArray *)XMLElements;
+- (NSMutableArray *)mutableXMLElements;
+- (void)addXMLElement:(NSXMLElement *)element;
+- (void)addMutableXMLElement:(NSXMLElement *)element;
+- (void)removeLastXMLElement;
+- (void)removeLastMutableXMLElement;
+- (NSString *)description;
+- (NSString *)tooltip;
+- (NSString *)mode;
+@end
+
+@interface iTM2KeyBindingContextNode:iTM2MacroLeafNode
+- (NSArray *)_X_availableKeyBindings;
+- (unsigned int)countOfAvailableKeyBindings;
+@end
+
+#import <iTM2Foundation/iTM2PreferencesKit.h>
+
+@interface iTM2MacroPrefPane: iTM2PreferencePane
+@end
+

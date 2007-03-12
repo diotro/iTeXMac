@@ -253,7 +253,6 @@ To Do List:
     result = NO;
     NS_ENDHANDLER
 //NSLog(@"%@", [SDC documents]);
-//NSLog(@"%@ %#x (PDF END)", __PRETTY_FUNCTION__, self);
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
@@ -1053,8 +1052,8 @@ To Do List:
 - (BOOL)getIntegerTrailer:(int *)intPtr;
 @end
 @implementation iTM2PDFInspector(iTM2KeyStrokeKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
-- (NSString *)keyBindingsManagerIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroCategory
+- (NSString *)macroCategory;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

@@ -716,7 +716,7 @@ To Do List:
     {
         if(![argument isKindOfClass:[NSView class]])
             [NSException raise:NSInvalidArgumentException format:@"%@ NSView argument expected:got %@.",
-                __PRETTY_FUNCTION__, argument];
+                __iTM2_PRETTY_FUNCTION__, argument];
         else if(_Subview != argument)
         {
             [self willChangeCenteredSubview];

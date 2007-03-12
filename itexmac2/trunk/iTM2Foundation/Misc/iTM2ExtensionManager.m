@@ -120,7 +120,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass: [NSMenu class]])
         [NSException raise: NSInvalidArgumentException format: @"%@ NSMenu argument expected: %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else if(argument != _Menu)
     {
         [_Menu autorelease];

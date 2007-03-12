@@ -224,7 +224,9 @@ To Do List:
             [self setFocusRange:R];
     }
     else
-        NSLog(@"%@ Don't know what to do with %@.", __PRETTY_FUNCTION__, argument);
+	{
+        iTM2_LOG(@"Don't know what to do with %@.", argument);
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectAll:

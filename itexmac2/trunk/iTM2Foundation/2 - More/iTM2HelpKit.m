@@ -284,7 +284,7 @@ To Do List:
     if([[self superclass] instancesRespondToSelector:_cmd])
         [super awakeFromNib];
     [self fixImage];
-//NSLog(@"%@ 0x%x DONE", __PRETTY_FUNCTION__, self);
+//iTM2_END;
     return;
 }
 #if 0

@@ -137,7 +137,7 @@ To Do List:
 	[iTM2Installer completeInstallation];
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"WillFinishLaunching" signature:sig0 inherited:YES];
+    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"WillFinishLaunching" signature:sig0 inherited:YES];
     [I setTarget:self];
     NSEnumerator * E = [selectors objectEnumerator];
     SEL action;
@@ -151,7 +151,7 @@ To Do List:
         }
     }
 	[super finishLaunching];
-    selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"DidFinishLaunching" signature:sig0 inherited:YES];
+    selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"DidFinishLaunching" signature:sig0 inherited:YES];
     E = [selectors objectEnumerator];
     while(action = (SEL)[[E nextObject] pointerValue])
     {

@@ -234,7 +234,9 @@ To Do List:
             [self convertPoint:NSMakePoint(NSMaxX(rect), NSMaxY(rect))
                 toView: nil]]];
     if(topLeftIndex>botRightIndex)
-        [NSException raise:NSGenericException format:@"%@ view not flipped", __PRETTY_FUNCTION__];
+	{
+        [NSException raise:NSGenericException format:@"%@ view not flipped", __iTM2_PRETTY_FUNCTION__];
+	}
     return NSMakeRange(topLeftIndex, botRightIndex-topLeftIndex);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  highlightRange:cleanBefore:

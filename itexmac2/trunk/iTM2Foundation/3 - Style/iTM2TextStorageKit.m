@@ -683,7 +683,7 @@ To Do List:
     if(argument && ![argument isKindOfClass:[iTM2TextSyntaxParser class]])
         [NSException raise:NSInvalidArgumentException
             format: @"%@ iTM2SyntaxParser argument expected: %@.",
-                __PRETTY_FUNCTION__, argument];
+                __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         [_SP autorelease];

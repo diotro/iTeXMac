@@ -55,9 +55,11 @@ To Do List:
             if(error == noErr)
                 return aliasFileFlag;
             else
-                NSLog(@"%@ FSIsAliasFile error: %d.", __PRETTY_FUNCTION__, error);
+			{
+                iTM2_LOG(@"FSIsAliasFile error: %d.", error);
+			}
         }
-        NSLog(@"%@ FSPathMakeRef error: %d.", __PRETTY_FUNCTION__, error);
+        iTM2_LOG(@"FSPathMakeRef error: %d.", error);
     }
     return NO;
 }
@@ -92,7 +94,7 @@ To Do List:
                 int error = 0;
                 if(error = FSResolveAliasFile (&fsRef, true , &targetIsFolder, &wasAliased))
                 {
-                    NSLog(@"%s FSResolveAliasFile error: %d.", __PRETTY_FUNCTION__, error);
+                    iTM2_LOG(@"FSResolveAliasFile error: %d.", error);
                     return self;
                 }
                 else
@@ -108,7 +110,7 @@ To Do List:
                         }
                         else
                         {
-                            NSLog(@"%s CFURLCreateFromFSRef error.", __PRETTY_FUNCTION__);
+                            iTM2_LOG(@"CFURLCreateFromFSRef error.");
                             return self;
                         }
                     }

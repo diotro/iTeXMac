@@ -1490,7 +1490,7 @@ To Do List:
     {
         [self setTextStorage:[self lazyTextStorage]];
         TS = metaGETTER;
-        NSAssert1(TS, @"%@ non void text storage expected.", __PRETTY_FUNCTION__);
+        NSAssert1(TS, @"%@ non void text storage expected.", __iTM2_PRETTY_FUNCTION__);
     }
     return TS;
 }
@@ -1837,17 +1837,6 @@ To Do List:
 	return;
 }
 #pragma mark =-=-=-=-=-  KEY BINDINGS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManagerIdentifier
-- (NSString *)keyBindingsManagerIdentifier;
-/*"Just to autorelease the window controller of the window.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return iTM2TextKeyBindingsIdentifier;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
 - (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.
@@ -2099,7 +2088,7 @@ To Do List:
     }
     else
         [NSException raise:NSInvalidArgumentException format:@"%@ bad argument class:%@.\nDon't know what to do.",\
-            __PRETTY_FUNCTION__, text];\
+            __iTM2_PRETTY_FUNCTION__, text];\
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  replaceCharactersInRange:withString:
@@ -2118,7 +2107,9 @@ To Do List:
             [TV didChangeText];
         }
         else
-            NSLog(@"%@ %@ won't let me change its text.", __PRETTY_FUNCTION__, TV);
+		{
+            iTM2_LOG(@"%@ won't let me change its text.", TV);
+		}
     }
     else
     {

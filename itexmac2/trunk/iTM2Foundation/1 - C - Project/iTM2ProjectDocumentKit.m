@@ -2440,14 +2440,14 @@ To Do List:
 	dirName = [dirName stringByDeletingLastPathComponent];
 	dirName = [dirName stringByResolvingSymlinksAndFinderAliasesInPath];// no more soft link
 	NSString * new = makeRelativeFlag? [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName] :fileName;
-	NSAssert2([new length],(@"AIE AIE INCONSITENT STATE %s (key:%@)"),__PRETTY_FUNCTION__,key);
+	NSAssert2([new length],(@"AIE AIE INCONSITENT STATE %@ (key:%@)"),__iTM2_PRETTY_FUNCTION__,key);
 //iTM2_LOG(@"old: %@",old);
 //iTM2_LOG(@"new: %@",new);
 	if(![old pathIsEqual:new])
 	{
 		[[self keyedFileNames] takeValue:new forKey:key];
 		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
-		NSAssert3([key isEqualToString:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %s,%@ != %@"),__PRETTY_FUNCTION__,key,[self keyForFileName:fileName]);
+		NSAssert3([key isEqualToString:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %@,%@ != %@"),__iTM2_PRETTY_FUNCTION__,key,[self keyForFileName:fileName]);
 		[self keysDidChange];
 	}
     return;
@@ -3023,7 +3023,7 @@ To Do List:
 //iTM2_LOG(@"fileName:%@",fileName);
 //iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
 //iTM2_LOG(@"[self keyForFileName:fileName]:%@",[self keyForFileName:fileName]);
-		NSAssert1([key isEqual:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %s"),__PRETTY_FUNCTION__);
+		NSAssert1([key isEqual:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %@"),__iTM2_PRETTY_FUNCTION__);
 		return key;
 	}
 	// it is not an already registered file name,as far as I could guess...
@@ -3133,7 +3133,7 @@ To Do List:
 							}
 							else if(iTM2DebugEnabled)
 							{
-								[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+								[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 									userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not write an alias to %@ at %@",fileName,path]
 										forKey:NSLocalizedDescriptionKey]]];
 							}
@@ -3163,7 +3163,7 @@ To Do List:
 			}
 			else if(iTM2DebugEnabled)
 			{
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:2
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:2
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not write alias information in\n%@",subdirectory]
 						forKey:NSLocalizedDescriptionKey]]];
 			}
@@ -3189,7 +3189,7 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+						[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create a symbolic link to %@ at %@",fileName,path]
 								forKey:NSLocalizedDescriptionKey]]];
 					}
@@ -3201,7 +3201,7 @@ To Do List:
 			}
 			else if(iTM2DebugEnabled)
 			{
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not write soft links information in\n%@",subdirectory]
 						forKey:NSLocalizedDescriptionKey]]];
 			}
@@ -3230,7 +3230,7 @@ To Do List:
 				{
 					if(iTM2DebugEnabled)
 					{
-						[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+						[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create a symbolic link to %@ at %@",relativeFileName,path]
 								forKey:NSLocalizedDescriptionKey]]];
 					}
@@ -3242,7 +3242,7 @@ To Do List:
 			}
 			else if(iTM2DebugEnabled)
 			{
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not write soft links information in\n%@",subdirectory]
 						forKey:NSLocalizedDescriptionKey]]];
 			}
@@ -3616,7 +3616,7 @@ absoluteFileNameIsChosen:
 				@"Which one do you want?",NSLocalizedDescriptionKey,
 				[NSString stringWithFormat:@"1:%@\nor\n2:%@\n1 will be chosen unless you remove it now from the Finder.",absoluteFileName,farawayFileName],NSLocalizedRecoverySuggestionErrorKey,
 					nil];
-			[self presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3 userInfo:dict]];
+			[self presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3 userInfo:dict]];
 			if(onceMore)
 			{
 				onceMore = NO;
@@ -4096,14 +4096,14 @@ To Do List:
 		{
 			goto Zatsoquet;
 		}
-		[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+		[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nwas unexpected and will be recycled",fileName] forKey:NSLocalizedDescriptionKey]]];
 		[SWS selectFile:fileName inFileViewerRootedAtPath:[fileName stringByDeletingLastPathComponent]];
 		// it is not a directory: recycle it.
 		int tag;
 		if([SWS performFileOperation:NSWorkspaceRecycleOperation source:[fileName stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[fileName lastPathComponent]] tag:&tag])
 		{
-			[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
+			[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 				userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nwas unexpected and was recycled",fileName] forKey:NSLocalizedDescriptionKey]]];
 		}
 		else
@@ -4111,19 +4111,19 @@ To Do List:
 			NSString * fileNamePutAside = [[fileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"put_aside_by_iTeXMac2"];
 			if([DFM fileExistsAtPath:fileNamePutAside] && ![DFM removeFileAtPath:fileNamePutAside handler:nil])
 			{
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nshould be recycled...",fileNamePutAside] forKey:NSLocalizedDescriptionKey]]];
 			}
 			if(![DFM copyPath:fileName toPath:fileNamePutAside handler:nil])
 			{
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nhas been put aside...",fileNamePutAside] forKey:NSLocalizedDescriptionKey]]];
 			}
 			if(![DFM removeFileAtPath:fileName handler:nil])
 			{
 				if(outErrorPtr)
 				{
-					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
+					*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove\n%@\nDon't be surprised if things don't work as expected...",fileNamePutAside] forKey:NSLocalizedDescriptionKey]];
 				}
 				else
@@ -4148,7 +4148,7 @@ Zatsoquet:
 			else
 			{
 				int tag = 0;
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove\n%@",fileName] forKey:NSLocalizedDescriptionKey]]];
 				return NO;
 			}
@@ -4353,7 +4353,7 @@ To Do List:
 //iTM2_START;
 	iTM2ProjectDocument * project = [self project];
 	id contextManager = [self contextManager];
-	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
+	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %@ %#x The document's project must not be the context manager!",__iTM2_PRETTY_FUNCTION__, self);
 	unsigned int didChange = [super setContextValue:object forKey:aKey domain:mask];
 	NSString * fileKey = @".";// weird...
 //iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
@@ -4935,7 +4935,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTableView class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSTableView class expected,got:%@.",
-            __PRETTY_FUNCTION__,argument];
+            __iTM2_PRETTY_FUNCTION__,argument];
     else
     {
         NSTableView * old = metaGETTER;
@@ -6766,12 +6766,12 @@ To Do List:
 	[CACHED_PROJECTS setObject:projectValue forKey:documentValue];
 	[document setHasProject:(projectDocument != nil)];
 	NSAssert1((projectDocument == [self projectForDocument:document]),
-		@"..........  INCONSISTENCY:unexpected behaviour,report bug 1313 in %s",__PRETTY_FUNCTION__);
+		@"..........  INCONSISTENCY:unexpected behaviour,report bug 1313 in %@",__iTM2_PRETTY_FUNCTION__);
 
 	NSString * fileName = [document fileName];
 	[self setProject:projectDocument forFileName:fileName];
 	NSAssert3((!projectDocument || [[projectDocument keyForFileName:fileName] length]),
-		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %s,\nproject:\n%@\nfileName:\n%@",__PRETTY_FUNCTION__,projectDocument,fileName);
+		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %@,\nproject:\n%@\nfileName:\n%@",__iTM2_PRETTY_FUNCTION__,projectDocument,fileName);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:forFileName:
@@ -6794,8 +6794,8 @@ To Do List:
 	fileName = [fileName stringByStandardizingPath];
 	fileName = [fileName lowercaseString];
 	[CACHED_PROJECTS setObject:projectValue forKey:fileName];
-	NSAssert3((projectDocument == [self projectForFileName:fileName]),
-		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %s",__PRETTY_FUNCTION__,projectDocument,fileName);
+	NSAssert1((projectDocument == [self projectForFileName:fileName]),
+		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %s",__iTM2_PRETTY_FUNCTION__);
 	fileName = [fileName stringByDeletingPathExtension];
 	[CACHED_PROJECTS setObject:projectValue forKey:fileName];
 	return;
@@ -7343,7 +7343,7 @@ clean:
 			if(![DFM removeFileAtPath:wrapperName handler:NULL])
 			{
 				if(outErrorPtr)
-					* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+					* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove the wrapper directory at\n%@\nPlease,do it for me.",wrapperName]
 						forKey:NSLocalizedDescriptionKey]];
 			}
@@ -7368,7 +7368,7 @@ clean:
 //iTM2_LOG(@"WE have found our project",[SDC documents]);
 		// we found only one project that declares the fileName: it is the good one
 		if(outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects for:\n%@",fileName]
 				forKey:NSLocalizedDescriptionKey]];
 		projectDocument = [secondaryOpenCandidates objectAtIndex:0];
@@ -7577,14 +7577,14 @@ To Do List:
 				}
 				if(outErrorPtr)
 				{
-					*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+					*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects in the wrapper directory at\n%@\nChoosing the last one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
 				}
 				return nil;
 			}
 			else
 			{
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName] forKey:NSLocalizedDescriptionKey]]];
 				// the following method will create a constrained project
 				component = [wrapperName lastPathComponent];
@@ -7597,7 +7597,7 @@ To Do List:
 					if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:wrapperName
 							destination:@"" files:[NSArray arrayWithObject:component] tag:&tag])
 					{
-						[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:tag
+						[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Impossible to recycle file at\n%@\nProblems forthcoming...",projectName]
 								forKey:NSLocalizedDescriptionKey]]];
 					}
@@ -7628,7 +7628,7 @@ To Do List:
 				{
 					if(outErrorPtr)
 					{
-						*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+						*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
 					}
 					return nil;
@@ -7639,7 +7639,7 @@ To Do List:
 		{
 			if(outErrorPtr)
 			{
-				*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+				*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"ERROR:There might be a link at %@:it is no yet supported by iTeXMac2",fileName]
 						forKey:NSLocalizedDescriptionKey]];
 			}
@@ -7830,7 +7830,7 @@ To Do List:
 	}
 	else if([candidates count])
 	{
-		[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+		[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"THERE ARE MANY DIFFERENT PROJECTS FOR THAT FILE NAME %@,unexpected situation",fileName] forKey:NSLocalizedDescriptionKey]]];
 		fileName = [candidates objectAtIndex:0];
 		projectURL = [NSURL fileURLWithPath:fileName];
@@ -7865,19 +7865,19 @@ To Do List:
 		{
 			if(!isDirectory)
 			{
-				[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Unexpected file at\n%@\nwill be removed.",farawayWrapperName]
 							forKey:NSLocalizedDescriptionKey]]];
 				if(![DFM removeFileAtPath:farawayWrapperName handler:NULL])
 				{
-					[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+					[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove\n%@\nPlease,do it for me now and click OK.",farawayWrapperName]
 								forKey:NSLocalizedDescriptionKey]]];
 					if([DFM fileOrLinkExistsAtPath:farawayWrapperName])
 					{
 						if(outErrorPtr)
 						{
-							*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+							*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 								userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"You did not remove file at\n%@\nNo project created...",farawayWrapperName]
 										forKey:NSLocalizedDescriptionKey]];
 						}
@@ -7886,14 +7886,14 @@ To Do List:
 createWrapper:
 					if(![DFM createDeepDirectoryAtPath:farawayWrapperName attributes:nil error:outErrorPtr])
 					{
-						[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+						[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 								userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create folder at\n%@\nPlease do it for me now and click OK",farawayWrapperName]
 									forKey:NSLocalizedDescriptionKey]]];
 						if(![DFM fileExistsAtPath:farawayWrapperName isDirectory:&isDirectory] || !isDirectory)
 						{
 							if(outErrorPtr)
 							{
-								*outErrorPtr = [NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:3
+								*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 									userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"You did not create folder at\n%@\nNo project created",farawayWrapperName]
 										forKey:NSLocalizedDescriptionKey]];
 							}
@@ -7952,7 +7952,7 @@ createWrapper:
 		}
 // can I save to that folder?
 		[projectDocument saveDocument:nil];
-		NSAssert2([[projectDocument keyForFileName:fileName] length],@"%s The key must be non void for filename: %@",__PRETTY_FUNCTION__,fileName);
+		NSAssert2([[projectDocument keyForFileName:fileName] length],@"%@ The key must be non void for filename: %@",__iTM2_PRETTY_FUNCTION__,fileName);
 		if(display)
 		{
 			[projectDocument addGhostWindowController];// not makeWindowControllers
@@ -8894,7 +8894,7 @@ To Do List:
 	}
 	iTM2ProjectDocument * project = [self project];
 	id contextManager = [self contextManager];
-	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
+	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %@ %#x The document's project must not be the context manager!",__iTM2_PRETTY_FUNCTION__, self);
 	NSString * fileName = [self fileName];
 	if((id)project != self)// reentrant code management
 	{
@@ -8920,7 +8920,7 @@ To Do List:
 //iTM2_START;
 	iTM2ProjectDocument * project = [self project];
 	id contextManager = [self contextManager];
-	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %s %#x The document's project must not be the context manager!",__PRETTY_FUNCTION__, self);
+	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %@ %#x The document's project must not be the context manager!",__iTM2_PRETTY_FUNCTION__, self);
 	NSString * fileName = [self fileName];// not the file name!
 	if([fileName length])
 	{
@@ -9412,7 +9412,7 @@ To Do List:
 		}
 		else
 		{
-			[SDC presentError:[NSError errorWithDomain:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] code:1
+			[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 				userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project inside\n%@\ndocument will open with a simple project...",fileName]
 					forKey:NSLocalizedDescriptionKey]]];
 			NSAssert(NO,@"Not yet implemented");
