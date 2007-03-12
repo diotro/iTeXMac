@@ -197,8 +197,6 @@
 		DCD403F2099498B0006B91DF /* iTM2MacroKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD403EF099498B0006B91DF /* iTM2MacroKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCD403F3099498B0006B91DF /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
 		DCD7929E0AA446620042AA60 /* iTM2PrefsController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCD792980AA446620042AA60 /* iTM2PrefsController.nib */; };
-		DCD7B6630AA8DC230042AA60 /* iTM2MacroPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD7B6580AA8DC220042AA60 /* iTM2MacroPrefPane.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCD7B6640AA8DC230042AA60 /* iTM2MacroPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD7B6590AA8DC220042AA60 /* iTM2MacroPrefPane.m */; };
 		DCD7B6790AA8DD260042AA60 /* iTM2MacroPrefPane.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B6780AA8DD260042AA60 /* iTM2MacroPrefPane.png */; };
 		DCD7B6870AA8DDA50042AA60 /* iTM2MacroPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B67F0AA8DDA50042AA60 /* iTM2MacroPrefPane.nib */; };
 		DCD7B6880AA8DDA50042AA60 /* iTM2MacroPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B6810AA8DDA50042AA60 /* iTM2MacroPrefPane.strings */; };
@@ -873,8 +871,6 @@
 		DCD403EF099498B0006B91DF /* iTM2MacroKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit.h; sourceTree = "<group>"; };
 		DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit.m; sourceTree = "<group>"; };
 		DCD792990AA446620042AA60 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
-		DCD7B6580AA8DC220042AA60 /* iTM2MacroPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroPrefPane.h; sourceTree = "<group>"; };
-		DCD7B6590AA8DC220042AA60 /* iTM2MacroPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroPrefPane.m; sourceTree = "<group>"; };
 		DCD7B6780AA8DD260042AA60 /* iTM2MacroPrefPane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2MacroPrefPane.png; sourceTree = "<group>"; };
 		DCD7B6800AA8DDA50042AA60 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MacroPrefPane.nib; sourceTree = "<group>"; };
 		DCD7B6820AA8DDA50042AA60 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroPrefPane.strings; sourceTree = "<group>"; };
@@ -1261,8 +1257,6 @@
 			children = (
 				DC2B47360AD2D2930039FCBA /* iTM2DocumentPrefPane.h */,
 				DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */,
-				DCD7B6580AA8DC220042AA60 /* iTM2MacroPrefPane.h */,
-				DCD7B6590AA8DC220042AA60 /* iTM2MacroPrefPane.m */,
 				DC66983808E0B554004FCA6D /* iTM2PreferencesKit.h */,
 				DC66983908E0B554004FCA6D /* iTM2PreferencesKit.m */,
 				DC98663809EA733B00FF4BD3 /* Preferences Resources */,
@@ -1749,7 +1743,6 @@
 				DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */,
 				DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */,
 				DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */,
-				DCD7B6630AA8DC230042AA60 /* iTM2MacroPrefPane.h in Headers */,
 				DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */,
 				DC7A7A490B89C37900BD830B /* iTM2InheritanceKit.h in Headers */,
 			);
@@ -2495,7 +2488,6 @@
 				DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */,
 				DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */,
 				DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */,
-				DCD7B6640AA8DC230042AA60 /* iTM2MacroPrefPane.m in Sources */,
 				DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */,
 				DC7A7A510B89C3C100BD830B /* iTM2InheritanceKit.m in Sources */,
 			);

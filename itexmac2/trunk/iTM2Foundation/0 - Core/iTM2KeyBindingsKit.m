@@ -534,7 +534,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentKeyBindings
-- (NSDictionary *)currentKeyBindings;
+- (id)currentKeyBindings;
 /*"Description forthcoming. Lazy initializer: the root key binding is returned when nothing else is available
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:

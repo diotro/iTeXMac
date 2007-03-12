@@ -3068,6 +3068,16 @@ To Do List:
 		[nextResponder setMacroCategory:argument];
 	}
 	[super setMacroCategory:argument];
+	// reentrant management
+	id new = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	if([old isEqual:new])
+	{
+		return;
+	}
+	if(old == new)
+	{
+		return;
+	}
 	[self resetKeyBindingsManager];
     return;
 }
@@ -4777,8 +4787,6 @@ To Do List:
 - (void)didChangeMacroKeyStroke;
 - (BOOL)isFinal;
 @end
-
-#import <iTM2Foundation/iTM2MacroPrefPane.h>
 
 @implementation iTM2KeyBindingLeafNode
 + (void)initialize;
