@@ -42,24 +42,6 @@
 @end
 
 @implementation iTM2ConTeXtPrefsPane
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void)initialize;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 11/27/2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super initialize];
-	[SUD registerDefaults:
-		[NSDictionary dictionaryWithObject:
-			[NSDictionary dictionaryWithObjectsAndKeys:
-					nil]
-			forKey: @"iTM20EnvironmentVariables"]];
-	//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
 - (NSString *)prefPaneIdentifier;
 /*"Description Forthcoming.

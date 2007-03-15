@@ -50,6 +50,7 @@
 	id _Value;
 	id _NonretainedValue;
 	id _Children;
+	unsigned int _Flags;
 }
 
 /*!

@@ -172,8 +172,6 @@ To Do List:
 	}
 	if(iTM2DebugEnabled)
 	{
-		didChange = [self setContextValue:object forKey:aKey domain:mask];
-		afterObject = [self contextValueForKey:aKey domain:mask];
 		iTM2_LOG(@"object:%@ <> afterObject %@", object,afterObject);
 	}
     return didChange;

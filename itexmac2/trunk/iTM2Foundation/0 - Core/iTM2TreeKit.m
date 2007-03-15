@@ -287,13 +287,12 @@ To Do List:
 {
 //iTM2_START;
 	// reentrant management
-	if([self valueForKeyPath:@"value._prepareChildren"])
+	if(_Flags&1>0)
 	{
 		return;
 	}
-	[self setValue:@"_prepareChildren" forKeyPath:@"value._prepareChildren"];
+	_Flags|=1;
 	[self prepareChildren];
-	[self setValue:nil forKeyPath:@"value._prepareChildren"];
 //iTM2_END;
     return;
 }

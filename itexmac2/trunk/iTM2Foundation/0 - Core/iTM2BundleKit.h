@@ -25,6 +25,7 @@
 extern NSString * const iTeXMac2;
 extern NSString * const iTM2ApplicationSupport;
 extern NSString * const iTM2SupportPluginsComponent;
+extern NSString * const iTM2SupportBinaryComponent;
 extern NSString * const iTM2SupportGeneralComponent;//used
 extern NSString * const iTM2SupportTextComponent;
 
@@ -150,6 +151,15 @@ extern NSString * const iTM2BundleContentsComponent;
     @result		a full path or @"" if the requested path does not exist or could not be created while create is YES.
 */
 - (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
+
+/*!
+    @method 	allPathsForSupportExecutables
+    @abstract	All paths for the support executables
+    @discussion	iTM2.
+	@param		None
+	@result		an array
+*/
+- (NSArray *)allPathsForSupportExecutables;
 
 /*!
     @method 	plugInPathExtension

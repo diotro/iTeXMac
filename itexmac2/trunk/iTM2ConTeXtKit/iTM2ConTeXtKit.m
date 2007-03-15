@@ -139,11 +139,12 @@ To Do List:
 		NSString * string = [D objectForKey:@"ConTeXtGardenURL"];
 		if(string)
 		{
-			return [[[NSURL alloc] initWithString:[string stringByAppendingPathComponent:ref]] autorelease];
+			string = [string stringByAppendingPathComponent:ref];
+			return [[[NSURL alloc] initWithString:string] autorelease];
 		}
 	}
 //iTM2_END;
-	NSAssert(NO, @"ConTeXtURLs.plist is buggy!!!");
+//	NSAssert(NO, @"ConTeXtURLs.plist is buggy!!!");
 	return nil;
 }
 @end

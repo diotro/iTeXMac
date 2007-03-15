@@ -248,7 +248,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>iTM2</string>
+				<string>itm2</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>iTM2</string>

@@ -152,7 +152,6 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 - (Class)leafClass;
 - (NSString *)pathExtension;
 - (void)readXMLElement:(NSXMLElement *)element mutable:(BOOL)mutable;
-- (NSArray *)availableKeys;
 @end
 
 @interface iTM2MacroDocumentManager:iTM2Object
@@ -402,9 +401,6 @@ iTM2_LOG(@"document:%@",document);
 		[self setValue:D forKeyPath:@"value.cachedChildrenID"];
 	}
 	id result = [D objectForKey:ID];
-	if(!result)
-	{
-iTM2_LOG(@"D:%@",D);}
 	return result;
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
@@ -660,6 +656,18 @@ To Do List:
 {
 	return iTM2MacroPathExtension;
 }
+@end
+
+@interface iTM2MacroController(PRIVATE)
+- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
+- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
+- (void)setSelectedMode:(NSString *)mode;
+- (void)readMacrosAtPath:(NSString *)repository inRootNode:(iTM2MacroRootNode *)rootNode mutable:(BOOL)flag;
+- (void)macroLeafNode:(iTM2MacroLeafNode *)node didChangeIDFrom:(NSString *)oldID to:(NSString *)newID;
+- (id)keyBindingTree;
+- (void)synchronizeMacroSelectionWithKeyBindingSelection;
+- (void)synchronizeKeyBindingSelectionWithMacroSelection;
+- (id)keysTreeController;
 @end
 
 @implementation iTM2MacroLeafNode: iTM2TreeNode
@@ -1048,18 +1056,6 @@ To Do List:
 @end
 
 @implementation iTM2MacroMenuNode
-@end
-
-@interface iTM2MacroController(PRIVATE)
-- (NSMenu *)macroMenuWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
-- (NSMenuItem *)macroMenuItemWithXMLElement:(id)element forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
-- (void)setSelectedMode:(NSString *)mode;
-- (void)readMacrosAtPath:(NSString *)repository inRootNode:(iTM2MacroRootNode *)rootNode mutable:(BOOL)flag;
-- (void)macroLeafNode:(iTM2MacroLeafNode *)node didChangeIDFrom:(NSString *)oldID to:(NSString *)newID;
-- (id)keyBindingTree;
-- (void)synchronizeMacroSelectionWithKeyBindingSelection;
-- (void)synchronizeKeyBindingSelectionWithMacroSelection;
-- (id)keysTreeController;
 @end
 
 @interface iTM2HumanReadableActionNameValueTransformer: NSValueTransformer
@@ -2004,7 +2000,7 @@ To Do List:
 				NSURL * url;
 				while(url = [EEEE nextObject])
 				{
-iTM2_LOG(@"url:%@",url);
+//iTM2_LOG(@"url:%@",url);
 					if([url isFileURL])
 					{
 						NSString * path = [url path];
@@ -2015,9 +2011,14 @@ iTM2_LOG(@"url:%@",url);
 							{
 								NSData * D = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
 								NSError * localError = nil;
-								if(![D writeToURL:url options:NSAtomicWrite error:&localError])
+								NSString * dirname = [path stringByDeletingLastPathComponent];
+								if(![DFM createDeepDirectoryAtPath:dirname attributes:nil error:&localError])
 								{
-									iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not write to %@",url]),localError);
+									iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could create directory at %@",dirname]),localError);
+								}
+								else if(![D writeToURL:url options:NSAtomicWrite error:&localError])
+								{
+									iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Could not write to %@",url]),localError);
 								}
 							}
 						}
@@ -5256,7 +5257,7 @@ To Do List:
 		[myElement addChild:element];
 	}
 	[object addMutableXMLElement:element];
-iTM2_LOG(@"XMLDOC:%@",[[element rootDocument] XMLStringWithOptions:NSXMLNodePrettyPrint]);
+//iTM2_LOG(@"XMLDOC:%@",[[element rootDocument] XMLStringWithOptions:NSXMLNodePrettyPrint]);
 	[self setValue:nil forKeyPath:@"value.availableKeyBindings"];
 	[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
 	keys = [self availableKeys];// updated

@@ -148,17 +148,23 @@ To Do List:
 	static BOOL firstTime = YES;
     if([SUD boolForKey:@"iTM2DontSwizzleScriptSuiteRegistry"])
     {
-        iTM2_LOG(@"AppleScripting extension has been disabled, if this was not wanted: issue:");
-        NSLog(@"terminal%% defaults remove comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry");
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"AppleScripting extension has been disabled, if this was not wanted: issue:");
+			NSLog(@"terminal%% defaults remove comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry");
+		}
     }
     else if(firstTime)
 	{
 		firstTime = NO;
 		if([iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(loadSuiteWithDictionary:fromBundle:)
-            replacement: @selector(swizzle_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:) forClass: [self class]])
+            replacement: @selector(swizzle_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:) forClass: [NSScriptSuiteRegistry class]])
         {
-            iTM2_LOG(@"AppleScripting extension available. If this causes any kind of harm, please issue");
-            NSLog(@"terminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry '1'");
+			if(iTM2DebugEnabled)
+			{
+				iTM2_LOG(@"AppleScripting extension available. If this causes any kind of harm, please issue");
+				NSLog(@"terminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry '1'");
+			}
         }
         else
         {
@@ -254,7 +260,10 @@ To Do List:
 			{
 				[dictionarySuites removeObjectForKey:D];
 				[self swizzle_iTM2MiscKit_loadSuiteWithDictionary:D fromBundle:B];
-				iTM2_LOG(@"INFO: Now registering script suite named: %@", [D objectForKey:@"Name"]);
+				if(iTM2DebugEnabled)
+				{
+					iTM2_LOG(@"INFO: Now registering script suite named: %@", [D objectForKey:@"Name"]);
+				}
 			}
 		}
 	}

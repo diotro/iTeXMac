@@ -37,6 +37,7 @@ NSString * const iTM2SupportGeneralComponent = @"General.localized";
 NSString * const iTM2BPrivate = @"Private";
 NSString * const iTM2ApplicationSupport = @"Application Support";
 NSString * const iTM2SupportPluginsComponent = @"PlugIns.localized";
+NSString * const iTM2SupportBinaryComponent = @"bin";
 
 NSString * const iTM2SupportTextComponent = @"Text Editor.localized";
 
@@ -290,6 +291,88 @@ To Do List:
 //iTM2_START;
     return [isa pathForSupportDirectory:subpath inDomain:domainMask withName:[self bundleName] create:create];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  allPathsForSupportExecutables
+- (NSArray *)allPathsForSupportExecutables;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	static NSMutableDictionary * cache = nil;
+	if(!cache)
+	{
+		cache = [[NSMutableDictionary dictionary] retain];
+	}
+	NSValue * key = [NSValue valueWithNonretainedObject:self];
+	NSMutableArray * result = [cache objectForKey:key];
+	if(result)
+	{
+		return result;
+	}
+	result = [NSMutableArray array];
+	[cache setObject:result forKey:key];
+	NSArray * subpaths;
+	NSEnumerator * E;
+	NSString * component;
+	NSString * path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSNetworkDomainMask create:NO];
+	if([DFM pushDirectory:path])
+	{
+		subpaths = [DFM subpathsAtPath:path];
+		E = [subpaths objectEnumerator];
+		while(component = [E nextObject])
+		{
+			if([DFM isExecutableFileAtPath:path])
+			{
+				component = [path stringByAppendingPathComponent:component];
+				[result addObject:component];
+			}
+		}
+		if(![DFM popDirectory])
+		{
+			return;
+		}
+	}
+	path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSLocalDomainMask create:NO];
+	if([DFM pushDirectory:path])
+	{
+		subpaths = [DFM subpathsAtPath:path];
+		E = [subpaths objectEnumerator];
+		while(component = [E nextObject])
+		{
+			if([DFM isExecutableFileAtPath:path])
+			{
+				component = [path stringByAppendingPathComponent:component];
+				[result addObject:component];
+			}
+		}
+		if(![DFM popDirectory])
+		{
+			return;
+		}
+	}
+	path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSUserDomainMask create:YES];
+	if([DFM pushDirectory:path])
+	{
+		subpaths = [DFM subpathsAtPath:path];
+		E = [subpaths objectEnumerator];
+		while(component = [E nextObject])
+		{
+			if([DFM isExecutableFileAtPath:path])
+			{
+				component = [path stringByAppendingPathComponent:component];
+				[result addObject:component];
+			}
+		}
+		if(![DFM popDirectory])
+		{
+			return;
+		}
+	}
+//iTM2_END;
+    return result;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  bundleName
 - (NSString *)bundleName;
 /*"Description forthcoming. Does not check for existence.
@@ -475,8 +558,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2_LOG(@"INFO: Loading the plug-ins of %@...START", self);
-	NSMutableArray * paths = [NSMutableArray arrayWithArray:[self availablePlugInPathsOfType:[self plugInPathExtension]]];
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"INFO: Loading the plug-ins of %@...START", self);
+	}
+	NSString * type = [self plugInPathExtension];
+	NSArray * available = [self availablePlugInPathsOfType:type];
+	NSMutableArray * paths = [NSMutableArray arrayWithArray:available];
 	int newCount = [paths count];
 	int oldCount;
 	do
@@ -517,14 +605,20 @@ To Do List:
 								if(!NSClassFromString(requiredClassName))
 								{
 									canLoad = NO;
-									iTM2_LOG(@"Plug-in: unable to load %@\nRequired class missing: %@ (bundle: %@)", B, requiredClassName, [NSBundle allBundles]);
+									if(iTM2DebugEnabled)
+									{
+										iTM2_LOG(@"Plug-in: unable to load %@\nRequired class missing: %@ (bundle: %@)", B, requiredClassName, [NSBundle allBundles]);
+									}
 									break;
 								}
 							if(canLoad)
 							{
 								if([B load])
 								{
-									iTM2_LOG(@"Plug-in: loaded %@\nPrincipal class: %@\nIf this plug-in causes any kind of problem you can disable it from the terminal\nterminal\%% defaults write comp.text.TeX.iTeXMac2 '%@' '1'", B, principalClassName, K);
+									if(iTM2DebugEnabled)
+									{
+										iTM2_LOG(@"Plug-in: loaded %@\nPrincipal class: %@\nIf this plug-in causes any kind of problem you can disable it from the terminal\nterminal\%% defaults write comp.text.TeX.iTeXMac2 '%@' '1'", B, principalClassName, K);
+									}
 									[[B principalClass] class];// sends a +load message as expected side effect
 								}
 								else
@@ -777,8 +871,8 @@ To Do List:
     return *(const unsigned long *)[[[[self infoDictionary] objectForKey:@"CFBundleSignature"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 #pragma mark -
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allBundlesAtPath:
-+ (NSArray *)allBundlesAtPath:(NSString *)path;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addBundlesAtPath:inMutableArray:
++ (void)addBundlesAtPath:(NSString *)path inMutableArray:(NSMutableArray *)mutableArray;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -786,9 +880,43 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![path length])
-		return [NSArray array];
-	NSMutableArray * result = [NSMutableArray array];
+#if 1
+	NSArray * directoryContents = [DFM directoryContentsAtPath:path];
+	NSEnumerator * E = [directoryContents objectEnumerator];
+	NSString * component = nil;
+	while(component = [E nextObject])
+	{
+		if([component isEqual:@"Contents"] || [component isEqual:@"Resources"])// Application or Frameworks
+		{
+			path = [path stringByAppendingPathComponent:component];
+			directoryContents = [DFM directoryContentsAtPath:path];
+			E = [directoryContents objectEnumerator];
+			while(component = [E nextObject])
+			{
+				if([component isEqual:@"Info.plist"])
+				{
+					path = [path stringByDeletingLastPathComponent];
+					NSBundle * B = [NSBundle bundleWithPath:path];
+					NSDictionary * ID = [B infoDictionary];
+					NSString * identifier = [ID objectForKey:(NSString *)kCFBundleIdentifierKey];
+					if([identifier length])
+					{
+						[mutableArray addObject:B];
+					}
+					return;
+				}
+			}
+			return;
+		}
+	}
+	directoryContents = [DFM directoryContentsAtPath:path];
+	E = [directoryContents objectEnumerator];
+	while(component = [E nextObject])
+	{
+		component = [path stringByAppendingPathComponent:component];
+		[self addBundlesAtPath:component inMutableArray:mutableArray];
+	}
+#else
 	NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:path];
 	NSString * component;
 	while(component = [DE nextObject])
@@ -800,9 +928,65 @@ To Do List:
 		if([identifier length])
 		{
 			[DE skipDescendents];// be shalow if there is an identifier
-			[result addObject:B];
+			[mutableArray addObject:B];
 		}
 	}
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addBundlesAtPath:inMutableArray:
++ (void)addBundlesAtPath_2:(NSString *)path inMutableArray:(NSMutableArray *)mutableArray;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:path];
+	NSString * component;
+	while(component = [DE nextObject])
+	{
+		component = [path stringByAppendingPathComponent:component];
+		NSBundle * B = [NSBundle bundleWithPath:component];
+		NSDictionary * ID = [B infoDictionary];
+		NSString * identifier = [ID objectForKey:(NSString *)kCFBundleIdentifierKey];
+		if([identifier length])
+		{
+			[DE skipDescendents];// be shalow if there is an identifier
+			[mutableArray addObject:B];
+		}
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allBundlesAtPath:
++ (NSArray *)allBundlesAtPath:(NSString *)path;
+/*"Description forthcoming. startup fraction 0,25561067801
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![path length])
+	{
+		return [NSArray array];
+	}
+	static NSMutableDictionary * bundlesForPath = nil;
+	if(!bundlesForPath)
+	{
+		bundlesForPath = [[NSMutableDictionary dictionary] retain];
+	}
+	NSMutableArray * result = [bundlesForPath objectForKey:path];
+	if(result)
+	{
+		return result;
+	}
+	result = [NSMutableArray array];
+	[self addBundlesAtPath:path inMutableArray:result];
+	[bundlesForPath setObject:result forKey:path];
 //iTM2_END;
     return result;
 }
@@ -816,7 +1000,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	NSString * path = [self pathForSupportDirectory:@"" inDomain:domainMask create:NO];
+	NSString * path = [self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:domainMask create:NO];// do not put anything recursive in the plugins folder
     return [NSBundle allBundlesAtPath:path];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= embeddedBundles
@@ -855,7 +1039,8 @@ To Do List:
 	NSBundle * B;
 	while(B = [E nextObject])
 	{
-		[result addObjectsFromArray:[B pathsForBuiltInResource:name ofType:type inDirectory:subpath]];
+		NSArray * paths = [B pathsForBuiltInResource:name ofType:type inDirectory:subpath];
+		[result addObjectsFromArray:paths];
 	}
 	if(![type length])
 	{
@@ -1494,7 +1679,7 @@ To Do List:
 	NSString * version = [infoPList objectForKey:@"iTM2SourceVersion"];
 	NSString * executable = [infoPList objectForKey:(NSString *)kCFBundleExecutableKey];
 #endif
-	if([version isEqual:@"97531"])
+	if(!version || [version isEqual:@"97531"])
 	{
 		goto end;
 	}
@@ -1571,12 +1756,14 @@ end:
 		NSLog(@"Cocoa debug flags: NSDebugEnabled: %@, NSZombieEnabled: %@, NSHangOnUncaughtException: %@",
 			(NSDebugEnabled? @"Y": @"N"), (NSZombieEnabled? @"Y": @"N"), (NSHangOnUncaughtException? @"Y": @"N"));
 	}
+#if 0
 	else
     {
 		NSLog(@"RUNNING IN 0 DEBUG LEVEL. To have more comments available for debugging purpose");
         NSLog(@"Please, set the iTM2DebugEnabled defaults value to some positive (the higher the more precise):");
         NSLog(@"terminal%% defaults write %@ iTM2DebugEnabled '10000'",identifier);
 	}
+#endif
 	NSLog(logOutput);
 	iTM2_RELEASE_POOL;
 //iTM2_START;

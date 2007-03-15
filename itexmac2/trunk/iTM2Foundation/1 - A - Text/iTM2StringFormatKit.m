@@ -2264,7 +2264,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDelete:
-- (void)validateDelete:(id)sender;
+- (BOOL)validateDelete:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2272,8 +2272,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setEnabled:([actualTableView numberOfSelectedRows]>0)];
-    return;
+    return ([actualTableView numberOfSelectedRows]>0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSelection:
 - (IBAction)addSelection:(id)sender;

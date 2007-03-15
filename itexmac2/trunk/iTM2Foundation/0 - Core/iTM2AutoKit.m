@@ -243,7 +243,7 @@ NSString * const iTM2AutoSaveIntervalKey = @"iTM2AutoSaveInterval";
 @end
 @implementation iTM2MainInstaller(AutoController)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2AutoControllerCompleteInstallation
-+ (void)iTM2AutoControllerCompleteInstallation;
++ (void)zzzz_iTM2AutoControllerCompleteInstallation;
 /*"Description forthcoming;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
 - 1.4 :jlaurens:20040514 

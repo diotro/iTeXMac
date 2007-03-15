@@ -1683,7 +1683,8 @@ To Do List:
 	{
 		return [self valueForKeyPath:@"implementation.metaValues"];
 	}
-	return [[[self class] defaultModel] objectForKey:key]?
+	id model = [[self class] defaultModel];
+	return [model objectForKey:key]?
 		[[self implementation] modelValueForKey:key ofType:iTM2MainType]:
 		[super valueForUndefinedKey:key];
 }

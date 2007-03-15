@@ -1162,21 +1162,6 @@ To Do List:
 //iTM2_START;
     return iTM2DefaultInspectorMode;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroDomain
-- (NSString *)defaultMacroDomain;
-{
-    return @"Text";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
-- (NSString *)defaultMacroCategory;
-{
-    return @"";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroContext
-- (NSString *)defaultMacroContext;
-{
-    return @"";
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 - (void)dealloc;
 /*"Description Forthcoming.
@@ -1978,6 +1963,21 @@ To Do List:
 //iTM2_END;
 }
 #pragma mark =-=-=-=-=-  MACROS
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroDomain
+- (NSString *)defaultMacroDomain;
+{
+    return @"Text";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
+- (NSString *)defaultMacroCategory;
+{
+    return @"";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroContext
+- (NSString *)defaultMacroContext;
+{
+    return @"";
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomainKey
 - (NSString *)macroDomainKey;
 {
@@ -2012,21 +2012,21 @@ To Do List:
 	NSString * macroDomain = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
 	if(![macroDomain length])
 	{
-		macroDomain = [isa macroDomain];
+		macroDomain = [self defaultMacroDomain];
 		[self setMacroDomain:macroDomain];
 	}
 	key = [self macroCategoryKey];
 	NSString * macroCategory = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
 	if(![macroCategory length])
 	{
-		macroCategory = [isa macroCategory];
+		macroCategory = [self defaultMacroCategory];
 		[self setMacroCategory:macroCategory];
 	}
 	key = [self macroContextKey];
 	NSString * macroContext = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
 	if(!macroContext)
 	{
-		macroContext = [isa macroContext];
+		macroContext = [self defaultMacroContext];
 		[self setMacroContext:macroContext];
 	}
 //iTM2_END;

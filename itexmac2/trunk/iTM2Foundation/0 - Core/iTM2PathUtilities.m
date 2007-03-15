@@ -161,17 +161,29 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
+	static NSMutableDictionary * cache = nil;
+	if(!cache)
+	{
+		cache = [[NSMutableDictionary dictionary] retain];
+	}
+    NSString * result = [cache objectForKey:self];
+	if(result)
+	{
+		return result;
+	}
+	result = self;
+	NSString * temp = nil;
     int firewall = 257;
-    NSString * temp;
     do
     {
-        temp = self;
-        self = [temp stringByResolvingSymlinksInPath];
-        self = [self stringByStandardizingPath];
-        self = [self stringByResolvingFinderAliasesInPath];
+        temp = result;
+        result = [temp stringByResolvingSymlinksInPath];
+        result = [result stringByStandardizingPath];
+        result = [result stringByResolvingFinderAliasesInPath];
     }
-    while((--firewall>0) && ![temp pathIsEqual:self]);
-    return self;
+    while((--firewall>0) && ![result pathIsEqual:temp]);
+	[cache setObject:result forKey:self];
+    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByAbbreviatingWithDotsRelativeToDirectory:
 - (NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
