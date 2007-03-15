@@ -196,6 +196,8 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
+				<string>XCToolbarPerspectiveControl</string>
+				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -221,8 +223,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -324,7 +324,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC4B333B0BA98C2C00288F8D</string>
+										<string>DC4B333F0BA990B400288F8D</string>
 										<key>history</key>
 										<array>
 											<string>DCB26B200B849B1500868348</string>
@@ -345,7 +345,7 @@
 											<string>DC4B31520BA967EB00288F8D</string>
 											<string>DC4B31BC0BA9794700288F8D</string>
 											<string>DC4B32100BA97E3000288F8D</string>
-											<string>DCEEE7840B93910F00A964CA</string>
+											<string>DC4B333E0BA990B400288F8D</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -391,6 +391,8 @@
 							<string>362pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -550,7 +552,7 @@
 	<key>PerspectivesBarVisible</key>
 	<true/>
 	<key>PinnedNavigatorIdentifier</key>
-	<string>DC4B31800BA9722400288F8D</string>
+	<string>DC4B333D0BA98C3400288F8D</string>
 	<key>ShelfIsVisible</key>
 	<true/>
 	<key>SourceDescription</key>
@@ -579,8 +581,8 @@
 		<string>DC099B36088B331B0028F810</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DC4B30460BA8628F00288F8D</string>
-		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>-1 93 1361 785 0 0 1440 878 </string>

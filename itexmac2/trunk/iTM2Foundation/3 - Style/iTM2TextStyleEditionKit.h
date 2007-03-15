@@ -156,7 +156,7 @@ extern NSString * const iTM2TextStyleInspectorType;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-@interface iTM2TextSyntaxParserAttributesInspector: iTM2Inspector
+@interface iTM2TextSyntaxParserAttributesInspector:iTM2Inspector
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextStyleEditionKit

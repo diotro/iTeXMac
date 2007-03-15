@@ -477,6 +477,20 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= replaceCharactersInRange:withAttributedString:
+- (void)replaceCharactersInRange:(NSRange)range withAttributedString:(NSAttributedString *)attributedString;
+/*"Attribute changes are catched.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * string = [attributedString string];
+	[self replaceCharactersInRange:range withString:string];
+//iTM2_END;
+    return;
+}
 #pragma mark =-=-=-=-=-=-=-=-=-=-  GETTING ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:effectiveRange:
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
@@ -1433,6 +1447,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"TV: %@", TV);
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	id ACD = [TS attributesChangeDelegate];
+	[TS setAttributesChangeDelegate:nil];
+	iTM2TextSyntaxParser * SP = [TS syntaxParser];
 	NSRange charRange = NSMakeRange(0, [[TV string] length]);
 	NSDictionary * attributes = [_AS attributesForMode:iTM2TextDefaultSyntaxModeName];
 	NSColor * foreColor = [attributes objectForKey:NSForegroundColorAttributeName];
@@ -1484,15 +1502,18 @@ To Do List:
 		[LM invalidateLayoutForCharacterRange:charRange isSoft:NO actualCharacterRange:nil];
 	}
 	NS_HANDLER
-	iTM2DebugEnabled = 10000;
-	iTM2TextStorage * TS = (iTM2TextStorage *)[TV textStorage];
-	if([TS respondsToSelector:@selector(syntaxParser)])
 	{
-		id SP = [TS syntaxParser];
-		[SP diagnostic];
+		iTM2DebugEnabled = 10000;
+		iTM2TextStorage * TS = (iTM2TextStorage *)[TV textStorage];
+		if([TS respondsToSelector:@selector(syntaxParser)])
+		{
+			id SP = [TS syntaxParser];
+			[SP diagnostic];
+		}
 	}
 	NS_ENDHANDLER
 	#endif
+	[TS setAttributesChangeDelegate:ACD];
 //iTM2_END;
     return;
 }
@@ -1510,12 +1531,16 @@ To Do List: NYI
         iTM2_LOG(@"A change of attributes is notified");
     }
     NSDictionary * D = [aNotification userInfo];
-    if(([[D objectForKey:@"style"] caseInsensitiveCompare:[[self class] syntaxParserStyle]] == NSOrderedSame)
-        && ([[D objectForKey:@"variant"] caseInsensitiveCompare:[self syntaxParserVariant]] == NSOrderedSame))
+	NSString * style = [D objectForKey:@"style"];
+	NSString * variant = [D objectForKey:@"variant"];
+	NSString * myStyle = [[self class] syntaxParserStyle];
+	NSString * myVariant = [self syntaxParserVariant];
+    if(([style caseInsensitiveCompare:myStyle] == NSOrderedSame)
+        && ([variant caseInsensitiveCompare:myVariant] == NSOrderedSame))
     {
         [[self attributesServer] attributesDidChange];
         // the above message can be sent more than once to the same object
-        // to prevent a waste of time and energy, the attributes erver keeps track of the file modification date
+        // to prevent a waste of time and energy, the attribute server keeps track of the file modification date
         [self setUpAllTextViews];
     }
 //iTM2_END;
@@ -5160,7 +5185,7 @@ To Do List:
 		}
 		else if(iTM2DebugEnabled)
 		{
-			iTM2_LOG(@"No style/variant modes at built in path %@, default attributes might be used (2)", stylePath);
+			iTM2_LOG(@"No style/variant modes at built in bundle %@, default attributes might be used (2)", B);
 		}
 	}
 //iTM2_END;

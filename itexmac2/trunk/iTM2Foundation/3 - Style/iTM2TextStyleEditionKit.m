@@ -245,11 +245,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * stylePath = [[[[[[self classBundle] pathForResource:iTM2TextStyleComponent ofType:nil]
-        stringByAppendingPathComponent: [self syntaxParserStyle]]
-            stringByAppendingPathExtension: iTM2TextStyleExtension]
-                stringByAppendingPathComponent: @"sample"]
-                    stringByAppendingPathExtension: @"txt"];
+    NSString * stylePath = [[self classBundle] pathForResource:iTM2TextStyleComponent ofType:nil];
+	stylePath = [stylePath stringByAppendingPathComponent:[self syntaxParserStyle]];
+	stylePath = [stylePath stringByAppendingPathExtension: iTM2TextStyleExtension];
+	stylePath = [stylePath stringByAppendingPathComponent: @"sample"];
+	stylePath = [stylePath stringByAppendingPathExtension: @"txt"];
     NSString * result = [NSString stringWithContentsOfFile:stylePath];
 //iTM2_END;
     return result? result: @"Enter some text";
@@ -1218,6 +1218,30 @@ To Do List:
 	[TS setAttributesChangeDelegate:self];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertText:
+- (void)insertText:(id)insertString;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
+	if([TS isKindOfClass:[iTM2TextStorage class]])
+	{
+		iTM2TextSyntaxParser * SP = [TS syntaxParser];
+		id ACD = [TS attributesChangeDelegate];
+		[TS setAttributesChangeDelegate:nil];
+		[super insertText:insertString];
+		[TS setAttributesChangeDelegate:ACD];
+//iTM2_END;
+		return;
+	}
+	[super insertText:insertString];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  syntaxParserAttributesDidChange
 - (void)syntaxParserAttributesDidChange;
 /*"Description Forthcoming.
@@ -1227,9 +1251,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:_cmd object:nil];
 	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
-	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
-	[SP setUpAllTextViews];
+	if([TS isKindOfClass:[iTM2TextStorage class]])
+	{
+		iTM2TextSyntaxParser * SP = [TS syntaxParser];
+		[SP setUpAllTextViews];
+	}
 	NSArray * LMs = [TS layoutManagers];
 	NSEnumerator * E = [LMs objectEnumerator];
 	NSLayoutManager * LM;
@@ -1257,7 +1285,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	// received when unlinking, when listing
 	iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? [TS syntaxParser]:nil;
 	NSDictionary * oldD = [SP attributesAtIndex:range.location effectiveRange:nil];
 	if(![attributes isEqual:oldD])
@@ -2476,11 +2503,13 @@ To Do List:
     BOOL result = YES;
     NSEnumerator * E = [[self windowControllers] objectEnumerator];
     id WC;
+	NSString * type = [self fileType];
+	NSURL * URL = [self fileURL];
     while(WC = [E nextObject])
 	{
         if([WC respondsToSelector:@selector(writeToURL:ofType:error:)])
 		{
-			result = result && [WC writeToURL:[self fileURL] ofType:[self fileType] error:&localError];// only the last error is recorded
+			result = result && [WC writeToURL:URL ofType:type error:&localError];// only the last error is recorded
 		}
 	}
 //iTM2_END;
@@ -2494,6 +2523,12 @@ To Do List:
     {
         iTM2_LOG(@"Problem in saving the document...");
     }
+	return;
+}
+#warning DEBUG
+- (void)updateChangeCount:(NSDocumentChangeType)change;
+{
+	[super updateChangeCount:(NSDocumentChangeType)change];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
@@ -2691,13 +2726,20 @@ To Do List:
 //iTM2_LOG(@"TS is: <%@>", TS);
     if([TS isKindOfClass:[iTM2TextStorage class]])
     {
-        NSString * style = [[[[self document] class] syntaxParserClass] syntaxParserStyle];
-    	[TS setSyntaxParserStyle:style variant:[[self document] syntaxParserVariant]];
+		id document = [self document];
+        NSString * style = [[[document class] syntaxParserClass] syntaxParserStyle];
+		NSString * variant = [document syntaxParserVariant];
+    	[TS setSyntaxParserStyle:style variant:variant];
         id old = [[TS syntaxParser] attributesServer];
 		[self setAttributesServer:[[[[old class] allocWithZone:[old zone]]
-            initWithVariant: [[self document] syntaxParserVariant]] autorelease]];
+            initWithVariant: [document syntaxParserVariant]] autorelease]];
         [[TS syntaxParser] replaceAttributesServer:[self attributesServer]];
-        [[self textView] setString:[[[TS syntaxParser] class] sampleString]];
+		NSString * sampleString = [self valueForKey:@"sampleString_meta"];
+		if(!sampleString)
+		{
+			sampleString = [[[TS syntaxParser] class] sampleString];
+		}
+        [[self textView] setString:sampleString];
     }
 //iTM2_END;
     return YES;
@@ -2720,6 +2762,8 @@ To Do List:
     NSString * stylePath = [fileName stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
 	iTM2TextSyntaxParserAttributesServer * AS = [self attributesServer];
 	NSDictionary * modesAttributes = [AS modesAttributes];
+	NSString * sampleString = [[self textView] string];
+	[self setValue:sampleString forKeyPath:@"sampleString_meta"];
 	if(![[AS class] writeModesAttributes:modesAttributes toFile:stylePath error:outErrorPtr])
 	{
 		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Could not write the modes attributes at path:%@", stylePath]),nil);
