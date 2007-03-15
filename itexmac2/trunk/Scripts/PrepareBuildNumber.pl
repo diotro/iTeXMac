@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# iTM2UpdateInfoPList.pl
+# PrepareBuildNumber.pl
 # © Laurens'Tribune, Mardi 26 Septembre 2006
 printf "warning: Updating the build number\n";
 $CONFIGURATION = "$ENV{CONFIGURATION}";
