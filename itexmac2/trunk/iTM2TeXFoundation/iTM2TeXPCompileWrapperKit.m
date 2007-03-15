@@ -568,10 +568,30 @@ To Do List:
         [[sender lastItem] setRepresentedObject:iTM2TPFEVoidMode];
         [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Base", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
         [[sender lastItem] setRepresentedObject:iTM2TPFEBaseMode];
+		// adding the built in scripts
+		NSBundle * mainBundle = [NSBundle mainBundle];
+		id bins = [mainBundle allPathsForSupportExecutables];
+		NSEnumerator * E = [bins objectEnumerator];
+        NSString * engineMode = nil;
+		NSString * title = nil;
+		bins = [NSMutableSet set];
+		while(engineMode = [E nextObject])
+        {
+			engineMode = [engineMode lastPathComponent];
+			[bins addObject:engineMode];
+		}
+		bins = [bins allObjects];
+		bins = [bins sortedArrayUsingSelector:@selector(compare:)];
+        E = [bins objectEnumerator];
+        while(engineMode = [E nextObject])
+        {
+            title = [engineMode stringByDeletingPathExtension];
+            [sender addItemWithTitle:title];
+            [[sender lastItem] setRepresentedObject:engineMode];
+        }
         [[sender menu] addItem:[NSMenuItem separatorItem]];
         iTM2TeXProjectDocument * TPD = [self editedProject];
-        NSEnumerator * E = [[TPD engineScripts] keyEnumerator];
-        NSString * engineMode;
+        E = [[TPD engineScripts] keyEnumerator];
         while(engineMode = [E nextObject])
         {
             NSString * label = [[TPD scriptDescriptorForEngineMode:engineMode] iVarLabel];
@@ -1102,7 +1122,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTabView class]])
         [NSException raise: NSInvalidArgumentException format: @"%@ NSTabView class expected, got: %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         NSTabView * old = metaGETTER;
@@ -1918,7 +1938,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * scriptMode = [[project commandWrapperForName:[self commandName]] scriptMode];
+	NSString * commandName = [self commandName];
+	id commandWrapper = [project commandWrapperForName:commandName];
+	NSString * scriptMode = [commandWrapper scriptMode];
 	if([scriptMode length])
 	{
 		NSString * label = [[project scriptDescriptorForCommandMode:scriptMode] iVarLabel];
@@ -1926,14 +1948,16 @@ To Do List:
 			return [NSString stringWithFormat: @"%@ (%@)",
 				[super menuItemTitleForProject:project], label];
 	}
-	scriptMode = [[[project baseProject] commandWrapperForName:[self commandName]] scriptMode];
+	id baseProject = [project baseProject];
+	commandWrapper = [baseProject commandWrapperForName:commandName];
+	scriptMode = [commandWrapper scriptMode];
 	if([scriptMode length])
 	{
 		NSString * label = [[project scriptDescriptorForCommandMode:scriptMode] iVarLabel];
 		if([label length])
 			return [NSString stringWithFormat: @"%@ (%@)",
 				[super menuItemTitleForProject:project], label];
-		label = [[[project baseProject] scriptDescriptorForCommandMode:scriptMode] iVarLabel];
+		label = [[baseProject scriptDescriptorForCommandMode:scriptMode] iVarLabel];
 		if([label length])
 			return [NSString stringWithFormat: @"%@ (%@)",
 				[super menuItemTitleForProject:project], label];

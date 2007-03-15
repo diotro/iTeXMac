@@ -250,7 +250,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSEnumerator * E = [[iTM2TeXPCommandManager builtInCommandNames] objectEnumerator];
+	NSArray * builtInCommandNames = [iTM2TeXPCommandManager builtInCommandNames];
+	NSEnumerator * E = [builtInCommandNames objectEnumerator];
 	NSString * name;
 	NSMutableArray * MRA = [NSMutableArray array];
 	while(name = [E nextObject])
@@ -258,7 +259,8 @@ To Do List:
 		iTM2TeXPCommandWrapper * CW = [[[iTM2TeXPCommandWrapper allocWithZone:[self zone]] init] autorelease];
 		[CW setName:name];
 		[CW setProject:self];
-		[CW setModel:[self modelForCommandName:name]];
+		id model = [self modelForCommandName:name];
+		[CW setModel:model];
 		[MRA addObject:CW];
 	}
     return MRA;
@@ -2710,9 +2712,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![[self baseProjectName] length])
+	NSString * baseProjectName = [self baseProjectName];
+	if(![baseProjectName length])
 		return nil;
-	id result = [SPC baseProjectWithName:[self baseProjectName]];
+	id result = [SPC baseProjectWithName:baseProjectName];
     return result == self? nil:result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectFixImplementation

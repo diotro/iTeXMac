@@ -47,12 +47,8 @@
 
 /* Begin PBXBuildFile section */
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		DC05CBB80919FAB00003E471 /* iTM2TeXDocumentToolbar.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */; };
-		DC05CBB90919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */; };
 		DC05CBBA0919FAB00003E471 /* iTM2TeXDocumentToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC05CBBB0919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */; };
-		DC05CBD80919FDFD0003E471 /* iTM2TeXProjectCommandKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC05CBD60919FDFD0003E471 /* iTM2TeXProjectCommandKit.h */; };
-		DC05CBD90919FDFD0003E471 /* iTM2TeXProjectCommandKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */; };
 		DC05CBDA0919FDFD0003E471 /* iTM2TeXProjectCommandKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05CBD60919FDFD0003E471 /* iTM2TeXProjectCommandKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC05CBDB0919FDFD0003E471 /* iTM2TeXProjectCommandKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */; };
 		DC1C6C2C090D98FE000F4FDE /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */; };
@@ -66,8 +62,7 @@
 		DC225F720AE53C1A00186582 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC225F650AE53C1A00186582 /* InfoPlist.strings */; };
 		DC225F730AE53C1A00186582 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC225F670AE53C1A00186582 /* iTeXMac2.nib */; };
 		DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */; };
-		DC225F760AE53C1A00186582 /* Test TeX Application-Prefix.pch in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */; };
-		DC225F8A0AE53F8D00186582 /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
+		DC225F8A0AE53F8D00186582 /* OgreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
 		DC24D2B70952C5DB00647943 /* iTeXMac2 Server in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */; };
 		DC35E569091A17D700BF5635 /* bookmarkToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */; };
 		DC35E56A091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */; };
@@ -111,6 +106,7 @@
 		DC90CF8A09978A1200C79525 /* iTM2ScriptUser.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7E09978A1200C79525 /* iTM2ScriptUser.png */; };
 		DC90D2830997E66200C79525 /* iTM2ScriptMisc.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90D2820997E66200C79525 /* iTM2ScriptMisc.png */; };
 		DC90D2840997E66200C79525 /* iTM2ScriptMisc.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90D2820997E66200C79525 /* iTM2ScriptMisc.png */; };
+		DC98402C0BA62E3C0061BD8B /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
 		DC99EA87088315BD007AF81F /* iTM2ServerKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DC99EA4A088315BD007AF81F /* iTM2ServerKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC99EA88088315BD007AF81F /* iTM2ServerKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = DC99EA4B088315BD007AF81F /* iTM2ServerKeys.m */; };
 		DC99EA89088315BD007AF81F /* iTM2ServerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC99EA4C088315BD007AF81F /* iTM2ServerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -152,8 +148,6 @@
 		DCAF9A3E09D810A400AFD95F /* iTM2TextStyle_TeX.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3709D810A400AFD95F /* iTM2TextStyle_TeX.strings */; };
 		DCAF9A3F09D810A400AFD95F /* iTM2XtdTeXParserSymbolsInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3909D810A400AFD95F /* iTM2XtdTeXParserSymbolsInspector.nib */; };
 		DCAF9A4009D810A400AFD95F /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3B09D810A400AFD95F /* Styles.resources.tgz */; };
-		DCC3D16A0926A425005471BD /* iTM2TextWatcher.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCC3D1680926A425005471BD /* iTM2TextWatcher.h */; };
-		DCC3D16B0926A425005471BD /* iTM2TextWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D1690926A425005471BD /* iTM2TextWatcher.m */; };
 		DCC3D16C0926A425005471BD /* iTM2TextWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC3D1680926A425005471BD /* iTM2TextWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCC3D16D0926A425005471BD /* iTM2TextWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D1690926A425005471BD /* iTM2TextWatcher.m */; };
 		DCC3EC6B08FDC4B900A74157 /* iTM2TeXFoundationErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC3EC6908FDC4B900A74157 /* iTM2TeXFoundationErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -251,11 +245,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DC1C6C65090D9961000F4FDE /* iTM2Foundation.framework in CopyFiles */,
+				DC225F8A0AE53F8D00186582 /* OgreKit.framework in CopyFiles */,
 				DC1C6C66090D9961000F4FDE /* iTM2TeXFoundation.framework in CopyFiles */,
-				DC05CBB80919FAB00003E471 /* iTM2TeXDocumentToolbar.h in CopyFiles */,
-				DC05CBD80919FDFD0003E471 /* iTM2TeXProjectCommandKit.h in CopyFiles */,
-				DCC3D16A0926A425005471BD /* iTM2TextWatcher.h in CopyFiles */,
-				DC225F760AE53C1A00186582 /* Test TeX Application-Prefix.pch in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,9 +461,9 @@
 				DC1C6C2C090D98FE000F4FDE /* iTM2Foundation.framework in Frameworks */,
 				DC1C6C2D090D98FE000F4FDE /* iTM2TeXFoundation.framework in Frameworks */,
 				DC1C6C2E090D98FE000F4FDE /* Carbon.framework in Frameworks */,
+				DC98402C0BA62E3C0061BD8B /* OgreKit.framework in Frameworks */,
 				DC1C6C2F090D98FE000F4FDE /* Cocoa.framework in Frameworks */,
 				DC1C6C30090D98FE000F4FDE /* PreferencePanes.framework in Frameworks */,
-				DC225F8A0AE53F8D00186582 /* OgreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,9 +1118,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC05CBB90919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */,
-				DC05CBD90919FDFD0003E471 /* iTM2TeXProjectCommandKit.m in Sources */,
-				DCC3D16B0926A425005471BD /* iTM2TextWatcher.m in Sources */,
 				DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1674,8 +1662,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
 				PRODUCT_NAME = "Test TeX Application";
@@ -1689,8 +1679,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
 				PRODUCT_NAME = "Test TeX Application";

@@ -26,6 +26,8 @@
 			<array>
 				<string>Horizontal:311.000000</string>
 				<string>Vertical:31.000000</string>
+				<string>Horizontal:245.000000</string>
+				<string>Horizontal:165.000000</string>
 			</array>
 			<key>guidesLocked</key>
 			<false/>

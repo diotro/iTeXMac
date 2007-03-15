@@ -21,7 +21,6 @@
             ACTIONS = {
                 addEnvironmentVariable = id; 
                 chooseOtherProgramsFromPanel = id; 
-                chooseTeXMFPathFromPanel = id; 
                 chooseTeXMFProgramsFromPanel = id; 
                 removeEnvironmentVariable = id; 
                 revertToDefaultEnvironment = id; 
@@ -29,8 +28,6 @@
                 takeOtherProgramsPathFromStringValue = id; 
                 takePATHPrefixFromStringValue = id; 
                 takePATHSuffixFromStringValue = id; 
-                takeTeXMFDistributionFromPopUp = id; 
-                takeTeXMFPathFromStringValue = id; 
                 takeTeXMFProgramsDistributionFromPopUp = id; 
                 takeTeXMFProgramsPathFromStringValue = id; 
                 toggleOtherProgramsCPUType = id; 

@@ -18,5 +18,18 @@
 	</array>
 	<key>IBSystem Version</key>
 	<string>8L2127</string>
+	<key>IBUserGuides</key>
+	<dict>
+		<key>6</key>
+		<dict>
+			<key>guideLocations</key>
+			<array>
+				<string>Horizontal:132.000000</string>
+				<string>Horizontal:200.000000</string>
+			</array>
+			<key>guidesLocked</key>
+			<false/>
+		</dict>
+	</dict>
 </dict>
 </plist>

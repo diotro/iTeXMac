@@ -54,8 +54,13 @@ extern NSString * const iTM2ServerOutputSelectedLengthKey;
 extern NSString * const iTM2ServerOutputInsertionLocationKey;
 extern NSString * const iTM2ServerOutputInsertionLengthKey;
 
-@interface iTM2ServerKit: iTM2Object
+/*! 
+	@class		iTM2ServerKit
+    @abstract   The server.
+    @discussion The mehods defined here allow shell script to ask iTM2 to perform some tasks.
+*/
 
+@interface iTM2ServerKit: iTM2Object
 /*!
     @method     acceptConversationWithID:
     @abstract   Whether the given conversationID concerns an object of the application

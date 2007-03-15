@@ -1224,15 +1224,37 @@ To Do List:
         [[sender lastItem] setRepresentedObject:iTM2TPFEVoidMode];
         [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Base", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
         [[sender lastItem] setRepresentedObject:iTM2TPFEBaseMode];
+		// adding the built in scripts
+		NSBundle * mainBundle = [NSBundle mainBundle];
+		id bins = [mainBundle allPathsForSupportExecutables];
+		NSEnumerator * E = [bins objectEnumerator];
+        NSString * commandName = nil;
+		NSString * title = nil;
+		bins = [NSMutableSet set];
+		while(commandName = [E nextObject])
+        {
+			commandName = [commandName lastPathComponent];
+			[bins addObject:commandName];
+		}
+		bins = [bins allObjects];
+		bins = [bins sortedArrayUsingSelector:@selector(compare:)];
+        E = [bins objectEnumerator];
+        while(commandName = [E nextObject])
+        {
+            title = [commandName stringByDeletingPathExtension];
+            [sender addItemWithTitle:title];
+            [[sender lastItem] setRepresentedObject:commandName];
+        }
+//iTM2_LOG(@"THE editedCommand IS: %@", [self editedCommand]);
+		// This is a consistency test that should also be made before...
         [[sender menu] addItem:[NSMenuItem separatorItem]];
         iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 //iTM2_LOG(@"[TPD commandScripts] is: %@", [TPD commandScripts]);
-        NSEnumerator * E = [[TPD commandScripts] keyEnumerator];
-        NSString * commandName = nil;
+        E = [[TPD commandScripts] keyEnumerator];
         while(commandName = [E nextObject])
         {
             NSString * label = [[TPD scriptDescriptorForCommandMode:commandName] iVarLabel];
-            NSString * title = [label length]? label:
+			title = [label length]? label:
                 [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Custom script %@", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming"), commandName];
             [sender addItemWithTitle:title];
             [[sender lastItem] setRepresentedObject:commandName];
@@ -1250,21 +1272,31 @@ To Do List:
             [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Remove shell script", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
             [[sender lastItem] setSubmenu:removeScriptMenu];
         }
-		iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
-		NSString * scriptMode = [CW scriptMode];
 //iTM2_LOG(@"CW is: %@", [CW description]);
-        unsigned idx = [sender indexOfItemWithRepresentedObject: ([scriptMode length]? scriptMode:iTM2TPFEBaseMode)];
-//iTM2_LOG(@"THE editedCommand IS: %@", [self editedCommand]);
-		// This is a consistency test that should also be made before...
-		if(idx == -1)
+		NSString * editedCommand = [self editedCommand];
+		iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
+		commandName = [CW scriptMode];
+        unsigned idx = -1;
+		if([commandName length])
 		{
-			[CW setScriptMode:iTM2TPFEBaseMode];
-			scriptMode = [CW scriptMode];
-			idx = [sender indexOfItemWithRepresentedObject: ([scriptMode length]? scriptMode:iTM2TPFEBaseMode)];
+			idx = [sender indexOfItemWithRepresentedObject:commandName];
 			if(idx != -1)
-				[self performSelector:@selector(validateWindowContent) withObject:nil afterDelay:0];
+			{
+				[sender selectItemAtIndex:idx];
+			}
+			else
+			{
+				if([removeScriptMenu numberOfItems])
+					[[sender menu] addItem:[NSMenuItem separatorItem]];
+				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Unsupported", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
+				title = [commandName stringByDeletingPathExtension];
+				[sender addItemWithTitle:title];
+				[[sender lastItem] setRepresentedObject:commandName];
+				[[sender lastItem] setAction:@selector(noop:)];
+				[[sender lastItem] setTarget:self];
+			}
 		}
-        [sender selectItemAtIndex:idx];
+		[[sender menu] cleanSeparators];
     }
     return YES;
 }

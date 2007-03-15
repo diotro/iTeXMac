@@ -70,7 +70,6 @@ typedef enum
 @end
 
 #if 0
-extern NSString * const iTM2DistributionTeXMF;
 extern NSString * const iTM2DistributionTeXMFPrograms;
 extern NSString * const iTM2DistributionOtherPrograms;
 
@@ -84,7 +83,6 @@ extern NSString * const iTM2DistributionTeXLiveDVD;
 extern NSString * const iTM2DistributionOther;// from the defaults: the custom distribution of the defaults
 extern NSString * const iTM2DistributionCustom;// for the project or the defaults
 
-extern NSString * const iTM2DistributionDomainTeXMF;
 extern NSString * const iTM2DistributionDomainTeXMFPrograms;
 extern NSString * const iTM2DistributionDomainOtherPrograms;
 extern NSString * const iTM2DistributionDomainChostScriptPrograms;
@@ -118,7 +116,6 @@ typedef enum
 */
 - (NSString *)commonCommandOutputDirectory;
 
-+ (NSString *)defaultTeXMFPath;
 + (NSString *)defaultTeXMFProgramsPath;
 + (NSString *)defaultOtherProgramsPath;
 - (NSString *)TeXMFDistribution;// low level getter
@@ -127,9 +124,6 @@ typedef enum
 - (void)setTeXMFProgramsDistribution:(NSString *)argument;
 - (NSString *)OtherProgramsDistribution;// low level getter
 - (void)setOtherProgramsDistribution:(NSString *)argument;
-- (NSString *)getTeXMFPath;
-- (NSString *)TeXMFPath;
-- (void)setTeXMFPath:(NSString *)argument;
 - (NSString *)getTeXMFProgramsPath;
 - (NSString *)TeXMFProgramsPath;
 - (void)setTeXMFProgramsPath:(NSString *)argument;

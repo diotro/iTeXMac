@@ -350,9 +350,9 @@ To Do List:
 #pragma mark =-=-=-=-=-  SAVE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateBaseProjectsCompleteWriteToURL:ofType:error:
 - (BOOL)updateTeXBaseProjectsCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
-/*"Description forthcoming.
+/*"Update the list of cached base projects if the receiver is a base project, ie belongs to the directory of base projects.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -361,10 +361,26 @@ To Do List:
 	{
 		NSString * path = [absoluteURL path];
 		NSBundle * MB = [NSBundle mainBundle];
-		NSString * prefix = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
-		if([path hasPrefix:prefix])
+		NSString * dir = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
+		if([path belongsToDirectory:dir])
 		{
 			[SPC updateTeXBaseProjectsNotified:nil];
+		}
+		else
+		{
+			dir = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSLocalDomainMask create:NO];
+			if([path belongsToDirectory:dir])
+			{
+				[SPC updateTeXBaseProjectsNotified:nil];
+			}
+			else
+			{
+				dir = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSNetworkDomainMask create:NO];
+				if([path belongsToDirectory:dir])
+				{
+					[SPC updateTeXBaseProjectsNotified:nil];
+				}
+			}
 		}
 	}
 //iTM2_END;
@@ -1807,7 +1823,7 @@ To Do List:
 @implementation iTM2TeXProjectController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateTeXBaseProjectsNotified:
 - (void)updateTeXBaseProjectsNotified:(NSNotification *) irrelevant;
-/*"Description forthcoming.
+/*"Description forthcoming. startup time used 1883/4233=0,44483817623, 0,23483309144
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
@@ -1829,7 +1845,7 @@ To Do List:
 		{
 			if([component hasPrefix:@"."])
 			{
-				// do nothing, this is can't be a base project
+				// do nothing, this can't be a base project
 			}
 			else if([[component pathExtension] pathIsEqual:requiredExtension])
 			{
@@ -1842,6 +1858,7 @@ To Do List:
 					NSURL * url = [NSURL fileURLWithPath:name];
 					[v setFileURL:url];
 					[v setFileType:type];
+					#if 1
 					if([v readFromURL:url ofType:type error:nil])
 					{
 						[self addBaseProject:v];
@@ -1850,11 +1867,14 @@ To Do List:
 					{
 						iTM2_LOG(@"Could not open the project document:%@", name);
 					}
+					#else
+					[self addBaseProject:v];// performance?
+					#endif
 				}
 			}
 		}
 	}
-    return;
+	return;
 }
 @end
 

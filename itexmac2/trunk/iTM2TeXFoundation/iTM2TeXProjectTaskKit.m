@@ -426,7 +426,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTextView class]])
         [NSException raise: NSInvalidArgumentException format: @"%@ NSTextView class expected, got: %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         NSTextView * old = metaGETTER;
@@ -560,7 +560,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTextView class]])
         [NSException raise: NSInvalidArgumentException format: @"%@ NSTextView class expected, got: %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         NSTextView * old = metaGETTER;
@@ -785,7 +785,7 @@ To Do List:
 //iTM2_START;
     if(argument && ![argument isKindOfClass:[NSTextView class]])
         [NSException raise: NSInvalidArgumentException format: @"%@ NSTextView class expected, got: %@.",
-            __PRETTY_FUNCTION__, argument];
+            __iTM2_PRETTY_FUNCTION__, argument];
     else
     {
         NSTextView * old = metaGETTER;

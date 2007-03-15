@@ -11,6 +11,7 @@
 #import <Cocoa/Cocoa.h>
 int main(int argc, char *argv[])
 {
+NSLog(@"START now:%@",[NSDate date]);
     return NSApplicationMain(argc, (const char **) argv);
 }
 #import <iTM2Foundation/iTeXMac2.h>
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
 	{
 		iTM2_LOG(@"OgreKit not installed");
 	}
+iTM2_LOG(@"now:%@",[NSDate date]);
 	return;
 }
 @end
