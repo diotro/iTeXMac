@@ -79,29 +79,32 @@ iTM2_Compile_Wrapped="${!iTM2_Compile_Engine}"
 iTM2_Compile_EnginePath="$(/bin/zsh -c "which \"${iTM2_Compile_Wrapped}\"")"
 #"
 # the iTM2_Compile_EnginePath now contains the full path of the command to launch, or something weird if there is no command
-if [ -x "${iTM2_Compile_EnginePath}" ]
+if ! [ -x "${iTM2_Compile_EnginePath}" ]
 then
-        if [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
-        then
-			"${iTM2_CMD_Notify}" notify echo "switching to ${iTM2_Compile_EnginePath}"
-        fi
-        "${iTM2_Compile_EnginePath}"
-		iTM2_Status=$?
-		if [ "${iTM2_Status}" != "0" ]
-		then
-				"${iTM2_CMD_Notify}" notify error "The built in compile switcher ends with $(basename "$0") FAILED(${iTM2_Status})"
-				exit ${iTM2_Status}
-		elif [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
-		then
-				"${iTM2_CMD_Notify}" notify echo "The built in compile switcher ends with $(basename "$0") complete"
-				exit 0
-		fi
-		
-else
-		iTeXMac2 error -project "${TWSProject}" -reason "iTeXMac2 cannot handle the ${iTM2_Compile_Extension} file extension, maybe bad project settings, or a missing plug-in."
-		"${iTM2_CMD_Notify}" notify error "Could not manage the extension ${iTM2_Compile_Extension}, no switcher found."
-		"${iTM2_CMD_Notify}" notify error "Go to the project settings panel, select advanced settings and the compile tab view."
-		"${iTM2_CMD_Notify}" notify error "Select the ${iTM2_Compile_Extension} file extension and choose an appropriate action."
-		"${iTM2_CMD_Notify}" notify error "For exotic extension (not listed), define your own iTM2_Compile_${iTM2_Compile_Extension} command."
-		exit 1
+	iTM2_Compile_Wrapped="${iTM2_Compile_Wrapped#iTM2_Engine_}"
+	iTM2_Compile_EnginePath="$(/bin/zsh -c "which \"${iTM2_Compile_Wrapped}\"")"
+	if ! [ -x "${iTM2_Compile_EnginePath}" ]
+	then
+			iTeXMac2 error -project "${TWSProject}" -reason "iTeXMac2 cannot handle the ${iTM2_Compile_Extension} file extension, maybe bad project settings, or a missing plug-in."
+			"${iTM2_CMD_Notify}" notify error "Could not manage the extension ${iTM2_Compile_Extension}, no switcher found."
+			"${iTM2_CMD_Notify}" notify error "Go to the project settings panel, select advanced settings and the compile tab view."
+			"${iTM2_CMD_Notify}" notify error "Select the ${iTM2_Compile_Extension} file extension and choose an appropriate action."
+			"${iTM2_CMD_Notify}" notify error "For exotic extension (not listed), define your own iTM2_Compile_${iTM2_Compile_Extension} command."
+			exit 1
+	fi
+fi
+if [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
+then
+	"${iTM2_CMD_Notify}" notify echo "switching to ${iTM2_Compile_EnginePath}"
+fi
+"${iTM2_Compile_EnginePath}"
+iTM2_Status=$?
+if [ "${iTM2_Status}" != "0" ]
+then
+		"${iTM2_CMD_Notify}" notify error "The built in compile switcher ends with $(basename "$0") FAILED(${iTM2_Status})"
+		exit ${iTM2_Status}
+elif [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
+then
+		"${iTM2_CMD_Notify}" notify echo "The built in compile switcher ends with $(basename "$0") complete"
+		exit 0
 fi
