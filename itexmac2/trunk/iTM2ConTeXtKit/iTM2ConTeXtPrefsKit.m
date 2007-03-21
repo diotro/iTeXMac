@@ -722,26 +722,6 @@ To Do List:
 @end 
 @implementation iTM2ConTeXtManualsTableView
 #pragma mark =-=-=-=-=-  KEY BINDINGS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingsManager
-- (id)keyBindingsManager;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * identifier = [self keyBindingsManagerIdentifier];
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"The identifier is: %@", identifier);
-	}
-	[iTM2KeyBindingsManager registerKeyBindingsForIdentifier:identifier];
-    return [[[iTM2KeyBindingsManager allocWithZone:[self zone]]
-				initWithIdentifier: identifier
-					handleKeyBindings: [self handlesKeyBindings]
-						handleKeyStrokes: [self handlesKeyStrokes]] autorelease];
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  handlesKeyBindings
 - (BOOL)handlesKeyBindings;
 /*"Description Forthcoming.

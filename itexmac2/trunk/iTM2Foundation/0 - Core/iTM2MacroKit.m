@@ -5692,10 +5692,6 @@ To Do List:
 }
 - (id)initWithCoder:(NSCoder *)aDecoder;
 {
-	if([self isKindOfClass:[_iTM2KeyCodesController class]])
-	{
-		return [super initWithCoder:(NSCoder *)aDecoder];
-	}
 	[self dealloc];
 	return [[iTM2KeyCodesController sharedController] retain];
 }

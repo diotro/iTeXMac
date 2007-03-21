@@ -331,7 +331,7 @@ To Do List:
 		}
 		if(![DFM popDirectory])
 		{
-			return;
+			return result;
 		}
 	}
 	path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSLocalDomainMask create:NO];
@@ -349,7 +349,7 @@ To Do List:
 		}
 		if(![DFM popDirectory])
 		{
-			return;
+			return result;
 		}
 	}
 	path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSUserDomainMask create:YES];
@@ -367,7 +367,7 @@ To Do List:
 		}
 		if(![DFM popDirectory])
 		{
-			return;
+			return result;
 		}
 	}
 //iTM2_END;
