@@ -1450,7 +1450,7 @@ To Do List:
 	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
 	id ACD = [TS attributesChangeDelegate];
 	[TS setAttributesChangeDelegate:nil];
-	iTM2TextSyntaxParser * SP = [TS syntaxParser];
+	//iTM2TextSyntaxParser * SP = [TS syntaxParser];
 	NSRange charRange = NSMakeRange(0, [[TV string] length]);
 	NSDictionary * attributes = [_AS attributesForMode:iTM2TextDefaultSyntaxModeName];
 	NSColor * foreColor = [attributes objectForKey:NSForegroundColorAttributeName];

@@ -71,7 +71,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @class		iTM2KeyBindingsManager
     @abstract	Key binding manager.
     @discussion	A key binding manager stores a hierarchy of dictionaries which keys are keystroke.
-                A combination of keystrokes corresponds to a string or a macro to be inserted in some text.
+                A combination of keyStrokes corresponds to a string or a macro to be inserted in some text.
                 Key binding dictionaries are stored at different locations, built in or not.
                 They are cached such that different client will possibly share the same dictionary.
 				There is a notion of conversation here.
@@ -162,7 +162,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 /*!
     @method		currentKeyBindings
     @abstract	The current key binding.
-    @discussion	Some keystrokes can imply loading another key bindings dictionary.
+    @discussion	Some keyStrokes can imply loading another key bindings dictionary.
                 The next keystroke will be understood within the context of this dictionary.
     @param		None.
     @result		None.

@@ -97,6 +97,18 @@ To Do List:
 //iTM2_END;
     return YES;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
+- (NSString *)macroCategory;
+/*"
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return @"LaTeX";
+}
 @end
 
 #import <iTM2Foundation/iTM2PreferencesKit.h>

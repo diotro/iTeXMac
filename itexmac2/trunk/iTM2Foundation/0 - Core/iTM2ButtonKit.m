@@ -251,7 +251,8 @@ To Do List:
                 [self display];
                 NSTimeInterval timeInterval = [self isMixedEnabled] ? [SUD floatForKey:@"iTM2DoubleClickDelay"]:0;
 #if 1
-				if(![NSApp nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSDefaultRunLoopMode dequeue:NO])
+				NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
+				if(![NSApp nextEventMatchingMask:NSLeftMouseUpMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:NO])
 				{
 					[self popUpContextMenuWithEvent:theEvent];
 					[self highlight:NO];

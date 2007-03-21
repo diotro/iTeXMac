@@ -262,7 +262,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
 
 
 /*!
-@class iTM2TaskWrapper
+	@class iTM2TaskWrapper
     @abstract   Wraps the task context.
     @discussion An example of a concrete implementation. These objects are used to create NSTask's and to manage their contexts. See the iTM2TaskController documentation for more information.
 */
@@ -438,7 +438,7 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion The current process is blocked until the task has exited. The returned string are autoreleased objects.
 Not strongly tested. Be coutious when using it.
     @param      a pointer to a string output.
-    @param      a pointer to an error string.
+    @param      a pointer to an error object.
     @result     the termination status of the task.
 */
 - (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)outErrorPtr;
@@ -755,6 +755,7 @@ Not strongly tested. Be coutious when using it.
                 beep
                 end tell
                 In particular, the script can do whatever it wants with the UI.
+				Not tested, do not use it if you can find your way elsewhere.
     @param      the source script.
     @result     None
 */
@@ -769,4 +770,9 @@ Not strongly tested. Be coutious when using it.
 - (IBAction)toggleTaskControllerMute:(id)sender;
 
 @end
+
+@interface NSResponder(iTM2TaskKit)
+- (void)executeScriptAtPath:(NSString *)scriptPath;
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TaskKit

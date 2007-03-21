@@ -92,6 +92,7 @@ To Do List:
 - (id)objectInChildrenWithCategory:(NSString *)key;
 - (id)objectInChildrenWithContext:(NSString *)key;
 - (id)objectInChildrenWithKey:(NSString *)key;
+- (id)objectInChildrenWithAltKey:(NSString *)key;
 - (id)macroKeyStroke;
 @end
 
@@ -658,46 +659,20 @@ To Do List:
         [self setCurrentClient:C];
 //NSLog(@"[theEvent charactersIgnoringModifiers]:%@", [theEvent charactersIgnoringModifiers]);
 //NSLog(@"[theEvent characters]:%@", [theEvent characters]);
-        NSString * CIM = [theEvent charactersIgnoringModifiers];
-        if([CIM length])
-        {
-            unsigned flags = [theEvent modifierFlags];
-            unichar U = [CIM characterAtIndex:0];
-			NSString * unmodifiedCharacters = [NSString stringWithCharacters:&U length:1];
-            NSString * key = [NSString stringWithFormat:@"%@%@%@%@%@",
-                        (flags & NSCommandKeyMask? @"@": @""),
-                        (flags & NSControlKeyMask? @"^": @""),
-                        (flags & NSAlternateKeyMask? @"~": @""),
-                        (flags & NSShiftKeyMask? @"$": @""),
-                        unmodifiedCharacters];
-            if([key isEqualToString:_DEC])
-            {
-                [self toggleDeepEscape:self];
-                return YES;
-            }
-            else if([key isEqualToString:_EC])
-            {
-                [self toggleEscape:self];
-                return YES;
-            }
-            U = [[theEvent characters] characterAtIndex:0];
-            key = [NSString stringWithFormat:@"%@%@%@",
-                        (flags & NSCommandKeyMask? @"@": @""),
-                        (flags & NSControlKeyMask? @"^": @""),
-                        unmodifiedCharacters];
-            if([key isEqualToString:_DEC])
-            {
-                [self toggleDeepEscape:self];
-                return YES;
-            }
-            else if([key isEqualToString:_EC])
-            {
-                [self toggleEscape:self];
-                return YES;
-            }
-            _iTM2IMFlags.canEscape = -1;
-            return [self client:C interpretKeyEvent:theEvent];
-        }
+		iTM2MacroKeyStroke * keyStroke = [theEvent macroKeyStroke];
+		NSString * key = [keyStroke string];
+		if([key isEqualToString:_DEC])
+		{
+			[self toggleDeepEscape:self];
+			return YES;
+		}
+		else if([key isEqualToString:_EC])
+		{
+			[self toggleEscape:self];
+			return YES;
+		}
+		_iTM2IMFlags.canEscape = -1;
+		return [self client:C interpretKeyEvent:theEvent];
     }
     return NO;
 }
@@ -751,7 +726,8 @@ To Do List:
             return YES;
         }
         _iTM2IMFlags.canEscape = -1;
-        return [self client:C interpretKeyEvent:theEvent];
+		BOOL result = [self client:C interpretKeyEvent:theEvent];
+        return result;
     }
     return NO;
 }
@@ -776,9 +752,15 @@ To Do List:
 	{
 		if([C handlesKeyBindings])
 		{
+			id CKB = [self currentKeyBindings];
 			NSString * key = [macroKeyStroke string];
-			id node = [self currentKeyBindings];
-			node = [node objectInChildrenWithKey:key];
+			id node = [CKB objectInChildrenWithKey:key];
+			if(!node)
+			{
+				macroKeyStroke = [theEvent macroKeyStrokeWithoutModifiers];
+				key = [macroKeyStroke string];
+				node = [CKB objectInChildrenWithKey:key];
+			}
 			if([node countOfChildren]>0)
 			{
 				// down a level
@@ -803,6 +785,7 @@ To Do List:
 					return YES;
 				}
 			}
+			[self setCurrentKeyBindings:nil];
 		}
 		_iTM2IMFlags.isEscaped = 0;
 		_iTM2IMFlags.canEscape = 1;
@@ -1677,7 +1660,8 @@ To Do List:
 	NSResponder * FR = [self firstResponder];
 	if([[FR keyBindingsManager] client:FR performMnemonic:theString])
 		return YES;
-    return [[self keyBindingsManager] client:self performMnemonic:theString];
+	BOOL result = [[self keyBindingsManager] client:self performMnemonic:theString];
+    return result;
 }
 @end
 

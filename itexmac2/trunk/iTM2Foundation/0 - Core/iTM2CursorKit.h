@@ -26,6 +26,7 @@
 @interface NSCursor(iTeXMac2)
 + (NSCursor *)zoomInCursor;
 + (NSCursor *)zoomOutCursor;
++ (NSCursor *)cancelCursor;
 + (NSCursor *)crossHairCursor;// don't use it
 + (NSCursor *)horizontalResizeCursor;
 + (NSCursor *)verticalResizeCursor;

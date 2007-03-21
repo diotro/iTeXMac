@@ -3223,8 +3223,8 @@ nextNode:
 			iTM2PatriciaNode * child;
 #pragma mark > nextChild:
 nextChild:
-			child = node->children[childIndex];
-			unichar * childCharsPtr = child->characters;
+			child = node->children[childIndex];// it seems that children is node set despite countOfChildren>0, hence the problem below
+			unichar * childCharsPtr = child->characters;// EXC_BAD_ACCESS 03/18/2007
 			unsigned int countOfChildCharsFromPtr = child->countOfCharacters;// the number of remaining characters to be tested
 			if(prefixCharsPtr[0]>childCharsPtr[0])
 			{

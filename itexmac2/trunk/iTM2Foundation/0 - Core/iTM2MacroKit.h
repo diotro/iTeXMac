@@ -29,6 +29,7 @@ enum
 	kiTM2TextPlaceholderTAB = '[',// select what is enclosed, remove when going to the next placeholder. When no content given, use the selection.
 	kiTM2TextPlaceholderARG = '"',// use the selection, keep when going to the next placeholder, not in the output. When no selection given, use the content.
 	kiTM2TextPlaceholderOPT = '\'',// use the selection, remove when going to the next placeholder, not in the output. When no selection given, use the content.
+	kiTM2TextPlaceholderCTL = '/',// control placeholder. Contains hints. Should not appear in the output.
 	kiTM2TextPlaceholderHLT = '.'// stop the placeholder
 };
 
@@ -36,6 +37,7 @@ extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
 extern NSString * const iTM2TextTabAnchorStringKey;
 
 extern NSString * const iTM2MacroControllerComponent;
+extern NSString * const iTM2MacroScriptsComponent;
 
 /*!
 	@header			iTM2MacroKit
@@ -371,7 +373,20 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 - (IBAction)selectPreviousPlaceholder:(id)sender;
 - (void)insertMacro:(id)sender;
 - (void)insertMacro:(id)argument substitutions:(NSDictionary *)substitutions mode:(NSString*)mode;
+
+/*!
+	@method		getReplacementString:affectedCharRange:forMacro:substitutions: mode:
+	@abstract	Abstract forthcoming.
+	@discussion	.
+	@param		replacementStringRef.
+	@param		affectedCharRangePtr.
+	@param		macro.
+	@param		substitutions.
+	@param		mode.
+	@result		None.
+*/
 - (void)getReplacementString:(NSString **)replacementStringRef affectedCharRange:(NSRangePointer)affectedCharRangePtr forMacro:(NSString *)macro substitutions:(NSDictionary *)substitutions mode:(NSString *)mode;
+
 @end
 
 @interface NSString(iTM2MacroKit)
@@ -389,7 +404,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 - (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(unsigned*)typeRef;
 
 /*!
-	@method		rangeOfNextPlaceholderMarkAfterIndex:getType:
+	@method		rangeOfPreviousPlaceholderMarkBeforeIndex:getType:
 	@abstract	Abstract forthcoming.
 	@discussion	Dicussion forthcoming.
 	@param		index.
@@ -477,34 +492,6 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 */
 - (NSArray *)lineComponents;
 
-@end
-
-@interface iTM2AppleScriptMacro: NSObject
-{
-@private
-    NSString * _Script;
-    NSString * _ToolTip;
-}
-- (id)initWithScript:(NSString *)argument;
-- (void)dealloc;
-- (NSString *)script;
-- (void)setScript:(NSString *)argument;
-- (NSString *)toolTip;
-- (void)setToolTip:(NSString *)argument;
-@end
-
-@interface iTM2AppleScriptFileMacro: NSObject
-{
-@private
-    NSString * _Path;
-    NSString * _ToolTip;
-}
-- (id)initWithPath:(NSString *)argument;
-- (void)dealloc;
-- (NSString *)path;
-- (void)setPath:(NSString *)argument;
-- (NSString *)toolTip;
-- (void)setToolTip:(NSString *)argument;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection_MACRO)
@@ -647,5 +634,39 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 #import <iTM2Foundation/iTM2PreferencesKit.h>
 
 @interface iTM2MacroPrefPane: iTM2PreferencePane
+@end
+
+/*!
+    @class       iTM2MacroKeyStroke
+    @superclass  NSObject
+    @abstract    A macro keyStroke
+    @discussion  There is a problem with keyStrokes with respect to modifiers. DO NOT USE THIS, CONSIDER THIS PRIVATE
+*/
+@interface iTM2MacroKeyStroke: NSObject <NSCopying>
+{
+@public
+	NSString * codeName;
+	NSString * _description;
+	NSString * _string;
+	BOOL isCommand;
+	BOOL isShift;
+	BOOL isAlternate;
+	BOOL isControl;
+	BOOL isFunction;
+}
+- (id)initWithCodeName:(NSString*)newCodeName;
+- (NSString *)string;
+- (NSString *)description;
+- (void)setCodeName:(NSString *)codeName;
+- (void)update;
+@end
+
+@interface NSString(iTM2MacroKeyStroke)
+- (iTM2MacroKeyStroke *)macroKeyStroke;
+@end
+
+@interface NSEvent(iTM2MacroKeyStroke)
+- (iTM2MacroKeyStroke *)macroKeyStroke;
+- (iTM2MacroKeyStroke *)macroKeyStrokeWithoutModifiers;
 @end
 

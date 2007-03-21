@@ -114,7 +114,7 @@ extern int iTM2DebugEnabled;
 #define myBUNDLE [self classBundle]
 
 #define iTM2_OUTERROR(TAG,STRING,UNDERLYING)\
-if(outErrorPtr)\
+if(outErrorPtr && ([STRING length] || UNDERLYING))\
 {\
 	*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:TAG\
 		userInfo:(UNDERLYING?\
@@ -127,7 +127,7 @@ else if(UNDERLYING)\
 }
 
 #define iTM2_LOCALERROR(TAG,STRING,UNDERLYING)\
-if(UNDERLYING)\
+if(UNDERLYING && ([STRING length] || UNDERLYING))\
 {\
 	iTM2_LOG(@"***  ERROR: %@ (%@)",(STRING),(UNDERLYING));\
 }\
@@ -137,6 +137,7 @@ else\
 }
 
 #define iTM2_REPORTERROR(TAG, STRING, UNDERLYING)\
+if([STRING length] || UNDERLYING)\
 [NSApp presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:(int)TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@\n%@",(STRING),[(NSError *)UNDERLYING localizedDescription]],NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\

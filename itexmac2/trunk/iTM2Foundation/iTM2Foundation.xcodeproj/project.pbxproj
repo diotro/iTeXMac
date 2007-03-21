@@ -72,8 +72,6 @@
 		DC1B1F5309CA299600A55699 /* subscriptToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */; };
 		DC1B1F5409CA299600A55699 /* superscriptToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */; };
 		DC1B1F5509CA299600A55699 /* unlockDocumentToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */; };
-		DC1E48510B8B8F4700B8F0A8 /* iTM2BindableActions.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC1E48500B8B8F4700B8F0A8 /* iTM2BindableActions.strings */; };
-		DC1E488F0B8B993C00B8F0A8 /* iTM2BindableActions.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC1E488E0B8B993C00B8F0A8 /* iTM2BindableActions.plist */; };
 		DC1E48B80B8BB77700B8F0A8 /* Folder-24x24.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1E48B70B8BB77700B8F0A8 /* Folder-24x24.png */; };
 		DC1E48BA0B8BC0D100B8F0A8 /* iTM2EditDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1E48B90B8BC0D100B8F0A8 /* iTM2EditDocument.png */; };
 		DC1E4E720B8CFCC300B8F0A8 /* Template.iTM2-macros in Resources */ = {isa = PBXBuildFile; fileRef = DC1E4E710B8CFCC300B8F0A8 /* Template.iTM2-macros */; };
@@ -133,6 +131,8 @@
 		DC2D65550A985FA6006BED13 /* iTM2KeyCodes.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D65530A985FA6006BED13 /* iTM2KeyCodes.strings */; };
 		DC3B48F00A4B469E00E83ABA /* ARETemplates.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC3B48EE0A4B469E00E83ABA /* ARETemplates.resources.tgz */; };
 		DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */; };
+		DC40694D0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */; };
+		DC4B41080BAC98F500288F8D /* iTM2HumanReadableActionNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */; };
 		DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */; };
 		DC691837088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */; };
@@ -709,8 +709,6 @@
 		DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = subscriptToolbarImage.tiff; sourceTree = "<group>"; };
 		DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = superscriptToolbarImage.tiff; sourceTree = "<group>"; };
 		DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = unlockDocumentToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1E48240B8B8EEA00B8F0A8 /* English */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; name = English; path = English.lproj/iTM2BindableActions.strings; sourceTree = "<group>"; };
-		DC1E488E0B8B993C00B8F0A8 /* iTM2BindableActions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2BindableActions.plist; sourceTree = "<group>"; };
 		DC1E48B70B8BB77700B8F0A8 /* Folder-24x24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Folder-24x24.png"; sourceTree = "<group>"; };
 		DC1E48B90B8BC0D100B8F0A8 /* iTM2EditDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2EditDocument.png; sourceTree = "<group>"; };
 		DC1E4E710B8CFCC300B8F0A8 /* Template.iTM2-macros */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Template.iTM2-macros"; sourceTree = "<group>"; };
@@ -741,6 +739,9 @@
 		DC3B48EF0A4B469E00E83ABA /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/ARETemplates.resources.tgz; sourceTree = "<group>"; };
 		DC3B48F10A4B46AB00E83ABA /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/ARETemplates.resources.tgz; sourceTree = "<group>"; };
 		DC3C79970940EFA500EBF811 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TaskInspector.nib; sourceTree = "<group>"; };
+		DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2CancelCursor.tiff; sourceTree = "<group>"; };
+		DC4B41070BAC98F500288F8D /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
+		DC4B41090BAC990600288F8D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
 		DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DistributedObjectKit.h; sourceTree = "<group>"; };
 		DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DistributedObjectKit.m; sourceTree = "<group>"; };
 		DC5B69B20A4B6CD100F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
@@ -1598,10 +1599,9 @@
 			isa = PBXGroup;
 			children = (
 				DC2D65510A985F30006BED13 /* iTM2KeyCodes.xml */,
+				DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */,
 				DC1E4E710B8CFCC300B8F0A8 /* Template.iTM2-macros */,
 				DC1E60FC0B8F6B1300B8F0A8 /* Template.iTM2-key-bindings */,
-				DC1E488E0B8B993C00B8F0A8 /* iTM2BindableActions.plist */,
-				DC1E48500B8B8F4700B8F0A8 /* iTM2BindableActions.strings */,
 				DC2D65530A985FA6006BED13 /* iTM2KeyCodes.strings */,
 				DC8AD53B0A3ABD37006C28A5 /* KeyBindings.resources.tgz */,
 				DC8AD53D0A3ABD38006C28A5 /* TextEditor.resources.tgz */,
@@ -1648,6 +1648,7 @@
 				DCF61C2F0854654B003F5F79 /* iTM2WhiteIBeam.tiff */,
 				DCF61C300854654B003F5F79 /* iTM2ZoomInCursor.tiff */,
 				DCF61C310854654B003F5F79 /* iTM2ZoomOutCursor.tiff */,
+				DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */,
 				DCC9FC2608742B59003279C2 /* iTM2SplitHorizontal.png */,
 				DCC9FC2708742B59003279C2 /* iTM2SplitClose.png */,
 				DCC9FC2808742B59003279C2 /* iTM2SplitVertical.png */,
@@ -2193,12 +2194,12 @@
 				DCBDA1E30AFE0D3D00522BD9 /* iTM2CompletionInspector.nib in Resources */,
 				DCBDA1F10AFE0DDB00522BD9 /* iTM2CompletionServer.nib in Resources */,
 				DC7051C10B6061E9009FD188 /* iTM2FontsAndColors.tiff in Resources */,
-				DC1E48510B8B8F4700B8F0A8 /* iTM2BindableActions.strings in Resources */,
-				DC1E488F0B8B993C00B8F0A8 /* iTM2BindableActions.plist in Resources */,
 				DC1E48B80B8BB77700B8F0A8 /* Folder-24x24.png in Resources */,
 				DC1E48BA0B8BC0D100B8F0A8 /* iTM2EditDocument.png in Resources */,
 				DC1E4E720B8CFCC300B8F0A8 /* Template.iTM2-macros in Resources */,
 				DC1E60FD0B8F6B1400B8F0A8 /* Template.iTM2-key-bindings in Resources */,
+				DC4B41080BAC98F500288F8D /* iTM2HumanReadableActionNames.plist in Resources */,
+				DC40694D0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2724,14 +2725,6 @@
 			name = iTeXMac2.nib;
 			sourceTree = "<group>";
 		};
-		DC1E48500B8B8F4700B8F0A8 /* iTM2BindableActions.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC1E48240B8B8EEA00B8F0A8 /* English */,
-			);
-			name = iTM2BindableActions.strings;
-			sourceTree = "<group>";
-		};
 		DC2B477A0AD2EED70039FCBA /* iTM2DocumentPrefPane.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2774,6 +2767,15 @@
 				DCAF9AF609D8131800AFD95F /* French */,
 			);
 			name = iTM2TaskInspector.nib;
+			sourceTree = "<group>";
+		};
+		DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC4B41070BAC98F500288F8D /* English */,
+				DC4B41090BAC990600288F8D /* French */,
+			);
+			name = iTM2HumanReadableActionNames.plist;
 			sourceTree = "<group>";
 		};
 		DC8AD53B0A3ABD37006C28A5 /* KeyBindings.resources.tgz */ = {

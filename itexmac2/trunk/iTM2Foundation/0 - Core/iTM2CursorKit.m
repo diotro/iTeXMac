@@ -44,9 +44,11 @@ To Do List:
     {
         NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:@"iTM2ZoomInCursor"];
         if(path)
-            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:
-                    [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
-                        hotSpot: NSMakePoint(7, 7)];
+		{
+			NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[I setName:@"zoomInCursor"];
+            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot: NSMakePoint(7, 7)];
+		}
         else
         {
             iTM2_LOG(@"Could not create zoom in cursor...");
@@ -69,9 +71,38 @@ To Do List:
     {
         NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:@"iTM2ZoomOutCursor"];
         if(path)
-            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:
-                    [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
-                        hotSpot: NSMakePoint(7, 7)];
+		{
+			NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[I setName:@"zoomOutCursor"];
+            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot: NSMakePoint(7, 7)];
+		}
+        else
+        {
+            iTM2_LOG(@"Could not create zoom in cursor...");
+            cursor = [[NSCursor arrowCursor] retain];
+        }
+    }
+    return cursor;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancelCursor
++ (NSCursor *)cancelCursor;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: Thu Jan 23 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSCursor * cursor = nil;
+    if(!cursor)
+    {
+        NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:@"iTM2CancelCursor"];
+        if(path)
+		{
+			NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[I setName:@"cancelCursor"];
+            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot: NSMakePoint(7, 7)];
+		}
         else
         {
             iTM2_LOG(@"Could not create zoom in cursor...");
@@ -94,9 +125,11 @@ To Do List:
     {
         NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:@"iTM2CrossHair"];
         if(path)
-            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:
-                    [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
-                        hotSpot: NSMakePoint(7, 7)];
+		{
+			NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[I setName:@"crossHairCursor"];
+            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot: NSMakePoint(7, 7)];
+		}
         else
         {
             iTM2_LOG(@"Could not create hand cursor...");
@@ -138,8 +171,8 @@ To Do List:
         [NSBezierPath strokeLineFromPoint:NSMakePoint(14, 7.5) toPoint:NSMakePoint(9.5, 7.5)];
         [NSBezierPath strokeLineFromPoint:NSMakePoint(7.5, 1.5) toPoint:NSMakePoint(7.5, 14.5)];
         [I unlockFocus];
-        cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I
-                        hotSpot: NSMakePoint(7.5, 7.5)];
+		[I setName:@"horizontalResizeCorsor"];
+        cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot: NSMakePoint(7.5, 7.5)];
         NS_HANDLER
         cursor = [[NSCursor arrowCursor] retain];
 		iTM2_LOG(@"***  EXCEPTION CATCHED: %@", [localException reason]);
@@ -180,8 +213,8 @@ To Do List:
         [NSBezierPath strokeLineFromPoint:NSMakePoint(7.5, 14) toPoint:NSMakePoint(7.5, 9.5)];
         [NSBezierPath strokeLineFromPoint:NSMakePoint(1.5, 7.5) toPoint:NSMakePoint(14.5, 7.5)];
         [I unlockFocus];
-        cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I
-                        hotSpot: NSMakePoint(7.5, 7.5)];
+		[I setName:@"verticalResizeCorsor"];
+        cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot:NSMakePoint(7.5, 7.5)];
         NS_HANDLER
         cursor = [[NSCursor arrowCursor] retain];
 		iTM2_LOG(@"***  EXCEPTION CATCHED: %@", [localException reason]);
@@ -202,9 +235,11 @@ To Do List:
 	{
 		NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:@"iTM2WhiteIBeam"];
         if(path)
-            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:
-                    [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
-                        hotSpot: [[NSCursor IBeamCursor] hotSpot]];
+		{
+			NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[I setName:@"whiteIBeamCursor"];
+            cursor = [[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot:[[NSCursor IBeamCursor] hotSpot]];
+		}
         else
         {
             iTM2_LOG(@"Could not create white I beam cursor...");
@@ -218,19 +253,23 @@ To Do List:
 + (NSCursor *)iTM2_cursorForSelector:(SEL)aSelector;
 {
 	NSString * name = NSStringFromSelector(aSelector);
-	NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:name];
-	if(path)
+	NSImage * I = [NSImage imageNamed:name];
+	if(!I)
 	{
+		NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:name];
+		if(path)
+		{
 //iTM2_END;
-		return [[[NSCursor allocWithZone:[self zone]] initWithImage:
-				[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path]
-					hotSpot: NSMakePoint(7, 7)] autorelease];
+			I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[I setName:name];
+		}
+		else
+		{
+			iTM2_LOG(@"Could not create %@...",name);
+			return [NSCursor arrowCursor];
+		}
 	}
-	else
-	{
-		iTM2_LOG(@"Could not create %@...",name);
-		return [NSCursor arrowCursor];
-	}
+	return [[[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot:NSMakePoint(7, 7)] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  resizeTopLeftCursor
 + (NSCursor *)resizeTopLeftCursor;

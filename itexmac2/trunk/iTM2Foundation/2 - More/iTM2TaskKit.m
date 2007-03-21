@@ -27,6 +27,7 @@
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2DistributedObjectKit.h>
+#import <iTM2Foundation/iTM2CursorKit.h>
 
 NSString * const iTM2TaskControllerIsDeafKey = @"iTM2TaskControllerIsDeaf";
 NSString * const iTM2TaskControllerIsMuteKey = @"iTM2TaskControllerIsMute";
@@ -1489,57 +1490,49 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSTimer * T = [_CurrentWrapper canInterruptTask]? [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timedInterruptionCatcher:) userInfo:nil repeats:YES]:nil;
-	while(_CurrentTask)
+	[[NSCursor cancelCursor] push];
+	NSString * string = nil;
+	NSTimeInterval timeInterval = [SUD floatForKey:@"iTM2TaskInterruptDelay"]?:0.25;
+	timeInterval = MAX(timeInterval,0);
+	if([_CurrentTask isRunning])
 	{
-		if([_CurrentTask isRunning])
+start:
+		if([_CurrentWrapper canInterruptTask])
 		{
-			[_CurrentTask waitUntilExit];
-			if(![self isMute])
+			NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
+			NSEvent * E = [NSApp nextEventMatchingMask:NSKeyDownMask|NSKeyUpMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
+			if(E)
 			{
-				NSPipe * pipe = [_CurrentTask standardOutput];
-				NSFileHandle * FH = [pipe fileHandleForReading];
-				NSData * D = [FH readDataToEndOfFile];
-				NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
-				if([D length] && ![string length])
+				string = [E characters];
+				if([string length] && ([string characterAtIndex:0] == '.'))
 				{
-					string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
-					iTM2_LOG(@"Output encoding problem.");
+					unsigned modifierFlags = [E modifierFlags];
+					modifierFlags &= NSDeviceIndependentModifierFlagsMask;
+					modifierFlags &= ~NSShiftKeyMask;
+					if(modifierFlags == NSCommandKeyMask)
+					{
+						[self clean];
+						[NSCursor pop];
+						return;
+					}
 				}
-				[self logOutput:string];
-				pipe = [_CurrentTask standardError];
-				FH = [pipe fileHandleForReading];
-				D = [FH readDataToEndOfFile];
-				string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
-				if([D length] && ![string length])
-				{
-					string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
-					iTM2_LOG(@"Output encoding problem.");
-				}
-				[self logError:string];
 			}
 		}
-		[_CurrentTask release];
-		_CurrentTask = nil;
-		[_CurrentWrapper release];
-		_CurrentWrapper = nil;
-		[self start];
-//iTM2_LOG(@"_CurrentTask is: %#x", _CurrentTask);
+		else
+		{
+			[_CurrentTask waitUntilExit];
+		}
 	}
-	[T invalidate];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timedInterruptionCatcher:
-- (void)timedInterruptionCatcher:(NSTimer *)aTimer;
-/*"Description Forthcoming. Rough input, no verification.
-Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[_CurrentWrapper taskInterruptIfNeeded:self];
+	[_CurrentTask release];
+	_CurrentTask = nil;
+	[_CurrentWrapper release];
+	_CurrentWrapper = nil;
+	[self start];
+	if([_CurrentTask isRunning])
+	{
+		goto start;
+	}
+	[NSCursor pop];
 //iTM2_END;
     return;
 }
@@ -1556,8 +1549,8 @@ To Do List:
     {
         NSLog(@"Executing: %@", aCommand);
         [[self allInspectors] makeObjectsPerformSelector:@selector(logInput:) withObject:aCommand];
-        [[[_CurrentTask standardInput] fileHandleForWriting] writeData:
-            [aCommand dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES]];
+		NSData * D = [aCommand dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        [[[_CurrentTask standardInput] fileHandleForWriting] writeData:D];
         if(![aCommand hasSuffix:@"\n"])
         {
             [[[_CurrentTask standardInput] fileHandleForWriting] writeData:
@@ -1591,6 +1584,7 @@ NSString * const iTM2TaskInterruptInvocationKey = @"iTM2TaskInterruptInvocation"
 NSString * const iTM2TaskTerminateInvocationKey = @"iTM2TaskTerminateInvocation";
 NSString * const iTM2TaskTerminationStatusKey = @"iTM2TaskTerminationStatus";
 #define iVarTerminationStatus [[[self implementation] metaValueForKey:iTM2TaskTerminationStatusKey] intValue]
+NSString * const iTM2TaskCanInterruptKey = @"iTM2TaskCanInterrupt";
 
 NSString * const iTM2TaskPATHKey = @"PATH";
 
@@ -2165,7 +2159,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self implementation] metaValueForKey:iTM2TaskInterruptInvocationKey] != nil;
+    return [[self implementation] metaValueForKey:iTM2TaskInterruptInvocationKey] != nil || [[[self implementation] metaValueForKey:iTM2TaskCanInterruptKey] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusAndOutput:error:
 - (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)outErrorPtr;
@@ -2178,8 +2172,10 @@ To Do List:
 //iTM2_START;
     iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
     [TC addTaskWrapper:self];
+	[[self implementation] takeMetaValue:[NSNumber numberWithBool:YES] forKey:iTM2TaskCanInterruptKey];
     [TC start];
-    [[TC currentTask] waitUntilExit];
+	[[[[TC currentTask] standardInput] fileHandleForWriting] writeData:[NSData data]];
+	[TC waitUntilExit];
 	iTM2_OUTERROR(1,([TC errorStatus]),nil);
     if(outputPtr)
         *outputPtr = [TC output];
@@ -2323,3 +2319,172 @@ To Do List:
 }
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TaskController
+
+#import <iTM2Foundation/iTM2MacroKit.h>
+#import <iTM2Foundation/iTM2CursorKit.h>
+#import <iTM2Foundation/iTM2FileManagerKit.h>
+
+@implementation NSResponder(iTM2TaskKit)
+- (void)_executeScriptAtPath:(NSString *)scriptPath;
+{
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"Executing script at path:%@",scriptPath);
+	}
+	NSURL * url = [NSURL fileURLWithPath:scriptPath];
+	NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithContentsOfURL:url error:nil] autorelease];
+	if(AS)
+	{
+		NSDictionary * errorInfo = nil;
+		//NSAppleEventDescriptor * descriptor = 
+		[AS executeAndReturnError:&errorInfo];
+		if(errorInfo)
+		{
+			iTM2_LOG(@"errorInfo is:%@",errorInfo);
+			NSString * message = [errorInfo objectForKey:NSAppleScriptErrorMessage];
+			iTM2_REPORTERROR(1,message,nil);
+		}
+		return;
+	}
+	if([DFM isExecutableFileAtPath:scriptPath])
+	{
+		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
+		[TW setLaunchPath:scriptPath];
+		NSError * localError = nil;
+		//NSString * output = nil;
+		//int status = [TW modalStatusAndOutput:&output error:&localError];
+		[TW modalStatusAndOutput:nil error:&localError];
+		if(localError)
+		{
+			[NSApp presentError:localError];
+		}
+	}
+	return;
+}
+- (void)executeScriptAtPath:(NSString *)scriptPath;
+{
+	NSWindow * W = [NSApp keyWindow];
+	id FR = [W firstResponder];
+	if([DFM isExecutableFileAtPath:scriptPath])
+	{
+		[FR _executeScriptAtPath:scriptPath];
+		return;
+	}
+//	NSString * context = [FR macroContext];
+	NSString * category = [FR macroCategory];
+	NSString * domain = [FR macroDomain];
+	NSString * subpath = [domain stringByAppendingPathComponent:category];
+	subpath = [subpath stringByAppendingPathComponent:iTM2MacroScriptsComponent];
+	NSBundle * MB = [NSBundle mainBundle];
+	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
+	NSEnumerator * E = [RA reverseObjectEnumerator];
+	NSString * path;
+	while(path = [E nextObject])
+	{
+		if([DFM pushDirectory:path])
+		{
+			if([DFM pushDirectory:subpath])
+			{
+				path = [DFM currentDirectoryPath];
+				path = [path stringByAppendingPathComponent:scriptPath];
+				if([DFM fileExistsAtPath:scriptPath isDirectory:nil])
+				{
+					[FR _executeScriptAtPath:scriptPath];
+					[DFM popDirectory];
+					return;
+				}
+				[DFM popDirectory];
+			}
+			else if([DFM fileExistsAtPath:subpath isDirectory:nil])
+			{
+				iTM2_LOG(@"*** SILENT Error: could not push \"%@/%@\"",[DFM currentDirectoryPath],subpath);
+			}
+			[DFM popDirectory];
+		}
+		else
+		{
+			iTM2_LOG(@"*** SILENT Error: could not push \"%@\"",path);
+		}
+	}
+}
+@end
+
+@implementation NSTextView(iTM2TaskKit)
+- (void)_executeScriptAtPath:(NSString *)scriptPath;
+{
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"Executing script at path:%@",scriptPath);
+	}
+	NSURL * url = [NSURL fileURLWithPath:scriptPath];
+	NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithContentsOfURL:url error:nil] autorelease];
+	if(AS)
+	{
+		NSDictionary * errorInfo = nil;
+		//NSAppleEventDescriptor * descriptor = 
+		[AS executeAndReturnError:&errorInfo];
+		if(errorInfo)
+		{
+			iTM2_LOG(@"errorInfo is:%@",errorInfo);
+			NSString * message = [errorInfo objectForKey:NSAppleScriptErrorMessage];
+			iTM2_REPORTERROR(1,message,nil);
+		}
+		return;
+	}
+	NSError * localError = nil;
+	url = [NSURL fileURLWithPath:scriptPath];
+	NSString * script = [[[NSString allocWithZone:[self zone]] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&localError] autorelease];
+	if([script length])
+	{
+		NSString * text = [self string];
+		NSRange R = [self selectedRange];
+		NSString * selection = [text substringWithRange:R];
+		NSArray * components = [script componentsSeparatedByString:@"@@{ALL@@."];
+		script = [components componentsJoinedByString:text];
+		components = [script componentsSeparatedByString:@"@@+SEL@@."];
+		script = [components componentsJoinedByString:selection];
+		NSBundle * MB = [NSBundle mainBundle];
+		NSString * path = [NSBundle temporaryDirectory];
+		scriptPath = [[NSProcessInfo processInfo] globallyUniqueString];
+		scriptPath = [path stringByAppendingPathComponent:scriptPath];
+		url = [NSURL fileURLWithPath:scriptPath];
+		if([script writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&localError])
+		{
+			NSNumber * permissions = [NSNumber numberWithInt:S_IRWXU];
+			NSDictionary * attributes = [NSDictionary dictionaryWithObject:permissions forKey:NSFilePosixPermissions];
+			if([DFM changeFileAttributes:attributes atPath:scriptPath])
+			{
+				iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
+				[TW setLaunchPath:scriptPath];
+				NSString * macro = nil;
+				//int status = [TW modalStatusAndOutput:&output error:&localError];
+				[TW modalStatusAndOutput:&macro error:&localError];
+				NSString * category = [self macroCategory];
+				[self insertMacro:macro substitutions:nil mode:category];
+				iTM2_LOG(@"macro:%@",macro);
+				if(localError)
+				{
+					[NSApp presentError:localError];
+				}
+			}
+			else
+			{
+				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Problem: Cannot set permission at %@",scriptPath]),nil);
+			}
+			[DFM removeFileAtPath:scriptPath handler:nil];
+			return;
+		}
+		else if(localError)
+		{
+			iTM2_LOG(@"localError:%@",localError);
+			iTM2_LOG(@"scriptPath:%@",scriptPath);
+			[NSApp presentError:localError];
+		}
+	}
+	else if(localError)
+	{
+		[NSApp presentError:localError];
+	}
+	return;
+}
+@end

@@ -27,7 +27,6 @@
 */
 
 extern NSString * const iTM2CompletionComponent;
-extern NSString * const iTM2CompletionsExtension;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit
 
