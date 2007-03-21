@@ -5309,7 +5309,7 @@ iTM2_LOG(@"fileName:%@",fileName);
 	}
 	// scan the modes
 	MD = [NSMutableDictionary dictionary];
-	NSString * mode;
+	NSString * mode = nil;
 	E = [linesRA objectEnumerator];
 	EE = [attributesRA objectEnumerator];
 	BOOL noBackgroundColor = NO;
@@ -5331,7 +5331,7 @@ iTM2_LOG(@"fileName:%@",fileName);
 		{
 			cursorIsWhite = YES;
 		}
-		else
+		else if(![scanner scanString:@"%" intoString:nil])
 		{
 			if(!mode)
 			{
