@@ -641,7 +641,6 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 
 @interface iTM2KeyBindingContextNode:iTM2MacroLeafNode
 - (NSArray *)_X_availableKeyBindings;
-- (NSArray *)availableKeys;
 - (unsigned int)countOfAvailableKeyBindings;
 @end
 

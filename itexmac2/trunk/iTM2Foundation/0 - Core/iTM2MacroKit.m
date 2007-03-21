@@ -148,6 +148,7 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 - (id)initWithParent:(iTM2TreeNode *)parent context:(NSString *)context;
 - (id)objectInChildrenWithID:(NSString *)ID;
 - (NSArray *)availableIDs;
+- (NSArray *)availableKeys;
 - (NSXMLElement *)templateXMLElement;
 - (Class)leafClass;
 - (NSString *)pathExtension;
