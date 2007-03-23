@@ -5473,6 +5473,7 @@ To Do List:
 //iTM2_LOG(@"iTM2CursorIsWhiteAttributeNameHash is: %i", iTM2CursorIsWhiteAttributeNameHash);
 //iTM2_LOG(@"iTM2NoBackgroundAttributeNameHash is: %i", iTM2NoBackgroundAttributeNameHash);
 //iTM2_END;
+#warning ! FAILED this has no meaning
 	iTM2_RELEASE_POOL;
     return;
 }
