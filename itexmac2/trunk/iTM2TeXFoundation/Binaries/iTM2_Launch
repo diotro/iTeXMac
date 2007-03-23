@@ -10,11 +10,11 @@
 # this script does not care about the file extension!
 # this script should live in $iTM2_HOME/Library/TeX/bin/iTeXMac2.app/Contents/Frameworks/iTM2TeXFoundation.framework/bin/iTM2_Launch
 # The purpose is to create shortcuts to standard location where iTeXMac2 expects to find bins.
-# long names and spaces problems are solved here.
+# long names and spaces problems are solved here. Supported bin are solved too.
 #
 #iTM2_CMD_Notify comment "iTM2: STARTING $0"
 "${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify echo "$(date "+START - DATE: %m/%d/%y - TIME: %H:%M:%S")"
-if [ "${iTM2_Debug}" != "0" ]
+if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" notify comment "iTM2_Launch script (0): PATH is {$PATH}"
 	printenv
@@ -42,7 +42,7 @@ then
 			ln -s "$iTM2_PWD_Real" "$iTM2_PWD/.iTM2-src"
 			IFS="
 			"
-			pushd "$iTM2_PWD_Real"
+			pushd "$iTM2_PWD_Real" >> /dev/null
 			iTM2_PREFIX=".iTM2-src"
 			iTM2_LEVEL=1
 			while [ ${iTM2_LEVEL} -lt 5 ]
@@ -75,7 +75,7 @@ then
 					iTM2_LIMIT=$(expr iTM2_LIMIT - 1)
 				fi
 			done
-			popd
+			popd >> /dev/null
 
 			if [ ${#iTM2_PWD} -gt 0 ] && ! [ -r "${iTM2_PWD}/${TWSMasterBase}" ]
 			then
@@ -91,7 +91,7 @@ fi
 iTM2BinaryPATH="iTM2_HOME/Library/bin"
 if [ -d "${TWSProject}" ]
 then
-	pushd "$iTM2_PWD"
+	pushd "$iTM2_PWD" >> /dev/null
 	iTM2BinaryPATH="$iTM2_PWD/.iTM2"
 	if [ ! -w "${TWSProject}" ]
 	then
@@ -201,7 +201,7 @@ then
     PATH="$PATH:$iTM2_PATH_Suffix"
 fi
 # iTM2_CMD_Notify is only available now
-if [ "${iTM2_Debug}" != "0" ]
+if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify comment "iTM2_Launch script (3): PATH is {$PATH}"
 fi
@@ -234,7 +234,7 @@ Are they what was expected?"
     exit 1
 fi
 # the specific environment: (this is time consuming when debugging)
-if [ "${iTM2_Debug}" != "0" ]
+if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify start comment
     "${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
@@ -257,7 +257,7 @@ do
 		"${iTM2_CMD_Notify}" notify comment "customized script ${iTM2SCRIPT}: {$(/bin/zsh -c "which ${iTM2NAME}")}"
 	fi
 done
-if [ "${iTM2_Debug}:-0" != "0" ]
+if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify comment "The environment is:
 $(printenv)
@@ -277,32 +277,36 @@ then
 #echo "! PATH: ${PATH}"
 #echo "the iTM2CommandPath is: ${iTM2CommandPath}"
 # This is a bug, the which command does not work and I must do the work by myself
-	if [ -x "${iTM2CommandPath}" ]
+	if ! [ -x "${iTM2CommandPath}" ]
 	then
-		if [ "${iTM2_RunSilently:-0}" == "0" ]
+		iTM2WrappedCommand="${iTM2WrappedCommand#iTM2_Command_}"
+		iTM2CommandPath="$(/bin/zsh -c "which \"${iTM2WrappedCommand}\"")"
+		if ! [ -x "${iTM2CommandPath}" ]
 		then
-				"${iTM2_CMD_Notify}" notify comment "running ${iTM2Command} (${iTM2WrappedCommand})"
+			IFS="${oldIFS}"
+			"${iTM2_CMD_Notify}" notify start error
+			"${iTM2_CMD_Notify}" notify echo "No \"${iTM2Command}\" command is available neither built in nor customized"
+			"${iTM2_CMD_Notify}" notify echo "iTM2Command is \"${iTM2Command}\""
+			"${iTM2_CMD_Notify}" notify echo "iTM2IndirectCommand is \"${iTM2IndirectCommand}\""
+			"${iTM2_CMD_Notify}" notify echo "iTM2WrappedCommand is \"${iTM2WrappedCommand}\""
+			"${iTM2_CMD_Notify}" notify stop error
+			status=1
+			if [ "${iTM2_RunSilently:-0}" != "0" ]
+			then
+					"${iTM2_CMD_Notify}" notify error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
+			fi
+			iTeXMac2 notify echo "$(date "+END - DATE: %m/%d/%y - TIME: %H:%M:%S")"
+			exit $iTM2_Status
 		fi
-		echo "\"${iTM2CommandPath}\"" > "${iTM2Cached}"
-		chmod u+x "${iTM2Cached}"
-		"${iTM2CommandPath}"
-		status=$?
-	else
-		IFS="${oldIFS}"
-		"${iTM2_CMD_Notify}" notify start error
-		"${iTM2_CMD_Notify}" notify echo "No \"${iTM2Command}\" command is available neither built in nor customized"
-		"${iTM2_CMD_Notify}" notify echo "iTM2Command is \"${iTM2Command}\""
-		"${iTM2_CMD_Notify}" notify echo "iTM2IndirectCommand is \"${iTM2IndirectCommand}\""
-		"${iTM2_CMD_Notify}" notify echo "iTM2WrappedCommand is \"${iTM2WrappedCommand}\""
-		"${iTM2_CMD_Notify}" notify stop error
-		status=1
-		if [ "${iTM2_RunSilently:-0}" != "0" ]
-		then
-				"${iTM2_CMD_Notify}" notify error "the launch utility ends with $(basename "$1") Failed ($iTM2_Status)"
-		fi
-		iTeXMac2 notify echo "$(date "+END - DATE: %m/%d/%y - TIME: %H:%M:%S")"
-		exit $iTM2_Status
 	fi
+	if [ "${iTM2_RunSilently:-0}" == "0" ]
+	then
+			"${iTM2_CMD_Notify}" notify comment "running ${iTM2Command} (${iTM2WrappedCommand})"
+	fi
+	echo "\"${iTM2CommandPath}\"" > "${iTM2Cached}"
+	chmod u+x "${iTM2Cached}"
+	"${iTM2CommandPath}"
+	status=$?
     if [ "${iTM2_Status}" == "0" ]
     then
         if [ "${iTM2_RunSilently:-0}" != "0" ]
