@@ -149,7 +149,6 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 - (id)initWithParent:(iTM2TreeNode *)parent context:(NSString *)context;
 - (id)objectInChildrenWithID:(NSString *)ID;
 - (NSArray *)availableIDs;
-- (NSArray *)availableKeys;
 - (NSXMLElement *)templateXMLElement;
 - (Class)leafClass;
 - (NSString *)pathExtension;
@@ -3457,25 +3456,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectLastPlaceholderAndClean:
-- (IBAction)selectLastPlaceholderAndClean:(id)sender;
-/*Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon Jan 10 21:45:41 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * S = [self string];
-	NSString * tabAnchor = [self tabAnchor];
-	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor];
-	if(firstPlaceholderRange.length)
-	{
-		[self selectFirstPlaceholder:sender];
-	}
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectNextPlaceholder:
 - (IBAction)selectNextPlaceholder:(id)sender;
 /*Description Forthcoming.
@@ -3489,7 +3469,8 @@ To Do List:
 	NSString * tabAnchor = [self tabAnchor];
 	NSRange selectedRange = [self selectedRange];
 	NSRange actualPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
-	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:NSMaxRange(selectedRange) cycle:YES tabAnchor:tabAnchor];
+	unsigned idx = NSMaxRange(selectedRange);
+	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:idx cycle:YES tabAnchor:tabAnchor];
 	if(firstPlaceholderRange.length==0)
 	{
 //iTM2_LOG(@"firstPlaceholderRange:%@",NSStringFromRange(firstPlaceholderRange));
@@ -3946,7 +3927,7 @@ manageTheIndentation:
 		{
 			if(NSMaxRange(range)<index)
 			{
-				[replacementString appendString:@"@@@{}@@@"];
+				[replacementString appendString:@"@@@()@@@"];
 			}
 		}
 	}
@@ -4133,6 +4114,7 @@ next:
 either '@@@(TYPE/? or ')@@@'.
 If the placeholder is @@@(TYPE)@@@, TYPE belongs to the start placeholder mark
 TYPE length is one word.
+index can be included.
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: 
 To Do List:
@@ -4230,18 +4212,26 @@ nextChar:
 			if(theChar == '(')
 			{
 				++markRange.length;
-				wordRange = [self rangeOfWordAtIndex:index];
-				if(wordRange.length)
+				index = NSMaxRange(markRange);
+				if(index<length)
 				{
-					markRange.length += wordRange.length;
-					index = NSMaxRange(markRange);
-					if((index<length) && ([self characterAtIndex:index] == '/'))
+					wordRange = [self rangeOfWordAtIndex:index];
+					if(wordRange.length)
 					{
-						++markRange.length;
+						markRange.length += wordRange.length;
+						index = NSMaxRange(markRange);
+						if((index<length) && ([self characterAtIndex:index] == '/'))
+						{
+							++markRange.length;
+						}
+						if(typeRef)
+						{
+							*typeRef = [self substringWithRange:wordRange];
+						}
 					}
-					if(typeRef)
+					else if(typeRef)
 					{
-						*typeRef = [self substringWithRange:wordRange];
+						*typeRef = @"";
 					}
 				}
 				else if(typeRef)
@@ -4263,7 +4253,7 @@ nextChar:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderMarkBeforeIndex:getType:
 - (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(unsigned *)typeRef;
-/*"Description forthcoming. The leading "@" is before index, index excluded
+/*"Description forthcoming. The leading "@" is before index, index excluded from the result
 This will catch a marker starting at index and below
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: 
@@ -4271,46 +4261,40 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	// the placeholder start marker is "@@@(word"
+	// there can be a problem if "(word" contains index
+	// we make too much test but it leads to simpler code
+	
 	unsigned length = [self length];
+	unsigned idx;
 	NSRange searchRange,markRange,wordRange;
 	unichar theChar = 0;
-	if((index < UINT_MAX-3) && (index+4<=length) && ([self characterAtIndex:index] == ')'))
-	{
-		searchRange.location = index+1;
-		searchRange.length = 3;
-		markRange = [self rangeOfString:@"@@@" options:nil range:searchRange];
-		if(markRange.length)
-		{
-			markRange.location = index;
-			markRange.length = 4;
-			if(typeRef)
-			{
-				*typeRef = nil;
-			}
-			return markRange;
-		}
-	}
 	searchRange.location = 0;
-	markRange.location = MIN(MIN(index,UINT_MAX-3)+3,length);
+	markRange.location = index;
 nextMark:
 	searchRange.length=markRange.location;
 	markRange = [self rangeOfString:@"@@@" options:NSBackwardsSearch range:searchRange];
 	if(markRange.length)
 	{
-		index = NSMaxRange(markRange);
-		if(index<length)
+		idx = NSMaxRange(markRange);
+		if(idx<length)
 		{
-			if([self characterAtIndex:index] == '(')
+			if([self characterAtIndex:idx] == '(')
 			{
 				++markRange.length;
-				if(++index<length)
+				if(++idx<length)
 				{
-					wordRange = [self rangeOfWordAtIndex:index];
+					wordRange = [self rangeOfWordAtIndex:idx];
 					if(wordRange.length)
 					{
 						markRange.length += wordRange.length;
-						index = NSMaxRange(markRange);
-						if((index<length) && ([self characterAtIndex:index] == '/'))
+						idx = NSMaxRange(markRange);
+						if(index<=idx)
+						{
+							// this is not suitable:
+							goto nextMark;
+						}
+						if((idx<length) && ([self characterAtIndex:idx] == '/'))
 						{
 							++markRange.length;
 						}
@@ -4367,10 +4351,10 @@ To Do List: implement some kind of balance range for range
 //iTM2_START;
 	NSRange startRange, stopRange;
 	unsigned depth;
-	unsigned anchor = MAX(index,3)-3;
+	unsigned idx = MAX(index,3)-3;
 	NSString * type = nil;
 nextStop:
-	stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:anchor getType:&type];
+	stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
 	if(stopRange.length)
 	{
 		if(type)
@@ -4382,8 +4366,8 @@ nextStop:
 				startRange = stopRange;
 				depth = 1;
 otherNextStop:
-				anchor = NSMaxRange(stopRange);
-				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:anchor getType:&type];
+				idx = NSMaxRange(stopRange);
+				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
 				if(stopRange.length)
 				{
 					if(type)
@@ -4408,8 +4392,8 @@ otherNextStop:
 				// this is a start to the right
 				depth = 1;
 otherNextStopAfter:
-				anchor = NSMaxRange(stopRange);
-				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:anchor getType:&type];
+				idx = NSMaxRange(stopRange);
+				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
 				if(stopRange.length)
 				{
 					if(type)
@@ -4478,13 +4462,15 @@ To Do List: implement some kind of balance range for range
 	}
 	NSRange markRange = [self rangeOfNextPlaceholderMarkAfterIndex:index getType:nil];
 	NSRange smallerRange;
+	unsigned idx = 0;
 	if(markRange.length)
 	{
 		range = [self rangeOfPlaceholderAtIndex:markRange.location];
 		if(range.length)
 		{
 nextRange1:
-			markRange = [self rangeOfNextPlaceholderMarkAfterIndex:range.location+4 getType:nil];
+			idx = NSMaxRange(markRange);
+			markRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:nil];
 			if(markRange.length)
 			{
 				if(NSMaxRange(markRange)<NSMaxRange(range))
@@ -4511,7 +4497,8 @@ nextRange1:
 				if(range.length)
 				{
 nextRange2:
-					markRange = [self rangeOfNextPlaceholderMarkAfterIndex:range.location+4 getType:nil];
+					idx = NSMaxRange(markRange);
+					markRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:nil];
 					if(markRange.length)
 					{
 						if(NSMaxRange(markRange)<NSMaxRange(range))

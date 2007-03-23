@@ -163,7 +163,7 @@ extern NSString * const iTM2BundleContentsComponent;
 - (NSArray *)allPathsForSupportExecutables;
 
 /*!
-    @method 	allPathsForSupportExecutables
+    @method 	allPathsForSupportScripts
     @abstract	All paths for the support scripts
     @discussion	iTM2.
 	@param		None

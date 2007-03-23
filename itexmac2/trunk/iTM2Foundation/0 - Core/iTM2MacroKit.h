@@ -401,7 +401,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 	@param		typeRef.
 	@result		A range.
 */
-- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(unsigned*)typeRef;
+- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(NSString **)typeRef;
 
 /*!
 	@method		rangeOfPreviousPlaceholderMarkBeforeIndex:getType:
@@ -411,12 +411,12 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 	@param		typeRef.
 	@result		A range.
 */
-- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(unsigned*)typeRef;
+- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(NSString **)typeRef;
 
 /*!
 	@method		rangeOfPlaceholderAtIndex:
 	@abstract	Abstract forthcoming.
-	@discussion	Removes everything inside "@(@SEL:...@)@", such that there are only "@(@SEL:@)@" remaining.
+	@discussion	Removes everything inside "@@@(SEL:...)@@@", such that there are only "@@@(...)@@@" remaining.
 	@param		An index.
 	@result		A range.
 */
@@ -629,6 +629,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 @interface iTM2KeyBindingContextNode:iTM2MacroLeafNode
 - (NSArray *)_X_availableKeyBindings;
 - (unsigned int)countOfAvailableKeyBindings;
+- (NSArray *)availableKeys;
 @end
 
 #import <iTM2Foundation/iTM2PreferencesKit.h>
