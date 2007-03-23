@@ -142,6 +142,17 @@
 */
 - (BOOL)linkExistsAtPath:(NSString *)path;
 
+/*!
+	@method			isVisibleFileAtPath
+	@abstract		Abstract forthcoming.
+	@discussion		Discussion forthcoming.
+	@param			path
+	@result			yorn.
+	@availability	iTM2.
+	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)isVisibleFileAtPath:(NSString *)path;
+
 @end
 
 /*!

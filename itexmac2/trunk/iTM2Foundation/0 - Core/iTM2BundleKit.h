@@ -25,6 +25,7 @@
 extern NSString * const iTeXMac2;
 extern NSString * const iTM2ApplicationSupport;
 extern NSString * const iTM2SupportPluginsComponent;
+extern NSString * const iTM2SupportScriptsComponent;
 extern NSString * const iTM2SupportBinaryComponent;
 extern NSString * const iTM2SupportGeneralComponent;//used
 extern NSString * const iTM2SupportTextComponent;
@@ -160,6 +161,15 @@ extern NSString * const iTM2BundleContentsComponent;
 	@result		an array
 */
 - (NSArray *)allPathsForSupportExecutables;
+
+/*!
+    @method 	allPathsForSupportExecutables
+    @abstract	All paths for the support scripts
+    @discussion	iTM2.
+	@param		None
+	@result		an array
+*/
+- (NSArray *)allPathsForSupportScripts;
 
 /*!
     @method 	plugInPathExtension

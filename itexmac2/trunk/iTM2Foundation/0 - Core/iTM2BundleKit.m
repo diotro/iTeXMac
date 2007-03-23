@@ -26,7 +26,6 @@
 #import <AppKit/AppKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
-#import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
@@ -37,6 +36,7 @@ NSString * const iTM2SupportGeneralComponent = @"General.localized";
 NSString * const iTM2BPrivate = @"Private";
 NSString * const iTM2ApplicationSupport = @"Application Support";
 NSString * const iTM2SupportPluginsComponent = @"PlugIns.localized";
+NSString * const iTM2SupportScriptsComponent = @"Scripts.localized";
 NSString * const iTM2SupportBinaryComponent = @"bin";
 
 NSString * const iTM2SupportTextComponent = @"Text Editor.localized";
@@ -360,6 +360,92 @@ To Do List:
 		while(component = [E nextObject])
 		{
 			if([DFM isExecutableFileAtPath:path])
+			{
+				component = [path stringByAppendingPathComponent:component];
+				[result addObject:component];
+			}
+		}
+		if(![DFM popDirectory])
+		{
+			return result;
+		}
+	}
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  allPathsForSupportScripts
+- (NSArray *)allPathsForSupportScripts;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if 0
+	static NSMutableDictionary * cache = nil;
+	if(!cache)
+	{
+		cache = [[NSMutableDictionary dictionary] retain];
+	}
+	NSValue * key = [NSValue valueWithNonretainedObject:self];
+	NSMutableArray * result = [cache objectForKey:key];
+	if(result)
+	{
+		return result;
+	}
+	result = [NSMutableArray array];
+	[cache setObject:result forKey:key];
+#else
+	NSMutableArray * result = [NSMutableArray array];
+#endif
+	NSArray * subpaths;
+	NSEnumerator * E;
+	NSString * component;
+	NSString * path = [self pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSNetworkDomainMask create:NO];
+	if([DFM pushDirectory:path])
+	{
+		subpaths = [DFM subpathsAtPath:path];
+		E = [subpaths objectEnumerator];
+		while(component = [E nextObject])
+		{
+			if([DFM isVisibleFileAtPath:path])
+			{
+				component = [path stringByAppendingPathComponent:component];
+				[result addObject:component];
+			}
+		}
+		if(![DFM popDirectory])
+		{
+			return result;
+		}
+	}
+	path = [self pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSLocalDomainMask create:NO];
+	if([DFM pushDirectory:path])
+	{
+		subpaths = [DFM subpathsAtPath:path];
+		E = [subpaths objectEnumerator];
+		while(component = [E nextObject])
+		{
+			if([DFM isVisibleFileAtPath:path])
+			{
+				component = [path stringByAppendingPathComponent:component];
+				[result addObject:component];
+			}
+		}
+		if(![DFM popDirectory])
+		{
+			return result;
+		}
+	}
+	path = [self pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSUserDomainMask create:YES];
+	if([DFM pushDirectory:path])
+	{
+		subpaths = [DFM subpathsAtPath:path];
+		E = [subpaths objectEnumerator];
+		while(component = [E nextObject])
+		{
+			if([DFM isVisibleFileAtPath:path])
 			{
 				component = [path stringByAppendingPathComponent:component];
 				[result addObject:component];

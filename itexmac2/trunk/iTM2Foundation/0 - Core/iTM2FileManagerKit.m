@@ -368,6 +368,12 @@ To Do List:
 //iTM2_END;
 	return [self pathContentOfSymbolicLinkAtPath:path]!=nil;
 }
+- (BOOL)isVisibleFileAtPath:(NSString *)path;
+{
+//iTM2_LOG(@"path: %@", path);
+	path = [path lastPathComponent];
+	return ![path hasPrefix:@"."];
+}
 #if 0
 #warning *** DEBUGGING PURPOSE ONLY, to be removed
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
