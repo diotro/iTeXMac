@@ -384,7 +384,7 @@ To Do List:
 	}
     return [WC window];
 }
-///=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowPositionShouldBeObserved
+///=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  canBecomeKeyWindow
 - (BOOL)canBecomeKeyWindow;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -393,8 +393,8 @@ To Do List:
 {
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  positionShouldBeObserved
+- (BOOL)positionShouldBeObserved;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -413,6 +413,22 @@ To Do List:
 }
 @end
 
+@implementation iTM2MainInstaller(iTM2LaTeXSymbolsKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2LaTeXSymbolsKitCompleteInstallation
++ (void)iTM2LaTeXSymbolsKitCompleteInstallation;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{
+	if([self contextBoolForKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask])
+	{
+		[[iTM2LaTeXSymbolsPanel sharedPanel] makeKeyAndOrderFront:nil];
+	}
+    return;
+}
+@end
+
 @implementation iTM2SharedResponder(iTM2LaTeXSymbolsKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  orderFrontLaTeXSymbolsPanel:
 - (IBAction)orderFrontLaTeXSymbolsPanel:(id)sender;
@@ -422,7 +438,8 @@ To Do List:
 "*/
 {
     [[iTM2LaTeXSymbolsPanel sharedPanel] makeKeyAndOrderFront:sender];
-    return;
+	[self takeContextBool:YES forKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask];
+	return;
 }
 @end
 
