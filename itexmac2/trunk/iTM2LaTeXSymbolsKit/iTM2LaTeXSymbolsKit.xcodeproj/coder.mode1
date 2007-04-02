@@ -190,46 +190,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>DC86FA560BBD2047007AAE43</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2WindowKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC86FA570BBD2047007AAE43</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2WindowKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC86FCA40BBD8266007AAE43</string>
-						<key>history</key>
-						<array>
-							<string>DC86FA580BBD2047007AAE43</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1310, 665}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>38 146 1310 706 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>DCB1E7390B509CBA00B0704A</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2LaTeXSymbolsKit.m</string>
@@ -244,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC86FCA50BBD8266007AAE43</string>
+						<string>DCF3F3FD0BC16869008D3C9A</string>
 						<key>history</key>
 						<array>
-							<string>DC86FA2A0BBD1E87007AAE43</string>
+							<string>DCF3F3D50BC1684C008D3C9A</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -270,6 +230,46 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
+				<string>DCF3F3D70BC1684C008D3C9A</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>NSWindow.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DCF3F3D80BC1684C008D3C9A</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>NSWindow.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DCF3F3FE0BC16869008D3C9A</string>
+						<key>history</key>
+						<array>
+							<string>DCF3F3D90BC1684C008D3C9A</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1294, 529}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>15 303 1294 570 0 0 1440 878 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
 				<string>DCB1E7740B50A44400B0704A</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>NSImage.h</string>
@@ -284,10 +284,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC86FCA60BBD8266007AAE43</string>
+						<string>DCF3F3FF0BC16869008D3C9A</string>
 						<key>history</key>
 						<array>
-							<string>DCEA0CA40B78C4BC00F48911</string>
+							<string>DC86FCA60BBD8266007AAE43</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -324,10 +324,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC86FCA70BBD8266007AAE43</string>
+						<string>DCF3F4000BC16869008D3C9A</string>
 						<key>history</key>
 						<array>
-							<string>DCEA0CA60B78C4BC00F48911</string>
+							<string>DC86FCA70BBD8266007AAE43</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -343,7 +343,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>15 35 1134 801 0 0 1440 878 </string>
+				<string>15 39 1134 801 0 0 1440 878 </string>
 			</dict>
 		</dict>
 	</array>
@@ -357,8 +357,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -435,14 +433,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>32</integer>
-									<integer>31</integer>
-									<integer>9</integer>
+									<integer>6</integer>
+									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 209}, {471, 574}}</string>
+							<string>{{0, 0}, {471, 574}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -489,7 +486,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC86FCA30BBD8266007AAE43</string>
+										<string>DCF3F3FC0BC16869008D3C9A</string>
 										<key>history</key>
 										<array>
 											<string>DCB1E71C0B509CBA00B0704A</string>
@@ -514,7 +511,7 @@
 											<string>DC86F9FD0BBD1C41007AAE43</string>
 											<string>DC86FA250BBD1E87007AAE43</string>
 											<string>DC86FA470BBD1F58007AAE43</string>
-											<string>DC86F9F70BBD1C41007AAE43</string>
+											<string>DCF3F3D10BC1684C008D3C9A</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -534,7 +531,6 @@
 											<string>DCB1E7370B509CBA00B0704A</string>
 											<string>DCB1E7B40B50B1BE00B0704A</string>
 											<string>DCB1E7B50B50B1BE00B0704A</string>
-											<string>DC86F9FF0BBD1C41007AAE43</string>
 											<string>DC86FA000BBD1C41007AAE43</string>
 											<string>DC86FA010BBD1C41007AAE43</string>
 											<string>DC86FA020BBD1C41007AAE43</string>
@@ -542,8 +538,6 @@
 											<string>DC86FA040BBD1C41007AAE43</string>
 											<string>DC86FA050BBD1C41007AAE43</string>
 											<string>DC86FA060BBD1C41007AAE43</string>
-											<string>DC86FA070BBD1C41007AAE43</string>
-											<string>DC86FA270BBD1E87007AAE43</string>
 											<string>DC86FA490BBD1F58007AAE43</string>
 										</array>
 									</dict>
@@ -602,9 +596,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC86F9C80BBD1A28007AAE43</string>
+				<string>DCF3F3D30BC1684C008D3C9A</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC86F9C90BBD1A28007AAE43</string>
+				<string>DCF3F3D40BC1684C008D3C9A</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -738,18 +732,17 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC86FA3B0BBD1EAC007AAE43</string>
-		<string>DC86FA3C0BBD1EAC007AAE43</string>
+		<string>DCF3F3E10BC1684C008D3C9A</string>
+		<string>DCF3F3E20BC1684C008D3C9A</string>
 		<string>DCB1E7490B509CBA00B0704A</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DC997DF4089326B30009E6EC</string>
-		<string>DC86F9D30BBD1A28007AAE43</string>
+		<string>DCF3F3B80BC1678C008D3C9A</string>
 		<string>DCB1E73D0B509CBA00B0704A</string>
 		<string>DCB1E7740B50A44400B0704A</string>
 		<string>DCB1E7AB0B50B16700B0704A</string>
-		<string>DCB1E7390B509CBA00B0704A</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit.xcodeproj</string>
-		<string>DC86FA560BBD2047007AAE43</string>
+		<string>DCF3F3D70BC1684C008D3C9A</string>
+		<string>DCB1E7390B509CBA00B0704A</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
@@ -832,7 +825,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC997DF4089326B30009E6EC</string>
-				<string>DC86F9F00BBD1C2A007AAE43</string>
+				<string>DCF3F3DF0BC1684C008D3C9A</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -874,8 +867,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {379, 315}}</string>
-											<string>{{379, 0}, {536, 315}}</string>
+											<string>{{0, 0}, {378, 325}}</string>
+											<string>{{378, 0}, {537, 325}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -890,8 +883,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {915, 315}}</string>
-											<string>{{0, 315}, {915, 315}}</string>
+											<string>{{0, 0}, {915, 325}}</string>
+											<string>{{0, 325}, {915, 305}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -938,14 +931,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC86F9CD0BBD1A28007AAE43</string>
+				<string>DCF3F3B20BC1678C008D3C9A</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC86F9CE0BBD1A28007AAE43</string>
-				<string>DC86F9CF0BBD1A28007AAE43</string>
-				<string>DC86F9D00BBD1A28007AAE43</string>
-				<string>DC86F9D10BBD1A28007AAE43</string>
-				<string>DC86F9D20BBD1A28007AAE43</string>
-				<string>DC86F9D30BBD1A28007AAE43</string>
+				<string>DCF3F3B30BC1678C008D3C9A</string>
+				<string>DCF3F3B40BC1678C008D3C9A</string>
+				<string>DCF3F3B50BC1678C008D3C9A</string>
+				<string>DCF3F3B60BC1678C008D3C9A</string>
+				<string>DCF3F3B70BC1678C008D3C9A</string>
+				<string>DCF3F3B80BC1678C008D3C9A</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -1099,7 +1092,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DCB1E7490B509CBA00B0704A</string>
-				<string>DC86FA3A0BBD1EAC007AAE43</string>
+				<string>DCF3F3E00BC1684C008D3C9A</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>WindowString</key>
@@ -1275,7 +1268,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DCB1E7AB0B50B16700B0704A</string>
-				<string>DC86F9D40BBD1A28007AAE43</string>
+				<string>DCF3F3BA0BC1678C008D3C9A</string>
 				<string>1C78EAB2065D492600B07095</string>
 				<string>1CD052920623707200166675</string>
 			</array>

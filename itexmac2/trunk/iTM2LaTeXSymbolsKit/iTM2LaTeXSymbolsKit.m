@@ -411,6 +411,17 @@ To Do List:
 {
     return @"LaTeX Symbols";
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  orderOut:
+- (void)orderOut:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{
+	[self takeContextBool:NO forKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask];
+	[super orderOut:sender];
+    return;
+}
 @end
 
 @implementation iTM2MainInstaller(iTM2LaTeXSymbolsKit)

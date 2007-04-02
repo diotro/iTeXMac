@@ -201,14 +201,6 @@
 						<string>DCF24CFA0BC0110B00F6197B</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>iTM2TeXStorageKit.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCF24D120BC1114700F6197B</string>
-						<key>history</key>
-						<array>
-							<string>DCF24CDE0BC00A7700F6197B</string>
-						</array>
 					</dict>
 					<key>SplitCount</key>
 					<string>1</string>
@@ -244,7 +236,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF24D130BC1114700F6197B</string>
+						<string>DCF24D230BC111F900F6197B</string>
 						<key>history</key>
 						<array>
 							<string>DCF24CC00BC0080200F6197B</string>
@@ -284,7 +276,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF24D140BC1114700F6197B</string>
+						<string>DCF24D240BC111F900F6197B</string>
 						<key>history</key>
 						<array>
 							<string>DC86FC7C0BBD5190007AAE43</string>
@@ -324,7 +316,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF24D150BC1114700F6197B</string>
+						<string>DCF24D250BC111F900F6197B</string>
 						<key>history</key>
 						<array>
 							<string>DC86FC7D0BBD5190007AAE43</string>
@@ -364,7 +356,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF24D160BC1114700F6197B</string>
+						<string>DCF24D260BC111F900F6197B</string>
 						<key>history</key>
 						<array>
 							<string>DC86FC7B0BBD5190007AAE43</string>
@@ -513,7 +505,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2TeXStorageKit.m</string>
+								<string>iTM2MacroKit.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -521,11 +513,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TeXStorageKit.m</string>
+										<string>iTM2MacroKit.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCF24D110BC1114700F6197B</string>
+										<string>DCF24D220BC111F900F6197B</string>
 										<key>history</key>
 										<array>
 											<string>DCDC5F340BB420F50077D239</string>
@@ -535,8 +527,7 @@
 											<string>DC75FFA80BB963DC007C464E</string>
 											<string>DC86F89F0BBCF063007AAE43</string>
 											<string>DC86F9000BBD11A8007AAE43</string>
-											<string>DCF24CF60BC0110B00F6197B</string>
-											<string>DCF24CDE0BC00A7700F6197B</string>
+											<string>DCF24CF70BC0110B00F6197B</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -549,7 +540,6 @@
 											<string>DC75FFAC0BB963DC007C464E</string>
 											<string>DC75FFAD0BB963DC007C464E</string>
 											<string>DC86F8A10BBCF063007AAE43</string>
-											<string>DCF24CF70BC0110B00F6197B</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -982,7 +972,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TeXStorageAttributes.m</string>
+										<string>&lt;No Editor&gt;</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
