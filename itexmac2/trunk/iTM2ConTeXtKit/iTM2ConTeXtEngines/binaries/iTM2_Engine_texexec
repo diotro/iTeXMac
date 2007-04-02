@@ -2,15 +2,18 @@
 # this is iTM2_Engine_TeXExec for iTeXMac2 2.0
 # © 2005 jlaurens AT users DOT sourceforge DOT net
 # This is a TeXExec 5.2.4 - ConTeXt / PRAGMA ADE 1997-2005 wrapper
-iTM2_TeXExec_Engine_Version=1.0
+iTM2_TeXExec_Engine_Version=1.1
 iTM2_Debug="1"
+iTM2_TeXExec_Engine="texexec"
+iTM2_TeXExec_EnginePath="$(zsh -c "which \"${iTM2_TeXExec_Engine}\"")"#"
 iTM2TeXEngineUsage()
 {
-iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_TeXExec_Engine_Version}
+cat <<EOF
+Welcome to $(basename "$0") version ${iTM2_TeXExec_Engine_Version}
 This is iTeXMac2 built in script to wrap the TeXExec engine
-(`which "$0"`)
+($(which "$0"))
 © 2004 jlaurens AT users DOT sourceforge DOT net
-Usage: `basename "$0"` with environment variables
+Usage: $(basename "$0") with environment variables
 	TWSMaster: the main input file
 	TWSFront: the front file
 Standard:
@@ -84,11 +87,10 @@ Advanced:
 	iTM2_TeXExec_USE_environment: 1 or 0 # 
 	iTM2_TeXExec_environment: --environment # 
 	iTM2_TeXExec_USE_xmlfilter: 1 or 0 # 
-	iTM2_TeXExec_xmlfilter: --xmlfilter"# 
-"$iTM2_CMD_Notify" echo "$iTM2_USAGE"
-exit 0
+	iTM2_TeXExec_xmlfilter: --xmlfilter
+EOF
 }
-"$iTM2_CMD_Notify" echo "Welcome to `basename "$0"` version ${iTM2_TeXExec_Engine_Version}
+"$iTM2_CMD_Notify" echo "Welcome to $(basename "$0") version ${iTM2_TeXExec_Engine_Version}
 This is iTeXMac2 built in script to wrap the TeXExec engine
 © 2005 jlaurens AT users DOT sourceforge DOT net"
 if [ "${iTM2_Debug:-0}" != "0" ]
@@ -101,12 +103,11 @@ then
 	done
 	"$iTM2_CMD_Notify" stop comment
 fi
-iTM2_TeXExec_Engine="texexec"
-iTM2_TeXExec_EnginePath="`which "${iTM2_TeXExec_Engine}"`"
 if ! [ -x "${iTM2_TeXExec_EnginePath}" ]
 then
 	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_TeXExec_Engine}."
 	iTM2TeXEngineUsage
+	exit 1
 fi
 if ! [ -r "${TWSMaster}" ]
 then
@@ -114,6 +115,7 @@ then
 	then
 		"$iTM2_CMD_Notify" error "No readable file at ${TWSMaster} nor ${TWSFront}."
 		iTM2TeXEngineUsage
+		exit 2
 	else
 		"$iTM2_CMD_Notify" comment "No master given: front chosen"
 		TWSMaster="${TWSFront}"
@@ -227,13 +229,13 @@ else
 	iTM2_PWD_Real="$(dirname "${TWSMaster}")"
 	iTM2_PWD="${iTM2_PWD_Real}"
 fi
-pushd "${iTM2_PWD}"
+pushd "${iTM2_PWD}" > /dev/null
 "$iTM2_CMD_Notify" comment "Performing  ${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} \"${TWSMasterBase%}\""
 ${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} "${TWSMasterBase%}"
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
-	popd
+	popd > /dev/null
 	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
 	exit ${iTM2_Status}
 fi
@@ -256,17 +258,17 @@ fi
 if [ "${iTM2_Status}" != "0" ]
 then
 	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
-	popd
+	popd > /dev/null
 	exit ${iTM2_Status}
 elif [ "${iTM2_Debug}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" comment "$0 complete."
 fi
-popd
+popd > /dev/null
 exit
 
 
-popd
+popd > /dev/null
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" comment "$0 complete."

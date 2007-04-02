@@ -102,9 +102,7 @@ typedef enum _iTM2TeXInputMode
 //	Cells
     kiTM2TeXCellSeparatorSyntaxMode,// '&' alone
 //	Placeholders
-    kiTM2TeXAtStartSyntaxMode,// free "@"
-    kiTM2TeXAtContinueSyntaxMode,// "@" after unescaped "@"
-    kiTM2TeXPlaceholderTypeSyntaxMode,// one of "{[\"\'" after unescaped "@"
+    kiTM2TeXPlaceholderDelimiterMode,// "@@@(" or ")@@@"
 //  Everything else
 	kiTM2TeXUnknownSyntaxMode = kiTM2TextUnknownSyntaxMode
 } iTM2TeXInputMode;// don't change the order unless you know what you are doing

@@ -548,6 +548,18 @@ To Do List:
 #define TABLE @"iTM2InsertLaTeX"
 
 @implementation iTM2LaTeXEditor
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
+- (BOOL)handlesKeyBindings;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  bold:
 - (void)bold:(id)sender;
 /*"Description forthcoming.
@@ -560,7 +572,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\textbf{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\textbf{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
@@ -574,7 +586,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\textit{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\textit{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
@@ -588,7 +600,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\underline{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\underline{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignCenter:
@@ -602,7 +614,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\begin{center}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\begin{center}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignRight:
@@ -616,7 +628,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\begin{flushright}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\begin{flushright}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignLeft:
@@ -630,7 +642,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\begin{flushleft}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\begin{flushleft}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 #if 0
@@ -922,7 +934,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\label{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\label{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -982,7 +994,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\ref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\ref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1034,7 +1046,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\eqref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\eqref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1083,12 +1095,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
+	NSString * domain = [self macroDomain];
+	NSString * category = [self macroCategory];
+	NSString * context = [self macroContext];
 	NSString * knownReference = [sender representedObject];
+	iTM2MacroLeafNode * leafNode = [SMC macroRunningNodeForID:@"\\ref{}|identifier" context:context ofCategory:category inDomain:domain];
 	NSDictionary * substitutions = [NSDictionary dictionaryWithObject:knownReference forKey:@"identifier"];
-	[SMC executeMacroWithID:@"\\ref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:substitutions target:self];
+	[leafNode executeMacroWithTarget:self substitutions:substitutions];
 //iTM2_END;
     return;
 }
@@ -1137,7 +1150,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\chapter{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\chapter{}|text_content" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1165,7 +1178,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\part{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\part{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1193,7 +1206,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\section{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\section{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1221,7 +1234,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\subsection{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\subsection{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1249,7 +1262,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\subsubsection{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\subsubsection{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1277,7 +1290,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\paragraph{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\paragraph{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -1305,7 +1318,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\subparagraph{text_content}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+	[SMC executeMacroWithID:@"\\subparagraph{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 //iTM2_END;
     return;
 }
@@ -2036,7 +2049,106 @@ static id _iTM2LaTeXModeForModeArray = nil;
 @end
 #endif
 
-@implementation NSTextView(iTM2LaTeX)
+@implementation NSTextView(iTM2LaTeXKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  proposedRangeForLaTeXUserCompletion:
+- (NSRange)proposedRangeForLaTeXUserCompletion:(NSRange)range;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(range.location)
+	{
+		NSString * S = [self string];
+		unichar theChar = [S characterAtIndex:range.location-1];
+		if(theChar == '\\')
+		{
+			--range.location;
+			++range.length;
+		}
+	}
+//iTM2_END;
+	return range;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  concreteReplacementStringForLaTeXMacro:selection:
+- (NSString *)concreteReplacementStringForLaTeXMacro:(NSString *)macro selection:(NSString *)selectedString;
+/*"Description forthcoming. Will be completely overriden by subclassers.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// what is the policy of the replacement?
+	NSRange range;
+	NSString * scanned;
+	NSMutableString * replacementString;
+	
+	// managing the parameters, this is LaTeX specific
+	replacementString = [NSMutableString string];
+	if([macro hasPrefix:@"\\"] && ![selectedString length])
+	{
+		NSArray * arguments = [macro componentsSeparatedByString:@"|"];
+		NSEnumerator * E = [arguments objectEnumerator];
+		macro = [E nextObject];
+		NSScanner * scanner = [NSScanner scannerWithString:macro];
+		NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"[{"];
+		while([scanner scanUpToCharactersFromSet:set intoString:&scanned])
+		{
+			[replacementString appendString:scanned];
+			
+			if([scanner scanString:@"[" intoString:nil])
+			{
+				[scanner scanUpToString:@"]" intoString:&scanned]||(scanned=@"");
+				if([scanner scanString:@"]" intoString:nil])
+				{
+					[replacementString appendString:@"@@@([@@@("];
+					if(![scanned length])
+					{
+						scanned = [E nextObject]?:@"";
+					}
+					[replacementString appendString:scanned];
+					[replacementString appendString:@")@@@])@@@"];
+				}
+				else
+				{
+					goto theEnd;
+				}
+			}
+			if([scanner scanString:@"{" intoString:nil])
+			{
+				[scanner scanUpToString:@"]" intoString:&scanned]||(scanned=@"");
+				if([scanner scanString:@"]" intoString:nil])
+				{
+					[replacementString appendString:@"{@@@("];
+					if(![scanned length])
+					{
+						scanned = [E nextObject]?:@"";
+					}
+					[replacementString appendString:scanned];
+					[replacementString appendString:@")@@@}"];
+				}
+				else
+				{
+					goto theEnd;
+				}
+			}
+		}
+theEnd:
+		range.location = [scanner scanLocation];
+		range.length = [macro length] - range.location;
+		scanned = [macro substringWithRange:range];
+		[replacementString appendString:scanned];
+	}
+	else
+	{
+		replacementString = (id)[self concreteReplacementStringForMacro:macro selection:selectedString];
+	}
+//iTM2_END;
+   return replacementString;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartLaTeXMacroWithMacro:substitutions;
 - (NSString *)smartLaTeXMacroWithMacro:(NSString *)macro substitutions:(NSDictionary *)substitutions;
 /*"Description forthcoming. Will be completely overriden by subclassers.

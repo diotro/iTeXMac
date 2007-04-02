@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -223,6 +221,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -312,13 +312,23 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>&lt;No Editor&gt;</string>
+								<string>iTM2PDFKit.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
+										<key>PBXProjectModuleLabel</key>
+										<string>iTM2PDFKit.m</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>DCF24CAC0BBFE81E00F6197B</string>
+										<key>history</key>
+										<array>
+											<string>DCF24C620BBF94ED00F6197B</string>
+										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -375,9 +385,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC3332CF0B81DF6E008603C5</string>
+				<string>DCF24C640BBF94ED00F6197B</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC3332D00B81DF6E008603C5</string>
+				<string>DCF24C650BBF94ED00F6197B</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -511,13 +521,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC3338170B825814008603C5</string>
-		<string>DC3338180B825814008603C5</string>
+		<string>DCF24C730BBF952B00F6197B</string>
+		<string>DCF24C740BBF952B00F6197B</string>
 		<string>DC691A76088CFF8900F00114</string>
+		<string>DCF24C710BBF952B00F6197B</string>
 		<string>DC09A036088BE9470028F810</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>DC3332D80B81DF6E008603C5</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2PDFKit/iTM2PDFKit.xcodeproj</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>55 56 1368 821 0 0 1440 878 </string>
@@ -558,8 +569,6 @@
 							<string>215pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
@@ -601,7 +610,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC09A036088BE9470028F810</string>
-				<string>DC3338150B825814008603C5</string>
+				<string>DCF24C6A0BBF952B00F6197B</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -643,8 +652,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {499, 356}}</string>
-											<string>{{499, 0}, {762, 356}}</string>
+											<string>{{0, 0}, {491, 408}}</string>
+											<string>{{491, 0}, {770, 408}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -659,8 +668,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1261, 356}}</string>
-											<string>{{0, 356}, {1261, 445}}</string>
+											<string>{{0, 0}, {1261, 408}}</string>
+											<string>{{0, 408}, {1261, 393}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -707,14 +716,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC3332D20B81DF6E008603C5</string>
+				<string>DCF24C6B0BBF952B00F6197B</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC3332D30B81DF6E008603C5</string>
-				<string>DC3332D40B81DF6E008603C5</string>
-				<string>DC3332D50B81DF6E008603C5</string>
-				<string>DC3332D60B81DF6E008603C5</string>
-				<string>DC3332D70B81DF6E008603C5</string>
-				<string>DC3332D80B81DF6E008603C5</string>
+				<string>DCF24C6C0BBF952B00F6197B</string>
+				<string>DCF24C6D0BBF952B00F6197B</string>
+				<string>DCF24C6E0BBF952B00F6197B</string>
+				<string>DCF24C6F0BBF952B00F6197B</string>
+				<string>DCF24C700BBF952B00F6197B</string>
+				<string>DCF24C710BBF952B00F6197B</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -723,7 +732,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -741,6 +750,8 @@
 							<key>Dock</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -767,8 +778,6 @@
 							<string>350pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -804,8 +813,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DCC4AF620B80E49D00BBCDDD</string>
-				<string>DCC4AF630B80E49D00BBCDDD</string>
+				<string>DCF24C660BBF94ED00F6197B</string>
+				<string>DCF24C670BBF94ED00F6197B</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>
@@ -833,8 +842,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -870,7 +877,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DC691A76088CFF8900F00114</string>
-				<string>DC3338160B825814008603C5</string>
+				<string>DCF24C720BBF952B00F6197B</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>WindowString</key>

@@ -4,24 +4,24 @@
 # This is a MPS2PDF based on mps2eps
 #echo "iTM2: STARTING $0"
 printenv
-iTM2_MPS2PDF_Engine_Version=1.0
+iTM2_MPS2PDF_Engine_Version=1.1
 iTM2MPS2PDFEngineUsage()
 {
-iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_MPS2PDF_Engine_Version}
+cat <<EOF
+Welcome to $(basename "$0") version ${iTM2_MPS2PDF_Engine_Version}
 This is iTeXMac2 built in script to wrap the tex engine
 (`which "$0"`)
 © 2004 jlaurens AT users DOT sourceforge DOT net
-Usage: `basename "$0"` --input INPUT --dvips DVIPS_OPT with environment variables
+Usage: $(basename "$0") --input INPUT --dvips DVIPS_OPT with environment variables
 	TWSMaster: the main input file
 	iTM2_MPS2PDF_USE_dvips_options: 1 or 0, default to 0
-	iTM2_MPS2PDF_dvips_options: more arguments for dvips"
-echo "$iTM2_USAGE"
+	iTM2_MPS2PDF_dvips_options: more arguments for dvips
 exit 0
 }
-"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version ${iTM2_MPS2PDF_Engine_Version}
-(`which "$0"`)
+"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_MPS2PDF_Engine_Version}
+($(which "$0"))
 This is iTeXMac2 built in script to convert MetaPost output to PDF
-© 2005 jlaurens AT users DOT sourceforge DOT net"
+© 2005-2007 jlaurens AT users DOT sourceforge DOT net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" start comment
@@ -61,7 +61,7 @@ do
 	shift 1
 done
 "$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
-pushd "$(dirname "${TWSMaster}")"
+pushd "$(dirname "${TWSMaster}")" > /dev/null
 INPUT="$(basename "${TWSMaster}")"
 TEXBASE=${INPUT}_trash_me_$$
 TEXFILE=${TEXBASE}.tex
@@ -90,7 +90,7 @@ ls
 ls *trash_me*
 rm -f *trash_me*
 epstopdf  $EPSFILE
-popd
+popd > /dev/null
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" comment "$0 complete."

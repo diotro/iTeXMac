@@ -68,7 +68,7 @@ NSString * const iTM2TeXSuperContinueSyntaxModeName = @"^^.";
 NSString * const iTM2TeXSuperShortSyntaxModeName = @"^.";
 NSString * const iTM2TeXSuperLongSyntaxModeName = @"^{}";
 NSString * const iTM2TeXAmpersandSyntaxModeName = @"&";
-NSString * const iTM2TeXPlaceholderSyntaxModeName = @"@@.";
+NSString * const iTM2TeXPlaceholderDelimiterSyntaxModeName = @"@@@()@@@";
 
 #undef iTM2_ATTRIBUTE_ASSERT
 #define iTM2_ATTRIBUTE_ASSERT(CONDITION,REASON) if(iTM2DebugEnabled>99&&!(CONDITION)) {ERROR=REASON;goto returnERROR;}
@@ -97,7 +97,7 @@ To Do List:
 			iTM2TeXSubSyntaxModeName, iTM2TeXSubShortSyntaxModeName, iTM2TeXSubLongSyntaxModeName,// +3
 			iTM2TeXSuperSyntaxModeName, iTM2TeXSuperContinueSyntaxModeName, iTM2TeXSuperShortSyntaxModeName, iTM2TeXSuperLongSyntaxModeName,// +4
 			iTM2TeXAmpersandSyntaxModeName,// +1
-			iTM2TeXPlaceholderSyntaxModeName, iTM2TeXPlaceholderSyntaxModeName, iTM2TeXPlaceholderSyntaxModeName,// +4
+			iTM2TeXPlaceholderDelimiterSyntaxModeName,// +3
 				nil] retain];
 	}
 	iTM2_RELEASE_POOL;
@@ -257,8 +257,8 @@ To Do List:
 	[MRA addObject:attributes];
 	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
-        [NSColor colorWithCalibratedRed:0.25 green:0.75 blue:0 alpha:0.666], NSForegroundColorAttributeName,
-		iTM2TeXPlaceholderSyntaxModeName,iTM2TextModeAttributeName,
+        [NSColor colorWithCalibratedRed:0.95 green:0.15 blue:0.15 alpha:0.5], NSForegroundColorAttributeName,
+		iTM2TeXPlaceholderDelimiterSyntaxModeName,iTM2TextModeAttributeName,
             nil];
 	[MRA addObject:attributes];
 

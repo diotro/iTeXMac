@@ -394,6 +394,7 @@ To Do List:
 	{
 		return result;
 	}
+	result = [NSMutableArray array];
 	[cache setObject:result forKey:key];
 #else
 	NSMutableArray * result = [NSMutableArray array];

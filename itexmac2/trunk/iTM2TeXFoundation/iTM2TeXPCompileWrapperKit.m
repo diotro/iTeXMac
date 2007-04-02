@@ -1736,12 +1736,14 @@ To Do List:
 	//   the shell script is either void, inherited from the base or built in the project.
 	//   If the shell script is void, nothing is done
 	NSString * command = [self commandName];//@"Compile"
-	NSString * mode = [[project commandWrapperForName:command] scriptMode];
+	id CW = [project commandWrapperForName:command];
+	NSString * mode = [CW scriptMode];
 	if([mode isEqualToString:iTM2TPFEVoidMode])
 		return [super environmentWithDictionary:environment forProject:project];
-    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:environment forProject:project]];
+	NSDictionary * D = [super environmentWithDictionary:environment forProject:project];
+    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:D];
 //iTM2_LOG(@"111-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
-	mode = [[project commandWrapperForName:command] environmentMode];
+	mode = [CW environmentMode];
 	if([mode isEqualToString:iTM2TPFEVoidMode])
 	{
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
@@ -1752,6 +1754,8 @@ To Do List:
 	}
 	else if([mode isEqualToString:iTM2TPFEBaseMode])
 	{
+		D = [project environmentForEngineMode:iTM2ProjectDefaultsKey];
+		[ED addEntriesFromDictionary:D];
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
 		while(O = [E nextObject])
@@ -1765,17 +1769,18 @@ To Do List:
 	}
 	else
 	{
-		[ED addEntriesFromDictionary:[project environmentForEngineMode:iTM2ProjectDefaultsKey]];
+		D = [project environmentForEngineMode:iTM2ProjectDefaultsKey];
+		[ED addEntriesFromDictionary:D];
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
 		while(O = [E nextObject])
 		{
 			NSString * key = [NSString stringWithFormat:@"iTM2_Compile_%@", O];
-			iTM2TeXPEngineWrapper * CW = [project engineWrapperForName:O];
-			NSString * scriptMode = [CW scriptMode];
+			CW = [project engineWrapperForName:O];
+			mode = [CW scriptMode];
 //iTM2_LOG(@"222-key is: %@", key);
 //iTM2_LOG(@"222-CW is: %@", CW);
-			if([scriptMode isEqualToString:iTM2TPFEBaseMode])
+			if([mode isEqualToString:iTM2TPFEBaseMode])
 			{
 			// the script is one of the default iTM2 script
 				if(![ED valueForKey:key])
@@ -1783,17 +1788,19 @@ To Do List:
 					[ED takeValue:key forKey:key];
 				}
 			}
-			else if([scriptMode hasPrefix:@"iTM2_Engine_"])
+			else if([mode hasPrefix:@"iTM2_Engine_"])
 			{
 			// the script is one of the built in engines
-				[ED takeValue:scriptMode forKey:key];
+				[ED takeValue:mode forKey:key];
 			}
 			else
 			{
 			// the script is one of the project customized scripts
-				[ED takeValue:[NSString stringWithFormat:@"iTM2_BaseEngine_%@", scriptMode] forKey:key];
+				[ED takeValue:[NSString stringWithFormat:@"iTM2_BaseEngine_%@", mode] forKey:key];
 			}
-			[ED addEntriesFromDictionary:[project environmentForEngineMode:[CW environmentMode]]];
+			mode = [CW environmentMode];
+			D = [project environmentForEngineMode:mode];
+			[ED addEntriesFromDictionary:D];
 //iTM2_LOG(@"222-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 		}
 	}
@@ -1820,53 +1827,62 @@ To Do List:
 	//   the shell script is either void, inherited from the base or built in the project.
 	//   If the shell script is void, nothing is done
 	NSString * command = [self commandName];//@"Compile"
-	NSString * mode = [[project commandWrapperForName:command] scriptMode];
+	id CW = [project commandWrapperForName:command];
+	NSString * mode = [CW scriptMode];
 	if([mode isEqualToString:iTM2TPFEVoidMode])
 		return [super environmentWithDictionary:environment forProject:project];
-    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:[super environmentWithDictionary:environment forProject:project]];
+	NSDictionary * D = [super environmentWithDictionary:environment forProject:project];
+    NSMutableDictionary * ED = [NSMutableDictionary dictionaryWithDictionary:D];
 //iTM2_LOG(@"312-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
-	mode = [[project commandWrapperForName:command] environmentMode];
+	mode = [CW environmentMode];
 	if([mode isEqualToString:iTM2TPFEVoidMode])
 	{
 //iTM2_LOG(@"313-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
 		while(O = [E nextObject])
+		{
 			[ED takeValue:[NSString stringWithFormat:@"iTM2_DoNothing"]
 				forKey: [NSString stringWithFormat:@"iTM2_Compile_%@", O]];
+		}
 	}
 	else if([mode isEqualToString:iTM2TPFEBaseMode])
 	{
 //iTM2_LOG(@"314-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
+		D = [project environmentForEngineMode:iTM2ProjectDefaultsKey];
+		[ED addEntriesFromDictionary:D];
 	}
 	else
 	{
 //iTM2_LOG(@"315-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
-		[ED addEntriesFromDictionary:[project environmentForEngineMode:iTM2ProjectDefaultsKey]];
+		D = [project environmentForEngineMode:iTM2ProjectDefaultsKey];
+		[ED addEntriesFromDictionary:D];
 		NSEnumerator * E = [[self builtInEngineModes] objectEnumerator];
 		id O;
 		while(O = [E nextObject])
 		{
 			NSString * key = [NSString stringWithFormat:@"iTM2_Compile_%@", O];
-			iTM2TeXPEngineWrapper * CW = [project engineWrapperForName:O];
-			NSString * scriptMode = [CW scriptMode];
+			CW = [project engineWrapperForName:O];
+			mode = [CW scriptMode];
 //iTM2_LOG(@"scriptMode is: %@, key is: %@, project is: %@", scriptMode, key, project);
-			if([scriptMode isEqualToString:iTM2TPFEBaseMode])
+			if([mode isEqualToString:iTM2TPFEBaseMode])
 			{
 			// the script is inherited from the bas project
 				;//[ED takeValue:key forKey:key];
 			}
-			else if([scriptMode hasPrefix:@"iTM2_Engine_"])
+			else if([mode hasPrefix:@"iTM2_Engine_"])
 			{
 			// the script is one of the built in engines
-				[ED takeValue:scriptMode forKey:key];
+				[ED takeValue:mode forKey:key];
 			}
 			else
 			{
 			// the script is one of the project customized scripts
-				[ED takeValue:[NSString stringWithFormat:@"iTM2_Engine_%@", scriptMode] forKey:key];
+				[ED takeValue:[NSString stringWithFormat:@"iTM2_Engine_%@", mode] forKey:key];
 			}
-			[ED addEntriesFromDictionary:[project environmentForEngineMode:[CW environmentMode]]];
+			mode = [CW environmentMode];
+			D = [project environmentForEngineMode:mode];
+			[ED addEntriesFromDictionary:D];
 		}
 	}
 	if([project contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])

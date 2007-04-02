@@ -209,6 +209,25 @@ extern NSString * const TWSShellEnvironmentProjectKey;
 */
 - (void)setEnvironmentMode:(NSString *)mode;
 
+/*! 
+    @method     defaultEnvironment
+    @abstract   Abstract forthcoming.
+    @discussion Discussion forthcoming.
+    @param      Unknown
+    @result     Unknown
+*/
+- (id)defaultEnvironment;
+
+/*! 
+    @method     takeDefaultEnvironmentValue:
+    @abstract   Abstract forthcoming.
+    @discussion Discussion forthcoming.
+    @param      value
+    @param      key
+    @result     None
+*/
+- (void)takeDefaultEnvironmentValue:(id)value forKey:(NSString *)key;
+
 @end
 
 @interface iTM2TeXPCommandWrapper: iTM2CommandWrapper

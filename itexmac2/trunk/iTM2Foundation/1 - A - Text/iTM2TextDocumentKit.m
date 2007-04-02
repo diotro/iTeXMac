@@ -193,6 +193,7 @@ To Do List:
 		NSNumber * N = [hint objectForKey:@"character index"];
 		if(N)
 		{
+			NSRange R;
 			unsigned int characterIndex = [N unsignedIntValue];
 			NSString * pageString = [hint objectForKey:@"container"];
 			if(characterIndex<[pageString length])
@@ -210,11 +211,12 @@ goThree:;// I will come here if the first attempt does not work
 					NSString * prevW3 = nil;
 					unsigned int index = hereR.location;
 					// looking for the previous word
+					NSRange wordRange;
 					if(index > 2)
 					{
 						index -= 2;
 placard:;
-						NSRange wordRange = [pageString rangeOfWordAtIndex:index];
+						wordRange = [pageString rangeOfWordAtIndex:index];
 						if(wordRange.length)
 						{
 							prevW1 = [pageString substringWithRange:wordRange];
@@ -266,7 +268,7 @@ cardalp:
 					{
 						index += 2;
 tolebib:;
-						NSRange wordRange = [pageString rangeOfWordAtIndex:index];
+						wordRange = [pageString rangeOfWordAtIndex:index];
 						if(wordRange.length)
 						{
 							nextW1 = [pageString substringWithRange:wordRange];
@@ -325,11 +327,13 @@ bolbite:
 						searchR.length += searchR.location;
 						searchR.location = 0;
 					}
-					if(NSMaxRange(searchR) + [pageString length] < [documentString length])
+					#if 0
+					if(NSMaxRange(searchR) + 20*[pageString length] < [documentString length])
 					{
-						searchR.length += [pageString length];
+						searchR.length += 20*[pageString length];
 					}
 					else
+					#endif
 					{
 						searchR.length = [documentString length] - searchR.location;
 					}
@@ -389,7 +393,7 @@ match12345:
 	if(searchR.location < nextR2.location)
 	{
 		searchR.length = nextR2.location - searchR.location;
-		NSRange R = [documentString rangeOfWord:nextW1 options:NSBackwardsSearch range:searchR];
+		R = [documentString rangeOfWord:nextW1 options:NSBackwardsSearch range:searchR];
 		if(R.length)
 			nextR1 = R;
 	}
@@ -397,7 +401,7 @@ match12345:
 	if(searchR.location < nextR1.location)
 	{
 		searchR.length = nextR1.location - searchR.location;
-		NSRange R = [documentString rangeOfWord:hereWord options:NSBackwardsSearch range:searchR];
+		R = [documentString rangeOfWord:hereWord options:NSBackwardsSearch range:searchR];
 		if(R.length)
 			hereR = R;
 	}
@@ -405,7 +409,7 @@ match12345:
 	if(searchR.location < hereR.location)
 	{
 		searchR.length = hereR.location - searchR.location;
-		NSRange R = [documentString rangeOfWord:prevW1 options:NSBackwardsSearch range:searchR];
+		R = [documentString rangeOfWord:prevW1 options:NSBackwardsSearch range:searchR];
 		if(R.length)
 			prevR1 = R;
 	}
@@ -413,7 +417,7 @@ match12345:
 	if(searchR.location < prevR1.location)
 	{
 		searchR.length = prevR1.location - searchR.location;
-		NSRange R = [documentString rangeOfWord:prevW2 options:NSBackwardsSearch range:searchR];
+		R = [documentString rangeOfWord:prevW2 options:NSBackwardsSearch range:searchR];
 		if(R.length)
 			prevR2 = R;
 	}
@@ -2130,6 +2134,52 @@ To Do List:
 @end
 
 @implementation iTM2TextEditor
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paste:
+- (IBAction)paste:(id)sender;
+/*"We do not paste attributes. There is a problem concerning attributes here.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	NSPasteboard * GP = [NSPasteboard generalPasteboard];
+	NSArray * types = [NSArray arrayWithObject:NSStringPboardType];
+	NSString * availableType = [GP availableTypeFromArray:types];
+	if(!availableType)
+	{
+		return;
+	}
+	NSString * text = [GP stringForType:availableType];
+	[self insertText:text];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePaste:
+- (BOOL)validatePaste:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	NSPasteboard * GP = [NSPasteboard generalPasteboard];
+	NSArray * types = [NSArray arrayWithObject:NSStringPboardType];
+	NSString * availableType = [GP availableTypeFromArray:types];
+	return availableType!=nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
+- (BOOL)handlesKeyBindings;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithFrame:
 - (id)initWithFrame:(NSRect)frameRect;
 /*"Description Forthcoming.

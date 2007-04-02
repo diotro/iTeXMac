@@ -2,15 +2,16 @@
 # this is iTM2_Engine_PDFTeX for iTeXMac2 2.0
 # © 2006 jlaurens AT users DOT sourceforge DOT net
 # This is a pdfeTeX 3.141592-1.20a-2.2 (Web2C 7.5.3) wrapper
-iTM2_PDFTeX_Engine_Version=1.1
+iTM2_PDFTeX_Engine_Version=1.2
 iTM2PDFTeXEngineUsage()
 {
-iTM2_Usage="Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
+cat <<EOF
+Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the pdftex engine
 ($(which pdftex))
 © 2006 jlaurens AT users DOT sourceforge DOT net
 Usage: $(basename "$0") with environment variables
-	TWSMaster: the main input file (actually \"${TWSMaster}\")
+	TWSMaster: the main input file (actually "${TWSMaster}")
 	TWSProject: the project file, if any, full path, unused
 	TWSWrapper: the wrapper file, if any, full path, unused
 	iTM2_Continuous_Compile: 1 or void
@@ -23,7 +24,7 @@ Usage: $(basename "$0") with environment variables
 	iTM2_PDFTeX_mktex: 1 or void,
 	iTM2_PDFTeX_USE_output_directory: 1 or void
 	iTM2_PDFTeX_output_directory:
-	iTM2_PDFTeX_output_format: \"pdf\" or \"dvi\"
+	iTM2_PDFTeX_output_format: "pdf" or "dvi"
 	iTM2_PDFTeX_fmt: = FMTNAME, use the value instead of program name or a %& line
 	iTM2_PDFTeX_parse_first_line: 1 or void, parse of the first line of the input file
 	iTM2_PDFTeX_USE_progname: 1 or void,
@@ -50,12 +51,22 @@ Usage: $(basename "$0") with environment variables
 	iTM2_PDFTeX_halt_on_error: 1 or void,
 	iTM2_PDFTeX_interaction: batchmode/nonstopmode/scrollmode/errorstopmode, set interaction mode
 	iTM2_PDFTeX_kpathsea_debug: 1 or void
-	iTM2_PDFTeX_MoreArgument: more arguments"
-	echo "$iTM2_Usage"
+	iTM2_PDFTeX_MoreArgument: more arguments
+EOF
 }
+# the engine part
+iTM2_PDFTeX_Engine="pdftex"
+iTM2_PDFTeX_EnginePath="$(/bin/zsh -c "which \"${iTM2_PDFTeX_Engine}\"")"
+#"
+if ! [ -x "${iTM2_PDFTeX_EnginePath}" ]
+then
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_PDFTeX_Engine}."
+	iTM2PDFTeXEngineUsage
+	exit 1
+fi
 "${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_PDFTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the pdftex engine at
-$(which pdftex)
+${iTM2_PDFTeX_EnginePath}
 © 2006 jlaurens AT users DOT sourceforge DOT net"
 if [ "${iTM2_Debug}" != "0" ]
 then
@@ -66,15 +77,6 @@ then
 		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
 	done
 	"${iTM2_CMD_Notify}" notify stop comment
-fi
-# the engine part
-iTM2_PDFTeX_Engine="pdftex"
-iTM2_PDFTeX_EnginePath="$(which "${iTM2_PDFTeX_Engine}")"
-if ! [ -x "${iTM2_PDFTeX_EnginePath}" ]
-then
-	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_PDFTeX_Engine}."
-	iTM2PDFTeXEngineUsage
-	exit 1
 fi
 iTM2_PDFTeX_Arguments=""
 if [ "${iTM2_PDFTeX_ini:-0}" != "0" ]

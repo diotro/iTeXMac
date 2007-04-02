@@ -361,6 +361,39 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 
 #import <Sparkle/Sparkle.h>
 
+@interface SUUnarchiver(iTeXMac2)
+- (BOOL)_extractZIP:(NSString *)archivePath;
+- (BOOL)_extractDMG:(NSString *)archivePath;
+@end
+
+@interface SUUnarchiver_iTeXMac2:SUUnarchiver
+@end
+
+@implementation SUUnarchiver_iTeXMac2
++ (void)load;
+{
+	[self poseAsClass:[SUUnarchiver class]];
+	return;
+}
+- (BOOL)_extractZIP:(NSString *)archivePath
+{
+	if([super _extractZIP:archivePath])
+	{
+		archivePath = [archivePath stringByDeletingPathExtension];
+		archivePath = [archivePath stringByAppendingPathExtension:@"dmg"];
+		if([DFM fileExistsAtPath:archivePath])
+		{
+			return [self _extractDMG:archivePath];
+		}
+		else
+		{
+			return YES;
+		}
+	}
+	return NO;
+}
+@end
+
 @implementation iTM2MainInstaller(iTM2SoftwareUpdatePrefPane)
 + (void)iTM2SoftwareUpdatePrefPane_CompleteInstallation;
 {iTM2_DIAGNOSTIC;

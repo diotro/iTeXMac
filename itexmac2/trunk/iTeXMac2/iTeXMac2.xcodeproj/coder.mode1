@@ -196,8 +196,6 @@
 		<dict>
 			<key>ChosenToolbarItems</key>
 			<array>
-				<string>XCToolbarPerspectiveControl</string>
-				<string>NSToolbarSeparatorItem</string>
 				<string>active-target-popup</string>
 				<string>action</string>
 				<string>active-buildstyle-popup</string>
@@ -327,7 +325,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC9840600BA62F410061BD8B</string>
+										<string>DCCA29320BB65F2300996E1D</string>
 										<key>history</key>
 										<array>
 											<string>DC23FA790B732F65006261D8</string>
@@ -337,7 +335,7 @@
 											<string>DCEEDB760B93222200A964CA</string>
 											<string>DC98405B0BA62F410061BD8B</string>
 											<string>DC98405C0BA62F410061BD8B</string>
-											<string>DC98405D0BA62F410061BD8B</string>
+											<string>DC9840600BA62F410061BD8B</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -405,9 +403,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC9840610BA62F410061BD8B</string>
+				<string>DCCA28F60BB65F1100996E1D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC9840620BA62F410061BD8B</string>
+				<string>DCCA28F70BB65F1100996E1D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -541,9 +539,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC9840690BA62F410061BD8B</string>
+		<string>DCCA28FE0BB65F1100996E1D</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
+		<string>DCCA29330BB65F2300996E1D</string>
 	</array>
 	<key>WindowString</key>
 	<string>50 39 1364 567 0 0 1440 878 </string>
@@ -667,8 +666,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {564, 278}}</string>
-											<string>{{564, 0}, {868, 278}}</string>
+											<string>{{0, 0}, {561, 278}}</string>
+											<string>{{561, 0}, {871, 278}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -731,14 +730,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DC9840630BA62F410061BD8B</string>
+				<string>DCCA28F80BB65F1100996E1D</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DC9840640BA62F410061BD8B</string>
-				<string>DC9840650BA62F410061BD8B</string>
-				<string>DC9840660BA62F410061BD8B</string>
-				<string>DC9840670BA62F410061BD8B</string>
-				<string>DC9840680BA62F410061BD8B</string>
-				<string>DC9840690BA62F410061BD8B</string>
+				<string>DCCA28F90BB65F1100996E1D</string>
+				<string>DCCA28FA0BB65F1100996E1D</string>
+				<string>DCCA28FB0BB65F1100996E1D</string>
+				<string>DCCA28FC0BB65F1100996E1D</string>
+				<string>DCCA28FD0BB65F1100996E1D</string>
+				<string>DCCA28FE0BB65F1100996E1D</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -1098,6 +1097,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBottomSmartGroupGIDs</key>
@@ -1198,8 +1199,8 @@
 			<true/>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCEEDB8C0B93240000A964CA</string>
-				<string>DCEEDB8D0B93240000A964CA</string>
+				<string>DCCA29330BB65F2300996E1D</string>
+				<string>DCCA29340BB65F2300996E1D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
 				<string>1CA1AED706398EBD00589147</string>
 			</array>
@@ -1208,7 +1209,7 @@
 			<key>WindowString</key>
 			<string>373 205 939 392 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
-			<string>DCEEDB8C0B93240000A964CA</string>
+			<string>DCCA29330BB65F2300996E1D</string>
 			<key>WindowToolIsVisible</key>
 			<true/>
 		</dict>

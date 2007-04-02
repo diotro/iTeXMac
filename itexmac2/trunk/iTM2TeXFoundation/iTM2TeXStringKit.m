@@ -828,7 +828,7 @@ To Do List:implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSRange R = [[self string] rangeOfPlaceholderAtIndex:index];
+	NSRange R = [[self string] rangeOfPlaceholderAtIndex:index getType:nil];
 	if(R.length)
 		return R;
     R = [super doubleClickAtIndex:index];

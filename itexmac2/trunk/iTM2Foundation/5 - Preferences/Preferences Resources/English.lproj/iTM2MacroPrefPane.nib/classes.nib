@@ -36,6 +36,7 @@
             OUTLETS = {keysTreeController = id; macrosArrayController = iTM2MacroArrayController; }; 
             SUPERCLASS = NSObject; 
         }, 
+        {CLASS = iTM2MacroEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
         {CLASS = iTM2MacroPopUpButton; LANGUAGE = ObjC; SUPERCLASS = NSPopUpButton; }, 
         {CLASS = iTM2MacroPrefPane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
         {CLASS = iTM2MacroTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }

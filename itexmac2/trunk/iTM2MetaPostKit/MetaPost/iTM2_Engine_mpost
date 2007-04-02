@@ -3,16 +3,17 @@
 # © 2004 jlaurens AT users DOT sourceforge DOT net
 # This is a MetaPost 0.641 (Web2C 7.5.3) wrapper
 #echo "iTM2: STARTING $0"
-printenv iTM2_MP_TeX_parse_first_line
-printenv iTM2_MP_TeX_format
-iTM2_MP_Engine_Version=1.0
+iTM2_MP_Engine_Version=1.1
+iTM2_MP_Engine="mpost"
+iTM2_MP_EnginePath="$(zsh -c "which \"${iTM2_MP_Engine}\"")"#"
 iTM2MPEngineUsage()
 {
-iTM2_USAGE="Welcome to `basename "$0"` version $iTM2_MP_Engine_Version
-This is iTeXMac2 built in script to wrap the tex engine
-(`which "$0"`)
-© 2004 jlaurens AT users DOT sourceforge DOT net
-Usage: `basename "$0"` with environment variables
+echo <<EOF
+Welcome to $(basename "$0") version $iTM2_MP_Engine_Version
+This is iTeXMac2 built in script to wrap the tex engine at
+${iTM2_MP_EnginePath}
+© 2004-2007 jlaurens AT users DOT sourceforge DOT net
+Usage: $(basename "$0") with environment variables
 	TWSMaster: the main input file
 	iTM2_USE_output_directory: 1 or 0 (common)
 	iTM2_output_directory: the common output directory
@@ -36,13 +37,13 @@ Usage: `basename "$0"` with environment variables
 	iTM2_MP_TeX_parse_first_line: 1 or 0, parse the first line of verbatimtex environments
 	iTM2_MP_TeX_format: plain, tex, or latex used to typeset verbatimtex environments
 	iTM2_MP_convert_to_pdf: 1 or 0, 1 as default to feed iTeXMac2 with something it can understand
-	iTM2_MP_pdf_converter: 0, 1, 2 for MPS2PDF, MPtoPDF or EPStoPDF"
-echo "$iTM2_USAGE"
-exit 0
+	iTM2_MP_pdf_converter: 0, 1, 2 for MPS2PDF, MPtoPDF or EPStoPDF
+EOF
 }
-"$iTM2_CMD_Notify" comment "Welcome to `basename "$0"` version $iTM2_MP_Engine_Version
-This is iTeXMac2 built in script to wrap the mpost engine
-© 2005 jlaurens AT users DOT sourceforge DOT net"
+"$iTM2_CMD_Notify" comment "Welcome to $(basename "$0") version ${iTM2_MP_Engine_Version}
+This is iTeXMac2 built in script to wrap the mpost engine at
+${iTM2_MP_EnginePath}
+© 2005-2007 jlaurens AT users DOT sourceforge DOT net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"$iTM2_CMD_Notify" start comment
@@ -53,12 +54,11 @@ then
 	done
 	"$iTM2_CMD_Notify" stop comment
 fi
-iTM2_MP_Engine="mpost"
-iTM2_MP_EnginePath="`which "${iTM2_MP_Engine}"`"
 if ! [ -x "${iTM2_MP_EnginePath}" ]
 then
 	"$iTM2_CMD_Notify" error "Unknown command ${iTM2_MP_Engine}."
 	iTM2MPEngineUsage
+	exit 1
 fi
 "$iTM2_CMD_Notify" comment "TWSMaster is: ${TWSMaster}"
 pushd "$(dirname "${TWSMaster}")"
@@ -73,6 +73,7 @@ then
     then
         "$iTM2_CMD_Notify" error "No readable file at ${INPUT}."
 		iTM2MPEngineUsage
+		exit 2
     fi
 fi
 iTM2_MP_Arguments=""

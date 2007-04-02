@@ -1789,6 +1789,7 @@ To Do List:
 + (int)_commandGroup;
 @end
 
+NSString * const iTM2TPFEDefaultEnvironmentKey = @"DefaultEnvironment";
 NSString * const iTM2TPFEEnvironmentModeKey = @"EnvironmentMode";
 NSString * const iTM2TPFEScriptModeKey = @"ScriptMode";
 
@@ -1932,6 +1933,32 @@ To Do List:
 //iTM2_START;
 	[[self implementation] takeModelValue:mode forKey:iTM2TPFEScriptModeKey ofType:iTM2MainType];
 	[self modelDidChange];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultEnvironment
+- (id)defaultEnvironment;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDictionary * result = [[self implementation] modelValueForKey:iTM2TPFEDefaultEnvironmentKey ofType:iTM2MainType];
+    return [result isKindOfClass:[NSDictionary class]]?result:[NSDictionary dictionary];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDefaultEnvironmentValue:forKey:
+- (void)takeDefaultEnvironmentValue:(id)value forKey:(NSString *)key;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:[self defaultEnvironment]];
+	[MD takeValue:value forKey:key];
+	[[self implementation] takeModelValue:MD forKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentMode
@@ -2984,32 +3011,34 @@ To Do List:
 		[baseProjects addObject:baseProject];
 		baseProject = [baseProject baseProject];
 	}
-	// basePProjects contains the stack of all the base projects ancestors of project
+	// baseProjects contains the stack of all the base projects ancestors of project
 	NSEnumerator * E = [baseProjects reverseObjectEnumerator];
+	NSDictionary * D;
+	NSArray * RA;
 	while(baseProject = [E nextObject])
 	{
-		[result addEntriesFromDictionary:[self environmentScriptsForBaseProject:baseProject]];
-//iTM2_LOG(@"result:%@",result);
-		NSEnumerator * e = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
+		D = [self environmentScriptsForBaseProject:baseProject];
+		[result addEntriesFromDictionary:D];
+		RA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+		NSEnumerator * e = [RA objectEnumerator];
 		Class C;
 		while(C = (Class)[[e nextObject] nonretainedObjectValue])
 		{
-			[result addEntriesFromDictionary:[C environmentWithDictionary:result forBaseProject:baseProject]];
-//iTM2_LOG(@"result:%@",result);
-//iTM2_LOG(@"2-iTM2_Compile_tex is: %@ from %@", [result objectForKey:@"iTM2_Compile_tex"], C);
+			D = [C environmentWithDictionary:result forBaseProject:baseProject];
+			[result addEntriesFromDictionary:D];
 		}
 	}
 //iTM2_LOG(@"2-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
 	// project related stuff
-	[result addEntriesFromDictionary:[self environmentScriptsForProject:project]];
-//iTM2_LOG(@"result:%@",result);
-//iTM2_LOG(@"3-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
-	E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
+	D = [self environmentScriptsForProject:project];
+	[result addEntriesFromDictionary:D];
+	RA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+	E = [RA objectEnumerator];
 	Class C = Nil;
 	while(C = (Class)[[E nextObject] nonretainedObjectValue])
 	{
-		[result addEntriesFromDictionary:[C environmentWithDictionary:result forProject:project]];
-//iTM2_LOG(@"result:%@",result);
+		D = [C environmentWithDictionary:result forProject:project];
+		[result addEntriesFromDictionary:D];
 	}
 //iTM2_LOG(@"4-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
 	// more general stuff
@@ -3017,7 +3046,8 @@ To Do List:
 	NSDocument * CD = [SDC currentDocument];
 	if(CD == project)
 	{
-		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
+		RA = [NSApp orderedWindows];
+		NSEnumerator * E = [RA objectEnumerator];
 		NSWindow * W;
 blablabla:
 		if(W = [E nextObject])
@@ -3036,8 +3066,11 @@ blablabla:
 			}
 		}
 	}
-    [result takeValue:[project relativeFileNameForKey:[project keyForFileName:[CD fileName]]] forKey:TWSShellEnvironmentFrontKey];
-	NSString * MFK = [project masterFileKey];
+	NSString * MFK = [CD fileName];
+	MFK = [project keyForFileName:MFK];
+	MFK = [project relativeFileNameForKey:MFK];
+    [result takeValue:MFK forKey:TWSShellEnvironmentFrontKey];
+	MFK = [project masterFileKey];
 	if([MFK isEqualToString:@"...iTM2FrontDocument"])
 	{
 		MFK = [project keyForFileName:[CD fileName]];

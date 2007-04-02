@@ -2695,9 +2695,10 @@ To Do List:
 	{
 		D = [NSMutableDictionary dictionary];
 	}
-	id value = [D objectForKey:iTM2TeX_shell_escape];
-	BOOL old = [value boolValue];// unsafe
-	[D setObject:[NSNumber numberWithBool:!old] forKey:iTM2TeX_shell_escape];
+	NSNumber * N = [D objectForKey:iTM2TeX_shell_escape];
+	BOOL old = [N boolValue];// unsafe
+	N = [NSNumber numberWithBool:!old];
+	[D setObject:N forKey:iTM2TeX_shell_escape];
 	[TPD takeEnvironment:D forEngineMode:iTM2ProjectDefaultsKey];
 	[TPD updateChangeCount:NSChangeUndone];
 	[self validateWindowContent];

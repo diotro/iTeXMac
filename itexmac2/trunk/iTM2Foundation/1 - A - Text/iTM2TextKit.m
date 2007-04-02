@@ -254,7 +254,7 @@ To Do List:
     aRange = NSIntersectionRange(aRange,effectiveRange);
 	unsigned index = 0;
 	NSDictionary * attributes;
-	if(aFlag)
+	if(aFlag && index<length)
 	{
 next:
 		attributes = [LM temporaryAttributesAtCharacterIndex:index effectiveRange:&effectiveRange];
@@ -1154,12 +1154,19 @@ To Do List: implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//NSLog(@"[super doubleClickAtIndex:%i]:%@", index, NSStringFromRange(R));
+//	[[NSApp currentEvent] clickCount] is always 2
+	NSRange wordRange = [super doubleClickAtIndex:index];
 	if([iTM2EventObserver isAlternateKeyDown])
-		return [super doubleClickAtIndex:index];
-	NSRange otherRange = [[self string] rangeOfPlaceholderAtIndex:index];
+	{
+		return wordRange;
+	}
+	if(wordRange.length==1)
+	{
+		NSRange range = [[self string] rangeOfPlaceholderAtIndex:index getType:nil];
+		return range.length?range:wordRange;
+	}
 //iTM2_END;
-	return otherRange.length? otherRange: [super doubleClickAtIndex:index];
+	return wordRange;
 }
 @end
 

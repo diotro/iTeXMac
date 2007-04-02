@@ -1665,7 +1665,6 @@ To Do List:
 - (IBAction)takePATHPrefixFromStringValue:(id)sender;
 - (IBAction)togglePATHSuffix:(id)sender;
 - (IBAction)takePATHSuffixFromStringValue:(id)sender;
-- (IBAction)takeTeXMFDistributionFromPopUp:(id)sender;
 - (IBAction)takeTeXMFProgramsDistributionFromPopUp:(id)sender;
 - (IBAction)takeOtherProgramsDistributionFromPopUp:(id)sender;
 - (id)orderedEnvironmentVariableNames;

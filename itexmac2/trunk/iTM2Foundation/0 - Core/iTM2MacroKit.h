@@ -23,16 +23,6 @@
 
 extern NSString * const iTM2TextPlaceholderMark;
 
-enum
-{
-	kiTM2TextPlaceholderINS = '{',// select what is enclosed, keep the contents when going to the next placeholder. When no content given, use the selection.
-	kiTM2TextPlaceholderTAB = '[',// select what is enclosed, remove when going to the next placeholder. When no content given, use the selection.
-	kiTM2TextPlaceholderARG = '"',// use the selection, keep when going to the next placeholder, not in the output. When no selection given, use the content.
-	kiTM2TextPlaceholderOPT = '\'',// use the selection, remove when going to the next placeholder, not in the output. When no selection given, use the content.
-	kiTM2TextPlaceholderCTL = '/',// control placeholder. Contains hints. Should not appear in the output.
-	kiTM2TextPlaceholderHLT = '.'// stop the placeholder
-};
-
 extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
 extern NSString * const iTM2TextTabAnchorStringKey;
 
@@ -164,8 +154,9 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 
 - (id)menuTree;
 - (void)setMenuTree:(id)aTree;
-- (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain substitutions:(NSDictionary *)substitutions target:(id)target;
+- (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
 - (id)treeForPathExtension:(NSString *)requiredPathExtension contextNodeClass:(Class)aClass;
+- (void)applyForNode:(id)node;
 
 @end
 
@@ -368,25 +359,13 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 + (NSString *)tabAnchorKey;
 - (NSString *)tabAnchor;
 - (unsigned)numberOfSpacesPerTab;
+//- (NSString *)removePlaceholderMarksWhenSelecting;
 - (IBAction)selectFirstPlaceholder:(id)sender;
 - (IBAction)selectNextPlaceholder:(id)sender;
 - (IBAction)selectPreviousPlaceholder:(id)sender;
 - (void)insertMacro:(id)sender;
-- (void)insertMacro:(id)argument substitutions:(NSDictionary *)substitutions mode:(NSString*)mode;
-
-/*!
-	@method		getReplacementString:affectedCharRange:forMacro:substitutions: mode:
-	@abstract	Abstract forthcoming.
-	@discussion	.
-	@param		replacementStringRef.
-	@param		affectedCharRangePtr.
-	@param		macro.
-	@param		substitutions.
-	@param		mode.
-	@result		None.
-*/
-- (void)getReplacementString:(NSString **)replacementStringRef affectedCharRange:(NSRangePointer)affectedCharRangePtr forMacro:(NSString *)macro substitutions:(NSDictionary *)substitutions mode:(NSString *)mode;
-
+- (void)insertMacro:(id)argument inRange:(NSRange)affectedCharRange;
+- (NSString *)replacementStringForMacro:(NSString *)macro selection:(NSString *)selection;
 @end
 
 @interface NSString(iTM2MacroKit)
@@ -414,13 +393,14 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 - (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(NSString **)typeRef;
 
 /*!
-	@method		rangeOfPlaceholderAtIndex:
+	@method		rangeOfPlaceholderAtIndex:getType:
 	@abstract	Abstract forthcoming.
 	@discussion	Removes everything inside "@@@(SEL:...)@@@", such that there are only "@@@(...)@@@" remaining.
 	@param		An index.
+	@param		A type ref.
 	@result		A range.
 */
-- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index;
+- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index getType:(NSString **)typeRef;
 
 /*!
 	@method		rangeOfNextPlaceholderAfterIndex:cycle:tabAnchor:
@@ -513,6 +493,8 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
     @result		A flag indicating whether the receiver has executed the given macro.
 */
 - (BOOL)executeMacro:(NSString *)macro;
+- (NSString *)concreteReplacementStringForMacro:(NSString *)macro selection:(NSString *)selection;
+- (NSString *)preparedSelectedStringForMacroInsertion;
 
 @end
 
@@ -608,6 +590,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 @interface iTM2MacroLeafNode: iTM2TreeNode
 - (NSString *)name;
 - (SEL)action;
+- (NSString *)concreteArgument;
 - (NSString *)argument;
 - (NSString *)ID;
 - (void)setID:(NSString *)newID;
@@ -624,6 +607,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 - (NSString *)description;
 - (NSString *)tooltip;
 - (NSString *)mode;
+- (BOOL)executeMacroWithTarget:(id)target substitutions:(NSDictionary *)substitutions;
 @end
 
 @interface iTM2KeyBindingContextNode:iTM2MacroLeafNode

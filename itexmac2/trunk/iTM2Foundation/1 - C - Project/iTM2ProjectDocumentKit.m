@@ -1745,6 +1745,8 @@ To Do List:
 		return;
 	id projectDocument = [SPC projectForFileName:[document fileName]];
 	// beware , the next assertion does not fit with autosave feature
+#warning PROBLEM
+	// problem: save a tex file as, open this saved as file, add this newly opened file to the original project: PROBLEM
 	NSAssert3(!projectDocument || (projectDocument == self),@"The document <%@> cannot be assigned to project <%@> because it already belongs to another project <%@>",[document fileName],[self fileName],[projectDocument fileName]);
 	[self newKeyForFileName:[document fileName]];
 //iTM2_LOG(@"[self keyForFileName:[document fileName]]:<%@>",[self keyForFileName:[document fileName]]);

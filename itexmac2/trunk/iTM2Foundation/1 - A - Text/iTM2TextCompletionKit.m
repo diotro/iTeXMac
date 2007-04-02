@@ -79,6 +79,23 @@ NSString * const iTM2CompletionComponent = @"Completion.localized";
 }
 @end
 
+@interface NSTextView(iTM2TextCompletionKit)
+- (NSRange)proposedRangeForUserCompletion:(NSRange)range;
+- (NSRange)swizzle_rangeForUserCompletion;
+@end
+
+@interface NSObject(PRIVATE)
+- (id)keyBindingTree;
+- (id)objectInChildrenWithDomain:(NSString *)key;
+- (id)objectInChildrenWithCategory:(NSString *)key;
+- (id)objectInChildrenWithContext:(NSString *)key;
+- (id)objectInChildrenWithKey:(NSString *)key;
+- (id)objectInChildrenWithAltKey:(NSString *)key;
+- (id)macroKeyStroke;
+- (NSArray *)availableIDs;
+- (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index;
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit
 static id _iTM2_CompletionServer_Data = nil;
 @implementation iTM2CompletionServer
@@ -298,6 +315,7 @@ grosbois:
 	
 	// is there something to complete with?
 	_RangeForUserCompletion = [aTextView rangeForUserCompletion];
+	_RangeForUserCompletion = [aTextView proposedRangeForUserCompletion:_RangeForUserCompletion];
 	if(!_RangeForUserCompletion.length)
 	{
 		return 3;
@@ -468,7 +486,7 @@ grosbois:
 		completion = _OriginalString;
 	}
 	[_LongCompletionString autorelease];
-	[_TextView getReplacementString:&_LongCompletionString affectedCharRange:nil forMacro:completion substitutions:nil mode:nil];
+	_LongCompletionString = [_TextView replacementStringForMacro:completion selection:_OriginalSelectedString];
 	_LongCompletionString = [_LongCompletionString copy];
 	[_ShortCompletionString autorelease];
 	_ShortCompletionString = [[_LongCompletionString stringByRemovingPlaceholderMarks] copy];
@@ -807,7 +825,7 @@ grosbois:
 	{
 		if(NSMaxRange(markRange)!=selectedRange.location)
 		{
-			[_TextView insertText:@"@@{@@."];
+			[_TextView insertText:@"@@@()@@@"];
 		}
 	}
 	[_TextView selectFirstPlaceholder:self];
@@ -882,7 +900,8 @@ grosbois:
 }
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
 {
-	return row>=0?[_LongCandidates objectAtIndex:row]:nil;
+	id result = row>=0?[_LongCandidates objectAtIndex:row]:nil;
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
 - (void)tableViewSelectionDidChange:(NSNotification *)notification;
@@ -1016,6 +1035,79 @@ To Do List:
 @end
 
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
+/*"Description forthcoming."*/
+@implementation NSTextView(iTM2TextCompletionKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++ (void)load;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+//iTM2_START;
+	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(rangeForUserCompletion)replacement:@selector(swizzle_rangeForUserCompletion)forClass:[NSTextView class]])
+	{
+		iTM2_LOG(@"WARNING: No hook available to init text view completion module...");
+	}
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  proposedRangeForUserCompletion:
+- (NSRange)proposedRangeForUserCompletion:(NSRange)range;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return range;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_rangeForUserCompletion
+- (NSRange)swizzle_rangeForUserCompletion;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange result = [self swizzle_rangeForUserCompletion];
+	NSString * category = [self macroCategory];
+	NSString * action = [NSString stringWithFormat:@"proposedRangeFor%@UserCompletion:",category];
+	SEL selector = NSSelectorFromString(action);
+	NSMethodSignature * MS = [self methodSignatureForSelector:selector];
+	SEL mySelector = @selector(proposedRangeForUserCompletion:);
+	NSMethodSignature * myMS = [self methodSignatureForSelector:mySelector];
+	if(![MS isEqual:myMS])
+	{
+		MS = myMS;
+		selector = mySelector;
+	}
+	NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
+	[I setTarget:self];
+	[I setArgument:&result atIndex:2];
+	[I setSelector:selector];
+	NS_DURING
+	[I invoke];
+	[I getReturnValue:&result];
+	NS_HANDLER
+	iTM2_LOG(@"EXCEPTION Catched: %@", localException);
+	NS_ENDHANDLER
+//iTM2_END;
+    return result;
+}
+@end
+
+#import <iTM2Foundation/iTM2TextDocumentKit.h>
 
 /*"Description forthcoming."*/
 @implementation iTM2TextEditor(iTM2TextCompletionKit)
@@ -1142,18 +1234,6 @@ grosbois:
 	}
 }
 #if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
-- (NSRange)rangeForUserCompletion;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 02/03/2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [super rangeForUserCompletion];
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completionsForPartialWordRange:indexOfSelectedItem:
 - (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)index;
 /*"Desription Forthcoming.

@@ -2325,7 +2325,7 @@ To Do List:
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 
 @implementation NSResponder(iTM2TaskKit)
-- (void)_executeScriptAtPath:(NSString *)scriptPath;
+- (NSString *)stringByExecutingScriptAtPath:(NSString *)scriptPath;
 {
 	if(iTM2DebugEnabled)
 	{
@@ -2337,29 +2337,29 @@ To Do List:
 	{
 		NSDictionary * errorInfo = nil;
 		//NSAppleEventDescriptor * descriptor = 
-		[AS executeAndReturnError:&errorInfo];
+		NSAppleEventDescriptor * descriptor = [AS executeAndReturnError:&errorInfo];
 		if(errorInfo)
 		{
 			iTM2_LOG(@"errorInfo is:%@",errorInfo);
 			NSString * message = [errorInfo objectForKey:NSAppleScriptErrorMessage];
 			iTM2_REPORTERROR(1,message,nil);
 		}
-		return;
+		return [descriptor stringValue];
 	}
 	if([DFM isExecutableFileAtPath:scriptPath])
 	{
 		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
 		[TW setLaunchPath:scriptPath];
 		NSError * localError = nil;
-		//NSString * output = nil;
-		//int status = [TW modalStatusAndOutput:&output error:&localError];
-		[TW modalStatusAndOutput:nil error:&localError];
+		NSString * output = nil;
+		int status = [TW modalStatusAndOutput:&output error:&localError];
 		if(localError)
 		{
 			[NSApp presentError:localError];
 		}
+		return output;
 	}
-	return;
+	return nil;
 }
 - (void)executeScriptAtPath:(NSString *)scriptPath;
 {
@@ -2367,10 +2367,10 @@ To Do List:
 	id FR = [W firstResponder];
 	if([DFM isExecutableFileAtPath:scriptPath])
 	{
-		[FR _executeScriptAtPath:scriptPath];
+		[FR stringByExecutingScriptAtPath:scriptPath];
 		return;
 	}
-//	NSString * context = [FR macroContext];
+	NSString * context = [FR macroContext];
 	NSString * category = [FR macroCategory];
 	NSString * domain = [FR macroDomain];
 	NSString * subpath = [domain stringByAppendingPathComponent:category];
@@ -2389,7 +2389,33 @@ To Do List:
 				path = [path stringByAppendingPathComponent:scriptPath];
 				if([DFM fileExistsAtPath:scriptPath isDirectory:nil])
 				{
-					[FR _executeScriptAtPath:scriptPath];
+					NSString * result = [FR stringByExecutingScriptAtPath:scriptPath];
+					NSRange range;
+					NSString * type;
+					unsigned idx = 0;
+					if(idx<[result length])
+					{
+						range = [result rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
+						if(range.length && [type isEqual:@"ACTION"])
+						{
+							NSRange fullRange = [result rangeOfPlaceholderAtIndex:range.location getType:nil];
+							if(fullRange.location == range.location && fullRange.length > range.length)
+							{
+								fullRange.length = NSMaxRange(fullRange);
+								fullRange.location = NSMaxRange(range);
+								if(fullRange.length>fullRange.location)
+								{
+									fullRange.length-=fullRange.location;
+									if(fullRange.length>4)
+									{
+										fullRange.length-=4;
+										result = [result substringWithRange:fullRange];
+										[SMC executeMacroWithID:result forContext:context ofCategory:category inDomain:domain target:self];//delayed?
+									}
+								}
+							}
+						}
+					}
 					[DFM popDirectory];
 					return;
 				}
@@ -2410,7 +2436,7 @@ To Do List:
 @end
 
 @implementation NSTextView(iTM2TaskKit)
-- (void)_executeScriptAtPath:(NSString *)scriptPath;
+- (NSString *)stringByExecutingScriptAtPath:(NSString *)scriptPath;
 {
 	if(iTM2DebugEnabled)
 	{
@@ -2422,28 +2448,22 @@ To Do List:
 	{
 		NSDictionary * errorInfo = nil;
 		//NSAppleEventDescriptor * descriptor = 
-		[AS executeAndReturnError:&errorInfo];
+		NSAppleEventDescriptor * descriptor = [AS executeAndReturnError:&errorInfo];
 		if(errorInfo)
 		{
 			iTM2_LOG(@"errorInfo is:%@",errorInfo);
 			NSString * message = [errorInfo objectForKey:NSAppleScriptErrorMessage];
 			iTM2_REPORTERROR(1,message,nil);
 		}
-		return;
+		return [descriptor stringValue];
 	}
 	NSError * localError = nil;
 	url = [NSURL fileURLWithPath:scriptPath];
 	NSString * script = [[[NSString allocWithZone:[self zone]] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&localError] autorelease];
 	if([script length])
 	{
-		NSString * text = [self string];
-		NSRange R = [self selectedRange];
-		NSString * selection = [text substringWithRange:R];
-		NSArray * components = [script componentsSeparatedByString:@"@@{ALL@@."];
-		script = [components componentsJoinedByString:text];
-		components = [script componentsSeparatedByString:@"@@+SEL@@."];
-		script = [components componentsJoinedByString:selection];
-		NSBundle * MB = [NSBundle mainBundle];
+		NSString * selection = [self preparedSelectedStringForMacroInsertion];
+		script = [self concreteReplacementStringForMacro:script selection:selection];
 		NSString * path = [NSBundle temporaryDirectory];
 		scriptPath = [[NSProcessInfo processInfo] globallyUniqueString];
 		scriptPath = [path stringByAppendingPathComponent:scriptPath];
@@ -2459,20 +2479,17 @@ To Do List:
 				NSString * macro = nil;
 				//int status = [TW modalStatusAndOutput:&output error:&localError];
 				[TW modalStatusAndOutput:&macro error:&localError];
-				NSString * category = [self macroCategory];
-				[self insertMacro:macro substitutions:nil mode:category];
-				iTM2_LOG(@"macro:%@",macro);
 				if(localError)
 				{
 					[NSApp presentError:localError];
 				}
+				return macro;
 			}
 			else
 			{
 				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Problem: Cannot set permission at %@",scriptPath]),nil);
 			}
 			[DFM removeFileAtPath:scriptPath handler:nil];
-			return;
 		}
 		else if(localError)
 		{
@@ -2485,6 +2502,6 @@ To Do List:
 	{
 		[NSApp presentError:localError];
 	}
-	return;
+	return @"";
 }
 @end

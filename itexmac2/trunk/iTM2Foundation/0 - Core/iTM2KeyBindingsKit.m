@@ -779,7 +779,7 @@ To Do List:
 				NSString * domain = [C macroDomain];
 				NSString * category = [C macroCategory];
 				NSString * context = @"";//[C macroContext];
-				if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain substitutions:nil target:C])
+				if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain target:C])
 				{
 					[self setCurrentKeyBindings:nil];
 					return YES;

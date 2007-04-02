@@ -6,5 +6,19 @@
 	<string>Executer un fichier script</string>
 	<key>insertMacro:</key>
 	<string>Insérer du texte comme macro</string>
+	<key>insertMacroBeforeTheSelection:</key>
+	<string>Insérer avant la sélection</string>
+	<key>insertMacroAfterTheSelection:</key>
+	<string>Insérer après la sélection</string>
+	<key>insertMacroAtTheBeginning:</key>
+	<string>Insérer au début</string>
+	<key>insertMacroAtTheEnd:</key>
+	<string>Insérer à la fin</string>
+	<key>insertMacroAtTheBeginningOfTheLine:</key>
+	<string>Insérer en début de ligne</string>
+	<key>insertMacroAtTheEndOfTheLine:</key>
+	<string>Insérer en fin de ligne</string>
+	<key>insertMacroInPasteboard:</key>
+	<string>Copier la macro</string>
 </dict>
 </plist>

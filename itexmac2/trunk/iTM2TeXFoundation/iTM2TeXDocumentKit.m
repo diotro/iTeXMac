@@ -101,6 +101,31 @@ To Do List:
 
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 
+@implementation NSTextView(TeX)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  proposedRangeForTeXUserCompletion:
+- (NSRange)proposedRangeForTeXUserCompletion:(NSRange)range;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(range.location)
+	{
+		NSString * S = [self string];
+		unichar theChar = [S characterAtIndex:range.location-1];
+		if(theChar == '\\')
+		{
+			--range.location;
+			++range.length;
+		}
+	}
+//iTM2_END;
+	return range;
+}
+@end
+
 @implementation iTM2TeXEditor
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:tabAnchor:substitutions:
@@ -286,18 +311,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	NSRange selectedRange = [self selectedRange];
-	if(selectedRange.length)
-	{
-		NSString * selectedText = [self string];
-		selectedText = [selectedText substringWithRange:selectedRange];
-		NSDictionary * substitutions = [NSDictionary dictionaryWithObject:selectedText forKey:@"argument#1"];
-		[SMC executeMacroWithID:@"_{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:substitutions target:self];
-	}
-	else
-	{
-		[SMC executeMacroWithID:@"_{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
-	}
+	[SMC executeMacroWithID:@"_{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
@@ -311,18 +325,7 @@ To Do List:
 	NSString * macroDomain = [self macroDomain];
 	NSString * macroCategory = [self macroCategory];
 	NSString * macroContext = [self macroContext];
-	NSRange selectedRange = [self selectedRange];
-	if(selectedRange.length)
-	{
-		NSString * selectedText = [self string];
-		selectedText = [selectedText substringWithRange:selectedRange];
-		NSDictionary * substitutions = [NSDictionary dictionaryWithObject:selectedText forKey:@"argument#1"];
-		[SMC executeMacroWithID:@"^{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:substitutions target:self];
-	}
-	else
-	{
-		[SMC executeMacroWithID:@"^{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
-	}
+	[SMC executeMacroWithID:@"^{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
@@ -378,7 +381,7 @@ To Do List: Nothing at first glance.
 				NSString * macroDomain = [self macroDomain];
 				NSString * macroCategory = [self macroCategory];
 				NSString * macroContext = [self macroContext];
-                [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+                [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
 			}
         }
         else
@@ -450,7 +453,7 @@ To Do List: Nothing at first glance.
 		NSString * macroDomain = [self macroDomain];
 		NSString * macroCategory = [self macroCategory];
 		NSString * macroContext = [self macroContext];
-        [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain substitutions:nil target:self];
+        [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
     }
     else
         [self insertText:@"{"];
@@ -1334,7 +1337,7 @@ To Do List:
     NSString * string = [self string];
     if(NSLocationInRange(index, NSMakeRange(0, [string length])))
     {
-		NSRange PHR = [string rangeOfPlaceholderAtIndex:index];
+		NSRange PHR = [string rangeOfPlaceholderAtIndex:index getType:nil];
 		if(PHR.length)
 			return PHR;
         BOOL escaped = YES;

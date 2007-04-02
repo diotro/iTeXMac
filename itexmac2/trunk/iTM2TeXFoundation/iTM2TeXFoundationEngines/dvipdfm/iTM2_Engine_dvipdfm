@@ -1,23 +1,26 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # this is iTM2_dvipdfm wrapper
-# © 2005 jlaurens AT users DOT sourceforge DOT net
-iTM2_dvipdfm_Engine_Version=1.0
+# © 2005-2007 jlaurens AT users DOT sourceforge DOT net
+iTM2_dvipdfm_Engine_Version=1.1
+iTM2_dvipdfm_Engine="dvipdfm"
+iTM2_dvipdfm_EnginePath="$(zsh -c "which \"${iTM2_dvipdfm_Engine}\"$)"#"
 iTM2DVIPDFMEngineUsage()
 {
-iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_dvipdfm_Engine_Version}
-This is iTeXMac2 built in script to wrap the dvipdfm engine
-(`which "$0"`)
+cat <<EOF
+Welcome to $(basename "$0") version ${iTM2_dvipdfm_Engine_Version}
+This is iTeXMac2 built in script to wrap the dvipdfm engine at
+$iTM2_dvipdfm_EnginePath
 © 2005 jlaurens AT users DOT sourceforge DOT net
-Usage: `basename "$0"` with environment variables
+Usage: $(basename "$0") with environment variables
 	TWSMaster: the main input file
 	iTM2_dvipdfm_landscape: 1 or 0,
 	iTM2_dvipdfm_use_paper: 1 or 0,
-	iTM2_dvipdfm_paper: \"a3\", \"a4\", \"a5\", \"letter\", \"legal\", \"tabloid\",
+	iTM2_dvipdfm_paper: "a3", "a4", "a5", "letter", "legal", "tabloid",
 	iTM2_dvipdfm_use_offset: 1 or 0,
 	iTM2_dvipdfm_x_offset: float, default 1,
 	iTM2_dvipdfm_y_offset: float, default 1,
-	iTM2_dvipdfm_x_offset_unit: \"bp\", \"pt\", \"in\", \"cm\",
-	iTM2_dvipdfm_y_offset_unit: \"bp\", \"pt\", \"in\", \"cm\",
+	iTM2_dvipdfm_x_offset_unit: "bp", "pt", "in", "cm",
+	iTM2_dvipdfm_y_offset_unit: "bp", "pt", "in", "cm",
 	iTM2_dvipdfm_use_magnification: 1 or 0,
 	iTM2_dvipdfm_magnification: float, default 1000,
 	iTM2_dvipdfm_partial_font_embedding: 1 or 0,
@@ -31,13 +34,13 @@ Usage: `basename "$0"` with environment variables
 	iTM2_dvipdfm_use_page_specifications: 1 or 0,
 	iTM2_dvipdfm_page_specifications,
 	iTM2_dvipdfm_verbosity_level,
-	iTM2_dvipdfm_compression_level,"
-echo "$iTM2_USAGE"
-exit 0
+	iTM2_dvipdfm_compression_level.
+EOF
 }
-"${iTM2_CMD_Notify}" notify comment "Welcome to `basename "$0"` version ${iTM2_dvipdfm_Engine_Version}
-This is iTeXMac2 built in script to wrap the dvipdfm engine
-© 2005 jlaurens AT users DOT sourceforge DOT net"
+"${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_dvipdfm_Engine_Version}
+This is iTeXMac2 built in script to wrap the dvipdfm engine at
+$iTM2_dvipdfm_EnginePath
+© 2005-2007 jlaurens AT users DOT sourceforge DOT net"
 if [ "${iTM2_Debug:-0}" != "0" ]
 then
 	"${iTM2_CMD_Notify}" notify start comment
@@ -48,12 +51,11 @@ then
 	done
 	"${iTM2_CMD_Notify}" notify stop comment
 fi
-iTM2_dvipdfm_Engine="dvipdfm"
-iTM2_dvipdfm_EnginePath="`which "${iTM2_dvipdfm_Engine}"`"
 if ! [ -x "${iTM2_dvipdfm_EnginePath}" ]
 then
 	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_dvipdfm_Engine}."
 	iTM2DVIPDFMEngineUsage
+	exit 1
 fi
 if ! [ -r "${TWSMaster}" ]
 then
@@ -62,6 +64,7 @@ then
 	then
 		"${iTM2_CMD_Notify}" notify error "No readable file at ${TWSMaster}."
 		iTM2DVIPDFMEngineUsage
+		exit 2
 	fi
 fi
 "${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
@@ -123,7 +126,7 @@ esac
 #	iTM2_dvipdfm_page_specifications,
 iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -z ${iTM2_dvipdfm_compression_level:-9}"
 TARGET_DIRECTORY="$(dirname "${TWSMaster}")"
-pushd "${TARGET_DIRECTORY}"
+pushd "${TARGET_DIRECTORY}" > /dev/null
 TARGET="$(basename "${TWSMaster}")"
 "${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_dvipdfm_EnginePath} ${iTM2_dvipdfm_Arguments} \"${TARGET}\""
 ${iTM2_dvipdfm_EnginePath} ${iTM2_dvipdfm_Arguments} "${TARGET}"
@@ -132,5 +135,5 @@ then
 	"${iTM2_CMD_Notify}" notify comment "$0 complete."
 fi
 iTeXMac2 update -file "${PWD}/${TARGET%.*}.pdf" -project "${TWSProjectDirectory}/${TWSProjectName}"
-popd
+popd > /dev/null
 exit

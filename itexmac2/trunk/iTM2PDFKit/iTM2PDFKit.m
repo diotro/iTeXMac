@@ -5885,9 +5885,13 @@ To Do List:
 					nil];
 		unsigned int pageIndex = [[page document] indexForPage:page];
 		PDFSelection * selection;
+		NSRect bounds;
+		NSValue * V;
 		if(selection = [page selectionForWordAtPoint:point])
 		{
-			[hint setObject:[NSValue valueWithRect:[selection boundsForPage:page]] forKey:@"word bounds"];
+			bounds = [selection boundsForPage:page];
+			V = [NSValue valueWithRect:bounds];
+			[hint setObject:V forKey:@"word bounds"];
 		}
 		if(selection = [page selectionForLineAtPoint:point])
 		{
@@ -5896,7 +5900,7 @@ To Do List:
 			P.y += lineBounds.size.height * 1.1;
 			if(selection = [page selectionForLineAtPoint:point])
 			{
-				NSRect bounds = [selection boundsForPage:page];
+				bounds = [selection boundsForPage:page];
 				bounds.origin.y = lineBounds.origin.y;
 				bounds.size.height = lineBounds.size.height;
 				lineBounds = NSUnionRect(bounds, lineBounds);
@@ -5904,12 +5908,13 @@ To Do List:
 			P.y = point.y - lineBounds.size.height * 1.1;
 			if(selection = [page selectionForLineAtPoint:point])
 			{
-				NSRect bounds = [selection boundsForPage:page];
+				bounds = [selection boundsForPage:page];
 				bounds.origin.y = lineBounds.origin.y;
 				bounds.size.height = lineBounds.size.height;
 				lineBounds = NSUnionRect(bounds, lineBounds);
 			}
-			[hint setObject:[NSValue valueWithRect:lineBounds] forKey:@"line bounds"];
+			V = [NSValue valueWithRect:lineBounds];
+			[hint setObject:V forKey:@"line bounds"];
 		}
 		[[[[self window] windowController] document]
 			synchronizeWithLocation:point inPageAtIndex:pageIndex withHint:hint orderFront:([theEvent clickCount] > 1)];
