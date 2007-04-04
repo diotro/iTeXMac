@@ -1302,10 +1302,10 @@ To Do List:
 	}
 	NSError ** localErrorRef = nil;
 	[self readContextFromURL:absoluteURL ofType:typeName error:localErrorRef];
-	if(localError)
+	if(localErrorRef)
 	{
-		[SDC presentError:localError];
-		localError = nil;
+		[SDC presentError:*localErrorRef];
+		localErrorRef = nil;
 	}
 	[super readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
@@ -1338,7 +1338,7 @@ To Do List:
 		if(localErrorRef)
 		{
 			[SDC presentError:*localErrorRef];
-			localError = nil;
+			localErrorRef = nil;
 		}
     }
 	if(result)
@@ -1347,7 +1347,7 @@ To Do List:
 		if(localErrorRef)
 		{
 			[SDC presentError:*localErrorRef];
-			localError = nil;
+			localErrorRef = nil;
 		}
 	}
     return result;
