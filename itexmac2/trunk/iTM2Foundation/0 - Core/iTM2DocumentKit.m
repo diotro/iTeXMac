@@ -1300,8 +1300,8 @@ To Do List:
 	{
 		*outErrorPtr = nil;
 	}
-	NSError * localError = nil;
-	[self readContextFromURL:absoluteURL ofType:typeName error:&localError];
+	NSError ** localErrorRef = nil;
+	[self readContextFromURL:absoluteURL ofType:typeName error:localErrorRef];
 	if(localError)
 	{
 		[SDC presentError:localError];
@@ -1313,7 +1313,7 @@ To Do List:
     [I setTarget:self];
     [I setArgument:&absoluteURL atIndex:2];
     [I setArgument:&typeName atIndex:3];
-    [I setArgument:&localError atIndex:4];
+    [I setArgument:&localErrorRef atIndex:4];
     BOOL result = YES;
 	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteReadFromURL:ofType:error:" signature:sig0 inherited:YES] objectEnumerator];
 	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
@@ -1335,18 +1335,18 @@ To Do List:
 //iTM2_LOG(@"Base project model is:%@", [[self implementation] modelOfType:@"frontends"]);
         }
         result = result && R;
-		if(localError)
+		if(localErrorRef)
 		{
-			[SDC presentError:localError];
+			[SDC presentError:*localErrorRef];
 			localError = nil;
 		}
     }
 	if(result)
 	{
-		[self didReadFromURL:absoluteURL ofType:typeName error:&localError];
-		if(localError)
+		[self didReadFromURL:absoluteURL ofType:typeName error:localErrorRef];
+		if(localErrorRef)
 		{
-			[SDC presentError:localError];
+			[SDC presentError:*localErrorRef];
 			localError = nil;
 		}
 	}
