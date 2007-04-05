@@ -1558,6 +1558,7 @@ To Do List:
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 	pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
+	id S = nil;
 	if(![DFM fileOrLinkExistsAtPath:pdfsyncPath])
 	{
 		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
@@ -1573,7 +1574,7 @@ To Do List:
 			pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
 			if(![DFM fileExistsAtPath:pdfsyncPath])
 			{
-				id S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+				S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
 				[self replaceSynchronizer:S];
 				return;
 			}
@@ -1587,7 +1588,10 @@ To Do List:
 	if(!pdfsyncDate)
 	{
 		if(![self synchronizer])
-			[self replaceSynchronizer:[[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease]];
+		{
+			S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+			[self replaceSynchronizer:S];
+		}
 		return;
 	}
 #if 0
@@ -1629,7 +1633,8 @@ To Do List:
 		{
 			iTM2_LOG(@"ERROR:Could not recycle %@ due to %i, please do it for me...", pdfsyncPath, tag);
 		}
-		[self replaceSynchronizer:[[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease]];
+		S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+		[self replaceSynchronizer:S];
 	}
     return;
 }

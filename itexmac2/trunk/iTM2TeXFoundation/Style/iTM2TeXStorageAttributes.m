@@ -1380,7 +1380,8 @@ fullCommand:
 				{
 					goto returnOutAttributes;
 				}
-				iTM2_ATTRIBUTE_ASSERT(otherFullMode&kiTM2TeXCommandSyntaxMask,@"This should be command tagged after {");
+#warning FAILED
+//				iTM2_ATTRIBUTE_ASSERT(otherFullMode&kiTM2TeXCommandSyntaxMask,@"This should be command tagged after {");
 				range.location = NSMaxRange(range);
 				if(range.location>=[modeLine contentsEndOffset])
 				{

@@ -265,7 +265,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"--------------------------- IT IS EXPECTED SOMETHING ELSE");
-	return [self readImageRepresentationFromURL:fileURL ofType:type error:outErrorPtr];
+	[self setImageRepresentation:nil];
+	return YES;
+//	return [self readImageRepresentationFromURL:fileURL ofType:type error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newTryToReadImageRepresentationFromURL:ofType:error:
 + (BOOL)newTryToReadImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;

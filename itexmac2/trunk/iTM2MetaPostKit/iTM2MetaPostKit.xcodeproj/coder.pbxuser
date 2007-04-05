@@ -3,7 +3,7 @@
 	0867D690FE84028FC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Development;
 		activeExecutable = DC5203AC088B1FB000DE6E7F /* iTeXMac2 */;
-		activeTarget = DC2CA78D0855D4F500128F14 /* All */;
+		activeTarget = DC81AE6D08871B4600943C99 /* iTeXMac2 */;
 		addToTargets = (
 		);
 		breakpoints = (
@@ -103,8 +103,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 192129724;
-			PBXWorkspaceStateSaveDate = 192129724;
+			PBXPerProjectTemplateStateSaveDate = 197406032;
+			PBXWorkspaceStateSaveDate = 197406032;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBookmarkGroup = DC8A4281091108CA00F47F63 /* PBXBookmarkGroup */;
@@ -166,6 +166,8 @@
 		};
 		sourceDirectories = (
 		);
+		variableFormatDictionary = {
+		};
 	};
 	DC52042E088B1FD300DE6E7F /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -234,9 +236,9 @@
 	};
 	DC892FDA08FC1E90007A4673 /* iTM2MetaPostDocumentKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {5508, 31977}}";
-			sepNavSelRange = "{37546, 0}";
-			sepNavVisRect = "{{0, 20358}, {1053, 726}}";
+			sepNavIntBoundsRect = "{{0, 0}, {6194, 37700}}";
+			sepNavSelRange = "{47901, 0}";
+			sepNavVisRect = "{{0, 31316}, {1235, 431}}";
 			sepNavWindowFrame = "{{18, 30}, {1092, 799}}";
 		};
 	};
@@ -295,11 +297,14 @@
 	};
 	DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */ = {
 		isa = PBXSymbolicBreakpoint;
+		actions = (
+		);
 		breakpointStyle = 0;
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
-		hitCount = 0;
-		modificationTime = 0;
+		hitCount = 1;
+		location = Foundation;
+		modificationTime = 197406534.224779;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};

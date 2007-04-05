@@ -1534,7 +1534,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * macro = NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
-		TABLE, BUNDLE, @"beginFig(__(Number)__)\nendFig;", "Inserting a  macro");
+		TABLE, BUNDLE, @"beginFig(@@@(Number)@@@)\nendFig;", "Inserting a  macro");
 	unsigned start, end, contentsEnd;
 	NSRange selectedRange = [self selectedRange];
 	[[[self textStorage] string] getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:selectedRange];
@@ -1571,9 +1571,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * S = [self string];
-	unsigned charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:[[self layoutManager] glyphIndexForPoint:
-		[self convertPoint:[anEvent locationInWindow] fromView:nil]
-			inTextContainer: [self textContainer]]];
+	NSLayoutManager * LM = [self layoutManager];
+	NSPoint P = [anEvent locationInWindow];
+	P = [self convertPoint:P fromView:nil];
+	NSTextContainer * TC = [self textContainer];
+	unsigned charIndex = [LM glyphIndexForPoint:P inTextContainer:TC];
+	charIndex = [LM characterIndexForGlyphAtIndex:charIndex];
 	NSRange searchRange = NSMakeRange(0, charIndex);
 	NSRange foundRange = [S rangeOfString:@"beginfig" options:NSBackwardsSearch range:searchRange];
 	if(foundRange.location)
@@ -1585,7 +1588,8 @@ To Do List:
 			&& [scan scanInt: &figureNumber]
 				&& [scan scanString:@")" intoString:nil])
 		{
-			[[[self window] windowController] setCurrentOutputFigure:[NSString stringWithFormat:@"%i", figureNumber]];
+			S = [NSString stringWithFormat:@"%i",figureNumber];
+			[[[self window] windowController] setCurrentOutputFigure:S];
 			return;
 		}
 	}

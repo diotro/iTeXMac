@@ -37,6 +37,8 @@ extern NSString * const iTM2ServerLineKey;
 extern NSString * const iTM2ServerSourceKey;
 extern NSString * const iTM2ServerProjectKey;
 extern NSString * const iTM2ServerDontOrderFrontKey;
+extern NSString * const iTM2ServerReasonKey;
+extern NSString * const iTM2ServerIdlingKey;
 
 extern NSString * const iTM2ServerConversationIDKey;
 extern NSString * const iTM2ServerCommentsKey;

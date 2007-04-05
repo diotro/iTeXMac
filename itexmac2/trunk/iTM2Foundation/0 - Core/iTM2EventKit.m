@@ -184,3 +184,92 @@ To Do List:
     return;
 }
 @end
+
+void iTM2EventLoopIdleTimerProc( EventLoopTimerRef inTimer, EventLoopIdleTimerMessage inState, void *timer );
+
+
+static EventLoopIdleTimerUPP iTM2EventLoopIdleTimerUPP = NULL;
+
+@implementation iTM2IdleTimer
++(void)initialize;
+{
+	if( !iTM2EventLoopIdleTimerUPP )
+	{
+		[super initialize];
+		iTM2EventLoopIdleTimerUPP = NewEventLoopIdleTimerUPP(iTM2EventLoopIdleTimerProc);
+	}
+	return;
+}
+- (id)initWithFireDate:(NSDate *)date interval:(NSTimeInterval)inInterval target:(id)target userInfo:(id)userInfo;
+{
+	self = [super init];
+	if( self = [super init])
+	{
+		EventLoopRef inEventLoop = GetCurrentEventLoop();
+		NSTimeInterval inDelay = [date timeIntervalSinceNow];
+		OSStatus status =  InstallEventLoopIdleTimer(
+			  inEventLoop,
+			  inDelay,
+			  inInterval,
+			  iTM2EventLoopIdleTimerUPP,//EventLoopIdleTimerUPP   inTimerProc,
+			  self,//void *                  inTimerData,
+			  &timer);//EventLoopTimerRef *     outTimer);
+		if( status != noErr )
+		{
+			[self release];
+			return nil;
+		}
+		[info release];
+		info = [userInfo retain];
+	}
+	return self;
+}
+-(void) dealloc
+{
+	RemoveEventLoopTimer(timer);
+	[info release];
+	info = nil;
+	[super dealloc];
+	return;
+}
+-(id)target;
+{
+	return target;
+}
+-(id)userInfo;
+{
+	return info;
+}
+@end
+
+@interface iTM2IdleTimer(PRIVATE)
+-(id)target;
+@end
+
+void iTM2EventLoopIdleTimerProc( EventLoopTimerRef inTimer, EventLoopIdleTimerMessage inState, void *timer )
+{
+	id target = [(iTM2IdleTimer*)timer target];
+	switch( inState )
+	{
+		case kEventLoopIdleTimerStarted:
+			if([target respondsToSelector: @selector(idleTimerStarted:)])
+			{
+				[target idleTimerStarted:timer];
+			}
+			return;
+		
+		case kEventLoopIdleTimerIdling:
+			if([target respondsToSelector: @selector(idleTimerIdling:)])
+			{
+				[target idleTimerIdling:timer];
+			}
+			return;
+
+		case kEventLoopIdleTimerStopped:
+			if([target respondsToSelector: @selector(idleTimerStopped:)])
+			{
+				[target idleTimerStopped:timer];
+			}
+			return;
+	}
+}

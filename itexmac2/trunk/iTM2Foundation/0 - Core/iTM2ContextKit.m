@@ -164,15 +164,18 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"[self contextDictionary] is:%@", [self contextDictionary]);
 	unsigned int didChange = [self setContextValue:object forKey:aKey domain:mask];
-	id afterObject = [self contextValueForKey:aKey domain:mask];
-//iTM2_LOG(@"afterObject:%@",afterObject);
-	if([object isEqual:afterObject] || (object == afterObject))
+	if(didChange)
 	{
-		return didChange;
-	}
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"object:%@ <> afterObject %@", object,afterObject);
+		id afterObject = [self contextValueForKey:aKey domain:mask];
+	//iTM2_LOG(@"afterObject:%@",afterObject);
+		if([object isEqual:afterObject] || (object == afterObject))
+		{
+			return YES;
+		}
+		if((didChange &= ~iTM2ContextNoContextMask) && (iTM2DebugEnabled>100))
+		{
+			iTM2_LOG(@"object:%@ <> afterObject %@", object,afterObject);
+		}
 	}
     return didChange;
 }
@@ -186,13 +189,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSAssert(aKey != nil, @"Unexpected nil aKey");
-	unsigned int didChange = 0;
+	unsigned int didChange = iTM2ContextNoContextMask;
 	if(mask & iTM2ContextStandardLocalMask)
 	{
 		NSDictionary * D = [self contextDictionary];
 		id contextManager = [self contextManager];
 		if(D)
 		{
+			didChange = 0;
 			id old = [D valueForKey:aKey];
 			if(![old isEqual:object])
 			{
@@ -200,16 +204,18 @@ To Do List:
 				didChange |= iTM2ContextStandardLocalMask;
 			}
 		}
-		if(self != contextManager && SUD != contextManager)
+		if(contextManager && self != contextManager && SUD != contextManager)
 		{
+			didChange &= ~iTM2ContextNoContextMask;
 			didChange |= [contextManager takeContextValue:object forKey:aKey domain:mask];
 		}
 	}
 	if(mask & iTM2ContextDefaultsMask)
 	{
+		didChange &= ~iTM2ContextNoContextMask;
 		didChange |= [SUD takeContextValue:object forKey:aKey domain:mask];
 	}
-	if(didChange)
+	if(didChange &= ~iTM2ContextNoContextMask)
 	{
 		[self notifyContextChange];
 	}

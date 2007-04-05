@@ -29,11 +29,12 @@ extern NSString * const iTM2ContextTypesKey;
 enum
 {
 	iTM2ContextNoDomainMask = 0,// Nothing
-	iTM2ContextStandardLocalMask = 1 << 1,// private to the object
-	iTM2ContextStandardProjectMask = 1 << 2,// share with the default
-	iTM2ContextExtendedProjectMask = 1 << 3,// share the extension with the project
-	iTM2ContextExtendedDefaultsMask = 1 << 4,// share the extension with the default
-	iTM2ContextStandardDefaultsMask = 1 << 5,// share with the default
+	iTM2ContextNoContextMask = 1 << 1,// private to the object
+	iTM2ContextStandardLocalMask = 1 << 2,// private to the object
+	iTM2ContextStandardProjectMask = 1 << 3,// share with the default
+	iTM2ContextExtendedProjectMask = 1 << 4,// share the extension with the project
+	iTM2ContextExtendedDefaultsMask = 1 << 5,// share the extension with the default
+	iTM2ContextStandardDefaultsMask = 1 << 6,// share with the default
 	iTM2ContextDefaultsMask = iTM2ContextStandardDefaultsMask|iTM2ContextExtendedDefaultsMask,
 	iTM2ContextProjectMask = iTM2ContextStandardProjectMask|iTM2ContextExtendedProjectMask,
 	iTM2ContextPrivateMask = iTM2ContextStandardLocalMask|iTM2ContextStandardProjectMask,

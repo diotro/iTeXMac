@@ -94,6 +94,7 @@ NSString * const iTM2CompletionComponent = @"Completion.localized";
 - (id)macroKeyStroke;
 - (NSArray *)availableIDs;
 - (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index;
+- (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index withID:(NSString *)ID;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit

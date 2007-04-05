@@ -488,3 +488,12 @@ To Do List:
     return;
 }
 @end
+
+@implementation iTM2TextStorage(OVERRIDE)
+-(void)_antialiasThresholdChanged:(NSNotification *)notification;
+{
+	iTM2_LOG(@"notification:%@",notification);
+//	[super _antialiasThresholdChanged:object];
+	return;
+}
+@end

@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF3F3F10BC16869008D3C9A</string>
+						<string>DCEB561E0BC3D9C800F47DA3</string>
 						<key>history</key>
 						<array>
-							<string>DC86FCD40BBD93D8007AAE43</string>
+							<string>DCEB55DE0BC3D93000F47DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -230,126 +230,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>DC75FEDD0BB946B2007C464E</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2MacroKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC75FEDE0BB946B2007C464E</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2MacroKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCF3F3F20BC16869008D3C9A</string>
-						<key>history</key>
-						<array>
-							<string>DC86FCD50BBD93D8007AAE43</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1294, 661}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>61 129 1294 702 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC75FDDD0BB936ED007C464E</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2TextDocumentKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC75FDDE0BB936ED007C464E</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2TextDocumentKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCF3F3F30BC16869008D3C9A</string>
-						<key>history</key>
-						<array>
-							<string>DC86FCD60BBD93D8007AAE43</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1294, 661}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>15 171 1294 702 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>DC75FDE30BB936ED007C464E</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2TeXDocumentKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC75FDE40BB936ED007C464E</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2TeXDocumentKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCF3F3F40BC16869008D3C9A</string>
-						<key>history</key>
-						<array>
-							<string>DC86FCD70BBD93D8007AAE43</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1294, 661}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>107 87 1294 702 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>DC75FDE90BB936ED007C464E</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2TeXDocumentKit.m</string>
@@ -364,10 +244,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF3F3F50BC16869008D3C9A</string>
+						<string>DCEB561F0BC3D9C800F47DA3</string>
 						<key>history</key>
 						<array>
-							<string>DC86FCD80BBD93D9007AAE43</string>
+							<string>DCEB55DF0BC3D93000F47DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -390,46 +270,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>DC75FDEF0BB936ED007C464E</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>iTM2LaTeXKit.h</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>DC75FDF00BB936ED007C464E</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>iTM2LaTeXKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DCF3F3F60BC16869008D3C9A</string>
-						<key>history</key>
-						<array>
-							<string>DC86FCD90BBD93D9007AAE43</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1082, 660}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>107 46 1082 701 0 0 1440 878 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>DC7500B60BBA50F3007C464E</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>iTM2_Engine_mpost</string>
@@ -444,10 +284,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF3F3F70BC16869008D3C9A</string>
+						<string>DCEB56210BC3D9C800F47DA3</string>
 						<key>history</key>
 						<array>
-							<string>DC86FCDA0BBD93D9007AAE43</string>
+							<string>DCEB55E20BC3D93000F47DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -484,10 +324,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF3F3F80BC16869008D3C9A</string>
+						<string>DCEB56230BC3D9C800F47DA3</string>
 						<key>history</key>
 						<array>
-							<string>DC86FCDB0BBD93D9007AAE43</string>
+							<string>DCEB55E40BC3D93000F47DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -524,10 +364,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF3F3F90BC16869008D3C9A</string>
+						<string>DCEB56250BC3D9C800F47DA3</string>
 						<key>history</key>
 						<array>
-							<string>DC86FCDC0BBD93D9007AAE43</string>
+							<string>DCEB55E60BC3D93000F47DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -564,10 +404,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF3F3FA0BC16869008D3C9A</string>
+						<string>DCEB56270BC3D9C800F47DA3</string>
 						<key>history</key>
 						<array>
-							<string>DC86FCDD0BBD93D9007AAE43</string>
+							<string>DCEB55E80BC3D93000F47DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -604,10 +444,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCF3F3FB0BC16869008D3C9A</string>
+						<string>DCEB56290BC3D9C800F47DA3</string>
 						<key>history</key>
 						<array>
-							<string>DC86FCDE0BBD93D9007AAE43</string>
+							<string>DCEB55EA0BC3D93000F47DA3</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -763,10 +603,10 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCF3F3F00BC16869008D3C9A</string>
+										<string>DCEB561B0BC3D9C800F47DA3</string>
 										<key>history</key>
 										<array>
-											<string>DC86FCD10BBD93D8007AAE43</string>
+											<string>DCEB55DB0BC3D93000F47DA3</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -824,9 +664,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCF3F2F10BC145C4008D3C9A</string>
+				<string>DCEB561C0BC3D9C800F47DA3</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCF3F2F20BC145C4008D3C9A</string>
+				<string>DCEB561D0BC3D9C800F47DA3</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -960,21 +800,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCF3F3070BC145C4008D3C9A</string>
-		<string>DCF3F3080BC145C4008D3C9A</string>
-		<string>DCBEC51C088DD36400F8BF85</string>
-		<string>DC8A64A8088DBEB50016FAA2</string>
-		<string>DCF3F3050BC145C4008D3C9A</string>
+		<string>DCEB56310BC3D9C800F47DA3</string>
 		<string>DC7500CE0BBA50F3007C464E</string>
 		<string>DC7500C80BBA50F3007C464E</string>
 		<string>DC7500C20BBA50F3007C464E</string>
 		<string>DC7500BC0BBA50F3007C464E</string>
 		<string>DC7500B60BBA50F3007C464E</string>
-		<string>DC75FDEF0BB936ED007C464E</string>
 		<string>DC75FDE90BB936ED007C464E</string>
-		<string>DC75FDE30BB936ED007C464E</string>
-		<string>DC75FDDD0BB936ED007C464E</string>
-		<string>DC75FEDD0BB946B2007C464E</string>
 		<string>DC75FF800BB96172007C464E</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
@@ -1099,8 +931,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {570, 345}}</string>
-											<string>{{570, 0}, {660, 345}}</string>
+											<string>{{0, 0}, {565, 351}}</string>
+											<string>{{565, 0}, {665, 351}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -1115,8 +947,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1230, 345}}</string>
-											<string>{{0, 345}, {1230, 328}}</string>
+											<string>{{0, 0}, {1230, 351}}</string>
+											<string>{{0, 351}, {1230, 322}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -1163,14 +995,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCF3F2FF0BC145C4008D3C9A</string>
+				<string>DCEB562B0BC3D9C800F47DA3</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCF3F3000BC145C4008D3C9A</string>
-				<string>DCF3F3010BC145C4008D3C9A</string>
-				<string>DCF3F3020BC145C4008D3C9A</string>
-				<string>DCF3F3030BC145C4008D3C9A</string>
-				<string>DCF3F3040BC145C4008D3C9A</string>
-				<string>DCF3F3050BC145C4008D3C9A</string>
+				<string>DCEB562C0BC3D9C800F47DA3</string>
+				<string>DCEB562D0BC3D9C800F47DA3</string>
+				<string>DCEB562E0BC3D9C800F47DA3</string>
+				<string>DCEB562F0BC3D9C800F47DA3</string>
+				<string>DCEB56300BC3D9C800F47DA3</string>
+				<string>DCEB56310BC3D9C800F47DA3</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>

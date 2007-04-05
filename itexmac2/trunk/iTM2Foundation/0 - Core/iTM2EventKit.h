@@ -41,4 +41,21 @@ extern NSString * const iTM2FlagsDidChangeNotification;
 /*"Overriden methods"*/
 @end
 
+@interface iTM2IdleTimer: NSObject
+{
+@private
+	EventLoopTimerRef timer;
+	id target;
+	id info;
+}
+- (id)initWithFireDate:(NSDate *)date interval:(NSTimeInterval)inInterval target:(id)target userInfo:(id)userInfo;
+-(id)userInfo;
+@end
+
+@interface NSObject(iTM2IdleTimerTarget)
+-(void) idleTimerStarted:(iTM2IdleTimer *)idleTime;
+-(void) idleTimerIdling:(iTM2IdleTimer *)idleTime;
+-(void) idleTimerStopped:(iTM2IdleTimer *)idleTime;
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2EventObserver

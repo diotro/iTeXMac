@@ -114,9 +114,8 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
                         NSLayoutManager * layoutManager = [TV layoutManager];
                         NSRange matchRange = NSMakeRange(matchIndex, 1);
                         NSDictionary * oldTempAttr = [[[layoutManager temporaryAttributesAtCharacterIndex:matchIndex effectiveRange:nil] copy] autorelease];
-                        [layoutManager textContainerForGlyphAtIndex:
-                            [layoutManager glyphRangeForCharacterRange:matchRange actualCharacterRange:NULL].location
-                                effectiveRange: NULL];
+						R = [layoutManager glyphRangeForCharacterRange:matchRange actualCharacterRange:NULL];
+                        [layoutManager textContainerForGlyphAtIndex:R.location effectiveRange: NULL];
 						NSDictionary * attributes = [NSDictionary dictionaryWithObject:[NSColor selectedTextBackgroundColor]
 												forKey: NSBackgroundColorAttributeName];
 						[layoutManager addTemporaryAttributes:attributes forCharacterRange:matchRange];
@@ -181,7 +180,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeContextBool: ![self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask] forKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
     return;
 }
@@ -194,7 +194,8 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender setState: ([self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState)];
+	BOOL flag = [self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
+	[sender setState: (flag? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -213,7 +214,8 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[_iTM2TextWatcherDictionary removeObjectForKey:[NSValue valueWithNonretainedObject:self]];
+	NSValue * V = [NSValue valueWithNonretainedObject:self];
+	[_iTM2TextWatcherDictionary removeObjectForKey:V];
 	[super dealloc];
 //iTM2_END;
     return;

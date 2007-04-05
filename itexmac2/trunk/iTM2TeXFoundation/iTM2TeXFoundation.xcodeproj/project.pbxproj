@@ -148,6 +148,7 @@
 		DCAF9A3E09D810A400AFD95F /* iTM2TextStyle_TeX.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3709D810A400AFD95F /* iTM2TextStyle_TeX.strings */; };
 		DCAF9A3F09D810A400AFD95F /* iTM2XtdTeXParserSymbolsInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3909D810A400AFD95F /* iTM2XtdTeXParserSymbolsInspector.nib */; };
 		DCAF9A4009D810A400AFD95F /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3B09D810A400AFD95F /* Styles.resources.tgz */; };
+		DCBE56790BC3CF2B00899B35 /* iTM2LaTeXKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCBE56760BC3CF2000899B35 /* iTM2LaTeXKit.framework */; };
 		DCC3D16C0926A425005471BD /* iTM2TextWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC3D1680926A425005471BD /* iTM2TextWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCC3D16D0926A425005471BD /* iTM2TextWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D1690926A425005471BD /* iTM2TextWatcher.m */; };
 		DCC3EC6B08FDC4B900A74157 /* iTM2TeXFoundationErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC3EC6908FDC4B900A74157 /* iTM2TeXFoundationErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -247,6 +248,7 @@
 				DC1C6C65090D9961000F4FDE /* iTM2Foundation.framework in CopyFiles */,
 				DC225F8A0AE53F8D00186582 /* OgreKit.framework in CopyFiles */,
 				DC1C6C66090D9961000F4FDE /* iTM2TeXFoundation.framework in CopyFiles */,
+				DCBE56790BC3CF2B00899B35 /* iTM2LaTeXKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +404,7 @@
 		DCAF9A4209D810B000AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2TextStyle_TeX.strings; sourceTree = "<group>"; };
 		DCAF9A4309D810B000AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2XtdTeXParserSymbolsInspector.nib; sourceTree = "<group>"; };
 		DCAF9A4409D810B000AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
+		DCBE56760BC3CF2000899B35 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
 		DCC3D1680926A425005471BD /* iTM2TextWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextWatcher.h; sourceTree = "<group>"; };
 		DCC3D1690926A425005471BD /* iTM2TextWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextWatcher.m; sourceTree = "<group>"; };
 		DCC3EC6908FDC4B900A74157 /* iTM2TeXFoundationErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXFoundationErrors.h; sourceTree = "<group>"; };
@@ -521,6 +524,7 @@
 				DCC7F4C70854ACD700F3EB8A /* Carbon.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */,
+				DCBE56760BC3CF2000899B35 /* iTM2LaTeXKit.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -784,6 +788,7 @@
 				DC1C6B2F090D983F000F4FDE /* Sources */,
 				DC1C6B30090D983F000F4FDE /* Frameworks */,
 				DC1C6C37090D9942000F4FDE /* CopyFiles */,
+				DCBE56970BC3D04200899B35 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1043,6 +1048,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeEngines.sh iTM2TeXFoundation iTM2TeXFoundationEngines\n";
+		};
+		DCBE56970BC3D04200899B35 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"warning: iTeXMac2 INFO, Copying the plug-ins\"\nDESTINATION_DIRECTORY=\"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\"\nif ! [ -d \"${DESTINATION_DIRECTORY}\" ]\nthen\n\tmkdir \"${DESTINATION_DIRECTORY}\"\n\techo \"Creating ${DESTINATION_DIRECTORY}\"\n\tif ! [ -d \"${DESTINATION_DIRECTORY}\" ]\n\tthen\n\t\techo \"warning: iTeXMac2 INFO, Copying the plug-ins... FAILED\"\n\t\texit 1\n\tfi\nfi\ncd \"${SYMROOT}\"\n# copier tout ce qui se termine par iTM2\nIFS='\n'\niTM2_TARGETS=\"`ls -1 -d *`$IFS\"\nfor iTM2_VAR in ${iTM2_TARGETS}\ndo\n\tif [ \"${iTM2_VAR##*.}\" == \"iTM2\" ]\n\tthen\n\t\trm -Rf \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\"\n\t\tcp -Rf \"${iTM2_VAR}\" \"${DESTINATION_DIRECTORY}\"\n\t\tif [ -d \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\" ]\n\t\tthen\n\t\t\techo \"warning: iTeXMac2 INFO, ${iTM2_VAR} plug-in copied\"\n\t\telse\n\t\t\techo \"warning: iTeXMac2 INFO, Copying ${iTM2_VAR} plug-in... FAILED\"\n\t\t\texit 2\n\t\tfi\n\tfi\ndone\n# copier tout ce qui se termine par prefPane\nIFS='\n'\n#iTM2_TARGETS=\"`ls -1 -d *`$IFS\"\niTM2_TARGETS=\"\n\"\nfor iTM2_VAR in ${iTM2_TARGETS}\ndo\n\tif [ \"${iTM2_VAR##*.}\" == \"prefPane\" ]\n\tthen\n\t\trm -Rf \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\"\n\t\tcp -Rf \"${iTM2_VAR}\" \"${DESTINATION_DIRECTORY}\"\n\t\tif [ -d \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\" ]\n\t\tthen\n\t\t\techo \"warning: iTeXMac2 INFO, ${iTM2_VAR} preference wrapper copied\"\n\t\telse\n\t\t\techo \"warning: iTeXMac2 INFO, Copying ${iTM2_VAR} preference wrapper... FAILED\"\n\t\t\texit 2\n\t\tfi\n\tfi\ndone\necho \"warning: iTeXMac2 INFO, Copying the plug-ins... DONE\"\nexit 0\nif [ \"${BUILD_STYLE}\" != \"Development\" ]\nthen\n\t\"${CHOWN}\" -RH \"${INSTALL_OWNER}:${INSTALL_GROUP}\" \"${DESTINATION_DIRECTORY}\"\n\t\"${CHMOD}\" -RH ${INSTALL_MODE_FLAG} \"${DESTINATION_DIRECTORY}\"\nfi\necho \"=-=-=-=-=-  Copying the plug ins result:\"\nls -l \"${DESTINATION_DIRECTORY}\"\n";
 		};
 		DCC7F9EB0854E21900F3EB8A /* Merge Headers */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -35,6 +35,7 @@ NSString * const iTM2ServerSourceKey = @"-source";
 NSString * const iTM2ServerProjectKey = @"-project";
 NSString * const iTM2ServerDontOrderFrontKey = @"-dont-order-front";
 NSString * const iTM2ServerReasonKey = @"-reason";
+NSString * const iTM2ServerIdlingKey = @"-idling";
 
 NSString * const iTM2ProcessInfoEnvironmentKey = @"iTM2ProcessInfoEnvironment";
 
@@ -78,6 +79,7 @@ NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length"
 + (unsigned int)getColumnFromContext:(NSDictionary *)context;
 + (BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
 + (NSString *)getReasonFromContext:(NSDictionary *)context;
++ (BOOL)getIdlingFromContext:(NSDictionary *)context;
 + (void)actionWithName:(NSString *)name performedWithContext:(NSDictionary *)context;
 @end
 
@@ -321,7 +323,8 @@ To Do List: see the warning below
 //iTM2_START;
 //iTM2_LOG(@"context is: %@", context);
 	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	if(![self acceptConversationWithID:[environment objectForKey:iTM2ServerConversationIDKey]])
+	NSString * ID = [environment objectForKey:iTM2ServerConversationIDKey];
+	if(![self acceptConversationWithID:ID])
 	{
 //iTM2_END;
 		return;
@@ -574,6 +577,32 @@ To Do List: see the warning below
 	}
 //iTM2_END;
     return @"Unknown";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getIdlingFromContext:
++ (BOOL)getIdlingFromContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		argument = [argument lowercaseString];
+		if([argument isEqual:iTM2ServerIdlingKey])
+		{
+			argument = [E nextObject];
+			argument = [argument lowercaseString];
+//iTM2_END;
+			return ![argument isEqual:"no"];
+		}
+	}
+//iTM2_END;
+    return NO;
 }
 #pragma mark =-=-=-=-=-  typesetting responders
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= compilePerformedWithContext:
@@ -1113,7 +1142,7 @@ To Do List: see the warning below
 	NSEnumerator * E = [fileNames objectEnumerator];
 	if([self getDontOrderFrontFromContext:context])
 	{
-		// just register the document for the project
+		// just register the document for the project,
 		// update the contents if the document is on screen
 		while(fileName = [E nextObject])
 		{

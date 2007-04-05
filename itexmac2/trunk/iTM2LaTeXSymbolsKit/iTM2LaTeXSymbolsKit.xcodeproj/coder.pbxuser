@@ -267,6 +267,16 @@
 			DCF3F3FE0BC16869008D3C9A /* PBXTextBookmark */ = DCF3F3FE0BC16869008D3C9A /* PBXTextBookmark */;
 			DCF3F3FF0BC16869008D3C9A /* PBXTextBookmark */ = DCF3F3FF0BC16869008D3C9A /* PBXTextBookmark */;
 			DCF3F4000BC16869008D3C9A /* PBXTextBookmark */ = DCF3F4000BC16869008D3C9A /* PBXTextBookmark */;
+			DCF3F40D0BC16946008D3C9A /* PBXTextBookmark */ = DCF3F40D0BC16946008D3C9A /* PBXTextBookmark */;
+			DCF3F40E0BC16946008D3C9A /* PBXTextBookmark */ = DCF3F40E0BC16946008D3C9A /* PBXTextBookmark */;
+			DCF3F40F0BC16946008D3C9A /* PBXTextBookmark */ = DCF3F40F0BC16946008D3C9A /* PBXTextBookmark */;
+			DCF3F4100BC16946008D3C9A /* PBXTextBookmark */ = DCF3F4100BC16946008D3C9A /* PBXTextBookmark */;
+			DCF3F4110BC16946008D3C9A /* PBXTextBookmark */ = DCF3F4110BC16946008D3C9A /* PBXTextBookmark */;
+			DCF3F4140BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4140BC26879008D3C9A /* PBXTextBookmark */;
+			DCF3F4150BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4150BC26879008D3C9A /* PBXTextBookmark */;
+			DCF3F4160BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4160BC26879008D3C9A /* PBXTextBookmark */;
+			DCF3F4170BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4170BC26879008D3C9A /* PBXTextBookmark */;
+			DCF3F4180BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4180BC26879008D3C9A /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520432088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -294,7 +304,7 @@
 	DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1262, 9180}}";
-			sepNavSelRange = "{14654, 15}";
+			sepNavSelRange = "{15818, 0}";
 			sepNavVisRect = "{{0, 8280}, {1095, 728}}";
 			sepNavWindowFrame = "{{203, -18}, {1134, 857}}";
 		};
@@ -2087,7 +2097,7 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 197224551.967824;
+		modificationTime = 197224773.600539;
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
@@ -2379,6 +2389,106 @@
 		vrLoc = 4582;
 	};
 	DCF3F4000BC16869008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */;
+		name = "iTM2LaTeXSymbolsKit.h: 82";
+		rLen = 132;
+		rLoc = 2694;
+		rType = 0;
+		vrLen = 753;
+		vrLoc = 2695;
+	};
+	DCF3F40D0BC16946008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */;
+		name = "iTM2LaTeXSymbolsKit.m: 459";
+		rLen = 0;
+		rLoc = 15818;
+		rType = 0;
+		vrLen = 879;
+		vrLoc = 11969;
+	};
+	DCF3F40E0BC16946008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */;
+		name = "iTM2LaTeXSymbolsKit.m: 459";
+		rLen = 0;
+		rLoc = 15818;
+		rType = 0;
+		vrLen = 1124;
+		vrLoc = 14513;
+	};
+	DCF3F40F0BC16946008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF3F3DA0BC1684C008D3C9A /* NSWindow.h */;
+		name = "- (void)orderOut:(id)sender;";
+		rLen = 29;
+		rLoc = 10827;
+		rType = 0;
+		vrLen = 867;
+		vrLoc = 10185;
+	};
+	DCF3F4100BC16946008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEA0CA50B78C4BC00F48911 /* NSImage.h */;
+		name = "@interface NSImage : NSObject <NSCopying, NSCoding> {";
+		rLen = 54;
+		rLoc = 913;
+		rType = 0;
+		vrLen = 1090;
+		vrLoc = 4582;
+	};
+	DCF3F4110BC16946008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */;
+		name = "iTM2LaTeXSymbolsKit.h: 82";
+		rLen = 132;
+		rLoc = 2694;
+		rType = 0;
+		vrLen = 753;
+		vrLoc = 2695;
+	};
+	DCF3F4140BC26879008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */;
+		name = "iTM2LaTeXSymbolsKit.m: 459";
+		rLen = 0;
+		rLoc = 15818;
+		rType = 0;
+		vrLen = 879;
+		vrLoc = 11969;
+	};
+	DCF3F4150BC26879008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */;
+		name = "iTM2LaTeXSymbolsKit.m: 459";
+		rLen = 0;
+		rLoc = 15818;
+		rType = 0;
+		vrLen = 1124;
+		vrLoc = 14513;
+	};
+	DCF3F4160BC26879008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF3F3DA0BC1684C008D3C9A /* NSWindow.h */;
+		name = "- (void)orderOut:(id)sender;";
+		rLen = 29;
+		rLoc = 10827;
+		rType = 0;
+		vrLen = 867;
+		vrLoc = 10185;
+	};
+	DCF3F4170BC26879008D3C9A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCEA0CA50B78C4BC00F48911 /* NSImage.h */;
+		name = "@interface NSImage : NSObject <NSCopying, NSCoding> {";
+		rLen = 54;
+		rLoc = 913;
+		rType = 0;
+		vrLen = 1090;
+		vrLoc = 4582;
+	};
+	DCF3F4180BC26879008D3C9A /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */;
 		name = "iTM2LaTeXSymbolsKit.h: 82";

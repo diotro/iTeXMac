@@ -5735,9 +5735,8 @@ To Do List:
 			[element detach];
 			iTM2_LOG(@"removed element:%@",element);
 		}
-		else
+		else if(child = [[[iTM2KeyBindingLeafNode alloc] initWithParent:self] autorelease])
 		{
-			child = [[[iTM2KeyBindingLeafNode alloc] initWithParent:self] autorelease];
 			[child setKey:key];
 			if(mutable)
 			{
@@ -5747,13 +5746,21 @@ To Do List:
 			{
 				[child addXMLElement:element];
 			}
+			[child readXMLElement:element mutable:mutable];
+			[D setObject:child forKey:key];
 			if(iTM2DebugEnabled)
 			{
 				child = (iTM2MacroLeafNode *)[self objectInChildrenWithKey:key];
 				iTM2_LOG(@"child:%@",child);
+				if(!child)
+				{
+					iTM2_LOG(@"BIG ERROR");
+				}
 			}
-			[child readXMLElement:element mutable:mutable];
-			[D setObject:child forKey:key];
+		}
+		else
+		{
+			iTM2_LOG(@"Could not create a child:%@",child);
 		}
 	}
 }

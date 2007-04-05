@@ -175,6 +175,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	id result = metaGETTER;
+	if(result)
+	{
+		return result;
+	}
+	NSString * type = [self fileType];
+	NSData * PDFData = [self dataRepresentationOfType:type];
+	[self loadDataRepresentation:nil ofType:type];
+	PDFDocument * PDFDoc = [[[iTM2XtdPDFDocument alloc] initWithData:PDFData] autorelease];
+	if(PDFDoc)
+	{
+		[self setPDFDocument:PDFDoc];
+		NSEnumerator * E = [[self windowControllers] objectEnumerator];
+		id WC = nil;
+		while(WC = [E nextObject])
+		{
+			if([WC respondsToSelector:@selector(setProgressIndicatorIsAnimated:)])
+			{
+				[WC setProgressIndicatorIsAnimated:NO];
+			}
+		}
+	}
     return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setPDFDocument:
@@ -190,7 +212,7 @@ To Do List:
     {
         metaSETTER(PDFDoc);
 		[self replaceSynchronizer:nil];
-        [INC postNotificationName:iTM2PDFKitDocumentDidChangeNotification object:self userInfo:nil];
+		[INC postNotificationName:iTM2PDFKitDocumentDidChangeNotification object:self userInfo:nil];
     }
     return;
 }
@@ -205,26 +227,14 @@ To Do List:
 //iTM2_START;
 	if(outErrorPtr)
 		*outErrorPtr = nil;
-	PDFDocument * PDFDoc = nil;
-	NSData * PDFData = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
-	PDFDoc = [[iTM2XtdPDFDocument alloc] initWithData:PDFData];
-	BOOL result = NO;
-	if(PDFDoc)
-	{
-		[self setPDFDocument:[PDFDoc autorelease]];
-		result = YES;
-	}
-	NSEnumerator * E = [[self windowControllers] objectEnumerator];
-	id WC = nil;
-	while(WC = [E nextObject])
-	{
-		if([WC respondsToSelector:@selector(setProgressIndicatorIsAnimated:)])
-		{
-			[WC setProgressIndicatorIsAnimated:!result];
-		}
-	}
+	NSData * D = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
 //iTM2_END;
-	return result;
+    if([self loadDataRepresentation:D ofType:type])
+	{
+		[self setPDFDocument:nil];
+		return YES;
+	}
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteWriteToURL:ofType:error:
 - (BOOL)dataCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
