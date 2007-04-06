@@ -837,48 +837,123 @@ To Do List:implement some kind of balance range for range
 		return R;
     NSString * S = [self string];
     BOOL escaped;
+	unichar theChar;
+	NSRange r;
+    unsigned int length = [S length];
+expandToTheLeft:
     if(R.location > 0)
     {
-        if([S isControlAtIndex:R.location-1 escaped:&escaped])
-        {
-            if(!escaped)
-            {
-                --R.location, ++R.length;
+		theChar = [S characterAtIndex:R.location];
+		if(theChar == '_')
+		{
+			if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+			{
+				--R.location, ++R.length;
 //NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
-                return R;
-            }
-        }
-        else
-        {
-        }
+				// expand to the left
+				if(R.location)
+				{
+					theChar = [S characterAtIndex:R.location-1];
+					if([[NSCharacterSet alphanumericCharacterSet] characterIsMember:theChar])
+					{
+						r = [super doubleClickAtIndex:R.location-1];
+						R = NSUnionRange(R,r);
+						goto expandToTheLeft;
+					}
+				}
+			}
+			else if(R.location<index)
+			{
+				++R.location;
+				--R.length;
+			}
+			else if(R.length>1)
+			{
+				return R;
+			}
+			else if(R.location+1<length)
+			{
+				// something like "_{...}"
+				r = [self doubleClickAtIndex:R.location+1];
+				R = NSUnionRange(R,r);
+				return R;
+			}
+		}
+		else if(theChar == '^')
+		{
+			if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+			{
+				--R.location, ++R.length;
+			}
+			else if(R.location<index)
+			{
+				++R.location;
+				--R.length;
+			}
+			else if(R.length>1)
+			{
+				return R;
+			}
+			else if(R.location+1<length)
+			{
+				// something like "_{...}"
+				r = [self doubleClickAtIndex:R.location+1];
+				R = NSUnionRange(R,r);
+				return R;
+			}
+		}
+        else if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+		{
+			--R.location, ++R.length;
+//NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
+			// expand to the righ
+		}
+		else if(R.location > 1)
+		{
+			if([S isControlAtIndex:R.location-2 escaped:&escaped] && !escaped)
+			{
+				theChar = [S characterAtIndex:R.location-1];
+				if(theChar == '-')
+				{
+					R.location -= 2;
+					R.length += 2;
+					if(R.location)
+					{
+						theChar = [S characterAtIndex:R.location-1];
+						if([[NSCharacterSet alphanumericCharacterSet] characterIsMember:theChar])
+						{
+							NSRange r = [super doubleClickAtIndex:R.location-1];
+							R = NSUnionRange(R,r);
+							goto expandToTheLeft;
+						}
+					}
+				}
+			}
+		}
     }
-    // expanding the range to the right
-    unsigned int top = [S length];
-    unsigned int loc = NSMaxRange(R);
-    while((loc+1<top) &&
+    unsigned int loc;
+expandToTheRight:
+	loc = NSMaxRange(R);
+    if((loc+1<length) &&
             [S isControlAtIndex:loc escaped:&escaped] &&
-                !escaped &&
-                    ([S characterAtIndex:loc+1] == '-'))
-    {
-        R.length += 2;
-        loc+=2;
-        if(loc<top)
-        {
-            NSRange r = [super doubleClickAtIndex:loc];
-            if(r.length)
-            {
-                R.length += r.length;
-                loc+=r.length;
-            }
-            else
-                break;
-        }
-    }
-    while((R.location>1) && ([S characterAtIndex:R.location-1] == '-') && [S isControlAtIndex:R.location-2 escaped:&escaped] && !escaped)
-    {
-        R.location -= 2;
-        R.length += 2;
-    }
+					!escaped)
+	{
+		theChar = [S characterAtIndex:loc+1];
+		if((theChar == '_') || (theChar == '-'))
+		{
+			R.length += 2;
+			loc+=2;
+			if(loc<length)
+			{
+				NSRange r = [super doubleClickAtIndex:loc];
+				if(r.length)
+				{
+					R = NSUnionRange(R,r);
+					goto expandToTheRight;
+				}
+			}
+		}
+	}
 //iTM2_END;
     return R;
 }
