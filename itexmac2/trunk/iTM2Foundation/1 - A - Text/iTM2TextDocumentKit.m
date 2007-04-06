@@ -2151,6 +2151,7 @@ To Do List:
 		return;
 	}
 	NSString * text = [GP stringForType:availableType];
+	text = [text precomposedStringWithCompatibilityMapping];// this could be tuned to fit different encodings
 	[self insertText:text];
     return;
 }
