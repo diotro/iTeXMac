@@ -4696,11 +4696,19 @@ otherPreviousStart:
 							if(!type)
 							{
 								++depth;
-								goto otherPreviousStart;
+								if(startRange.location)
+								{
+									--startRange.location;
+									goto otherPreviousStart;
+								}
 							}
 							else if(--depth)
 							{
-								goto otherPreviousStart;
+								if(startRange.location)
+								{
+									--startRange.location;
+									goto otherPreviousStart;
+								}
 							}
 							else
 							{
