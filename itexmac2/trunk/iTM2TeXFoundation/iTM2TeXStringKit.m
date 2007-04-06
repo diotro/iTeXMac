@@ -945,9 +945,10 @@ expandToTheRight:
 			loc+=2;
 			if(loc<length)
 			{
-				NSRange r = [super doubleClickAtIndex:loc];
-				if(r.length)
+				theChar = [S characterAtIndex:loc];
+				if([[NSCharacterSet alphanumericCharacterSet] characterIsMember:theChar])
 				{
+					NSRange r = [super doubleClickAtIndex:loc];
 					R = NSUnionRange(R,r);
 					goto expandToTheRight;
 				}
