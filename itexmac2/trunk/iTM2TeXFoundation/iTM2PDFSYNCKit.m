@@ -1758,7 +1758,8 @@ laSuite:
 		}
 		if(!result && [self synchronizer])
 		{
-			NSInvocation * _Invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:_cmd]];
+			NSMethodSignature * MS = [self methodSignatureForSelector:_cmd];
+			NSInvocation * _Invocation = [NSInvocation invocationWithMethodSignature:MS];
 			[_Invocation retainArguments];
 			[_Invocation setTarget:self];
 			[_Invocation setSelector:_cmd];
@@ -2354,7 +2355,8 @@ To Do List:
 	NSPoint hitPoint = [event locationInWindow];
 	hitPoint = [self convertPoint:hitPoint fromView:nil];
 	NSLayoutManager * LM = [self layoutManager];
-	unsigned int glyphIndex = [LM glyphIndexForPoint:hitPoint inTextContainer:[self textContainer]];
+	NSTextContainer * TC = [self textContainer];
+	unsigned int glyphIndex = [LM glyphIndexForPoint:hitPoint inTextContainer:TC];
 	unsigned charIndex = [LM characterIndexForGlyphAtIndex:glyphIndex];
 	unsigned start, contentsEnd;
 	[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 1)];
