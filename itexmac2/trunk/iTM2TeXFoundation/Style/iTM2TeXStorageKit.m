@@ -317,8 +317,6 @@ To Do List:
         _iTM2TeXPTeXFileNameLetterCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
             @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*()[]=_"] retain];
     }
-	[[NSCharacterSet characterSetWithCharactersInString:
-            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*()[]=_"] retain]
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
