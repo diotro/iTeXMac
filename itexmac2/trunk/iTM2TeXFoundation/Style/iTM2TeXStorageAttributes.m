@@ -52,92 +52,103 @@ To Do List:
 	}
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unsigned newModifier = previousModifier;
-	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
+	newModifier = previousModifier  & ~kiTM2TeXAtSyntaxMask;
+	newModifier = newModifier  & ~kiTM2TeXCommandSyntaxMask;
+	NSCharacterSet * set = [NSCharacterSet TeXFileNameLetterCharacterSet];
+	// managing the kiTM2TeXSimpleGroupSyntaxMask:
+	// if we already are in a simple group and the character belongs to the TeXFileNameCharacterSet, except an unescaped "{" or "}"
+	// then we should stay in the simple group
+	// If we follow a kiTM2TeXGroupOpenSyntaxMode, then we enter a kiTM2TeXSimpleGroupSyntaxMask, except for an unescaped "{" or "}"
+    if(![set characterIsMember:theChar])
+    {
+		newModifier &= ~kiTM2TeXSimpleGroupSyntaxMask;
+	}
+	else if((previousModeWithoutModifiers == kiTM2TeXGroupOpenSyntaxMode) && (theChar != '{') && (theChar != '}'))
+	{
+		newModifier |= kiTM2TeXSimpleGroupSyntaxMask;
+	}
 	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
 	NSString * modeString = @"";
-	unsigned newMode;
+	unsigned newMode = previousModeWithoutModifiers;
 #if 0
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXCommandStartSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXCommandInputSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXParenOpenSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXParenCloseSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXCommentStartSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMarkSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXSubStartSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXSubShortSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXSubscriptSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXSuperStartSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXSuperShortSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
-			default:
-				newMode = previousModeWithoutModifiers;
-				newModifier = previousModifier;
-				break;
+CAS0(kiTM2TeXWhitePrefixSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXCommandContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXGroupOpenSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXGroupCloseSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXParenOpenSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXParenCloseSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXBracketOpenSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXBracketCloseSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMarkSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMathSwitchSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMathSwithContinueSyntaxMode,		previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMathInlineBeginSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMathInlineEndSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMathDisplayBeginSyntaxMode,		previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXSubStartSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXSubShortSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXSubscriptSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXSuperContinueSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXSuperShortSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXSuperscriptSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXCellSeparatorSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
 #endif
-#undef CASE
-#define CASE(OLDMODE,NEWMODE,NEWMODIFIER)\
-case OLDMODE: newMode = NEWMODE; newModifier = NEWMODIFIER;	break
+#undef CAS0
+#define CAS0(OLDMODE,NEWMODE)\
+case OLDMODE: newMode = NEWMODE; break
+#undef CAS1
+#define CAS1(OLDMODE,NEWMODE,NEWMODIFIER,STATUS)\
+case OLDMODE: newMode = NEWMODE; newModifier = NEWMODIFIER;	status = STATUS; break
 
+	set = [NSCharacterSet TeXLetterCharacterSet];
     if([set characterIsMember:theChar])
     {
+		newMode = kiTM2TeXRegularSyntaxMode;
         switch(previousModeWithoutModifiers)
         {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers,		previousModifier);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandContinueSyntaxMode,	previousModifier | kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier);
-CASE(kiTM2TeXCommandInputSyntaxMode,			previousModeWithoutModifiers,		previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,	previousModifier);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,		previousModifier);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,		previousModifier);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode,		previousModifier);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier);
-			default:
-				newMode = previousModeWithoutModifiers;
-				newModifier = previousModifier;
-				break;
+//CAS0(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers,		previousModifier,	kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandContinueSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXCommandContinueSyntaxMode,			previousModeWithoutModifiers,	newModifier | kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			previousModeWithoutModifiers);
+CAS1(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,	newModifier | kiTM2TeXSimpleGroupSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS0(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS0(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode);
+//CAS0(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
+CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
+//CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
         }
 		modeString = [_iTM2TeXModeForModeArray objectAtIndex:newMode];
 		if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
@@ -145,815 +156,702 @@ CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifie
 			* newModeRef = newMode | previousError | newModifier;
 			return kiTM2TeXNoErrorSyntaxStatus;
 		}
-		else
-		{
 //iTM2_LOG(@"AN ERROR OCCURRED");
-			* newModeRef = newMode | kiTM2TeXErrorFontSyntaxMask | previousError;
-			return kiTM2TeXNoErrorSyntaxStatus;
-		}
+		* newModeRef = newMode | kiTM2TeXErrorFontSyntaxMask | previousError;
+		return kiTM2TeXNoErrorSyntaxStatus;
     }
-    else
-    {
-        switch(theChar)
-        {
-            case ' ':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				previousModeWithoutModifiers,				previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers,				previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier);
-					default:
-						newMode = previousModeWithoutModifiers;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						break;
-                }
-				* newModeRef = newMode | previousError | newModifier;
-				return kiTM2TeXNoErrorSyntaxStatus;
-    
-#undef CASE
-#define CASE(OLDMODE,NEWMODE,NEWMODIFIER,STATUS)\
-case OLDMODE: newMode = NEWMODE; newModifier = NEWMODIFIER;	status = STATUS; break
+
+	newModifier = newModifier  & ~kiTM2TeXSimpleGroupSyntaxMask;
+	switch(theChar)
+	{
+#pragma mark =-=-=-=-=- " "
+		case ' ':
+			newMode = kiTM2TeXRegularSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+CAS0(kiTM2TeXWhitePrefixSyntaxMode,				previousModeWithoutModifiers);
+CAS0(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS0(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return kiTM2TeXNoErrorSyntaxStatus;
 
 #pragma mark =-=-=-=-=- "\\"
-            case '\\':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCommandStartSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXCommandStartSyntaxMode;
-						newModifier = previousModifier;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-                 }
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
-    
-#pragma mark =-=-=-=-=- {}
-            case '{':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXGroupOpenSyntaxMode,			previousModifier & kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXGroupOpenSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXWaitingSyntaxStatus;
-						break;
-                }
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+		case '\\':
+			newMode = kiTM2TeXCommandStartSyntaxMode;
+			newModifier |= kiTM2TeXCommandSyntaxMask;
+			status = kiTM2TeXWaitingSyntaxStatus;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS0(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXRegularSyntaxMode,					kiTM2TeXCommandStartSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS0(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			 }
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 
-            case '}':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXGroupOpenSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-                }
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+#pragma mark =-=-=-=-=- {}
+		case '{':
+			newMode = kiTM2TeXGroupOpenSyntaxMode;
+			status = kiTM2TeXWaitingSyntaxStatus;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXGroupOpenSyntaxMode,			previousModifier & kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			previousModifier & kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
+
+		case '}':
+			newMode = kiTM2TeXGroupCloseSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXGroupCloseSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 
 #pragma mark =-=-=-=-=- ()
-            case '(':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathInlineBeginSyntaxMode,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXParenOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXParenOpenSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+		case '(':
+			newMode = kiTM2TeXParenOpenSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXParenOpenSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathInlineBeginSyntaxMode,		newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 
-            case ')':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathInlineEndSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXParenCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXParenCloseSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+		case ')':
+			newMode = kiTM2TeXParenCloseSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS0(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXRegularSyntaxMode,					kiTM2TeXParenCloseSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathInlineEndSyntaxMode,			newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXParenCloseSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS0(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXParenCloseSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS0(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXParenCloseSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode);
+//CAS0(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
+CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
+//CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXParenCloseSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 #pragma mark =-=-=-=-=- []
-            case '[':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathDisplayBeginSyntaxMode,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXBracketOpenSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+		case '[':
+			newMode = kiTM2TeXBracketOpenSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXBracketOpenSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathDisplayBeginSyntaxMode,		newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+//CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
+CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 
-            case ']':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathDisplayEndSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXBracketCloseSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+		case ']':
+			newMode = kiTM2TeXBracketCloseSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXBracketCloseSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXMathDisplayEndSyntaxMode,		newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 
 #pragma mark =-=-=-=-=- $
-            case '$':
-                switch(previousModeWithoutModifiers)
-				{
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXMathSwithContinueSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXMathSwitchSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
-    
+		case '$':
+			newMode = kiTM2TeXMathSwitchSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXMathSwitchSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXMathSwithContinueSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
+
 #pragma mark =-=-=-=-=- %
-            case '%':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXMathSwithContinueSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCommentStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXCommentStartSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
-            
+		case '%':
+			newMode = kiTM2TeXCommentStartSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXCommentStartSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
+		
 #pragma mark =-=-=-=-=- &
-            case '&':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXMathSwithContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXErrorSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXErrorSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXErrorSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXCellSeparatorSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
-            
+		case '&':
+			newMode = kiTM2TeXCellSeparatorSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXCellSeparatorSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXCellSeparatorSyntaxMode);
+CAS0(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode);
+CAS0(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXErrorSyntaxMode);
+CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
+		
 #pragma mark =-=-=-=-=- !
-            case '!':// only active after thet first '%'
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXMarkSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,		previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,		previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode,		previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXRegularSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+		case '!':// only active after thet first '%'
+			newMode = kiTM2TeXRegularSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXMarkSyntaxMode);
+//CAS(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+//CAS(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 
 #pragma mark =-=-=-=-=- ^
-            case '^':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-				CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXSuperStartSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXSuperStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXErrorSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXSuperStartSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXSuperStartSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
+		case '^':
+			newMode = kiTM2TeXSuperStartSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXSuperStartSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,		kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXSuperStartSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXSuperStartSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXSuperStartSyntaxMode);
+CAS0(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXSuperStartSyntaxMode);
+CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperContinueSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
+CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXSuperStartSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
 
 #pragma mark =-=-=-=-=- _
-            case '_':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXSubStartSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXSubStartSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
-            
+		case '_':
+			newMode = kiTM2TeXSubStartSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXSubStartSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXSubStartSyntaxMode);
+CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXSubStartSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXSubStartSyntaxMode);
+CAS0(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXSubStartSyntaxMode);
+CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+CAS0(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
+CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
+		
 #pragma mark =-=-=-=-=- @
-            case '@':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+		case '@':
+			newMode = kiTM2TeXRegularSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+CAS0(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode);
 case kiTM2TeXCommandStartSyntaxMode:
-	newMode = [self contextBoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask]?
-		kiTM2TeXCommandContinueSyntaxMode:kiTM2TeXCommandEscapedCharacterSyntaxMode;
-	newModifier = previousModifier | kiTM2TeXCommandSyntaxMask;
-	status = kiTM2TeXNoErrorSyntaxStatus;
-	break;
-//CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+newMode = [self contextBoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask]?
+	kiTM2TeXCommandContinueSyntaxMode:kiTM2TeXCommandEscapedCharacterSyntaxMode;
+newModifier = newModifier | kiTM2TeXCommandSyntaxMask;
+status = kiTM2TeXNoErrorSyntaxStatus;
+break;
+//CAS(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode);
 case kiTM2TeXCommandContinueSyntaxMode:
-	if([self contextBoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask])
-	{
-		newMode = kiTM2TeXCommandContinueSyntaxMode;
-		newModifier = previousModifier;
-	}
-	else
-	{
-		newMode = kiTM2TeXRegularSyntaxMode;
-		newModifier = previousModifier &~ kiTM2TeXCommandSyntaxMask;
-	}
-	status = kiTM2TeXNoErrorSyntaxStatus;
-	break;
-//CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXRegularSyntaxMode;
-						newModifier = previousModifier;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
-            
-#pragma mark =-=-=-=-=- '".
-            case '\'':
-            case '"':
-            case '.':
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXErrorSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = kiTM2TeXRegularSyntaxMode;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						status = kiTM2TeXNoErrorSyntaxStatus;
-						break;
-				}
-				* newModeRef = newMode | previousError | newModifier;
-				return status ;
-            
+if([self contextBoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask])
+{
+	newMode = kiTM2TeXCommandContinueSyntaxMode;
+	newModifier = previousModifier;
+}
+else
+{
+	newMode = kiTM2TeXRegularSyntaxMode;
+	newModifier = previousModifier &~ kiTM2TeXCommandSyntaxMask;
+}
+status = kiTM2TeXNoErrorSyntaxStatus;
+break;
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+//CAS0(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS0(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
+			* newModeRef = newMode | previousError | newModifier;
+			return status ;
+
 #pragma mark =-=-=-=-=- default
-            default:
-            {
+		default:
+		{
 //NSLog(@"Non letter character: %@", [NSString stringWithCharacters: &theChar length:1]);
-                switch(previousModeWithoutModifiers)
-                {
-CASE(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode,					previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode,				previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode,					previousModifier & ~kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-CASE(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
-					default:
-						newMode = previousModeWithoutModifiers;
-						newModifier = previousModifier & ~kiTM2TeXCommandSyntaxMask;
-						break;
-                }
+			newMode = kiTM2TeXRegularSyntaxMode;
+			switch(previousModeWithoutModifiers)
+			{
+//CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	newModifier | kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+//CAS(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXCommandContinueSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXCommandInputSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXGroupOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXGroupCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXParenOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXParenCloseSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXBracketOpenSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXBracketCloseSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXCommentStartSyntaxMode,			kiTM2TeXCommentContinueSyntaxMode);
+CAS0(kiTM2TeXCommentContinueSyntaxMode,			previousModeWithoutModifiers);
+CAS0(kiTM2TeXMarkSyntaxMode,					kiTM2TeXMarkContinueSyntaxMode);
+CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
+//CAS(kiTM2TeXMathSwitchSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathSwithContinueSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathInlineBeginSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathInlineEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathDisplayBeginSyntaxMode,		kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXMathDisplayEndSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXSubStartSyntaxMode,				kiTM2TeXSubShortSyntaxMode);
+//CAS(kiTM2TeXSubShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXSubscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
+//CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
+			}
 //NSLog(@"mode returned: %u", newMode);
-				modeString = [_iTM2TeXModeForModeArray objectAtIndex:newMode];
-                if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
-				{
- 					* newModeRef = newMode | previousError | newModifier;
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
-                else
-				{
+			modeString = [_iTM2TeXModeForModeArray objectAtIndex:newMode];
+			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:modeString])
+			{
+				* newModeRef = newMode | previousError | newModifier;
+				return kiTM2TeXNoErrorSyntaxStatus;
+			}
+			else
+			{
 //iTM2_LOG(@"AN ERROR OCCURRED");
- 					* newModeRef = newMode | kiTM2TeXErrorSyntaxMask | previousError | previousModifier;// REVISIT, this has no meaning
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
-            }
-        }
-    }
+				* newModeRef = newMode | kiTM2TeXErrorSyntaxMask | previousError | previousModifier;// REVISIT, this has no meaning
+				return kiTM2TeXNoErrorSyntaxStatus;
+			}
+		}
+	}
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
@@ -975,6 +873,7 @@ To Do List:
 //	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unichar theChar = [S characterAtIndex:location];
+	unsigned start, end;
 	if(kiTM2TeXCommandStartSyntaxMode == previousModeWithoutModifiers)
 	{
 		NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
@@ -982,8 +881,8 @@ To Do List:
 		{
 			// is it a \input
 			// scanning from location for the control sequence name
-			unsigned start = location;
-			unsigned end = start+1;
+			start = location;
+			end = start+1;
 			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
 				++end;
 			if(end == start+5)
@@ -1020,10 +919,9 @@ To Do List:
 			return kiTM2TeXNoErrorSyntaxStatus;
 		}
 	}
+// placeholder marks management
 	if(theChar == '@')
 	{
-		// get the range of characters
-		
 	}
 	else if(theChar == '(')
 	{
@@ -1201,6 +1099,8 @@ To Do List:
 	NSString * S = [_TextStorage string];
 #ifdef iTM2_WITH_SYMBOLS
 	NSString * substring;
+	NSRange otherRange;
+	NSRange commandRange = NSMakeRange(NSNotFound,0);
 #endif
 	unsigned otherMode;
 	unsigned otherFullMode;
@@ -1209,6 +1109,207 @@ To Do List:
 	unsigned index;
 	
 	NSString * ERROR;
+	
+#ifdef iTM2_WITH_SYMBOLS
+	// if I am in a simple group or near a simple group things might be more difficult
+	// this is the case for \command{}, ^{} and _{}
+	// Am I IN a simple group?
+	if(fullMode&kiTM2TeXSimpleGroupSyntaxMask)
+	{
+		otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
+		index = [modeLine startOffset];
+		if(otherRange.location>index+1)
+		{
+			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location-1 longestRange:&range];
+			otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+			if(otherMode == kiTM2TeXGroupOpenSyntaxMode)
+			{
+				[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location-1 longestRange:&range];
+				otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+				if((otherMode == kiTM2TeXCommandEscapedCharacterSyntaxMode)
+					|| (otherMode == kiTM2TeXCommandContinueSyntaxMode)
+					|| (otherMode == kiTM2TeXCommandInputSyntaxMode))
+				{
+					if(range.location>index)
+					{
+						[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location-1 longestRange:&range];
+						otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+						if(otherMode == kiTM2TeXCommandStartSyntaxMode)
+						{
+							index = NSMaxRange(otherRange);
+							otherRange.location = range.location;
+							otherRange.length = index - otherRange.location;
+extendingToTheRight:
+							range.location = NSMaxRange(otherRange);
+							if(range.location<[modeLine contentsEndOffset])
+							{
+								[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location longestRange:&range];
+								otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+								if(otherMode == kiTM2TeXGroupCloseSyntaxMode)
+								{
+									++otherRange.length;
+tryToConclude:
+									substring = [S substringWithRange:range];
+									if(attributes = [_AS attributesForSymbol:substring])
+									{
+										if(aRangePtr)
+										{
+											*aRangePtr=otherRange;
+										}
+										if(iTM2DebugEnabled>9999)
+										{
+											iTM2_LOG(@"aLocation:%i, range:%@, substring:%@",aLocation,NSStringFromRange(range),substring);
+										}
+										return attributes;
+									}
+								}
+							}
+						}
+					}
+				}
+				else if((otherMode == kiTM2TeXSubStartSyntaxMode)||(otherMode == kiTM2TeXSuperStartSyntaxMode))
+				{
+					otherRange.length = NSMaxRange(otherRange);
+					otherRange.location = range.location;
+					otherRange.length -= otherRange.location;
+					goto extendingToTheRight;
+				}
+			}
+		}
+	}
+	else if(fullMode == kiTM2TeXGroupOpenSyntaxMode)
+	{
+		index = [modeLine contentsEndOffset];
+		if(aLocation<index)
+		{
+			otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
+			if(otherRange.length)
+			{
+				range.location = NSMaxRange(otherRange);
+				if(range.location<index)
+				{
+					[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location longestRange:&range];
+					otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+					if(otherMode == kiTM2TeXGroupCloseSyntaxMode)
+					{
+						++otherRange.length;
+						index = [modeLine startOffset];
+testBeforeGroupOpen:
+						range.location = otherRange.location;
+						if(range.location>index)
+						{
+							[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location-1 longestRange:&range];
+							otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+							if((otherMode == kiTM2TeXSubStartSyntaxMode)||(otherMode == kiTM2TeXSuperStartSyntaxMode))
+							{
+								++otherRange.length;
+								--otherRange.location;
+								goto tryToConclude;
+							}
+							else if((otherMode == kiTM2TeXCommandContinueSyntaxMode)||(otherMode == kiTM2TeXCommandEscapedCharacterSyntaxMode))
+							{
+								otherRange.length+=range.length;
+								otherRange.location=range.location;
+								if(range.location>index)
+								{
+									[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location-1 longestRange:&range];
+									otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+									if(otherMode == kiTM2TeXCommandStartSyntaxMode)
+									{
+										++otherRange.length;
+										--otherRange.location;
+										goto tryToConclude;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else if(fullMode == kiTM2TeXGroupCloseSyntaxMode)
+	{
+		if(range.location == aLocation)
+		{
+			index = [modeLine startOffset];
+			if(aLocation>index)
+			{
+				otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
+				if(otherRange.length)
+				{
+					++otherRange.length;
+					--otherRange.location;
+					if(otherRange.location>index+1)
+					{
+						[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location longestRange:&range];
+						otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+						if(otherMode == kiTM2TeXGroupOpenSyntaxMode)
+						{
+							++otherRange.length;
+							--otherRange.location;
+							goto testBeforeGroupOpen;
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			++outRangeStart;
+			goto returnOutAttributes;
+		}
+	}
+	else if((fullMode == kiTM2TeXSubStartSyntaxMode)||(otherMode == kiTM2TeXSuperStartSyntaxMode))
+	{
+		index = [modeLine contentsEndOffset];
+		if(aLocation+2<index)
+		{
+			otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
+			if(otherRange.length)
+			{
+				otherRange.length = NSMaxRange(otherRange);
+				otherRange.location = aLocation;
+				otherRange.length-=otherRange.location;
+				goto extendingToTheRight;
+			}
+		}
+	}
+	else if((fullMode == kiTM2TeXCommandEscapedCharacterSyntaxMode)
+				|| (fullMode == kiTM2TeXCommandContinueSyntaxMode)
+					|| (fullMode == kiTM2TeXCommandInputSyntaxMode))
+	{
+		index = NSMaxRange(range);
+		if(index+2<[modeLine contentsEndOffset])
+		{
+			otherRange = [modeLine longestRangeAtGlobalLocation:index+2 mask:kiTM2TeXSimpleGroupSyntaxMask];
+			if(otherRange.length)
+			{
+				otherRange.length = NSMaxRange(otherRange);
+				otherRange.location = aLocation;
+				otherRange.length-=otherRange.location;
+				otherRange = NSUnionRange(range,otherRange);
+				[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:index+1 longestRange:nil];
+				otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+				if(otherMode == kiTM2TeXGroupOpenSyntaxMode)
+				{
+					if(otherRange.location>[modeLine contentsEndOffset])
+					{
+						[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location-1 longestRange:nil];
+						otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+						if(otherMode == kiTM2TeXCommandStartSyntaxMode)
+						{
+							--otherRange.location;
+							++otherRange.length;
+							goto extendingToTheRight;
+						}
+					}
+				}
+			}
+		}
+	}
+#endif
+	
 	switch(modeWithoutModifiers)
     {
 		case kiTM2TeXParenOpenSyntaxMode:
@@ -1368,7 +1469,6 @@ fullCommand:
 				{
 					goto returnOutAttributes;
 				}
-				iTM2_ATTRIBUTE_ASSERT(otherFullMode&kiTM2TeXCommandSyntaxMask,@"This should be a command tagged {");
 				range.location = NSMaxRange(range);
 				if(range.location>=[modeLine contentsEndOffset])
 				{
