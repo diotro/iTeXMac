@@ -23,6 +23,7 @@
 
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
+#import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2TeXProjectTaskTable = @"Task";
@@ -1522,42 +1523,6 @@ To Do List:
 }
 @end
 
-@interface NSCharacterSet(iTM2TeXProjectTaskKit)
-+ (NSCharacterSet *)TeXFilenameCharacterSet;
-@end
-
-@implementation NSCharacterSet(iTM2TeXProjectTaskKit)
-static NSCharacterSet * _iTM2TeXFilenameCharacterSet = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Apr 16 11:39:43 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-    if(!_iTM2TeXFilenameCharacterSet)
-        _iTM2TeXFilenameCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
-            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,;:/+-*=_"] retain];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXFilenameCharacterSet
-+ (NSCharacterSet *)TeXFilenameCharacterSet;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Apr 16 11:39:43 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _iTM2TeXFilenameCharacterSet;
-}
-@end
 @implementation iTM2LaTeXLogParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
@@ -1763,7 +1728,7 @@ To Do List:
 		NSRange fileRange = NSMakeRange(0, 0);
 		fileRange.location = [scanner scanLocation];
 		NSString * file;
-		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFilenameCharacterSet] intoString: &file])
+		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &file])
 		{
 			fileRange.length = [scanner scanLocation] - fileRange.location;
 			[MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:fileRange];
@@ -1776,7 +1741,7 @@ To Do List:
 		NSRange fileRange = NSMakeRange(0, 0);
 		fileRange.location = [scanner scanLocation];
 		NSString * file;
-		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFilenameCharacterSet] intoString: &file])
+		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &file])
 		{
 			fileRange.length = [scanner scanLocation] - fileRange.location;
 			if([file hasSuffix:@"."])// there is a final "." unwanted
@@ -1888,7 +1853,7 @@ To Do List:
                 || [scanner scanString:@"." intoString: &prefix])
             {
                 NSString * TeXFilenameTrailer;
-                if([scanner scanCharactersFromSet:[NSCharacterSet TeXFilenameCharacterSet] intoString: &TeXFilenameTrailer])
+                if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &TeXFilenameTrailer])
                 {
                     fileRange.length = [scanner scanLocation] - fileRange.location;
                     NSString * file = [prefix stringByAppendingString:TeXFilenameTrailer];
