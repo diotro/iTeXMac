@@ -314,10 +314,11 @@ To Do List:
     }
     if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
     {
-        id set = [[[NSCharacterSet letterCharacterSet] mutableCopy] autorelease];
-        [set addCharactersInString:@"_$^0123456789.-+*()[]/"];
-        _iTM2TeXPTeXFileNameLetterCharacterSet = [set copy];
+        _iTM2TeXPTeXFileNameLetterCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
+            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*()[]=_"] retain];
     }
+	[[NSCharacterSet characterSetWithCharactersInString:
+            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*()[]=_"] retain]
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
