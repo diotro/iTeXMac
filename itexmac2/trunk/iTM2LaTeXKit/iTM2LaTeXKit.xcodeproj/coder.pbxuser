@@ -9,6 +9,7 @@
 		);
 		breakpoints = (
 			DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2161 */,
+			DCF720300BC67CB4005E5EC6 /* iTM2LaTeXKit.m:572 */,
 		);
 		breakpointsGroup = DC99EC710A27C69D00F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DC52042D088B1FD300DE6E7F /* Code sense */;
@@ -162,26 +163,24 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 197384632;
-			PBXWorkspaceStateSaveDate = 197384632;
+			PBXPerProjectTemplateStateSaveDate = 197579678;
+			PBXWorkspaceStateSaveDate = 197579678;
 		};
 		perUserProjectItems = {
-			DCEB55DB0BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55DB0BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB55DE0BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55DE0BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB55DF0BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55DF0BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB55E20BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55E20BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB55E40BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55E40BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB55E60BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55E60BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB55E80BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55E80BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB55EA0BC3D93000F47DA3 /* PBXTextBookmark */ = DCEB55EA0BC3D93000F47DA3 /* PBXTextBookmark */;
-			DCEB561B0BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB561B0BC3D9C800F47DA3 /* PBXTextBookmark */;
-			DCEB561E0BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB561E0BC3D9C800F47DA3 /* PBXTextBookmark */;
-			DCEB561F0BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB561F0BC3D9C800F47DA3 /* PBXTextBookmark */;
-			DCEB56210BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB56210BC3D9C800F47DA3 /* PBXTextBookmark */;
-			DCEB56230BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB56230BC3D9C800F47DA3 /* PBXTextBookmark */;
-			DCEB56250BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB56250BC3D9C800F47DA3 /* PBXTextBookmark */;
-			DCEB56270BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB56270BC3D9C800F47DA3 /* PBXTextBookmark */;
-			DCEB56290BC3D9C800F47DA3 /* PBXTextBookmark */ = DCEB56290BC3D9C800F47DA3 /* PBXTextBookmark */;
+			DCF5C6F80BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C6F80BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF5C6F90BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C6F90BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF5C6FC0BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C6FC0BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF5C6FD0BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C6FD0BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF5C6FF0BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C6FF0BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF5C7010BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C7010BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF5C7030BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C7030BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF5C7050BC6D3B40047C6E8 /* PBXTextBookmark */ = DCF5C7050BC6D3B40047C6E8 /* PBXTextBookmark */;
+			DCF720680BC6845A005E5EC6 /* PBXTextBookmark */ = DCF720680BC6845A005E5EC6 /* PBXTextBookmark */;
+			DCF720690BC6845A005E5EC6 /* PBXTextBookmark */ = DCF720690BC6845A005E5EC6 /* PBXTextBookmark */;
+			DCF7206B0BC6845A005E5EC6 /* PBXTextBookmark */ = DCF7206B0BC6845A005E5EC6 /* PBXTextBookmark */;
+			DCF7206D0BC6845A005E5EC6 /* PBXTextBookmark */ = DCF7206D0BC6845A005E5EC6 /* PBXTextBookmark */;
+			DCF7206F0BC6845A005E5EC6 /* PBXTextBookmark */ = DCF7206F0BC6845A005E5EC6 /* PBXTextBookmark */;
+			DCF720710BC6845A005E5EC6 /* PBXTextBookmark */ = DCF720710BC6845A005E5EC6 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -289,8 +288,8 @@
 	DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1982, 67140}}";
-			sepNavSelRange = "{72060, 14}";
-			sepNavVisRect = "{{0, 42980}, {1135, 569}}";
+			sepNavSelRange = "{71859, 0}";
+			sepNavVisRect = "{{0, 42780}, {1135, 569}}";
 			sepNavWindowFrame = "{{84, 95}, {1174, 674}}";
 		};
 	};
@@ -299,6 +298,7 @@
 		name = iTM2LaTeXKit;
 		objects = (
 			DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2161 */,
+			DCF720300BC67CB4005E5EC6 /* iTM2LaTeXKit.m:572 */,
 		);
 	};
 	DC9E4F310858A8A300A86BED /* All */ = {
@@ -357,60 +357,152 @@
 	DCE417E20AB61E7400FB432D /* Build & Install Engines */ = {
 		activeExec = 0;
 	};
-	DCEB55DB0BC3D93000F47DA3 /* PBXTextBookmark */ = {
+	DCF5C6F80BC6D3B40047C6E8 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = "iTM2LaTeXKit.m: 1";
-		rLen = 124762;
-		rLoc = 0;
+		name = "bold:";
+		rLen = 5;
+		rLoc = 18712;
 		rType = 0;
-		vrLen = 1102;
-		vrLoc = 73127;
+		vrLen = 1099;
+		vrLoc = 18295;
 	};
-	DCEB55DE0BC3D93000F47DA3 /* PBXTextBookmark */ = {
+	DCF5C6F90BC6D3B40047C6E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "bold:";
+		rLen = 5;
+		rLoc = 18712;
+		rType = 0;
+		vrLen = 1099;
+		vrLoc = 18295;
+	};
+	DCF5C6FC0BC6D3B40047C6E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "iTM2LaTeXKit.m: 2146";
+		rLen = 0;
+		rLoc = 71859;
+		rType = 0;
+		vrLen = 976;
+		vrLoc = 71665;
+	};
+	DCF5C6FD0BC6D3B40047C6E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF5C6FE0BC6D3B40047C6E8 /* iTM2_Engine_mpost */;
+		name = "(null): 43";
+		rLen = 0;
+		rLoc = 2005;
+		rType = 0;
+		vrLen = 1375;
+		vrLoc = 1072;
+	};
+	DCF5C6FE0BC6D3B40047C6E8 /* iTM2_Engine_mpost */ = {
+		isa = PBXFileReference;
+		name = iTM2_Engine_mpost;
+		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/MetaPost/iTM2_Engine_mpost;
+		sourceTree = "<absolute>";
+	};
+	DCF5C6FF0BC6D3B40047C6E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF5C7000BC6D3B40047C6E8 /* iTM2_Engine_dvipdfm */;
+		name = "(null): 1";
+		rLen = 0;
+		rLoc = 9;
+		rType = 0;
+		vrLen = 1285;
+		vrLoc = 0;
+	};
+	DCF5C7000BC6D3B40047C6E8 /* iTM2_Engine_dvipdfm */ = {
+		isa = PBXFileReference;
+		name = iTM2_Engine_dvipdfm;
+		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/dvipdfm/iTM2_Engine_dvipdfm;
+		sourceTree = "<absolute>";
+	};
+	DCF5C7010BC6D3B40047C6E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF5C7020BC6D3B40047C6E8 /* iTM2_Engine_mps2pdf */;
+		name = "(null): 93";
+		rLen = 0;
+		rLoc = 2377;
+		rType = 0;
+		vrLen = 731;
+		vrLoc = 1738;
+	};
+	DCF5C7020BC6D3B40047C6E8 /* iTM2_Engine_mps2pdf */ = {
+		isa = PBXFileReference;
+		name = iTM2_Engine_mps2pdf;
+		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/MetaPost/iTM2_Engine_mps2pdf;
+		sourceTree = "<absolute>";
+	};
+	DCF5C7030BC6D3B40047C6E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF5C7040BC6D3B40047C6E8 /* iTM2_Engine_mptopdf */;
+		name = "(null): 87";
+		rLen = 0;
+		rLoc = 2835;
+		rType = 0;
+		vrLen = 1195;
+		vrLoc = 0;
+	};
+	DCF5C7040BC6D3B40047C6E8 /* iTM2_Engine_mptopdf */ = {
+		isa = PBXFileReference;
+		name = iTM2_Engine_mptopdf;
+		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/MetaPost/iTM2_Engine_mptopdf;
+		sourceTree = "<absolute>";
+	};
+	DCF5C7050BC6D3B40047C6E8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF5C7060BC6D3B40047C6E8 /* iTM2_Engine_texexec */;
+		name = pushd;
+		rLen = 5;
+		rLoc = 8020;
+		rType = 0;
+		vrLen = 774;
+		vrLoc = 7171;
+	};
+	DCF5C7060BC6D3B40047C6E8 /* iTM2_Engine_texexec */ = {
+		isa = PBXFileReference;
+		name = iTM2_Engine_texexec;
+		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtEngines/binaries/iTM2_Engine_texexec;
+		sourceTree = "<absolute>";
+	};
+	DCF720300BC67CB4005E5EC6 /* iTM2LaTeXKit.m:572 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		functionName = "-bold:";
+		hitCount = 0;
+		lineNumber = 572;
+		location = iTM2LaTeXKit;
+		modificationTime = 197557428.049631;
+		state = 1;
+	};
+	DCF720680BC6845A005E5EC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
 		name = MacroWithMacro;
 		rLen = 14;
 		rLoc = 72060;
 		rType = 0;
-		vrLen = 1006;
-		vrLoc = 71974;
+		vrLen = 976;
+		vrLoc = 71665;
 	};
-	DCEB55DF0BC3D93000F47DA3 /* PBXTextBookmark */ = {
+	DCF720690BC6845A005E5EC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCEB55E00BC3D93000F47DA3 /* iTM2TeXDocumentKit.m */;
-		name = iTM2TeXEditor;
-		rLen = 13;
-		rLoc = 4347;
-		rType = 0;
-		vrLen = 734;
-		vrLoc = 3515;
-	};
-	DCEB55E00BC3D93000F47DA3 /* iTM2TeXDocumentKit.m */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.objc;
-		name = iTM2TeXDocumentKit.m;
-		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXDocumentKit.m;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1496, 28500}}";
-			sepNavSelRange = "{4347, 13}";
-			sepNavVisRect = "{{0, 1740}, {1255, 629}}";
-			sepNavWindowFrame = "{{130, 34}, {1294, 734}}";
-		};
-	};
-	DCEB55E20BC3D93000F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEB55E30BC3D93000F47DA3 /* iTM2_Engine_mpost */;
+		fRef = DCF7206A0BC6845A005E5EC6 /* iTM2_Engine_mpost */;
 		name = "(null): 43";
 		rLen = 0;
 		rLoc = 2005;
 		rType = 0;
-		vrLen = 1569;
-		vrLoc = 795;
+		vrLen = 1438;
+		vrLoc = 1072;
 	};
-	DCEB55E30BC3D93000F47DA3 /* iTM2_Engine_mpost */ = {
+	DCF7206A0BC6845A005E5EC6 /* iTM2_Engine_mpost */ = {
 		isa = PBXFileReference;
 		lastKnownFileType = text.script.sh;
 		name = iTM2_Engine_mpost;
@@ -419,13 +511,13 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1255, 4660}}";
 			sepNavSelRange = "{2005, 0}";
-			sepNavVisRect = "{{0, 420}, {1255, 629}}";
+			sepNavVisRect = "{{0, 520}, {1255, 629}}";
 			sepNavWindowFrame = "{{61, 97}, {1294, 734}}";
 		};
 	};
-	DCEB55E40BC3D93000F47DA3 /* PBXTextBookmark */ = {
+	DCF7206B0BC6845A005E5EC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCEB55E50BC3D93000F47DA3 /* iTM2_Engine_dvipdfm */;
+		fRef = DCF7206C0BC6845A005E5EC6 /* iTM2_Engine_dvipdfm */;
 		name = "(null): 1";
 		rLen = 0;
 		rLoc = 9;
@@ -433,7 +525,7 @@
 		vrLen = 1285;
 		vrLoc = 0;
 	};
-	DCEB55E50BC3D93000F47DA3 /* iTM2_Engine_dvipdfm */ = {
+	DCF7206C0BC6845A005E5EC6 /* iTM2_Engine_dvipdfm */ = {
 		isa = PBXFileReference;
 		lastKnownFileType = text.script.sh;
 		name = iTM2_Engine_dvipdfm;
@@ -446,17 +538,17 @@
 			sepNavWindowFrame = "{{130, 34}, {1294, 734}}";
 		};
 	};
-	DCEB55E60BC3D93000F47DA3 /* PBXTextBookmark */ = {
+	DCF7206D0BC6845A005E5EC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCEB55E70BC3D93000F47DA3 /* iTM2_Engine_mps2pdf */;
+		fRef = DCF7206E0BC6845A005E5EC6 /* iTM2_Engine_mps2pdf */;
 		name = "(null): 93";
 		rLen = 0;
 		rLoc = 2377;
 		rType = 0;
-		vrLen = 731;
-		vrLoc = 1738;
+		vrLen = 708;
+		vrLoc = 1761;
 	};
-	DCEB55E70BC3D93000F47DA3 /* iTM2_Engine_mps2pdf */ = {
+	DCF7206E0BC6845A005E5EC6 /* iTM2_Engine_mps2pdf */ = {
 		isa = PBXFileReference;
 		lastKnownFileType = text.script.sh;
 		name = iTM2_Engine_mps2pdf;
@@ -465,13 +557,13 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1255, 1980}}";
 			sepNavSelRange = "{2377, 0}";
-			sepNavVisRect = "{{0, 1320}, {1255, 629}}";
+			sepNavVisRect = "{{0, 1336}, {1255, 629}}";
 			sepNavWindowFrame = "{{84, 76}, {1294, 734}}";
 		};
 	};
-	DCEB55E80BC3D93000F47DA3 /* PBXTextBookmark */ = {
+	DCF7206F0BC6845A005E5EC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCEB55E90BC3D93000F47DA3 /* iTM2_Engine_mptopdf */;
+		fRef = DCF720700BC6845A005E5EC6 /* iTM2_Engine_mptopdf */;
 		name = "(null): 87";
 		rLen = 0;
 		rLoc = 2835;
@@ -479,7 +571,7 @@
 		vrLen = 1195;
 		vrLoc = 0;
 	};
-	DCEB55E90BC3D93000F47DA3 /* iTM2_Engine_mptopdf */ = {
+	DCF720700BC6845A005E5EC6 /* iTM2_Engine_mptopdf */ = {
 		isa = PBXFileReference;
 		lastKnownFileType = text.script.sh;
 		name = iTM2_Engine_mptopdf;
@@ -492,9 +584,9 @@
 			sepNavWindowFrame = "{{107, 55}, {1294, 734}}";
 		};
 	};
-	DCEB55EA0BC3D93000F47DA3 /* PBXTextBookmark */ = {
+	DCF720710BC6845A005E5EC6 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCEB55EB0BC3D93000F47DA3 /* iTM2_Engine_texexec */;
+		fRef = DCF720720BC6845A005E5EC6 /* iTM2_Engine_texexec */;
 		name = pushd;
 		rLen = 5;
 		rLoc = 8020;
@@ -502,7 +594,7 @@
 		vrLen = 774;
 		vrLoc = 7171;
 	};
-	DCEB55EB0BC3D93000F47DA3 /* iTM2_Engine_texexec */ = {
+	DCF720720BC6845A005E5EC6 /* iTM2_Engine_texexec */ = {
 		isa = PBXFileReference;
 		lastKnownFileType = text.script.sh;
 		name = iTM2_Engine_texexec;
@@ -514,121 +606,5 @@
 			sepNavVisRect = "{{0, 3920}, {1255, 629}}";
 			sepNavWindowFrame = "{{38, 118}, {1294, 734}}";
 		};
-	};
-	DCEB561B0BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = "iTM2LaTeXKit.m: 2220";
-		rLen = 0;
-		rLoc = 74212;
-		rType = 0;
-		vrLen = 1102;
-		vrLoc = 73127;
-	};
-	DCEB561E0BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = MacroWithMacro;
-		rLen = 14;
-		rLoc = 72060;
-		rType = 0;
-		vrLen = 1006;
-		vrLoc = 71974;
-	};
-	DCEB561F0BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEB56200BC3D9C800F47DA3 /* iTM2TeXDocumentKit.m */;
-		name = iTM2TeXEditor;
-		rLen = 13;
-		rLoc = 4347;
-		rType = 0;
-		vrLen = 734;
-		vrLoc = 3515;
-	};
-	DCEB56200BC3D9C800F47DA3 /* iTM2TeXDocumentKit.m */ = {
-		isa = PBXFileReference;
-		name = iTM2TeXDocumentKit.m;
-		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXDocumentKit.m;
-		sourceTree = "<absolute>";
-	};
-	DCEB56210BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEB56220BC3D9C800F47DA3 /* iTM2_Engine_mpost */;
-		name = "(null): 43";
-		rLen = 0;
-		rLoc = 2005;
-		rType = 0;
-		vrLen = 1569;
-		vrLoc = 795;
-	};
-	DCEB56220BC3D9C800F47DA3 /* iTM2_Engine_mpost */ = {
-		isa = PBXFileReference;
-		name = iTM2_Engine_mpost;
-		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/MetaPost/iTM2_Engine_mpost;
-		sourceTree = "<absolute>";
-	};
-	DCEB56230BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEB56240BC3D9C800F47DA3 /* iTM2_Engine_dvipdfm */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 9;
-		rType = 0;
-		vrLen = 1285;
-		vrLoc = 0;
-	};
-	DCEB56240BC3D9C800F47DA3 /* iTM2_Engine_dvipdfm */ = {
-		isa = PBXFileReference;
-		name = iTM2_Engine_dvipdfm;
-		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundationEngines/dvipdfm/iTM2_Engine_dvipdfm;
-		sourceTree = "<absolute>";
-	};
-	DCEB56250BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEB56260BC3D9C800F47DA3 /* iTM2_Engine_mps2pdf */;
-		name = "(null): 93";
-		rLen = 0;
-		rLoc = 2377;
-		rType = 0;
-		vrLen = 731;
-		vrLoc = 1738;
-	};
-	DCEB56260BC3D9C800F47DA3 /* iTM2_Engine_mps2pdf */ = {
-		isa = PBXFileReference;
-		name = iTM2_Engine_mps2pdf;
-		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/MetaPost/iTM2_Engine_mps2pdf;
-		sourceTree = "<absolute>";
-	};
-	DCEB56270BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEB56280BC3D9C800F47DA3 /* iTM2_Engine_mptopdf */;
-		name = "(null): 87";
-		rLen = 0;
-		rLoc = 2835;
-		rType = 0;
-		vrLen = 1195;
-		vrLoc = 0;
-	};
-	DCEB56280BC3D9C800F47DA3 /* iTM2_Engine_mptopdf */ = {
-		isa = PBXFileReference;
-		name = iTM2_Engine_mptopdf;
-		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/MetaPost/iTM2_Engine_mptopdf;
-		sourceTree = "<absolute>";
-	};
-	DCEB56290BC3D9C800F47DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCEB562A0BC3D9C800F47DA3 /* iTM2_Engine_texexec */;
-		name = pushd;
-		rLen = 5;
-		rLoc = 8020;
-		rType = 0;
-		vrLen = 774;
-		vrLoc = 7171;
-	};
-	DCEB562A0BC3D9C800F47DA3 /* iTM2_Engine_texexec */ = {
-		isa = PBXFileReference;
-		name = iTM2_Engine_texexec;
-		path = /Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtEngines/binaries/iTM2_Engine_texexec;
-		sourceTree = "<absolute>";
 	};
 }

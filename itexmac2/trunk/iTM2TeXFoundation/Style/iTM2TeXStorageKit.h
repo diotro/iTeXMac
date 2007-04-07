@@ -48,12 +48,14 @@ enum
 	kiTM2TeXErrorSyntaxMask = kiTM2TextErrorSyntaxMask,
 	kiTM2TeXModifiersSyntaxMask = kiTM2TextModifiersSyntaxMask,
 	kiTM2TeXFlagsSyntaxMask = kiTM2TextFlagsSyntaxMask,
-	kiTM2TeXEndOfLineSyntaxMask = kiTM2TextEndOfLineSyntaxMask,
-	kiTM2TeXCommandSyntaxMask = kiTM2TextEndOfLineSyntaxMask << 1,
+	kiTM2TeXEndOfLineSyntaxMask = kiTM2TextEndOfLineSyntaxMask,//bit 16
+	kiTM2TeXAtSyntaxMask = kiTM2TextAtSyntaxMask,
+	kiTM2TeXSimpleGroupSyntaxMask = kiTM2TeXAtSyntaxMask << 1,
+	kiTM2TeXCommandSyntaxMask = kiTM2TeXSimpleGroupSyntaxMask << 1,
 	kiTM2TeXMathDisplaySyntaxMask = kiTM2TeXCommandSyntaxMask << 1,
 	kiTM2TeXMathInlineSyntaxMask = kiTM2TeXMathDisplaySyntaxMask << 1,
 	kiTM2TeXSubscriptSyntaxMask = kiTM2TeXMathInlineSyntaxMask << 1,
-	kiTM2TeXSuperscriptSyntaxMask = kiTM2TeXSubscriptSyntaxMask << 1,
+	kiTM2TeXSuperscriptSyntaxMask = kiTM2TeXSubscriptSyntaxMask << 1,//bit 23
 	kiTM2TeXErrorFontSyntaxMask = 1 << 24,// 24, up to 31
 	kiTM2TeXErrorSyntaxSyntaxMask = kiTM2TeXErrorFontSyntaxMask << 1
 };

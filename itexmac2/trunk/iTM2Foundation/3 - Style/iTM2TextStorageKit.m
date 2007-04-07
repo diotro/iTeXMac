@@ -501,6 +501,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	// there is a bug: iinfinite loop because the appkit askes for an attribute beyond the limit
     if(iTM2DebugEnabled > 1000 && (aLocation >= [_TextModel length]))
     {
 		iTM2_LOG(@"idx: %u (%u)", aLocation, [_TextModel length]);
@@ -4359,6 +4360,58 @@ To Do List:
     }
 //iTM2_END;
 //[self describe];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  longestRangeAtGlobalLocation:mask:
+- (NSRange)longestRangeAtGlobalLocation:(unsigned)aGlobalLocation mask:(unsigned int)mask;
+/*"Description forthcoming. aGlobalLocation is global.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 17 09:32:38 GMT 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned mode;
+	NSRange range;
+	NSRange result = NSMakeRange(NSNotFound,0);
+	if([self getSyntaxMode:&mode atGlobalLocation:aGlobalLocation longestRange:&range])
+	{
+		return result;
+	}
+	if(mode&mask==0)
+	{
+		return result;
+	}
+	result = range;
+	while(result.location>_StartOff7)
+	{
+		[self getSyntaxMode:&mode atGlobalLocation:result.location-1 longestRange:&range];
+		if(mode&mask)
+		{
+			result.length+=range.location;
+			result.location=range.location;
+		}
+		else
+		{
+			break;
+		}
+	}
+	unsigned top = NSMaxRange(result);
+	while(top<_EndOff7)
+	{
+		[self getSyntaxMode:&mode atGlobalLocation:top longestRange:&range];
+		if(mode&mask)
+		{
+			result.length+=range.location;
+			top = NSMaxRange(result);
+		}
+		else
+		{
+			break;
+		}
+	}
+	
+//iTM2_END;
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:atGlobalLocation:longestRange:
 - (unsigned)getSyntaxMode:(unsigned *)modeRef atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;

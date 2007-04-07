@@ -88,7 +88,8 @@ enum
 	kiTM2TextErrorSyntaxMask = 0xFF000000U,// only 8 kinds or independent errors are allowed, 256 different situations, bits 24 -> 31
 	kiTM2TextModifiersSyntaxMask = 0x00FF0000U,// only 8 kinds or running
 	kiTM2TextFlagsSyntaxMask = kiTM2TextErrorSyntaxMask|kiTM2TextModifiersSyntaxMask,
-	kiTM2TextEndOfLineSyntaxMask = 0x00010000U,// EOLs are used to propagate errors, information. If a previousMode has a kiTM2TextEndOfLineSyntaxMask bit set, it comes from the previous line EOL. bits 20
+	kiTM2TextEndOfLineSyntaxMask = 0x00010000U,// EOLs are used to propagate errors, information. If a previousMode has a kiTM2TextEndOfLineSyntaxMask bit set, it comes from the previous line EOL. bits 16
+	kiTM2TextAtSyntaxMask = kiTM2TextEndOfLineSyntaxMask << 1,// @ are used as placeholders markers
 };
 
 /*!
@@ -1032,6 +1033,17 @@ extern NSString * const iTM2TextDefaultStyle;
 - (void)swapContentsWithModeLine:(iTM2ModeLine *)ML;
 
 /*!
+    @method     longestRangeAtGlobalLocation:mask:
+    @abstract   The longest range matching mask.
+    @discussion longest (connected) range containing the given global location.
+				All modes in that range have a non void common bit with the given mask.
+    @param      aGlobalLocation is a global location where we are looking for the mode
+    @param      mask is mask
+    @result     A range, {NSNotFound,0} if nothing was found.
+*/
+- (NSRange)longestRangeAtGlobalLocation:(unsigned)aGlobalLocation mask:(unsigned int)mask;
+
+/*!
     @method     getSyntaxMode:atGlobalLocation:longestRange:
     @abstract   The syntax mode at the given location.
     @discussion Beware, if the _EOLMode is 0, the longest range is extended to include the EOL.
@@ -1040,8 +1052,8 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      ref is a range reference where the mode range is returned
     @result     A flag indicating whether the increase succeeded.
 */
-
 - (unsigned)getSyntaxMode:(unsigned *)modeRef atGlobalLocation:(unsigned)aLocation longestRange:(NSRangePointer)ref;
+
 /*!
     @method     getPreviousSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
     @abstract   The syntax mode at the given location.

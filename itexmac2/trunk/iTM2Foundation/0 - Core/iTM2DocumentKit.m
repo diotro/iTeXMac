@@ -1364,7 +1364,8 @@ To Do List:
 //iTM2_LOG(@"fullDocumentPath:%@", fullDocumentPath);
 //iTM2_END;
 	BOOL isDirectory;
-	if([DFM fileExistsAtPath:[absoluteURL path] isDirectory:&isDirectory] && isDirectory)
+	NSString * fullDocumentPath = [absoluteURL path];
+	if([DFM fileExistsAtPath:fullDocumentPath isDirectory:&isDirectory] && isDirectory)
 		return YES;
 	NSData * D = [NSData dataWithContentsOfURL:absoluteURL options:0 error:outErrorPtr];
     return [self loadDataRepresentation:D ofType:typeName];
@@ -1581,6 +1582,23 @@ To Do List:
 //iTM2_START;
 //iTM2_END;
     return;
+}
+#warning !FAILED DEBUG CODE HERE
+- (void)runModalSavePanelForSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
+{
+	iTM2_LOG(@"saveOperation:%i",saveOperation);
+	iTM2_LOG(@"delegate:%@",delegate);
+	iTM2_LOG(@"didSaveSelector:%@",NSStringFromSelector(didSaveSelector));
+	iTM2_LOG(@"contextInfo:%@",contextInfo);
+	[super runModalSavePanelForSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo];
+	return;
+}
+- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError;
+{
+	iTM2_LOG(@"absoluteURL:%@",absoluteURL);
+	iTM2_LOG(@"typeName:%@",typeName);
+	iTM2_LOG(@"saveOperation:%i",saveOperation);
+	return [super writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outError];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:forSaveOperation:originalContentsURL:error:
 - (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
