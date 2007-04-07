@@ -5356,10 +5356,16 @@ To Do List:
 				NSString * S = [hint objectForKey:@"container"];
 				if(charIndex < [S length])
 				{
+					NSString * word = [S substringToIndex:charIndex];
+					word = [word precomposedStringWithCompatibilityMapping];
+					NSString * afterWord = [S substringFromIndex:charIndex];
+					afterWord = [afterWord precomposedStringWithCompatibilityMapping];
+					charIndex = [word length];
+					S = [word stringByAppendingString:afterWord];
 					NSRange wordRange = [S doubleClickAtIndex:charIndex];
 					if(wordRange.length)
 					{
-						NSString * word = [S substringWithRange:wordRange];
+						word = [S substringWithRange:wordRange];
 						NSRange previousWordRange = NSMakeRange(0, 0);
 						int clickIndex = wordRange.location;
 						if(clickIndex>2)
@@ -5885,13 +5891,14 @@ To Do List:
 // there is a bug in
 //				PDFSelection * SELECTION = [page selectionForRange:NSMakeRange(charIndex, 1)];
 //iTM2_LOG(@"................ character:%@, point:%@, bounds:%@", [[page string] substringWithRange:NSMakeRange(charIndex, 1)], NSStringFromPoint(point), (SELECTION? NSStringFromRect([SELECTION boundsForPage:page]):@"No rect"));
+		NSString * container = [document stringForPage:page];
 		NSMutableDictionary * hint = charIndex >= 0?
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:
 				[NSNumber numberWithInt:charIndex], @"character index",
-				[document stringForPage:page], @"container",
+				container, @"container",
 					nil]:
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:
-				[document stringForPage:page], @"container",
+				container, @"container",
 					nil];
 		unsigned int pageIndex = [[page document] indexForPage:page];
 		PDFSelection * selection;
