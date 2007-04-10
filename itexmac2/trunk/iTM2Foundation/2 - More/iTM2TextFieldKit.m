@@ -99,7 +99,9 @@ To Do List:
     id TV = [WC respondsToSelector:@selector(textView)]? [WC textView]:nil;
 	if(TV)
 	{
-		[TV highlightAndScrollToVisibleLine:[sender intValue]];
+		unsigned int line = [sender intValue];
+		line = MAX(2,line)-1;
+		[TV highlightAndScrollToVisibleLine:line];
 		[W performSelector:@selector(makeFirstResponder:) withObject:TV afterDelay:0];
 	}
 	else
@@ -176,16 +178,33 @@ To Do List:
 		return;
 	if(TV == [WC textView])
 	{
-		id TS = [[TV layoutManager] textStorage];
+		id TS = [TV layoutManager];
+		TS = [TS textStorage];
 		NSNumberFormatter * F = [self formatter];
-		if([[F maximum] isEqual:[NSDecimalNumber notANumber]])
+		id maximum = [F maximum];
+		NSDecimalNumber * NaN = [NSDecimalNumber notANumber];
+		unsigned int new = 0;
+		if([maximum isEqual:NaN])
 		{
 			// the maximum has not yet been set
-			[F setMaximum:(NSDecimalNumber *)[NSDecimalNumber numberWithInt:[TS lineNumberAtIndex:[(NSTextStorage *)TS length]]]];
+			new = [(NSTextStorage *)TS length];
+			if(new)
+			{
+				new = [TS lineIndexForLocation:new];
+				++new;
+				maximum = [NSDecimalNumber numberWithInt:new];
+				[F setMaximum:maximum];
+			}
+			else
+			{
+				return;
+			}
 			// will it be updated???
 		}
-		int old = [self intValue];
-		int new = [TS lineNumberAtIndex:[TV selectedRange].location];
+		unsigned int old = [self intValue];
+		new = [TV selectedRange].location;
+		new = [TS lineIndexForLocation:new];
+		++new;
 		if(old != new)
 		{
 			[self setIntValue:new];
@@ -219,7 +238,7 @@ To Do List:
         NSNumberFormatter * F = [self formatter];
         int old = [[F maximum] intValue];
         NSTextStorage * TS = [[TV layoutManager] textStorage];
-        int new = [TS lineNumberAtIndex:[TS length]];// REALLY KEEP the TS for performance reasons
+        int new = [TS lineIndexForLocation:[TS length]];// REALLY KEEP the TS for performance reasons
         if(old != new)
         {
             [F setMaximum:(NSDecimalNumber *)[NSDecimalNumber numberWithInt:new]];
