@@ -261,8 +261,8 @@ To Do List:
     }
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineNumberAtIndex:
-- (unsigned int)lineNumberAtIndex:(unsigned)index;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineIndexForLocation:
+- (unsigned int)lineIndexForLocation:(unsigned)index;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -270,7 +270,7 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	return [[self string] lineNumberAtIndex:index];
+	return [[self string] lineIndexForLocation:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= length
 - (unsigned int)length;
