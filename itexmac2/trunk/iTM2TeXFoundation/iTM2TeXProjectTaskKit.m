@@ -602,8 +602,10 @@ To Do List:
 		NSString * otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
 		if(![DFM fileExistsAtPath:otherName])
 		{
-			dirname = [[TPD directoryName] stringByStrippingFarawayProjectsDirectory];
-			otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
+			dirname = [TPD directoryName];
+			dirname = [dirname stringByStrippingFarawayProjectsDirectory];
+			otherName = [dirname stringByAppendingPathComponent:path];
+			otherName = [otherName stringByStandardizingPath];
 			if(![DFM fileExistsAtPath:otherName])
 			{
 				dirname = [TPD masterFileKey];// won't work if the master file key is Front Document related
@@ -632,11 +634,11 @@ resolved:
 		path = otherName;
 	}
 	id N = [TS attribute:iTM2LogLinkLineAttributeName atIndex:charIndex effectiveRange:nil];
-	if(N)
+	if([N unsignedIntValue]>0)
 	{
-		unsigned int line = [N unsignedIntValue];
+		unsigned int line = [N unsignedIntValue]-1;
 		N = [TS attribute:iTM2LogLinkColumnAttributeName atIndex:charIndex effectiveRange:nil];
-		unsigned int column = (N? [N intValue]: -1);
+		unsigned int column = ([N intValue]>0? [N intValue]: -1);
 		N = [TS attribute:iTM2LogLinkLengthAttributeName atIndex:charIndex effectiveRange:nil];
 		unsigned int length = (N? [N intValue]: -1);
 		[[SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:NO error:nil]
