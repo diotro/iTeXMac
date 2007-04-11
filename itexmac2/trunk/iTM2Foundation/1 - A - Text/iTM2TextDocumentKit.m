@@ -541,7 +541,7 @@ match12345:
 		hereR = [[[beforeMatches objectForKey:N] objectAtIndex:0] rangeValue];
 		if(lineRef)
 		{
-			* lineRef = [TS lineNumberAtIndex:hereR.location];
+			* lineRef = [TS lineIndexForLocation:hereR.location];
 			charRange = [TS getRangeForLine:* lineRef];
 			if(columnRef)
 				* columnRef = hereR.location + characterIndex - charRange.location;
@@ -556,7 +556,7 @@ match12345:
 		hereR = [[[afterMatches objectForKey:N] objectAtIndex:0] rangeValue];
 		if(lineRef)
 		{
-			* lineRef = [TS lineNumberAtIndex:hereR.location];
+			* lineRef = [TS lineIndexForLocation:hereR.location];
 			charRange = [TS getRangeForLine:* lineRef];
 			if(columnRef)
 				* columnRef = hereR.location + characterIndex - charRange.location;
