@@ -2082,72 +2082,84 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// what is the policy of the replacement?
-	NSRange range;
-	NSString * scanned;
-	NSMutableString * replacementString;
-	
-	// managing the parameters, this is LaTeX specific
-	replacementString = [NSMutableString string];
-	if([macro hasPrefix:@"\\"] && ![selectedString length])
+	// first split the whole string into tokens
+	if([macro hasPrefix:@"\\"])
 	{
-		NSArray * arguments = [macro componentsSeparatedByString:@"|"];
-		NSEnumerator * E = [arguments objectEnumerator];
+		NSMutableString * replacementString = [NSMutableString string];
+		NSArray * components = [macro componentsSeparatedByString:@"|"];
+		NSEnumerator * E = [components objectEnumerator];
 		macro = [E nextObject];
-		NSScanner * scanner = [NSScanner scannerWithString:macro];
-		NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"[{"];
-		while([scanner scanUpToCharactersFromSet:set intoString:&scanned])
+		components = [macro componentsSeparatedByString:@"[]"];
+		NSString * separator = @"%&$#@!,?";
+		NSString * connector = [NSString stringWithFormat:@"%@O%@",separator,separator];// O-ptional
+		macro = [components componentsJoinedByString:connector];
+		components = [macro componentsSeparatedByString:@"{}"];
+		connector = [NSString stringWithFormat:@"%@M%@",separator,separator];// M-andatory
+		macro = [components componentsJoinedByString:connector];
+		components = [macro componentsSeparatedByString:@"(,)"];
+		connector = [NSString stringWithFormat:@"%@P%@",separator,separator];// P-ositional
+		macro = [components componentsJoinedByString:connector];
+		components = [macro componentsSeparatedByString:separator];
+		NSEnumerator * EE = [components objectEnumerator];
+		NSString * component;
+		while(component = [EE nextObject])
 		{
-			[replacementString appendString:scanned];
-			
-			if([scanner scanString:@"[" intoString:nil])
+			[replacementString appendString:component];
+			if(component = [EE nextObject])
 			{
-				[scanner scanUpToString:@"]" intoString:&scanned]||(scanned=@"");
-				if([scanner scanString:@"]" intoString:nil])
-				{
-					[replacementString appendString:@"@@@([@@@("];
-					if(![scanned length])
-					{
-						scanned = [E nextObject]?:@"";
-					}
-					[replacementString appendString:scanned];
-					[replacementString appendString:@")@@@])@@@"];
-				}
-				else
-				{
-					goto theEnd;
-				}
-			}
-			if([scanner scanString:@"{" intoString:nil])
-			{
-				[scanner scanUpToString:@"]" intoString:&scanned]||(scanned=@"");
-				if([scanner scanString:@"]" intoString:nil])
+				NSString * argument;
+				if([component isEqual:@"M"])
 				{
 					[replacementString appendString:@"{@@@("];
-					if(![scanned length])
+					argument = [E nextObject];
+					if(![argument length])
 					{
-						scanned = [E nextObject]?:@"";
+						argument = selectedString;
 					}
-					[replacementString appendString:scanned];
+					[replacementString appendString:argument];			
 					[replacementString appendString:@")@@@}"];
 				}
-				else
+				else if([component isEqual:@"O"])
 				{
-					goto theEnd;
+					[replacementString appendString:@"@@@([@@@("];
+					argument = [E nextObject];
+					if(![argument length])
+					{
+						argument = selectedString;
+					}
+					[replacementString appendString:argument];			
+					[replacementString appendString:@")@@@])@@@"];
+				}
+				else if([component isEqual:@"P"])
+				{
+					[replacementString appendString:@"@@@((@@@("];
+					argument = [E nextObject];
+					if(![argument length])
+					{
+						argument = selectedString;
+					}
+					[replacementString appendString:argument];			
+					[replacementString appendString:@")@@@,@@@("];
+					argument = [E nextObject];
+					if(![argument length])
+					{
+						argument = selectedString;
+					}
+					[replacementString appendString:argument];			
+					[replacementString appendString:@")@@@))@@@"];
 				}
 			}
 		}
-theEnd:
-		range.location = [scanner scanLocation];
-		range.length = [macro length] - range.location;
-		scanned = [macro substringWithRange:range];
-		[replacementString appendString:scanned];
+		NSRange R = [macro doubleClickAtIndex:0];
+		if(R.length == [macro length])
+		{
+			[replacementString appendString:@" "];
+		}
+		macro = replacementString;
 	}
-	else
-	{
-		replacementString = (id)[self concreteReplacementStringForMacro:macro selection:selectedString];
-	}
+	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString];
 //iTM2_END;
-   return replacementString;
+   return macro;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartLaTeXMacroWithMacro:substitutions;
 - (NSString *)smartLaTeXMacroWithMacro:(NSString *)macro substitutions:(NSDictionary *)substitutions;
@@ -2196,7 +2208,7 @@ To Do List:
 			[self performSelector:action withObject:nil];
 			return;
 		}
-		NSString * what = [NSString stringWithFormat:@"@(@INS@)@\\usepackage{%@}\n@(@INS@)@",packageName];
+		NSString * what = [NSString stringWithFormat:@"@@@(\\usepackage{%@}\n)@@@",packageName];
 		// where
 		// find the last usepackage used
 		NSString * S = [self string];
