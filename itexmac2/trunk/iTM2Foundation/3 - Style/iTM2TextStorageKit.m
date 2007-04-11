@@ -797,8 +797,8 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  INDEXING
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineNumberAtIndex:
-- (unsigned int)lineNumberAtIndex:(unsigned)index;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineIndexForLocation:
+- (unsigned int)lineIndexForLocation:(unsigned)index;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -807,7 +807,7 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TextSyntaxParser * TSP = [self syntaxParser];
-	return TSP?[TSP lineIndexForLocation:index]:[super lineNumberAtIndex:index];
+	return TSP?[TSP lineIndexForLocation:index]:[super lineIndexForLocation:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:forRange:
 - (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr forRange:(NSRange)range;
