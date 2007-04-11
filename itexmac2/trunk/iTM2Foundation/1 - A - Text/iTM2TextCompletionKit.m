@@ -331,6 +331,7 @@ grosbois:
 		return 4;
 	}
 	[_LongCandidates retain];
+//iTM2_LOG(@"%@:_LongCandidates",_LongCandidates);
 	int idx = [_TextView numberOfSpacesPerTab];
 	if(idx<=0)
 	{
@@ -452,6 +453,7 @@ grosbois:
 		}
 	}
 	_ReplacementLines = [replacementLines copy];
+//iTM2_LOG(@"%@:_ReplacementLines",_ReplacementLines);
 
 	_EditedRangeForUserCompletion = _RangeForUserCompletion;
 	[DNC addObserver:self selector:@selector(windowWillCloseNotified:) name:NSWindowWillCloseNotification object:[_TextView window]];
@@ -815,21 +817,14 @@ grosbois:
 	{
 		replacementString = [replacementString stringByAppendingString:@" "];
 	}
-	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
-	NSTextStorage * TS = [_TextView textStorage];
-	NSString * S = [TS string];
-	
-	// always select placeholders from the start
 	NSRange selectedRange = [_TextView selectedRange];
-	NSRange markRange = [S rangeOfPreviousPlaceholderMarkBeforeIndex:selectedRange.location getType:nil];
-	if(markRange.length)
+	replacementString = [_TextView macroByPreparing:replacementString forInsertionInRange:selectedRange];
+	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
+	// always select placeholders from the start
+	if(![self contextBoolForKey:iTM2DontUseSmartMacrosKey])
 	{
-		if(NSMaxRange(markRange)!=selectedRange.location)
-		{
-			[_TextView insertText:@"@@@()@@@"];
-		}
+		[_TextView selectFirstPlaceholder:self];
 	}
-	[_TextView selectFirstPlaceholder:self];
 	[_LongCandidates autorelease];
 	_LongCandidates = nil;
 	[_TextView autorelease];
@@ -1295,7 +1290,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[super insertCompletion:(NSString *)replacementString forPartialWordRange:(NSRange)charRange movement:(int)movement isFinal:(BOOL)flag];
+iTM2_LOG(@"word:%@",word);
+iTM2_LOG(@"charRange:%@",NSStringFromRange(charRange));
+iTM2_LOG(@"movement:%@",[NSNumber numberWithInt:movement]);
+iTM2_LOG(@"flag:%@",(flag?@"Y":@"N"));
+	[super insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(int)movement isFinal:(BOOL)flag];
 //iTM2_END;
     return;
 }
