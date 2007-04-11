@@ -185,8 +185,8 @@ To Do List:
     }
     return NSMakeRange(start,range.location-start);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineNumberAtIndex:
-- (unsigned)lineNumberAtIndex:(unsigned)index;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineIndexForLocation:
+- (unsigned)lineIndexForLocation:(unsigned)index;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -221,7 +221,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	unsigned index = [self length];
-    unsigned result = [self lineNumberAtIndex:index];
+    unsigned result = [self lineIndexForLocation:index];
 //NSLog(@"%@: %d lines", self, result);
     return result;
 }
