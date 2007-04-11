@@ -850,13 +850,24 @@ To Do List:
 }
 - (void)setActionName:(NSString *)newActionName;
 {
-	if(![self isMutable])
-	{
-		return;
-	}
 	if(![self isVisible])
 	{
 		return;
+	}
+	NSXMLElement * element = [self XMLElement];
+	NSXMLNode * node;
+	if(![self isMutable])
+	{
+		element = [[element copy] autorelease];
+		[element detach];
+		// connect to another document
+		iTM2MacroContextNode * contextNode = (iTM2MacroContextNode *)[self parent];
+		id otherElement = [iTM2MacroDocumentManager templateXMLElementOfClient:contextNode];
+		node = [otherElement rootDocument];
+		[otherElement detach];
+		node = [(id)node rootElement];
+		[(id)node addChild:element];
+		[self addMutableXMLElement:element];
 	}
 	NSString * oldActionName = [self actionName];
 	if([oldActionName isEqual:newActionName])
@@ -865,7 +876,6 @@ To Do List:
 	}
 	[self willChangeValueForKey:@"macroTabViewItemIdentifier"];
 	[self willChangeValueForKey:@"actionName"];
-	NSXMLElement * element = [self XMLElement];
 	[element removeAttributeForName:@"SEL"];
 	if([@"insertMacro:" isEqual:newActionName] || [@"noop:" isEqual:newActionName] || ![newActionName length])
 	{
@@ -873,7 +883,7 @@ To Do List:
 	}
 	else
 	{
-		NSXMLNode * node = [NSXMLNode attributeWithName:@"SEL" stringValue:newActionName];
+		node = [NSXMLNode attributeWithName:@"SEL" stringValue:newActionName];
 		[element addAttribute:node];
 	}
 	[self didChangeValueForKey:@"actionName"];
@@ -1449,6 +1459,15 @@ To Do List:
 		[self setMacroTree:nil];
 	}
 	return _iTM2MacroController = self;
+}
+- (id)testView;
+{
+	return metaGETTER;
+}
+- (void)setTestView:(id)argument;
+{
+	metaSETTER(argument);
+	return;
 }
 - (id)macroTree;
 {
@@ -3882,33 +3901,32 @@ To Do List:
 
 	NSString * startType = nil;
 	NSString * stopType = nil;
-	NSString * string1 = nil;
+	NSString * copyString = nil;
 	NSRange startRange = NSMakeRange(0,0);
 	NSRange stopRange = NSMakeRange(0,0);
-	NSRange range = NSMakeRange(0,0);
-	unsigned index = 0;
+	NSRange copyRange = NSMakeRange(0,0);
 nextRange:
-	startRange = [macro rangeOfNextPlaceholderMarkAfterIndex:index getType:&startType];
+	startRange = [macro rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:&startType];
 	if(startRange.length)
 	{
-		range.location = NSMaxRange(stopRange);
-		range.length = startRange.location - range.location;
-		string1 = [macro substringWithRange:range];
-		[replacementString appendString:string1];
+		copyRange.location = NSMaxRange(stopRange);
+		copyRange.length = startRange.location - copyRange.location;
+		copyString = [macro substringWithRange:copyRange];
+		[replacementString appendString:copyString];
 nextStopRange:
-		index = NSMaxRange(startRange);
-		stopRange = [macro rangeOfNextPlaceholderMarkAfterIndex:index getType:&stopType];
+		copyRange.location = NSMaxRange(startRange);
+		stopRange = [macro rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:&stopType];
 		if(stopRange.length)
 		{
-			index = NSMaxRange(stopRange);
 			if(!startType)
 			{
 				// the startRange was in fact a stop placeholder mark range
-				range = startRange;
-				range.length = NSMaxRange(stopRange) - range.location;
-				string1 = [macro substringWithRange:range];
-				[replacementString appendString:string1];
+				copyRange = startRange;
+				copyRange.length = NSMaxRange(stopRange) - copyRange.location;
+				copyString = [macro substringWithRange:copyRange];
+				[replacementString appendString:copyString];
 				// go for a next pair start+stop
+				copyRange.location = NSMaxRange(stopRange);
 				goto nextRange;
 			}
 			else if(!stopType)
@@ -3923,13 +3941,13 @@ nextStopRange:
 					}
 					else
 					{
-						range.location = NSMaxRange(startRange);
-						range.length = stopRange.location - range.location;
-						if(range.length)
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
 						{
 							[replacementString appendString:@"@@@("];
-							string1 = [macro substringWithRange:range];
-							[replacementString appendString:string1];
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
 							[replacementString appendString:@")@@@"];
 						}
 					}
@@ -3944,13 +3962,13 @@ nextStopRange:
 					}
 					else
 					{
-						range.location = NSMaxRange(startRange);
-						range.length = stopRange.location - range.location;
-						if(range.length)
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
 						{
 							[replacementString appendString:@"@@@("];
-							string1 = [macro substringWithRange:range];
-							[replacementString appendString:string1];
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
 							[replacementString appendString:@")@@@"];
 						}
 					}
@@ -3965,13 +3983,13 @@ nextStopRange:
 					}
 					else
 					{
-						range.location = NSMaxRange(startRange);
-						range.length = stopRange.location - range.location;
-						if(range.length)
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
 						{
 							[replacementString appendString:@"@@@("];
-							string1 = [macro substringWithRange:range];
-							[replacementString appendString:string1];
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
 							[replacementString appendString:@")@@@"];
 						}
 					}
@@ -3986,13 +4004,13 @@ nextStopRange:
 					}
 					else
 					{
-						range.location = NSMaxRange(startRange);
-						range.length = stopRange.location - range.location;
-						if(range.length)
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
 						{
 							[replacementString appendString:@"@@@("];
-							string1 = [macro substringWithRange:range];
-							[replacementString appendString:string1];
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
 							[replacementString appendString:@")@@@"];
 						}
 					}
@@ -4001,51 +4019,42 @@ nextStopRange:
 				{
 					// the startRange was not a selection placeholder
 					// we should add there other goodies
-					range.location = NSMaxRange(startRange);
-					range.length = stopRange.location - range.location;
-					if(range.length>0)
-					{
-						[replacementString appendString:@"@@@("];
-						string1 = [macro substringWithRange:range];
-						[replacementString appendString:string1];
-						[replacementString appendString:@")@@@"];
-					}
-					else
-					{
-						range = startRange;
-						range.length = NSMaxRange(stopRange) - startRange.location;
-						string1 = [macro substringWithRange:range];
-						[replacementString appendString:string1];
-					}
+					copyRange.location = startRange.location;
+					copyRange.length = stopRange.location - copyRange.location;
+					copyRange.length += stopRange.length;
+					copyString = [macro substringWithRange:copyRange];
+					[replacementString appendString:copyString];
 				}
+				copyRange.location = NSMaxRange(stopRange);
 				goto nextRange;
 			}
 			else
 			{
 				// stopType is in fact a start placeholder
-				range = startRange;
-				range.length = stopRange.location - startRange.location;
-				string1 = [macro substringWithRange:range];
-				[replacementString appendString:string1];
+				// 
+				copyRange = startRange;
+				copyRange.length = stopRange.location - startRange.location;
+				copyString = [macro substringWithRange:copyRange];
+				[replacementString appendString:copyString];
 				startType = stopType;
 				startRange = stopRange;
+				copyRange.location = NSMaxRange(stopRange);
 				goto nextStopRange;
 			}
 		}
 		else
 		{
-			range = startRange;
-			range.length = [macro length] - startRange.location;
-			string1 = [macro substringWithRange:range];
-			[replacementString appendString:string1];
+			copyRange = startRange;
+			copyRange.length = [macro length] - startRange.location;
+			copyString = [macro substringWithRange:copyRange];
+			[replacementString appendString:copyString];
 		}
 	}
 	else
 	{
-		range.location = stopRange.location;
-		range.length = [macro length] - range.location;
-		string1 = [macro substringWithRange:range];
-		[replacementString appendString:string1];
+		copyRange.length = [macro length] - copyRange.location;
+		copyString = [macro substringWithRange:copyRange];
+		[replacementString appendString:copyString];
 	}
 	// manage the indentation
 //iTM2_END;
@@ -4212,82 +4221,28 @@ To Do List: ?
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMutableString * result = [NSMutableString stringWithCapacity:[self length]];
-	// remove the pairs of consecutive start/stop placeholders
-	NSRange startRange;
-	NSString * type = nil;
-	NSRange stopRange = NSMakeRange(0,0);
-	unsigned index = 0;
-	NSString * string = nil;
-loop:
-	index = 0;
-	startRange = [self rangeOfNextPlaceholderMarkAfterIndex:index getType:&type];
-	if(startRange.length)
+	unsigned length = [self length];
+	NSMutableString * result = [NSMutableString stringWithCapacity:length];
+	NSRange markRange;
+	NSRange copyRange = NSMakeRange(0,0);
+	NSString * S;
+next:
+	markRange = [self rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:nil];
+	if(markRange.length)
 	{
-		if(type)
+		copyRange.length = markRange.location - copyRange.location;
+		S = [self substringWithRange:copyRange];
+		[result appendString:S];
+		copyRange.location = NSMaxRange(markRange);
+		if(copyRange.location<length)
 		{
-nextStop:
-			index = NSMaxRange(startRange);
-			stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:index getType:&type];
-			if(stopRange.length)
-			{
-				if(type)
-				{
-					//
-					startRange = stopRange;
-					goto nextStop;
-				}
-				// the question is whether I remove something more than the placeholders?
-				stopRange.length = NSMaxRange(stopRange);
-				startRange.length = NSMaxRange(startRange);
-				// verbatim copy of what is before
-				index = startRange.length;
-				startRange.length = startRange.location;
-				startRange.location = 0;
-				string = [self substringWithRange:startRange];
-				[result appendString:string];
-				startRange.location = startRange.length;
-				startRange.length = index;
-				// copy the content of the placeholder
-				startRange.location = startRange.length;
-				startRange.length = stopRange.location - startRange.location;
-				string = [self substringWithRange:startRange];
-				[result appendString:string];
-				// copy the trailer
-				stopRange.location = stopRange.length;
-				if([self length] > stopRange.location)
-				{
-					stopRange.length = [self length] - stopRange.location;
-					string = [self substringWithRange:startRange];
-					[result appendString:string];
-				}
-				self = result;
-				result = [NSMutableString stringWithCapacity:[self length]];
-				goto loop;
-			}
-			// missing stop: remove everything
-			stopRange.location = 0;
-nextClean:
-			startRange = [self rangeOfNextPlaceholderMarkAfterIndex:stopRange.location getType:nil];
-			if(startRange.length)
-			{
-				stopRange.length = startRange.location - stopRange.location;
-				string = [self substringWithRange:stopRange];
-				[result appendString:string];
-				stopRange.location = NSMaxRange(startRange);
-				goto nextClean;
-			}
-			if([self length] > stopRange.location)
-				{stopRange.length = [self length] - stopRange.location;
-				string = [self substringWithRange:stopRange];
-				[result appendString:string];
-			}
-			return result;
+			goto next;
 		}
-		stopRange = startRange;
-		goto loop;
 	}
-	goto nextClean;
+	copyRange.length = length - copyRange.location;
+	S = [self substringWithRange:copyRange];
+	[result appendString:S];
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderMarkAfterIndex:getType:
 - (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(NSString **)typeRef;
@@ -6564,4 +6519,34 @@ To Do List:
 @end
 
 @implementation iTM2MacroEditor
+@end
+
+#import <iTM2Foundation/iTM2TextDocumentKit.h>
+
+@interface iTM2MacroTestView:iTM2TextEditor
+@end
+
+@implementation iTM2MacroTestView
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
+- (NSString *)macroDomain;
+{
+    return [SMC selectedDomain];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
+- (NSString *)macroCategory;
+{
+    return [SMC selectedMode];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
+- (BOOL)handlesKeyBindings;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
 @end
