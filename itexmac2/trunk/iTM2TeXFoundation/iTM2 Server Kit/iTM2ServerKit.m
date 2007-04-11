@@ -498,7 +498,7 @@ To Do List: see the warning below
 		{
 			argument = [E nextObject];
 //iTM2_END;
-			return argument?[argument intValue]:NSNotFound;
+			return argument>0?[argument intValue]-1:NSNotFound;
 		}
 	}
 //iTM2_END;
@@ -523,7 +523,7 @@ To Do List: see the warning below
 		{
 			argument = [E nextObject];
 //iTM2_END;
-			return argument?[argument intValue]:NSNotFound;
+			return argument>0?[argument intValue]-1:NSNotFound;
 		}
 	}
 //iTM2_END;
@@ -598,7 +598,7 @@ To Do List: see the warning below
 			argument = [E nextObject];
 			argument = [argument lowercaseString];
 //iTM2_END;
-			return ![argument isEqual:"no"];
+			return ![argument isEqual:@"no"];
 		}
 	}
 //iTM2_END;
