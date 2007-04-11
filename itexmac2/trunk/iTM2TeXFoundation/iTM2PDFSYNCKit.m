@@ -2360,7 +2360,7 @@ To Do List:
 	unsigned charIndex = [LM characterIndexForGlyphAtIndex:glyphIndex];
 	unsigned start, contentsEnd;
 	[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 1)];
-	unsigned line = [TS lineNumberAtIndex:charIndex];
+	unsigned line = [TS lineIndexForLocation:charIndex];
 	unsigned column = charIndex - start;
 	NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
@@ -2423,7 +2423,7 @@ To Do List:
 		unsigned charIndex = selectedRange.location;
 		unsigned start, contentsEnd;
 		[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 0)];
-		unsigned line = [TS lineNumberAtIndex:charIndex];
+		unsigned line = [TS lineIndexForLocation:charIndex];
 		unsigned column = charIndex - start;
 		NSValue * oldValue = [[notification userInfo] objectForKey:@"NSOldSelectedCharacterRange"];
 		NSValue * newValue = [NSValue valueWithRange:selectedRange];
