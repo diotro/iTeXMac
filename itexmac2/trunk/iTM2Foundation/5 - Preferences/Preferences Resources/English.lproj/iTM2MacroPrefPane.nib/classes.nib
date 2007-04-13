@@ -38,14 +38,14 @@
         }, 
         {CLASS = iTM2MacroEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
         {CLASS = iTM2MacroPopUpButton; LANGUAGE = ObjC; SUPERCLASS = NSPopUpButton; }, 
-        {
-            CLASS = iTM2MacroPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {}; 
-            SUPERCLASS = NSPreferencePane; 
-        }, 
+        {CLASS = iTM2MacroPrefPane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
         {CLASS = iTM2MacroTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
-        {CLASS = iTM2MacroTestView; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }
+        {
+            ACTIONS = {executeMacro = id; }; 
+            CLASS = iTM2MacroTestView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSTextView; 
+        }
     ); 
     IBVersion = 1; 
 }

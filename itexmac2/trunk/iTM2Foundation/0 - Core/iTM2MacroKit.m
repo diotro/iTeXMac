@@ -6203,6 +6203,10 @@ iTM2_LOG(completeCodeName);
 @end
 
 @implementation iTM2MacroTableView
+- (SEL)doubleAction;
+{
+	return @selector(executeMacro:);
+}
 - (void)copy:(id)sender;
 {
 	NSArray *columns = [self tableColumns];
@@ -6684,6 +6688,15 @@ To Do List:
 @end
 
 @implementation iTM2MacroTestView
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacro:
+- (void)executeMacro:(id)macro;
+{
+	if([macro respondsToSelector:@selector(executeMacroWithTarget:selector:substitutions:)])
+	{
+		[macro executeMacroWithTarget:self selector:NULL substitutions:nil];
+	}
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
 - (NSString *)macroDomain;
 {

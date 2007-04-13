@@ -812,7 +812,7 @@ grosbois:
 	{
 //iTM2_LOG(@"still disableUndoRegistration");
 	}
-	NSString * replacementString = _LongCompletionString;
+	NSString * replacementString = [_TextView contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask]?_ShortCompletionString:_LongCompletionString;
 	if(yorn)
 	{
 		replacementString = [replacementString stringByAppendingString:@" "];
@@ -821,7 +821,7 @@ grosbois:
 	replacementString = [_TextView macroByPreparing:replacementString forInsertionInRange:selectedRange];
 	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
 	// always select placeholders from the start
-	if(![self contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask])
+	if(![_TextView contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask])
 	{
 		[_TextView selectFirstPlaceholder:self];
 	}
