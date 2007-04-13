@@ -94,6 +94,7 @@ extern NSString * const iTM2MacroScriptsComponent;
 extern NSString * const iTM2MacrosDirectoryName;
 extern NSString * const iTM2MacroPathExtension;
 extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
+extern NSString * const iTM2DontUseSmartMacrosKey;
 
 
 /*!
@@ -154,6 +155,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 
 - (id)menuTree;
 - (void)setMenuTree:(id)aTree;
+- (BOOL)executeMacroWithText:(NSString *)text forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
 - (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
 - (id)treeForPathExtension:(NSString *)requiredPathExtension contextNodeClass:(Class)aClass;
 - (void)applyForNode:(id)node;
@@ -607,7 +609,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 - (NSString *)description;
 - (NSString *)tooltip;
 - (NSString *)mode;
-- (BOOL)executeMacroWithTarget:(id)target substitutions:(NSDictionary *)substitutions;
+- (BOOL)executeMacroWithTarget:(id)target selector:(SEL)action substitutions:(NSDictionary *)substitutions;
 @end
 
 @interface iTM2KeyBindingContextNode:iTM2MacroLeafNode

@@ -1501,6 +1501,7 @@ start:
 		{
 			NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
 			NSEvent * E = [NSApp nextEventMatchingMask:NSKeyDownMask|NSKeyUpMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
+iTM2_LOG(@"HERE IS MY E:%@",E);
 			if(E)
 			{
 				string = [E characters];
@@ -1522,6 +1523,50 @@ start:
 		{
 			[_CurrentTask waitUntilExit];
 		}
+	}
+	NSFileHandle * FH = [[_CurrentTask standardOutput] fileHandleForReading];
+    NSData * D;
+	NS_DURING
+	D = [FH availableData];//: Interrupted system call
+	NS_HANDLER
+	D = nil;
+	NS_ENDHANDLER
+	while([D length])
+	{
+		string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+		if(![string length])
+		{
+			string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+			iTM2_LOG(@"Output encoding problem.");
+		}
+		[_Output appendString:string];
+		NS_DURING
+		D = [FH availableData];//: Interrupted system call
+		NS_HANDLER
+		D = nil;
+		NS_ENDHANDLER
+	}
+	FH = [[_CurrentTask standardError] fileHandleForReading];
+	NS_DURING
+	D = [FH availableData];//: Interrupted system call
+	NS_HANDLER
+	D = nil;
+	NS_ENDHANDLER
+	string = nil;
+	while([D length])
+	{
+		string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
+		if(![string length])
+		{
+			string = [[[NSString alloc] initWithData:D encoding:NSMacOSRomanStringEncoding] autorelease];
+			iTM2_LOG(@"Output encoding problem.");
+		}
+		[_Output appendString:string];
+		NS_DURING
+		D = [FH availableData];//: Interrupted system call
+		NS_HANDLER
+		D = nil;
+		NS_ENDHANDLER
 	}
 	[_CurrentTask release];
 	_CurrentTask = nil;
@@ -2173,9 +2218,10 @@ To Do List:
     iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
     [TC addTaskWrapper:self];
 	[[self implementation] takeMetaValue:[NSNumber numberWithBool:YES] forKey:iTM2TaskCanInterruptKey];
+	[TC setDeaf:YES];// no input pipe
     [TC start];
-	[[[[TC currentTask] standardInput] fileHandleForWriting] writeData:[NSData data]];
 	[TC waitUntilExit];
+iTM2_LOG(@"[TC output]:%@",[TC output]);
 	iTM2_OUTERROR(1,([TC errorStatus]),nil);
     if(outputPtr)
         *outputPtr = [TC output];
@@ -2352,7 +2398,8 @@ To Do List:
 		[TW setLaunchPath:scriptPath];
 		NSError * localError = nil;
 		NSString * output = nil;
-		int status = [TW modalStatusAndOutput:&output error:&localError];
+		//int status = 
+		[TW modalStatusAndOutput:&output error:&localError];
 		if(localError)
 		{
 			[NSApp presentError:localError];
@@ -2361,18 +2408,48 @@ To Do List:
 	}
 	return nil;
 }
+- (void)executeAsScript:(id)sender;
+{
+	// save the script somewhere
+	NSString * script = [sender argument];
+	NSString * path = [NSBundle temporaryBinaryDirectory];
+	path = [path stringByAppendingPathComponent:@"macro_script"];
+	NSURL * url = [NSURL fileURLWithPath:path];
+	NSError * error = nil;
+	if([script writeToURL:url atomically:NO encoding:NSUTF8StringEncoding error:&error])
+	{
+		// make it executable
+		NSNumber * permission = [NSNumber numberWithUnsignedInt:S_IRWXU];
+		NSDictionary * attributes = [NSDictionary dictionaryWithObject:permission forKey:NSFilePosixPermissions];
+		if([DFM changeFileAttributes:attributes atPath:path])
+		{
+			[self executeScriptAtPath:path];
+		}
+		else
+		{
+			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not set posix permission at\n%@",path]),nil);
+		}
+	}
+	else if(error)
+	{
+		[NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+	}
+	return;
+}
 - (void)executeScriptAtPath:(NSString *)scriptPath;
 {
 	NSWindow * W = [NSApp keyWindow];
 	id FR = [W firstResponder];
-	if([DFM isExecutableFileAtPath:scriptPath])
-	{
-		[FR stringByExecutingScriptAtPath:scriptPath];
-		return;
-	}
 	NSString * context = [FR macroContext];
 	NSString * category = [FR macroCategory];
 	NSString * domain = [FR macroDomain];
+	NSString * result = nil;
+	if([DFM isExecutableFileAtPath:scriptPath])
+	{
+		result = [FR stringByExecutingScriptAtPath:scriptPath];
+		[SMC executeMacroWithText:result forContext:context ofCategory:category inDomain:domain target:FR];//delayed?
+		return;
+	}
 	NSString * subpath = [domain stringByAppendingPathComponent:category];
 	subpath = [subpath stringByAppendingPathComponent:iTM2MacroScriptsComponent];
 	NSBundle * MB = [NSBundle mainBundle];
@@ -2389,33 +2466,8 @@ To Do List:
 				path = [path stringByAppendingPathComponent:scriptPath];
 				if([DFM fileExistsAtPath:scriptPath isDirectory:nil])
 				{
-					NSString * result = [FR stringByExecutingScriptAtPath:scriptPath];
-					NSRange range;
-					NSString * type;
-					unsigned idx = 0;
-					if(idx<[result length])
-					{
-						range = [result rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
-						if(range.length && [type isEqual:@"ACTION"])
-						{
-							NSRange fullRange = [result rangeOfPlaceholderAtIndex:range.location getType:nil];
-							if(fullRange.location == range.location && fullRange.length > range.length)
-							{
-								fullRange.length = NSMaxRange(fullRange);
-								fullRange.location = NSMaxRange(range);
-								if(fullRange.length>fullRange.location)
-								{
-									fullRange.length-=fullRange.location;
-									if(fullRange.length>4)
-									{
-										fullRange.length-=4;
-										result = [result substringWithRange:fullRange];
-										[SMC executeMacroWithID:result forContext:context ofCategory:category inDomain:domain target:self];//delayed?
-									}
-								}
-							}
-						}
-					}
+					result = [FR stringByExecutingScriptAtPath:scriptPath];
+					[SMC executeMacroWithText:result forContext:context ofCategory:category inDomain:domain target:FR];//delayed?
 					[DFM popDirectory];
 					return;
 				}

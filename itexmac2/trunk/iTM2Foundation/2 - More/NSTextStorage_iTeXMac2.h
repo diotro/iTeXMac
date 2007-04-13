@@ -30,7 +30,7 @@
 @interface NSTextStorage(iTeXMac2)
 /*"Class methods"*/
 /*"Setters and Getters"*/
-- (unsigned int)lineNumberAtIndex:(unsigned)index;
+- (unsigned int)lineIndexForLocation:(unsigned)index;
 - (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr forRange:(NSRange)range;
 - (NSRange)getRangeForLine:(unsigned int)aLine;
 - (NSRange)getRangeForLineRange:(NSRange)aLineRange;

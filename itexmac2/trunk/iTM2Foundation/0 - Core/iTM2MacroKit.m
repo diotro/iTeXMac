@@ -1230,8 +1230,8 @@ To Do List:
 		return @"";
 	}
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithTarget:substitutions:
-- (BOOL)executeMacroWithTarget:(id)target substitutions:(NSDictionary *)substitutions;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithTarget:selector:substitutions:
+- (BOOL)executeMacroWithTarget:(id)target selector:(SEL)action substitutions:(NSDictionary *)substitutions;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1244,65 +1244,64 @@ To Do List:
 		target = [[NSApp keyWindow] firstResponder];
 	}
 	BOOL result = NO;
-	SEL action = [self isKindOfClass:[iTM2MacroLeafNode class]]?[self action]:NULL;
-	NSMethodSignature * MS;
-	if(action)
+	NSMethodSignature * MS = nil;
+	if(action && (MS = [target methodSignatureForSelector:action]))
 	{
-		MS = [target methodSignatureForSelector:action];
-		if(!MS)
+here:
+		if(substitutions)
 		{
-			iTM2_LOG(@"FAILED, Unsupported Action in macro:%@",NSStringFromSelector(action));
+			[self setValue:substitutions forKeyPath:@"value.substitutions"];
 		}
-	}
-	else
-	{
-		action = NSSelectorFromString([self ID]);
-		MS = [target methodSignatureForSelector:action];
-		if(!MS)
+		if([MS numberOfArguments] == 3)
 		{
-			action = NSSelectorFromString(@"insertMacro:");
-			MS = [target methodSignatureForSelector:action];
-			if(!MS)
-			{
-				return NO;
-			}
+			NS_DURING
+			[target performSelector:action withObject:self];
+			result = YES;
+			NS_HANDLER
+			NS_ENDHANDLER
 		}
+		else if([MS numberOfArguments] == 2)
+		{
+			NS_DURING
+			[target performSelector:action];
+			result = YES;
+			NS_HANDLER
+			NS_ENDHANDLER
+		}
+		else if(MS)
+		{
+		}
+		else if([[[NSApp keyWindow] firstResponder] tryToPerform:action with:self]
+			|| [[[NSApp mainWindow] firstResponder] tryToPerform:action with:self])
+		{
+			result = YES;
+		}
+		else
+		{
+			iTM2_LOG(@"No target for %@ with argument:%@", NSStringFromSelector(action),self);
+		}
+		[self setValue:nil forKeyPath:@"value.substitutions"];
+//iTM2_END;
+		return result;
 	}
-	if(substitutions)
+	if([self isKindOfClass:[iTM2MacroLeafNode class]]
+		&& (action = [self action])
+			&& (MS = [target methodSignatureForSelector:action]))
 	{
-		[self setValue:substitutions forKeyPath:@"value.substitutions"];
+		goto here;
 	}
-	if([MS numberOfArguments] == 3)
+	if((action = NSSelectorFromString([self ID]))
+		&& (MS = [target methodSignatureForSelector:action]))
 	{
-		NS_DURING
-		[target performSelector:action withObject:self];
-		result = YES;
-		NS_HANDLER
-		NS_ENDHANDLER
+		goto here;
 	}
-	else if([MS numberOfArguments] == 2)
+	if((action = NSSelectorFromString(@"insertMacro:"))
+		&& (MS = [target methodSignatureForSelector:action]))
 	{
-		NS_DURING
-		[target performSelector:action];
-		result = YES;
-		NS_HANDLER
-		NS_ENDHANDLER
-	}
-	else if(MS)
-	{
-	}
-	else if([[[NSApp keyWindow] firstResponder] tryToPerform:action with:self]
-		|| [[[NSApp mainWindow] firstResponder] tryToPerform:action with:self])
-	{
-		result = YES;
-	}
-	else
-	{
-		iTM2_LOG(@"No target for %@ with argument:%@", NSStringFromSelector(action),self);
+		goto here;
 	}
 //iTM2_END;
-	[self setValue:nil forKeyPath:@"value.substitutions"];
-    return result;
+	return NO;
 }
 @end
 
@@ -1436,7 +1435,8 @@ To Do List:
 	}
 	if(!_iTM2MacroTypes)
 	{
-		_iTM2MacroTypes = [[NSArray arrayWithObjects:@"SELECTION",@"ALL",@"PATH",@"COMMAND",nil] retain];
+		_iTM2MacroTypes = [[NSArray arrayWithObjects:@"ACTION",@"PATH",@"COMMAND",@"COPY",@"INPUT_ALL",@"INPUT_SELECTION",@"INPUT_LINE",
+			@"PREPEND_SELECTION",@"SELECTION",@"APPEND_SELECTION",@"PREPEND_LINE",@"LINE",@"APPEND_LINE",@"PREPEND_ALL",@"ALL",@"APPEND_ALL",nil] retain];
 	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -2008,6 +2008,54 @@ To Do List:
 //iTM2_END;
     return [sender hasSubmenu];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithText:forContext:ofCategory:inDomain:target:
+- (BOOL)executeMacroWithText:(NSString *)text forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned idx = 0;
+	BOOL result = NO;
+	while(idx<[text length])
+	{
+		NSString * type = nil;
+		NSRange range = [text rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
+		if(!range.length)
+		{
+			return NO;
+		}
+		else if(type)
+		{
+			NSRange fullRange = [text rangeOfPlaceholderAtIndex:range.location getType:nil];
+			if(fullRange.location == range.location && fullRange.length > range.length)
+			{
+				fullRange.length = NSMaxRange(fullRange);
+				fullRange.location = NSMaxRange(range);
+				if(fullRange.length>fullRange.location)
+				{
+					fullRange.length-=fullRange.location;
+					if(fullRange.length>4)
+					{
+						fullRange.length-=4;
+						text = [text substringWithRange:fullRange];
+						iTM2MacroLeafNode * leafNode = [self macroRunningNodeForID:text context:context ofCategory:category inDomain:domain];
+						SEL action = NULL;
+						NSString * actionName = [NSString stringWithFormat:@"insertMacro_%@:",type];
+						action = NSSelectorFromString(actionName);
+						result = result || [leafNode executeMacroWithTarget:target selector:action substitutions:nil];
+					}
+				}
+			}
+		}
+		idx = NSMaxRange(range);
+	}
+
+//iTM2_START;
+	return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithID:forContext:ofCategory:inDomain:target:
 - (BOOL)executeMacroWithID:(NSString *)ID forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
 /*"Description forthcoming.
@@ -2018,7 +2066,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2MacroLeafNode * leafNode = [self macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
-	BOOL result = [leafNode executeMacroWithTarget:target substitutions:nil];
+	BOOL result = [leafNode executeMacroWithTarget:target selector:NULL substitutions:nil];
 //iTM2_END;
     return result;
 }
@@ -3687,8 +3735,8 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacroAtTheEnd:
-- (void)insertMacroAtTheEnd:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_APPEND_ALL:
+- (void)insertMacro_APPEND_ALL:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3701,8 +3749,22 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacroAtTheBeginning:
-- (void)insertMacroAtTheBeginning:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_ALL:
+- (void)insertMacro_ALL:(id)argument;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange range = NSMakeRange(0,0);
+	range.length = [[self string] length];
+    [self insertMacro:argument inRange:range];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_PREPEND_ALL:
+- (void)insertMacro_PREPEND_ALL:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3714,8 +3776,8 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacroAfterTheSelection:
-- (void)insertMacroAfterTheSelection:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_APPEND_SELECTION:
+- (void)insertMacro_APPEND_SELECTION:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3729,8 +3791,20 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacroBeforeTheSelection:
-- (void)insertMacroBeforeTheSelection:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_SELECTION:
+- (void)insertMacro_SELECTION:(id)argument;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self insertMacro:argument];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_PREPEND_SELECTION:
+- (void)insertMacro_PREPEND_SELECTION:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3743,8 +3817,8 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacroAtTheBeginningOfTheLine:
-- (void)insertMacroAtTheBeginningOfTheLine:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_PREPEND_LINE:
+- (void)insertMacro_PREPEND_LINE:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3759,8 +3833,25 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacroAtTheEndOfTheLine:
-- (void)insertMacroAtTheEndOfTheLine:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_LINE:
+- (void)insertMacro_LINE:(id)argument;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange range = [self selectedRange];
+	range.length = 0;
+	NSTextStorage * TS = [self textStorage];
+	[TS getLineStart:&range.location end:nil contentsEnd:&range.length forRange:range];
+	range.length -= range.location;
+    [self insertMacro:argument inRange:range];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_APPEND_LINE:
+- (void)insertMacro_APPEND_LINE:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3775,8 +3866,8 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacroInPasteboard:
-- (void)insertMacroInPasteboard:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_COPY:
+- (void)insertMacro_COPY:(id)argument;
 /*"Description forthcoming. .
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3952,6 +4043,23 @@ nextStopRange:
 						}
 					}
 				}
+				else if([startType isEqual:@"INPUT_SELECTION"])
+				{
+					if([selection length])
+					{
+						[replacementString appendString:selection];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
+						}
+					}
+				}
 				else if([startType isEqual:@"ALL"])
 				{
 					if([all length])
@@ -3973,13 +4081,11 @@ nextStopRange:
 						}
 					}
 				}
-				else if([startType isEqual:@"PATH"])
+				else if([startType isEqual:@"INPUT_ALL"])
 				{
-					if([path length])
+					if([all length])
 					{
-						[replacementString appendString:@"@@@("];
-						[replacementString appendString:path];
-						[replacementString appendString:@")@@@"];
+						[replacementString appendString:all];
 					}
 					else
 					{
@@ -3987,14 +4093,30 @@ nextStopRange:
 						copyRange.length = stopRange.location - copyRange.location;
 						if(copyRange.length)
 						{
-							[replacementString appendString:@"@@@("];
 							copyString = [macro substringWithRange:copyRange];
 							[replacementString appendString:copyString];
-							[replacementString appendString:@")@@@"];
 						}
 					}
 				}
-				else if([startType isEqual:@"COMMAND"])
+				else if([startType isEqual:@"INPUT_PATH"])
+				{
+					if([path length])
+					{
+						[replacementString appendString:path];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
+						}
+					}
+				}
+				#if 0
+				else if([startType isEqual:@"COMMAND"])// unused
 				{
 					if([selection length])
 					{
@@ -4015,6 +4137,7 @@ nextStopRange:
 						}
 					}
 				}
+				#endif
 				else
 				{
 					// the startRange was not a selection placeholder
@@ -4182,6 +4305,32 @@ To Do List:
     static NSString * _Bullet = nil;
     return _Bullet? _Bullet: (_Bullet = [[NSString stringWithUTF8String:"•"] copy]);
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfMacroTypeAtIndex:
+- (NSRange)rangeOfMacroTypeAtIndex:(unsigned int)index;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(index<[self length])
+	{
+		NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"];
+		NSRange result = NSMakeRange(index, 0);
+		if([set characterIsMember:[self characterAtIndex:index]])
+		{
+			++result.length;
+			while((++index<[self length]) && [set characterIsMember:[self characterAtIndex:index]])
+				++result.length;
+			index = result.location;
+			while(index-- && [set characterIsMember:[self characterAtIndex:index]])
+				++result.length, --result.location;
+		}
+		return result;
+	}
+	return NSMakeRange(NSNotFound, 0);
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineComponents
 - (NSArray *)lineComponents;
 /*"Description forthcoming.
@@ -4323,7 +4472,7 @@ nextChar:
 								NSString * type = @"";
 								if(index<length)
 								{
-									wordRange = [self rangeOfWordAtIndex:index];
+									wordRange = [self rangeOfMacroTypeAtIndex:index];
 									type = [self substringWithRange:wordRange];
 									if([_iTM2MacroTypes containsObject:type])
 									{
@@ -4333,6 +4482,10 @@ nextChar:
 										{
 											++markRange.length;
 										}
+									}
+									else
+									{
+										type = @"";
 									}
 								}
 								if(typeRef)
@@ -4483,7 +4636,7 @@ previousStart:
 							type = @"";
 							if(++end<length)
 							{
-								wordRange = [self rangeOfWordAtIndex:end];
+								wordRange = [self rangeOfMacroTypeAtIndex:end];
 								if(wordRange.length)
 								{
 									type = [self substringWithRange:wordRange];
@@ -4536,7 +4689,7 @@ previousStart:
 						type = @"";
 						if(++end<length)
 						{
-							wordRange = [self rangeOfWordAtIndex:end];
+							wordRange = [self rangeOfMacroTypeAtIndex:end];
 							if(wordRange.length)
 							{
 								type = [self substringWithRange:wordRange];
@@ -4557,6 +4710,10 @@ previousStart:
 						markRange.location = start;
 						markRange.length = end - markRange.location;
 						return markRange;
+					}
+					else if(start>2)
+					{
+						end = start;
 					}
 				}
 			}

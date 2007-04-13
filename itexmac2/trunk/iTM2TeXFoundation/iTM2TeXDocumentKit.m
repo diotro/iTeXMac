@@ -124,6 +124,102 @@ To Do List:
 //iTM2_END;
 	return range;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
+- (void)insertUnderscore:(id)sender;
+/*"Tabs are inserted only at the beginning of the line.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{
+//iTM2_START;
+	[self insertText:@"_"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertHat:
+- (void)insertHat:(id)sender;
+/*"Inserting a smart hat. Problem with dead keys.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{
+//iTM2_START;
+	[self insertText:@"^"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertControl:
+- (void)insertControl:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{
+//iTM2_START;
+	[self insertText:@"\\"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertDollar:
+- (void)insertDollar:(id)sender;
+/*"Tabs are inserted only at the beginning of the line.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{
+//iTM2_START;
+	[self insertText:@"$"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBrace:
+- (void)insertOpenBrace:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{
+//iTM2_START;
+	[self insertText:@"{"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenParenthesis:
+- (void)insertOpenParenthesis:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{
+//iTM2_START;
+	[self insertText:@"("];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBracket:
+- (void)insertOpenBracket:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{
+//iTM2_START;
+	[self insertText:@"["];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertTabAnchor:
+- (void)insertTabAnchor:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- < 1.1: 03/10/2002
+To Do List: Nothing at first glance.
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self insertText:[self tabAnchor]];
+    return;
+}
 @end
 
 @implementation iTM2TeXEditor
@@ -519,18 +615,6 @@ To Do List: Nothing at first glance.
 		[self insertMacro:macro];
         [[self undoManager] endUndoGrouping];
     }
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertTabAnchor:
-- (void)insertTabAnchor:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users.sourceforge.net
-- < 1.1: 03/10/2002
-To Do List: Nothing at first glance.
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self insertText:[self tabAnchor]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commentSelection:

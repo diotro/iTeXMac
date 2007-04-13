@@ -28,7 +28,7 @@
 - (BOOL)getIntegerTrailer:(int *)intPtr;
 - (NSRange)getRangeForLine:(unsigned int)aLine;
 - (NSRange)getRangeForLineRange:(NSRange)aLineRange;
-- (unsigned)lineNumberAtIndex:(unsigned)index;
+- (unsigned)lineIndexForLocation:(unsigned)index;
 - (unsigned)numberOfLines;
 //- (NSString *) commentedStringForKey: (NSString *) aKey value: (NSString *) aValue;
 - (NSString *)stringForCommentedKey:(NSString *)aKey forRange:(NSRange)aRange effectiveRange:(NSRangePointer)aRangePtr inHeader:(BOOL)aFlag;

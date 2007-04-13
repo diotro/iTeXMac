@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>executeAsScript:</key>
+	<string>Executer comme script</string>
 	<key>executeScriptAtPath:</key>
 	<string>Executer un fichier script</string>
 	<key>insertMacro:</key>
