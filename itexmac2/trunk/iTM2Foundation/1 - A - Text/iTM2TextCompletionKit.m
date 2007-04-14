@@ -489,7 +489,7 @@ grosbois:
 		completion = _OriginalString;
 	}
 	[_LongCompletionString autorelease];
-	_LongCompletionString = [_TextView replacementStringForMacro:completion selection:_OriginalSelectedString];
+	_LongCompletionString = [_TextView replacementStringForMacro:completion selection:_OriginalSelectedString line:@""];
 	_LongCompletionString = [_LongCompletionString copy];
 	[_ShortCompletionString autorelease];
 	_ShortCompletionString = [[_LongCompletionString stringByRemovingPlaceholderMarks] copy];

@@ -1435,8 +1435,13 @@ To Do List:
 	}
 	if(!_iTM2MacroTypes)
 	{
-		_iTM2MacroTypes = [[NSArray arrayWithObjects:@"ACTION",@"PATH",@"COMMAND",@"COPY",@"INPUT_ALL",@"INPUT_SELECTION",@"INPUT_LINE",
-			@"PREPEND_SELECTION",@"SELECTION",@"APPEND_SELECTION",@"PREPEND_LINE",@"LINE",@"APPEND_LINE",@"PREPEND_ALL",@"ALL",@"APPEND_ALL",nil] retain];
+		_iTM2MacroTypes = [[NSArray arrayWithObjects:
+			@"ACTION",@"PATH",@"COMMAND",@"COPY",
+			@"INPUT_ALL",@"INPUT_SELECTION",@"INPUT_LINE",
+			@"PERL_INPUT_ALL",@"PERL_INPUT_SELECTION",@"PERL_INPUT_LINE",
+			@"PREPEND_SELECTION",@"SELECTION",@"REPLACE_SELECTION",@"APPEND_SELECTION",@"PERL_REPLACE_SELECTION",
+			@"PREPEND_LINE",@"REPLACE_LINE",@"LINE",@"APPEND_LINE",@"PERL_REPLACE_LINE",
+			@"PREPEND_ALL",@"REPLACE_ALL",@"ALL",@"APPEND_ALL",@"PERL_REPLACE_ALL",nil] retain];
 	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -3749,8 +3754,8 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_ALL:
-- (void)insertMacro_ALL:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_REPLACE_ALL:
+- (void)insertMacro_REPLACE_ALL:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3791,8 +3796,8 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_SELECTION:
-- (void)insertMacro_SELECTION:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_REPLACE_SELECTION:
+- (void)insertMacro_REPLACE_SELECTION:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3833,8 +3838,8 @@ To Do List:
     [self insertMacro:argument inRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_LINE:
-- (void)insertMacro_LINE:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_REPLACE_LINE:
+- (void)insertMacro_REPLACE_LINE:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -3845,7 +3850,7 @@ To Do List:
 	NSRange range = [self selectedRange];
 	range.length = 0;
 	NSTextStorage * TS = [self textStorage];
-	[TS getLineStart:&range.location end:nil contentsEnd:&range.length forRange:range];
+	[TS getLineStart:&range.location end:&range.length contentsEnd:nil forRange:range];
 	range.length -= range.location;
     [self insertMacro:argument inRange:range];
     return;
@@ -3940,6 +3945,25 @@ To Do List:
 //iTM2_END;
     return replacement;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  preparedSelectedLineForMacroInsertion
+- (NSString *)preparedSelectedLineForMacroInsertion;
+/*"The purpose is to return a prepared selected string: indentation is managed here.
+This is also used with scripts.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange selectedRange = [self selectedRange];
+	NSString * S = [self string];
+	unsigned int start, end;
+	[S getLineStart:&selectedRange.location end:&selectedRange.length contentsEnd:nil forRange:selectedRange];
+	selectedRange.length -= selectedRange.location;
+	NSString * selectedString = [S substringWithRange:selectedRange];
+//iTM2_END;
+    return selectedString;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  preparedSelectedStringForMacroInsertion
 - (NSString *)preparedSelectedStringForMacroInsertion;
 /*"The purpose is to return a prepared selected string: indentation is managed here.
@@ -3976,8 +4000,8 @@ To Do List:
 //iTM2_END;
     return selectedString;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  concreteReplacementStringForMacro:selection:
-- (NSString *)concreteReplacementStringForMacro:(NSString *)macro selection:(NSString *)selection;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  concreteReplacementStringForMacro:selection:line:
+- (NSString *)concreteReplacementStringForMacro:(NSString *)macro selection:(NSString *)selection line:(NSString *)line;
 /*"The purpose is to translate some keywords into the value they represent.
 This is also used with scripts.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
@@ -3989,13 +4013,17 @@ To Do List:
 	NSMutableString * replacementString = [NSMutableString string];
 	NSString * all = [self string];
 	NSString * path = [[[[self window]windowController]document]fileName];
-
+	BOOL PERL = NO;
 	NSString * startType = nil;
 	NSString * stopType = nil;
 	NSString * copyString = nil;
 	NSRange startRange = NSMakeRange(0,0);
 	NSRange stopRange = NSMakeRange(0,0);
 	NSRange copyRange = NSMakeRange(0,0);
+	NSString * perlEscapedSelection = nil;
+	NSString * perlEscapedLine = nil;
+	NSString * perlEscapedAll = nil;
+	NSString * perlEscapedPath = nil;
 nextRange:
 	startRange = [macro rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:&startType];
 	if(startRange.length)
@@ -4060,6 +4088,58 @@ nextStopRange:
 						}
 					}
 				}
+				else if([startType isEqual:@"PERL_INPUT_SELECTION"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"my $INPUT_SELECTION= <<__END_OF_INPUT__;\n"];
+					if(perlEscapedSelection)
+					{
+						[replacementString appendString:perlEscapedSelection];
+					}
+					else if([selection length])
+					{
+						perlEscapedSelection = [selection stringByEscapingPerlControlCharacters];
+						[replacementString appendString:perlEscapedSelection];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_SELECTION =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_SELECTION=\"$1\";"];
+				}
+				else if([startType isEqual:@"PERL_INPUT_LINE"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"my $INPUT_LINE= <<__END_OF_INPUT__;\n"];
+					if(perlEscapedLine)
+					{
+						[replacementString appendString:perlEscapedLine];
+					}
+					else if([line length])
+					{
+						perlEscapedLine = [line stringByEscapingPerlControlCharacters];
+						[replacementString appendString:perlEscapedLine];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_LINE =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_LINE=\"$1\";"];
+				}
 				else if([startType isEqual:@"ALL"])
 				{
 					if([all length])
@@ -4098,6 +4178,32 @@ nextStopRange:
 						}
 					}
 				}
+				else if([startType isEqual:@"PERL_INPUT_ALL"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"my $INPUT_ALL= <<__END_OF_INPUT__;\n"];
+					if(perlEscapedAll)
+					{
+						[replacementString appendString:perlEscapedAll];
+					}
+					else if([all length])
+					{
+						perlEscapedAll = [all stringByEscapingPerlControlCharacters];
+						[replacementString appendString:perlEscapedAll];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_ALL =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_ALL=\"$1\";"];
+				}
 				else if([startType isEqual:@"INPUT_PATH"])
 				{
 					if([path length])
@@ -4114,6 +4220,47 @@ nextStopRange:
 							[replacementString appendString:copyString];
 						}
 					}
+				}
+				else if([startType isEqual:@"PERL_INPUT_PATH"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"my $INPUT_PATH= <<__END_OF_INPUT__;\n"];
+					if(perlEscapedPath)
+					{
+						[replacementString appendString:perlEscapedPath];
+					}
+					else if([path length])
+					{
+						perlEscapedPath = [path stringByEscapingPerlControlCharacters];
+						[replacementString appendString:perlEscapedPath];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_PATH =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_PATH=\"$1\";"];
+				}
+				else if([startType isEqual:@"PERL_REPLACE_ALL"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"print \"@@@(REPLACE_ALL:$INPUT_ALL)@@@\";\n"];
+				}
+				else if([startType isEqual:@"PERL_REPLACE_SELECTION"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"print \"@@@(REPLACE_SELECTION:$INPUT_SELECTION)@@@\";\n"];
+				}
+				else if([startType isEqual:@"PERL_REPLACE_LINE"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"print \"@@@(REPLACE_LINE:$INPUT_LINE)@@@\";\n"];
 				}
 				#if 0
 				else if([startType isEqual:@"COMMAND"])// unused
@@ -4180,11 +4327,19 @@ nextStopRange:
 		[replacementString appendString:copyString];
 	}
 	// manage the indentation
+	if(PERL)
+	{
+		if(![replacementString hasPrefix:@"#!/usr/bin/env perl"]
+			&& ![replacementString hasPrefix:@"#!/usr/bin/perl"])
+		{
+			[replacementString insertString:@"#!/usr/bin/env perl -w\n" atIndex:0];
+		}
+	}
 //iTM2_END;
 	return replacementString;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replacementStringForMacro:selection:
-- (NSString *)replacementStringForMacro:(NSString *)macro selection:(NSString *)selection;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replacementStringForMacro:selection:line:
+- (NSString *)replacementStringForMacro:(NSString *)macro selection:(NSString *)selection line:(NSString *)line;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -4196,10 +4351,10 @@ To Do List:
 	NSString * category = [self macroCategory];
 	if([category length])
 	{
-		NSString * action = [NSString stringWithFormat:@"concreteReplacementStringFor%@Macro:selection:",category];
+		NSString * action = [NSString stringWithFormat:@"concreteReplacementStringFor%@Macro:selection:line:",category];
 		SEL selector = NSSelectorFromString(action);
 		NSMethodSignature * MS = [self methodSignatureForSelector:selector];
-		SEL mySelector = @selector(concreteReplacementStringForMacro:selection:);
+		SEL mySelector = @selector(concreteReplacementStringForMacro:selection:line:);
 		NSMethodSignature * myMS = [self methodSignatureForSelector:mySelector];
 		if(![MS isEqual:myMS])
 		{
@@ -4210,6 +4365,7 @@ To Do List:
 		[I setTarget:self];
 		[I setArgument:&macro atIndex:2];
 		[I setArgument:&selection atIndex:3];
+		[I setArgument:&line atIndex:4];
 		[I setSelector:selector];
 		NS_DURING
 		[I invoke];
@@ -4221,7 +4377,7 @@ To Do List:
 	}
 	else
 	{
-		replacementString = [self concreteReplacementStringForMacro:macro selection:selection];
+		replacementString = [self concreteReplacementStringForMacro:macro selection:selection line:line];
 	}
 //iTM2_END;
     return replacementString;
@@ -4242,7 +4398,8 @@ To Do List:
 	{
 //iTM2_LOG(@"argument:%@",argument);
 		NSString * selection = [self preparedSelectedStringForMacroInsertion];
-		NSString * replacementString = [self replacementStringForMacro:argument selection:selection];		
+		NSString * line = [self preparedSelectedLineForMacroInsertion];
+		NSString * replacementString = [self replacementStringForMacro:argument selection:selection line:line];		
 		if([self contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextPrivateMask|iTM2ContextExtendedMask])
 		{
 			replacementString = [replacementString stringByRemovingPlaceholderMarks];
@@ -5218,6 +5375,27 @@ To Do List: ?
 		}
 	}
 	result += (2*currentLength)/numberOfSpacesPerTab;
+//iTM2_END;
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByEscapingPerlControlCharacters
+- (NSString *)stringByEscapingPerlControlCharacters;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 02/15/2006
+To Do List: ?
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableString * result = [[self mutableCopy] autorelease];
+	NSRange searchRange = NSMakeRange(0,[result length]);
+	[result replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:0 range:searchRange];
+	searchRange.length = [result length];
+	[result replaceOccurrencesOfString:@"$" withString:@"\\$" options:0 range:searchRange];
+	searchRange.length = [result length];
+	[result replaceOccurrencesOfString:@"@" withString:@"\\@" options:0 range:searchRange];
+	searchRange.length = [result length];
+	[result replaceOccurrencesOfString:@"[" withString:@"\\[" options:0 range:searchRange];
 //iTM2_END;
 	return result;
 }

@@ -367,10 +367,12 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 - (IBAction)selectPreviousPlaceholder:(id)sender;
 - (void)insertMacro:(id)sender;
 - (void)insertMacro:(id)argument inRange:(NSRange)affectedCharRange;
-- (NSString *)replacementStringForMacro:(NSString *)macro selection:(NSString *)selection;
+- (NSString *)replacementStringForMacro:(NSString *)macro selection:(NSString *)selection line:(NSString *)line;
 @end
 
 @interface NSString(iTM2MacroKit)
+
+- (NSString *)stringByEscapingPerlControlCharacters;
 
 + (NSString *)bullet;
 
@@ -495,8 +497,9 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
     @result		A flag indicating whether the receiver has executed the given macro.
 */
 - (BOOL)executeMacro:(NSString *)macro;
-- (NSString *)concreteReplacementStringForMacro:(NSString *)macro selection:(NSString *)selection;
+- (NSString *)concreteReplacementStringForMacro:(NSString *)macro selection:(NSString *)selection line:(NSString *)line;
 - (NSString *)preparedSelectedStringForMacroInsertion;
+- (NSString *)preparedSelectedLineForMacroInsertion;
 
 @end
 

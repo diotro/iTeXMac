@@ -2072,8 +2072,8 @@ To Do List:
 //iTM2_END;
 	return range;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  concreteReplacementStringForLaTeXMacro:selection:
-- (NSString *)concreteReplacementStringForLaTeXMacro:(NSString *)macro selection:(NSString *)selectedString;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  concreteReplacementStringForLaTeXMacro:selection:line:
+- (NSString *)concreteReplacementStringForLaTeXMacro:(NSString *)macro selection:(NSString *)selectedString line:(NSString *)line;
 /*"Description forthcoming. Will be completely overriden by subclassers.
 Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
 - 1.2: 06/24/2002
@@ -2157,7 +2157,7 @@ To Do List:
 		}
 		macro = replacementString;
 	}
-	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString];
+	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString line:line];
 //iTM2_END;
    return macro;
 }

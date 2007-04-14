@@ -1494,14 +1494,13 @@ To Do List:
 	NSString * string = nil;
 	NSTimeInterval timeInterval = [SUD floatForKey:@"iTM2TaskInterruptDelay"]?:0.25;
 	timeInterval = MAX(timeInterval,0);
-	if([_CurrentTask isRunning])
-	{
 start:
-		if([_CurrentWrapper canInterruptTask])
+	if([_CurrentWrapper canInterruptTask])
+	{
+		while([_CurrentTask isRunning])
 		{
 			NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
 			NSEvent * E = [NSApp nextEventMatchingMask:NSKeyDownMask|NSKeyUpMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
-iTM2_LOG(@"HERE IS MY E:%@",E);
 			if(E)
 			{
 				string = [E characters];
@@ -1519,15 +1518,15 @@ iTM2_LOG(@"HERE IS MY E:%@",E);
 				}
 			}
 		}
-		else
-		{
-			[_CurrentTask waitUntilExit];
-		}
+	}
+	else
+	{
+		[_CurrentTask waitUntilExit];
 	}
 	NSFileHandle * FH = [[_CurrentTask standardOutput] fileHandleForReading];
     NSData * D;
 	NS_DURING
-	D = [FH availableData];//: Interrupted system call
+	D = [_CurrentTask isRunning]?[FH availableData]:[FH readDataToEndOfFile];//: Interrupted system call?
 	NS_HANDLER
 	D = nil;
 	NS_ENDHANDLER
@@ -1541,14 +1540,14 @@ iTM2_LOG(@"HERE IS MY E:%@",E);
 		}
 		[_Output appendString:string];
 		NS_DURING
-		D = [FH availableData];//: Interrupted system call
+		D = [_CurrentTask isRunning]?[FH availableData]:[FH readDataToEndOfFile];//: Interrupted system call?
 		NS_HANDLER
 		D = nil;
 		NS_ENDHANDLER
 	}
 	FH = [[_CurrentTask standardError] fileHandleForReading];
 	NS_DURING
-	D = [FH availableData];//: Interrupted system call
+	D = [_CurrentTask isRunning]?[FH availableData]:[FH readDataToEndOfFile];//: Interrupted system call?
 	NS_HANDLER
 	D = nil;
 	NS_ENDHANDLER
@@ -1563,7 +1562,7 @@ iTM2_LOG(@"HERE IS MY E:%@",E);
 		}
 		[_Output appendString:string];
 		NS_DURING
-		D = [FH availableData];//: Interrupted system call
+		D = [_CurrentTask isRunning]?[FH availableData]:[FH readDataToEndOfFile];//: Interrupted system call?
 		NS_HANDLER
 		D = nil;
 		NS_ENDHANDLER
@@ -1573,7 +1572,7 @@ iTM2_LOG(@"HERE IS MY E:%@",E);
 	[_CurrentWrapper release];
 	_CurrentWrapper = nil;
 	[self start];
-	if([_CurrentTask isRunning])
+	if(_CurrentWrapper)
 	{
 		goto start;
 	}
@@ -2515,7 +2514,8 @@ To Do List:
 	if([script length])
 	{
 		NSString * selection = [self preparedSelectedStringForMacroInsertion];
-		script = [self concreteReplacementStringForMacro:script selection:selection];
+		NSString * line = [self preparedSelectedLineForMacroInsertion];
+		script = [self concreteReplacementStringForMacro:script selection:selection line:line];
 		NSString * path = [NSBundle temporaryDirectory];
 		scriptPath = [[NSProcessInfo processInfo] globallyUniqueString];
 		scriptPath = [path stringByAppendingPathComponent:scriptPath];
