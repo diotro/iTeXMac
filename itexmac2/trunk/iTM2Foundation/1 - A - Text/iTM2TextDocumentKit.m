@@ -2315,5 +2315,80 @@ To Do List:
 //iTM2_END;
     return;
 }
+#if 0
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedRanges:affinity:stillSelecting:
+- (void)setSelectedRanges:(NSArray *)ranges affinity:(NSSelectionAffinity)affinity stillSelecting:(BOOL)stillSelectingFlag;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2_LOG(@"range:%@",NSStringFromRange([[ranges lastObject] rangeValue]));
+	[super setSelectedRanges:ranges affinity:affinity stillSelecting:stillSelectingFlag];
+	iTM2_LOG(@"selectedRange:%@",NSStringFromRange([[[self selectedRanges] lastObject] rangeValue]));
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectionRangeForProposedRange:granularity:
+- (NSRange)selectionRangeForProposedRange:(NSRange)proposedSelRange granularity:(NSSelectionGranularity)granularity;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange itsProposedSelRange = [super selectionRangeForProposedRange:proposedSelRange granularity:granularity];
+	NSEvent * E = [[self window] currentEvent];
+	NSRange myProposedSelRange = itsProposedSelRange;
+	if([E type] == NSLeftMouseUp)
+	{
+		myProposedSelRange = [self selectedRange];
+	}
+	else if([E type] == NSLeftMouseDown)
+	{
+		unsigned clickCount = [E clickCount];
+		if(clickCount > 2)
+		{
+			clickCount -= 2;
+iTM2_LOG(@"0 itsProposedSelRange:%@",NSStringFromRange(itsProposedSelRange));
+			if(granularity>NSSelectByWord)
+			{
+				NSTextStorage * TS = [self textStorage];
+				myProposedSelRange = [super selectionRangeForProposedRange:proposedSelRange granularity:NSSelectByWord];
+				NSRange placeholderRange;
+				do
+				{
+					if(myProposedSelRange.location>itsProposedSelRange.location)
+					{
+						doubleClickRange = [S rangeOfPlaceholderAtIndex:myProposedSelRange.location-1 getType:nil];
+						myProposedSelRange = NSUnionRange(doubleClickRange,myProposedSelRange);
+					}
+					else if(NSMaxRange(proposedSelRange)<NSMaxRange(itsProposedSelRange))
+					{
+						doubleClickRange = [TS doubleClickAtIndex:NSMaxRange(myProposedSelRange)];
+						myProposedSelRange = NSUnionRange(doubleClickRange,myProposedSelRange);
+					}
+				}
+				while(--clickCount);
+			}
+		}
+	}
+	else
+	{
+		return itsProposedSelRange;
+	}
+	if((itsProposedSelRange.location <= myProposedSelRange.location)
+		&& (NSMaxRange(myProposedSelRange)<=NSMaxRange(itsProposedSelRange)))
+	{
+iTM2_LOG(@"0 myProposedSelRange:%@",NSStringFromRange(myProposedSelRange));
+		return myProposedSelRange;
+	}
+//iTM2_END;
+    return itsProposedSelRange;
+}
+#endif
 @end
 

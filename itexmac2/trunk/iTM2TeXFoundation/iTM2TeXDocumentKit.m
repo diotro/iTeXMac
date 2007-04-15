@@ -370,7 +370,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-    if([event clickCount]>2)
+    if(([event clickCount]>2) && ![iTM2EventObserver isAlternateKeyDown])
     {
 //NSLog(@"[event clickCount]: %i", [event clickCount]);
         NSString * S = [self string];
@@ -1421,9 +1421,6 @@ To Do List:
     NSString * string = [self string];
     if(NSLocationInRange(index, NSMakeRange(0, [string length])))
     {
-		NSRange PHR = [string rangeOfPlaceholderAtIndex:index getType:nil];
-		if(PHR.length)
-			return PHR;
         BOOL escaped = YES;
         if([string isControlAtIndex:index escaped: &escaped])
         {

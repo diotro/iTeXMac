@@ -828,13 +828,8 @@ To Do List:implement some kind of balance range for range
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSRange R = [[self string] rangeOfPlaceholderAtIndex:index getType:nil];
-	if(R.length)
-		return R;
-    R = [super doubleClickAtIndex:index];
+    NSRange R = [super doubleClickAtIndex:index];
 //NSLog(@"[super doubleClickAtIndex:%i]:%@", index, NSStringFromRange(R));
-	if([iTM2EventObserver isAlternateKeyDown])
-		return R;
     NSString * S = [self string];
     BOOL escaped;
 	unichar theChar;

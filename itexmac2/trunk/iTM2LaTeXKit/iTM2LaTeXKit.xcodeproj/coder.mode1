@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC413C30BD0267D001BB851</string>
+						<string>DCC417870BD2167C001BB851</string>
 						<key>history</key>
 						<array>
 							<string>DCEDCC2D0BCD2B2100009DF6</string>
@@ -361,7 +361,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCC413C20BD0267D001BB851</string>
+										<string>DCC417860BD2167C001BB851</string>
 										<key>history</key>
 										<array>
 											<string>DCC4135E0BD01FB1001BB851</string>
@@ -558,12 +558,15 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DC8A64A8088DBEB50016FAA2</string>
+		<string>DCC416CF0BD13D69001BB851</string>
+		<string>DCC416D00BD13D69001BB851</string>
 		<string>DCC4136B0BD01FB1001BB851</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DCEDCBE90BCC3D5500009DF6</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
+		<string>DCBEC51C088DD36400F8BF85</string>
+		<string>DC8A64A8088DBEB50016FAA2</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>53 97 1371 779 0 0 1440 878 </string>
@@ -604,6 +607,8 @@
 							<string>78pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -654,7 +659,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC8A64A8088DBEB50016FAA2</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -726,7 +731,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1230, 673}}</string>
 								<key>RubberWindowFrame</key>
-								<string>128 126 1230 714 0 0 1440 878 </string>
+								<string>128 125 1230 714 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
@@ -761,7 +766,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
 			<key>WindowString</key>
-			<string>128 126 1230 714 0 0 1440 878 </string>
+			<string>128 125 1230 714 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
@@ -912,7 +917,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DCBEC51C088DD36400F8BF85</string>
-				<string>DCEDCB020BCC0BC300009DF6</string>
+				<string>DCC416CD0BD13D69001BB851</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>WindowString</key>
