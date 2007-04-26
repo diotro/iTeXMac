@@ -1439,9 +1439,12 @@ To Do List:
 			@"ACTION",@"PATH",@"COMMAND",@"COPY",
 			@"INPUT_ALL",@"INPUT_SELECTION",@"INPUT_LINE",
 			@"PERL_INPUT_ALL",@"PERL_INPUT_SELECTION",@"PERL_INPUT_LINE",
-			@"PREPEND_SELECTION",@"SELECTION",@"REPLACE_SELECTION",@"APPEND_SELECTION",@"PERL_REPLACE_SELECTION",
-			@"PREPEND_LINE",@"REPLACE_LINE",@"LINE",@"APPEND_LINE",@"PERL_REPLACE_LINE",
-			@"PREPEND_ALL",@"REPLACE_ALL",@"ALL",@"APPEND_ALL",@"PERL_REPLACE_ALL",nil] retain];
+			@"PERL_REPLACE_SELECTION",@"PERL_REPLACE_LINE",@"PERL_REPLACE_ALL",
+			@"RUBY_INPUT_ALL",@"RUBY_INPUT_SELECTION",@"RUBY_INPUT_LINE",
+			@"RUBY_REPLACE_SELECTION",@"RUBY_REPLACE_LINE",@"RUBY_REPLACE_ALL",
+			@"PREPEND_SELECTION",@"SELECTION",@"REPLACE_SELECTION",@"APPEND_SELECTION",
+			@"PREPEND_LINE",@"REPLACE_LINE",@"LINE",@"APPEND_LINE",
+			@"PREPEND_ALL",@"REPLACE_ALL",@"ALL",@"APPEND_ALL",nil] retain];
 	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -4014,6 +4017,7 @@ To Do List:
 	NSString * all = [self string];
 	NSString * path = [[[[self window]windowController]document]fileName];
 	BOOL PERL = NO;
+	BOOL RUBY = NO;
 	NSString * startType = nil;
 	NSString * stopType = nil;
 	NSString * copyString = nil;
@@ -4112,7 +4116,8 @@ nextStopRange:
 							[replacementString appendString:copyString];
 						}
 					}
-					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_SELECTION =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_SELECTION=\"$1\";"];
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"$INPUT_SELECTION =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_SELECTION=\"$1\";"];
 				}
 				else if([startType isEqual:@"PERL_INPUT_LINE"])
 				{
@@ -4138,7 +4143,148 @@ nextStopRange:
 							[replacementString appendString:copyString];
 						}
 					}
-					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_LINE =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_LINE=\"$1\";"];
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"$INPUT_LINE =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_LINE=\"$1\";"];
+				}
+				else if([startType isEqual:@"PERL_INPUT_ALL"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"my $INPUT_ALL= <<__END_OF_INPUT__;\n"];
+					if(perlEscapedAll)
+					{
+						[replacementString appendString:perlEscapedAll];
+					}
+					else if([all length])
+					{
+						perlEscapedAll = [all stringByEscapingPerlControlCharacters];
+						[replacementString appendString:perlEscapedAll];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"$INPUT_ALL =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_ALL=\"$1\";"];
+				}
+				else if([startType isEqual:@"PERL_INPUT_PATH"])
+				{
+					PERL = YES;
+					[replacementString appendString:@"my $INPUT_PATH= <<__END_OF_INPUT__;\n"];
+					if(perlEscapedPath)
+					{
+						[replacementString appendString:perlEscapedPath];
+					}
+					else if([path length])
+					{
+						perlEscapedPath = [path stringByEscapingPerlControlCharacters];
+						[replacementString appendString:perlEscapedPath];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"$INPUT_PATH =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_PATH=\"$1\";"];
+				}
+				else if([startType isEqual:@"RUBY_INPUT_SELECTION"])
+				{
+					RUBY = YES;
+					[replacementString appendString:@"INPUT_SELECTION = <<'__END_OF_INPUT__'\n"];
+					if([selection length])
+					{
+						[replacementString appendString:selection];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"INPUT_SELECTION.gsub!(/(.*)__END_OF_CONTENT__.*/m,'\\1')"];
+				}
+				else if([startType isEqual:@"RUBY_INPUT_LINE"])
+				{
+					RUBY = YES;
+					[replacementString appendString:@"INPUT_LINE = <<'__END_OF_INPUT__'\n"];
+					if([line length])
+					{
+						[replacementString appendString:line];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"INPUT_LINE.gsub!(/(.*)__END_OF_CONTENT__.*/m,'\\1')"];
+				}
+				else if([startType isEqual:@"RUBY_INPUT_ALL"])
+				{
+					RUBY = YES;
+					[replacementString appendString:@"INPUT_ALL= <<'__END_OF_INPUT__'\n"];
+					if([all length])
+					{
+						[replacementString appendString:all];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							//copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"INPUT_ALL.gsub!(/(.*)__END_OF_CONTENT__.*/m,'\\1')"];
+				}
+				else if([startType isEqual:@"RUBY_INPUT_PATH"])
+				{
+					RUBY = YES;
+					[replacementString appendString:@"INPUT_PATH= <<'__END_OF_INPUT__'\n"];
+					if([path length])
+					{
+						[replacementString appendString:path];
+					}
+					else
+					{
+						copyRange.location = NSMaxRange(startRange);
+						copyRange.length = stopRange.location - copyRange.location;
+						if(copyRange.length)
+						{
+							copyString = [macro substringWithRange:copyRange];
+							copyString = [copyString stringByEscapingPerlControlCharacters];
+							[replacementString appendString:copyString];
+						}
+					}
+					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n"];
+					[replacementString appendString:@"INPUT_PATH.gsub!(&/(.*)__END_OF_CONTENT__.*/m,'\\1')"];
 				}
 				else if([startType isEqual:@"ALL"])
 				{
@@ -4178,32 +4324,6 @@ nextStopRange:
 						}
 					}
 				}
-				else if([startType isEqual:@"PERL_INPUT_ALL"])
-				{
-					PERL = YES;
-					[replacementString appendString:@"my $INPUT_ALL= <<__END_OF_INPUT__;\n"];
-					if(perlEscapedAll)
-					{
-						[replacementString appendString:perlEscapedAll];
-					}
-					else if([all length])
-					{
-						perlEscapedAll = [all stringByEscapingPerlControlCharacters];
-						[replacementString appendString:perlEscapedAll];
-					}
-					else
-					{
-						copyRange.location = NSMaxRange(startRange);
-						copyRange.length = stopRange.location - copyRange.location;
-						if(copyRange.length)
-						{
-							copyString = [macro substringWithRange:copyRange];
-							copyString = [copyString stringByEscapingPerlControlCharacters];
-							[replacementString appendString:copyString];
-						}
-					}
-					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_ALL =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_ALL=\"$1\";"];
-				}
 				else if([startType isEqual:@"INPUT_PATH"])
 				{
 					if([path length])
@@ -4221,32 +4341,6 @@ nextStopRange:
 						}
 					}
 				}
-				else if([startType isEqual:@"PERL_INPUT_PATH"])
-				{
-					PERL = YES;
-					[replacementString appendString:@"my $INPUT_PATH= <<__END_OF_INPUT__;\n"];
-					if(perlEscapedPath)
-					{
-						[replacementString appendString:perlEscapedPath];
-					}
-					else if([path length])
-					{
-						perlEscapedPath = [path stringByEscapingPerlControlCharacters];
-						[replacementString appendString:perlEscapedPath];
-					}
-					else
-					{
-						copyRange.location = NSMaxRange(startRange);
-						copyRange.length = stopRange.location - copyRange.location;
-						if(copyRange.length)
-						{
-							copyString = [macro substringWithRange:copyRange];
-							copyString = [copyString stringByEscapingPerlControlCharacters];
-							[replacementString appendString:copyString];
-						}
-					}
-					[replacementString appendString:@"__END_OF_CONTENT__\n__END_OF_INPUT__\n$INPUT_PATH =~ m/(.*)__END_OF_CONTENT__.*/s;\n$INPUT_PATH=\"$1\";"];
-				}
 				else if([startType isEqual:@"PERL_REPLACE_ALL"])
 				{
 					PERL = YES;
@@ -4260,7 +4354,22 @@ nextStopRange:
 				else if([startType isEqual:@"PERL_REPLACE_LINE"])
 				{
 					PERL = YES;
-					[replacementString appendString:@"print \"@@@(REPLACE_LINE:$INPUT_LINE)@@@\";\n"];
+					[replacementString appendString:@"print \"@@@(REPLACE_SELECTION:$INPUT_LINE)@@@\";\n"];
+				}
+				else if([startType isEqual:@"RUBY_REPLACE_ALL"])
+				{
+					RUBY = YES;
+					[replacementString appendString:@"puts \"@@@(REPLACE_ALL:#{INPUT_ALL})@@@\"\n"];
+				}
+				else if([startType isEqual:@"RUBY_REPLACE_SELECTION"])
+				{
+					RUBY = YES;
+					[replacementString appendString:@"puts \"@@@(REPLACE_SELECTION:#{INPUT_SELECTION})@@@\""];
+				}
+				else if([startType isEqual:@"RUBY_REPLACE_LINE"])
+				{
+					RUBY = YES;
+					[replacementString appendString:@"puts \"@@@(REPLACE_LINE:#{INPUT_LINE})@@@\";\n"];
 				}
 				#if 0
 				else if([startType isEqual:@"COMMAND"])// unused
@@ -4333,6 +4442,14 @@ nextStopRange:
 			&& ![replacementString hasPrefix:@"#!/usr/bin/perl"])
 		{
 			[replacementString insertString:@"#!/usr/bin/env perl -w\n" atIndex:0];
+		}
+	}
+	else if(RUBY)
+	{
+		if(![replacementString hasPrefix:@"#!/usr/bin/env ruby"]
+			&& ![replacementString hasPrefix:@"#!/usr/bin/ruby"])
+		{
+			[replacementString insertString:@"#!/usr/bin/env ruby\n" atIndex:0];
 		}
 	}
 //iTM2_END;
