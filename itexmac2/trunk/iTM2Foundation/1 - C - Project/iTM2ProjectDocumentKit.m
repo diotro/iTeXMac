@@ -10070,13 +10070,125 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectToggleNormal:
 - (IBAction)projectToggleNormal:(id)sender;
-/*"Description forthcoming.
+/*"Change a simple project to a normal one.
+The problem is that some files and folders must be moved around while already open in iTM2 or not.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	id PD = [SPC currentProject];
+	NSString * name = [PD fileName];
+	NSString * source = [name enclosingWrapperFileName];
+	NSString * destination = nil;
+	if([source belongsToFarawayProjectsDirectory])
+	{
+		destination = [source stringByStrippingFarawayProjectsDirectory];
+		destination = [destination stringByDeletingPathExtension];
+		if([DFM fileExistsAtPath:destination])
+		{
+			iTM2_LOG(@"%@ is already existing, aborting",destination);
+			iTM2_REPORTERROR(1,(@"Already existing directory"),nil);
+			return;
+		}
+		name = [name stringByAbbreviatingWithDotsRelativeToDirectory:source];// source is free now
+		name = [destination stringByAppendingPathComponent:name];
+		NSArray * Ks = [PD allKeys];
+		NSArray * oldNames = [PD absoluteFileNamesForKeys:Ks];
+		[PD setFileName:name];// name is free now
+		NSError * localError = nil;
+		NSString * dirName = [name stringByDeletingLastPathComponent];
+		[DFM createDeepDirectoryAtPath:dirName attributes:nil error:&localError];
+		if(localError)
+		{
+			iTM2_LOG(@"Error:%@\ndirName:%@",localError,dirName);
+			iTM2_REPORTERROR(2,@"Problem (see console)",localError);
+		}
+		NSURL * absoluteURL = [NSURL fileURLWithPath:name];
+		NSString * typeName = [PD fileType];
+		if(![PD writeSafelyToURL:absoluteURL ofType:typeName forSaveOperation:NSSaveOperation error:&localError])
+		{
+			iTM2_LOG(@"Error:%@\nabsoluteURL:%@",localError,absoluteURL);
+			iTM2_REPORTERROR(2,@"Problem (see console)",localError);
+			return;
+		}
+		[PD setFileName:name];
+		NSArray * newNames = [PD absoluteFileNamesForKeys:Ks];
+		iTM2_LOG(@"Moving:\n%@\nto\n%@",oldNames,newNames);
+		// migrate all the files known by the project into the destination folder
+		// if they are already open, change their name and save them to the new location
+		// if they are no just move them along
+		NSEnumerator * oldE = [oldNames objectEnumerator];
+		NSEnumerator * newE = [newNames objectEnumerator];
+		NSString * oldName;
+		NSString * newName;
+		while(oldName = [oldE nextObject])
+		{
+			newName = [newE nextObject];
+			name = [newName stringByDeletingLastPathComponent];
+			// recycle what is at newName
+			NSArray * files = nil;
+			int tag;
+			if([DFM fileExistsAtPath:newName])
+			{
+				source = [newName lastPathComponent];
+				files = [NSArray arrayWithObject:source];
+				dirName = [newName stringByDeletingLastPathComponent];
+				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName destination:@"" files:files tag:&tag])
+				{
+					iTM2_LOG(@"Recycling\n%@...", files);
+				}
+				else
+				{
+					iTM2_REPORTERROR(tag,([NSString stringWithFormat:@"Could not recycle an already existing file."]),nil);
+					iTM2_LOG(@"**** WARNING: Don't be surprised if things don't work as expected... could not recycle file at %@",files);
+				}
+			}
+			else
+			{
+				[DFM createDeepDirectoryAtPath:name attributes:nil error:&localError];
+				if(localError)
+				{
+					iTM2_LOG(@"Error:%@",localError);
+					iTM2_REPORTERROR(2,@"Problem (see console)",localError);
+				}
+			}
+			id subdocument = [PD subdocumentForFileName:oldName];
+			if(subdocument)
+			{
+				absoluteURL = [NSURL fileURLWithPath:newName];
+				typeName = [subdocument fileType];
+				if([subdocument writeSafelyToURL:absoluteURL ofType:typeName forSaveOperation:NSSaveOperation error:&localError])
+				{
+					[subdocument setFileName:newName];
+					source = [oldName lastPathComponent];
+					files = [NSArray arrayWithObject:source];
+					dirName = [oldName stringByDeletingLastPathComponent];
+					if([SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName destination:@"" files:files tag:&tag])
+					{
+						iTM2_LOG(@"Recycling\n%@...", files);
+					}
+					else
+					{
+						iTM2_LOG(@"**** WARNING: Don't be surprised if things don't work as expected... could not recycle file at %@",files);
+						iTM2_REPORTERROR(tag,([NSString stringWithFormat:@"Could not recycle an already existing file."]),nil);
+					}
+				}
+				else
+				{
+					iTM2_LOG(@"Error:%@\nabsoluteURL:%@",localError,absoluteURL);
+					iTM2_REPORTERROR(2,@"Problem (see console)",localError);
+					return;
+				}
+			}
+			else if(![DFM movePath:oldName toPath:newName handler:NULL] && ![DFM copyPath:oldName toPath:newName handler:NULL])
+			{
+				iTM2_LOG(@"**** WARNING: Don't be surprised if things don't work as expected... could not move file from\n%@\nto\n%@",oldName,newName);
+				iTM2_REPORTERROR(tag,([NSString stringWithFormat:@"Could not move file around."]),nil);
+			}
+		}
+	}
 //iTM2_END;
 	return;
 }
@@ -10093,8 +10205,10 @@ To Do List:
 	NSString * name = [PD fileName];
 	name = [name enclosingWrapperFileName];
 	[sender setState:(![name length]?NSOnState:NSOffState)];
+	name = [PD fileName];
+	name = [name enclosingWrapperFileName];
 //iTM2_END;
-	return NO;
+	return [name length];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectToggleWrapper:
 - (IBAction)projectToggleWrapper:(id)sender;
