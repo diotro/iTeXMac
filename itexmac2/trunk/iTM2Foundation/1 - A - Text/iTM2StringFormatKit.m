@@ -49,6 +49,7 @@ NSString * const TWSEOLFileKey = @"eol";
 
 NSString * const iTM2StringEncodingListDidChangeNotification = @"iTM2StringEncodingListDidChange";
 NSString * const iTM2StringEncodingsPListName = @"StringEncodings";
+NSString * const iTM2StringEncodingsTypeName = @"String Encodings";
 
 NSString * iTM2StringEncodingMissingFormat = nil;
 NSString * iTM2StringEncodingDefaultFormat = nil;
@@ -2149,9 +2150,23 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[super saveDocument:sender];
-	[INC postNotificationName:iTM2StringEncodingListDidChangeNotification object:nil];
+	if([self writeToURL:[self fileURL] ofType:[self fileType] error:nil])
+	{
+		[INC postNotificationName:iTM2StringEncodingListDidChangeNotification object:nil];
+		[self updateChangeCount:NSChangeCleared];
+	}
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSaveDocument:
+- (BOOL)validateSaveDocument:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- for 1.3: Sat May 31 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [self isDocumentEdited];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveDocumentAs:
 - (IBAction)saveDocumentAs:(id)sender;
@@ -2197,8 +2212,8 @@ To Do List:
 //iTM2_START;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToFile:ofType:
-- (BOOL)writeToFile:(NSString *)fileName ofType:(NSString *)irrelevantType;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -2206,8 +2221,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(outErrorPtr)
+	{
+		*outErrorPtr = nil;
+	}
 //iTM2_END;
-    return [_ActualStringEncodings writeToFile:fileName atomically:YES];
+    return [_ActualStringEncodings writeToURL:absoluteURL atomically:YES];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) irrelevantType;
@@ -2227,6 +2246,7 @@ To Do List:
 		_ActualStringEncodings = [NSMutableArray array];
 	}
 	[_ActualStringEncodings retain];
+    [actualTableView reloadData];
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delete:
@@ -2241,11 +2261,11 @@ To Do List:
     NSEnumerator * E = [actualTableView selectedRowEnumerator];
     NSNumber * N;
     while(N = [E nextObject])
-        [_ActualStringEncodings replaceObjectAtIndex:[N intValue] withObject:[NSString string]];
+        [_ActualStringEncodings replaceObjectAtIndex:[N intValue] withObject:@"REMOVE"];
     int index = 0;
     int row = -1;
     while(index<[_ActualStringEncodings count])
-        if([[_ActualStringEncodings objectAtIndex:index] isEqual:[NSString string]])
+        if([[_ActualStringEncodings objectAtIndex:index] isEqual:@"REMOVE"])
         {
             [_ActualStringEncodings removeObjectAtIndex:index];
             if(row<0)
@@ -2443,7 +2463,7 @@ To Do List:
                 if(O)
                 {
                     [MRA addObject:O];
-                    [_ActualStringEncodings replaceObjectAtIndex:index withObject:[NSString string]];
+                    [_ActualStringEncodings replaceObjectAtIndex:index withObject:@"REPLACE"];
                 }
             }
             E = [MRA reverseObjectEnumerator];
@@ -2453,7 +2473,7 @@ To Do List:
             int index = 0;
             while(index<[_ActualStringEncodings count])
             {
-                if([[_ActualStringEncodings objectAtIndex:index] isEqual:[NSString string]])
+                if([[_ActualStringEncodings objectAtIndex:index] isEqual:@"REPLACE"])
                 {
                     if(index<row)
                         --row;
@@ -2784,7 +2804,8 @@ To Do List:
 	NSString * subpath = [[NSBundle mainBundle] pathForSupportDirectory:iTM2SupportTextComponent inDomain:NSUserDomainMask create:YES];
 	NSString * path = [[subpath stringByAppendingPathComponent:iTM2StringEncodingsPListName] stringByAppendingPathExtension:@"plist"];
 //iTM2_LOG(@"path is: %@", path);
-	id D = [SDC documentForFileName:path];
+	NSURL * URL = [NSURL fileURLWithPath:path];
+	id D = [SDC documentForURL:URL];
 	if(D)
 	{
 		if([SDC shouldCreateUI])
@@ -2797,7 +2818,7 @@ To Do List:
 	if([DFM fileExistsAtPath:path])
 	{
 		D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]]
-				initWithContentsOfFile: [path stringByResolvingSymlinksAndFinderAliasesInPath] ofType:@""] autorelease];
+				initWithContentsOfURL:URL ofType:iTM2StringEncodingsTypeName error:nil] autorelease];
 		[SDC addDocument:D];
 		if([SDC shouldCreateUI])
 		{
@@ -2807,7 +2828,8 @@ To Do List:
 		return;
 	}
 	D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]] init] autorelease];
-	[D setFileName:path];
+	[D setFileURL:URL];
+	[D setFileType:iTM2StringEncodingsTypeName];
 	[SDC addDocument:D];
 	if([SDC shouldCreateUI])
 	{
