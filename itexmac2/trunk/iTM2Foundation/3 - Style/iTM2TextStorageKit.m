@@ -5384,7 +5384,7 @@ iTM2_LOG(@"fileName:%@",fileName);
 		{
 			cursorIsWhite = YES;
 		}
-		else if(![scanner scanString:@"%" intoString:nil])
+		else// if(![scanner scanString:@"%" intoString:nil])
 		{
 			if(!mode)
 			{
