@@ -522,7 +522,8 @@ To Do List: NYI
     NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
     NSString * p;
     while(p = [e nextObject])
-        if([[p pathExtension] isEqualToString:iTM2TextAttributesSymbolsExtension])
+        if([[p pathExtension] isEqual:iTM2TextAttributesSymbolsExtension]
+			&& ![p isEqual:iTM2TextAttributesModesComponent])
         {
             [_CachedSymbolsAttributes autorelease];
             _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];

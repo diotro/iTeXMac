@@ -531,12 +531,15 @@ To Do List:
     //iTM2_LOG(@"SAVING %@", DOs);
             NSString * lastPathComponent = [CSK stringByAppendingPathExtension:iTM2TextAttributesSymbolsExtension];
             NSString * fullPath = [fileName stringByAppendingPathComponent:lastPathComponent];
-            success = [iTM2XtdTeXParserAttributesServer writeSymbolsAttributes:DOs toFile:fullPath];
+            success = ![lastPathComponent isEqual:iTM2TextAttributesModesComponent]
+				&& [iTM2XtdTeXParserAttributesServer writeSymbolsAttributes:DOs toFile:fullPath];
 //iTM2_LOG(@"WRITING\n%@\nAT PATH:\n%@", DOs, fullPath);
         }
     }
     if(success)
+	{
         [self readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
+	}
     return success;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillLoad
