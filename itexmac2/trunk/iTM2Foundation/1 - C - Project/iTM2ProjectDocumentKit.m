@@ -11348,7 +11348,7 @@ To Do List:
 //iTM2_START;
 	if(![fullPath length])
 		return NO;
-	if([self isFilePackageAtPath:fullPath])
+	if([self isFilePackageAtPath:fullPath])// crash 
 	{
 		NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
 		NSInvocation * I = [[NSInvocation invocationWithMethodSignature:sig0] retain];
