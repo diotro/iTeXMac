@@ -45,6 +45,7 @@ NSString * const iTM2TextDocumentType = @"Text Document";// beware, this MUST ap
 NSString * const iTM2TextInspectorType = @"text";
 NSString * const iTM2StringEncodingKey = @"StringEncoding";
 NSString * const iTM2TextViewsDontUseStandardFindPanelKey = @"iTM2TextViewsDontUseStandardFinePanel";
+NSString * const iTM2TextViewsOverwriteKey = @"iTM2TextViewsOverwrite";
 
 @implementation iTM2TextDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
@@ -2133,7 +2134,97 @@ To Do List:
 }
 @end
 
+@implementation iTM2SharedResponder(TeXDocumentKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOverwrite:
+- (IBAction)toggleOverwrite:(id)sender;
+/*"Discussion forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOverwrite:
+- (BOOL)validateToggleOverwrite:(id)sender;
+/*"Discussion forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	[sender setState:(old?NSOnState:NSOffState)];
+    return YES;
+}
+@end
+
 @implementation iTM2TextEditor
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOverwrite:
+- (IBAction)toggleOverwrite:(id)sender;
+/*"Discussion forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:iTM2TextViewsOverwriteKey domain:iTM2ContextPrivateMask];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOverwrite:
+- (BOOL)validateToggleOverwrite:(id)sender;
+/*"Discussion forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	[sender setState:(old?NSOnState:NSOffState)];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertText:
+- (void) insertText:(id)aString; // instead of keyDown: aString can be NSString or NSAttributedString
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([[self selectedRanges] count]>1)
+	{
+//iTM2_END;
+		[super insertText:aString];
+		return;
+	}
+	NSRange selectedRange = [self selectedRange];
+	if(selectedRange.length||![self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask])
+	{
+//iTM2_END;
+		[super insertText:aString];
+		return;
+	}
+	selectedRange.length = [aString length];
+	NSString * S = [self string];
+	if(NSMaxRange(selectedRange)>[S length])
+	{
+//iTM2_END;
+		[super insertText:aString];
+		return;
+	}
+	[self setSelectedRange:selectedRange];
+//iTM2_END;
+	[super insertText:aString];
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paste:
 - (IBAction)paste:(id)sender;
 /*"We do not paste attributes. There is a problem concerning attributes here.
