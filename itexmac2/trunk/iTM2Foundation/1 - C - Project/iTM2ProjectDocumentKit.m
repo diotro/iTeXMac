@@ -3853,7 +3853,8 @@ To Do List:
 	{
 		iTM2_LOG(@"WHAT CAN I DO,no save possible...%@",(outErrorPtr?*outErrorPtr:@"NOTHING"));
 	}
-	if(![DFM changeFileAttributes:[self fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteURL error:outErrorPtr] atPath:fullProjectPath])
+	NSDictionary * attributes = [self fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteURL error:outErrorPtr];
+	if(![DFM changeFileAttributes:attributes atPath:fullProjectPath])
 	{
 		iTM2_LOG(@"*** ERROR: could not change the file attributes at path:%@",fullProjectPath);
 	}

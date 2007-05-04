@@ -1436,8 +1436,8 @@ To Do List:
 	if(!_iTM2MacroTypes)
 	{
 		_iTM2MacroTypes = [[NSArray arrayWithObjects:
-			@"ACTION",@"PATH",@"COMMAND",@"COPY",
-			@"INPUT_ALL",@"INPUT_SELECTION",@"INPUT_LINE",
+			@"ACTION",@"PATH",@"COMMAND",@"COPY",@"MATH",
+			@"INPUT_PATH",@"INPUT_ALL",@"INPUT_SELECTION",@"INPUT_LINE",//unused?
 			@"PERL_INPUT_ALL",@"PERL_INPUT_SELECTION",@"PERL_INPUT_LINE",
 			@"PERL_REPLACE_SELECTION",@"PERL_REPLACE_LINE",@"PERL_REPLACE_ALL",
 			@"RUBY_INPUT_ALL",@"RUBY_INPUT_SELECTION",@"RUBY_INPUT_LINE",
@@ -2030,14 +2030,14 @@ To Do List:
 	while(idx<[text length])
 	{
 		NSString * type = nil;
-		NSRange range = [text rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
+		NSRange range = [text rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type ignoreComment:YES];
 		if(!range.length)
 		{
 			return NO;
 		}
 		else if(type)
 		{
-			NSRange fullRange = [text rangeOfPlaceholderAtIndex:range.location getType:nil];
+			NSRange fullRange = [text rangeOfPlaceholderAtIndex:range.location getType:nil ignoreComment:YES];
 			if(fullRange.location == range.location && fullRange.length > range.length)
 			{
 				fullRange.length = NSMaxRange(fullRange);
@@ -3539,7 +3539,7 @@ To Do List:
 //iTM2_START;
 	NSString * S = [self string];
 	NSString * tabAnchor = [self tabAnchor];
-	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor];
+	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 	if(!firstPlaceholderRange.length)
 	{
 		return;
@@ -3560,7 +3560,7 @@ To Do List:
 		replacement = [S substringWithRange:selectedRange];
 	}
 	[self insertText:replacement];
-	firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
+	firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 	if(firstPlaceholderRange.length)
 	{
 		[self setSelectedRange:firstPlaceholderRange];
@@ -3581,9 +3581,9 @@ To Do List:
 	NSString * S = [self string];
 	NSString * tabAnchor = [self tabAnchor];
 	NSRange selectedRange = [self selectedRange];
-	NSRange actualPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
+	NSRange actualPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 	unsigned idx = NSMaxRange(selectedRange);
-	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:idx cycle:YES tabAnchor:tabAnchor];
+	NSRange firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:idx cycle:YES tabAnchor:tabAnchor ignoreComment:YES];
 	if(firstPlaceholderRange.length==0)
 	{
 //iTM2_LOG(@"firstPlaceholderRange:%@",NSStringFromRange(firstPlaceholderRange));
@@ -3604,7 +3604,7 @@ To Do List:
 		replacement = [S substringWithRange:selectedRange];
 	}
 	[self insertText:replacement];
-	firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
+	firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 	if(firstPlaceholderRange.length)
 	{
 		[self setSelectedRange:firstPlaceholderRange];
@@ -3625,7 +3625,7 @@ To Do List:
 	NSString * S = [self string];
 	NSString * tabAnchor = [self tabAnchor];
 	NSRange selectedRange = [self selectedRange];
-	NSRange firstPlaceholderRange = [S rangeOfPreviousPlaceholderBeforeIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor];
+	NSRange firstPlaceholderRange = [S rangeOfPreviousPlaceholderBeforeIndex:selectedRange.location cycle:YES tabAnchor:tabAnchor ignoreComment:YES];
 	if(!firstPlaceholderRange.length)
 	{
 		return;
@@ -3645,7 +3645,7 @@ To Do List:
 		replacement = [S substringWithRange:selectedRange];
 	}
 	[self insertText:replacement];
-	firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor];
+	firstPlaceholderRange = [S rangeOfNextPlaceholderAfterIndex:selectedRange.location cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 	if(firstPlaceholderRange.length)
 	{
 		[self setSelectedRange:firstPlaceholderRange];
@@ -3936,7 +3936,7 @@ To Do List:
 	if(index = [replacement length])
 	{
 		NSString * tabAnchor = [self tabAnchor];
-		range = [replacement rangeOfPreviousPlaceholderBeforeIndex:index cycle:NO tabAnchor:tabAnchor];
+		range = [replacement rangeOfPreviousPlaceholderBeforeIndex:index cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 		if(range.length)
 		{
 			if(NSMaxRange(range)<index)
@@ -3960,7 +3960,6 @@ To Do List:
 //iTM2_START;
 	NSRange selectedRange = [self selectedRange];
 	NSString * S = [self string];
-	unsigned int start, end;
 	[S getLineStart:&selectedRange.location end:&selectedRange.length contentsEnd:nil forRange:selectedRange];
 	selectedRange.length -= selectedRange.location;
 	NSString * selectedString = [S substringWithRange:selectedRange];
@@ -4029,7 +4028,7 @@ To Do List:
 	NSString * perlEscapedAll = nil;
 	NSString * perlEscapedPath = nil;
 nextRange:
-	startRange = [macro rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:&startType];
+	startRange = [macro rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:&startType ignoreComment:YES];
 	if(startRange.length)
 	{
 		copyRange.location = NSMaxRange(stopRange);
@@ -4038,7 +4037,7 @@ nextRange:
 		[replacementString appendString:copyString];
 nextStopRange:
 		copyRange.location = NSMaxRange(startRange);
-		stopRange = [macro rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:&stopType];
+		stopRange = [macro rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:&stopType ignoreComment:YES];
 		if(stopRange.length)
 		{
 			if(!startType)
@@ -4054,7 +4053,7 @@ nextStopRange:
 			}
 			else if(!stopType)
 			{
-				if([startType isEqual:@"SELECTION"])
+				if([startType isEqual:@"SELECTION"] || [startType isEqual:@"MATH"])
 				{
 					if([selection length])
 					{
@@ -4650,7 +4649,7 @@ To Do List: ?
 	NSRange copyRange = NSMakeRange(0,0);
 	NSString * S;
 next:
-	markRange = [self rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:nil];
+	markRange = [self rangeOfNextPlaceholderMarkAfterIndex:copyRange.location getType:nil ignoreComment:YES];
 	if(markRange.length)
 	{
 		copyRange.length = markRange.location - copyRange.location;
@@ -4667,8 +4666,8 @@ next:
 	[result appendString:S];
 	return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderMarkAfterIndex:getType:
-- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(NSString **)typeRef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderMarkAfterIndex:getType:ignoreComment:
+- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore;
 /*"Description forthcoming. The returned range correspondes to a placeholder mark,
 either '@@@(TYPE/? or ')@@@'.
 If the placeholder is @@@(TYPE)@@@, TYPE belongs to the start placeholder mark
@@ -4764,7 +4763,7 @@ nextChar:
 								}
 								if(typeRef)
 								{
-									*typeRef = type;
+									*typeRef = [type uppercaseString];
 								}
 								return markRange;
 							}
@@ -4830,8 +4829,8 @@ oneCharBefore:
 	goto noProblemo;
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderMarkBeforeIndex:getType:
-- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(NSString **)typeRef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderMarkBeforeIndex:getType:ignoreComment:
+- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore;
 /*"Description forthcoming. The location of the returned range is before index, when the range is not void
 This will catch a marker starting before index
 Version history: jlaurens AT users.sourceforge.net
@@ -4926,7 +4925,7 @@ previousStart:
 							}
 							if(typeRef)
 							{
-								*typeRef = type;
+								*typeRef = [type uppercaseString];
 							}
 							markRange.location = start;
 							markRange.length = end - markRange.location;
@@ -4979,7 +4978,7 @@ previousStart:
 						}
 						if(typeRef)
 						{
-							*typeRef = type;
+							*typeRef = [type uppercaseString];
 						}
 						markRange.location = start;
 						markRange.length = end - markRange.location;
@@ -5000,8 +4999,8 @@ previousStart:
 //iTM2_END;
 	return NSMakeRange(NSNotFound,0);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:getType:
-- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index getType:(NSString **)typeRef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:getType:ignoreComment:
+- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/02/2007
@@ -5013,7 +5012,7 @@ To Do List: implement some kind of balance range for range
 	unsigned depth;
 	unsigned idx = MAX(index,3)-3;
 	NSString * type = nil;
-	stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
+	stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type ignoreComment:ignore];
 	if(stopRange.length)
 	{
 		if(type)
@@ -5026,7 +5025,7 @@ To Do List: implement some kind of balance range for range
 				depth = 1;
 otherNextStop:
 				idx = NSMaxRange(stopRange);
-				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
+				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type ignoreComment:ignore];
 				if(stopRange.length)
 				{
 					if(type)
@@ -5043,8 +5042,7 @@ otherNextStop:
 						startRange.length = NSMaxRange(stopRange)-startRange.location;
 						if(typeRef)
 						{
-							*typeRef = type;
-							*typeRef = [*typeRef lowercaseString];
+							*typeRef = [type uppercaseString];
 						}
 						return startRange;
 					}
@@ -5057,7 +5055,7 @@ otherNextStop:
 				depth = 1;
 otherNextStopAfter:
 				idx = NSMaxRange(stopRange);
-				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type];
+				stopRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type ignoreComment:ignore];
 				if(stopRange.length)
 				{
 					if(type)
@@ -5076,7 +5074,7 @@ previousStart:
 						startRange.location = MAX(index,3)-3;
 						depth = 1;
 otherPreviousStart:
-						startRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:startRange.location getType:&type];
+						startRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:startRange.location getType:&type ignoreComment:ignore];
 						if(startRange.length)
 						{
 							if(!type)
@@ -5101,8 +5099,7 @@ otherPreviousStart:
 								startRange.length=NSMaxRange(stopRange)-startRange.location;
 								if(typeRef)
 								{
-									*typeRef = type;
-									*typeRef = [*typeRef lowercaseString];
+									*typeRef = [type uppercaseString];
 								}
 								return startRange;
 							}
@@ -5123,6 +5120,113 @@ otherPreviousStart:
 //iTM2_END;
 	return NSMakeRange(NSNotFound, 0);
 }
+#if 1
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderAfterIndex:cycle:tabAnchor:ignoreComment:
+- (NSRange)rangeOfNextPlaceholderAfterIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor ignoreComment:(BOOL)ignore;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+- 2.0: 02/15/2006
+To Do List: implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange markRange = [self rangeOfNextPlaceholderMarkAfterIndex:index getType:nil ignoreComment:YES];
+	NSRange range;
+	NSRange smallerRange;
+	unsigned idx = 0;
+	if(markRange.length)
+	{
+		range = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil ignoreComment:YES];
+		if(range.length)
+		{
+nextRange1:
+			idx = NSMaxRange(markRange);
+			markRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:nil ignoreComment:YES];
+			if(markRange.length)
+			{
+				if(NSMaxRange(markRange)<NSMaxRange(range))
+				{
+					smallerRange = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil ignoreComment:YES];
+					if(smallerRange.length)
+					{
+						range = smallerRange;
+						goto nextRange1;
+					}
+				}
+			}
+			return range;
+		}
+	}
+	if(cycle)
+	{
+		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil ignoreComment:YES];
+		if(markRange.length)
+		{
+			if(NSMaxRange(markRange)<=index)
+			{
+				range = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil ignoreComment:YES];
+				if(range.length)
+				{
+nextRange2:
+					idx = NSMaxRange(markRange);
+					markRange = [self rangeOfNextPlaceholderMarkAfterIndex:idx getType:nil ignoreComment:YES];
+					if(markRange.length)
+					{
+						if(NSMaxRange(markRange)<NSMaxRange(range))
+						{
+							smallerRange = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil ignoreComment:YES];
+							if(smallerRange.length)
+							{
+								range = smallerRange;
+								goto nextRange2;
+							}
+						}
+					}
+					return range;
+				}
+			}
+		}
+	}
+	// placeholder markers only
+	markRange= [self rangeOfNextPlaceholderMarkAfterIndex:index getType:nil ignoreComment:YES];
+	if(markRange.length)
+	{
+		return markRange;
+	}
+	if(cycle)
+	{
+		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil ignoreComment:YES];
+		if(markRange.length)
+		{
+			if(NSMaxRange(markRange)<=index)
+			{
+				return markRange;
+			}
+		}
+	}
+	// tabAnchor only
+	if([tabAnchor length])
+	{
+		unsigned length = [self length];
+		NSRange searchRange = NSMakeRange(index, length - index);
+		range = [self rangeOfString:tabAnchor options:nil range:searchRange];
+		if(range.length)
+		{
+			return range;
+		}
+		if(cycle)
+		{
+			searchRange = NSMakeRange(0,MIN(length,index+[tabAnchor length]-1));
+			range = [self rangeOfString:tabAnchor options:nil range:searchRange];
+			if(range.length)
+			{
+				return range;
+			}
+		}
+	}
+	return NSMakeRange(NSNotFound,0);
+}
+#else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderAfterIndex:cycle:tabAnchor:
 - (NSRange)rangeOfNextPlaceholderAfterIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
 /*"Description forthcoming.
@@ -5228,8 +5332,9 @@ nextRange2:
 	}
 	return NSMakeRange(NSNotFound,0);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderBeforeIndex:cycle:tabAnchor:
-- (NSRange)rangeOfPreviousPlaceholderBeforeIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+#endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderBeforeIndex:cycle:tabAnchor:ignoreComment:
+- (NSRange)rangeOfPreviousPlaceholderBeforeIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor ignoreComment:(BOOL)ignore;
 /*"Placeholder delimiters are ')@@@' and '@@@(\word?'. 
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/15/2006
@@ -5238,10 +5343,10 @@ To Do List: implement NSBackwardsSearch
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSRange range;
-	NSRange markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:index getType:nil];
+	NSRange markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:index getType:nil ignoreComment:ignore];
 	if(markRange.length)
 	{
-		range = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil];
+		range = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil ignoreComment:ignore];
 		if(range.length)
 		{
 			return range;
@@ -5250,12 +5355,12 @@ To Do List: implement NSBackwardsSearch
 	unsigned length = [self length];
 	if(cycle)
 	{
-		markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:length getType:nil];
+		markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:length getType:nil ignoreComment:ignore];
 		if(markRange.length)
 		{
 			if(index<=markRange.location)
 			{
-				range = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil];
+				range = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil ignoreComment:ignore];
 				if(range.length)
 				{
 					return range;
@@ -5264,14 +5369,14 @@ To Do List: implement NSBackwardsSearch
 		}
 	}
 	// placeholder markers only
-	markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:index getType:nil];
+	markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:index getType:nil ignoreComment:ignore];
 	if(markRange.length)
 	{
 		return markRange;
 	}
 	if(cycle)
 	{
-		markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:length getType:nil];
+		markRange = [self rangeOfPreviousPlaceholderMarkBeforeIndex:length getType:nil ignoreComment:ignore];
 		if(markRange.length)
 		{
 			if(index<=markRange.location)
@@ -6951,6 +7056,29 @@ To Do List:
     return;
 }
 #endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroTestView
+- (id)macroTestView;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return metaGETTER;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMacroTestView:
+- (void)setMacroTestView:(id)argument;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    metaSETTER(argument);
+	return;
+}
 @end
 
 @interface iTM2MacroPopUpButton:NSPopUpButton

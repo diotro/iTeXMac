@@ -138,6 +138,7 @@
                 toggleGrab = id; 
                 toggleInspector = id; 
                 toggleMatchDelimiter = id; 
+                toggleOverwrite = id; 
                 togglePDFDisplayModeStick = id; 
                 togglePDFSlidesLandscapeMode = id; 
                 togglePageBreaks = id; 

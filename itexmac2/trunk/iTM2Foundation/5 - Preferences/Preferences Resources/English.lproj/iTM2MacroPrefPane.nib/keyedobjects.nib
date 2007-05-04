@@ -11,32 +11,32 @@
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1122</integer>
+				<integer>1126</integer>
 			</dict>
 			<key>NSAccessibilityConnectors</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1119</integer>
+				<integer>1123</integer>
 			</dict>
 			<key>NSAccessibilityOidsKeys</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1120</integer>
+				<integer>1124</integer>
 			</dict>
 			<key>NSAccessibilityOidsValues</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>1121</integer>
+				<integer>1125</integer>
 			</dict>
 			<key>NSClassesKeys</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>920</integer>
+				<integer>922</integer>
 			</dict>
 			<key>NSClassesValues</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>921</integer>
+				<integer>923</integer>
 			</dict>
 			<key>NSConnections</key>
 			<dict>
@@ -56,34 +56,34 @@
 			<key>NSNamesKeys</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>867</integer>
+				<integer>869</integer>
 			</dict>
 			<key>NSNamesValues</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>868</integer>
+				<integer>870</integer>
 			</dict>
 			<key>NSNextOid</key>
-			<integer>1064</integer>
+			<integer>1066</integer>
 			<key>NSObjectsKeys</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>864</integer>
-			</dict>
-			<key>NSObjectsValues</key>
 			<dict>
 				<key>CF$UID</key>
 				<integer>866</integer>
 			</dict>
+			<key>NSObjectsValues</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>868</integer>
+			</dict>
 			<key>NSOidsKeys</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>922</integer>
+				<integer>924</integer>
 			</dict>
 			<key>NSOidsValues</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>923</integer>
+				<integer>925</integer>
 			</dict>
 			<key>NSRoot</key>
 			<dict>
@@ -276,11 +276,15 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>658</integer>
+					<integer>657</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>661</integer>
+					<integer>660</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>662</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -288,27 +292,27 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>664</integer>
+					<integer>666</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>667</integer>
+					<integer>669</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>670</integer>
+					<integer>677</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>678</integer>
+					<integer>683</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>684</integer>
+					<integer>686</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>687</integer>
+					<integer>690</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -316,75 +320,75 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>692</integer>
+					<integer>695</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>696</integer>
+					<integer>698</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>699</integer>
+					<integer>701</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>702</integer>
+					<integer>705</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>706</integer>
+					<integer>708</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>709</integer>
+					<integer>712</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>713</integer>
+					<integer>715</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>716</integer>
+					<integer>722</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>723</integer>
+					<integer>726</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>727</integer>
+					<integer>729</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>730</integer>
+					<integer>731</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>732</integer>
+					<integer>733</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>734</integer>
+					<integer>736</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>737</integer>
+					<integer>739</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>740</integer>
+					<integer>742</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>743</integer>
+					<integer>744</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>745</integer>
+					<integer>746</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>747</integer>
+					<integer>749</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -392,31 +396,31 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>751</integer>
+					<integer>752</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>753</integer>
+					<integer>755</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>756</integer>
+					<integer>759</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>760</integer>
+					<integer>762</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>763</integer>
+					<integer>765</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>766</integer>
+					<integer>774</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>775</integer>
+					<integer>781</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -424,7 +428,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>783</integer>
+					<integer>786</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -432,23 +436,23 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>788</integer>
+					<integer>791</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>792</integer>
+					<integer>794</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>795</integer>
+					<integer>799</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>800</integer>
+					<integer>801</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>802</integer>
+					<integer>804</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -456,7 +460,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>806</integer>
+					<integer>809</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -464,35 +468,35 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>811</integer>
+					<integer>814</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>815</integer>
+					<integer>817</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>818</integer>
+					<integer>819</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>820</integer>
+					<integer>821</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>822</integer>
+					<integer>823</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>824</integer>
+					<integer>825</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>826</integer>
+					<integer>830</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>831</integer>
+					<integer>832</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -509,6 +513,10 @@
 				<dict>
 					<key>CF$UID</key>
 					<integer>840</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>841</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -928,7 +936,7 @@
 				<integer>74</integer>
 			</dict>
 			<key>NSsFlags</key>
-			<integer>722</integer>
+			<integer>530</integer>
 			<key>NSvFlags</key>
 			<integer>274</integer>
 		</dict>
@@ -1082,7 +1090,7 @@
 		</dict>
 		<string>iTM2MacroEditor</string>
 		<string>NSTextView</string>
-		<string>{348, 126}</string>
+		<string>{363, 126}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1102,7 +1110,7 @@
 				<integer>26</integer>
 			</dict>
 			<key>NSWidth</key>
-			<real>348</real>
+			<real>363</real>
 		</dict>
 		<dict>
 			<key>$class</key>
@@ -1544,7 +1552,7 @@
 			<key>$classname</key>
 			<string>NSClassSwapper</string>
 		</dict>
-		<string>{{1, 1}, {348, 120}}</string>
+		<string>{{1, 1}, {363, 120}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -1591,8 +1599,6 @@
 				<key>CF$UID</key>
 				<integer>76</integer>
 			</dict>
-			<key>NSEnabled</key>
-			<true/>
 			<key>NSFrame</key>
 			<dict>
 				<key>CF$UID</key>
@@ -1604,7 +1610,7 @@
 				<integer>22</integer>
 			</dict>
 			<key>NSPercent</key>
-			<real>0.83333331346511841</real>
+			<real>0.9523809552192688</real>
 			<key>NSSuperview</key>
 			<dict>
 				<key>CF$UID</key>
@@ -1616,9 +1622,9 @@
 				<integer>22</integer>
 			</dict>
 			<key>NSvFlags</key>
-			<integer>256</integer>
+			<integer>-2147483392</integer>
 		</dict>
-		<string>{{349, 1}, {15, 120}}</string>
+		<string>{{-30, 1}, {15, 120}}</string>
 		<string>_doScroller:</string>
 		<dict>
 			<key>$classes</key>
@@ -1645,8 +1651,6 @@
 			</dict>
 			<key>NSCurValue</key>
 			<real>1</real>
-			<key>NSEnabled</key>
-			<true/>
 			<key>NSFrame</key>
 			<dict>
 				<key>CF$UID</key>
@@ -10591,7 +10595,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>657</integer>
+				<integer>656</integer>
 			</dict>
 			<key>NSAvoidsEmptySelection</key>
 			<true/>
@@ -10605,7 +10609,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSObjectClassName</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>654</integer>
+				<integer>653</integer>
 			</dict>
 			<key>NSPreservesSelection</key>
 			<true/>
@@ -10614,12 +10618,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSTreeContentChildrenKey</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>656</integer>
+				<integer>655</integer>
 			</dict>
 			<key>_NSManagedProxy</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>655</integer>
+				<integer>654</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -10700,15 +10704,19 @@ The project domain is for the projet management and typesetting.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>555</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>646</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>647</integer>
+					<integer>549</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>549</integer>
+					<integer>647</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -10730,10 +10738,6 @@ The project domain is for the projet management and typesetting.</string>
 					<key>CF$UID</key>
 					<integer>652</integer>
 				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>653</integer>
-				</dict>
 			</array>
 		</dict>
 		<string>key</string>
@@ -10746,7 +10750,6 @@ The project domain is for the projet management and typesetting.</string>
 		<string>codeName</string>
 		<string>prettyKey</string>
 		<string>SELECTION</string>
-		<string>selection</string>
 		<string>selection.ID</string>
 		<string>isIDMutable</string>
 		<string>isFinal</string>
@@ -10793,12 +10796,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>660</integer>
+				<integer>659</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>659</integer>
+				<integer>658</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -10824,7 +10827,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>662</integer>
+				<integer>661</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -10886,12 +10889,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>666</integer>
+				<integer>665</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>665</integer>
+				<integer>664</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -10922,12 +10925,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>669</integer>
+				<integer>668</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>668</integer>
+				<integer>667</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -10948,7 +10951,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>672</integer>
+				<integer>671</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -10958,19 +10961,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>673</integer>
+				<integer>672</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>671</integer>
+				<integer>670</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>674</integer>
+				<integer>673</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -10991,18 +10994,18 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>675</integer>
+					<integer>674</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>676</integer>
+					<integer>675</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>677</integer>
+					<integer>676</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -11022,7 +11025,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>680</integer>
+				<integer>679</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -11032,24 +11035,24 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>673</integer>
+				<integer>672</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>679</integer>
+				<integer>678</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>681</integer>
+				<integer>680</integer>
 			</dict>
 			<key>NSPreviousConnector</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>670</integer>
+				<integer>669</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -11069,22 +11072,22 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>675</integer>
+					<integer>674</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>676</integer>
+					<integer>675</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>682</integer>
+					<integer>681</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>683</integer>
+					<integer>682</integer>
 				</dict>
 			</array>
 		</dict>
@@ -11109,12 +11112,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>686</integer>
+				<integer>685</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>685</integer>
+				<integer>684</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11145,19 +11148,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>647</integer>
+				<integer>646</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>688</integer>
+				<integer>687</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>689</integer>
+				<integer>688</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -11176,7 +11179,7 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>690</integer>
+					<integer>689</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
@@ -11207,12 +11210,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>647</integer>
+				<integer>646</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>688</integer>
+				<integer>687</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11231,7 +11234,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>694</integer>
+				<integer>693</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -11241,12 +11244,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>695</integer>
+				<integer>694</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>693</integer>
+				<integer>692</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11278,12 +11281,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>698</integer>
+				<integer>697</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>697</integer>
+				<integer>696</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11314,12 +11317,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>701</integer>
+				<integer>700</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>700</integer>
+				<integer>699</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11350,19 +11353,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>704</integer>
+				<integer>703</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>703</integer>
+				<integer>702</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>705</integer>
+				<integer>704</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -11412,12 +11415,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>708</integer>
+				<integer>707</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>707</integer>
+				<integer>706</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11438,7 +11441,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>711</integer>
+				<integer>710</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -11448,12 +11451,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>712</integer>
+				<integer>711</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>710</integer>
+				<integer>709</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11475,7 +11478,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>711</integer>
+				<integer>710</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -11485,12 +11488,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>715</integer>
+				<integer>714</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>714</integer>
+				<integer>713</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11511,7 +11514,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>718</integer>
+				<integer>717</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -11521,19 +11524,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>719</integer>
+				<integer>718</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>717</integer>
+				<integer>716</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>720</integer>
+				<integer>719</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -11554,14 +11557,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>722</integer>
+					<integer>721</integer>
 				</dict>
 			</array>
 		</dict>
@@ -11576,7 +11579,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>725</integer>
+				<integer>724</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -11586,12 +11589,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>726</integer>
+				<integer>725</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>724</integer>
+				<integer>723</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11623,12 +11626,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>729</integer>
+				<integer>728</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>728</integer>
+				<integer>727</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11671,7 +11674,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>731</integer>
+				<integer>730</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -11719,7 +11722,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>733</integer>
+				<integer>732</integer>
 			</dict>
 		</dict>
 		<string>Choose the macro for the selected key binding</string>
@@ -11742,12 +11745,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>736</integer>
+				<integer>735</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>735</integer>
+				<integer>734</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11778,12 +11781,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>739</integer>
+				<integer>738</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>738</integer>
+				<integer>737</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11814,12 +11817,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>742</integer>
+				<integer>741</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>741</integer>
+				<integer>740</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11855,7 +11858,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>744</integer>
+				<integer>743</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11885,19 +11888,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>647</integer>
+				<integer>646</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>746</integer>
+				<integer>745</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSPreviousConnector</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>743</integer>
+				<integer>742</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -11925,12 +11928,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>749</integer>
+				<integer>748</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>748</integer>
+				<integer>747</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11951,7 +11954,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>725</integer>
+				<integer>724</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -11961,12 +11964,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>726</integer>
+				<integer>725</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>724</integer>
+				<integer>723</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -11990,7 +11993,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>752</integer>
+				<integer>751</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12008,7 +12011,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>755</integer>
+				<integer>754</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12018,12 +12021,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>755</integer>
+				<integer>754</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>754</integer>
+				<integer>753</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -12044,7 +12047,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>758</integer>
+				<integer>757</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12054,19 +12057,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>759</integer>
+				<integer>758</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>757</integer>
+				<integer>756</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSPreviousConnector</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>753</integer>
+				<integer>752</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12086,7 +12089,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>762</integer>
+				<integer>761</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12096,12 +12099,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>762</integer>
+				<integer>761</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>761</integer>
+				<integer>760</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -12132,12 +12135,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>765</integer>
+				<integer>764</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>764</integer>
+				<integer>763</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -12163,29 +12166,29 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSDestination</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>769</integer>
+				<integer>768</integer>
 			</dict>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>772</integer>
+				<integer>771</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>771</integer>
+				<integer>770</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>773</integer>
+				<integer>772</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>767</integer>
+				<integer>766</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -12209,7 +12212,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>_NSManagedProxy</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>768</integer>
+				<integer>767</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -12228,7 +12231,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSClassName</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>770</integer>
+				<integer>769</integer>
 			</dict>
 		</dict>
 		<string>iTM2KeyCodesController</string>
@@ -12244,14 +12247,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>774</integer>
+					<integer>773</integer>
 				</dict>
 			</array>
 		</dict>
@@ -12265,7 +12268,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>694</integer>
+				<integer>693</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12275,19 +12278,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>695</integer>
+				<integer>694</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>693</integer>
+				<integer>692</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>776</integer>
+				<integer>775</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12305,6 +12308,10 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
+					<integer>776</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>777</integer>
 				</dict>
 				<dict>
@@ -12315,28 +12322,24 @@ The project domain is for the projet management and typesetting.</string>
 					<key>CF$UID</key>
 					<integer>779</integer>
 				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>780</integer>
-				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>781</integer>
+					<integer>780</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>781</integer>
+					<integer>780</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>781</integer>
+					<integer>780</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>781</integer>
+					<integer>780</integer>
 				</dict>
 			</array>
 		</dict>
@@ -12354,7 +12357,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>725</integer>
+				<integer>724</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12364,12 +12367,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>726</integer>
+				<integer>725</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>724</integer>
+				<integer>723</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -12398,19 +12401,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>785</integer>
+				<integer>784</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>784</integer>
+				<integer>783</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>786</integer>
+				<integer>785</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12430,14 +12433,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>774</integer>
+					<integer>773</integer>
 				</dict>
 			</array>
 		</dict>
@@ -12455,7 +12458,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSDestination</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>767</integer>
+				<integer>766</integer>
 			</dict>
 			<key>NSKeyPath</key>
 			<dict>
@@ -12484,7 +12487,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>790</integer>
+				<integer>789</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12494,24 +12497,24 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>785</integer>
+				<integer>784</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>789</integer>
+				<integer>788</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>791</integer>
+				<integer>790</integer>
 			</dict>
 			<key>NSPreviousConnector</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>787</integer>
+				<integer>786</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12531,14 +12534,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>774</integer>
+					<integer>773</integer>
 				</dict>
 			</array>
 		</dict>
@@ -12561,12 +12564,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>794</integer>
+				<integer>793</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>793</integer>
+				<integer>792</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -12592,7 +12595,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSDestination</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>796</integer>
+				<integer>795</integer>
 			</dict>
 			<key>NSKeyPath</key>
 			<dict>
@@ -12630,7 +12633,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSDeclaredKeys</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>798</integer>
+				<integer>797</integer>
 			</dict>
 			<key>NSEditable</key>
 			<true/>
@@ -12644,7 +12647,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSOriginalClassName</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>797</integer>
+				<integer>796</integer>
 			</dict>
 			<key>NSPreservesSelection</key>
 			<true/>
@@ -12653,7 +12656,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>_NSManagedProxy</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>799</integer>
+				<integer>798</integer>
 			</dict>
 		</dict>
 		<string>NSArrayController</string>
@@ -12727,7 +12730,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>790</integer>
+				<integer>789</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12737,19 +12740,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>647</integer>
+				<integer>646</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>801</integer>
+				<integer>800</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSPreviousConnector</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>795</integer>
+				<integer>794</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12777,19 +12780,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>804</integer>
+				<integer>803</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>803</integer>
+				<integer>802</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSSource</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>796</integer>
+				<integer>795</integer>
 			</dict>
 		</dict>
 		<string>contentArray: macroEditor.availableScripts</string>
@@ -12813,12 +12816,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>765</integer>
+				<integer>764</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>764</integer>
+				<integer>763</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -12847,19 +12850,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>719</integer>
+				<integer>718</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>807</integer>
+				<integer>806</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>808</integer>
+				<integer>807</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12878,14 +12881,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>809</integer>
+					<integer>808</integer>
 				</dict>
 			</array>
 		</dict>
@@ -12899,7 +12902,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>694</integer>
+				<integer>693</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12909,12 +12912,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>695</integer>
+				<integer>694</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>693</integer>
+				<integer>692</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -12933,7 +12936,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>813</integer>
+				<integer>812</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -12948,14 +12951,14 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>812</integer>
+				<integer>811</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>814</integer>
+				<integer>813</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -12975,14 +12978,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>809</integer>
+					<integer>808</integer>
 				</dict>
 			</array>
 		</dict>
@@ -12995,7 +12998,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>790</integer>
+				<integer>789</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -13005,24 +13008,24 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>719</integer>
+				<integer>718</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>816</integer>
+				<integer>815</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>817</integer>
+				<integer>816</integer>
 			</dict>
 			<key>NSPreviousConnector</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>811</integer>
+				<integer>810</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -13041,14 +13044,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>809</integer>
+					<integer>808</integer>
 				</dict>
 			</array>
 		</dict>
@@ -13071,12 +13074,12 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>695</integer>
+				<integer>694</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>819</integer>
+				<integer>818</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -13106,19 +13109,19 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>719</integer>
+				<integer>718</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>807</integer>
+				<integer>806</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>821</integer>
+				<integer>820</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -13136,14 +13139,14 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>809</integer>
+					<integer>808</integer>
 				</dict>
 			</array>
 		</dict>
@@ -13156,7 +13159,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSBinding</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>813</integer>
+				<integer>812</integer>
 			</dict>
 			<key>NSDestination</key>
 			<dict>
@@ -13171,76 +13174,11 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>812</integer>
+				<integer>811</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
 			<key>NSOptions</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>823</integer>
-			</dict>
-			<key>NSSource</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>120</integer>
-			</dict>
-		</dict>
-		<dict>
-			<key>$class</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>45</integer>
-			</dict>
-			<key>NS.keys</key>
-			<array>
-				<dict>
-					<key>CF$UID</key>
-					<integer>721</integer>
-				</dict>
-			</array>
-			<key>NS.objects</key>
-			<array>
-				<dict>
-					<key>CF$UID</key>
-					<integer>809</integer>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>$class</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>531</integer>
-			</dict>
-			<key>NSBinding</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>790</integer>
-			</dict>
-			<key>NSDestination</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>542</integer>
-			</dict>
-			<key>NSKeyPath</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>719</integer>
-			</dict>
-			<key>NSLabel</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>816</integer>
-			</dict>
-			<key>NSNibBindingConnectorVersion</key>
-			<integer>2</integer>
-			<key>NSOptions</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>825</integer>
-			</dict>
-			<key>NSPreviousConnector</key>
 			<dict>
 				<key>CF$UID</key>
 				<integer>822</integer>
@@ -13261,14 +13199,79 @@ The project domain is for the projet management and typesetting.</string>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>721</integer>
+					<integer>720</integer>
 				</dict>
 			</array>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>809</integer>
+					<integer>808</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>$class</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>531</integer>
+			</dict>
+			<key>NSBinding</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>789</integer>
+			</dict>
+			<key>NSDestination</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>542</integer>
+			</dict>
+			<key>NSKeyPath</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>718</integer>
+			</dict>
+			<key>NSLabel</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>815</integer>
+			</dict>
+			<key>NSNibBindingConnectorVersion</key>
+			<integer>2</integer>
+			<key>NSOptions</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>824</integer>
+			</dict>
+			<key>NSPreviousConnector</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>821</integer>
+			</dict>
+			<key>NSSource</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>120</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>$class</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>45</integer>
+			</dict>
+			<key>NS.keys</key>
+			<array>
+				<dict>
+					<key>CF$UID</key>
+					<integer>720</integer>
+				</dict>
+			</array>
+			<key>NS.objects</key>
+			<array>
+				<dict>
+					<key>CF$UID</key>
+					<integer>808</integer>
 				</dict>
 			</array>
 		</dict>
@@ -13286,17 +13289,17 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSDestination</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>827</integer>
+				<integer>826</integer>
 			</dict>
 			<key>NSKeyPath</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>830</integer>
+				<integer>829</integer>
 			</dict>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>829</integer>
+				<integer>828</integer>
 			</dict>
 			<key>NSNibBindingConnectorVersion</key>
 			<integer>2</integer>
@@ -13310,7 +13313,7 @@ The project domain is for the projet management and typesetting.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>828</integer>
+				<integer>827</integer>
 			</dict>
 			<key>NSSharedInstance</key>
 			<true/>
@@ -13341,15 +13344,14 @@ The project domain is for the projet management and typesetting.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>833</integer>
+				<integer>831</integer>
 			</dict>
 		</dict>
-		<string>NSToolTipHelpKey</string>
 		<string>Select Complete to browse the list of all the available macros.
 Select Key Bindings to associate a macro to a given keystroke.</string>
 		<dict>
@@ -13366,12 +13368,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>835</integer>
+				<integer>833</integer>
 			</dict>
 		</dict>
 		<string>Show only custom macros</string>
@@ -13389,12 +13391,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>837</integer>
+				<integer>835</integer>
 			</dict>
 		</dict>
 		<string>Check this box to include the corresponding key.</string>
@@ -13412,12 +13414,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>839</integer>
+				<integer>837</integer>
 			</dict>
 		</dict>
 		<string>Check this box to include the function key.</string>
@@ -13435,12 +13437,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>841</integer>
+				<integer>839</integer>
 			</dict>
 		</dict>
 		<string>Check this box to include the control key.</string>
@@ -13458,15 +13460,14 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>843</integer>
+				<integer>835</integer>
 			</dict>
 		</dict>
-		<string>Check this box to include the corresponding key.</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13481,15 +13482,14 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>845</integer>
+				<integer>835</integer>
 			</dict>
 		</dict>
-		<string>Check this box to include the corresponding key.</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -13504,12 +13504,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>847</integer>
+				<integer>843</integer>
 			</dict>
 		</dict>
 		<string>Chose one of the keys of the list.</string>
@@ -13527,12 +13527,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>849</integer>
+				<integer>845</integer>
 			</dict>
 		</dict>
 		<string>Enter the key</string>
@@ -13550,12 +13550,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>851</integer>
+				<integer>847</integer>
 			</dict>
 		</dict>
 		<string>Edit the ID</string>
@@ -13573,12 +13573,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>853</integer>
+				<integer>849</integer>
 			</dict>
 		</dict>
 		<string>Chose one of the built in actions</string>
@@ -13596,12 +13596,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>855</integer>
+				<integer>851</integer>
 			</dict>
 		</dict>
 		<string>Enter an action.</string>
@@ -13619,12 +13619,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>857</integer>
+				<integer>853</integer>
 			</dict>
 		</dict>
 		<string>Ebter an argument if the ID is not sufficient</string>
@@ -13642,12 +13642,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>859</integer>
+				<integer>855</integer>
 			</dict>
 		</dict>
 		<string>Try your key stroke and macro here.</string>
@@ -13665,12 +13665,12 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSFile</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>832</integer>
+				<integer>577</integer>
 			</dict>
 			<key>NSMarker</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>861</integer>
+				<integer>857</integer>
 			</dict>
 		</dict>
 		<string>Check this box to ignore the @@@ electric tabs.</string>
@@ -13688,7 +13688,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>NSLabel</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>863</integer>
+				<integer>859</integer>
 			</dict>
 			<key>NSSource</key>
 			<dict>
@@ -13696,250 +13696,78 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				<integer>222</integer>
 			</dict>
 		</dict>
-		<string>executeMacro</string>
+		<string>executeMacro:</string>
 		<dict>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
+				<integer>520</integer>
+			</dict>
+			<key>NSDestination</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>491</integer>
+			</dict>
+			<key>NSLabel</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>861</integer>
+			</dict>
+			<key>NSSource</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>2</integer>
+			</dict>
+		</dict>
+		<string>macroTestView</string>
+		<dict>
+			<key>$class</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>531</integer>
+			</dict>
+			<key>NSBinding</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>864</integer>
+			</dict>
+			<key>NSDestination</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>2</integer>
+			</dict>
+			<key>NSKeyPath</key>
+			<dict>
+				<key>CF$UID</key>
 				<integer>865</integer>
+			</dict>
+			<key>NSLabel</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>863</integer>
+			</dict>
+			<key>NSNibBindingConnectorVersion</key>
+			<integer>2</integer>
+			<key>NSSource</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>222</integer>
+			</dict>
+		</dict>
+		<string>doubleClickTarget: macroTestView</string>
+		<string>doubleClickTarget</string>
+		<string>macroTestView</string>
+		<dict>
+			<key>$class</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>207</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>22</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>435</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>392</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>128</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>412</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>157</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>166</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>372</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>293</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>402</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>18</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>444</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>308</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>634</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>218</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>167</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>454</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>234</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>95</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>275</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>403</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>612</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>195</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>464</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>179</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>445</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>345</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>202</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>314</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>83</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>455</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>431</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>110</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>472</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>142</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>522</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>161</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>203</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>542</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>118</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>769</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>310</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>439</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>367</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>255</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>827</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>214</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>483</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>416</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>459</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>391</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>197</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>491</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>526</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>349</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -13947,31 +13775,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>398</integer>
+					<integer>387</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>767</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>26</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>477</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>376</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>450</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>10</integer>
+					<integer>218</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -13979,51 +13787,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>387</integer>
+					<integer>454</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>796</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>487</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>175</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>120</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>428</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>303</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>533</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>468</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>104</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>329</integer>
+					<integer>275</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14031,23 +13799,59 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>216</integer>
+					<integer>477</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>186</integer>
+					<integer>612</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>114</integer>
+					<integer>349</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>324</integer>
+					<integer>10</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>362</integer>
+					<integer>533</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>166</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>444</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>826</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>171</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>128</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>435</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>367</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>376</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14055,19 +13859,59 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>418</integer>
+					<integer>464</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>306</integer>
+					<integer>195</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>261</integer>
+					<integer>445</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>339</integer>
+					<integer>255</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>20</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>455</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>120</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>372</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>207</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>157</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>392</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>468</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>766</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>403</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14075,7 +13919,223 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>171</integer>
+					<integer>216</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>110</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>402</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>412</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>483</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>542</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>459</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>303</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>118</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>161</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>428</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>324</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>186</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>234</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>261</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>398</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>439</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>114</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>418</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>104</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>310</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>634</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>18</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>306</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>522</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>26</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>22</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>391</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>487</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>526</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>202</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>491</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>450</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>345</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>339</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>95</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>197</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>179</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>308</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>426</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>214</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>142</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>293</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>175</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>472</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>329</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>431</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>203</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>795</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>768</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>314</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>362</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>167</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>83</integer>
 				</dict>
 			</array>
 		</dict>
@@ -14092,41 +14152,17 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>195</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>387</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>120</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>16</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>18</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>167</integer>
+					<integer>16</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14138,35 +14174,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>403</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>157</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>445</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>306</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>216</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>161</integer>
+					<integer>159</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14174,155 +14182,15 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>222</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>216</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>398</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>439</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>308</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>203</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>310</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>450</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>118</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>197</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
+					<integer>128</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
 					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>308</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>216</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>153</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>392</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>195</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>487</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14334,11 +14202,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14346,19 +14210,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>22</integer>
+					<integer>167</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
+					<integer>445</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14370,35 +14226,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>118</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>214</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
+					<integer>120</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14410,31 +14238,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>314</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>128</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>303</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>314</integer>
+					<integer>16</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14446,11 +14250,15 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>416</integer>
+					<integer>426</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>214</integer>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>439</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14458,73 +14266,23 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>308</integer>
+					<integer>153</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>218</integer>
+					<integer>450</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>$class</key>
-			<dict>
-				<key>CF$UID</key>
-				<integer>865</integer>
-			</dict>
-			<key>NS.objects</key>
-			<array>
-				<dict>
-					<key>CF$UID</key>
-					<integer>207</integer>
+					<integer>118</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>22</integer>
+					<integer>16</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>435</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>392</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>128</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>412</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>157</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>166</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>372</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>293</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>402</integer>
+					<integer>195</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14532,15 +14290,19 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>159</integer>
+					<integer>387</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>444</integer>
+					<integer>426</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>308</integer>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>398</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14548,23 +14310,15 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>634</integer>
+					<integer>303</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>167</integer>
+					<integer>20</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>454</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>234</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>95</integer>
+					<integer>157</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14572,95 +14326,19 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>612</integer>
+					<integer>16</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>464</integer>
+					<integer>16</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>179</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>445</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>345</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>202</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>314</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>83</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>455</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>431</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>110</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>472</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>142</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>522</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>161</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>203</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>542</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>769</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>827</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>255</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>310</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>367</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>439</integer>
+					<integer>426</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14672,7 +14350,39 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>483</integer>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>426</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>314</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>222</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>216</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>426</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>20</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14680,11 +14390,115 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>459</integer>
+					<integer>20</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>391</integer>
+					<integer>308</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>214</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>22</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>20</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>392</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>203</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>487</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>426</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>308</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>308</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>20</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>195</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>306</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>118</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>216</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>426</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>314</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>426</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14692,11 +14506,41 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>491</integer>
+					<integer>2</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>526</integer>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>310</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>161</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>20</integer>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>$class</key>
+			<dict>
+				<key>CF$UID</key>
+				<integer>867</integer>
+			</dict>
+			<key>NS.objects</key>
+			<array>
+				<dict>
+					<key>CF$UID</key>
+					<integer>416</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14704,31 +14548,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>398</integer>
+					<integer>387</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>767</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>26</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>477</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>376</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>450</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>10</integer>
+					<integer>218</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14736,47 +14560,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>387</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>796</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>487</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>175</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>120</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>428</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>303</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>533</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>468</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>104</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>329</integer>
+					<integer>454</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14784,23 +14568,51 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>186</integer>
+					<integer>477</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>216</integer>
+					<integer>612</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>324</integer>
+					<integer>10</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>114</integer>
+					<integer>533</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>362</integer>
+					<integer>166</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>444</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>826</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>171</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>128</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>435</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>367</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>376</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14808,19 +14620,55 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>418</integer>
+					<integer>464</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>306</integer>
+					<integer>445</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>261</integer>
+					<integer>255</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>339</integer>
+					<integer>20</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>455</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>120</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>372</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>207</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>157</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>392</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>468</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>766</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>403</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14828,7 +14676,219 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>171</integer>
+					<integer>216</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>110</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>402</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>412</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>483</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>542</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>459</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>303</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>161</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>428</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>324</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>186</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>234</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>261</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>398</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>439</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>114</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>418</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>104</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>310</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>634</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>18</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>306</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>522</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>26</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>22</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>391</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>487</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>526</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>202</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>491</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>450</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>345</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>339</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>95</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>197</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>179</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>308</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>214</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>142</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>293</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>175</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>329</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>472</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>431</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>203</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>795</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>768</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>314</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>362</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>167</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>83</integer>
 				</dict>
 			</array>
 		</dict>
@@ -14836,25 +14896,13 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>869</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>870</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>871</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>872</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14878,6 +14926,10 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>876</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>877</integer>
 				</dict>
 				<dict>
@@ -14894,15 +14946,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>146</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>876</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>146</integer>
+					<integer>881</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14914,23 +14958,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>872</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>879</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>883</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
 					<integer>884</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>872</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14946,15 +14978,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>872</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>888</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>879</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14962,15 +14986,19 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>884</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>890</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>872</integer>
+					<integer>146</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>878</integer>
+					<integer>884</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -14990,15 +15018,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>884</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>895</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>872</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>304</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15006,19 +15030,15 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>884</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>897</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>898</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>899</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>888</integer>
+					<integer>146</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15026,11 +15046,35 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>146</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>876</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>898</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>895</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>899</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>304</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>900</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>146</integer>
+					<integer>888</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15046,10 +15090,6 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>879</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>903</integer>
 				</dict>
 				<dict>
@@ -15058,11 +15098,27 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>886</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>905</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>891</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>875</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>906</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>893</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15074,15 +15130,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>904</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>878</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>909</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>894</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15098,7 +15150,23 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>876</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>912</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>913</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>876</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>911</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15106,19 +15174,11 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>870</integer>
+					<integer>886</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>893</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>895</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>893</integer>
+					<integer>890</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15127,22 +15187,6 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				<dict>
 					<key>CF$UID</key>
 					<integer>916</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>891</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>869</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>883</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>879</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15158,15 +15202,19 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>912</integer>
+					<integer>901</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>898</integer>
+					<integer>877</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>915</integer>
+					<integer>901</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>904</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15174,88 +15222,108 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>875</integer>
+					<integer>877</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>888</integer>
+					<integer>884</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>898</integer>
+					<integer>920</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>889</integer>
+					<integer>921</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>897</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
 					<integer>890</integer>
 				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>884</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>883</integer>
+				</dict>
 			</array>
 		</dict>
-		<string>NSTextField1</string>
-		<string>NSScrollView2</string>
-		<string>NSButton411</string>
-		<string>PopUpList</string>
-		<string>File's Owner</string>
-		<string>NSTextField21</string>
-		<string>NSTabViewItem1</string>
-		<string>NSMenuItem</string>
-		<string>NSButton5</string>
-		<string>NSButton4</string>
-		<string>NSMenuItem2</string>
-		<string>NSTabView11</string>
-		<string>NSScrollView1</string>
-		<string>key bindings</string>
-		<string>NSTableColumn</string>
-		<string>NSButton211</string>
-		<string>actions</string>
-		<string>NSButton41111</string>
-		<string>NSButton2</string>
-		<string>NSButton1</string>
-		<string>NSTableView</string>
-		<string>NSTextField2111</string>
-		<string>NSTextField2112</string>
-		<string>NSButton41</string>
-		<string>NSTextField</string>
-		<string>domains</string>
-		<string>NSPopUpButton2</string>
-		<string>sharedKeyCodesController</string>
-		<string>Shared Defaults</string>
-		<string>NSButton</string>
-		<string>NSScrollView3</string>
-		<string>NSTabView</string>
 		<string>NSBox211</string>
-		<string>NSButton4111</string>
-		<string>NSPopUpButton21</string>
-		<string>NSTextView</string>
-		<string>sharedMacroController</string>
 		<string>NSTextField2</string>
-		<string>NSPopUpButton</string>
-		<string>keys</string>
-		<string>View1</string>
-		<string>NSPopUpButton11</string>
-		<string>Window</string>
-		<string>NSTextField21111</string>
 		<string>NSPopUpButton1</string>
-		<string>scripts</string>
-		<string>NSTabViewItem</string>
+		<string>NSScrollView1</string>
+		<string>NSTextField21111</string>
+		<string>NSMenuItem2</string>
+		<string>NSButton4</string>
+		<string>actions</string>
+		<string>Window</string>
 		<string>modes</string>
-		<string>NSButton11</string>
+		<string>NSMenuItem</string>
+		<string>Shared Defaults</string>
+		<string>NSTextField2111</string>
+		<string>PopUpList</string>
+		<string>NSButton411</string>
+		<string>NSButton1</string>
+		<string>View1</string>
+		<string>NSTabViewItem</string>
+		<string>NSButton41111</string>
+		<string>NSButton</string>
+		<string>NSPopUpButton2</string>
+		<string>NSButton5</string>
+		<string>NSTextField1</string>
+		<string>NSTabViewItem1</string>
+		<string>NSTextField2112</string>
+		<string>keys</string>
+		<string>NSTableView</string>
+		<string>NSTextField21</string>
+		<string>File's Owner</string>
+		<string>NSButton4111</string>
+		<string>NSTextField</string>
 		<string>NSTableColumn1</string>
+		<string>NSButton11</string>
+		<string>NSTableColumn</string>
+		<string>NSPopUpButton</string>
 		<string>NSView1</string>
+		<string>NSScrollView3</string>
+		<string>key bindings</string>
+		<string>NSTabView11</string>
+		<string>domains</string>
+		<string>NSTextView</string>
+		<string>NSScrollView2</string>
+		<string>sharedMacroController</string>
+		<string>NSPopUpButton11</string>
+		<string>NSButton211</string>
+		<string>NSPopUpButton21</string>
+		<string>NSButton2</string>
+		<string>NSTabView</string>
+		<string>NSButton41</string>
+		<string>scripts</string>
+		<string>sharedKeyCodesController</string>
 		<dict>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>222</integer>
+					<integer>26</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>439</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>197</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15267,11 +15335,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>161</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>197</integer>
+					<integer>795</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15279,7 +15343,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>796</integer>
+					<integer>222</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15287,11 +15351,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>439</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>26</integer>
+					<integer>161</integer>
 				</dict>
 			</array>
 		</dict>
@@ -15299,13 +15359,21 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>223</integer>
+					<integer>27</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>121</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>121</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15317,11 +15385,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>121</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>121</integer>
+					<integer>543</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15329,7 +15393,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>543</integer>
+					<integer>223</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -15338,10 +15402,6 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				<dict>
 					<key>CF$UID</key>
 					<integer>121</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>27</integer>
 				</dict>
 			</array>
 		</dict>
@@ -15349,673 +15409,13 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array>
 				<dict>
 					<key>CF$UID</key>
-					<integer>590</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>706</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>349</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>570</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>727</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>566</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>658</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>795</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>592</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>756</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>428</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>856</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>782</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>860</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>157</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>197</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>526</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>573</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>732</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>416</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>634</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>142</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>303</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>846</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>702</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>586</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>202</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>734</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>824</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>308</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
 					<integer>852</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>796</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>763</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>207</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>670</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>118</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>588</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>403</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>831</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>483</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>598</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>222</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>663</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>9</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>815</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>275</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>594</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>376</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>159</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>398</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>760</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>255</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>454</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>842</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>532</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>800</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>306</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>625</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>127</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>810</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>372</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>603</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>114</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>412</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>775</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>606</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>854</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>203</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>802</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>576</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>18</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>608</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>844</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>367</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>83</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>709</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>811</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>737</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>599</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>826</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>766</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>678</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>186</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>805</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>667</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>477</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>455</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>392</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>687</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>580</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>661</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>450</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>716</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>542</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>834</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>818</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>110</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>743</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>345</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>767</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>128</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>858</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>179</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>691</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>362</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>533</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>426</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>293</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>568</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>216</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>195</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>619</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>472</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>713</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>787</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>788</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>740</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>611</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>621</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>439</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>166</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>444</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>310</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>234</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>22</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>104</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>161</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>723</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>120</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>2</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>792</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>747</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>610</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>487</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>560</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>171</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>626</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>684</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>783</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>418</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>612</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>840</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>26</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>192</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>848</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>468</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>408</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>95</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>435</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>522</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>10</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>633</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>175</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>261</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>692</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>324</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>820</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>745</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>827</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>329</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>769</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>862</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>617</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>387</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>664</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>838</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -16023,39 +15423,27 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>459</integer>
+					<integer>708</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>167</integer>
+					<integer>303</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>445</integer>
+					<integer>838</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>699</integer>
+					<integer>202</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>751</integer>
+					<integer>418</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>584</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>822</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>850</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>753</integer>
+					<integer>752</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -16063,7 +15451,47 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>391</integer>
+					<integer>192</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>566</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>832</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>161</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>118</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>450</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>810</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>742</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>171</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>841</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>698</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -16071,43 +15499,15 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>314</integer>
+					<integer>862</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>836</integer>
+					<integer>715</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>153</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>696</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>16</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>806</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>402</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>730</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>562</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>20</integer>
+					<integer>408</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -16115,19 +15515,159 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>522</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>749</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>660</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>619</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>542</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>850</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>765</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>598</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>729</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>214</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>491</integer>
+					<integer>625</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>339</integer>
+					<integer>454</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>218</integer>
+					<integer>324</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>455</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>690</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>611</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>794</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>840</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>367</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>606</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>781</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>817</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>739</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>695</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>22</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>626</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>533</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>786</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>712</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>731</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>110</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>819</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>663</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>403</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>153</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>526</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>20</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>755</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>787</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -16135,7 +15675,535 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>809</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>766</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>823</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>114</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>726</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>576</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>621</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>203</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>477</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>392</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>412</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>398</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>669</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>795</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>586</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>856</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>588</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>705</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>590</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>821</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>722</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>594</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>562</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>844</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>142</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>826</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>836</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>487</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>612</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>762</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>791</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>10</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>362</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>662</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>804</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>805</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>733</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>686</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>83</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>830</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>444</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>95</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>768</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>610</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>216</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>18</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>617</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>666</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>218</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>167</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>127</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>157</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>701</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>195</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>175</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>349</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>339</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>759</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>468</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>104</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>799</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>858</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>592</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>834</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>657</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>435</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>207</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>391</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>402</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>186</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>584</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>275</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>677</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>166</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>746</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>261</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>860</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>308</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>573</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>416</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>387</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>854</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>560</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>197</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>426</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>774</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>179</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>603</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>9</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>459</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>846</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>16</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>825</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>472</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>439</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>532</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>848</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>306</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>580</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>159</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>345</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>801</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>491</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>222</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>445</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>683</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>376</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>483</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>293</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>782</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>744</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>120</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>568</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>570</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>310</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>329</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>608</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>128</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>842</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>314</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>234</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>599</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>26</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>541</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>428</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>372</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>814</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>736</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>633</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>691</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>255</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>634</integer>
 				</dict>
 			</array>
 		</dict>
@@ -16143,18 +16211,10 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array>
-				<dict>
-					<key>CF$UID</key>
-					<integer>924</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>925</integer>
-				</dict>
 				<dict>
 					<key>CF$UID</key>
 					<integer>926</integer>
@@ -16489,6 +16549,10 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
+					<integer>63</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
 					<integer>1009</integer>
 				</dict>
 				<dict>
@@ -16662,10 +16726,6 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 				<dict>
 					<key>CF$UID</key>
 					<integer>1052</integer>
-				</dict>
-				<dict>
-					<key>CF$UID</key>
-					<integer>63</integer>
 				</dict>
 				<dict>
 					<key>CF$UID</key>
@@ -16931,203 +16991,221 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 					<key>CF$UID</key>
 					<integer>1118</integer>
 				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>1119</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>1120</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>1121</integer>
+				</dict>
+				<dict>
+					<key>CF$UID</key>
+					<integer>1122</integer>
+				</dict>
 			</array>
 		</dict>
-		<integer>474</integer>
-		<integer>786</integer>
-		<integer>359</integer>
-		<integer>456</integer>
-		<integer>849</integer>
-		<integer>454</integer>
-		<integer>635</integer>
-		<integer>954</integer>
-		<integer>479</integer>
-		<integer>914</integer>
-		<integer>872</integer>
 		<integer>1041</integer>
-		<integer>931</integer>
-		<integer>1043</integer>
-		<integer>543</integer>
-		<integer>993</integer>
-		<integer>8</integer>
-		<integer>457</integer>
-		<integer>876</integer>
-		<integer>563</integer>
-		<integer>616</integer>
-		<integer>990</integer>
-		<integer>334</integer>
-		<integer>1036</integer>
-		<integer>732</integer>
-		<integer>466</integer>
-		<integer>995</integer>
-		<integer>881</integer>
-		<integer>1016</integer>
-		<integer>333</integer>
-		<integer>1039</integer>
-		<integer>953</integer>
-		<integer>916</integer>
-		<integer>996</integer>
-		<integer>644</integer>
-		<integer>986</integer>
-		<integer>467</integer>
-		<integer>476</integer>
-		<integer>1029</integer>
-		<integer>1024</integer>
-		<integer>481</integer>
-		<integer>337</integer>
-		<integer>638</integer>
-		<integer>171</integer>
-		<integer>1005</integer>
-		<integer>355</integer>
-		<integer>480</integer>
-		<integer>468</integer>
-		<integer>544</integer>
-		<integer>475</integer>
-		<integer>915</integer>
-		<integer>344</integer>
-		<integer>875</integer>
-		<integer>1034</integer>
-		<integer>383</integer>
-		<integer>956</integer>
-		<integer>332</integer>
-		<integer>602</integer>
-		<integer>989</integer>
-		<integer>1000</integer>
-		<integer>458</integer>
-		<integer>483</integer>
-		<integer>985</integer>
-		<integer>473</integer>
-		<integer>929</integer>
-		<integer>490</integer>
-		<integer>1040</integer>
-		<integer>994</integer>
-		<integer>957</integer>
-		<integer>461</integer>
-		<integer>542</integer>
-		<integer>505</integer>
-		<integer>1035</integer>
-		<integer>374</integer>
-		<integer>551</integer>
-		<integer>789</integer>
-		<integer>1002</integer>
-		<integer>883</integer>
-		<integer>482</integer>
-		<integer>1023</integer>
-		<integer>925</integer>
-		<integer>646</integer>
-		<integer>556</integer>
-		<integer>984</integer>
-		<integer>641</integer>
-		<integer>1019</integer>
-		<integer>874</integer>
-		<integer>471</integer>
-		<integer>672</integer>
-		<integer>462</integer>
-		<integer>636</integer>
-		<integer>873</integer>
-		<integer>807</integer>
-		<integer>387</integer>
-		<integer>1030</integer>
-		<integer>1006</integer>
-		<integer>517</integer>
-		<integer>891</integer>
-		<integer>347</integer>
-		<integer>491</integer>
-		<integer>988</integer>
-		<integer>1042</integer>
-		<integer>554</integer>
-		<integer>675</integer>
-		<integer>373</integer>
-		<integer>382</integer>
-		<integer>877</integer>
-		<integer>694</integer>
-		<integer>455</integer>
-		<integer>335</integer>
-		<integer>992</integer>
-		<integer>558</integer>
-		<integer>947</integer>
-		<integer>798</integer>
-		<integer>933</integer>
-		<integer>935</integer>
-		<integer>885</integer>
-		<integer>539</integer>
-		<integer>600</integer>
-		<integer>868</integer>
-		<integer>952</integer>
-		<integer>870</integer>
-		<integer>340</integer>
-		<integer>338</integer>
-		<integer>549</integer>
-		<integer>495</integer>
-		<integer>950</integer>
-		<integer>823</integer>
-		<integer>987</integer>
-		<integer>949</integer>
-		<integer>905</integer>
-		<integer>506</integer>
-		<integer>1025</integer>
-		<integer>428</integer>
-		<integer>552</integer>
-		<integer>603</integer>
-		<integer>647</integer>
-		<integer>932</integer>
-		<integer>564</integer>
-		<integer>531</integer>
-		<integer>1033</integer>
-		<integer>550</integer>
-		<integer>991</integer>
-		<integer>1037</integer>
-		<integer>927</integer>
-		<integer>478</integer>
-		<integer>565</integer>
-		<integer>865</integer>
-		<integer>377</integer>
-		<integer>5</integer>
-		<integer>631</integer>
-		<integer>553</integer>
-		<integer>345</integer>
-		<integer>676</integer>
-		<integer>343</integer>
-		<integer>1009</integer>
-		<integer>893</integer>
-		<integer>1020</integer>
-		<integer>342</integer>
-		<integer>921</integer>
-		<integer>1062</integer>
-		<integer>557</integer>
-		<integer>470</integer>
-		<integer>640</integer>
-		<integer>1032</integer>
 		<integer>463</integer>
-		<integer>866</integer>
-		<integer>951</integer>
-		<integer>869</integer>
-		<integer>696</integer>
-		<integer>909</integer>
-		<integer>465</integer>
-		<integer>1015</integer>
-		<integer>1038</integer>
+		<integer>789</integer>
+		<integer>334</integer>
+		<integer>1033</integer>
+		<integer>995</integer>
+		<integer>564</integer>
 		<integer>913</integer>
 		<integer>867</integer>
-		<integer>472</integer>
+		<integer>991</integer>
+		<integer>454</integer>
+		<integer>1030</integer>
+		<integer>950</integer>
+		<integer>986</integer>
+		<integer>873</integer>
+		<integer>1002</integer>
+		<integer>891</integer>
+		<integer>552</integer>
+		<integer>1035</integer>
+		<integer>696</integer>
 		<integer>864</integer>
-		<integer>341</integer>
-		<integer>1031</integer>
-		<integer>545</integer>
-		<integer>686</integer>
-		<integer>6</integer>
-		<integer>999</integer>
-		<integer>477</integer>
-		<integer>863</integer>
-		<integer>452</integer>
-		<integer>546</integer>
+		<integer>1065</integer>
+		<integer>807</integer>
+		<integer>478</integer>
+		<integer>909</integer>
+		<integer>377</integer>
 		<integer>907</integer>
+		<integer>636</integer>
+		<integer>558</integer>
+		<integer>387</integer>
+		<integer>1040</integer>
+		<integer>925</integer>
+		<integer>481</integer>
+		<integer>863</integer>
 		<integer>331</integer>
-		<integer>1026</integer>
-		<integer>346</integer>
-		<integer>336</integer>
+		<integer>602</integer>
+		<integer>875</integer>
+		<integer>343</integer>
+		<integer>874</integer>
+		<integer>675</integer>
+		<integer>539</integer>
+		<integer>954</integer>
+		<integer>1034</integer>
+		<integer>374</integer>
+		<integer>490</integer>
+		<integer>931</integer>
+		<integer>1006</integer>
+		<integer>885</integer>
+		<integer>686</integer>
+		<integer>549</integer>
+		<integer>603</integer>
+		<integer>382</integer>
+		<integer>933</integer>
+		<integer>798</integer>
+		<integer>876</integer>
+		<integer>517</integer>
+		<integer>1009</integer>
+		<integer>640</integer>
+		<integer>476</integer>
+		<integer>545</integer>
+		<integer>8</integer>
+		<integer>546</integer>
+		<integer>914</integer>
+		<integer>935</integer>
 		<integer>379</integer>
+		<integer>1000</integer>
+		<integer>491</integer>
+		<integer>1016</integer>
+		<integer>985</integer>
+		<integer>849</integer>
+		<integer>461</integer>
+		<integer>600</integer>
+		<integer>994</integer>
+		<integer>1019</integer>
+		<integer>471</integer>
+		<integer>473</integer>
+		<integer>475</integer>
+		<integer>644</integer>
+		<integer>953</integer>
+		<integer>466</integer>
+		<integer>1043</integer>
+		<integer>467</integer>
+		<integer>786</integer>
+		<integer>474</integer>
+		<integer>1015</integer>
+		<integer>823</integer>
+		<integer>480</integer>
+		<integer>452</integer>
+		<integer>1037</integer>
+		<integer>990</integer>
+		<integer>1020</integer>
+		<integer>1032</integer>
+		<integer>1025</integer>
+		<integer>531</integer>
+		<integer>916</integer>
+		<integer>949</integer>
+		<integer>5</integer>
+		<integer>373</integer>
+		<integer>638</integer>
+		<integer>984</integer>
+		<integer>999</integer>
+		<integer>881</integer>
+		<integer>672</integer>
+		<integer>551</integer>
+		<integer>1029</integer>
+		<integer>870</integer>
+		<integer>565</integer>
+		<integer>921</integer>
+		<integer>506</integer>
+		<integer>335</integer>
+		<integer>542</integer>
+		<integer>557</integer>
+		<integer>641</integer>
+		<integer>336</integer>
+		<integer>951</integer>
+		<integer>989</integer>
+		<integer>543</integer>
+		<integer>732</integer>
+		<integer>992</integer>
+		<integer>553</integer>
+		<integer>359</integer>
+		<integer>346</integer>
+		<integer>915</integer>
+		<integer>927</integer>
+		<integer>495</integer>
+		<integer>956</integer>
+		<integer>1062</integer>
+		<integer>479</integer>
+		<integer>1031</integer>
+		<integer>635</integer>
+		<integer>865</integer>
+		<integer>996</integer>
+		<integer>472</integer>
+		<integer>477</integer>
+		<integer>556</integer>
+		<integer>465</integer>
+		<integer>355</integer>
+		<integer>646</integer>
+		<integer>952</integer>
+		<integer>905</integer>
+		<integer>345</integer>
+		<integer>1064</integer>
+		<integer>333</integer>
+		<integer>457</integer>
+		<integer>563</integer>
+		<integer>470</integer>
+		<integer>1042</integer>
+		<integer>428</integer>
+		<integer>993</integer>
+		<integer>877</integer>
+		<integer>929</integer>
+		<integer>554</integer>
+		<integer>483</integer>
+		<integer>171</integer>
+		<integer>866</integer>
+		<integer>1038</integer>
+		<integer>6</integer>
+		<integer>1023</integer>
+		<integer>947</integer>
+		<integer>868</integer>
+		<integer>383</integer>
+		<integer>1039</integer>
+		<integer>332</integer>
+		<integer>462</integer>
+		<integer>544</integer>
+		<integer>347</integer>
+		<integer>957</integer>
+		<integer>1026</integer>
+		<integer>337</integer>
+		<integer>869</integer>
+		<integer>647</integer>
+		<integer>468</integer>
+		<integer>1024</integer>
+		<integer>694</integer>
+		<integer>932</integer>
+		<integer>893</integer>
+		<integer>987</integer>
+		<integer>455</integer>
+		<integer>456</integer>
+		<integer>340</integer>
+		<integer>342</integer>
+		<integer>505</integer>
+		<integer>988</integer>
+		<integer>1036</integer>
+		<integer>341</integer>
+		<integer>338</integer>
+		<integer>482</integer>
+		<integer>550</integer>
 		<integer>427</integer>
+		<integer>872</integer>
+		<integer>458</integer>
+		<integer>1005</integer>
+		<integer>883</integer>
+		<integer>631</integer>
+		<integer>676</integer>
+		<integer>344</integer>
+		<integer>616</integer>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -17141,7 +17219,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array/>
@@ -17150,7 +17228,7 @@ Select Key Bindings to associate a macro to a given keystroke.</string>
 			<key>$class</key>
 			<dict>
 				<key>CF$UID</key>
-				<integer>865</integer>
+				<integer>867</integer>
 			</dict>
 			<key>NS.objects</key>
 			<array/>

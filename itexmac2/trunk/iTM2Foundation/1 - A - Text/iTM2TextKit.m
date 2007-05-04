@@ -1162,7 +1162,7 @@ To Do List: implement some kind of balance range for range
 	}
 	if(wordRange.length==1)
 	{
-		NSRange range = [[self string] rangeOfPlaceholderAtIndex:index getType:nil];
+		NSRange range = [[self string] rangeOfPlaceholderAtIndex:index getType:nil ignoreComment:YES];
 		return range.length?range:wordRange;
 	}
 //iTM2_END;

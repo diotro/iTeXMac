@@ -57,7 +57,8 @@ then
         "${iTM2_CMD_Notify}" notify echo "Welcome to iTeXMac2 compile switcher $(basename "$0") version ${iTM2_Compile_version}
 This is the built in shell script to compile
 © 2006 jlaurens AT users DOT sourceforge DOT net
-compiling TWSMaster (${TWSMaster})"
+compiling TWSMaster (${TWSMaster}) with
+$0"
 fi
 iTM2_Compile_INPUT="$(basename "${TWSMaster}")"
 iTM2_Compile_Extension="${iTM2_Compile_INPUT##*.}"
@@ -75,6 +76,7 @@ fi
 iTM2_Compile_Extension="$(echo "${iTM2_Compile_Extension##*.}" | tr [:upper:] [:lower:])"
 iTM2_Compile_Engine="iTM2_Compile_${iTM2_Compile_Extension}"
 iTM2_Compile_Wrapped="${!iTM2_Compile_Engine}"
+echo "! ${iTM2_Compile_Wrapped}"
 # the iTM2_Compile_Engine now contains the name of the environment variable that knows the command to launch
 iTM2_Compile_EnginePath="$(/bin/zsh -c "which \"${iTM2_Compile_Wrapped}\"")"
 #"
@@ -95,7 +97,7 @@ then
 fi
 if [ "${iTM2_Compile_RunSilently:-0}" == "0" ]
 then
-	"${iTM2_CMD_Notify}" notify echo "switching to ${iTM2_Compile_EnginePath}"
+	"${iTM2_CMD_Notify}" notify echo "! switching to ${iTM2_Compile_EnginePath}"
 fi
 "${iTM2_Compile_EnginePath}"
 iTM2_Status=$?

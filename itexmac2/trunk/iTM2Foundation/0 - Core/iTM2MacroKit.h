@@ -377,37 +377,37 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 + (NSString *)bullet;
 
 /*!
-	@method		rangeOfNextPlaceholderMarkAfterIndex:getType:
+	@method		rangeOfNextPlaceholderMarkAfterIndex:getType:ignoreComment:
 	@abstract	Abstract forthcoming.
 	@discussion	Dicussion forthcoming.
 	@param		index.
 	@param		typeRef.
 	@result		A range.
 */
-- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(NSString **)typeRef;
+- (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(unsigned)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore;
 
 /*!
-	@method		rangeOfPreviousPlaceholderMarkBeforeIndex:getType:
+	@method		rangeOfPreviousPlaceholderMarkBeforeIndex:getType:ignoreComment:
 	@abstract	Abstract forthcoming.
 	@discussion	Dicussion forthcoming.
 	@param		index.
 	@param		typeRef.
 	@result		A range.
 */
-- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(NSString **)typeRef;
+- (NSRange)rangeOfPreviousPlaceholderMarkBeforeIndex:(unsigned)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore;
 
 /*!
-	@method		rangeOfPlaceholderAtIndex:getType:
+	@method		rangeOfPlaceholderAtIndex:getType:ignoreComment:
 	@abstract	Abstract forthcoming.
-	@discussion	Removes everything inside "@@@(SEL:...)@@@", such that there are only "@@@(...)@@@" remaining.
+	@discussion	???Removes everything inside "@@@(SEL:...)@@@", such that there are only "@@@(...)@@@" remaining.
 	@param		An index.
 	@param		A type ref.
 	@result		A range.
 */
-- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index getType:(NSString **)typeRef;
+- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore;
 
 /*!
-	@method		rangeOfNextPlaceholderAfterIndex:cycle:tabAnchor:
+	@method		rangeOfNextPlaceholderAfterIndex:cycle:tabAnchor:ignoreComment:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		An index.
@@ -415,10 +415,10 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 	@param		A string.
 	@result		A range.
 */
-- (NSRange)rangeOfNextPlaceholderAfterIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+- (NSRange)rangeOfNextPlaceholderAfterIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor ignoreComment:(BOOL)ignore;
 
 /*!
-	@method		rangeOfPreviousPlaceholderBeforeIndex:cycle:tabAnchor:
+	@method		rangeOfPreviousPlaceholderBeforeIndex:cycle:tabAnchor:ignoreComment:
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
 	@param		An index.
@@ -426,7 +426,7 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 	@param		A string.
 	@result		A range.
 */
-- (NSRange)rangeOfPreviousPlaceholderBeforeIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor;
+- (NSRange)rangeOfPreviousPlaceholderBeforeIndex:(unsigned)index cycle:(BOOL)cycle tabAnchor:(NSString *)tabAnchor ignoreComment:(BOOL)ignore;
 
 /*!
 	@method		stringByRemovingPlaceholderMarks

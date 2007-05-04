@@ -108,6 +108,16 @@ extern NSString * const iTM2AutosavingDelayKey;
     @result		yorn.
 */
 - (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+
+/*!
+    @method		forgetRecentDocumentURL:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		absoluteURL: the url the receiver should forget...
+    @result		None.
+*/
+- (void)forgetRecentDocumentURL:(NSURL *)absoluteURL;
+
 @end
 
 @interface NSDocument(iTM2DocumentControllerKit)

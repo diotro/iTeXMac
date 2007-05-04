@@ -236,7 +236,7 @@ To Do List:
 	{
 		[super insertMacro:argument tabAnchor:tabAnchor substitutions:(NSDictionary *)substitutions];
 	}
-	NSRange R = [argument rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor];
+	NSRange R = [argument rangeOfNextPlaceholderAfterIndex:0 cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 	if(R.length)
 	{
 		[super insertMacro:argument tabAnchor:tabAnchor substitutions:(NSDictionary *)substitutions];
@@ -803,7 +803,7 @@ To Do List:
 		return NO;
 	}
 	// this is a patch to manage the special glyph generation used by iTM2
-	// some TeX commands are displayed just with one glyp
+	// some TeX commands are displayed just with one glyph
 	// when the style is extended latex for example, the \alpha command is replaced by the alpha greek letter
 	// There is a problem for text editing:
 	// if you have in your text the "alpha" word as is, no the name of a TeX command

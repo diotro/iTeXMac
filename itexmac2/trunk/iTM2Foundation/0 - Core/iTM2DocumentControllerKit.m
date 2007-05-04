@@ -56,6 +56,30 @@ To Do List:
 //iTM2_END;
     return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= forgetRecentDocumentURL:
+- (void)forgetRecentDocumentURL:(NSURL *)absoluteURL;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id urls = [self recentDocumentURLs];
+	if([urls containsObject:absoluteURL])
+	{
+		[self clearRecentDocuments:nil];
+		urls = [NSMutableArray arrayWithArray:urls];
+		[urls removeObject:absoluteURL];
+		NSEnumerator * E = [urls objectEnumerator];
+		while(absoluteURL = [E nextObject])
+		{
+			[self noteNewRecentDocumentURL:absoluteURL];
+		}
+	}
+//iTM2_END;
+	return;
+}
 @end
 
 NSString * const iTM2AutosavingDelayKey = @"iTM2AutosavingDelay";

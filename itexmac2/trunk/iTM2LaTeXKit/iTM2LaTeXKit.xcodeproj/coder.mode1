@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCC417870BD2167C001BB851</string>
+						<string>DC045DAA0BEB27D10044A27F</string>
 						<key>history</key>
 						<array>
-							<string>DCEDCC2D0BCD2B2100009DF6</string>
+							<string>DCC417D90BD3B71B001BB851</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -262,8 +262,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -344,6 +342,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -361,10 +361,10 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DCC417860BD2167C001BB851</string>
+										<string>DC045DA90BEB27D10044A27F</string>
 										<key>history</key>
 										<array>
-											<string>DCC4135E0BD01FB1001BB851</string>
+											<string>DCC417D80BD3B71B001BB851</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -422,9 +422,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCC413610BD01FB1001BB851</string>
+				<string>DC04570D0BE0DE580044A27F</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCC413620BD01FB1001BB851</string>
+				<string>DC04570E0BE0DE580044A27F</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -558,15 +558,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCC416CF0BD13D69001BB851</string>
-		<string>DCC416D00BD13D69001BB851</string>
-		<string>DCC4136B0BD01FB1001BB851</string>
-		<string>DCEDCBE90BCC3D5500009DF6</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
-		<string>DCBEC51C088DD36400F8BF85</string>
-		<string>DC8A64A8088DBEB50016FAA2</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DC0457090BE0DE4E0044A27F</string>
+		<string>DCEDCBE90BCC3D5500009DF6</string>
+		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>53 97 1371 779 0 0 1440 878 </string>
@@ -690,8 +685,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {543, 252}}</string>
-											<string>{{543, 0}, {687, 252}}</string>
+											<string>{{0, 0}, {541, 309}}</string>
+											<string>{{541, 0}, {689, 309}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -706,8 +701,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1230, 252}}</string>
-											<string>{{0, 252}, {1230, 421}}</string>
+											<string>{{0, 0}, {1230, 309}}</string>
+											<string>{{0, 309}, {1230, 364}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -754,14 +749,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCC413650BD01FB1001BB851</string>
+				<string>DC0457030BE0DE4E0044A27F</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCC413660BD01FB1001BB851</string>
-				<string>DCC413670BD01FB1001BB851</string>
-				<string>DCC413680BD01FB1001BB851</string>
-				<string>DCC413690BD01FB1001BB851</string>
-				<string>DCC4136A0BD01FB1001BB851</string>
-				<string>DCC4136B0BD01FB1001BB851</string>
+				<string>DC0457040BE0DE4E0044A27F</string>
+				<string>DC0457050BE0DE4E0044A27F</string>
+				<string>DC0457060BE0DE4E0044A27F</string>
+				<string>DC0457070BE0DE4E0044A27F</string>
+				<string>DC0457080BE0DE4E0044A27F</string>
+				<string>DC0457090BE0DE4E0044A27F</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -770,7 +765,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
