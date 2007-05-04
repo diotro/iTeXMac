@@ -867,6 +867,18 @@
 			DC045DD40BEB2DA10044A27F /* PBXTextBookmark */ = DC045DD40BEB2DA10044A27F /* PBXTextBookmark */;
 			DC045DD50BEB2DA10044A27F /* PBXTextBookmark */ = DC045DD50BEB2DA10044A27F /* PBXTextBookmark */;
 			DC045DD60BEB2DA10044A27F /* PBXTextBookmark */ = DC045DD60BEB2DA10044A27F /* PBXTextBookmark */;
+			DC045DD90BEB57290044A27F /* PBXTextBookmark */ = DC045DD90BEB57290044A27F /* PBXTextBookmark */;
+			DC045DDA0BEB57290044A27F /* PBXTextBookmark */ = DC045DDA0BEB57290044A27F /* PBXTextBookmark */;
+			DC045DDB0BEB57290044A27F /* PBXTextBookmark */ = DC045DDB0BEB57290044A27F /* PBXTextBookmark */;
+			DC045DDC0BEB57290044A27F /* PBXTextBookmark */ = DC045DDC0BEB57290044A27F /* PBXTextBookmark */;
+			DC045DDD0BEB57290044A27F /* PBXTextBookmark */ = DC045DDD0BEB57290044A27F /* PBXTextBookmark */;
+			DC045DDE0BEB57290044A27F /* PBXTextBookmark */ = DC045DDE0BEB57290044A27F /* PBXTextBookmark */;
+			DC045DDF0BEB57290044A27F /* PBXTextBookmark */ = DC045DDF0BEB57290044A27F /* PBXTextBookmark */;
+			DC045DE00BEB57290044A27F /* PBXTextBookmark */ = DC045DE00BEB57290044A27F /* PBXTextBookmark */;
+			DC045DE10BEB57290044A27F /* PBXTextBookmark */ = DC045DE10BEB57290044A27F /* PBXTextBookmark */;
+			DC045DE20BEB57290044A27F /* PBXTextBookmark */ = DC045DE20BEB57290044A27F /* PBXTextBookmark */;
+			DC045DE30BEB57290044A27F /* PBXTextBookmark */ = DC045DE30BEB57290044A27F /* PBXTextBookmark */;
+			DC045DE40BEB57290044A27F /* PBXTextBookmark */ = DC045DE40BEB57290044A27F /* PBXTextBookmark */;
 			DC0FAEAC0BCD4F54003A08C2 = DC0FAEAC0BCD4F54003A08C2 /* PBXTextBookmark */;
 			DC0FAEB00BCD4F54003A08C2 = DC0FAEB00BCD4F54003A08C2 /* PBXTextBookmark */;
 			DC0FAEB20BCD4F54003A08C2 = DC0FAEB20BCD4F54003A08C2 /* PBXTextBookmark */;
@@ -8917,6 +8929,126 @@
 		vrLen = 1274;
 		vrLoc = 8491;
 	};
+	DC045DD90BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61BA00854654B003F5F79 /* iTM2TextDocumentKit.m */;
+		name = "iTM2TextDocumentKit.m: 2486";
+		rLen = 0;
+		rLoc = 80018;
+		rType = 0;
+		vrLen = 982;
+		vrLoc = 71575;
+	};
+	DC045DDA0BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC045D570BEB15BF0044A27F /* NSTextView.h */;
+		name = shouldChangeTextInRanges;
+		rLen = 24;
+		rLoc = 20143;
+		rType = 0;
+		vrLen = 1758;
+		vrLoc = 19126;
+	};
+	DC045DDB0BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */;
+		name = "iTM2MacroKit.m: 7146";
+		rLen = 0;
+		rLoc = 212168;
+		rType = 0;
+		vrLen = 908;
+		vrLoc = 155926;
+	};
+	DC045DDC0BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCD403EF099498B0006B91DF /* iTM2MacroKit.h */;
+		name = "iTM2MacroKit.h: 663";
+		rLen = 0;
+		rLoc = 27013;
+		rType = 0;
+		vrLen = 1125;
+		vrLoc = 18934;
+	};
+	DC045DDD0BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B560854654B003F5F79 /* iTM2BundleKit.h */;
+		name = "iTM2BundleKit.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 775;
+	};
+	DC045DDE0BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */;
+		name = "iTM2TextStyleEditionKit.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1876;
+		vrLoc = 0;
+	};
+	DC045DDF0BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC0459FB0BE62CF90044A27F /* iTeXMac2_485.html */;
+		name = built;
+		rLen = 5;
+		rLoc = 399;
+		rType = 0;
+		vrLen = 1876;
+		vrLoc = 123;
+	};
+	DC045DE00BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61D18085469AF003F5F79 /* iTM2DocumentControllerKit.m */;
+		name = "iTM2DocumentControllerKit.m: 1208";
+		rLen = 0;
+		rLoc = 43459;
+		rType = 0;
+		vrLen = 1092;
+		vrLoc = 2192;
+	};
+	DC045DE10BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61D17085469AF003F5F79 /* iTM2DocumentControllerKit.h */;
+		name = "iTM2DocumentControllerKit.h: 187";
+		rLen = 0;
+		rLoc = 8148;
+		rType = 0;
+		vrLen = 1207;
+		vrLoc = 5005;
+	};
+	DC045DE20BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC40E770BD00320001BB851 /* NSTableView.h */;
+		name = "- (SEL)doubleAction;";
+		rLen = 21;
+		rLoc = 7510;
+		rType = 0;
+		vrLen = 1050;
+		vrLoc = 7075;
+	};
+	DC045DE30BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61BD90854654B003F5F79 /* iTM2TextStorageKit.h */;
+		name = "iTM2TextStorageKit.h: 1340";
+		rLen = 0;
+		rLoc = 55874;
+		rType = 0;
+		vrLen = 1611;
+		vrLoc = 43348;
+	};
+	DC045DE40BEB57290044A27F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61BC30854654B003F5F79 /* NSTextStorage_iTeXMac2.m */;
+		name = "NSTextStorage_iTeXMac2.m: 327";
+		rLen = 0;
+		rLoc = 11431;
+		rType = 0;
+		vrLen = 1274;
+		vrLoc = 8491;
+	};
 	DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1451, 84140}}";
@@ -9687,7 +9819,7 @@
 	DCD403EF099498B0006B91DF /* iTM2MacroKit.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1460, 13260}}";
-			sepNavSelRange = "{19792, 25}";
+			sepNavSelRange = "{27013, 0}";
 			sepNavVisRect = "{{0, 7616}, {1255, 629}}";
 			sepNavWindowFrame = "{{61, 97}, {1294, 734}}";
 		};
@@ -9695,7 +9827,7 @@
 	DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2720, 142920}}";
-			sepNavSelRange = "{154248, 13}";
+			sepNavSelRange = "{212168, 0}";
 			sepNavVisRect = "{{0, 102117}, {1271, 633}}";
 			sepNavWindowFrame = "{{61, 140}, {1310, 738}}";
 		};
@@ -9922,7 +10054,7 @@
 	DCF61BA00854654B003F5F79 /* iTM2TextDocumentKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1973, 49720}}";
-			sepNavSelRange = "{72057, 0}";
+			sepNavSelRange = "{80018, 0}";
 			sepNavVisRect = "{{0, 44147}, {1090, 696}}";
 			sepNavWindowFrame = "{{114, 113}, {1278, 739}}";
 		};
@@ -10021,14 +10153,14 @@
 	DCF61D17085469AF003F5F79 /* iTM2DocumentControllerKit.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1550, 3740}}";
-			sepNavSelRange = "{5969, 23}";
+			sepNavSelRange = "{8148, 0}";
 			sepNavVisRect = "{{0, 1836}, {1088, 706}}";
 		};
 	};
 	DCF61D18085469AF003F5F79 /* iTM2DocumentControllerKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1838, 24160}}";
-			sepNavSelRange = "{3035, 0}";
+			sepNavSelRange = "{43459, 0}";
 			sepNavVisRect = "{{0, 920}, {1088, 706}}";
 		};
 	};

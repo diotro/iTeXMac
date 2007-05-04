@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DCC0BEB2DA10044A27F</string>
+						<string>DC045DDA0BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC045D560BEB15BF0044A27F</string>
@@ -244,7 +244,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DCD0BEB2DA10044A27F</string>
+						<string>DC045DDB0BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC045D260BE920B50044A27F</string>
@@ -284,7 +284,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DCE0BEB2DA10044A27F</string>
+						<string>DC045DDC0BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC045D280BE920B50044A27F</string>
@@ -324,7 +324,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DCF0BEB2DA10044A27F</string>
+						<string>DC045DDD0BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC045D090BE91E3B0044A27F</string>
@@ -364,7 +364,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DD00BEB2DA10044A27F</string>
+						<string>DC045DDE0BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC045B600BE686090044A27F</string>
@@ -404,7 +404,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DD10BEB2DA10044A27F</string>
+						<string>DC045DDF0BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC0459FA0BE62CF90044A27F</string>
@@ -444,7 +444,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DD20BEB2DA10044A27F</string>
+						<string>DC045DE00BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC0459B30BE249BB0044A27F</string>
@@ -484,7 +484,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DD30BEB2DA10044A27F</string>
+						<string>DC045DE10BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DC0459B70BE249BB0044A27F</string>
@@ -524,7 +524,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DD40BEB2DA10044A27F</string>
+						<string>DC045DE20BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DCC417D10BD3B716001BB851</string>
@@ -564,7 +564,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DD50BEB2DA10044A27F</string>
+						<string>DC045DE30BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DCC417D40BD3B717001BB851</string>
@@ -604,7 +604,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC045DD60BEB2DA10044A27F</string>
+						<string>DC045DE40BEB57290044A27F</string>
 						<key>history</key>
 						<array>
 							<string>DCC417D50BD3B717001BB851</string>
@@ -766,7 +766,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC045DCB0BEB2DA10044A27F</string>
+										<string>DC045DD90BEB57290044A27F</string>
 										<key>history</key>
 										<array>
 											<string>DC0FAEAC0BCD4F54003A08C2</string>
@@ -998,8 +998,8 @@
 		<string>DC993AC6088DF04D00F8BCE1</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2Foundation/iTM2Foundation.xcodeproj</string>
 		<string>DC993BD1088DF33900F8BCE1</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 35 1440 843 0 0 1440 878 </string>
