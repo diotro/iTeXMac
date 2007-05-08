@@ -2337,11 +2337,21 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"START fileName is:%@", fileName);
-	[[self implementation] takeMetaValue:[[DFM fileAttributesAtPath:[absoluteURL path] traverseLink:YES] fileModificationDate] forKey:@"LastFileModificationDate"];
-	if([self needsToUpdate])
+	if(![absoluteURL isFileURL])
 	{
-		iTM2_LOG(@"****  ERROR:THERE IS AN INCONSISTENCY... please report light bug");
+		return;
+	}
+	NSString * path = [absoluteURL path];
+	NSDictionary * attributes = [DFM fileAttributesAtPath:path traverseLink:YES];
+	NSDate * date = [attributes fileModificationDate];
+//iTM2_LOG(@"path is:%@ date:%@",path,date);
+	if(date)
+	{
+		[[self implementation] takeMetaValue:date forKey:@"LastFileModificationDate"];
+		if([self needsToUpdate])
+		{
+			iTM2_LOG(@"****  ERROR:THERE IS AN INCONSISTENCY... please report light bug");
+		}
 	}
 //iTM2_LOG(@"%@ should be %@ should be %@", [self lastFileModificationDate], [[DFM fileAttributesAtPath:fileName traverseLink:YES] fileModificationDate], [[self implementation] metaValueForKey:@"LastFileModificationDate"]);
 	return;
