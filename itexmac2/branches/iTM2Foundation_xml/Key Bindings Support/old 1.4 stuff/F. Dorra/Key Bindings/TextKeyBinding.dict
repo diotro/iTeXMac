@@ -1,0 +1,1073 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>	</key>
+	<array>
+		<string>selectNextTabAnchor:</string>
+		<string>deleteBackward:</string>
+	</array>
+	<key>$</key>
+	<string>insertDollar:</string>
+	<key>(</key>
+	<string>insertOpenParenthesis:</string>
+	<key>@
+</key>
+	<dict>
+		<key>argument</key>
+		<string>\par
+</string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>@ </key>
+	<dict>
+		<key>argument</key>
+		<string>logique.dict</string>
+		<key>selector</key>
+		<string>loadKeyBindingAtPath:</string>
+		<key>toolTip</key>
+		<string>clavier de logique</string>
+	</dict>
+	<key>@&lt;</key>
+	<dict>
+		<key>argument</key>
+		<string>analyse.dict</string>
+		<key>selector</key>
+		<string>loadKeyBindingAtPath:</string>
+		<key>toolTip</key>
+		<string>clavier d'analyse</string>
+	</dict>
+	<key>@@</key>
+	<dict>
+		<key>argument</key>
+		<string>algebre.dict</string>
+		<key>selector</key>
+		<string>loadKeyBindingAtPath:</string>
+		<key>toolTip</key>
+		<string>algebre</string>
+	</dict>
+	<key>@^i</key>
+	<dict>
+		<key>argument</key>
+		<string>info.dict</string>
+		<key>selector</key>
+		<string>loadKeyBindingAtPath:</string>
+		<key>toolTip</key>
+		<string>informatique</string>
+	</dict>
+	<key>[</key>
+	<string>insertOpenBracket:</string>
+	<key>\</key>
+	<string>insertBackslash:</string>
+	<key>^</key>
+	<string>insertHat:</string>
+	<key>^ </key>
+	<dict>
+		<key>argument</key>
+		<string>\quad </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^#</key>
+	<dict>
+		<key>argument</key>
+		<string>\notin </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$</key>
+	<dict>
+		<key>argument</key>
+		<string>\ast </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$ </key>
+	<dict>
+		<key>argument</key>
+		<string>\qquad </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$3</key>
+	<dict>
+		<key>argument</key>
+		<string>\Leftrightarrow </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$4</key>
+	<dict>
+		<key>argument</key>
+		<string>\Longleftrightarrow </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$5</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>[&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>]</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Int ouvert</string>
+	</dict>
+	<key>^$6</key>
+	<dict>
+		<key>argument</key>
+		<string>\rightarrow </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$7</key>
+	<dict>
+		<key>argument</key>
+		<string>\longrightarrow </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$8</key>
+	<dict>
+		<key>argument</key>
+		<string>\partial </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^$Y</key>
+	<dict>
+		<key>argument</key>
+		<string>\supset </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^*</key>
+	<dict>
+		<key>argument</key>
+		<string>\star </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^+</key>
+	<dict>
+		<key>argument</key>
+		<string>\sim </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^,</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>]{}% Pour mettre des points de suspension sur plusieurs colonnes d'une matrice. [espacement des points, 1 par dfaut]{Nombre de colonne} </string>
+			<key>before</key>
+			<string>\hdotsfor[</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>right( left)</string>
+	</dict>
+	<key>^0</key>
+	<dict>
+		<key>argument</key>
+		<string>\emptyset</string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^1</key>
+	<dict>
+		<key>argument</key>
+		<string>Greeks.dict</string>
+		<key>selector</key>
+		<string>loadKeyBindingAtPath:</string>
+		<key>toolTip</key>
+		<string>alettres grecques, grandes parentheses</string>
+	</dict>
+	<key>^2</key>
+	<dict>
+		<key>argument</key>
+		<string>envir.dict</string>
+		<key>selector</key>
+		<string>loadKeyBindingAtPath:</string>
+		<key>toolTip</key>
+		<string>Environnements </string>
+	</dict>
+	<key>^3</key>
+	<dict>
+		<key>argument</key>
+		<string>\Rightarrow </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^4</key>
+	<dict>
+		<key>argument</key>
+		<string>\Longrightarrow </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^5</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Ensemble </string>
+	</dict>
+	<key>^6</key>
+	<dict>
+		<key>argument</key>
+		<string>\mapsto </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^7</key>
+	<dict>
+		<key>argument</key>
+		<string>\longmapsto </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^8</key>
+	<dict>
+		<key>argument</key>
+		<string>\infty </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^:</key>
+	<dict>
+		<key>argument</key>
+		<string>\cdots </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^;</key>
+	<dict>
+		<key>argument</key>
+		<string>\times </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^&lt;</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>]\hskip -1pt ]&lt;#TAB#&gt; </string>
+			<key>before</key>
+			<string> [\hskip -1pt [</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Intervalle d'entiers </string>
+	</dict>
+	<key>^=</key>
+	<dict>
+		<key>argument</key>
+		<string>\neq </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^&gt;</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\left) </string>
+			<key>before</key>
+			<string>\right(</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>right( left)</string>
+	</dict>
+	<key>^@</key>
+	<dict>
+		<key>argument</key>
+		<string>\in </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^B</key>
+	<dict>
+		<key>argument</key>
+		<string>$\bullet $</string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^D</key>
+	<dict>
+		<key>argument</key>
+		<string>\bigoplus </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^E</key>
+	<dict>
+		<key>argument</key>
+		<string>\forall </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^F</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}{}</string>
+			<key>before</key>
+			<string>\frac{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Fraction </string>
+	</dict>
+	<key>^G</key>
+	<dict>
+		<key>argument</key>
+		<string>\alpha </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^H</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\vspace{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>espace vertical </string>
+	</dict>
+	<key>^I</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}^{}</string>
+			<key>before</key>
+			<string>\displaystyle\int_{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>somme </string>
+	</dict>
+	<key>^L</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\|&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\|</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Fraction </string>
+	</dict>
+	<key>^N</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\widehat{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>souligne </string>
+	</dict>
+	<key>^O</key>
+	<dict>
+		<key>argument</key>
+		<string>\bigcirc </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^Q</key>
+	<dict>
+		<key>argument</key>
+		<string>\scriptstyle</string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^R</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>]{}</string>
+			<key>before</key>
+			<string>\sqrt[</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>racine n ieme</string>
+	</dict>
+	<key>^S</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>_n)_{n\in\n}</string>
+			<key>before</key>
+			<string>(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>suite </string>
+	</dict>
+	<key>^U</key>
+	<dict>
+		<key>argument</key>
+		<string>\bigcup </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^V</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\underline{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>souligne </string>
+	</dict>
+	<key>^a</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>|</string>
+			<key>before</key>
+			<string>|</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Valeur absolue </string>
+	</dict>
+	<key>^b</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\mathbb{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Blackboard bold alphabet</string>
+	</dict>
+	<key>^c</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\mathcal{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+	</dict>
+	<key>^d</key>
+	<dict>
+		<key>argument</key>
+		<string>\oplus </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^e</key>
+	<dict>
+		<key>argument</key>
+		<string>\exists </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^f</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}{}</string>
+			<key>before</key>
+			<string>\dfrac{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Fraction </string>
+	</dict>
+	<key>^g</key>
+	<dict>
+		<key>argument</key>
+		<string>\varepsilon </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^h</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\hspace{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>espace horizontal </string>
+	</dict>
+	<key>^i</key>
+	<dict>
+		<key>argument</key>
+		<string>\item </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^l</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\mapsto &lt;#TAB#&gt;}\limits &lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\lim _{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>limite </string>
+	</dict>
+	<key>^n</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\overline{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>vecteur </string>
+	</dict>
+	<key>^o</key>
+	<dict>
+		<key>argument</key>
+		<string>\circ </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^p</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}^{}\limits &lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\prod_{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>produit </string>
+	</dict>
+	<key>^q</key>
+	<dict>
+		<key>argument</key>
+		<string>\displaystyle</string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^r</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\sqrt{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>racine </string>
+	</dict>
+	<key>^s</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}^{}\limits &lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\sum_{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>somme </string>
+	</dict>
+	<key>^t</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\text{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>texte en mode math</string>
+	</dict>
+	<key>^u</key>
+	<dict>
+		<key>argument</key>
+		<string>\cup </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^v</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\overrightarrow{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>vecteur </string>
+	</dict>
+	<key>^w</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{enumerate}</string>
+			<key>before</key>
+			<string>\begin{enumerate}
+\item </string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>enumerate </string>
+	</dict>
+	<key>^x</key>
+	<dict>
+		<key>argument</key>
+		<string>\limits </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^y</key>
+	<dict>
+		<key>argument</key>
+		<string>\subset </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^z</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{@@"@@.}</string>
+			<key>before</key>
+			<string>\begin{@@"@@.}
+</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>environnement sur la selection</string>
+	</dict>
+	<key>^~$5</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>[&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>[</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Int ouvert</string>
+	</dict>
+	<key>^~$¡</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>]&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>]</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Int ouvert</string>
+	</dict>
+	<key>^~+</key>
+	<dict>
+		<key>argument</key>
+		<string>\equiv </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~:</key>
+	<dict>
+		<key>argument</key>
+		<string>\ddots </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~;</key>
+	<dict>
+		<key>argument</key>
+		<string>\setminus </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~=</key>
+	<dict>
+		<key>argument</key>
+		<string>\pm </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~&gt;</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&gt;&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>&lt;</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Int ouvert</string>
+	</dict>
+	<key>^~D</key>
+	<dict>
+		<key>argument</key>
+		<string>\bigotimes </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~E</key>
+	<dict>
+		<key>argument</key>
+		<string>\bigwedge </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~N</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\widetilde{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Tilde grande taille</string>
+	</dict>
+	<key>^~O</key>
+	<dict>
+		<key>argument</key>
+		<string>\bigvee </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~R</key>
+	<dict>
+		<key>argument</key>
+		<string>\r _{+}</string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~S</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>_i)_{i\in &lt;#TAB#&gt;}</string>
+			<key>before</key>
+			<string>(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>suite </string>
+	</dict>
+	<key>^~U</key>
+	<dict>
+		<key>argument</key>
+		<string>\bigcap </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~V</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\overbrace{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>accolade au dessus </string>
+	</dict>
+	<key>^~d</key>
+	<dict>
+		<key>argument</key>
+		<string>\otimes </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~e</key>
+	<dict>
+		<key>argument</key>
+		<string>\wedge </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~f</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\frak{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Police Fracktur </string>
+	</dict>
+	<key>^~g</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\textbf{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Gras </string>
+	</dict>
+	<key>^~i</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\textit{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Italique </string>
+	</dict>
+	<key>^~l</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\|_{}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\|</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Fraction </string>
+	</dict>
+	<key>^~n</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\tilde{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>tilde</string>
+	</dict>
+	<key>^~o</key>
+	<dict>
+		<key>argument</key>
+		<string>\vee </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~q</key>
+	<dict>
+		<key>argument</key>
+		<string>\scriptscriptstyle</string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~r</key>
+	<dict>
+		<key>argument</key>
+		<string>\r _{+}^{*} </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~s</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>_n)_{n\in\z}</string>
+			<key>before</key>
+			<string>(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>suite dans Z </string>
+	</dict>
+	<key>^~u</key>
+	<dict>
+		<key>argument</key>
+		<string>\cap </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~v</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}</string>
+			<key>before</key>
+			<string>\underbrace{</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>accolade en dessous </string>
+	</dict>
+	<key>_</key>
+	<string>insertUnderscore:</string>
+	<key>{</key>
+	<string>insertOpenBrace:</string>
+</dict>
+</plist>

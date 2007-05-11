@@ -1,0 +1,13 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {addSeparator = id; delete = id; }; 
+            CLASS = iTM2StringEncodingDocument; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {actualTableView = NSTableView; availableTableView = NSTableView; }; 
+            SUPERCLASS = NSDocument; 
+        }
+    ); 
+    IBVersion = 1; 
+}

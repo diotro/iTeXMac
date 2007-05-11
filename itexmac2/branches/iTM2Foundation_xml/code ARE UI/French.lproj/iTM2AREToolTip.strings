@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>()</key>
+	<string>Correspond au texte vide, noté pour une référence possible.</string>
+	<key>(?!re)</key>
+	<string>Correspond à tout point où ne commence pas une correpondance à re.</string>
+	<key>(?:)</key>
+	<string>Correspond à un texte vide non référencé.</string>
+	<key>(?:re)</key>
+	<string>Correpond à re sans référencempent.</string>
+	<key>(?=re)</key>
+	<string>Correspond à tout point ne commence une correpondance à re.</string>
+	<key>(re)</key>
+	<string>Correpond à re, noté pour une possible référence</string>
+	<key>*</key>
+	<string>Un atome suivi de `*' correspond à une suite de 0 ou plus correspondances de l'atome.</string>
+	<key>*?</key>
+	<string>Un atome suivi de `*?' correspond à une suite de 0 ou plus correspondances de l'atome, plus petite correspondance.</string>
+	<key>+</key>
+	<string>Un atome suivi de `*' correspond à une suite d'au moins une correspondance de l'atome.</string>
+	<key>+?</key>
+	<string>Un atome suivi de `*' correspond à une suite d'au moins une correspondance de l'atome, plus petite correspondance</string>
+	<key>.</key>
+	<string>Correspond à tout caractère.</string>
+	<key>?</key>
+	<string>Un atome suivi de `?' correspond à 0 ou une correspondance de l'atome.</string>
+	<key>??</key>
+	<string>0 ou une correspondance de l'atome, plus petite correspondance.</string>
+	<key>Back Reference</key>
+	<string>n est l'indice d'un atome référencé</string>
+	<key>Whole match</key>
+	<string>Toute la correspondance</string>
+	<key>[.abc.]</key>
+	<string>abc : plusieurs caractère agrégés comme s'il n'en formaient qu'un.</string>
+	<key>[=x=]</key>
+	<string>Classe d'équivalence.</string>
+	<key>[[:abc:]]</key>
+	<string>Tous les caractères de la classe "abc".</string>
+	<key>[[:alnum:]]</key>
+	<string>Lettre ou chiffre.</string>
+	<key>[[:alpha:]]</key>
+	<string>Lettre.</string>
+	<key>[[:blank:]]</key>
+	<string>Espace ou tabulation.</string>
+	<key>[[:cntrl:]]</key>
+	<string>Caractère de contrôle.</string>
+	<key>[[:digit:]]</key>
+	<string>Chiffre.</string>
+	<key>[[:graph:]]</key>
+	<string>Caractère visible</string>
+	<key>[[:lower:]]</key>
+	<string>Lettre base de casse</string>
+	<key>[[:print:]]</key>
+	<string>Lettre ou chiffre.</string>
+	<key>[[:punct:]]</key>
+	<string>Caractère de ponctuation.</string>
+	<key>[[:space:]]</key>
+	<string>Caractère d'espacement.</string>
+	<key>[[:upper:]]</key>
+	<string>Lettre haut de casse.</string>
+	<key>[[:xdigit:]]</key>
+	<string>Chiffre hexadécimal.</string>
+	<key>[]</key>
+	<string>Expression crochet.</string>
+	<key>[^]</key>
+	<string>Expression crochet complémentaire.</string>
+	<key>[a-z]</key>
+	<string>Étendue de caractère de "a" à "z" (inclus)</string>
+	<key>\#</key>
+	<string>Caractère # litéral</string>
+	<key>\$</key>
+	<string>Caractère $ litéral</string>
+	<key>\(</key>
+	<string>Caractère ( litéral</string>
+	<key>\)</key>
+	<string>Caractère ) litéral</string>
+	<key>\*</key>
+	<string>Caractère * litéral</string>
+	<key>\+</key>
+	<string>Caractère + litéral</string>
+	<key>\-</key>
+	<string>Caractère - litéral</string>
+	<key>\0</key>
+	<string>Caractère 0 litéral (pas \0)</string>
+	<key>\?</key>
+	<string>Caractère ? litéral</string>
+	<key>\A</key>
+	<string>Correspond seulement au début de texte</string>
+	<key>\B</key>
+	<string>Antislash (convenance pour doublage)</string>
+	<key>\D</key>
+	<string>Pas un chiffre.</string>
+	<key>\M</key>
+	<string>Correspond seulement à la fin d'un mot.</string>
+	<key>\S</key>
+	<string>Pas un caractère d'espacement.</string>
+	<key>\Uxxxxxxxx</key>
+	<string>Caractère unicode où x désigne unn chiffre hexadécimale (0-9, a-h)</string>
+	<key>\W</key>
+	<string>Ni une lettre, ni un chiffre, ni un souligné (_).</string>
+	<key>\Y</key>
+	<string>Correpond à un point ni au début ni à la fin d'un mot.</string>
+	<key>\Z</key>
+	<string>Correspond seulement à la fin du texte</string>
+	<key>\[</key>
+	<string>Caractère [ litéral</string>
+	<key>\\</key>
+	<string>Caractère \ litéral</string>
+	<key>\]</key>
+	<string>Caractère ] litéral</string>
+	<key>\^</key>
+	<string>Caractère ^ litéral</string>
+	<key>\a</key>
+	<string>Cloche C (\a)</string>
+	<key>\b</key>
+	<string>Retour C (\b)</string>
+	<key>\cX</key>
+	<string>X désignant n'importe quel caractère : le caractère ayant les même 5 premier bits que X et 0 pour les autre bits.</string>
+	<key>\d</key>
+	<string>Chiffre.</string>
+	<key>\e</key>
+	<string>Echappement C (\e)</string>
+	<key>\f</key>
+	<string>formfeed C (\f)</string>
+	<key>\m</key>
+	<string>Correspond uniquement au début d'un mot.</string>
+	<key>\n</key>
+	<string>Nouvelle ligne C (\n)</string>
+	<key>\oo</key>
+	<string>Si ce n'est pas une référence, le caractère de valeur octale 0oo, où o désigne un chiffre octal (0-7).</string>
+	<key>\ooo</key>
+	<string>Si ce n'est pas une référence, le caractère de valeur octale 0ooo, où o désigne un chiffre octal (0-7).</string>
+	<key>\r</key>
+	<string>Retour C (\r)</string>
+	<key>\s</key>
+	<string>Espace</string>
+	<key>\t</key>
+	<string>Tabulation horizontale C (\t)</string>
+	<key>\uxxxx</key>
+	<string>Le caractère Unicode U+xxxx avec l'ordre local des octets, où x est un chiffre hexadécimal (0-9, a-h).</string>
+	<key>\v</key>
+	<string>Tabulation verticale C (\v)</string>
+	<key>\w</key>
+	<string>Lettre, chiffre ou souligné (_).</string>
+	<key>\xhhh</key>
+	<string>Le caractère de valeur hexadécimal 0xhhh, où h est un chiffre hexadécimal (0-9, a-h).</string>
+	<key>\y</key>
+	<string>Correspond au début ou à la fin d'un mot.</string>
+	<key>\{</key>
+	<string>Caractère { litéral.</string>
+	<key>\}</key>
+	<string>Caractère } litéral.</string>
+	<key>^</key>
+	<string>Correpond au début d'une ligne (sauf dans les expression crochet)</string>
+	<key>{i,j}</key>
+	<string>Un atome suivi de `{i,j}' correspond à une de suite de i à j correspondances de l'atome.</string>
+	<key>{i,j}?</key>
+	<string>Un atome suivi de `{i,j}' correspond à une de suite de i à j correspondances de l'atome, plus courte correspondance.</string>
+	<key>{i,}</key>
+	<string>Un atome suivi de `{i,}' correspond à plus de i correspondances de l'atome.</string>
+	<key>{i,}?</key>
+	<string>Un atome suivi de `{i,}' correspond à plus de i correspondances de l'atome, plus courte correspondance.</string>
+	<key>{i}</key>
+	<string>Un atome suivi de `{i}' correspond à i correspondances de l'atome.</string>
+	<key>{i}?</key>
+	<string>Un atome suivi de `{i}' correspond à i correspondances de l'atome, plus courte correspondance.</string>
+</dict>
+</plist>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>executeAsScript:</key>
+	<string>Execute as script</string>
+	<key>executeScriptAtPath:</key>
+	<string>Execute a script given its path</string>
+	<key>insertMacro:</key>
+	<string>Insert some text as macro</string>
+	<key>insertMacroBeforeTheSelection:</key>
+	<string>Prepend macro to the selection</string>
+	<key>insertMacroAfterTheSelection:</key>
+	<string>Append macro to the selection</string>
+	<key>insertMacroAtTheBeginning:</key>
+	<string>Prepend macro to the text</string>
+	<key>insertMacroAtTheEnd:</key>
+	<string>Append macro to the text</string>
+	<key>insertMacroInPasteboard:</key>
+	<string>Copy a macro</string>
+	<key>insertMacroAtTheBeginningOfTheLine:</key>
+	<string>Prepend macro to the line</string>
+	<key>insertMacroAtTheEndOfTheLine:</key>
+	<string>Append macro to the line</string>
+</dict>
+</plist>

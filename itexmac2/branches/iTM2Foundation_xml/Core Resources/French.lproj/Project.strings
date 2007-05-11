@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Create Project Panel</key>
+	<string>Panneau de création de projet</string>
+	<key>Add</key>
+	<string>Ajouter</string>
+	<key>Project Documents Panel</key>
+	<string>Panneau des fichiers du projet</string>
+	<key>Yes</key>
+	<string>Oui</string>
+	<key>No</key>
+	<string>Non</string>
+	<key>Copy the external documents in the project?</key>
+	<string>Copier les fichiers externes avec le projet ?</string>
+	<key>Acknowledge</key>
+	<string>D'accord</string>
+	<key>Name conflict, copy not complete.</key>
+	<string>Conflit de nom, copie incomplète.</string>
+	<key>Default</key>
+	<string>Défaut</string>
+	<key>Suppressing project documents references</key>
+	<string>Suppression des références de fichiers du projet</string>
+	<key>Keep</key>
+	<string>Garder</string>
+	<key>Cancel</key>
+	<string>Annuler</string>
+	<key>Recycle</key>
+	<string>Recycler</string>
+	<key>Also recycle the selected project documents?</key>
+	<string>Recycler aussi les fichiers de projet choisis ?</string>
+	<key>The name %@ is already used.</key>
+	<string>Le nom %@ est déjà employé.</string>
+	<key>A file could not be moved.</key>
+	<string>Un fichier n'a pu être déplacé.</string>
+	<key>A directory could not be created.</key>
+	<string>Un dossier n'a pu être créé</string>
+	<key>No selection</key>
+	<string>Sélection vide</string>
+	<key>Multiple selection</key>
+	<string>Sélection multiple</string>
+	<key>@"%1$@ (%2$@)</key>
+	<string>@"%1$@ (%2$@)</string>
+</dict>
+</plist>

@@ -1,0 +1,10 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = iTM2LineField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {CLASS = iTM2TextEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
+        {CLASS = iTM2TextInspector; LANGUAGE = ObjC; SUPERCLASS = NSWindowController; }, 
+        {CLASS = iTM2TextWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
+    ); 
+    IBVersion = 1; 
+}

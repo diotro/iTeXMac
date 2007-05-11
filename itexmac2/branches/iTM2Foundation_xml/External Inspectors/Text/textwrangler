@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# this is TextWrangler shell script for iTeXMac 2.0 version ?
+# © 2006 jlaurens AT users DOT sourceforge DOT net
+command="edit"
+if [ ${#file} -gt 0 ]
+then
+    options="+${line:-0}"
+	if [ ${#codeset} -gt 0 ]
+	then
+		options="${options} -encoding ${codeset}"
+	fi
+    echo "\"${command}\" ${options} \"${file}\""
+    "${command}" ${options} "${file}"
+else
+    "${command}"
+fi
+exit

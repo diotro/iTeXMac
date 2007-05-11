@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>(?!re)</key>
+	<string>(?!@@{re@@.)</string>
+	<key>(?:re)</key>
+	<string>(?:@@{re@@.)</string>
+	<key>(?=re)</key>
+	<string>(?=@@{re@@.)</string>
+	<key>(re)</key>
+	<string>(@@{re@@.)</string>
+	<key>Back Reference</key>
+	<string>\@@{n@@.</string>
+	<key>Whole match</key>
+	<string>\0</string>
+	<key>[.abc.]</key>
+	<string>[.@@{abc@@..]</string>
+	<key>[=x=]</key>
+	<string>[=@@{x@@.=]</string>
+	<key>[[:abc:]]</key>
+	<string>[:@@{abc@@.:]</string>
+	<key>[]</key>
+	<string>[]</string>
+	<key>[^]</key>
+	<string>[^@@{@@.]</string>
+	<key>[a-z]</key>
+	<string>[@@{a-z@@.]</string>
+	<key>\Uxxxxxxxx</key>
+	<string>\U@@{xxxxxxxx@@.</string>
+	<key>\oo</key>
+	<string>\@@{oo@@.</string>
+	<key>\ooo</key>
+	<string>\@@{ooo@@.</string>
+	<key>\uxxxx</key>
+	<string>\u@@{xxxx@@.</string>
+	<key>\xhhh</key>
+	<string>\x@@{hhh@@.</string>
+	<key>{i,j}</key>
+	<string>{@@{i,j@@.}</string>
+	<key>{i,j}?</key>
+	<string>{@@{i,j@@.}?</string>
+	<key>{i,}</key>
+	<string>{@@{i@@.,}</string>
+	<key>{i,}?</key>
+	<string>{@@{i@@.,}?</string>
+	<key>{i}</key>
+	<string>{@@{i@@.}</string>
+	<key>{i}?</key>
+	<string>{@@{i@@.}?</string>
+</dict>
+</plist>
