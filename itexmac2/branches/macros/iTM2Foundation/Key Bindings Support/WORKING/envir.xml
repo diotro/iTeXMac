@@ -1,35 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<LIST>
-	<ACTION KEY="$" SELECTOR="insertDollar:" />
-	<ACTION KEY="(" SELECTOR="insertOpenParenthesis:" />
-	<ACTION KEY="M" TOOLTIP="matrices avec [] ">\begin{bmatrix}__(INS)__&amp;__(TAB)__\\__(TAB)__&amp;__(TAB)__\end{bmatrix}__(TAB)__</ACTION>
-	<ACTION KEY="S" TOOLTIP="Empilement celui du bas sur base">\stackrel{__(INS)__}{__(TAB)__}</ACTION>
-	<ACTION KEY="[" SELECTOR="insertOpenBracket:" />
-	<ACTION KEY="\" SELECTOR="insertBackslash:" />
-	<ACTION KEY="^" SELECTOR="insertHat:" />
-	<ACTION KEY="^:">\cdots </ACTION>
-	<ACTION KEY="^=">\vdots </ACTION>
-	<ACTION KEY="^c" TOOLTIP="center">\begin{center}__(INS)____(SEL)____(INS)__\end{center}__(TAB)__</ACTION>
-	<ACTION KEY="^k">\usepackage{multicol} </ACTION>
-	<ACTION KEY="^l" TOOLTIP="pour des pages en mode paysage">\begin{landscape}__(INS)__\end{landscape}</ACTION>
-	<ACTION KEY="^m" TOOLTIP="matrices sans cadre ">\begin{matrix}__(INS)__&amp;__(TAB)__\\__(TAB)__&amp;__(TAB)__\end{matrix}__(TAB)__</ACTION>
-	<ACTION KEY="^s" TOOLTIP="Empilement comme fraction sans trait avec parentheses (binome)">{ __(INS)__\choose __(TAB)__}</ACTION>
-	<ACTION KEY="^~:">\ddots </ACTION>
-	<ACTION KEY="^~=">\ldots </ACTION>
-	<ACTION KEY="_" SELECTOR="insertUnderscore:" />
-	<ACTION KEY="c" TOOLTIP="enumeration de cas avec accolade ">\begin{cases}__(INS)____(SEL)____(INS)__&amp;\text{__(TAB)__}\\__(TAB)__&amp;\text{__(TAB)__}\end{cases}__(TAB)__</ACTION>
-	<ACTION KEY="e" TOOLTIP="enumerate ">\begin{enumerate}\item  __(INS)____(SEL)____(INS)__\end{enumerate}__(TAB)__</ACTION>
-	<ACTION KEY="g" TOOLTIP="graphiques pdf ">\includegraphics[width=__(INS)__cm]{__(TAB)__}</ACTION>
-	<ACTION KEY="i" TOOLTIP="itemize ">\begin{itemize}\item  __(INS)____(SEL)____(INS)__\end{itemize}__(TAB)__</ACTION>
-	<ACTION KEY="k" TOOLTIP="Multicolonnes">\begin{multicols}{2}__(INS)__\end{multicols}</ACTION>
-	<ACTION KEY="l" TOOLTIP="pour des calculs de plusieurs lignes">\begin{multline*} __(INS)____(SEL)____(INS)__\\__(TAB)__\end{multline*}__(TAB)__</ACTION>
-	<ACTION KEY="m" TOOLTIP="matrices avec () ">\begin{pmatrix}__(INS)__&amp;__(TAB)__\\__(TAB)__&amp;__(TAB)__\end{pmatrix}__(TAB)__</ACTION>
-	<ACTION KEY="p" TOOLTIP="Picture ">%\setlength{\unitlength}{1cm}\begin{picture}(__(INS)__ ,__(TAB)__)% (largeur, hauteur) unit par d{\'e}faut un point. Pour changer : \setlength{\unitlength} ci dessus.\end{picture}__(TAB)__</ACTION>
-	<ACTION KEY="q" TOOLTIP="verbatim">\begin{minipage}[b]{7.5cm}__(INS)____(SEL)____(INS)__\end{minipage}</ACTION>
-	<ACTION KEY="s" TOOLTIP="Empilement comme fraction sans trait">{ __(INS)__\atop __(TAB)__}</ACTION>
-	<ACTION KEY="t" TOOLTIP="Picture ">\begin{tabular}{__(INS)__ }% Du type {cl|r}pour chaque colonne : c pour centre l pour gauche r pour droite et | pour une séparation par un trait vertical.__(TAB)__&amp;__(TAB)__\\__(TAB)__&amp;__(TAB)__\end{tabular}__(TAB)__</ACTION>
-	<ACTION KEY="v" TOOLTIP="verbatim">\begin{verbatim}__(INS)____(SEL)____(INS)__\end{verbatim}</ACTION>
-	<ACTION KEY="{" SELECTOR="insertOpenBrace:" />
-	<ACTION KEY="~m" TOOLTIP="Déterminants">\begin{vmatrix}__(INS)__&amp;__(TAB)__\\__(TAB)__&amp;__(TAB)__\end{vmatrix}__(TAB)__</ACTION>
-</LIST>

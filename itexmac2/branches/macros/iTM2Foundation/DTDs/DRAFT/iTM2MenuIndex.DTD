@@ -1,7 +1,0 @@
-<!ELEMENT ITEM (NAME?, DESC?, LIST?)><!-- primitive item -->
-<!ELEMENT NAME (#PCDATA)><!-- primitive item -->
-<!ELEMENT DESC (#PCDATA)>
-<!ELEMENT LIST (ITEM, (SEP?, ITEM)*)><!-- primitive list -->
-<!ELEMENT SEP EMPTY>
-<!ATTLIST ITEM KEY CDATA #REQUIRED>
-<!ATTLIST LIST KEY CDATA #IMPLIED>

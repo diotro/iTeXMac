@@ -1,3 +1,0 @@
-This is iTM2...
-
-In order to build this plug-in, read the README file related to iTeXMac2

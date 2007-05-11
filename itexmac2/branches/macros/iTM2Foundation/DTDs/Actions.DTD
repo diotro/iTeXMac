@@ -1,6 +1,0 @@
-<!ELEMENT ITEM (ARG?)><!-- primitive item -->
-<!ELEMENT ARG (#PCDATA)><!-- argument -->
-<!ELEMENT LIST (ITEM*)><!-- primitive list -->
-<!ATTLIST ITEM ACT CDATA #IMPLIED><!-- action -->
-<!ATTLIST ITEM KEY ID #REQUIRED>
-<!ATTLIST LIST KEY CDATA #IMPLIED>
