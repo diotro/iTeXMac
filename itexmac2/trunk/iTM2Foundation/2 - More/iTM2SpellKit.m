@@ -1740,6 +1740,7 @@ To Do List:
 			NS_DURING
 			[SC setSpellLanguage:[SSC language]];
 			[SC setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:[SC tag]]];
+			//NSObjectInaccessibleException -- NSDistantObject access attempted from another thread
 //iTM2_LOG(@"INFO: THE SPELL LANGUAGE AND IGNORED WORDS HAVE BEEN RECORDED FOR THE CURRENT TEXT %#x in window %@", text, [[text window] title]);
 			NS_HANDLER
 			iTM2_LOG(@"***  EXCEPTION CATCHED: %@, spell context not saved...", [localException reason]);

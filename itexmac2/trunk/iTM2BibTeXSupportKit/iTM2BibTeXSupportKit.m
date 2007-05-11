@@ -40,6 +40,10 @@ To Do List:
 //iTM2_START;
     return iTM2BibTeXInspectorType;
 }
+- (BOOL)validateSaveDocument:(id)sender;
+{
+	return [self isDocumentEdited];
+}
 @end
 
 @implementation iTM2BibTeXInspector

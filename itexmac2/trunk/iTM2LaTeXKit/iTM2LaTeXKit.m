@@ -1101,7 +1101,7 @@ To Do List:
 	NSString * knownReference = [sender representedObject];
 	iTM2MacroLeafNode * leafNode = [SMC macroRunningNodeForID:@"\\ref{}|identifier" context:context ofCategory:category inDomain:domain];
 	NSDictionary * substitutions = [NSDictionary dictionaryWithObject:knownReference forKey:@"identifier"];
-	[leafNode executeMacroWithTarget:self substitutions:substitutions];
+	[leafNode executeMacroWithTarget:self action:NULL substitutions:substitutions];
 //iTM2_END;
     return;
 }

@@ -506,6 +506,7 @@ To do list:
     if([name isEqualToString:@"mac"]) return iTM2MacintoshEOL;
     if([name isEqualToString:@"macOS"]) return iTM2MacintoshEOL;
     if([name isEqualToString:@"windows"]) return iTM2WindowsEOL;
+    if([name isEqualToString:@"vista"]) return iTM2WindowsEOL;
     if([name isEqualToString:@"\r"]) return iTM2MacintoshEOL;
     if([name isEqualToString:@"\n"]) return iTM2UNIXEOL;
     if([name isEqualToString:@"\r\n"]) return iTM2WindowsEOL;

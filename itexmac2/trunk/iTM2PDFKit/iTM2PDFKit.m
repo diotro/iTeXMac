@@ -79,6 +79,12 @@ NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
 - (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
 - (void)setProgressIndicatorIsAnimated:(BOOL)yorn;
 - (NSAttributedString *)getContextualStringFromSelection:(PDFSelection *)instance;
+- (iTM2PDFDocumentStatus)PDFDocumentStatus;
+- (void)setPDFDocumentStatus:(iTM2PDFDocumentStatus)status;
+@end
+
+@interface iTM2PDFDocument(PRIVATE)
+- (PDFDocument *)lazyPDFDocument;
 @end
 
 @implementation iTM2PDFDocument(Cluster)
@@ -175,27 +181,25 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id result = metaGETTER;
-	if(result)
+	id result = nil;
+	if([self PDFDocumentStatus] == iTM2PDFDocumentNoErrorStatus)
 	{
-		return result;
+		if(result = metaGETTER)
+		{
+			return result;
+		}
 	}
 	NSString * type = [self fileType];
 	NSData * PDFData = [self dataRepresentationOfType:type];
-	[self loadDataRepresentation:nil ofType:type];
-	PDFDocument * PDFDoc = [[[iTM2XtdPDFDocument alloc] initWithData:PDFData] autorelease];
-	if(PDFDoc)
+	if(result = [[[iTM2XtdPDFDocument alloc] initWithData:PDFData] autorelease])
 	{
-		[self setPDFDocument:PDFDoc];
-		NSEnumerator * E = [[self windowControllers] objectEnumerator];
-		id WC = nil;
-		while(WC = [E nextObject])
-		{
-			if([WC respondsToSelector:@selector(setProgressIndicatorIsAnimated:)])
-			{
-				[WC setProgressIndicatorIsAnimated:NO];
-			}
-		}
+		[self setPDFDocument:result];
+		[self setPDFDocumentStatus:iTM2PDFDocumentNoErrorStatus];
+		[self loadDataRepresentation:nil ofType:type];
+	}
+	else
+	{
+		[self setPDFDocumentStatus:iTM2PDFDocumentErrorStatus];
 	}
     return metaGETTER;
 }
@@ -211,10 +215,59 @@ To Do List:
     if(![PDFDoc isEqual:metaGETTER])
     {
         metaSETTER(PDFDoc);
+		if(PDFDoc)
+		{
+			NSEnumerator * E = [[self windowControllers] objectEnumerator];
+			id WC = nil;
+			while(WC = [E nextObject])
+			{
+				if([WC respondsToSelector:@selector(setProgressIndicatorIsAnimated:)])
+				{
+					[WC setProgressIndicatorIsAnimated:NO];
+				}
+			}
+		}
+		NSString * type = [self fileType];
 		[self replaceSynchronizer:nil];
 		[INC postNotificationName:iTM2PDFKitDocumentDidChangeNotification object:self userInfo:nil];
     }
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentStatus
+- (iTM2PDFDocumentStatus)PDFDocumentStatus;
+/*" Description forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = metaGETTER;
+//iTM2_END;
+	return [N intValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPDFDocumentStatus:
+- (void)setPDFDocumentStatus:(iTM2PDFDocumentStatus)status;
+/*" Description forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [NSNumber numberWithInt:status];
+	metaSETTER(N);
+	NSEnumerator * E = [[self windowControllers] objectEnumerator];
+	id WC = nil;
+	while(WC = [E nextObject])
+	{
+		if([WC respondsToSelector:@selector(setPDFDocumentStatus:)])
+		{
+			[WC setPDFDocumentStatus:status];
+		}
+	}
+//iTM2_END;
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL:ofType:error:
 - (BOOL)dataCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
@@ -229,10 +282,12 @@ To Do List:
 		*outErrorPtr = nil;
 	NSData * D = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
 //iTM2_END;
-    if([self loadDataRepresentation:D ofType:type])
+	if([self loadDataRepresentation:D ofType:type])
 	{
-		[self setPDFDocument:nil];
-		return YES;
+		[self setPDFDocumentStatus:iTM2PDFDocumentPendingStatus];
+		[self PDFDocument];
+		int status = [self PDFDocumentStatus];
+		return status != iTM2PDFDocumentErrorStatus && status != iTM2PDFDocumentPendingStatus;
 	}
 	return NO;
 }
@@ -344,22 +399,6 @@ To Do List:
 - (BOOL)validateSaveDocument:(id)sender;
 {
 	return [self isDocumentEdited];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
-- (void)updateIfNeeded;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Tue Jan 18 22:21:11 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([self needsToUpdate])
-	{
-		[self saveContext:nil];
-		[self readFromURL:[self fileURL] ofType:[self fileType] error:nil];
-	}
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= autosavingFileType
 - (NSString *)autosavingFileType;
@@ -629,6 +668,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	// reentrant code management
+	NSString * name = [notification name];
+	[INC removeObserver:self name:name object:nil];
 	id document = [self document];
 	if([notification object] == document)
 	{
@@ -662,6 +704,7 @@ To Do List:
 			[self updateTabView];
 		[self contextDidChange];
 	}
+	[INC addObserver:self selector:_cmd name:name object:nil];
 //iTM2_END;
     return;
 }
@@ -755,6 +798,43 @@ To Do List:
 	}
 //iTM2_END;
     return scale;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentStatus
+- (iTM2PDFDocumentStatus)PDFDocumentStatus;
+/*" Description forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = metaGETTER;
+//iTM2_END;
+	return [N intValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPDFDocumentStatus:
+- (void)setPDFDocumentStatus:(iTM2PDFDocumentStatus)status;
+/*" Description forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSNumber * N = [NSNumber numberWithInt:status];
+	metaSETTER(N);
+	switch(status)
+	{
+		case iTM2PDFDocumentNoErrorStatus:
+		case iTM2PDFDocumentErrorStatus:
+			[self setProgressIndicatorIsAnimated:NO];
+			break;
+		case iTM2PDFDocumentPendingStatus:
+			[self setProgressIndicatorIsAnimated:YES];
+			break;
+	}
+//iTM2_END;
+	return;
 }
 #pragma mark =-=-=-=-=-  PROGRESS INDICATOR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  progressIndicatorIsAnimated

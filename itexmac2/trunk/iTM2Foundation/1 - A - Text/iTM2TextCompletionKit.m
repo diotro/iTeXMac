@@ -812,7 +812,11 @@ grosbois:
 	{
 //iTM2_LOG(@"still disableUndoRegistration");
 	}
-	NSString * replacementString = [_TextView contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask]?_ShortCompletionString:_LongCompletionString;
+	NSString * replacementString = _LongCompletionString;
+	if([_TextView contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask])
+	{
+		replacementString = _ShortCompletionString;
+	}
 	if(yorn)
 	{
 		replacementString = [replacementString stringByAppendingString:@" "];

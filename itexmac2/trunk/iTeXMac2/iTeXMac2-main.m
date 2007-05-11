@@ -102,7 +102,7 @@ To Do List:
 	id textFinder = [[OgreTextFinder alloc] init];
 	if(textFinder)// beware of the bug
 	{
-		[textFinder setShouldHackFindMenu:NO];
+		[textFinder setShouldHackFindMenu:[SUD boolForKey:@"iTM2UseOgreKitFindPanel"]];
 		iTM2_LOG(@"OgreKit Properly installed");
 	}
 	else

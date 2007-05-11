@@ -70,7 +70,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFindDataSource_LocationID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					200,
-					399.2085,
+					597.2085,
 				);
 				PBXFileTableDataSourceColumnsKey = (
 					PBXFindDataSource_MessageID,
@@ -99,8 +99,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 191246245;
-			PBXWorkspaceStateSaveDate = 191246245;
+			PBXPerProjectTemplateStateSaveDate = 200007474;
+			PBXWorkspaceStateSaveDate = 200007474;
+		};
+		perUserProjectItems = {
+			DC8AFE2D0BEEEC8400E064D9 /* PBXTextBookmark */ = DC8AFE2D0BEEEC8400E064D9 /* PBXTextBookmark */;
+			DC8AFEE90BEF5F6900E064D9 /* PBXTextBookmark */ = DC8AFEE90BEF5F6900E064D9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042A088B1FD200DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -111,17 +115,17 @@
 	};
 	DC2072DE08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1187, 658}}";
-			sepNavSelRange = "{1469, 0}";
-			sepNavVisRect = "{{0, 0}, {1187, 658}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1187, 682}}";
+			sepNavSelRange = "{1523, 50}";
+			sepNavVisRect = "{{0, 0}, {1187, 682}}";
 			sepNavWindowFrame = "{{42, 19}, {1226, 787}}";
 		};
 	};
 	DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1187, 1349}}";
-			sepNavSelRange = "{1475, 14}";
-			sepNavVisRect = "{{0, 452}, {1187, 658}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1187, 1460}}";
+			sepNavSelRange = "{1937, 0}";
+			sepNavVisRect = "{{0, 359}, {1187, 682}}";
 			sepNavWindowFrame = "{{19, 40}, {1226, 787}}";
 		};
 	};
@@ -180,6 +184,26 @@
 			DC52037C088B1FAC00DE6E7F /* iTeXMac2 */,
 		);
 	};
+	DC8AFE2D0BEEEC8400E064D9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */;
+		name = "iTM2BibTeXSupportKit.m: iTM2BibTeXInspectorType";
+		rLen = 14;
+		rLoc = 1475;
+		rType = 0;
+		vrLen = 764;
+		vrLoc = 1691;
+	};
+	DC8AFEE90BEF5F6900E064D9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */;
+		name = "iTM2BibTeXSupportKit.m: validateSaveDocument:";
+		rLen = 0;
+		rLoc = 1937;
+		rType = 0;
+		vrLen = 1136;
+		vrLoc = 1008;
+	};
 	DC9E4F310858A8A300A86BED /* All */ = {
 		activeExec = 0;
 	};
@@ -207,8 +231,8 @@
 		continueAfterActions = 0;
 		delayBeforeContinue = 0;
 		hitCount = 1;
-		modificationTime = 171877190.173517;
-		state = 1;
+		modificationTime = 200207468.302482;
+		state = 2;
 		symbolName = "-[NSException raise]";
 	};
 	DCFEA5E00AC883FE0014A771 /* XCBreakpointsBucket */ = {

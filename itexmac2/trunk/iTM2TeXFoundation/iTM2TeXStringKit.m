@@ -836,7 +836,7 @@ To Do List:implement some kind of balance range for range
 	NSRange r;
     unsigned int length = [S length];
 expandToTheLeft:
-    if(R.location > 0)
+on    if(R.location > 0)
     {
 		theChar = [S characterAtIndex:R.location];
 		if(theChar == '_')

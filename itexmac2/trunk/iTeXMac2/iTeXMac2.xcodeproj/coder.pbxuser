@@ -9,6 +9,7 @@
 		);
 		breakpoints = (
 			DCEEDB890B9323F700A964CA /* -[NSException raise] */,
+			DC82738E0BC27931000EAA49 /* iTM2MacroKit.m:5870 */,
 		);
 		breakpointsGroup = DC24D4660952F5F200647943 /* XCBreakpointsBucket */;
 		codeSenseManager = DC520344088B1F5B00DE6E7F /* Code sense */;
@@ -152,8 +153,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 199354255;
-			PBXWorkspaceStateSaveDate = 199354255;
+			PBXPerProjectTemplateStateSaveDate = 200164206;
+			PBXWorkspaceStateSaveDate = 200164206;
+		};
+		perUserProjectItems = {
+			DC8AFDD20BEE444300E064D9 /* PBXBookmark */ = DC8AFDD20BEE444300E064D9 /* PBXBookmark */;
+			DC8AFEED0BEF5F6C00E064D9 /* PBXTextBookmark */ = DC8AFEED0BEF5F6C00E064D9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -392,8 +397,22 @@
 		hitCount = 1;
 		lineNumber = 5870;
 		location = iTM2Foundation;
-		modificationTime = 199371653.199763;
+		modificationTime = 200236526.448897;
 		state = 1;
+	};
+	DC8AFDD20BEE444300E064D9 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+	};
+	DC8AFEED0BEF5F6C00E064D9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 103";
+		rLen = 0;
+		rLoc = 3385;
+		rType = 0;
+		vrLen = 728;
+		vrLoc = 2964;
 	};
 	DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */ = {
 		uiCtxt = {
@@ -459,7 +478,7 @@
 		hitCount = 1;
 		lineNumber = 495;
 		location = iTeXMac2;
-		modificationTime = 199371544.947038;
+		modificationTime = 200207011.215326;
 		state = 1;
 	};
 	DCB530120B59B8A700CD713D /* GetSourceVersion.m */ = {
@@ -535,8 +554,8 @@
 	DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1460, 10000}}";
-			sepNavSelRange = "{14387, 0}";
-			sepNavVisRect = "{{0, 9587}, {991, 413}}";
+			sepNavSelRange = "{3385, 0}";
+			sepNavVisRect = "{{0, 1730}, {1095, 641}}";
 			sepNavWindowFrame = "{{291, 132}, {1134, 746}}";
 		};
 	};
@@ -572,8 +591,8 @@
 		delayBeforeContinue = 0;
 		hitCount = 1;
 		location = Foundation;
-		modificationTime = 199960093.312391;
-		state = 1;
+		modificationTime = 200207554.82485;
+		state = 2;
 		symbolName = "-[NSException raise]";
 	};
 	DCEF60820B62148A00A19262 /* Prepare Sparkle */ = {

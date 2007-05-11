@@ -38,6 +38,13 @@ typedef enum
     kiTM2AnnotateToolMode = 3
 } iTM2ToolMode;
 
+typedef enum
+{
+    iTM2PDFDocumentNoErrorStatus = 0, 
+    iTM2PDFDocumentPendingStatus = 1, 
+    iTM2PDFDocumentErrorStatus = 2
+} iTM2PDFDocumentStatus;
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFKitInspector
 
 extern NSString * const iTM2ToolbarNextPageItemIdentifier;
@@ -83,6 +90,8 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
     IBOutlet NSPopUpButton *_toolbarDisplayBoxView;
 }
 - (PDFView *)pdfView;
+- (iTM2PDFDocumentStatus)PDFDocumentStatus;
+- (void)setPDFDocumentStatus:(iTM2PDFDocumentStatus)status;
 @end
 
 @interface iTM2PDFKitResponder: iTM2AutoInstallResponder
@@ -94,6 +103,8 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
 @interface iTM2PDFKitDocument: iTM2PDFDocument
 - (PDFDocument *)PDFDocument;
 - (void)setPDFDocument:(id)PDFDoc;
+- (iTM2PDFDocumentStatus)PDFDocumentStatus;
+- (void)setPDFDocumentStatus:(iTM2PDFDocumentStatus)satus;
 @end
 
 typedef int iTM2PDFAreaOfInterest;

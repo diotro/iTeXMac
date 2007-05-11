@@ -185,7 +185,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>DC8AF9BD0BEBDF5C00E064D9</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>iTM2BibTeXSupportKit.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>DC8AF9BE0BEBDF5C00E064D9</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>iTM2BibTeXSupportKit.m</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>DC8AFEE90BEF5F6900E064D9</string>
+						<key>history</key>
+						<array>
+							<string>DC8AFE2D0BEEEC8400E064D9</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1226, 714}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>19 72 1226 755 0 0 1440 878 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -259,6 +300,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>089C166AFE841209C02AAC07</string>
+								<string>08FB77AFFE84173DC02AAC07</string>
 								<string>089C167CFE841241C02AAC07</string>
 								<string>19C28FB8FE9D52D311CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
@@ -267,11 +309,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>22</integer>
+									<integer>4</integer>
+									<integer>2</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {341, 688}}</string>
+							<string>{{0, 0}, {341, 718}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -283,14 +327,14 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {358, 706}}</string>
+						<string>{{0, 0}, {358, 736}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>MainColumn</string>
 							<real>341</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>24 79 987 747 0 0 1440 878 </string>
+						<string>24 49 1185 777 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -325,9 +369,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {624, 0}}</string>
+								<string>{{0, 0}, {822, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>24 79 987 747 0 0 1440 878 </string>
+								<string>24 49 1185 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -345,18 +389,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 5}, {624, 701}}</string>
+								<string>{{0, 5}, {822, 731}}</string>
 								<key>RubberWindowFrame</key>
-								<string>24 79 987 747 0 0 1440 878 </string>
+								<string>24 49 1185 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>701pt</string>
+							<string>731pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>624pt</string>
+					<string>822pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -371,9 +415,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC530F830B66307400BD0276</string>
+				<string>DC8AF9BB0BEBDF5C00E064D9</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC530F840B66307400BD0276</string>
+				<string>DC8AF9BC0BEBDF5C00E064D9</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -507,10 +551,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>/Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2BibTeXSupportKit/iTM2BibTeXSupportKit.xcodeproj</string>
+		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2BibTeXSupportKit/iTM2BibTeXSupportKit.xcodeproj</string>
+		<string>DC8AF9BD0BEBDF5C00E064D9</string>
 	</array>
 	<key>WindowString</key>
-	<string>24 79 987 747 0 0 1440 878 </string>
+	<string>24 49 1185 777 0 0 1440 878 </string>
 	<key>WindowTools</key>
 	<array>
 		<dict>

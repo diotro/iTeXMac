@@ -8731,13 +8731,14 @@ To Do List:
 	NSString * oldKey = [oldPD keyForSubdocument:self];
 	NSAssert2([oldKey length],@"NON SENSE! the project %@ owns the document %@ but has no key for it!",oldPD,self);
 	iTM2ProjectDocument * newPD = [SPC projectForFileName:newFileName];
+	NSString * name = nil;
 	if(newPD)
 	{
 		[super setFileURL:newURL];
 	}
 	else
 	{
-		NSString * name = newFileName;
+		name = newFileName;
 #warning ERROR POSSIBLE: display NO
 		newPD = [SPC newProjectForFileNameRef:&name display:NO error:nil];
 		newURL = [NSURL fileURLWithPath:name];
@@ -8767,11 +8768,13 @@ To Do List:
 	}
 	// removing all the previously existing document with the same file name
 	// except the receiver,of course
+	id properties = nil;
 	if(newPD == oldPD)
 	{
 //		[[newPD keyedSubdocuments] takeValue:nil forKey:oldKey];
-		NSString * newKey = [newPD newKeyForFileName:[self fileName]];
-		id properties = [oldPD propertiesForFileKey:oldKey];
+		name = [self fileName];
+		NSString * newKey = [newPD newKeyForFileName:name];
+		properties = [oldPD propertiesForFileKey:oldKey];
 		properties = [[properties mutableCopy] autorelease];
 		[[newPD keyedProperties] takeValue:properties forKey:newKey];
 		[super setFileURL:newURL];
@@ -8781,7 +8784,8 @@ To Do List:
 	{
 		// This is not expected:two different projects own the same document
 		[super setFileURL:newURL];
-		NSAssert3(NO,@"INCONSISTENT CODE:projects %@ and %@ are not allowed to own the same document:%@",oldPD,newPD,self);
+		//NSAssert3(NO,@"INCONSISTENT CODE:projects %@ and %@ are not allowed to own the same document:%@",oldPD,newPD,self);
+		// bib files and others might be shared between projects
 		return;
 	}
 	else if(newPD)
@@ -8798,7 +8802,8 @@ To Do List:
 		}
 		[newPD addSubdocument:self];
 		NSString * newKey = [newPD keyForSubdocument:self];
-		[[newPD keyedProperties] takeValue:[[[oldPD propertiesForFileKey:oldKey] mutableCopy] autorelease] forKey:newKey];
+		properties = [[[oldPD propertiesForFileKey:oldKey] mutableCopy] autorelease];
+		[[newPD keyedProperties] takeValue:properties forKey:newKey];
 		[super setFileURL:newURL];
 		// what about the context?
 	}

@@ -368,6 +368,7 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 - (void)insertMacro:(id)sender;
 - (void)insertMacro:(id)argument inRange:(NSRange)affectedCharRange;
 - (NSString *)replacementStringForMacro:(NSString *)macro selection:(NSString *)selection line:(NSString *)line;
+- (NSString *)macroByPreparing:(NSString *)macro forInsertionInRange:(NSRange)affectedCharRange;
 @end
 
 @interface NSString(iTM2MacroKit)
