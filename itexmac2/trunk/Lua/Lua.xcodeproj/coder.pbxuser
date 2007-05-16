@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
 	0867D690FE84028FC02AAC07 /* Project object */ = {
-		activeBuildConfigurationName = Debug;
-		activeTarget = 8DC2EF4F0486A6940098B216 /* LUA */;
+		activeBuildConfigurationName = Development;
+		activeTarget = 8DC2EF4F0486A6940098B216 /* Lua */;
 		addToTargets = (
-			8DC2EF4F0486A6940098B216 /* LUA */,
+			8DC2EF4F0486A6940098B216 /* Lua */,
 		);
 		breakpoints = (
 		);
@@ -16,7 +16,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					515,
+					452,
 					20,
 					48,
 					43,
@@ -39,7 +39,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					200,
-					108,
+					272,
 					20,
 					48,
 					43,
@@ -55,19 +55,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 201019638;
-			PBXWorkspaceStateSaveDate = 201019638;
-		};
-		perUserProjectItems = {
-			DC0F069B0BFB50CC00108852 = DC0F069B0BFB50CC00108852 /* PBXTextBookmark */;
-			DC0F06B10BFB50EF00108852 = DC0F06B10BFB50EF00108852 /* PBXTextBookmark */;
-			DC0F06C30BFB50FD00108852 /* PBXTextBookmark */ = DC0F06C30BFB50FD00108852 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 201029888;
+			PBXWorkspaceStateSaveDate = 201029888;
 		};
 		sourceControlManager = DC72FAE50BFA29EC00C719E6 /* Source Control */;
 		userBuildSettings = {
 		};
 	};
-	32DBCF5E0370ADEE00C91783 /* LUA_Prefix.pch */ = {
+	32DBCF5E0370ADEE00C91783 /* Lua-Prefix.pch */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1273, 734}}";
 			sepNavSelRange = "{138, 0}";
@@ -75,7 +70,7 @@
 			sepNavWindowFrame = "{{15, 34}, {1312, 839}}";
 		};
 	};
-	8DC2EF4F0486A6940098B216 /* LUA */ = {
+	8DC2EF4F0486A6940098B216 /* Lua */ = {
 		activeExec = 0;
 	};
 	DC0F02E60BFA471D00108852 /* LuaObjCBridge.h */ = {
@@ -90,7 +85,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1559, 49600}}";
 			sepNavSelRange = "{6203, 28}";
-			sepNavVisRect = "{{0, 3924}, {1273, 734}}";
+			sepNavVisRect = "{{0, 4043}, {1195, 265}}";
 			sepNavWindowFrame = "{{38, 13}, {1312, 839}}";
 		};
 	};
@@ -116,62 +111,24 @@
 			sepNavWindowFrame = "{{38, 13}, {1312, 839}}";
 		};
 	};
-	DC0F069B0BFB50CC00108852 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC0F069C0BFB50CC00108852 /* iTM2ProjectDocumentKit.h */;
-		name = "(null): 103";
-		rLen = 711;
-		rLoc = 4042;
-		rType = 0;
-		vrLen = 1646;
-		vrLoc = 3541;
-	};
-	DC0F069C0BFB50CC00108852 /* iTM2ProjectDocumentKit.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = iTM2ProjectDocumentKit.h;
-		path = "/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.h";
-		sourceTree = "<absolute>";
+	DC0F0D700BFB731B00108852 /* Lua-Info.plist */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1622, 31780}}";
-			sepNavSelRange = "{4042, 711}";
-			sepNavVisRect = "{{0, 1780}, {1273, 734}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1273, 734}}";
+			sepNavSelRange = "{287, 0}";
+			sepNavVisRect = "{{0, 0}, {1273, 734}}";
+			sepNavWindowFrame = "{{38, 13}, {1312, 839}}";
 		};
 	};
-	DC0F06B10BFB50EF00108852 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC0F06B20BFB50EF00108852 /* iTM2ProjectDocumentKit.h */;
-		name = "(null): 103";
-		rLen = 711;
-		rLoc = 4042;
-		rType = 0;
-		vrLen = 1646;
-		vrLoc = 3541;
-	};
-	DC0F06B20BFB50EF00108852 /* iTM2ProjectDocumentKit.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = iTM2ProjectDocumentKit.h;
-		path = "/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2Foundation/1 - C - Project/iTM2ProjectDocumentKit.h";
-		sourceTree = "<absolute>";
-	};
-	DC0F06C30BFB50FD00108852 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC0F069C0BFB50CC00108852 /* iTM2ProjectDocumentKit.h */;
-		name = "iTM2ProjectDocumentKit.h: 103";
-		rLen = 711;
-		rLoc = 4042;
-		rType = 0;
-		vrLen = 1646;
-		vrLoc = 3541;
+	DC0F13380BFB76A800108852 /* All */ = {
+		activeExec = 0;
 	};
 	DC72FAE50BFA29EC00C719E6 /* Source Control */ = {
 		isa = PBXSourceControlManager;
 		fallbackIsa = XCSourceControlManager;
-		isSCMEnabled = 0;
+		isSCMEnabled = 1;
 		scmConfiguration = {
 		};
-		scmType = "";
+		scmType = scm.subversion;
 	};
 	DC72FAE60BFA29EC00C719E6 /* Code sense */ = {
 		isa = PBXCodeSenseManager;
