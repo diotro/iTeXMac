@@ -362,6 +362,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DC0F126E0BFB755F00108852 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC0F125B0BFB74CA00108852 /* Prepare Lua */;
+			remoteInfo = "Prepare Lua";
+		};
 		DC5D6E9D0949CEF900EBA96C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -695,6 +702,7 @@
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
 		DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TreeKit.m; sourceTree = "<group>"; };
+		DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare Lua.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		DC13E67A085586540063D5A5 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DC13E67C085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = iTeXMac2.nib; sourceTree = "<group>"; };
@@ -1140,6 +1148,7 @@
 				DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */,
 				DC815F360ADC4DBE00AFCED2 /* Prepare CamelBones.framework */,
 				DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */,
+				DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1772,11 +1781,27 @@
 			dependencies = (
 				DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */,
 				DC6BC653094903B2008F8188 /* PBXTargetDependency */,
+				DC0F126F0BFB755F00108852 /* PBXTargetDependency */,
 			);
 			name = iTM2Foundation;
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = iTM2Foundation;
 			productReference = 8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DC0F125B0BFB74CA00108852 /* Prepare Lua */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC0F12610BFB74CB00108852 /* Build configuration list for PBXNativeTarget "Prepare Lua" */;
+			buildPhases = (
+				DC0F12680BFB751B00108852 /* Synchronize */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Prepare Lua";
+			productName = "Prepare Lua";
+			productReference = DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DC13E68A0855867D0063D5A5 /* Test Application */ = {
@@ -2071,6 +2096,7 @@
 			targets = (
 				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
 				DC6BC63C09490315008F8188 /* Prepare OgreKit */,
+				DC0F125B0BFB74CA00108852 /* Prepare Lua */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
 				8DC2EF4F0486A6940098B216 /* iTM2Foundation */,
 				DCB200320858E250003659F3 /* Install iTM2Foundation */,
@@ -2243,6 +2269,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		DC0F12680BFB751B00108852 /* Synchronize */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Synchronize;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2SynchronizeFramework.sh Lua\n";
+		};
 		DC25E42C0991F5F000545F27 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2573,6 +2613,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DC0F126F0BFB755F00108852 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC0F125B0BFB74CA00108852 /* Prepare Lua */;
+			targetProxy = DC0F126E0BFB755F00108852 /* PBXContainerItemProxy */;
+		};
 		DC5D6E9E0949CEF900EBA96C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
@@ -3189,6 +3234,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DC0F12620BFB74CB00108852 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Prepare Lua";
+				iTM2_INFOPLIST_FILE = "";
+			};
+			name = Development;
+		};
+		DC0F12630BFB74CB00108852 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Prepare Lua";
+				iTM2_INFOPLIST_FILE = "";
+			};
+			name = Deployment;
+		};
 		DC1E8A8E09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */;
@@ -3839,6 +3900,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DC0F12610BFB74CB00108852 /* Build configuration list for PBXNativeTarget "Prepare Lua" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC0F12620BFB74CB00108852 /* Development */,
+				DC0F12630BFB74CB00108852 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
 		DC1E8A8D09462DC40037B13F /* Build configuration list for PBXNativeTarget "iTM2Foundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
