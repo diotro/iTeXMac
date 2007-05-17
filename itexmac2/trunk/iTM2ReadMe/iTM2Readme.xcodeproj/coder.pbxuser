@@ -72,16 +72,16 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 189705841;
-			PBXWorkspaceStateSaveDate = 189705841;
+			PBXPerProjectTemplateStateSaveDate = 201088256;
+			PBXWorkspaceStateSaveDate = 201088256;
 		};
 		perUserProjectItems = {
 			DC512A210B3B07200092B6C7 /* PBXTextBookmark */ = DC512A210B3B07200092B6C7 /* PBXTextBookmark */;
 			DC512A220B3B07200092B6C7 /* PBXTextBookmark */ = DC512A220B3B07200092B6C7 /* PBXTextBookmark */;
 			DC512A250B3B07200092B6C7 /* PBXTextBookmark */ = DC512A250B3B07200092B6C7 /* PBXTextBookmark */;
 			DC512A260B3B07200092B6C7 /* PBXTextBookmark */ = DC512A260B3B07200092B6C7 /* PBXTextBookmark */;
-			DC512A2F0B3B1A740092B6C7 /* PBXTextBookmark */ = DC512A2F0B3B1A740092B6C7 /* PBXTextBookmark */;
-			DCB1DC140B4EAF5300B0704A /* PBXTextBookmark */ = DCB1DC140B4EAF5300B0704A /* PBXTextBookmark */;
+			DC70F3360BFC5D0A006C6A76 /* PBXTextBookmark */ = DC70F3360BFC5D0A006C6A76 /* PBXTextBookmark */;
+			DC70F3370BFC5D0A006C6A76 /* PBXTextBookmark */ = DC70F3370BFC5D0A006C6A76 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC5129BA0B3B019E0092B6C7 /* Source Control */;
 		userBuildSettings = {
@@ -89,7 +89,7 @@
 	};
 	29B97316FDCFA39411CA2CEA /* iTM2Readme-main.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {764, 532}}";
+			sepNavIntBoundsRect = "{{0, 0}, {857, 600}}";
 			sepNavSelRange = "{697, 0}";
 			sepNavVisRect = "{{0, 0}, {635, 532}}";
 			sepNavWindowFrame = "{{15, 66}, {1334, 807}}";
@@ -211,24 +211,24 @@
 		vrLen = 35;
 		vrLoc = 0;
 	};
-	DC512A2F0B3B1A740092B6C7 /* PBXTextBookmark */ = {
+	DC70F3360BFC5D0A006C6A76 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 29B97316FDCFA39411CA2CEA /* iTM2Readme-main.m */;
 		name = "iTM2Readme-main.m: 15";
 		rLen = 0;
 		rLoc = 697;
 		rType = 0;
-		vrLen = 1143;
+		vrLen = 1127;
 		vrLoc = 0;
 	};
-	DCB1DC140B4EAF5300B0704A /* PBXTextBookmark */ = {
+	DC70F3370BFC5D0A006C6A76 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 29B97316FDCFA39411CA2CEA /* iTM2Readme-main.m */;
 		name = "iTM2Readme-main.m: 15";
 		rLen = 0;
 		rLoc = 697;
 		rType = 0;
-		vrLen = 1143;
+		vrLen = 1127;
 		vrLoc = 0;
 	};
 }

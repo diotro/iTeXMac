@@ -57,6 +57,8 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
+		DC0F14B60BFB7D1E00108852 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
+		DC0F155B0BFC36F600108852 /* Lua.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
 		DC13E6A2085587160063D5A5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC13E6A50855874D0063D5A5 /* Test Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F7FA0854BBEE00F3EB8A /* Test Application-main.m */; };
 		DC13E6A8085587640063D5A5 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC13E67B085586540063D5A5 /* iTeXMac2.nib */; };
@@ -366,7 +368,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DC0F125B0BFB74CA00108852 /* Prepare Lua */;
+			remoteGlobalIDString = DC0F125B0BFB74CA00108852;
 			remoteInfo = "Prepare Lua";
 		};
 		DC5D6E9D0949CEF900EBA96C /* PBXContainerItemProxy */ = {
@@ -547,6 +549,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		DC0F15590BFC36DB00108852 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DC0F155B0BFC36F600108852 /* Lua.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC13E6C0085588E20063D5A5 /* Copy framework */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -703,6 +716,7 @@
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
 		DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TreeKit.m; sourceTree = "<group>"; };
 		DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare Lua.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0F14AD0BFB7D1E00108852 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		DC13E67A085586540063D5A5 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DC13E67C085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = iTeXMac2.nib; sourceTree = "<group>"; };
@@ -789,7 +803,7 @@
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
-		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextCompletionKit.h; sourceTree = "<group>"; };
 		DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextCompletionKit.m; sourceTree = "<group>"; };
 		DC99ECBE0A284EA800F50752 /* Project.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Project.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1080,6 +1094,7 @@
 				DC7050470B60389B009FD188 /* AddressBook.framework in Frameworks */,
 				DC7050480B60389B009FD188 /* Message.framework in Frameworks */,
 				DC6F8ABD0BA3FF6600A75787 /* ExceptionHandling.framework in Frameworks */,
+				DC0F14B60BFB7D1E00108852 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1207,6 +1222,7 @@
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				DCFFC18E08E1A5890011D2B7 /* PreferencePanes.framework */,
 				DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */,
+				DC0F14AD0BFB7D1E00108852 /* Lua.framework */,
 				DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */,
 			);
 			name = "Linked Frameworks";
@@ -1775,6 +1791,8 @@
 				DC81B1790887F28800943C99 /* Make the header documentation */,
 				DC25E2E609917C0F00545F27 /* Copy Binaries */,
 				DC8304DA086EF3BE004799EB /* Expand compressed resources */,
+				DC0F15590BFC36DB00108852 /* Copy Frameworks */,
+				DC0F15C90BFC383800108852 /* Set embedded frameworks install name */,
 			);
 			buildRules = (
 			);
@@ -2282,6 +2300,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh Lua\n";
+		};
+		DC0F15C90BFC383800108852 /* Set embedded frameworks install name */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set embedded frameworks install name";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "RELATIVE_PATH=\"Frameworks/Lua.framework/Versions/A/Lua\"\nABSOLUTE_PATH=\"${BUILD_DIR}/${CONTENTS_FOLDER_PATH}/${RELATIVE_PATH}\"\necho \"#warning Changing install name of ${ABSOLUTE_PATH}\"\nOLD_INSTALL_PATH=\"@executable_path/../${RELATIVE_PATH}\"\nNEW_INSTALL_PATH=\"$(echo ${OLD_INSTALL_PATH}|sed \"s/@executable_path/@loader_path/\")\"\necho \"install_name_tool -change \\\"${OLD_INSTALL_PATH}\\\" \\\"${NEW_INSTALL_PATH}\\\" \\\"${ABSOLUTE_PATH}\\\"\"\ninstall_name_tool -change \"${OLD_INSTALL_PATH}\" \"${NEW_INSTALL_PATH}\" \"${ABSOLUTE_PATH}\"\necho \"otool -L \\\"${ABSOLUTE_PATH}\\\"\"\notool -L \"${ABSOLUTE_PATH}\"\n";
 		};
 		DC25E42C0991F5F000545F27 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3254,6 +3286,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2Foundation;
 			};
 			name = Development;
@@ -3262,6 +3299,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B30A4B6CD100F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2Foundation;
 			};
 			name = Deployment;

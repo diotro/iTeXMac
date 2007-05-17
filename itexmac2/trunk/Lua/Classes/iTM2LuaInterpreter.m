@@ -44,14 +44,6 @@ iTM2LuaInterpreter_Implementation;
 	if(self = [super init])
 	{
 		_implementation=imp;
-		((iTM2LuaInterpreter_Implementation *)_implementation)->luaState = l;
-luaL_dostring(l,"#!/usr/bin/env lua\na=0.123;\n");
-luaL_dostring(l,"applicationClass=objc:class(\"NSApplication\");\
-applicationInstance=applicationClass:sharedApplication();\
-applicationInstance:luaMessage();\
-\n");
-luaL_dostring(l,"b=math.sin(a);print(b)\n");
-luaL_dostring(l,"print(\"OK THINGS ARE DONE, does it work?\")\n");
 	}
 	return self;
 }

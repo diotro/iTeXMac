@@ -69,6 +69,7 @@
 		DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */; };
 		DC7051520B605799009FD188 /* iTM2CrashReportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7051500B605799009FD188 /* iTM2CrashReportKit.m */; };
 		DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */; };
+		DC70F18F0BFC5BCC006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F18E0BFC5BCC006C6A76 /* Lua.framework */; };
 		DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */; };
 		DC89306C08FC2DDA007A4673 /* iTM2MetaPostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */; };
 		DC89307008FC2DED007A4673 /* iTM2MetaPostKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */; };
@@ -342,6 +343,7 @@
 		DC7051500B605799009FD188 /* iTM2CrashReportKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2CrashReportKit.m; sourceTree = "<group>"; };
 		DC70516A0B60590A009FD188 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CrashReportController.nib; sourceTree = "<group>"; };
 		DC7051700B605916009FD188 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2CrashReportController.nib; sourceTree = "<group>"; };
+		DC70F18E0BFC5BCC006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC74C82007D8532800E10C57 /* iTeXMac2-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTeXMac2-Prefix.pch"; sourceTree = "<group>"; };
 		DC74C82107D8532800E10C57 /* iTM2StartupDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupDocument.h; sourceTree = "<group>"; };
 		DC781BAC07F9B8DA00FCD972 /* iTM2WindowsMenuKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2WindowsMenuKit.h; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */,
 				DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */,
 				DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */,
+				DC70F18F0BFC5BCC006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +534,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F18E0BFC5BCC006C6A76 /* Lua.framework */,
 				DCB93D2F07D70F95005E5B38 /* Carbon.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				DCA37DA60AE3939100874F9E /* AddressBook.framework */,
@@ -1635,9 +1639,11 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../build\"";
 				INFOPLIST_FILE = "$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = iTeXMac2;
 			};
@@ -1651,9 +1657,11 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../build\"";
 				INFOPLIST_FILE = "$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = iTeXMac2;
 			};

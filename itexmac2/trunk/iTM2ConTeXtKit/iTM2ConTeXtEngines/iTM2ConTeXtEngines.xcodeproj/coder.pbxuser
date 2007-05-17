@@ -5,6 +5,7 @@
 		activeExecutable = DC5203AC088B1FB000DE6E7F /* iTeXMac2 */;
 		activeTarget = DC81AE6D08871B4600943C99 /* iTeXMac2 */;
 		addToTargets = (
+			DC9815C3092A2FBE0011D8DA /* TeXExec wrapper */,
 		);
 		breakpoints = (
 			DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */,
@@ -103,13 +104,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 191246248;
-			PBXWorkspaceStateSaveDate = 191246248;
+			PBXPerProjectTemplateStateSaveDate = 201088283;
+			PBXWorkspaceStateSaveDate = 201088283;
 		};
 		perUserProjectItems = {
-			DC0BB6F00B610D9E00C7F0A1 /* PBXTextBookmark */ = DC0BB6F00B610D9E00C7F0A1 /* PBXTextBookmark */;
 			DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
-			DC5310B70B66472800BD0276 /* PBXTextBookmark */ = DC5310B70B66472800BD0276 /* PBXTextBookmark */;
 			DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071D0ADD9DBA00F870B4 /* PBXTextBookmark */;
 			DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */ = DC81071F0ADD9DBA00F870B4 /* PBXTextBookmark */;
 			DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */ = DC8107200ADD9DBA00F870B4 /* PBXTextBookmark */;
@@ -129,28 +128,6 @@
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
 			OBJROOT = "$(SYMROOT)";
-		};
-	};
-	DC0BB6F00B610D9E00C7F0A1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC0BB6F10B610D9E00C7F0A1 /* EnvironmentVariables.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 352;
-		vrLoc = 0;
-	};
-	DC0BB6F10B610D9E00C7F0A1 /* EnvironmentVariables.plist */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.xml;
-		name = EnvironmentVariables.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/Resources/EnvironmentVariables.plist;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {908, 289}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 0}, {658, 183}}";
 		};
 	};
 	DC2CA78D0855D4F500128F14 /* All */ = {
@@ -219,22 +196,6 @@
 	DC52042F088B1FD300DE6E7F /* Code sense */ = {
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
-	};
-	DC5310B70B66472800BD0276 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC5310B80B66472800BD0276 /* EnvironmentVariables.plist */;
-		name = "(null): 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 352;
-		vrLoc = 0;
-	};
-	DC5310B80B66472800BD0276 /* EnvironmentVariables.plist */ = {
-		isa = PBXFileReference;
-		name = EnvironmentVariables.plist;
-		path = /Users/coder/Documents/iTeXMac2/svn/itexmac2/iTM2MetaPostKit/Resources/EnvironmentVariables.plist;
-		sourceTree = "<absolute>";
 	};
 	DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */ = {
 		uiCtxt = {

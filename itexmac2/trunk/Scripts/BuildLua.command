@@ -1,7 +1,7 @@
 #!/bin/sh
-# iTM2BuildOgreKit
+# BuildLua.command
 # XCode 2.2 compliant, version 1
-PRODUCT_NAME="LUA"
+PRODUCT_NAME="Lua"
 echo "warning: iTeXMac2 INFO, Building ${PRODUCT_NAME}..."
 pushd "$(dirname "$0")/.."
 echo "iTM2 tree root: $(pwd)"

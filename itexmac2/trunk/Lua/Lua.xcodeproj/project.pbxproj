@@ -79,7 +79,6 @@
 		DC0F02F30BFA478700108852 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F02F20BFA478700108852 /* Cocoa.framework */; };
 		DC0F047D0BFAED2500108852 /* iTM2LuaInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0F047B0BFAED2500108852 /* iTM2LuaInterpreter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0F047E0BFAED2500108852 /* iTM2LuaInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0F047C0BFAED2500108852 /* iTM2LuaInterpreter.m */; };
-		DC0F0D710BFB731B00108852 /* Lua-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC0F0D700BFB731B00108852 /* Lua-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +86,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* Lua */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = Lua;
 		};
 /* End PBXContainerItemProxy section */
@@ -538,7 +537,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC0F0D710BFB731B00108852 /* Lua-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +597,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC0F0D220BFB715400108852 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-seg1addr",
+					"$(iTM2_FRAMEWORK_ADDRESS)",
+					"-headerpad_max_install_names",
+				);
 				PRODUCT_NAME = Lua;
 				iTM2_FRAMEWORK_ADDRESS = "$(LUA_ADDRESS)";
 			};
@@ -608,6 +612,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC0F0D210BFB715400108852 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-seg1addr",
+					"$(iTM2_FRAMEWORK_ADDRESS)",
+					"-headerpad_max_install_names",
+				);
 				PRODUCT_NAME = Lua;
 				iTM2_FRAMEWORK_ADDRESS = "$(LUA_ADDRESS)";
 			};

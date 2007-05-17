@@ -35,6 +35,7 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		DC2CA6BF0855D0CE00128F14 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6AE0855D0CE00128F14 /* InfoPlist.strings */; };
 		DC2CA6C20855D0CE00128F14 /* iTM2EDITORInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6B40855D0CE00128F14 /* iTM2EDITORInspector.nib */; };
+		DC70F1F40BFC5C57006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F1F30BFC5C57006C6A76 /* Lua.framework */; };
 		DC993AE3088DF1E200F8BCE1 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC993AE1088DF1E200F8BCE1 /* iTM2Foundation.framework */; };
 		DC993AE4088DF1E200F8BCE1 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC993AE2088DF1E200F8BCE1 /* iTM2TeXFoundation.framework */; };
 		DC99EACF08831D52007AF81F /* iTM2EDITORKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC99EACE08831D52007AF81F /* iTM2EDITORKit.m */; };
@@ -77,6 +78,7 @@
 		DC2CA71A0855D19F00128F14 /* iTM2EDITORKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2EDITORKit-Info.plist"; sourceTree = "<group>"; };
 		DC3B41DB0A4ADED300E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41DC0A4ADED300E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		DC70F1F30BFC5C57006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC81AD80088718FA00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC993AE1088DF1E200F8BCE1 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC993AE2088DF1E200F8BCE1 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
@@ -94,6 +96,7 @@
 				DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */,
 				DC993AE3088DF1E200F8BCE1 /* iTM2Foundation.framework in Frameworks */,
 				DC993AE4088DF1E200F8BCE1 /* iTM2TeXFoundation.framework in Frameworks */,
+				DC70F1F40BFC5C57006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +147,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F1F30BFC5C57006C6A76 /* Lua.framework */,
 				DC993AE1088DF1E200F8BCE1 /* iTM2Foundation.framework */,
 				DC993AE2088DF1E200F8BCE1 /* iTM2TeXFoundation.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
@@ -455,7 +459,11 @@
 		DC6BB7D009474615004B0A81 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = /Users/coder/iTeXMac/iTeXMac2/Developer/build;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Users/coder/iTeXMac/iTeXMac2/Developer/build,
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

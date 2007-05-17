@@ -6,6 +6,8 @@ cd "$(dirname "$0")/../${PRODUCT_NAME}"
 PRODUCT_NAME="LuaObjcBridge"
 TARBALL="${PRODUCT_NAME}-v1.4.2.tgz"
 echo "warning: iTeXMac2 INFO, Downloading ${PRODUCT_NAME}..."
-echo "http://www.pixelballistics.com/Software/LuaObjCBridge/${TARBALL} --output ${TARBALL}"
-curl "http://www.pixelballistics.com/Software/LuaObjCBridge/${TARBALL}" --output "${TARBALL}"
+echo "curl \"http://www.pixelballistics.com/Software/LuaObjCBridge/LuaObjCBridge-v1.4.2.tgz\" --output LuaObjCBridge-v1.4.2.tgz"
+curl "http://www.pixelballistics.com/Software/LuaObjCBridge/LuaObjCBridge-v1.4.2.tgz" --output LuaObjCBridge-v1.4.2.tgz
+mkdir -p LuaObjCBridge-v1.4.2
+tar --directory LuaObjCBridge-v1.4.2 -xvzf LuaObjCBridge-v1.4.2.tgz
 exit 0

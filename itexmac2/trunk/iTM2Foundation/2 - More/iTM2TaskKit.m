@@ -2368,6 +2368,7 @@ To Do List:
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
+#import <Lua/iTM2LuaInterpreter.h>
 
 @implementation NSResponder(iTM2TaskKit)
 - (NSString *)stringByExecutingScriptAtPath:(NSString *)scriptPath;
@@ -2409,8 +2410,18 @@ To Do List:
 }
 - (void)executeAsScript:(id)sender;
 {
-	// save the script somewhere
 	NSString * script = [sender argument];
+	// is it a lua script?
+	NSRange R = NSMakeRange(0,0);
+	[script getLineStart:nil end:nil contentsEnd:&R.length forRange:R];
+	NSString * line = [script substringWithRange:R];
+	if([line hasPrefix:@"#!"] && [line hasSuffix:@"lua"])
+	{
+		iTM2LuaInterpreter * interpreter = [iTM2LuaInterpreter interpreter];
+		[interpreter executeString:script];
+		return;
+	}
+	// save the script somewhere
 	NSString * path = [NSBundle temporaryBinaryDirectory];
 	path = [path stringByAppendingPathComponent:@"macro_script"];
 	NSURL * url = [NSURL fileURLWithPath:path];

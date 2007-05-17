@@ -1,35 +1,15 @@
 Here is the list of utility shell scripts available in iTeXMac2 distributions
 These scripts are used to build iTeXMac2
 
-All the scripts ending with terminal can be used by double clicking, provided you have declared .terminal documents to be opened by terminal.
-BuildiTeXMac2: build iTeXMac2. If you want a build from scratch, CleanSourceTree beforeBuildOgreKit: build OgreKit, use it once, you should start from here. You can be asked to by iTeXMac2 builder.CleanSourceTree: remove all the "build" directories
+In order to build iTM2, run
+DownloadAll.command
+BuildAll.command
 
-BuildOgreKit-sudo.terminal
-BuildOgreKit.terminal
-BuildiTeXMac2-sudo.terminal
-BuildiTeXMac2.terminal
-CleanSourceTree-sudo.terminal
-CleanSourceTree.terminal
-README.txt
-TEST
-createPlugIn
-iTM2BuildPhaseCopyNewDocuments.pl
-iTM2BuildPhaseExpandMacros.pl
-iTM2BuildPhaseExpandNewDocuments.pl
-iTM2BuildiTeXMac2.sh
-iTM2CopyNewDocuments.sh
-iTM2CreateMacroIndex.pl
-iTM2InstallEnginesInParent.sh
-iTM2MakeHeaderdoc.sh
-iTM2MergeTheFrameworkHeaders.sh
-iTM2SynchronizeCamelBones.sh
-iTM2SynchronizeEngines.sh
-iTM2SynchronizeFramework.sh
-iTM2SynchronizeOgreKit.sh
-iTM2SynchronizePlugIn.sh
-myFirstPython.py
-profileInfo.html
-templates
-webloc2urlConvertor.app
+All the scripts ending with terminal can be used by double clicking, provided you have declared .terminal documents to be opened by terminal.
+BuildiTeXMac2: build iTeXMac2. If you want a build from scratch, CleanSourceTree beforeBuildOgreKit: build OgreKit, use it once, you should start from here. You can be asked to by iTeXMac2 builder.BuildSparkle: build OgreKit, use it once, you should start from here. You can be asked to by iTeXMac2 builder.CleanSourceTree: remove all the "build" directories
+
+If there is a sudo version, it asks the normal script to run in sudo mode.
+
+BuildAll-sudo.commandBuildAll.commandBuildiTeXMac2-sudo.commandBuildiTeXMac2.commandBuildLua-sudo.commandBuildLua.commandBuildOgreKit-sudo.commandBuildOgreKit.commandBuildSparkle-sudo.commandBuildSparkle.commandCleanSourceTree-sudo.commandCleanSourceTree.commandcreatePlugIndouble click to archive.plDownloadAll.commandDownloadLuaDownloadLuaObjcBridgeDownloadOgreKit.commandDownloadSparkle.commandFixOgreKit.pliTM2BuildiTeXMac2.shiTM2BuildPhaseExpandResources.pliTM2CheckExecutable.shiTM2CreateMacroIndex.pliTM2GetRevision.pliTM2InstallEnginesInParent.shiTM2MakeHeaderdoc.shiTM2MakeMacrosSummaryiTM2MergeTheFrameworkHeaders.shiTM2SynchronizeApplication.shiTM2SynchronizeCamelBones.shiTM2SynchronizeEngines.shiTM2SynchronizeFramework.shiTM2SynchronizeHDCrashReporter.shiTM2SynchronizeOgreKit.shiTM2SynchronizePlugIn.shiTM2SynchronizeSparkle.shmyFirstPython.pyPrepareBuildNumber.plprofileInfo.htmlREADME.txttemplatesTESTwebloc2urlConvertor
 
 Nota Bene: This file should be read with UTF-8 encoding

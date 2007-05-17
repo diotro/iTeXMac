@@ -26,6 +26,7 @@
 		DC21DF9B08610F3700CA362C /* iTM2DMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9808610F3700CA362C /* iTM2DMenuKit.m */; };
 		DC21DF9C08610F3700CA362C /* iTM2LaTeXSymbolsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */; };
 		DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */; };
+		DC70F2640BFC5C99006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F25B0BFC5C99006C6A76 /* Lua.framework */; };
 		DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */; };
 		DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC99E9BB0A2608A400F50752 /* iTM2AMSArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */; };
@@ -210,7 +211,8 @@
 		DC5B699D0A4B6BEC00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2LaTeXKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC81AE8708871B9A00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC70F25B0BFC5C99006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
+		DC81AE8708871B9A00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSArrowsIcon.tiff; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 				DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */,
 				DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */,
 				DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */,
+				DC70F2640BFC5C99006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +419,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F25B0BFC5C99006C6A76 /* Lua.framework */,
 				DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */,
 				DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */,
 				DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */,
@@ -958,8 +962,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2LaTeXSymbolsKit;
 			};
 			name = Development;
@@ -971,8 +977,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2LaTeXSymbolsKit;
 			};
 			name = Deployment;

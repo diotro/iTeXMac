@@ -38,6 +38,8 @@
 		DC0EF84F094857180018276F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
 		DC0EF876094858030018276F /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
 		DC0EF877094858030018276F /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */; };
+		DC70F4670BFC5DE6006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F4600BFC5DE6006C6A76 /* Lua.framework */; };
+		DC70F4680BFC5DE6006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F4600BFC5DE6006C6A76 /* Lua.framework */; };
 		DC9BC2FD0ABA054500FAC59E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
 		DC9BC2FE0ABA054500FAC59E /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
 		DC9BC2FF0ABA054500FAC59E /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */; };
@@ -128,6 +130,7 @@
 		DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D6D0F0949A97100EBA96C /* Prepare iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare iTM2LaTeXKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC70F4600BFC5DE6006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC9BC3070ABA054500FAC59E /* LaTeX Doc Extractor.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LaTeX Doc Extractor.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9BC3080ABA054500FAC59E /* iTM2LaTeXInstallerWrapper-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "iTM2LaTeXInstallerWrapper-Info copy.plist"; sourceTree = "<group>"; };
 		DC9BC30D0ABA061700FAC59E /* iTM2_Engine_LaTeXDocExtractor */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_LaTeXDocExtractor; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 				DC0EF876094858030018276F /* iTM2TeXFoundation.framework in Frameworks */,
 				DC0EF877094858030018276F /* iTM2Foundation.framework in Frameworks */,
 				DCE417B20AB61CB200FB432D /* iTM2LaTeXKit.framework in Frameworks */,
+				DC70F4680BFC5DE6006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +183,7 @@
 				DC9BC2FE0ABA054500FAC59E /* iTM2TeXFoundation.framework in Frameworks */,
 				DC9BC2FF0ABA054500FAC59E /* iTM2Foundation.framework in Frameworks */,
 				DC9BC3000ABA054500FAC59E /* iTM2LaTeXKit.framework in Frameworks */,
+				DC70F4670BFC5DE6006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +262,7 @@
 		DC9DC4CC094841310079E1B3 /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F4600BFC5DE6006C6A76 /* Lua.framework */,
 				DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */,
 				DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */,
 				DCE417AF0AB61CB200FB432D /* iTM2LaTeXKit.framework */,
@@ -580,8 +586,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Info.plist";
 				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
@@ -596,8 +604,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Installer/iTM2LaTeXInstallerWrapper-Info.plist";
 				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
@@ -671,8 +681,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Info.plist";
 				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;
@@ -686,8 +698,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../build\"";
 				GCC_PREFIX_HEADER = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Prefix.pch";
 				INFOPLIST_FILE = "LaTeX Doc Extractor/iTM2LaTeXDocExtractorWrapper-Info.plist";
 				INFOPLIST_PREFIX_HEADER = ../../build/INFOPLIST_PREFIX_HEADER;

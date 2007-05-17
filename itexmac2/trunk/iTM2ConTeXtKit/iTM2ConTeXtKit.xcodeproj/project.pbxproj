@@ -59,6 +59,7 @@
 		DC27426E090CE69C00C2D1D2 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
 		DC27426F090CE69C00C2D1D2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A61D9088D7DDF0016FAA2 /* iTM2Foundation.framework */; };
 		DC274270090CE69C00C2D1D2 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A61DA088D7DDF0016FAA2 /* iTM2TeXFoundation.framework */; };
+		DC70F1DB0BFC5C38006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F1DA0BFC5C38006C6A76 /* Lua.framework */; };
 		DC99E8AD0A25F9D200F50752 /* iTM2ConTeXtGardenMainPageAbstract.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC99E8AC0A25F9D200F50752 /* iTM2ConTeXtGardenMainPageAbstract.xml */; };
 		DC99E8C60A25FA6C00F50752 /* ConTeXtAtGardenToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC99E8BF0A25FA6C00F50752 /* ConTeXtAtGardenToolbarImage.tif */; };
 		DC99E8C70A25FA6C00F50752 /* ConTeXtAtPragmaADEToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC99E8C00A25FA6C00F50752 /* ConTeXtAtPragmaADEToolbarImage.tif */; };
@@ -141,6 +142,7 @@
 		DC5B69D30A4B6E0500F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D6C0E09498CF300EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5D6C1609498CF300EBA96C /* Prepare iTM2TeXFoundation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Prepare iTM2TeXFoundation-Info.plist"; sourceTree = "<group>"; };
+		DC70F1DA0BFC5C38006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC81AD260887161F00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A61D9088D7DDF0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A61DA088D7DDF0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
@@ -197,6 +199,7 @@
 				DC27426E090CE69C00C2D1D2 /* Quartz.framework in Frameworks */,
 				DC27426F090CE69C00C2D1D2 /* iTM2Foundation.framework in Frameworks */,
 				DC274270090CE69C00C2D1D2 /* iTM2TeXFoundation.framework in Frameworks */,
+				DC70F1DB0BFC5C38006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +244,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F1DA0BFC5C38006C6A76 /* Lua.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				DC8A61D9088D7DDF0016FAA2 /* iTM2Foundation.framework */,
@@ -766,6 +770,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69D00A4B6E0500F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2ConTeXtKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2CONTEXTKIT_ADDRESS)";
 			};
@@ -775,6 +784,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69CF0A4B6E0500F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2ConTeXtKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2CONTEXTKIT_ADDRESS)";
 			};

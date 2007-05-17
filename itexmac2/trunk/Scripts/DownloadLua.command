@@ -7,4 +7,5 @@ TARBALL="${PRODUCT_NAME}-5.1.2.tar.gz"
 echo "warning: iTeXMac2 INFO, Downloading ${PRODUCT_NAME}..."
 echo "http://www.lua.org/ftp/lua-5.1.2.tar.gz --output ${TARBALL}"
 curl "http://www.lua.org/ftp/lua-5.1.2.tar.gz" --output "${TARBALL}"
+tar -xvzf "${TARBALL}"
 exit 0

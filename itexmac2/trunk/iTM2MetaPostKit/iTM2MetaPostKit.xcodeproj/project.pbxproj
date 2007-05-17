@@ -24,6 +24,7 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC14CE8E091F2E36009D184E /* iTM2MetaPostToolbarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC14CE8C091F2E36009D184E /* iTM2MetaPostToolbarKit.h */; };
 		DC14CE8F091F2E36009D184E /* iTM2MetaPostToolbarKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC14CE8D091F2E36009D184E /* iTM2MetaPostToolbarKit.m */; };
+		DC70F2B80BFC5CB7006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F2AF0BFC5CB7006C6A76 /* Lua.framework */; };
 		DC892FCE08FC1D2E007A4673 /* iTM2MetaPostWrapperKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC892FCA08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC892FCF08FC1D2F007A4673 /* iTM2MetaPostWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC892FCB08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.m */; };
 		DC892FD008FC1D97007A4673 /* iTM2_Engine_mptopdf in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf */; };
@@ -112,6 +113,7 @@
 		DC5B698C0A4B6B9100F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		DC5B698D0A4B6B9100F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B698E0A4B6B9100F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		DC70F2AF0BFC5CB7006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC892FBF08FC1CD6007A4673 /* iTM2MetaPostKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2MetaPostKit-Info.plist"; sourceTree = "<group>"; };
 		DC892FC008FC1CD6007A4673 /* iTM2MetaPostKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2MetaPostKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */,
 				DCC3EEF108FE726B00A74157 /* iTM2PDFKit.framework in Frameworks */,
 				DCDD0BAC0905AE4F00C5B1E9 /* Quartz.framework in Frameworks */,
+				DC70F2B80BFC5CB7006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +219,7 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F2AF0BFC5CB7006C6A76 /* Lua.framework */,
 				DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */,
 				DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */,
 				DCC3EEF008FE726B00A74157 /* iTM2PDFKit.framework */,
@@ -633,6 +637,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B698B0A4B6B9100F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2MetaPostKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2METAPOSTKIT_ADDRESS)";
 			};
@@ -642,6 +651,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B698A0A4B6B9100F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2MetaPostKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2METAPOSTKIT_ADDRESS)";
 			};

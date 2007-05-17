@@ -81,6 +81,7 @@
 		DC4AF399091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF395091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif */; };
 		DC4AF3FC0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif */; };
 		DC4AF3FD0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif */; };
+		DC70EFB10BFC56BF006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70EFA80BFC56BF006C6A76 /* Lua.framework */; };
 		DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */; };
 		DC7E91B808903606007D0CB2 /* iTM2TeXStorageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7E91B908903606007D0CB2 /* iTM2TeXStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */; };
@@ -313,12 +314,13 @@
 		DC5B69450A4B699F00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69460A4B699F00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D6CBA0949A3F100EBA96C /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC70EFA80BFC56BF006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2TeXDistributionPrefPane.tif; sourceTree = "<group>"; };
 		DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStorageKit.h; sourceTree = "<group>"; };
 		DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStorageKit.m; sourceTree = "<group>"; };
 		DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStyleEditionKit.h; sourceTree = "<group>"; };
 		DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStyleEditionKit.m; sourceTree = "<group>"; };
-		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Inactive.tif; sourceTree = "<group>"; };
 		DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Pressed.tif; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				DCC7F4C40854ACBA00F3EB8A /* iTM2Foundation.framework in Frameworks */,
 				DCC7F4C80854ACD700F3EB8A /* Carbon.framework in Frameworks */,
 				DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */,
+				DC70EFB10BFC56BF006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +528,7 @@
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */,
 				DCBE56760BC3CF2000899B35 /* iTM2LaTeXKit.framework */,
+				DC70EFA80BFC56BF006C6A76 /* Lua.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1490,6 +1494,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69430A4B699F00F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2TeXFoundation;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2TEXFOUNDATION_ADDRESS)";
 			};
@@ -1499,6 +1508,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69420A4B699F00F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2TeXFoundation;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2TEXFOUNDATION_ADDRESS)";
 			};

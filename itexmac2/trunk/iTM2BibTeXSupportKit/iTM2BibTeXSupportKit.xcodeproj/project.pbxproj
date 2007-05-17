@@ -25,6 +25,7 @@
 		DC2072E008F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */; };
 		DC2072F508F00CDD00EBF1B6 /* iTM2BibTeXInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC2072F308F00CDD00EBF1B6 /* iTM2BibTeXInspector.nib */; };
 		DC2CA6BF0855D0CE00128F14 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6AE0855D0CE00128F14 /* InfoPlist.strings */; };
+		DC70F1A90BFC5C11006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F1A80BFC5C11006C6A76 /* Lua.framework */; };
 		DC8A626D088D84A00016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */; };
 		DC8A626E088D84A00016FAA2 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
@@ -77,6 +78,7 @@
 		DC5B69E50A4B6E9E00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69E60A4B6E9E00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D7421094A579800EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC70F1A80BFC5C11006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC81AD80088718FA00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
@@ -97,6 +99,7 @@
 				DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */,
 				DC8A626D088D84A00016FAA2 /* iTM2Foundation.framework in Frameworks */,
 				DC8A626E088D84A00016FAA2 /* iTM2TeXFoundation.framework in Frameworks */,
+				DC70F1A90BFC5C11006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +152,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F1A80BFC5C11006C6A76 /* Lua.framework */,
 				DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */,
 				DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
@@ -416,6 +420,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69E60A4B6E9E00F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
 			};
 			name = Development;
@@ -424,6 +433,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69E50A4B6E9E00F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2BibTeXSupportKit;
 			};
 			name = Deployment;

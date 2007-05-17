@@ -28,6 +28,7 @@
 		DC1C6CF6090E1A8F000F4FDE /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */; };
 		DC1C6CF7090E1A8F000F4FDE /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC1C6D3E090E1CDF000F4FDE /* iTM2NewDocumentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC70F2E70BFC5CD6006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F2DE0BFC5CD6006C6A76 /* Lua.framework */; };
 		DCAF9A7909D8111E00AFD95F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A6F09D8111E00AFD95F /* InfoPlist.strings */; };
 		DCAF9A7A09D8111E00AFD95F /* iTM2NewDocumentAssistant.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7109D8111E00AFD95F /* iTM2NewDocumentAssistant.nib */; };
 		DCAF9A7B09D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7309D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib */; };
@@ -79,7 +80,8 @@
 		DC5B69810A4B6B3400F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5BC74D08EC843C006635C4 /* iTM2NewDocumentPrefPane.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2NewDocumentPrefPane.tiff; sourceTree = "<group>"; };
 		DC5D70760949E27F00EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC81AD80088718FA00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC70F2DE0BFC5CD6006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
+		DC81AD80088718FA00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
@@ -104,6 +106,7 @@
 				DC1C6CF5090E1A8F000F4FDE /* Quartz.framework in Frameworks */,
 				DC1C6CF6090E1A8F000F4FDE /* iTM2Foundation.framework in Frameworks */,
 				DC1C6CF7090E1A8F000F4FDE /* iTM2TeXFoundation.framework in Frameworks */,
+				DC70F2E70BFC5CD6006C6A76 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +160,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F2DE0BFC5CD6006C6A76 /* Lua.framework */,
 				DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */,
 				DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
@@ -470,6 +474,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B697E0A4B6B3400F7DE47 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2NewDocumentKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2NEWDOCUMENTKIT_ADDRESS)";
 			};
@@ -479,6 +488,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B697D0A4B6B3400F7DE47 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2NewDocumentKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2NEWDOCUMENTKIT_ADDRESS)";
 			};

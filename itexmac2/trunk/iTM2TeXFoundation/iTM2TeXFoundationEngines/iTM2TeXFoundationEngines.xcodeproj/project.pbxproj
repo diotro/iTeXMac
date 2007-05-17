@@ -54,6 +54,10 @@
 		DC0EF92509485DCA0018276F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
 		DC0EF92609485DCF0018276F /* iTM2PStoPDFWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC4B2094840CC0079E1B3 /* iTM2PStoPDFWrapperKit.m */; };
 		DC0EF92D09485DE80018276F /* iTM2_Engine_pstopdf in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */; };
+		DC70F0C50BFC5986006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
+		DC70F0C60BFC5992006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
+		DC70F11C0BFC59AA006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
+		DC70F11D0BFC59B9006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
 		DC9DC72609484E3B0079E1B3 /* iTM2TeXWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC4C3094840CC0079E1B3 /* iTM2TeXWrapperKit.m */; };
 		DC9DC77509484E590079E1B3 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */; };
 		DC9DC77609484E590079E1B3 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
@@ -189,6 +193,7 @@
 		DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D6D0F0949A97100EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC70F0C30BFC5948006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC9DC483094840CB0079E1B3 /* dvipdfm.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dvipdfm.pdf; sourceTree = "<group>"; };
 		DC9DC48A094840CC0079E1B3 /* iTM2_Engine_dvipdfm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_dvipdfm; sourceTree = "<group>"; };
 		DC9DC48B094840CC0079E1B3 /* dvipdfm wrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dvipdfm wrapper-Info.plist"; sourceTree = "<group>"; };
@@ -252,8 +257,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC0EF84F094857180018276F /* Cocoa.framework in Frameworks */,
-				DC0EF876094858030018276F /* iTM2TeXFoundation.framework in Frameworks */,
+				DC70F0C60BFC5992006C6A76 /* Lua.framework in Frameworks */,
 				DC0EF877094858030018276F /* iTM2Foundation.framework in Frameworks */,
+				DC0EF876094858030018276F /* iTM2TeXFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,9 +267,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC0EF9030948594E0018276F /* Cocoa.framework in Frameworks */,
+				DC70F11C0BFC59AA006C6A76 /* Lua.framework in Frameworks */,
 				DC0EF9010948594E0018276F /* iTM2Foundation.framework in Frameworks */,
 				DC0EF9020948594E0018276F /* iTM2TeXFoundation.framework in Frameworks */,
-				DC0EF9030948594E0018276F /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,9 +278,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC0EF92509485DCA0018276F /* Cocoa.framework in Frameworks */,
+				DC70F11D0BFC59B9006C6A76 /* Lua.framework in Frameworks */,
 				DC0EF92309485DCA0018276F /* iTM2Foundation.framework in Frameworks */,
 				DC0EF92409485DCA0018276F /* iTM2TeXFoundation.framework in Frameworks */,
-				DC0EF92509485DCA0018276F /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC70F0C50BFC5986006C6A76 /* Lua.framework in Frameworks */,
 				DC9DC77509484E590079E1B3 /* iTM2Foundation.framework in Frameworks */,
 				DC9DC77609484E590079E1B3 /* iTM2TeXFoundation.framework in Frameworks */,
 				DC9DC77709484E590079E1B3 /* Cocoa.framework in Frameworks */,
@@ -402,6 +411,7 @@
 		DC9DC4CC094841310079E1B3 /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC70F0C30BFC5948006C6A76 /* Lua.framework */,
 				DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */,
 				DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */,
 				DC9DC4CF094841310079E1B3 /* Carbon.framework */,

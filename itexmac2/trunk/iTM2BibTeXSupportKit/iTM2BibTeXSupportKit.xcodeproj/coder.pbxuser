@@ -5,6 +5,7 @@
 		activeExecutable = DC52037C088B1FAC00DE6E7F /* iTeXMac2 */;
 		activeTarget = DC81AD7F088718FA00943C99 /* iTeXMac2 */;
 		addToTargets = (
+			8D5B49AC048680CD000E48DA /* iTM2BibTeXSupportKit */,
 		);
 		breakpoints = (
 			DCD3D356088EA709009ED7E0 /* -[NSException raise] */,
@@ -48,7 +49,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					385,
+					583,
 					20,
 					48,
 					43,
@@ -99,12 +100,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 200007474;
-			PBXWorkspaceStateSaveDate = 200007474;
-		};
-		perUserProjectItems = {
-			DC8AFE2D0BEEEC8400E064D9 /* PBXTextBookmark */ = DC8AFE2D0BEEEC8400E064D9 /* PBXTextBookmark */;
-			DC8AFEE90BEF5F6900E064D9 /* PBXTextBookmark */ = DC8AFEE90BEF5F6900E064D9 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 201087965;
+			PBXWorkspaceStateSaveDate = 201087965;
 		};
 		sourceControlManager = DC52042A088B1FD200DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -125,7 +122,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1187, 1460}}";
 			sepNavSelRange = "{1937, 0}";
-			sepNavVisRect = "{{0, 359}, {1187, 682}}";
+			sepNavVisRect = "{{0, 378}, {1187, 682}}";
 			sepNavWindowFrame = "{{19, 40}, {1226, 787}}";
 		};
 	};
@@ -183,26 +180,6 @@
 		executables = (
 			DC52037C088B1FAC00DE6E7F /* iTeXMac2 */,
 		);
-	};
-	DC8AFE2D0BEEEC8400E064D9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */;
-		name = "iTM2BibTeXSupportKit.m: iTM2BibTeXInspectorType";
-		rLen = 14;
-		rLoc = 1475;
-		rType = 0;
-		vrLen = 764;
-		vrLoc = 1691;
-	};
-	DC8AFEE90BEF5F6900E064D9 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */;
-		name = "iTM2BibTeXSupportKit.m: validateSaveDocument:";
-		rLen = 0;
-		rLoc = 1937;
-		rType = 0;
-		vrLen = 1136;
-		vrLoc = 1008;
 	};
 	DC9E4F310858A8A300A86BED /* All */ = {
 		activeExec = 0;
