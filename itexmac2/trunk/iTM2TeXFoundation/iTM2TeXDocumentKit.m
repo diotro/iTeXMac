@@ -172,8 +172,8 @@ To Do List: Nothing at first glance.
 	[self insertText:@"$"];
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBrace:
-- (void)insertOpenBrace:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLeftCurlyBracket:
+- (void)insertLeftCurlyBracket:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -184,8 +184,8 @@ To Do List: Nothing at first glance.
 	[self insertText:@"{"];
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenParenthesis:
-- (void)insertOpenParenthesis:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLeftParenthesis:
+- (void)insertLeftParenthesis:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -196,8 +196,8 @@ To Do List: Nothing at first glance.
 	[self insertText:@"("];
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBracket:
-- (void)insertOpenBracket:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLeftBracket:
+- (void)insertLeftBracket:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -531,8 +531,8 @@ To Do List: Nothing at first glance.
         [self insertText:@"$"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBrace:
-- (void)insertOpenBrace:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLeftCurlyBracket:
+- (void)insertLeftCurlyBracket:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -555,8 +555,8 @@ To Do List: Nothing at first glance.
         [self insertText:@"{"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenParenthesis:
-- (void)insertOpenParenthesis:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLeftParenthesis:
+- (void)insertLeftParenthesis:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -572,8 +572,8 @@ To Do List: Nothing at first glance.
     [self insertMacro:macro];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertOpenBracket:
-- (void)insertOpenBracket:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLeftBracket:
+- (void)insertLeftBracket:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
