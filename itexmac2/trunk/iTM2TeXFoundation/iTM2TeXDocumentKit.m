@@ -526,7 +526,7 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSRange R = [self selectedRange];
     if(!R.location || ![[self string] isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
-        [self insertMacro:@"$@(@SEL@)@$"];
+        [self insertMacro:@"$@@@(SEL)@@@$"];
     else
         [self insertText:@"$"];
     return;
@@ -568,7 +568,7 @@ To Do List: Nothing at first glance.
     NSString * S = [self string];
     NSRange R = [self selectedRange];
     NSString * macro = (!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)?
-		@"(@@{@@.)": @"(@@{@@.\\)";
+		@"(@@@()@@@)": @"(@@@()@@@\\)";
     [self insertMacro:macro];
     return;
 }
@@ -589,13 +589,13 @@ To Do List: Nothing at first glance.
 	NSString * macro;
 	if(!R.location || ![S isControlAtIndex:R.location-1 escaped:&escaped])
     {
-		macro = @"[@@{@@.]";
+		macro = @"[@@@()@@@]";
 		[self insertMacro:macro];
     }
     else if(escaped)// this is a dimension after a "\\"
     {
 		[S getLineStart:nil end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(R.location, 0)];
-		macro = R.location == contentsEnd? @"[@@{@@.]":@"[@@{@@.]\n";
+		macro = R.location == contentsEnd? @"[@@@()@@@]":@"[@@@()@@@]\n";
 		[self insertMacro:macro];
     }
     else// this follows an unescaped \: insert "[...\]", manage line indentation
@@ -611,7 +611,7 @@ To Do List: Nothing at first glance.
 			[self setSelectedRange:NSMakeRange(R.location-1, 1)];
 			[self insertNewline:self];
 		}
-		macro = [NSString stringWithFormat:@"%@[@@[@@.\\]%@", (BOL? @"":@"\\"),(EOL? @"":@"\n")];
+		macro = [NSString stringWithFormat:@"%@[@@@()@@@\\]%@", (BOL? @"":@"\\"),(EOL? @"":@"\n")];
 		[self insertMacro:macro];
         [[self undoManager] endUndoGrouping];
     }
@@ -914,6 +914,68 @@ To Do List:
 	}
 //iTM2_END;
 	return range;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroByPreparing:forInsertionInRange:
+- (NSString *)macroByPreparing:(NSString *)macro forInsertionInRange:(NSRange)affectedCharRange;
+/*"The purpose is to return a macro with the proper indentation.
+This is also used with scripts.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	macro = [super macroByPreparing:macro forInsertionInRange:affectedCharRange];
+	if([SUD boolForKey:@"iTM2NoSmartSpaceAfterTeXMacro"])
+	{
+		return macro;
+	}
+	unsigned index = [macro length];
+	NSRange R;
+	NSString * word = nil;
+	if([macro hasSuffix:@"@@@()@@@"])
+	{
+		if(index>9)
+		{
+			index -= 8;
+			R = [macro doubleClickAtIndex:index];
+			word = [macro substringWithRange:R];
+			if([word hasPrefix:[NSString backslashString]])
+			{
+				unichar theChar = [macro characterAtIndex:index];
+				if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
+				{
+					R.location = 0;
+					R.length = index+1;
+					macro = [macro substringWithRange:R];
+					macro = [macro stringByAppendingString:@" @@@()@@@"];// mind the space before the placeholder
+				}
+			}
+		}
+		return macro;
+	}
+	if(index>1)
+	{
+		index -= 1;
+		R = [macro doubleClickAtIndex:index];
+		word = [macro substringWithRange:R];
+		if([word hasPrefix:[NSString backslashString]])
+		{
+			unichar theChar = [macro characterAtIndex:index];
+			if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
+			{
+				R.location = 0;
+				R.length = index+1;
+				macro = [macro stringByAppendingString:@" "];// mind the space before the placeholder
+			}
+		}
+	}
+	else
+	{
+		return macro;
+	}
+//iTM2_END;
+    return macro;
 }
 @end
 
