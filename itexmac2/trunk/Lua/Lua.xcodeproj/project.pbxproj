@@ -65,7 +65,7 @@
 		DC0F02B00BFA30FA00108852 /* ltm.c in Sources */ = {isa = PBXBuildFile; fileRef = DC72FB3E0BFA2A2400C719E6 /* ltm.c */; };
 		DC0F02B10BFA30FB00108852 /* ltm.h in Headers */ = {isa = PBXBuildFile; fileRef = DC72FB3F0BFA2A2400C719E6 /* ltm.h */; };
 		DC0F02B30BFA30FE00108852 /* lua.h in Headers */ = {isa = PBXBuildFile; fileRef = DC72FB410BFA2A2400C719E6 /* lua.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC0F02B50BFA30FF00108852 /* luaconf.h in Headers */ = {isa = PBXBuildFile; fileRef = DC72FB430BFA2A2400C719E6 /* luaconf.h */; };
+		DC0F02B50BFA30FF00108852 /* luaconf.h in Headers */ = {isa = PBXBuildFile; fileRef = DC72FB430BFA2A2400C719E6 /* luaconf.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0F02B60BFA310000108852 /* lualib.h in Headers */ = {isa = PBXBuildFile; fileRef = DC72FB440BFA2A2400C719E6 /* lualib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0F02B70BFA310000108852 /* lundump.c in Sources */ = {isa = PBXBuildFile; fileRef = DC72FB450BFA2A2400C719E6 /* lundump.c */; };
 		DC0F02B80BFA310000108852 /* lundump.h in Headers */ = {isa = PBXBuildFile; fileRef = DC72FB460BFA2A2400C719E6 /* lundump.h */; };
@@ -77,8 +77,6 @@
 		DC0F02E90BFA471D00108852 /* LuaObjCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0F02E60BFA471D00108852 /* LuaObjCBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0F02EA0BFA471D00108852 /* LuaObjCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0F02E70BFA471D00108852 /* LuaObjCBridge.m */; };
 		DC0F02F30BFA478700108852 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F02F20BFA478700108852 /* Cocoa.framework */; };
-		DC0F047D0BFAED2500108852 /* iTM2LuaInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0F047B0BFAED2500108852 /* iTM2LuaInterpreter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC0F047E0BFAED2500108852 /* iTM2LuaInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0F047C0BFAED2500108852 /* iTM2LuaInterpreter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,8 +96,6 @@
 		DC0F02E60BFA471D00108852 /* LuaObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaObjCBridge.h; sourceTree = "<group>"; };
 		DC0F02E70BFA471D00108852 /* LuaObjCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaObjCBridge.m; sourceTree = "<group>"; };
 		DC0F02F20BFA478700108852 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		DC0F047B0BFAED2500108852 /* iTM2LuaInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LuaInterpreter.h; sourceTree = "<group>"; };
-		DC0F047C0BFAED2500108852 /* iTM2LuaInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LuaInterpreter.m; sourceTree = "<group>"; };
 		DC0F0D1E0BFB715400108852 /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC0F0D1F0BFB715400108852 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC0F0D200BFB715400108852 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
@@ -237,7 +233,6 @@
 		0867D691FE84028FC02AAC07 /* LUA */ = {
 			isa = PBXGroup;
 			children = (
-				DC0F047A0BFAED2500108852 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				DC0F02E40BFA471D00108852 /* LuaObjCBridge-v1.4.2 */,
 				DC72FAF60BFA2A2400C719E6 /* lua-5.1.2 */,
@@ -289,15 +284,6 @@
 			children = (
 			);
 			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		DC0F047A0BFAED2500108852 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				DC0F047B0BFAED2500108852 /* iTM2LuaInterpreter.h */,
-				DC0F047C0BFAED2500108852 /* iTM2LuaInterpreter.m */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		DC0F0D1D0BFB715400108852 /* Settings */ = {
@@ -489,7 +475,6 @@
 				DC0F02BA0BFA310100108852 /* lvm.h in Headers */,
 				DC0F02BC0BFA310200108852 /* lzio.h in Headers */,
 				DC0F02E90BFA471D00108852 /* LuaObjCBridge.h in Headers */,
-				DC0F047D0BFAED2500108852 /* iTM2LuaInterpreter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,7 +563,6 @@
 				DC0F02BB0BFA310200108852 /* lzio.c in Sources */,
 				DC0F02BE0BFA310300108852 /* print.c in Sources */,
 				DC0F02EA0BFA471D00108852 /* LuaObjCBridge.m in Sources */,
-				DC0F047E0BFAED2500108852 /* iTM2LuaInterpreter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

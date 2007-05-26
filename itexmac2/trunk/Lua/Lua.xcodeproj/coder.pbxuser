@@ -35,7 +35,7 @@
 			};
 			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
 				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
-				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnSortingKey = PBXTargetDataSource_PrimaryAttribute;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					200,
@@ -55,8 +55,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 201088886;
-			PBXWorkspaceStateSaveDate = 201088886;
+			PBXPerProjectTemplateStateSaveDate = 201894347;
+			PBXWorkspaceStateSaveDate = 201894347;
 		};
 		sourceControlManager = DC72FAE50BFA29EC00C719E6 /* Source Control */;
 		userBuildSettings = {
@@ -91,25 +91,9 @@
 	};
 	DC0F02EC0BFA475500108852 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
-		name = "Project Breakpoints";
+		name = Lua;
 		objects = (
 		);
-	};
-	DC0F047B0BFAED2500108852 /* iTM2LuaInterpreter.h */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1273, 1180}}";
-			sepNavSelRange = "{1236, 0}";
-			sepNavVisRect = "{{0, 406}, {1273, 734}}";
-			sepNavWindowFrame = "{{15, 34}, {1312, 839}}";
-		};
-	};
-	DC0F047C0BFAED2500108852 /* iTM2LuaInterpreter.m */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1037, 2400}}";
-			sepNavSelRange = "{821, 0}";
-			sepNavVisRect = "{{0, 1024}, {740, 93}}";
-			sepNavWindowFrame = "{{38, 13}, {1312, 839}}";
-		};
 	};
 	DC0F0D700BFB731B00108852 /* Lua-Info.plist */ = {
 		uiCtxt = {
@@ -207,6 +191,14 @@
 			sepNavIntBoundsRect = "{{0, 0}, {1273, 7720}}";
 			sepNavSelRange = "{8240, 13}";
 			sepNavVisRect = "{{0, 5363}, {1273, 734}}";
+			sepNavWindowFrame = "{{38, 13}, {1312, 839}}";
+		};
+	};
+	DC72FB430BFA2A2400C719E6 /* luaconf.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1273, 15260}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {1273, 734}}";
 			sepNavWindowFrame = "{{38, 13}, {1312, 839}}";
 		};
 	};
