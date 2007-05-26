@@ -357,7 +357,8 @@ then
 	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} ${iTM2_dvips_more_arguments}"
 fi
 "${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_dvips_EnginePath} ${iTM2_dvips_Arguments} \"${iTM2_INPUT}\""
-"${iTM2_dvips_EnginePath}" ${iTM2_dvips_Arguments} "${iTM2_INPUT}"
+FULL_COMMAND="\"${iTM2_dvips_EnginePath}\" ${iTM2_dvips_Arguments} \"${iTM2_INPUT}\""
+eval ${FULL_COMMAND}
 iTM2_Status="$?"
 popd
 if [ "${iTM2_Status}" != "0" ]
