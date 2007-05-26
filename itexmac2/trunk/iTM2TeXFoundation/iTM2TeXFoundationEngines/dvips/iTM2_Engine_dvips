@@ -218,7 +218,7 @@ if [ "$(echo ${EXTENSION}|tr '[A-Z]' '[a-z]')" != "${REQUIRED_EXTENSION}" ]
 then
     OUTPUT="${OUTPUT%.*}.${REQUIRED_EXTENSION}"
 fi
-iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -o ${OUTPUT}"
+iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -o \"${OUTPUT}\""
 case ${iTM2_dvips_print_crop_mark} in
 	-1)
 	iTM2_dvips_Arguments="${iTM2_dvips_Arguments} -k0"
