@@ -2,7 +2,7 @@
 # this is iTM2_pstopdf wrapper
 # © 2005 jlaurens AT users DOT sourceforge DOT net
 iTM2_pstopdf_Engine_Version=1.0
-iTM2DVIPDFMEngineUsage()
+iTM2PSTOPDFEngineUsage()
 {
 iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_pstopdf_Engine_Version}
 This is iTeXMac2 built in script to wrap the pstopdf engine
@@ -34,7 +34,7 @@ iTM2_pstopdf_EnginePath="$(which "${iTM2_pstopdf_Engine}")"
 if ! [ -x "${iTM2_pstopdf_EnginePath}" ]
 then
 	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_pstopdf_Engine}."
-	iTM2DVIPDFMEngineUsage
+	iTM2PSTOPDFEngineUsage
 	exit 1
 fi
 "${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
@@ -52,7 +52,7 @@ then
         if ! [ -r "${INPUT}" ]
         then
             "${iTM2_CMD_Notify}" notify error "No readable file at ${INPUT}."
-            iTM2DVIPDFMEngineUsage
+            iTM2PSTOPDFEngineUsage
 			exit 2
         fi
     fi
@@ -77,8 +77,9 @@ then
     OUTPUT="${OUTPUT}.pdf"
 fi
 iTM2_pstopdf_Arguments="${iTM2_pstopdf_Arguments} -o ${OUTPUT}"
-"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_pstopdf_EnginePath} ${iTM2_pstopdf_Arguments} \"${INPUT}\""
-"${iTM2_pstopdf_EnginePath}" ${iTM2_pstopdf_Arguments} "${INPUT}"
+FULL_COMMAND="\"${iTM2_pstopdf_EnginePath}\" \"${INPUT}\" ${iTM2_pstopdf_Arguments}"
+"${iTM2_CMD_Notify}" notify comment "Performing  ${FULL_COMMAND}"
+eval ${FULL_COMMAND}
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
