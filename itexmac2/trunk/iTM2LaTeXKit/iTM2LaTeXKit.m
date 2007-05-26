@@ -21,6 +21,7 @@
 */
 
 #import "iTM2LaTeXKit.h"
+#import <iTM2Foundation/iTM2MacroKit.h>
 
 NSString * const iTM2LaTeXInspectorMode = @"LaTeX Mode";
 NSString * const iTM2LaTeXToolbarIdentifier = @"iTM2 LaTeX Toolbar: Tiger";
@@ -1099,7 +1100,7 @@ To Do List:
 	NSString * category = [self macroCategory];
 	NSString * context = [self macroContext];
 	NSString * knownReference = [sender representedObject];
-	iTM2MacroLeafNode * leafNode = [SMC macroRunningNodeForID:@"\\ref{}|identifier" context:context ofCategory:category inDomain:domain];
+	iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:@"\\ref{}|identifier" context:context ofCategory:category inDomain:domain];
 	NSDictionary * substitutions = [NSDictionary dictionaryWithObject:knownReference forKey:@"identifier"];
 	[leafNode executeMacroWithTarget:self action:NULL substitutions:substitutions];
 //iTM2_END;
@@ -2156,6 +2157,14 @@ To Do List:
 			[replacementString appendString:@" "];
 		}
 		macro = replacementString;
+	}
+	else if([macro isEqual:@"{}"])
+	{
+		macro = @"{@@@()@@@}";
+	}
+	else if([macro isEqual:@"[]"])
+	{
+		macro = @"[@@@()@@@]";
 	}
 	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString line:line];
 //iTM2_END;

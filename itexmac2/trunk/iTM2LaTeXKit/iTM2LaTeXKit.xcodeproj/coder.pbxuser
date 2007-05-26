@@ -9,7 +9,7 @@
 		);
 		breakpoints = (
 			DCF720300BC67CB4005E5EC6 /* iTM2LaTeXKit.m:572 */,
-			DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2173 */,
+			DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2181 */,
 		);
 		breakpointsGroup = DC99EC710A27C69D00F50752 /* XCBreakpointsBucket */;
 		codeSenseManager = DC52042D088B1FD300DE6E7F /* Code sense */;
@@ -163,14 +163,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 201088099;
-			PBXWorkspaceStateSaveDate = 201088099;
+			PBXPerProjectTemplateStateSaveDate = 201448653;
+			PBXWorkspaceStateSaveDate = 201448653;
 		};
 		perUserProjectItems = {
-			DC70F22E0BFC5C77006C6A76 /* PBXTextBookmark */ = DC70F22E0BFC5C77006C6A76 /* PBXTextBookmark */;
-			DC70F22F0BFC5C77006C6A76 /* PBXTextBookmark */ = DC70F22F0BFC5C77006C6A76 /* PBXTextBookmark */;
-			DC70F2320BFC5C77006C6A76 /* PBXTextBookmark */ = DC70F2320BFC5C77006C6A76 /* PBXTextBookmark */;
-			DC8AFED80BEF5F6500E064D9 /* PBXTextBookmark */ = DC8AFED80BEF5F6500E064D9 /* PBXTextBookmark */;
+			DC8E63AA0C02353F00AC8FF7 /* PBXTextBookmark */ = DC8E63AA0C02353F00AC8FF7 /* PBXTextBookmark */;
+			DC8E65FF0C024EB200AC8FF7 /* PBXTextBookmark */ = DC8E65FF0C024EB200AC8FF7 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -246,43 +244,13 @@
 	DC5D6FE80949DFAE00EBA96C /* Prepare iTM2TeXFoundation */ = {
 		activeExec = 0;
 	};
-	DC70F22E0BFC5C77006C6A76 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = executeMacroWithTarget;
-		rLen = 22;
-		rLoc = 35136;
-		rType = 0;
-		vrLen = 1240;
-		vrLoc = 34615;
-	};
-	DC70F22F0BFC5C77006C6A76 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = executeMacroWithTarget;
-		rLen = 22;
-		rLoc = 35136;
-		rType = 0;
-		vrLen = 1240;
-		vrLoc = 34615;
-	};
-	DC70F2320BFC5C77006C6A76 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = "iTM2LaTeXKit.m: 3369";
-		rLen = 0;
-		rLoc = 125551;
-		rType = 0;
-		vrLen = 1301;
-		vrLoc = 69963;
-	};
 	DC81AD250887161F00943C99 /* iTeXMac2 */ = {
 		activeExec = 0;
 		executables = (
 			DC520395088B1FAE00DE6E7F /* iTeXMac2 */,
 		);
 	};
-	DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2173 */ = {
+	DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2181 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -292,20 +260,28 @@
 		fileReference = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
 		functionName = "-smartLaTeXMacroWithMacro:substitutions:";
 		hitCount = 1;
-		lineNumber = 2173;
+		lineNumber = 2181;
 		location = iTM2LaTeXKit;
-		modificationTime = 200236575.408232;
+		modificationTime = 201477661.559514;
 		state = 1;
 	};
-	DC8AFED80BEF5F6500E064D9 /* PBXTextBookmark */ = {
+	DC8E63AA0C02353F00AC8FF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: 'iTM2MacroNode' undeclared (first use in this function)";
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		rLen = 1;
+		rLoc = 1102;
+		rType = 1;
+	};
+	DC8E65FF0C024EB200AC8FF7 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
-		name = "iTM2LaTeXKit.m: 3369";
-		rLen = 0;
-		rLoc = 125551;
+		name = "iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:@\"\\\\ref{}|identifier\" context:context ofCategory:category inDomain:domain];";
+		rLen = 131;
+		rLoc = 34925;
 		rType = 0;
-		vrLen = 1301;
-		vrLoc = 69963;
+		vrLen = 1127;
+		vrLoc = 34439;
 	};
 	DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */ = {
 		uiCtxt = {
@@ -317,9 +293,9 @@
 	};
 	DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1982, 67380}}";
-			sepNavSelRange = "{125551, 0}";
-			sepNavVisRect = "{{0, 41544}, {1135, 569}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1982, 67560}}";
+			sepNavSelRange = "{34925, 131}";
+			sepNavVisRect = "{{0, 22027}, {1239, 46}}";
 			sepNavWindowFrame = "{{84, 95}, {1174, 674}}";
 		};
 	};
@@ -327,7 +303,7 @@
 		isa = XCBreakpointsBucket;
 		name = iTM2LaTeXKit;
 		objects = (
-			DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2173 */,
+			DC827E680B734AD30079FD90 /* iTM2LaTeXKit.m:2181 */,
 			DCF720300BC67CB4005E5EC6 /* iTM2LaTeXKit.m:572 */,
 		);
 	};
@@ -399,7 +375,7 @@
 		hitCount = 1;
 		lineNumber = 572;
 		location = iTM2LaTeXKit;
-		modificationTime = 200236574.522929;
+		modificationTime = 201477661.347449;
 		state = 1;
 	};
 }
