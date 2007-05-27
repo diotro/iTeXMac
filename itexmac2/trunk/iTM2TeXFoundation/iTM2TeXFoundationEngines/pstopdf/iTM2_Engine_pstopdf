@@ -76,7 +76,7 @@ if [ "$(echo ${OUTPUT##*.}|tr [:upper:] [:lower:])" != "pdf" ]
 then
     OUTPUT="${OUTPUT}.pdf"
 fi
-iTM2_pstopdf_Arguments="${iTM2_pstopdf_Arguments} -o ${OUTPUT}"
+iTM2_pstopdf_Arguments="${iTM2_pstopdf_Arguments} -o \"${OUTPUT}\""
 FULL_COMMAND="\"${iTM2_pstopdf_EnginePath}\" \"${INPUT}\" ${iTM2_pstopdf_Arguments}"
 "${iTM2_CMD_Notify}" notify comment "Performing  ${FULL_COMMAND}"
 eval ${FULL_COMMAND}
