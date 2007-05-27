@@ -321,7 +321,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 /*
     @method		pushKeyStroke:
     @abstract	Pushes the given key on the stack
-    @discussion	Discussion forthcoming
+    @discussion	Only windows and their controller implement his message
     @param		key
     @result		None
 */
@@ -505,4 +505,37 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 
 @interface iTM2KeyBindingsResponder: iTM2AutoInstallResponder
 - (IBAction)toggleNoKeyBindings:(id)irrelevant;
+@end
+
+/*!
+    @class       iTM2MacroKeyStroke
+    @superclass  NSObject
+    @abstract    A macro keyStroke
+    @discussion  There is a problem with keyStrokes with respect to modifiers. DO NOT USE THIS, CONSIDER THIS PRIVATE
+*/
+@interface iTM2MacroKeyStroke: NSObject <NSCopying>
+{
+@public
+	NSString * codeName;
+	NSString * _description;
+	NSString * _string;
+	BOOL isCommand;
+	BOOL isShift;
+	BOOL isAlternate;
+	BOOL isControl;
+	BOOL isFunction;
+}
+- (id)initWithCodeName:(NSString*)newCodeName;
+- (NSString *)string;
+- (NSString *)description;
+- (void)setCodeName:(NSString *)codeName;
+- (void)update;
+@end
+
+@interface NSString(iTM2MacroKeyStroke)
+- (iTM2MacroKeyStroke *)macroKeyStroke;
+@end
+
+@interface NSEvent(iTM2MacroKeyStroke)
+- (iTM2MacroKeyStroke *)macroKeyStroke;
 @end

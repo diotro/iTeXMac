@@ -275,6 +275,38 @@
 */
 - (id)deepObjectInChildrenWithValue:(id)anObject forKeyPath:(NSString *)path;
 
+/*!
+	@method		nextSibling
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		a node.
+*/
+- (id)nextSibling;
+
+/*!
+	@method		nextParentSibling
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		a node.
+*/
+- (id)nextParentSibling;
+
+/*!
+	@method		nextNode
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		a node.
+*/
+- (id)nextNode;
+
+/*!
+	@method		indexPath
+	@abstract	Abstract forthcoming.
+	@discussion	Discussion forthcoming.
+	@result		a node.
+*/
+- (NSIndexPath *)indexPath;
+
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
 

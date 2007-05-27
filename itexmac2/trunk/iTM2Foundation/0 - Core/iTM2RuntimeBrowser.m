@@ -1034,4 +1034,34 @@ To Do List:
     objc_addClass( newClass ); 
     return newClass;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  responderMessages:
++ (NSArray *)responderMessages;
+/*"Sample code from apple documentation (Tiger).
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * K = @"Responder Messages";
+	id messages = [iTM2RuntimeBrowserDictionary objectForKey:K];
+	if([messages isKindOfClass:[NSArray class]])
+	{
+		return messages;
+	}
+	// get all the NSResponder subclasses
+	NSMethodSignature * MS = [self instanceMethodSignatureForSelector:@selector(forwardInvocation:)];
+	NSArray * classes = [self subclassReferencesOfClass:[NSResponder class]];
+	messages = [NSMutableSet set];
+	NSEnumerator * E = [classes objectEnumerator];
+	Class C;
+	while(C = [[E nextObject] pointerValue])
+	{
+		NSArray * RA = [self realInstanceSelectorsOfClass:C withSuffix:@"" signature:MS inherited:NO];
+		[messages addObjectsFromArray:RA];
+	}
+//iTM2_END;
+	messages = [messages allObjects];
+	[iTM2RuntimeBrowserDictionary setObject:messages forKey:K];
+	return messages;
+}
 @end

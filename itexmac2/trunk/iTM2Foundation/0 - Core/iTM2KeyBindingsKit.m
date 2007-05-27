@@ -24,12 +24,14 @@
 //
 
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
+#import <iTM2Foundation/iTM2TreeKit.h>
+#import <iTM2Foundation/iTM2MacroKit.h>
+#import "iTM2MacroKit_Model.h"
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2DocumentKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 
 #define TABLE @"iTM2KeyBindingsKit"
@@ -91,7 +93,6 @@ To Do List:
 - (id)objectInChildrenWithDomain:(NSString *)key;
 - (id)objectInChildrenWithCategory:(NSString *)key;
 - (id)objectInChildrenWithContext:(NSString *)key;
-- (id)objectInChildrenWithKey:(NSString *)key;
 - (id)objectInChildrenWithAltKey:(NSString *)key;
 - (id)macroKeyStroke;
 @end
@@ -252,9 +253,12 @@ To Do List:
 		[selectorMap addEntriesFromDictionary:[self selectorMapForIdentifier:shorterIdentifier]];
 	}
 	NSDictionary * D;
-	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2KeyBindingPathExtension inDirectory:iTM2MacroControllerComponent] reverseObjectEnumerator];
+	NSBundle * MB = [NSBundle mainBundle];
+	NSArray * RA = [MB allPathsForResource:identifier ofType:iTM2KeyBindingPathExtension inDirectory:iTM2MacroControllerComponent];
+	NSEnumerator * E = [RA reverseObjectEnumerator];
 	NSString * path;
 	while(path = [E nextObject])
+	{
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
 		{
 			[keyBindings addEntriesFromDictionary:D];
@@ -263,8 +267,11 @@ To Do List:
 		{
 			iTM2_LOG(@"???  No key bindings at path: %@, please report incident", path);
 		}
-	E = [[[NSBundle mainBundle] allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2MacroControllerComponent] reverseObjectEnumerator];
+	}
+	RA = [MB allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2MacroControllerComponent];
+	E = [RA reverseObjectEnumerator];
 	while(path = [E nextObject])
+	{
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
 		{
 			[selectorMap addEntriesFromDictionary:D];
@@ -273,6 +280,7 @@ To Do List:
 		{
 			iTM2_LOG(@"No selector map at path: %@", path);
 		}
+	}
 	if([keyBindings count])
 	{
 		[self setKeyBindings:[NSDictionary dictionaryWithDictionary:keyBindings] forIdentifier:identifier];
@@ -448,7 +456,7 @@ To Do List:
     if(self = [super init])
     {
         [_SM autorelease];
-        _SM = [[isa selectorMapForIdentifier:identifier] retain];
+        _SM = [[[self class] selectorMapForIdentifier:identifier] retain];
         [_KBS autorelease];
         _KBS = [[NSMutableArray array] retain];
         [_DEC autorelease];
@@ -557,6 +565,7 @@ To Do List:
 	key = [_CC macroCategory];
 	result = [result objectInChildrenWithCategory:key];
 	result = [result objectInChildrenWithContext:@""];
+	result = [result list];
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentKeyBindings:
@@ -754,13 +763,7 @@ To Do List:
 		{
 			id CKB = [self currentKeyBindings];
 			NSString * key = [macroKeyStroke string];
-			id node = [CKB objectInChildrenWithKey:key];
-			if(!node)
-			{
-				macroKeyStroke = [theEvent macroKeyStrokeWithoutModifiers];
-				key = [macroKeyStroke string];
-				node = [CKB objectInChildrenWithKey:key];
-			}
+			id node = [CKB objectInAvailableKeyBindingsWithKey:key];
 			if([node countOfChildren]>0)
 			{
 				// down a level
@@ -784,6 +787,7 @@ To Do List:
 					[self setCurrentKeyBindings:nil];
 					return YES;
 				}
+				return NO;
 			}
 			[self setCurrentKeyBindings:nil];
 		}
@@ -1165,12 +1169,12 @@ To Do List:
                     case 0x8:	base = @"Backspace";		break;
                     case ' ':	base = @"Space";			break;
                     case '!':	base = @"Exclamation";		break;
-                    case '"':	base = @"Quote";			break;
+                    case '"':	base = @"Quotes";			break;
                     case '#':	base = @"Sharp";			break;
                     case '$':	base = @"Dollar";			break;
                     case '%':	base = @"Percent";			break;
                     case '&':	base = @"Ampersand";		break;
-                    case '\'':	base = @"Apostrophe";		break;
+                    case '\'':	base = @"SingleQuote";		break;
                     case '(':	base = @"LeftParenthesis";	break;
                     case ')':	base = @"RightParenthesis";	break;
                     case '*':	base = @"Asterisk";		break;
@@ -1453,6 +1457,19 @@ To Do List:
         || [super interpretKeyStroke:key];
 //iTM2_END;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pushKeyStroke:
+- (void)pushKeyStroke:(id)sender;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self window] pushKeyStroke:sender];
+//iTM2_END;
+    return;
+}
 @end
 
 @implementation NSWindow(iTM2KeyBindingsKit)
@@ -1471,12 +1488,13 @@ To Do List:
     else if([self handlesKeyStrokes])
     {
 		[self pushKeyStroke:key];
+		return YES;
     }
 //iTM2_END;
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pushKeyStroke:
-- (void)pushKeyStroke:(NSString *)key;
+- (void)pushKeyStroke:(id)sender;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1489,18 +1507,6 @@ To Do List:
 		e = [NSApp currentEvent];
 	if([e type] == NSKeyDown)
 	{
-		#if 0
-		e = [NSEvent keyEventWithType:[e type]
-			location: [e locationInWindow]
-				modifierFlags: [e modifierFlags]
-					timestamp: [e timestamp]
-						windowNumber: [e windowNumber]
-							context: [e context]
-								characters: key
-									charactersIgnoringModifiers: key
-										isARepeat: [e isARepeat]
-											keyCode: [e keyCode]];
-		#endif
 		[self pushKeyStrokeEvent:e];
 	}
 //iTM2_END;
@@ -1675,7 +1681,7 @@ To do list: problem when more than one key is pressed.
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2KeyBindingsManager * KBM = [self keyBindingsManager];
-    return [KBM client:self performKeyEquivalent:theEvent]
+    return ([self isEqual:[[self window] firstResponder]] && [KBM client:self performKeyEquivalent:theEvent])
                 || [super performKeyEquivalent:theEvent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  interpretKeyEvents:

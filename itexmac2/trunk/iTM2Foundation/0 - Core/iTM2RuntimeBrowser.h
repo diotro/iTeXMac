@@ -166,4 +166,6 @@
 + (BOOL)disableInstanceMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
 + (BOOL)disableClassMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
 
++ (NSArray *)responderMessages;
+
 @end

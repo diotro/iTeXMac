@@ -1,6 +1,6 @@
 /*
 //
-//  @version Subversion: $Id$ 
+//  @version Subversion: $Id: iTM2MacroKit.h 494 2007-05-11 06:22:21Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Feb 21 2002.
 //  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
@@ -21,223 +21,6 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-@interface NSObject(iTM2MacroKit)
-- (NSString *)macroDomainKey;
-- (NSString *)defaultMacroDomain;
-- (NSString *)macroDomain;
-- (void)setMacroDomain:(NSString *)argument;
-- (NSString *)macroCategoryKey;
-- (NSString *)defaultMacroCategory;
-- (NSString *)macroCategory;
-- (void)setMacroCategory:(NSString *)argument;
-- (NSString *)macroContextKey;
-- (NSString *)defaultMacroContext;
-- (NSString *)macroContext;
-- (void)setMacroContext:(NSString *)argument;
-- (id)argument;
-@end
-
-@interface NSObject(iTM2ExecuteMacro)
-- (BOOL)executeMacro:(NSString *)macro;
-@end
-
-@interface NSResponder(iTM2ExecuteMacro)
-/*!
-    @method		executeMacro:
-    @abstract	Execute the given macro.
-    @discussion	This is one of the central methods to enhance Mac OS X key binding mechanism.
-                Here we can not only send messages as Mac OS X can do, but we can also use methods with parameters.
-                Those parameters are property list objects which covers a great range of possibilities.
-    @param		An macro.
-    @result		A flag indicating whether the receiver has executed the given macro.
-*/
-- (BOOL)executeMacro:(NSString *)macro;
-- (BOOL)tryToExecuteMacro:(NSString *)macro;//fake
-
-@end
-
-#define SMC [iTM2MacroController sharedMacroController]
-
-#import <iTM2Foundation/iTM2Implementation.h>
-
-/*!
-    @class       iTM2MacroController
-    @superclass  iTM2Object
-    @abstract    The macros manager
-    @discussion  (comprehensive description)
-*/
-@interface iTM2MacroController: iTM2Object
-/*!
-    @method     sharedMacroController
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @result     (description)
-*/
-+ (id)sharedMacroController;
-- (id)macroTree;
-- (id)keyBindingTree;
-- (void)saveTree:(id)node;
-@end
-
-@interface iTM2MacroController(Action)
-- (BOOL)executeMacroWithText:(NSString *)text forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
-- (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
-@end
-
-@interface NSString(iTM2MacroKit)
-
-/*!
-	@method		stringWithIndentationLevel:atIndex:withNumberOfSpacesPerTab:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		level.
-	@param		index.
-	@param		numberOfSpacesPerTab.
-    @result     the new string
-*/
-- (NSString *)stringWithIndentationLevel:(unsigned)indentation atIndex:(unsigned)index withNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
-
-/*!
-	@method		stringByNormalizingIndentationWithNumberOfSpacesPerTab:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		numberOfSpacesPerTab.
-    @result     Normalized NSString instance
-*/
-- (NSString *)stringByNormalizingIndentationWithNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
-
-/*!
-	@method		indentationLevelAtIndex:withNumberOfSpacesPerTab:
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		index.
-	@param		numberOfSpacesPerTab.
-    @result     level
-*/
-- (unsigned)indentationLevelAtIndex:(unsigned)index withNumberOfSpacesPerTab:(unsigned)numberOfSpacesPerTab;
-
-/*!
-	@method		rangeOfPlaceholderAtIndex:getType:ignoreComment:
-	@abstract	Abstract forthcoming.
-	@discussion	???Removes everything inside "@@@(SEL:...)@@@", such that there are only "@@@(...)@@@" remaining.
-	@param		An index.
-	@param		A type ref.
-	@result		A range.
-*/
-- (NSRange)rangeOfPlaceholderAtIndex:(unsigned)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore;
-
-/*!
-	@method		stringByRemovingPlaceholderMarks
-	@abstract	Abstract forthcoming.
-	@discussion	Discussion forthcoming.
-	@param		None.
-    @result     string
-*/
-- (NSString *)stringByRemovingPlaceholderMarks;
-
-@end
-
-extern NSString * const iTM2MacroScriptsComponent;
-extern NSString * const iTM2MacrosDirectoryName;
-extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
-extern NSString * const iTM2MacroControllerComponent;
-
-@interface NSTextView(iTM2MacroKit)
-- (NSString *)tabAnchor;
-- (NSString *)preparedSelectedStringForMacroInsertion;
-- (NSString *)preparedSelectedLineForMacroInsertion;
-- (NSString *)concreteReplacementStringForMacro:(NSString *)macro selection:(NSString *)selection line:(NSString *)line;
-- (unsigned)numberOfSpacesPerTab;
-- (NSString *)replacementStringForMacro:(NSString *)macro selection:(NSString *)selection line:(NSString *)line;
-- (NSString *)macroByPreparing:(NSString *)macro forInsertionInRange:(NSRange)affectedCharRange;
-- (IBAction)selectFirstPlaceholder:(id)sender;
-@end
-
-/*
-    @class		the key codes controller
-    @abstract	Translate key codes into names and localized names.
-    @discussion	Discussion forthcoming.
-*/
-@interface iTM2KeyCodesController: iTM2Object
-
-/*
-    @method     sharedController
-    @abstract	The shared key codes controller.
-    @discussion	Discussion forthcoming.
-    @param	    None
-    @result     A controller
-*/
-+ (id)sharedController;
-
-@end
-
-@interface iTM2KeyCodesController(methods)
-
-/*!
-    @method     orderedCodeNames
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      name (description)
-    @result     (description)
-*/
-- (NSArray *)orderedCodeNames;
-
-/*!
-    @method     keyCodeForName:
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      name (description)
-    @result     (description)
-*/
-- (unichar)keyCodeForName:(NSString *)name;
-
-/*!
-    @method     nameForKeyCode:
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      code (description)
-    @result     (description)
-*/
-- (NSString *)nameForKeyCode:(unichar)code;
-
-/*!
-    @method     localizedNameForCodeName:
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      codeName (description)
-    @result     (description)
-*/
-- (NSString *)localizedNameForCodeName:(NSString *)codeName;
-
-/*!
-    @method     codeNameForLocalizedName:
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @param      codeName (description)
-    @result     (description)
-*/
-- (NSString *)codeNameForLocalizedName:(NSString *)localizedName;
-
-@end
-
-#define KCC [iTM2KeyCodesController sharedController]
-
-@interface iTM2GenericScriptButton: NSPopUpButton
-@end
-
-#import <iTM2Foundation/iTM2TreeKit.h>
-
-@interface iTM2MacroTreeNode:iTM2TreeNode
-@end
-
-@interface iTM2MacroAbstractModelNode:iTM2MacroTreeNode
-@end
-
-@interface iTM2MacroNode:iTM2MacroAbstractModelNode
-- (BOOL)executeMacroWithTarget:(id)target selector:(SEL)action substitutions:(NSDictionary *)substitutions;
-@end
-
-#pragma mark -
 #pragma mark =====  NOTHING BELOW THIS POINT
 #pragma mark -
 #if 0
@@ -276,6 +59,8 @@ extern NSString * const iTM2MacroControllerComponent;
 - (void)setMenuTree:(id)aTree;
 - (BOOL)executeMacroWithText:(NSString *)text forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
 - (BOOL)executeMacroWithID:(NSString *)key forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
+- (void)macroNode:(iTM2MacroNode *)node didChangeIDFrom:(NSString *)oldID to:(NSString *)newID;
+- (void)keyBindingNode:(iTM2MacroNode *)node didChangeIDFrom:(NSString *)oldID to:(NSString *)newID;
 @end
 #endif
 
@@ -525,6 +310,9 @@ extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
 */
 - (BOOL)executeMacro:(NSString *)macro;
 
+@end
+
+@interface iTM2GenericScriptButton: NSPopUpButton
 @end
 
 #import <iTM2Foundation/iTM2TreeKit.h>

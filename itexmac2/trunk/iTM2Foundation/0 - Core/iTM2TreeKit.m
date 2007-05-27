@@ -640,6 +640,40 @@ To Do List:
 	}
     return N;
 }
+- (id)nextSibling;
+{
+	id myParent = [self parent];
+	unsigned index = [myParent indexOfObjectInChildren:self];
+	if(++index<[myParent countOfChildren])
+	{
+		return [myParent objectInChildrenAtIndex:index];
+	}
+	return nil;
+}
+- (id)nextParentSibling;
+{
+	self = [self parent];
+	return [self nextSibling]?:[self nextParentSibling];
+}
+- (id)nextNode;
+{
+	if([self countOfChildren])
+	{
+		return [self objectInChildrenAtIndex:0];
+	}
+	return [self nextSibling]?:[self nextParentSibling];
+}
+- (NSIndexPath *)indexPath;
+{
+	id myParent = [self parent];
+	NSIndexPath * IP = [myParent indexPath];
+	if(myParent)
+	{
+		unsigned index = [myParent indexOfObjectInChildren:self];
+		IP = IP?[IP indexPathByAddingIndex:index]:[NSIndexPath indexPathWithIndex:index];
+	}
+	return IP;
+}
 @end
 
 /*!
