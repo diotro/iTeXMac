@@ -622,6 +622,16 @@ To Do List:
 	[super flagsChanged:theEvent];
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroDomain
+- (NSString *)defaultMacroDomain;
+{
+    return @"View";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroCategory
+- (NSString *)defaultMacroCategory;
+{
+    return @"PDF";
+}
 @end
 
 @implementation iTM2PDFKitInspector
@@ -7519,6 +7529,18 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
+- (BOOL)handlesKeyBindings;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
 - (void)keyDown:(NSEvent *)theEvent
 /*"Bypass the inherited Preview behaviour.
@@ -7528,7 +7550,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![[self keyBindingsManager] client:self performKeyEquivalent:theEvent])
+	id KBM = [self keyBindingsManager];
+	if(![KBM client:self performKeyEquivalent:theEvent]
+		&&![KBM client:[self window] performKeyEquivalent:theEvent]
+			&&![KBM client:[[self window] windowController] performKeyEquivalent:theEvent])
 	{
 		[super keyDown:theEvent];
 	}
