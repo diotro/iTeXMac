@@ -1107,7 +1107,7 @@ To Do List:
 	}
     else
 	{
-		[DNC removeObserver:self name:[aNotification name] object:self];
+		[DNC removeObserver:self name:[aNotification name] object:FH];
         [[self allInspectors] makeObjectsPerformSelector:@selector(outputDidTerminate) withObject:nil];
 	}
 //iTM2_END;
@@ -1322,7 +1322,7 @@ To Do List:
 	}
     else
 	{
-		[DNC removeObserver:self name:[aNotification name] object:self];
+		[DNC removeObserver:self name:[aNotification name] object:FH];
         [[self allInspectors] makeObjectsPerformSelector:@selector(errorDidTerminate) withObject:nil];
 	}
 //iTM2_END;
