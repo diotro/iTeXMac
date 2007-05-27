@@ -30,7 +30,7 @@ then
 	"${iTM2_CMD_Notify}" notify stop comment
 fi
 iTM2_pstopdf_Engine="pstopdf"
-iTM2_pstopdf_EnginePath="$(which "${iTM2_pstopdf_Engine}")"
+iTM2_pstopdf_EnginePath="/usr/bin/pstopdf"
 if ! [ -x "${iTM2_pstopdf_EnginePath}" ]
 then
 	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_pstopdf_Engine}."
