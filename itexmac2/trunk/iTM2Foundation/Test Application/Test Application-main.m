@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 - (void)setShouldHackFindMenu:(BOOL)yorn;
 - (void)setUseStylesInFindPanel:(BOOL)yorn;
 - (NSMenu *)findMenu;
+- (id)deepItemWithAction:(SEL)action;
 @end
 @implementation NSApplication(OgreKit)
 - (void)ogreKitWillHackFindMenu:(id)textFinder
