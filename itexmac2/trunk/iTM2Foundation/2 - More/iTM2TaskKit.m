@@ -2368,7 +2368,7 @@ To Do List:
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
-#import <Lua/iTM2LuaInterpreter.h>
+#import <iTM2Foundation/iTM2LuaInterpreter.h>
 
 @implementation NSResponder(iTM2TaskKit)
 - (NSString *)stringByExecutingScriptAtPath:(NSString *)scriptPath;
@@ -2446,8 +2446,12 @@ To Do List:
 	}
 	return;
 }
-- (void)executeScriptAtPath:(NSString *)scriptPath;
+- (void)executeScriptAtPath:(NSString *)scriptPath;// or iTM2MacroNode, bad design
 {
+	if([scriptPath isKindOfClass:[iTM2MacroNode class]])
+	{
+		scriptPath = [scriptPath argument];
+	}
 	NSWindow * W = [NSApp keyWindow];
 	id FR = [W firstResponder];
 	NSString * context = [FR macroContext];

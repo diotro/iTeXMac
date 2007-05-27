@@ -1795,7 +1795,7 @@ To Do List:
 		NSString * language = [SC spellLanguage];
 		if(![SSC setLanguage:language])
 		{
-			iTM2_LOG(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead", language, [SSC language]);
+			iTM2_LOG(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(1)", language, [SSC language]);
 			[SC setSpellLanguage:[SSC language]];
 		}
 		else
@@ -1860,7 +1860,7 @@ To Do List:
 			NSString * language = [SC spellLanguage];
 			if(![SSC setLanguage:language])
 			{
-				iTM2_LOG(@"INFO: THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead", language, [SSC language]);
+				iTM2_LOG(@"INFO: THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(2)", language, [SSC language]);
 				[SC setSpellLanguage:[SSC language]];
 			}
 			if(newW)// avoid recursivity
@@ -1984,7 +1984,7 @@ To Do List:
 			NSString * language = [SC spellLanguage];
 			if(![SSC setLanguage:language])
 			{
-				iTM2_LOG(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead", language, [SSC language]);
+				iTM2_LOG(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(3)", language, [SSC language]);
 				[SC setSpellLanguage:[SSC language]];
 			}
 			if(newW)// avoid recursivity
@@ -2035,7 +2035,7 @@ To Do List:
 	NSString * language = [SC spellLanguage];
 	if(![SSC setLanguage:language])
 	{
-		iTM2_LOG(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead", language, [SSC language]);
+		iTM2_LOG(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(4)", language, [SSC language]);
 		[SC setSpellLanguage:[SSC language]];
 	}
 	if([text window])// avoid recursivity
