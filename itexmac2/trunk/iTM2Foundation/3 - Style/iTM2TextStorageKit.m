@@ -4933,10 +4933,12 @@ To Do List:
 		
 		
         NSString * stylePath = [[[C classBundle] pathForResource:iTM2TextStyleComponent ofType:nil]
-            stringByAppendingPathComponent: styleComponent];
+            stringByAppendingPathComponent:styleComponent];
         NSEnumerator * E;
         NSString * variantComponent;
-        E = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
+		DFM;
+		NSArray * directoryContents = [DFM directoryContentsAtPath:stylePath];
+        E = [directoryContents objectEnumerator];
         while(variantComponent = [E nextObject])
             if(![variantComponent hasPrefix:@"."]
                 && [[variantComponent pathExtension] isEqual:iTM2TextVariantExtension])
@@ -4954,8 +4956,11 @@ To Do List:
 				domains: NSNetworkDomainMask|NSLocalDomainMask|NSUserDomainMask] objectEnumerator];
         while(stylePath = [EE nextObject])
 		{
-			E = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
+iTM2_LOG(@"stylePath:%@",stylePath);
+			NSArray * directoryContent = [DFM directoryContentsAtPath:stylePath];
+			E = [directoryContent objectEnumerator];
 			while(variantComponent = [E nextObject])
+			{
 				if(![variantComponent hasPrefix:@"."])
 				{
 					NSString * path = [stylePath stringByAppendingPathComponent:variantComponent];
@@ -4966,6 +4971,7 @@ To Do List:
 						[MD setObject:variant forKey:[variant lowercaseString]];
 					}
 				}
+			}
 		}
     }
     return [NSDictionary dictionaryWithDictionary:MD];

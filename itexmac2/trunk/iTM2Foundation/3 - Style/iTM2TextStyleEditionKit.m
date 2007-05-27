@@ -938,21 +938,25 @@ To Do List: Nothing
         NSMutableDictionary * variants = [NSMutableDictionary dictionary];
         NSMutableDictionary * pretties = [NSMutableDictionary dictionary];
         NSEnumerator * E = [iTM2TextSyntaxParser syntaxParserClassEnumerator];
+		NSDictionary * styles = nil;
+		NSString * style = nil;
         id C;
         while(C = [E nextObject])
         {
 //iTM2_LOG(@"C is: %@", C);
-            NSString * style = [C syntaxParserStyle];
-            [variants setObject:[iTM2TextSyntaxParser syntaxParserVariantsForStyle:style] forKey:style];
-            [pretties setObject:style forKey:[C prettySyntaxParserStyle]];
+            style = [C syntaxParserStyle];
+			styles = [iTM2TextSyntaxParser syntaxParserVariantsForStyle:style];
+            [variants setObject:styles forKey:style];// problem here with app
+			id key = [C prettySyntaxParserStyle];
+            [pretties setObject:style forKey:key];
         }
         E = [[[pretties allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] objectEnumerator];
         NSString * pretty;
         while(pretty = [E nextObject])
         {
-            NSString * style = [pretties objectForKey:pretty];
-			NSDictionary * styles = [variants objectForKey:style];
-            NSArray * RA = [[styles allKeys] sortedArrayUsingSelector:@selector(compare:)];
+            style = [pretties objectForKey:pretty];
+			styles = [variants objectForKey:style];
+			NSArray * RA = [[styles allKeys] sortedArrayUsingSelector:@selector(compare:)];
             if([RA count]>1)
             {
                 id MI = [self addItemWithTitle:pretty action:NULL keyEquivalent:@""];
@@ -1230,7 +1234,6 @@ To Do List:
 	iTM2TextStorage * TS = (iTM2TextStorage *)[self textStorage];
 	if([TS isKindOfClass:[iTM2TextStorage class]])
 	{
-		iTM2TextSyntaxParser * SP = [TS syntaxParser];
 		id ACD = [TS attributesChangeDelegate];
 		[TS setAttributesChangeDelegate:nil];
 		[super insertText:insertString];
