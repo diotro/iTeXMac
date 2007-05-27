@@ -64,3 +64,4 @@ extern NSString * const iTM2CompletionComponent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit
+

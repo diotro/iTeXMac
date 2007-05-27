@@ -31,7 +31,7 @@
 #import <iTM2Foundation/iTM2TextKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2KeyBindingsKit.h>
+//#import <iTM2Foundation/iTM2KeyBindingsKit.h>
 #import <iTM2Foundation/iTM2ImageKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2ViewKit.h>
@@ -2039,6 +2039,14 @@ To Do List:
 }
 @end
 
+@implementation NSTextView(iTM2Macro)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroDomain
+- (NSString *)defaultMacroDomain;
+{
+    return @"Text";
+}
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2TeXDocument(Scripting)
 /*"Description forthcoming."*/
 @implementation iTM2TextDocument(Scripting)
@@ -2133,6 +2141,8 @@ To Do List:
     return @"Text";
 }
 @end
+
+#import <iTM2Foundation/iTM2ResponderKit.h>
 
 @implementation iTM2SharedResponder(TeXDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOverwrite:

@@ -23,7 +23,6 @@
 
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2TextKit.h>
-#import <iTM2Foundation/iTM2TextKit.h>
 #import <iTM2Foundation/iTM2StringKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2EventKit.h>
@@ -1064,6 +1063,26 @@ nextLine:
     return;
 }
 #endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openQuickly:
+- (void) openQuickly: (id) sender;
+/*"Desription Forthcoming.
+Version history: jlaurens@users.sourceforge.net
+- 1.3: 02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSString * S = [[self string] substringWithRange: [self selectedRange]];
+    //creating an URL?
+	NSString * path = [[[[self window] windowController] document] fileName];
+    NSURL * baseURL = [NSURL fileURLWithPath:path];
+    NSURL * url = [NSURL URLWithString:S relativeToURL:baseURL];
+    if(![SDC openDocumentWithContentsOfURL: url display: YES] && ![[NSWorkspace sharedWorkspace] openURL: url])
+	{
+		NSBeep();
+	}
+    return;
+}
 @end
 
 @implementation NSValue(iTM2Location)

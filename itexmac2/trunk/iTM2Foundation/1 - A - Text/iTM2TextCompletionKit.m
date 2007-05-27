@@ -97,6 +97,39 @@ NSString * const iTM2CompletionComponent = @"Completion.localized";
 - (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index withID:(NSString *)ID;
 @end
 
+#import "iTM2MacroKit_Tree.h"
+#import "iTM2MacroKit_Model.h"
+#import "iTM2MacroKit_Controller.h"
+
+@implementation iTM2MacroController(Completion)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= IDsForContext:ofCategory:inDomain:
+- (NSArray *)IDsForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2MacroRootNode * rootNode = [self macroTree];
+	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
+	iTM2MacroCategoryNode * categoryNode = [domainNode objectInChildrenWithCategory:category];
+	iTM2MacroContextNode * contextNode = [categoryNode objectInChildrenWithContext:context];
+	iTM2MacroList * macroList = [contextNode list];
+	NSArray * leafNodes = [macroList children];
+	NSEnumerator * E = [leafNodes objectEnumerator];
+	iTM2MacroNode * leafNode;
+	NSMutableArray * result = [NSMutableArray array];
+	while(leafNode = [E nextObject])
+	{
+		NSString * ID = [leafNode ID];
+		[result addObject:ID];
+	}
+//iTM2_END;
+	return result;
+}
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit
 static id _iTM2_CompletionServer_Data = nil;
 @implementation iTM2CompletionServer
@@ -219,7 +252,7 @@ To Do List:
 		NSString * substring = [string substringWithRange:range];
 		if([substring length] && ![availableIDs containsObject:substring])
 		{
-			id object = [[[iTM2MacroLeafNode allocWithZone:[node zone]] init] autorelease];
+			id object = [[[iTM2MacroNode allocWithZone:[node zone]] init] autorelease];
 			[node insertObject:object inAvailableMacrosAtIndex:0 withID:substring];
 			[stringList addObject:substring];
 		}
@@ -227,7 +260,7 @@ To Do List:
 	[patriciaController addStrings:stringList];
 	// save the modification
 	node = [SMC macroTree];
-	[SMC applyForNode:node];
+	[SMC saveTree:node];
 //iTM2_LOG(@"[patriciaController stringList]:%@",[patriciaController stringList]);
 	return;
 }
