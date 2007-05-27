@@ -7684,6 +7684,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[self setAutoScales:NO];
     int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(n>0)
@@ -7702,6 +7703,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[self setAutoScales:NO];
     int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(n>0)
