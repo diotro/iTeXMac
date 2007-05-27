@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC70F1940BFC5BD6006C6A76</string>
+						<string>DC83AD8C0C04B5ED00511679</string>
 						<key>history</key>
 						<array>
-							<string>DC0F160E0BFC48A600108852</string>
+							<string>DC70F1940BFC5BD6006C6A76</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -300,22 +300,22 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>2A37F4AAFDCFA73011CA2CEA</string>
-								<string>2A37F4C3FDCFA73011CA2CEA</string>
-								<string>1058C7A6FEA54F5311CA2CBB</string>
-								<string>19C28FB0FE9D524F11CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>DC83A7860C04388400511679</string>
+								<string>DC83A7870C04388400511679</string>
+								<string>DC83A7880C04388400511679</string>
+								<string>DC83A7890C04388400511679</string>
 								<string>1C37FAAC04509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>6</integer>
-									<integer>5</integer>
-									<integer>0</integer>
+									<integer>23</integer>
+									<integer>8</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 528}, {310, 508}}</string>
+							<string>{{0, 278}, {310, 508}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -415,9 +415,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC70F1920BFC5BD6006C6A76</string>
+				<string>DC83A78A0C04388400511679</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC70F1930BFC5BD6006C6A76</string>
+				<string>DC83A78B0C04388400511679</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -552,6 +552,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>DC8AFDD50BEE447800E064D9</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -776,12 +777,14 @@
 							<key>Dock</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>&lt;No Editor&gt;</string>
+										<string>iTeXMac2-Info.plist</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -790,7 +793,7 @@
 										<key>Frame</key>
 										<string>{{0, 0}, {1095, 449}}</string>
 										<key>RubberWindowFrame</key>
-										<string>235 89 1095 765 0 0 1440 878 </string>
+										<string>235 88 1095 765 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXNavigatorGroup</string>
@@ -802,8 +805,6 @@
 							<string>449pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -816,7 +817,7 @@
 								<key>Frame</key>
 								<string>{{0, 454}, {1095, 270}}</string>
 								<key>RubberWindowFrame</key>
-								<string>235 89 1095 765 0 0 1440 878 </string>
+								<string>235 88 1095 765 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXProjectFindModule</string>
@@ -839,13 +840,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC0458C90BE1F9C30044A27F</string>
-				<string>DC0458CA0BE1F9C30044A27F</string>
+				<string>DC83A78D0C04388400511679</string>
+				<string>DC83A78E0C04388400511679</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>
 			<key>WindowString</key>
-			<string>235 89 1095 765 0 0 1440 878 </string>
+			<string>235 88 1095 765 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
