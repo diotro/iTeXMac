@@ -581,7 +581,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC0F0D220BFB715400108852 /* FrameworkDevelopment.xcconfig */;
 			buildSettings = {
-				INSTALL_PATH = "@loader_path/../Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					"$(iTM2_FRAMEWORK_ADDRESS)",
@@ -596,7 +596,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC0F0D210BFB715400108852 /* FrameworkDeployment.xcconfig */;
 			buildSettings = {
-				INSTALL_PATH = "@loader_path/../Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					"$(iTM2_FRAMEWORK_ADDRESS)",
