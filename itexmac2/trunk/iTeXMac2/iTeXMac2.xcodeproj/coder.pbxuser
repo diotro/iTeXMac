@@ -9,7 +9,7 @@
 		);
 		breakpoints = (
 			DCEEDB890B9323F700A964CA /* -[NSException raise] */,
-			DC82738E0BC27931000EAA49 /* iTM2MacroKit.m:2364 */,
+			DC82738E0BC27931000EAA49 /* iTM2MacroKit.m:2368 */,
 			DCB21E3F0BC51A6800DFE832 /* iTeXMac2-main.m:495 */,
 		);
 		breakpointsGroup = DC24D4660952F5F200647943 /* XCBreakpointsBucket */;
@@ -161,6 +161,7 @@
 			DC70F1940BFC5BD6006C6A76 = DC70F1940BFC5BD6006C6A76 /* PBXTextBookmark */;
 			DC83AD8C0C04B5ED00511679 = DC83AD8C0C04B5ED00511679 /* PBXTextBookmark */;
 			DCBEB5620C0ABB8900BD6006 /* PBXTextBookmark */ = DCBEB5620C0ABB8900BD6006 /* PBXTextBookmark */;
+			DCBEB5BB0C0AD08800BD6006 /* PBXTextBookmark */ = DCBEB5BB0C0AD08800BD6006 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -177,7 +178,7 @@
 		name = iTeXMac2;
 		objects = (
 			DCEEDB890B9323F700A964CA /* -[NSException raise] */,
-			DC82738E0BC27931000EAA49 /* iTM2MacroKit.m:2364 */,
+			DC82738E0BC27931000EAA49 /* iTM2MacroKit.m:2368 */,
 			DCB21E3F0BC51A6800DFE832 /* iTeXMac2-main.m:495 */,
 		);
 	};
@@ -397,7 +398,7 @@
 		path = "/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2Foundation/0 - Core/iTM2MacroKit.m";
 		sourceTree = "<absolute>";
 	};
-	DC82738E0BC27931000EAA49 /* iTM2MacroKit.m:2364 */ = {
+	DC82738E0BC27931000EAA49 /* iTM2MacroKit.m:2368 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -407,7 +408,7 @@
 		fileReference = DC82738C0BC27931000EAA49 /* iTM2MacroKit.m */;
 		functionName = "-didChangeMacroKeyStroke";
 		hitCount = 1;
-		lineNumber = 2364;
+		lineNumber = 2368;
 		location = iTM2Foundation;
 		modificationTime = 201635091.717657;
 		state = 1;
@@ -574,6 +575,16 @@
 		};
 	};
 	DCBEB5620C0ABB8900BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 103";
+		rLen = 0;
+		rLoc = 3385;
+		rType = 0;
+		vrLen = 728;
+		vrLoc = 2964;
+	};
+	DCBEB5BB0C0AD08800BD6006 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
 		name = "iTeXMac2-main.m: 103";

@@ -215,6 +215,7 @@
 			DCBEB4F20C0ABAD100BD6006 /* PBXTextBookmark */ = DCBEB4F20C0ABAD100BD6006 /* PBXTextBookmark */;
 			DCBEB4F30C0ABAD100BD6006 /* PBXTextBookmark */ = DCBEB4F30C0ABAD100BD6006 /* PBXTextBookmark */;
 			DCBEB4F40C0ABAD100BD6006 /* PBXTextBookmark */ = DCBEB4F40C0ABAD100BD6006 /* PBXTextBookmark */;
+			DCBEB5BA0C0AD08700BD6006 /* PBXTextBookmark */ = DCBEB5BA0C0AD08700BD6006 /* PBXTextBookmark */;
 			DCCDA4600B7D2D5200FAE57E = DCCDA4600B7D2D5200FAE57E /* PBXTextBookmark */;
 			DCCDA4610B7D2D5200FAE57E = DCCDA4610B7D2D5200FAE57E /* PBXTextBookmark */;
 			DCCDA4620B7D2D5200FAE57E = DCCDA4620B7D2D5200FAE57E /* PBXTextBookmark */;
@@ -693,7 +694,7 @@
 		isa = PBXTextBookmark;
 		fRef = DC8E638E0C02353F00AC8FF7 /* iTM2MacroKit.m */;
 		rLen = 0;
-		rLoc = 70155;
+		rLoc = 70206;
 		rType = 0;
 	};
 	DC8E638E0C02353F00AC8FF7 /* iTM2MacroKit.m */ = {
@@ -730,7 +731,7 @@
 		fRef = DC8E65E70C024EAD00AC8FF7 /* iTM2MacroKit.m */;
 		name = "(null): 2491";
 		rLen = 0;
-		rLoc = 70155;
+		rLoc = 70206;
 		rType = 0;
 		vrLen = 0;
 		vrLoc = 70155;
@@ -1087,7 +1088,7 @@
 		fRef = DC8E638E0C02353F00AC8FF7 /* iTM2MacroKit.m */;
 		name = "iTM2MacroKit.m: 2364";
 		rLen = 0;
-		rLoc = 70155;
+		rLoc = 70206;
 		rType = 0;
 		vrLen = 489;
 		vrLoc = 69666;
@@ -1097,7 +1098,7 @@
 		fRef = DC8E638E0C02353F00AC8FF7 /* iTM2MacroKit.m */;
 		name = "iTM2MacroKit.m: 2364";
 		rLen = 0;
-		rLoc = 70155;
+		rLoc = 70206;
 		rType = 0;
 		vrLen = 539;
 		vrLoc = 69308;
@@ -1114,12 +1115,22 @@
 		fRef = DC8E638E0C02353F00AC8FF7 /* iTM2MacroKit.m */;
 		name = "iTM2MacroKit.m: 2364";
 		rLen = 0;
-		rLoc = 70155;
+		rLoc = 70206;
 		rType = 0;
 		vrLen = 539;
 		vrLoc = 69308;
 	};
 	DCBEB4F40C0ABAD100BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */;
+		name = "nsertDollar:";
+		rLen = 12;
+		rLoc = 5278;
+		rType = 0;
+		vrLen = 750;
+		vrLoc = 4934;
+	};
+	DCBEB5BA0C0AD08700BD6006 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */;
 		name = "nsertDollar:";

@@ -716,6 +716,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(action == @selector(noop:))
+	{
+		return NO;
+	}
 	if(!target)
 	{
 		target = [[NSApp keyWindow] firstResponder];

@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DCBEB5620C0ABB8900BD6006</string>
+						<string>DCBEB5BB0C0AD08800BD6006</string>
 						<key>history</key>
 						<array>
 							<string>DC83AD8C0C04B5ED00511679</string>
@@ -335,7 +335,7 @@
 							<real>310</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>26 97 1364 567 0 0 1440 878 </string>
+						<string>44 192 1364 567 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -372,7 +372,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1032, 258}}</string>
 								<key>RubberWindowFrame</key>
-								<string>26 97 1364 567 0 0 1440 878 </string>
+								<string>44 192 1364 567 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -392,7 +392,7 @@
 								<key>Frame</key>
 								<string>{{0, 263}, {1032, 263}}</string>
 								<key>RubberWindowFrame</key>
-								<string>26 97 1364 567 0 0 1440 878 </string>
+								<string>44 192 1364 567 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -556,7 +556,7 @@
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTeXMac2/iTeXMac2.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>26 97 1364 567 0 0 1440 878 </string>
+	<string>44 192 1364 567 0 0 1440 878 </string>
 	<key>WindowTools</key>
 	<array>
 		<dict>
