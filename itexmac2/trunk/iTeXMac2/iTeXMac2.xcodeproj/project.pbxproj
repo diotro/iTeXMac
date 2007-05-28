@@ -187,6 +187,7 @@
 		DCB93A8607D702A5005E5B38 /* iTM2StartupDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A8407D702A5005E5B38 /* iTM2StartupDocument.m */; };
 		DCBA43250B011B45006AF52A /* ASY.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCBA43230B011B45006AF52A /* ASY.icns */; };
 		DCBA43260B011B45006AF52A /* OUT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCBA43240B011B45006AF52A /* OUT.icns */; };
+		DCBEB55E0C0ABB7F00BD6006 /* Lua.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F18E0BFC5BCC006C6A76 /* Lua.framework */; };
 		DCCE70A7091B58D200960441 /* iTM2AppleScriptSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */; };
 		DCE7E7CA08F2712A00DBB513 /* OgreKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEF60CB0B6216E100A19262 /* Sparkle.framework */; };
@@ -308,6 +309,7 @@
 				DC89307008FC2DED007A4673 /* iTM2MetaPostKit.framework in Copy Frameworks */,
 				DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */,
 				DCEF60E00B6216E800A19262 /* Sparkle.framework in Copy Frameworks */,
+				DCBEB55E0C0ABB7F00BD6006 /* Lua.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

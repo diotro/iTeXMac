@@ -211,6 +211,10 @@
 			DCB21B5A0BC4545600DFE832 = DCB21B5A0BC4545600DFE832 /* PBXTextBookmark */;
 			DCBE56AC0BC3D27A00899B35 = DCBE56AC0BC3D27A00899B35 /* PBXTextBookmark */;
 			DCBEB48A0C0AB2CE00BD6006 /* PBXTextBookmark */ = DCBEB48A0C0AB2CE00BD6006 /* PBXTextBookmark */;
+			DCBEB4F10C0ABAD100BD6006 /* PBXTextBookmark */ = DCBEB4F10C0ABAD100BD6006 /* PBXTextBookmark */;
+			DCBEB4F20C0ABAD100BD6006 /* PBXTextBookmark */ = DCBEB4F20C0ABAD100BD6006 /* PBXTextBookmark */;
+			DCBEB4F30C0ABAD100BD6006 /* PBXTextBookmark */ = DCBEB4F30C0ABAD100BD6006 /* PBXTextBookmark */;
+			DCBEB4F40C0ABAD100BD6006 /* PBXTextBookmark */ = DCBEB4F40C0ABAD100BD6006 /* PBXTextBookmark */;
 			DCCDA4600B7D2D5200FAE57E = DCCDA4600B7D2D5200FAE57E /* PBXTextBookmark */;
 			DCCDA4610B7D2D5200FAE57E = DCCDA4610B7D2D5200FAE57E /* PBXTextBookmark */;
 			DCCDA4620B7D2D5200FAE57E = DCCDA4620B7D2D5200FAE57E /* PBXTextBookmark */;
@@ -700,8 +704,8 @@
 		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2459, 47280}}";
-			sepNavSelRange = "{70155, 0}";
-			sepNavVisRect = "{{0, 46735}, {977, 545}}";
+			sepNavSelRange = "{22725, 12}";
+			sepNavVisRect = "{{0, 15260}, {1184, 122}}";
 		};
 	};
 	DC8E638F0C02353F00AC8FF7 /* PBXTextBookmark */ = {
@@ -1088,6 +1092,43 @@
 		vrLen = 489;
 		vrLoc = 69666;
 	};
+	DCBEB4F10C0ABAD100BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC8E638E0C02353F00AC8FF7 /* iTM2MacroKit.m */;
+		name = "iTM2MacroKit.m: 2364";
+		rLen = 0;
+		rLoc = 70155;
+		rType = 0;
+		vrLen = 539;
+		vrLoc = 69308;
+	};
+	DCBEB4F20C0ABAD100BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */;
+		rLen = 12;
+		rLoc = 5278;
+		rType = 0;
+	};
+	DCBEB4F30C0ABAD100BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC8E638E0C02353F00AC8FF7 /* iTM2MacroKit.m */;
+		name = "iTM2MacroKit.m: 2364";
+		rLen = 0;
+		rLoc = 70155;
+		rType = 0;
+		vrLen = 539;
+		vrLoc = 69308;
+	};
+	DCBEB4F40C0ABAD100BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */;
+		name = "nsertDollar:";
+		rLen = 12;
+		rLoc = 5278;
+		rType = 0;
+		vrLen = 750;
+		vrLoc = 4934;
+	};
 	DCC3D1680926A425005471BD /* iTM2TextWatcher.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {977, 700}}";
@@ -1147,8 +1188,8 @@
 	DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1496, 31360}}";
-			sepNavSelRange = "{52889, 0}";
-			sepNavVisRect = "{{0, 18027}, {977, 545}}";
+			sepNavSelRange = "{5278, 12}";
+			sepNavVisRect = "{{0, 2978}, {977, 545}}";
 			sepNavWindowFrame = "{{129, 29}, {1284, 780}}";
 		};
 	};

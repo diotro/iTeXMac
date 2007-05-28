@@ -154,12 +154,13 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 201595948;
-			PBXWorkspaceStateSaveDate = 201595948;
+			PBXPerProjectTemplateStateSaveDate = 202029868;
+			PBXWorkspaceStateSaveDate = 202029868;
 		};
 		perUserProjectItems = {
-			DC70F1940BFC5BD6006C6A76 /* PBXTextBookmark */ = DC70F1940BFC5BD6006C6A76 /* PBXTextBookmark */;
-			DC83AD8C0C04B5ED00511679 /* PBXTextBookmark */ = DC83AD8C0C04B5ED00511679 /* PBXTextBookmark */;
+			DC70F1940BFC5BD6006C6A76 = DC70F1940BFC5BD6006C6A76 /* PBXTextBookmark */;
+			DC83AD8C0C04B5ED00511679 = DC83AD8C0C04B5ED00511679 /* PBXTextBookmark */;
+			DCBEB5620C0ABB8900BD6006 /* PBXTextBookmark */ = DCBEB5620C0ABB8900BD6006 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -571,6 +572,16 @@
 			sepNavSelRange = "{1355, 0}";
 			sepNavVisRect = "{{0, 0}, {618, 453}}";
 		};
+	};
+	DCBEB5620C0ABB8900BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 103";
+		rLen = 0;
+		rLoc = 3385;
+		rType = 0;
+		vrLen = 728;
+		vrLoc = 2964;
 	};
 	DCCE70A4091B58D200960441 /* iTM2AppleScriptSupport.h */ = {
 		uiCtxt = {

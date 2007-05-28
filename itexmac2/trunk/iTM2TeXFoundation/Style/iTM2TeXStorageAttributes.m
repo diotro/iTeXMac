@@ -1100,7 +1100,6 @@ To Do List:
 #ifdef iTM2_WITH_SYMBOLS
 	NSString * substring;
 	NSRange otherRange;
-	NSRange commandRange = NSMakeRange(NSNotFound,0);
 #endif
 	unsigned otherMode;
 	unsigned otherFullMode;
