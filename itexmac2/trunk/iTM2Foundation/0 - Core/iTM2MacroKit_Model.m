@@ -1209,30 +1209,35 @@ To Do List:
 	if([[O mutableXMLElements] count])
 	{
 		[O removeLastMutableXMLElement];
-		if([[O XMLElements] count])
+		if([[O XMLElements] count] || [[O mutableXMLElements] lastObject])
 		{
-			if(![[O mutableXMLElements] lastObject])
-			{
-				[O beMutable];
-				[O setID:@"noop:"];
-			}
+			[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
+			[self setValue:nil forKeyPath:@"value.availableKeyBindings"];
+			[self didChange:NSKeyValueChangeReplacement valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
 		}
-		else if(![[O mutableXMLElements] lastObject])
+		else
 		{
-			[O setParent:nil];
+			[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
+			[O setParent:nil];// no more related XML element: clean all
+			[self setValue:nil forKeyPath:@"value.availableKeyBindings"];
+			[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
 		}
 	}
 	else if([[O XMLElements] count])
 	{
+		[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
 		[O beMutable];
 		[O setID:@"noop:"];
+		[self setValue:nil forKeyPath:@"value.availableKeyBindings"];
+		[self didChange:NSKeyValueChangeReplacement valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
 	}
 	else
 	{
-		[O setParent:nil];
+		[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
+		[O setParent:nil];// no more related XML element: clean all
+		[self setValue:nil forKeyPath:@"value.availableKeyBindings"];
+		[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
 	}
-	[self setValue:nil forKeyPath:@"value.availableKeyBindings"];
-	[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:indexes forKey:@"availableKeyBindings"];
 	[self setValue:nil forKeyPath:@"value.cachedChildrenKeys"];
 //iTM2_END;
     return;
