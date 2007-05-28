@@ -163,12 +163,18 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 201448653;
-			PBXWorkspaceStateSaveDate = 201448653;
+			PBXPerProjectTemplateStateSaveDate = 202028331;
+			PBXWorkspaceStateSaveDate = 202028331;
 		};
 		perUserProjectItems = {
-			DC8E63AA0C02353F00AC8FF7 /* PBXTextBookmark */ = DC8E63AA0C02353F00AC8FF7 /* PBXTextBookmark */;
-			DC8E65FF0C024EB200AC8FF7 /* PBXTextBookmark */ = DC8E65FF0C024EB200AC8FF7 /* PBXTextBookmark */;
+			DC8E63AA0C02353F00AC8FF7 = DC8E63AA0C02353F00AC8FF7 /* PBXTextBookmark */;
+			DC8E65FF0C024EB200AC8FF7 = DC8E65FF0C024EB200AC8FF7 /* PBXTextBookmark */;
+			DCBEB4B40C0AB54900BD6006 /* PBXTextBookmark */ = DCBEB4B40C0AB54900BD6006 /* PBXTextBookmark */;
+			DCBEB4BD0C0AB66200BD6006 /* PBXTextBookmark */ = DCBEB4BD0C0AB66200BD6006 /* PBXTextBookmark */;
+			DCBEB4BE0C0AB66200BD6006 /* PBXTextBookmark */ = DCBEB4BE0C0AB66200BD6006 /* PBXTextBookmark */;
+			DCBEB4C00C0AB66200BD6006 /* PBXTextBookmark */ = DCBEB4C00C0AB66200BD6006 /* PBXTextBookmark */;
+			DCBEB4C10C0AB66200BD6006 /* PBXTextBookmark */ = DCBEB4C10C0AB66200BD6006 /* PBXTextBookmark */;
+			DCBEB4C50C0AB68F00BD6006 /* PBXTextBookmark */ = DCBEB4C50C0AB68F00BD6006 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042C088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -295,7 +301,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1982, 67560}}";
 			sepNavSelRange = "{34925, 131}";
-			sepNavVisRect = "{{0, 22027}, {1239, 46}}";
+			sepNavVisRect = "{{0, 21814}, {1061, 548}}";
 			sepNavWindowFrame = "{{84, 95}, {1174, 674}}";
 		};
 	};
@@ -325,6 +331,81 @@
 			sepNavVisRect = "{{0, 0}, {0, 0}}";
 			sepNavWindowFrame = "{{15, 3}, {1241, 874}}";
 		};
+	};
+	DCBEB4B40C0AB54900BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = macroRunningNodeForID;
+		rLen = 21;
+		rLoc = 34958;
+		rType = 0;
+		vrLen = 1127;
+		vrLoc = 34439;
+	};
+	DCBEB4BD0C0AB66200BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:@\"\\\\ref{}|identifier\" context:context ofCategory:category inDomain:domain];";
+		rLen = 131;
+		rLoc = 34925;
+		rType = 0;
+		vrLen = 1091;
+		vrLoc = 34514;
+	};
+	DCBEB4BE0C0AB66200BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCBEB4BF0C0AB66200BD6006 /* iTM2MacroKit.h */;
+		rLen = 0;
+		rLoc = 8931;
+		rType = 0;
+	};
+	DCBEB4BF0C0AB66200BD6006 /* iTM2MacroKit.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = iTM2MacroKit.h;
+		path = "/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2Foundation/0 - Core/iTM2MacroKit.h";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1469, 11120}}";
+			sepNavSelRange = "{8931, 0}";
+			sepNavVisRect = "{{0, 5176}, {1061, 548}}";
+		};
+	};
+	DCBEB4C00C0AB66200BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */;
+		name = "iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:@\"\\\\ref{}|identifier\" context:context ofCategory:category inDomain:domain];";
+		rLen = 131;
+		rLoc = 34925;
+		rType = 0;
+		vrLen = 1091;
+		vrLoc = 34514;
+	};
+	DCBEB4C10C0AB66200BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCBEB4C20C0AB66200BD6006 /* iTM2MacroKit.h */;
+		name = "(null): 274";
+		rLen = 0;
+		rLoc = 8931;
+		rType = 0;
+		vrLen = 830;
+		vrLoc = 8579;
+	};
+	DCBEB4C20C0AB66200BD6006 /* iTM2MacroKit.h */ = {
+		isa = PBXFileReference;
+		name = iTM2MacroKit.h;
+		path = "/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2Foundation/0 - Core/iTM2MacroKit.h";
+		sourceTree = "<absolute>";
+	};
+	DCBEB4C50C0AB68F00BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCBEB4BF0C0AB66200BD6006 /* iTM2MacroKit.h */;
+		name = "iTM2MacroKit.h: 274";
+		rLen = 0;
+		rLoc = 8931;
+		rType = 0;
+		vrLen = 830;
+		vrLoc = 8579;
 	};
 	DCCD2EA809E145B30003EEF9 /* English */ = {
 		uiCtxt = {

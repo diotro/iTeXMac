@@ -76,6 +76,19 @@
 + (id)sharedMacroController;
 - (id)macroTree;
 - (id)keyBindingTree;
+
+/*!
+    @method     macroRunningNodeForID:context:ofCategory:inDomain:
+    @abstract   Abstract forthcoming
+    @discussion Primitive getter. The returned object will be asked for its name, action, ...
+    @param      ID
+    @param      context
+    @param      category
+    @param      domain
+    @result     a leaf macro tree node
+*/
+- (id)macroRunningNodeForID:(NSString *)ID context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+
 - (void)saveTree:(id)node;
 @end
 
@@ -143,6 +156,7 @@ extern NSString * const iTM2KeyBindingPathExtension;// to be deprecated...
 extern NSString * const iTM2MacroControllerComponent;
 
 @interface NSTextView(iTM2MacroKit)
+- (void)insertMacro:(id)argument;
 - (NSString *)tabAnchor;
 - (NSString *)preparedSelectedStringForMacroInsertion;
 - (NSString *)preparedSelectedLineForMacroInsertion;
@@ -258,19 +272,6 @@ extern NSString * const iTM2MacroControllerComponent;
     @result     None
 */
 - (void)setMacroTree:(id)aTree;
-
-/*!
-    @method     macroRunningNodeForID:context:ofCategory:inDomain:
-    @abstract   Abstract forthcoming
-    @discussion Primitive getter. The returned object will be asked for its name, action, ...
-    @param      ID
-    @param      context
-    @param      category
-    @param      domain
-    @result     a leaf macro tree node
-*/
-- (id)macroRunningNodeForID:(NSString *)ID context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
-
 
 - (id)menuTree;
 - (void)setMenuTree:(id)aTree;

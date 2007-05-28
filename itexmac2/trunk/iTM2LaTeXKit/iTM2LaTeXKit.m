@@ -1102,7 +1102,7 @@ To Do List:
 	NSString * knownReference = [sender representedObject];
 	iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:@"\\ref{}|identifier" context:context ofCategory:category inDomain:domain];
 	NSDictionary * substitutions = [NSDictionary dictionaryWithObject:knownReference forKey:@"identifier"];
-	[leafNode executeMacroWithTarget:self action:NULL substitutions:substitutions];
+	[leafNode executeMacroWithTarget:self selector:NULL substitutions:substitutions];
 //iTM2_END;
     return;
 }
@@ -2967,8 +2967,6 @@ To Do List:
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unsigned newModifier = previousModifier;
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
-	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
-	NSString * modeString = @"";
 	unsigned newMode;
 
 	switch(previousModeWithoutModifiers)

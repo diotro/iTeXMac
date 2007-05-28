@@ -227,7 +227,6 @@ To Do List:
 				}
 			}
 		}
-		NSString * type = [self fileType];
 		[self replaceSynchronizer:nil];
 		[INC postNotificationName:iTM2PDFKitDocumentDidChangeNotification object:self userInfo:nil];
     }

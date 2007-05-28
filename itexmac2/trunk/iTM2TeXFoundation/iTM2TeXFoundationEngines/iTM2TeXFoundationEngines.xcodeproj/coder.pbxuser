@@ -24,7 +24,7 @@
 		hitCount = 1;
 		lineNumber = 2768;
 		location = "TeX Engines";
-		modificationTime = 197292910.197552;
+		modificationTime = 201992322.881751;
 		state = 1;
 	};
 	DC31FE070AC9B87900FF576B /* -[NSException raise] */ = {
@@ -270,8 +270,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 201087255;
-			PBXWorkspaceStateSaveDate = 201087255;
+			PBXPerProjectTemplateStateSaveDate = 201991584;
+			PBXWorkspaceStateSaveDate = 201991584;
+		};
+		perUserProjectItems = {
+			DCBEB3B80C0A288800BD6006 /* PBXTextBookmark */ = DCBEB3B80C0A288800BD6006 /* PBXTextBookmark */;
+			DCBEB3B90C0A288800BD6006 /* PBXTextBookmark */ = DCBEB3B90C0A288800BD6006 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC9DC47E094840B10079E1B3 /* Source Control */;
 		userBookmarkGroup = DCE414E00AB6069F00FB432D /* PBXBookmarkGroup */;
@@ -338,9 +342,9 @@
 	};
 	DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1113, 1920}}";
-			sepNavSelRange = "{2752, 0}";
-			sepNavVisRect = "{{0, 1548}, {1113, 372}}";
+			sepNavIntBoundsRect = "{{0, 0}, {973, 1940}}";
+			sepNavSelRange = "{2508, 0}";
+			sepNavVisRect = "{{0, 1433}, {973, 475}}";
 			sepNavWindowFrame = "{{15, -1}, {1062, 874}}";
 		};
 	};
@@ -418,6 +422,26 @@
 	};
 	DC9DC71A09484CB90079E1B3 /* TeX Engines */ = {
 		activeExec = 0;
+	};
+	DCBEB3B80C0A288800BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */;
+		name = "iTM2_Engine_pstopdf: 79";
+		rLen = 0;
+		rLoc = 2508;
+		rType = 0;
+		vrLen = 749;
+		vrLoc = 2281;
+	};
+	DCBEB3B90C0A288800BD6006 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */;
+		name = "iTM2_Engine_pstopdf: 79";
+		rLen = 0;
+		rLoc = 2508;
+		rType = 0;
+		vrLen = 749;
+		vrLoc = 2281;
 	};
 	DCCD2DB409E06C450003EEF9 /* English */ = {
 		uiCtxt = {

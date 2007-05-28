@@ -39,7 +39,7 @@ NSString * const iTM2MacrosDirectoryName = @"Macros";
 @implementation iTM2MacroMenuNode
 @end
 
-@interface iTM2MacroContextNode(Controller)
+@interface iTM2MacroAbstractContextNode(Controller)
 + (id)treeWithContentsOfURLs;
 @end
 

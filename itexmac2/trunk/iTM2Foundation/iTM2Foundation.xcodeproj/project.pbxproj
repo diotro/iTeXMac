@@ -733,8 +733,6 @@
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
 		DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TreeKit.m; sourceTree = "<group>"; };
-		DC0D1F240BFEFF8800440681 /* iTM2MacroKit_Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Core.h; sourceTree = "<group>"; };
-		DC0D1F250BFEFF8800440681 /* iTM2MacroKit_Core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Core.m; sourceTree = "<group>"; };
 		DC0D1F260BFEFF8800440681 /* iTM2MacroKit_Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Tree.h; sourceTree = "<group>"; };
 		DC0D1F270BFEFF8800440681 /* iTM2MacroKit_Tree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Tree.m; sourceTree = "<group>"; };
 		DC0D1F6E0BFF03A400440681 /* iTM2MacroKit_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Model.h; sourceTree = "<group>"; };
@@ -1510,8 +1508,6 @@
 				DC5B9C420BFFAD4800CE4DB2 /* iTM2MacroKit_String.m */,
 				DC1CF8F60C01CBA100D757D0 /* iTM2MacroKit_Prefs.h */,
 				DC1CF8F70C01CBA100D757D0 /* iTM2MacroKit_Prefs.m */,
-				DC0D1F240BFEFF8800440681 /* iTM2MacroKit_Core.h */,
-				DC0D1F250BFEFF8800440681 /* iTM2MacroKit_Core.m */,
 				DCD403F0099498B0006B91DF /* iTM2MacroKit.m */,
 				DCF61B6D0854654B003F5F79 /* iTM2KeyBindingsKit.m */,
 				DCF61B6E0854654B003F5F79 /* iTM2MenuKit.h */,

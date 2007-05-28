@@ -221,8 +221,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -305,12 +303,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2LaTeXKit.m</string>
+								<string>iTM2MacroKit.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -318,14 +318,19 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2LaTeXKit.m</string>
+										<string>iTM2MacroKit.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC8E65FF0C024EB200AC8FF7</string>
+										<string>DCBEB4C50C0AB68F00BD6006</string>
 										<key>history</key>
 										<array>
-											<string>DC8E63AA0C02353F00AC8FF7</string>
+											<string>DCBEB4BD0C0AB66200BD6006</string>
+											<string>DCBEB4BE0C0AB66200BD6006</string>
+										</array>
+										<key>prevStack</key>
+										<array>
+											<string>DCBEB4C00C0AB66200BD6006</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -383,9 +388,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DC8E63AC0C02353F00AC8FF7</string>
+				<string>DCBEB4B50C0AB54900BD6006</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DC8E63AD0C02353F00AC8FF7</string>
+				<string>DCBEB4B60C0AB54900BD6006</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -520,7 +525,7 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj</string>
-		<string>DC8A64A8088DBEB50016FAA2</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>51 97 1371 779 0 0 1440 878 </string>
@@ -742,12 +747,14 @@
 							<key>Dock</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string></string>
+										<string>iTM2LaTeXKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -803,8 +810,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC1CFDE80C01D7E400D757D0</string>
-				<string>DC1CFDE90C01D7E400D757D0</string>
+				<string>DCBEB4B70C0AB54900BD6006</string>
+				<string>DCBEB4B80C0AB54900BD6006</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>
@@ -813,7 +820,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
