@@ -2638,7 +2638,6 @@ To Do List:
 	{
 		if([sender action] == @selector(takeStringEncodingFromTag:))
 		{
-			[sender setTarget:self];
 			[sender setEnabled:enabled];
 			if([sender tag] == tag)
 			{
