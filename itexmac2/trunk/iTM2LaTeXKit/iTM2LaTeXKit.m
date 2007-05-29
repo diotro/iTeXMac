@@ -1411,6 +1411,57 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollInputToVisible:
+- (void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#warning To be improved
+    NSString * path = [[[[sender menu] title]  stringByAppendingPathComponent:
+                                [sender representedObject]] stringByStandardizingPath];
+    if([DFM isReadableFileAtPath:path])
+        [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:YES error:nil];
+    else
+    {
+        NSString * P = [path stringByAppendingPathExtension:@"tex"];
+        if([[NSFileManager defaultManager] isReadableFileAtPath:P])
+            [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:P] display:YES error:nil];
+        else
+        {
+            [sender setEnabled:NO];
+            NSBeep();
+            [self postNotificationWithStatus:
+                [NSString stringWithFormat:  NSLocalizedStringFromTableInBundle(@"No file at path: %@", @"TeX",
+                            [NSBundle bundleForClass:[self class]], "Could not complete the \\include action... 1 line only"), path]];
+        }
+    }
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollInputToVisible:
+- (void)scrollInputToVisible:(id <NSMenuItem>)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self performSelector:@selector(delayedScrollInputToVisible:) withObject:sender afterDelay:0.1];
+	#if 0
+    [NSInvocation delayInvocationWithTarget: self
+        action: @selector(_ScrollIncludeToVisible:)
+            sender: sender
+                untilNotificationWithName: @"iTM2TDPerformScrollIn[clude|put]ToVisible"
+                    isPostedFromObject: self];
+	#endif
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findLaTeXEnvironment:
 - (void)findLaTeXEnvironment:(id)sender;
 /*"Desription Forthcoming.
@@ -2160,11 +2211,11 @@ To Do List:
 	}
 	else if([macro isEqual:@"{}"])
 	{
-		macro = @"{@@@()@@@}";
+		macro = [NSString stringWithFormat:@"{@@@(%@)@@@}",selectedString];
 	}
 	else if([macro isEqual:@"[]"])
 	{
-		macro = @"[@@@()@@@]";
+		macro = [NSString stringWithFormat:@"[@@@(%@)@@@]",selectedString];
 	}
 	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString line:line];
 //iTM2_END;
