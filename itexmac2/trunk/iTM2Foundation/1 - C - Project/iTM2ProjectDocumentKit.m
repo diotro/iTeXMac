@@ -4830,8 +4830,12 @@ To Do List:
 	// from Laurent Daudelin,mamasam START
 	NSImageCell * imageCell = [[[NSImageCell alloc] initImageCell:nil] autorelease];
 	[imageCell setImageScaling:NSScaleProportionally];
-	[[[self documentsView] tableColumnWithIdentifier:@"icon"] setDataCell:imageCell];
+	NSTableView * documentsView = [self documentsView];
+	NSTableColumn * TC = [documentsView tableColumnWithIdentifier:@"icon"];
+	[TC setDataCell:imageCell];
 	// from Laurent Daudelin,mamasam STOP
+	NSArray * draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType,NSURLPboardType,NSFilesPromisePboardType,nil];
+	[documentsView registerForDraggedTypes:draggedTypes];
     [super windowDidLoad];// validates the contents
 //iTM2_LOG(@"the window class is:%@",NSStringFromClass([[self window] class]));
     return;
@@ -5241,6 +5245,15 @@ To Do List:
 //iTM2_END;
     return NO;
 }
+#if 1
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op
+{
+    // Add code here to validate the drop
+	NSPasteboard * draggingPasteboard = [info draggingPasteboard];
+    NSLog(@"validate Drop:%@",[draggingPasteboard types]);
+    return NSDragOperationEvery;
+}
+#else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newDocument:
 - (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
 /*"Description forthcoming.
@@ -5275,6 +5288,15 @@ To Do List:
 //iTM2_END;
     return [iTM2EventObserver isAlternateKeyDown]?NSDragOperationCopy:NSDragOperationNone;
 }
+#endif
+#if 1
+- (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
+            row:(int)row dropOperation:(NSTableViewDropOperation)operation
+{
+	return YES;
+    // Move the specified row to its new location...
+}
+#else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:acceptDrop:row:dropOperation:
 - (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
 /*"Description forthcoming.
@@ -5315,6 +5337,7 @@ To Do List:
 //iTM2_END;
     return result;
 }
+#endif
 
 #if 0
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
@@ -5603,15 +5626,17 @@ To Do List:
 	}
 	dirName = [dirName stringByDeletingLastPathComponent];
 	NSMutableArray * recyclable = [NSMutableArray array];
+	NSMutableArray * removable = [NSMutableArray array];
     NSEnumerator * E = [[self documentsView] selectedRowEnumerator];
     NSNumber * N;
+	NSString * fileKey;
     while(N = [E nextObject])
     {
         int index = [N intValue];
         if(NSLocationInRange(index,R))
         {
             [projectDocument updateChangeCount:NSChangeDone];// RAISE
-			NSString * fileKey = [fileKeys objectAtIndex:index];
+			fileKey = [fileKeys objectAtIndex:index];
 			NSString * fullPath = [projectDocument absoluteFileNameForKey:fileKey];
 			if(![fullPath pathIsEqual:[projectDocument fileName]]// don't recycle the project
 				&& ![fullPath pathIsEqual:dirName]// nor its containing directory!!!
@@ -5622,10 +5647,15 @@ To Do List:
 			}
 			else
 			{
-				[projectDocument removeKey:fileKey];
+				[removable addObject:fileKey];
 			}
         }
     }
+	E = [removable objectEnumerator];
+	while(fileKey = [E nextObject])
+	{
+		[projectDocument removeKey:fileKey];
+	}
 	[self updateOrderedFileKeys];
 	if([recyclable count])
 		NSBeginAlertSheet(
