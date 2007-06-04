@@ -720,7 +720,8 @@ up1:
 			}
 		}
 		MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:path action:@selector(showSubdocuments:) keyEquivalent:@""] autorelease];
-		[MI setTarget:PD];
+#warning FAILED
+		[MI setTarget:PD];// IS THE PD LIVING LONG ENOUGH
 		[MI setRepresentedObject:key];
 		if([SPC isBaseProject:PD])
 		{

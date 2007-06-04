@@ -829,12 +829,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * S = [[self textStorage] string];
-	NSRange R = [NSString TeXAwareDoubleClick:S atIndex:charIndex];
+	NSTextStorage * TS = [self textStorage];
+	NSRange R = [iTM2TeXStringController TeXAwareWordRangeInAttributedString:TS atIndex:charIndex];
 	if(R.length<2)
 		return;
 	++R.location;
 	--R.length;
+	NSString * S = [TS string];
 	NSString * command = [S substringWithRange:R];
 	if([command isEqualToString:@"include"])
 	{

@@ -1104,22 +1104,22 @@ To Do List:
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentProjectKey, @"Commands", myBUNDLE, "Description forthcoming")];
 			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
 			[[sender lastItem] setEnabled:YES];
-			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
 			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentProjectKey];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentMasterKey, @"Commands", myBUNDLE, "Description forthcoming")];
 			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
 			[[sender lastItem] setEnabled:YES];
-			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
 			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentMasterKey];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentFrontKey, @"Commands", myBUNDLE, "Description forthcoming")];
 			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
 			[[sender lastItem] setEnabled:YES];
-			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
 			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentFrontKey];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentWrapperKey, @"Commands", myBUNDLE, "Description forthcoming")];
 			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
 			[[sender lastItem] setEnabled:YES];
-			[[sender lastItem] setTarget:self];
+			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
 			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentWrapperKey];
 	}
     return YES;

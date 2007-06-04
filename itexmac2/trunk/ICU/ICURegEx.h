@@ -180,7 +180,7 @@ enum{
     @abstract   Find the next pattern match in the input string
     @discussion The find begins searching the input at the location following the end of
 				the previous match, or at the start of the string if there is no previous match.
-				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfNextMatchAfterIndex:</code>
+				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfGroupAtIndex:</code>
 				will provide more information regarding the match.
     @param      aTree
     @result     yorn
@@ -191,7 +191,7 @@ enum{
     @method     nextMatchAfterIndex:
     @abstract   Find the next pattern match in the input string
     @discussion The find begins searching the input at the given location.
-				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfNextMatchAfterIndex:</code>
+				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfGroupAtIndex:</code>
 				will provide more information regarding the match.
     @param      index, pass 0 to start from the beginning of the input string.
     @result     yorn

@@ -1587,7 +1587,7 @@ next:
 						action: action
 							keyEquivalent: @""] autorelease];
 				[mi setRepresentedObject:performer];
-				[mi setTarget:performer];
+				[mi setTarget:performer];// performer is expected to last forever
 				[M addItem:mi];
 			}
 		}

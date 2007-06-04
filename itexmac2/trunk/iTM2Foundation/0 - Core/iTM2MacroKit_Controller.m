@@ -580,13 +580,13 @@ To Do List:
 				if(!M)
 				{
 					[MI setAction:@selector(___catch:)];
-					[MI setTarget:self];
+					[MI setTarget:self];// self is expected to last forever
 				}
 			}
 			else
 			{
 				[MI setAction:@selector(___insertMacro:)];
-				[MI setTarget:self];
+				[MI setTarget:self];// self is expected to last forever
 			}
 		}
 		return MI;
@@ -666,5 +666,102 @@ To Do List:
 	}
 //iTM2_END;
 	return M;
+}
+#pragma mark =-=-=-=-=-  DELEGATE
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuNeedsUpdate:
+- (void)menuNeedsUpdate:(NSMenu *)menu;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// availableModes:
+	NSArray * itemArray = [menu itemArray];
+	NSEnumerator * E = [itemArray objectEnumerator];
+	NSMenuItem * MI = nil;
+	SEL action = @selector(takeMacroModeFromRepresentedObject:);
+	NSMutableArray * availableModes = [NSMutableArray array];
+	NSString * mode;
+	while(MI = [E nextObject])
+	{
+		if([MI action] == action)
+		{
+			mode = [MI representedObject];
+			if(![availableModes containsObject:mode])
+			{
+				[availableModes addObject:mode];
+			}
+		}
+	}
+	// expected modes:
+	id firstResponder = [NSApp keyWindow];
+	firstResponder = [firstResponder firstResponder];
+	NSString * domain = [firstResponder macroDomain];
+	iTM2MacroRootNode * rootNode = [self macroTree];
+	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
+	NSArray * expectedModes = [domainNode availableCategories];
+	//
+	if([expectedModes isEqual:availableModes])
+	{
+		return;
+	}
+	// remove items with takeMacroModeFromRepresentedObject:
+	E = [itemArray objectEnumerator];
+	while(MI = [E nextObject])
+	{
+		if([MI action] == action)
+		{
+			[menu removeItem:MI];
+		}
+	}
+	// recover the "Mode:" title menu item
+	int index = [menu indexOfItemWithRepresentedObject:@"iTM2_PRIVATE_MacroModeMenuItem"];
+	++index;
+
+	E = [expectedModes objectEnumerator];
+	while(mode = [E nextObject])
+	{
+		MI = [[[NSMenuItem allocWithZone:[menu zone]] initWithTitle:[mode description] action:action keyEquivalent:@""] autorelease];
+		[MI setRepresentedObject:mode];
+		[MI setIndentationLevel:1];
+		[menu insertItem:MI atIndex:index++];
+	}
+	MI = [NSMenuItem separatorItem];
+	[menu insertItem:MI atIndex:index++];
+	[menu cleanSeparators];
+//iTM2_END;
+	return;
+}
+@end
+
+#import <iTM2Foundation/iTM2InstallationKit.h>
+
+@implementation iTM2MainInstaller(iTM2MacroKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroKitCompleteInstallation
++ (void)iTM2MacroKitCompleteInstallation;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMenu * M = [NSApp mainMenu];
+	NSMenuItem * MI = [M deepItemWithAction:@selector(macroMode:)];
+	if(MI)
+	{
+		M = [MI menu];
+		[MI setAction:NULL];
+		[MI setRepresentedObject:@"iTM2_PRIVATE_MacroModeMenuItem"];
+		[M setDelegate:SMC];
+	}
+	else
+	{
+		iTM2_LOG(@"No macros menu");
+	}
+//iTM2_END;
+    return;
 }
 @end

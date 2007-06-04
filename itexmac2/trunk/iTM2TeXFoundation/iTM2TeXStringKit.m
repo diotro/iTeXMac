@@ -21,6 +21,376 @@
 #import <iTM2TeXFoundation/iTM2TeXStringKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 
+#define ANCS [NSCharacterSet alphanumericCharacterSet]
+
+@interface NSAttributedString(PRIVATE)
+- (NSRange)originalDoubleClickAtIndex:(unsigned)index;
+@end
+
+@interface iTM2TeXStringController: NSObject
+@end
+
+@implementation iTM2TeXStringController
+static ICURegEx * iTM2TeXStringController_RE = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
++ (void)initialize;
+/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
+Version history:jlaurens AT users.sourceforge.net
+- 2.0:02/15/2006
+To Do List:implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	[super initialize];
+//iTM2_START;
+	if(!iTM2TeXStringController_RE)
+	{
+		NSError * localError = nil;
+//		iTM2TeXStringController_RE = [[ICURegEx alloc] initWithSearchPattern:@"(?!\\(?:\\{2})*)\\[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
+		iTM2TeXStringController_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
+		if(!iTM2TeXStringController_RE)
+		{
+			iTM2_LOG(@"RE unavailable");
+			if(localError)
+			{
+				iTM2_LOG(@"localError:%@",localError);
+			}
+			else
+			{
+				iTM2_LOG(@"localError unavailable");
+			}
+		}
+	}
+	iTM2_RELEASE_POOL;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfCharactersInSet:inAttributedString:atIndex:
++ (NSRange)rangeOfCharactersInSet:(NSCharacterSet *)theSet inAttributedString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
+/*"All the letters around the index
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
+To Do List:implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * itsString = [theAttributedString string];
+	unichar theChar = [itsString characterAtIndex:index];
+	NSRange R = NSMakeRange(NSNotFound,0);
+	if([theSet characterIsMember:theChar])
+	{
+		R.location = index;
+		R.length = 1;
+		unsigned loc = index;
+left:
+		if(--index)
+		{
+			theChar = [itsString characterAtIndex:index];
+			if([theSet characterIsMember:theChar])
+			{
+				--R.location;
+				++R.length;
+				goto left;
+			}
+		}
+		loc = index;
+		unsigned length = [itsString length];
+right:
+		if(++index<length)
+		{
+			theChar = [itsString characterAtIndex:index];
+			if([theSet characterIsMember:theChar])
+			{
+				++R.length;
+				goto right;
+			}
+		}
+	}
+//iTM2_END;
+	return R;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareWordRangeInString:atIndex:
++ (NSRange)TeXAwareWordRangeInString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
+/*"This takes TeX commands into account, and \- hyphenation too
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
+To Do List:implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return R;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareWordRangeInAttributedString:atIndex:
++ (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
+/*"This takes TeX commands into account, and \- hyphenation too
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
+To Do List:implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * itsString = [theAttributedString string];
+	NSString * s;
+	unsigned length = [itsString length];
+	unichar theChar = [itsString characterAtIndex:index];
+    NSRange R, r;
+	unsigned loc;
+	unsigned commandIndex = NSNotFound;
+	BOOL escaped;
+	if([ANCS characterIsMember:theChar])
+	{
+		R = [theAttributedString originalDoubleClickAtIndex:index];
+expandToTheLeftAsLetters:
+		if(R.location)
+		{
+			theChar = [itsString characterAtIndex:R.location-1];
+			if([ANCS characterIsMember:theChar])
+			{
+				r = [theAttributedString originalDoubleClickAtIndex:R.location-1];
+				if(r.location
+					&& [itsString isControlAtIndex:r.location-1 escaped:&escaped]
+						&& !escaped)
+				{
+					goto expandToTheRightAsLetters;
+				}
+				R = NSUnionRange(R,r);
+				goto expandToTheLeftAsLetters;
+			}
+			if((R.location>4)
+				&& [itsString isControlAtIndex:R.location-5 escaped:&escaped]
+					&& !escaped)
+			{
+				r = NSMakeRange(R.location-5,5);
+				s = [itsString substringWithRange:r];
+				[iTM2TeXStringController_RE setInputString:s];
+				if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+				{
+					R.location -= 5;
+					R.length += 5;
+					commandIndex = R.location;
+					goto expandToTheLeftAsLetters;
+				}
+			}
+			if((R.location>1)
+				&& [itsString isControlAtIndex:R.location-2 escaped:&escaped]
+					&& !escaped
+						&& ((theChar=='-')||(theChar=='_')||(theChar=='@')||(theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.')))
+			{
+				R.location -= 2;
+				R.length += 2;
+				commandIndex = R.location;
+				goto expandToTheLeftAsLetters;
+			}
+			if((R.location>0)
+				&& [itsString isControlAtIndex:R.location-1 escaped:&escaped]
+					&& !escaped)
+			{
+				R.length += R.location;
+				if(commandIndex != NSNotFound)
+				{
+					// it is not the correct range if there is already a command somewhere.
+					R.location = commandIndex;
+					R.length -= R.location;
+					return R;
+				}
+				commandIndex = R.location-1;
+				R.location = commandIndex;
+				R.length -= R.location;
+				// then expand everything to the right, as command, accept only letters and @
+expandToTheRightAsCommand:
+				loc = NSMaxRange(R);
+				r = [self rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:theAttributedString atIndex:loc];
+				if(r.length)
+				{
+					R = NSUnionRange(R,r);
+				}
+				return R;
+			}
+		}
+		if(R.location>2)
+		{
+			// is it a 7bits accented letter?
+			r = NSMakeRange(R.location-3,5);
+			s = [itsString substringWithRange:r];
+			[iTM2TeXStringController_RE setInputString:s];
+			if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+			{
+				R = r;
+				return R;
+			}
+		}
+expandToTheRightAsLetters:
+		// just add \_, \-, \@ and all accented chars
+		loc = NSMaxRange(R);
+		if(loc>=length)
+		{
+			return R;
+		}
+		if(loc+4<length)
+		{
+			r = NSMakeRange(loc,5);
+			s = [itsString substringWithRange:r];
+			[iTM2TeXStringController_RE setInputString:s];
+			if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+			{
+				R.length += 5;
+				goto expandToTheRightAsLetters;
+			}
+		}
+		if((loc+1<length) &&
+				[itsString isControlAtIndex:loc escaped:&escaped] &&
+						!escaped)
+		{
+			theChar = [itsString characterAtIndex:loc+1];
+			if((theChar=='_')||(theChar=='-')||(theChar=='@'))
+			{
+				R.length += 2;
+				goto expandToTheRightAsLetters;
+			}
+			else if((theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
+			{
+				R.length += 2;
+				loc+=2;
+				if(loc>=length)
+				{
+					return R;
+				}
+			}
+		}
+		theChar = [itsString characterAtIndex:loc];
+		if([ANCS characterIsMember:theChar])
+		{
+			r = [theAttributedString originalDoubleClickAtIndex:loc];
+			R = NSUnionRange(R,r);
+			goto expandToTheRightAsLetters;
+		}
+		return R;
+	}
+	// this is not a letter character
+	if([itsString isControlAtIndex:index escaped:&escaped] && !escaped)
+	{
+		if(index+1<length)
+		{
+			theChar = [itsString characterAtIndex:index+1];
+			if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
+			{
+				R = NSMakeRange(index,2);
+				if(index+2<length)
+				{
+					r = [itsString groupRangeAtIndex:index+2 beginDelimiter:'{' endDelimiter:'}'];
+					if(r.location == index+2)
+					{
+						R = NSUnionRange(R,r);
+					}
+					else
+					{
+						theChar = [itsString characterAtIndex:index+2];
+						if([ANCS characterIsMember:theChar])
+						{
+							r = [theAttributedString originalDoubleClickAtIndex:index+2];
+							R = NSUnionRange(R,r);
+						}
+						else
+						{
+							// not a letter nor a '{', weird
+							return R;
+						}
+					}
+					goto expandToTheLeftAsLetters;
+				}
+			}
+			else if(theChar=='-')
+			{
+				// hyphens are selected without the surrounding letters to allow deletion
+				R = NSMakeRange(index,2);
+				return R;
+			}
+			R = [theAttributedString originalDoubleClickAtIndex:index+1];
+			--R.location;
+			++R.length;
+			return R;// maybe
+		}
+		else
+		{
+			return NSMakeRange(index,1);
+		}
+	}
+	if(index)
+	{
+		if([itsString isControlAtIndex:index-1 escaped:&escaped] && !escaped)
+		{
+			if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
+			{
+				R = NSMakeRange(index-1,2);
+				if(index+1<length)
+				{
+					r = [itsString groupRangeAtIndex:index+1 beginDelimiter:'{' endDelimiter:'}'];
+					if(r.location == index+1)
+					{
+						R = NSUnionRange(R,r);
+						goto expandToTheLeftAsLetters;
+					}
+					theChar = [itsString characterAtIndex:index+1];
+					if([ANCS characterIsMember:theChar])
+					{
+						R = [theAttributedString originalDoubleClickAtIndex:index+1];
+						R.location -= 2;
+						R.length += 2;
+						goto expandToTheLeftAsLetters;
+					}
+					goto expandToTheLeftAsLetters;
+				}
+			}
+			else if(theChar=='-')
+			{
+				// hyphens are selected without the surrounding letters to allow deletion
+				R = NSMakeRange(index-1,2);
+				return R;
+			}
+			--R.location;
+			++R.length;
+			return R;// maybe
+		}
+		if(theChar == '@')
+		{
+			R = NSMakeRange(index,1);
+			goto expandToTheLeftAsLetters;
+		}
+	}
+	if(theChar == '@')
+	{
+		// is it a URL?
+		R = NSMakeRange(index,1);
+		goto expandToTheLeftAsLetters;
+	}
+	if((theChar == '{') || (theChar == '}'))
+	{
+		R = [itsString groupRangeAtIndex:index beginDelimiter:'{' endDelimiter:'}'];
+		if(R.length)
+		{
+			return R;
+		}
+	}
+	if((theChar == '[') || (theChar == ']'))
+	{
+		R = [itsString groupRangeAtIndex:index beginDelimiter:'[' endDelimiter:']'];
+		if(R.length)
+		{
+			return R;
+		}
+	}
+	if((theChar == '(') || (theChar == ')'))
+	{
+		R = [itsString groupRangeAtIndex:index beginDelimiter:'(' endDelimiter:')'];
+		if(R.length)
+		{
+			return R;
+		}
+	}
+	return NSMakeRange(index,1);
+}
+@end
+
 @interface NSString(MY_OWN_PRIVACY)
 - (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
 - (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
@@ -135,13 +505,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	unichar backslash = [NSString backslashCharacter];
-    if(NSLocationInRange(index, NSMakeRange(0, [self length])) && [self characterAtIndex:index] == backslash)
+    if(NSLocationInRange(index, NSMakeRange(0, [self length])) && [self characterAtIndex:index]==backslash)
     {
         if(aFlagPtr)
         {
             unsigned level = 0;
             while(index-->0)
-                if([self characterAtIndex:index] == backslash)
+                if([self characterAtIndex:index]==backslash)
                     ++level;
                 else
                     break;
@@ -171,7 +541,7 @@ To Do List:
         if(contentsEndPtr) *contentsEndPtr = contentsEnd;
         NSRange R = [self rangeOfString:@"%" options:0 range:NSMakeRange(start, contentsEnd-start)];
         BOOL escaped;
-        if(R.length && ((R.location==start) || ![self isControlAtIndex:R.location-1 escaped:&escaped] || escaped))
+        if(R.length && ((R.location==start)||![self isControlAtIndex:R.location-1 escaped:&escaped]||escaped))
             *commentPtr = R.location;
         else
             *commentPtr = NSNotFound;
@@ -242,10 +612,10 @@ To Do List:
     CharacterAtIndexIMP CAI = (CharacterAtIndexIMP) [self methodForSelector:@selector(characterAtIndex:)];
     #define NextCharacter CAI(self, @selector(characterAtIndex:), scanLocation)
     BOOL escaped = YES;
-    if(!scanLocation || ![self isControlAtIndex:scanLocation-1 escaped:&escaped] || escaped)
+    if(!scanLocation||![self isControlAtIndex:scanLocation-1 escaped:&escaped]||escaped)
     {
         unichar uchar = NextCharacter;
-        if(uchar == bgroup)
+        if(uchar==bgroup)
         {
             while (++scanLocation < maxLocation)
             {
@@ -254,25 +624,25 @@ To Do List:
                 else
                 {
                     uchar = NextCharacter;
-                    if(uchar == [NSString backslashCharacter])
+                    if(uchar==[NSString backslashCharacter])
                         escaped = YES;
-                    else if (uchar == bgroup)
+                    else if (uchar==bgroup)
                         ++groupLevel;
-                    else if (uchar == egroup)
+                    else if (uchar==egroup)
                     {
                         --groupLevel;
-                        if (groupLevel == 0)
+                        if (groupLevel==0)
                             return NSMakeRange(index, scanLocation-index + 1);
                     }
                 }
             }
         }
-        else if(uchar == egroup)
+        else if(uchar==egroup)
         {
             while (scanLocation-- > 0)
             {
                 uchar = NextCharacter;
-                if (uchar == egroup)
+                if (uchar==egroup)
                 {
                     if(!scanLocation)
                         return NSMakeRange(NSNotFound, 0);
@@ -289,7 +659,7 @@ To Do List:
                     else
                         ++groupLevel;
                 }
-                else if (uchar == bgroup)
+                else if (uchar==bgroup)
                 {
                     if(!scanLocation)
                         --groupLevel;                        
@@ -305,7 +675,7 @@ To Do List:
                     }
                     else
                         --groupLevel;
-                    if (groupLevel == 0)
+                    if (groupLevel==0)
                         return (scanLocation < index)?
                             NSMakeRange(scanLocation, index-scanLocation + 1):
                                 NSMakeRange(NSNotFound, 0);
@@ -359,7 +729,7 @@ To Do List:
     while(left-->0)
     {
         unichar uchar = PreviousCharacter;
-        if(uchar == egroup)
+        if(uchar==egroup)
         {
             if(left==0)
                 return NSMakeRange(NSNotFound, 0);
@@ -377,11 +747,11 @@ To Do List:
             else
                 ++groupLevel;                        
         }
-        else if (uchar == bgroup)
+        else if (uchar==bgroup)
         {
-            if(!left || ![self isControlAtIndex:left-1 escaped:&escaped] || escaped)
+            if(!left||![self isControlAtIndex:left-1 escaped:&escaped]||escaped)
                 --groupLevel;                        
-            if(groupLevel == 0)
+            if(groupLevel==0)
             {
                 // now expanding to the right
                 groupLevel = 1;
@@ -393,14 +763,14 @@ To Do List:
                     else
                     {
                         uchar = NextCharacter;
-                        if(uchar == [NSString backslashCharacter])
+                        if(uchar==[NSString backslashCharacter])
                             escaped = YES;
-                        else if (uchar == bgroup)
+                        else if (uchar==bgroup)
                             ++groupLevel;
-                        else if (uchar == egroup)
+                        else if (uchar==egroup)
                         {
                             --groupLevel;
-                            if (groupLevel == 0)
+                            if (groupLevel==0)
                             {
                                 if(right>=max)
                                     return NSMakeRange(left, right-left+1);
@@ -415,66 +785,6 @@ To Do List:
         }
     }
     return NSMakeRange(NSNotFound, 0);
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareDoubleClick:atIndex:
-+ (NSRange)TeXAwareDoubleClick:(NSString *)string atIndex:(unsigned)index;
-/*"Description forthcoming. Extends the double click at index...
-This takes TeX commands into account, and \- hyphenation two
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 1.3:03/10/2002
-To Do List:implement some kind of balance range for range
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSRange R = [string doubleClickAtIndex:index];
-//NSLog(@"[super doubleClickAtIndex:%i]:%@", index, NSStringFromRange(R));
-    BOOL escaped;
-    if(R.location > 0)
-    {
-        if([string isControlAtIndex:R.location-1 escaped:&escaped])
-        {
-            if(!escaped)
-            {
-                --R.location, ++R.length;
-//NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
-                return R;
-            }
-        }
-        else
-        {
-        }
-    }
-    // expanding the range to the right
-    unsigned int top = [string length];
-    unsigned int loc = NSMaxRange(R);
-    while((loc+1<top) &&
-		  [string isControlAtIndex:loc escaped:&escaped] &&
-		  !escaped &&
-		  ([string characterAtIndex:loc+1] == '-'))
-    {
-        R.length += 2;
-        loc+=2;
-        if(loc<top)
-        {
-            NSRange r = [string doubleClickAtIndex:loc];
-            if(r.length)
-            {
-                R.length += r.length;
-                loc+=r.length;
-            }
-            else
-                break;
-        }
-    }
-    while((R.location>1)
-		&& ([string characterAtIndex:R.location-1] == '-')
-			&& [string isControlAtIndex:R.location-2 escaped:&escaped]
-				&& !escaped)
-    {
-        R.location -= 2;
-        R.length += 2;
-    }
-    return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByStrippingTeXTagsInString:
 + (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
@@ -525,7 +835,7 @@ To Do List:
 					NSRange R = NSMakeRange(0, 0);
 					iTM2LiteScanner * scanner = [NSScanner scannerWithString:component];
 					if(([scanner scanString:@"begin" intoString:nil]
-								|| [scanner scanString:@"end" intoString:nil])// latex aware
+								||[scanner scanString:@"end" intoString:nil])// latex aware
 						&& [scanner scanString:[NSString bgroupString] intoString:nil])
 					{
 						[scanner scanUpToString:[NSString egroupString] intoString:nil];
@@ -802,7 +1112,9 @@ nextBeforeWord:
 /*"Description forthcoming."*/
 @interface iTM2TeXAttributedString_0:NSAttributedString
 @end
+
 @implementation iTM2TeXAttributedString_0
+static ICURegEx * iTM2TeXAttributedString_RE = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
@@ -815,13 +1127,80 @@ To Do List:implement some kind of balance range for range
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2TeXAttributedString_0 poseAsClass:[NSAttributedString class]];
+	if(!iTM2TeXAttributedString_RE)
+	{
+		NSError * localError = nil;
+		iTM2TeXAttributedString_RE = [[ICURegEx alloc] initWithSearchPattern:@"[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
+		if(!iTM2TeXAttributedString_RE)
+		{
+			iTM2_LOG(@"RE unavailable");
+			if(localError)
+			{
+				iTM2_LOG(@"localError:%@",localError);
+			}
+			else
+			{
+				iTM2_LOG(@"localError unavailable");
+			}
+		}
+	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= originalDoubleClickAtIndex:
+- (NSRange)originalDoubleClickAtIndex:(unsigned)index;
+/*"Description forthcoming.
+Version history:jlaurens AT users.sourceforge.net
+- 2.0:02/15/2006
+To Do List:implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [super doubleClickAtIndex:index];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
 - (NSRange)doubleClickAtIndex:(unsigned)index;
-/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
+/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
+Version history:jlaurens AT users.sourceforge.net
+- 2.0:02/15/2006
+To Do List:implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSRange R = [iTM2TeXStringController TeXAwareWordRangeInAttributedString:self atIndex:index];
+//iTM2_END;
+    return R;
+#if 0
+		NSString * pattern = @".\\{.\\}";
+		NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pattern];
+		r = NSMakeRange(R.location-4,4);
+		s = [S substringWithRange:r];
+		if([predicate evaluateWithObject:s])
+		{
+			theChar = [S characterAtIndex:R.location-4];
+			if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))// hyphen and latex accents
+			{
+				R.location -= 2;
+				R.length += 2;
+				if(R.location)
+				{
+					theChar = [S characterAtIndex:R.location-1];
+					if([ANCS characterIsMember:theChar])
+					{
+						NSRange r = [super doubleClickAtIndex:R.location-1];
+						R = NSUnionRange(R,r);
+						goto expandToTheLeft;
+					}
+				}
+			}
+		}
+#endif
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickStartingAtIndex:
+- (NSRange)doubleClickStartingAtIndex:(unsigned)index;
+/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
 Version history:jlaurens AT users.sourceforge.net
 - 2.0:02/15/2006
 To Do List:implement some kind of balance range for range
@@ -831,15 +1210,17 @@ To Do List:implement some kind of balance range for range
     NSRange R = [super doubleClickAtIndex:index];
 //NSLog(@"[super doubleClickAtIndex:%i]:%@", index, NSStringFromRange(R));
     NSString * S = [self string];
+    NSString * s;
     BOOL escaped;
 	unichar theChar;
 	NSRange r;
     unsigned int length = [S length];
+    unsigned int loc;
 expandToTheLeft:
     if(R.location > 0)
     {
 		theChar = [S characterAtIndex:R.location];
-		if(theChar == '_')
+		if(theChar=='_')
 		{
 			if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
 			{
@@ -849,7 +1230,7 @@ expandToTheLeft:
 				if(R.location)
 				{
 					theChar = [S characterAtIndex:R.location-1];
-					if([[NSCharacterSet alphanumericCharacterSet] characterIsMember:theChar])
+					if([ANCS characterIsMember:theChar])
 					{
 						r = [super doubleClickAtIndex:R.location-1];
 						R = NSUnionRange(R,r);
@@ -874,11 +1255,23 @@ expandToTheLeft:
 				return R;
 			}
 		}
-		else if(theChar == '^')
+		else if(theChar=='^')
 		{
 			if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
 			{
 				--R.location, ++R.length;
+				// is it a \^{}
+				loc = NSMaxRange(R);
+				if(loc<length)
+				{
+					theChar = [S characterAtIndex:loc];
+					if([ANCS characterIsMember:theChar])
+					{
+						r = [super doubleClickAtIndex:loc];
+						R = NSUnionRange(R,r);
+						goto expandToTheRight;
+					}
+				}
 			}
 			else if(R.location<index)
 			{
@@ -903,30 +1296,82 @@ expandToTheLeft:
 //NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
 			// expand to the righ
 		}
-		else if(R.location > 1)
+		else if([ANCS characterIsMember:theChar])
 		{
-			if([S isControlAtIndex:R.location-2 escaped:&escaped] && !escaped)
+			if(R.location > 1)
 			{
-				theChar = [S characterAtIndex:R.location-1];
-				if(theChar == '-')
+				if([S isControlAtIndex:R.location-2 escaped:&escaped] && !escaped)
 				{
-					R.location -= 2;
-					R.length += 2;
-					if(R.location)
+					theChar = [S characterAtIndex:R.location-1];
+					if((theChar=='-')||(theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))// hyphen and latex accents
 					{
-						theChar = [S characterAtIndex:R.location-1];
-						if([[NSCharacterSet alphanumericCharacterSet] characterIsMember:theChar])
+						R.location -= 2;
+						R.length += 2;
+						if(R.location)
 						{
-							NSRange r = [super doubleClickAtIndex:R.location-1];
-							R = NSUnionRange(R,r);
-							goto expandToTheLeft;
+							theChar = [S characterAtIndex:R.location-1];
+							if([ANCS characterIsMember:theChar])
+							{
+								NSRange r = [super doubleClickAtIndex:R.location-1];
+								R = NSUnionRange(R,r);
+								goto expandToTheLeft;
+							}
 						}
+					}
+				}
+				if(R.location > 4)
+				{
+					if([S isControlAtIndex:R.location-5 escaped:&escaped] && !escaped)
+					{
+#if 0
+						NSString * pattern = @".\\{.\\}";
+						NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pattern];
+						r = NSMakeRange(R.location-4,4);
+						s = [S substringWithRange:r];
+						if([predicate evaluateWithObject:s])
+						{
+							theChar = [S characterAtIndex:R.location-4];
+							if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))// hyphen and latex accents
+							{
+								R.location -= 2;
+								R.length += 2;
+								if(R.location)
+								{
+									theChar = [S characterAtIndex:R.location-1];
+									if([ANCS characterIsMember:theChar])
+									{
+										NSRange r = [super doubleClickAtIndex:R.location-1];
+										R = NSUnionRange(R,r);
+										goto expandToTheLeft;
+									}
+								}
+							}
+						}
+#else
+						r = NSMakeRange(R.location-4,4);
+						s = [S substringWithRange:r];
+						[iTM2TeXStringController_RE setInputString:s];
+						if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+						{
+							R.location -= 5;
+							R.length += 5;
+							if(R.location)
+							{
+								theChar = [S characterAtIndex:R.location-1];
+								if([[NSCharacterSet letterCharacterSet] characterIsMember:theChar])
+								{
+									r = [super doubleClickAtIndex:R.location-1];
+									R = NSUnionRange(R,r);
+									goto expandToTheLeft;
+								}
+							}
+						}
+#endif
 					}
 				}
 			}
 		}
-    }
-    unsigned int loc;
+	}
 expandToTheRight:
 	loc = NSMaxRange(R);
     if((loc+1<length) &&
@@ -934,18 +1379,260 @@ expandToTheRight:
 					!escaped)
 	{
 		theChar = [S characterAtIndex:loc+1];
-		if((theChar == '_') || (theChar == '-'))
+		if((theChar=='_')||(theChar=='-'))
 		{
 			R.length += 2;
 			loc+=2;
 			if(loc<length)
 			{
 				theChar = [S characterAtIndex:loc];
-				if([[NSCharacterSet alphanumericCharacterSet] characterIsMember:theChar])
+				if([[NSCharacterSet letterCharacterSet] characterIsMember:theChar])
 				{
-					NSRange r = [super doubleClickAtIndex:loc];
+					r = [super doubleClickAtIndex:loc];
 					R = NSUnionRange(R,r);
 					goto expandToTheRight;
+				}
+			}
+		}
+		if(loc+4<length)
+		{
+			r = NSMakeRange(loc+1,4);
+			s = [S substringWithRange:r];
+			[iTM2TeXStringController_RE setInputString:s];
+			if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+			{
+				R = NSUnionRange(R,r);
+				loc = NSMaxRange(R);
+				if(loc<length)
+				{
+					theChar = [S characterAtIndex:loc];
+					if([[NSCharacterSet letterCharacterSet] characterIsMember:theChar])
+					{
+						r = [super doubleClickAtIndex:loc];
+						R = NSUnionRange(R,r);
+						goto expandToTheRight;
+					}
+				}
+			}
+		}
+	}
+//iTM2_END;
+    return R;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickEndingAtIndex:
+- (NSRange)doubleClickEndingAtIndex:(unsigned)index;
+/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
+Version history:jlaurens AT users.sourceforge.net
+- 2.0:02/15/2006
+To Do List:implement some kind of balance range for range
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSRange R = [super doubleClickAtIndex:index];
+//NSLog(@"[super doubleClickAtIndex:%i]:%@", index, NSStringFromRange(R));
+    NSString * S = [self string];
+    NSString * s;
+    BOOL escaped;
+	unichar theChar;
+	NSRange r;
+    unsigned int length = [S length];
+    unsigned int loc;
+expandToTheLeft:
+    if(R.location > 0)
+    {
+		theChar = [S characterAtIndex:R.location];
+		if(theChar=='_')
+		{
+			if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+			{
+				--R.location, ++R.length;
+//NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
+				// expand to the left
+				if(R.location)
+				{
+					theChar = [S characterAtIndex:R.location-1];
+					if([ANCS characterIsMember:theChar])
+					{
+						r = [super doubleClickAtIndex:R.location-1];
+						R = NSUnionRange(R,r);
+						goto expandToTheLeft;
+					}
+				}
+			}
+			else if(R.location<index)
+			{
+				++R.location;
+				--R.length;
+			}
+			else if(R.length>1)
+			{
+				return R;
+			}
+			else if(R.location+1<length)
+			{
+				// something like "_{...}"
+				r = [self doubleClickAtIndex:R.location+1];
+				R = NSUnionRange(R,r);
+				return R;
+			}
+		}
+		else if(theChar=='^')
+		{
+			if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+			{
+				--R.location, ++R.length;
+				// is it a \^{}
+				loc = NSMaxRange(R);
+				if(loc<length)
+				{
+					theChar = [S characterAtIndex:loc];
+					if([ANCS characterIsMember:theChar])
+					{
+						r = [super doubleClickAtIndex:loc];
+						R = NSUnionRange(R,r);
+						goto expandToTheRight;
+					}
+				}
+			}
+			else if(R.location<index)
+			{
+				++R.location;
+				--R.length;
+			}
+			else if(R.length>1)
+			{
+				return R;
+			}
+			else if(R.location+1<length)
+			{
+				// something like "_{...}"
+				r = [self doubleClickAtIndex:R.location+1];
+				R = NSUnionRange(R,r);
+				return R;
+			}
+		}
+        else if([S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+		{
+			--R.location, ++R.length;
+//NSLog(@"!escaped [S substringWithRange:%@]:%@", NSStringFromRange(R), [S substringWithRange:R]);
+			// expand to the righ
+		}
+		else if([ANCS characterIsMember:theChar])
+		{
+			if(R.location > 1)
+			{
+				if([S isControlAtIndex:R.location-2 escaped:&escaped] && !escaped)
+				{
+					theChar = [S characterAtIndex:R.location-1];
+					if((theChar=='-')||(theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))// hyphen and latex accents
+					{
+						R.location -= 2;
+						R.length += 2;
+						if(R.location)
+						{
+							theChar = [S characterAtIndex:R.location-1];
+							if([ANCS characterIsMember:theChar])
+							{
+								NSRange r = [super doubleClickAtIndex:R.location-1];
+								R = NSUnionRange(R,r);
+								goto expandToTheLeft;
+							}
+						}
+					}
+				}
+				if(R.location > 4)
+				{
+					if([S isControlAtIndex:R.location-5 escaped:&escaped] && !escaped)
+					{
+#if 0
+						NSString * pattern = @".\\{.\\}";
+						NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pattern];
+						r = NSMakeRange(R.location-4,4);
+						s = [S substringWithRange:r];
+						if([predicate evaluateWithObject:s])
+						{
+							theChar = [S characterAtIndex:R.location-4];
+							if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))// hyphen and latex accents
+							{
+								R.location -= 2;
+								R.length += 2;
+								if(R.location)
+								{
+									theChar = [S characterAtIndex:R.location-1];
+									if([ANCS characterIsMember:theChar])
+									{
+										NSRange r = [super doubleClickAtIndex:R.location-1];
+										R = NSUnionRange(R,r);
+										goto expandToTheLeft;
+									}
+								}
+							}
+						}
+#else
+						r = NSMakeRange(R.location-4,4);
+						s = [S substringWithRange:r];
+						[iTM2TeXStringController_RE setInputString:s];
+						if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+						{
+							R.location -= 5;
+							R.length += 5;
+							if(R.location)
+							{
+								theChar = [S characterAtIndex:R.location-1];
+								if([[NSCharacterSet letterCharacterSet] characterIsMember:theChar])
+								{
+									r = [super doubleClickAtIndex:R.location-1];
+									R = NSUnionRange(R,r);
+									goto expandToTheLeft;
+								}
+							}
+						}
+#endif
+					}
+				}
+			}
+		}
+	}
+expandToTheRight:
+	loc = NSMaxRange(R);
+    if((loc+1<length) &&
+            [S isControlAtIndex:loc escaped:&escaped] &&
+					!escaped)
+	{
+		theChar = [S characterAtIndex:loc+1];
+		if((theChar=='_')||(theChar=='-'))
+		{
+			R.length += 2;
+			loc+=2;
+			if(loc<length)
+			{
+				theChar = [S characterAtIndex:loc];
+				if([[NSCharacterSet letterCharacterSet] characterIsMember:theChar])
+				{
+					r = [super doubleClickAtIndex:loc];
+					R = NSUnionRange(R,r);
+					goto expandToTheRight;
+				}
+			}
+		}
+		if(loc+4<length)
+		{
+			r = NSMakeRange(loc+1,4);
+			s = [S substringWithRange:r];
+			[iTM2TeXStringController_RE setInputString:s];
+			if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+			{
+				R = NSUnionRange(R,r);
+				loc = NSMaxRange(R);
+				if(loc<length)
+				{
+					theChar = [S characterAtIndex:loc];
+					if([[NSCharacterSet letterCharacterSet] characterIsMember:theChar])
+					{
+						r = [super doubleClickAtIndex:loc];
+						R = NSUnionRange(R,r);
+						goto expandToTheRight;
+					}
 				}
 			}
 		}

@@ -720,7 +720,7 @@ To Do List:
                 [[sender menu] addItem:[[builtInSetMenuItem copy] autorelease]];
                 id lastItem = [sender lastItem];
                 [lastItem setAction:@selector(noop:)];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
@@ -739,7 +739,7 @@ To Do List:
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _BuiltInSymbolsSets, @"S", nil]];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
                     initWithString: [lastItem title]
@@ -757,7 +757,7 @@ To Do List:
                 [[sender menu] addItem:[[networkSetMenuItem copy] autorelease]];
                 id lastItem = [sender lastItem];
                 [lastItem setAction:@selector(noop:)];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
@@ -776,7 +776,7 @@ To Do List:
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _NetworkSymbolsSets, @"S", nil]];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
                     initWithString: [lastItem title]
@@ -794,7 +794,7 @@ To Do List:
                 [[sender menu] addItem:[[localSetMenuItem copy] autorelease]];
                 id lastItem = [sender lastItem];
                 [lastItem setAction:@selector(noop:)];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
@@ -813,7 +813,7 @@ To Do List:
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _LocalSymbolsSets, @"S", nil]];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
                     initWithString: [lastItem title]
@@ -831,7 +831,7 @@ To Do List:
                 [[sender menu] addItem:[[customSetMenuItem copy] autorelease]];
                 id lastItem = [sender lastItem];
                 [lastItem setAction:@selector(noop:)];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
@@ -847,7 +847,7 @@ To Do List:
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _CustomSymbolsSets, @"S", nil]];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
                 [[sender menu] addItem:lastItem];
                 if(([key caseInsensitiveCompare:iTM2TextDefaultVariant] == NSOrderedSame)
@@ -862,7 +862,7 @@ To Do List:
                 [[sender menu] addItem:[[recycleSetMenuItem copy] autorelease]];
                 id lastItem = [sender lastItem];
                 [lastItem setAction:@selector(noop:)];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
@@ -881,7 +881,7 @@ To Do List:
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _RecycleSymbolsSets, @"S", nil]];
-                [lastItem setTarget:self];
+                [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
                 [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
                     initWithString: [lastItem title]
@@ -894,7 +894,7 @@ To Do List:
             [[sender menu] addItem:[[allSymbolsMenuItem copy] autorelease]];
             id lastItem = [sender lastItem];
             [lastItem setAction:@selector(chooseSet:)];
-            [lastItem setTarget:self];
+            [lastItem setTarget:self];// lastItem item belongs to the receivers window
             [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:@"K", @"K", _AllSymbolsSets, @"S", nil]];
             [lastItem setState:NSOffState];

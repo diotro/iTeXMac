@@ -601,13 +601,13 @@ To Do List:
             [[sender lastItem] setRepresentedObject:engineMode];
             NSMenuItem * MI = [removeScriptMenu addItemWithTitle:title action:@selector(removeScript:) keyEquivalent:@""];
             [MI setRepresentedObject:engineMode];
-            [MI setTarget:self];
+            [MI setTarget:self];// MI belongs to the receiver window
         }
         if([removeScriptMenu numberOfItems])
             [[sender menu] addItem:[NSMenuItem separatorItem]];
         [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"New shell script", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
         [[sender lastItem] setAction:@selector(newScript:)];
-        [[sender lastItem] setTarget:self];
+        [[sender lastItem] setTarget:self];// sender belongs to the receiver window
         if([removeScriptMenu numberOfItems])
         {
             [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Remove shell script", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];

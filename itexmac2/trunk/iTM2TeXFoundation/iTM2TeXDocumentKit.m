@@ -264,12 +264,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * S = [[self textStorage] string];
-	NSRange R = [NSString TeXAwareDoubleClick:S atIndex:charIndex];
+	NSTextStorage * TS = [self textStorage];
+	NSRange R = [iTM2TeXStringController TeXAwareWordRangeInAttributedString:TS atIndex:charIndex];
 	if(R.length<2)
 		return;
 	++R.location;
 	--R.length;
+	NSString * S = [TS string];
 	NSString * command = [S substringWithRange:R];
 	if([command isEqualToString:@"input"])
 	{
@@ -525,10 +526,34 @@ To Do List: Nothing at first glance.
 //iTM2_START;
     BOOL escaped;
     NSRange R = [self selectedRange];
-    if(!R.location || ![[self string] isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
-        [self insertMacro:@"$@@@(SEL)@@@$"];
+	NSString * myString = [self string];
+    if(!R.location || ![myString isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
+	{
+		// if there is nothing selected, thing might be complicated
+		NSRange selectedRange = [self selectedRange];
+		if(!selectedRange.length)
+		{
+			// is there a '$' near the insertion point
+			if(selectedRange.location)
+			{
+				if([myString characterAtIndex:selectedRange.location-1] == '$')
+				{
+					//select to the next $
+					NSRange range = selectedRange;
+					range.length = [myString length] - range.location;
+					range = [myString rangeOfString:@"$" options:NULL range:range];
+					--selectedRange.location;
+					selectedRange.length = range.location+1-selectedRange.location;
+					[self setElectedRange:selectedRange];
+				}
+			}
+		}
+        [self insertMacro:@"$@@@(SELECTION)@@@$"];
+	}
     else
+	{
         [self insertText:@"$"];
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLeftCurlyBracket:
@@ -1458,7 +1483,7 @@ To Do List: implement some kind of balance range for range
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
-- (NSRange)doubleClickAtIndex:(unsigned)index;
+- (NSRange)XdoubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002

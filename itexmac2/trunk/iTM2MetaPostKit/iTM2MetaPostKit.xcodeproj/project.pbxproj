@@ -53,6 +53,7 @@
 		DCD8A896090FD8F1000831D9 /* iTM2LowLarger.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCD8A7E2090FD8F1000831D9 /* iTM2LowLarger.tif */; };
 		DCD8A897090FD8F1000831D9 /* iTM2LowSmaller.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCD8A7E3090FD8F1000831D9 /* iTM2LowSmaller.tif */; };
 		DCDD0BAC0905AE4F00C5B1E9 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDD0BAB0905AE4F00C5B1E9 /* Quartz.framework */; };
+		DCE52F4E0C0F3C6E00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F4D0C0F3C6E00F2D5B9 /* libicucore.dylib */; };
 		DCFE70EC090E77A400A36206 /* iTM2_Engine_mps2pdf in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf */; };
 		DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
 /* End PBXBuildFile section */
@@ -158,6 +159,7 @@
 		DCD8A7E2090FD8F1000831D9 /* iTM2LowLarger.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LowLarger.tif; sourceTree = "<group>"; };
 		DCD8A7E3090FD8F1000831D9 /* iTM2LowSmaller.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LowSmaller.tif; sourceTree = "<group>"; };
 		DCDD0BAB0905AE4F00C5B1E9 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		DCE52F4D0C0F3C6E00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_mps2pdf; sourceTree = "<group>"; };
 		DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -175,6 +177,7 @@
 				DCC3EEF108FE726B00A74157 /* iTM2PDFKit.framework in Frameworks */,
 				DCDD0BAC0905AE4F00C5B1E9 /* Quartz.framework in Frameworks */,
 				DC70F2B80BFC5CB7006C6A76 /* Lua.framework in Frameworks */,
+				DCE52F4E0C0F3C6E00F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +222,7 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52F4D0C0F3C6E00F2D5B9 /* libicucore.dylib */,
 				DC70F2AF0BFC5CB7006C6A76 /* Lua.framework */,
 				DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */,
 				DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */,

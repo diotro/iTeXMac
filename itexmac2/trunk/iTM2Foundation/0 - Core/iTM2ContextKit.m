@@ -689,6 +689,56 @@ To Do List:
 //iTM2_START;
     return [[[self implementation] metaValueForKey:@"iTM2ContextRegistrationNeeded"] boolValue];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStateForKey:
+- (unsigned int)contextStateForKey:(NSString *)aKey;  
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([self contextBoolForKey:aKey domain:iTM2ContextPrivateMask])
+	{
+		return NSOnState;
+	}
+	if([self contextValueForKey:aKey domain:iTM2ContextPrivateMask])
+	{
+		return NSOffState;
+	}
+	if([self contextBoolForKey:aKey domain:iTM2ContextAllDomainsMask])
+	{
+		return NSMixedState;
+	}
+	return NSOffState;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContextBoolForKey:
+- (void)toggleContextBoolForKey:(NSString *)aKey;  
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6: 03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([self contextBoolForKey:aKey domain:iTM2ContextPrivateMask])
+	{
+		if([self contextBoolForKey:aKey domain:iTM2ContextAllDomainsMask&~iTM2ContextPrivateMask])
+		{
+			[self takeContextBool:NO forKey:aKey domain:iTM2ContextPrivateMask];
+			return;
+		}
+		[self takeContextValue:nil forKey:aKey domain:iTM2ContextPrivateMask];
+		return;
+	}
+	if([self contextBoolForKey:aKey domain:iTM2ContextAllDomainsMask&~iTM2ContextPrivateMask])
+	{
+		[self takeContextValue:nil forKey:aKey domain:iTM2ContextPrivateMask];
+		return;
+	}
+	[self takeContextBool:YES forKey:aKey domain:iTM2ContextPrivateMask];
+	return;
+}
 @end
 
 @implementation NSWindowController(iTM2ContextKit)

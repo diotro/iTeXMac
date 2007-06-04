@@ -563,7 +563,7 @@ To Do List:
 				id item = [sender lastItem];
                 [item setRepresentedObject:[[fileKey copy] autorelease]];
                 [item setAction:@selector(takeMainFileFromRepresentedObject:)];
-                [item setTarget:self];
+                [item setTarget:self];// sender belongs to the receiver's window
             }
         }
         ++row;
@@ -579,7 +579,7 @@ To Do List:
 		[frontDocumentMenuItem autorelease];
 		id item = [sender lastItem];
 		[item setAction:@selector(takeMainFileFromRepresentedObject:)];
-		[item setTarget:self];
+		[item setTarget:self];// sender belongs to the receiver's window
 	}
 	fileKey = [project realMasterFileKey];
 	int idx = [sender indexOfItemWithRepresentedObject:fileKey];
@@ -857,7 +857,7 @@ To Do List:
 		{
 			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
 						action:takeStringEncodingFromDefaults keyEquivalent:[NSString string]] autorelease];
-			[MI setTarget:self];
+			[MI setTarget:self];// MI belongs to the receiver's window
 			[MI setEnabled:YES];
 			[M insertItem:[NSMenuItem separatorItem] atIndex:0];
 			[M insertItem:MI atIndex:0];
@@ -918,7 +918,7 @@ selectOneItem:
 					[MI setAttributedTitle:AS];
 				}
 				[MI setRepresentedObject:@"Supplemental encoding"];
-				[MI setTarget:self];
+				[MI setTarget:self];// MI belongs to the receiver's window
 				[MI setEnabled:YES];
 				// where should I place this menu item?
 				// this item will appear as a separated item in the list
@@ -1409,7 +1409,7 @@ To Do List:
 		{
 			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
 						action:takeEOLFromDefaults keyEquivalent:[NSString string]] autorelease];
-			[MI setTarget:self];
+			[MI setTarget:self];// MI belongs to the receiver's window
 			[MI setEnabled:YES];
 			[M insertItem:[NSMenuItem separatorItem] atIndex:0];
 			[M insertItem:MI atIndex:0];
@@ -1506,7 +1506,7 @@ selectOneItem:
 							[MI setAttributedTitle:AS];
 						}
 						[MI setRepresentedObject:@"Supplemental EOL"];
-						[MI setTarget:self];
+						[MI setTarget:self];// MI belongs to the receiver's window
 						[MI setEnabled:YES];
 						// where should I place this menu item?
 						// this item will appear as a separated item in the list

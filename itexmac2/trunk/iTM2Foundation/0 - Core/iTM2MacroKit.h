@@ -132,7 +132,7 @@
 /*!
 	@method		rangeOfPlaceholderAtIndex:getType:ignoreComment:
 	@abstract	Abstract forthcoming.
-	@discussion	???Removes everything inside "@@@(SEL:...)@@@", such that there are only "@@@(...)@@@" remaining.
+	@discussion	???Removes everything inside "@@@(SEL:...)@@@", such that there are only "@@@(...)@@@" remaining. No
 	@param		An index.
 	@param		A type ref.
 	@result		A range.

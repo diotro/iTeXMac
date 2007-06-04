@@ -31,7 +31,7 @@ enum
 	iTM2ContextNoDomainMask = 0,// Nothing
 	iTM2ContextNoContextMask = 1 << 1,// private to the object
 	iTM2ContextStandardLocalMask = 1 << 2,// private to the object
-	iTM2ContextStandardProjectMask = 1 << 3,// share with the default
+	iTM2ContextStandardProjectMask = 1 << 3,// share with the project
 	iTM2ContextExtendedProjectMask = 1 << 4,// share the extension with the project
 	iTM2ContextExtendedDefaultsMask = 1 << 5,// share the extension with the default
 	iTM2ContextStandardDefaultsMask = 1 << 6,// share with the default
@@ -186,7 +186,7 @@ enum
 - (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
-    @method		contextFontForKey:domain:
+    @method		contextFontForKey:domain:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -195,7 +195,7 @@ enum
 - (NSFont *)contextFontForKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
-    @method		takeContextFont:forKey:
+    @method		takeContextFont:forKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		value
@@ -205,7 +205,7 @@ enum
 - (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey domain:(unsigned int)mask;
 
 /*! 
-    @method		contextColorForKey:
+    @method		contextColorForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -214,7 +214,7 @@ enum
 - (NSColor *)contextColorForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
-    @method		takeContextColor:forKey:
+    @method		takeContextColor:forKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		value
@@ -224,7 +224,7 @@ enum
 - (void)takeContextColor:(NSColor *)value forKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
-    @method		contextStringForKey:
+    @method		contextStringForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -233,7 +233,7 @@ enum
 - (NSString *)contextStringForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
-    @method		contextArrayForKey:
+    @method		contextArrayForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -251,7 +251,7 @@ enum
 - (NSDictionary *)contextDictionaryForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
-    @method		contextDataForKey:
+    @method		contextDataForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -260,7 +260,7 @@ enum
 - (NSData *)contextDataForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
-    @method		contextStringArrayForKey
+    @method		contextStringArrayForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -269,7 +269,7 @@ enum
 - (NSArray *)contextStringArrayForKey:(NSString *)key domain:(unsigned int)mask;
 
 /*! 
-    @method		contextIntegerForKey:
+    @method		contextIntegerForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -278,7 +278,7 @@ enum
 - (int)contextIntegerForKey:(NSString *)key domain:(unsigned int)mask; 
 
 /*! 
-    @method		contextFloatForKey:
+    @method		contextFloatForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -287,7 +287,7 @@ enum
 - (float)contextFloatForKey:(NSString *)key domain:(unsigned int)mask; 
 
 /*! 
-    @method		contextBoolForKey:
+    @method		contextBoolForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
@@ -324,6 +324,24 @@ enum
     @result		None
 */
 - (void)takeContextBool:(BOOL)value forKey:(NSString *)key domain:(unsigned int)mask;
+
+/*! 
+    @method		contextStateForKey:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		State
+*/
+- (unsigned int)contextStateForKey:(NSString *)aKey;  
+
+/*! 
+    @method		toggleContextBoolForKey:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		State
+*/
+- (void)toggleContextBoolForKey:(NSString *)aKey;  
 
 /*! 
     @method     saveContext:

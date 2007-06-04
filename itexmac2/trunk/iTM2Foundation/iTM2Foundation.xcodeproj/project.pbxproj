@@ -51,6 +51,17 @@
 			name = "Install iTM2Foundation";
 			productName = "Install iTM2Foundation";
 		};
+		DCE52B980C0F302F00F2D5B9 /* ICU */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DCE52B990C0F304D00F2D5B9 /* Build configuration list for PBXAggregateTarget "ICU" */;
+			buildPhases = (
+				DCE52B970C0F302F00F2D5B9 /* Download and prepare */,
+			);
+			dependencies = (
+			);
+			name = ICU;
+			productName = ICU;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -235,6 +246,9 @@
 		DCDC064209E690310038845F /* iTM2TextStyleInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063309E690310038845F /* iTM2TextStyleInspector.nib */; };
 		DCDC064309E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063509E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib */; };
 		DCDC068009E696450038845F /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCDC067E09E696440038845F /* Styles.resources.tgz */; };
+		DCE52B3B0C0F2F2D00F2D5B9 /* ICURegEx.h in Headers */ = {isa = PBXBuildFile; fileRef = DCE52B390C0F2F2C00F2D5B9 /* ICURegEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DCE52B3C0C0F2F2D00F2D5B9 /* ICURegEx.mm in Sources */ = {isa = PBXBuildFile; fileRef = DCE52B3A0C0F2F2D00F2D5B9 /* ICURegEx.mm */; };
+		DCE52B520C0F2F9900F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
 		DCE5C5990AC824F80054C760 /* textwrangler in Copy Command */ = {isa = PBXBuildFile; fileRef = DCE5C5970AC824CB0054C760 /* textwrangler */; };
 		DCF61C370854654B003F5F79 /* iTeXMac2.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B520854654B003F5F79 /* iTeXMac2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61C380854654B003F5F79 /* iTeXMac2.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B530854654B003F5F79 /* iTeXMac2.m */; };
@@ -549,6 +563,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DCD7D69C0A43992D0096B1A9;
 			remoteInfo = "Alpha X";
+		};
+		DCE52B9E0C0F307500F2D5B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCE52B980C0F302F00F2D5B9;
+			remoteInfo = ICU;
 		};
 		DCE5C5740AC823940054C760 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -959,6 +980,9 @@
 		DCDC063D09E690310038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TextSyntaxParserAttributesInspector.nib; sourceTree = "<group>"; };
 		DCDC067F09E696440038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
 		DCDC068109E696520038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
+		DCE52B390C0F2F2C00F2D5B9 /* ICURegEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICURegEx.h; path = ../ICU/ICURegEx.h; sourceTree = SOURCE_ROOT; };
+		DCE52B3A0C0F2F2D00F2D5B9 /* ICURegEx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ICURegEx.mm; path = ../ICU/ICURegEx.mm; sourceTree = SOURCE_ROOT; };
+		DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextWrangler.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCE5C5880AC823950054C760 /* TextWrangler-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.xml; path = "TextWrangler-Info.plist"; sourceTree = "<group>"; };
 		DCE5C5970AC824CB0054C760 /* textwrangler */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textwrangler; sourceTree = "<group>"; };
@@ -1130,6 +1154,7 @@
 				DC7050480B60389B009FD188 /* Message.framework in Frameworks */,
 				DC6F8ABD0BA3FF6600A75787 /* ExceptionHandling.framework in Frameworks */,
 				DC0F14B60BFB7D1E00108852 /* Lua.framework in Frameworks */,
+				DCE52B520C0F2F9900F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1260,6 +1285,7 @@
 				DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */,
 				DC0F14AD0BFB7D1E00108852 /* Lua.framework */,
 				DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */,
+				DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1522,6 +1548,8 @@
 				DC78632B08CC293700D4AA33 /* iTM2CursorKit.m */,
 				DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */,
 				DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */,
+				DCE52B390C0F2F2C00F2D5B9 /* ICURegEx.h */,
+				DCE52B3A0C0F2F2D00F2D5B9 /* ICURegEx.mm */,
 			);
 			path = "0 - Core";
 			sourceTree = "<group>";
@@ -1831,6 +1859,7 @@
 				DC5B9C430BFFAD4800CE4DB2 /* iTM2MacroKit_String.h in Headers */,
 				DC1CF8F80C01CBA100D757D0 /* iTM2MacroKit_Prefs.h in Headers */,
 				DC8399430C02D9A900511679 /* iTM2MacroKit_Action.h in Headers */,
+				DCE52B3B0C0F2F2D00F2D5B9 /* ICURegEx.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1858,6 +1887,7 @@
 			);
 			dependencies = (
 				DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */,
+				DCE52B9F0C0F307500F2D5B9 /* PBXTargetDependency */,
 				DC6BC653094903B2008F8188 /* PBXTargetDependency */,
 				DC0F126F0BFB755F00108852 /* PBXTargetDependency */,
 			);
@@ -2173,6 +2203,7 @@
 			projectDirPath = "";
 			targets = (
 				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
+				DCE52B980C0F302F00F2D5B9 /* ICU */,
 				DC6BC63C09490315008F8188 /* Prepare OgreKit */,
 				DC0F125B0BFB74CA00108852 /* Prepare Lua */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
@@ -2541,6 +2572,20 @@
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/PrepareBuildNumber.pl;
 		};
+		DCE52B970C0F302F00F2D5B9 /* Download and prepare */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Download and prepare";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\nif ! [ -d \"${SRCROOT}/../ICU/icu\" ]\nthen\n\"${SRCROOT}/../Scripts/downloadICU.command\"\n\"${SRCROOT}/../Scripts/prepareICU.command\"\nfi\nexit 0\n";
+		};
 		DCF61CF00854662D003F5F79 /* Merge the headers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2633,6 +2678,7 @@
 				DC1CF8520C01BE7800D757D0 /* iTM2MacroKit.m in Sources */,
 				DC1CF8F90C01CBA100D757D0 /* iTM2MacroKit_Prefs.m in Sources */,
 				DC8399420C02D9A500511679 /* iTM2MacroKit_Action.m in Sources */,
+				DCE52B3C0C0F2F2D00F2D5B9 /* ICURegEx.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2834,6 +2880,11 @@
 			isa = PBXTargetDependency;
 			target = DCD7D69C0A43992D0096B1A9 /* AlphaX */;
 			targetProxy = DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */;
+		};
+		DCE52B9F0C0F307500F2D5B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCE52B980C0F302F00F2D5B9 /* ICU */;
+			targetProxy = DCE52B9E0C0F307500F2D5B9 /* PBXContainerItemProxy */;
 		};
 		DCE5C5730AC823940054C760 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3361,7 +3412,11 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
-				HEADER_SEARCH_PATHS = "$(BUILD_DIR)/Lua.framework/Headers";
+				HEADER_SEARCH_PATHS = (
+					"$(BUILD_DIR)/Lua.framework/Headers",
+					"$(SRCROOT)/../ICU/icu/source/common",
+					"$(SRCROOT)/../ICU/icu/source/i18n",
+				);
 				PRODUCT_NAME = iTM2Foundation;
 			};
 			name = Development;
@@ -3375,7 +3430,11 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
-				HEADER_SEARCH_PATHS = "$(BUILD_DIR)/Lua.framework/Headers";
+				HEADER_SEARCH_PATHS = (
+					"$(BUILD_DIR)/Lua.framework/Headers",
+					"$(SRCROOT)/../ICU/icu/source/common",
+					"$(SRCROOT)/../ICU/icu/source/i18n",
+				);
 				PRODUCT_NAME = iTM2Foundation;
 			};
 			name = Deployment;
@@ -4003,6 +4062,28 @@
 			};
 			name = Deployment;
 		};
+		DCE52B9A0C0F304D00F2D5B9 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = ICU;
+			};
+			name = Development;
+		};
+		DCE52B9B0C0F304D00F2D5B9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = ICU;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		DCE5C5780AC823940054C760 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
@@ -4218,6 +4299,15 @@
 			buildConfigurations = (
 				DCD7D6D00A4399990096B1A9 /* Development */,
 				DCD7D6D10A4399990096B1A9 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		DCE52B990C0F304D00F2D5B9 /* Build configuration list for PBXAggregateTarget "ICU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCE52B9A0C0F304D00F2D5B9 /* Development */,
+				DCE52B9B0C0F304D00F2D5B9 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

@@ -3476,7 +3476,7 @@ if([set count]<[variants count])
 												action:@selector(toggleInspector:) keyEquivalent:@""];
 						[mi setRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:
 							type, @"type", inspectorMode, @"mode", inspectorVariant, @"variant", nil]];
-						[mi setTarget:self];
+						[mi setTarget:self];// mi belongs to self
 					}
 				}
 				else
@@ -3487,7 +3487,7 @@ if([set count]<[variants count])
 							action:@selector(toggleInspector:) keyEquivalent:@""];
 					[mi setRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:
 						type, @"type", inspectorMode, @"mode", [C inspectorVariant], @"variant", nil]];
-					[mi setTarget:self];
+					[mi setTarget:self];// mi belongs to self
 				}
 			}
 			if([M numberOfItems] > 1)
@@ -3517,7 +3517,7 @@ if([set count]<[variants count])
 		NSMenuItem * mi = [self addItemWithTitle:inspectorVariant
 				action:@selector(toggleExternalInspector:) keyEquivalent:@""];
 		[mi setRepresentedObject:[iTM2ExternalInspectorServer objectForType:type key:inspectorVariant]];
-		[mi setTarget:self];
+		[mi setTarget:self];// mi belongs to self
 	}
 	if([self numberOfItems]>NOI)
 	{

@@ -315,7 +315,7 @@ To Do List:
     if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
     {
         _iTM2TeXPTeXFileNameLetterCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
-            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*()[]=_"] retain];
+            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*[]=_"] retain];// no ( nor )
     }
 //iTM2_END;
 	iTM2_RELEASE_POOL;

@@ -1616,8 +1616,11 @@ To Do List:
             {
                 lineRange.length = [scanner scanLocation] - lineRange.location;
                 [MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:lineRange];
-                [MAS addAttribute:iTM2LogLinkLineAttributeName value:[NSNumber numberWithInt:line] range:lineRange];
-                [MAS addAttribute:iTM2LogLinkFileAttributeName value:[[NSOpenStepRootDirectory() stringByAppendingPathComponent:path] stringByStandardizingPath] range:lineRange];
+				NSNumber * N = [NSNumber numberWithInt:line];
+                [MAS addAttribute:iTM2LogLinkLineAttributeName value:N range:lineRange];
+				path = [NSOpenStepRootDirectory() stringByAppendingPathComponent:path];
+				path = [path stringByStandardizingPath];
+                [MAS addAttribute:iTM2LogLinkFileAttributeName value:path range:lineRange];
             }
         }
         else
@@ -1715,7 +1718,8 @@ To Do List:
 		{
 			lineRange.length = [scanner scanLocation] - lineRange.location;
 			[MAS addAttribute:NSLinkAttributeName value:type range:lineRange];
-			[MAS addAttribute:iTM2LogLinkLineAttributeName value:[NSNumber numberWithInt:line] range:lineRange];
+			NSNumber * N = [NSNumber numberWithInt:line];
+			[MAS addAttribute:iTM2LogLinkLineAttributeName value:N range:lineRange];
 		}
         goto finish;
     }

@@ -61,6 +61,7 @@
 		DC99E7A60A2456C800F50752 /* iTM2Labels.png in Resources */ = {isa = PBXBuildFile; fileRef = DC99E7990A2456C800F50752 /* iTM2Labels.png */; };
 		DC99E7A70A2456C800F50752 /* iTM2Sections.png in Resources */ = {isa = PBXBuildFile; fileRef = DC99E79A0A2456C800F50752 /* iTM2Sections.png */; };
 		DCC54402093763980050770C /* iTM2ConTeXtKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC54401093763980050770C /* iTM2ConTeXtKit.framework */; };
+		DCE52F210C0F3BDE00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F200C0F3BDE00F2D5B9 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,7 @@
 		DCC54401093763980050770C /* iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2ConTeXtKit.framework; path = ../../build/iTM2ConTeXtKit.framework; sourceTree = SOURCE_ROOT; };
 		DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DCC7F4C70854ACD700F3EB8A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		DCE52F200C0F3BDE00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 				DC9815CC092A2FBE0011D8DA /* iTM2TeXFoundation.framework in Frameworks */,
 				DCC54402093763980050770C /* iTM2ConTeXtKit.framework in Frameworks */,
 				DC70F35E0BFC5D34006C6A76 /* Lua.framework in Frameworks */,
+				DCE52F210C0F3BDE00F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +224,7 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52F200C0F3BDE00F2D5B9 /* libicucore.dylib */,
 				DC70F3550BFC5D34006C6A76 /* Lua.framework */,
 				DCC54401093763980050770C /* iTM2ConTeXtKit.framework */,
 				DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */,

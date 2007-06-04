@@ -78,6 +78,7 @@
 		DCCD2EA909E145B30003EEF9 /* Inspector.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2EA709E145B30003EEF9 /* Inspector.strings */; };
 		DCCD2EAE09E145E40003EEF9 /* iTM2TextStyle_LaTeX-Xtd.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2EAA09E145E40003EEF9 /* iTM2TextStyle_LaTeX-Xtd.strings */; };
 		DCCD2EAF09E145E40003EEF9 /* iTM2TextStyle_LaTeX.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2EAC09E145E40003EEF9 /* iTM2TextStyle_LaTeX.strings */; };
+		DCE52F2D0C0F3C1D00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F2C0C0F3C1D00F2D5B9 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +183,7 @@
 		DCCD2EB009E145F00003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = "French.lproj/iTM2TextStyle_LaTeX-Xtd.strings"; sourceTree = "<group>"; };
 		DCCD2EB109E145F00003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2TextStyle_LaTeX.strings; sourceTree = "<group>"; };
 		DCCD2ECE09E146C90003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
+		DCE52F2C0C0F3C1D00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 				DC27426F090CE69C00C2D1D2 /* iTM2Foundation.framework in Frameworks */,
 				DC274270090CE69C00C2D1D2 /* iTM2TeXFoundation.framework in Frameworks */,
 				DC70F22B0BFC5C76006C6A76 /* Lua.framework in Frameworks */,
+				DCE52F2D0C0F3C1D00F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +261,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52F2C0C0F3C1D00F2D5B9 /* libicucore.dylib */,
 				DC70F2220BFC5C76006C6A76 /* Lua.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,

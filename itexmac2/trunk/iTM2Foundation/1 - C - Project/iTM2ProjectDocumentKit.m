@@ -4834,7 +4834,7 @@ To Do List:
 	NSTableColumn * TC = [documentsView tableColumnWithIdentifier:@"icon"];
 	[TC setDataCell:imageCell];
 	// from Laurent Daudelin,mamasam STOP
-	NSArray * draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType,NSURLPboardType,NSFilesPromisePboardType,nil];
+	NSArray * draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType,NSURLPboardType,nil];
 	[documentsView registerForDraggedTypes:draggedTypes];
     [super windowDidLoad];// validates the contents
 //iTM2_LOG(@"the window class is:%@",NSStringFromClass([[self window] class]));
@@ -5250,8 +5250,50 @@ To Do List:
 {
     // Add code here to validate the drop
 	NSPasteboard * draggingPasteboard = [info draggingPasteboard];
-    NSLog(@"validate Drop:%@",[draggingPasteboard types]);
-    return NSDragOperationEvery;
+	NSArray * types = [draggingPasteboard types];
+	if([types containsObject:NSFilenamesPboardType])
+	{
+		NSArray * fileNames = [draggingPasteboard propertyListForType:NSFilenamesPboardType];
+		if(![fileNames isKindOfClass:[NSArray class]])
+		{
+			iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
+			NSString * dirName = [projectDocument fileName];
+			dirName = [dirName stringByDeletingLastPathComponent];
+			NSString * otherDirName = [dirName stringByStrippingFarawayProjectsDirectory];
+			NSEnumerator * E = [fileNames objectEnumerator];
+			NSString * path;
+			BOOL isDirectory = NO;
+			while(path = [E nextObject])
+			{
+				if(![projectDocument keyForFileName:path]
+					&&([path belongsToDirectory:dirName] || [path belongsToDirectory:otherDirName])
+					&&([DFM fileExistsAtPath:path isDirectory:&isDirectory] && !isDirectory))
+				{
+					return NSDragOperationCopy;
+				}
+			}
+		}
+	}
+	if([types containsObject:NSURLPboardType])
+	{
+		NSURL * url = [NSURL URLFromPasteboard:draggingPasteboard];
+		if([url isFileURL])
+		{
+			NSString * path = [url path];
+			iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
+			NSString * dirName = [projectDocument fileName];
+			dirName = [dirName stringByDeletingLastPathComponent];
+			NSString * otherDirName = [dirName stringByStrippingFarawayProjectsDirectory];
+			BOOL isDirectory = NO;
+			if(![projectDocument keyForFileName:path]
+				&&([path belongsToDirectory:dirName] || [path belongsToDirectory:otherDirName])
+					&&([DFM fileExistsAtPath:path isDirectory:&isDirectory] && !isDirectory))
+			{
+				return NSDragOperationCopy;
+			}
+		}
+	}
+    return NSDragOperationNone;
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newDocument:
@@ -5289,10 +5331,11 @@ To Do List:
     return [iTM2EventObserver isAlternateKeyDown]?NSDragOperationCopy:NSDragOperationNone;
 }
 #endif
-#if 1
+#if 0
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
             row:(int)row dropOperation:(NSTableViewDropOperation)operation
 {
+NSLog(@"%@",NSStringFromSelector(_cmd));
 	return YES;
     // Move the specified row to its new location...
 }
@@ -5306,31 +5349,58 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSPasteboard * draggingPasteboard = [info draggingPasteboard];
-	if(![[draggingPasteboard types] containsObject:NSFilenamesPboardType])
-	{
-		return NO;
-	}
-	NSArray * array = [draggingPasteboard propertyListForType:NSFilenamesPboardType];
-	if(![array isKindOfClass:[NSArray class]] || ![array count])
-	{
-		return NO;
-	}
-	iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
-	BOOL isAlt = [iTM2EventObserver isAlternateKeyDown];
 	BOOL result = NO;
-	NSString * dirName = [projectDocument fileName];
-	dirName = [dirName stringByDeletingLastPathComponent];
-	NSEnumerator * E = [array objectEnumerator];
-	NSString * path;
-	NSString * key;
-	while(path = [E nextObject])
+	NSPasteboard * draggingPasteboard = [info draggingPasteboard];
+	NSArray * types = [draggingPasteboard types];
+	if([types containsObject:NSFilenamesPboardType])
 	{
-		if(isAlt || [path belongsToDirectory:dirName])
+		NSArray * fileNames = [draggingPasteboard propertyListForType:NSFilenamesPboardType];
+		if([fileNames isKindOfClass:[NSArray class]])
 		{
-			if(key = [projectDocument newKeyForFileName:path])
+			iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
+			BOOL isAlt = [iTM2EventObserver isAlternateKeyDown];
+			result = NO;
+			NSString * dirName = [projectDocument fileName];
+			dirName = [dirName stringByDeletingLastPathComponent];
+			NSString * otherDirName = [dirName stringByStrippingFarawayProjectsDirectory];
+			NSEnumerator * E = [fileNames objectEnumerator];
+			NSString * path;
+			NSString * key;
+			BOOL isDirectory;
+			while(path = [E nextObject])
 			{
-				result = YES;
+				if(isAlt ||
+					(([path belongsToDirectory:dirName] || [path belongsToDirectory:otherDirName])
+						&& [DFM fileExistsAtPath:path isDirectory:&isDirectory] && !isDirectory))
+				{
+					if(key = [projectDocument newKeyForFileName:path])
+					{
+						result = YES;
+					}
+				}
+			}
+		}
+	}
+	if([types containsObject:NSURLPboardType])
+	{
+		NSURL * url = [NSURL URLFromPasteboard:draggingPasteboard];
+		if([url isFileURL])
+		{
+			iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
+			BOOL isAlt = [iTM2EventObserver isAlternateKeyDown];
+			result = NO;
+			NSString * dirName = [projectDocument fileName];
+			dirName = [dirName stringByDeletingLastPathComponent];
+			NSString * otherDirName = [dirName stringByStrippingFarawayProjectsDirectory];
+			NSString * path = [url path];
+			BOOL isDirectory = NO;
+			if(isAlt || (([path belongsToDirectory:dirName] || [path belongsToDirectory:otherDirName])
+						&& [DFM fileExistsAtPath:path isDirectory:&isDirectory] && !isDirectory))
+			{
+				if([projectDocument newKeyForFileName:path])
+				{
+					result = YES;
+				}
 			}
 		}
 	}

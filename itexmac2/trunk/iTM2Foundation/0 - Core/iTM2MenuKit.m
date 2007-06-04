@@ -508,7 +508,10 @@ To Do List: retain?
                         [MI setRepresentedObject:P];
                     }
                     else
-                        [MI setSubmenu:[self hierarchicalMenuAtPath:P action:aSelector target:aTarget]];
+					{
+						NSMenu * M = [self hierarchicalMenuAtPath:P action:aSelector target:aTarget];
+                        [MI setSubmenu:M];
+					}
                 }
             }
         }
@@ -516,6 +519,27 @@ To Do List: retain?
     }
     else
         return nil;
+}
+@end
+
+#import <iTM2Foundation/iTM2TextDocumentKit.h>
+
+@interface NSMenuItem_iTM2:NSMenuItem
+@end
+@implementation NSMenuItem_iTM2
++ (void)load;
+{
+	[self poseAsClass:[NSMenuItem class]];
+	return;
+}
+- (void)setTarget:(id)aTarget;
+{
+	if([aTarget isKindOfClass:[iTM2TextInspector class]])
+	{
+		iTM2_LOG(@"%@ is target of %@",aTarget,self);
+	}
+	[super setTarget:aTarget];
+	return;
 }
 @end
 

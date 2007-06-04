@@ -67,6 +67,7 @@
 		DCC3EE9108FE66A600A74157 /* iTM2PDFKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCDD0680090384C300C5B1E9 /* toggleDrawerToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */; };
 		DCDD06C309038EF900C5B1E9 /* actualSizeToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */; };
+		DCE52F660C0F3C9D00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 		DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2PDFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawerToolbarImage.tif; sourceTree = "<group>"; };
 		DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = actualSizeToolbarImage.tiff; sourceTree = "<group>"; };
+		DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 				DCC3EE6C08FE666500A74157 /* iTM2Foundation.framework in Frameworks */,
 				DCC3EE6D08FE666500A74157 /* iTM2TeXFoundation.framework in Frameworks */,
 				DC70F3240BFC5CF7006C6A76 /* Lua.framework in Frameworks */,
+				DCE52F660C0F3C9D00F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +236,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */,
 				DC70F31B0BFC5CF7006C6A76 /* Lua.framework */,
 				DC8A6394088D97F50016FAA2 /* iTM2Foundation.framework */,
 				DC8A6395088D97F50016FAA2 /* iTM2TeXFoundation.framework */,

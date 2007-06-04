@@ -74,8 +74,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 201088126;
-			PBXWorkspaceStateSaveDate = 201088126;
+			PBXPerProjectTemplateStateSaveDate = 202324715;
+			PBXWorkspaceStateSaveDate = 202324715;
 		};
 		perUserProjectItems = {
 			DC3B424D0A4AE19600E83ABA /* PBXBookmark */ = DC3B424D0A4AE19600E83ABA /* PBXBookmark */;
@@ -127,9 +127,9 @@
 			DCB1E7B00B50B1BE00B0704A /* PBXBookmark */ = DCB1E7B00B50B1BE00B0704A /* PBXBookmark */;
 			DCB1E7B40B50B1BE00B0704A /* PBXBookmark */ = DCB1E7B40B50B1BE00B0704A /* PBXBookmark */;
 			DCB1E7B50B50B1BE00B0704A /* PBXBookmark */ = DCB1E7B50B50B1BE00B0704A /* PBXBookmark */;
-			DCF3F4140BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4140BC26879008D3C9A /* PBXTextBookmark */;
-			DCF3F4170BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4170BC26879008D3C9A /* PBXTextBookmark */;
-			DCF3F4180BC26879008D3C9A /* PBXTextBookmark */ = DCF3F4180BC26879008D3C9A /* PBXTextBookmark */;
+			DCE52F460C0F3C5500F2D5B9 /* PBXTextBookmark */ = DCE52F460C0F3C5500F2D5B9 /* PBXTextBookmark */;
+			DCE52F490C0F3C5500F2D5B9 /* PBXTextBookmark */ = DCE52F490C0F3C5500F2D5B9 /* PBXTextBookmark */;
+			DCE52F4B0C0F3C5500F2D5B9 /* PBXTextBookmark */ = DCE52F4B0C0F3C5500F2D5B9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520432088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -240,9 +240,16 @@
 	};
 	DC70F26B0BFC5C9A006C6A76 /* NSImage.h */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
 		name = NSImage.h;
 		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSImage.h;
 		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1295, 3340}}";
+			sepNavSelRange = "{913, 54}";
+			sepNavVisRect = "{{0, 2440}, {1295, 734}}";
+			sepNavWindowFrame = "{{38, 17}, {1334, 839}}";
+		};
 	};
 	DC70F26C0BFC5C9A006C6A76 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -679,20 +686,7 @@
 		state = 1;
 		symbolName = "-[NSException raise]";
 	};
-	DCEA0CA50B78C4BC00F48911 /* NSImage.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = NSImage.h;
-		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSImage.h;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1295, 3340}}";
-			sepNavSelRange = "{913, 54}";
-			sepNavVisRect = "{{0, 2440}, {1295, 734}}";
-			sepNavWindowFrame = "{{38, 17}, {1334, 839}}";
-		};
-	};
-	DCF3F4140BC26879008D3C9A /* PBXTextBookmark */ = {
+	DCE52F460C0F3C5500F2D5B9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */;
 		name = "iTM2LaTeXSymbolsKit.m: 459";
@@ -702,9 +696,9 @@
 		vrLen = 879;
 		vrLoc = 11969;
 	};
-	DCF3F4170BC26879008D3C9A /* PBXTextBookmark */ = {
+	DCE52F490C0F3C5500F2D5B9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCEA0CA50B78C4BC00F48911 /* NSImage.h */;
+		fRef = DCE52F4A0C0F3C5500F2D5B9 /* NSImage.h */;
 		name = "@interface NSImage : NSObject <NSCopying, NSCoding> {";
 		rLen = 54;
 		rLoc = 913;
@@ -712,7 +706,13 @@
 		vrLen = 1090;
 		vrLoc = 4582;
 	};
-	DCF3F4180BC26879008D3C9A /* PBXTextBookmark */ = {
+	DCE52F4A0C0F3C5500F2D5B9 /* NSImage.h */ = {
+		isa = PBXFileReference;
+		name = NSImage.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSImage.h;
+		sourceTree = "<absolute>";
+	};
+	DCE52F4B0C0F3C5500F2D5B9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */;
 		name = "iTM2LaTeXSymbolsKit.h: 82";

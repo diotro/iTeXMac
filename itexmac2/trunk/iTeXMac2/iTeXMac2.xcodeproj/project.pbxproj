@@ -189,6 +189,7 @@
 		DCBA43260B011B45006AF52A /* OUT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCBA43240B011B45006AF52A /* OUT.icns */; };
 		DCBEB55E0C0ABB7F00BD6006 /* Lua.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F18E0BFC5BCC006C6A76 /* Lua.framework */; };
 		DCCE70A7091B58D200960441 /* iTM2AppleScriptSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */; };
+		DCE52F0D0C0F3B8D00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F0C0C0F3B8D00F2D5B9 /* libicucore.dylib */; };
 		DCE7E7CA08F2712A00DBB513 /* OgreKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEF60CB0B6216E100A19262 /* Sparkle.framework */; };
 		DCEF60E00B6216E800A19262 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCEF60CB0B6216E100A19262 /* Sparkle.framework */; };
@@ -477,6 +478,7 @@
 		DCBA43240B011B45006AF52A /* OUT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OUT.icns; sourceTree = "<group>"; };
 		DCCE70A4091B58D200960441 /* iTM2AppleScriptSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AppleScriptSupport.h; sourceTree = "<group>"; };
 		DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2AppleScriptSupport.m; sourceTree = "<group>"; };
+		DCE52F0C0C0F3B8D00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		DCEF60870B62148A00A19262 /* Prepare Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare Sparkle.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCEF60CB0B6216E100A19262 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../build/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		DCEF62370B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2SoftwareUpdatePrefPane.tif; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */,
 				DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */,
 				DC70F18F0BFC5BCC006C6A76 /* Lua.framework in Frameworks */,
+				DCE52F0D0C0F3B8D00F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +539,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52F0C0C0F3B8D00F2D5B9 /* libicucore.dylib */,
 				DC70F18E0BFC5BCC006C6A76 /* Lua.framework */,
 				DCB93D2F07D70F95005E5B38 /* Carbon.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,

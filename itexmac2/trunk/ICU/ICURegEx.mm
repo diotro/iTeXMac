@@ -1,9 +1,10 @@
-#import "ICURegEx.h"
+#import <iTM2Foundation/ICURegEx.h>
 
 #undef U_DISABLE_RENAMING 1
 #define U_DISABLE_RENAMING 1
 
 #define __TEST_UNICODE_STRING__ 1
+#define _IVARS ((ICURegExIVars*)_iVars)
 
 //#import <unicode/regex.h>
 #import "regex_public.h"
@@ -127,19 +128,19 @@
 		[self dealloc];
 		return nil;
 	}
-	_iVars->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
-	_iVars->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
+	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
+	_IVARS->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
 	// then create the pattern
-	_iVars->status = U_ZERO_ERROR;
+	_IVARS->status = U_ZERO_ERROR;
 	UnicodeString patString = [pattern unicodeString];
 	UParseError pe;
-	_iVars->regexPattern = RegexPattern::compile(patString,flags,pe,_iVars->status);
-	if(U_FAILURE(_iVars->status))
+	_IVARS->regexPattern = RegexPattern::compile(patString,flags,pe,_IVARS->status);
+	if(U_FAILURE(_IVARS->status))
 	{
 		if(errorRef)
 		{
 			NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
+				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
 					nil];
 			NSNumber * N;
 			if(pe.line>0)
@@ -172,22 +173,22 @@
 		[self dealloc];
 		return nil;
 	}
-	if(!_iVars->regexPattern)
+	if(!_IVARS->regexPattern)
 	{
 		if(errorRef)
 		{
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Can't create regex pattern.",NSLocalizedDescriptionKey,
 					nil];
-			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:_iVars->status userInfo:dict];
+			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:_IVARS->status userInfo:dict];
 		}
 		[self dealloc];
 		return nil;
 	}
 	if(self = [super init])
 	{
-		[_iVars->pattern autorelease];
-		_iVars->pattern = [pattern retain];
+		[_IVARS->pattern autorelease];
+		_IVARS->pattern = [pattern retain];
 	}
 	return self;
 }
@@ -199,7 +200,7 @@
 }
 - (NSError *)error;
 {
-	return _iVars->error;
+	return _IVARS->error;
 }
 + (NSString *)errorDescriptionForStatus:(int)status;
 {
@@ -523,77 +524,73 @@
 }
 - (int)status;
 {
-	return _iVars->status;
+	return _IVARS->status;
 }
 - (RegexPattern *)regexPattern;
 {
-	return _iVars->regexPattern;
+	return _IVARS->regexPattern;
 }
 - (RegexMatcher *)regexMatcher;
 {
-	return _iVars->regexMatcher;
+	return _IVARS->regexMatcher;
 }
 - (NSString *)inputString;
 {
-	return _iVars->string;
+	return _IVARS->string;
 }
 - (void)setInputString:(NSString *)argument;
 {
-	[_iVars->string autorelease];
-	_iVars->string = [argument retain];
-	if(_iVars->uString)
+	[_IVARS->string autorelease];
+	_IVARS->string = [argument retain];
+	if(_IVARS->uString)
 	{
-		delete _iVars->uString;
-		_iVars->uString = nil;
+		delete _IVARS->uString;
+		_IVARS->uString = nil;
 	}
-	if(_iVars->string)
+	if(_IVARS->string)
 	{
-		_iVars->uString = new UnicodeString([_iVars->string unicodeString]);
-		_iVars->status = U_ZERO_ERROR;
-		delete _iVars->regexMatcher;
-		_iVars->regexMatcher = _iVars->regexPattern->matcher(*(_iVars->uString),_iVars->status);
-		if(U_FAILURE(_iVars->status))
+		_IVARS->uString = new UnicodeString([_IVARS->string unicodeString]);
+		_IVARS->status = U_ZERO_ERROR;
+		delete _IVARS->regexMatcher;
+		_IVARS->regexMatcher = _IVARS->regexPattern->matcher(*(_IVARS->uString),_IVARS->status);
+		if(U_FAILURE(_IVARS->status))
 		{
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-					[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
-					[NSNumber numberWithInt:_iVars->status],@"status",
+					[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+					[NSNumber numberWithInt:_IVARS->status],@"status",
 						nil];
-			_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-	//		[self dealloc];
-	//		return nil;
+			_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		}
-		else if(!_iVars->regexMatcher)
+		else if(!_IVARS->regexMatcher)
 		{
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Can't create regex matcher.",NSLocalizedDescriptionKey,
 					nil];
-			_iVars->error = [NSError errorWithDomain:@"ICURegEx" code:_iVars->status userInfo:dict];
-	//		[self dealloc];
-	//		return nil;
+			_IVARS->error = [NSError errorWithDomain:@"ICURegEx" code:_IVARS->status userInfo:dict];
 		}
 	}
 	else
 	{
-		delete _iVars->regexMatcher;
-		_iVars->regexMatcher = nil;
+		delete _IVARS->regexMatcher;
+		_IVARS->regexMatcher = nil;
 	}
 	return;
 }
 - (NSString *)replacementPattern;
 {
-	return _iVars->replacement;
+	return _IVARS->replacement;
 }
 - (void)setReplacementPattern:(NSString *)argument;
 {
-	[_iVars->replacement autorelease];
-	_iVars->replacement = [argument retain];
-	if(_iVars->uReplacement)
+	[_IVARS->replacement autorelease];
+	_IVARS->replacement = [argument retain];
+	if(_IVARS->uReplacement)
 	{
-		delete _iVars->uReplacement;
+		delete _IVARS->uReplacement;
 	}
-	if(_iVars->replacement)
+	if(_IVARS->replacement)
 	{
-		_iVars->uReplacement = new UnicodeString([_iVars->replacement unicodeString]);
+		_IVARS->uReplacement = new UnicodeString([_IVARS->replacement unicodeString]);
 	}
 	return;
 }
@@ -601,24 +598,24 @@ static const UChar BACKSLASH  = 0x5c;
 static const UChar DOLLARSIGN = 0x24;
 - (NSString *)replacementString;
 {
-	[_iVars->error autorelease];
-	_iVars->error = nil;
-	_iVars->status = U_ZERO_ERROR;
-	if(!_iVars->replacement)
+	[_IVARS->error autorelease];
+	_IVARS->error = nil;
+	_IVARS->status = U_ZERO_ERROR;
+	if(!_IVARS->replacement)
 	{
-		_iVars->status = U_REGEX_ERROR_START;
+		_IVARS->status = U_REGEX_ERROR_START;
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
+				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
 				[NSNumber numberWithInt:-1],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return nil;
 	}
-	UnicodeString replacement = UnicodeString(*_iVars->uReplacement);
+	UnicodeString replacement = UnicodeString(*_IVARS->uReplacement);
 	UnicodeString dest = UnicodeString();
-	RegexPattern pattern = _iVars->regexMatcher->pattern();
-	#define fPattern _iVars->regexPattern
-	#define status _iVars->status
+	RegexPattern pattern = _IVARS->regexMatcher->pattern();
+	#define fPattern _IVARS->regexPattern
+	#define status _IVARS->status
 	
 	// stolen from rematch.cpp
 	// "CUT HERE"
@@ -703,14 +700,14 @@ static const UChar DOLLARSIGN = 0x24;
             break;
         }
 #else
-        dest.append(_iVars->regexMatcher->group(groupNum, status));
+        dest.append(_IVARS->regexMatcher->group(groupNum, status));
         if (U_FAILURE(status)) {
             // Can fail if group number is out of range.
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 					[[self class] errorDescriptionForStatus:status],NSLocalizedDescriptionKey,
 					[NSNumber numberWithInt:status],@"status",
 						nil];
-			_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+			_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
             return nil;
         }
 #endif
@@ -722,167 +719,167 @@ static const UChar DOLLARSIGN = 0x24;
 }
 - (BOOL)matchesAtIndex:(int)index extendToTheEnd:(BOOL)yorn;
 {
-	[_iVars->error autorelease];
-	_iVars->error = nil;
-	_iVars->status = U_ZERO_ERROR;
+	[_IVARS->error autorelease];
+	_IVARS->error = nil;
+	_IVARS->status = U_ZERO_ERROR;
 	if(yorn)
 	{
-		if(_iVars->regexMatcher->matches(index,_iVars->status))
+		if(_IVARS->regexMatcher->matches(index,_IVARS->status))
 		{
 			return YES;
 		}
 	}
-	else if(_iVars->regexMatcher->lookingAt(index,_iVars->status))
+	else if(_IVARS->regexMatcher->lookingAt(index,_IVARS->status))
 	{
 		return YES;
 	}
-	if(U_FAILURE(_iVars->status))
+	if(U_FAILURE(_IVARS->status))
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 	}
 	return NO;
 }
 - (BOOL)nextMatch;
 {
-	if(!_iVars->regexMatcher)
+	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return NO;
 	}
-	_iVars->rangeOfLastMatch = _iVars->rangeOfCurrentMatch;
-	_iVars->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
-	if(_iVars->regexMatcher->find())
+	_IVARS->rangeOfLastMatch = _IVARS->rangeOfCurrentMatch;
+	_IVARS->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
+	if(_IVARS->regexMatcher->find())
 	{
 		return [self rangeOfGroupAtIndex:0].length>0;
 	}
-	return _iVars->rangeOfCurrentMatch.length>0;
+	return _IVARS->rangeOfCurrentMatch.length>0;
 }
 - (BOOL)nextMatchAfterIndex:(int)index;
 {
-	if(!_iVars->regexMatcher)
+	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return NO;
 	}
-	[_iVars->error autorelease];
-	_iVars->error = nil;
-	_iVars->status = U_ZERO_ERROR;
-	_iVars->rangeOfLastMatch = NSMakeRange(0,index);
-	_iVars->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
-	if(_iVars->regexMatcher->find(index,_iVars->status))
+	[_IVARS->error autorelease];
+	_IVARS->error = nil;
+	_IVARS->status = U_ZERO_ERROR;
+	_IVARS->rangeOfLastMatch = NSMakeRange(0,index);
+	_IVARS->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
+	if(_IVARS->regexMatcher->find(index,_IVARS->status))
 	{
 		return [self rangeOfGroupAtIndex:0].length>0;
 	}
-	if(U_FAILURE(_iVars->status))
+	if(U_FAILURE(_IVARS->status))
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 	}
-	return _iVars->rangeOfCurrentMatch.length>0;
+	return _IVARS->rangeOfCurrentMatch.length>0;
 }
 - (NSRange)rangeOfMatch;
 {
-	NSRange result = _iVars->rangeOfCurrentMatch;
-	if(_iVars->rangeOfLastMatch.length)
+	NSRange result = _IVARS->rangeOfCurrentMatch;
+	if(_IVARS->rangeOfLastMatch.length)
 	{
-		result.location -= NSMaxRange(_iVars->rangeOfLastMatch);
+		result.location -= NSMaxRange(_IVARS->rangeOfLastMatch);
 	}
 	return result;
 }
 - (int)numberOfGroups;
 {
-	if(!_iVars->regexMatcher)
+	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return 0;
 	}
-	return _iVars->regexMatcher->groupCount();
+	return _IVARS->regexMatcher->groupCount();
 }
 #include "uvectr32.h"
 - (NSRange)rangeOfGroupAtIndex:(int)index;
 {
-	[_iVars->error autorelease];
-	_iVars->error = nil;
-	_iVars->status = U_ZERO_ERROR;
+	[_IVARS->error autorelease];
+	_IVARS->error = nil;
+	_IVARS->status = U_ZERO_ERROR;
 	NSRange result = NSMakeRange(NSNotFound,0);
-	if(!_iVars->regexMatcher)
+	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return result;
 	}
-	int start = _iVars->regexMatcher->start(index,_iVars->status);
-	if(U_FAILURE(_iVars->status))
+	int start = _IVARS->regexMatcher->start(index,_IVARS->status);
+	if(U_FAILURE(_IVARS->status))
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return result;
 	}
-	int end = _iVars->regexMatcher->end(index,_iVars->status);
-	if(U_FAILURE(_iVars->status))
+	int end = _IVARS->regexMatcher->end(index,_IVARS->status);
+	if(U_FAILURE(_IVARS->status))
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return result;
 	}
 	result = NSMakeRange(start,end-start);
 	if(index)
 	{
-		result.location -= _iVars->rangeOfCurrentMatch.location;
+		result.location -= _IVARS->rangeOfCurrentMatch.location;
 	}
 	else
 	{
-		_iVars->rangeOfCurrentMatch = result;
-		if(_iVars->rangeOfLastMatch.length)
+		_IVARS->rangeOfCurrentMatch = result;
+		if(_IVARS->rangeOfLastMatch.length)
 		{
-			result.location -= NSMaxRange(_iVars->rangeOfLastMatch);
+			result.location -= NSMaxRange(_IVARS->rangeOfLastMatch);
 		}
 	}
 	return result;
 }
 - (NSArray *)componentsBySplitting;
 {
-	if(!_iVars->regexMatcher)
+	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return nil;
 	}
 	NSMutableArray * result = [NSMutableArray array];
 	// stolen from split()
-	#define input *_iVars->uString
-	RegexPattern pattern = _iVars->regexMatcher->pattern();
+	#define input *_IVARS->uString
+	RegexPattern pattern = _IVARS->regexMatcher->pattern();
 	#define destCapacity INT_MAX
 	UnicodeString group;
 	UnicodeString * dest;
@@ -893,7 +890,7 @@ static const UChar DOLLARSIGN = 0x24;
     reset(input);
     int32_t   inputLen = input.length();
 #else
-    _iVars->regexMatcher->reset(input);
+    _IVARS->regexMatcher->reset(input);
     int32_t   inputLen = (input).length();
 #endif
     int32_t   nextOutputStringStart = 0;
@@ -937,15 +934,15 @@ static const UChar DOLLARSIGN = 0x24;
             dest[i].setTo(input, nextOutputStringStart, fieldLen);
             nextOutputStringStart = fMatchEnd;
 #else
-        if (_iVars->regexMatcher->find()) {
+        if (_IVARS->regexMatcher->find()) {
             // We found another delimiter.  Move everything from where we started looking
             //  up until the start of the delimiter into the next output string.
-            int32_t fieldLen = _iVars->regexMatcher->fMatchStart - nextOutputStringStart;
+            int32_t fieldLen = _IVARS->regexMatcher->fMatchStart - nextOutputStringStart;
             dest = new UnicodeString(input, nextOutputStringStart, fieldLen);
 			component = [NSString stringWithUnicodeString:*dest];
 			[result addObject:component];
 			delete dest;
-            nextOutputStringStart = _iVars->regexMatcher->fMatchEnd;
+            nextOutputStringStart = _IVARS->regexMatcher->fMatchEnd;
 #endif
 
             // If the delimiter pattern has capturing parentheses, the captured
@@ -959,7 +956,7 @@ static const UChar DOLLARSIGN = 0x24;
 #if 0
                 dest[i] = group(groupNum, status);
 #else
-                group = _iVars->regexMatcher->group(groupNum,_iVars->status);
+                group = _IVARS->regexMatcher->group(groupNum,_IVARS->status);
 				dest = new UnicodeString(group);
 				component = [NSString stringWithUnicodeString:*dest];
 				[result addObject:component];
@@ -994,50 +991,50 @@ static const UChar DOLLARSIGN = 0x24;
     }
 	#undef input
 	#undef destCapacity
-	_iVars->regexMatcher->reset(*_iVars->uString);
-	_iVars->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
+	_IVARS->regexMatcher->reset(*_IVARS->uString);
+	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
 	return result;
 }
 - (void)reset;
 {
-	if(!_iVars->regexMatcher)
+	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return;
 	}
-	_iVars->regexMatcher->reset(*_iVars->uString);
-	_iVars->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
+	_IVARS->regexMatcher->reset(*_IVARS->uString);
+	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
 	return;
 }
 - (BOOL)resetAtIndex:(int)index;
 {
-	if(!_iVars->regexMatcher)
+	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return NO;
 	}
-	[_iVars->error autorelease];
-	_iVars->error = nil;
-	_iVars->status = U_ZERO_ERROR;
-	_iVars->regexMatcher->reset(index,_iVars->status);
-	if(U_FAILURE(_iVars->status))
+	[_IVARS->error autorelease];
+	_IVARS->error = nil;
+	_IVARS->status = U_ZERO_ERROR;
+	_IVARS->regexMatcher->reset(index,_IVARS->status);
+	if(U_FAILURE(_IVARS->status))
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_iVars->status],NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_iVars->status],@"status",
+				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
-		_iVars->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 	}
-	_iVars->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
-	return _iVars->error!=nil;
+	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
+	return _IVARS->error!=nil;
 }
 @end
 

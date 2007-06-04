@@ -42,16 +42,6 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 - (NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 - (NSRange)groupRangeForRange:(NSRange)range;
 - (NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
-/*!
-    @method     TeXAwareDoubleClick:atIndex:
-    @abstract   A TeX Aware doubleClickAtIndex: like method
-    @discussion The TeX aware range to be selected when double clicking the given string at the given index
-				This is not a NSString instance method to allow dynamic overriding...
-    @param		string is the target
-    @param		index is the character index where the click occurred
-	@result		None
-*/
-+ (NSRange)TeXAwareDoubleClick:(NSString *)string atIndex:(unsigned)index;
 + (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
 
 /*!

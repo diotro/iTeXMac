@@ -1177,6 +1177,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [DNC removeObserver:self];
+#warning REMOVE THE RECEIVER AS TARGET OF A MENU
     [super dealloc];
     return;
 }

@@ -1823,7 +1823,7 @@ To Do List:
 					[recentMenu removeItemAtIndex:index];
 				}
 				NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle:[sender title] action:[sender action] keyEquivalent:@""] autorelease];
-				[MI setTarget:self];
+				[MI setTarget:self];// self is expected to last forever
 				[MI setRepresentedObject:RA];
 				[recentMenu insertItem:MI atIndex:1];
 				NSMutableDictionary * MD = [NSMutableDictionary dictionary];

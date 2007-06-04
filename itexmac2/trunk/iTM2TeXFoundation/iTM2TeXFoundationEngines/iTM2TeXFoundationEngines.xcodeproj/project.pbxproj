@@ -76,6 +76,10 @@
 		DCCD2DD409E06C760003EEF9 /* iTM2EngineXeTeX.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DCB09E06C760003EEF9 /* iTM2EngineXeTeX.nib */; };
 		DCCD2DDC09E06C950003EEF9 /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DD609E06C950003EEF9 /* Engine.strings */; };
 		DCCD2DDD09E06C950003EEF9 /* iTM2EnginePStoPDF.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DD809E06C950003EEF9 /* iTM2EnginePStoPDF.nib */; };
+		DCE52EF70C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */; };
+		DCE52EF80C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */; };
+		DCE52EF90C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */; };
+		DCE52EFA0C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +253,7 @@
 		DCCD2DD909E06C950003EEF9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EnginePStoPDF.nib; sourceTree = "<group>"; };
 		DCCD2DDA09E06C950003EEF9 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/Engine.strings; sourceTree = "<group>"; };
 		DCCD2DDB09E06C950003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EnginePStoPDF.nib; sourceTree = "<group>"; };
+		DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +265,7 @@
 				DC70F0C60BFC5992006C6A76 /* Lua.framework in Frameworks */,
 				DC0EF877094858030018276F /* iTM2Foundation.framework in Frameworks */,
 				DC0EF876094858030018276F /* iTM2TeXFoundation.framework in Frameworks */,
+				DCE52EF80C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +277,7 @@
 				DC70F11C0BFC59AA006C6A76 /* Lua.framework in Frameworks */,
 				DC0EF9010948594E0018276F /* iTM2Foundation.framework in Frameworks */,
 				DC0EF9020948594E0018276F /* iTM2TeXFoundation.framework in Frameworks */,
+				DCE52EF90C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +289,7 @@
 				DC70F11D0BFC59B9006C6A76 /* Lua.framework in Frameworks */,
 				DC0EF92309485DCA0018276F /* iTM2Foundation.framework in Frameworks */,
 				DC0EF92409485DCA0018276F /* iTM2TeXFoundation.framework in Frameworks */,
+				DCE52EFA0C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +301,7 @@
 				DC9DC77509484E590079E1B3 /* iTM2Foundation.framework in Frameworks */,
 				DC9DC77609484E590079E1B3 /* iTM2TeXFoundation.framework in Frameworks */,
 				DC9DC77709484E590079E1B3 /* Cocoa.framework in Frameworks */,
+				DCE52EF70C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +420,7 @@
 		DC9DC4CC094841310079E1B3 /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */,
 				DC70F0C30BFC5948006C6A76 /* Lua.framework */,
 				DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */,
 				DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */,

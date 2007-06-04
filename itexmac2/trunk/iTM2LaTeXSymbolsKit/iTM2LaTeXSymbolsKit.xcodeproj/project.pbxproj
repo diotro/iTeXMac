@@ -162,6 +162,7 @@
 		DCB1E7130B50988800B0704A /* iTM2PiFontStarsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */; };
 		DCB1E7140B50988800B0704A /* iTM2PiFontStarsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */; };
 		DCB1E7150B50988800B0704A /* iTM2PiFontStarsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */; };
+		DCE52F430C0F3C5400F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F420C0F3C5400F2D5B9 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,7 +213,7 @@
 		DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2LaTeXKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC70F25B0BFC5C99006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
-		DC81AE8708871B9A00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC81AE8708871B9A00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSArrowsIcon.tiff; sourceTree = "<group>"; };
@@ -349,6 +350,7 @@
 		DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontStarsIcon.tiff; sourceTree = "<group>"; };
 		DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontStarsMenu.dict; sourceTree = "<group>"; };
 		DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontStarsMenu.tiff; sourceTree = "<group>"; };
+		DCE52F420C0F3C5400F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +364,7 @@
 				DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */,
 				DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */,
 				DC70F2640BFC5C99006C6A76 /* Lua.framework in Frameworks */,
+				DCE52F430C0F3C5400F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +422,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52F420C0F3C5400F2D5B9 /* libicucore.dylib */,
 				DC70F25B0BFC5C99006C6A76 /* Lua.framework */,
 				DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */,
 				DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */,

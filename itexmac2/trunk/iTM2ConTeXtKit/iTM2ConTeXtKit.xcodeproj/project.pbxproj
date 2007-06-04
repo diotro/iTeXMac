@@ -84,6 +84,7 @@
 		DCC545020939C37B0050770C /* iTM2ConTeXtPrefsKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC545000939C37B0050770C /* iTM2ConTeXtPrefsKit.h */; };
 		DCC545030939C37B0050770C /* iTM2ConTeXtPrefsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC545010939C37B0050770C /* iTM2ConTeXtPrefsKit.m */; };
 		DCCD2EE309E148FD0003EEF9 /* Inspector.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2EE109E148FD0003EEF9 /* Inspector.strings */; };
+		DCE52F270C0F3BFE00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F260C0F3BFE00F2D5B9 /* libicucore.dylib */; };
 		DCF6D0AF092DD3B500E89725 /* iTM2ConTeXtKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF6D0AD092DD3B500E89725 /* iTM2ConTeXtKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF6D0B0092DD3B500E89725 /* iTM2ConTeXtKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF6D0AE092DD3B500E89725 /* iTM2ConTeXtKit.m */; };
 /* End PBXBuildFile section */
@@ -185,6 +186,7 @@
 		DCC545010939C37B0050770C /* iTM2ConTeXtPrefsKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ConTeXtPrefsKit.m; sourceTree = "<group>"; };
 		DCCD2EE209E148FD0003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCD2EEB09E149560003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
+		DCE52F260C0F3BFE00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		DCF6D0AD092DD3B500E89725 /* iTM2ConTeXtKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ConTeXtKit.h; sourceTree = "<group>"; };
 		DCF6D0AE092DD3B500E89725 /* iTM2ConTeXtKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ConTeXtKit.m; sourceTree = "<group>"; };
 		DCF6D0BD092DD3FE00E89725 /* iTM2ConTeXtKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2ConTeXtKit-Info.plist"; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				DC27426F090CE69C00C2D1D2 /* iTM2Foundation.framework in Frameworks */,
 				DC274270090CE69C00C2D1D2 /* iTM2TeXFoundation.framework in Frameworks */,
 				DC70F1DB0BFC5C38006C6A76 /* Lua.framework in Frameworks */,
+				DCE52F270C0F3BFE00F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +247,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCE52F260C0F3BFE00F2D5B9 /* libicucore.dylib */,
 				DC70F1DA0BFC5C38006C6A76 /* Lua.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,

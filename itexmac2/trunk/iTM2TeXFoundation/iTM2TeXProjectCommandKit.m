@@ -1260,13 +1260,13 @@ To Do List:
             [[sender lastItem] setRepresentedObject:commandName];
             NSMenuItem * MI = [removeScriptMenu addItemWithTitle:title action:@selector(removeShellScript:) keyEquivalent:@""];
             [MI setRepresentedObject:commandName];
-            [MI setTarget:self];
+            [MI setTarget:self];// MI belongs to the receivers window
         }
         if([removeScriptMenu numberOfItems])
             [[sender menu] addItem:[NSMenuItem separatorItem]];
         [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"New shell script", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
         [[sender lastItem] setAction:@selector(newShellScript:)];
-        [[sender lastItem] setTarget:self];
+        [[sender lastItem] setTarget:self];// sender belongs to the receivers window
         if([removeScriptMenu numberOfItems])
         {
             [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Remove shell script", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
@@ -1293,7 +1293,7 @@ To Do List:
 				[sender addItemWithTitle:title];
 				[[sender lastItem] setRepresentedObject:commandName];
 				[[sender lastItem] setAction:@selector(noop:)];
-				[[sender lastItem] setTarget:self];
+				[[sender lastItem] setTarget:self];// sender belongs to the receivers window
 			}
 		}
 		[[sender menu] cleanSeparators];
@@ -2249,7 +2249,7 @@ To Do List:
 							keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
 				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
 				[mi setRepresentedObject:performer];
-				[mi setTarget:performer];
+				[mi setTarget:performer];// performer is expected to last forever
 				if([[mi keyEquivalent] length])
 				{
 					NSMenuItem * mite;
@@ -2319,7 +2319,7 @@ To Do List:
 						action: action keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
 				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
 				[mi setRepresentedObject:performer];
-				[mi setTarget:performer];
+				[mi setTarget:performer];// performer is expected to last forever
 				// before we insert the menu item, we try to remove the items with the same keyEquivalent and modifier mask
 				if([[mi keyEquivalent] length])
 				{
