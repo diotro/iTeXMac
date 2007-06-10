@@ -56,4 +56,8 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 
 @end
 
+@interface iTM2TeXStringController: NSObject
++ (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)

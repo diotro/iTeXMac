@@ -20,6 +20,9 @@
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
 */
+
+#import <iTM2Foundation/ICURegEx.h>
+
 #if 0
 @implementation iTM2TeXParser
 #endif
@@ -854,6 +857,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModif
 	}
 }
 #if 1
+#include <iTM2Foundation/iTM2Foundation.h>
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
 - (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
 /*"Description forthcoming.
@@ -865,7 +869,8 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert(newModeRef);
     NSString * S = [_TextStorage string];
-    NSParameterAssert(location<[S length]);
+	unsigned length = [S length];
+    NSParameterAssert(location<length);
 	NSString * substring;
 	NSRange r;
 	unsigned status;
@@ -881,55 +886,140 @@ To Do List:
 		{
 			// is it a \input
 			// scanning from location for the control sequence name
-			start = location;
-			end = start+1;
-			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
+			start = location-1;
+			end = location+1;
+			while(end<length && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
 				++end;
-			if(end == start+5)
+			if(end == start+6)
 			{
 				r = NSMakeRange(start, end-start);
 				substring = [S substringWithRange:r];
-				if([@"input" isEqualToString:substring])
+				if([iTM2TeXCommandInputSyntaxModeName isEqualToString:substring])
 				{
 					if(lengthRef)
 					{
-						* lengthRef = end-start;
+						* lengthRef = end-start-1;
 					}
-					if(nextModeRef && (end<[S length]))
+					* newModeRef = kiTM2TeXCommandInputSyntaxMode;
+					if(nextModeRef && (end<length))
 					{
 						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2TeXCommandInputSyntaxMode];
+						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:*newModeRef];
 					}
 					// now we invalidate the cursor rects in order to have the links properly displayed
 					//the delay is due to the reentrant problem
 					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					* newModeRef = kiTM2TeXCommandInputSyntaxMode;
 					return kiTM2TeXNoErrorSyntaxStatus;
 				}
 			}
 			if(lengthRef)
 			{
-				* lengthRef = end-start;
+				* lengthRef = end-start-1;
 			}
-			if(nextModeRef)
+			* newModeRef = kiTM2TeXCommandContinueSyntaxMode;
+			if(nextModeRef && (end<length))
 			{
-				* nextModeRef = kiTM2TeXUnknownSyntaxMode;
+				theChar = [S characterAtIndex:end];
+				status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:*newModeRef];
 			}
-			* newModeRef = kiTM2TeXCommandContinueSyntaxMode | kiTM2TeXCommandSyntaxMask;
 			return kiTM2TeXNoErrorSyntaxStatus;
 		}
 	}
 // placeholder marks management
+	BOOL escaped = NO;
 	if(theChar == '@')
 	{
-	}
-	else if(theChar == '(')
-	{
+		if(location)
+		{
+			if([S isControlAtIndex:location-1 escaped:&escaped]&&!escaped)
+			{
+				if(lengthRef)
+				{
+					* lengthRef = 1;
+				}
+				if(nextModeRef)
+				{
+					* nextModeRef = kiTM2TeXUnknownSyntaxMode;
+				}
+				* newModeRef = kiTM2TeXCommandEscapedCharacterSyntaxMode;
+				return kiTM2TeXNoErrorSyntaxStatus;
+			}
+		}
+placeholder:
+		// get the range of all the @'s
+		r.location = location;
+		r.length = 1;
+		unichar anotherChar;
+		while(r.location)
+		{
+			unichar anotherChar = [S characterAtIndex:r.location-1];
+			if((anotherChar == '@')||(anotherChar == '(')||(anotherChar == ')'))
+			{
+				--r.location;
+				++r.length;
+			}
+			else
+			{
+				break;
+			}
+		}
+		end = NSMaxRange(r);
+		while(end<length)
+		{
+			anotherChar = [S characterAtIndex:end];
+			if((anotherChar == '@')||(anotherChar == '(')||(anotherChar == ')'))
+			{
+				++r.length;
+				++end;
+			}
+			else
+			{
+				break;
+			}
+		}
+		if(r.location)
+		{
+			BOOL escaped;
+			if([S isControlAtIndex:r.location-1 escaped:&escaped]&&!escaped)
+			{
+				++r.location;
+				--r.length;
+			}
+		}
 		
+		start = r.location;
+		substring = [S substringWithRange:r];
+		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:NULL error:nil] autorelease];
+		[RE setInputString:substring];
+		while([RE nextMatch])
+		{
+			r = [RE rangeOfMatch];
+			r.location += start;
+			if(NSLocationInRange(location,r))
+			{
+				if(lengthRef)
+				{
+					* lengthRef = NSMaxRange(r)-location;
+				}
+				if(nextModeRef)
+				{
+					* nextModeRef = kiTM2TeXUnknownSyntaxMode;
+				}
+				* newModeRef = kiTM2TeXPlaceholderDelimiterMode;
+				return kiTM2TeXNoErrorSyntaxStatus;
+			}
+			start = NSMaxRange(r);
+		}
 	}
-	else if(theChar == ')')
+	else if(((theChar == '(') && (location>2))
+			||((theChar == ')') && (location+3<[S length])))
 	{
-		
+		if(!location
+			|| ![S isControlAtIndex:location-1 escaped:&escaped]
+				|| escaped)
+		{
+			goto placeholder;
+		}
 	}
 	status = [self getSyntaxMode:newModeRef forCharacter:theChar previousMode:previousMode];
 	if(lengthRef) // && (previousMode != kiTM2TeXCommandStartSyntaxMode) || ![set characterIsMember:theChar]
@@ -942,8 +1032,14 @@ To Do List:
 			beforeIndex = MIN(beforeIndex, [S length]);
 			while(++location < beforeIndex)
 			{
-				previousMode = *newModeRef;
 				theChar = [S characterAtIndex:location];
+				if((theChar == '@')||(theChar == '(')||(theChar == ')'))
+				{
+					if(nextModeRef)
+						* nextModeRef = kiTM2TeXUnknownSyntaxMode;
+					return kiTM2TeXNoErrorSyntaxStatus;
+				}
+				previousMode = *newModeRef;
 				status = [self getSyntaxMode:newModeRef forCharacter:theChar previousMode:previousMode];
 //NSLog(@"2: nextMode: %u, previousMode: %u", nextMode, previousMode);
 				if(*newModeRef == previousMode)
@@ -1107,7 +1203,7 @@ To Do List:
 	NSDictionary * attributes;
 	unsigned index;
 	
-	NSString * ERROR;
+	NSString * ERROR = @"UNKNOWN ERROR";
 	
 #ifdef iTM2_WITH_SYMBOLS
 	// if I am in a simple group or near a simple group things might be more difficult
@@ -1327,6 +1423,7 @@ testBeforeGroupOpen:
 		case kiTM2TeXCellSeparatorSyntaxMode:
 		case kiTM2TeXCommandInputSyntaxMode:
         case kiTM2TeXWhitePrefixSyntaxMode:
+        case kiTM2TeXPlaceholderDelimiterMode:
         case kiTM2TeXErrorSyntaxMode:
 			goto returnOutAttributes;
 

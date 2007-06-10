@@ -47,6 +47,8 @@
 - (void)selectAll:(id)irrelevant;
 - (void)insertText:(id)text inRangeValue:(id)rangeValue;
 - (void)invalidateCursorRects;
+- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+- (id)document;
 /*"Overriden methods"*/
 @end
 

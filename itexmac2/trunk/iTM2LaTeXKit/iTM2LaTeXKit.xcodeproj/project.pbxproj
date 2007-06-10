@@ -184,6 +184,7 @@
 		DCCD2EB109E145F00003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2TextStyle_LaTeX.strings; sourceTree = "<group>"; };
 		DCCD2ECE09E146C90003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCE52F2C0C0F3C1D00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
+		DCECBB4A0C1BD35000ACF218 /* iTM2LaTeXStorageAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXStorageAttributes.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +253,7 @@
 				DC2CA71A0855D19F00128F14 /* iTM2LaTeXKit-Info.plist */,
 				DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */,
 				DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */,
+				DCECBB4A0C1BD35000ACF218 /* iTM2LaTeXStorageAttributes.m */,
 				DCBA43A20B027927006AF52A /* iTM2AsymptoteKit.h */,
 				DCBA43A30B027927006AF52A /* iTM2AsymptoteKit.m */,
 			);

@@ -194,6 +194,13 @@
 		DC90CE9E09976BBD00C79525 /* iTM2MacrosMenu.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */; };
 		DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */; };
+		DCAD23910C144E83005549DC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCAD237C0C144E83005549DC /* SenTestingKit.framework */; };
+		DCAD23980C144EAF005549DC /* ICURE.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAD23700C144E03005549DC /* ICURE.m */; };
+		DCAD24290C14511D005549DC /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC18E08E1A5890011D2B7 /* PreferencePanes.framework */; };
+		DCAD242A0C14511D005549DC /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
+		DCAD242B0C14511D005549DC /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
+		DCAD242C0C14511D005549DC /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */; };
+		DCAD242D0C14511D005549DC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
 		DCB0A01709AEF98E00D2A37C /* Alias.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB0A01609AEF98E00D2A37C /* Alias.m */; };
 		DCB0A10D09AF01C300D2A37C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		DCB0A10E09AF01C300D2A37C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -867,6 +874,11 @@
 		DC99ECC60A284EC600F50752 /* Projects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projects.h; sourceTree = "<group>"; };
 		DC99ECC70A284EC600F50752 /* Projects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Projects.m; sourceTree = "<group>"; };
 		DCA45B93085DE62A00AF1C1F /* iTM2Foundation.hdoc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = iTM2Foundation.hdoc; sourceTree = "<group>"; };
+		DCAD22760C144930005549DC /* ICU RegEx test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ICU RegEx test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCAD227F0C144931005549DC /* ICU RegEx test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "ICU RegEx test-Info.plist"; sourceTree = "<group>"; };
+		DCAD236F0C144E03005549DC /* ICURE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICURE.h; sourceTree = "<group>"; };
+		DCAD23700C144E03005549DC /* ICURE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICURE.m; sourceTree = "<group>"; };
+		DCAD237C0C144E83005549DC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /System/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
 		DCAF9AD109D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREAtomPullDownButton.plist; sourceTree = "<group>"; };
 		DCAF9AD209D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2ARECodingTemplates.strings; sourceTree = "<group>"; };
 		DCAF9AD309D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREConstraintPullDownButton.plist; sourceTree = "<group>"; };
@@ -1191,6 +1203,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCAD22730C144930005549DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCAD24290C14511D005549DC /* PreferencePanes.framework in Frameworks */,
+				DCAD242A0C14511D005549DC /* ExceptionHandling.framework in Frameworks */,
+				DCAD242B0C14511D005549DC /* Lua.framework in Frameworks */,
+				DCAD242C0C14511D005549DC /* iTM2Foundation.framework in Frameworks */,
+				DCAD242D0C14511D005549DC /* libicucore.dylib in Frameworks */,
+				DCAD23910C144E83005549DC /* SenTestingKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCB0A00709AEF96E00D2A37C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1225,6 +1250,7 @@
 				DC815F360ADC4DBE00AFCED2 /* Prepare CamelBones.framework */,
 				DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */,
 				DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */,
+				DCAD22760C144930005549DC /* ICU RegEx test.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1260,6 +1286,7 @@
 				DCB0A00B09AEF96E00D2A37C /* Alias Test-Info.plist */,
 				DC99ECBF0A284EA800F50752 /* Project-Info.plist */,
 				DC3B41C40A4ADEA400E83ABA /* Settings */,
+				DCAD227F0C144931005549DC /* ICU RegEx test-Info.plist */,
 			);
 			name = iTM2Foundation;
 			sourceTree = "<group>";
@@ -1276,6 +1303,7 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCAD237C0C144E83005549DC /* SenTestingKit.framework */,
 				DC7050300B60389B009FD188 /* AddressBook.framework */,
 				DC7050310B60389B009FD188 /* Message.framework */,
 				DCCDD0A108F46F0200DAF639 /* OgreKit.framework */,
@@ -1320,6 +1348,8 @@
 				DCB0A01609AEF98E00D2A37C /* Alias.m */,
 				DC99ECC60A284EC600F50752 /* Projects.h */,
 				DC99ECC70A284EC600F50752 /* Projects.m */,
+				DCAD236F0C144E03005549DC /* ICURE.h */,
+				DCAD23700C144E03005549DC /* ICURE.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -2036,6 +2066,24 @@
 			productReference = DC99ECBE0A284EA800F50752 /* Project.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		DCAD22750C144930005549DC /* ICU RegEx test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCAD22800C144933005549DC /* Build configuration list for PBXNativeTarget "ICU RegEx test" */;
+			buildPhases = (
+				DCAD22710C144930005549DC /* Resources */,
+				DCAD22720C144930005549DC /* Sources */,
+				DCAD22730C144930005549DC /* Frameworks */,
+				DCAD22740C144930005549DC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ICU RegEx test";
+			productName = "ICU RegEx test";
+			productReference = DCAD22760C144930005549DC /* ICU RegEx test.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		DCB0A00909AEF96E00D2A37C /* Alias Test */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DCB0A00D09AEF96F00D2A37C /* Build configuration list for PBXNativeTarget "Alias Test" */;
@@ -2225,6 +2273,7 @@
 				DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */,
 				DCB0A00909AEF96E00D2A37C /* Alias Test */,
 				DC99ECBD0A284EA800F50752 /* Project */,
+				DCAD22750C144930005549DC /* ICU RegEx test */,
 			);
 		};
 /* End PBXProject section */
@@ -2365,6 +2414,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DC99ECB90A284EA800F50752 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCAD22710C144930005549DC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2546,6 +2602,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		DCAD22740C144930005549DC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		DCB0A00809AEF96E00D2A37C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2584,7 +2653,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\nif ! [ -d \"${SRCROOT}/../ICU/icu\" ]\nthen\n\"${SRCROOT}/../Scripts/downloadICU.command\"\n\"${SRCROOT}/../Scripts/prepareICU.command\"\nfi\nexit 0\n";
+			shellScript = "# shell script goes here\necho \"#warning: Looking for directory ${SRCROOT}/../ICU/icu\"\nif ! [ -d \"${SRCROOT}/../ICU/icu\" ]\nthen\n\"${SRCROOT}/../Scripts/downloadICU.command\"\n\"${SRCROOT}/../Scripts/prepareICU.command\"\nfi\nexit 0\n";
 		};
 		DCF61CF00854662D003F5F79 /* Merge the headers */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2747,6 +2816,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCAD22720C144930005549DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCAD23980C144EAF005549DC /* ICURE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3890,6 +3967,72 @@
 			};
 			name = Deployment;
 		};
+		DCAD22810C144933005549DC /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iTM2Foundation.framework/Versions/Current/iTM2Foundation";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "ICU RegEx test-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "ICU RegEx test";
+				TEST_HOST = "";
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		DCAD22820C144933005549DC /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iTM2Foundation.framework/Versions/Current/iTM2Foundation";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "ICU RegEx test-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "ICU RegEx test";
+				TEST_HOST = "";
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		DCB0A00E09AEF96F00D2A37C /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4236,6 +4379,15 @@
 			buildConfigurations = (
 				DC99ECC10A284EA900F50752 /* Development */,
 				DC99ECC20A284EA900F50752 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		DCAD22800C144933005549DC /* Build configuration list for PBXNativeTarget "ICU RegEx test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCAD22810C144933005549DC /* Development */,
+				DCAD22820C144933005549DC /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

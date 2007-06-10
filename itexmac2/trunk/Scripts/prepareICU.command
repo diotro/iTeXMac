@@ -5,6 +5,12 @@ echo "./configure"
 ./configure
 echo "make"
 make
+echo "Is there a platform.h file?"
+if ! [ -f "common/unicode/platform.h" ]
+then
+	echo "#warning: missing platform.h"
+	exit 2
+fi
 popd
 REGEX="$(find . -name "regex.h" -print)"
 echo "Header $REGEX"

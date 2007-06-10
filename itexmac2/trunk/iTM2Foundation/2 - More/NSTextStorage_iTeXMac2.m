@@ -114,6 +114,17 @@ To Do List:
     }
     return cachedTV;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= document
+- (id)document;
+/*"Given a line range number, it returns the range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	return [[[[self firstTextView] window] windowController] document];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  mainTextView
 - (NSTextView *)mainTextView;
 /*"Description forthcoming.
@@ -319,6 +330,17 @@ To Do List:
 //iTM2_START;
 	NSString * string = [self string];
 	return [string getRangeForLineRange:(NSRange)aLineRange];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
+- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+/*"Given a line range number, it returns the range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	return NO;
 }
 @end
 

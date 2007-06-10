@@ -772,6 +772,15 @@ This default implementation does nothing.
 
 - (BOOL)diagnostic;// private/debug use
 
+/*!
+    @method     didClickOnLink:atIndex:
+    @abstract   Description Forthcoming.
+    @discussion Description forthcoming.
+    @param      range
+    @result     YES if the receiver has managed the link
+*/
+- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+
 @end
 
 //#import <iTM2Foundation/iTM2ObjectsKit.h>

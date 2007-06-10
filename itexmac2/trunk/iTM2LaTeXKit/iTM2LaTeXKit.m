@@ -819,110 +819,6 @@ To Do List: Nothing at first glance.
     }
     return;
 }
-#pragma mark -
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
-- (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
-/*"Subclasses will return YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSTextStorage * TS = [self textStorage];
-	NSRange R = [iTM2TeXStringController TeXAwareWordRangeInAttributedString:TS atIndex:charIndex];
-	if(R.length<2)
-		return;
-	++R.location;
-	--R.length;
-	NSString * S = [TS string];
-	NSString * command = [S substringWithRange:R];
-	if([command isEqualToString:@"include"])
-	{
-		unsigned start = NSMaxRange(R);
-		if(start < [S length])
-		{
-			unsigned contentsEnd, TeXComment;
-			[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
-			NSString * string = [S substringWithRange:
-				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
-			NSScanner * scanner = [NSScanner scannerWithString:string];
-			[scanner scanString:@"{" intoString:nil];
-			NSString * fileName;
-			if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
-			{
-				if(![fileName hasPrefix:@"/"])
-				{
-					fileName = [[[[[[self window] windowController] document] fileName] stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
-				}
-				if(![SWS openFile:fileName])
-				{
-					fileName = [fileName stringByAppendingPathExtension:@"tex"];
-					if(![SWS openFile:fileName])
-					{
-						iTM2_LOG(@"INFO: could not open file <%@>", fileName);
-					}				
-				}
-			}
-			return;
-		}
-	}
-	else if([command isEqualToString:@"includegraphics"])
-	{
-		unsigned start = NSMaxRange(R);
-		if(start < [S length])
-		{
-			unsigned contentsEnd, TeXComment;
-			[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
-			NSString * string = [S substringWithRange:
-				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
-			NSScanner * scanner = [NSScanner scannerWithString:string];
-			[scanner scanString:@"{" intoString:nil];
-			NSString * fileName;
-			if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
-			{
-				if(![fileName hasPrefix:@"/"])
-				{
-					fileName = [[[[[[self window] windowController] document] fileName] stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
-				}
-				if(![SWS openFile:fileName])
-				{
-					fileName = [fileName stringByAppendingPathExtension:@"tex"];
-					if(![SWS openFile:fileName])
-					{
-						iTM2_LOG(@"INFO: could not open file <%@>", fileName);
-					}				
-				}
-			}
-			return;
-		}
-	}
-	else if([command isEqualToString:@"url"])
-	{
-		unsigned start = NSMaxRange(R);
-		if(start < [S length])
-		{
-			unsigned contentsEnd, TeXComment;
-			[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
-			NSString * string = [S substringWithRange:
-				NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
-			NSScanner * scanner = [NSScanner scannerWithString:string];
-			[scanner scanString:@"{" intoString:nil];
-			NSString * URLString;
-			if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &URLString])
-			{
-				if([URLString length] && ![SWS openURL:[[[NSURL alloc] initWithString:URLString] autorelease]])
-				{
-					iTM2_LOG(@"INFO: could not open url <%@>", URLString);
-				}
-			}
-			return;
-		}
-	}
-	[super clickedOnLink:link atIndex:charIndex];
-//iTM2_END;
-    return;
-}
 #pragma mark =-=-=-=-=-  LABELS & REFERENCES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertLaTeXLabel:
 - (IBAction)insertLaTeXLabel:(id)sender;
@@ -2351,6 +2247,7 @@ To Do List:
         #define paragraphDepth 6
         #define subparagraphDepth 7
         #define subsubparagraphDepth 8
+        #define subsubsubparagraphDepth 9
         #define titleDepth 100
         #define subjectDepth 101
         #define subsubjectDepth 102
@@ -2421,6 +2318,18 @@ To Do List:
                                         depth = subsubsubsectionDepth;
                                         goto manihi;
                                     }
+									else if(R1 = [S rangeOfString:@"paragraph" options:NSAnchoredSearch range:searchRange], R1.length)
+									{
+										scanLocation += 11;// subparagraph
+										depth = subsubparagraphDepth;
+										goto manihi;
+									}
+									else if(R1 = [S rangeOfString:@"subparagraph" options:NSAnchoredSearch range:searchRange], R1.length)
+									{
+										scanLocation += 14;// subparagraph
+										depth = subsubsubparagraphDepth;
+										goto manihi;
+									}
                                     else if(R1 = [S rangeOfString:@"ject" options:NSAnchoredSearch range:searchRange], R1.length)
                                     {
                                         scanLocation += 12;// subsubsubject
@@ -2654,6 +2563,9 @@ To Do List:
                                 prefix = @"....";
                                 break;
                             case subsubparagraphDepth:
+                                prefix = @".....";
+                                break;
+                            case subsubsubparagraphDepth:
                                 prefix = @".....";
                                 break;
                             case titleDepth:
@@ -2937,6 +2849,21 @@ To Do List: ...
 }
 @end
 
+static NSString * const iTM2LaTeXIncludeSyntaxModeName = @"\\include";
+static NSString * const iTM2LaTeXIncludegraphicsSyntaxModeName = @"\\includegraphics";
+static NSString * const iTM2LaTeXIncludegraphixSyntaxModeName = @"\\includegraphix";
+static NSString * const iTM2LaTeXURLSyntaxModeName = @"\\url";
+static NSString * const iTM2LaTeXPartSyntaxModeName = @"\\part";
+static NSString * const iTM2LaTeXChapterSyntaxModeName = @"\\chapter";
+static NSString * const iTM2LaTeXSectionSyntaxModeName = @"\\section";
+static NSString * const iTM2LaTeXSubsectionSyntaxModeName = @"\\subsection";
+static NSString * const iTM2LaTeXSubsubsectionSyntaxModeName = @"\\subsubsection";
+static NSString * const iTM2LaTeXParagraphSyntaxModeName = @"\\paragraph";
+static NSString * const iTM2LaTeXSubparagraphSyntaxModeName = @"\\subparagraph";
+static NSString * const iTM2LaTeXSubsubparagraphSyntaxModeName = @"\\subsubparagraph";
+static NSString * const iTM2LaTeXSubsubsubparagraphSyntaxModeName = @"\\subsubsubparagraph";
+extern NSString * const iTM2TeXCommandSyntaxModeName;
+
 @implementation iTM2LaTeXParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
@@ -2951,7 +2878,21 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"iTM2TeXParser");
     if(!_iTM2LaTeXModeForModeArray)
-        _iTM2LaTeXModeForModeArray = [[NSArray arrayWithObjects:@"include", @"includegraphics", @"url", nil] retain];
+        _iTM2LaTeXModeForModeArray = [[NSArray arrayWithObjects:
+			iTM2LaTeXIncludeSyntaxModeName,
+			iTM2LaTeXIncludegraphicsSyntaxModeName,
+			iTM2LaTeXIncludegraphixSyntaxModeName,
+			iTM2LaTeXURLSyntaxModeName,
+			iTM2LaTeXPartSyntaxModeName,
+			iTM2LaTeXChapterSyntaxModeName,
+			iTM2LaTeXSectionSyntaxModeName,
+			iTM2LaTeXSubsectionSyntaxModeName,
+			iTM2LaTeXSubsubsectionSyntaxModeName,
+			iTM2LaTeXParagraphSyntaxModeName,
+			iTM2LaTeXSubparagraphSyntaxModeName,
+			iTM2LaTeXSubsubparagraphSyntaxModeName,
+			iTM2LaTeXSubsubsubparagraphSyntaxModeName,
+				nil] retain];
 	iTM2_RELEASE_POOL;
     return;
 }
@@ -2975,22 +2916,43 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMutableDictionary * include = [NSMutableDictionary dictionaryWithDictionary:
-									[[super defaultModesAttributes] objectForKey:@"input"]];
-	[include setObject:@"include" forKey:iTM2TextModeAttributeName];
-	[include setObject:@"" forKey:NSLinkAttributeName];
-    NSMutableDictionary * includegraphics = [NSMutableDictionary dictionaryWithDictionary:
-									[[super defaultModesAttributes] objectForKey:@"input"]];
-	[includegraphics setObject:@"includegraphics" forKey:iTM2TextModeAttributeName];
-	[includegraphics setObject:@"" forKey:NSLinkAttributeName];
-    NSMutableDictionary * url = [NSMutableDictionary dictionaryWithDictionary:
-									[[super defaultModesAttributes] objectForKey:@"input"]];
-	[url setObject:@"url" forKey:iTM2TextModeAttributeName];
-	[url setObject:@"" forKey:NSLinkAttributeName];
     NSMutableDictionary * MD = [[[super defaultModesAttributes] mutableCopy] autorelease];
+    NSMutableDictionary * include = [NSMutableDictionary dictionaryWithDictionary:
+									[[super defaultModesAttributes] objectForKey:iTM2TeXCommandSyntaxModeName]];
+	[include setObject:iTM2LaTeXIncludeSyntaxModeName forKey:iTM2TextModeAttributeName];
+	[include setObject:@"" forKey:NSLinkAttributeName];
     [MD setObject:[[include copy] autorelease] forKey:[include objectForKey:iTM2TextModeAttributeName]];
+    NSMutableDictionary * includegraphics = [NSMutableDictionary dictionaryWithDictionary:
+									[[super defaultModesAttributes] objectForKey:iTM2TeXCommandSyntaxModeName]];
+	[includegraphics setObject:iTM2LaTeXIncludegraphicsSyntaxModeName forKey:iTM2TextModeAttributeName];
+	[includegraphics setObject:@"" forKey:NSLinkAttributeName];
     [MD setObject:[[includegraphics copy] autorelease] forKey:[includegraphics objectForKey:iTM2TextModeAttributeName]];
+	[includegraphics setObject:iTM2LaTeXIncludegraphixSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[includegraphics copy] autorelease] forKey:[includegraphics objectForKey:iTM2TextModeAttributeName]];
+    NSMutableDictionary * url = [NSMutableDictionary dictionaryWithDictionary:
+									[[super defaultModesAttributes] objectForKey:iTM2TeXCommandSyntaxModeName]];
+	[url setObject:iTM2LaTeXURLSyntaxModeName forKey:iTM2TextModeAttributeName];
+	[url setObject:@"" forKey:NSLinkAttributeName];
     [MD setObject:[[url copy] autorelease] forKey:[url objectForKey:iTM2TextModeAttributeName]];
+	NSMutableDictionary * md = [NSMutableDictionary dictionaryWithDictionary:[[super defaultModesAttributes] objectForKey:iTM2TeXCommandSyntaxModeName]];
+	[md setObject:iTM2LaTeXPartSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXChapterSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXSectionSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXSubsectionSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXSubsubsectionSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXParagraphSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXSubparagraphSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXSubsubparagraphSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
+	[md setObject:iTM2LaTeXSubsubsubparagraphSyntaxModeName forKey:iTM2TextModeAttributeName];
+    [MD setObject:[[md copy] autorelease] forKey:[md objectForKey:iTM2TextModeAttributeName]];
     return [NSDictionary dictionaryWithDictionary:MD];
 }
 #if 1
@@ -3019,16 +2981,19 @@ To Do List:
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unsigned newModifier = previousModifier;
 	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
-	unsigned newMode;
+	unsigned newMode = previousModeWithoutModifiers;
 
 	switch(previousModeWithoutModifiers)
 	{
 		case kiTM2LaTeXIncludeSyntaxMode:
 		case kiTM2LaTeXIncludegraphicsSyntaxMode:
+		case kiTM2LaTeXIncludegraphixSyntaxMode:
 		case kiTM2LaTeXURLSyntaxMode:
+		case kiTM2LaTeXSectionSyntaxMode:
 		if([set characterIsMember:theChar])
 		{
-			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:previousModeWithoutModifiers-kiTM2LaTeXIncludeSyntaxMode]])
+			NSString * syntaxMode = [_iTM2LaTeXModeForModeArray objectAtIndex:previousModeWithoutModifiers-kiTM2LaTeXFirstSyntaxMode];
+			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:syntaxMode])
 			{
 				* newModeRef = newMode | previousError | newModifier;
 				return kiTM2TeXNoErrorSyntaxStatus;
@@ -3073,102 +3038,97 @@ To Do List:
 		{
 			// is it a \include, \includegraphics, \url
 			// scanning from location for the control sequence name
-			unsigned start = location;
-			unsigned end = start+1;
+			unsigned start = location-1;
+			unsigned end = location+1;
 			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
 				++end;
-			if(end == start+15)
+			if(end == start+16)
 			{
 				r = NSMakeRange(start, end-start);
 				substring = [S substringWithRange:r];
-				if([@"includegraphics" isEqualToString:substring])
-				{
-					if(lengthRef)
-					{
-						* lengthRef = end-start;
-					}
-					if(nextModeRef && (end<[S length]))
-					{
-						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludegraphicsSyntaxMode];
-					}
-					// now we invalidate the cursor rects in order to have the links properly displayed
-					//the delay is due to the reentrant problem
-					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					* newModeRef = kiTM2LaTeXIncludegraphicsSyntaxMode;
-					return kiTM2TeXNoErrorSyntaxStatus;
+#define RETURN_MODE(SyntaxModeName,SyntaxMode) if([SyntaxModeName isEqualToString:substring])\
+				{\
+					if(lengthRef)\
+					{\
+						* lengthRef = end-start-1;\
+					}\
+					* newModeRef = SyntaxMode;\
+					if(nextModeRef && (end<[S length]))\
+					{\
+						theChar = [S characterAtIndex:end];\
+						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:* newModeRef];\
+					}\
+					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];\
+					return kiTM2TeXNoErrorSyntaxStatus;\
 				}
+				RETURN_MODE(iTM2LaTeXIncludegraphicsSyntaxModeName,kiTM2LaTeXIncludegraphicsSyntaxMode);
 			}
-			else if(end == start+7)
+			else if(end == start+19)
 			{
 				r = NSMakeRange(start, end-start);
 				substring = [S substringWithRange:r];
-				if([@"include" isEqualToString:substring])
-				{
-					if(lengthRef)
-					{
-						* lengthRef = end-start;
-					}
-					if(nextModeRef && (end<[S length]))
-					{
-						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXIncludeSyntaxMode];
-					}
-					// now we invalidate the cursor rects in order to have the links properly displayed
-					//the delay is due to the reentrant problem
-					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					* newModeRef = kiTM2LaTeXIncludeSyntaxMode;
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
+				RETURN_MODE(iTM2LaTeXSubsubsubparagraphSyntaxModeName,kiTM2LaTeXSubsubsubparagraphSyntaxMode)
 			}
-			else if(end == start+3)
+			else if(end == start+16)
 			{
 				r = NSMakeRange(start, end-start);
 				substring = [S substringWithRange:r];
-				if([@"url" isEqualToString:substring])
-				{
-					if(lengthRef)
-					{
-						* lengthRef = end-start;
-					}
-					if(nextModeRef && (end<[S length]))
-					{
-						theChar = [S characterAtIndex:end];
-						status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:kiTM2LaTeXURLSyntaxMode];
-					}
-					// now we invalidate the cursor rects in order to have the links properly displayed
-					//the delay is due to the reentrant problem
-					[_TextStorage performSelector:@selector(invalidateCursorRects) withObject:nil afterDelay:0.01];
-					* newModeRef = kiTM2LaTeXURLSyntaxMode;
-					return kiTM2TeXNoErrorSyntaxStatus;
-				}
+				RETURN_MODE(iTM2LaTeXSubsubparagraphSyntaxModeName,kiTM2LaTeXSubsubparagraphSyntaxMode)
+			}
+			else if(end == start+15)
+			{
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				RETURN_MODE(iTM2LaTeXIncludegraphixSyntaxModeName,kiTM2LaTeXIncludegraphixSyntaxMode);
+			}
+			else if(end == start+14)
+			{
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				RETURN_MODE(iTM2LaTeXSubsubsectionSyntaxModeName,kiTM2LaTeXSubsubsectionSyntaxMode)
+			}
+			else if(end == start+13)
+			{
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				RETURN_MODE(iTM2LaTeXSubparagraphSyntaxModeName,kiTM2LaTeXSubparagraphSyntaxMode)
+			}
+			else if(end == start+11)
+			{
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				RETURN_MODE(iTM2LaTeXSubsectionSyntaxModeName,kiTM2LaTeXSubsubsectionSyntaxMode)
+			}
+			else if(end == start+10)
+			{
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				RETURN_MODE(iTM2LaTeXParagraphSyntaxModeName,kiTM2LaTeXParagraphSyntaxMode)
+			}
+			else if(end == start+8)
+			{
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				RETURN_MODE(iTM2LaTeXIncludeSyntaxModeName,kiTM2LaTeXIncludeSyntaxMode)
+				else
+				RETURN_MODE(iTM2LaTeXSectionSyntaxModeName,kiTM2LaTeXSectionSyntaxMode)
+			}
+			else if(end == start+4)
+			{
+				r = NSMakeRange(start, end-start);
+				substring = [S substringWithRange:r];
+				RETURN_MODE(iTM2LaTeXURLSyntaxModeName,kiTM2LaTeXURLSyntaxMode)
 			}
 		}
 	}
 	if(nextModeRef)
 	{
 		unsigned result = [super getSyntaxMode:newModeRef forLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nextModeRef before:beforeIndex];
-		if((result == kiTM2TeXCommandStartSyntaxMode) && (*nextModeRef == kiTM2TeXCommandContinueSyntaxMode))
+		if(!result
+			&&((*newModeRef & ~kiTM2TeXFlagsSyntaxMask) == kiTM2TeXCommandStartSyntaxMode)
+				&&((*nextModeRef & ~kiTM2TeXFlagsSyntaxMask) == kiTM2TeXCommandContinueSyntaxMode))
 		{
-			unsigned start = location+1;
-			unsigned end = start;
-			while(end<[S length] && ((theChar = [S characterAtIndex:end]),[set characterIsMember:theChar]))
-				++end;
-			if(end == start+15)
-			{
-				if([@"includegraphics" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
-					*nextModeRef = kiTM2LaTeXIncludegraphicsSyntaxMode;
-			}
-			else if(end == start+7)
-			{
-				if([@"include" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
-					*nextModeRef = kiTM2LaTeXIncludeSyntaxMode;
-			}
-			else if(end == start+3)
-			{
-				if([@"url" isEqualToString:[S substringWithRange:NSMakeRange(start, end-start)]])
-					*nextModeRef = kiTM2LaTeXURLSyntaxMode;
-			}
+			*nextModeRef = kiTM2TeXUnknownSyntaxMode;
 		}
 		return result;
 	}
@@ -3176,60 +3136,112 @@ To Do List:
 		return [super getSyntaxMode:newModeRef forLocation:location previousMode:previousMode effectiveLength:lengthRef nextModeIn:nil before:beforeIndex];
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
-/*"Description forthcoming.
+#import "iTM2LaTeXStorageAttributes.m"
+#endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
+- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+/*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned mode;
-	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXFlagsSyntaxMask;
-    switch(switcher)
-    {
-        case kiTM2TeXCommandStartSyntaxMode:
-			if(aLocation+1 < [[self textStorage] length])
+	NSTextStorage * TS = [self textStorage];
+	NSRange R = [iTM2TeXStringController TeXAwareWordRangeInAttributedString:TS atIndex:charIndex];
+	if(R.length>1)
+	{
+		NSString * S = [TS string];
+		NSString * command = [S substringWithRange:R];
+		if([command isEqualToString:iTM2LaTeXIncludeSyntaxModeName])
+		{
+			unsigned start = NSMaxRange(R);
+			if(start < [S length])
 			{
-				unsigned nextMode;
-				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
-				unsigned nextSwitcher = nextMode & ~kiTM2TeXFlagsSyntaxMask;
-				switch(nextSwitcher)
+				unsigned contentsEnd, TeXComment;
+				[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
+				NSString * string = [S substringWithRange:
+					NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
+				NSScanner * scanner = [NSScanner scannerWithString:string];
+				[scanner scanString:@"{" intoString:nil];
+				NSString * fileName;
+				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
 				{
-					case kiTM2LaTeXIncludeSyntaxMode:
-					case kiTM2LaTeXIncludegraphicsSyntaxMode:
-					case kiTM2LaTeXURLSyntaxMode:
+					if(![fileName hasPrefix:@"/"])
 					{
-						if(aRangePtr)
-						{
-							aRangePtr->location -= 1;
-							aRangePtr->length += 1;
-						}
-						return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:nextSwitcher-1000]];
+						fileName = [[TS document] fileName];
+						fileName = [[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
 					}
-					default:
-						return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
+					if(![SWS openFile:fileName])
+					{
+						fileName = [fileName stringByAppendingPathExtension:@"tex"];
+						if(![SWS openFile:fileName])
+						{
+							iTM2_LOG(@"INFO: could not open file <%@>", fileName);
+						}				
+					}
 				}
+				return YES;
 			}
-			else
-				return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
-        case kiTM2LaTeXIncludeSyntaxMode:
-        case kiTM2LaTeXIncludegraphicsSyntaxMode:
-        case kiTM2LaTeXURLSyntaxMode:
-			if(aRangePtr)
+		}
+		else if([command isEqualToString:iTM2LaTeXIncludegraphicsSyntaxModeName]
+					||[command isEqualToString:iTM2LaTeXIncludegraphixSyntaxModeName])
+		{
+			unsigned start = NSMaxRange(R);
+			if(start < [S length])
 			{
-				unsigned max = NSMaxRange(*aRangePtr);
-				aRangePtr->location = aLocation;
-				aRangePtr->length = max-aLocation;
+				unsigned contentsEnd, TeXComment;
+				[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
+				NSString * string = [S substringWithRange:
+					NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
+				NSScanner * scanner = [NSScanner scannerWithString:string];
+				[scanner scanString:@"{" intoString:nil];
+				NSString * fileName;
+				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+				{
+					if(![fileName hasPrefix:@"/"])
+					{
+						fileName = [[TS document] fileName];
+						fileName = [[fileName stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
+					}
+					if(![SWS openFile:fileName])
+					{
+						fileName = [fileName stringByAppendingPathExtension:@"tex"];
+						if(![SWS openFile:fileName])
+						{
+							iTM2_LOG(@"INFO: could not open file <%@>", fileName);
+						}				
+					}
+				}
+				return YES;
 			}
-            return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher-1000]];
-        default:
-            return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
-    }
+		}
+		else if([command isEqualToString:iTM2LaTeXURLSyntaxModeName])
+		{
+			unsigned start = NSMaxRange(R);
+			if(start < [S length])
+			{
+				unsigned contentsEnd, TeXComment;
+				[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
+				NSString * string = [S substringWithRange:
+					NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment)-start)];
+				NSScanner * scanner = [NSScanner scannerWithString:string];
+				[scanner scanString:@"{" intoString:nil];
+				NSString * URLString;
+				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &URLString])
+				{
+					if([URLString length] && ![SWS openURL:[[[NSURL alloc] initWithString:URLString] autorelease]])
+					{
+						iTM2_LOG(@"INFO: could not open url <%@>", URLString);
+					}
+				}
+				return YES;
+			}
+		}
+	}
+//iTM2_END;
+	return [super didClickOnLink:link atIndex:charIndex];
 }
-#endif
 @end
 
 @implementation iTM2XtdLaTeXParser
@@ -3245,59 +3257,7 @@ To Do List: Nothing
     return @"LaTeX-Xtd";
 }
 #if 1
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    unsigned mode;
-	unsigned status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXFlagsSyntaxMask;
-    switch(switcher)
-    {
-        case kiTM2TeXCommandStartSyntaxMode:
-			if(aLocation+1 < [[self textStorage] length])
-			{
-				unsigned nextMode;
-				status = [self getSyntaxMode:&nextMode atIndex:aLocation+1 longestRange:aRangePtr];
-				unsigned nextSwitcher = nextMode & ~kiTM2TeXFlagsSyntaxMask;
-				switch(nextSwitcher)
-				{
-					case kiTM2LaTeXIncludeSyntaxMode:
-					case kiTM2LaTeXIncludegraphicsSyntaxMode:
-					case kiTM2LaTeXURLSyntaxMode:
-					{
-						if(aRangePtr)
-						{
-							aRangePtr->location -= 1;
-							aRangePtr->length += 1;
-						}
-						return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:nextSwitcher-1000]];
-					}
-					default:
-						return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
-				}
-			}
-			else
-				return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
-        case kiTM2LaTeXIncludeSyntaxMode:
-        case kiTM2LaTeXIncludegraphicsSyntaxMode:
-        case kiTM2LaTeXURLSyntaxMode:
-			if(aRangePtr)
-			{
-				unsigned max = NSMaxRange(*aRangePtr);
-				aRangePtr->location = aLocation;
-				aRangePtr->length = max-aLocation;
-			}
-            return [_AS attributesForMode:[_iTM2LaTeXModeForModeArray objectAtIndex:switcher-1000]];
-        default:
-            return [super attributesAtIndex:aLocation effectiveRange:aRangePtr];
-    }
-}
+#import "iTM2LaTeXStorageAttributes.m"
 #endif
 @end
 

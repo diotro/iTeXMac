@@ -22,6 +22,7 @@
 */
 
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
+#import <iTM2TeXFoundation/iTM2TeXStringKit.h>
 
 NSString * const iTM2TextAttributesSymbolsExtension = @"rtf";
 NSString * const iTM2TextAttributesDraftSymbolsExtension = @"DraftSymbols";
@@ -70,6 +71,8 @@ NSString * const iTM2TeXSuperLongSyntaxModeName = @"^{}";
 NSString * const iTM2TeXAmpersandSyntaxModeName = @"&";
 NSString * const iTM2TeXPlaceholderDelimiterSyntaxModeName = @"@@@()@@@";
 
+NSString * const iTM2TeXCommandInputSyntaxModeName = @"\\input";
+
 #undef iTM2_ATTRIBUTE_ASSERT
 #define iTM2_ATTRIBUTE_ASSERT(CONDITION,REASON) if(iTM2DebugEnabled>99&&!(CONDITION)) {ERROR=REASON;goto returnERROR;}
 
@@ -97,7 +100,7 @@ To Do List:
 			iTM2TeXSubSyntaxModeName, iTM2TeXSubShortSyntaxModeName, iTM2TeXSubLongSyntaxModeName,// +3
 			iTM2TeXSuperSyntaxModeName, iTM2TeXSuperContinueSyntaxModeName, iTM2TeXSuperShortSyntaxModeName, iTM2TeXSuperLongSyntaxModeName,// +4
 			iTM2TeXAmpersandSyntaxModeName,// +1
-			iTM2TeXPlaceholderDelimiterSyntaxModeName,// +3
+			iTM2TeXPlaceholderDelimiterSyntaxModeName,// +1
 				nil] retain];
 	}
 	iTM2_RELEASE_POOL;
@@ -143,7 +146,7 @@ To Do List:
 	[MRA addObject:attributes];
 
     NSMutableDictionary * input = [[attributes mutableCopy] autorelease];
-	[input setObject:@"\\input" forKey:iTM2TextModeAttributeName];
+	[input setObject:iTM2TeXCommandInputSyntaxModeName forKey:iTM2TextModeAttributeName];
 	[input setObject:@"" forKey:NSLinkAttributeName];
 	[MRA addObject:input];
 
@@ -273,6 +276,65 @@ To Do List:
 }
 #undef iTM2_WITH_SYMBOLS
 #include "iTM2TeXStorageAttributes.m"
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
+- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+/*"Subclasses will return YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri May 21 07:52:07 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSTextStorage * TS = [self textStorage];
+	NSRange R = [iTM2TeXStringController TeXAwareWordRangeInAttributedString:TS atIndex:charIndex];
+	if(R.length>1)
+	{
+		NSString * S = [TS string];
+		NSString * command = [S substringWithRange:R];
+		if([command isEqualToString:iTM2TeXCommandInputSyntaxModeName])
+		{
+			unsigned start = NSMaxRange(R);
+			if(start < [S length])
+			{
+				unsigned contentsEnd, TeXComment;
+				[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
+				NSString * string = [S substringWithRange:
+					NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment) - start)];
+				NSScanner * scanner = [NSScanner scannerWithString:string];
+				[scanner scanString:@"{" intoString:nil];
+				NSString * fileName;
+				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+				{
+					if(![fileName hasPrefix:@"/"])
+					{
+						fileName = [[[[self window] windowController] document] fileName];
+						fileName = [fileName stringByDeletingLastPathComponent];
+						fileName = [fileName stringByAppendingPathComponent:fileName];
+					}
+					NSURL * URL = [NSURL fileURLWithPath:fileName];
+					if(![SDC openDocumentWithContentsOfURL:URL display:YES error:nil])
+					{
+						NSString * newFileName = [fileName stringByAppendingPathExtension:@"tex"];
+						URL = [NSURL fileURLWithPath:newFileName];
+						if(![SDC openDocumentWithContentsOfURL:URL display:YES error:nil]
+							&& ![SWS openFile:fileName]
+								&& ![SWS openFile:newFileName])
+						{
+							iTM2_LOG(@"INFO: could not open file <%@>", newFileName);
+						}				
+					}
+				}
+				else
+				{
+					iTM2_LOG(@"..........  TeX SYNTAX ERROR: nothing to input");
+				}
+			}
+			return YES;
+		}
+	}
+//iTM2_END;
+	return [super didClickOnLink:link atIndex:charIndex];
+}
 @end
 
 @implementation iTM2XtdTeXParser

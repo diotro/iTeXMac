@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 }
 #import <iTM2Foundation/iTeXMac2.h>
 #import <OgreKit/OgreKit.h>
+#import <iTM2Foundation/ICURegEx.h>
 
 @interface NSObject(OgreKit)
 - (void)setShouldHackFindMenu:(BOOL)yorn;
@@ -52,6 +53,21 @@ int main(int argc, char *argv[])
 	{
 		iTM2_LOG(@"OgreKit not installed");
 	}
+	return;
+}
+- (void)testRegularExpression_DidFinishLaunching;
+{
+	NSRange R = [@"@@@@(@" rangeOfICUREPattern:@"@@@\\(" error:nil];
+	if(R.length)
+	{
+		NSLog(@"1: %@",NSStringFromRange(R));
+	}
+	R = [@"@@@@(@" rangeOfICUREPattern:@"@@@\\(|\\)@@@" error:nil];
+	if(R.length)
+	{
+		NSLog(@"1: %@",NSStringFromRange(R));
+	}
+
 	return;
 }
 @end

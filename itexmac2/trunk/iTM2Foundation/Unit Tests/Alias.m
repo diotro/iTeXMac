@@ -11,6 +11,7 @@
 #import "Alias.h"
 #import "iTeXMac2.h"
 #import "iTM2FileManagerKit.h"
+#import "ICURegEx.h"
 
 
 @implementation Alias

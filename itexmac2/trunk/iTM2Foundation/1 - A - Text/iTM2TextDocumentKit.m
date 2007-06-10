@@ -2492,5 +2492,22 @@ iTM2_LOG(@"0 myProposedSelRange:%@",NSStringFromRange(myProposedSelRange));
     return itsProposedSelRange;
 }
 #endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= clickedOnLink:atIndex:
+- (void)clickedOnLink:(id)link atIndex:(unsigned)charIndex;
+/*"Subclasses will return YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri May 21 07:52:07 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSTextStorage * TS = [self textStorage];
+	if(![TS didClickOnLink:(id)link atIndex:(unsigned)charIndex])
+	{
+		[super clickedOnLink:link atIndex:charIndex];
+	}
+//iTM2_END;
+    return;
+}
 @end
 

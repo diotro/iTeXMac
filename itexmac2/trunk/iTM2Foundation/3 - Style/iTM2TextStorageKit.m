@@ -139,8 +139,8 @@ To Do List:
 	id TS = [self textStorage];
 	if([TS isKindOfClass:[iTM2TextStorage class]])
 	{
-		[self takeContextValue:[[self textStorage] syntaxParserStyle] forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask];
-		[self takeContextValue:[[self textStorage] syntaxParserVariant] forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask];
+		[self takeContextValue:[TS syntaxParserStyle] forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask];
+		[self takeContextValue:[TS syntaxParserVariant] forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask];
 	}
 //iTM2_END;
     return;
@@ -914,6 +914,17 @@ To Do List:
 	}
 	unsigned end = [ML endOffset];
 	return NSMakeRange(start,end-start);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
+- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+/*"Given a line range number, it returns the range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	return [_SP didClickOnLink:link atIndex:charIndex];
 }
 @end
 
@@ -2463,15 +2474,26 @@ To Do List:
 		{
 			[self attributesAtIndex:aGlobalLocation-1 effectiveRange:&R];
 			[workingML invalidateGlobalRange:R];
-			if(R.location>_ML->_StartOff7)
+			unichar theChar;
+placeholderMarks:
+			theChar = [S characterAtIndex:aGlobalLocation];
+			if((theChar == '@') ||(theChar == '(') ||(theChar == ')'))
 			{
-				[self attributesAtIndex:R.location-1 effectiveRange:&R];
-				if(R.length<4)// "@(@"
+				R.location = aGlobalLocation;
+				R.length = 1;
+				do
 				{
-					[workingML invalidateGlobalRange:R];
-				}
+					theChar = [S characterAtIndex:--R.location];
+					if((theChar != '@')&&(theChar != '(')&&(theChar != ')'))
+					{
+						[workingML invalidateGlobalRange:R];
+						break;
+					}
+				}// 
+				while(_ML->_StartOff7<R.location);
 			}
 		}
+theEnd:
 		if([self diagnostic])
 		{
 			iTM2_LOG(@"***  FAILURE: Could not append a character properly (1-lighter)");
@@ -2517,21 +2539,9 @@ To Do List:
 						}
 					}
 				}
+				goto placeholderMarks;
 			}
-			if([self diagnostic])
-			{
-				iTM2_LOG(@"/*/*/*/*/*  <:?( BAD ENLARGED MODE LINE!!!");
-			}
-			if([self diagnostic])
-			{
-				iTM2_LOG(@"***  FAILURE: Could not insert a character");
-			}
-			if(editedAttributesRangePtr)
-			{
-				*editedAttributesRangePtr = [workingML invalidGlobalRange];
-			}
-			[self invalidateModesFrom:lineIndex];
-			return;
+			goto theEnd;
 	//NSLog(@"I am invalidating the range");
 		}
 		else
@@ -2543,15 +2553,7 @@ To Do List:
 			}
 			[self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1 editedAttributesRangeIn:editedAttributesRangePtr];
 		}
-		
-		if([self diagnostic])
-		{
-			iTM2_LOG(@"/*/*/*/*/*  <:( Bordel, pas moyen d'inserer UN caractere...");
-		}
-		else if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"/*/*/*/*/*  <:) HOURRRRRRRRRRA pour l'insertion");
-		}
+		goto theEnd;
 	}
 #endif
 	return;
@@ -3252,11 +3254,11 @@ To Do List:
 			return;
 		}
         [workingML invalidateGlobalRange:affectedRange];
+		iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)workingML;
 		if((mode != kiTM2TextRegularSyntaxMode) || (affectedRange.length < 2))
 		{
 			// either a single regular character or a non regular one was deleted
 			// what is before and after is likely to change
-			iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)workingML;
 			while(affectedRange.location>_ML->_StartOff7)
 			{
 				[workingML getSyntaxMode:&mode atGlobalLocation:affectedRange.location-1 longestRange:&affectedRange];
@@ -3269,6 +3271,11 @@ To Do List:
 					[workingML invalidateGlobalRange:affectedRange];
 				}
 			}
+		}
+		else
+		{
+			affectedRange.location = MAX(_ML->_StartOff7+4,affectedRange.location)-4;
+			[workingML invalidateGlobalRange:affectedRange];
 		}
         [self invalidateModesFrom:lineIndex];
         [self invalidateOffsetsFrom:lineIndex+1];
@@ -3422,6 +3429,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
+- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+/*"Given a line range number, it returns the range including the ending characters.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	return NO;
 }
 @end
 

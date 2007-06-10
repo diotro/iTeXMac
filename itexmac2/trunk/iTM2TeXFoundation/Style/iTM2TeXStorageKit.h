@@ -34,6 +34,7 @@ extern NSString * const iTM2TextAttributesSymbolsExtension;
 extern NSString * const iTM2TextAttributesDraftSymbolsExtension;
 extern NSString * const iTM2Text2ndSymbolColorAttributeName;
 extern NSString * const iTM2TextAttributesCharacterAttributeName;
+extern NSString * const iTM2TeXCommandSyntaxModeName;
 
 enum
 {

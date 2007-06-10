@@ -91,9 +91,20 @@ extern NSString * const iTM2LaTeXToolbarIdentifier;
 
 typedef enum _iTM2LaTeXInputMode 
 {
-    kiTM2LaTeXIncludeSyntaxMode = 1000,
+    kiTM2LaTeXFirstSyntaxMode = 1000,
+    kiTM2LaTeXIncludeSyntaxMode = kiTM2LaTeXFirstSyntaxMode,
     kiTM2LaTeXIncludegraphicsSyntaxMode,
-    kiTM2LaTeXURLSyntaxMode,// keep that order
+    kiTM2LaTeXIncludegraphixSyntaxMode,
+    kiTM2LaTeXURLSyntaxMode,
+    kiTM2LaTeXPartSyntaxMode,// keep that order
+    kiTM2LaTeXChapterSyntaxMode,
+    kiTM2LaTeXSectionSyntaxMode,
+    kiTM2LaTeXSubsectionSyntaxMode,
+    kiTM2LaTeXSubsubsectionSyntaxMode,
+    kiTM2LaTeXParagraphSyntaxMode,
+    kiTM2LaTeXSubparagraphSyntaxMode,
+    kiTM2LaTeXSubsubparagraphSyntaxMode,
+    kiTM2LaTeXSubsubsubparagraphSyntaxMode,
 	kiTM2LaTeXUnknownSyntaxMode = kiTM2TeXUnknownSyntaxMode
 } iTM2LaTeXInputMode;
 

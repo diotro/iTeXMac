@@ -29,6 +29,7 @@
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
+#import <iTM2Foundation/iTM2MenuKit.h>
 
 NSString * const iTM2MacroMenuPathExtension = @"iTM2-menu";
 NSString * const iTM2MacrosDirectoryName = @"Macros";
