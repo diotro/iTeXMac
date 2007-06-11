@@ -3483,7 +3483,7 @@ To Do List:
         _NumberOfSyntaxWords = 0;
         _MaxNumberOfSyntaxWords = _iTM2_MODE_BLOC_;
         size_t size = _MaxNumberOfSyntaxWords * sizeof(int);
-		NSZoen * myZone = [self zone];
+		NSZone * myZone = [self zone];
         __SyntaxWordModes = NSZoneMalloc(myZone,size);
         size += sizeof(int);
         __SyntaxWordLengths = NSZoneMalloc(myZone,size);
