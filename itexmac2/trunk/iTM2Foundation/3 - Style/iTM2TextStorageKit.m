@@ -2445,7 +2445,7 @@ To Do List:
 	unsigned lineIndex = [self lineIndexForLocation:aGlobalLocation];
 	[self invalidateOffsetsFrom:lineIndex+1];
 #undef _ML
-	iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)[self modeLineAtIndex:lineIndex];
+	iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)[[[self modeLineAtIndex:lineIndex] retain] autorelease];
 #undef workingML
 	#define workingML ((iTM2ModeLine *)_ML)
 	// If this mode line is already invalid, we will recompute everything
@@ -2552,8 +2552,8 @@ theEnd:
 				iTM2_LOG(@"/*/*/*/*/*  <:/ MANQUE DE BOL, C'EST UN EOL!!!!! AT LOCATION %u", aGlobalLocation);
 			}
 			[self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1 editedAttributesRangeIn:editedAttributesRangePtr];
+			return;
 		}
-		goto theEnd;
 	}
 #endif
 	return;
