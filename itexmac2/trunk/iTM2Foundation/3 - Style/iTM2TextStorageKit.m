@@ -4089,6 +4089,21 @@ To Do List:
 //iTM2_START;
     return _NumberOfSyntaxWords;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  status
+- (unsigned)status;
+/*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _Status;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setStatus:
+- (void)setStatus:(unsigned)argument;
+/*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    _Status = argument;
+    return;
+}
 #ifdef __ELEPHANT_MODELINE__
 #warning ELEPHANT MODE: For debugging purpose only... see iTM2TextStorageKit.h
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  originalString
