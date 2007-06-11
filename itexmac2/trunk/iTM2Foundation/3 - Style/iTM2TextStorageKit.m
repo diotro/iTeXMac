@@ -3483,17 +3483,18 @@ To Do List:
         _NumberOfSyntaxWords = 0;
         _MaxNumberOfSyntaxWords = _iTM2_MODE_BLOC_;
         size_t size = _MaxNumberOfSyntaxWords * sizeof(int);
-        __SyntaxWordModes = malloc(size);
+		NSZoen * myZone = [self zone];
+        __SyntaxWordModes = NSZoneMalloc(myZone,size);
         size += sizeof(int);
-        __SyntaxWordLengths = malloc(size);
-        __SyntaxWordOff7s = malloc(size);
+        __SyntaxWordLengths = NSZoneMalloc(myZone,size);
+        __SyntaxWordOff7s = NSZoneMalloc(myZone,size);
         if(!__SyntaxWordOff7s || !__SyntaxWordLengths || !__SyntaxWordModes)
         {
             iTM2_LOG(@"NOTHING!!!");
             _MaxNumberOfSyntaxWords = 0;
-            free(__SyntaxWordOff7s);
-            free(__SyntaxWordLengths);
-            free(__SyntaxWordModes);
+            NSZoneFree(myZone,__SyntaxWordOff7s);
+            NSZoneFree(myZone,__SyntaxWordLengths);
+            NSZoneFree(myZone,__SyntaxWordModes);
             __SyntaxWordOff7s = nil;
             __SyntaxWordLengths = nil;
             __SyntaxWordModes = nil;
@@ -3555,6 +3556,7 @@ To Do List:
         _InvalidLocalRange = NSMakeRange(0, UINT_MAX);
         _PreviousMode = kiTM2TextUnknownSyntaxMode;
         _EOLMode = kiTM2TextUnknownSyntaxMode;
+		_Status = 0;
     }
     //NSLog(@"DEBUG initWithString: END");
 //[self describe];
@@ -4135,10 +4137,11 @@ To Do List:
 //iTM2_START;
     _MaxNumberOfSyntaxWords += _iTM2_MODE_BLOC_;
     size_t size = _MaxNumberOfSyntaxWords * sizeof(int);
-    __SyntaxWordLengths = __SyntaxWordLengths? realloc(__SyntaxWordLengths, size): malloc(size);
-    __SyntaxWordModes = __SyntaxWordModes? realloc(__SyntaxWordModes, size): malloc(size);
+	NSZone * myZone = [self zone];
+    __SyntaxWordLengths = __SyntaxWordLengths? NSZoneRealloc(myZone,__SyntaxWordLengths, size): NSZoneMalloc(myZone,size);
+    __SyntaxWordModes = __SyntaxWordModes? NSZoneRealloc(myZone,__SyntaxWordModes, size): NSZoneMalloc(myZone,size);
     size += sizeof(int);
-    __SyntaxWordOff7s = __SyntaxWordOff7s? realloc(__SyntaxWordOff7s, size): malloc(size);
+    __SyntaxWordOff7s = __SyntaxWordOff7s? NSZoneRealloc(myZone,__SyntaxWordOff7s, size): NSZoneMalloc(myZone,size);
     if(!__SyntaxWordOff7s || !__SyntaxWordLengths || !__SyntaxWordModes)
     {
         if(iTM2DebugEnabled > 999999)
@@ -4180,10 +4183,11 @@ To Do List:
     {
         _MaxNumberOfSyntaxWords += _iTM2_MODE_BLOC_;
         size_t size = _MaxNumberOfSyntaxWords * sizeof(int);
-        __SyntaxWordLengths = __SyntaxWordLengths? realloc(__SyntaxWordLengths, size): malloc(size);
-        __SyntaxWordModes = __SyntaxWordModes? realloc(__SyntaxWordModes, size): malloc(size);
+		NSZone * myZone = [self zone];
+        __SyntaxWordLengths = __SyntaxWordLengths? NSZoneRealloc(myZone,__SyntaxWordLengths, size): NSZoneMalloc(myZone,size);
+        __SyntaxWordModes = __SyntaxWordModes? NSZoneRealloc(myZone,__SyntaxWordModes, size): NSZoneMalloc(myZone,size);
         size += sizeof(int);
-        __SyntaxWordOff7s = __SyntaxWordOff7s? realloc(__SyntaxWordOff7s, size): malloc(size);
+        __SyntaxWordOff7s = __SyntaxWordOff7s? NSZoneRealloc(myZone,__SyntaxWordOff7s, size): NSZoneMalloc(myZone,size);
         if(!__SyntaxWordOff7s || !__SyntaxWordLengths || !__SyntaxWordModes)
         {
             iTM2_LOG(@"NOTHING!!!");
