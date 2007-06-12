@@ -646,7 +646,7 @@ To Do List:
 		range = [replacement rangeOfPreviousPlaceholderBeforeIndex:index cycle:NO tabAnchor:tabAnchor ignoreComment:YES];
 		if(range.length)
 		{
-			if(NSMaxRange(range)<index)
+			if(NSMaxRange(range)+1<index)// if there is just one char to the end, don't add a placeholder mark
 			{
 				[replacement appendString:@"@@@()@@@"];
 			}
