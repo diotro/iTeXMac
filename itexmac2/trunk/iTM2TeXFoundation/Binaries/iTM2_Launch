@@ -68,11 +68,11 @@ then
 			do
 				rm -f "$iTM2_PWD/$DIR"
 				ln -s ".iTM2-src/$(basename "$DIR")" "$iTM2_PWD/$DIR"
-				if [ ${iTM2_LIMIT} -gt 0 ]
+				if [ ${iTM2_LIMIT} > 0 ]
 				then
-					break
+					iTM2_LIMIT=$(expr $iTM2_LIMIT - 1)
 				else
-					iTM2_LIMIT=$(expr iTM2_LIMIT - 1)
+					break
 				fi
 			done
 			popd >> /dev/null
