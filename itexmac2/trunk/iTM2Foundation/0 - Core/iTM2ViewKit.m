@@ -1664,3 +1664,185 @@ To Do List:
 }
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ScrollerToolbarKit
+
+@implementation iTM2StackView
+#define orderedSubviews _implementation
+- (id)initWithFrame:(NSRect)frameRect;
+{
+	if(self = [super initWithFrame:(NSRect)frameRect])
+	{
+		[self setPostsFrameChangedNotifications:YES];
+		[self setAutoresizesSubviews:YES];
+		[[NSNotificationCenter defaultCenter]
+			addObserver:self
+				selector:@selector(viewFrameDidChangeNotified:)
+					name:NSViewFrameDidChangeNotification
+						object:nil];
+		orderedSubviews = [[NSMutableArray array] retain];
+	}
+	return self;
+}
+- (void)dealloc;
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[orderedSubviews release];
+	orderedSubviews = nil;
+	[super dealloc];
+	return;
+}
+- (BOOL)isFlipped;
+{
+	return YES;
+}
+#define VERT_PADDING 2
+- (void)stackAndFit;
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:nil];
+	NSEnumerator * E = [orderedSubviews objectEnumerator];
+	NSView * V;
+	NSRect bounds = [self bounds];
+	NSPoint origin = bounds.origin;
+	if(V = [E nextObject])
+	{
+		NSRect frame = [V frame];
+		frame.origin = origin;
+		frame.size.width = bounds.size.width;
+		NSRect itsBounds = [V convertRect:frame fromView:self];
+		[V setFrame:frame];
+		origin.y = NSMaxY(frame);
+		while(V = [E nextObject])
+		{
+			origin.y += VERT_PADDING;
+			frame = [V frame];
+			frame.origin = origin;
+			frame.size.width = bounds.size.width;
+			itsBounds = [V convertRect:frame fromView:self];
+			[V setFrame:frame];
+			origin.y = NSMaxY(frame);
+		}
+		bounds.size.height = origin.y - bounds.origin.y;
+		NSRect oldBounds = [self bounds];
+		if(!NSEqualRects(bounds,oldBounds))
+		{
+			frame = [self convertRect:bounds toView:[self superview]];
+			[self setAutoresizesSubviews:NO];
+			[self setFrame:frame];
+			[self setAutoresizesSubviews:YES];
+			[self setNeedsDisplayInRect:bounds];
+		}
+	}
+	[[NSNotificationCenter defaultCenter]
+		addObserver:self
+			selector:@selector(viewFrameDidChangeNotified:)
+				name:NSViewFrameDidChangeNotification
+					object:nil];
+	return;
+}
+- (void)viewFrameDidChangeNotified:(NSNotification *)notification;
+{
+	NSView * V = [notification object];
+	if([self isEqual:[V superview]])
+	{
+		[self stackAndFit];
+	}
+	return;
+}
+- (void)addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView;
+{
+	unsigned int index = [orderedSubviews indexOfObject:aView];
+	if(index == NSNotFound)
+	{
+		index = [orderedSubviews indexOfObject:otherView];
+		if(index != NSNotFound)
+		{
+			if(place<0)
+			{
+				++index;
+			}
+			[orderedSubviews insertObject:aView atIndex:index];
+			[super addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView];
+			[self stackAndFit];
+			return;
+		}
+	}
+	[super addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView];
+	return;
+}
+- (void)replaceSubview:(NSView *)oldView with:(NSView *)newView;
+{
+	unsigned int index = [orderedSubviews indexOfObject:oldView];
+	if(index != NSNotFound)
+	{
+		[orderedSubviews replaceObjectAtIndex:index withObject:newView];
+		[super replaceSubview:oldView with:newView];
+		[self stackAndFit];
+		return;
+	}
+	[super replaceSubview:oldView with:newView];
+	return;
+}
+- (void)didAddSubview:(NSView *)subview;
+{
+	unsigned int index = [orderedSubviews indexOfObject:subview];
+	if(index == NSNotFound)
+	{
+		index = [[self subviews] indexOfObject:subview];
+		NSLog(@"added at subviews index:%i",index);
+		NSView * V;
+		if(index == NSNotFound)
+		{
+			index = 0;
+		}
+		else if(index)
+		{
+			V = [[self subviews] objectAtIndex:index-1];
+			index = [orderedSubviews indexOfObject:V];
+			if(index == NSNotFound)
+			{
+				NSLog(@"**** THIS IS AN ERROR, the stack view missed an added subview");
+				index = [orderedSubviews count];
+			}
+			else
+			{
+				++index;
+			}
+		}
+		[orderedSubviews insertObject:subview atIndex:index];
+		[super didAddSubview:subview];
+		[self stackAndFit];
+		return;
+	}
+	[super didAddSubview:subview];
+	return;
+}
+- (void)willRemoveSubview:(NSView *)subview;
+{
+	[super willRemoveSubview:(NSView *)subview];
+	[orderedSubviews removeObject:subview];
+	[self stackAndFit];
+	return;
+}
+- (void)resizeSubviewsWithOldSize:(NSSize)oldSize;
+{
+	[self stackAndFit];
+	return;
+}
+#if 1
+- (void)drawRect:(NSRect)aRect;
+{
+	NSLog(@"Stack view frame:%@",NSStringFromRect([self frame]));
+	[super drawRect:aRect];
+	NSRect R = [self bounds];
+	NSPoint P1 = R.origin;
+	NSPoint P2 = NSZeroPoint;
+	P2.x = NSMaxX(R);
+	P2.y = NSMaxY(R);
+	[[NSColor magentaColor] set];
+	[NSBezierPath strokeLineFromPoint:P1 toPoint:P2];
+	P1.x = P2.x;
+	P2.x = NSMinX(R);
+	[NSBezierPath strokeLineFromPoint:P1 toPoint:P2];
+	NSFrameRect(R);
+}
+#endif
+@end

@@ -9539,7 +9539,7 @@ To Do List:
 		// Is it a folder corresponding to a former wrapper or project which name was changed by the user?
 		// This is possible because the app keeps tracks of the wrappers it opens through some indirect address.
 		// trying to open a project document at the first level if any
-		NSArray * subpaths = [fileName enclosedProjectFileNames];
+		id subpaths = [fileName enclosedProjectFileNames];
 		NSString * subpath;
 		if([subpaths count] == 1)
 		{
@@ -9574,6 +9574,21 @@ To Do List:
 					iTM2_OUTERROR(3,([NSString stringWithFormat:@"Something weird occurred to that forlder\n%@.",fileName]),nil);
 					[SWS selectFile:fileName inFileViewerRootedAtPath:subpath];
 					return nil;
+				}
+				else
+				{
+					NSString * pattern = [fileName lastPathComponent];
+					pattern = [NSString stringWithFormat:@".*%@.*",pattern];
+					NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@",pattern];
+					subpaths = [DFM directoryContentsAtPath:fileName];
+					subpaths = [subpaths filteredArrayUsingPredicate:predicate];
+					if([subpaths count])
+					{
+						subpath = [subpaths lastObject];
+						subpath = [fileName stringByAppendingPathComponent:subpath];
+						url = [NSURL fileURLWithPath:subpath];
+						return [self openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
+					}
 				}
 			}
 			else

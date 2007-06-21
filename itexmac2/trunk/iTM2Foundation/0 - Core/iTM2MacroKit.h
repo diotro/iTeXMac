@@ -502,7 +502,6 @@ extern NSString * const iTM2TextNumberOfSpacesPerTabKey;
 //- (NSString *)removePlaceholderMarksWhenSelecting;
 - (IBAction)selectNextPlaceholder:(id)sender;
 - (IBAction)selectPreviousPlaceholder:(id)sender;
-- (void)insertMacro:(id)sender;
 - (void)insertMacro:(id)argument inRange:(NSRange)affectedCharRange;
 @end
 

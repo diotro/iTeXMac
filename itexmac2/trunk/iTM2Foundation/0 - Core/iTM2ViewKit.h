@@ -270,3 +270,22 @@ unsigned int _Position;
 
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2SplitKit
+
+/*!
+	@class		iTM2StackView
+    @abstract   The stack view.
+    @discussion This view maintains its subviews as an ordered list.
+				Subviews are stacked one above the next.
+				The main method -stackAndFit is responsible to widen or shorten subviews to the reciever's width.
+				It is also responsible to enlarge or shriken the receiver to the children list of views.
+				This is some kind of split view with fixed size subviews.
+				It has flipped coordinates.
+*/
+
+@interface iTM2StackView:NSView
+{
+@private
+	id _implementation;
+}
+- (void)stackAndFit;
+@end

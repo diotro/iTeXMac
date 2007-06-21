@@ -147,6 +147,20 @@ To Do List:
 }
 @end
 
+@implementation NSAttributedString(iTM2Syntax)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParser
+- (id)syntaxParser;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net (03/08/02)
+- 1.4: Wed Dec 17 09:32:38 GMT 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return nil;
+}
+@end
+
 @implementation iTM2TextStorage
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
 - (id)init;
@@ -1636,6 +1650,18 @@ To Do List:
     _BadModeIndex = MIN(argument, _BadModeIndex);
     return;
 }
+#pragma mark =-=-=-=-=-=-=-=-=-=-  FOLDING
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isFoldingCompliant
+- (BOOL)isFoldingCompliant;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed Dec 17 09:32:38 GMT 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return NO;
+}
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MODELINES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modeLineAtIndex:
 - (id)modeLineAtIndex:(unsigned)idx;
@@ -1670,7 +1696,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [_ModeLines replaceObjectAtIndex:idx withObject:modeLine];
-	[modeLine setPreviousMode:kiTM2TextRegularSyntaxMode];
+	[[_ModeLines objectAtIndex:0] setPreviousMode:kiTM2TextRegularSyntaxMode];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceModeLinesInRange:withModeLines:
@@ -2114,13 +2140,21 @@ here:
 	}
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
-- (unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
-/*"This method will compute all the correct attributes.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  didUpdateModeLine:forPreviousMode:
+- (void)didUpdateModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
+/*"This method will compute all the correct attributes. No need to override..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
 To Do List: 
 "*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
+- (unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
+/*"This method is an entry point will compute all the correct attributes."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     #undef _OriginalModeLine
@@ -2354,6 +2388,7 @@ fixGlobalLocationMode:
 	_iTM2InternalAssert(![self diagnostic], @"***  END2 :BIG PROBLEM IN VALIDATING THE MODE");
 //iTM2_END;
 //    [originalModeLine describe];
+	[self didUpdateModeLine:_OriginalModeLine forPreviousMode:previousMode];
 	return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode | kiTM2TextEndOfLineSyntaxMask);
     #undef workingML
 }
@@ -3557,6 +3592,7 @@ To Do List:
         _PreviousMode = kiTM2TextUnknownSyntaxMode;
         _EOLMode = kiTM2TextUnknownSyntaxMode;
 		_Status = 0;
+		_Depth = 0;
     }
     //NSLog(@"DEBUG initWithString: END");
 //[self describe];
@@ -4090,18 +4126,33 @@ To Do List:
     return _NumberOfSyntaxWords;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  status
-- (unsigned)status;
+- (unsigned int)status;
 /*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return _Status;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setStatus:
-- (void)setStatus:(unsigned)argument;
+- (void)setStatus:(unsigned int)argument;
 /*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     _Status = argument;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  depth
+- (int)depth;
+/*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return _Depth;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setDepth:
+- (void)setDepth:(int)argument;
+/*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    _Depth = argument;
     return;
 }
 #ifdef __ELEPHANT_MODELINE__

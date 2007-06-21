@@ -4238,3 +4238,340 @@ nextChild:
 }
 
 @end
+typedef struct
+{
+@defs(iTM2LinkedNode)
+} iTM2LinkedNodeRef;
+
+@implementation iTM2LinkedNode
+- (id)initWithValue:(id)value;
+{
+	if(self = [super init])
+	{
+		_Value = [value retain];
+	}
+	return self;
+}
+- (id)copyWithZone:(NSZone *)zone;
+{
+	id clone = [[[self class] allocWithZone:zone] initWithValue:_Value];
+	return clone;
+}
+- (void)dealloc;
+{
+	_PreviousSibling = nil;
+	[_NextSibling autorelease];
+	_NextSibling = nil;
+	[_FirstChild autorelease];
+	_FirstChild = nil;
+	_Parent = nil;
+	_LastChild = nil;
+	[super dealloc];
+	return;
+}
+- (id)parent;
+{
+	return _Parent;
+}
+- (id)firstChild;
+{
+	return _FirstChild;
+}
+- (id)lastChild;
+{
+	return _LastChild;
+}
+- (id)nextSibling;
+{
+	return _NextSibling;
+}
+- (id)previousSibling;
+{
+	return _PreviousSibling;
+}
+- (id)firstSibling;
+{
+	iTM2LinkedNodeRef * sibling = (iTM2LinkedNodeRef *)self;
+	iTM2LinkedNodeRef * previousSibling = sibling;
+	while(previousSibling)
+	{
+		sibling = previousSibling;
+		previousSibling = (iTM2LinkedNodeRef *)sibling->_PreviousSibling;
+	}
+	return (id)sibling;
+}
+- (id)lastSibling;
+{
+	iTM2LinkedNodeRef * sibling = (iTM2LinkedNodeRef *)self;
+	iTM2LinkedNodeRef * nextSibling = sibling;
+	while(nextSibling)
+	{
+		sibling = nextSibling;
+		nextSibling = (iTM2LinkedNodeRef *)sibling->_NextSibling;
+	}
+	return (id)sibling;
+}
+- (id)root;
+{
+	iTM2LinkedNodeRef * parent = (iTM2LinkedNodeRef *)self;
+	iTM2LinkedNodeRef * first = parent;
+	while(first)
+	{
+		parent = first;
+		first = (iTM2LinkedNodeRef *)parent->_FirstChild;
+	}
+	return (id)parent;
+}
+- (id)deepestFirstChild;
+{
+	iTM2LinkedNodeRef * child = (iTM2LinkedNodeRef *)self;
+	iTM2LinkedNodeRef * first = child;
+	while(first)
+	{
+		child = first;
+		first = (iTM2LinkedNodeRef *)child->_FirstChild;
+	}
+	return (id)child;
+}
+- (id)deepestLastChild;
+{
+	iTM2LinkedNodeRef * child = (iTM2LinkedNodeRef *)self;
+	iTM2LinkedNodeRef * last = child;
+	while(last)
+	{
+		child = last;
+		last = (iTM2LinkedNodeRef *)child->_LastChild;
+	}
+	return (id)child;
+}
+- (id)nextNode;
+{
+	if(_FirstChild)
+	{
+		return _FirstChild;
+	}
+	if(_NextSibling)
+	{
+		return _NextSibling;
+	}
+	iTM2LinkedNodeRef * parent = (iTM2LinkedNodeRef*)_Parent;
+	if(parent)
+	{
+		id result;
+tijuana:
+		if(result = parent->_NextSibling)
+		{
+			return result;
+		}
+		if(parent = (iTM2LinkedNodeRef*)(parent->_Parent))
+		{
+			goto tijuana;
+		}
+	}
+	return nil;
+}
+- (id)previousNode;
+{
+	return _PreviousSibling?[_PreviousSibling deepestLastChild]:_Parent;
+}
+- (void)detach;
+{
+	[[self retain] autorelease];
+	// detach the receiver (and children) from its owning tree
+	iTM2LinkedNodeRef * node;
+	if(node = (iTM2LinkedNodeRef*)((iTM2LinkedNodeRef*)self)->_PreviousSibling)
+	{
+		NSAssert(node->_NextSibling==self,@"Inconsistency");
+		// the owner is the previous sibling
+		node->_NextSibling = _NextSibling;
+		if(_NextSibling)
+		{
+			((iTM2LinkedNodeRef*)_NextSibling)->_PreviousSibling = (id)node;
+		}
+		// the parent of this node might be inconsistant
+		if(node->_Parent)
+		{
+			if(((iTM2LinkedNodeRef*)node->_Parent)->_LastChild == self)
+			{
+				((iTM2LinkedNodeRef*)node->_Parent)->_LastChild = (id)node;// now it is consistant
+			}
+		}
+		_PreviousSibling = nil;// disconnected
+	}
+	else if(node = (iTM2LinkedNodeRef*)((iTM2LinkedNodeRef*)self)->_Parent)
+	{
+		NSAssert(node->_FirstChild==self,@"Inconsistency");
+		// the parent is the owner;
+		((iTM2LinkedNodeRef*)node)->_FirstChild = _NextSibling;
+		if(_NextSibling)
+		{
+			((iTM2LinkedNodeRef*)_NextSibling)->_PreviousSibling = nil;
+			_NextSibling = nil;
+		}
+		else
+		{
+			node->_LastChild = nil;// now it is consistant
+		}
+	}
+	else
+	{
+		// the node is already detached
+		return;
+	}
+	[self updateCountOfObjectsInChildNodes];
+	_Parent = nil;
+	// now theNode is completely detached from its owning tree
+}
+- (void)insertSibling:(id)theNode;
+{
+	if(!theNode)
+	{
+		return;
+	}
+	// detach theNode from its tree: the inserted sibling should have no owner, neither parent nor previous sibling
+	[theNode detach];
+	iTM2LinkedNodeRef * sibling = (iTM2LinkedNodeRef*)[theNode lastSibling];
+	((iTM2LinkedNodeRef*)sibling)->_NextSibling = _NextSibling;
+	iTM2LinkedNodeRef * node = (iTM2LinkedNodeRef*)theNode;
+	if(_NextSibling)
+	{
+		((iTM2LinkedNodeRef*)_NextSibling)->_PreviousSibling = (id)node;
+	}
+	_NextSibling = [theNode retain];
+	((iTM2LinkedNodeRef*)theNode)->_PreviousSibling = self;
+	sibling = (iTM2LinkedNodeRef*)theNode;
+	while(sibling)
+	{
+		sibling->_Parent = _Parent;
+		node = sibling;
+		sibling = (iTM2LinkedNodeRef*)node->_NextSibling;
+	}
+	if(_Parent)
+	{
+		((iTM2LinkedNodeRef*)_Parent)->_LastChild = (id)node;
+	}
+	[_Parent updateCountOfObjectsInChildNodes];
+	NSLog(@"Inserted sibling:%@",[theNode description]);
+}
+- (void)insertFirstChild:(id)theNode;
+{
+	if(!theNode)
+	{
+		return;
+	}
+	// the inserted sibling should have no owner, neither parent nor previous sibling
+	[theNode detach];
+	iTM2LinkedNodeRef * node = (iTM2LinkedNodeRef *)[theNode lastSibling];
+	node->_NextSibling = _FirstChild;
+	if(_FirstChild)
+	{
+		((iTM2LinkedNodeRef*)_FirstChild)->_PreviousSibling = (id)node;
+	}
+	_FirstChild = [theNode retain];
+	node  = (iTM2LinkedNodeRef*)_FirstChild;
+	iTM2LinkedNodeRef * sibling = node;
+	do
+	{
+		node->_Parent = self;
+		sibling = node;
+		node = (iTM2LinkedNodeRef*)node->_NextSibling;
+	}
+	while(node);
+	if(!_LastChild)
+	{
+		_LastChild = (id)sibling;
+	}
+	[self updateCountOfObjectsInChildNodes];
+	NSLog(@"Inserted child:%@",[theNode description]);
+}
+- (void)removeChildren;
+{
+	iTM2LinkedNodeRef * node = (iTM2LinkedNodeRef*)_FirstChild;
+	while(node)
+	{
+		node->_Parent = nil;
+		node = (iTM2LinkedNodeRef*)((iTM2LinkedNodeRef*)node)->_NextSibling;
+	}
+	[_FirstChild autorelease];
+	_FirstChild = nil;
+	_LastChild = nil;
+	[self updateCountOfObjectsInChildNodes];
+}
+- (void)removeNextSibling;
+{
+	[_NextSibling detach];
+}
+- (void)removeSiblings;
+{
+	iTM2LinkedNodeRef * node = (iTM2LinkedNodeRef*)_NextSibling;
+	if(node)
+	{
+		node->_PreviousSibling = nil;
+		do
+		{
+			node->_Parent = nil;
+		}
+		while(node = (iTM2LinkedNodeRef*)node->_NextSibling);
+	}
+	[_NextSibling autorelease];
+	_NextSibling = nil;
+	if(_Parent)
+	{
+		((iTM2LinkedNodeRef*)_Parent)->_LastChild = self;
+	}
+	[_Parent updateCountOfObjectsInChildNodes];
+}
+- (unsigned int)countOfObjectsInChildNodes;
+{
+	return _CountOfObjectsInChildNodes;
+}
+- (void)updateCountOfObjectsInChildNodes;
+{
+	_CountOfObjectsInChildNodes = 0;
+	if(_FirstChild)
+	{
+		++_CountOfObjectsInChildNodes;
+		iTM2LinkedNodeRef * child = (iTM2LinkedNodeRef*)_FirstChild;
+		_CountOfObjectsInChildNodes += child->_CountOfObjectsInChildNodes;
+		while(child->_NextSibling)
+		{
+			++_CountOfObjectsInChildNodes;
+			child = (iTM2LinkedNodeRef*)child->_NextSibling;
+			_CountOfObjectsInChildNodes += child->_CountOfObjectsInChildNodes;
+		}
+	}
+	[_Parent updateCountOfObjectsInChildNodes];
+	return;
+}
+- (NSString *)indentation;
+{
+	return _Parent?[NSString stringWithFormat:@"%@+-",[_Parent indentation]]:@"+-";
+}
+- (NSString *)description;
+{
+	NSString * status = @"";
+	if(_Parent &&!_PreviousSibling && (self != ((iTM2LinkedNodeRef *)_Parent)->_FirstChild))
+	{
+		status = @"(BAD parent)";
+	}
+	else if(_FirstChild && (self != ((iTM2LinkedNodeRef *)_FirstChild)->_Parent))
+	{
+		status = @"(BAD child)";
+	}
+	else if(_PreviousSibling && (self != ((iTM2LinkedNodeRef *)_PreviousSibling)->_NextSibling))
+	{
+		status = @"(BAD Owner)";
+	}
+	else if(_NextSibling && (self != ((iTM2LinkedNodeRef *)_NextSibling)->_PreviousSibling))
+	{
+		status = @"(BAD sibling)";
+	}
+	else if(_PreviousSibling && (_Parent != ((iTM2LinkedNodeRef *)_PreviousSibling)->_Parent))
+	{
+		status = @"(BAD common parent)";
+	}
+	return [NSString stringWithFormat:@"%@%@(%i)%@",(_Parent?[_Parent indentation]:@""),_Value,_CountOfObjectsInChildNodes,status];
+}
+
+@end
+

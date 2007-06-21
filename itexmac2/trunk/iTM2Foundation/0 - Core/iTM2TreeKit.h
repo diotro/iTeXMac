@@ -337,3 +337,186 @@
 - (BOOL)writeToURL:(NSURL *)url error:(NSError **)outErrorPtr;
 
 @end
+
+/*! 
+	@class		iTM2TreeNode 
+	@abstract	Leafs of a tree wrapping an ordered hierarchical dada structure. 
+	@discussion	The purpose of iTM2TreeNode is first to model the simplest tree hierarchy.
+				It is the direct data model for a NSTreeController.
+
+				The hierarchy of Tree Items is meant to reflect some hierarchical data model.
+				Each tree item may have a parent which it belongs to, and an array of child items.
+				A Tree Item with no parent is the root of the tree,
+
+				Of course, a Tree Item is meant to be a child item of its parent if any.
+				The Parent retains its children but the child just points to its parent to avoid infinite retain loops.
+				Another problem linked to Tree Models that must be avoided consists in circular reference.
+				More precisely, if an item retains its parent ant the parent retains its children,
+				a careless design can lead to never deallocated objects.
+
+				Each Tree Item points to some leaf data in this hierarchy through its value instance variable
+				and the child items reflect the structure of this data, namely an array.
+*/
+
+@interface iTM2LinkedNode: NSObject <NSCopying>
+{
+@private
+	id _Parent;
+	id _FirstChild;
+	id _LastChild;
+	id _NextSibling;
+	id _PreviousSibling;
+	unsigned int _CountOfObjectsInChildNodes;
+	NSString * _Value;
+}
+
+/*!
+	@method		parent
+	@abstract	The parent.
+	@discussion	Not retained by the receiver.
+	@result		A node.
+*/
+- (id)parent;
+
+/*!
+	@method		firstChild
+	@abstract	The first child.
+	@discussion	Owned by the receiver. The receiver is the parent of its first child and all of its siblings.
+				The receiver does not own the siblings of its own child.
+	@result		A node.
+*/
+- (id)firstChild;
+
+/*!
+	@method		lastChild
+	@abstract	The last child.
+	@discussion	Not retained by the receiver, except as first child if relevant.
+	@result		A node.
+*/
+- (id)lastChild;
+
+/*!
+	@method		countOfObjectsInChildNodes
+	@abstract	The number of child nodes of the node.
+	@discussion	No access to nodes by index. I counts all the nodes of the subtree which roots at the receiver, except the receiver itself.
+				The children of the receiver are the first child and its siblings. The child nodes are its children, its children's children, and so on.
+	@result		A count.
+*/
+- (unsigned int)countOfObjectsInChildNodes;
+
+/*!
+	@method		updateCountOfObjectsInChildNodes
+	@abstract	Update the number of child nodes of the receiver.
+	@discussion	For each children.
+	@result		A count.
+*/
+- (void)updateCountOfObjectsInChildNodes;
+
+/*!
+	@method		nextNode
+	@abstract	Next node in the tree.
+	@discussion	Allows to walk a tree.
+	@result		a node.
+*/
+- (id)nextNode;
+
+/*!
+	@method		previousNode
+	@abstract	Previous node in the tree.
+	@discussion	Allows to walk the tree.
+	@result		a node.
+*/
+- (id)previousNode;
+
+/*!
+	@method		firstSibling
+	@abstract	The first sibling.
+	@discussion	The first sibling can be the receiver.
+	@result		a node.
+*/
+- (id)firstSibling;
+
+/*!
+	@method		lastSibling
+	@abstract	The last sibling.
+	@discussion	The last sibling can be the receiver.
+	@result		a node.
+*/
+- (id)lastSibling;
+
+/*!
+	@method		root
+	@abstract	The root of the tree containing the receiver.
+	@discussion	Discussion forthcoming.
+	@result		a node.
+*/
+- (id)root;
+
+/*!
+	@method		deepestFirstChild
+	@abstract	The deepest first child.
+	@discussion	The first child's first child's first child's...
+	@result		a node.
+*/
+- (id)deepestFirstChild;
+
+/*!
+	@method		deepestLastChild
+	@abstract	The deepest last child.
+	@discussion	The last child's last child's last child's...
+	@result		a node.
+*/
+- (id)deepestLastChild;
+
+/*!
+	@method		insertSibling:
+	@abstract	Insert the given sibling after the receiver.
+	@discussion	The sibling to be inserted is first detached.
+				The siblings of the receiver, if any, will be moved after the last sibling of the inserted node.
+	@result		None.
+*/
+- (void)insertSibling:(id)node;
+
+/*!
+	@method		insertFirstChild:
+	@abstract	Insert the given sibling below the receiver.
+	@discussion	The sibling to be inserted is first detached.
+				The first child of the receiver, if any, will be moved after the last sibling of the inserted node.
+	@result		None.
+*/
+- (void)insertFirstChild:(id)node;
+
+/*!
+	@method		removeSiblings
+	@abstract	Remove the siblings.
+	@discussion	Remove all the siblings of the receiver, with their children.
+	@result		None.
+*/
+- (void)removeSiblings;
+
+/*!
+	@method		detach
+	@abstract	Detach the receiver.
+	@discussion	Detach the receiver and its child nodes from their enclosing tree. Does nothing if the receiver does not belong to a tree,
+				which occurs when the receiver has no previous sibling nor parent.
+				If the receiver is owned by its parent, in other words, is the first child of its parent,
+				its next sibling, if any, becomes the first child of its parent.
+				If the receiver is own by its preceding sibling,
+				it is removed from the sibling chain and its next sibling will become the next sibling and property of the former owner.
+	@result		None.
+*/
+- (void)removeSiblings;
+
+/*!
+	@method		removeChildren
+	@abstract	Remove the children.
+	@discussion	The first child of the receiver is removed, with all its siblings and children.
+	@result		None.
+*/
+- (void)removeChildren;
+
+- (id)initWithValue:(id)value;
+
+@end
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode

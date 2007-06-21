@@ -1232,10 +1232,15 @@ To Do List:
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	NSEnumerator * E = [[self textEditors] objectEnumerator];
 	id TE;
-	while(TE = [E nextObject])
-		[MD setObject:[NSValue valueWithPointer:[TE enclosingSplitView]] forKey:[NSValue valueWithPointer:TE]];
-	E = [MD objectEnumerator];
 	NSValue * V;
+	NSValue * VV;
+	while(TE = [E nextObject])
+	{
+		V = [NSValue valueWithPointer:TE];
+		VV = [NSValue valueWithPointer:[TE enclosingSplitView]];
+		[MD setObject:VV forKey:V];
+	}
+	E = [MD objectEnumerator];
 	while(V = [E nextObject])
 	{
 		// V is a value wrapping a pointer to a split view or nil
@@ -1954,14 +1959,19 @@ To Do List:
 //iTM2_START;
 	// first we clean all the text views that no longer belong to the view hierarchy
 	NSEnumerator * E = [[self textEditors] objectEnumerator];
-	NSTextView * V;
-	while(V = [E nextObject])
-		if([V isDescendantOf:[[self window] contentView]])
+	NSTextView * TV;
+	while(TV = [E nextObject])
+	{
+		if([TV isDescendantOf:[[self window] contentView]])
 		{
-			[V performSelector:@selector(class) withObject:nil afterDelay:1];// retain during this event loop...
-			[[self textEditors] removeObject:V];
-			[[V layoutManager] replaceTextStorage:[[[NSTextStorage alloc] init] autorelease]];
+			NSLayoutManager * LM = [TV layoutManager];
+			NSTextStorage * TS = [self textStorage];
+//			[TS removeLayoutManager:LM];
+			[LM replaceTextStorage:[[[NSTextStorage alloc] init] autorelease]];
+			[TV performSelector:@selector(class) withObject:nil afterDelay:1];
+			[[self textEditors] removeObject:TV];
 		}
+	}
 	[super didRemoveSplittingView:view];
 	[self setupTextEditorsForView:[[self window] contentView]];
 	[self setupTextEditorScrollers];
