@@ -124,6 +124,10 @@ enum
     @discussion This is just a wrapper over the concrete text storage of cocoa.
 */
 
+@interface NSAttributedString(iTM2Syntax)
+- (id)syntaxParser;
+@end
+
 @interface iTM2TextStorage: NSTextStorage
 {
 @private
@@ -689,6 +693,29 @@ This default implementation does nothing.
 - (unsigned)validEOLModeOfModeLine:(id)modeLine forPreviousMode:(unsigned)mode;
 
 /*!
+    @method     didUpdateModeLine:forPreviousMode:
+    @abstract   Message sent when the given mode line is updated.
+    @discussion An entry point to allow subclassers to add their own management.
+				This has been implemented merely to allow a post treatment relative to the folding mechanism.
+				Subclassers won't forget to call the inherited implementation.
+    @param      the mode line to be fixed
+    @param      the previous mode which is the last mode of the previous line
+    @result     None
+*/
+- (void)didUpdateModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
+
+/*!
+    @method     isFoldingCompliant
+    @abstract   Whether the receiver is folding compliant.
+    @discussion Folding compliant parsers manage the depth of modelines.
+				Layout manager will use the folding information to display text.
+				Default parser do not manage the folding, they return NO.
+    @param      None
+    @result     yorn
+*/
+- (BOOL)isFoldingCompliant;
+
+/*!
     @method     getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
     @abstract   Returns the mode for the character at the given index and assuming the given previous mode.
                 The effective length is returned.
@@ -862,6 +889,9 @@ extern NSString * const iTM2TextDefaultStyle;
     unsigned int * __SyntaxWordLengths;
     unsigned int * __SyntaxWordEnds;
     unsigned int * __SyntaxWordModes;
+    // flags
+    unsigned int _Status;
+    unsigned int _Depth;
 #ifdef __ELEPHANT_MODELINE__
 @public
 	NSString * originalString;
@@ -870,6 +900,28 @@ extern NSString * const iTM2TextDefaultStyle;
 /*"Class methods"*/
 + (id)modeLine;
 /*"Setters and Getters"*/
+
+/*!
+    @method     status
+    @abstract   The status of the receiver.
+    @discussion This is not yet used.
+    @param      None
+    @result     an unsigned int
+*/
+- (unsigned int)status;
+- (void)setStatus:(unsigned int)argument;
+
+/*!
+    @method     depth
+    @abstract   The depth of the receiver.
+    @discussion The depth is used when folding.
+				Nonegative depth are absolute.
+				-1 means one level deeper, -2 means one level upper.
+    @param      None
+    @result     an unsigned int
+*/
+- (int)depth;
+- (void)setDepth:(int)argument;
 - (unsigned)startOffset;
 - (unsigned)commentOffset;
 - (unsigned)contentsEndOffset;
