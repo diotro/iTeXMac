@@ -484,10 +484,10 @@ To Do List: Nothing at first glance.
 					//select to the next $
 					NSRange range = selectedRange;
 					range.length = [myString length] - range.location;
-					range = [myString rangeOfString:@"$" options:NULL range:range];
+					range = [myString rangeOfString:@"$" options:0 range:range];
 					--selectedRange.location;
 					selectedRange.length = range.location+1-selectedRange.location;
-					[self setElectedRange:selectedRange];
+					[self setSelectedRange:selectedRange];
 				}
 			}
 		}
