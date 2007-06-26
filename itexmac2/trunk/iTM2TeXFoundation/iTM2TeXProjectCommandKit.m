@@ -2768,6 +2768,7 @@ To Do List: to be improved...
 //		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
         [TW addArgument:commandName];
 		[TW setEnvironmentString:[NSString farawayProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
+		[TW setEnvironmentString:[NSBundle temporaryBaseProjectsDirectory] forKey:@"iTM2_Base_Projects_Directory"];
 		[TW setEnvironmentString:[project getTeXMFProgramsPath] forKey:@"iTM2_PATH_TeX_Programs"];
 		[TW setEnvironmentString:[project getOtherProgramsPath] forKey:@"iTM2_PATH_Other_Programs"];
 		[TW setEnvironmentString:[project getCompletePATHPrefix] forKey:@"iTM2_PATH_Prefix"];
@@ -2775,7 +2776,7 @@ To Do List: to be improved...
 		[TW setEnvironmentString:[project getCompleteTEXMFOUTPUT] forKey:@"iTM2_TEXMFOUTPUT"];
 		if([project getPATHUsesLoginShell])
 		{
-			[TW setEnvironmentString:@"YES" forKey:@"iTM2_PATH_UsesLoginShell"];
+			[TW setEnvironmentString:@"YES" forKey:@"iTM2_PATH_UsesLoginShell"];// not yet used?
 		}
 //iTM2_LOG(@"component is: %@", component);
 		[TW setDelegate: self

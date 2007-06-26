@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC99A40D0C313B3A00D65B89</string>
+						<string>DC99A48A0C3145D100D65B89</string>
 						<key>history</key>
 						<array>
 							<string>DC99A1CC0C30F23700D65B89</string>
@@ -367,7 +367,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC99A40C0C313B3A00D65B89</string>
+										<string>DC99A4890C3145D100D65B89</string>
 										<key>history</key>
 										<array>
 											<string>DC983EE70BA628270061BD8B</string>
@@ -631,13 +631,13 @@
 	<array>
 		<string>DC999BB10C2C0D3A00D65B89</string>
 		<string>DC999BB20C2C0D3A00D65B89</string>
-		<string>DC993D63088E8E7D00F8BCE1</string>
 		<string>DC999BAE0C2C0D3A00D65B89</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>DC99A14A0C2F1D2200D65B89</string>
-		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
-		<string>DC099B36088B331B0028F810</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>DC993D63088E8E7D00F8BCE1</string>
+		<string>DC099B36088B331B0028F810</string>
+		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 	</array>
 	<key>WindowString</key>
 	<string>14 93 1361 785 0 0 1440 878 </string>
@@ -868,7 +868,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2ProjectDocumentKit.m</string>
+										<string>iTM2TeXProjectCommandKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -998,7 +998,7 @@
 			<key>WindowToolGUID</key>
 			<string>DC993D63088E8E7D00F8BCE1</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

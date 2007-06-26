@@ -204,7 +204,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC99A4130C313B3A00D65B89</string>
+						<string>DC99A48D0C3145D500D65B89</string>
 						<key>history</key>
 						<array>
 							<string>DC999C7C0C2CFD3100D65B89</string>
@@ -241,14 +241,6 @@
 						<string>DC999D7B0C2D027700D65B89</string>
 						<key>PBXProjectModuleLabel</key>
 						<string>iTM2TeXProjectTaskKit.h</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>DC99A4140C313B3A00D65B89</string>
-						<key>history</key>
-						<array>
-							<string>DC99A1600C2F1FFD00D65B89</string>
-						</array>
 					</dict>
 					<key>SplitCount</key>
 					<string>1</string>
@@ -284,7 +276,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>DC99A4150C313B3A00D65B89</string>
+						<string>DC99A48E0C3145D500D65B89</string>
 						<key>history</key>
 						<array>
 							<string>DCECBB7F0C1BD4A000ACF218</string>
@@ -444,7 +436,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DC99A4110C313B3A00D65B89</string>
+										<string>DC99A48B0C3145D500D65B89</string>
 										<key>history</key>
 										<array>
 											<string>DCECBB7B0C1BD4A000ACF218</string>
