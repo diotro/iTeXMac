@@ -45,6 +45,11 @@
         {CLASS = iTM2LaTeXSectionButton; LANGUAGE = ObjC; SUPERCLASS = NSPopUpButton; }, 
         {CLASS = iTM2LaTeXWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
         {CLASS = iTM2LineField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {
+            CLASS = iTM2SmallToolbarBackgroundView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSView; 
+        }, 
         {CLASS = iTM2TeXBookmarkButton; LANGUAGE = ObjC; SUPERCLASS = NSPopUpButton; }
     ); 
     IBVersion = 1; 
