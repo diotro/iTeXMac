@@ -1665,6 +1665,35 @@ To Do List:
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ScrollerToolbarKit
 
+@implementation iTM2SmallToolbarBackgroundView
+- (void)drawRect:(NSRect) aRect;
+{
+	NSImage * image = [NSImage imageNamed:@"iTM2SmallToolbarBackground"];
+	if(!image)
+	{
+		NSBundle * bundle = [NSBundle bundleForClass:[iTM2SmallToolbarBackgroundView class]];
+		NSString * path = [bundle pathForImageResource:@"iTM2SmallToolbarBackground"];
+		if(path)
+		{
+			image = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[image setName:@"iTM2SmallToolbarBackground"];
+		}
+		if(!image)
+		{
+			iTM2_LOG(@"Missing or corrupted image named iTM2SmallToolbarBackground in iTM2Foundation, this is an error");
+			return;
+		}
+	}
+	// now draw the background
+	aRect = [self bounds];
+	NSRect fromRect = NSZeroRect;
+	fromRect.size = [image size];	
+	[image drawInRect:aRect fromRect:fromRect operation:NSCompositeCopy fraction:1];
+	[super drawRect:aRect];
+	return;
+}
+@end
+
 @implementation iTM2StackView
 #define orderedSubviews _implementation
 - (id)initWithFrame:(NSRect)frameRect;

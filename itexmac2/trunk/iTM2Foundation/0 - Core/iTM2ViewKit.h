@@ -268,6 +268,8 @@ unsigned int _Position;
 
 @end
 
+@interface iTM2SmallToolbarBackgroundView: NSView
+@end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2SplitKit
 
