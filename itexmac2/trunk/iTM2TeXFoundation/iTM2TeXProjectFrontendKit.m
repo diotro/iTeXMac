@@ -2793,7 +2793,6 @@ To Do List:
     }
     [IMPLEMENTATION takeMetaValue:BPs forKey:iTM2TeXPBaseProjectsKey];
     [IMPLEMENTATION takeMetaValue:TPs forKey:iTM2TeXProjectsKey];
-//iTM2_LOG(@"[self baseProjects] ARE:%@", [self baseProjects]);
 //iTM2_LOG(@"[self TeXProjects] ARE:%@", [self TeXProjects]);
 //iTM2_LOG(@"TPs:%@", TPs);
     return;
@@ -2878,19 +2877,22 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-    NSEnumerator * E = [[self baseProjects] objectEnumerator];
-    iTM2TeXProjectDocument * TPD;
-    while(TPD = [E nextObject])
+    NSEnumerator * E = [[self baseProjectNames] objectEnumerator];
+    NSString * name;
+    while(name = [E nextObject])
     {//projectName
-        NSString * name = [[[TPD fileName] lastPathComponent] stringByDeletingPathExtension];
 //iTM2_LOG(@"project name:%@", name);
         NSDictionary * D = [name TeXProjectProperties];
-        [MD takeValue:[NSDictionary dictionaryWithObjectsAndKeys:D, iTM2TeXPCommandPropertiesKey, name, iTM2TPFENameKey, nil]
-            forKey:[NSDictionary dictionaryWithObjectsAndKeys:
-                [[D iVarMode] lowercaseString], iTM2TPFEModeKey,
-                [[D iVarVariant] lowercaseString], iTM2TPFEVariantKey,
-                [[D iVarOutput] lowercaseString], iTM2TPFEOutputKey,
-                    nil]];
+		D = [NSDictionary dictionaryWithObjectsAndKeys:
+			D, iTM2TeXPCommandPropertiesKey,
+			name, iTM2TPFENameKey,
+				nil];
+		NSDictionary * key = [NSDictionary dictionaryWithObjectsAndKeys:
+			[[D iVarMode] lowercaseString], iTM2TPFEModeKey,
+			[[D iVarVariant] lowercaseString], iTM2TPFEVariantKey,
+			[[D iVarOutput] lowercaseString], iTM2TPFEOutputKey,
+				nil];
+        [MD setValue:D forKey:key];
     }
 //iTM2_START;
 	return MD;

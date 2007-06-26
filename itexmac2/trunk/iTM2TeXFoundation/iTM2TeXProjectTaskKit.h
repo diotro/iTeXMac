@@ -23,6 +23,15 @@
 
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 
+extern NSString * const iTM2LogFilesStackAttributeName;
+extern NSString * const iTM2LogPageNumberAttributeName;
+extern NSString * const iTM2LogLineTypeAttributeName;
+extern NSString * const iTM2LogLinkLineAttributeName;
+extern NSString * const iTM2LogLinkColumnAttributeName;
+extern NSString * const iTM2LogLinkLengthAttributeName;
+extern NSString * const iTM2LogLinkPageAttributeName;
+extern NSString * const iTM2LogLinkFileAttributeName;
+
 @interface iTM2TeXProjectDocument(iTM2TeXProjectTaskKit)
 
 /*! 
@@ -180,8 +189,16 @@ extern NSString * const iTM2UDLogStandardColorKey;
 */
 + (id)logParserForKey:(NSString *)key;
 
+/*! 
+    @method     logColorForType:
+    @abstract   The log color for the given type...
+    @discussion Discussion forthcoming
+    @param      a string
+    @result     A dictionary
+*/
++ (NSColor *)logColorForType:(NSString *)type;
+
 @end
 
-@interface iTM2LaTeXLogParser: iTM2LogParser
+@interface iTM2TeXLogParser: iTM2LogParser
 @end
-

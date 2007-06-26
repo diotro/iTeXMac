@@ -3004,15 +3004,15 @@ To Do List:
 	NSMutableDictionary * result = [NSMutableDictionary dictionary];
 //iTM2_LOG(@"1-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
 	// base project related stuff
-	NSMutableArray * baseProjects = [NSMutableArray array];
+	NSMutableArray * BPs = [NSMutableArray array];
 	id baseProject = [project baseProject];
-	while(baseProject && ![baseProjects containsObject:baseProject])
+	while(baseProject && ![BPs containsObject:baseProject])
 	{
-		[baseProjects addObject:baseProject];
+		[BPs addObject:baseProject];
 		baseProject = [baseProject baseProject];
 	}
-	// baseProjects contains the stack of all the base projects ancestors of project
-	NSEnumerator * E = [baseProjects reverseObjectEnumerator];
+	// BPs contains the stack of all the base projects ancestors of project
+	NSEnumerator * E = [BPs reverseObjectEnumerator];
 	NSDictionary * D;
 	NSArray * RA;
 	while(baseProject = [E nextObject])

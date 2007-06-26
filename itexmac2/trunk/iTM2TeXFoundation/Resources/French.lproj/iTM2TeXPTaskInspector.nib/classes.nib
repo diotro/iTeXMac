@@ -10,7 +10,7 @@
                 projectTerminalIgnore = id; 
                 projectTerminalQuiet = id; 
                 projectTerminalStop = id; 
-                takeStyleFromTag = id; 
+                takeStyleFromRepresentedObject = id; 
                 toggleSmartErrors = id; 
                 toggleTerminalCustom = id; 
                 toggleTerminalErrors = id; 

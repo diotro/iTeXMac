@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/ICURegEx.h>
+#include <iTM2Foundation/ICURegEx.h>
 
 #if 0
 @implementation iTM2TeXParser

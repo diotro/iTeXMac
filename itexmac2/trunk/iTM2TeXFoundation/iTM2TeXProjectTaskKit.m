@@ -135,9 +135,6 @@ To Do List:
 @interface iTM2TeXPTaskInspector(PRIVATE)
 - (void)fontOrColorDidChangeNotified:(NSNotification *)aNotification;
 @end
-@interface NSColor(TeXProject)
-+ (NSColor *)logColorForType:(NSString *)type;
-@end
 NSString * const iTM2TeXProjectTerminalInspectorMode = @"Terminal Mode";
 @implementation iTM2TeXPTaskInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
@@ -847,8 +844,12 @@ To Do List:
 	NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] initWithAttributedString:[sender attributedTitle]] autorelease];
 	if([MAS length])
 	{
+		NSString * key = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+		id LP = [iTM2LogParser logParserForKey:key];// get the cached log parser
 		[MAS addAttribute: NSForegroundColorAttributeName
-			value: ([[[self errorView] string] length]>0? [NSColor logColorForType:@"iTeXMac2 Error"]:[NSColor controlTextColor])
+			value: ([[[self errorView] string] length]>0?
+					[LP logColorForType:@"iTeXMac2 Error"]
+						:[NSColor controlTextColor])
 				range: NSMakeRange(0, [MAS length])];
 		[sender setAttributedTitle:MAS];
 
@@ -871,7 +872,10 @@ To Do List:
     [TS beginEditing];
     [[TS mutableString] appendString:argument];
     R.length = [TS length] - R.location;
-    [TS addAttribute:NSForegroundColorAttributeName value:[NSColor logColorForType:@"iTeXMac2 Error"] range:R];
+	NSString * key = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+	id LP = [iTM2LogParser logParserForKey:key];// get the cached log parser
+	NSColor * color = [LP logColorForType:@"iTeXMac2 Error"];
+    [TS addAttribute:NSForegroundColorAttributeName value:color range:R];
     [TS endEditing];
     [self updateOutputAndError:self];
     return;
@@ -966,7 +970,8 @@ To Do List:
     NSMutableArray * lines = [IMPLEMENTATION metaValueForKey:@"_lines"];
     NSMutableArray * messages = [IMPLEMENTATION metaValueForKey:@"_messages"];
     int oldNORs = [[IMPLEMENTATION metaValueForKey:@"_numberOfLines"] intValue];
-    id LP = [iTM2LogParser logParserForKey:[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask]];
+	NSString * key = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+    id LP = [iTM2LogParser logParserForKey:key];// get the cached log parser
     NSTextView * TV = [self outputView];
 	NSRange visibleRange = [TV visibleRange];
     NSTextStorage * TS = [TV textStorage];
@@ -978,7 +983,8 @@ iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
     NSAttributedString * AS = [messages lastObject];
     while(oldNORs < [lines count])
     {
-        if(AS = [LP attributedMessageWithString:[lines objectAtIndex:oldNORs++] previousMessage:AS])
+		NSString * line = [lines objectAtIndex:oldNORs++];
+        if(AS = [LP attributedMessageWithString:line previousMessage:AS])
         {
 //NSLog(@"attributed message:");
 //NSLog(@"<%@>", AS);
@@ -1009,8 +1015,8 @@ iTM2_LOG(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS lengt
     [self validateWindowContent];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStyleFromTag:
-- (IBAction)takeStyleFromTag:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStyleFromRepresentedObject:
+- (IBAction)takeStyleFromRepresentedObject:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1018,17 +1024,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * newStyle = @"";
-    switch([[sender selectedItem] tag])
-    {
-        case 1:
-            newStyle = @"LaTeX";
-            break;
-        default:
-            newStyle = @"";
-            break;
-    }
-	NSString * oldStyle = [self contextValueForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+    NSString * newStyle = [[sender selectedItem] representedObject];
+	NSString * oldStyle = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 	if(![newStyle isEqualToString:oldStyle])
 	{
 		[self takeContextValue:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
@@ -1037,8 +1034,8 @@ To Do List:
     [self validateWindowContent];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStyleFromTag:
-- (BOOL)validateTakeStyleFromTag:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStyleFromRepresentedObject:
+- (BOOL)validateTakeStyleFromRepresentedObject:(id)sender;
 /*"The sender is expected to be a pop up button.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -1048,11 +1045,38 @@ To Do List:
 //iTM2_START;
     if([sender isKindOfClass:[NSPopUpButton class]])// bad design of the iTM2 validation protocol?
     {
-        NSString * style = [[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask] lowercaseString];
-        int tag = 0;
-        if([style isEqualToString:@"latex"])
-            tag = 1;
-        [sender selectItemAtIndex:[sender indexOfItemWithTag:tag]];
+		// populate the button with items
+		if(![[sender lastItem] representedObject])
+		{
+			unsigned oldCount = [sender numberOfItems];
+			// originally, this button only contains 1 fake item
+			// get the list of all the log parsers
+			NSArray * logParserClasses = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2LogParser class]];
+			NSEnumerator * E = [logParserClasses objectEnumerator];
+			Class C;
+			while(C = [[E nextObject] nonretainedObjectValue])
+			{
+				NSString * key = [C key];
+				[sender addItemWithTitle:key];
+				[[sender lastItem] setRepresentedObject:key];
+			}
+			while(oldCount--)
+			{
+				[sender removeItemAtIndex:0];
+			}
+		}
+		unsigned int compatibility = [self contextIntegerForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];// old implementation
+        NSString * style = compatibility == 1?
+			@"LaTeX":
+			[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+		int idx = [sender indexOfItemWithRepresentedObject:style];
+		if(idx == NSNotFound)
+		{
+			style = [iTM2TeXLogParser key];
+			[self takeContextValue:style forKey:iTM2TPFELogParserKey domain:iTM2ContextPrivateMask];
+			idx = [sender indexOfItemWithRepresentedObject:style];
+		}
+        [sender selectItemAtIndex:idx];
     }
     return YES;
 }
@@ -1420,6 +1444,7 @@ To Do List:
 //iTM2_END;
     return;
 }
+static NSDictionary * _iTM2LogColors = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description forthcoming.
@@ -1431,6 +1456,25 @@ To Do List:
 //iTM2_START;
     [super initialize];
     [self registerParser];
+    if(!_iTM2LogColors)
+        _iTM2LogColors = [[NSDictionary dictionaryWithObjectsAndKeys:
+            [NSColor blackColor], @"Normal",
+            [NSColor blackColor], @"Ignore",
+            [NSColor blackColor], @"Ignore Next",
+            [NSColor colorWithCalibratedRed:1 green:0.0 blue:0.0 alpha:1.0], @"iTeXMac2 Error",
+            [NSColor colorWithCalibratedRed:0.5 green:0.0 blue:0.0 alpha:1.0], @"iTeXMac2 Comment",
+            [NSColor colorWithCalibratedRed:0.0 green:0.25 blue:0.0 alpha:1.0], @"LaTeX Font Info",
+            [NSColor colorWithCalibratedRed:0.0 green:0.25 blue:0.0 alpha:1.0], @"LaTeX Info",
+            [NSColor colorWithCalibratedRed:0.0 green:0.25 blue:0.0 alpha:1.0], @"TeX Info",
+            [NSColor colorWithCalibratedRed:1.0 green:0.33 blue:0.0 alpha:1.0], @"LaTeX Font Warning",
+            [NSColor colorWithCalibratedRed:1.0 green:0.33 blue:0.0 alpha:1.0], @"LaTeX Warning",
+            [NSColor colorWithCalibratedRed:0.0 green:0.0 blue:0.5 alpha:1.0], @"Package",
+            [NSColor colorWithCalibratedRed:0.0 green:0.0 blue:0.5 alpha:1.0], @"File",
+            [NSColor colorWithCalibratedRed:1.0 green:0.33 blue:0.0 alpha:1.0], @"TeX Warning",
+            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error",
+            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error line",
+            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error query",
+            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error file:line", nil] retain];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  key
@@ -1466,52 +1510,6 @@ To Do List:
 //iTM2_START;
     return [iTM2ObjectServer objectForType:iTM2TPFELogParserKey key: (key?:@"")];
 }
-@end
-
-//#import <iTM2Foundation/iTM2LiteScanner.h>
-extern NSString * const iTM2LineAttributeName;
-extern NSString * const iTM2LogInputAttributeName;
-#define diTM2IAN iTM2LogInputAttributeName
-extern NSString * const iTM2WarningInput;
-extern NSString * const iTM2ErrorInput;
-extern NSString * const iTM2InfoInput;
-
-@implementation NSColor(iTM2TeXProjectTaskKit)
-static NSDictionary * _iTM2LogColors = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Apr 16 11:39:43 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-    if(!_iTM2LogColors)
-        _iTM2LogColors = [[NSDictionary dictionaryWithObjectsAndKeys:
-            [NSColor blackColor], @"Normal",
-            [NSColor blackColor], @"Ignore",
-            [NSColor blackColor], @"Ignore Next",
-            [NSColor colorWithCalibratedRed:1 green:0.0 blue:0.0 alpha:1.0], @"iTeXMac2 Error",
-            [NSColor colorWithCalibratedRed:0.5 green:0.0 blue:0.0 alpha:1.0], @"iTeXMac2 Comment",
-            [NSColor colorWithCalibratedRed:0.0 green:0.25 blue:0.0 alpha:1.0], @"LaTeX Font Info",
-            [NSColor colorWithCalibratedRed:0.0 green:0.25 blue:0.0 alpha:1.0], @"LaTeX Info",
-            [NSColor colorWithCalibratedRed:0.0 green:0.25 blue:0.0 alpha:1.0], @"TeX Info",
-            [NSColor colorWithCalibratedRed:1.0 green:0.33 blue:0.0 alpha:1.0], @"LaTeX Font Warning",
-            [NSColor colorWithCalibratedRed:1.0 green:0.33 blue:0.0 alpha:1.0], @"LaTeX Warning",
-            [NSColor colorWithCalibratedRed:0.0 green:0.0 blue:0.5 alpha:1.0], @"Package",
-            [NSColor colorWithCalibratedRed:0.0 green:0.0 blue:0.5 alpha:1.0], @"File",
-            [NSColor colorWithCalibratedRed:1.0 green:0.33 blue:0.0 alpha:1.0], @"TeX Warning",
-            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error",
-            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error line",
-            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error query",
-            [NSColor colorWithCalibratedRed:0.75 green:0.0 blue:0.0 alpha:1.0], @"TeX Error file:line", nil] retain];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logColorForType:
 + (NSColor *)logColorForType:(NSString *)type;
 /*"Description forthcoming.
@@ -1525,23 +1523,15 @@ To Do List:
 }
 @end
 
-@implementation iTM2LaTeXLogParser
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Apr 16 11:39:43 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-    [self registerParser];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
+//#import <iTM2Foundation/iTM2LiteScanner.h>
+extern NSString * const iTM2LineAttributeName;
+extern NSString * const iTM2LogInputAttributeName;
+#define diTM2IAN iTM2LogInputAttributeName
+extern NSString * const iTM2WarningInput;
+extern NSString * const iTM2ErrorInput;
+extern NSString * const iTM2InfoInput;
+
+@implementation iTM2TeXLogParser
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  key
 + (NSString *)key;
 /*"Description forthcoming.
@@ -1551,694 +1541,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return @"LaTeX";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributedMessageWithString:previousMessage:
-+ (id)attributedMessageWithString:(NSString *)string previousMessage:(NSAttributedString *)message;
-/*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
-- 1.4: Fri Apr 16 11:39:43 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//NSLog(@"****  The STRING IS: %@", string);
-    NSDictionary * attributes = [message length]?
-        [message attributesAtIndex:[message length] - 1 effectiveRange:nil]:
-            nil;
-    // looking for the last page number previously parsed (problem with non continuous page numbers...)
-    // WHAT WAS PREVIOUSLY THERE?
-    NSNumber * oldPageNumber = [attributes objectForKey:iTM2LogPageNumberAttributeName]?:[NSNumber numberWithInt:0];
-    NSString * type = [attributes objectForKey:iTM2LogLineTypeAttributeName]?: @"Normal";
-    // what kind of info will be passed through?
-    // 1 - the current physical page number
-    // 2 - the type of the error, it is line wide
-    // 3 - the file
-    // 4 - the files stack
-    // special lines starting with
-    // "." assumed to be in file line error style
-    // "" (void line) assumed to end a file line error style comment
-    // "!" assumed to be a LaTeX error
-    // " " assumed to be a comment: the attributes are passed through
-    // "LaTeX Info:" assumed to be a 
-    // "LaTeX Font Info:" assumed to be a 
-    // "LaTeX Warning:" assumed to be a 
-    // "LaTeX Font Warning:" assumed to be a 
-    // "pdfTeX Warning:" assumed to be a 
-    // "Warning:"
-    // "Overfull "
-    // "Underfull "
-    // "Package"
-    // "" assumed to be a 
-    // "" assumed to be a 
-    // "" assumed to be a 
-    NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] init] autorelease];
-    [MAS beginEditing];
-    NSMutableString * MS = [MAS mutableString];
-    [MS appendString:string];
-    NSRange R = NSMakeRange(0, [MS length]);
-    NSRange lineRange = NSMakeRange(0, 0);
-    iTM2LiteScanner * scanner = [iTM2LiteScanner scannerWithString:string];
-    [MAS addAttribute:iTM2LogPageNumberAttributeName value:oldPageNumber range:R];
-    BOOL dontIgnoreFilesAndPages = NO;
-    if([scanner scanString:@"/" intoString:nil])
-    {
-        // this is supposed to be a file:line:error line
-        // no hint will be used to manage the list of files
-		NSString * path;
-		lineRange.location = [scanner scanLocation] - 1;
-        if([scanner scanUpToString:@":" intoString: &path] && [scanner scanString:@":" intoString:nil])
-        {
-            type = @"TeX Error file:line";
-            lineRange.location = [scanner scanLocation];
-            int line;
-            if([scanner scanInt: &line])
-            {
-                lineRange.length = [scanner scanLocation] - lineRange.location;
-                [MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:lineRange];
-				NSNumber * N = [NSNumber numberWithInt:line];
-                [MAS addAttribute:iTM2LogLinkLineAttributeName value:N range:lineRange];
-				path = [NSOpenStepRootDirectory() stringByAppendingPathComponent:path];
-				path = [path stringByStandardizingPath];
-                [MAS addAttribute:iTM2LogLinkFileAttributeName value:path range:lineRange];
-            }
-        }
-        else
-        {
-            type = @"Normal";
-            dontIgnoreFilesAndPages = YES;
-        }
-        goto finish;
-    }
-    else if([scanner scanString:@"." intoString:nil])
-    {
-        // this is supposed to be a file:line:error line
-        // no hint will be used to manage the list of files
-		NSString * path;
-		lineRange.location = [scanner scanLocation] - 1;
-        if([scanner scanUpToString:@":" intoString: &path] && [scanner scanString:@":" intoString:nil])
-        {
-            type = @"TeX Error file:line";
-            lineRange.location = [scanner scanLocation];
-            int line;
-            if([scanner scanInt: &line])
-            {
-                lineRange.length = [scanner scanLocation] - lineRange.location;
-                [MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:lineRange];
-                [MAS addAttribute:iTM2LogLinkLineAttributeName value:[NSNumber numberWithInt:line] range:lineRange];
-                [MAS addAttribute:iTM2LogLinkFileAttributeName value:[[@"." stringByAppendingPathComponent:path] stringByStandardizingPath] range:lineRange];
-            }
-        }
-        else
-        {
-            type = @"Normal";
-            dontIgnoreFilesAndPages = YES;
-        }
-        goto finish;
-    }
-    else if([scanner scanString:@"LaTeX" intoString:nil])
-    {
-        if([scanner scanString:@"Font" intoString:nil])
-        {
-            if([scanner scanString:@"Info:" intoString:nil])
-            {
-                type = @"LaTeX Font Info";
-            }
-            else if([scanner scanString:@"Warning:" intoString:nil])
-            {
-                type = @"LaTeX Font Warning";
-            }
-        }
-        else if([scanner scanString:@"Info:" intoString:nil])
-        {
-            type = @"LaTeX Info";
-        }
-        else if([scanner scanString:@"Warning:" intoString:nil])
-        {
-            type = @"LaTeX Warning";
-        }
-        goto finish;
-    }
-    else if([scanner scanString:@"Package" intoString:nil])
-    {
-        type = @"Package";
-        goto finish;
-    }
-    else if([scanner scanString:@"File" intoString:nil])
-    {
-        type = @"File";
-        goto finish;
-    }
-    else if([scanner scanString:@"Language" intoString:nil])
-    {
-        type = @"File";
-        goto finish;
-    }
-    else if([scanner scanString:@"Underfull" intoString:nil])
-    {
-        type = @"TeX Warning";
-        goto scanLine;
-    }
-    else if([scanner scanString:@"Overfull" intoString:nil])
-    {
-        type = @"TeX Warning";
-        goto scanLine;
-    }
-    else if([scanner scanString:@"!" intoString:nil])
-    {
-        type = @"TeX Error";
-        goto finish;
-    }
-    else if([scanner scanString:@"l." intoString:nil])
-    {
-        type = @"TeX Error line";
-        lineRange.location = [scanner scanLocation];
-		int line;
-		if([scanner scanInt: &line])
-		{
-			lineRange.length = [scanner scanLocation] - lineRange.location;
-			[MAS addAttribute:NSLinkAttributeName value:type range:lineRange];
-			NSNumber * N = [NSNumber numberWithInt:line];
-			[MAS addAttribute:iTM2LogLinkLineAttributeName value:N range:lineRange];
-		}
-        goto finish;
-    }
-    else if([scanner scanString:@"?" intoString:nil])
-    {
-        type = @"TeX Error query";
-		// I should clean the attributes here
-        goto finish;
-    }
-    else if([scanner scanString:@"Output written on " intoString:nil])
-    {
-		NSRange fileRange = NSMakeRange(0, 0);
-		fileRange.location = [scanner scanLocation];
-		NSString * file;
-		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &file])
-		{
-			fileRange.length = [scanner scanLocation] - fileRange.location;
-			[MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:fileRange];
-			[MAS addAttribute:iTM2LogLinkFileAttributeName value:file range:fileRange];
- 		}
-        goto finish;
-	}
-    else if([scanner scanString:@"Transcript written on " intoString:nil])
-    {
-		NSRange fileRange = NSMakeRange(0, 0);
-		fileRange.location = [scanner scanLocation];
-		NSString * file;
-		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &file])
-		{
-			fileRange.length = [scanner scanLocation] - fileRange.location;
-			if([file hasSuffix:@"."])// there is a final "." unwanted
-			{
-				--fileRange.length;
-				file = [file substringWithRange:NSMakeRange(0, [file length] - 1)];
-			}
-			[MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:fileRange];
-			[MAS addAttribute:iTM2LogLinkFileAttributeName value:file range:fileRange];
- 		}
-        goto finish;
-	}
-    else if([type isEqualToString:@"TeX Error line"])
-    {
-        type = @"Ignore Next";
-        goto finish;
-    }
-    else if([type isEqualToString:@"Ignore Next"])
-    {
-        unsigned contentsEnd;
-        [string getLineStart:nil end:nil contentsEnd: &contentsEnd forRange:R];
-        type = contentsEnd? @"Ignore": @"Normal";
-        goto finish;
-    }
-    else if([type isEqualToString:@"LaTeX Font Info"])
-    {
-        // this is a "(Font)              <7> on input line 157." information
-        type = @"Normal";
-        dontIgnoreFilesAndPages = YES;
-        goto scanLine;
-    }
-    #if 1
-    type = @"Normal";
-    if([string hasPrefix:@"  "])
-    {
-        // this line is generally following the ! one
-        type = @"Ignore";
-        goto finish;
-    }
-    else if([scanner scanString:@"\\" intoString:nil])
-    {
-        // This line is starting y a control sequence
-        type = @"Ignore";
-        goto finish;
-    }
-    else if([scanner scanString:@"*" intoString:nil])
-    {
-        // this line is generally following the ! one
-        type = @"TeX Info";
-        goto finish;
-    }
-    else
-    {
-        dontIgnoreFilesAndPages = YES;
-        goto finish;
-    }
-    scanLine:
-    lineRange = [string rangeOfString:@"line "];
-    if(lineRange.location != NSNotFound)
-    {
-        [scanner setScanLocation:NSMaxRange(lineRange)];
-        int line;
-        if([scanner scanInt: &line])
-        {
-            lineRange.length = [scanner scanLocation] - lineRange.location;
-			[MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:lineRange];
-			[MAS addAttribute:iTM2LogLinkLineAttributeName value:[NSNumber numberWithInt:line] range:lineRange];
-        }
-    }
-    finish:
-//NSLog(@"****  The type is: %@", type);
-    if(dontIgnoreFilesAndPages)
-    {
-        NSRange attributeRange = NSMakeRange(0, [string length]);
-        unsigned contentsEnd;
-        [string getLineStart:nil end:nil contentsEnd: &contentsEnd forRange:attributeRange];
-//NSLog(@"File or pages? %@", string);
-        NSArray * files = [attributes objectForKey:iTM2LogFilesStackAttributeName]?:[NSArray array];
-        if(contentsEnd>=[string length])
-        {
-            [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:attributeRange];
-            goto finishEnd;
-        }
-        // Here is a little note about the file stack management
-        // The attribute value is the list of all the currently open files
-        // the currently scanned file is the last in the list
-        // or the master one if the list is void
-        // when a new file is opened, the stack array is duplicated and an entry is added
-        // when a file is closed, the stack array is duplicated and the last entry is deleted
-        // The difficulty is to understand when files are opened or closed
-        NSRange searchRange = attributeRange;
-        NSRange openRange = [string rangeOfString:@"(" options:0L range:searchRange];
-        NSRange closeRange = [string rangeOfString:@")" options:0L range:searchRange];
-        openingOrClosingAFile:
-//NSLog(@"Scanning: %@ (open is %@, close is: %@)", files, NSStringFromRange(openRange), NSStringFromRange(closeRange));
-        if(openRange.location<closeRange.location)
-        {
-//NSLog(@"Opening");
-            attributeRange.length = openRange.location + 1 - attributeRange.location;
-            [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:attributeRange];
-            attributeRange.location = NSMaxRange(attributeRange);
-            attributeRange.length = [string length] - attributeRange.location;
-            // opening first
-            NSString * prefix;
-            NSRange fileRange = NSMakeRange(0, 0);
-            fileRange.location = openRange.location + 1;
-            [scanner setScanLocation:fileRange.location];
-            if([scanner scanString:@"/" intoString: &prefix]
-                || [scanner scanString:@"." intoString: &prefix])
-            {
-                NSString * TeXFilenameTrailer;
-                if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &TeXFilenameTrailer])
-                {
-                    fileRange.length = [scanner scanLocation] - fileRange.location;
-                    NSString * file = [prefix stringByAppendingString:TeXFilenameTrailer];
-                    [MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:fileRange];
-                    [MAS addAttribute:iTM2LogLinkFileAttributeName value:file range:fileRange];
-                    files = [files arrayByAddingObject:file];
-//NSLog(@"file name added: %@", file);
-                    searchRange.location = NSMaxRange(openRange);
-                    searchRange.length = [string length] - searchRange.location;
-                    openRange = [string rangeOfString:@"(" options:0L range:searchRange];
-                    goto openingOrClosingAFile;
-                }
-                else
-                {
-                    
-//iTM2_START;
-                    NSLog(@"No file to open: Missing characters after, \"(.\" or \"(/\"");
-                    NSLog(@"<%@>", string);
-                    [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:attributeRange];
-                    goto finishEnd;
-                }
-            }
-            else
-            {
-                
-//iTM2_START;
-                NSLog(@"No file to open: I don't understand the syntax, \"(.\" or \"(/\" expected");
-                NSLog(@"<%@>", string);
-                [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:attributeRange];
-                goto finishEnd;
-            }
-            // now we are trying to scan a TeX file name
-        }
-        else if(closeRange.location<NSNotFound)
-        {
-//NSLog(@"Closing:");
-            // closing first
-            if([files count])
-            {
-                NSMutableArray * MRA = [NSMutableArray arrayWithArray:files];
-                [MRA removeLastObject];
-                attributeRange.length = closeRange.location - attributeRange.location;
-                [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:attributeRange];
-                attributeRange.location = NSMaxRange(attributeRange);
-                attributeRange.length = [string length] - attributeRange.location;
-                searchRange.location = NSMaxRange(closeRange);
-                searchRange.length = [string length] - searchRange.location;
-                closeRange = [string rangeOfString:@")" options:0L range:searchRange];
-                files = [NSArray arrayWithArray:MRA];
-                goto openingOrClosingAFile;
-            }
-            else
-            {
-                
-//iTM2_START;
-                NSLog(@"No file to close: I don't understand the syntax");
-                NSLog(@"<%@>", string);
-                [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:attributeRange];
-                goto finishEnd;
-            }
-        }
-        else
-        {
-//NSLog(@"Nothing");
-            [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:attributeRange];
-            goto finishEnd;
-        }
-    }
-    else
-    {
-        NSArray * files = [attributes objectForKey:iTM2LogFilesStackAttributeName]?:[NSArray array];
-        [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:NSMakeRange(0, [string length])];
-    }
-    finishEnd:
-    [MAS addAttribute:iTM2LogLineTypeAttributeName value:type range:R];
-    [MAS addAttribute:NSForegroundColorAttributeName value:[NSColor logColorForType:type] range:R];
-    [MAS endEditing];
-    return MAS;
-    #endif
-    #if 0
-    unsigned scanLocation, oldScanLocation;
-    NSRange aRange = NSMakeRange(0, [string length]);
-    NSRange attributeRange = aRange;
-    unsigned maxRange = [string length];
-//NSLog(@"P: 0<=%d<%d", aRange.location, [string length]);
-    scanLocation = 0;
-//NSLog(@"<%@>(%u -> %u)", [[NSCalendarDate date] description], scanLocation, maxRange);
-    while(scanLocation < maxRange)
-    {
-//NSLog(@"NEW LOOP: scanLocation: %i <%@>", scanLocation, [string substringWithRange:NSMakeRange(scanLocation, 1)]);
-        [scanner setScanLocation:scanLocation];
-        // leading whites
-        attributeRange = NSMakeRange(scanLocation, 0);
-        [scanner scanCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:nil];
-        scanLocation = [scanner scanLocation];
-        if(scanLocation > attributeRange.location)
-        {
-            attributeRange.length = [scanner scanLocation] - attributeRange.location;
-            [MAS removeAttribute:diTM2IAN range:attributeRange];
-            if(currentPhysicalPageNumber)
-                [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-            else
-                [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"0-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-            if(scanLocation >= maxRange)
-                break;
-            attributeRange = NSMakeRange(scanLocation, 0);
-        }
-        oldScanLocation = scanLocation;
-        // now scanLocation points to the first black character
-//NSLog(@"black character: <%@>", [string substringWithRange:NSMakeRange(scanLocation, 1)]);
-//if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:scanLocation]])
-//NSLog(@"whitespaceAndNewlineCharacterSet");
-//if([[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] characterIsMember:[string characterAtIndex:scanLocation]])
-//NSLog(@"not whitespaceAndNewlineCharacterSet");
-        if([scanner scanString:@"!" intoString:nil])
-        {
-            unsigned end = 0;
-            unsigned nextEnd = 0;
-            unsigned nextStart = 0;
-            unsigned lineNumber = 0;
-            int counter;
-            NSRange lineKeyRange;
-            iTM2LiteScanner * subScanner;
-            NSString * line;
-//NSLog(@"GLS");
-            [string getLineStart:nil end: &end contentsEnd:nil forRange:NSMakeRange(scanLocation, 0)];
-            nextStart = end;
-//NSLog(@"GLS");
-            for(counter = 0; counter < 10; ++counter)
-            {
-                [string getLineStart:nil end: &nextEnd contentsEnd:nil forRange:NSMakeRange(nextStart, 0)];
-                line = [string substringWithRange:NSMakeRange(nextStart, nextEnd - nextStart)];
-                subScanner = [iTM2LiteScanner scannerWithString:line];
-                [subScanner scanUpToString:@"l." intoString:nil];
-                lineKeyRange.location = [subScanner scanLocation];
-                if([subScanner scanString:@"l." intoString:nil] && [subScanner scanInt: &lineNumber])
-                {
-                    lineKeyRange.length = [subScanner scanLocation] - lineKeyRange.location;
-                    lineKeyRange.location += nextStart;
-                    [MAS addAttribute:iTM2LineAttributeName value:[NSNumber numberWithInt:lineNumber] range:lineKeyRange];
-                    end = NSMaxRange(lineKeyRange);
-                    break;
-                }
-                else
-                {
-//NSLog(@"I am missing a line number\n%i: %@", counter, line);
-                    nextStart = nextEnd;
-                    if(nextStart > [string length])
-                    {
-                        break;
-                    }
-                }
-            }
-            attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-            [MAS addAttribute:diTM2IAN value:iTM2ErrorInput range:attributeRange];
-            if(currentPhysicalPageNumber)
-                [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-            else
-                [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"1-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-            scanLocation = end;
-        }
-        #if 1
-        else if([scanner scanString:@"Package:" intoString:nil])
-        {// two lines parsing
-            unsigned end = 0;
-//NSLog(@"GLS");
-            [string getLineStart:nil end: &end contentsEnd:nil forRange:NSMakeRange([scanner scanLocation], 0)];
-            attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-            [MAS addAttribute:diTM2IAN value:iTM2InfoInput range:attributeRange];
-            if(currentPhysicalPageNumber)
-                [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-            else
-                [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"3-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-            scanLocation = end;
-        }
-        #endif
-        #if 1
-        else if([scanner scanString:@"LaTeX Info:" intoString:nil] ||
-                    [scanner scanString:@"LaTeX Font Info:" intoString:nil])
-        {// two lines parsing
-            unsigned end = 0;
-            unsigned line = 0;
-            NSRange lineKeyRange;
-            NSString * substring;
-            iTM2LiteScanner * subScanner;
-//NSLog(@"GLS");
-            [string getLineStart: nil end: &end contentsEnd: nil
-                                                forRange: NSMakeRange([scanner scanLocation], 0)];
-            attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-            substring = [string substringWithRange:attributeRange];
-            subScanner = [iTM2LiteScanner scannerWithString:substring];
-//NSLog(@"substring: <%@>", substring);
-            while(![subScanner isAtEnd])
-            {
-                if([subScanner scanUpToString:@"line" intoString:nil],
-                    [subScanner scanString:@"line" intoString:nil])
-                {
-                    lineKeyRange.location = [subScanner scanLocation] - 4;
-                    if([subScanner scanInt: &line])
-                    {
-                        lineKeyRange.length = [subScanner scanLocation] - lineKeyRange.location;
-                        lineKeyRange.location += scanLocation;
-//NSLog(@"Is this a bug? %@", NSStringFromRange(lineKeyRange));
-                        [MAS addAttribute: iTM2LineAttributeName
-                                        value: [NSNumber numberWithInt:line] range:lineKeyRange];
-                        break;
-                    }
-                }
-            }
-            [MAS addAttribute:diTM2IAN value:iTM2InfoInput range:attributeRange];
-            if(currentPhysicalPageNumber)
-                [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-            else
-                [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"4-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-            scanLocation = end;
-        }
-        #endif
-        else if([scanner scanString:@"l." intoString:nil])
-        {
-            unsigned end = 0;
-            unsigned line = 0;
-            NSRange lineKeyRange = NSMakeRange([scanner scanLocation], 0);
-            NSString * substring;
-            iTM2LiteScanner * subScanner;
-            unsigned tmpAnchor = oldScanLocation;
-//NSLog(@"GLS");
-            [string getLineStart: nil end: &end contentsEnd: nil
-                                                forRange: NSMakeRange([scanner scanLocation], 0)];
-            attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-            substring = [string substringWithRange:attributeRange];
-            subScanner = [iTM2LiteScanner scannerWithString:substring];
-            [subScanner setScanLocation:2];
-//NSLog(@"substring: <%@>", substring);
-            if([subScanner scanInt: &line])
-            {
-                lineKeyRange.length = [subScanner scanLocation] - 2;
-//NSLog(@"Is this a bug? %@", NSStringFromRange(lineKeyRange));
-                [MAS addAttribute: iTM2LineAttributeName
-                                value: [NSNumber numberWithInt:line] range:lineKeyRange];
-            }
-            [MAS addAttribute:diTM2IAN value:iTM2InfoInput range:attributeRange];
-            if(currentPhysicalPageNumber)
-                [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-            else
-                [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"4-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-            scanLocation = end;
-        }
-        else if([scanner scanString:@"?" intoString:nil])
-        {
-            unsigned end = 0;
-            [string getLineStart: nil end: &end contentsEnd: nil
-                                                forRange: NSMakeRange([scanner scanLocation], 0)];
-            attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-            [MAS addAttribute:diTM2IAN value:iTM2ErrorInput range:attributeRange];
-            if(currentPhysicalPageNumber)
-                [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-            else
-                [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"4-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-            scanLocation = end;
-        }
-        else
-        {
-            unsigned end = 0;
-            unsigned scanAnchor = [scanner scanLocation];
-            unsigned tmpAnchor = [scanner scanUpToString:@"on input line" intoString:nil beforeIndex:end]?
-                [scanner scanLocation]: scanAnchor;
-//NSLog(@"GLS");
-            [string getLineStart:nil end: &end contentsEnd:nil forRange:NSMakeRange(scanAnchor, 0)];
-//NSLog(@"CTHER\n<%@>", [string substringWithRange:  NSMakeRange(scanAnchor, end - scanAnchor)]);
-            if([scanner scanString:@"on input line" intoString:nil beforeIndex:end])
-            {
-                NSRange lineKeyRange;
-                int line;
-//NSLog(@"on input line: %@", [string substringWithRange:NSMakeRange(scanLocation, 20)]);
-                lineKeyRange.location = [scanner scanLocation] - 4;
-                if([scanner scanInt: &line])
-                {
-                    lineKeyRange.length = [scanner scanLocation] - lineKeyRange.location;
-                    [MAS addAttribute: iTM2LineAttributeName
-                                    value: [NSNumber numberWithInt:line] range:lineKeyRange];
-                }
-                attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-                [MAS addAttribute:diTM2IAN value:iTM2InfoInput range:attributeRange];
-                if(currentPhysicalPageNumber)
-                    [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-                else
-                    [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"5-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-                scanLocation = end;
-            }
-            else if([scanner setScanLocation:scanAnchor], [scanner scanUpToString:@"["//]
-                    intoString: nil beforeIndex: end], [scanner scanString:@"["//]
-                        intoString: nil])
-            {
-                BOOL escaped = NO;
-                unsigned tmpAnchor = [scanner scanLocation] - 1;
-                end = [scanner scanLocation];
-                attributeRange = NSMakeRange(scanAnchor, end - scanAnchor);
-                if(currentPhysicalPageNumber)
-                    [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-                else
-                    [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"6-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-//NSLog(@"0");
-                if((end<2) || ![string isControlAtIndex:end-2 escaped: &escaped] || escaped)
-                {
-                    // Ok, that seems to be a "[#page{something?}]"
-//NSLog(@"1");
-                    int entier;
-                    scanLocation = end;
-                    if([scanner scanInt: &entier])
-                    {
-//NSLog(@"1.1: entier: %d, currentPhysicalPage: %d (%@)", -entier, currentPhysicalPage, currentPhysicalPageNumber);
-                        currentPhysicalPageNumber = [NSNumber numberWithInt: --currentPhysicalPage];
-                        end = [scanner scanLocation];
-                        attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-                        [MAS addAttribute:iTM2LineAttributeName value:currentPhysicalPageNumber range:attributeRange];
-                        #warning WHAT THE HELL IS THIS? (ABOVE)
-                        [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-//NSLog(@"7-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-                        scanLocation = end;
-                        if([scanner scanUpToString:@"]"//[
-                            intoString: nil], [scanner scanString:@"]"//[
-                                intoString: nil])
-                        {
-                            end = [scanner scanLocation];
-//NSLog(@"1.1.1");
-                            attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-                            [MAS setAttributes:nil range:attributeRange];
-                            [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-//NSLog(@"8-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-                            scanLocation = end;
-                        }
-                    }
-//NSLog(@"2");
-                }
-//NSLog(@"\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\nPage: <%@>", [string substringWithRange:attributeRange]);
-                if(currentPhysicalPageNumber)
-                    [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-                else
-                    [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"9-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-                scanLocation = end;
-            }
-            #if 1
-            else
-            {
-//NSLog(@"regular");
-                attributeRange = NSMakeRange(scanLocation, end - scanLocation);
-                [MAS removeAttribute:diTM2IAN range:attributeRange];
-                if(currentPhysicalPageNumber)
-                    [MAS addAttribute:@"P" value:currentPhysicalPageNumber range:attributeRange];
-                else
-                    [MAS removeAttribute:@"P" range:attributeRange];
-//NSLog(@"10-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
-            }
-            #endif
-            scanLocation = end;
-        }
-        while(scanLocation<=oldScanLocation)
-        {
-//NSLog(@"defect: 2");
-            ++scanLocation;
-        }
-//NSLog(@"scanLocation at the end: %u", scanLocation);
-    }
-//NSLog(@"Attributes are fixed %@>", [[NSCalendarDate date] description]);
-    // Critical: aRange must not be used!!!
-    // no return is allowed
-//NSLog(@"Attributes fixed until: %i", scanLocation);
-    [MAS endEditing];
-    return MAS;
-    #endif
+    return @"None";
 }
 @end
 

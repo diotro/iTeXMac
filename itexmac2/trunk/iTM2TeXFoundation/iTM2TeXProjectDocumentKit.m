@@ -111,8 +111,6 @@ To Do List:
 }
 @end
 
-NSString * const iTM2TeXProjectBaseComponent = @"Base Projects.localized";
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectDocumentKit
 /*"Description forthcoming."*/
 @implementation iTM2TeXProjectDocument
@@ -361,21 +359,21 @@ To Do List:
 	{
 		NSString * path = [absoluteURL path];
 		NSBundle * MB = [NSBundle mainBundle];
-		NSString * dir = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
+		NSString * dir = [MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSUserDomainMask create:YES];
 		if([path belongsToDirectory:dir])
 		{
 			[SPC updateTeXBaseProjectsNotified:nil];
 		}
 		else
 		{
-			dir = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSLocalDomainMask create:NO];
+			dir = [MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSLocalDomainMask create:NO];
 			if([path belongsToDirectory:dir])
 			{
 				[SPC updateTeXBaseProjectsNotified:nil];
 			}
 			else
 			{
-				dir = [MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSNetworkDomainMask create:NO];
+				dir = [MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSNetworkDomainMask create:NO];
 				if([path belongsToDirectory:dir])
 				{
 					[SPC updateTeXBaseProjectsNotified:nil];
@@ -1792,7 +1790,7 @@ To Do List:
 //iTM2_START;
 	[iTM2TeXProjectController setSharedProjectController:
 		[[[iTM2TeXProjectController alloc] init] autorelease]];// very very early in the morning!!!
-    if(![[SPC baseProjects] count])
+    if(![SPC countOfBaseProjects])
     {
         [SPC updateTeXBaseProjectsNotified:nil];
     }
@@ -1831,8 +1829,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSBundle * MB = [NSBundle mainBundle];
-	[MB pathForSupportDirectory:iTM2TeXProjectBaseComponent inDomain:NSUserDomainMask create:YES];
-	NSArray * paths = [MB allPathsForResource:iTM2TeXProjectBaseComponent ofType:@""];
+	[MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSUserDomainMask create:YES];
+	NSArray * paths = [MB allPathsForResource:iTM2ProjectBaseComponent ofType:@""];
 	NSEnumerator * E = [paths reverseObjectEnumerator];
 	NSString * path = nil;
 	while(path = [E nextObject])
@@ -1852,24 +1850,8 @@ To Do List:
 				NSString * core = [component stringByDeletingPathExtension];
 				if(![core hasSuffix:@"~"])// this is not a backup
 				{
-					NSString * type = [SDC typeFromFileExtension:[component pathExtension]];
-					id v = [SDC makeUntitledDocumentOfType:type error:nil];
 					NSString * name = [path stringByAppendingPathComponent:component];
-					NSURL * url = [NSURL fileURLWithPath:name];
-					[v setFileURL:url];
-					[v setFileType:type];
-					#if 1
-					if([v readFromURL:url ofType:type error:nil])
-					{
-						[self addBaseProject:v];
-					}
-					else
-					{
-						iTM2_LOG(@"Could not open the project document:%@", name);
-					}
-					#else
-					[self addBaseProject:v];// performance?
-					#endif
+					[self registerBaseProjectFileName:name];
 				}
 			}
 		}

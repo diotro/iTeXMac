@@ -259,16 +259,17 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>DC9DC478094840B10079E1B3</string>
-								<string>DC9DC4A7094840CC0079E1B3</string>
-								<string>DC9DC4C8094840ED0079E1B3</string>
-								<string>DC9DC4CC094841310079E1B3</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
-							<array/>
+							<array>
+								<array>
+									<integer>0</integer>
+								</array>
+							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 145}, {359, 508}}</string>
+							<string>{{0, 0}, {359, 508}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -303,23 +304,13 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2_Engine_pstopdf</string>
+								<string>&lt;No Editor&gt;</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
-										<key>PBXProjectModuleLabel</key>
-										<string>iTM2_Engine_pstopdf</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>DCE52F010C0F3B6D00F2D5B9</string>
-										<key>history</key>
-										<array>
-											<string>DCBEB6310C0AE71B00BD6006</string>
-										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -376,9 +367,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCE52F020C0F3B6D00F2D5B9</string>
+				<string>DC999D860C2D027700D65B89</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCE52F030C0F3B6D00F2D5B9</string>
+				<string>DC999D870C2D027700D65B89</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>

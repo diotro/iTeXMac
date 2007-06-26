@@ -62,13 +62,14 @@ then
 				iTM2_LEVEL=$(expr $iTM2_LEVEL + 1)
 			done
 
-			CANDIDATES=$(find . -type f -not -regex ".*\.texp.*" -not -regex ".*/\..*" -print)
+			CANDIDATES=""
+#$(find . -type f -not -regex ".*\.texp.*" -not -regex ".*/\..*" -print)
 			iTM2_LIMIT=10
 			for DIR in ${CANDIDATES}
 			do
 				rm -f "$iTM2_PWD/$DIR"
 				ln -s ".iTM2-src/$(basename "$DIR")" "$iTM2_PWD/$DIR"
-				if [ ${iTM2_LIMIT} > 0 ]
+				if [ ${iTM2_LIMIT} -gt 0 ]
 				then
 					iTM2_LIMIT=$(expr $iTM2_LIMIT - 1)
 				else
