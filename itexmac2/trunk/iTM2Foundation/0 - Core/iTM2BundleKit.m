@@ -1855,6 +1855,32 @@ end:
 //iTM2_START;
     return;
 }
+#import <iTM2Foundation/iTM2ApplicationDelegate.h>
+
+@implementation iTM2ApplicationDelegate(iTM2BundleKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tempApplicationWillTerminate:
+- (void)cleanTemporaryApplicationWillTerminate:(NSNotification *)theNotification;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * path = [NSBundle temporaryDirectory];
+	iTM2_LOG(@"Clean the temporary directory at %@", path);
+	if([DFM removeFileAtPath:path handler:nil])
+	{
+		iTM2_LOG(@"Done.");
+	}
+	else
+	{
+		iTM2_LOG(@"**** ERROR: FAILED");
+	}
+//iTM2_END;
+    return;
+}
+@end
 
 @implementation NSObject(iTM2BundleKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classBundle

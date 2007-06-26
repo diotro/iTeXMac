@@ -1144,13 +1144,22 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (NSArray *)getProjectFileNamesInHierarchyForFileName:(NSString *)fileName error:(NSError **)outErrorPtr;
 
 /*! 
-    @method		baseProjects
-    @abstract   The base projects owned by the project controller.
+    @method		baseProjectNames
+    @abstract   The base projects names known by the project controller.
     @discussion The keys are the file names, the values are the projects.
     @param		None
     @result		A dictionary
 */
-- (NSDictionary *)baseProjects;
+- (NSDictionary *)baseProjectNames;
+
+/*! 
+    @method     countOfBaseProjects
+    @abstract   The number of base projects.
+    @discussion Discussion forthcoming.
+    @param      None
+    @result     A number
+*/
+- (unsigned int)countOfBaseProjects;
 
 /*! 
     @method     baseProjectWithName:
@@ -1164,12 +1173,26 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 /*! 
     @method     addBaseProject:
     @abstract   add the given project.
-    @discussion The project controller owns the project not the document controller.
+    @discussion DEPRECATED. The project controller owns the project not the document controller.
 				The given project is not registered and is not meant a priori to contain editable documents.
     @param      A project
     @result     None
 */
 - (void)addBaseProject:(id)project;
+
+/*! 
+    @method     registerBaseProjectFileName:
+    @abstract   register the given project file name.
+    @discussion The project controller will own the project not the document controller.
+				The given project file name is recorded, the receiver will load this project once it is requested to.
+				The foundation does not register any base project, it is a convenient method for the TeX foundation.
+				As the user interface layer knows exactly where the projects are stored (it does not know what is stored inside)
+				it is responsible to make it available wordwilde.
+				The policy is to create a repository of soft links in the temporary area of the aplication.
+    @param      A project file name
+    @result     None
+*/
+- (void)registerBaseProjectFileName:(NSString *)projectFileName;
 
 /*! 
     @method     removeBaseProject:
@@ -1585,4 +1608,19 @@ extern NSString * const iTM2WrapperInspectorType;
 
 @end
 
+extern NSString * const iTM2ProjectBaseComponent;
+
+@interface NSBundle(iTM2Project)
+
+/*!
+    @method		temporaryBaseProjectsDirectory
+    @abstract	The base projects directory
+    @discussion	This is the unique location where all the base projects are gathered by iTeXMac2.
+				In fact it only contains symlinks to real base projects that are stored somewhere else.
+    @param		None.
+    @result		The path.
+*/
++ (NSString *)temporaryBaseProjectsDirectory;
+
+@end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ProjectDocument

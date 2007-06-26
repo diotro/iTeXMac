@@ -166,6 +166,52 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_applicationWillTerminateNotificatied:
+- (void)iTM2_applicationWillTerminateNotificatied:(NSNotification *)theNotification;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: Thu Sep 26 2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self  completeInstallation];
+	[iTM2Installer completeInstallation];
+    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
+    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
+    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"WillFinishLaunching" signature:sig0 inherited:YES];
+    [I setTarget:self];
+    NSEnumerator * E = [selectors objectEnumerator];
+    SEL action;
+    while(action = (SEL)[[E nextObject] pointerValue])
+    {
+        [I setSelector:action];
+        [I invoke];
+        if(iTM2DebugEnabled>99)
+        {
+            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
+        }
+    }
+	[super finishLaunching];
+    selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"DidFinishLaunching" signature:sig0 inherited:YES];
+    E = [selectors objectEnumerator];
+    while(action = (SEL)[[E nextObject] pointerValue])
+    {
+        [I setSelector:action];
+        [I invoke];
+        if(iTM2DebugEnabled>99)
+        {
+            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
+        }
+    }
+	[iTM2MileStone verifyRegisteredMileStones];
+	[DNC addObserver:self
+		selector:@selector(iTM2_applicationWillTerminateNotificatied:)
+			name:NSApplicationWillTerminateNotification
+				object:self];
+//iTM2_END;
+    return;
+}
 @end
 
 static NSMutableDictionary * __iTM2MileStone = nil;
@@ -608,4 +654,3 @@ To Do List:
     return;
 }
 @end
-

@@ -25,6 +25,7 @@
 #define __iTeXMac2__
 
 #import <Carbon/Carbon.h>
+#import <iTM2Foundation/iTM2Implementation.h>
 
 extern NSString * const iTM2FoundationErrorDomain;
 

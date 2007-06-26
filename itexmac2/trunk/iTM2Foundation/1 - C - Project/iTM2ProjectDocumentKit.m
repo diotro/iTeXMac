@@ -1002,7 +1002,7 @@ To Do List:
 					if([name length])
 					{
 						NSString * name = [self absoluteFileNameForKey:key];
-						if(![DFM fileExistsAtPath:name])
+						if([DFM fileExistsAtPath:name])
 						{
 							name = [self fileNameForRecordedKey:key];
 							if([DFM fileExistsAtPath:name])
@@ -8422,6 +8422,30 @@ To Do List:
 //iTM2_END;
     return [[BASE_PROJECTS copy] autorelease];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfBaseProjects
+- (unsigned int)countOfBaseProjects;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self baseProjectNames] count];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectNames
+- (NSDictionary *)baseProjectNames;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self baseProjects] allKeys];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectWithName:
 - (id)baseProjectWithName:(NSString *)projectName;
 /*"Description forthcoming.
@@ -8440,20 +8464,34 @@ To Do List:
 //iTM2_LOG(@"CACHED_BASE_PROJECTS");
     if(P = [[CACHED_BASE_PROJECTS objectForKey:projectName] nonretainedObjectValue])
         return P;
-
 //iTM2_LOG(@"Not yet cached");
-	NSEnumerator * E = [[self baseProjects] objectEnumerator];
-	while(P = [E nextObject])
-		if([[P projectName] pathIsEqual:projectName])
+	if(P = [BASE_PROJECTS objectForKey:projectName])
+	{
+		if([P isKindOfClass:[NSString class]])
 		{
-			NSValue * V = [NSValue valueWithNonretainedObject:P];
-			[CACHED_BASE_PROJECTS takeValue:V forKey:projectName];
-			if(iTM2DebugEnabled>10)
+			// this was a file promise
+			NSString * type = [SDC typeFromFileExtension:[P pathExtension]];
+			NSURL * url = [NSURL fileURLWithPath:P];
+			if(P = [SDC makeUntitledDocumentOfType:type error:nil])
 			{
-				iTM2_LOG(@"\\infty - The project:%@ knows about %@",[P projectName],projectName);
+				[P setFileURL:url];
+				[P setFileType:type];
+				if(![P readFromURL:url ofType:type error:nil])
+				{
+					iTM2_LOG(@"Could not open the project document:%@", projectName);
+				}
+				[BASE_PROJECTS setObject:P forKey:projectName];
 			}
-			return P;
+			
 		}
+		NSValue * V = [NSValue valueWithNonretainedObject:P];
+		[CACHED_BASE_PROJECTS takeValue:V forKey:projectName];
+		if(iTM2DebugEnabled>10)
+		{
+			iTM2_LOG(@"\\infty - The project:%@ knows about %@",[P projectName],projectName);
+		}
+		return P;
+	}
 	NSString * lower = [projectName lowercaseString];
 	if([projectName isEqualToString:lower])
 		return nil;
@@ -8463,6 +8501,39 @@ To Do List:
 		[CACHED_BASE_PROJECTS takeValue:V forKey:projectName];
 	}
 	return P;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerBaseProjectFileName:
+- (void)registerBaseProjectFileName:(NSString *)projectFileName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSParameterAssert([SWS isProjectPackageAtPath:projectFileName]);
+	NSString * path = [NSBundle temporaryBaseProjectsDirectory];
+	NSString * key = [projectFileName lastPathComponent];
+	path = [path stringByAppendingPathComponent:key];
+	if([DFM fileExistsAtPath:path])
+	{
+		if(![DFM removeFileAtPath:path handler:nil])
+		{
+			iTM2_LOG(@"**** ERROR: iTeXMac2 was not able to remove file at %@", path);
+		}
+	}
+	if(![DFM createSymbolicLinkAtPath:path pathContent:projectFileName])
+	{
+		iTM2_LOG(@"**** ERROR: iTeXMac2 could not link %@ to %@", path, projectFileName);
+	}
+	key = [key stringByDeletingPathExtension];
+	[BASE_PROJECTS setObject:projectFileName forKey:key];
+	if(iTM2DebugEnabled>10000)
+	{
+		iTM2_LOG(@"Base project added for name:%@", projectFileName);
+	}
+//iTM2_END;
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addBaseProject:
 - (void)addBaseProject:(id)projectDocument;
@@ -8475,7 +8546,8 @@ To Do List:
 //iTM2_START;
 	if(projectDocument)
 	{
-		[BASE_PROJECTS setObject:projectDocument forKey:[[projectDocument fileName] lastPathComponent]];// the previously added projects for that key are overriden
+		NSString * key = [[[projectDocument fileName] lastPathComponent] stringByDeletingPathExtension];
+		[BASE_PROJECTS setObject:projectDocument forKey:key];// the previously added projects for that key are overriden
 		if(iTM2DebugEnabled>10000)
 		{
 			iTM2_LOG(@"Base project added:%@", projectDocument);
@@ -8496,9 +8568,15 @@ To Do List:
 //iTM2_START;
 	if(projectDocument)
 	{
-		[PROJECTS removeObjectsForKeys:[PROJECTS allKeysForObject:projectDocument]];
-		[CACHED_PROJECTS removeObjectsForKeys:[CACHED_PROJECTS allKeysForObject:
-			[PROJECTS allKeysForObject:[NSValue valueWithNonretainedObject:projectDocument]]]];
+		NSArray * Ks = [BASE_PROJECTS allKeysForObject:projectDocument];
+		[BASE_PROJECTS removeObjectsForKeys:Ks];
+		Ks = [PROJECTS allKeysForObject:projectDocument];
+		[PROJECTS removeObjectsForKeys:Ks];
+		NSValue * V = [NSValue valueWithNonretainedObject:projectDocument];
+		Ks = [CACHED_PROJECTS allKeysForObject:V];
+		[CACHED_PROJECTS removeObjectsForKeys:Ks];
+		Ks = [CACHED_BASE_PROJECTS allKeysForObject:V];
+		[CACHED_BASE_PROJECTS removeObjectsForKeys:Ks];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"project:%@",projectDocument);
@@ -11785,5 +11863,36 @@ To Do List:
 	int tag = [N respondsToSelector:@selector(intValue)]?[N intValue]:4;// why 4? why not
 	[sender setState:([sender tag] == tag? NSOnState:NSOffState)];
 	return YES;
+}
+@end
+
+NSString * const iTM2ProjectBaseComponent = @"Base Projects.localized";
+
+@implementation NSBundle(iTM2Project)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  temporaryBaseProjectsDirectory:
++ (NSString *)temporaryBaseProjectsDirectory;
+/*"Description Forthcoming. This is the one form the main menu.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	static NSString * path = nil;
+	if(!path)
+	{
+		path = [self temporaryDirectory];
+		path = [path stringByAppendingPathComponent:iTM2ProjectBaseComponent];
+		NSError * localError = nil;
+		if([DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
+			[path retain];
+		else
+		{
+			iTM2_LOG(@"..........  ERROR: Directory expected at %@... returning %@ instead (error: %@)", path, NSTemporaryDirectory(), localError);
+			path = [NSTemporaryDirectory() copy];
+		}
+	}
+//iTM2_END;
+	return path;
 }
 @end

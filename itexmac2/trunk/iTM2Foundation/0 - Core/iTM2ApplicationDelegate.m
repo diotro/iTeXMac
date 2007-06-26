@@ -36,6 +36,8 @@ NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 /*" This class is registered as the delegate of the iTeXMac2 NSApplication object. We do various stuff here, e.g. registering factory defaults, etc.
 "*/
 
+#include <iTM2Foundation/iTM2RuntimeBrowser.h>
+
 @interface NSDocumentController(iTM2ApplicationDelegate)
 - (id)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL;
 @end
@@ -120,20 +122,6 @@ I really don't know why but this simple method could replace the previous one. N
 //iTM2_START;
     return ![SUD boolForKey:iTM2MakeEmptyDocumentKey];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applicationDidFinishLaunching:
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
-/*"Updates the templates and macros menus.
-Proposed by jlaurens AT users DOT sourceforge DOT net (07/12/2001)
-To Do: problem when there is no UI.
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//    [self setFirstPanel:nil];
-    [self postNotificationWithStatus:[NSString string]];
-    [DNC postNotificationName:NSAppleEventManagerWillProcessFirstEventNotification
-            object: nil];// see ND
-    return;
-}
 #warning >>>>  HUNTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= application:openFile:
 - (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename;
@@ -152,4 +140,76 @@ To Do: problem when there is no UI.
     return NO;
 }
 #endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  applicationShouldTerminate:
+- (NSApplicationTerminateReply)applicationShouldTerminate:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
+    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationShouldTerminate:" signature:sig0 inherited:YES];
+    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
+    [I setTarget:self];
+    [I setArgument:&sender atIndex:2];
+    NSEnumerator * E = [selectors objectEnumerator];
+    SEL action;
+	NSApplicationTerminateReply reply;
+    while(action = (SEL)[[E nextObject] pointerValue])
+    {
+        [I setSelector:action];
+        [I invoke];
+        if(iTM2DebugEnabled>99)
+        {
+            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
+        }
+		[I getReturnValue:&reply];
+		if((reply == NSTerminateCancel)
+			||(reply == NSTerminateLater))
+		{
+			return reply;
+		}
+    }
+	if(iTM2DebugEnabled>99 && ![selectors count])
+	{
+		iTM2_LOG(@"No need to ...ApplicationShouldTerminate");
+	}
+//iTM2_END;
+    return NSTerminateNow;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  applicationWillTerminate:
+- (void)applicationWillTerminate:(NSNotification *)notification;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon May 10 22:45:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
+    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationWillTerminate:" signature:sig0 inherited:YES];
+    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
+    [I setTarget:self];
+    [I setArgument:&notification atIndex:2];
+    NSEnumerator * E = [selectors objectEnumerator];
+    SEL action;
+    while(action = (SEL)[[E nextObject] pointerValue])
+    {
+        [I setSelector:action];
+        [I invoke];
+        if(iTM2DebugEnabled>99)
+        {
+            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
+        }
+    }
+	if(iTM2DebugEnabled>99 && ![selectors count])
+	{
+		iTM2_LOG(@"No need to ...ApplicationWillTerminate");
+	}
+//iTM2_END;
+    return;
+}
 @end
+

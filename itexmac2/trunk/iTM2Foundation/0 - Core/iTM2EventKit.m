@@ -78,13 +78,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2FlagsChangedResponder"];
+	[iTM2MileStone registerMileStone:@"No flags changed responder available" forKey:@"iTM2FlagsChangedResponder"];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2FlagsChangedResponderDidFinishLaunching
-- (void)iTM2FlagsChangedResponderDidFinishLaunching;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  eventManagementDidFinishLaunching
+- (void)eventManagementDidFinishLaunching;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -94,6 +94,9 @@ To Do List:
 //iTM2_START;
 	if([NSApp targetForAction:@selector(flagsChanged:)])
 		[iTM2MileStone putMileStoneForKey:@"iTM2FlagsChangedResponder"];
+    [self postNotificationWithStatus:[NSString string]];
+    [DNC postNotificationName:NSAppleEventManagerWillProcessFirstEventNotification
+            object: nil];// see ND
 //iTM2_END;
 	return;
 }
