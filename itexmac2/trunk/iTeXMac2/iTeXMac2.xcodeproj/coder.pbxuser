@@ -154,12 +154,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 202324706;
-			PBXWorkspaceStateSaveDate = 202324706;
+			PBXPerProjectTemplateStateSaveDate = 204551627;
+			PBXWorkspaceStateSaveDate = 204551627;
 		};
 		perUserProjectItems = {
-			DCBDEC4B0C0EA15200682459 /* PBXTextBookmark */ = DCBDEC4B0C0EA15200682459 /* PBXTextBookmark */;
-			DCE52F120C0F3B9100F2D5B9 /* PBXTextBookmark */ = DCE52F120C0F3B9100F2D5B9 /* PBXTextBookmark */;
+			DC99A39F0C3135D400D65B89 /* PBXTextBookmark */ = DC99A39F0C3135D400D65B89 /* PBXTextBookmark */;
+			DC99A4300C313B3D00D65B89 /* PBXTextBookmark */ = DC99A4300C313B3D00D65B89 /* PBXTextBookmark */;
+			DCBDEC4B0C0EA15200682459 = DCBDEC4B0C0EA15200682459 /* PBXTextBookmark */;
+			DCE52F120C0F3B9100F2D5B9 = DCE52F120C0F3B9100F2D5B9 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC520343088B1F5B00DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -398,8 +400,28 @@
 		hitCount = 1;
 		lineNumber = 2271;
 		location = iTM2Foundation;
-		modificationTime = 202248947.812715;
+		modificationTime = 204552999.338693;
 		state = 1;
+	};
+	DC99A39F0C3135D400D65B89 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 103";
+		rLen = 0;
+		rLoc = 3385;
+		rType = 0;
+		vrLen = 728;
+		vrLoc = 2964;
+	};
+	DC99A4300C313B3D00D65B89 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */;
+		name = "iTeXMac2-main.m: 103";
+		rLen = 0;
+		rLoc = 3385;
+		rType = 0;
+		vrLen = 682;
+		vrLoc = 3244;
 	};
 	DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */ = {
 		uiCtxt = {
@@ -542,7 +564,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1460, 10000}}";
 			sepNavSelRange = "{3385, 0}";
-			sepNavVisRect = "{{0, 1731}, {1095, 641}}";
+			sepNavVisRect = "{{0, 1936}, {1095, 641}}";
 			sepNavWindowFrame = "{{291, 132}, {1134, 746}}";
 		};
 	};
@@ -572,7 +594,7 @@
 		hitCount = 1;
 		lineNumber = 1845;
 		location = iTM2Foundation;
-		modificationTime = 202248947.976051;
+		modificationTime = 204552999.921879;
 		state = 1;
 	};
 	DCBDEC4B0C0EA15200682459 /* PBXTextBookmark */ = {

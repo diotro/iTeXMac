@@ -11885,7 +11885,9 @@ To Do List:
 		path = [path stringByAppendingPathComponent:iTM2ProjectBaseComponent];
 		NSError * localError = nil;
 		if([DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
+		{
 			[path retain];
+		}
 		else
 		{
 			iTM2_LOG(@"..........  ERROR: Directory expected at %@... returning %@ instead (error: %@)", path, NSTemporaryDirectory(), localError);

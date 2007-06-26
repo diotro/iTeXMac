@@ -2699,7 +2699,8 @@ To Do List: to be improved...
 	static NSString * iTM2_Launch = nil;
 	if(!iTM2_Launch)
 	{
-		iTM2_Launch = [[[iTM2TeXPCommandPerformer classBundle] pathForAuxiliaryExecutable:[@"bin" stringByAppendingPathComponent:@"iTM2_Launch"]] copy];// statically retained!
+		iTM2_Launch = [@"bin" stringByAppendingPathComponent:@"iTM2_Launch"];
+		iTM2_Launch = [[[iTM2TeXPCommandPerformer classBundle] pathForAuxiliaryExecutable:iTM2_Launch] copy];// statically retained!
 		if(![DFM isExecutableFileAtPath:iTM2_Launch])
 		{
 			iTM2_LOG(@"ERROR: THERE IS A BAD PROBLEM: iTM2_Launch is not executable or missing... REPORT BUG 1!!!");

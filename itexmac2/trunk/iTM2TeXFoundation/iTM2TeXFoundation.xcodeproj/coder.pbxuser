@@ -566,8 +566,8 @@
 	DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1631, 62780}}";
-			sepNavSelRange = "{110273, 22}";
-			sepNavVisRect = "{{0, 59983}, {1124, 672}}";
+			sepNavSelRange = "{105049, 0}";
+			sepNavVisRect = "{{0, 57376}, {1303, 524}}";
 			sepNavWindowFrame = "{{63, 74}, {1134, 746}}";
 		};
 	};
@@ -3530,7 +3530,7 @@
 		fRef = DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */;
 		name = nonretainedObjectValue;
 		rLen = 22;
-		rLoc = 110273;
+		rLoc = 110302;
 		rType = 0;
 		vrLen = 1239;
 		vrLoc = 109343;
@@ -4017,8 +4017,8 @@
 	DCC7F3E60854AC9200F3EB8A /* iTM2TeXProjectDocumentKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {4754, 38780}}";
-			sepNavSelRange = "{61616, 0}";
-			sepNavVisRect = "{{0, 36980}, {1303, 524}}";
+			sepNavSelRange = "{12660, 111}";
+			sepNavVisRect = "{{1, 7021}, {1233, 418}}";
 			sepNavWindowFrame = "{{63, 73}, {1268, 747}}";
 		};
 	};
@@ -4157,7 +4157,7 @@
 		fRef = DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */;
 		name = TWSShellEnvironmentMasterKey;
 		rLen = 28;
-		rLoc = 112267;
+		rLoc = 112296;
 		rType = 0;
 		vrLen = 1138;
 		vrLoc = 109632;

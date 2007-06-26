@@ -186,5 +186,8 @@ extern NSString * const iTM2ToolbarLaTeXSectionItemIdentifier;
 - (IBAction)useLaTeXPackage:(id)sender;
 @end
 
+@interface iTM2LaTeXLogParser: iTM2TeXLogParser
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2LaTeXKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
