@@ -2723,6 +2723,19 @@ To Do List:
     [SUD setInteger:[sender tag] forKey:iTM2StringEncodingPreferredKey];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStringEncodingFromTag:
+- (IBAction)validateTakeStringEncodingFromTag:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	int expectedTag = [SUD contextIntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask];
+    [sender setState:(expectedTag == [sender tag]? NSOnState:NSOffState)];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
 - (IBAction)stringEncodingToggleAuto:(id)sender;
 /*"Description Forthcoming.
