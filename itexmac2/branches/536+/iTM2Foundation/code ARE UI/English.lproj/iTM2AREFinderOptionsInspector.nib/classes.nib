@@ -1,0 +1,23 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                OK = id; 
+                cancel = id; 
+                toggleExpanded = id; 
+                toggleIgnoreSubexpressions = id; 
+                toggleNewlineAnchor = id; 
+                toggleNewlineSensitive = id; 
+                toggleNewlineStop = id; 
+                toggleQuote = id; 
+                toggleType = id; 
+            }; 
+            CLASS = iTM2AREFinderOptionsInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {window = id; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

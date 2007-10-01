@@ -1,0 +1,45 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {showTeXDistributionPreferences = id; }; 
+            CLASS = NSApplication; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                addEnvironmentVariable = id; 
+                chooseOtherProgramsFromPanel = id; 
+                chooseTeXMFProgramsFromPanel = id; 
+                removeEnvironmentVariable = id; 
+                revertToDefaultEnvironment = id; 
+                takeOtherProgramsDistributionFromPopUp = id; 
+                takeOtherProgramsPathFromStringValue = id; 
+                takePATHPrefixFromStringValue = id; 
+                takePATHSuffixFromStringValue = id; 
+                takeTeXMFProgramsDistributionFromPopUp = id; 
+                takeTeXMFProgramsPathFromStringValue = id; 
+                toggleOtherProgramsCPUType = id; 
+                togglePATHLoginShell = id; 
+                togglePATHPrefix = id; 
+                togglePATHSuffix = id; 
+                toggleTeXMFProgramsCPUType = id; 
+            }; 
+            CLASS = iTM2TeXDistributionPrefPane; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPreferencePane; 
+        }
+    ); 
+    IBVersion = 1; 
+}

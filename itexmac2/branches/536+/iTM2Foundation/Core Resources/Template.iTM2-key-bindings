@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BINDINGS [
+    <!ELEMENT BINDINGS (BIND)*>
+    <!ELEMENT BIND (BIND)*>
+    <!ATTLIST BIND ID CDATA #IMPLIED>
+    <!ATTLIST BIND KEY CDATA #IMPLIED>
+]>
+
+<BINDINGS>
+    <BIND ID="macro" KEY="K"/>
+</BINDINGS>

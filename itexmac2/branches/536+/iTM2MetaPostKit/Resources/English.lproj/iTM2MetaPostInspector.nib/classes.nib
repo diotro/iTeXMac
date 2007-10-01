@@ -1,0 +1,27 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {CLASS = iTM2LineField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {CLASS = iTM2MetaPostEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
+        {
+            CLASS = iTM2MetaPostFigureButton; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPopUpButton; 
+        }, 
+        {
+            CLASS = iTM2MetaPostInspector; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {"_drawer" = id; "_pdfView" = id; "_thumbnailTable" = id; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {zoomToFit = id; }; 
+            CLASS = iTM2MetaPostPDFView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = PDFView; 
+        }, 
+        {CLASS = iTM2MetaPostWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# this is iTM2_Clean for iTeXMac2 2.0
+# © 2007 jlaurens AT users DOT sourceforge DOT net
+iTM2_Clean_Version="1.0"
+if [ "${iTM2ISCLEANING:-0}" -gt 0 ]
+then
+    echo "iTM2: recursive call forbidden (`basename "$0"`)"
+    exit 1
+else
+    iTM2ISCLEANING=1
+fi
+iTM2_Clean_RunSilently="${iTM2_RunSilently}"
+iTM2_CLEAN_USAGE="Welcome to $(basename "$0") version $iTM2_Clean_Version
+This is iTeXMac2 built in script to clean using ctxtools
+© 2006 jlaurens AT users DOT sourceforge DOT net."
+iTM2_Clean_INPUT="$(basename "${TWSMaster}")"
+iTM2_Clean_INPUT="${iTM2_Clean_INPUT%.*}"
+"${iTM2_CMD_Notify}" notify comment "Spring cleaning $iTM2_CLEAN_USAGE"
+iTM2_Clean_DIR="$(dirname "${TWSMaster}")"
+if ! [ -d "$iTM2_Clean_DIR" ]
+then
+	"${iTM2_CMD_Notify}" notify error "$(basename "$0") failed: no master given"
+	exit 1
+fi
+pushd "$iTM2_Clean_DIR"
+ctxtools --purgefiles --all "${iTM2_Clean_INPUT}"
+popd > /dev/null
+iTM2_Clean_DIR_REAL="${iTM2_Clean_DIR##*Projects.put_aside}"
+"${iTM2_CMD_Notify}" notify comment "$iTM2_Clean_DIR_REAL"
+if [ -d "${iTM2_Clean_DIR_REAL}" ]
+then
+	pushd "${iTM2_Clean_DIR_REAL}"
+	ctxtools --purgefiles --all "${iTM2_Clean_INPUT}"
+	popd > /dev/null
+else
+	iTM2_Clean_DIR_REAL="$(dirname ${iTM2_Clean_DIR_REAL})"
+"${iTM2_CMD_Notify}" notify comment "$iTM2_Clean_DIR_REAL"
+	if [ -d "${iTM2_Clean_DIR_REAL}" ]
+	then
+		pushd "${iTM2_Clean_DIR_REAL}"
+		ctxtools --purgefiles --all "${iTM2_Clean_INPUT}"
+		popd > /dev/null
+	fi
+fi
+
+if [ "${iTM2_Clean_RunSilently:-1}" -eq 0 ]
+then
+        "${iTM2_CMD_Notify}" notify error "$(basename "$0") complete"
+fi
+exit 0

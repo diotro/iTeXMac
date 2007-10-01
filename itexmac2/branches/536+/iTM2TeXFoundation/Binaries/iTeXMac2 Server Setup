@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# this is iTM2_Server_Setup for iTeXMac2 2.0
+# © 2006 jlaurens AT users DOT sourceforge DOT net
+# setting the links
+# iTM2_Server_Setup "path to iTeXMac2 server binary" "iTeXMac2" "path to the iTeXMac2.app" "iTeXMac2.app"
+# this is expected to be the very first setup script to perform
+# The direct parameters are changed to shell environment variables
+# $iTM2_APPLICATION_NAME: "iTeXMac2", the application name
+# $iTM2_SERVER_PATH: path to iTeXMac2 server binary
+# $iTM2_APPLICATION_BUNDLE_PATH: full path to the .app bundle
+# $iTM2_APPLICATION_NAME: name of the .app bundle
+# $iTM2_TemporaryDirectory: temporary directory
+echo "This is \"$0\" speaking"
+echo "setting up ${iTM2_APPLICATION_NAME}"
+cd "$iTM2_HOME/Library"
+if ! [ -e "TeX" ]
+then
+	echo "creating $iTM2_HOME/Library/TeX"
+	mkdir "TeX"
+fi
+cd "TeX"
+if ! [ -e "bin" ]
+then
+	echo "creating $iTM2_HOME/Library/TeX/bin"
+	mkdir "bin"
+fi
+cd "bin"
+if [ ${#iTM2_SERVER_PATH} -gt 0 ]
+then
+    rm -f "${iTM2_APPLICATION_NAME}" >> "$iTM2_LOG.log"
+    ln -s "${iTM2_SERVER_PATH}" "${iTM2_APPLICATION_NAME}"
+    echo "link to ${iTM2_SERVER_PATH} installed"
+else
+    echo "No application server to link, is it EXPECTED?" >> "$iTM2_LOG.log"
+fi
+if [ ${#iTM2_APPLICATION_BUNDLE_PATH} -gt 0 ]
+then
+    rm -f "${iTM2_APPLICATION_NAME}.app" >> "$iTM2_LOG.log"
+    ln -s "${iTM2_APPLICATION_BUNDLE_PATH}" "${iTM2_APPLICATION_NAME}.app"
+    echo "link to ${iTM2_APPLICATION_BUNDLE_PATH} installed" >> "$iTM2_LOG.log"
+fi
+echo "This is $0, ${iTM2_APPLICATION_NAME} should be properly set up
+$(ls -l)"
+echo "$(pwd)"
+if [ ${#iTM2_TemporaryDirectory} -eq 0 ]
+then
+	echo "Missing temporary directory"
+    exit 1
+fi
+cd "${iTM2_TemporaryDirectory}"
+echo "the temporary directory is: $(pwd)"
+if [ ${#iTM2_APPLICATION_BUNDLE_PATH} -gt 0 ]
+then
+    rm -f "${iTM2_APPLICATION_NAME}.app" >> "$iTM2_LOG.log"
+    ln -s "${iTM2_APPLICATION_BUNDLE_PATH}" "${iTM2_APPLICATION_NAME}.app"
+    echo "link to ${iTM2_APPLICATION_BUNDLE_PATH} installed" >> "$iTM2_LOG.log"
+else
+    echo "No application to linck, is it EXPECTED?" >> "$iTM2_LOG.log"
+fi
+if ! [ -e "bin" ]
+then
+	echo "creating ${iTM2_TemporaryDirectory}/bin"
+	mkdir "bin"
+fi
+cd "bin"
+if [ ${#iTM2_SERVER_PATH} -gt 0 ]
+then
+    rm -f "${iTM2_APPLICATION_NAME}" >> "$iTM2_LOG.log"
+    ln -s "${iTM2_SERVER_PATH}" "${iTM2_APPLICATION_NAME}"
+    echo "link to ${iTM2_SERVER_PATH} installed"
+else
+    echo "No server to linck with, is it EXPECTED?" >> "$iTM2_LOG.log"
+fi
+echo "This is $0, ${iTM2_APPLICATION_NAME} should be properly set up
+$(ls -l)"
+echo "$(pwd)"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"${iTM2_TemporaryDirectory}/bin/${iTM2_APPLICATION_NAME}" notify -comment "${iTM2_APPLICATION_NAME} should be properly set up"
+fi
+exit 0

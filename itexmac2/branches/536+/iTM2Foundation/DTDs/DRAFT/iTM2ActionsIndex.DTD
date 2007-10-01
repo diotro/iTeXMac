@@ -1,0 +1,4 @@
+<!ELEMENT LIST (ITEM*)><!-- primitive list -->
+<!ELEMENT ITEM (#PCDATA)><!-- primitive item -->
+<!ATTLIST ITEM KEY CDATA #REQUIRED>
+<!ATTLIST LIST KEY CDATA #IMPLIED>

@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>iTM2PDFKit.framework</ProjName>
+
+<!--                                                              -->
+<!--    iTM2PDFKit.framework/../iTM2PDFKitPrefPane.nib.strings    -->
+<!--                                                              -->
+<File>
+<Filepath>iTM2PDFKit.framework/Versions/A/Resources/English.lproj/iTM2PDFKitPrefPane.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Synchronize&gt; (oid:174) </Description>
+<Position>174</Position>
+<TranslationSet>
+
+	<base loc="en"          >Synchronize</base>
+	<tran loc="fr" origin="">Synchroniser</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:PDF Rendering&gt; (oid:176) </Description>
+<Position>176</Position>
+<TranslationSet>
+
+	<base loc="en"          >PDF Rendering</base>
+	<tran loc="fr" origin="">Rendu PDF</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Background color:) : &lt;title:Background color:&gt; (oid:179) </Description>
+<Position>179</Position>
+<TranslationSet>
+
+	<base loc="en"          >Background color:</base>
+	<tran loc="fr" origin="">Couleur du fond :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Greeking threshold to apply to text displayed:) : &lt;title:Greeking threshold to apply to text displayed:&gt; (oid:182) </Description>
+<Position>182</Position>
+<TranslationSet>
+
+	<base loc="en"          >Greeking threshold to apply to text displayed:</base>
+	<tran loc="fr" origin="">Seuil de Greeking pour le texte affiché :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Display/Clip to:) : &lt;title:Display/Clip to:&gt; (oid:183) </Description>
+<Position>183</Position>
+<TranslationSet>
+
+	<base loc="en"          >Display/Clip to:</base>
+	<tran loc="fr" origin="">Affichage/Agrafe à:</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Display Mode:) : &lt;title:Display Mode:&gt; (oid:184) </Description>
+<Position>184</Position>
+<TranslationSet>
+
+	<base loc="en"          >Display Mode:</base>
+	<tran loc="fr" origin="">Mode d&apos;affichage :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Anti-aliasing when drawing) : &lt;title:Anti-aliasing when drawing&gt; (oid:185) </Description>
+<Position>185.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Anti-aliasing when drawing</base>
+	<tran loc="fr" origin="">Textes et dessins anti crénelé</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Adapt scale factor to window size) : &lt;title:Adapt scale factor to window size&gt; (oid:186) </Description>
+<Position>186.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Adapt scale factor to window size</base>
+	<tran loc="fr" origin="">Adapter l&apos;échelle à la taille de fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Two pages up) : &lt;title:Two pages up&gt; (oid:188) </Description>
+<Position>188.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Two pages up</base>
+	<tran loc="fr" origin="">Pages opposées</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Single page) : &lt;title:Single page&gt; (oid:189) </Description>
+<Position>189.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Single page</base>
+	<tran loc="fr" origin="">Page unique</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Bleed box) : &lt;title:Bleed box&gt; (oid:207) </Description>
+<Position>207.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Bleed box</base>
+	<tran loc="fr" origin="">Zone de soutirage (Bleed box)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Crop box) : &lt;title:Crop box&gt; (oid:208) </Description>
+<Position>208.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Crop box</base>
+	<tran loc="fr" origin="">Zone de rognage (Crop box)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Art box) : &lt;title:Art box&gt; (oid:209) </Description>
+<Position>209.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Art box</base>
+	<tran loc="fr" origin="">Zone d&apos;art (Art box)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Trim box) : &lt;title:Trim box&gt; (oid:210) </Description>
+<Position>210.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Trim box</base>
+	<tran loc="fr" origin="">Zone d&apos;équilibre (Trim box)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Media box) : &lt;title:Media box&gt; (oid:211) </Description>
+<Position>211.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Media box</base>
+	<tran loc="fr" origin="">Zone de données</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Continuous mode: show all pages in the view) : &lt;title:Continuous mode: show all pages in the view&gt; (oid:212) </Description>
+<Position>212.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Continuous mode: show all pages in the view</base>
+	<tran loc="fr" origin="">Affichage continu, montre toutes les pages</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Book mode: first page is cover) : &lt;title:Book mode: first page is cover&gt; (oid:213) </Description>
+<Position>213.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Book mode: first page is cover</base>
+	<tran loc="fr" origin="">Mode livre : la première page est la couverture</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Show page breaks) : &lt;title:Show page breaks&gt; (oid:214) </Description>
+<Position>214.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show page breaks</base>
+	<tran loc="fr" origin="">Montrez les coupures de page</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Synchronization is the ability to jump from the input to the output. To synchronize, command double click on a character either in the PDF view or in the text view. It works better when pdfsync is used.) : &lt;title:Synchronization is the ability to jump from the input to the output. To synchronize, command double click on a character either in the PDF view or in the text view. It works better when pdfsync is used.&gt; (oid:225) </Description>
+<Position>225</Position>
+<TranslationSet>
+
+	<base loc="en"          >Synchronization is the ability to jump from the input to the output. To synchronize, command double click on a character either in the PDF view or in the text view. It works better when pdfsync is used.</base>
+	<tran loc="fr" origin="">La synchronisation est la capacité de sauter de la source au document final.  Pour synchroniser, commande double clic sur un caractère du pdf ou du texte.  Cela fonctionne mieux quand pdfsync est employé.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable synchronization) : &lt;title:Enable synchronization&gt; (oid:226) </Description>
+<Position>226.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable synchronization</base>
+	<tran loc="fr" origin="">Activer la synchronisation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Follow focus: auto synchronize with the selected text range) : &lt;title:Follow focus: auto synchronize with the selected text range&gt; (oid:227) </Description>
+<Position>227.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Follow focus: auto synchronize with the selected text range</base>
+	<tran loc="fr" origin="">Suivre la sélection: synchronisation automatique avec le texte sélectionné</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Built in) : &lt;title:Built in&gt; (oid:230) </Description>
+<Position>230.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Built in</base>
+	<tran loc="fr" origin="">Intégré</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Focus) : &lt;title:Focus&gt; (oid:231) </Description>
+<Position>231.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Focus</base>
+	<tran loc="fr" origin="">Sélection</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (User) : &lt;title:User&gt; (oid:232) </Description>
+<Position>232.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >User</base>
+	<tran loc="fr" origin="">Utilisateur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Display bullets:) : &lt;title:Display bullets:&gt; (oid:247) </Description>
+<Position>247</Position>
+<TranslationSet>
+
+	<base loc="en"          >Display bullets:</base>
+	<tran loc="fr" origin="">Montrer les points :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:A rectangle defining the boundaries of the page’s meaningful content including surrounding white space intended for display&gt; (oid:253) </Description>
+<Position>253</Position>
+<TranslationSet>
+
+	<base loc="en"          >A rectangle defining the boundaries of the page’s meaningful content including surrounding white space intended for display</base>
+	<tran loc="fr" origin="">Un rectangle définissant les frontières du contenu signicatif de la page comprenant l&apos;espace blanc environnant prévu pour l&apos;affichage.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:A rectangle defining the boundaries of the page’s meaningful content including surrounding white space intended for display&gt; (oid:254) </Description>
+<Position>254</Position>
+<TranslationSet>
+
+	<base loc="en"          >A rectangle defining the boundaries of the page’s meaningful content including surrounding white space intended for display</base>
+	<tran loc="fr" origin="">Un rectangle définissant les frontières du contenu signicatif de la page comprenant l&apos;espace blanc environnant prévu pour l&apos;affichage.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:A rectangle defining the boundaries of the visible region&gt; (oid:255) </Description>
+<Position>255</Position>
+<TranslationSet>
+
+	<base loc="en"          >A rectangle defining the boundaries of the visible region</base>
+	<tran loc="fr" origin="">Un rectangle définissant les frontières de la région visible</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:A rectangle defining the boundaries of the clip region for the page contents in a production environment&gt; (oid:256) </Description>
+<Position>256</Position>
+<TranslationSet>
+
+	<base loc="en"          >A rectangle defining the boundaries of the clip region for the page contents in a production environment</base>
+	<tran loc="fr" origin="">Un rectangle définissant les frontières de la région d&apos;agrafe pour le contenu de page dans un environnement de production</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:A rectangle defining the intended boundaries of the finished page&gt; (oid:257) </Description>
+<Position>257</Position>
+<TranslationSet>
+
+	<base loc="en"          >A rectangle defining the intended boundaries of the finished page</base>
+	<tran loc="fr" origin="">Un rectangle définissant les frontières prévues de la page finale</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (PDF Inspector Defaults) : &lt;title:PDF Inspector Defaults&gt; (oid:5) </Description>
+<Position>5</Position>
+<TranslationSet>
+
+	<base loc="en"          >PDF Inspector Defaults</base>
+	<tran loc="fr" origin="">Réglages de l&apos;Inspecteur PDF</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                          -->
+<!--    iTM2PDFKit.framework/../iTM2PDFKitPrefPane.strings    -->
+<!--                                                          -->
+<File>
+<Filepath>iTM2PDFKit.framework/Versions/A/Resources/English.lproj/iTM2PDFKitPrefPane.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>NSPrefPaneIconLabel</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tiger PDF Viewer</base>
+	<tran loc="fr" origin="">Visionneuse Pdf de Tiger</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

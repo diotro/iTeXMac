@@ -1,0 +1,189 @@
+#!/usr/bin/env bash
+# this is iTM2_Index for iTeXMac2
+# © 2004 jlaurens AT users DOT sourceforge DOT net
+iTM2_Index_Version="1.1"
+iTM2_INDEX_USAGE="Welcome to `basename "$0"` version ${iTM2_Index_Version}
+This is iTeXMac2 built in script to make the index with MakeIndex
+© 2005 jlaurens AT users DOT sourceforge DOT net
+Usage: `basename "$0"` options input where options are
+       -h, --help: print this message and return.
+       -c, --compressIntermediateBlanks: By default, blanks in the index key are retained.
+       -g, --germanOrdering: in accord with rules set forth in DIN 5007.
+           see makeindex manual for problems with German TeX commands like \"a, \"o...
+       -l, --letterOrdering: blanks don't count.
+       -o name, --output name: a number or one of any, odd, even.
+       -p, --startingPageNumber: a number or one of any, odd, even.
+       -q, --quiet: runs silently.
+       -r, --noImplicitPageRange: disable implicit page range formation.
+       -s, --style styleFile: Employ styleFile as the style file.
+       -t, --log logFile: Employ logFile as the log file.
+       -L: not available.
+       -T: not available.
+       -e command, --engine command: replace `basename "$0"` by command.
+           all other options are ignored.
+           example: `basename "$0"` --engine \"makeindex --quiet\"
+       The options given override some environment variables."
+iTM2_Index_Engine=""
+IFS='
+'
+iTM2_VAR="${TWSMaster:=""}"
+iTM2_Index_RunSilently="${iTM2_RunSilently}"
+while [ $# -gt 0 ]
+do
+	case $1 in
+		-h|--help)
+				"${iTM2_CMD_Notify}" notify comment "$iTM2_INDEX_USAGE"
+		;;
+		-e|--engine)
+			shift 1
+			if [ $# -gt 0 ]
+			then
+				iTM2_Index_Engine="$1"
+				"${iTM2_CMD_Notify}" notify comment "engine: $iTM2_Index_Engine"
+			else
+				"${iTM2_CMD_Notify}" notify comment "$iTM2_INDEX_USAGE"
+			fi
+		;;
+		-q|--quiet)
+			iTM2_Index_RunSilently="YES"
+		;;
+		-c|--compressIntermediateBlanks)
+			iTM2_Index_CompressBlanks="YES"
+		;;
+		-g|--germanOrdering)
+			iTM2_Index_GermanOrdering="YES"
+		;;
+		-l|--letterOrdering)
+			iTM2_Index_LetterOrdering="YES"
+		;;
+		-p|--startingPageNumber)
+			iTM2_Index_IsSeparate="YES"
+                        shift 1
+                        case $1 in
+                                any|even|odd)
+                                        iTM2_Index_SeparateMode="$1"
+                                ;;
+                                *)
+                                        iTM2_Index_SeparateStart="$1"
+                        esac
+		;;
+		-r|--noImplicitPageRange)
+			iTM2_Index_NoImplicitPageRange="YES"
+		;;
+		-s|--style)
+			iTM2_Index_UseStyle="YES"
+                        shift 1
+			iTM2_Index_Style="$1"
+		;;
+		-t|--log)
+			iTM2_Index_UseLog="YES"
+                        shift 1
+			iTM2_Index_Log="$1"
+			="YES"
+		;;
+		-o|--output)
+			iTM2_Index_UseOutput="YES"
+                        shift 1
+			iTM2_Index_Output="$1"
+		;;
+		*)
+			if [ ${#iTM2_Index_Targets} -gt 0 ]
+			then
+				iTM2_Index_Targets="$iTM2_Index_Targets$IFS"
+			fi
+			if [ -d ${1} ]
+			then
+				iTM2_Index_Targets="$iTM2_Index_Targets`ls -1 -R $1`"
+			else
+				iTM2_Index_Targets="$iTM2_Index_Targets$1"
+			fi
+	esac
+	shift 1
+done
+if [ "${iTM2_Index_RunSilently:-1}" -eq 0 ]
+then
+        "${iTM2_CMD_Notify}" notify error "Welcome to `basename "$0"` version $iTM2_Index_Version
+This is iTeXMac2 built in script to make the index with MakeIndex or another engine
+© 2005 jlaurens AT users DOT sourceforge DOT net"
+fi
+if [ ${#iTM2_Index_Engine} == 0 ]
+then
+	iTM2_Index_Engine="makeindex"
+	if [ "${iTM2_Index_RunSilently:-0}" -gt 0 ]
+	then
+		iTM2_Index_Engine="${iTM2_Index_Engine} -q"	
+	fi
+	if [ "${iTM2_Index_CompressBlanks:-0}" -gt 0 ]
+	then
+		iTM2_Index_Engine="${iTM2_Index_Engine} -c"	
+	fi
+	if [ "${iTM2_Index_GermanOrdering:-0}" -gt 0 ]
+	then
+		iTM2_Index_Engine="${iTM2_Index_Engine} -g"	
+	fi
+	if [ "${iTM2_Index_LetterOrdering:-0}" -gt 0 ]
+	then
+		iTM2_Index_Engine="${iTM2_Index_Engine} -l"	
+	fi
+	if [ "${iTM2_Index_NoImplicitPageRange:-0}" -gt 0 ]
+	then
+		iTM2_Index_Engine="${iTM2_Index_Engine} -r"	
+	fi
+fi
+if [ ${#iTM2_Index_Targets} == 0 ]
+then
+	if [ ${#TWSMaster} == 0 ]
+	then
+		iTM2_Index_Targets="`ls -1 -R *`$IFS"
+	elif [ "${iTM2_Index_All:-0}" -gt 0 ]
+	then
+		iTM2_Index_Targets="`dirname ${TWSMaster}|ls -1 -R`$IFS"
+	else
+		iTM2_Index_Targets="${TWSMaster%.*}.idx"
+	fi
+fi
+iTM2_Index_Current=""
+for iTM2_Index_Var in ${iTM2_Index_Targets}; do
+	if [ ${iTM2_Index_Var##*.} == "idx" ]
+	then
+		if [ ${#iTM2_Index_Current} -gt 0 ]
+		then
+			iTM2_Index_Var="${iTM2_Index_Current}/${iTM2_Index_Var}"
+		fi
+                "${iTM2_CMD_Notify}" notify comment "Making the index of: ${iTM2_Index_Var}"
+		if [ -e "${iTM2_Index_Var}" ]
+		then
+			"${iTM2_CMD_Notify}" notify start comment
+			if [ "${iTM2_Index_Var%.*}.tex" -nt "${iTM2_Index_Var}" ]
+			then
+				"${iTM2_CMD_Notify}" notify error "The LaTeX source file ${iTM2_Index_Var%.*}.tex is newer than ${iTM2_Index_Var}.
+LaTeX index ${iTM2_Index_Var%.*}.idx not updated: Please compile first."
+			elif [ "${iTM2_Index_Var}" -nt "${iTM2_Index_Var%.*}.ind" ]
+			then
+				iTM2_IndexCommand="${iTM2_Index_Engine} \"${iTM2_Index_Var%.*}\""
+				"${iTM2_CMD_Notify}" notify echo "${iTM2_IndexCommand}"
+				eval "${iTM2_IndexCommand}"
+#touch "${iTM2_Index_Var%.*}.idx"
+				"${iTM2_CMD_Notify}" notify echo "LaTeX index ${iTM2_Index_Var%.*}.ind updated";
+			else
+				"${iTM2_CMD_Notify}" notify echo "LaTeX index ${iTM2_Index_Var%.*}.ind is already up to date";
+			fi
+			"${iTM2_CMD_Notify}" notify stop comment
+		fi
+	else
+		iTM2_Index_Var1="`dirname ${iTM2_Index_Var}`/`basename ${iTM2_Index_Var} ":"`"
+		if [ "${iTM2_Index_Var}" == "${iTM2_Index_Var1}:" ]
+		then
+#			echo "this is a directory"
+			iTM2_Index_Current="${iTM2_Index_Var1}"
+#			echo "$iTM2_Index_Current"
+		fi
+	fi
+done
+if [ "${iTM2_Index_RunSilently:-1}" -eq 0 ]
+then
+        "${iTM2_CMD_Notify}" notify comment "`basename "$0"` complete"
+fi
+exit
+
+

@@ -1,0 +1,139 @@
+#!/bin/sh
+# this is iTM2_dvipdfm wrapper
+# © 2005-2007 jlaurens AT users DOT sourceforge DOT net
+iTM2_dvipdfm_Engine_Version=1.1
+iTM2_dvipdfm_Engine="dvipdfm"
+iTM2_dvipdfm_EnginePath="$(zsh -c "which \"${iTM2_dvipdfm_Engine}\"$)"#"
+iTM2DVIPDFMEngineUsage()
+{
+cat <<EOF
+Welcome to $(basename "$0") version ${iTM2_dvipdfm_Engine_Version}
+This is iTeXMac2 built in script to wrap the dvipdfm engine at
+$iTM2_dvipdfm_EnginePath
+© 2005 jlaurens AT users DOT sourceforge DOT net
+Usage: $(basename "$0") with environment variables
+	TWSMaster: the main input file
+	iTM2_dvipdfm_landscape: 1 or 0,
+	iTM2_dvipdfm_use_paper: 1 or 0,
+	iTM2_dvipdfm_paper: "a3", "a4", "a5", "letter", "legal", "tabloid",
+	iTM2_dvipdfm_use_offset: 1 or 0,
+	iTM2_dvipdfm_x_offset: float, default 1,
+	iTM2_dvipdfm_y_offset: float, default 1,
+	iTM2_dvipdfm_x_offset_unit: "bp", "pt", "in", "cm",
+	iTM2_dvipdfm_y_offset_unit: "bp", "pt", "in", "cm",
+	iTM2_dvipdfm_use_magnification: 1 or 0,
+	iTM2_dvipdfm_magnification: float, default 1000,
+	iTM2_dvipdfm_partial_font_embedding: 1 or 0,
+	iTM2_dvipdfm_use_map_file: 1 or 0,
+	iTM2_dvipdfm_map_file: map file name,
+	iTM2_dvipdfm_use_resolution: 1 or 0,
+	iTM2_dvipdfm_resolution: default 600 (dpi)
+	iTM2_dvipdfm_ignore_color_specials,
+	iTM2_dvipdfm_use_output_name: 1 or 0,
+	iTM2_dvipdfm_output_name: output file name,
+	iTM2_dvipdfm_use_page_specifications: 1 or 0,
+	iTM2_dvipdfm_page_specifications,
+	iTM2_dvipdfm_verbosity_level,
+	iTM2_dvipdfm_compression_level.
+EOF
+}
+"${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_dvipdfm_Engine_Version}
+This is iTeXMac2 built in script to wrap the dvipdfm engine at
+$iTM2_dvipdfm_EnginePath
+© 2005-2007 jlaurens AT users DOT sourceforge DOT net"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
+	for iTM2VAR in ${!iTM2_dvipdfm_*}
+	do
+		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
+	done
+	"${iTM2_CMD_Notify}" notify stop comment
+fi
+if ! [ -x "${iTM2_dvipdfm_EnginePath}" ]
+then
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_dvipdfm_Engine}."
+	iTM2DVIPDFMEngineUsage
+	exit 1
+fi
+if ! [ -r "${TWSMaster}" ]
+then
+	TWSMaster="${TWSMaster}.dvi"
+	if ! [ -r "${TWSMaster}" ]
+	then
+		"${iTM2_CMD_Notify}" notify error "No readable file at ${TWSMaster}."
+		iTM2DVIPDFMEngineUsage
+		exit 2
+	fi
+fi
+"${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
+iTM2_dvipdfm_Arguments=""
+if [ "${iTM2_dvipdfm_landscape:-0}" != "0" ]
+then
+	iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -l"
+fi
+if [ "${iTM2_dvipdfm_use_paper:-0}" != "0" ]
+then
+	if [ ${#iTM2_dvipdfm_paper} -ne 0 ]
+	then
+		iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -p ${iTM2_dvipdfm_paper}"
+	fi
+fi
+if [ "${iTM2_dvipdfm_use_offset:-0}" != "0" ]
+then
+	iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -x ${iTM2_dvipdfm_x_offset}${iTM2_dvipdfm_x_offset_unit} -y ${iTM2_dvipdfm_y_offset}${iTM2_dvipdfm_y_offset_unit}"
+fi
+if [ "${iTM2_dvipdfm_use_magnification:-0}" != "0" ]
+then
+	iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -m ${iTM2_dvipdfm_magnification}"
+fi
+if [ "${iTM2_dvipdfm_partial_font_embedding:-0}" != "0" ]
+then
+	iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -e"
+fi
+if [ "${iTM2_dvipdfm_use_map_file:-0}" != "0" ]
+then
+	if [ ${#iTM2_dvipdfm_map_file:-0} -ne 0 ]
+	then
+		iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -f \"${iTM2_dvipdfm_map_file}\""
+	fi
+fi
+if [ "${iTM2_dvipdfm_use_resolution:-0}" != "0" ]
+then
+	iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -r ${iTM2_dvipdfm_resolution}"
+fi
+if [ "${iTM2_dvipdfm_ignore_color_specials:-0}" != "0" ]
+then
+	iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -c"
+fi
+if [ "${iTM2_dvipdfm_use_output_name}" != "0" ]
+then
+	if [ ${#iTM2_dvipdfm_output_name} -ne 0 ]
+	then
+		iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -o \"${iTM2_dvipdfm_output_name}\""
+	fi
+fi
+case ${iTM2_dvipdfm_verbosity_level} in
+	1)
+		iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -v"
+		;;
+	2)
+		iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -vv"
+		;;
+esac
+#	iTM2_dvipdfm_use_page_specifications: 1 or 0,
+#	iTM2_dvipdfm_page_specifications,
+iTM2_dvipdfm_Arguments="${iTM2_dvipdfm_Arguments} -z ${iTM2_dvipdfm_compression_level:-9}"
+TARGET_DIRECTORY="$(dirname "${TWSMaster}")"
+pushd "${TARGET_DIRECTORY}" > /dev/null
+TARGET="$(basename "${TWSMaster}")"
+"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_dvipdfm_EnginePath} ${iTM2_dvipdfm_Arguments} \"${TARGET}\""
+${iTM2_dvipdfm_EnginePath} ${iTM2_dvipdfm_Arguments} "${TARGET}"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"${iTM2_CMD_Notify}" notify comment "$0 complete."
+fi
+iTeXMac2 update -file "${PWD}/${TARGET%.*}.pdf" -project "${TWSProjectDirectory}/${TWSProjectName}"
+popd > /dev/null
+exit

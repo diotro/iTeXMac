@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# this is iTM2_pstopdf wrapper
+# © 2005 jlaurens AT users DOT sourceforge DOT net
+iTM2_pstopdf_Engine_Version=1.0
+iTM2PSTOPDFEngineUsage()
+{
+iTM2_USAGE="Welcome to `basename "$0"` version ${iTM2_pstopdf_Engine_Version}
+This is iTeXMac2 built in script to wrap the pstopdf engine
+($(which "$0"))
+© 2006 jlaurens AT users DOT sourceforge DOT net
+Usage: $(basename "$0") with environment variables
+	TWSMaster: the main input file (actually \"${TWSMaster}\")
+	iTM2_pstopdf_use_output: 1 or 0,
+	iTM2_pstopdf_output: output file name,
+	iTM2_pstopdf_write_to_log: 1 or 0,
+	iTM2_pstopdf_progress_message: 1 or 0"
+echo "$iTM2_USAGE"
+}
+"${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_pstopdf_Engine_Version}
+This is iTeXMac2 built in script to wrap the pstopdf engine
+© 2005 jlaurens AT users DOT sourceforge DOT net"
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"${iTM2_CMD_Notify}" notify start comment
+	"${iTM2_CMD_Notify}" notify echo "The $0 specific environment is:"
+	for iTM2VAR in ${!iTM2_pstopdf_*}
+	do
+		"${iTM2_CMD_Notify}" notify echo "${iTM2VAR} is: ${!iTM2VAR}"
+	done
+	"${iTM2_CMD_Notify}" notify stop comment
+fi
+iTM2_pstopdf_Engine="pstopdf"
+iTM2_pstopdf_EnginePath="/usr/bin/pstopdf"
+if ! [ -x "${iTM2_pstopdf_EnginePath}" ]
+then
+	"${iTM2_CMD_Notify}" notify error "Unknown command ${iTM2_pstopdf_Engine}."
+	iTM2PSTOPDFEngineUsage
+	exit 1
+fi
+"${iTM2_CMD_Notify}" notify comment "TWSMaster is: ${TWSMaster}"
+pushd "$(dirname "${TWSMaster}")"
+INPUT_DIRECTORY="${PWD}"
+INPUT="$(basename "${TWSMaster}")"
+EXTENSION="${INPUT##*.}"
+BASE_INPUT="${INPUT%.*}"
+if ! [ -r "${INPUT}" ]
+then
+    INPUT="${BASE_INPUT}.ps"
+    if ! [ -r "${INPUT}" ]
+    then
+        INPUT="${BASE_INPUT}.eps"
+        if ! [ -r "${INPUT}" ]
+        then
+            "${iTM2_CMD_Notify}" notify error "No readable file at ${INPUT}."
+            iTM2PSTOPDFEngineUsage
+			exit 2
+        fi
+    fi
+fi
+iTM2_pstopdf_Arguments=""
+if [ "${iTM2_pstopdf_write_to_log:-0}" != "0" ]
+then
+	iTM2_pstopdf_Arguments="${iTM2_pstopdf_Arguments} -l"
+fi
+if [ "${iTM2_pstopdf_progress_message:-0}" != "0" ]
+then
+	iTM2_pstopdf_Arguments="${iTM2_pstopdf_Arguments} -p"
+fi
+OUTPUT="${BASE_INPUT}"
+if [ "${iTM2_pstopdf_use_output:-0}" != "0" ] && [ ${#iTM2_pstopdf_output} -ne 0 ]
+then
+    OUTPUT="${iTM2_pstopdf_output}"
+fi
+# add .pdf if necessary
+if [ "$(echo ${OUTPUT##*.}|tr [:upper:] [:lower:])" != "pdf" ]
+then
+    OUTPUT="${OUTPUT}.pdf"
+fi
+iTM2_pstopdf_Arguments="${iTM2_pstopdf_Arguments} -o \"${OUTPUT}\""
+FULL_COMMAND="\"${iTM2_pstopdf_EnginePath}\" \"${INPUT}\" ${iTM2_pstopdf_Arguments}"
+"${iTM2_CMD_Notify}" notify comment "Performing  ${FULL_COMMAND}"
+eval ${FULL_COMMAND}
+iTM2_Status="$?"
+if [ "${iTM2_Status}" != "0" ]
+then
+	popd
+	"${iTM2_CMD_Notify}" notify error "$0 FAILED(${iTM2_Status})."
+	exit ${iTM2_Status}
+fi
+popd
+if [ "${iTM2_Debug:-0}" != "0" ]
+then
+	"${iTM2_CMD_Notify}" notify comment "$0 complete."
+fi
+iTeXMac2 update -file "${INPUT_DIRECTORY}/${OUTPUT}" -project "${TWSProject}" -dont-order-front
+exit 0

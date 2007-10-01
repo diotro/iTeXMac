@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\ding{51}</string>
+		<string>\ding{52}</string>
+		<string>\ding{55}</string>
+		<string>\ding{56}</string>
+		<string>\ding{108}</string>
+		<string>\ding{109}</string>
+		<string>\ding{110}</string>
+		<string>\ding{111}</string>
+		<string>\ding{112}</string>
+		<string>\ding{113}</string>
+		<string>\ding{114}</string>
+		<string>\ding{115}</string>
+		<string>\ding{116}</string>
+		<string>\ding{117}</string>
+		<string>\ding{118}</string>
+		<string>\ding{119}</string>
+		<string>\ding{120}</string>
+		<string>\ding{121}</string>
+		<string>\ding{122}</string>
+		<string>\ding{123}</string>
+		<string>\ding{124}</string>
+		<string>\ding{125}</string>
+		<string>\ding{126}</string>
+		<string>\ding{127}</string>
+		<string>\ding{160}</string>
+		<string>\ding{161}</string>
+		<string>\ding{162}</string>
+		<string>\ding{163}</string>
+		<string>\ding{164}</string>
+		<string>\ding{165}</string>
+		<string>\ding{166}</string>
+		<string>\ding{167}</string>
+		<string>\ding{168}</string>
+		<string>\ding{169}</string>
+		<string>\ding{170}</string>
+		<string>\ding{171}</string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>6</integer>
+</dict>
+</plist>

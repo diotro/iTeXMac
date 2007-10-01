@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CompatibleVersion</key>
+	<integer>0</integer>
+	<key>RawQuery</key>
+	<string>(kMDItemDisplayName = '*xcodeproj'cd) &amp;&amp; (kMDItemContentType != com.apple.mail.emlx) &amp;&amp; (kMDItemContentType != public.vcard)</string>
+	<key>SearchCriteria</key>
+	<dict>
+		<key>CurrentFolderPath</key>
+		<array>
+			<string>/Volumes/HD2/iTeXMac2/svn/itexmac2-TC</string>
+		</array>
+		<key>FXCriteriaSlices</key>
+		<array>
+			<dict>
+				<key>FXSliceKind</key>
+				<string>Snam</string>
+				<key>Operator</key>
+				<string>S:*x</string>
+				<key>Value</key>
+				<string>xcodeproj</string>
+			</dict>
+		</array>
+		<key>FXScope</key>
+		<integer>1396925286</integer>
+		<key>FXScopeArrayOfPaths</key>
+		<array>
+			<string>/Volumes/HD2/iTeXMac2/svn/itexmac2-TC</string>
+		</array>
+	</dict>
+	<key>Version</key>
+	<string>10.4.7</string>
+	<key>ViewOptions</key>
+	<dict>
+		<key>GroupViewOptions</key>
+		<dict>
+			<key>GroupsDictionary</key>
+			<dict>
+				<key>OTHER</key>
+				<dict>
+					<key>IsCollapsed</key>
+					<false/>
+					<key>IsSummarized</key>
+					<false/>
+				</dict>
+			</dict>
+		</dict>
+		<key>SidebarWidth</key>
+		<integer>164</integer>
+		<key>ToolbarVisible</key>
+		<false/>
+		<key>ViewHeight</key>
+		<integer>692</integer>
+		<key>ViewStyle</key>
+		<string>qrsb</string>
+		<key>WindowBounds</key>
+		<dict>
+			<key>bottom</key>
+			<integer>812</integer>
+			<key>left</key>
+			<integer>46</integer>
+			<key>right</key>
+			<integer>939</integer>
+			<key>top</key>
+			<integer>120</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,20 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                gotoLaTeXLabel = id; 
+                gotoLaTeXReference = id; 
+                insertLaTeXEquationReference = id; 
+                insertLaTeXKnownReference = id; 
+                insertLaTeXLabel = id; 
+                insertLaTeXReference = id; 
+                referenceButtonAction = id; 
+                sectionButtonAction = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

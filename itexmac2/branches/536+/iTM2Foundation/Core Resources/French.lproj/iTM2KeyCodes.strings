@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NUL</key>
+	<string>nul</string>
+	<key>SOH</key>
+	<string>Début d'entête</string>
+	<key>STX</key>
+	<string>Début du texte</string>
+	<key>ETX</key>
+	<string>Fin de texte</string>
+	<key>EOT</key>
+	<string>Fin de transmission</string>
+	<key>ENQ</key>
+	<string>Demande</string>
+	<key>ACK</key>
+	<string>Accusé de reception</string>
+	<key>BEL</key>
+	<string>Cloche</string>
+	<key>BS</key>
+	<string>Espacement arrière</string>
+	<key>HT</key>
+	<string>Tabulation horizontale (⇥)</string>
+	<key>LF</key>
+	<string>Saut de ligne</string>
+	<key>VT</key>
+	<string>Tabulation verticale</string>
+	<key>FF</key>
+	<string>Saut de page</string>
+	<key>CR</key>
+	<string>Retour chariot</string>
+	<key>SO</key>
+	<string>Fin d'extension</string>
+	<key>SI</key>
+	<string>Démarrage d'extension</string>
+	<key>DLE</key>
+	<string>Data Link Escape</string>
+	<key>DC1</key>
+	<string>DC1</string>
+	<key>DC2</key>
+	<string>DC2</string>
+	<key>DC3</key>
+	<string>DC3</string>
+	<key>DC4</key>
+	<string>DC4</string>
+	<key>NAK</key>
+	<string>Accusé de reception négatif</string>
+	<key>SYN</key>
+	<string>Attente de synchronisation</string>
+	<key>ETB</key>
+	<string>Fin du bloc de transmission</string>
+	<key>CAN</key>
+	<string>Annulation</string>
+	<key>EM</key>
+	<string>Fin de support</string>
+	<key>SUB</key>
+	<string>Substitution</string>
+	<key>ESC</key>
+	<string>Échappement</string>
+	<key>FS</key>
+	<string>Séparateur de fichier</string>
+	<key>GS</key>
+	<string>Séparateur de groupe</string>
+	<key>RS</key>
+	<string>Séparateur d'enregistrement</string>
+	<key>US</key>
+	<string>Séparateur d'unité</string>
+	<key>SP</key>
+	<string>Espace blanc</string>
+	<key>DEL</key>
+	<string>Effacement</string>
+	<key>NSUpArrowFunctionKey</key>
+	<string>Fléche haut (↑)</string>
+	<key>NSDownArrowFunctionKey</key>
+	<string>Flèche bas (↓)</string>
+	<key>NSLeftArrowFunctionKey</key>
+	<string>Flèche gauche (←)</string>
+	<key>NSRightArrowFunctionKey</key>
+	<string>Flèche droit (→)</string>
+	<key>NSF1FunctionKey</key>
+	<string>F1</string>
+	<key>NSF2FunctionKey</key>
+	<string>F2</string>
+	<key>NSF3FunctionKey</key>
+	<string>F3</string>
+	<key>NSF4FunctionKey</key>
+	<string>F4</string>
+	<key>NSF5FunctionKey</key>
+	<string>F5</string>
+	<key>NSF6FunctionKey</key>
+	<string>F6</string>
+	<key>NSF7FunctionKey</key>
+	<string>F7</string>
+	<key>NSF8FunctionKey</key>
+	<string>F8</string>
+	<key>NSF9FunctionKey</key>
+	<string>F9</string>
+	<key>NSF10FunctionKey</key>
+	<string>F10</string>
+	<key>NSF11FunctionKey</key>
+	<string>F11</string>
+	<key>NSF12FunctionKey</key>
+	<string>F12</string>
+	<key>NSF13FunctionKey</key>
+	<string>F13</string>
+	<key>NSF14FunctionKey</key>
+	<string>F14</string>
+	<key>NSF15FunctionKey</key>
+	<string>F15</string>
+	<key>NSF16FunctionKey</key>
+	<string>F16</string>
+	<key>NSF17FunctionKey</key>
+	<string>F17</string>
+	<key>NSF18FunctionKey</key>
+	<string>F18</string>
+	<key>NSF19FunctionKey</key>
+	<string>F19</string>
+	<key>NSF20FunctionKey</key>
+	<string>F20</string>
+	<key>NSF21FunctionKey</key>
+	<string>F21</string>
+	<key>NSF22FunctionKey</key>
+	<string>F22</string>
+	<key>NSF23FunctionKey</key>
+	<string>F23</string>
+	<key>NSF24FunctionKey</key>
+	<string>F24</string>
+	<key>NSF25FunctionKey</key>
+	<string>F25</string>
+	<key>NSF26FunctionKey</key>
+	<string>F26</string>
+	<key>NSF27FunctionKey</key>
+	<string>F27</string>
+	<key>NSF28FunctionKey</key>
+	<string>F28</string>
+	<key>NSF29FunctionKey</key>
+	<string>F29</string>
+	<key>NSF30FunctionKey</key>
+	<string>F30</string>
+	<key>NSF31FunctionKey</key>
+	<string>F31</string>
+	<key>NSF32FunctionKey</key>
+	<string>F32</string>
+	<key>NSF33FunctionKey</key>
+	<string>F33</string>
+	<key>NSF34FunctionKey</key>
+	<string>F34</string>
+	<key>NSF35FunctionKey</key>
+	<string>F35</string>
+	<key>NSInsertFunctionKey</key>
+	<string>Insérer</string>
+	<key>NSDeleteFunctionKey</key>
+	<string>Supprimer</string>
+	<key>NSHomeFunctionKey</key>
+	<string>Maison</string>
+	<key>NSBeginFunctionKey</key>
+	<string>Début (↖)</string>
+	<key>NSEndFunctionKey</key>
+	<string>Fin (↘)</string>
+	<key>NSPageUpFunctionKey</key>
+	<string>Page haut (⇞)</string>
+	<key>NSPageDownFunctionKey</key>
+	<string>Page bas (⇟)</string>
+	<key>NSPrintScreenFunctionKey</key>
+	<string>Imprimer l'écran</string>
+	<key>NSScrollLockFunctionKey</key>
+	<string>Vérouillage défilement</string>
+	<key>NSPauseFunctionKey</key>
+	<string>Pause</string>
+	<key>NSSysReqFunctionKey</key>
+	<string>System Req</string>
+	<key>NSBreakFunctionKey</key>
+	<string>Arrêt</string>
+	<key>NSResetFunctionKey</key>
+	<string>Remise à zéro</string>
+	<key>NSStopFunctionKey</key>
+	<string>Stop</string>
+	<key>NSMenuFunctionKey</key>
+	<string>Menu</string>
+	<key>NSUserFunctionKey</key>
+	<string>Utilisateur</string>
+	<key>NSSystemFunctionKey</key>
+	<string>Système</string>
+	<key>NSPrintFunctionKey</key>
+	<string>Imprimer</string>
+	<key>NSClearLineFunctionKey</key>
+	<string>Effacer la ligne</string>
+	<key>NSClearDisplayFunctionKey</key>
+	<string>Effacer l'écran</string>
+	<key>NSInsertLineFunctionKey</key>
+	<string>Insertion de ligne</string>
+	<key>NSDeleteLineFunctionKey</key>
+	<string>Suppression de ligne</string>
+	<key>NSInsertCharFunctionKey</key>
+	<string>Caractère d'insertion</string>
+	<key>NSDeleteCharFunctionKey</key>
+	<string>Caractère d'effacement</string>
+	<key>NSPrevFunctionKey</key>
+	<string>Précédent</string>
+	<key>NSNextFunctionKey</key>
+	<string>Suivant</string>
+	<key>NSSelectFunctionKey</key>
+	<string>Selectionner</string>
+	<key>NSExecuteFunctionKey</key>
+	<string>Executer</string>
+	<key>NSUndoFunctionKey</key>
+	<string>Annuler</string>
+	<key>NSRedoFunctionKey</key>
+	<string>Refaire</string>
+	<key>NSFindFunctionKey</key>
+	<string>Trouver</string>
+	<key>NSHelpFunctionKey</key>
+	<string>Aide</string>
+	<key>NSModeSwitchFunctionKey</key>
+	<string>Changer Mode</string>
+</dict>
+</plist>

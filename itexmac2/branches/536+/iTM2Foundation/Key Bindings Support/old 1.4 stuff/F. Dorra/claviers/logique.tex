@@ -1,0 +1,74 @@
+\documentclass[10pt]{article}\nofiles%dans le modele
+\newif\ifpdf
+	\ifx\pdfoutput\undefined
+	\pdffalse % we are not running PDFLaTeX
+	\else
+	\pdfoutput=1 % we are running PDFLaTeX
+	\pdftrue
+	\fi
+
+	\ifpdf
+	\usepackage[pdftex]{graphicx}
+	\else
+	\usepackage{graphicx}
+	\fi
+\usepackage{latexsym}
+\usepackage[cmex10]{amsmath}
+%%option [cmex10] sinon problème dans les small size des delimiteurs
+%%n'utilise pas le bon cmex !
+\usepackage{amssymb,latexsym}
+\usepackage{graphpap}
+\usepackage[dvipsnames]{color}
+\usepackage{theorem}
+\usepackage{alltt}
+\usepackage[applemac]{inputenc}
+\usepackage[french]{babel}
+%\usepackage[francais]{babel}%si on veut juste la cesure francaise
+%et pas le style french
+%il faut le dernier package french V3,48 dispo
+%sur le ftp.univ-rennes1.fr /pub/gut/french !
+\usepackage{symbolesmath}
+\usepackage{gestion_feuille}
+\usepackage{para_perso}
+\usepackage{camlindenttt}
+	\ifpdf
+	\DeclareGraphicsExtensions{.pdf, .jpg}
+	\else
+	\DeclareGraphicsExtensions{.eps, .jpg}
+	\fi
+	
+	
+\solfalse      %avec ou sans solution
+\totaltrue  %pour voir tous les exos
+\orifalse   %avec origine des exos
+\concfalse %avec conncours pour exo d'oral..
+\annfalse %avec année ou l'exercice a été posé
+
+\begin{document} 
+\centerline{Clavier logique, ensemble (Commande + Espace)}
+\begin{tabular}[t]{|c|c|c|c|c|c|c||}
+\hline
+ & lettre & maj & alt & alt maj & ctrl & ctrl maj\\\hline\hline
+ A&application\\  \hline
+B&bijection & & & &bijective\\\hline
+C&c'est {\`a} dire\\\hline
+D&définition&&démonstration&&on démontre\\\hline
+E&ensemble&&sous-ensemble&&il existe\\\hline
+F\\\hline
+G\\\hline
+H\\\hline
+I&injection&&& &injective\\\hline
+J\\\hline
+K\\\hline
+L\\\hline
+M\\\hline
+N&nécessairement\\\hline
+O\\\hline
+P&proposition\\\hline
+Q&quelconque&&tel que&tels que&telle que&telles que\\\hline
+R&r{\'e}currence&respectivement&r{\'e}ciproquement\\\hline
+S&si et seulement si\\\hline
+T&pour tout&pour tous\\\hline
+\end{tabular}
+
+\end{document}

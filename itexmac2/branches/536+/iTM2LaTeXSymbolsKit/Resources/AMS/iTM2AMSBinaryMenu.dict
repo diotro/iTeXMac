@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+                <string>\boxdot </string>
+                <string>\boxplus </string>
+                <string>\boxtimes </string>
+                <string>\boxminus </string>
+                <string>\centerdot </string>
+                <string>\dotplus </string>
+                <string>\smallsetminus </string>
+                <string>\intercal </string>
+                <string>\barwedge </string>
+                <string>\doublebarwedge </string>
+                <string>\Cup </string>
+                <string>\Cap </string>
+                <string>\curlywedge </string>
+                <string>\curlyvee </string>
+                <string>\leftthreetimes </string>
+                <string>\rightthreetimes </string>
+                <string>\circledcirc </string>
+                <string>\circledast </string>
+                <string>\circleddash </string>
+                <string>\divideontimes </string>
+                <string>\lessdot </string>
+                <string>\gtrdot </string>
+                <string>\ltimes </string>
+                <string>\rtimes </string>
+                <string>\lhd </string>
+                <string>\unlhd </string>
+                <string>\rhd </string>
+                <string>\unrhd </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

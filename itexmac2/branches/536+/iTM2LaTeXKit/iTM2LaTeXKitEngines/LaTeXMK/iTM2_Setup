@@ -1,0 +1,15 @@
+#!/bin/sh -f
+# this is iTM2_Setup for LaTeXMK wrapper
+# © 2005 jlaurens@users.sourceforge.net
+# setting the link
+# iTM2_Setup "full path to latexmk"
+iTM2_CMD_Notify="$HOME/Library/TeX/bin/iTeXMac2"
+echo "0"
+comment () {
+    ~/Library/TeX/bin/iTeXMac2 notify -comment "$1"
+}
+echo "1"
+rm -f "$HOME/Library/Application Support/iTeXMac2/bin/latexmk"
+echo "2"
+ln -s "$1" "$HOME/Library/Application Support/iTeXMac2/bin/latexmk"
+exit 0

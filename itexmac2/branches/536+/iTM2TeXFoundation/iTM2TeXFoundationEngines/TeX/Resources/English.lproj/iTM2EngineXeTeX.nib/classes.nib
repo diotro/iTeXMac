@@ -1,0 +1,39 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                OK = id; 
+                cancel = id; 
+                chooseFormat = id; 
+                chooseProgName = id; 
+                editFormat = id; 
+                editJobName = id; 
+                editOutputComment = id; 
+                editOutputDirectory = id; 
+                editProgName = id; 
+                editTable = id; 
+                switchFormat = id; 
+                switchInteraction = id; 
+                toggleEnc = id; 
+                toggleFileLineError = id; 
+                toggleHaltOnError = id; 
+                toggleIni = id; 
+                toggleJobName = id; 
+                toggleMLTeX = id; 
+                toggleOutputComment = id; 
+                toggleOutputDirectory = id; 
+                toggleParseTable = id; 
+                toggleProgName = id; 
+                toggleRecorder = id; 
+                toggleShellEscape = id; 
+                toggleSrcSpecials = id; 
+                toggleSrcSpecialsWhere = id; 
+                toggleTable = id; 
+            }; 
+            CLASS = iTM2EngineTeX; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

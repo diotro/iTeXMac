@@ -1,0 +1,180 @@
+#!/usr/bin/env bash
+# this is iTM2_Notify for iTeXMac2 2.0 and above
+# © 2005 jlaurens AT users DOT sourceforge DOT net
+# iTM2_Notify purpose is to send an informational comment to iTeXMac2.
+# when different instances of the app are running at the same time,
+# or when the same app runs different tasks at the same time.
+# we do not know which one will receive the apple script.
+# Here, if the script is launched from a program launched by iTeXMac2,
+# the iTM2_Device contains a communication channel already open by iTeXMac2.
+# this channel is used to output a comment to be displayed.
+# If not already shipped with iTeXMac2,
+# this script should live
+# in $iTM2_HOME/Library/TeX/bin/iTeXMac2.app/Contents/MacOS/iTM2_Notify
+# I was using echo "blah" > /dev/stderr and it caused problems on tiger...
+#
+iTM2_NOTIFY_VERSION=1
+iTM2_NOTIFY_USAGE="Welcome to $(basename "$0") version  ${iTM2_NOTIFY_VERSION}
+This is iTeXMac2 built in script to send informational comments to iTeXMac2
+© 2005 jlaurens AT users DOT sourceforge DOT net
+Usage: $(basename "$0") options verb object, where options, verbs and objects are
+       -h, --help: print this message and return.
+       -d device, --device device: the optional communication channel used: a fifo namely a ?/FIFO overriding the iTM2_Device environment variable.
+       The options given may override some environment variables.
+        start: start to notify with the forthcoming object. Must be balanced by a forthcoming stop.
+        stop: stop the current notification. Must be balanced by a previous start.
+        No interlacing is allowed however the balancing object is required with the stop verb.
+        echo: just prints the object to the iTeXMac2's private device or the one given in options.
+        comment: Wraps the object in iTM2Comment XML tags then echo to the appropriate device.
+        warning: Wraps the object in iTM2Warning XML tags then echo to the appropriate device.
+        error: Wraps the object in iTM2Error XML tags then echo to the appropriate device.
+        applescript: Wraps the object in iTM2AppleScript XML tags then echo to the appropriate device.
+       The comment is the informational text iTeXMac2 will display in its dedicated terminal text view."
+IFS='
+'
+while [ $# -gt 0 ]
+do
+	case $1 in
+		-h|--help)
+				echo "$iTM2_NOTIFY_USAGE"
+				exit 0
+		;;
+		-d|--device)
+			shift 1
+			if [ $# -gt 0 ]
+			then
+				iTM2_Device="$1"
+				echo "iTM2_Notify: device: ${iTM2_Device}"
+			else
+				echo "iTM2_Notify: ! $(basename "$0") error, missing device name"
+				exit 19
+			fi
+		;;
+		*)
+			break
+		;;
+	esac
+	shift 1
+done
+if [ "$1" != "notify" ]
+then
+	echo "$iTM2_NOTIFY_USAGE"
+	exit 1
+else
+	shift 1
+fi
+while [ $# -gt 0 ]
+do
+	case $1 in
+		echo)
+            shift 1
+			if [ $# -gt 0 ]
+			then
+                echo "$1" > "${iTM2_Device}"
+			else
+                echo "iTM2: ! $(basename "$0") error, don't know what to echo"
+				exit 18
+			fi
+		;;
+		start)
+            shift 1
+			if [ $# -gt 0 ]
+			then
+                case $1 in
+                    comment)
+                        echo "<iTM2Comment>" > "${iTM2_Device}"
+                    ;;
+                    warning)
+                        echo "<iTM2Warning>" > "${iTM2_Device}"
+                    ;;
+                    error)
+                        echo "<iTM2Error>" > "${iTM2_Device}"
+                    ;;
+                    applescript)
+                        echo "<iTM2AppleScript>" > "${iTM2_Device}"
+                    ;;
+                    *)
+                        echo "iTM2: ! $(basename "$0") error, don't know how to start $1"
+                        exit 13
+                    ;;
+                esac
+			else
+                echo "iTM2: ! $(basename "$0") error, don't know what to start"
+				exit 12
+			fi
+		;;
+		stop)
+            shift 1
+			if [ $# -gt 0 ]
+			then
+                case $1 in
+                    comment)
+                        echo "</iTM2Comment>" > "${iTM2_Device}"
+                    ;;
+                    warning)
+                        echo "</iTM2Warning>" > "${iTM2_Device}"
+                    ;;
+                    error)
+                        echo "</iTM2Error>" > "${iTM2_Device}"
+                    ;;
+                    applescript)
+                        echo "</iTM2AppleScript>" > "${iTM2_Device}"
+                    ;;
+                    *)
+                        echo "iTM2: ! $(basename "$0") error, don't know how to stop $1"
+                        exit 7
+                    ;;
+                esac
+			else
+                echo "iTM2: ! $(basename "$0") error, don't know what to stop"
+				exit 6
+			fi
+		;;
+		comment)
+            shift 1
+			if [ $# -gt 0 ]
+			then
+                echo "<iTM2Comment>$1${IFS}</iTM2Comment>" > "${iTM2_Device}"
+			else
+                echo "iTM2: ! $(basename "$0") error, don't know what to comment"
+				exit 5
+			fi
+		;;
+		warning)
+            shift 1
+			if [ $# -gt 0 ]
+			then
+                echo "<iTM2Warning>$1${IFS}</iTM2Warning>" > "${iTM2_Device}"
+			else
+                echo "iTM2: ! $(basename "$0") error, don't know what to warning"
+				exit 4
+			fi
+		;;
+		error)
+            shift 1
+			if [ $# -gt 0 ]
+			then
+                echo "<iTM2Error>$1${IFS}</iTM2Error>" > "${iTM2_Device}"
+			else
+                echo "iTM2: ! $(basename "$0") error, don't know what to error"
+				exit 3
+			fi
+		;;
+		applescript)
+            shift 1
+			if [ $# -gt 0 ]
+			then
+                echo "<iTM2AppleScript>$1${IFS}</iTM2AppleScript>" > "${iTM2_Device}"
+			else
+                echo "iTM2: ! $(basename "$0") error, don't know what to applescript"
+				exit 2
+			fi
+		;;
+		*)
+            echo "iTM2: ! $(basename "$0") error, don't know how to $1"
+            exit 1
+		;;
+	esac
+	shift 1
+done
+exit 0

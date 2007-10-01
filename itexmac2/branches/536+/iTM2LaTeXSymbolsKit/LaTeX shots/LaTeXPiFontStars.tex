@@ -1,0 +1,43 @@
+\documentclass[11pt]{article}
+\usepackage{pifont}
+\begin{document}
+\newbox\shipoutbox
+%%%% Stars
+\setbox\shipoutbox=\hbox{%
+\arraycolsep0pt
+\begin{tabular}{cccccc}
+\ding{53}&\ding{54}&\ding{57}&\ding{58}&\ding{59}&\ding{60}\\
+\ding{61}&\ding{62}&\ding{63}&\ding{64}&\ding{65}&\ding{66}\\
+\ding{67}&\ding{68}&\ding{69}&\ding{70}&\ding{71}&\ding{72}\\
+\ding{73}&\ding{74}&\ding{75}&\ding{76}&\ding{77}&\ding{78}\\
+\ding{79}&\ding{80}&\ding{81}&\ding{82}&\ding{83}&\ding{84}\\
+\ding{85}&\ding{86}&\ding{87}&\ding{88}&\ding{89}&\ding{90}\\
+\ding{91}&\ding{92}&\ding{93}&\ding{94}&\ding{95}&\ding{96}\\
+\ding{97}&\ding{98}&\ding{99}&\ding{100}&\ding{101}&\ding{102}\\
+\ding{103}&\ding{104}&\ding{105}&\ding{106}&\ding{107}&\\
+\ding{53}&\ding{54}&\ding{57}&\ding{58}&\ding{59}&\ding{60}\\
+\ding{61}&\ding{62}&\ding{63}&\ding{64}&\ding{65}&\ding{66}\\
+\ding{67}&\ding{68}&\ding{69}&\ding{70}&\ding{71}&\ding{72}\\
+\ding{73}&\ding{74}&\ding{75}&\ding{76}&\ding{77}&\ding{78}\\
+\ding{79}&\ding{80}&\ding{81}&\ding{82}&\ding{83}&\ding{84}\\
+\ding{85}&\ding{86}&\ding{87}&\ding{88}&\ding{89}&\ding{90}\\
+\ding{91}&\ding{92}&\ding{93}&\ding{94}&\ding{95}&\ding{96}\\
+\ding{97}&\ding{98}&\ding{99}&\ding{100}&\ding{101}&\ding{102}\\
+\ding{103}&\ding{104}&\ding{105}&\ding{106}&\ding{107}&\\
+\end{tabular}%
+}%
+%\setbox0=\vbox to 1.02\wd\shipoutbox{\kern-1truein\kern0.05\ht\shipoutbox\kern0.05\dp\shipoutbox
+\setbox0=\vbox{\kern-1truein
+   \hbox{\kern-1truein%\kern0.01\wd\shipoutbox
+    %\framebox{\box\shipoutbox }%
+    \copy\shipoutbox%
+    \kern1truein}%
+   \kern1truein}%
+\pdfpageheight\ht0%
+\advance\pdfpageheight\dp0%
+%\advance\pdfpageheight0.1\ht\shipoutbox
+%\advance\pdfpageheight0.1\dp\shipoutbox
+\pdfpagewidth\wd0%
+%\advance\pdfpagewidth0.02\wd\shipoutbox
+\shipout\box0%
+\end{document}
