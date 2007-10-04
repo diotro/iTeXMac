@@ -3,7 +3,7 @@
 #undef U_DISABLE_RENAMING 1
 #define U_DISABLE_RENAMING 1
 
-#define __TEST_UNICODE_STRING__ 1
+#define __TEST_UNICODE_STRING__ 0
 #define _IVARS ((ICURegExIVars*)_iVars)
 
 //#import <unicode/regex.h>
@@ -1062,19 +1062,22 @@ static const UChar DOLLARSIGN = 0x24;
 -(UnicodeString)unicodeString;
 {
 	
-	NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(
+	UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)self);
+	if(!buffer)
+	{
+		NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(
 #if __BIG_ENDIAN__
-	kCFStringEncodingUTF16BE
+		kCFStringEncodingUTF16BE
 #elif __LITTLE_ENDIAN__
-	kCFStringEncodingUTF16LE
+		kCFStringEncodingUTF16LE
 #endif
-	);
-	
-	UChar * buffer = (UChar *)[self cStringUsingEncoding:encoding];
-	int32_t buffLength = [self lengthOfBytesUsingEncoding:encoding]/sizeof(UChar);
+		);
+		buffer = (UChar *)[self cStringUsingEncoding:encoding];
+	}
+	int32_t buffLength = CFStringGetLength((CFStringRef)self);
 	int32_t buffCapacity = buffLength;
 	UnicodeString unicodeString = UnicodeString(buffer, buffLength, buffCapacity);
-	#ifdef __TEST_UNICODE_STRING__
+	#if __TEST_UNICODE_STRING__
 	NSString * copy = [NSString stringWithUnicodeString:unicodeString];
 	NSLog(@"Conversion test:%@<->%@, %@",self,copy, ([self isEqual:copy]?@"SUCCESS":@"FAILURE"));
 	#endif
