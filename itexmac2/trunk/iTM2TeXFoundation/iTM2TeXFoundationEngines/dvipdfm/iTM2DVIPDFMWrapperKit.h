@@ -25,4 +25,10 @@
 @interface iTM2EngineDvipdfm: iTM2TeXPEngineInspector
 @end
 
+@interface iTM2EngineDvipdfmx: iTM2EngineDvipdfm
+@end
+
+@interface iTM2EngineXdvipdfmx: iTM2EngineDvipdfmx
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2DVIPDFMWrapperKit
