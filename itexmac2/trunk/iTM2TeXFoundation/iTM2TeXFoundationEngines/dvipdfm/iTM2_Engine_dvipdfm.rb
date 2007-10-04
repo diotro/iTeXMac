@@ -5,6 +5,11 @@
 
 class DVIPDFmWrapper<EngineWrapper
 	
+	def key_prefix
+		#subclassers will override this
+		'iTM2_Dvipdfm_'
+	end
+	
 	def engine
 		'dvipdfm'
 	end
@@ -15,19 +20,19 @@ class DVIPDFmWrapper<EngineWrapper
 
 	def command_arguments
 		arguments=" "
-		arguments << "-l " if landscape != "0"
-		arguments << "-p #{paper} " if use_paper != "0" and paper != "0"
-		if use_offset != "0"
-			arguments << "-x #{x_offset+x_offset_unit}"
-			arguments << " -y #{y_offset+y_offset_unit} "
+		arguments << "-l " if landscape.yes?
+		arguments << "-p #{paper} " if use_paper.yes? and paper.length?
+		if use_offset.yes?
+			arguments << "-x #{x_offset+x_offset_unit} " if x_offset('1').length? and x_offset_unit('in').length > 0
+			arguments << "-y #{y_offset+y_offset_unit} " if y_offset('1').length? and y_offset_unit('in').length > 0
 		end
-		arguments << "-m #{magnification} " if use_magnification != "0"
-		arguments << "-e " if embed_all_fonts != "0"
-		arguments << "-f \"#{map_file}\" " if use_map_file != "0" and map_file != "0"
-		arguments << "-r #{resolution} " if use_resolution != "0" and resolution != "0"
-		arguments << "-s #{page_specifications} " if use_page_specifications != "0" and page_specifications != "0"
-		arguments << "-c " if ignore_color_specials != "0"
-		if use_output_name != "0" and output_name != "0"
+		arguments << "-m #{magnification} " if use_magnification.yes? and magnification.length?
+		arguments << "-e " if embed_all_fonts.yes?
+		arguments << "-f \"#{map_file}\" " if use_map_file.yes? and map_file.length?
+		arguments << "-r #{resolution} " if use_resolution.yes? and resolution.length?
+		arguments << "-s #{page_specifications} " if use_page_specifications.yes? and page_specifications.length?
+		arguments << "-c " if ignore_color_specials.yes?
+		if use_output_name.yes? and output_name.length?
 			arguments << "-o \"#{output_name}\" "
 			@pdfout = output_name
 		end
@@ -36,14 +41,7 @@ class DVIPDFmWrapper<EngineWrapper
 		elsif verbosity_level == "2"
 			arguments << "-vv "
 		end
-
-#	use_page_specifications: 1 or 0,
-#	page_specifications,
-		compress = compression_level
-		if compress == "0"
-			compress = "9"
-		end
-		arguments << "-z #{compress} "
+		arguments << "-z #{compression_level} " if compression_level.length?
 	end
 	
 	def engine_shortcut
@@ -83,7 +81,7 @@ EOF
 		engine_shortcut <<= <<EOF
 	end
 EOF
-		if iTM2_Debug != "0"
+		if iTM2_Debug.yes?
 			engine_shortcut <<= <<EOF
 	notify("comment","#{$me} complete.")
 EOF

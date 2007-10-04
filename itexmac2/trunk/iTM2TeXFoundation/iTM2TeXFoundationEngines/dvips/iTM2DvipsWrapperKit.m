@@ -24,78 +24,78 @@
 #import "iTM2DvipsWrapperKit.h"
 
 //copies
-NSString * const iTM2Dvips_multiple_copies = @"iTM2_dvips_multiple_copies";// 1, 0
-NSString * const iTM2Dvips_num_copies = @"iTM2_dvips_num_copies";// NUM
-NSString * const iTM2Dvips_collated_copies = @"iTM2_dvips_collated_copies";// NUM
-NSString * const iTM2Dvips_duplicate_page_body = @"iTM2_dvips_duplicate_page_body";// NUM
-NSString * const iTM2Dvips_even_TeX_pages = @"iTM2_dvips_even_TeX_pages";//-B
-NSString * const iTM2Dvips_odd_TeX_pages = @"iTM2_dvips_odd_TeX_pages";//-A
-NSString * const iTM2Dvips_last_page = @"iTM2_dvips_last_page";//-l [=]NUM
-NSString * const iTM2Dvips_first_page = @"iTM2_dvips_first_page";//-p [=]NUM
-NSString * const iTM2Dvips_physical_pages = @"iTM2_dvips_physical_pages";
-NSString * const iTM2Dvips_USE_page_ranges = @"iTM2_dvips_USE_page_ranges";
-NSString * const iTM2Dvips_page_ranges = @"iTM2_dvips_page_ranges";//-pp
-NSString * const iTM2Dvips_USE_max_num_pages = @"iTM2_dvips_USE_max_num_pages";
-NSString * const iTM2Dvips_max_num_pages = @"iTM2_dvips_max_num_pages";///-n NUM
+NSString * const iTM2Dvips_multiple_copies = @"multiple_copies";// 1, 0
+NSString * const iTM2Dvips_num_copies = @"num_copies";// NUM
+NSString * const iTM2Dvips_collated_copies = @"collated_copies";// NUM
+NSString * const iTM2Dvips_duplicate_page_body = @"duplicate_page_body";// NUM
+NSString * const iTM2Dvips_even_TeX_pages = @"even_TeX_pages";//-B
+NSString * const iTM2Dvips_odd_TeX_pages = @"odd_TeX_pages";//-A
+NSString * const iTM2Dvips_last_page = @"last_page";//-l [=]NUM
+NSString * const iTM2Dvips_first_page = @"first_page";//-p [=]NUM
+NSString * const iTM2Dvips_physical_pages = @"physical_pages";
+NSString * const iTM2Dvips_use_page_ranges = @"use_page_ranges";
+NSString * const iTM2Dvips_page_ranges = @"page_ranges";//-pp
+NSString * const iTM2Dvips_use_max_num_pages = @"use_max_num_pages";
+NSString * const iTM2Dvips_max_num_pages = @"max_num_pages";///-n NUM
 
 //page setup
-NSString * const iTM2Dvips_USE_offset = @"iTM2_dvips_USE_offset";//
-NSString * const iTM2Dvips_x_offset = @"iTM2_dvips_x_offset";//-O X-OFFSET,Y-OFFSET
-NSString * const iTM2Dvips_x_offset_unit = @"iTM2_dvips_x_offset_unit";//
-NSString * const iTM2Dvips_y_offset = @"iTM2_dvips_y_offset";//
-NSString * const iTM2Dvips_y_offset_unit = @"iTM2_dvips_y_offset_unit";//
-NSString * const iTM2Dvips_USE_magnification = @"iTM2_dvips_USE_magnification";
-NSString * const iTM2Dvips_both_magnifications = @"iTM2_dvips_both_magnifications";
-NSString * const iTM2Dvips_x_magnification = @"iTM2_dvips_x_magnification";//-x NUM
-NSString * const iTM2Dvips_y_magnification = @"iTM2_dvips_y_magnification";//-y NUM
-NSString * const iTM2Dvips_both_resolutions = @"iTM2_dvips_both_resolutions";//-D NUM
-NSString * const iTM2Dvips_USE_resolution = @"iTM2_dvips_USE_resolution";
-NSString * const iTM2Dvips_x_resolution = @"iTM2_dvips_x_resolution";//-X NUM
-NSString * const iTM2Dvips_y_resolution = @"iTM2_dvips_y_resolution";//-Y NUM
-NSString * const iTM2Dvips_USE_paper = @"iTM2_dvips_USE_paper";
-NSString * const iTM2Dvips_paper = @"iTM2_dvips_paper";// -t  PAPERTYPE
-NSString * const iTM2Dvips_landscape = @"iTM2_dvips_landscape";// -t landscape
-NSString * const iTM2Dvips_custom_paper = @"iTM2_dvips_custom_paper";
-NSString * const iTM2Dvips_paper_width = @"iTM2_dvips_paper_width";//-T HSIZE,VSIZE
-NSString * const iTM2Dvips_paper_width_unit = @"iTM2_dvips_paper_width_unit";
-NSString * const iTM2Dvips_paper_height = @"iTM2_dvips_paper_height";//-T HSIZE,VSIZE
-NSString * const iTM2Dvips_paper_height_unit = @"iTM2_dvips_paper_height_unit";
+NSString * const iTM2Dvips_use_offset = @"use_offset";//
+NSString * const iTM2Dvips_x_offset = @"x_offset";//-O X-OFFSET,Y-OFFSET
+NSString * const iTM2Dvips_x_offset_unit = @"x_offset_unit";//
+NSString * const iTM2Dvips_y_offset = @"y_offset";//
+NSString * const iTM2Dvips_y_offset_unit = @"y_offset_unit";//
+NSString * const iTM2Dvips_use_magnification = @"use_magnification";
+NSString * const iTM2Dvips_both_magnifications = @"both_magnifications";
+NSString * const iTM2Dvips_x_magnification = @"x_magnification";//-x NUM
+NSString * const iTM2Dvips_y_magnification = @"y_magnification";//-y NUM
+NSString * const iTM2Dvips_both_resolutions = @"both_resolutions";//-D NUM
+NSString * const iTM2Dvips_use_resolution = @"use_resolution";
+NSString * const iTM2Dvips_x_resolution = @"x_resolution";//-X NUM
+NSString * const iTM2Dvips_y_resolution = @"y_resolution";//-Y NUM
+NSString * const iTM2Dvips_use_paper = @"use_paper";
+NSString * const iTM2Dvips_paper = @"paper";// -t  PAPERTYPE
+NSString * const iTM2Dvips_landscape = @"landscape";// -t landscape
+NSString * const iTM2Dvips_custom_paper = @"custom_paper";
+NSString * const iTM2Dvips_paper_width = @"paper_width";//-T HSIZE,VSIZE
+NSString * const iTM2Dvips_paper_width_unit = @"paper_width_unit";
+NSString * const iTM2Dvips_paper_height = @"paper_height";//-T HSIZE,VSIZE
+NSString * const iTM2Dvips_paper_height_unit = @"paper_height_unit";
 
 // postscript
-NSString * const iTM2Dvips_generate_epsf = @"iTM2_dvips_generate_epsf";//-E, -E*
-NSString * const iTM2Dvips_print_crop_mark = @"iTM2_dvips_print_crop_mark";//-k, -k0
-NSString * const iTM2Dvips_USE_header = @"iTM2_dvips_USE_header";
-NSString * const iTM2Dvips_header = @"iTM2_dvips_header";//-h NAME
-NSString * const iTM2Dvips_remove_included_comments = @"iTM2_dvips_remove_included_comments";//-K, -K0
-NSString * const iTM2Dvips_no_structured_comments = @"iTM2_dvips_no_structured_comments";// -N, -N0
+NSString * const iTM2Dvips_generate_epsf = @"generate_epsf";//-E, -E0
+NSString * const iTM2Dvips_print_crop_mark = @"print_crop_mark";//-k, -k0
+NSString * const iTM2Dvips_use_header = @"use_header";
+NSString * const iTM2Dvips_header = @"header";//-h NAME
+NSString * const iTM2Dvips_remove_included_comments = @"remove_included_comments";//-K, -K0
+NSString * const iTM2Dvips_no_structured_comments = @"no_structured_comments";// -N, -N0
 
 //fonts
-NSString * const iTM2Dvips_download_only_needed_characters = @"iTM2_dvips_download_only_needed_characters";//-j, -j0
-NSString * const iTM2Dvips_USE_metafont_mode = @"iTM2_dvips_USE_metafont_mode";
-NSString * const iTM2Dvips_metafont_mode = @"iTM2_dvips_metafont_mode";//-mode MODE
-NSString * const iTM2Dvips_no_automatic_font_generation = @"iTM2_dvips_no_automatic_font_generation";//-M, -M0
-NSString * const iTM2Dvips_USE_psmap_files = @"iTM2_dvips_USE_psmap_files";
-NSString * const iTM2Dvips_psmap_files = @"iTM2_dvips_psmap_files";//-u PSMAPFILE
-NSString * const iTM2Dvips_download_non_resident_fonts = @"iTM2_dvips_download_non_resident_fonts";//-V, -V0
-NSString * const iTM2Dvips_compress_bitmap_fonts = @"iTM2_dvips_compress_bitmap_fonts";//-Z, -Z0
-NSString * const iTM2Dvips_maximum_drift = @"iTM2_dvips_maximum_drift";//-e
-NSString * const iTM2Dvips_shift_non_printing_characters = @"iTM2_dvips_shift_non_printing_characters";//-G, -G*
+NSString * const iTM2Dvips_download_only_needed_characters = @"download_only_needed_characters";//-j, -j0
+NSString * const iTM2Dvips_use_metafont_mode = @"use_metafont_mode";
+NSString * const iTM2Dvips_metafont_mode = @"metafont_mode";//-mode MODE
+NSString * const iTM2Dvips_no_automatic_font_generation = @"no_automatic_font_generation";//-M, -M0
+NSString * const iTM2Dvips_use_psmap_files = @"use_psmap_files";
+NSString * const iTM2Dvips_psmap_files = @"psmap_files";//-u PSMAPFILE
+NSString * const iTM2Dvips_download_non_resident_fonts = @"download_non_resident_fonts";//-V, -V0
+NSString * const iTM2Dvips_compress_bitmap_fonts = @"compress_bitmap_fonts";//-Z, -Z0
+NSString * const iTM2Dvips_maximum_drift = @"maximum_drift";//-e
+NSString * const iTM2Dvips_shift_non_printing_characters = @"shift_non_printing_characters";//-G, -G*
 
 //other
-NSString * const iTM2Dvips_USE_printer = @"iTM2_dvips_USE_printer";
-NSString * const iTM2Dvips_printer = @"iTM2_dvips_printer";// -P PRINTER
-NSString * const iTM2Dvips_no_virtual_memory_saving = @"iTM2_dvips_no_virtual_memory_saving";// -U,-U0
-//NSString * const iTM2Dvips_manual_feed = @"iTM2_dvips_manual_feed";//-m, -m0
-NSString * const iTM2Dvips_pass_html = @"iTM2_dvips_pass_html";//-z, -z0
-NSString * const iTM2Dvips_debug = @"iTM2_dvips_debug";
-NSString * const iTM2Dvips_debug_level = @"iTM2_dvips_debug_level";//-d
-NSString * const iTM2Dvips_conserve_memory = @"iTM2_dvips_conserve_memory";//-a, -a0
-NSString * const iTM2Dvips_separate_sections = @"iTM2_dvips_separate_sections";//-i, -i0
-NSString * const iTM2Dvips_section_num_pages = @"iTM2_dvips_section_num_pages";//-S NUM (with -i)
-NSString * const iTM2Dvips_USE_output = @"iTM2_dvips_USE_output";
-NSString * const iTM2Dvips_output = @"iTM2_dvips_output";//-o NAME
-NSString * const iTM2Dvips_USE_more_arguments = @"iTM2_dvips_USE_more_arguments";
-NSString * const iTM2Dvips_more_arguments = @"iTM2_dvips_more_arguments";
+NSString * const iTM2Dvips_use_printer = @"use_printer";
+NSString * const iTM2Dvips_printer = @"printer";// -P PRINTER
+NSString * const iTM2Dvips_no_virtual_memory_saving = @"no_virtual_memory_saving";// -U,-U0
+//NSString * const iTM2Dvips_manual_feed = @"manual_feed";//-m, -m0
+NSString * const iTM2Dvips_pass_html = @"pass_html";//-z, -z0
+NSString * const iTM2Dvips_debug = @"debug";
+NSString * const iTM2Dvips_debug_level = @"debug_level";//-d
+NSString * const iTM2Dvips_conserve_memory = @"conserve_memory";//-a, -a0
+NSString * const iTM2Dvips_separate_sections = @"separate_sections";//-i, -i0
+NSString * const iTM2Dvips_section_num_pages = @"section_num_pages";//-S NUM (with -i)
+NSString * const iTM2Dvips_use_output = @"use_output";
+NSString * const iTM2Dvips_output = @"output";//-o NAME
+NSString * const iTM2Dvips_use_more_arguments = @"use_more_arguments";
+NSString * const iTM2Dvips_more_arguments = @"more_arguments";
 
 @interface iTM2EngineDvips(PRIVATE)
 - (id)paperWidthUnitModel;
@@ -146,23 +146,23 @@ To Do List:
 				[NSNumber numberWithBool:YES], iTM2Dvips_physical_pages,
 				[NSNumber numberWithInt:100000], iTM2Dvips_last_page,
 				[NSNumber numberWithInt:1], iTM2Dvips_first_page,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_page_ranges,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_page_ranges,
 				@"", iTM2Dvips_page_ranges,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_max_num_pages,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_max_num_pages,
 				[NSNumber numberWithInt:0], iTM2Dvips_max_num_pages,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_offset,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_offset,
 				[NSNumber numberWithFloat:0], iTM2Dvips_x_offset,
 				@"in", iTM2Dvips_x_offset_unit,
 				[NSNumber numberWithFloat:0], iTM2Dvips_y_offset,
 				@"in", iTM2Dvips_y_offset_unit,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_magnification,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_magnification,
 				[NSNumber numberWithFloat:1000], iTM2Dvips_x_magnification,
 				[NSNumber numberWithFloat:1000], iTM2Dvips_y_magnification,
 				[NSNumber numberWithBool:YES], iTM2Dvips_both_resolutions,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_resolution,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_resolution,
 				[NSNumber numberWithFloat:600], iTM2Dvips_x_resolution,
 				[NSNumber numberWithFloat:600], iTM2Dvips_y_resolution,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_paper,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_paper,
 				@"a4", iTM2Dvips_paper,
 				[NSNumber numberWithBool:NO], iTM2Dvips_landscape,
 				[NSNumber numberWithBool:NO], iTM2Dvips_custom_paper,
@@ -172,21 +172,21 @@ To Do List:
 				@"cm", iTM2Dvips_paper_height_unit,
 				[NSNumber numberWithInt:0], iTM2Dvips_generate_epsf,
 				[NSNumber numberWithInt:0], iTM2Dvips_print_crop_mark,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_header,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_header,
 				@"", iTM2Dvips_header,
 				[NSNumber numberWithInt:0], iTM2Dvips_remove_included_comments,
 				[NSNumber numberWithInt:0], iTM2Dvips_no_structured_comments,
 				[NSNumber numberWithInt:0], iTM2Dvips_download_only_needed_characters,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_metafont_mode,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_metafont_mode,
 				@"", iTM2Dvips_metafont_mode,
 				[NSNumber numberWithInt:0], iTM2Dvips_no_automatic_font_generation,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_psmap_files,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_psmap_files,
 				@"", iTM2Dvips_psmap_files,
 				[NSNumber numberWithInt:0], iTM2Dvips_download_non_resident_fonts,
 				[NSNumber numberWithInt:0], iTM2Dvips_compress_bitmap_fonts,
 				[NSNumber numberWithInt:0], iTM2Dvips_maximum_drift,
 				[NSNumber numberWithInt:0], iTM2Dvips_shift_non_printing_characters,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_printer,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_printer,
 				@"", iTM2Dvips_printer,
 				[NSNumber numberWithInt:0], iTM2Dvips_no_virtual_memory_saving,
 				[NSNumber numberWithInt:1], iTM2Dvips_pass_html,
@@ -195,9 +195,9 @@ To Do List:
 				[NSNumber numberWithInt:0], iTM2Dvips_conserve_memory,
 				[NSNumber numberWithInt:0], iTM2Dvips_separate_sections,
 				[NSNumber numberWithInt:0], iTM2Dvips_section_num_pages,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_output,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_output,
 				@"", iTM2Dvips_output,
-				[NSNumber numberWithBool:NO], iTM2Dvips_USE_more_arguments,
+				[NSNumber numberWithBool:NO], iTM2Dvips_use_more_arguments,
 				@"", iTM2Dvips_more_arguments,
 					nil];
 }
@@ -276,12 +276,12 @@ To Do List:
 //iTM2_START;
 	return [self TeXPageMode] == 3;
 }
-MODEL_BOOL(usePageRanges, setUsePageRanges, iTM2Dvips_USE_page_ranges);
+MODEL_BOOL(usePageRanges, setUsePageRanges, iTM2Dvips_use_page_ranges);
 MODEL_OBJECT(pageRanges, setPageRanges, iTM2Dvips_page_ranges);
-MODEL_BOOL(useMaxNumberOfPages, setUseMaxNumberOfPages, iTM2Dvips_USE_max_num_pages);
+MODEL_BOOL(useMaxNumberOfPages, setUseMaxNumberOfPages, iTM2Dvips_use_max_num_pages);
 MODEL_INT(maxNumberOfPages, setMaxNumberOfPages, iTM2Dvips_max_num_pages);
 #pragma mark =-=-=-=-=-  PAGE SETUP
-MODEL_BOOL(useOffset, setUseOffset, iTM2Dvips_USE_offset);
+MODEL_BOOL(useOffset, setUseOffset, iTM2Dvips_use_offset);
 MODEL_FLOAT(xOffset, setXOffset, iTM2Dvips_x_offset);
 MODEL_OBJECT(xOffsetUnitModel, setXOffsetUnitModel, iTM2Dvips_x_offset_unit);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvips_y_offset);
@@ -365,13 +365,13 @@ To Do List:
     return;
 }
 MODEL_BOOL(landscape, setLandscape, iTM2Dvips_landscape);
-MODEL_BOOL(useMagnification, setUseMagnification, iTM2Dvips_USE_magnification);
+MODEL_BOOL(useMagnification, setUseMagnification, iTM2Dvips_use_magnification);
 MODEL_BOOL(bothMagnifications, setBothMagnifications, iTM2Dvips_both_magnifications);
 - (float)xMagnification;{return [[self modelValueForKey:iTM2Dvips_x_magnification] floatValue]/10.0;}
 - (void)setXMagnification:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument*10] forKey:iTM2Dvips_x_magnification];return;}
 - (float)yMagnification;{return [[self modelValueForKey:iTM2Dvips_y_magnification] floatValue]/10.0;}\
 - (void)setYMagnification:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument*10] forKey:iTM2Dvips_y_magnification];return;}
-MODEL_BOOL(usePaper, setUsePaper, iTM2Dvips_USE_paper);
+MODEL_BOOL(usePaper, setUsePaper, iTM2Dvips_use_paper);
 MODEL_OBJECT(paper, setPaper, iTM2Dvips_paper);
 MODEL_BOOL(customPaper, setCustomPaper, iTM2Dvips_custom_paper);
 MODEL_FLOAT(paperWidth, setPaperWidth, iTM2Dvips_paper_width);
@@ -488,18 +488,18 @@ To Do List:
 #pragma mark =-=-=-=-=-  PostScript
 MODEL_INT(generateEPSF, setGenerateEPSF, iTM2Dvips_generate_epsf);
 MODEL_INT(printCropMark, setPrintCropMark, iTM2Dvips_print_crop_mark);
-MODEL_BOOL(useHeader, setUseHeader, iTM2Dvips_USE_header);
+MODEL_BOOL(useHeader, setUseHeader, iTM2Dvips_use_header);
 MODEL_OBJECT(header, setHeader, iTM2Dvips_header);
 MODEL_INT(removeIncludedComments, setRemoveIncludedComments, iTM2Dvips_remove_included_comments);
 MODEL_INT(noStructuredComments, setNoStructuredComments, iTM2Dvips_no_structured_comments);
 #pragma mark =-=-=-=-=-  Fonts
 MODEL_INT(downloadOnlyNeededCharacters, setDownloadOnlyNeededCharacters, iTM2Dvips_download_only_needed_characters);
-MODEL_BOOL(useMetaFontMode, setUseMetaFontMode, iTM2Dvips_USE_metafont_mode);
+MODEL_BOOL(useMetaFontMode, setUseMetaFontMode, iTM2Dvips_use_metafont_mode);
 MODEL_OBJECT(metaFontMode, setMetaFontMode, iTM2Dvips_metafont_mode);
 MODEL_INT(noAutomaticFontGeneration, setNoAutomaticFontGeneration, iTM2Dvips_no_automatic_font_generation);
-MODEL_BOOL(usePSMapFiles, setUsePSMapFiles, iTM2Dvips_USE_psmap_files);
+MODEL_BOOL(usePSMapFiles, setUsePSMapFiles, iTM2Dvips_use_psmap_files);
 MODEL_OBJECT(PSMapFiles, setPSMapFiles, iTM2Dvips_psmap_files);
-MODEL_BOOL(useResolution, setUseResolution, iTM2Dvips_USE_resolution);
+MODEL_BOOL(useResolution, setUseResolution, iTM2Dvips_use_resolution);
 MODEL_BOOL(bothResolutions, setBothResolutions, iTM2Dvips_both_resolutions);
 MODEL_FLOAT(xResolution, setXResolution, iTM2Dvips_x_resolution);
 MODEL_FLOAT(yResolution, setYResolution, iTM2Dvips_y_resolution);
@@ -508,7 +508,7 @@ MODEL_INT(compressBitmapFonts, setCompressBitmapFonts, iTM2Dvips_compress_bitmap
 MODEL_INT(maximumDrift, setMaximumDrift, iTM2Dvips_maximum_drift);
 MODEL_INT(shiftNonPrintingCharacters, setShiftNonPrintingCharacters, iTM2Dvips_shift_non_printing_characters);
 #pragma mark =-=-=-=-=-  More
-MODEL_BOOL(usePrinter, setUsePrinter, iTM2Dvips_USE_printer);
+MODEL_BOOL(usePrinter, setUsePrinter, iTM2Dvips_use_printer);
 MODEL_OBJECT(printer, setPrinter, iTM2Dvips_printer);
 MODEL_INT(noVirtualMemorySaving, setNoVirtualMemorySaving, iTM2Dvips_no_virtual_memory_saving);
 MODEL_INT(passHTML, setPassHTML, iTM2Dvips_pass_html);
@@ -517,9 +517,9 @@ MODEL_INT(debugLevel, setDebugLevel, iTM2Dvips_debug_level);
 MODEL_INT(conserveMemory, setConserveMemory, iTM2Dvips_conserve_memory);
 MODEL_INT(separateSections, setSeparateSections, iTM2Dvips_separate_sections);
 MODEL_INT(numberOfPagesInSections, setNumberOfPagesInSections, iTM2Dvips_section_num_pages);
-MODEL_BOOL(useOutput, setUseOutput, iTM2Dvips_USE_output);
+MODEL_BOOL(useOutput, setUseOutput, iTM2Dvips_use_output);
 MODEL_OBJECT(output, setOutput, iTM2Dvips_output);
-MODEL_BOOL(useMoreArguments, setUseMoreArguments, iTM2Dvips_USE_more_arguments);
+MODEL_BOOL(useMoreArguments, setUseMoreArguments, iTM2Dvips_use_more_arguments);
 MODEL_OBJECT(moreArguments, setMoreArguments, iTM2Dvips_more_arguments);
 @end
 
@@ -819,10 +819,10 @@ reversal, use `-r0'.  Such options are marked with a trailing `*'.
 `-r*'
      Output pages in reverse order.  By default, page 1 is output first.
 
-NSString * const iTM2Dvips_run_quietly = @"iTM2_dvips_run_quietly";//-q, -q0
+NSString * const iTM2Dvips_run_quietly = @"run_quietly";//-q, -q0
 //iTM2_dvips_reverse_page_order://-r, -r0
-NSString * const iTM2Dvips_run_securely = @"iTM2_dvips_run_securely";//-R
-//NSString * const iTM2Dvips_save_restore = @"iTM2_dvips_save_restore";//-s, -s0
+NSString * const iTM2Dvips_run_securely = @"run_securely";//-R
+//NSString * const iTM2Dvips_save_restore = @"save_restore";//-s, -s0
 
 `-R'
      Run securely.  This disables shell command execution in `\special'

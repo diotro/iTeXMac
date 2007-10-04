@@ -39,7 +39,6 @@
 /* Begin PBXBuildFile section */
 		DC0EF84E094857010018276F /* iTM2DVIPDFMWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC48E094840CC0079E1B3 /* iTM2DVIPDFMWrapperKit.m */; };
 		DC0EF84F094857180018276F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
-		DC0EF8560948572E0018276F /* iTM2_Engine_dvipdfm in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC48A094840CC0079E1B3 /* iTM2_Engine_dvipdfm */; };
 		DC0EF876094858030018276F /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
 		DC0EF877094858030018276F /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */; };
 		DC0EF8B0094859380018276F /* iTM2DvipsWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC49A094840CC0079E1B3 /* iTM2DvipsWrapperKit.m */; };
@@ -48,22 +47,26 @@
 		DC0EF9010948594E0018276F /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */; };
 		DC0EF9020948594E0018276F /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
 		DC0EF9030948594E0018276F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
-		DC0EF90A094859750018276F /* iTM2_Engine_dvips in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC9DC496094840CC0079E1B3 /* iTM2_Engine_dvips */; };
 		DC0EF92309485DCA0018276F /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */; };
 		DC0EF92409485DCA0018276F /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
 		DC0EF92509485DCA0018276F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
 		DC0EF92609485DCF0018276F /* iTM2PStoPDFWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC4B2094840CC0079E1B3 /* iTM2PStoPDFWrapperKit.m */; };
-		DC0EF92D09485DE80018276F /* iTM2_Engine_pstopdf in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */; };
+		DC0EF92D09485DE80018276F /* iTM2_Engine_pstopdf.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf.rb */; };
+		DC25BE3D0C9155C9003E8ECB /* iTM2_Engine_dvipdfm.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC25BE3C0C9155C9003E8ECB /* iTM2_Engine_dvipdfm.rb */; };
 		DC70F0C50BFC5986006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
 		DC70F0C60BFC5992006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
 		DC70F11C0BFC59AA006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
 		DC70F11D0BFC59B9006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
+		DC8B1C320CB4ED5200640249 /* iTM2EngineDvipdfmx.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC8B1C2C0CB4ED5200640249 /* iTM2EngineDvipdfmx.nib */; };
+		DC8B1C3C0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC8B1C3B0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb */; };
+		DC8B1C9F0CB522DA00640249 /* iTM2_Engine_xdvipdfmx.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC8B1C9E0CB522B200640249 /* iTM2_Engine_xdvipdfmx.rb */; };
+		DC8B1D1C0CB52D6500640249 /* iTM2_Engine_dvips.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC8B1D1B0CB52D4700640249 /* iTM2_Engine_dvips.rb */; };
 		DC9DC72609484E3B0079E1B3 /* iTM2TeXWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC4C3094840CC0079E1B3 /* iTM2TeXWrapperKit.m */; };
 		DC9DC77509484E590079E1B3 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CD094841310079E1B3 /* iTM2Foundation.framework */; };
 		DC9DC77609484E590079E1B3 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
 		DC9DC77709484E590079E1B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
-		DC9DC77C09484E840079E1B3 /* iTM2_Engine_PDFTeX in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */; };
-		DC9DC77D09484E840079E1B3 /* iTM2_Engine_TeX in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4BF094840CC0079E1B3 /* iTM2_Engine_TeX */; };
+		DC9DC77C09484E840079E1B3 /* iTM2_Engine_PDFTeX.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX.rb */; };
+		DC9DC77D09484E840079E1B3 /* iTM2_Engine_TeX.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4BF094840CC0079E1B3 /* iTM2_Engine_TeX.rb */; };
 		DC9DC77E09484E840079E1B3 /* iTM2_Engine_XeTeX in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4C0094840CC0079E1B3 /* iTM2_Engine_XeTeX */; };
 		DC9DC77F09484E840079E1B3 /* iTM2_Format_Observer in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4C1094840CC0079E1B3 /* iTM2_Format_Observer */; };
 		DCCD2DB909E06C450003EEF9 /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DB309E06C450003EEF9 /* Engine.strings */; };
@@ -141,19 +144,22 @@
 			dstPath = bin;
 			dstSubfolderSpec = 6;
 			files = (
-				DC0EF8560948572E0018276F /* iTM2_Engine_dvipdfm in Copy Binaries */,
+				DC25BE3D0C9155C9003E8ECB /* iTM2_Engine_dvipdfm.rb in Copy Binaries */,
+				DC8B1C3C0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb in Copy Binaries */,
+				DC8B1C9F0CB522DA00640249 /* iTM2_Engine_xdvipdfmx.rb in Copy Binaries */,
 			);
 			name = "Copy Binaries";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC0EF9060948596B0018276F /* CopyFiles */ = {
+		DC0EF9060948596B0018276F /* Copy Binaries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = bin;
 			dstSubfolderSpec = 6;
 			files = (
-				DC0EF90A094859750018276F /* iTM2_Engine_dvips in CopyFiles */,
+				DC8B1D1C0CB52D6500640249 /* iTM2_Engine_dvips.rb in Copy Binaries */,
 			);
+			name = "Copy Binaries";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DC0EF92909485DDE0018276F /* Copy Binaries */ = {
@@ -162,7 +168,7 @@
 			dstPath = bin;
 			dstSubfolderSpec = 6;
 			files = (
-				DC0EF92D09485DE80018276F /* iTM2_Engine_pstopdf in Copy Binaries */,
+				DC0EF92D09485DE80018276F /* iTM2_Engine_pstopdf.rb in Copy Binaries */,
 			);
 			name = "Copy Binaries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,8 +179,8 @@
 			dstPath = bin;
 			dstSubfolderSpec = 6;
 			files = (
-				DC9DC77C09484E840079E1B3 /* iTM2_Engine_PDFTeX in Copy Binaries */,
-				DC9DC77D09484E840079E1B3 /* iTM2_Engine_TeX in Copy Binaries */,
+				DC9DC77C09484E840079E1B3 /* iTM2_Engine_PDFTeX.rb in Copy Binaries */,
+				DC9DC77D09484E840079E1B3 /* iTM2_Engine_TeX.rb in Copy Binaries */,
 				DC9DC77E09484E840079E1B3 /* iTM2_Engine_XeTeX in Copy Binaries */,
 				DC9DC77F09484E840079E1B3 /* iTM2_Format_Observer in Copy Binaries */,
 			);
@@ -187,6 +193,7 @@
 		DC0EF843094856570018276F /* dvipdfm wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvipdfm wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0EF8A9094858D00018276F /* dvips wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvips wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0EF91809485D730018276F /* pstopdf wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "pstopdf wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC25BE3C0C9155C9003E8ECB /* iTM2_Engine_dvipdfm.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_dvipdfm.rb; sourceTree = "<group>"; };
 		DC3865890948B02100352215 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC3B416A0A4ADBA100E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B416B0A4ADBA100E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
@@ -198,26 +205,29 @@
 		DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D6D0F0949A97100EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC70F0C30BFC5948006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../../build/Lua.framework; sourceTree = SOURCE_ROOT; };
+		DC8B1C2D0CB4ED5200640249 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineDvipdfmx.nib; sourceTree = "<group>"; };
+		DC8B1C330CB4ED6400640249 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineDvipdfmx.nib; sourceTree = "<group>"; };
+		DC8B1C3B0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_dvipdfmx.rb; sourceTree = "<group>"; };
+		DC8B1C9E0CB522B200640249 /* iTM2_Engine_xdvipdfmx.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_xdvipdfmx.rb; sourceTree = "<group>"; };
+		DC8B1D1B0CB52D4700640249 /* iTM2_Engine_dvips.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_dvips.rb; sourceTree = "<group>"; };
 		DC9DC483094840CB0079E1B3 /* dvipdfm.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dvipdfm.pdf; sourceTree = "<group>"; };
-		DC9DC48A094840CC0079E1B3 /* iTM2_Engine_dvipdfm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_dvipdfm; sourceTree = "<group>"; };
 		DC9DC48B094840CC0079E1B3 /* dvipdfm wrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dvipdfm wrapper-Info.plist"; sourceTree = "<group>"; };
 		DC9DC48C094840CC0079E1B3 /* dvipdfm wrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dvipdfm wrapper-Prefix.pch"; sourceTree = "<group>"; };
 		DC9DC48D094840CC0079E1B3 /* iTM2DVIPDFMWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DVIPDFMWrapperKit.h; sourceTree = "<group>"; };
 		DC9DC48E094840CC0079E1B3 /* iTM2DVIPDFMWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DVIPDFMWrapperKit.m; sourceTree = "<group>"; };
-		DC9DC496094840CC0079E1B3 /* iTM2_Engine_dvips */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_dvips; sourceTree = "<group>"; };
 		DC9DC497094840CC0079E1B3 /* dvips wrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "dvips wrapper-Info.plist"; sourceTree = "<group>"; };
 		DC9DC498094840CC0079E1B3 /* dvips wrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dvips wrapper-Prefix.pch"; sourceTree = "<group>"; };
 		DC9DC499094840CC0079E1B3 /* iTM2DvipsWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DvipsWrapperKit.h; sourceTree = "<group>"; };
 		DC9DC49A094840CC0079E1B3 /* iTM2DvipsWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DvipsWrapperKit.m; sourceTree = "<group>"; };
 		DC9DC49B094840CC0079E1B3 /* stock-hchain-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stock-hchain-24.png"; sourceTree = "<group>"; };
 		DC9DC49C094840CC0079E1B3 /* stock-hchain-broken-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stock-hchain-broken-24.png"; sourceTree = "<group>"; };
-		DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pstopdf; sourceTree = "<group>"; };
+		DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf.rb */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = iTM2_Engine_pstopdf.rb; sourceTree = "<group>"; };
 		DC9DC4AF094840CC0079E1B3 /* pstopdf wrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "pstopdf wrapper-Info.plist"; sourceTree = "<group>"; };
 		DC9DC4B0094840CC0079E1B3 /* pstopdf wrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "pstopdf wrapper-Prefix.pch"; sourceTree = "<group>"; };
 		DC9DC4B1094840CC0079E1B3 /* iTM2PStoPDFWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PStoPDFWrapperKit.h; sourceTree = "<group>"; };
 		DC9DC4B2094840CC0079E1B3 /* iTM2PStoPDFWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PStoPDFWrapperKit.m; sourceTree = "<group>"; };
-		DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_PDFTeX; sourceTree = "<group>"; };
-		DC9DC4BF094840CC0079E1B3 /* iTM2_Engine_TeX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_TeX; sourceTree = "<group>"; };
+		DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_PDFTeX.rb; sourceTree = "<group>"; };
+		DC9DC4BF094840CC0079E1B3 /* iTM2_Engine_TeX.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_TeX.rb; sourceTree = "<group>"; };
 		DC9DC4C0094840CC0079E1B3 /* iTM2_Engine_XeTeX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_XeTeX; sourceTree = "<group>"; };
 		DC9DC4C1094840CC0079E1B3 /* iTM2_Format_Observer */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Format_Observer; sourceTree = "<group>"; };
 		DC9DC4C2094840CC0079E1B3 /* iTM2TeXWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXWrapperKit.h; sourceTree = "<group>"; };
@@ -342,7 +352,9 @@
 			children = (
 				DCCD2DBB09E06C590003EEF9 /* Resources */,
 				DC9DC483094840CB0079E1B3 /* dvipdfm.pdf */,
-				DC9DC48A094840CC0079E1B3 /* iTM2_Engine_dvipdfm */,
+				DC25BE3C0C9155C9003E8ECB /* iTM2_Engine_dvipdfm.rb */,
+				DC8B1C3B0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb */,
+				DC8B1C9E0CB522B200640249 /* iTM2_Engine_xdvipdfmx.rb */,
 				DC9DC48B094840CC0079E1B3 /* dvipdfm wrapper-Info.plist */,
 				DC9DC48C094840CC0079E1B3 /* dvipdfm wrapper-Prefix.pch */,
 				DC9DC48D094840CC0079E1B3 /* iTM2DVIPDFMWrapperKit.h */,
@@ -357,9 +369,9 @@
 				DCCD2DB209E06C450003EEF9 /* Resources */,
 				DC9DC49B094840CC0079E1B3 /* stock-hchain-24.png */,
 				DC9DC49C094840CC0079E1B3 /* stock-hchain-broken-24.png */,
-				DC9DC496094840CC0079E1B3 /* iTM2_Engine_dvips */,
 				DC9DC497094840CC0079E1B3 /* dvips wrapper-Info.plist */,
 				DC9DC498094840CC0079E1B3 /* dvips wrapper-Prefix.pch */,
+				DC8B1D1B0CB52D4700640249 /* iTM2_Engine_dvips.rb */,
 				DC9DC499094840CC0079E1B3 /* iTM2DvipsWrapperKit.h */,
 				DC9DC49A094840CC0079E1B3 /* iTM2DvipsWrapperKit.m */,
 			);
@@ -370,7 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				DCCD2DD509E06C950003EEF9 /* Resources */,
-				DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf */,
+				DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf.rb */,
 				DC9DC4AF094840CC0079E1B3 /* pstopdf wrapper-Info.plist */,
 				DC9DC4B0094840CC0079E1B3 /* pstopdf wrapper-Prefix.pch */,
 				DC9DC4B1094840CC0079E1B3 /* iTM2PStoPDFWrapperKit.h */,
@@ -383,8 +395,8 @@
 			isa = PBXGroup;
 			children = (
 				DCCD2DC409E06C760003EEF9 /* Resources */,
-				DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX */,
-				DC9DC4BF094840CC0079E1B3 /* iTM2_Engine_TeX */,
+				DC9DC4BE094840CC0079E1B3 /* iTM2_Engine_PDFTeX.rb */,
+				DC9DC4BF094840CC0079E1B3 /* iTM2_Engine_TeX.rb */,
 				DC9DC4C0094840CC0079E1B3 /* iTM2_Engine_XeTeX */,
 				DC9DC4C1094840CC0079E1B3 /* iTM2_Format_Observer */,
 				DC9DC4C2094840CC0079E1B3 /* iTM2TeXWrapperKit.h */,
@@ -455,6 +467,7 @@
 			children = (
 				DCCD2DBC09E06C590003EEF9 /* Engine.strings */,
 				DCCD2DBE09E06C590003EEF9 /* iTM2EngineDvipdfm.nib */,
+				DC8B1C2C0CB4ED5200640249 /* iTM2EngineDvipdfmx.nib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -508,7 +521,7 @@
 				DC0EF8A5094858D00018276F /* Resources */,
 				DC0EF8A6094858D00018276F /* Sources */,
 				DC0EF8A7094858D00018276F /* Frameworks */,
-				DC0EF9060948596B0018276F /* CopyFiles */,
+				DC0EF9060948596B0018276F /* Copy Binaries */,
 				DC5899F309D53F5E00E8F33C /* Expand compressed resources */,
 			);
 			buildRules = (
@@ -618,6 +631,7 @@
 			files = (
 				DCCD2DC209E06C590003EEF9 /* Engine.strings in Resources */,
 				DCCD2DC309E06C590003EEF9 /* iTM2EngineDvipdfm.nib in Resources */,
+				DC8B1C320CB4ED5200640249 /* iTM2EngineDvipdfmx.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,6 +843,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DC8B1C2C0CB4ED5200640249 /* iTM2EngineDvipdfmx.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC8B1C2D0CB4ED5200640249 /* English */,
+				DC8B1C330CB4ED6400640249 /* French */,
+			);
+			name = iTM2EngineDvipdfmx.nib;
+			sourceTree = "<group>";
+		};
 		DCCD2DB309E06C450003EEF9 /* Engine.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
