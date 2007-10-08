@@ -135,15 +135,9 @@
 		DC25E50F0991FA7600545F27 /* iTM2TaskKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC25E50C0991FA7600545F27 /* iTM2TaskKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC25E5100991FA7600545F27 /* iTM2TaskKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC25E50D0991FA7600545F27 /* iTM2TaskKit.m */; };
 		DC25E5180991FAB300545F27 /* iTM2TextDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BA00854654B003F5F79 /* iTM2TextDocumentKit.m */; };
-		DC25E51A0991FAD800545F27 /* iTM2ARegularExpressionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B980854654B003F5F79 /* iTM2ARegularExpressionKit.m */; };
 		DC25E51B0991FAD800545F27 /* iTM2LiteScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B9A0854654B003F5F79 /* iTM2LiteScanner.m */; };
 		DC25E51C0991FAD800545F27 /* iTM2StringFormatKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B9C0854654B003F5F79 /* iTM2StringFormatKit.m */; };
 		DC25E51D0991FAD800545F27 /* iTM2StringKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B9E0854654B003F5F79 /* iTM2StringKit.m */; };
-		DC25E5250991FB3700545F27 /* regcomp.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B8D0854654B003F5F79 /* regcomp.c */; };
-		DC25E5270991FB3700545F27 /* regerror.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B900854654B003F5F79 /* regerror.c */; };
-		DC25E5280991FB3700545F27 /* regexec.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B930854654B003F5F79 /* regexec.m */; };
-		DC25E5290991FB3700545F27 /* regfree.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B940854654B003F5F79 /* regfree.c */; };
-		DC25E52B0991FB9C00545F27 /* iTM2ARegexpHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B860854654B003F5F79 /* iTM2ARegexpHelpers.m */; };
 		DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = DC2B47360AD2D2930039FCBA /* iTM2DocumentPrefPane.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */; };
 		DC2B47810AD2EED70039FCBA /* iTM2DocumentPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2B477A0AD2EED70039FCBA /* iTM2DocumentPrefPane.strings */; };
@@ -155,7 +149,6 @@
 		DC2B4AC00AD405930039FCBA /* resizeTopRightCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4ABC0AD405920039FCBA /* resizeTopRightCursor.png */; };
 		DC2D65520A985F31006BED13 /* iTM2KeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC2D65510A985F30006BED13 /* iTM2KeyCodes.xml */; };
 		DC2D65550A985FA6006BED13 /* iTM2KeyCodes.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D65530A985FA6006BED13 /* iTM2KeyCodes.strings */; };
-		DC3B48F00A4B469E00E83ABA /* ARETemplates.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC3B48EE0A4B469E00E83ABA /* ARETemplates.resources.tgz */; };
 		DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */; };
 		DC40694D0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */; };
 		DC4B41080BAC98F500288F8D /* iTM2HumanReadableActionNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */; };
@@ -301,20 +294,6 @@
 		DCF61C650854654B003F5F79 /* iTM2ViewKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B800854654B003F5F79 /* iTM2ViewKit.m */; };
 		DCF61C660854654B003F5F79 /* iTM2WindowKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B810854654B003F5F79 /* iTM2WindowKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61C670854654B003F5F79 /* iTM2WindowKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B820854654B003F5F79 /* iTM2WindowKit.m */; };
-		DCF61C680854654B003F5F79 /* iTM2ARegexpHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B850854654B003F5F79 /* iTM2ARegexpHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCF61C690854654B003F5F79 /* iTM2ARegexpHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B860854654B003F5F79 /* iTM2ARegexpHelpers.m */; };
-		DCF61C6A0854654B003F5F79 /* README in Resources */ = {isa = PBXBuildFile; fileRef = DCF61B870854654B003F5F79 /* README */; };
-		DCF61C700854654B003F5F79 /* regcomp.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B8D0854654B003F5F79 /* regcomp.c */; };
-		DCF61C710854654B003F5F79 /* regcustom.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B8E0854654B003F5F79 /* regcustom.h */; };
-		DCF61C730854654B003F5F79 /* regerror.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B900854654B003F5F79 /* regerror.c */; };
-		DCF61C740854654B003F5F79 /* regerrs.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B910854654B003F5F79 /* regerrs.h */; };
-		DCF61C750854654B003F5F79 /* regex.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B920854654B003F5F79 /* regex.h */; };
-		DCF61C760854654B003F5F79 /* regexec.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B930854654B003F5F79 /* regexec.m */; };
-		DCF61C770854654B003F5F79 /* regfree.c in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B940854654B003F5F79 /* regfree.c */; };
-		DCF61C780854654B003F5F79 /* regguts.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B950854654B003F5F79 /* regguts.h */; settings = {ATTRIBUTES = (); }; };
-		DCF61C790854654B003F5F79 /* RESyntax.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DCF61B960854654B003F5F79 /* RESyntax.rtf */; };
-		DCF61C7A0854654B003F5F79 /* iTM2ARegularExpressionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B970854654B003F5F79 /* iTM2ARegularExpressionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCF61C7B0854654B003F5F79 /* iTM2ARegularExpressionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B980854654B003F5F79 /* iTM2ARegularExpressionKit.m */; };
 		DCF61C7C0854654B003F5F79 /* iTM2LiteScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B990854654B003F5F79 /* iTM2LiteScanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61C7D0854654B003F5F79 /* iTM2LiteScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B9A0854654B003F5F79 /* iTM2LiteScanner.m */; };
 		DCF61C7E0854654B003F5F79 /* iTM2StringFormatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B9B0854654B003F5F79 /* iTM2StringFormatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -354,23 +333,6 @@
 		DCF61CAE0854654B003F5F79 /* iTM2TextStorageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61BD90854654B003F5F79 /* iTM2TextStorageKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61CB00854654B003F5F79 /* iTM2TextStyleEditionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61BDB0854654B003F5F79 /* iTM2TextStyleEditionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61CB10854654B003F5F79 /* iTM2TextStyleEditionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */; };
-		DCF61CB20854654B003F5F79 /* iTM2AREAtomPullDownButton.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BDE0854654B003F5F79 /* iTM2AREAtomPullDownButton.plist */; };
-		DCF61CB30854654B003F5F79 /* iTM2ARECodingTemplates.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BE00854654B003F5F79 /* iTM2ARECodingTemplates.strings */; };
-		DCF61CB40854654B003F5F79 /* iTM2AREConstraintPullDownButton.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BE20854654B003F5F79 /* iTM2AREConstraintPullDownButton.plist */; };
-		DCF61CB50854654B003F5F79 /* iTM2AREConstraintPullDownButton.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BE40854654B003F5F79 /* iTM2AREConstraintPullDownButton.strings */; };
-		DCF61CB60854654B003F5F79 /* iTM2AREFinder.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BE60854654B003F5F79 /* iTM2AREFinder.strings */; };
-		DCF61CB70854654B003F5F79 /* iTM2AREFinderInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BE80854654B003F5F79 /* iTM2AREFinderInspector.nib */; };
-		DCF61CB80854654B003F5F79 /* iTM2AREFinderOptionsInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BEA0854654B003F5F79 /* iTM2AREFinderOptionsInspector.nib */; };
-		DCF61CB90854654B003F5F79 /* iTM2ARegularExpressions.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BEC0854654B003F5F79 /* iTM2ARegularExpressions.strings */; };
-		DCF61CBA0854654B003F5F79 /* iTM2AREPrettyTitle.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BEE0854654B003F5F79 /* iTM2AREPrettyTitle.strings */; };
-		DCF61CBB0854654B003F5F79 /* iTM2AREQuantifierPullDownButton.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BF00854654B003F5F79 /* iTM2AREQuantifierPullDownButton.plist */; };
-		DCF61CBC0854654B003F5F79 /* iTM2AREQuantifierPullDownButton.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BF20854654B003F5F79 /* iTM2AREQuantifierPullDownButton.strings */; };
-		DCF61CBD0854654B003F5F79 /* iTM2ARERepresentedObject.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BF40854654B003F5F79 /* iTM2ARERepresentedObject.strings */; };
-		DCF61CBE0854654B003F5F79 /* iTM2AREToolTip.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BF60854654B003F5F79 /* iTM2AREToolTip.strings */; };
-		DCF61CBF0854654B003F5F79 /* Regular Expressions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DCF61BF80854654B003F5F79 /* Regular Expressions.rtf */; };
-		DCF61CC10854654B003F5F79 /* iTM2AREFinderInspectorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61BFC0854654B003F5F79 /* iTM2AREFinderInspectorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCF61CC30854654B003F5F79 /* iTM2AREFinderOptionsInspector_IB.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61BFE0854654B003F5F79 /* iTM2AREFinderOptionsInspector_IB.h */; };
-		DCF61CC40854654B003F5F79 /* iTM2AREFinderOptionsInspector_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61BFF0854654B003F5F79 /* iTM2AREFinderOptionsInspector_Private.h */; };
 		DCF61CC60854654B003F5F79 /* dimple_nib_aqua.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C020854654B003F5F79 /* dimple_nib_aqua.tiff */; };
 		DCF61CC70854654B003F5F79 /* dimple_nib_grey_aqua.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C030854654B003F5F79 /* dimple_nib_grey_aqua.tiff */; };
 		DCF61CC80854654B003F5F79 /* Basic.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C040854654B003F5F79 /* Basic.strings */; };
@@ -818,8 +780,6 @@
 		DC2D65660A9862EF006BED13 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2KeyCodes.strings; sourceTree = "<group>"; };
 		DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		DC3B48EF0A4B469E00E83ABA /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/ARETemplates.resources.tgz; sourceTree = "<group>"; };
-		DC3B48F10A4B46AB00E83ABA /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/ARETemplates.resources.tgz; sourceTree = "<group>"; };
 		DC3C79970940EFA500EBF811 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TaskInspector.nib; sourceTree = "<group>"; };
 		DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2CancelCursor.tiff; sourceTree = "<group>"; };
 		DC4B41070BAC98F500288F8D /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
@@ -881,20 +841,6 @@
 		DCAD236F0C144E03005549DC /* ICURE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICURE.h; sourceTree = "<group>"; };
 		DCAD23700C144E03005549DC /* ICURE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICURE.m; sourceTree = "<group>"; };
 		DCAD237C0C144E83005549DC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /System/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
-		DCAF9AD109D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREAtomPullDownButton.plist; sourceTree = "<group>"; };
-		DCAF9AD209D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2ARECodingTemplates.strings; sourceTree = "<group>"; };
-		DCAF9AD309D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREConstraintPullDownButton.plist; sourceTree = "<group>"; };
-		DCAF9AD409D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREConstraintPullDownButton.strings; sourceTree = "<group>"; };
-		DCAF9AD509D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREFinder.strings; sourceTree = "<group>"; };
-		DCAF9AD609D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2AREFinderInspector.nib; sourceTree = "<group>"; };
-		DCAF9AD709D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2AREFinderOptionsInspector.nib; sourceTree = "<group>"; };
-		DCAF9AD809D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2ARegularExpressions.strings; sourceTree = "<group>"; };
-		DCAF9AD909D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREPrettyTitle.strings; sourceTree = "<group>"; };
-		DCAF9ADA09D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREQuantifierPullDownButton.plist; sourceTree = "<group>"; };
-		DCAF9ADB09D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREQuantifierPullDownButton.strings; sourceTree = "<group>"; };
-		DCAF9ADC09D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2ARERepresentedObject.strings; sourceTree = "<group>"; };
-		DCAF9ADD09D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2AREToolTip.strings; sourceTree = "<group>"; };
-		DCAF9ADE09D8121100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = "French.lproj/Regular Expressions.rtf"; sourceTree = "<group>"; };
 		DCAF9AEB09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Basic.strings; sourceTree = "<group>"; };
 		DCAF9AEC09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCAF9AEE09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2ExternalInspector.nib; sourceTree = "<group>"; };
@@ -1031,7 +977,6 @@
 		DCF61B710854654B003F5F79 /* iTM2NotificationKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2NotificationKit.m; sourceTree = "<group>"; };
 		DCF61B720854654B003F5F79 /* iTM2ObjectServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ObjectServer.h; sourceTree = "<group>"; };
 		DCF61B730854654B003F5F79 /* iTM2ObjectServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ObjectServer.m; sourceTree = "<group>"; };
-		DCF61B740854654B003F5F79 /* iTM2PathServer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = iTM2PathServer.plist; path = "0 - Core/iTM2PathServer.plist"; sourceTree = SOURCE_ROOT; };
 		DCF61B750854654B003F5F79 /* iTM2PathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PathUtilities.h; sourceTree = "<group>"; };
 		DCF61B760854654B003F5F79 /* iTM2PathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PathUtilities.m; sourceTree = "<group>"; };
 		DCF61B770854654B003F5F79 /* iTM2ResponderKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ResponderKit.h; sourceTree = "<group>"; };
@@ -1046,26 +991,6 @@
 		DCF61B800854654B003F5F79 /* iTM2ViewKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ViewKit.m; sourceTree = "<group>"; };
 		DCF61B810854654B003F5F79 /* iTM2WindowKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2WindowKit.h; sourceTree = "<group>"; };
 		DCF61B820854654B003F5F79 /* iTM2WindowKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2WindowKit.m; sourceTree = "<group>"; };
-		DCF61B850854654B003F5F79 /* iTM2ARegexpHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ARegexpHelpers.h; sourceTree = "<group>"; };
-		DCF61B860854654B003F5F79 /* iTM2ARegexpHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ARegexpHelpers.m; sourceTree = "<group>"; };
-		DCF61B870854654B003F5F79 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		DCF61B880854654B003F5F79 /* regc_color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regc_color.c; sourceTree = "<group>"; };
-		DCF61B890854654B003F5F79 /* regc_cvec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regc_cvec.c; sourceTree = "<group>"; };
-		DCF61B8A0854654B003F5F79 /* regc_lex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regc_lex.c; sourceTree = "<group>"; };
-		DCF61B8B0854654B003F5F79 /* regc_locale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regc_locale.c; sourceTree = "<group>"; };
-		DCF61B8C0854654B003F5F79 /* regc_nfa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regc_nfa.c; sourceTree = "<group>"; };
-		DCF61B8D0854654B003F5F79 /* regcomp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regcomp.c; sourceTree = "<group>"; };
-		DCF61B8E0854654B003F5F79 /* regcustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regcustom.h; sourceTree = "<group>"; };
-		DCF61B8F0854654B003F5F79 /* rege_dfa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rege_dfa.c; sourceTree = "<group>"; };
-		DCF61B900854654B003F5F79 /* regerror.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regerror.c; sourceTree = "<group>"; };
-		DCF61B910854654B003F5F79 /* regerrs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regerrs.h; sourceTree = "<group>"; };
-		DCF61B920854654B003F5F79 /* regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regex.h; sourceTree = "<group>"; };
-		DCF61B930854654B003F5F79 /* regexec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = regexec.m; sourceTree = "<group>"; };
-		DCF61B940854654B003F5F79 /* regfree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = regfree.c; sourceTree = "<group>"; };
-		DCF61B950854654B003F5F79 /* regguts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regguts.h; sourceTree = "<group>"; };
-		DCF61B960854654B003F5F79 /* RESyntax.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = RESyntax.rtf; sourceTree = "<group>"; };
-		DCF61B970854654B003F5F79 /* iTM2ARegularExpressionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ARegularExpressionKit.h; sourceTree = "<group>"; };
-		DCF61B980854654B003F5F79 /* iTM2ARegularExpressionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ARegularExpressionKit.m; sourceTree = "<group>"; };
 		DCF61B990854654B003F5F79 /* iTM2LiteScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LiteScanner.h; sourceTree = "<group>"; };
 		DCF61B9A0854654B003F5F79 /* iTM2LiteScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LiteScanner.m; sourceTree = "<group>"; };
 		DCF61B9B0854654B003F5F79 /* iTM2StringFormatKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StringFormatKit.h; sourceTree = "<group>"; };
@@ -1105,24 +1030,6 @@
 		DCF61BD90854654B003F5F79 /* iTM2TextStorageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextStorageKit.h; sourceTree = "<group>"; };
 		DCF61BDB0854654B003F5F79 /* iTM2TextStyleEditionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextStyleEditionKit.h; sourceTree = "<group>"; };
 		DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextStyleEditionKit.m; sourceTree = "<group>"; };
-		DCF61BDF0854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREAtomPullDownButton.plist; sourceTree = "<group>"; };
-		DCF61BE10854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2ARECodingTemplates.strings; sourceTree = "<group>"; };
-		DCF61BE30854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREConstraintPullDownButton.plist; sourceTree = "<group>"; };
-		DCF61BE50854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREConstraintPullDownButton.strings; sourceTree = "<group>"; };
-		DCF61BE70854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREFinder.strings; sourceTree = "<group>"; };
-		DCF61BE90854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2AREFinderInspector.nib; sourceTree = "<group>"; };
-		DCF61BEB0854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2AREFinderOptionsInspector.nib; sourceTree = "<group>"; };
-		DCF61BED0854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2ARegularExpressions.strings; sourceTree = "<group>"; };
-		DCF61BEF0854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREPrettyTitle.strings; sourceTree = "<group>"; };
-		DCF61BF10854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREQuantifierPullDownButton.plist; sourceTree = "<group>"; };
-		DCF61BF30854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREQuantifierPullDownButton.strings; sourceTree = "<group>"; };
-		DCF61BF50854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2ARERepresentedObject.strings; sourceTree = "<group>"; };
-		DCF61BF70854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2AREToolTip.strings; sourceTree = "<group>"; };
-		DCF61BF90854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = "English.lproj/Regular Expressions.rtf"; sourceTree = "<group>"; };
-		DCF61BFC0854654B003F5F79 /* iTM2AREFinderInspectorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AREFinderInspectorKit.h; sourceTree = "<group>"; };
-		DCF61BFD0854654B003F5F79 /* iTM2AREFinderInspectorKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2AREFinderInspectorKit.m; sourceTree = "<group>"; };
-		DCF61BFE0854654B003F5F79 /* iTM2AREFinderOptionsInspector_IB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AREFinderOptionsInspector_IB.h; sourceTree = "<group>"; };
-		DCF61BFF0854654B003F5F79 /* iTM2AREFinderOptionsInspector_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2AREFinderOptionsInspector_Private.h; sourceTree = "<group>"; };
 		DCF61C020854654B003F5F79 /* dimple_nib_aqua.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = dimple_nib_aqua.tiff; sourceTree = "<group>"; };
 		DCF61C030854654B003F5F79 /* dimple_nib_grey_aqua.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = dimple_nib_grey_aqua.tiff; sourceTree = "<group>"; };
 		DCF61C050854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Basic.strings; sourceTree = "<group>"; };
@@ -1269,7 +1176,6 @@
 				DC8303ED086EA056004799EB /* 4 - Scripting */,
 				DC66983708E0B554004FCA6D /* 5 - Preferences */,
 				DCC7F6040854B11C00F3EB8A /* 99 - JAGUAR */,
-				DCF61BDD0854654B003F5F79 /* code ARE UI */,
 				DCF61C000854654B003F5F79 /* Core Resources */,
 				DCF61C350854654B003F5F79 /* iTM2Foundation-Info.plist */,
 				DCF61C360854654B003F5F79 /* iTM2Foundation-Prefix.pch */,
@@ -1588,9 +1494,6 @@
 		DCF61B830854654B003F5F79 /* 1 - A - Text */ = {
 			isa = PBXGroup;
 			children = (
-				DCF61B840854654B003F5F79 /* ARE code */,
-				DCF61B970854654B003F5F79 /* iTM2ARegularExpressionKit.h */,
-				DCF61B980854654B003F5F79 /* iTM2ARegularExpressionKit.m */,
 				DCF61B990854654B003F5F79 /* iTM2LiteScanner.h */,
 				DCF61B9A0854654B003F5F79 /* iTM2LiteScanner.m */,
 				DCF61B9B0854654B003F5F79 /* iTM2StringFormatKit.h */,
@@ -1607,31 +1510,6 @@
 				DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */,
 			);
 			path = "1 - A - Text";
-			sourceTree = "<group>";
-		};
-		DCF61B840854654B003F5F79 /* ARE code */ = {
-			isa = PBXGroup;
-			children = (
-				DCF61B850854654B003F5F79 /* iTM2ARegexpHelpers.h */,
-				DCF61B860854654B003F5F79 /* iTM2ARegexpHelpers.m */,
-				DCF61B870854654B003F5F79 /* README */,
-				DCF61B880854654B003F5F79 /* regc_color.c */,
-				DCF61B890854654B003F5F79 /* regc_cvec.c */,
-				DCF61B8A0854654B003F5F79 /* regc_lex.c */,
-				DCF61B8B0854654B003F5F79 /* regc_locale.c */,
-				DCF61B8C0854654B003F5F79 /* regc_nfa.c */,
-				DCF61B8D0854654B003F5F79 /* regcomp.c */,
-				DCF61B8E0854654B003F5F79 /* regcustom.h */,
-				DCF61B8F0854654B003F5F79 /* rege_dfa.c */,
-				DCF61B900854654B003F5F79 /* regerror.c */,
-				DCF61B910854654B003F5F79 /* regerrs.h */,
-				DCF61B920854654B003F5F79 /* regex.h */,
-				DCF61B930854654B003F5F79 /* regexec.m */,
-				DCF61B940854654B003F5F79 /* regfree.c */,
-				DCF61B950854654B003F5F79 /* regguts.h */,
-				DCF61B960854654B003F5F79 /* RESyntax.rtf */,
-			);
-			path = "ARE code";
 			sourceTree = "<group>";
 		};
 		DCF61BA30854654B003F5F79 /* 1 - B - PDF */ = {
@@ -1700,33 +1578,6 @@
 				DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */,
 			);
 			path = "3 - Style";
-			sourceTree = "<group>";
-		};
-		DCF61BDD0854654B003F5F79 /* code ARE UI */ = {
-			isa = PBXGroup;
-			children = (
-				DC3B48EE0A4B469E00E83ABA /* ARETemplates.resources.tgz */,
-				DCF61BDE0854654B003F5F79 /* iTM2AREAtomPullDownButton.plist */,
-				DCF61BE00854654B003F5F79 /* iTM2ARECodingTemplates.strings */,
-				DCF61BE20854654B003F5F79 /* iTM2AREConstraintPullDownButton.plist */,
-				DCF61BE40854654B003F5F79 /* iTM2AREConstraintPullDownButton.strings */,
-				DCF61BE60854654B003F5F79 /* iTM2AREFinder.strings */,
-				DCF61BE80854654B003F5F79 /* iTM2AREFinderInspector.nib */,
-				DCF61BEA0854654B003F5F79 /* iTM2AREFinderOptionsInspector.nib */,
-				DCF61BEC0854654B003F5F79 /* iTM2ARegularExpressions.strings */,
-				DCF61BEE0854654B003F5F79 /* iTM2AREPrettyTitle.strings */,
-				DCF61BF00854654B003F5F79 /* iTM2AREQuantifierPullDownButton.plist */,
-				DCF61BF20854654B003F5F79 /* iTM2AREQuantifierPullDownButton.strings */,
-				DCF61BF40854654B003F5F79 /* iTM2ARERepresentedObject.strings */,
-				DCF61BF60854654B003F5F79 /* iTM2AREToolTip.strings */,
-				DCF61BF80854654B003F5F79 /* Regular Expressions.rtf */,
-				DCF61B740854654B003F5F79 /* iTM2PathServer.plist */,
-				DCF61BFC0854654B003F5F79 /* iTM2AREFinderInspectorKit.h */,
-				DCF61BFD0854654B003F5F79 /* iTM2AREFinderInspectorKit.m */,
-				DCF61BFE0854654B003F5F79 /* iTM2AREFinderOptionsInspector_IB.h */,
-				DCF61BFF0854654B003F5F79 /* iTM2AREFinderOptionsInspector_Private.h */,
-			);
-			path = "code ARE UI";
 			sourceTree = "<group>";
 		};
 		DCF61C000854654B003F5F79 /* Core Resources */ = {
@@ -1836,12 +1687,6 @@
 				DCF61C620854654B003F5F79 /* iTM2ValidationKit.h in Headers */,
 				DCF61C640854654B003F5F79 /* iTM2ViewKit.h in Headers */,
 				DCF61C660854654B003F5F79 /* iTM2WindowKit.h in Headers */,
-				DCF61C680854654B003F5F79 /* iTM2ARegexpHelpers.h in Headers */,
-				DCF61C710854654B003F5F79 /* regcustom.h in Headers */,
-				DCF61C740854654B003F5F79 /* regerrs.h in Headers */,
-				DCF61C750854654B003F5F79 /* regex.h in Headers */,
-				DCF61C780854654B003F5F79 /* regguts.h in Headers */,
-				DCF61C7A0854654B003F5F79 /* iTM2ARegularExpressionKit.h in Headers */,
 				DCF61C7C0854654B003F5F79 /* iTM2LiteScanner.h in Headers */,
 				DCF61C7E0854654B003F5F79 /* iTM2StringFormatKit.h in Headers */,
 				DCF61C800854654B003F5F79 /* iTM2StringKit.h in Headers */,
@@ -1862,9 +1707,6 @@
 				DCF61CA20854654B003F5F79 /* NSTextStorage_iTeXMac2.h in Headers */,
 				DCF61CAE0854654B003F5F79 /* iTM2TextStorageKit.h in Headers */,
 				DCF61CB00854654B003F5F79 /* iTM2TextStyleEditionKit.h in Headers */,
-				DCF61CC10854654B003F5F79 /* iTM2AREFinderInspectorKit.h in Headers */,
-				DCF61CC30854654B003F5F79 /* iTM2AREFinderOptionsInspector_IB.h in Headers */,
-				DCF61CC40854654B003F5F79 /* iTM2AREFinderOptionsInspector_Private.h in Headers */,
 				DCF61D19085469AF003F5F79 /* iTM2DocumentControllerKit.h in Headers */,
 				DCC7FA2B0854E41B00F3EB8A /* iTM2TextFinderKit.h in Headers */,
 				DCC7FA2C0854E41B00F3EB8A /* iTM2JAGUARSupportKit.h in Headers */,
@@ -2285,22 +2127,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCF61C6A0854654B003F5F79 /* README in Resources */,
-				DCF61C790854654B003F5F79 /* RESyntax.rtf in Resources */,
-				DCF61CB20854654B003F5F79 /* iTM2AREAtomPullDownButton.plist in Resources */,
-				DCF61CB30854654B003F5F79 /* iTM2ARECodingTemplates.strings in Resources */,
-				DCF61CB40854654B003F5F79 /* iTM2AREConstraintPullDownButton.plist in Resources */,
-				DCF61CB50854654B003F5F79 /* iTM2AREConstraintPullDownButton.strings in Resources */,
-				DCF61CB60854654B003F5F79 /* iTM2AREFinder.strings in Resources */,
-				DCF61CB70854654B003F5F79 /* iTM2AREFinderInspector.nib in Resources */,
-				DCF61CB80854654B003F5F79 /* iTM2AREFinderOptionsInspector.nib in Resources */,
-				DCF61CB90854654B003F5F79 /* iTM2ARegularExpressions.strings in Resources */,
-				DCF61CBA0854654B003F5F79 /* iTM2AREPrettyTitle.strings in Resources */,
-				DCF61CBB0854654B003F5F79 /* iTM2AREQuantifierPullDownButton.plist in Resources */,
-				DCF61CBC0854654B003F5F79 /* iTM2AREQuantifierPullDownButton.strings in Resources */,
-				DCF61CBD0854654B003F5F79 /* iTM2ARERepresentedObject.strings in Resources */,
-				DCF61CBE0854654B003F5F79 /* iTM2AREToolTip.strings in Resources */,
-				DCF61CBF0854654B003F5F79 /* Regular Expressions.rtf in Resources */,
 				DCF61CC60854654B003F5F79 /* dimple_nib_aqua.tiff in Resources */,
 				DCF61CC70854654B003F5F79 /* dimple_nib_grey_aqua.tiff in Resources */,
 				DCF61CC80854654B003F5F79 /* Basic.strings in Resources */,
@@ -2356,7 +2182,6 @@
 				DCDC068009E696450038845F /* Styles.resources.tgz in Resources */,
 				DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */,
 				DC8AD5400A3ABD38006C28A5 /* TextEditor.resources.tgz in Resources */,
-				DC3B48F00A4B469E00E83ABA /* ARETemplates.resources.tgz in Resources */,
 				DCCF02F50A5DC5C200B4B720 /* Aqua2_Add_Inactive.tif in Resources */,
 				DCCF02F60A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif in Resources */,
 				DCCF02F70A5DC5C200B4B720 /* Aqua2_Add.tif in Resources */,
@@ -2700,12 +2525,6 @@
 				DCF61C630854654B003F5F79 /* iTM2ValidationKit.m in Sources */,
 				DCF61C650854654B003F5F79 /* iTM2ViewKit.m in Sources */,
 				DCF61C670854654B003F5F79 /* iTM2WindowKit.m in Sources */,
-				DCF61C690854654B003F5F79 /* iTM2ARegexpHelpers.m in Sources */,
-				DCF61C700854654B003F5F79 /* regcomp.c in Sources */,
-				DCF61C730854654B003F5F79 /* regerror.c in Sources */,
-				DCF61C760854654B003F5F79 /* regexec.m in Sources */,
-				DCF61C770854654B003F5F79 /* regfree.c in Sources */,
-				DCF61C7B0854654B003F5F79 /* iTM2ARegularExpressionKit.m in Sources */,
 				DCF61C7D0854654B003F5F79 /* iTM2LiteScanner.m in Sources */,
 				DCF61C7F0854654B003F5F79 /* iTM2StringFormatKit.m in Sources */,
 				DCF61C810854654B003F5F79 /* iTM2StringKit.m in Sources */,
@@ -2792,12 +2611,6 @@
 				DC25E46D0991F97000545F27 /* iTM2ViewKit.m in Sources */,
 				DC25E46E0991F97000545F27 /* iTM2ButtonKit.m in Sources */,
 				DC25E46F0991F97000545F27 /* iTM2CursorKit.m in Sources */,
-				DC25E52B0991FB9C00545F27 /* iTM2ARegexpHelpers.m in Sources */,
-				DC25E5250991FB3700545F27 /* regcomp.c in Sources */,
-				DC25E5270991FB3700545F27 /* regerror.c in Sources */,
-				DC25E5280991FB3700545F27 /* regexec.m in Sources */,
-				DC25E5290991FB3700545F27 /* regfree.c in Sources */,
-				DC25E51A0991FAD800545F27 /* iTM2ARegularExpressionKit.m in Sources */,
 				DC25E51B0991FAD800545F27 /* iTM2LiteScanner.m in Sources */,
 				DC25E51C0991FAD800545F27 /* iTM2StringFormatKit.m in Sources */,
 				DC25E51D0991FAD800545F27 /* iTM2StringKit.m in Sources */,
@@ -3029,15 +2842,6 @@
 			name = iTM2KeyCodes.strings;
 			sourceTree = "<group>";
 		};
-		DC3B48EE0A4B469E00E83ABA /* ARETemplates.resources.tgz */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC3B48EF0A4B469E00E83ABA /* English */,
-				DC3B48F10A4B46AB00E83ABA /* French */,
-			);
-			name = ARETemplates.resources.tgz;
-			sourceTree = "<group>";
-		};
 		DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3219,132 +3023,6 @@
 				DCDC068109E696520038845F /* French */,
 			);
 			name = Styles.resources.tgz;
-			sourceTree = "<group>";
-		};
-		DCF61BDE0854654B003F5F79 /* iTM2AREAtomPullDownButton.plist */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BDF0854654B003F5F79 /* English */,
-				DCAF9AD109D8121100AFD95F /* French */,
-			);
-			name = iTM2AREAtomPullDownButton.plist;
-			sourceTree = "<group>";
-		};
-		DCF61BE00854654B003F5F79 /* iTM2ARECodingTemplates.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BE10854654B003F5F79 /* English */,
-				DCAF9AD209D8121100AFD95F /* French */,
-			);
-			name = iTM2ARECodingTemplates.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BE20854654B003F5F79 /* iTM2AREConstraintPullDownButton.plist */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BE30854654B003F5F79 /* English */,
-				DCAF9AD309D8121100AFD95F /* French */,
-			);
-			name = iTM2AREConstraintPullDownButton.plist;
-			sourceTree = "<group>";
-		};
-		DCF61BE40854654B003F5F79 /* iTM2AREConstraintPullDownButton.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BE50854654B003F5F79 /* English */,
-				DCAF9AD409D8121100AFD95F /* French */,
-			);
-			name = iTM2AREConstraintPullDownButton.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BE60854654B003F5F79 /* iTM2AREFinder.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BE70854654B003F5F79 /* English */,
-				DCAF9AD509D8121100AFD95F /* French */,
-			);
-			name = iTM2AREFinder.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BE80854654B003F5F79 /* iTM2AREFinderInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BE90854654B003F5F79 /* English */,
-				DCAF9AD609D8121100AFD95F /* French */,
-			);
-			name = iTM2AREFinderInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCF61BEA0854654B003F5F79 /* iTM2AREFinderOptionsInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BEB0854654B003F5F79 /* English */,
-				DCAF9AD709D8121100AFD95F /* French */,
-			);
-			name = iTM2AREFinderOptionsInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCF61BEC0854654B003F5F79 /* iTM2ARegularExpressions.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BED0854654B003F5F79 /* English */,
-				DCAF9AD809D8121100AFD95F /* French */,
-			);
-			name = iTM2ARegularExpressions.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BEE0854654B003F5F79 /* iTM2AREPrettyTitle.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BEF0854654B003F5F79 /* English */,
-				DCAF9AD909D8121100AFD95F /* French */,
-			);
-			name = iTM2AREPrettyTitle.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BF00854654B003F5F79 /* iTM2AREQuantifierPullDownButton.plist */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BF10854654B003F5F79 /* English */,
-				DCAF9ADA09D8121100AFD95F /* French */,
-			);
-			name = iTM2AREQuantifierPullDownButton.plist;
-			sourceTree = "<group>";
-		};
-		DCF61BF20854654B003F5F79 /* iTM2AREQuantifierPullDownButton.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BF30854654B003F5F79 /* English */,
-				DCAF9ADB09D8121100AFD95F /* French */,
-			);
-			name = iTM2AREQuantifierPullDownButton.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BF40854654B003F5F79 /* iTM2ARERepresentedObject.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BF50854654B003F5F79 /* English */,
-				DCAF9ADC09D8121100AFD95F /* French */,
-			);
-			name = iTM2ARERepresentedObject.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BF60854654B003F5F79 /* iTM2AREToolTip.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BF70854654B003F5F79 /* English */,
-				DCAF9ADD09D8121100AFD95F /* French */,
-			);
-			name = iTM2AREToolTip.strings;
-			sourceTree = "<group>";
-		};
-		DCF61BF80854654B003F5F79 /* Regular Expressions.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61BF90854654B003F5F79 /* English */,
-				DCAF9ADE09D8121100AFD95F /* French */,
-			);
-			name = "Regular Expressions.rtf";
 			sourceTree = "<group>";
 		};
 		DCF61C040854654B003F5F79 /* Basic.strings */ = {

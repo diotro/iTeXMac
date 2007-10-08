@@ -211,6 +211,7 @@
 			DC5F68B80CBAF19E00F52867 /* PBXTextBookmark */ = DC5F68B80CBAF19E00F52867 /* PBXTextBookmark */;
 			DC5F68BE0CBAF21800F52867 /* PBXTextBookmark */ = DC5F68BE0CBAF21800F52867 /* PBXTextBookmark */;
 			DC5F68C10CBAF32900F52867 /* PBXTextBookmark */ = DC5F68C10CBAF32900F52867 /* PBXTextBookmark */;
+			DC5F68C20CBAF40A00F52867 /* PBXTextBookmark */ = DC5F68C20CBAF40A00F52867 /* PBXTextBookmark */;
 			DC787FD10C44555A00E30CB0 = DC787FD10C44555A00E30CB0 /* PBXTextBookmark */;
 			DC787FD30C44555A00E30CB0 = DC787FD30C44555A00E30CB0 /* PBXTextBookmark */;
 			DC7885450C460CD900E30CB0 = DC7885450C460CD900E30CB0 /* PBXBookmark */;
@@ -1583,6 +1584,16 @@
 		vrLen = 621;
 		vrLoc = 1019;
 	};
+	DC5F68C20CBAF40A00F52867 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCF61B9E0854654B003F5F79 /* iTM2StringKit.m */;
+		name = "iTM2StringKit.m: 469";
+		rLen = 0;
+		rLoc = 17476;
+		rType = 0;
+		vrLen = 621;
+		vrLoc = 1019;
+	};
 	DC66983908E0B554004FCA6D /* iTM2PreferencesKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2504, 17540}}";
@@ -2488,28 +2499,13 @@
 			sepNavWindowFrame = "{{15, 4}, {878, 869}}";
 		};
 	};
-	DCF61B860854654B003F5F79 /* iTM2ARegexpHelpers.m */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {4070, 1480}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 0}, {923, 685}}";
-		};
-	};
-	DCF61B8D0854654B003F5F79 /* regcomp.c */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1172, 43660}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRect = "{{0, 400}, {923, 685}}";
-		};
-	};
-	DCF61B930854654B003F5F79 /* regexec.m */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1100, 21080}}";
-			sepNavSelRange = "{4809, 11}";
-			sepNavVisRect = "{{0, 3580}, {923, 685}}";
-		};
-	};
 	DCF61B970854654B003F5F79 /* iTM2ARegularExpressionKit.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = iTM2ARegularExpressionKit.h;
+		path = "/Volumes/HD2/iTeXMac2/svn/WORK/itexmac2/iTM2Foundation/1 - A - Text/iTM2ARegularExpressionKit.h";
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {3170, 6920}}";
 			sepNavSelRange = "{0, 0}";
@@ -2517,6 +2513,12 @@
 		};
 	};
 	DCF61B980854654B003F5F79 /* iTM2ARegularExpressionKit.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = iTM2ARegularExpressionKit.m;
+		path = "/Volumes/HD2/iTeXMac2/svn/WORK/itexmac2/iTM2Foundation/1 - A - Text/iTM2ARegularExpressionKit.m";
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1838, 15640}}";
 			sepNavSelRange = "{7686, 7}";
