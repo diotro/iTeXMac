@@ -280,4 +280,11 @@ enum{
 */
 - (NSRange)rangeOfGroupAtIndex:(int)index;
 
-@end
+/*!
+    @method     substringOfGroupAtIndex:
+    @abstract   string of the capture group at the given index
+    @discussion Return the substring for the input string, ranging over rangeOfGroupAtIndex:
+    @param      aTree
+    @result     None
+*/
+- (NSString *)substringOfGroupAtIndex:(int)index;@end

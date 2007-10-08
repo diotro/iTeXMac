@@ -540,18 +540,19 @@
 }
 - (void)setInputString:(NSString *)argument;
 {
+	_IVARS->status = U_ZERO_ERROR;
+	[_IVARS->error autorelease];
+	_IVARS->error = nil;
 	[_IVARS->string autorelease];
-	_IVARS->string = [argument retain];
-	if(_IVARS->uString)
+	_IVARS->string = nil;
+	delete _IVARS->regexMatcher;
+	_IVARS->regexMatcher = nil;
+	delete _IVARS->uString;
+	_IVARS->uString = nil;
+	if(argument)
 	{
-		delete _IVARS->uString;
-		_IVARS->uString = nil;
-	}
-	if(_IVARS->string)
-	{
+		_IVARS->string = [argument retain];
 		_IVARS->uString = new UnicodeString([_IVARS->string unicodeString]);
-		_IVARS->status = U_ZERO_ERROR;
-		delete _IVARS->regexMatcher;
 		_IVARS->regexMatcher = _IVARS->regexPattern->matcher(*(_IVARS->uString),_IVARS->status);
 		if(U_FAILURE(_IVARS->status))
 		{
@@ -568,11 +569,6 @@
 					nil];
 			_IVARS->error = [NSError errorWithDomain:@"ICURegEx" code:_IVARS->status userInfo:dict];
 		}
-	}
-	else
-	{
-		delete _IVARS->regexMatcher;
-		_IVARS->regexMatcher = nil;
 	}
 	return;
 }
@@ -864,6 +860,16 @@ static const UChar DOLLARSIGN = 0x24;
 		}
 	}
 	return result;
+}
+- (NSString *)substringOfGroupAtIndex:(int)index;
+{
+	NSParameterAssert(index<=[self numberOfGroups]);// beware, reporting groups are 1 based
+	NSRange R = [self rangeOfGroupAtIndex:index];
+	if(index)
+	{
+		R.location += [self rangeOfGroupAtIndex:0].location;
+	}
+	return [[self inputString] substringWithRange:R];
 }
 - (NSArray *)componentsBySplitting;
 {
