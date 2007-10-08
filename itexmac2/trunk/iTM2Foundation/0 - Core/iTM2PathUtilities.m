@@ -153,6 +153,26 @@ To Do List:
         }
     }
 }
+static NSMutableDictionary * lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lazyStringByResolvingSymlinksAndFinderAliasesInPath
+- (NSString *)lazyStringByResolvingSymlinksAndFinderAliasesInPath;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	if(!lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache)
+	{
+		lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache = [[NSMutableDictionary dictionary] retain];
+	}
+    NSString * result = [lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache objectForKey:self];
+	if(result)
+	{
+		return result;
+	}
+	return [self stringByResolvingSymlinksAndFinderAliasesInPath];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByResolvingSymlinksAndFinderAliasesInPath
 - (NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
 /*"Description forthcoming.
@@ -161,17 +181,11 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-	static NSMutableDictionary * cache = nil;
-	if(!cache)
+	if(!lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache)
 	{
-		cache = [[NSMutableDictionary dictionary] retain];
+		lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache = [[NSMutableDictionary dictionary] retain];
 	}
-    NSString * result = [cache objectForKey:self];
-	if(result)
-	{
-		return result;
-	}
-	result = self;
+    NSString * result = self;
 	NSString * temp = nil;
     int firewall = 257;
     do
@@ -182,7 +196,7 @@ To Do List:
         result = [result stringByResolvingFinderAliasesInPath];
     }
     while((--firewall>0) && ![result pathIsEqual:temp]);
-	[cache setObject:result forKey:self];
+	[lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache setObject:result forKey:self];
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByAbbreviatingWithDotsRelativeToDirectory:

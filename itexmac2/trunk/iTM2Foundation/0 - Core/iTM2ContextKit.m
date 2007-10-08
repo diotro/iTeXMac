@@ -512,12 +512,11 @@ To Do List:
 	id value = nil;
 	if(mask & iTM2ContextStandardLocalMask)
 	{
-		if(value = [[self contextDictionary] valueForKey:aKey])
+		NSDictionary * D = [self contextDictionary];
+		if((value = [D valueForKey:aKey])
+			&& [value respondsToSelector:@selector(boolValue)])
 		{
-			if([value respondsToSelector:@selector(boolValue)])
-			{
-				return [value boolValue];
-			}
+			return [value boolValue];
 		}
 		id contextManager = [self contextManager];
 		if((contextManager != self) && (contextManager != SUD)

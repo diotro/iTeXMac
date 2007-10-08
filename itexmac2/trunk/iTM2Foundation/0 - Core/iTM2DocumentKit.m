@@ -407,8 +407,8 @@ To Do List:
 //iTM2_START;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextDictionaryFromFile:
-+ (id)contextDictionaryFromFile:(NSString *) fullDocumentPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextDictionaryAtPath:
++ (id)contextDictionaryAtPath:(NSString *) fullDocumentPath;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -691,8 +691,10 @@ To Do List:
 //iTM2_START;
     if(self = [super init])
     {
-        [self setUndoManager:[[[iTM2UndoManager alloc] init] autorelease]];
-        [[self undoManager] setLevelsOfUndo:[SUD integerForKey:iTM2UDLevelsOfUndoKey]];
+		id UM = [[[iTM2UndoManager alloc] init] autorelease];
+        [self setUndoManager:UM];
+		int level = [SUD integerForKey:iTM2UDLevelsOfUndoKey];
+        [UM setLevelsOfUndo:level];
         [INC addObserver:self
             selector:@selector(userDefaultsDidChange:)
                 name:iTM2UserDefaultsDidChangeNotification

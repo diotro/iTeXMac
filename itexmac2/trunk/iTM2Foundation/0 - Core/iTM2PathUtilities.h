@@ -26,6 +26,7 @@ extern NSString * const iTM2PathDotComponent;
 @interface NSString(iTM2PathUtilities)
 - (BOOL)isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
 - (NSString *)stringByResolvingFinderAliasesInPath;
+- (NSString *)lazyStringByResolvingSymlinksAndFinderAliasesInPath;
 - (NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
 - (NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
 - (NSString *)shortestStringByAbbreviatingWithTildeInPath;

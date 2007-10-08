@@ -22,7 +22,6 @@
 #import <iTM2Foundation/iTM2StringKit.h>
 #import <iTM2Foundation/iTM2LiteScanner.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2ARegularExpressionKit.h>
 #import <iTM2Foundation/iTM2StringFormatKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 

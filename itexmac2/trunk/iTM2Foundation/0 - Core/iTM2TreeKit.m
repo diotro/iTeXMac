@@ -21,10 +21,13 @@
 //  To Do List:(format "- proposition(percentage actually done)")
 */
 
+#ifndef iTM2_LOG
+	#define iTM2_LOG NSLog
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
 
-#import <iTM2Foundation/iTM2TreeKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
+#import "iTM2TreeKit.h"
+//#import "iTM2BundleKit.h"
 
 #define iTM2_DIAGNOSTIC
 @implementation iTM2TreeNode

@@ -238,7 +238,9 @@ To Do List:
         NSNumberFormatter * F = [self formatter];
         int old = [[F maximum] intValue];
         NSTextStorage * TS = [[TV layoutManager] textStorage];
-        int new = [TS lineIndexForLocation:[TS length]];// REALLY KEEP the TS for performance reasons
+        int new = [TS length];
+        new = [TS lineIndexForLocation:new];// REALLY KEEP the TS for performance reasons
+		++new;
         if(old != new)
         {
             [F setMaximum:(NSDecimalNumber *)[NSDecimalNumber numberWithInt:new]];

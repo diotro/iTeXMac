@@ -182,13 +182,13 @@ extern NSString * const iTM2InspectorTable;
 - (BOOL)cannotCloseWithNoFileImage;
 
 /*! 
-    @method     contextDictionaryFromFile:
-    @abstract   the context dictionary from the given file
+    @method     contextDictionaryAtPath:
+    @abstract   the context dictionary at the given path
     @discussion Load the context dictionary from the resources at that path.
     @param      fullDocumentPath is a full document path.
     @result     A dictionary.
 */
-+ (id)contextDictionaryFromFile:(NSString *)fullDocumentPath;
++ (id)contextDictionaryAtPath:(NSString *) fullDocumentPath;
 
 - (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
 - (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;

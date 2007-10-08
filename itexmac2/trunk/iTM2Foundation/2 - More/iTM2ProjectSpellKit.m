@@ -91,7 +91,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![self spellContextController])
+	{
 		[self setSpellContextController:[[[iTM2SpellContextController allocWithZone:[self zone]] init] autorelease]];
+	}
 //iTM2_LOG(@"[self spellContextController]:%@", [self spellContextController]);
 	id O = [[self implementation] modelValueForKey:@"SpellContextModes" ofType:iTM2ProjectMetaType];
 //iTM2_LOG(@"SPELL KIT MODEL TO BE LOADED:%@", O);

@@ -801,9 +801,9 @@ To Do List:
         {
             result = result && ([_Owner respondsToSelector:@selector(loadDataRepresentation:)]?
                 [_Owner loadDataRepresentation:[fw regularFileContents]
-                    ofType: [SDC typeFromFileExtension:[[fw preferredFilename] pathExtension]]]:
+                    ofType:[SDC typeFromFileExtension:[[fw preferredFilename] pathExtension]]]:
                 [self loadDataRepresentation:[fw regularFileContents]
-                    ofType: [SDC typeFromFileExtension:[[fw preferredFilename] pathExtension]]]);
+                    ofType:[SDC typeFromFileExtension:[[fw preferredFilename] pathExtension]]]);
         }
     }
     [self updateChildren];
@@ -987,20 +987,23 @@ To Do List:
 //iTM2_START;
     NSString * errorString = nil;
 	id PL = [self modelOfType:type];
-	NSPropertyListFormat format = [self modelFormatOfType:type];
-    id result = PL? [NSPropertyListSerialization dataFromPropertyList:PL
-        format: format errorDescription: &errorString]: [NSData data];
-    if(errorString)
-    {
-        iTM2Beep();
-        iTM2_LOG(@"Big problem\nReport BUG ref: iTM2861, error string: '%@' (format: %@)\nAnalyzing the property list",
-			errorString, (format == NSPropertyListOpenStepFormat? @"OpenStep": (format == NSPropertyListXMLFormat_v1_0? @"XML": @"binary")));
-        [errorString autorelease];
-        errorString = nil;
-		[self checkPropertyList:PL againstFormat:format];
-    }
+	if(PL)
+	{
+		NSPropertyListFormat format = [self modelFormatOfType:type];
+		id result = [NSPropertyListSerialization dataFromPropertyList:PL format: format errorDescription: &errorString];
+		if(errorString)
+		{
+			iTM2Beep();
+			iTM2_LOG(@"Big problem\nReport BUG ref: iTM2861, error string: '%@' (format: %@)\nAnalyzing the property list",
+				errorString, (format == NSPropertyListOpenStepFormat? @"OpenStep": (format == NSPropertyListXMLFormat_v1_0? @"XML": @"binary")));
+			[errorString autorelease];
+			errorString = nil;
+			[self checkPropertyList:PL againstFormat:format];
+		}
 //NSLog(@"data: %@", result);
-    return result;
+		return result;
+	}
+    return nil;// no model, no data
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfModelOfType:error:
 - (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outErrorPtr;
@@ -1033,7 +1036,7 @@ To Do List:
 		[self checkPropertyList:PL againstFormat:format];
 		return nil;
 	}
-    return [NSData data];
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkPropertyList:againstFormat:
 - (void)checkPropertyList:(id)PL againstFormat:(NSPropertyListFormat)format;

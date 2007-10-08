@@ -5,9 +5,9 @@
 	<key>emacs</key>
 	<string>^.*-\*-\s*coding\s*:\s*(.*?)\s*(?:;|-\*-)</string>
 	<key>inputenc</key>
-	<string>(?m)^\s*\\usepackage\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]\s*\{\s*inputenc\s*\}</string>
+	<string>(?m)^\s*(?!%|\s).*\\usepackage\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]\s*\{\s*inputenc\s*\}</string>
 	<key>regime</key>
-	<string>(?m)^\s*\\enableregime\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]</string>
+	<string>(?m)^\s*(?!%|\s).*\\enableregime\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]</string>
 	<key>texshop</key>
 	<string>(?m)^\s*%!\s*TEX\s*encoding\s*:\s*([[:letter:][:digit:][-]_]+)</string>
 </dict>

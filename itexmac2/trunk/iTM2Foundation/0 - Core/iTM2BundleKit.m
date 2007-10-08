@@ -762,13 +762,13 @@ To Do List:
 	NSBundle * B = [NSBundle mainBundle];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
 		[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO]
-				ofType: aType]];
+				ofType:aType]];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
 		[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
-				ofType: aType]];
+				ofType:aType]];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
 		[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
-				ofType: aType]];
+				ofType:aType]];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:[B builtInPlugInsPath] ofType:aType]];
 	// the frameworks
 	NSEnumerator * E = [[NSBundle allFrameworks] objectEnumerator];
@@ -778,13 +778,13 @@ To Do List:
 		{
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
 				[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO]
-						ofType: aType]];
+						ofType:aType]];
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
 				[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
-						ofType: aType]];
+						ofType:aType]];
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
 				[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
-						ofType: aType]];
+						ofType:aType]];
 //iTM2_LOG(@"[B builtInPlugInsPath]:%@, B:%@", [B builtInPlugInsPath], B);
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:[B builtInPlugInsPath] ofType:aType]];
 		}
@@ -804,13 +804,13 @@ To Do List:
 	NSMutableArray * paths = [NSMutableArray array];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
 		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:YES]
-				ofType: aType]];
+				ofType:aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
 		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
-				ofType: aType]];
+				ofType:aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
 		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
-				ofType: aType]];
+				ofType:aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:[self builtInPlugInsPath] ofType:aType]];
 //iTM2_END;
     return paths;

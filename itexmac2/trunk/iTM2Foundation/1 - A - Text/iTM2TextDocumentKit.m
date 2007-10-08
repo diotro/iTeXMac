@@ -1679,6 +1679,22 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(argument == CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingInvalidId))
+	{
+		NSBeginAlertSheet(
+			NSLocalizedStringFromTableInBundle(@"New Encoding.", TABLE, BUNDLE, "Alert Panel Title"), // NSString *title,
+			NSLocalizedStringFromTableInBundle(@"Ok", TABLE, BUNDLE, "Ok"), // NSString *defaultButton
+			nil, // NSString *alternateButton,
+			nil, // NSString *otherButton
+			[self window], // NSWindow *docWindow
+			nil, // id modalDelegate,
+			NULL, // SEL didEndSelector,
+			NULL, // SEL didDismissSelector,
+			nil, // void *contextInfo, will be remleased below
+			NSLocalizedStringFromTableInBundle(@"Unknown encoding, Did you make an typo?", TABLE, BUNDLE, "") // NSString *msg,
+				);
+		return;
+	}
     unsigned int old = [[self document] stringEncoding];
     if(argument != old)
     {
@@ -1724,7 +1740,9 @@ To Do List:
 	if(NSAlertDefaultReturn == returnCode)
 	{
 		NSError * outError = nil;
-		if(![[self document] revertDocumentToSavedWithStringEncoding:encoding error:&outError])
+		id doc = [self document];
+		[doc writeContextToURL:[doc fileURL] ofType:[doc fileType] error:nil];// any change to the context will be preserved
+		if(![[self document] revertDocumentToSavedWithStringEncoding:encoding error:&outError] && outError)
 		{
 			[NSApp presentError:outError];
 		}

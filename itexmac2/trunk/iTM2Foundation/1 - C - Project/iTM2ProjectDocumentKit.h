@@ -27,6 +27,8 @@
 extern NSString * const iTM2ProjectContextDidChangeNotification;
 extern NSString * const iTM2ProjectCurrentDidChangeNotification;
 
+extern NSString * const iTM2ProjectBuildComponent;
+extern NSString * const iTM2ProjectContentsComponent;
 extern NSString * const iTM2ProjectInfoComponent;
 extern NSString * const iTM2ProjectMetaInfoComponent;
 
@@ -45,8 +47,6 @@ extern NSString * const iTM2ProjectPlistPathExtension;
 extern NSString * const iTM2ProjectTable;
 
 extern NSString * const iTM2ProjectFrontendType;
-
-extern NSString * const iTM2ProjectNoneKey;
 
 extern NSString * const TWSKeyedFilesKey;
 extern NSString * const TWSKeyedPropertiesKey;
@@ -140,6 +140,39 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     nil if the given url is not a file url.
 */
 + (NSURL *)projectMetaInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+
+/*! 
+    @method     contentsDirectoryName
+    @abstract   The contents directory name.
+    @discussion All the sources are expected to be collected inside one folder.
+				There are different possible situations.
+				For standard TeX wrappers with write access, this is a true folder foo.texd/Contents.
+				For a faraway tex wrapper, this is foo.texd/Contents,
+				a symbolic link to the directory containing the main source file.
+				
+    @param      None
+    @result     None
+*/
+- (NSString *)contentsDirectoryName;
+
+/*! 
+    @method     buildDirectoryName
+    @abstract   The build directory name.
+    @discussion This is where intermediate files are stored while building.
+    @param      None
+    @result     None
+*/
+- (NSString *)buildDirectoryName;
+
+/*! 
+    @method     removeBuildDirectory
+    @abstract   Remove the build directory name.
+    @discussion Next build will have to create the whole build directory such that no cached information is available.
+				This should be used whenever project options changed in such a way that cached information might be obsolete.
+    @param      None
+    @result     yes if something was deleted
+*/
+- (BOOL)removeBuildDirectory;
 
 /*! 
     @method     setElementary:
@@ -1150,7 +1183,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param		None
     @result		A dictionary
 */
-- (NSDictionary *)baseProjectNames;
+- (NSArray *)baseProjectNames;
 
 /*! 
     @method     countOfBaseProjects
@@ -1277,6 +1310,13 @@ extern NSString * const iTM2ProjectOwnAbsolutePathKey;
     @discussion value: @"iTM2ProjectOwnAliasKey"
 */
 extern NSString * const iTM2ProjectOwnAliasKey;
+
+/*!
+    @const		iTM2ProjectAliasKey
+    @abstract   Context key
+    @discussion value: @"iTM2ProjectAliasKey"
+*/
+extern NSString * const iTM2ProjectAliasKey;
 
 @interface NSDocument(iTM2ProjectKit)
 

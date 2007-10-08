@@ -44,6 +44,8 @@ NSString * const iTM2ProjectPathExtension = @"project";
 
 NSString * const iTM2ProjectInfoType = @"info";
 NSString * const iTM2ProjectComponent = @"Project";
+NSString * const iTM2ProjectBuildComponent = @"Build";
+NSString * const iTM2ProjectContentsComponent = @"Contents";
 NSString * const iTM2ProjectInfoComponent = @"Info";
 NSString * const iTM2ProjectMetaInfoComponent = @"MetaInfo";
 NSString * const iTM2ProjectPlistPathExtension = @"plist";
@@ -62,8 +64,6 @@ NSString * const iTM2ProjectFrontendType = @"frontends";
 
 NSString * const iTM2ProjectMetaType = @"projectMeta";
 
-NSString * const iTM2ProjectNoneKey = @"iTM2ProjectNone";
-
 NSString * const iTM2NewDocumentEnclosedInWrapperKey = @"iTM2NewDocumentEnclosedInWrapper";
 NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
@@ -72,8 +72,8 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 - (BOOL)prepareFrontendCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 - (void)dissimulateWindows;
 - (void)exposeWindows;
-- (NSString *)recordedKeyForFileName:(NSString *)fileName;// only use the links or finder aliases
-- (NSString *)fileNameForRecordedKey:(NSString *)key;
+- (NSString *)keyForRecordedFileName:(NSString *)fileName;// only use the links or finder aliases
+- (NSString *)recordedFileNameForKey:(NSString *)key;
 /*! 
     @method     guessedKeyForFileName:
     @abstract   The guessed key for the given file name.
@@ -88,7 +88,7 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
 - (void)recordHandleToFileURL:(NSURL *)fileURL;
 - (void)_recordHandleToFileURL:(NSURL *)fileURL;
-- (NSString *)previousFileNameForKey:(NSString *)key;
+- (NSString *)oldAbsoluteFileNameForKey:(NSString *)key;
 - (void)fixProjectFileNamesConsistency;
 - (BOOL)fixProjectConsistency;
 - (BOOL)_fixFarawayProjectConsistency;
@@ -100,7 +100,7 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
 @interface iTM2ProjectDocument(__PRIVATE)
 
-- (NSString *)farawayFileNameForKey:(NSString *)key;// different from absoluteFileNameForKey: for faraway projects
+- (NSString *)buildFileNameForKey:(NSString *)key;// different from absoluteFileNameForKey: for faraway projects
 - (void)_removeKey:(NSString *)key;
 - (void)closeIfNeeded;
 
@@ -123,6 +123,7 @@ NSString * const iTM2ProjectRelativePathKey = @"iTM2ProjectRelativePath";
 NSString * const iTM2ProjectOwnRelativePathKey = @"iTM2ProjectOwnRelativePathKey";
 NSString * const iTM2ProjectOwnAbsolutePathKey = @"iTM2ProjectOwnAbsolutePathKey";
 NSString * const iTM2ProjectOwnAliasKey = @"iTM2ProjectOwnAliasKey";
+NSString * const iTM2ProjectAliasKey = @"iTM2ProjectAliasKey";
 
 @interface NSArray(iTM2ProjectDocumentKit)
 - (NSArray *)arrayWithCommonFirstObjectsOfArray:(NSArray *)array;
@@ -258,11 +259,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSWindow * W = [aNotification object];
-	if(self == [SPC projectForSource:W])
-	{
-		[self performSelector:@selector(closeIfNeeded) withObject:nil afterDelay:0];
-	}
 //iTM2_END;
     return;
 }
@@ -380,6 +376,33 @@ To Do List:
     projectName = [[[self fileName] lastPathComponent] stringByDeletingPathExtension];
 	return [[projectName lowercaseString] isEqualToString:@"project"]? @"":projectName;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectName
+- (NSString *)baseProjectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return @"BASE";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contentsDirectoryName
+- (NSString *)contentsDirectoryName;
+/*"This is the directory where all the sources are expected to be collected.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * result = [self fileName];
+	result = [result stringByDeletingLastPathComponent];
+	result = [result stringByAppendingContentsComponent];// beware not yet used
+	result = [result stringByStandardizingPath];
+//iTM2_END;
+    return result;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileURL:
 - (void)setFileURL:(NSURL*)url;
 /*"Projects are no close documents!!!
@@ -397,17 +420,6 @@ To Do List:
 	}
     [super setFileURL:url];
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectName
-- (NSString *)baseProjectName;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return @"BASE";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setElementary:
 - (void)setElementary:(BOOL)yorn;
@@ -570,7 +582,7 @@ To Do List:
 		NSString * path = [self absoluteFileNameForKey:key];
 		if(![DFM fileExistsAtPath:path])// traverse the link
 		{
-			path = [self fileNameForRecordedKey:key];
+			path = [self recordedFileNameForKey:key];
 			if([DFM fileExistsAtPath:path])
 			{
 				iTM2_LOG(@"The file <%@> will now point to <%@>",[self relativeFileNameForKey:key],path);
@@ -603,7 +615,7 @@ To Do List:
 	{
 		if(![key isEqualToString:@"."])
 		{
-			NSString * recorded = [self fileNameForRecordedKey:key];
+			NSString * recorded = [self recordedFileNameForKey:key];
 			NSString * absolute = [self absoluteFileNameForKey:key];
 			NSString * candidate = ([recorded length]?recorded:absolute);
 			if(![candidate belongsToFarawayProjectsDirectory])
@@ -638,7 +650,7 @@ To Do List:
 	E = [allKeys objectEnumerator];
 	while(key = [E nextObject])
 	{
-		NSString * recorded = [self fileNameForRecordedKey:key];
+		NSString * recorded = [self recordedFileNameForKey:key];
 		NSString * absolute = [self absoluteFileNameForKey:key];
 		if([recorded length] && ![recorded pathIsEqual:absolute])
 		{
@@ -689,7 +701,7 @@ To Do List:
 		}
 	}
 	// Project file name
-	name = [self previousFileNameForKey:@"project"];
+	name = [self oldAbsoluteFileNameForKey:@"project"];
 	if(![name pathIsEqual:projectFileName])
 	{
 		// the project has most certainly moved
@@ -705,16 +717,16 @@ To Do List:
 			name = [self absoluteFileNameForKey:key];
 			if(![DFM fileExistsAtPath:name])
 			{
-				name = [self farawayFileNameForKey:key];
+				name = [self buildFileNameForKey:key];
 				if(![DFM fileExistsAtPath:name])
 				{
-					name = [self previousFileNameForKey:key];
+					name = [self oldAbsoluteFileNameForKey:key];
 					if([DFM fileExistsAtPath:name])
 					{
 						// a file has most certainly moved
 						return [self _fixFarawayProjectConsistency];
 					}
-					name = [self fileNameForRecordedKey:key];
+					name = [self recordedFileNameForKey:key];
 					if([DFM fileExistsAtPath:name])
 					{
 						// a file has most certainly moved
@@ -767,20 +779,21 @@ To Do List:
 		}
 		else if((name = [self relativeFileNameForKey:key]),[name length])
 		{
+			BOOL isDir;
 			name = [self absoluteFileNameForKey:key];
-			if([DFM fileExistsAtPath:name])
+			if([DFM fileExistsAtPath:name isDirectory:&isDir] && !isDir)
 			{
 				[oldExistingFileNames setObject:name forKey:key];
 			}
-			else if((name = [self farawayFileNameForKey:key]),[DFM fileExistsAtPath:name])
+			else if((name = [self buildFileNameForKey:key]),[DFM fileExistsAtPath:name isDirectory:&isDir] && !isDir)
 			{
 				[oldFarawayFileNames setObject:name forKey:key];
 			}
-			else if((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
+			else if((name = [self oldAbsoluteFileNameForKey:key]),[DFM fileExistsAtPath:name isDirectory:&isDir] && !isDir)
 			{
 				[oldMovedFileNames setObject:name forKey:key];
 			}
-			else if((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name])
+			else if((name = [self recordedFileNameForKey:key]),[DFM fileExistsAtPath:name isDirectory:&isDir] && !isDir)
 			{
 				[oldMovedFileNames setObject:name forKey:key];
 			}
@@ -796,7 +809,7 @@ To Do List:
 	}
 	// This is recorded for the case of a move...
 	//
-	NSString * oldProjectFileName = [self previousFileNameForKey:@"project"];
+	NSString * oldProjectFileName = [self oldAbsoluteFileNameForKey:@"project"];
 	NSArray * RA = nil;
 	NSString * expectedDirName = nil;
 	NSString * requiredCore = [projectFileName lastPathComponent];
@@ -807,6 +820,7 @@ To Do List:
 		// the project has not moved since the last time it was saved by iTeXMac2
 		// If some files have moved, I might need to move the project accordingly
 		// as an external project, I just have to follow the containing directory
+		// what is the containing directory?
 changeName:
 		E = [oldExistingFileNames objectEnumerator];
 		while(name = [E nextObject])
@@ -914,6 +928,10 @@ changeName:
 				}
 			}
 			[self saveDocument:self];
+			src = [src stringByDeletingLastPathComponent];
+			[SWS noteFileSystemChanged:src];
+			dest = [dest stringByDeletingLastPathComponent];
+			[SWS noteFileSystemChanged:dest];
 			return YES;
 		}
 		else
@@ -986,7 +1004,7 @@ To Do List:
 	if([enclosingWrapper length])
 	{
 		// was the project moved around?
-		previousProjectDirectory = [self previousFileNameForKey:@"project"];
+		previousProjectDirectory = [self oldAbsoluteFileNameForKey:@"project"];
 		previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
 		actualProjectDirectory = [self fileName];
 		actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
@@ -1004,7 +1022,7 @@ To Do List:
 						NSString * name = [self absoluteFileNameForKey:key];
 						if([DFM fileExistsAtPath:name])
 						{
-							name = [self fileNameForRecordedKey:key];
+							name = [self recordedFileNameForKey:key];
 							if([DFM fileExistsAtPath:name])
 							{
 								[self setFileName:name forKey:key makeRelative:YES];
@@ -1033,7 +1051,7 @@ To Do List:
 					name = [self relativeFileNameForKey:key];
 					if([key length])
 					{
-						name = [self previousFileNameForKey:key];
+						name = [self oldAbsoluteFileNameForKey:key];
 						if([DFM fileExistsAtPath:name])
 						{
 							[self setFileName:name forKey:key makeRelative:YES];
@@ -1043,7 +1061,7 @@ To Do List:
 							name = [self absoluteFileNameForKey:key];
 							if(![DFM fileExistsAtPath:name])
 							{
-								name = [self fileNameForRecordedKey:key];
+								name = [self recordedFileNameForKey:key];
 								if([DFM fileExistsAtPath:name])
 								{
 									[self setFileName:name forKey:key makeRelative:YES];
@@ -1093,7 +1111,7 @@ To Do List:
 	// If the use moves the project file whereas it is not open in iTeXMac2
 	// iTeXMac2 won't be aware of the change
 	// But the change will be tracked by the alias cached in the project itself
-	previousProjectDirectory = [self previousFileNameForKey:@"project"];
+	previousProjectDirectory = [self oldAbsoluteFileNameForKey:@"project"];
 	previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
 	actualProjectDirectory = [self fileName];
 	actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
@@ -1111,7 +1129,7 @@ To Do List:
 					name = [self absoluteFileNameForKey:key];
 					if(![DFM fileExistsAtPath:name])
 					{
-						name = [self fileNameForRecordedKey:key];
+						name = [self recordedFileNameForKey:key];
 						if([DFM fileExistsAtPath:name])
 						{
 							[self setFileName:name forKey:key makeRelative:YES];
@@ -1137,7 +1155,7 @@ To Do List:
 		{
 			if(![key isEqualToString:@"."] && ![key isEqualToString:@"project"])
 			{
-				name = [self previousFileNameForKey:key];
+				name = [self oldAbsoluteFileNameForKey:key];
 				if([DFM fileExistsAtPath:name])
 				{
 					[self setFileName:name forKey:key makeRelative:YES];
@@ -1150,7 +1168,7 @@ To Do List:
 						name = [self absoluteFileNameForKey:key];
 						if(![DFM fileExistsAtPath:name])
 						{
-							name = [self fileNameForRecordedKey:key];
+							name = [self recordedFileNameForKey:key];
 							if([DFM fileExistsAtPath:name])
 							{
 								[self setFileName:name forKey:key makeRelative:YES];
@@ -1205,7 +1223,7 @@ To Do List:
 	{
 		// the project does belong to a wrapper
 		// was the project moved around?
-		previousProjectDirectory = [self previousFileNameForKey:@"project"];
+		previousProjectDirectory = [self oldAbsoluteFileNameForKey:@"project"];
 		previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
 		actualProjectDirectory = [self fileName];
 		actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
@@ -1223,7 +1241,7 @@ To Do List:
 						{
 							// do nothing
 						}
-						else if((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name])
+						else if((name = [self recordedFileNameForKey:key]),[DFM fileExistsAtPath:name])
 						{
 							[self setFileName:name forKey:key makeRelative:YES];
 						}
@@ -1253,8 +1271,8 @@ To Do List:
 						{
 							//do nothing;
 						}
-						else if(((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
-							|| ((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name]))
+						else if(((name = [self oldAbsoluteFileNameForKey:key]),[DFM fileExistsAtPath:name])
+							|| ((name = [self recordedFileNameForKey:key]),[DFM fileExistsAtPath:name]))
 						{
 							[self setFileName:name forKey:key makeRelative:YES];
 						}
@@ -1301,7 +1319,7 @@ To Do List:
 	// If the use moves the project file whereas it is not open in iTeXMac2
 	// iTeXMac2 won't be aware of the change
 	// But the change will be tracked by the alias cached in the project itself
-	previousProjectDirectory = [self previousFileNameForKey:@"project"];
+	previousProjectDirectory = [self oldAbsoluteFileNameForKey:@"project"];
 	previousProjectDirectory = [previousProjectDirectory stringByDeletingLastPathComponent];
 	actualProjectDirectory = [self fileName];
 	actualProjectDirectory = [actualProjectDirectory stringByDeletingLastPathComponent];
@@ -1317,8 +1335,8 @@ To Do List:
 				{
 					// do nothing;
 				}
-				else if(((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
-						|| ((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name]))
+				else if(((name = [self oldAbsoluteFileNameForKey:key]),[DFM fileExistsAtPath:name])
+						|| ((name = [self recordedFileNameForKey:key]),[DFM fileExistsAtPath:name]))
 				{
 					[self setFileName:name forKey:key makeRelative:YES];
 				}
@@ -1350,8 +1368,8 @@ To Do List:
 				{
 					// do nothing;
 				}
-				else if(((name = [self previousFileNameForKey:key]),[DFM fileExistsAtPath:name])
-						|| ((name = [self fileNameForRecordedKey:key]),[DFM fileExistsAtPath:name]))
+				else if(((name = [self oldAbsoluteFileNameForKey:key]),[DFM fileExistsAtPath:name])
+						|| ((name = [self recordedFileNameForKey:key]),[DFM fileExistsAtPath:name]))
 				{
 					[self setFileName:name forKey:key makeRelative:YES];
 				}
@@ -1728,7 +1746,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setSubdocuments:[NSMutableSet set]];
+	if(![self subdocuments])
+	{
+		[self setSubdocuments:[NSMutableSet set]];
+	}
 //iTM2_END;
     return;
 }
@@ -2177,7 +2198,7 @@ To Do List:
 			return D;
 		}
 		name = [self keyForSubdocument:D];
-		name = [self farawayFileNameForKey:name];
+		name = [self buildFileNameForKey:name];
 		if([name pathIsEqual:fileName])
 		{
 			return D;
@@ -2226,10 +2247,419 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * EFN = [self farawayFileNameForKey:key];
+	NSString * EFN = [self buildFileNameForKey:key];
     return [EFN length]? [NSURL fileURLWithPath:EFN]:nil;
 }
 #pragma mark =-=-=-=-=-  FILE <-> KEY
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFileNameWithFileName:relativeToProject:
++ (NSString *)absoluteFileNameWithFileName:(NSString *)relativeName relativeToProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![projectName length])
+	{
+		return @"";
+	}
+	projectName = [projectName stringByStandardizingPath];
+	if([projectName belongsToFarawayProjectsDirectory])
+	{
+		NSString * wrapper = [projectName enclosingWrapperFileName];
+		if(![wrapper length])
+		{
+			iTM2_LOG(@"****  ERROR Inconsistency: faraway projects must be enclosed in wrappers, this might be a reminiscence of an old design\n<%@>",projectName);
+			return @"";
+		}
+		projectName = [wrapper stringByDeletingLastPathComponent];// the *.texd last component is removed
+		projectName = [projectName stringByStrippingFarawayProjectsDirectory];
+	}
+	else
+	{
+		projectName = [projectName stringByDeletingLastPathComponent];
+	}
+	NSString * result = [projectName stringByAppendingPathComponent:relativeName];
+	result = [result stringByStandardizingPath];
+//iTM2_END;
+	return result;// does it exist? I don't care,the client will decide
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allKeysOfProject:
++ (NSArray *)allKeysOfProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	NSURL * url = [NSURL fileURLWithPath:projectName];
+	NSURL * infoURL = [iTM2ProjectDocument projectInfoURLFromFileURL:url create:NO error:nil];
+	if(!infoURL)
+	{
+		return nil;
+	}
+	NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:infoURL options:NSXMLNodeOptionsNone error:nil] autorelease];
+	NSString * xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"files\"]/following-sibling::dict[1]/key"];
+	NSArray * nodes = [doc nodesForXPath:xpath error:nil];
+	nodes = [nodes valueForKey:@"stringValue"];
+	return nodes;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  relativeFileNameForKey:ofProject:
++ (NSString *)relativeFileNameForKey:(NSString *)key ofProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![key length])// untitled documents will go there
+		return @"";
+	// Is it me?
+//iTM2_LOG(@"fileName:%@",fileName);
+//iTM2_LOG(@"path:%@",path);}
+	// Here begins the hard work
+	NSURL * url = [NSURL fileURLWithPath:projectName];
+	NSURL * infoURL = [iTM2ProjectDocument projectInfoURLFromFileURL:url create:NO error:nil];
+	if(!infoURL)
+	{
+		return @"";
+	}
+	NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:infoURL options:NSXMLNodeOptionsNone error:nil] autorelease];
+	NSString * xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"files\"]/following-sibling::dict[1]/key[text()=\"%@\"]/following-sibling::string[1]",key];
+	NSArray * nodes = [doc nodesForXPath:xpath error:nil];
+	if([nodes count])
+	{
+		NSXMLNode * node = [nodes lastObject];
+		NSString * relativeName = [node stringValue];
+		return relativeName;
+	}
+	return @"";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFileNameForKey:ofProject:
++ (NSString *)absoluteFileNameForKey:(NSString *)key ofProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * relativeName = [self relativeFileNameForKey:key ofProject:projectName];
+	NSString * result = [self absoluteFileNameWithFileName:relativeName relativeToProject:projectName];
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyForFileName:ofProject:
++ (NSString *)keyForFileName:(NSString *)fileName ofProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![fileName length])// untitled documents will go there
+		return nil;
+//iTM2_LOG(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
+	fileName = [fileName stringByStandardizingPath];
+	// Is it me?
+//iTM2_LOG(@"fileName:%@",fileName);
+//iTM2_LOG(@"path:%@",path);}
+	// Here begins the hard work
+	NSArray * allKeys = [self allKeysOfProject:projectName];
+	NSEnumerator * E = [allKeys objectEnumerator];
+	NSString * key;
+	while(key = [E nextObject])
+	{
+		NSString * name = [self absoluteFileNameForKey:key ofProject:projectName];
+		if([name pathIsEqual:fileName])
+		{
+			return key;
+		}
+	}
+	return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  oldNameOfProject:
++ (NSString *)oldNameOfProject:(NSString *)projectName;
+/*"Return the old name of the project.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * base = [SPC absoluteSoftLinksSubdirectory];
+	base = [projectName stringByAppendingPathComponent:base];
+	base = [base stringByAppendingPathComponent:@"project"];
+	base = [DFM pathContentOfSymbolicLinkAtPath:base];
+	base = [base stringByDeletingLastPathComponent];
+	if([projectName pathIsEqual:base] || [SWS isProjectPackageAtPath:base])
+	{
+		return	@"";
+	}
+//iTM2_END;
+	return base;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  oldAbsoluteFileNameForKey:ofProject:
++ (NSString *)oldAbsoluteFileNameForKey:(NSString *)key ofProject:(NSString *)projectName;
+/*"Return absolute file names,based on the previous file name of the receiver.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([key isEqualToString:@"."])
+	{
+		key = @"project";
+	}
+	NSString * base = [self oldNameOfProject:projectName];
+	NSString * name = [self relativeFileNameForKey:key ofProject:projectName];
+	name = [self absoluteFileNameWithFileName:name relativeToProject:base];
+//iTM2_END;
+	return name;// does it exist? I don't care,the client will decide
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  oldKeyForFileName:ofProject:
++ (NSString *)oldKeyForFileName:(NSString *)fileName ofProject:(NSString *)projectName;
+/*"Return the key for absolute file names,based on the previous file name of the receiver.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![fileName length])// untitled documents will stop here
+	{
+		return nil;
+	}
+//iTM2_LOG(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
+	fileName = [fileName stringByStandardizingPath];
+	NSArray * allKeys = [self allKeysOfProject:projectName];
+	NSEnumerator * E = [allKeys objectEnumerator];
+	NSString * key;
+	while(key = [E nextObject])
+	{
+		NSString * name = [self oldAbsoluteFileNameForKey:key ofProject:projectName];
+		if([name pathIsEqual:fileName])
+		{
+			return key;
+		}
+	}
+	return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resolvedNameOfProject:
++ (NSString *)resolvedNameOfProject:(NSString *)projectName;
+/*"Return the old resolved name of the project.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * base = [SPC finderAliasesSubdirectory];
+	base = [projectName stringByAppendingPathComponent:base];
+	base = [base stringByAppendingPathComponent:@"project"];
+	NSURL * url = [NSURL fileURLWithPath:base];
+	NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
+	base = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
+	NSString * old = [self oldNameOfProject:projectName];
+	if([projectName pathIsEqual:base] || [old pathIsEqual:base] || [SWS isProjectPackageAtPath:base])
+	{
+		return	@"";
+	}
+//iTM2_END;
+	return base;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resolvedAbsoluteFileNameForKey:ofProject:
++ (NSString *)resolvedAbsoluteFileNameForKey:(NSString *)key ofProject:(NSString *)projectName;
+/*"Return absolute file names,based on the previous file name of the receiver.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([key isEqualToString:@"."])
+	{
+		key = @"project";
+	}
+	NSString * base = [self resolvedNameOfProject:projectName];
+	NSString * relativeName = [self relativeFileNameForKey:key ofProject:projectName];
+	NSString * name = [self absoluteFileNameWithFileName:relativeName relativeToProject:base];
+//iTM2_END;
+	return name;// does it exist? I don't care,the client will decide
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resolvedKeyForFileName:ofProject:
++ (NSString *)resolvedKeyForFileName:(NSString *)fileName ofProject:(NSString *)projectName;
+/*"Return the key for absolute file names,based on the previous file name of the receiver.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![fileName length])// untitled documents will stop here
+	{
+		return nil;
+	}
+//iTM2_LOG(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
+	fileName = [fileName stringByStandardizingPath];
+	NSArray * allKeys = [self allKeysOfProject:projectName];
+	NSEnumerator * E = [allKeys objectEnumerator];
+	NSString * key;
+	while(key = [E nextObject])
+	{
+		NSString * name = [self resolvedAbsoluteFileNameForKey:key ofProject:projectName];
+		if([name pathIsEqual:fileName])
+		{
+			return key;
+		}
+	}
+	return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteOldFileNameForKey:ofProject:
++ (NSString *)absoluteOldFileNameForKey:(NSString *)key ofProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * source = [SPC absoluteSoftLinksSubdirectory];
+	source = [projectName stringByAppendingPathComponent:source];
+	source = [source stringByAppendingPathComponent:key];
+	NSString * target = [DFM pathContentOfSymbolicLinkAtPath:source];
+//iTM2_END;
+	return target;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allOldKeysOfProject:
++ (NSArray *)allOldKeysOfProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * result = [NSMutableArray array];
+	NSString * path = [SPC absoluteSoftLinksSubdirectory];
+	path = [projectName stringByAppendingPathComponent:path];
+	NSArray * contents = [DFM directoryContentsAtPath:path];
+	NSEnumerator * E = [contents objectEnumerator];
+	NSString * component;
+	while(component = [E nextObject])
+	{
+		NSString * fileName = [path stringByAppendingPathComponent:component];
+		NSDictionary * D = [DFM fileAttributesAtPath:fileName traverseLink:NO];
+		NSString * type = [D objectForKey:NSFileType];
+		if([type isEqual:NSFileTypeSymbolicLink])
+		{
+			[result addObject:component];
+		}
+	}
+//iTM2_END;
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyForOldFileName:ofProject:
++ (NSString *)keyForOldFileName:(NSString *)fileName ofProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![fileName length])// untitled documents will go there
+		return nil;
+//iTM2_LOG(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
+	fileName = [fileName stringByStandardizingPath];
+	NSArray * allKeys = [self allOldKeysOfProject:projectName];
+	NSEnumerator * E = [allKeys objectEnumerator];
+	NSString * key;
+	while(key = [E nextObject])
+	{
+		NSString * name = [self absoluteOldFileNameForKey:key ofProject:projectName];
+		if([name pathIsEqual:fileName])
+		{
+			return key;
+		}
+	}
+	return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteResolvedFileNameForKey:ofProject:
++ (NSString *)absoluteResolvedFileNameForKey:(NSString *)key ofProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * source = [SPC finderAliasesSubdirectory];
+	source = [projectName stringByAppendingPathComponent:source];
+	source = [source stringByAppendingPathComponent:key];
+	NSURL * url = [NSURL fileURLWithPath:source];
+	NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
+	NSString * target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
+//iTM2_END;
+	return target;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allResolvedKeysOfProject:
++ (NSArray *)allResolvedKeysOfProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * result = [NSMutableArray array];
+	NSString * path = [SPC absoluteSoftLinksSubdirectory];
+	path = [projectName stringByAppendingPathComponent:path];
+	NSArray * contents = [DFM directoryContentsAtPath:path];
+	NSEnumerator * E = [contents objectEnumerator];
+	NSString * component;
+	while(component = [E nextObject])
+	{
+		NSString * fileName = [path stringByAppendingPathComponent:component];
+		if([fileName isFinderAliasTraverseLink:NO isDirectory:nil])
+		{
+			[result addObject:component];
+		}
+	}
+//iTM2_END;
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyForResolvedFileName:ofProject:
++ (NSString *)keyForResolvedFileName:(NSString *)fileName ofProject:(NSString *)projectName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![fileName length])// untitled documents will go there
+		return nil;
+//iTM2_LOG(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
+	fileName = [fileName stringByStandardizingPath];
+	NSArray * allKeys = [self allResolvedKeysOfProject:projectName];
+	NSEnumerator * E = [allKeys objectEnumerator];
+	NSString * key;
+	while(key = [E nextObject])
+	{
+		NSString * name = [self absoluteResolvedFileNameForKey:key ofProject:projectName];
+		if([name pathIsEqual:fileName])
+		{
+			return key;
+		}
+	}
+	return nil;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  relativeFileNameForKey:
 - (NSString *)relativeFileNameForKey:(NSString *)key;
 /*"Description forthcoming.
@@ -2314,8 +2744,8 @@ To Do List:
 //iTM2_END;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  previousFileNameForKey:
-- (NSString *)previousFileNameForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  oldAbsoluteFileNameForKey:
+- (NSString *)oldAbsoluteFileNameForKey:(NSString *)key;
 /*"Return absolute file names,based on the previous file name of the receiver.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2327,14 +2757,12 @@ To Do List:
 	{
 		key = @".";
 	}
-	NSString * base = [self fileName];
-	base = [base stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
-	base = [base stringByAppendingPathComponent:@"project"];
-	base = [DFM pathContentOfSymbolicLinkAtPath:base];
-	base = [base stringByDeletingLastPathComponent];
-	NSString * end = [self relativeFileNameForKey:key];
-	NSString * result = [base stringByAppendingPathComponent:end];
-	result = [result stringByStandardizingPath];
+	NSString * projectName = [self fileName];
+	projectName = [projectName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
+	projectName = [projectName stringByAppendingPathComponent:@"project"];
+	projectName = [DFM pathContentOfSymbolicLinkAtPath:projectName];
+	NSString * relativeName = [self relativeFileNameForKey:key];
+	NSString * result = [[self class] absoluteFileNameWithFileName:relativeName relativeToProject:projectName];
 //iTM2_END;
 	return result;// does it exist? I don't care,the client will decide
 }
@@ -2347,26 +2775,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * end = [self relativeFileNameForKey:key];// What if I return a void string?
-	if(![end length])
+	NSString * relativeName = [self relativeFileNameForKey:key];// What if I return a void string?
+	if(![relativeName length])
 	{
 		// this can occur if the receiver is asked to open a file that has been deleted in an unsafe way
 		return nil;
 	}
-	NSString * base = [self fileName];
-	base = [base stringByStandardizingPath];
-	base = [base stringByDeletingLastPathComponent];
-	if([base belongsToFarawayProjectsDirectory])
-	{
-		base = [base enclosingWrapperFileName];
-		NSAssert(([base length]>0),@"Inconsistency: faraway projects must be enclosed in wrappers.");
-		base = [base stringByDeletingLastPathComponent];// the *.texd last component is removed
-		base = [base stringByStrippingFarawayProjectsDirectory];
-	}
-	NSString * result = [base stringByAppendingPathComponent:end];
-	result = [result stringByStandardizingPath];
 //iTM2_END;
-	return result;// does it exist? I don't care,the client will decide
+	return [[self class] absoluteFileNameWithFileName:relativeName relativeToProject:[self fileName]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFileNamesForKeys:
 - (NSArray *)absoluteFileNamesForKeys:(NSArray *)keys;
@@ -2391,8 +2807,37 @@ To Do List:
 //iTM2_END;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  farawayFileNameForKey:
-- (NSString *)farawayFileNameForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buildDirectoryName
+- (NSString *)buildDirectoryName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#warning FAILED this must be updated
+	NSString * result = [self fileName];
+	result = [result stringByAppendingBuildComponent];
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeBuildDirectory
+- (BOOL)removeBuildDirectory;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * build = [self buildDirectoryName];
+	BOOL result = [DFM removeFileAtPath:build handler:nil];
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  buildFileNameForKey:
+- (NSString *)buildFileNameForKey:(NSString *)key;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2400,11 +2845,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * end = [self relativeFileNameForKey:key];
-	NSString * base = [[self fileName] stringByStandardizingPath];
-	base = [base stringByStandardizingPath];
-	base = [base stringByDeletingLastPathComponent];
-	NSString * result = [base stringByAppendingPathComponent:end];
+	NSString * result = [self relativeFileNameForKey:key];
+	NSString * base;
+	if([result hasPrefix:iTM2ProjectBuildComponent])
+	{
+		base = [self fileName];
+	}
+	else
+	{
+		base = [self buildDirectoryName];
+	}
+	result = [base stringByAppendingPathComponent:result];
 	result = [result stringByStandardizingPath];
 //iTM2_END;
 	return result;// does it exist? I don't care,the client will decide
@@ -2426,28 +2877,42 @@ To Do List:
 	{
 		iTM2_LOG(@"WARNING: the file name %@ being absolute,it is made relative",fileName);
 		makeRelativeFlag = YES;
-	}
-	NSString * old = makeRelativeFlag? [self absoluteFileNameForKey:key]:[self relativeFileNameForKey:key];
+	}	
+	NSString * dirName;
 	if([fileName belongsToFarawayProjectsDirectory])
 	{
-		fileName = [fileName stringByStrippingFarawayProjectsDirectory];
-	}
-	fileName = [fileName stringByResolvingSymlinksAndFinderAliasesInPath];// no more soft link
-	NSString * dirName = [[self fileName] stringByStandardizingPath];
-	if([dirName belongsToFarawayProjectsDirectory])
-	{
-		dirName = [dirName stringByStrippingFarawayProjectsDirectory];
+		dirName = [self buildDirectoryName];
 		dirName = [dirName stringByDeletingLastPathComponent];
+		fileName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+		NSAssert(![fileName belongsToFarawayProjectsDirectory],@"Error 1");
+		[self setFileName:fileName forKey:key makeRelative:NO];
+		return;
 	}
-	dirName = [dirName stringByDeletingLastPathComponent];
-	dirName = [dirName stringByResolvingSymlinksAndFinderAliasesInPath];// no more soft link
-	NSString * new = makeRelativeFlag? [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName] :fileName;
-	NSAssert2([new length],(@"AIE AIE INCONSITENT STATE %@ (key:%@)"),__iTM2_PRETTY_FUNCTION__,key);
-//iTM2_LOG(@"old: %@",old);
-//iTM2_LOG(@"new: %@",new);
-	if(![old pathIsEqual:new])
+	NSString * old;
+	if(makeRelativeFlag)
 	{
-		[[self keyedFileNames] takeValue:new forKey:key];
+		old = [self absoluteFileNameForKey:key];
+		if([old pathIsEqual:fileName])
+		{
+			return;
+		}
+		dirName = [self fileName];
+		dirName = [dirName stringByStandardizingPath];
+		if([dirName belongsToFarawayProjectsDirectory])
+		{
+			dirName = [dirName stringByStrippingFarawayProjectsDirectory];
+			dirName = [dirName enclosingWrapperFileName];
+		}
+		dirName = [dirName stringByDeletingLastPathComponent];
+		dirName = [dirName lazyStringByResolvingSymlinksAndFinderAliasesInPath];// no more soft link
+		fileName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+		[self setFileName:fileName forKey:key makeRelative:NO];
+		return;
+	}
+	old = [self relativeFileNameForKey:key];
+	if(![old pathIsEqual:fileName])
+	{
+		[[self keyedFileNames] takeValue:fileName forKey:key];
 		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
 		NSAssert3([key isEqualToString:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %@,%@ != %@"),__iTM2_PRETTY_FUNCTION__,key,[self keyForFileName:fileName]);
 		[self keysDidChange];
@@ -2464,6 +2929,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[SPC flushCaches];
+	[self removeBuildDirectory];
 	[self updateChangeCount:NSChangeDone];
 	[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
 	
@@ -2490,7 +2956,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![fileName length])// untitled documents will go there
-		return @"";
+		return nil;
     NSMutableDictionary * cachedKeys = [IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey];
     if(!cachedKeys)
     {
@@ -2506,7 +2972,7 @@ To Do List:
 	}
 	// Is it me?
 	NSString * path = [self fileName];
-	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	path = [path lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 	path = [path stringByStandardizingPath];
 	if([path pathIsEqual:fileName])
 	{
@@ -2535,14 +3001,12 @@ To Do List:
 	// last chance if the file name is faraway
 	if([fileName belongsToFarawayProjectsDirectory])
 	{
-		NSString * dirName = [self fileName];
-		dirName = [dirName stringByDeletingLastPathComponent];
 		E = [Ks objectEnumerator];
 		while(result = [E nextObject])
 		{
-			path = [self farawayFileNameForKey:result];
-//iTM2_LOG(@"path  is: %@",path);
-//iTM2_LOG(@"fileName: %@",fileName);
+			path = [self buildFileNameForKey:result];
+iTM2_LOG(@"path  is: %@",path);
+iTM2_LOG(@"fileName: %@",fileName);
 			if([path pathIsEqual:fileName])
 			{
 				[cachedKeys setObject:result forKey:fileName];
@@ -2564,7 +3028,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![fileName length])// untitled documents will go there
-		return @"";
+		return nil;
     NSMutableDictionary * cachedKeys = [IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey];
     if(!cachedKeys)
     {
@@ -2592,7 +3056,7 @@ To Do List:
 		return result;
 	}
 	[fileNames addObject:name];
-	result = @"";
+	result = nil;
 	NSMutableArray * dirNames = [NSMutableArray array];
 	NSString * projectName = [[self fileName] stringByStandardizingPath];
 	NSString * dirName = [[projectName stringByDeletingLastPathComponent] stringByStandardizingPath];
@@ -2654,7 +3118,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![fileName length])// untitled documents will go there
-		return @"";
+		return nil;
     NSMutableDictionary * cachedKeys = [IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey];
     if(!cachedKeys)
     {
@@ -2677,7 +3141,7 @@ To Do List:
 		return result;
 	}
 	[fileNames addObject:name];
-	result = @"";
+	result = nil;
 	NSMutableArray * dirNames = [NSMutableArray array];
 	NSString * projectName = [[self fileName] stringByStandardizingPath];
 	NSString * dirName = [[projectName stringByDeletingLastPathComponent] stringByStandardizingPath];
@@ -2729,8 +3193,8 @@ To Do List:
 	return result;
 }
 #endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordedKeyForFileName:
-- (NSString *)recordedKeyForFileName:(NSString *)fileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyForRecordedFileName:
+- (NSString *)keyForRecordedFileName:(NSString *)fileName;
 /*"The purpose of this method is to find out what is the file name previously represented by the key.
 If some file has been moved around,we can loose its full path.
 If the project has been duplicated but not the whole folder,things are partially broken.
@@ -2781,7 +3245,7 @@ To Do List:
 				{
 					iTM2_LOG(@"WARNING(1): COULD NOT REMOVE FILE AT PATH:\n%@",source);
 				}
-				return @"";
+				return nil;
 			}
 			return key;
 		}
@@ -2823,7 +3287,7 @@ To Do List:
 				{
 					iTM2_LOG(@"WARNING(3): COULD NOT REMOVE FILE AT PATH:\n%@",source);
 				}
-				return @"";
+				return nil;
 			}
 			return key;
 		}
@@ -2861,7 +3325,7 @@ To Do List:
 				{
 					iTM2_LOG(@"WARNING(5): COULD NOT REMOVE FILE AT PATH:\n%@",source);
 				}
-				return @"";
+				return nil;
 			}
 			return key;
 		}
@@ -2871,10 +3335,10 @@ To Do List:
 		}
 	}
 //iTM2_END;
-	return @"";
+	return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileNameForRecordedKey:
-- (NSString *)fileNameForRecordedKey:(NSString *)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordedFileNameForKey:
+- (NSString *)recordedFileNameForKey:(NSString *)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -2995,18 +3459,28 @@ To Do List:
 		[self recordHandleToFileURL:fileURL];// just in case...
 		return key;
 	}
-	NSString * dirName = [[self fileName] stringByStandardizingPath];
-	dirName = [dirName stringByStandardizingPath];
-	if([dirName belongsToFarawayProjectsDirectory] && ![fileName belongsToFarawayProjectsDirectory])
+	NSString * dirName = nil;
+	if([fileName belongsToFarawayProjectsDirectory])
 	{
-		dirName = [dirName stringByStrippingFarawayProjectsDirectory];
-		dirName = [dirName stringByDeletingLastPathComponent];
-		fileName = [fileName stringByStandardizingPath];
+		// When faraway, all the file names are recorded relative to the Build directory
+		dirName = [self buildDirectoryName];
+		dirName = [dirName stringByStandardizingPath];
 	}
-	dirName = [dirName stringByDeletingLastPathComponent];
+	else
+	{
+		dirName = [self fileName];
+		if([dirName belongsToFarawayProjectsDirectory])
+		{
+			// when the receiver is faraway, 
+			dirName = [dirName stringByStrippingFarawayProjectsDirectory];
+			dirName = [dirName enclosingWrapperFileName];
+		}
+		dirName = [dirName stringByDeletingLastPathComponent];
+		#warning ! MISSING a "Contents" component here.
+	}
 	NSString * relativeName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
 	// it is not an already registered file name,as far as I could guess...
-	key = [self recordedKeyForFileName:fileName];
+	key = [self keyForRecordedFileName:fileName];
 //iTM2_LOG(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
 	if([key length])
 	{
@@ -3158,7 +3632,7 @@ To Do List:
 							{
 								[SDC presentError:localError];
 							}
-							NSAssert2([target pathIsEqual:[fileName stringByResolvingSymlinksAndFinderAliasesInPath]],@"Error unexpected difference\n%@\nvs\n%@ (report bug)",fileName,target);
+							NSAssert2([target pathIsEqual:[fileName lazyStringByResolvingSymlinksAndFinderAliasesInPath]],@"Error unexpected difference\n%@\nvs\n%@ (report bug)",fileName,target);
 						}
 					}
 				}
@@ -3502,7 +3976,7 @@ tahiti:
 	// Assign a key,if not already available
 	if(!context)
 	{
-		context = [iTM2Document contextDictionaryFromFile:fileName];
+		context = [iTM2Document contextDictionaryAtPath:fileName];
 	}
 	NSString * key = [self newKeyForFileName:fileName fileContext:context];
 //iTM2_LOG(@"[self keyForFileName:fileName]:<%@>,key:%@",[self keyForFileName:fileName],key);
@@ -3595,7 +4069,7 @@ To Do List:
 	// I must open a new document
 	NSString * absoluteFileName = [self absoluteFileNameForKey:key];
 	absoluteFileName = [absoluteFileName stringByResolvingSymlinksAndFinderAliasesInPath];// finder alias support?
-	NSString * farawayFileName = [self farawayFileNameForKey:key];
+	NSString * farawayFileName = [self buildFileNameForKey:key];
 	farawayFileName = [farawayFileName stringByResolvingSymlinksAndFinderAliasesInPath];// finder alias support?
 	NSURL * fileURL = nil;
 	BOOL onceMore = YES;
@@ -3643,7 +4117,7 @@ absoluteFileNameIsChosen:
 	}
 	else if([absoluteFileName length])
 	{
-		NSString * recorded = [self fileNameForRecordedKey:key];
+		NSString * recorded = [self recordedFileNameForKey:key];
 		if([DFM fileExistsAtPath:recorded])
 		{
 			if([recorded belongsToDirectory:[[self fileName] stringByDeletingLastPathComponent]])
@@ -4090,7 +4564,7 @@ To Do List:
     BOOL result = YES;
 	NSString * fileName = [fileURL path];
 //iTM2_LOG(@"fileName is: %@",fileName);
-	fileName = [fileName stringByResolvingSymlinksAndFinderAliasesInPath];
+	fileName = [fileName lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 //iTM2_LOG(@"fileName is: %@",fileName);
 	// I should have a directory there
 	BOOL isDir = NO;
@@ -4235,9 +4709,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSData * D = [IMPLEMENTATION dataRepresentationOfModelOfType:iTM2ProjectFrontendType];
-	NSURL * url = [iTM2ProjectDocument projectFrontendInfoURLFromFileURL:fileURL create:YES error:outErrorPtr];
-    return !D || (url && [D writeToURL:url options:NSAtomicWrite error:outErrorPtr]);
+	NSData * D;
+	if(D = [IMPLEMENTATION dataRepresentationOfModelOfType:iTM2ProjectFrontendType])
+	{
+		NSURL * url = [iTM2ProjectDocument projectFrontendInfoURLFromFileURL:fileURL create:YES error:outErrorPtr];
+		if(url && [D writeToURL:url options:NSAtomicWrite error:outErrorPtr])
+		{
+//			[IMPLEMENTATION takeModel:nil ofType:iTM2ProjectFrontendType];
+			return YES;
+		}
+		return NO;
+	}
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveAllSubdocumentsWithDelegate:didSaveSelector:contextInfo:
 - (void)saveAllSubdocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
@@ -5007,7 +5490,7 @@ To Do List:
 		{
 			return [SWS iconForFile:absoluteName];
 		}
-        NSString * farawayName = [projectDocument farawayFileNameForKey:key];
+        NSString * farawayName = [projectDocument buildFileNameForKey:key];
 		return [SWS iconForFile:farawayName];
     }
     else
@@ -5101,7 +5584,7 @@ To Do List:
 			NSString * key = [fileKeys objectAtIndex:rowIndex];
 			iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
 			NSString * absolute = [projectDocument absoluteFileNameForKey:key];
-			NSString * faraway = [projectDocument farawayFileNameForKey:key];
+			NSString * faraway = [projectDocument buildFileNameForKey:key];
 			BOOL YORN = [DFM fileExistsAtPath:absolute] || [DFM fileExistsAtPath:faraway];
 			[aCell setTextColor:(YORN? [NSColor controlTextColor]:[NSColor disabledControlTextColor])];
 		}
@@ -6165,11 +6648,16 @@ To Do List:
 	NSString * FN = [self fileName];
 	id P = [SPC projectForFileName:FN];
 	NSString * PFN = [P fileName];
+	NSData * aliasData = nil;
 	if([PFN length])
 	{
 		[self takeContextValue:[[PFN copy] autorelease] forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextPrivateMask];
 		[self takeContextValue:[PFN stringByAbbreviatingWithDotsRelativeToDirectory:[FN stringByDeletingLastPathComponent]] forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
 		[self takeContextValue:[P keyForFileName:FN] forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
+		if(aliasData = [PFN dataAliasRelativeTo:nil error:nil])
+		{
+			[self takeContextValue:aliasData forKey:iTM2ProjectAliasKey domain:iTM2ContextPrivateMask];
+		}
 	}
 	else
 	{
@@ -6177,8 +6665,7 @@ To Do List:
 		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
 		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
 	}
-	NSData * aliasData = [FN dataAliasRelativeTo:nil error:nil];
-	if(aliasData)
+	if(aliasData = [FN dataAliasRelativeTo:nil error:nil])
 	{
 		[self takeContextValue:aliasData forKey:iTM2ProjectOwnAliasKey domain:iTM2ContextPrivateMask];
 	}
@@ -6290,8 +6777,8 @@ NSString * const iTM2ProjectCurrentDidChangeNotification = @"iTM2CurrentProjectD
     @result     a Project document
 */
 - (id)getProjectForFarawayFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)getUnregisteredProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 - (id)getContextProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
-- (id)getFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 - (id)getOpenProjectForFileName:(NSString *)fileName;
 - (id)getBaseProjectForFileName:(NSString *)fileName;
 - (id)getProjectInWrapperForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
@@ -6724,11 +7211,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[IMPLEMENTATION takeMetaValue:[NSMutableSet set] forKey:iTM2ProjectsKey];
-	[IMPLEMENTATION takeMetaValue:[NSMutableSet set] forKey:iTM2ProjectsReentrantKey];
-	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForFileNamesKey];
-	// don't know if it is used
-	[IMPLEMENTATION takeMetaValue:[[[iTM2ProjectDocument alloc] init] autorelease] forKey:iTM2ProjectNoneKey];
+	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsKey])
+	{
+		[IMPLEMENTATION takeMetaValue:[NSMutableSet set] forKey:iTM2ProjectsKey];
+	}
+	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsReentrantKey])
+	{
+		[IMPLEMENTATION takeMetaValue:[NSMutableSet set] forKey:iTM2ProjectsReentrantKey];
+	}
+	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsReentrantKey])
+	{
+		[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForFileNamesKey];
+	}
 //iTM2_END;
     return;
 }
@@ -6787,7 +7281,9 @@ To Do List:
 		if(projectDocument = [projectValue nonretainedObjectValue])
 		{
 			if([SPC isProject:projectDocument])
+			{
 				return projectDocument;
+			}
 		}
 		else
 		{
@@ -6796,28 +7292,15 @@ To Do List:
 	}
 	[document setHasProject:NO];
 	// if this method is entered once more from here,it will return from one of the above lines,unless the CACHED_PROJECTS are cleaned
-	if([document contextBoolForKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask]
-		|| [document contextBoolForKey:@"_iTM2:Document With Faraway Project" domain:iTM2ContextAllDomainsMask])
-	{
-		[document takeContextBool:NO forKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask];
-		if(projectDocument = [self getFarawayProjectForFileName:fileName display:NO error:nil])
-		{
-			[document takeContextBool:YES forKey:@"_iTM2:Document With Faraway Project" domain:iTM2ContextAllDomainsMask];
-			[self setProject:projectDocument forDocument:document];
-			return projectDocument;// this is a document with no project!
-		}
-		else
-		{
-			[document takeContextBool:NO forKey:@"_iTM2:Document With Faraway Project" domain:iTM2ContextAllDomainsMask];
-		}
-	}
 	NSEnumerator * E = [[SPC projects] objectEnumerator];
 	while(projectDocument = [E nextObject])
+	{
 		if([projectDocument ownsSubdocument:document])
 		{
 			[self setProject:projectDocument forDocument:document];
 			return projectDocument;
 		}
+	}
     if(projectValue = [CACHED_PROJECTS objectForKey:fileName])
 	{
 		if(projectDocument = [projectValue nonretainedObjectValue])
@@ -6898,7 +7381,7 @@ To Do List:
 	fileName = [fileName stringByStandardizingPath];
 	fileName = [fileName lowercaseString];
 	[CACHED_PROJECTS setObject:projectValue forKey:fileName];
-	NSAssert1((projectDocument == [self projectForFileName:fileName]),
+	NSAssert1(!projectDocument||(projectDocument == [self projectForFileName:fileName]),
 		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %s",__iTM2_PRETTY_FUNCTION__);
 	fileName = [fileName stringByDeletingPathExtension];
 	[CACHED_PROJECTS setObject:projectValue forKey:fileName];
@@ -7135,6 +7618,449 @@ To Do List:
 //iTM2_END;
     return [[TWSFrontendComponent stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"Relative Soft Links"];
 }
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getProjectInWrapperForFileName:error:
+- (id)getProjectInWrapperForFileName:(NSString *)fileName error:(NSError **)outErrorPtr;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * wrapperName = [fileName enclosingWrapperFileName];
+	if([SWS isWrapperPackageAtPath:wrapperName])
+	{
+		iTM2ProjectDocument * projectDocument = nil;
+		NSArray * projectNames = [wrapperName enclosedProjectFileNames];
+		NSString * projectName = nil;
+		NSString * component = nil;
+		NSURL * url = nil;
+		if([projectNames count] == 1)
+		{
+			projectName = [projectNames lastObject];
+		}
+		else if([projectNames count])
+		{
+			component = [wrapperName lastPathComponent];
+			component = [component stringByDeletingPathExtension];
+			component = [component stringByAppendingPathExtension:[SDC projectPathExtension]];
+			projectName = [wrapperName stringByAppendingPathComponent:component];
+			if(![projectNames containsObject:projectName])
+			{
+				component = [iTM2ProjectComponent stringByAppendingPathExtension:[SDC projectPathExtension]];
+				projectName = [wrapperName stringByAppendingPathComponent:component];
+				if(![projectNames containsObject:projectName])
+				{
+					if(outErrorPtr)
+					{
+						*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
+						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects in the wrapper directory at\n%@\nChoosing the last one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
+					}
+					projectName = [projectNames lastObject];
+				}
+			}
+		}
+		else
+		{
+			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName]),nil);
+			// the following method will create a constrained project
+			component = [wrapperName lastPathComponent];
+			component = [component stringByDeletingPathExtension];
+			component = [component stringByAppendingPathExtension:[SDC projectPathExtension]];
+			projectName = [wrapperName stringByAppendingPathComponent:component];
+			if([DFM fileExistsAtPath:projectName])
+			{
+				int tag = 0;
+				if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:wrapperName
+						destination:@"" files:[NSArray arrayWithObject:component] tag:&tag])
+				{
+					[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
+						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Impossible to recycle file at\n%@\nProblems forthcoming...",projectName]
+							forKey:NSLocalizedDescriptionKey]]];
+				}
+			}
+		}
+		url = [NSURL fileURLWithPath:projectName];
+		if([DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr])
+		{
+			projectDocument = [SDC openDocumentWithContentsOfURL:url display:NO error:outErrorPtr];
+			[projectDocument fixProjectConsistency];
+		}
+		else
+		{
+			projectDocument = [SDC makeUntitledDocumentOfType:[SDC projectPathExtension] error:outErrorPtr];
+			[projectDocument setFileURL:url];
+			[projectDocument setFileType:[SDC projectDocumentType]];
+			[projectDocument fixProjectConsistency];
+			[SDC addDocument:projectDocument];
+		}
+		if(projectDocument)
+		{
+			[projectDocument newKeyForFileName:fileName];
+			[projectDocument saveDocument:nil];
+			return projectDocument;
+		}
+		else
+		{
+			if(outErrorPtr)
+			{
+				*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
+					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
+			}
+			return nil;
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getUnregisteredProject:key:forFileName:display:error:
+- (BOOL)getUnregisteredProject:(id *)projectRef key:(NSString **)keyRef forFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
+/*"Description forthcoming.
+Developer note:all the docs open here are .texp files.
+Those files are filtered out and won't be open by the posed as class document controller.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![fileName length])
+	{
+		return NO;
+	}
+	NSMutableArray * projects = [NSMutableArray array];
+	NSDictionary * contextDictionary = [iTM2Document contextDictionaryAtPath:fileName];
+	NSString * projectName = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey];// Old Absolute Project File Name
+	NSURL * url = nil;
+	iTM2ProjectDocument * projectDocument = nil;
+	NSString * theKey = [contextDictionary objectForKey:iTM2ProjectFileKeyKey];
+	if([projectName isKindOfClass:[NSString class]]
+		&& [SWS isProjectPackageAtPath:projectName])
+	{
+		if([[iTM2ProjectDocument absoluteFileNameForKey:theKey ofProject:projectName] isEqual:fileName])
+		{
+			url = [NSURL fileURLWithPath:projectName];
+			if(projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr])
+			{
+theEnd:
+				[projectDocument fixProjectConsistency];
+				if(projectRef)
+				{
+					*projectRef = projectDocument;
+				}
+				if(keyRef)
+				{
+					*keyRef = theKey;
+				}
+				else
+				{
+					[projectDocument setFileName:fileName forKey:theKey makeRelative:YES];
+					[projectDocument newKeyForFileName:fileName];// ensure that the file name is registered.
+				}
+				return YES;
+			}
+		}
+		else
+		{
+			[projects addObject:projectName];
+		}
+	}
+	projectName = [fileName stringByDeletingLastPathComponent];
+	NSString * relativeName = [contextDictionary objectForKey:iTM2ProjectRelativePathKey];
+	projectName = [projectName stringByAppendingPathComponent:relativeName];
+	projectName = [projectName stringByStandardizingPath];
+	#define ABSOLUTE_FILE_NAME_FOR_KEY\
+	if(![projects containsObject:projectName]\
+		&& [projectName isKindOfClass:[NSString class]]\
+			&& [SWS isProjectPackageAtPath:projectName])\
+	{\
+		if([[iTM2ProjectDocument absoluteFileNameForKey:theKey ofProject:projectName] isEqual:fileName])\
+		{\
+			url = [NSURL fileURLWithPath:projectName];\
+			if(projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr])\
+			{\
+				goto theEnd;\
+			}\
+			else\
+			{\
+				projectName = nil;\
+			}\
+		}\
+		else\
+		{\
+			[projects addObject:projectName];\
+		}\
+	}
+	ABSOLUTE_FILE_NAME_FOR_KEY;
+	NSData * aliasData = [contextDictionary objectForKey:iTM2ProjectAliasKey];
+	if([aliasData isKindOfClass:[NSData class]]
+		&& (projectName = [aliasData pathByResolvingDataAliasRelativeTo:nil error:outErrorPtr]))
+	{
+		ABSOLUTE_FILE_NAME_FOR_KEY;
+	}
+	// if the project belongs to a wrapper
+	if(projectDocument = [self getProjectInWrapperForFileName:fileName error:outErrorPtr])
+	{
+		goto theEnd;
+	}
+	// in the hierarchy
+	NSString * dirName = [fileName stringByDeletingLastPathComponent];
+	NSArray * contents = nil;
+	NSEnumerator * E = nil;
+	NSString * component = nil;
+	while([dirName length]>1)
+	{
+		contents = [DFM directoryContentsAtPath:dirName];
+		E = [contents objectEnumerator];
+		while(component = [E nextObject])
+		{
+			projectName = [dirName stringByAppendingPathComponent:component];
+			if(![projects containsObject:projectName] && [SWS isProjectPackageAtPath:projectName])
+			{
+iTM2_LOG(@"projectName:%@",projectName);
+				if([[iTM2ProjectDocument absoluteFileNameForKey:theKey ofProject:projectName] isEqual:fileName])
+				{
+					url = [NSURL fileURLWithPath:projectName];
+					if(projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr])
+					{
+						goto theEnd;
+					}
+					else
+					{
+						iTM2_OUTERROR(1,([NSString stringWithFormat:@"Problem opening projectn%@",
+							projectName]),(outErrorPtr?*outErrorPtr:nil));
+					}
+				}
+				[projects addObject:projectName];
+			}
+		}
+		dirName = [dirName stringByDeletingLastPathComponent];
+	}
+	// in the faraway hierarchy
+	if(![fileName belongsToFarawayProjectsDirectory])
+	{
+		dirName = [fileName stringByDeletingLastPathComponent];
+		dirName = [[NSString farawayProjectsDirectory] stringByAppendingPathComponent:dirName];
+		while([dirName length]>1)
+		{
+			contents = [DFM directoryContentsAtPath:dirName];
+			E = [contents objectEnumerator];
+			while(component = [E nextObject])
+			{
+				projectName = [dirName stringByAppendingPathComponent:component];
+				if(![projects containsObject:projectName])
+				{
+					if([SWS isWrapperPackageAtPath:projectName])
+					{
+						projectName = [[projectName enclosedProjectFileNames] lastObject];
+					}
+					if([SWS isProjectPackageAtPath:projectName])
+					{
+iTM2_LOG(@"projectName:%@",projectName);
+						if([[iTM2ProjectDocument absoluteFileNameForKey:theKey ofProject:projectName] isEqual:fileName])
+						{
+							url = [NSURL fileURLWithPath:projectName];
+							if(projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr])
+							{
+								goto theEnd;
+							}
+							else
+							{
+								iTM2_OUTERROR(1,([NSString stringWithFormat:@"Problem opening project\n%@",
+									projectName]),(outErrorPtr?*outErrorPtr:nil));
+							}
+						}
+						[projects addObject:projectName];
+					}
+				}
+			}
+			dirName = [dirName stringByDeletingLastPathComponent];
+		}
+	}
+	// other key
+	NSString * aFileName = nil;
+	NSString * aKey = nil;
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument keyForFileName:fileName ofProject:projectName])
+		{
+			#define LEVEL0\
+			url = [NSURL fileURLWithPath:projectName];\
+			if(projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr])\
+			{\
+				goto theEnd;\
+			}\
+			else\
+			{\
+				[projects removeObject:projectName];\
+			}
+			LEVEL0;
+		}
+	}
+	// oldKeyForFileName:
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument oldKeyForFileName:fileName ofProject:projectName])
+		{
+			#define LEVEL1\
+			aFileName = [iTM2ProjectDocument absoluteFileNameForKey:aKey ofProject:projectName];\
+			if(![DFM fileExistsAtPath:aFileName])\
+			{\
+				LEVEL0;\
+			}
+			LEVEL1;
+		}
+	}
+	// resolvedKeyForFileName:
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument resolvedKeyForFileName:fileName ofProject:projectName])
+		{
+			#define LEVEL2\
+			aFileName = [iTM2ProjectDocument oldAbsoluteFileNameForKey:aKey ofProject:projectName];\
+			if(![DFM fileExistsAtPath:aFileName])\
+			{\
+				LEVEL1;\
+			}
+			LEVEL2;
+		}
+	}
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument keyForOldFileName:fileName ofProject:projectName])
+		{
+			#define LEVEL3\
+			aFileName = [iTM2ProjectDocument resolvedAbsoluteFileNameForKey:aKey ofProject:projectName];\
+			if(![DFM fileExistsAtPath:aFileName])\
+			{\
+				LEVEL2;\
+			}
+			LEVEL3;
+		}
+	}
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument keyForResolvedFileName:fileName ofProject:projectName])
+		{
+			#define LEVEL4\
+			aFileName = [iTM2ProjectDocument absoluteOldFileNameForKey:aKey ofProject:projectName];\
+			if(![DFM fileExistsAtPath:aFileName])\
+			{\
+				LEVEL3;\
+			}
+			LEVEL4;
+		}
+	}
+	NSString * oldFileName = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey];
+	if(![oldFileName pathIsEqual:fileName]
+		&& ![DFM fileExistsAtPath:oldFileName]
+			&& [self getUnregisteredProject:&projectDocument key:&theKey forFileName:oldFileName display:display error:outErrorPtr])
+	{
+		// as we passed a pointer to receive the key, the returned project has not yet set up the key->file binding.
+		goto theEnd;
+	}
+	NSString * resolvedFileName = nil;
+	if((aliasData = [contextDictionary objectForKey:iTM2ProjectOwnAliasKey])
+		&& [aliasData isKindOfClass:[NSData class]])
+	{
+		resolvedFileName = [aliasData pathByResolvingDataAliasRelativeTo:nil error:outErrorPtr];
+		if(![resolvedFileName pathIsEqual:fileName]
+			&& ![resolvedFileName pathIsEqual:oldFileName]
+				&& ![DFM fileExistsAtPath:resolvedFileName]
+					&& [self getUnregisteredProject:&projectDocument key:&theKey forFileName:resolvedFileName display:display error:outErrorPtr])
+		{
+			goto theEnd;
+		}
+	}
+	NSString * texFileName = [fileName stringByDeletingPathExtension];
+	texFileName = [texFileName stringByAppendingPathExtension:@"tex"];
+	if(![texFileName pathIsEqual:fileName]
+		&& ![texFileName pathIsEqual:oldFileName]
+			&& ![texFileName pathIsEqual:resolvedFileName]
+				&& [self getUnregisteredProject:&projectDocument key:&theKey forFileName:texFileName display:display error:outErrorPtr])
+	{
+		goto theEnd;
+	}
+	// scan the faraway folder
+	NSString * farawayProjectsDirectory = [NSString farawayProjectsDirectory];
+	NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:farawayProjectsDirectory];
+	NSString * wrapperName = nil;
+	projects = [NSMutableArray array];
+	NSMutableArray * garbage = [NSMutableArray array];
+	while(component = [DE nextObject])
+	{
+		wrapperName = [farawayProjectsDirectory stringByAppendingPathComponent:component];
+		if([SWS isWrapperPackageAtPath:wrapperName])
+		{
+			if(projectName = [self getProjectFileNameInWrapperForFileNameRef:&wrapperName error:outErrorPtr])
+			{
+				if(theKey = [iTM2ProjectDocument keyForFileName:fileName ofProject:projectName])
+				{
+					url = [NSURL fileURLWithPath:projectName];
+					if(projectDocument = [SDC openDocumentWithContentsOfURL:url display:display error:outErrorPtr])
+					{
+						goto theEnd;
+					}
+					else
+					{
+						[garbage addObject:projectName];
+					}
+				}
+				else
+				{
+					[projects addObject:projectName];
+				}
+			}
+			else
+			{
+				[garbage addObject:projectName];
+			}
+			[DE skipDescendents];
+		}
+	}
+	// oldKeyForFileName:
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument oldKeyForFileName:fileName ofProject:projectName])
+		{
+			LEVEL1;
+		}
+	}
+	// resolvedKeyForFileName:
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument resolvedKeyForFileName:fileName ofProject:projectName])
+		{
+			LEVEL2;
+		}
+	}
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument keyForOldFileName:fileName ofProject:projectName])
+		{
+			LEVEL3;
+		}
+	}
+	E = [projects objectEnumerator];
+	while(projectName = [E nextObject])
+	{
+		if(aKey = [iTM2ProjectDocument keyForResolvedFileName:fileName ofProject:projectName])
+		{
+			LEVEL4;
+		}
+	}
+//iTM2_END;
+    return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextProjectForFileName:display:error:
 - (id)getContextProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
@@ -7150,7 +8076,7 @@ To Do List:
 	// This means that there is no acceptable project in the file system hierarchy.
 	id projectDocument = nil;
 	// so I needed to open the resources. Now documents always have projects,but I still use the resources
-	NSDictionary * contextDictionary = [iTM2Document contextDictionaryFromFile:fileName];
+	NSDictionary * contextDictionary = [iTM2Document contextDictionaryAtPath:fileName];
 //iTM2_LOG(@"contextDictionary is:%@",contextDictionary);
 	// using the absolute hint
 	NSString * path = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey];
@@ -7202,7 +8128,7 @@ To Do List:
 		}
 		else
 		{
-			key = [projectDocument recordedKeyForFileName:fileName];
+			key = [projectDocument keyForRecordedFileName:fileName];
 			// ok this project once had this file name on its own
 			if([key length])
 			{
@@ -7221,31 +8147,48 @@ To Do List:
 	if([DFM fileOrLinkExistsAtPath:path])
 	{
 		NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
-		if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
+		if((projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
+			&& [projectDocument isKindOfClass:[iTM2ProjectDocument class]])
 		{
-			[projectDocument fixProjectConsistency];
-			NSString * key = [projectDocument keyForFileName:fileName];
-			if([key length])
+			// if there was no already registered files,
+			if([[projectDocument allKeys] count])
 			{
-				[SDC addDocument:projectDocument];
-				[projectDocument saveDocument:nil];
-				if(display)
+				NSString * key = [projectDocument keyForFileName:fileName];
+				if([key length])
 				{
-					[projectDocument makeWindowControllers];
-					[projectDocument showWindows];
+					[projectDocument fixProjectConsistency];
+					[SDC addDocument:projectDocument];
+					[projectDocument saveDocument:nil];
+					if(display)
+					{
+						[projectDocument makeWindowControllers];
+						[projectDocument showWindows];
+					}
+					return projectDocument;
 				}
-				return projectDocument;
-			}
-			else
-			{
-				key = [projectDocument recordedKeyForFileName:fileName];
+				key = [projectDocument keyForRecordedFileName:fileName];
 				// ok this project once had this file name on its own
 				if([key length])
 				{
 					[SDC addDocument:projectDocument];
+					[projectDocument fixProjectConsistency];
 					[projectDocument saveDocument:nil];
 					[projectDocument setFileName:fileName forKey:key makeRelative:YES];
 					key = [projectDocument newKeyForFileName:fileName];// ensure that the file name is registered.
+					if(display)
+					{
+						[projectDocument makeWindowControllers];
+						[projectDocument showWindows];
+					}
+					return projectDocument;
+				}
+				[projectDocument fixProjectConsistency];
+				key = [projectDocument keyForFileName:fileName];
+				if([key length])
+				{
+					[projectDocument fixProjectConsistency];
+					[SDC addDocument:projectDocument];
+					[projectDocument saveDocument:nil];
 					if(display)
 					{
 						[projectDocument makeWindowControllers];
@@ -7258,289 +8201,6 @@ To Do List:
 	}
 //iTM2_END;
     return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getPrimaryFarawayProjectForFileName:display:error:
-- (id)getPrimaryFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Developer note:all the docs open here are .texp files.
-Those files are filtered out and won't be open by the posed as class document controller.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * farawayProjectsDirectory = [NSString farawayProjectsDirectory];
-	if([fileName belongsToFarawayProjectsDirectory])
-		return nil;
-	NSString * coreName = [fileName lastPathComponent];
-	coreName = [coreName stringByDeletingPathExtension];
-	NSString * projectName = [fileName stringByDeletingPathExtension];
-	projectName = [projectName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
-	projectName = [projectName stringByAppendingPathComponent:coreName];
-	projectName = [projectName stringByAppendingPathExtension:[SDC projectPathExtension]];
-	projectName = [farawayProjectsDirectory stringByAppendingPathComponent:projectName];
-	BOOL isDirectory = NO;
-	if(![DFM fileExistsAtPath:projectName isDirectory:&isDirectory])
-	{
-		projectName = [fileName stringByDeletingPathExtension];
-		projectName = [projectName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
-		projectName = [projectName stringByAppendingPathComponent:iTM2ProjectComponent];
-		projectName = [projectName stringByAppendingPathExtension:[SDC projectPathExtension]];
-		projectName = [farawayProjectsDirectory stringByAppendingPathComponent:projectName];
-		if(![DFM fileExistsAtPath:projectName isDirectory:&isDirectory])
-		{
-			return nil;
-		}
-	}
-	if(!isDirectory)
-	{
-		NSString * standardProjectName = [projectName stringByStandardizingPath];
-		if([standardProjectName pathIsEqual:projectName] || ![DFM fileExistsAtPath:standardProjectName isDirectory:&isDirectory])
-		{
-			return nil;
-		}
-		projectName = standardProjectName;
-	}
-	NSURL * url = [NSURL fileURLWithPath:projectName];
-	NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
-	iTM2ProjectDocument * projectDocument = nil;
-	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
-	{
-		[projectDocument fixProjectConsistency];
-		[SDC addDocument:projectDocument];// register the project document as side effect
-		[projectDocument newKeyForFileName:fileName];
-		[SPC setProject:projectDocument forFileName:fileName];// the project must be registered.
-		if(display)
-		{
-			[projectDocument makeWindowControllers];
-			[projectDocument showWindows];
-		}
-		return projectDocument;
-	}
-	projectName = [fileName stringByDeletingPathExtension];
-	projectName = [projectName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
-	projectName = [projectName stringByAppendingPathComponent:iTM2ProjectComponent];
-	projectName = [projectName stringByAppendingPathExtension:[SDC projectPathExtension]];
-	projectName = [farawayProjectsDirectory stringByAppendingPathComponent:projectName];
-	url = [NSURL fileURLWithPath:projectName];
-	if(projectDocument = [SDC makeDocumentWithContentsOfURL:url ofType:typeName error:outErrorPtr])
-	{
-		[projectDocument fixProjectConsistency];
-		[SDC addDocument:projectDocument];// register the project document as side effect
-		[projectDocument newKeyForFileName:fileName];
-		[SPC setProject:projectDocument forFileName:fileName];// the project must be registered.
-		if(display)
-		{
-			[projectDocument makeWindowControllers];
-			[projectDocument showWindows];
-		}
-	}
-//iTM2_END;
-    return projectDocument;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getSecondaryFarawayProjectForFileName:display:error:
-- (id)getSecondaryFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Developer note:all the docs open here are .texp files.
-Those files are filtered out and won't be open by the posed as class document controller.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * farawayProjectsDirectory = [NSString farawayProjectsDirectory];
-	NSDirectoryEnumerator *DE = [DFM enumeratorAtPath:farawayProjectsDirectory];
-	NSString * component = nil;
-	NSString * typeName = [SDC projectDocumentType];
-	NSMutableArray * primaryOpenCandidates = [NSMutableArray array];
-	NSMutableArray * primaryCandidates = [NSMutableArray array];
-	NSMutableArray * secondaryOpenCandidates = [NSMutableArray array];
-	NSMutableArray * secondaryCandidates = [NSMutableArray array];
-	NSMutableArray * garbage = [NSMutableArray array];
-	NSURL * projectURL = nil;
-	NSString * projectName = nil;
-	NSString * wrapperName = nil;
-	iTM2ProjectDocument * projectDocument = nil;
-	while(component = [DE nextObject])
-	{
-		wrapperName = [farawayProjectsDirectory stringByAppendingPathComponent:component];
-		if([SWS isWrapperPackageAtPath:wrapperName])
-		{
-			projectName = [self getProjectFileNameInWrapperForFileNameRef:&wrapperName error:outErrorPtr];
-			if(projectName)
-			{
-				if(projectURL = [NSURL fileURLWithPath:projectName])
-				{
-					BOOL isDirectory = NO;
-					if(projectDocument = [SDC documentForURL:projectURL])
-					{
-						if([[projectDocument keyForFileName:fileName] length])
-						{
-							[primaryOpenCandidates addObject:projectDocument];
-						}
-						else if([[projectDocument recordedKeyForFileName:fileName] length])
-						{
-							[secondaryOpenCandidates addObject:projectDocument];
-						}
-					}
-					else if([DFM fileExistsAtPath:projectName isDirectory:&isDirectory])
-					{
-						if(isDirectory && (projectDocument = [SDC makeDocumentWithContentsOfURL:projectURL ofType:typeName error:outErrorPtr]))
-						{
-							if([[projectDocument keyForFileName:fileName] length])
-							{
-								[primaryCandidates addObject:projectDocument];
-							}
-							else if([[projectDocument recordedKeyForFileName:fileName] length])
-							{
-								[secondaryCandidates addObject:projectDocument];
-							}
-						}
-						else
-						{
-							[garbage addObject:projectName];
-						}
-					}
-					else
-					{
-						[garbage addObject:projectName];
-					}
-				}
-				else
-				{
-					[garbage addObject:projectName];
-				}
-			}
-			else
-			{
-				[garbage addObject:wrapperName];
-			}
-			[DE skipDescendents];
-		}
-	}
-	if([primaryOpenCandidates count] == 1)
-	{
-//iTM2_LOG(@"WE have found our project",[SDC documents]);
-		// we found only one project that declares the fileName: it is the good one
-		projectDocument = [primaryOpenCandidates objectAtIndex:0];
-		[projectDocument fixProjectConsistency];
-		[SPC setProject:projectDocument forFileName:fileName];
-		NSEnumerator * E = nil;
-		id PD = nil;
-clean:
-		E = [primaryCandidates objectEnumerator];
-		while(PD = [E nextObject])
-		{
-			[garbage addObject:[PD fileName]];
-		}
-		E = [secondaryCandidates objectEnumerator];
-		while(PD = [E nextObject])
-		{
-			[garbage addObject:[PD fileName]];
-		}
-		E = [garbage objectEnumerator];
-		while(projectName = [E nextObject])
-		{
-			wrapperName = [projectName enclosingWrapperFileName];
-			if(![DFM removeFileAtPath:wrapperName handler:NULL])
-			{
-				if(outErrorPtr)
-					* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove the wrapper directory at\n%@\nPlease,do it for me.",wrapperName]
-						forKey:NSLocalizedDescriptionKey]];
-			}
-		}
-		return projectDocument;
-	}
-	else if([primaryOpenCandidates count])
-	{
-		projectDocument = nil;
-		goto clean;
-	}
-	else if([secondaryOpenCandidates count] == 1)
-	{
-		// clean everything except the documents owned by the SDC
-		projectDocument = [primaryOpenCandidates objectAtIndex:0];
-		[projectDocument fixProjectConsistency];
-		[SPC setProject:projectDocument forFileName:fileName];
-		goto clean;
-	}
-	else if([secondaryOpenCandidates count])
-	{
-//iTM2_LOG(@"WE have found our project",[SDC documents]);
-		// we found only one project that declares the fileName: it is the good one
-		if(outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects for:\n%@",fileName]
-				forKey:NSLocalizedDescriptionKey]];
-		projectDocument = [secondaryOpenCandidates objectAtIndex:0];
-		[projectDocument fixProjectConsistency];
-		[SPC setProject:projectDocument forFileName:fileName];
-		goto clean;
-	}
-	else if([primaryCandidates count] == 1)
-	{
-//iTM2_LOG(@"WE have found our project",[SDC documents]);
-		// we found only one project that declares the fileName: it is the good one
-		projectDocument = [primaryCandidates objectAtIndex:0];
-		[projectDocument fixProjectConsistency];
-		[SDC addDocument:projectDocument];
-		[SPC setProject:projectDocument forFileName:fileName];
-		projectName = [projectDocument fileName];
-		projectURL = [NSURL fileURLWithPath:projectName];
-		projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outErrorPtr];
-		goto clean;
-	}
-	else if([primaryCandidates count])
-	{
-		projectDocument = nil;
-		goto clean;
-	}
-	else if([secondaryCandidates count] == 1)
-	{
-		projectDocument = [secondaryCandidates objectAtIndex:0];
-		[projectDocument fixProjectConsistency];
-		[SDC addDocument:projectDocument];
-		[SPC setProject:projectDocument forFileName:fileName];
-		projectName = [projectDocument fileName];
-		projectURL = [NSURL fileURLWithPath:projectName];
-		projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outErrorPtr];
-		goto clean;
-	}
-	else if([secondaryCandidates count])
-	{
-		projectDocument = nil;
-		goto clean;
-	}
-	else
-	{
-		projectDocument = nil;
-	}
-//iTM2_END;
-	return projectDocument;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getFarawayProjectForFileName:display:error:
-- (id)getFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Developer note:all the docs open here are .texp files.
-Those files are filtered out and won't be open by the posed as class document controller.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	iTM2ProjectDocument * projectDocument = [self getProjectForFarawayFileName:fileName display:display error:outErrorPtr];
-	if(projectDocument)
-		return projectDocument;
-	else if(projectDocument = [self getPrimaryFarawayProjectForFileName:fileName display:display error:outErrorPtr])
-		return projectDocument;
-	else if(projectDocument = [self getSecondaryFarawayProjectForFileName:fileName display:display error:outErrorPtr])
-		return projectDocument;
-//iTM2_END;
-	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getProjectForFarawayFileName:display:error:
 - (id)getProjectForFarawayFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
@@ -7603,7 +8263,7 @@ To Do List:
 			}
 			else
 			{
-				key = [projectDocument recordedKeyForFileName:fileName];
+				key = [projectDocument keyForRecordedFileName:fileName];
 				if([key length])
 				{
 					[projectDocument setFileName:fileName forKey:key makeRelative:YES];
@@ -7649,105 +8309,90 @@ To Do List:
 	iTM2ProjectDocument * projectDocument = nil;
 	NSString * fileName = [*fileNameRef stringByStandardizingPath];
 	NSString * wrapperName = [fileName enclosingWrapperFileName];
-	if([wrapperName length])
+	if([SWS isWrapperPackageAtPath:wrapperName])
 	{
-		// then we are trying to find a project just below
-		BOOL isDirectory = NO;
-		if([DFM fileExistsAtPath:wrapperName isDirectory:&isDirectory] && isDirectory)
+		NSArray * projectNames = [wrapperName enclosedProjectFileNames];
+		NSString * projectName = nil;
+		NSString * component = nil;
+		NSURL * url = nil;
+		if([projectNames count] == 1)
 		{
-			NSArray * projectNames = [wrapperName enclosedProjectFileNames];
-			NSString * projectName = nil;
-			NSString * component = nil;
-			NSURL * url = nil;
-			if([projectNames count] == 1)
-			{
-				return [projectNames lastObject];
-			}
-			else if([projectNames count])
-			{
-				component = [wrapperName lastPathComponent];
-				component = [component stringByDeletingPathExtension];
-				component = [component stringByAppendingPathExtension:[SDC projectPathExtension]];
-				projectName = [wrapperName stringByAppendingPathComponent:component];
-				if([projectNames containsObject:projectName])
-				{
-					return projectName;
-				}
-				component = [iTM2ProjectComponent stringByAppendingPathExtension:[SDC projectPathExtension]];
-				projectName = [wrapperName stringByAppendingPathComponent:component];
-				if([projectNames containsObject:projectName])
-				{
-					return projectName;
-				}
-				if(outErrorPtr)
-				{
-					*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects in the wrapper directory at\n%@\nChoosing the last one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
-				}
-				return nil;
-			}
-			else
-			{
-				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName] forKey:NSLocalizedDescriptionKey]]];
-				// the following method will create a constrained project
-				component = [wrapperName lastPathComponent];
-				component = [component stringByDeletingPathExtension];
-				component = [component stringByAppendingPathExtension:[SDC projectPathExtension]];
-				projectName = [wrapperName stringByAppendingPathComponent:component];
-				if([DFM fileExistsAtPath:projectName])
-				{
-					int tag = 0;
-					if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:wrapperName
-							destination:@"" files:[NSArray arrayWithObject:component] tag:&tag])
-					{
-						[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
-							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Impossible to recycle file at\n%@\nProblems forthcoming...",projectName]
-								forKey:NSLocalizedDescriptionKey]]];
-					}
-				}
-				url = [NSURL fileURLWithPath:projectName];
-				if([DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr])
-				{
-					projectDocument = [SDC openDocumentWithContentsOfURL:url display:NO error:outErrorPtr];
-					[projectDocument fixProjectConsistency];
-				}
-				else
-				{
-					projectDocument = [SDC makeUntitledDocumentOfType:[SDC projectPathExtension] error:outErrorPtr];
-					[projectDocument setFileURL:url];
-					[projectDocument setFileType:[SDC projectDocumentType]];
-					[projectDocument fixProjectConsistency];
-					[SDC addDocument:projectDocument];
-				}
-				if(projectDocument)
-				{
-					[projectDocument newKeyForFileName:fileName];
-					[projectDocument saveDocument:nil];
-					if([fileName pathIsEqual:wrapperName])
-						* fileNameRef = projectName;
-					return projectName;
-				}
-				else
-				{
-					if(outErrorPtr)
-					{
-						*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
-					}
-					return nil;
-				}
-			}
+			return [projectNames lastObject];
 		}
-		else
+		else if([projectNames count])
 		{
+			component = [wrapperName lastPathComponent];
+			component = [component stringByDeletingPathExtension];
+			component = [component stringByAppendingPathExtension:[SDC projectPathExtension]];
+			projectName = [wrapperName stringByAppendingPathComponent:component];
+			if([projectNames containsObject:projectName])
+			{
+				return projectName;
+			}
+			component = [iTM2ProjectComponent stringByAppendingPathExtension:[SDC projectPathExtension]];
+			projectName = [wrapperName stringByAppendingPathComponent:component];
+			if([projectNames containsObject:projectName])
+			{
+				return projectName;
+			}
 			if(outErrorPtr)
 			{
 				*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"ERROR:There might be a link at %@:it is no yet supported by iTeXMac2",fileName]
-						forKey:NSLocalizedDescriptionKey]];
+				userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Too many projects in the wrapper directory at\n%@\nChoosing the last one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
 			}
-			return nil;
+			return [projectNames lastObject];
+		}
+		else
+		{
+			[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
+				userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName] forKey:NSLocalizedDescriptionKey]]];
+			// the following method will create a constrained project
+			component = [wrapperName lastPathComponent];
+			component = [component stringByDeletingPathExtension];
+			component = [component stringByAppendingPathExtension:[SDC projectPathExtension]];
+			projectName = [wrapperName stringByAppendingPathComponent:component];
+			if([DFM fileExistsAtPath:projectName])
+			{
+				int tag = 0;
+				if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:wrapperName
+						destination:@"" files:[NSArray arrayWithObject:component] tag:&tag])
+				{
+					[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
+						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Impossible to recycle file at\n%@\nProblems forthcoming...",projectName]
+							forKey:NSLocalizedDescriptionKey]]];
+				}
+			}
+			url = [NSURL fileURLWithPath:projectName];
+			if([DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr])
+			{
+				projectDocument = [SDC openDocumentWithContentsOfURL:url display:NO error:outErrorPtr];
+				[projectDocument fixProjectConsistency];
+			}
+			else
+			{
+				projectDocument = [SDC makeUntitledDocumentOfType:[SDC projectPathExtension] error:outErrorPtr];
+				[projectDocument setFileURL:url];
+				[projectDocument setFileType:[SDC projectDocumentType]];
+				[projectDocument fixProjectConsistency];
+				[SDC addDocument:projectDocument];
+			}
+			if(projectDocument)
+			{
+				[projectDocument newKeyForFileName:fileName];
+				[projectDocument saveDocument:nil];
+				if([fileName pathIsEqual:wrapperName])
+					* fileNameRef = projectName;
+				return projectName;
+			}
+			else
+			{
+				if(outErrorPtr)
+				{
+					*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
+						userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Missing project in the wrapper directory at\n%@\nCreating one.",wrapperName] forKey:NSLocalizedDescriptionKey]];
+				}
+				return nil;
+			}
 		}
 	}
 //iTM2_END;
@@ -7837,7 +8482,7 @@ scanDirectoryContent:
 			NSString * projectFileName = [dirName stringByAppendingPathComponent:component];
 			url = [NSURL fileURLWithPath:projectFileName];
 			projectDocument = [SDC documentForURL:url];
-			if([[projectDocument recordedKeyForFileName:fileName] length])
+			if([[projectDocument keyForRecordedFileName:fileName] length])
 			{
 				[candidates addObject:projectFileName];
 			}
@@ -8013,7 +8658,7 @@ createWrapper:
 		}
 		NSString * projectName = [farawayWrapperName stringByAppendingPathComponent:coreName];
 		projectName = [projectName stringByAppendingPathExtension:[SDC projectPathExtension]];
-		if(![DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr] && outErrorPtr && (outErrorPtr?*outErrorPtr:nil))
+		if(![DFM createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr] && outErrorPtr && (*outErrorPtr))
 		{
 			[SDC presentError:*outErrorPtr];
 		}
@@ -8023,11 +8668,12 @@ createWrapper:
 		[projectDocument setFileType:typeName];// is it necessary?
 		[SDC addDocument:projectDocument];
 		// the named file is linked to something in the wrapper
-		NSString * linkName = [projectName stringByDeletingLastPathComponent];
+		// this design should change
+		NSString * linkName = [projectName stringByAppendingPathComponent:iTM2ProjectBuildComponent];
 		linkName = [linkName stringByAppendingPathComponent:component];
 		// maybe there is already something at this path: we just remove it
 		// if it was a link,I just remove it with
-		// it it was a regular file or a directory,recycle it
+		// if it was a regular file or a directory,recycle it
 		if([DFM pathContentOfSymbolicLinkAtPath:linkName])
 		{
 			if(![DFM removeFileAtPath:linkName handler:nil])
@@ -8371,10 +9017,9 @@ To Do List:
 #warning BAD design: assumes there is only one project extension
 	[[SDC typeFromFileExtension:[*fileNameRef pathExtension]] isEqualToString:projectDocumentType]
 		|| ![SDC documentClassForType:projectDocumentType]
-		|| (projectDocument = [self getOpenProjectForFileName:*fileNameRef])
-		|| (projectDocument = [self getProjectInWrapperForFileNameRef:fileNameRef display:display error:outErrorPtr])
-		|| (projectDocument = [self getProjectInHierarchyForFileName:*fileNameRef display:display error:outErrorPtr])
-		|| (projectDocument = [self getFarawayProjectForFileName:*fileNameRef display:display error:outErrorPtr])
+//		|| (projectDocument = [self getOpenProjectForFileName:*fileNameRef])
+//		|| (projectDocument = [self getProjectInWrapperForFileNameRef:fileNameRef display:display error:outErrorPtr])
+//		|| (projectDocument = [self getProjectInHierarchyForFileName:*fileNameRef display:display error:outErrorPtr])
 		|| (projectDocument = [self getProjectFromPanelForFileNameRef:fileNameRef display:display error:outErrorPtr]);
 	if([*fileNameRef belongsToFarawayProjectsDirectory])
 	{
@@ -8405,8 +9050,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsBaseKey];
-	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsBaseForNamesKey];	
+	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsBaseKey])
+	{
+		[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsBaseKey];
+	}
+	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsBaseForNamesKey])
+	{
+		[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsBaseForNamesKey];
+	}
 //iTM2_END;
     return;
 }
@@ -8435,7 +9086,7 @@ To Do List:
     return [[self baseProjectNames] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectNames
-- (NSDictionary *)baseProjectNames;
+- (NSArray *)baseProjectNames;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -9526,13 +10177,28 @@ To Do List:
 	{
 		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 	}
-	if([[fileName pathComponents] containsObject:@".Trash"])
+	NSArray * components = [fileName pathComponents];
+	if([components containsObject:@".Trash"] || [components containsObject:@".Trashes"])
 	{
 		if([DFM fileExistsAtPath:fileName])
 		{
-			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Please,get %@ back from the trash before opening it.",[fileName lastPathComponent]]),nil);
+			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Please, get %@ back from the trash before opening it.",[fileName lastPathComponent]]),nil);
+			NSString * dir = [fileName stringByDeletingLastPathComponent];
+			[SWS selectFile:fileName inFileViewerRootedAtPath:dir];
 		}
 		return nil;
+	}
+	NSEnumerator * E = [components objectEnumerator];
+	NSString * component;
+	while(component = [E nextObject])
+	{
+		if([component hasPrefix:@"."])
+		{
+			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Please, copy %@ to a visible location of the Finder before opening it.",[fileName lastPathComponent]]),nil);
+			NSString * dir = [fileName stringByDeletingLastPathComponent];
+			[SWS selectFile:fileName inFileViewerRootedAtPath:dir];
+			return nil;
+		}
 	}
 	// documents are either
 	// - already open
@@ -9683,7 +10349,7 @@ To Do List:
 		return [projectDocument openSubdocumentWithContentsOfURL:absoluteURL context:nil display:display error:outErrorPtr];
     }
 	// Did the file stored project information in its context?
-	if(projectDocument = [SPC getContextProjectForFileName:fileName display:display error:outErrorPtr])
+	if([SPC getUnregisteredProject:&projectDocument key:nil forFileName:fileName display:display error:outErrorPtr])
     {
 //iTM2_LOG(@"1");
 		return [projectDocument openSubdocumentWithContentsOfURL:absoluteURL context:nil display:display error:outErrorPtr];
@@ -10159,7 +10825,7 @@ To Do List:
 					;
 				}
 				NSString * absolutePath = [projectDocument absoluteFileNameForKey:key];
-				NSString * farawayPath = [projectDocument farawayFileNameForKey:key];
+				NSString * farawayPath = [projectDocument buildFileNameForKey:key];
                 [sender setAttributedTitle:([DFM fileExistsAtPath:absolutePath]||[DFM fileExistsAtPath:farawayPath]? nil:
                     [[[NSAttributedString alloc] initWithString:[sender title]
                         attributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -11402,26 +12068,25 @@ To Do List:
 	NSString * farawayProjectsDirectory = [NSString farawayProjectsDirectory];
 	NSArray * components = [farawayProjectsDirectory pathComponents];
 	NSArray * myComponents = [self pathComponents];
-	if([myComponents count] > [components count])
+	if([myComponents count] < [components count])
 	{
-		NSEnumerator * myE = [myComponents objectEnumerator];
-		NSEnumerator * E = [components objectEnumerator];
-		NSString * component = nil;
-		while(component = [E nextObject])
-		{
-			if(![component pathIsEqual:[myE nextObject]])
-			{
-				return self;
-			}
-		}
-		NSRange range = NSMakeRange([components count],[myComponents count]-[components count]);
-		myComponents = [myComponents subarrayWithRange:range];
-//iTM2_END;
-		return [[NSOpenStepRootDirectory()stringByAppendingPathComponent:[NSString pathWithComponents:myComponents]]
-					stringByStandardizingPath];
+		return self;
 	}
+	NSEnumerator * myE = [myComponents objectEnumerator];
+	NSEnumerator * E = [components objectEnumerator];
+	NSString * component = nil;
+	while(component = [E nextObject])
+	{
+		if(![component pathIsEqual:[myE nextObject]])
+		{
+			return self;
+		}
+	}
+	NSRange range = NSMakeRange([components count],[myComponents count]-[components count]);
+	myComponents = [myComponents subarrayWithRange:range];
 //iTM2_END;
-	return self;
+	return [[NSOpenStepRootDirectory()stringByAppendingPathComponent:[NSString pathWithComponents:myComponents]]
+				stringByStandardizingPath];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enclosedProjectFileNames
 - (NSArray *)enclosedProjectFileNames;
@@ -11532,6 +12197,32 @@ up:
 		return nil;
 	}
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringByAppendingBuildComponent
+- (NSString *)stringByAppendingBuildComponent;
+/*"On n'est jamais si bien servi que par soi-meme
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * result = [self stringByAppendingPathComponent:iTM2ProjectBuildComponent];
+//iTM2_END;
+	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringByAppendingContentsComponent
+- (NSString *)stringByAppendingContentsComponent;
+/*"On n'est jamais si bien servi que par soi-meme
+Version History: jlaurens AT users DOT sourceforge DOT net (today)
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * result = [self stringByAppendingPathComponent:iTM2ProjectBuildComponent];
+//iTM2_END;
+	return result;
+}
 @end
 
 @implementation NSWorkspace(iTM2ProjectDocumentKit)
@@ -11585,7 +12276,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	if([self isFilePackageAtPath:fullPath])
+	if(fullPath && [self isFilePackageAtPath:fullPath])
 	{
 		NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
 		NSInvocation * I = [[NSInvocation invocationWithMethodSignature:sig0] retain];
