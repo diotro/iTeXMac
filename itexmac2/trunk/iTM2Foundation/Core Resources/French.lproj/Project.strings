@@ -27,9 +27,9 @@
 	<key>Cancel</key>
 	<string>Annuler</string>
 	<key>Recycle</key>
-	<string>Recycler</string>
+	<string>Placer dans la corbeille</string>
 	<key>Also recycle the selected project documents?</key>
-	<string>Recycler aussi les fichiers de projet choisis ?</string>
+	<string>Placer aussi dans la corbeille les fichiers de projet choisis ?</string>
 	<key>The name %@ is already used.</key>
 	<string>Le nom %@ est déjà employé.</string>
 	<key>A file could not be moved.</key>

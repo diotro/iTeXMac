@@ -27,7 +27,7 @@
 	<key>Cancel</key>
 	<string>Cancel</string>
 	<key>Recycle</key>
-	<string>Recycle</string>
+	<string>Move to trash</string>
 	<key>Also recycle the selected project documents?</key>
 	<string>Also recycle the selected project documents?</string>
 	<key>The name %@ is already used.</key>
