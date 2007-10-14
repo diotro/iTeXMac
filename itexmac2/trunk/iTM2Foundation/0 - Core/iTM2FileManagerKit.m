@@ -443,7 +443,7 @@ To Do List:
 {
 	[self convertSymbolicLinksToSoftLinksAtPath:[path stringByDeletingLastPathComponent]];
 	path = [path stringByAppendingPathExtension:EXTENSION];
-	return [self writeToFile:path atomically:NO encoding:ENCODING error:nil];
+	return [otherpath writeToFile:path atomically:NO encoding:ENCODING error:nil];
 }
 #undef ENCODING
 #undef EXTENSION
