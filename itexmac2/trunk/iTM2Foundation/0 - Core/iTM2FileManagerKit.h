@@ -121,7 +121,7 @@
 - (BOOL)popDirectory;
 
 /*!
-	@method			fileOrLinkExistsAtPath
+	@method			fileOrSymbolicLinkExistsAtPath
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			path
@@ -129,10 +129,10 @@
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)fileOrLinkExistsAtPath:(NSString *)path;
+- (BOOL)fileOrSymbolicLinkExistsAtPath:(NSString *)path;
 
 /*!
-	@method			linkExistsAtPath
+	@method			symbolicLinkExistsAtPath
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			path
@@ -140,7 +140,7 @@
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)linkExistsAtPath:(NSString *)path;
+- (BOOL)symbolicLinkExistsAtPath:(NSString *)path;
 
 /*!
 	@method			isVisibleFileAtPath
@@ -152,6 +152,34 @@
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (BOOL)isVisibleFileAtPath:(NSString *)path;
+
+/*!
+	@method			pathContentOfSoftLinkAtPath:
+	@abstract		The path contents of the soft link at the given path.
+	@discussion		Due to the fact that soft links are not properly handled by some USB drivers
+					(they hang out while copying broken symbolic links)
+					we use a personal concept of soft links.
+					They are just natural text files containing the target path.
+					A "soft_link" extension is added to path, you should not add it yourself.
+					Use it like <code>-pathContentOfSymbolicLinkAtPath:</code>.
+	@param			the source path, no need to add any specific extension
+	@result			the path contents at the given path.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSString *)pathContentOfSoftLinkAtPath:(NSString *)path;
+
+/*!
+	@method			createSoftLinkAtPath:pathContent:
+	@abstract		Abstract forthcoming.
+	@discussion		See <code>-pathContentOfSoftLinkAtPath:</code>.
+	@param			path is the source path
+	@param			otherpath is the target path
+	@result			yorn.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)createSoftLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
 
 @end
 

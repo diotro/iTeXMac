@@ -27,6 +27,7 @@
 #import <iTM2Foundation/MoreFilesX.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2ContextKit.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
@@ -345,7 +346,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popDirectory
-- (BOOL)fileOrLinkExistsAtPath:(NSString *)path;
+- (BOOL)fileOrSymbolicLinkExistsAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -354,10 +355,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self fileExistsAtPath:path] || [self linkExistsAtPath:path];
+	return [self fileExistsAtPath:path] || [self symbolicLinkExistsAtPath:path];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  linkExistsAtPath:
-- (BOOL)linkExistsAtPath:(NSString *)path;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  symbolicLinkExistsAtPath:
+- (BOOL)symbolicLinkExistsAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -366,7 +367,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self pathContentOfSymbolicLinkAtPath:path]!=nil;
+	return [[[self fileAttributesAtPath:path traverseLink:NO] fileType] isEqual:NSFileTypeSymbolicLink];
 }
 - (BOOL)isVisibleFileAtPath:(NSString *)path;
 {
@@ -415,6 +416,61 @@ To Do List:
 	return [self swizzled_removeFileAtPath:path handler:handler];
 }
 #endif
+#define ENCODING CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF16BE)
+#define EXTENSION @"soft_link"
+- (void)convertSymbolicLinksToSoftLinksAtPath:(NSString *)path;
+{
+	NSEnumerator * E = [[self directoryContentsAtPath:path] objectEnumerator];
+	NSString * component;
+	while(component = [E nextObject])
+	{
+		component = [path stringByAppendingPathComponent:component];
+		if(component = [self pathContentOfSymbolicLinkAtPath:component])
+		{
+			component = [component stringByAppendingPathExtension:EXTENSION];
+			[self writeToFile:component atomically:NO encoding:ENCODING error:nil];
+		}
+	}
+}
+- (NSString *)pathContentOfSoftLinkAtPath:(NSString *)path;
+{
+	[self convertSymbolicLinksToSoftLinksAtPath:[path stringByDeletingLastPathComponent]];
+	path = [path stringByAppendingPathExtension:EXTENSION];
+	return [NSString stringWithContentsOfFile:path encoding:ENCODING error:nil];
+}
+- (BOOL)createSoftLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+{
+	[self convertSymbolicLinksToSoftLinksAtPath:[path stringByDeletingLastPathComponent]];
+	path = [path stringByAppendingPathExtension:EXTENSION];
+	return [self writeToFile:path atomically:NO encoding:ENCODING error:nil];
+}
+#undef ENCODING
+#undef EXTENSION
+@end
+
+@implementation NSObject (iTM2CopyLinkMoveHandler)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileManager:shouldProceedAfterError:
+-(BOOL)fileManager:(NSFileManager *)manager shouldProceedAfterError:(NSDictionary *)errorInfo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	if([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask]
+		&& !iTM2DebugEnabled)
+	{
+		return NO;
+	}
+//iTM2_START;
+    int result = NSRunCriticalAlertPanel([[NSBundle mainBundle] bundleName], @"File operation error:\
+            %@ with file: %@", @"Proceed Anyway", @"Cancel",  NULL, 
+            [errorInfo objectForKey:@"Error"], 
+            [errorInfo objectForKey:@"Path"]);
+	iTM2_LOG(@"**** FILE MANAGER OPERATION ERROR: %@", errorInfo);
+//iTM2_END;
+    return (result == NSAlertDefaultReturn);
+}
 @end
 
 @interface NSFileManager(_iTM2ExtendedAttributes)
