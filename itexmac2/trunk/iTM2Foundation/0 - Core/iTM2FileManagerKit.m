@@ -425,10 +425,11 @@ To Do List:
 	while(component = [E nextObject])
 	{
 		component = [path stringByAppendingPathComponent:component];
-		if(component = [self pathContentOfSymbolicLinkAtPath:component])
+		NSString * content = [self pathContentOfSymbolicLinkAtPath:component];
+		if([content length])
 		{
 			component = [component stringByAppendingPathExtension:EXTENSION];
-			[self writeToFile:component atomically:NO encoding:ENCODING error:nil];
+			[content writeToFile:component atomically:NO encoding:ENCODING error:nil];
 		}
 	}
 }
