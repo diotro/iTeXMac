@@ -592,7 +592,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([self isEqual:[[SPC implementation] metaValueForKey:iTM2ProjectNoneKey]])
+#warning ! THIS IS A BIG PROBLEM
+    if([self isEqual:[[SPC implementation] metaValueForKey:@"None"]])
         return;
     [super makeWindowControllers];// after the documents are open
 //iTM2_END;

@@ -1,16 +1,15 @@
-#import <iTM2Foundation/ICURegEx.h>
+#import "ICURegEx.h"
 
 #undef U_DISABLE_RENAMING 1
 #define U_DISABLE_RENAMING 1
 
-#define __TEST_UNICODE_STRING__ 0
-#define _IVARS ((ICURegExIVars*)_iVars)
+#define __TEST_UNICODE_STRING__ 1
 
-//#import <unicode/regex.h>
 #import "regex_public.h"
-#import <unicode/uregex.h>
-#import <unicode/utypes.h>
 #import <unicode/uchar.h>
+#import <unicode/uregex.h>
+#import <unicode/ustring.h>
+#import <unicode/utypes.h>
 
 @interface NSString(PRIVATE)
 
@@ -26,8 +25,7 @@
 	NSString * string;
 	NSString * replacement;
 	NSError * error;
-	NSRange rangeOfLastMatch;
-	NSRange rangeOfCurrentMatch;
+	unsigned stringOffset;
 	RegexPattern * regexPattern;
 	RegexMatcher * regexMatcher;
 	UnicodeString * uString;
@@ -35,6 +33,7 @@
 	UErrorCode status;
 }
 @end
+
 @implementation ICURegExIVars
 - (void)dealloc;
 {
@@ -59,16 +58,39 @@
 }
 @end
 
+#define _IVARS ((ICURegExIVars*)_iVars)
+
+static UChar U_CALLCONV
+InlineBuffer_charAt(int32_t offset, void *context) {
+    return (UChar)CFStringGetCharacterFromInlineBuffer((CFStringInlineBuffer*)context, offset);
+}
+
 @interface ICURegEx(PRIVATE)
 - (int)status;
 + (NSString *)errorDescriptionForStatus:(int)status;
+- (void)reset;
+- (BOOL)resetAtIndex:(int)index;
 @end
+
 @implementation ICURegEx
 + (BOOL)isValidPattern:(NSString *)pattern options:(unsigned int)flags error:(NSError **)errorRef;
 {
 	// create the pattern
 	UErrorCode status = U_ZERO_ERROR;
-	UnicodeString patString = [pattern unicodeString];
+	UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)pattern);
+	if(!buffer)
+	{
+		NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(
+#if __BIG_ENDIAN__
+		kCFStringEncodingUTF16BE
+#elif __LITTLE_ENDIAN__
+		kCFStringEncodingUTF16LE
+#endif
+		);
+		buffer = (UChar *)[pattern cStringUsingEncoding:encoding];
+	}
+	int32_t buffLength = CFStringGetLength((CFStringRef)pattern);
+	UnicodeString patString = UnicodeString(FALSE, buffer, buffLength);
 	UParseError pe;
 	RegexPattern * regexPattern = RegexPattern::compile(patString,flags,pe,status);
 	delete regexPattern;
@@ -96,15 +118,15 @@
 			int length;
 			if(length = u_strlen(pe.preContext))
 			{
-				unicodeString = UnicodeString(pe.preContext, length, length);
-				context = [NSString stringWithUnicodeString:unicodeString];
-				[dict setObject:N forKey:@"pre context"];
+				context = (NSString *)CFStringCreateWithCharacters(kCFAllocatorDefault,pe.preContext,length);
+				[dict setObject:context forKey:@"pre context"];
+				[context release];
 			}
 			if(length = u_strlen(pe.postContext))
 			{
-				unicodeString = UnicodeString(pe.preContext, length, length);
-				context = [NSString stringWithUnicodeString:unicodeString];
-				[dict setObject:N forKey:@"post context"];
+				context = (NSString *)CFStringCreateWithCharacters(kCFAllocatorDefault,pe.postContext,length);
+				[dict setObject:context forKey:@"post context"];
+				[context release];
 			}
 			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict];
 		}
@@ -128,11 +150,22 @@
 		[self dealloc];
 		return nil;
 	}
-	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
-	_IVARS->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
 	// then create the pattern
 	_IVARS->status = U_ZERO_ERROR;
-	UnicodeString patString = [pattern unicodeString];
+	UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)pattern);
+	if(!buffer)
+	{
+		NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(
+#if __BIG_ENDIAN__
+		kCFStringEncodingUTF16BE
+#elif __LITTLE_ENDIAN__
+		kCFStringEncodingUTF16LE
+#endif
+		);
+		buffer = (UChar *)[pattern cStringUsingEncoding:encoding];
+	}
+	int32_t buffLength = CFStringGetLength((CFStringRef)pattern);
+	UnicodeString patString = UnicodeString(FALSE, buffer, buffLength);
 	UParseError pe;
 	_IVARS->regexPattern = RegexPattern::compile(patString,flags,pe,_IVARS->status);
 	if(U_FAILURE(_IVARS->status))
@@ -158,15 +191,15 @@
 			int length;
 			if(length = u_strlen(pe.preContext))
 			{
-				unicodeString = UnicodeString(pe.preContext, length, length);
-				context = [NSString stringWithUnicodeString:unicodeString];
-				[dict setObject:N forKey:@"pre context"];
+				context = (NSString *)CFStringCreateWithCharacters(kCFAllocatorDefault,pe.preContext,length);
+				[dict setObject:context forKey:@"pre context"];
+				[context release];
 			}
 			if(length = u_strlen(pe.postContext))
 			{
-				unicodeString = UnicodeString(pe.preContext, length, length);
-				context = [NSString stringWithUnicodeString:unicodeString];
-				[dict setObject:N forKey:@"post context"];
+				context = (NSString *)CFStringCreateWithCharacters(kCFAllocatorDefault,pe.postContext,length);
+				[dict setObject:context forKey:@"post context"];
+				[context release];
 			}
 			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict];
 		}
@@ -194,6 +227,10 @@
 }
 - (void)dealloc;
 {
+	if(_IVARS->uReplacement)
+	{
+		_IVARS->uReplacement->releaseBuffer(-1);
+	}
 	[_iVars release];
 	[super dealloc];
 	return;
@@ -538,39 +575,80 @@
 {
 	return _IVARS->string;
 }
-- (void)setInputString:(NSString *)argument;
+- (BOOL)setInputString:(NSString *)argument;
+{
+	return [self setInputString:argument range:NSMakeRange(0,[argument length])];
+}
+- (BOOL)setInputString:(NSString *)argument range:(NSRange)range;
 {
 	_IVARS->status = U_ZERO_ERROR;
 	[_IVARS->error autorelease];
 	_IVARS->error = nil;
 	[_IVARS->string autorelease];
-	_IVARS->string = nil;
+	_IVARS->string = [argument retain];
 	delete _IVARS->regexMatcher;
 	_IVARS->regexMatcher = nil;
-	delete _IVARS->uString;
-	_IVARS->uString = nil;
-	if(argument)
+	if(_IVARS->uString)
 	{
-		_IVARS->string = [argument retain];
-		_IVARS->uString = new UnicodeString([_IVARS->string unicodeString]);
-		_IVARS->regexMatcher = _IVARS->regexPattern->matcher(*(_IVARS->uString),_IVARS->status);
-		if(U_FAILURE(_IVARS->status))
+		delete _IVARS->uString;
+		_IVARS->uString = nil;
+	}
+	unsigned length = [argument length];
+	if(range.location < length)
+	{
+		if(NSMaxRange(range)>length)
 		{
-			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-					[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
-					[NSNumber numberWithInt:_IVARS->status],@"status",
-						nil];
-			_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+			range.length = length - range.location;
 		}
-		else if(!_IVARS->regexMatcher)
+		_IVARS->stringOffset = range.location;
+		if(_IVARS->string)
 		{
-			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				@"Can't create regex matcher.",NSLocalizedDescriptionKey,
-					nil];
-			_IVARS->error = [NSError errorWithDomain:@"ICURegEx" code:_IVARS->status userInfo:dict];
+			UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)argument);
+			if(!buffer)
+			{
+				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(
+#if __BIG_ENDIAN__
+				kCFStringEncodingUTF16BE
+#elif __LITTLE_ENDIAN__
+				kCFStringEncodingUTF16LE
+#endif
+				);
+				buffer = (UChar *)[argument cStringUsingEncoding:encoding];
+			}
+			_IVARS->uString = new UnicodeString(FALSE, buffer+range.location, range.length);// the string to search is big
+			_IVARS->status = U_ZERO_ERROR;
+			_IVARS->regexMatcher = _IVARS->regexPattern->matcher(*(_IVARS->uString),_IVARS->status);
+			if(U_FAILURE(_IVARS->status))
+			{
+				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+						[NSNumber numberWithInt:_IVARS->status],@"status",
+							nil];
+				_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+			}
+			else if(!_IVARS->regexMatcher)
+			{
+				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+					@"Can't create regex matcher.",NSLocalizedDescriptionKey,
+						nil];
+				_IVARS->error = [NSError errorWithDomain:@"ICURegEx" code:_IVARS->status userInfo:dict];
+			}
+		}
+		else
+		{
+			delete _IVARS->regexMatcher;
+			_IVARS->regexMatcher = nil;
 		}
 	}
-	return;
+	else
+	{
+		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+				@"The given range is out of the bounds of the input string.",NSLocalizedDescriptionKey,
+					nil];
+		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-4 userInfo:dict] retain];
+		return NO;
+	}
+	return YES;
 }
 - (NSString *)replacementPattern;
 {
@@ -750,13 +828,7 @@ static const UChar DOLLARSIGN = 0x24;
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return NO;
 	}
-	_IVARS->rangeOfLastMatch = _IVARS->rangeOfCurrentMatch;
-	_IVARS->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
-	if(_IVARS->regexMatcher->find())
-	{
-		return [self rangeOfGroupAtIndex:0].length>0;
-	}
-	return _IVARS->rangeOfCurrentMatch.length>0;
+	return _IVARS->regexMatcher->find() && [self rangeOfCaptureGroupAtIndex:0].length>0;// should the second part be necessary?
 }
 - (BOOL)nextMatchAfterIndex:(int)index;
 {
@@ -772,11 +844,9 @@ static const UChar DOLLARSIGN = 0x24;
 	[_IVARS->error autorelease];
 	_IVARS->error = nil;
 	_IVARS->status = U_ZERO_ERROR;
-	_IVARS->rangeOfLastMatch = NSMakeRange(0,index);
-	_IVARS->rangeOfCurrentMatch = NSMakeRange(NSNotFound,0);
 	if(_IVARS->regexMatcher->find(index,_IVARS->status))
 	{
-		return [self rangeOfGroupAtIndex:0].length>0;
+		return [self rangeOfCaptureGroupAtIndex:0].length>0;
 	}
 	if(U_FAILURE(_IVARS->status))
 	{
@@ -786,18 +856,17 @@ static const UChar DOLLARSIGN = 0x24;
 					nil];
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 	}
-	return _IVARS->rangeOfCurrentMatch.length>0;
+	return NO;
 }
 - (NSRange)rangeOfMatch;
 {
-	NSRange result = _IVARS->rangeOfCurrentMatch;
-	if(_IVARS->rangeOfLastMatch.length)
-	{
-		result.location -= NSMaxRange(_IVARS->rangeOfLastMatch);
-	}
-	return result;
+	return [self rangeOfCaptureGroupAtIndex:0];
 }
-- (int)numberOfGroups;
+- (NSString *)substringOfMatch;
+{
+	return [self substringOfCaptureGroupAtIndex:0];
+}
+- (int)numberOfCaptureGroups;
 {
 	if(!_IVARS->regexMatcher)
 	{
@@ -811,12 +880,11 @@ static const UChar DOLLARSIGN = 0x24;
 	return _IVARS->regexMatcher->groupCount();
 }
 #include "uvectr32.h"
-- (NSRange)rangeOfGroupAtIndex:(int)index;
+- (NSRange)rangeOfCaptureGroupAtIndex:(int)index;
 {
 	[_IVARS->error autorelease];
 	_IVARS->error = nil;
 	_IVARS->status = U_ZERO_ERROR;
-	NSRange result = NSMakeRange(NSNotFound,0);
 	if(!_IVARS->regexMatcher)
 	{
 		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -824,7 +892,7 @@ static const UChar DOLLARSIGN = 0x24;
 				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return result;
+		return NSMakeRange(NSNotFound,0);
 	}
 	int start = _IVARS->regexMatcher->start(index,_IVARS->status);
 	if(U_FAILURE(_IVARS->status))
@@ -834,7 +902,7 @@ static const UChar DOLLARSIGN = 0x24;
 				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return result;
+		return NSMakeRange(NSNotFound,0);
 	}
 	int end = _IVARS->regexMatcher->end(index,_IVARS->status);
 	if(U_FAILURE(_IVARS->status))
@@ -844,164 +912,65 @@ static const UChar DOLLARSIGN = 0x24;
 				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return result;
+		return NSMakeRange(NSNotFound,0);
 	}
-	result = NSMakeRange(start,end-start);
-	if(index)
-	{
-		result.location -= _IVARS->rangeOfCurrentMatch.location;
-	}
-	else
-	{
-		_IVARS->rangeOfCurrentMatch = result;
-		if(_IVARS->rangeOfLastMatch.length)
-		{
-			result.location -= NSMaxRange(_IVARS->rangeOfLastMatch);
-		}
-	}
-	return result;
+	return NSMakeRange(start + _IVARS->stringOffset, end-start);
 }
-- (NSString *)substringOfGroupAtIndex:(int)index;
+- (NSString *)substringOfCaptureGroupAtIndex:(int)index;
 {
-	NSParameterAssert(index<=[self numberOfGroups]);// beware, reporting groups are 1 based
-	NSRange R = [self rangeOfGroupAtIndex:index];
-	if(index)
-	{
-		R.location += [self rangeOfGroupAtIndex:0].location;
-	}
-	return [[self inputString] substringWithRange:R];
+	NSRange R = [self rangeOfCaptureGroupAtIndex:index];
+	return R.length?[_IVARS->string substringWithRange:R]:@"";
 }
 - (NSArray *)componentsBySplitting;
 {
-	if(!_IVARS->regexMatcher)
-	{
-		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				@"No regex matcher: did you give an input string?",NSLocalizedDescriptionKey,
-				[NSNumber numberWithInt:_IVARS->status],@"status",
-					nil];
-		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return nil;
-	}
+	[self reset];
 	NSMutableArray * result = [NSMutableArray array];
-	// stolen from split()
-	#define input *_IVARS->uString
-	RegexPattern pattern = _IVARS->regexMatcher->pattern();
-	#define destCapacity INT_MAX
-	UnicodeString group;
-	UnicodeString * dest;
-	NSString * component;
-	// --- "CUT HERE"  ----
-	
-#if 0
-    reset(input);
-    int32_t   inputLen = input.length();
-#else
-    _IVARS->regexMatcher->reset(input);
-    int32_t   inputLen = (input).length();
-#endif
-    int32_t   nextOutputStringStart = 0;
-    if (inputLen == 0) {
-#if 0
-        return 0;
-#else
-		return [NSArray array];
-#endif
-    }
-	
+	#define input (_IVARS->uString)
+	#define maxNumberOfComponents UINT_MAX
+	unsigned firstUnrecorded = 0;
+	const UChar * buffer = input->getBuffer();// read only buffer
+	CFStringRef component = nil;
     //
     // Loop through the input text, searching for the delimiter pattern
     //
-    int32_t i;
-#if 0
-    int32_t numCaptureGroups = fPattern->fGroupMap->size();
-#else
-    int32_t numCaptureGroups = pattern.fGroupMap->size();
-#endif
-    for (i=0; ; i++) {
-        if (i>=destCapacity-1) {
-            // There is one or zero output string left.
-            // Fill the last output string with whatever is left from the input, then exit the loop.
-            //  ( i will be == destCapicity if we filled the output array while processing
-            //    capture groups of the delimiter expression, in which case we will discard the
-            //    last capture group saved in favor of the unprocessed remainder of the
-            //    input string.)
-            i = destCapacity-1;
-            int32_t remainingLength = inputLen-nextOutputStringStart;
-            if (remainingLength > 0) {
-                dest[i].setTo(input, nextOutputStringStart, remainingLength);
-            }
-            break;
-        }
-#if 0
-        if (find()) {
-            // We found another delimiter.  Move everything from where we started looking
-            //  up until the start of the delimiter into the next output string.
-            int32_t fieldLen = fMatchStart - nextOutputStringStart;
-            dest[i].setTo(input, nextOutputStringStart, fieldLen);
-            nextOutputStringStart = fMatchEnd;
-#else
-        if (_IVARS->regexMatcher->find()) {
-            // We found another delimiter.  Move everything from where we started looking
-            //  up until the start of the delimiter into the next output string.
-            int32_t fieldLen = _IVARS->regexMatcher->fMatchStart - nextOutputStringStart;
-            dest = new UnicodeString(input, nextOutputStringStart, fieldLen);
-			component = [NSString stringWithUnicodeString:*dest];
-			[result addObject:component];
-			delete dest;
-            nextOutputStringStart = _IVARS->regexMatcher->fMatchEnd;
-#endif
-
-            // If the delimiter pattern has capturing parentheses, the captured
-            //  text goes out into the next n destination strings.
-            int32_t groupNum;
-            for (groupNum=1; groupNum<=numCaptureGroups; groupNum++) {
-                if (i==destCapacity-1) {
-                    break;
-                }
-                i++;
-#if 0
-                dest[i] = group(groupNum, status);
-#else
-                group = _IVARS->regexMatcher->group(groupNum,_IVARS->status);
-				dest = new UnicodeString(group);
-				component = [NSString stringWithUnicodeString:*dest];
-				[result addObject:component];
-				delete dest;
-#endif
-            }
-
-            if (nextOutputStringStart == inputLen) {
-                // The delimiter was at the end of the string.  We're done.
-                break;
-            }
-
-#if 0
-        }
-#else
-        }// to help xcode parse the file properly
-#endif
-        else
-        {
-            // We ran off the end of the input while looking for the next delimiter.
-            // All the remaining text goes into the current output string.
-#if 0
-            dest[i].setTo(input, nextOutputStringStart, inputLen-nextOutputStringStart);
-#else
-            dest = new UnicodeString(input, nextOutputStringStart, inputLen-nextOutputStringStart);
-			component = [NSString stringWithUnicodeString:*dest];
-			[result addObject:component];
-			delete dest;
-#endif
-            break;
-        }
-    }
+    while([self nextMatch])
+	{
+		// We found another delimiter.  Move everything from where we started looking
+		//  up until the start of the delimiter into the next output string.
+		// we create a UnicodeString for each component.
+		NSRange matchRange = [self rangeOfMatch];
+		component = CFStringCreateWithCharacters(kCFAllocatorDefault,buffer+firstUnrecorded,matchRange.location - firstUnrecorded);// create a UTF16 string with the buffer
+		[result addObject:(NSString *)component];
+		CFRelease(component);
+		component = nil;
+		firstUnrecorded = NSMaxRange(matchRange);
+		// If the delimiter pattern has capturing parentheses, the captured
+		//  text goes out into the next n destination strings.
+		unsigned numberOfGroups = [self numberOfCaptureGroups];
+		unsigned groupNum = 0;
+		while(groupNum++ < numberOfGroups)
+		{
+			NSRange groupRange = [self rangeOfCaptureGroupAtIndex:groupNum];
+			component = CFStringCreateWithCharacters(kCFAllocatorDefault,buffer+groupRange.location, groupRange.length);
+			[result addObject:(NSString *)component];
+			CFRelease(component);
+			component = nil;
+		}
+	}
+	unsigned remainingLength = input->length()-firstUnrecorded;
+	if (remainingLength > 0)
+	{
+		component = CFStringCreateWithCharacters(kCFAllocatorDefault,buffer+firstUnrecorded,remainingLength);
+		[result addObject:(NSString *)component];
+		CFRelease(component);
+		component = nil;
+	}
 	#undef input
-	#undef destCapacity
-	_IVARS->regexMatcher->reset(*_IVARS->uString);
-	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
+	#undef maxNumberOfComponents
+	[self reset];
 	return result;
 }
-- (void)reset;
+- (BOOL)reset;
 {
 	if(!_IVARS->regexMatcher)
 	{
@@ -1010,11 +979,10 @@ static const UChar DOLLARSIGN = 0x24;
 				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return;
+		return NO;
 	}
 	_IVARS->regexMatcher->reset(*_IVARS->uString);
-	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
-	return;
+	return YES;
 }
 - (BOOL)resetAtIndex:(int)index;
 {
@@ -1027,6 +995,7 @@ static const UChar DOLLARSIGN = 0x24;
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return NO;
 	}
+	NSParameterAssert((index<_IVARS->stringOffset));
 	[_IVARS->error autorelease];
 	_IVARS->error = nil;
 	_IVARS->status = U_ZERO_ERROR;
@@ -1038,8 +1007,8 @@ static const UChar DOLLARSIGN = 0x24;
 				[NSNumber numberWithInt:_IVARS->status],@"status",
 					nil];
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
+		return NO;
 	}
-	_IVARS->rangeOfLastMatch = NSMakeRange(NSNotFound,0);
 	return _IVARS->error!=nil;
 }
 @end
@@ -1090,6 +1059,22 @@ static const UChar DOLLARSIGN = 0x24;
 	return unicodeString;	
 }
 
+- (NSString *)stringByEscapingICUREControlCharacters;
+{
+	NSMutableString * MS = [NSMutableString stringWithString:self];
+	[MS replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"|" withString:@"\\|" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"$" withString:@"\\$" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"*" withString:@"\\*" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"+" withString:@"\\+" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"?" withString:@"\\?" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"{" withString:@"\\{" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"}" withString:@"\\}" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"(" withString:@"\\(" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@")" withString:@"\\)" options:NULL range:NSMakeRange(0,[MS length])];
+	return MS;
+}
+
 - (NSRange)rangeOfICUREPattern:(NSString *)aPattern error:(NSError **)errorRef;
 {
 	return [self rangeOfICUREPattern:aPattern options:0 error:errorRef];
@@ -1137,8 +1122,7 @@ static const UChar DOLLARSIGN = 0x24;
 	{
 		return 0;
 	}
-	NSString * string = [self substringWithRange:searchRange];
-	[RE setInputString:string];
+	[RE setInputString:self range:searchRange];
 	[RE setReplacementPattern:replacement];
 	NSMutableArray * rangesAndReplacements = [NSMutableArray array];
 	NSRange range;
@@ -1172,13 +1156,12 @@ static const UChar DOLLARSIGN = 0x24;
 		return 0;
 	}
 	NSEnumerator * E = [rangesAndReplacements objectEnumerator];
-	unsigned offset = searchRange.location;
+	unsigned correction = 0;
 	while((value = [E nextObject]) && (replacement = [E nextObject]))
 	{
 		range = [value rangeValue];
-		range.location += offset;
 		[self replaceCharactersInRange:range withString:replacement];
-		offset = range.location+[replacement length];
+		correction += [replacement length] - range.length;
 	}
 	return [rangesAndReplacements count]/2;
 }

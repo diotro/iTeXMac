@@ -1000,9 +1000,11 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB77D09474610004B0A81 /* Build configuration list for PBXProject "iTeXMac2" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* iTeXMac2 */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DCB530900B59BDC300CD713D /* Prepare Build Number */,
 				DCB530170B59B8C800CD713D /* GetSourceVersion */,

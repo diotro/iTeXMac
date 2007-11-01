@@ -1,6 +1,7 @@
 // !$*UTF8*$!
 {
 	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeArchitecture = i386;
 		activeBuildConfigurationName = Development;
 		activeTarget = 8DC2EF4F0486A6940098B216 /* Lua */;
 		addToTargets = (
@@ -8,7 +9,6 @@
 		);
 		breakpoints = (
 		);
-		breakpointsGroup = DC0F02EC0BFA475500108852 /* XCBreakpointsBucket */;
 		codeSenseManager = DC72FAE60BFA29EC00C719E6 /* Code sense */;
 		perUserDictionary = {
 			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
@@ -38,8 +38,8 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXTargetDataSource_PrimaryAttribute;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					200,
-					272,
+					412,
+					60,
 					20,
 					48,
 					43,
@@ -55,8 +55,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 202030864;
-			PBXWorkspaceStateSaveDate = 202030864;
+			PBXPerProjectTemplateStateSaveDate = 215526495;
+			PBXWorkspaceStateSaveDate = 215526495;
 		};
 		sourceControlManager = DC72FAE50BFA29EC00C719E6 /* Source Control */;
 		userBuildSettings = {
@@ -88,12 +88,6 @@
 			sepNavVisRect = "{{0, 4043}, {1195, 265}}";
 			sepNavWindowFrame = "{{38, 13}, {1312, 839}}";
 		};
-	};
-	DC0F02EC0BFA475500108852 /* XCBreakpointsBucket */ = {
-		isa = XCBreakpointsBucket;
-		name = Lua;
-		objects = (
-		);
 	};
 	DC0F0D700BFB731B00108852 /* Lua-Info.plist */ = {
 		uiCtxt = {

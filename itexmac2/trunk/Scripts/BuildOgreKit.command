@@ -18,7 +18,7 @@ then
 	echo "warning: iTeXMac2 ERROR, Missing ${PRODUCT_NAME}?.tar.gz in ${PROJECT_DIR}"
 	echo "warning: iTeXMac2 ERROR, You are expected to download there an OgreKit tarball"
 	echo "warning: iTeXMac2 ERROR, connect to http://www8.ocn.ne.jp/~sonoisa/OgreKit/#Download"
-	exit 1
+#	exit 1
 fi
 for TEMP in ${OGREKIT_TGZ}
 do
@@ -28,7 +28,7 @@ done
 echo "warning: iTeXMac2 INFO, Expanding ${OGREKIT_TGZ}..."
 TARGET_BUILD_DIR="${PROJECT_DIR}/build"
 mkdir -p "${TARGET_BUILD_DIR}"
-tar -C "${TARGET_BUILD_DIR}" -xzf "${OGREKIT_TGZ}"
+#tar -C "${TARGET_BUILD_DIR}" -xzf "${OGREKIT_TGZ}"
 ls "${TARGET_BUILD_DIR}"
 OGREKIT_XCODE=`find "${TARGET_BUILD_DIR}" -regex ".*/.*${PRODUCT_NAME}.*\.xcodeproj"`
 if [ ${#OGREKIT_XCODE} -eq 0 ]

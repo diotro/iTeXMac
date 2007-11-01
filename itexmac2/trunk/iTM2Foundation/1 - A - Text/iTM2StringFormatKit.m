@@ -203,14 +203,13 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [[[ICURegEx allocWithZone:[self zone]] initWithPattern:
+        RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:
                             NSLocalizedStringFromTableInBundle(@"inputenc", ARETABLE, BUNDLE, "") options:0 error:nil] autorelease];
 //NSLog(@"ARE: %@", ARE);
-		if([RE nextMatch] && [RE numberOfGroups])
+		if([RE nextMatch] && [RE numberOfCaptureGroups])
 		{
-			R = [RE rangeOfGroupAtIndex:1];
-			R.location += [RE rangeOfMatch].location;
-			headerStringEncodingString = [self substringWithRange:subR];
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
 		}
 //NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
         NS_HANDLER
@@ -225,14 +224,13 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [[[ICURegEx allocWithZone:[self zone]] initWithPattern:
+        RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:
                             NSLocalizedStringFromTableInBundle(@"regime", ARETABLE, BUNDLE, "") options:0 error:nil] autorelease];
 //NSLog(@"ARE: %@", ARE);
-		if([RE nextMatch] && [RE numberOfGroups])
+		if([RE nextMatch] && [RE numberOfCaptureGroups])
 		{
-			R = [RE rangeOfGroupAtIndex:1];
-			R.location += [RE rangeOfMatch].location;
-			headerStringEncodingString = [self substringWithRange:subR];
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
 		}
         NS_HANDLER
 		iTM2_LOG(@"*** Exception catched (2): %@", [localException reason]);
@@ -244,14 +242,13 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [[[ICURegEx allocWithZone:[self zone]] initWithPattern:
+        RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:
                             NSLocalizedStringFromTableInBundle(@"emacs", ARETABLE, BUNDLE, "") options:0 error:nil] autorelease];
 //NSLog(@"ARE: %@", ARE);
-		if([RE nextMatch] && [RE numberOfGroups])
+		if([RE nextMatch] && [RE numberOfCaptureGroups])
 		{
-			R = [RE rangeOfGroupAtIndex:1];
-			R.location += [RE rangeOfMatch].location;
-			headerStringEncodingString = [self substringWithRange:subR];
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
 		}
         NS_HANDLER
 		iTM2_LOG(@"*** Exception catched (3): %@", [localException reason]);
@@ -263,14 +260,13 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [[[ICURegEx allocWithZone:[self zone]] initWithPattern:
+        RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:
                             NSLocalizedStringFromTableInBundle(@"texshop", ARETABLE, BUNDLE, "") options:0 error:nil] autorelease];
 //NSLog(@"ARE: %@", ARE);
-		if([RE nextMatch] && [RE numberOfGroups])
+		if([RE nextMatch] && [RE numberOfCaptureGroups])
 		{
-			R = [RE rangeOfGroupAtIndex:1];
-			R.location += [RE rangeOfMatch].location;
-			headerStringEncodingString = [self substringWithRange:subR];
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
 		}
         NS_HANDLER
 		iTM2_LOG(@"*** Exception catched (4): %@", [localException reason]);

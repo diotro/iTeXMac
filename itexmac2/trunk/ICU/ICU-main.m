@@ -6,9 +6,72 @@
 @end
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	NSLog(@"A create ----------------------------");
+	NSLog(@"isValidPattern:... ----------------------------");
 	NSError * localError = nil;
-	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"abc+" options:nil error:&localError] autorelease];
+	if(![ICURegEx isValidPattern:@"" options:0 error:&localError] && localError)
+	{
+		NSLog(@"UNEXPECTED: localError:%@",localError);
+	}
+	if(![ICURegEx isValidPattern:@"x" options:0 error:&localError] && localError)
+	{
+		NSLog(@"UNEXPECTED: localError:%@",localError);
+	}
+	if(![ICURegEx isValidPattern:@"griboullons(x dans la mare" options:0 error:&localError] && localError)
+	{
+		NSLog(@"EXPECTED: localError:%@",localError);
+	}
+	NSLog(@"initWithSearchPattern:... ----------------------------");
+	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@".\\{[`'\\^\"~=.]\\}" options:nil error:&localError] autorelease];
+	if(!RE)
+	{
+		NSLog(@"RE unavailable");
+		if(localError)
+		{
+			NSLog(@"UNEXPECTED: localError:%@",localError);
+		}
+		else
+		{
+			NSLog(@"UNEXPECTED: localError unavailable");
+		}
+		[pool release];
+		return -1;
+	}
+	RE = [[[ICURegEx alloc] initWithSearchPattern:@".\\{)[`'\\[\\^\\\"~=.]\\)\\}" options:nil error:&localError] autorelease];
+	if(RE)
+	{
+		NSLog(@"UNEXPECTED RE available");
+		[pool release];
+		return -1;
+	}
+	else
+	{
+		if(localError)
+		{
+			NSLog(@"EXPECTED: localError:%@",localError);
+		}
+		else
+		{
+			NSLog(@"UNEXPECTED: localError unavailable");
+			[pool release];
+			return -1;
+		}
+	}
+	NSLog(@"matchesAtIndex: AND setInputString:----------------------------");
+	NSString * pattern = @"a";
+	RE = [[ICURegEx alloc] initWithSearchPattern:pattern options:nil error:&localError];
+	NSString * inputString = @"a";
+	[RE setInputString:inputString];
+	NSLog(@"setInputString:\"%@\"%@\"%@\"",inputString,([inputString isEqual:[RE inputString]]?@"==":@"UNEXPECTED <>"),[RE inputString]);
+	NSLog(@"pattern: %@ match string: %@ at index: 0, result: %@",pattern, inputString,([RE matchesAtIndex:0 extendToTheEnd:YES]?@"EXPECTED YES":@"UNEXPECTED NO"));
+	inputString = @"bac";
+	[RE setInputString:inputString];
+	NSLog(@"pattern: %@ match string: %@ at index: 1, result: %@",pattern, inputString,([RE matchesAtIndex:1 extendToTheEnd:NO]?@"EXPECTED YES":@"UNEXPECTED NO"));
+	inputString = @"bbacc";
+	[RE setInputString:inputString range:NSMakeRange(1,3)];
+	NSLog(@"pattern: %@ match substring: %@ range:(1,3) at index: 1, result: %@",pattern, inputString,([RE matchesAtIndex:1 extendToTheEnd:NO]?@"EXPECTED YES":@"UNEXPECTED NO"));
+	NSLog(@"A create ----------------------------");
+	localError = nil;
+	RE = [[[ICURegEx alloc] initWithSearchPattern:@"abc+" options:nil error:&localError] autorelease];
 	if(!RE)
 	{
 		NSLog(@"RE unavailable");
@@ -94,9 +157,9 @@ int main (int argc, const char * argv[]) {
 	if([RE nextMatch])
 	{
 		NSLog(@"expected found: %@", NSStringFromRange([RE rangeOfMatch]));
-		for(index=0;index<=[RE numberOfGroups];++index)
+		for(index=0;index<=[RE numberOfCaptureGroups];++index)
 		{
-			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfGroupAtIndex:index]));
+			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfCaptureGroupAtIndex:index]));
 		}
 	}
 	else if([RE error])
@@ -110,9 +173,9 @@ int main (int argc, const char * argv[]) {
 	if([RE nextMatch])
 	{
 		NSLog(@"expected found: %@", NSStringFromRange([RE rangeOfMatch]));
-		for(index=0;index<=[RE numberOfGroups];++index)
+		for(index=0;index<=[RE numberOfCaptureGroups];++index)
 		{
-			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfGroupAtIndex:index]));
+			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfCaptureGroupAtIndex:index]));
 		}
 	}
 	else if([RE error])
@@ -126,9 +189,9 @@ int main (int argc, const char * argv[]) {
 	if([RE nextMatch])
 	{
 		NSLog(@"unexpected found: %@", NSStringFromRange([RE rangeOfMatch]));
-		for(index=0;index<=[RE numberOfGroups];++index)
+		for(index=0;index<=[RE numberOfCaptureGroups];++index)
 		{
-			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfGroupAtIndex:index]));
+			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfCaptureGroupAtIndex:index]));
 		}
 	}
 	else if([RE error])
@@ -142,9 +205,9 @@ int main (int argc, const char * argv[]) {
 	if([RE nextMatchAfterIndex:2])
 	{
 		NSLog(@"expected found: %@", NSStringFromRange([RE rangeOfMatch]));
-		for(index=0;index<=[RE numberOfGroups];++index)
+		for(index=0;index<=[RE numberOfCaptureGroups];++index)
 		{
-			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfGroupAtIndex:index]));
+			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfCaptureGroupAtIndex:index]));
 		}
 	}
 	else if([RE error])
@@ -155,8 +218,9 @@ int main (int argc, const char * argv[]) {
 	{
 		NSLog(@"unexpected no found");
 	}
-	[RE setReplacementPattern:@"0:/$0/\n1:/$1/\n2:/$3/"];
-	NSLog(@"[RE replacementString]:%@",[RE replacementString]);
+	NSString * replace = @"0:/$0/\n1:/$1/\n2:/$2/";
+	[RE setReplacementPattern:replace];
+	NSLog(@"[RE replacementString]:%@ (%@)",[RE replacementString],replace);
 	NSLog(@"[RE error]:%@",[RE error]);
 #pragma mark E
 	NSLog(@"E find ----------------------------");
@@ -165,7 +229,7 @@ int main (int argc, const char * argv[]) {
 	NSMutableString * MS;
 	MS = [NSMutableString stringWithString:input];
 	NSLog(@"Avant:%@",MS);
-	NSString * pattern = [NSString stringWithUTF8String:"(ખ..).*(ਆ+)"];
+	pattern = [NSString stringWithUTF8String:"(ખ..).*(ਆ+)"];
 	[MS replaceOccurrencesOfICUREPattern:pattern withPattern:@"$2$1$2$1" options:0 range:NSMakeRange(0,[MS length]) error:&error];
 	NSLog(@"Apres:%@",MS);
 	MS = [NSMutableString stringWithString:input];
@@ -178,9 +242,9 @@ int main (int argc, const char * argv[]) {
 	if([RE nextMatch])
 	{
 		NSLog(@"un expected found: %@", NSStringFromRange([RE rangeOfMatch]));
-		for(index=0;index<=[RE numberOfGroups];++index)
+		for(index=0;index<=[RE numberOfCaptureGroups];++index)
 		{
-			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfGroupAtIndex:index]));
+			NSLog(@"group:%i, range:%@",index,NSStringFromRange([RE rangeOfCaptureGroupAtIndex:index]));
 		}
 	}
 	else if([RE error])
@@ -192,7 +256,7 @@ int main (int argc, const char * argv[]) {
 		NSLog(@"unexpected no found");
 	}
 #pragma mark G
-	NSString * S = [NSString * stringWithUTF8String:"“‘ÁØå’”"];
+	NSString * S = [NSString stringWithUTF8String:"“‘ÁØå’”"];
 	
 	[pool release];
 	

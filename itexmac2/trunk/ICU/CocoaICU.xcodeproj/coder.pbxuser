@@ -1,6 +1,7 @@
 // !$*UTF8*$!
 {
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
+		activeArchitecture = i386;
 		activeBuildConfigurationName = Debug;
 		activeExecutable = DC5302BF0B64B98A00BD0276 /* ICU */;
 		activeTarget = DC5302BD0B64B98A00BD0276 /* ICU */;
@@ -10,9 +11,8 @@
 			DC3A9DD60B5683E10084424F /* test.m:9 */,
 			DC51C36C0B5999D700903729 /* preflight.m:598 */,
 			DC51C3770B599AD200903729 /* preflight.m:607 */,
-			DCC2EEBF0B865A2D00591965 /* ICURegEx.mm:117 */,
+			DC81A0770CD8A322003163CE /* ICURegEx.mm:1020 */,
 		);
-		breakpointsGroup = DC530B7A0B657F3100BD0276 /* XCBreakpointsBucket */;
 		codeSenseManager = DC3A9BBC0B5647800084424F /* Code sense */;
 		executables = (
 			DC5302BF0B64B98A00BD0276 /* ICU */,
@@ -71,8 +71,8 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					200,
-					269,
+					409,
+					60,
 					20,
 					48,
 					43,
@@ -88,24 +88,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 202319668;
-			PBXWorkspaceStateSaveDate = 202319668;
+			PBXPerProjectTemplateStateSaveDate = 215523824;
+			PBXWorkspaceStateSaveDate = 215523824;
 		};
 		perUserProjectItems = {
-			DC146D2D0B889EB900E86DA3 = DC146D2D0B889EB900E86DA3 /* PBXTextBookmark */;
-			DC146D300B889EB900E86DA3 = DC146D300B889EB900E86DA3 /* PBXTextBookmark */;
-			DC146D330B889EB900E86DA3 = DC146D330B889EB900E86DA3 /* PBXTextBookmark */;
-			DC146D360B889EB900E86DA3 = DC146D360B889EB900E86DA3 /* PBXTextBookmark */;
-			DC63EE580B9639070018AFC2 = DC63EE580B9639070018AFC2 /* PBXTextBookmark */;
-			DC63EE5C0B9639070018AFC2 = DC63EE5C0B9639070018AFC2 /* PBXTextBookmark */;
-			DC63EE5E0B9639070018AFC2 = DC63EE5E0B9639070018AFC2 /* PBXTextBookmark */;
-			DC63F3060B965EE60018AFC2 = DC63F3060B965EE60018AFC2 /* PBXTextBookmark */;
-			DC63F3070B965EE60018AFC2 = DC63F3070B965EE60018AFC2 /* PBXTextBookmark */;
-			DC63F3090B965EE60018AFC2 = DC63F3090B965EE60018AFC2 /* PBXTextBookmark */;
-			DC63F30A0B965EE60018AFC2 = DC63F30A0B965EE60018AFC2 /* PBXTextBookmark */;
-			DC63F30C0B965EE60018AFC2 = DC63F30C0B965EE60018AFC2 /* PBXTextBookmark */;
-			DC63F30D0B965EE60018AFC2 = DC63F30D0B965EE60018AFC2 /* PBXTextBookmark */;
-			DC63F30E0B965EE60018AFC2 = DC63F30E0B965EE60018AFC2 /* PBXTextBookmark */;
+			DC81A0420CD8A1D9003163CE /* PBXTextBookmark */ = DC81A0420CD8A1D9003163CE /* PBXTextBookmark */;
+			DC81A0900CD8A6A2003163CE /* PBXTextBookmark */ = DC81A0900CD8A6A2003163CE /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC3A9BBB0B5647800084424F /* Source Control */;
 		userBuildSettings = {
@@ -129,60 +117,6 @@
 	};
 	DC146B470B877D5F00E86DA3 /* configure/make icu */ = {
 		activeExec = 0;
-	};
-	DC146D2D0B889EB900E86DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC146D2E0B889EB900E86DA3 /* make-diskimage.command */;
-		name = "(null): 71";
-		rLen = 0;
-		rLoc = 2017;
-		rType = 0;
-		vrLen = 1250;
-		vrLoc = 1417;
-	};
-	DC146D2E0B889EB900E86DA3 /* make-diskimage.command */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = "make-diskimage.command";
-		path = "/Volumes/HD2/iTeXMac2/svn/Distributions/make-diskimage.command";
-		sourceTree = "<absolute>";
-	};
-	DC146D300B889EB900E86DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC146D310B889EB900E86DA3 /* NSString.h */;
-		name = "- (void)getCharacters:(unichar *)buffer range:(NSRange)aRange;";
-		rLen = 63;
-		rLoc = 2586;
-		rType = 0;
-		vrLen = 1469;
-		vrLoc = 1876;
-	};
-	DC146D310B889EB900E86DA3 /* NSString.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = NSString.h;
-		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSString.h;
-		sourceTree = "<absolute>";
-	};
-	DC146D330B889EB900E86DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCC2E4470B86284E00591965 /* regex_public.h */;
-		name = matcher;
-		rLen = 7;
-		rLoc = 10554;
-		rType = 0;
-		vrLen = 1261;
-		vrLoc = 13005;
-	};
-	DC146D360B889EB900E86DA3 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC145E120B86654C00E86DA3 /* uregex.h */;
-		name = "uregex.h: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1513;
-		vrLoc = 9891;
 	};
 	DC3A9BBB0B5647800084424F /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -210,13 +144,15 @@
 		);
 		breakpointStyle = 0;
 		continueAfterActions = 0;
+		countType = 0;
 		delayBeforeContinue = 0;
 		fileReference = DC3A9D430B56824D0084424F /* test.m */;
 		functionName = "main()";
-		hitCount = 1;
+		hitCount = 0;
+		ignoreCount = 0;
 		lineNumber = 9;
-		modificationTime = 194403617.761783;
-		state = 1;
+		modificationTime = 215523968.823193;
+		state = 0;
 	};
 	DC51C31E0B59965500903729 /* preflight.m */ = {
 		isa = PBXFileReference;
@@ -232,13 +168,15 @@
 		);
 		breakpointStyle = 0;
 		continueAfterActions = 0;
+		countType = 0;
 		delayBeforeContinue = 0;
 		fileReference = DC51C31E0B59965500903729 /* preflight.m */;
 		functionName = "main()";
-		hitCount = 1;
+		hitCount = 0;
+		ignoreCount = 0;
 		lineNumber = 598;
-		modificationTime = 194403617.7618;
-		state = 1;
+		modificationTime = 215523968.870044;
+		state = 0;
 	};
 	DC51C3770B599AD200903729 /* preflight.m:607 */ = {
 		isa = PBXFileBreakpoint;
@@ -246,18 +184,21 @@
 		);
 		breakpointStyle = 0;
 		continueAfterActions = 0;
+		countType = 0;
 		delayBeforeContinue = 0;
 		fileReference = DC51C31E0B59965500903729 /* preflight.m */;
 		functionName = "main()";
-		hitCount = 1;
+		hitCount = 0;
+		ignoreCount = 0;
 		lineNumber = 607;
-		modificationTime = 194403617.76199;
-		state = 1;
+		modificationTime = 215523968.897057;
+		state = 0;
 	};
 	DC5302BA0B64B96A00BD0276 /* ICU-main.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1208, 4028}}";
-			sepNavSelRange = "{5020, 8}";
+			sepNavIntBoundsRect = "{{0, 0}, {1432, 4902}}";
+			sepNavSelRange = "{6173, 0}";
+			sepNavVisRange = "{6136, 1351}";
 			sepNavVisRect = "{{0, 3324}, {1206, 702}}";
 			sepNavWindowFrame = "{{156, 71}, {1245, 807}}";
 		};
@@ -270,12 +211,12 @@
 	};
 	DC5302BF0B64B98A00BD0276 /* ICU */ = {
 		isa = PBXExecutable;
-		activeArgIndex = 2147483647;
 		activeArgIndices = (
 		);
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -296,139 +237,76 @@
 		variableFormatDictionary = {
 		};
 	};
-	DC530B7A0B657F3100BD0276 /* XCBreakpointsBucket */ = {
-		isa = XCBreakpointsBucket;
-		name = CocoaICU;
-		objects = (
-			DC3A9DD60B5683E10084424F /* test.m:9 */,
-			DC51C36C0B5999D700903729 /* preflight.m:598 */,
-			DC51C3770B599AD200903729 /* preflight.m:607 */,
-			DCC2EEBF0B865A2D00591965 /* ICURegEx.mm:117 */,
+	DC81A0420CD8A1D9003163CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC81A0430CD8A1D9003163CE /* ICU-main.m */;
+		name = "ICU-main.m: 14";
+		rLen = 2312;
+		rLoc = 344;
+		rType = 0;
+		vrLen = 1117;
+		vrLoc = 34;
+	};
+	DC81A0430CD8A1D9003163CE /* ICU-main.m */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.objc;
+		name = "ICU-main.m";
+		path = "/leopard/icu-old/ICU3-6/ICU-main.m";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1432, 11438}}";
+			sepNavSelRange = "{278, 0}";
+			sepNavVisRange = "{3033, 1568}";
+			sepNavWindowFrame = "{{15, 85}, {1161, 788}}";
+		};
+	};
+	DC81A0770CD8A322003163CE /* ICURegEx.mm:1020 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
 		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = DCB26F240B852AE000868348 /* ICURegEx.mm */;
+		functionName = "+stringWithUnicodeString:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1020;
+		location = ICU;
+		modificationTime = 215524130.143484;
+		state = 1;
 	};
-	DC63EE580B9639070018AFC2 /* PBXTextBookmark */ = {
+	DC81A0900CD8A6A2003163CE /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = DCB26F240B852AE000868348 /* ICURegEx.mm */;
-		name = "ICURegEx.mm: 575";
+		fRef = DC81A0910CD8A6A2003163CE /* ICU-main.m */;
+		name = "ICU-main.m: 12";
 		rLen = 0;
-		rLoc = 20328;
+		rLoc = 278;
 		rType = 0;
-		vrLen = 812;
-		vrLoc = 25185;
+		vrLen = 1568;
+		vrLoc = 3033;
 	};
-	DC63EE5C0B9639070018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB26F230B852AE000868348 /* ICURegEx.h */;
-		rLen = 0;
-		rLoc = 11979;
-		rType = 0;
-	};
-	DC63EE5E0B9639070018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC5302BA0B64B96A00BD0276 /* ICU-main.m */;
-		name = NSString;
-		rLen = 8;
-		rLoc = 5020;
-		rType = 0;
-		vrLen = 1160;
-		vrLoc = 3941;
-	};
-	DC63F3060B965EE60018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB26F230B852AE000868348 /* ICURegEx.h */;
-		name = "ICURegEx.h: 97";
-		rLen = 0;
-		rLoc = 3769;
-		rType = 0;
-		vrLen = 1540;
-		vrLoc = 3234;
-	};
-	DC63F3070B965EE60018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC63F3080B965EE60018AFC2 /* make-diskimage.command */;
-		name = "(null): 71";
-		rLen = 0;
-		rLoc = 2017;
-		rType = 0;
-		vrLen = 1324;
-		vrLoc = 1344;
-	};
-	DC63F3080B965EE60018AFC2 /* make-diskimage.command */ = {
+	DC81A0910CD8A6A2003163CE /* ICU-main.m */ = {
 		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = "make-diskimage.command";
-		path = "/Volumes/HD2/iTeXMac2/svn/Distributions/make-diskimage.command";
+		name = "ICU-main.m";
+		path = "/leopard/icu-old/ICU3-6/ICU-main.m";
 		sourceTree = "<absolute>";
-	};
-	DC63F3090B965EE60018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCB26F240B852AE000868348 /* ICURegEx.mm */;
-		name = "ICURegEx.mm: 575";
-		rLen = 0;
-		rLoc = 20328;
-		rType = 0;
-		vrLen = 1484;
-		vrLoc = 21907;
-	};
-	DC63F30A0B965EE60018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC63F30B0B965EE60018AFC2 /* NSString.h */;
-		name = "- (void)getCharacters:(unichar *)buffer range:(NSRange)aRange;";
-		rLen = 63;
-		rLoc = 2586;
-		rType = 0;
-		vrLen = 1352;
-		vrLoc = 2118;
-	};
-	DC63F30B0B965EE60018AFC2 /* NSString.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = NSString.h;
-		path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSString.h;
-		sourceTree = "<absolute>";
-	};
-	DC63F30C0B965EE60018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC5302BA0B64B96A00BD0276 /* ICU-main.m */;
-		name = NSString;
-		rLen = 8;
-		rLoc = 5020;
-		rType = 0;
-		vrLen = 1112;
-		vrLoc = 3989;
-	};
-	DC63F30D0B965EE60018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DCC2E4470B86284E00591965 /* regex_public.h */;
-		name = "regex_public.h: 951";
-		rLen = 0;
-		rLoc = 39509;
-		rType = 0;
-		vrLen = 1261;
-		vrLoc = 13013;
-	};
-	DC63F30E0B965EE60018AFC2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC145E120B86654C00E86DA3 /* uregex.h */;
-		name = "uregex.h: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1513;
-		vrLoc = 9891;
 	};
 	DCB26F230B852AE000868348 /* ICURegEx.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1649, 5680}}";
-			sepNavSelRange = "{3769, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1252, 6536}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1276}";
 			sepNavVisRect = "{{0, 1588}, {1272, 685}}";
 			sepNavWindowFrame = "{{61, 41}, {1311, 790}}";
 		};
 	};
 	DCB26F240B852AE000868348 /* ICURegEx.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1667, 23640}}";
-			sepNavSelRange = "{20328, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1379, 22534}}";
+			sepNavSelRange = "{35063, 23}";
+			sepNavVisRange = "{35049, 806}";
 			sepNavVisRect = "{{0, 12560}, {1272, 685}}";
 			sepNavWindowFrame = "{{38, 62}, {1311, 790}}";
 		};
@@ -440,19 +318,5 @@
 			sepNavVisRect = "{{0, 6880}, {1272, 685}}";
 			sepNavWindowFrame = "{{15, 83}, {1311, 790}}";
 		};
-	};
-	DCC2EEBF0B865A2D00591965 /* ICURegEx.mm:117 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		delayBeforeContinue = 0;
-		fileReference = DCB26F240B852AE000868348 /* ICURegEx.mm */;
-		functionName = "-initWithSearchPattern:options:error:";
-		hitCount = 1;
-		lineNumber = 117;
-		modificationTime = 202319675.392082;
-		state = 0;
 	};
 }
