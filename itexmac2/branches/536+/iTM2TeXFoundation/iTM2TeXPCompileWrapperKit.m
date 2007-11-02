@@ -1475,7 +1475,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * MRA = [NSMutableArray array];
-	NSEnumerator * E = [[iTM2TeXPCompilePerformer builtInEngineModes] objectEnumerator];
+	NSEnumerator * E = [[[iTM2TeXPCompilePerformer performer] builtInEngineModes] objectEnumerator];
 	NSString * name;
 	while(name = [E nextObject])
 	{
@@ -1571,16 +1571,16 @@ NSString * const iTM2ContinuousCompileDelay = @"iTM2ContinuousCompileDelay";
 	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:1] forKey:iTM2ContinuousCompileDelay]];
 	return;
 }
-+ (int)commandGroup;
+- (int)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
-+ (int)commandLevel;
+- (int)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allBuiltInEngineModes
-+ (NSArray *)allBuiltInEngineModes;
+- (NSArray *)allBuiltInEngineModes;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1626,7 +1626,7 @@ To Do List:
     return allBuiltInEngineModes;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  builtInEngineModes
-+ (NSArray *)builtInEngineModes;
+- (NSArray *)builtInEngineModes;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1665,7 +1665,7 @@ To Do List:
     return builtInEngineModes;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForBaseProject:
-+ (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1691,7 +1691,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForProject:
-+ (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1717,7 +1717,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1810,7 +1810,7 @@ To Do List:
 	return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1892,7 +1892,7 @@ To Do List:
 	return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskWrapperDidPerformCommand:taskController:userInfo:
-+ (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
+- (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
 /*"Here come the actions to be performed when the Index task has completed.
 userInfo is still owned by the receiver and should be released.
 Subclassers will prepend their own stuff.
@@ -1916,7 +1916,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _delayedPerformCommand:
-+ (void)_delayedPerformCommand:(NSTimer *)timer;
+- (void)_delayedPerformCommand:(NSTimer *)timer;
 /*"Here come the actions to be performed when the Index task has completed.
 userInfo is still owned by the receiver and should be released.
 Subclassers will prepend their own stuff.
@@ -1946,7 +1946,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuItemTitleForProject:
-+ (NSString *)menuItemTitleForProject:(id)project;
+- (NSString *)menuItemTitleForProject:(id)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1982,7 +1982,7 @@ To Do List:
     return [super menuItemTitleForProject:project];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePerformCommand:
-+ (BOOL)validatePerformCommand:(id)sender;
+- (BOOL)validatePerformCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004

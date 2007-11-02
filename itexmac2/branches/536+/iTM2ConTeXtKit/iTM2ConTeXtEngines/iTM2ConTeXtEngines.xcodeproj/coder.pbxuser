@@ -49,7 +49,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					460,
+					778,
 					20,
 					48,
 					43,
@@ -104,8 +104,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 202324708;
-			PBXWorkspaceStateSaveDate = 202324708;
+			PBXPerProjectTemplateStateSaveDate = 215620889;
+			PBXWorkspaceStateSaveDate = 215620889;
 		};
 		perUserProjectItems = {
 			DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */ = DC43E3FB09344FCC003C3C86 /* PBXTextBookmark */;
@@ -124,6 +124,12 @@
 			DCC541840935A0E50050770C /* PBXTextBookmark */ = DCC541840935A0E50050770C /* PBXTextBookmark */;
 			DCC544BB0937AA500050770C /* PBXTextBookmark */ = DCC544BB0937AA500050770C /* PBXTextBookmark */;
 			DCC544BC0937AA500050770C /* PBXTextBookmark */ = DCC544BC0937AA500050770C /* PBXTextBookmark */;
+			DCCF693F0CDA1CF00016819B /* PBXTextBookmark */ = DCCF693F0CDA1CF00016819B /* PBXTextBookmark */;
+			DCCF69420CDA1CF00016819B /* PBXTextBookmark */ = DCCF69420CDA1CF00016819B /* PBXTextBookmark */;
+			DCCF69440CDA1CF00016819B /* PBXTextBookmark */ = DCCF69440CDA1CF00016819B /* PBXTextBookmark */;
+			DCDD1A720CDA1D4D00525FA4 /* PBXTextBookmark */ = DCDD1A720CDA1D4D00525FA4 /* PBXTextBookmark */;
+			DCDD1A730CDA1D4D00525FA4 /* PBXTextBookmark */ = DCDD1A730CDA1D4D00525FA4 /* PBXTextBookmark */;
+			DCDD1A740CDA1D4D00525FA4 /* PBXTextBookmark */ = DCDD1A740CDA1D4D00525FA4 /* PBXTextBookmark */;
 		};
 		sourceControlManager = DC52042E088B1FD300DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -199,9 +205,9 @@
 	};
 	DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1036, 4777}}";
-			sepNavSelRange = "{8018, 0}";
-			sepNavVisRect = "{{0, 2910}, {658, 183}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1163, 5400}}";
+			sepNavSelRange = "{8400, 0}";
+			sepNavVisRect = "{{0, 2873}, {976, 562}}";
 			sepNavWindowFrame = "{{15, 12}, {1218, 815}}";
 		};
 	};
@@ -387,6 +393,55 @@
 		vrLen = 248;
 		vrLoc = 26969;
 	};
+	DCCF693F0CDA1CF00016819B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */;
+		name = "iTM2_Engine_texexec: 10";
+		rLen = 0;
+		rLoc = 329;
+		rType = 0;
+		vrLen = 1197;
+		vrLoc = 0;
+	};
+	DCCF69410CDA1CF00016819B /* iTM2_Engine_texexec */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = iTM2_Engine_texexec;
+		path = "/Volumes/HD2/leopard/itexmac2-536+/build/iTM2ConTeXtKit.framework/PlugIns/TeXExec wrapper.iTM2/Contents/MacOS/bin/iTM2_Engine_texexec";
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1163, 5440}}";
+			sepNavSelRange = "{8413, 87}";
+			sepNavVisRect = "{{0, 4520}, {976, 562}}";
+		};
+	};
+	DCCF69420CDA1CF00016819B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCCF69430CDA1CF00016819B /* iTM2_Engine_texexec */;
+		name = "(null): 271";
+		rLen = 0;
+		rLoc = 9324;
+		rType = 0;
+		vrLen = 808;
+		vrLoc = 8489;
+	};
+	DCCF69430CDA1CF00016819B /* iTM2_Engine_texexec */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = iTM2_Engine_texexec;
+		path = "/Volumes/HD2/leopard/itexmac2-536+/build/iTM2ConTeXtKit.framework/PlugIns/TeXExec wrapper.iTM2/Contents/MacOS/bin/iTM2_Engine_texexec";
+		sourceTree = "<absolute>";
+	};
+	DCCF69440CDA1CF00016819B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */;
+		name = "iTM2_Engine_texexec: 10";
+		rLen = 0;
+		rLoc = 329;
+		rType = 0;
+		vrLen = 1197;
+		vrLoc = 0;
+	};
 	DCD3D2F7088EA68A009ED7E0 /* -[NSException raise] */ = {
 		isa = PBXSymbolicBreakpoint;
 		actions = (
@@ -399,5 +454,35 @@
 		modificationTime = 182295987.882573;
 		state = 1;
 		symbolName = "-[NSException raise]";
+	};
+	DCDD1A720CDA1D4D00525FA4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCCF69410CDA1CF00016819B /* iTM2_Engine_texexec */;
+		name = "\"$iTM2_CMD_Notify\" error -reason \"$(basename \"$0\") FAILED, see log (${iTM2_Status}).\"";
+		rLen = 87;
+		rLoc = 8413;
+		rType = 0;
+		vrLen = 870;
+		vrLoc = 7987;
+	};
+	DCDD1A730CDA1D4D00525FA4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DCCF69410CDA1CF00016819B /* iTM2_Engine_texexec */;
+		name = "\"$iTM2_CMD_Notify\" error -reason \"$(basename \"$0\") FAILED, see log (${iTM2_Status}).\"";
+		rLen = 87;
+		rLoc = 8413;
+		rType = 0;
+		vrLen = 870;
+		vrLoc = 7987;
+	};
+	DCDD1A740CDA1D4D00525FA4 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */;
+		name = "iTM2_Engine_texexec: 241";
+		rLen = 0;
+		rLoc = 8400;
+		rType = 0;
+		vrLen = 1093;
+		vrLoc = 5243;
 	};
 }

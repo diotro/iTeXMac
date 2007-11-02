@@ -645,7 +645,8 @@ To Do List:
 	{
 		toolbarItem = objc_msgSend(self, selector);
 		[toolbarItems setObject:toolbarItem forKey:anIdentifier];
-		return [[toolbarItem copy] autorelease];		
+		// wtarting with leopard, this is a problem because the view is no longer archivable
+		return [[toolbarItem copy] autorelease];
 	}
 	
 	toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];

@@ -89,7 +89,7 @@ To Do List:
 	{
 		documentString = [self stringRepresentation];
 	}
-	if(line && (line <= [documentString numberOfLines]))
+	if(line < [documentString numberOfLines])
 	{
 		NSEnumerator * E = [[[NSApp windows]
 			sortedArrayUsingSelector: @selector(compareUsingLevel:)] objectEnumerator];
@@ -1965,7 +1965,7 @@ To Do List:
 		if([TV isDescendantOf:[[self window] contentView]])
 		{
 			NSLayoutManager * LM = [TV layoutManager];
-			NSTextStorage * TS = [self textStorage];
+//			NSTextStorage * TS = [self textStorage];
 //			[TS removeLayoutManager:LM];
 			[LM replaceTextStorage:[[[NSTextStorage alloc] init] autorelease]];
 			[TV performSelector:@selector(class) withObject:nil afterDelay:1];

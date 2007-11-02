@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # PrepareBuildNumber.pl
-# © Laurens'Tribune, Mardi 26 Septembre 2006
+# © Laurens'Tribune, vendredi 2 Novembre 2007, Leopard
 printf "warning: Updating the build number\n";
 $CONFIGURATION = "$ENV{CONFIGURATION}";
 $TARGET_BUILD_DIR = "$ENV{TARGET_BUILD_DIR}";
@@ -12,7 +12,7 @@ printf "Getting the svn revision number (CONFIGURATION is Deployment)...";
 	@CANDIDATES=split('\0', `find . -regex ".*iTM2.*" -not -regex ".*\.svn.*" -not -regex ".*/build.*" -not -regex ".*~.*" -print0`);
 	while(my $FILE = shift(@CANDIDATES))
 	{
-		$revision=`/usr/local/bin/svn info "$FILE"`;
+		$revision=`/usr/bin/svn info "$FILE"`;
 		if( $revision =~ m/.*Revision: (\d*).*/s )
 		{
 			$revision="$1";

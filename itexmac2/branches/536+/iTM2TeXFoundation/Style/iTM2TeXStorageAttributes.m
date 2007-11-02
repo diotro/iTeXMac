@@ -989,7 +989,7 @@ placeholder:
 		
 		start = r.location;
 		substring = [S substringWithRange:r];
-		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:NULL error:nil] autorelease];
+		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:0 error:nil] autorelease];
 		[RE setInputString:substring];
 		while([RE nextMatch])
 		{

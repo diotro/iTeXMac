@@ -31,7 +31,6 @@ NSString * const iTM2PDFKitDocumentDidChangeNotification = @"iTM2_PDFDocumentDid
 NSString * const iTM2MultiplePDFDocumentType = @"Multiple PDF Document";// beware, this MUST appear in the target file...
 
 NSString * const iTM2PDFKitKey = @"iTM2PDFKit";
-NSString * const iTM2PDFKitScaleFactorKey = @"iTM2PDFKitScaleFactor";
 NSString * const iTM2PDFKitZoomFactorKey = @"iTM2PDFKitZoomFactor";
 
 @interface iTM2ShadowedImageCell:NSImageCell
@@ -788,25 +787,6 @@ To Do List:
 //iTM2_LOG(@"Setting up the pdf inspector:DONE");
 //iTM2_END;
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewWillChangeScaleFactor:toScale:
-- (float)PDFViewWillChangeScaleFactor:(PDFView *)sender toScale:(float)scale;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	float old = [self contextFloatForKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
-	if( old != scale )// reentrant management problem
-	{
-		[self takeContextFloat:scale forKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
-		[self setScaleFactor:scale];
-		[self performSelector:@selector(validateWindowContent) withObject:nil afterDelay:0];
-	}
-//iTM2_END;
-    return scale;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentStatus
 - (iTM2PDFDocumentStatus)PDFDocumentStatus;
@@ -1731,8 +1711,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setScaleFactor:[[notification object] scaleFactor]];
+	PDFView * V = [notification object];
+	[self setScaleFactor:[V scaleFactor]];
+	[self setAutoScales:[V autoScales]];
 	[[[self window] toolbar] validateVisibleItems];
+	[self validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1943,7 +1926,7 @@ To Do List:
 //iTM2_LOG(@"[V shouldAntiAlias]:%@", ([V shouldAntiAlias]? @"Y":@"N"));
 	[V setGreekingThreshold:[self greekingThreshold]];
 	[V setScaleFactor:[self scaleFactor]];
-	[V setAutoScales:[self autoScales]];
+	[V setAutoScales:[self autoScales]];// after the scale factor is set
 //iTM2_LOG(@"[V autoScales]:%@", ([V autoScales]? @"Y":@"N"));
 	[V setNeedsDisplay:YES];
 	NSView * docView = [V documentView];
@@ -3048,6 +3031,34 @@ To Do List:
 //iTM2_START;
 	[self deallocImplementation];
 	[super dealloc];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomIn:
+- (void)zoomIn:(id)sender;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self setAutoScales:NO];
+	[super zoomIn:sender];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomOut:
+- (void)zoomOut:(id)sender;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self setAutoScales:NO];
+	[super zoomIn:sender];
 //iTM2_END;
     return;
 }
@@ -9804,7 +9815,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 		}
 		else if(retainCount)
 		{
-			iTM2_LOG(@"WILL DEALLOC %@ (%#x)",self, self);
+			iTM2_LOG(@"WILL DEALLOC");
 			N = [NSNumber numberWithInt:--retainCount];// 0 is reached dealloc soon
 		}
 		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];

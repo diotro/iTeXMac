@@ -595,38 +595,50 @@ To Do List:
 	if(![path hasPrefix:@"/"])
 	{
 		iTM2TeXProjectDocument * TPD = (id)[self document];
-		NSString * dirname = [TPD directoryName];
-		NSString * otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
-		if(![DFM fileExistsAtPath:otherName])
+		NSString * dirname = [TPD directoryName];// this should take the source directory into account
+		NSString * otherName = nil;
+once_more_with_shorter_path:
+		otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
+		if([DFM fileExistsAtPath:otherName])
 		{
-			dirname = [TPD directoryName];
-			dirname = [dirname stringByStrippingFarawayProjectsDirectory];
-			otherName = [dirname stringByAppendingPathComponent:path];
-			otherName = [otherName stringByStandardizingPath];
-			if(![DFM fileExistsAtPath:otherName])
+			goto resolved;
+		}
+		dirname = [TPD directoryName];
+		dirname = [dirname stringByStrippingFarawayProjectsDirectory];
+		otherName = [dirname stringByAppendingPathComponent:path];
+		otherName = [otherName stringByStandardizingPath];
+		if([DFM fileExistsAtPath:otherName])
+		{
+			goto resolved;
+		}
+		dirname = [TPD masterFileKey];// won't work if the master file key is Front Document related
+		dirname = [TPD absoluteFileNameForKey:dirname];
+		dirname = [dirname stringByDeletingLastPathComponent];
+		otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
+		if([DFM fileExistsAtPath:otherName])
+		{
+			goto resolved;
+		}
+		// list all the subdocuments of the project and open the one with the same last path component
+		NSArray * allKeys = [TPD allKeys];
+		NSEnumerator * E = [allKeys objectEnumerator];
+		NSString * key = nil;
+		while(key = [E nextObject])
+		{
+			otherName = [TPD absoluteFileNameForKey:key];
+			if([[otherName lastPathComponent] pathIsEqual:path])
 			{
-				dirname = [TPD masterFileKey];// won't work if the master file key is Front Document related
-				dirname = [TPD absoluteFileNameForKey:dirname];
-				dirname = [dirname stringByDeletingLastPathComponent];
-				otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
-				if(![DFM fileExistsAtPath:otherName])
-				{
-					// list all the subdocuments of the project and open the one with the same last path component
-					NSArray * allKeys = [TPD allKeys];
-					NSEnumerator * E = [allKeys objectEnumerator];
-					NSString * key = nil;
-					while(key = [E nextObject])
-					{
-						otherName = [TPD absoluteFileNameForKey:key];
-						if([[otherName lastPathComponent] pathIsEqual:path])
-						{
-							goto resolved;
-						}
-					}
-					return NO;
-				}
+				goto resolved;
 			}
 		}
+		NSData * d = [path dataUsingEncoding:NSMacOSRomanStringEncoding];
+		NSString * anotherPath = [[[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding] autorelease];
+		if([anotherPath length]<[path length])
+		{
+			path = anotherPath;
+			goto once_more_with_shorter_path;
+		}
+		return NO;
 resolved:
 		path = otherName;
 	}

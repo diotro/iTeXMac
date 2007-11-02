@@ -1265,11 +1265,11 @@ To Do List:
 	iTM2_RELEASE_POOL;\
 	return;\
 }\
-+ (int)commandGroup;\
+- (int)commandGroup;\
 {iTM2_DIAGNOSTIC;\
 	return group;\
 }\
-+ (int)commandLevel;\
+- (int)commandLevel;\
 {iTM2_DIAGNOSTIC;\
 	return level;\
 }\
@@ -1279,11 +1279,11 @@ To Do List:
 @interface className: iTM2TeXPCommandPerformer\
  @end\
 @implementation className\
-+ (int)commandGroup;\
+- (int)commandGroup;\
 {iTM2_DIAGNOSTIC;\
 	return group;\
 }\
-+ (int)commandLevel;\
+- (int)commandLevel;\
 {iTM2_DIAGNOSTIC;\
 	return level;\
 }\
@@ -1304,17 +1304,17 @@ DEFINECLASS(iTM2TeXPRenderPerformer, 30, 0)
 @interface iTM2TeXPTypesetPerformer: iTM2TeXPCommandPerformer
 @end
 @implementation iTM2TeXPTypesetPerformer
-+ (int)commandGroup;
+- (int)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
-+ (int)commandLevel;
+- (int)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 20;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1336,7 +1336,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1361,17 +1361,17 @@ To Do List:
 @interface iTM2TeXPSpecialPerformer: iTM2TeXPCommandPerformer
 @end
 @implementation iTM2TeXPSpecialPerformer
-+ (int)commandGroup;
+- (int)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 30;
 }
-+ (int)commandLevel;
+- (int)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 20;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1391,7 +1391,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -1418,16 +1418,16 @@ To Do List:
 @interface iTM2TeXPStopPerformer: iTM2TeXPCommandPerformer
 @end
 @implementation iTM2TeXPStopPerformer
-+ (int)commandGroup;
+- (int)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return INT_MAX;
 }
-+ (int)commandLevel;
+- (int)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 20;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-+ (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1438,7 +1438,7 @@ To Do List:
 		return [[[[SPC currentProject] taskController] currentTask] isRunning];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doPerformCommandForProject:
-+ (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
+- (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
 /*"Call back must have the following signature:
 - (void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)

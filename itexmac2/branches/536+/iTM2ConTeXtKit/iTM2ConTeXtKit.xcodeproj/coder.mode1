@@ -260,9 +260,8 @@
 							<array>
 								<string>089C166AFE841209C02AAC07</string>
 								<string>08FB77AFFE84173DC02AAC07</string>
+								<string>32C88E010371C26100C91783</string>
 								<string>DCAF97E809D80BEB00AFD95F</string>
-								<string>089C1671FE841209C02AAC07</string>
-								<string>1058C7ACFEA557BF11CA2CBB</string>
 								<string>19C28FB8FE9D52D311CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -270,8 +269,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>25</integer>
-									<integer>24</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -385,9 +382,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCE52F2A0C0F3C0000F2D5B9</string>
+				<string>DCDD166D0CDA1D1600525FA4</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCE52F2B0C0F3C0000F2D5B9</string>
+				<string>DCDD166E0CDA1D1600525FA4</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -521,7 +518,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj</string>
+		<string>/Volumes/HD2/leopard/itexmac2-536+/iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>141 141 1030 737 0 0 1440 878 </string>

@@ -470,9 +470,11 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @abstract   The file name for the given key.
     @discussion @"" is returned if the key is not covered by the allKeys list.
 				This file name is absolute!
+				The smart version will try to track any change amde in the finder
     @param      a key
     @result     an NSString
 */
+- (NSString *)smartAbsoluteFileNameForKey:(NSString *)key;
 - (NSString *)absoluteFileNameForKey:(NSString *)key;
 - (NSArray *)absoluteFileNamesForKeys:(NSArray *)keys;
 
@@ -1146,11 +1148,11 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 /*! 
     @method		baseProjectNames
     @abstract   The base projects names known by the project controller.
-    @discussion The keys are the file names, the values are the projects.
+    @discussion The keys of the base projects of the receiver.
     @param		None
     @result		A dictionary
 */
-- (NSDictionary *)baseProjectNames;
+- (NSArray *)baseProjectNames;
 
 /*! 
     @method     countOfBaseProjects

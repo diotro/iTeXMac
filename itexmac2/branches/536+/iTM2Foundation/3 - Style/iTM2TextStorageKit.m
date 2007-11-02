@@ -2388,7 +2388,7 @@ fixGlobalLocationMode:
 	_iTM2InternalAssert(![self diagnostic], @"***  END2 :BIG PROBLEM IN VALIDATING THE MODE");
 //iTM2_END;
 //    [originalModeLine describe];
-	[self didUpdateModeLine:_OriginalModeLine forPreviousMode:previousMode];
+	[self didUpdateModeLine:originalModeLine forPreviousMode:previousMode];
 	return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode | kiTM2TextEndOfLineSyntaxMask);
     #undef workingML
 }

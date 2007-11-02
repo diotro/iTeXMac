@@ -440,14 +440,21 @@ To Do List:
         NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
         NSEnumerator * E = [TPPs keyEnumerator];
         NSDictionary * D;
+        NSString * k;
         while(D = [E nextObject])
         {
-            [MD takeValue:[[[TPPs objectForKey:D] valueForKey:iTM2TeXPCommandPropertiesKey] iVarMode]
-                forKey: [D iVarMode]];
+			if(k = [D iVarMode])
+			{
+				[MD takeValue:[[[TPPs objectForKey:D] valueForKey:iTM2TeXPCommandPropertiesKey] iVarMode]
+					forKey:k];
+			}
+			else
+			{
+				iTM2_LOG(@"D has no mode:%@\nare there any base projects?",D);
+			}
         }
             // the key is lowercase!!! the value need not
         E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-        NSString * k;
         while(k = [E nextObject])
         {
             [sender addItemWithTitle:[MD valueForKey:k]];
@@ -2280,13 +2287,13 @@ To Do List:
 	while(index < [M numberOfItems])
 	{
 		NSMenuItem * mi = [M itemAtIndex:index];
-		if([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]])
+		if([[mi representedObject] isKindOfClass:[iTM2TeXPCommandPerformer class]])
 		{
 			[M removeItemAtIndex:index];
 			while(index < [M numberOfItems])
 			{
 				mi = (NSMenuItem *)[M itemAtIndex:index];
-				if([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]] || [mi isSeparatorItem])
+				if([[mi representedObject] isKindOfClass:[iTM2TeXPCommandPerformer class]] || [mi isSeparatorItem])
 					[M removeItemAtIndex:index];
 				else
 					goto insert;
@@ -2319,7 +2326,7 @@ To Do List:
 						action: action keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
 				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
 				[mi setRepresentedObject:performer];
-				[mi setTarget:performer];// performer is expected to last forever
+				[mi setTarget:performer];// performer is expected to last forever, and archivable!
 				// before we insert the menu item, we try to remove the items with the same keyEquivalent and modifier mask
 				if([[mi keyEquivalent] length])
 				{
@@ -2361,9 +2368,10 @@ To Do List:
 		Class C;
 		while(C = (Class)[[E nextObject] nonretainedObjectValue])
 		{
-			if([C commandLevel])
+			id performer = [C performer];
+			if([performer commandLevel])
 			{
-				[set addObject:[C commandName]];
+				[set addObject:[performer commandName]];
 			}
 		}
 		_iTM2TeXPBuiltInCommandNames = [[set allObjects] retain];
@@ -2389,15 +2397,16 @@ To Do List:
 	NSNumber * K;
 	while(C = (Class)[[E nextObject] nonretainedObjectValue])
 	{
-		K = [NSNumber numberWithInt:[C commandGroup]];
+		id performer = [[[C alloc] init] autorelease];
+		K = [NSNumber numberWithInt:[performer commandGroup]];
 		NSMutableDictionary * md = [MD objectForKey:K];
 		if(!md)
 		{
 			[MD setObject:[NSMutableDictionary dictionary] forKey:K];
 			md = [MD objectForKey:K];
 		}
-		if([C commandLevel])
-			[md setObject:[C commandName] forKey:[NSNumber numberWithInt:[C commandLevel]]];
+		if([performer commandLevel])
+			[md setObject:[performer commandName] forKey:[NSNumber numberWithInt:[performer commandLevel]]];
 	}
 	NSMutableArray * MRA = [NSMutableArray array];
 	E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
@@ -2437,7 +2446,7 @@ To Do List:
 			if([name isEqualToString:[result commandName]])
 				return result;
 	}
-    return result;
+    return [[[result alloc] init] autorelease];
 }
 @end
 
@@ -2470,8 +2479,8 @@ To Do List:
 	//iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandName
-+ (NSString *)commandName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performer
++ (id)performer;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2479,7 +2488,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	const char * _classname = [NSStringFromClass(self) lossyCString];
+//iTM2_END;
+	return [[[self alloc] init] autorelease];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandName
+- (NSString *)commandName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	const char * _classname = [NSStringFromClass([self class]) lossyCString];
 	if(!strncmp(_classname, "iTM2TeXP", strlen("iTM2TeXP")))
 	{
 		int n = strlen(_classname);
@@ -2505,7 +2526,7 @@ To Do List:
     return NSLocalizedStringFromTableInBundle(name, iTM2TeXPCommandTableName, myBUNDLE, "");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuItemTitleForProject:
-+ (NSString *)menuItemTitleForProject:(id)project;
+- (NSString *)menuItemTitleForProject:(id)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2513,10 +2534,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self localizedNameForName:[self commandName]];
+    return [[self class] localizedNameForName:[self commandName]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compare:
-+ (NSComparisonResult)compare:(id)rhs;
+- (NSComparisonResult)compare:(id)rhs;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2532,7 +2553,7 @@ To Do List:
     return NSOrderedAscending;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandLevel
-+ (int)commandLevel;
+- (int)commandLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2543,7 +2564,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandLevel
-+ (int)_commandLevel;
+- (int)_commandLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2556,7 +2577,7 @@ To Do List:
     return [S intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandGroup
-+ (int)commandGroup;
+- (int)commandGroup;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2567,7 +2588,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandGroup
-+ (int)_commandGroup;
+- (int)_commandGroup;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2617,7 +2638,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommand:
-+ (IBAction)performCommand:(id)sender;
+- (IBAction)performCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2630,7 +2651,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canPerformCommandForProject:
-+ (BOOL)canPerformCommandForProject:(iTM2TeXProjectDocument *)project;
+- (BOOL)canPerformCommandForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2642,7 +2663,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommandForProject:
-+ (void)performCommandForProject:(iTM2TeXProjectDocument *)project;
+- (void)performCommandForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2671,7 +2692,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project:didSaveAllProjectDocuments:contextInfo:
-+ (void)project:(id)project didSaveAllProjectDocuments:(BOOL)flag contextInfo:(void *)contextInfo;
+- (void)project:(id)project didSaveAllProjectDocuments:(BOOL)flag contextInfo:(void *)contextInfo;
 /*"Call back must have the following signature:
 - (void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
@@ -2685,7 +2706,7 @@ To Do List: to be improved...
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doPerformCommandForProject:
-+ (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
+- (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
 /*"Call back must have the following signature:
 - (void)documentController:(if)DC didSaveAll:(BOOL)flag contextInfo:(void *)contextInfo;
 Version History: jlaurens AT users DOT sourceforge DOT net (12/07/2001)
@@ -2718,7 +2739,7 @@ To Do List: to be improved...
 		{
 			iTM2_LOG(@"/\\/\\/\\/\\  performing action name: %@ for project: %@", [self commandName], [project fileName]);
 		}
-		NSString * localizedCommand = [self localizedNameForName:commandName];
+		NSString * localizedCommand = [[self class] localizedNameForName:commandName];
 
 		NSString * status = [NSString stringWithFormat:
 			NSLocalizedStringFromTableInBundle(
@@ -2794,7 +2815,7 @@ To Do List: to be improved...
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskWrapperDidPerformCommand:taskController:userInfo:
-+ (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
+- (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
 /*"Here come the actions to be performed when the Index task has completed.
 userInfo is still owned by the receiver and should be released.
 Subclassers will prepend their own stuff.
@@ -2813,7 +2834,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePerformCommand:
-+ (BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
+- (BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2832,7 +2853,7 @@ To Do List:
 	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];
 	if(!I)
 	{
-		NSString * path = [[NSBundle bundleForClass:self] pathForImageResource:@"iTeXMac2Mini"];
+		NSString * path = [[NSBundle bundleForClass:[iTM2TeXPCommandPerformer class]] pathForImageResource:@"iTeXMac2Mini"];
 		I = [[NSImage alloc] initWithContentsOfFile:path];
 		[I setName:@"iTeXMac2Mini"];
 	}
@@ -2864,7 +2885,7 @@ To Do List:
 		return TPD != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForBaseProject:
-+ (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2890,7 +2911,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForProject:
-+ (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2916,7 +2937,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2952,7 +2973,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -2995,7 +3016,7 @@ To Do List:
     return ED;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= concreteEnvironmentDictionaryForProject:
-+ (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -3026,7 +3047,7 @@ To Do List:
 		Class C;
 		while(C = (Class)[[e nextObject] nonretainedObjectValue])
 		{
-			D = [C environmentWithDictionary:result forBaseProject:baseProject];
+			D = [[C performer] environmentWithDictionary:result forBaseProject:baseProject];
 			[result addEntriesFromDictionary:D];
 		}
 	}
@@ -3039,7 +3060,7 @@ To Do List:
 	Class C = Nil;
 	while(C = (Class)[[E nextObject] nonretainedObjectValue])
 	{
-		D = [C environmentWithDictionary:result forProject:project];
+		D = [[C performer] environmentWithDictionary:result forProject:project];
 		[result addEntriesFromDictionary:D];
 	}
 //iTM2_LOG(@"4-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
@@ -3106,7 +3127,7 @@ blablabla:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mustSaveProjectDocumentsBefore
-+ (BOOL)mustSaveProjectDocumentsBefore;
+- (BOOL)mustSaveProjectDocumentsBefore;
 /*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - Thu Oct 28 14:05:13 GMT 2004
@@ -3117,9 +3138,26 @@ To Do List:
  //iTM2_END;
     return YES;
 }
-+ (void)encodeWithCoder:(NSCoder *)aCoder;
+NSMutableDictionary * _iTM2_Command_Performers = nil;
+- (id)init;
 {
-	[aCoder encodeObject:NSStringFromClass(self) forKey:@"performerClassName"];
+	if(!_iTM2_Command_Performers)
+	{
+		_iTM2_Command_Performers = [[NSMutableDictionary dictionary] retain];
+	}
+	NSString * name = NSStringFromClass([self class]);
+	id result = [_iTM2_Command_Performers objectForKey:name];
+	if(result)
+	{
+		self = [super init];
+		[self release];
+		return [result retain];
+	}
+	if(self = [super init])
+	{
+		[_iTM2_Command_Performers setObject:self forKey:name];
+	}
+	return self;
 }
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 {
@@ -3127,14 +3165,8 @@ To Do List:
 }
 - (id)initWithCoder:(NSCoder *)aDecoder;
 {
-	NSString * performerClassName = [aDecoder decodeObjectForKey:@"performerClassName"];
-	id result = NSClassFromString(performerClassName);
-	if(result)
-	{
-		[self dealloc];
-		self = nil;
-		return result;
-	}
-	return self = [super init];
+	// while decoding, an instance should be created
+	// but here we return a class object instead
+	return [self init];
 }
 @end

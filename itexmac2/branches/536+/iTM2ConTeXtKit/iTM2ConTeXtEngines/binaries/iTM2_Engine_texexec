@@ -5,7 +5,8 @@
 iTM2_TeXExec_Engine_Version=1.1
 iTM2_Debug="1"
 iTM2_TeXExec_Engine="texexec"
-iTM2_TeXExec_EnginePath="$(zsh -c "which \"${iTM2_TeXExec_Engine}\"")"#"
+iTM2_TeXExec_EnginePath="$(zsh -c "which \"${iTM2_TeXExec_Engine}\"")"
+#"
 iTM2TeXEngineUsage()
 {
 cat <<EOF
@@ -236,7 +237,7 @@ iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
 then
 	popd > /dev/null
-	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	"$iTM2_CMD_Notify" error -reason "$(basename "$0") FAILED, see log (${iTM2_Status})."
 	exit ${iTM2_Status}
 fi
 OUTPUT="${OUTPUT%.*}.log"
@@ -257,7 +258,7 @@ else
 fi
 if [ "${iTM2_Status}" != "0" ]
 then
-	"$iTM2_CMD_Notify" error "$0 FAILED(${iTM2_Status})."
+	"$iTM2_CMD_Notify" error -reason "$(basename "$0") FAILED, see log (${iTM2_Status})."
 	popd > /dev/null
 	exit ${iTM2_Status}
 elif [ "${iTM2_Debug}" != "0" ]
@@ -265,18 +266,4 @@ then
 	"${iTM2_CMD_Notify}" comment "$0 complete."
 fi
 popd > /dev/null
-exit
-
-
-popd > /dev/null
-if [ "${iTM2_Debug:-0}" != "0" ]
-then
-	"$iTM2_CMD_Notify" comment "$0 complete."
-fi
-if [ "${iTM2_TeXExec_USE_result:-0}" != "0" ] && [ ${#iTM2_TeXExec_result} -ne 0 ]
-then
-    "${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${iTM2_TeXExec_result%.*}.pdf" -project "${TWSProject}"
-else
-    "${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${TWSMaster%.*}.pdf" -project "${TWSProject}"
-fi
 exit

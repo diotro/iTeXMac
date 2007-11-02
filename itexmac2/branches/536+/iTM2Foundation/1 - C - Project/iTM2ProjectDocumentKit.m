@@ -2338,6 +2338,28 @@ To Do List:
 //iTM2_END;
 	return result;// does it exist? I don't care,the client will decide
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartAbsoluteFileNameForKey:
+- (NSString *)smartAbsoluteFileNameForKey:(NSString *)key;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * result = [self absoluteFileNameForKey:key];
+	if(![DFM fileExistsAtPath:result])
+	{
+		NSString * recorded = [self fileNameForRecordedKey:key];
+		if([DFM fileExistsAtPath:recorded])
+		{
+			[self setFileName:recorded forKey:key makeRelative:YES];
+			return recorded;
+		}
+	}
+//iTM2_END;
+	return result;// does it exist? I don't care,the client will decide
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFileNameForKey:
 - (NSString *)absoluteFileNameForKey:(NSString *)key;
 /*"Description forthcoming.
@@ -5100,7 +5122,7 @@ To Do List:
 			NSArray * fileKeys = [self orderedFileKeys];
 			NSString * key = [fileKeys objectAtIndex:rowIndex];
 			iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
-			NSString * absolute = [projectDocument absoluteFileNameForKey:key];
+			NSString * absolute = [projectDocument smartAbsoluteFileNameForKey:key];
 			NSString * faraway = [projectDocument farawayFileNameForKey:key];
 			BOOL YORN = [DFM fileExistsAtPath:absolute] || [DFM fileExistsAtPath:faraway];
 			[aCell setTextColor:(YORN? [NSColor controlTextColor]:[NSColor disabledControlTextColor])];
@@ -8435,7 +8457,7 @@ To Do List:
     return [[self baseProjectNames] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectNames
-- (NSDictionary *)baseProjectNames;
+- (NSArray *)baseProjectNames;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

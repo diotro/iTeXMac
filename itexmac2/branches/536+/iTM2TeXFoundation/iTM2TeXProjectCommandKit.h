@@ -360,6 +360,15 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 @interface iTM2TeXPCommandPerformer: NSObject<NSCoding>
 
 /*!
+    @method     performer
+    @abstract   The performer
+    @discussion Discussion forthcoming.
+    @param      None
+    @result     A command performer
+*/
++ (id)performer;
+
+/*!
     @method     commandName
     @abstract   The command name of the receiver
     @discussion The class object is expected to have a name iTM2???CommandPerformer where ??? is the name of the command.
@@ -367,7 +376,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      None
     @result     An integer
 */
-+ (NSString *)commandName;
+- (NSString *)commandName;
 
 /*!
     @method     commandGroup
@@ -382,7 +391,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      None
     @result     An integer
 */
-+ (int)commandGroup;
+- (int)commandGroup;
 
 /*!
     @method     commandLevel
@@ -396,7 +405,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      None
     @result     An integer
 */
-+ (int)commandLevel;
+- (int)commandLevel;
 
 /*!
     @method     localizedNameForName:
@@ -415,7 +424,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project
     @result     A NSString
 */
-+ (NSString *)menuItemTitleForProject:(id)project;
+- (NSString *)menuItemTitleForProject:(id)project;
 
 /*!
     @method     keyEquivalentForName:
@@ -450,7 +459,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      Irrelevant sender
     @result     None
 */
-+ (void)performCommand:(id)sender;
+- (void)performCommand:(id)sender;
 
 /*!
     @method     validatePerformCommand:
@@ -459,7 +468,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      sender
     @result     None
 */
-+ (BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
+- (BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
 
 /*!
     @method     performCommandForProject:
@@ -468,7 +477,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project sender
     @result     None
 */
-+ (void)performCommandForProject:(iTM2TeXProjectDocument *)project;
+- (void)performCommandForProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     canPerformCommandForProject:
@@ -477,7 +486,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project sender
     @result     None
 */
-+ (BOOL)canPerformCommandForProject:(iTM2TeXProjectDocument *)project;
+- (BOOL)canPerformCommandForProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     doPerformCommandForProject:
@@ -486,7 +495,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project sender
     @result     None
 */
-+ (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
+- (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     taskWrapperDidPerformCommand:taskController:userInfo:
@@ -495,7 +504,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      Irrelevant sender
     @result     None
 */
-+ (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
+- (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
 
 /*!
     @method     environmentScriptsForBaseProject:
@@ -505,7 +514,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project is a TeX base project
     @result     An NSDictionary instance.
 */
-+ (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     environmentScriptsForProject:
@@ -514,7 +523,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project is a TeX project
     @result     An NSDictionary instance.
 */
-+ (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     environmentWithDictionary:forBaseProject:
@@ -528,7 +537,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project is a TeX base project
     @result     An NSDictionary instance.
 */
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     environmentWithDictionary:forProject:
@@ -540,7 +549,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project is a TeX project
     @result     An NSDictionary instance.
 */
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     concreteEnvironmentDictionaryForProject:
@@ -561,7 +570,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      project is a TeX project
     @result     An NSDictionary instance.
 */
-+ (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
+- (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     mustSaveProjectDocumentsBefore
@@ -570,6 +579,6 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      None
     @result     yorn.
 */
-+ (BOOL)mustSaveProjectDocumentsBefore;
+- (BOOL)mustSaveProjectDocumentsBefore;
 
 @end

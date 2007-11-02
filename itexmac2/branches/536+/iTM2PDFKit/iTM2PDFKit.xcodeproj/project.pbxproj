@@ -402,9 +402,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB83D09474616004B0A81 /* Build configuration list for PBXProject "iTM2PDFKit" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iTM2XtdPDFKit */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */,
 				DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */,

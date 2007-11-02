@@ -2892,7 +2892,7 @@ To Do List:
 			[[D iVarVariant] lowercaseString], iTM2TPFEVariantKey,
 			[[D iVarOutput] lowercaseString], iTM2TPFEOutputKey,
 				nil];
-        [MD setValue:D forKey:key];
+        [MD setObject:D forKey:key];
     }
 //iTM2_START;
 	return MD;

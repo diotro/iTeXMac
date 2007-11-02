@@ -307,7 +307,7 @@ To Do List:
 				{
 					if(![fileName hasPrefix:@"/"])
 					{
-						fileName = [[[[self window] windowController] document] fileName];
+						fileName = [[[[[[[[[TS layoutManagers] lastObject] textContainers] lastObject] textView] window] windowController] document] fileName];
 						fileName = [fileName stringByDeletingLastPathComponent];
 						fileName = [fileName stringByAppendingPathComponent:fileName];
 					}
@@ -376,8 +376,9 @@ To Do List:
     }
     if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
     {
-        _iTM2TeXPTeXFileNameLetterCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
-            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*[]=_"] retain];// no ( nor )
+        _iTM2TeXPTeXFileNameLetterCharacterSet = [NSMutableCharacterSet characterSetWithCharactersInString:@".,;\\+-*[]=_/:"];
+		[_iTM2TeXPTeXFileNameLetterCharacterSet formUnionWithCharacterSet:[NSCharacterSet letterCharacterSet]];
+		_iTM2TeXPTeXFileNameLetterCharacterSet = [_iTM2TeXPTeXFileNameLetterCharacterSet copy];
     }
 //iTM2_END;
 	iTM2_RELEASE_POOL;
