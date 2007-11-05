@@ -10093,8 +10093,47 @@ To Do List:
 		NSImage * I = [NSImage imageNamed:name];
 		if(!I)
 		{
-			I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings"];// this is defined in the TeX Foundation
-			I = [I copy];
+			I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings"];// this is defined in the TeX Foundation, fixed in the new scheme, beware when merging
+			I = [[I copy] autorelease];
+			[I setName:name];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+		}
+		[sender setImage:I];//size
+	}
+//iTM2_END;
+    return [SPC currentProject] != nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectShowTerminal:
+- (IBAction)projectShowTerminal:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [[SPC projectForSource:sender] showTerminal:sender];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateProjectShowTerminal:
+- (BOOL)validateProjectShowTerminal:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![sender image])
+	{
+		NSString * name = @"iTM2:projectShowTerminal(small)";
+		NSImage * I = [NSImage imageNamed:name];
+		if(!I)
+		{
+			I = [NSImage imageNamed:@"iTM2:showCurrentProjectTerminal"];// this is defined in the TeX Foundation
+			I = [[I copy] autorelease];
 			[I setName:name];
 			[I setScalesWhenResized:YES];
 			[I setSize:NSMakeSize(16,16)];
