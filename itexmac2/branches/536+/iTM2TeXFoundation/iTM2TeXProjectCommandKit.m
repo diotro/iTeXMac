@@ -1792,8 +1792,8 @@ To Do List:
 @end
 
 @interface iTM2TeXPCommandPerformer(PRIVATE)
-+ (int)_commandLevel;
-+ (int)_commandGroup;
+- (int)_commandLevel;
+- (int)_commandGroup;
 @end
 
 NSString * const iTM2TPFEDefaultEnvironmentKey = @"DefaultEnvironment";
@@ -2251,10 +2251,10 @@ To Do List:
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
-				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[[performer class] localizedNameForName:name]
+				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[performer localizedNameForName:name]
 						action: action
-							keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
-				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
+							keyEquivalent: [performer keyEquivalentForName:name]] autorelease];
+				[mi setKeyEquivalentModifierMask:[performer keyEquivalentModifierMaskForName:name]];
 				[mi setRepresentedObject:performer];
 				[mi setTarget:performer];// performer is expected to last forever
 				if([[mi keyEquivalent] length])
@@ -2322,9 +2322,9 @@ To Do List:
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
-				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[[performer class] localizedNameForName:name]
-						action: action keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
-				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
+				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[performer localizedNameForName:name]
+						action: action keyEquivalent: [performer keyEquivalentForName:name]] autorelease];
+				[mi setKeyEquivalentModifierMask:[performer keyEquivalentModifierMaskForName:name]];
 				[mi setRepresentedObject:performer];
 				[mi setTarget:performer];// performer is expected to last forever, and archivable!
 				// before we insert the menu item, we try to remove the items with the same keyEquivalent and modifier mask
@@ -2515,7 +2515,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedNameForName:
-+ (NSString *)localizedNameForName:(NSString *)name;
+- (NSString *)localizedNameForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2523,6 +2523,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+iTM2_LOG(@"%@->%@",name,NSLocalizedStringFromTableInBundle(name, iTM2TeXPCommandTableName, myBUNDLE, ""));
     return NSLocalizedStringFromTableInBundle(name, iTM2TeXPCommandTableName, myBUNDLE, "");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuItemTitleForProject:
@@ -2534,7 +2535,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self class] localizedNameForName:[self commandName]];
+    return [self localizedNameForName:[self commandName]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compare:
 - (NSComparisonResult)compare:(id)rhs;
@@ -2601,7 +2602,7 @@ To Do List:
     return [S intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentForName:
-+ (NSString *)keyEquivalentForName:(NSString *)name;
+- (NSString *)keyEquivalentForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2614,7 +2615,7 @@ To Do List:
     return [result length] != 1? @"":[result substringWithRange:NSMakeRange(0, 1)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentModifierMaskForName;
-+ (unsigned int)keyEquivalentModifierMaskForName:(NSString *)name;
+- (unsigned int)keyEquivalentModifierMaskForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2739,7 +2740,7 @@ To Do List: to be improved...
 		{
 			iTM2_LOG(@"/\\/\\/\\/\\  performing action name: %@ for project: %@", [self commandName], [project fileName]);
 		}
-		NSString * localizedCommand = [[self class] localizedNameForName:commandName];
+		NSString * localizedCommand = [self localizedNameForName:commandName];
 
 		NSString * status = [NSString stringWithFormat:
 			NSLocalizedStringFromTableInBundle(
@@ -2849,15 +2850,24 @@ To Do List:
 	// selector  names like projectXXXXX: are catched here
 	NSString * lastCommandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 	NSString * commandName = [self commandName];
-	[sender setState:([lastCommandName isEqualToString:commandName]?NSMixedState:NSOffState)];
-	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];
-	if(!I)
+	if([lastCommandName isEqualToString:commandName])
 	{
-		NSString * path = [[NSBundle bundleForClass:[iTM2TeXPCommandPerformer class]] pathForImageResource:@"iTeXMac2Mini"];
-		I = [[NSImage alloc] initWithContentsOfFile:path];
-		[I setName:@"iTeXMac2Mini"];
+		[sender setState:NSMixedState];
+		NSImage * I = [NSImage imageNamed:@"iTM2:Gear"];
+		if(!I)
+		{
+			NSString * path = [[NSBundle bundleForClass:[iTM2TeXPCommandPerformer class]] pathForImageResource:@"iTM2Gear"];
+			I = [[NSImage alloc] initWithContentsOfFile:path];
+			[I setName:@"iTM2:Gear"];
+			[I setSize:NSMakeSize(16,16)];
+		}
+		[sender setMixedStateImage:I];
 	}
-	[sender setMixedStateImage:I];// this does not work yet, may be in leopard...
+	else
+	{
+		[sender setState:NSOffState];
+		[sender setMixedStateImage:nil];
+	}
 //iTM2_LOG(@"I: %@, MSI: %@", I, [sender mixedStateImage]);
 	NSString * scriptMode = [[TPD commandWrapperForName:commandName] scriptMode];
 //iTM2_LOG(@"commandName is: %@, scriptMode is: %@", commandName, scriptMode);
