@@ -376,7 +376,7 @@ To Do List:
     }
     if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
     {
-        _iTM2TeXPTeXFileNameLetterCharacterSet = [NSMutableCharacterSet characterSetWithCharactersInString:@".,;\\+-*[]=_/:"];
+        _iTM2TeXPTeXFileNameLetterCharacterSet = [NSMutableCharacterSet characterSetWithCharactersInString:@".,;\\+-*[]=_/:0123456789"];
 		[_iTM2TeXPTeXFileNameLetterCharacterSet formUnionWithCharacterSet:[NSCharacterSet letterCharacterSet]];
 		_iTM2TeXPTeXFileNameLetterCharacterSet = [_iTM2TeXPTeXFileNameLetterCharacterSet copy];
     }
