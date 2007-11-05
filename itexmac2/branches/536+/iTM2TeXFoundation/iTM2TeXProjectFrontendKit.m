@@ -2883,18 +2883,19 @@ To Do List:
     {//projectName
 //iTM2_LOG(@"project name:%@", name);
         NSDictionary * D = [name TeXProjectProperties];
-		D = [NSDictionary dictionaryWithObjectsAndKeys:
-			D, iTM2TeXPCommandPropertiesKey,
-			name, iTM2TPFENameKey,
-				nil];
 		NSDictionary * key = [NSDictionary dictionaryWithObjectsAndKeys:
 			[[D iVarMode] lowercaseString], iTM2TPFEModeKey,
 			[[D iVarVariant] lowercaseString], iTM2TPFEVariantKey,
 			[[D iVarOutput] lowercaseString], iTM2TPFEOutputKey,
 				nil];
+		D = [NSDictionary dictionaryWithObjectsAndKeys:
+			D, iTM2TeXPCommandPropertiesKey,
+			name, iTM2TPFENameKey,
+				nil];
         [MD setObject:D forKey:key];
     }
-//iTM2_START;
+//iTM2_END;
+iTM2_LOG(@"TeXProjectsProperties:%@",MD);
 	return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_newProjectPanelControllerClass
