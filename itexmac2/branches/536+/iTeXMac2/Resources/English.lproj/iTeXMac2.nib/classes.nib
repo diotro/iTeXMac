@@ -1,192 +1,394 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {
-                EOLDefault = id; 
-                OgreFindMenuItemAction = id; 
-                TestPerlAction = id; 
-                actualSize = id; 
-                addSelectionToCompletion = id; 
-                annotateTool = id; 
-                assignProfile = id; 
-                autoZoom = id; 
-                bookMode = id; 
-                centerSelectionInVisibleArea = id; 
-                commentSelection = id; 
-                completeLaTeXEnvironment = id; 
-                crop = id; 
-                displayConsoleDebug = id; 
-                displayCropBox = id; 
-                displayMediaBox = id; 
-                displayPDFAtFixedSize = id; 
-                displayPDFAtMagnification = id; 
-                displayPDFBackPage = id; 
-                displayPDFFirstPage = id; 
-                displayPDFFitFromTag = id; 
-                displayPDFForwardPage = id; 
-                displayPDFLastPage = id; 
-                displayPDFNextNextPage = id; 
-                displayPDFNextPage = id; 
-                displayPDFPreviousPage = id; 
-                displayPDFPreviousPreviousPage = id; 
-                displayPDFZoomAt = id; 
-                displayPDFZoomIn = id; 
-                displayPDFZoomOut = id; 
-                doGoBack = id; 
-                doGoForward = id; 
-                doGoToFirstPage = id; 
-                doGoToLastPage = id; 
-                doGoToNextPage = id; 
-                doGoToPreviousPage = id; 
-                doZoomIn = id; 
-                doZoomOut = id; 
-                doZoomToSelection = id; 
-                editExportImageOptions = id; 
-                findAndScrollSynchronizationPointToVisible = id; 
-                flipHorizontal = id; 
-                flipVertical = id; 
-                getInfo = id; 
-                goToPageNumberPanel = id; 
-                imageCorrection = id; 
-                indentSelection = id; 
-                indentSelectionToPrevious = id; 
-                macroEdit = id; 
-                macroMode = id; 
-                mailForHelp = id; 
-                matchToProfile = id; 
-                moreCopy = id; 
-                moreCut = id; 
-                moreNewPasteboard = id; 
-                morePaste = id; 
-                myRating = id; 
-                newDocumentFromRunningAssistantPanel = id; 
-                openDocumentQuicklyGraphics = id; 
-                openDocumentQuicklyOther = id; 
-                openDocumentQuicklyText = id; 
-                orderFrontLaTeXSymbolsPanel = id; 
-                orderFrontLinkPanel = id; 
-                orderFrontListPanel = id; 
-                orderFrontProjectPreferencesPanel = id; 
-                orderFrontSpacingPanel = id; 
-                orderFrontTablePanel = id; 
-                parseAllText = id; 
-                parseSelectedText = id; 
-                parseVisibleText = id; 
-                performCloseProject = id; 
-                performMoreFindAction = id; 
-                projectAddCurrentDocument = id; 
-                projectAddDocument = id; 
-                projectChooseMaster = id; 
-                projectClean = id; 
-                projectCurrent = id; 
-                projectCurrentCreate = id; 
-                projectCurrentNone = id; 
-                projectDocuments = id; 
-                projectNoDocument = id; 
-                projectShowSettings = id; 
-                projectToggleNormal = id; 
-                projectToggleStandalone = id; 
-                projectToggleWrapper = id; 
-                reportBug = id; 
-                requestFeature = id; 
-                rotateLeft = id; 
-                rotateRight = id; 
-                scrollTool = id; 
-                selectFirstPlaceholder = id; 
-                selectLastPlaceholderAndClean = id; 
-                selectTool = id; 
-                setCircleAnnotation = id; 
-                setFacingPages = id; 
-                setFreeTextAnnotation = id; 
-                setSinglePages = id; 
-                showAREFindPanel = id; 
-                showHelp = id; 
-                showLaTeXHelp = id; 
-                showPreferences = id; 
-                showReleaseNotes = id; 
-                showTeTeXHelp = id; 
-                showTeXCatalogueOnLine = id; 
-                showViewerPreferences = id; 
-                slideshow = id; 
-                stringEncodingDefault = id; 
-                stringEncodingEditList = id; 
-                stringEncodingMissingLocale = id; 
-                stringEncodingToggleAuto = id; 
-                styleMenuItem = id; 
-                takeDebugModeFromSenderTag = id; 
-                takeEOLFromTag = id; 
-                takePDFDisplayOrientationFromTag = id; 
-                takePDFNewPageModeFromTag = id; 
-                takePDFPageLayoutModeFromTag = id; 
-                takePDFStickModeFromTag = id; 
-                textBold = id; 
-                textItalic = id; 
-                textStyleEdit = id; 
-                textStyleFormat = id; 
-                textStyleName = id; 
-                textStyleToggleEnabled = id; 
-                textStyleVariant = id; 
-                textTool = id; 
-                textUnderline = id; 
-                toggleAutoIndentNewLine = id; 
-                toggleAutoUpdate = id; 
-                toggleBaseWritingDirection = id; 
-                toggleContinuousPage = id; 
-                toggleDrawer = id; 
-                toggleDrawsTextBackground = id; 
-                toggleFixSymbolDrawerBug = id; 
-                toggleGrab = id; 
-                toggleInspector = id; 
-                toggleMatchDelimiter = id; 
-                toggleOverwrite = id; 
-                togglePDFDisplayModeStick = id; 
-                togglePDFSlidesLandscapeMode = id; 
-                togglePageBreaks = id; 
-                toggleReadOnly = id; 
-                toggleShareToolbarConfiguration = id; 
-                toggleShiftDelete = id; 
-                toggleShowsControls = id; 
-                toggleShowsInvisibles = id; 
-                toggleSmartInsert = id; 
-                toggleSmartMacros = id; 
-                toggleSmartSelection = id; 
-                toggleSmartUndo = id; 
-                toggleSmartUpdate = id; 
-                toggleSyncAllBullets = id; 
-                toggleSyncFocusBullet = id; 
-                toggleSyncFollowFocus = id; 
-                toggleSyncNoBullets = id; 
-                toggleSyncUserBullets = id; 
-                toggleSynchronizationMode = id; 
-                toggleThreadedPDFRendering = id; 
-                uncommentSelection = id; 
-                unindentSelection = id; 
-                wrapSelectedText = id; 
-            }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {orderFrontStandardAboutPanel = id; }; 
-            CLASS = NSApplication; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSResponder; 
-        }, 
-        {ACTIONS = {showPreferences = id; }; CLASS = NSObject; LANGUAGE = ObjC; }, 
-        {
-            ACTIONS = {checkForUpdates = id; }; 
-            CLASS = SUUpdater; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {checkForUpdate = id; }; 
-            CLASS = iTM2ApplicationDelegate; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = "java.lang.Object"; LANGUAGE = Java; }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>orderFrontStandardAboutPanel</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>checkForUpdate</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2ApplicationDelegate</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>EOLDefault</key>
+				<string>id</string>
+				<key>OgreFindMenuItemAction</key>
+				<string>id</string>
+				<key>TestPerlAction</key>
+				<string>id</string>
+				<key>actualSize</key>
+				<string>id</string>
+				<key>addSelectionToCompletion</key>
+				<string>id</string>
+				<key>annotateTool</key>
+				<string>id</string>
+				<key>assignProfile</key>
+				<string>id</string>
+				<key>autoZoom</key>
+				<string>id</string>
+				<key>bookMode</key>
+				<string>id</string>
+				<key>centerSelectionInVisibleArea</key>
+				<string>id</string>
+				<key>commentSelection</key>
+				<string>id</string>
+				<key>completeLaTeXEnvironment</key>
+				<string>id</string>
+				<key>crop</key>
+				<string>id</string>
+				<key>displayConsoleDebug</key>
+				<string>id</string>
+				<key>displayCropBox</key>
+				<string>id</string>
+				<key>displayMediaBox</key>
+				<string>id</string>
+				<key>displayPDFAtFixedSize</key>
+				<string>id</string>
+				<key>displayPDFAtMagnification</key>
+				<string>id</string>
+				<key>displayPDFBackPage</key>
+				<string>id</string>
+				<key>displayPDFFirstPage</key>
+				<string>id</string>
+				<key>displayPDFFitFromTag</key>
+				<string>id</string>
+				<key>displayPDFForwardPage</key>
+				<string>id</string>
+				<key>displayPDFLastPage</key>
+				<string>id</string>
+				<key>displayPDFNextNextPage</key>
+				<string>id</string>
+				<key>displayPDFNextPage</key>
+				<string>id</string>
+				<key>displayPDFPreviousPage</key>
+				<string>id</string>
+				<key>displayPDFPreviousPreviousPage</key>
+				<string>id</string>
+				<key>displayPDFZoomAt</key>
+				<string>id</string>
+				<key>displayPDFZoomIn</key>
+				<string>id</string>
+				<key>displayPDFZoomOut</key>
+				<string>id</string>
+				<key>doGoBack</key>
+				<string>id</string>
+				<key>doGoForward</key>
+				<string>id</string>
+				<key>doGoToFirstPage</key>
+				<string>id</string>
+				<key>doGoToLastPage</key>
+				<string>id</string>
+				<key>doGoToNextPage</key>
+				<string>id</string>
+				<key>doGoToPreviousPage</key>
+				<string>id</string>
+				<key>doZoomIn</key>
+				<string>id</string>
+				<key>doZoomOut</key>
+				<string>id</string>
+				<key>doZoomToSelection</key>
+				<string>id</string>
+				<key>editExportImageOptions</key>
+				<string>id</string>
+				<key>findAndScrollSynchronizationPointToVisible</key>
+				<string>id</string>
+				<key>flipHorizontal</key>
+				<string>id</string>
+				<key>flipVertical</key>
+				<string>id</string>
+				<key>getInfo</key>
+				<string>id</string>
+				<key>goToPageNumberPanel</key>
+				<string>id</string>
+				<key>imageCorrection</key>
+				<string>id</string>
+				<key>indentSelection</key>
+				<string>id</string>
+				<key>indentSelectionToPrevious</key>
+				<string>id</string>
+				<key>macroEdit</key>
+				<string>id</string>
+				<key>macroMode</key>
+				<string>id</string>
+				<key>mailForHelp</key>
+				<string>id</string>
+				<key>matchToProfile</key>
+				<string>id</string>
+				<key>moreCopy</key>
+				<string>id</string>
+				<key>moreCut</key>
+				<string>id</string>
+				<key>moreNewPasteboard</key>
+				<string>id</string>
+				<key>morePaste</key>
+				<string>id</string>
+				<key>myRating</key>
+				<string>id</string>
+				<key>newDocumentFromRunningAssistantPanel</key>
+				<string>id</string>
+				<key>openDocumentQuicklyGraphics</key>
+				<string>id</string>
+				<key>openDocumentQuicklyOther</key>
+				<string>id</string>
+				<key>openDocumentQuicklyText</key>
+				<string>id</string>
+				<key>orderFrontLaTeXSymbolsPanel</key>
+				<string>id</string>
+				<key>orderFrontLinkPanel</key>
+				<string>id</string>
+				<key>orderFrontListPanel</key>
+				<string>id</string>
+				<key>orderFrontProjectPreferencesPanel</key>
+				<string>id</string>
+				<key>orderFrontSpacingPanel</key>
+				<string>id</string>
+				<key>orderFrontTablePanel</key>
+				<string>id</string>
+				<key>parseAllText</key>
+				<string>id</string>
+				<key>parseSelectedText</key>
+				<string>id</string>
+				<key>parseVisibleText</key>
+				<string>id</string>
+				<key>performCloseProject</key>
+				<string>id</string>
+				<key>performMoreFindAction</key>
+				<string>id</string>
+				<key>projectAddCurrentDocument</key>
+				<string>id</string>
+				<key>projectAddDocument</key>
+				<string>id</string>
+				<key>projectChooseMaster</key>
+				<string>id</string>
+				<key>projectClean</key>
+				<string>id</string>
+				<key>projectCurrent</key>
+				<string>id</string>
+				<key>projectCurrentCreate</key>
+				<string>id</string>
+				<key>projectCurrentNone</key>
+				<string>id</string>
+				<key>projectDocuments</key>
+				<string>id</string>
+				<key>projectNoDocument</key>
+				<string>id</string>
+				<key>projectShowSettings</key>
+				<string>id</string>
+				<key>projectShowTerminal</key>
+				<string>id</string>
+				<key>projectToggleNormal</key>
+				<string>id</string>
+				<key>projectToggleStandalone</key>
+				<string>id</string>
+				<key>projectToggleWrapper</key>
+				<string>id</string>
+				<key>reportBug</key>
+				<string>id</string>
+				<key>requestFeature</key>
+				<string>id</string>
+				<key>rotateLeft</key>
+				<string>id</string>
+				<key>rotateRight</key>
+				<string>id</string>
+				<key>scrollTool</key>
+				<string>id</string>
+				<key>selectFirstPlaceholder</key>
+				<string>id</string>
+				<key>selectLastPlaceholderAndClean</key>
+				<string>id</string>
+				<key>selectTool</key>
+				<string>id</string>
+				<key>setCircleAnnotation</key>
+				<string>id</string>
+				<key>setFacingPages</key>
+				<string>id</string>
+				<key>setFreeTextAnnotation</key>
+				<string>id</string>
+				<key>setSinglePages</key>
+				<string>id</string>
+				<key>showAREFindPanel</key>
+				<string>id</string>
+				<key>showHelp</key>
+				<string>id</string>
+				<key>showLaTeXHelp</key>
+				<string>id</string>
+				<key>showPreferences</key>
+				<string>id</string>
+				<key>showReleaseNotes</key>
+				<string>id</string>
+				<key>showTeTeXHelp</key>
+				<string>id</string>
+				<key>showTeXCatalogueOnLine</key>
+				<string>id</string>
+				<key>showViewerPreferences</key>
+				<string>id</string>
+				<key>slideshow</key>
+				<string>id</string>
+				<key>stringEncodingDefault</key>
+				<string>id</string>
+				<key>stringEncodingEditList</key>
+				<string>id</string>
+				<key>stringEncodingMissingLocale</key>
+				<string>id</string>
+				<key>stringEncodingToggleAuto</key>
+				<string>id</string>
+				<key>styleMenuItem</key>
+				<string>id</string>
+				<key>takeDebugModeFromSenderTag</key>
+				<string>id</string>
+				<key>takeEOLFromTag</key>
+				<string>id</string>
+				<key>takePDFDisplayOrientationFromTag</key>
+				<string>id</string>
+				<key>takePDFNewPageModeFromTag</key>
+				<string>id</string>
+				<key>takePDFPageLayoutModeFromTag</key>
+				<string>id</string>
+				<key>takePDFStickModeFromTag</key>
+				<string>id</string>
+				<key>textBold</key>
+				<string>id</string>
+				<key>textItalic</key>
+				<string>id</string>
+				<key>textStyleEdit</key>
+				<string>id</string>
+				<key>textStyleFormat</key>
+				<string>id</string>
+				<key>textStyleName</key>
+				<string>id</string>
+				<key>textStyleToggleEnabled</key>
+				<string>id</string>
+				<key>textStyleVariant</key>
+				<string>id</string>
+				<key>textTool</key>
+				<string>id</string>
+				<key>textUnderline</key>
+				<string>id</string>
+				<key>toggleAutoIndentNewLine</key>
+				<string>id</string>
+				<key>toggleAutoUpdate</key>
+				<string>id</string>
+				<key>toggleBaseWritingDirection</key>
+				<string>id</string>
+				<key>toggleContinuousPage</key>
+				<string>id</string>
+				<key>toggleDrawer</key>
+				<string>id</string>
+				<key>toggleDrawsTextBackground</key>
+				<string>id</string>
+				<key>toggleFixSymbolDrawerBug</key>
+				<string>id</string>
+				<key>toggleGrab</key>
+				<string>id</string>
+				<key>toggleInspector</key>
+				<string>id</string>
+				<key>toggleMatchDelimiter</key>
+				<string>id</string>
+				<key>toggleOverwrite</key>
+				<string>id</string>
+				<key>togglePDFDisplayModeStick</key>
+				<string>id</string>
+				<key>togglePDFSlidesLandscapeMode</key>
+				<string>id</string>
+				<key>togglePageBreaks</key>
+				<string>id</string>
+				<key>toggleReadOnly</key>
+				<string>id</string>
+				<key>toggleShareToolbarConfiguration</key>
+				<string>id</string>
+				<key>toggleShiftDelete</key>
+				<string>id</string>
+				<key>toggleShowsControls</key>
+				<string>id</string>
+				<key>toggleShowsInvisibles</key>
+				<string>id</string>
+				<key>toggleSmartInsert</key>
+				<string>id</string>
+				<key>toggleSmartMacros</key>
+				<string>id</string>
+				<key>toggleSmartSelection</key>
+				<string>id</string>
+				<key>toggleSmartUndo</key>
+				<string>id</string>
+				<key>toggleSmartUpdate</key>
+				<string>id</string>
+				<key>toggleSyncAllBullets</key>
+				<string>id</string>
+				<key>toggleSyncFocusBullet</key>
+				<string>id</string>
+				<key>toggleSyncFollowFocus</key>
+				<string>id</string>
+				<key>toggleSyncNoBullets</key>
+				<string>id</string>
+				<key>toggleSyncUserBullets</key>
+				<string>id</string>
+				<key>toggleSynchronizationMode</key>
+				<string>id</string>
+				<key>toggleThreadedPDFRendering</key>
+				<string>id</string>
+				<key>uncommentSelection</key>
+				<string>id</string>
+				<key>unindentSelection</key>
+				<string>id</string>
+				<key>wrapSelectedText</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSObject</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>checkForUpdates</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>SUUpdater</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>
