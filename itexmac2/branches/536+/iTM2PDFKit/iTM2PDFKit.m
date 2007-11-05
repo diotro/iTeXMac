@@ -3058,7 +3058,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setAutoScales:NO];
-	[super zoomIn:sender];
+	[super zoomOut:sender];
 //iTM2_END;
     return;
 }
