@@ -44,9 +44,8 @@ NSString * const iTM2MacroTemplateComponent = @"Template";
 		NSString * path = [RA lastObject];
 		if([DFM fileExistsAtPath:path])
 		{
-			NSURL * url = [NSURL fileURLWithPath:path];
 			NSError * localError =  nil;
-			if(document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeCompactEmptyElement error:&localError] autorelease])
+			if(document = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:NSXMLNodeCompactEmptyElement error:&localError] autorelease])
 			{
 				// clean the root element by removing all its children
 				NSXMLElement * rootElement = [document rootElement];
@@ -1329,6 +1328,7 @@ To Do List:
 	[self willChangeValueForKey:@"prettyKey"];
 	[self willChangeValueForKey:@"codeName"];
 	[self willChangeValueForKey:@"isControl"];
+	[self willChangeValueForKey:@"isFunction"];
 	[self willChangeValueForKey:@"isShift"];
 	[self willChangeValueForKey:@"isAlternate"];
 	[self willChangeValueForKey:@"isCommand"];
@@ -1346,6 +1346,7 @@ To Do List:
 	}
 	[self didChangeValueForKey:@"isCommand"];
 	[self didChangeValueForKey:@"isAlternate"];
+	[self willChangeValueForKey:@"isFunction"];
 	[self didChangeValueForKey:@"isShift"];
 	[self didChangeValueForKey:@"isControl"];
 	[self didChangeValueForKey:@"codeName"];
@@ -1509,13 +1510,17 @@ To Do List:
 - (void)setCodeName:(NSString *)newCodeName;
 {
 	iTM2MacroKeyStroke * macroKeyStroke = [self keyStroke];
-	if(!macroKeyStroke)
-	{
-		return;
-	}
 	[self willChangeKeyStroke];
-	[macroKeyStroke->codeName autorelease];
-	macroKeyStroke->codeName = [newCodeName copy];
+	if(macroKeyStroke)
+	{
+		[macroKeyStroke->codeName autorelease];
+		macroKeyStroke->codeName = [newCodeName copy];
+	}
+	else
+	{
+		macroKeyStroke = [[[iTM2MacroKeyStroke alloc] initWithCodeName:newCodeName] autorelease];
+		[self setValue:macroKeyStroke forKeyPath:@"value.keyStroke"];
+	}
 	[self didChangeKeyStroke];
 }
 - (void)setIsShift:(BOOL)yorn;
@@ -1572,6 +1577,26 @@ To Do List:
 	[self willChangeKeyStroke];
 	macroKeyStroke->isAlternate = yorn;
 	[self didChangeKeyStroke];
+}
+- (BOOL)canShift;
+{
+	return [self keyStroke] != nil;
+}
+- (BOOL)canFunction;
+{
+	return [self keyStroke] != nil;
+}
+- (BOOL)canControl;
+{
+	return [self keyStroke] != nil;
+}
+- (BOOL)canCommand;
+{
+	return [self keyStroke] != nil;
+}
+- (BOOL)canAlternate;
+{
+	return [self keyStroke] != nil;
 }
 @end
 
