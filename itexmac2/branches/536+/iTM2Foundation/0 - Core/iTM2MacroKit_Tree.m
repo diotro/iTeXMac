@@ -195,28 +195,31 @@ NSString * const iTM2MacroPersonalComponent = @"Personal";
 	NSString * path = [url path];
 	BOOL mutable = path && [DFM isWritableFileAtPath:path] && [path belongsToDirectory:userMacrosDir];
 //iTM2_LOG(@"mutable:%@\nuserMacrosDir: %@\npath:%@",(mutable?@"Y":@"N"),userMacrosDir,path);
-	NSError * localError =  nil;
+	if([DFM fileExistsAtPath:path])
+	{
+		NSError * localError =  nil;
 //			NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodePreserveAll error:&localError] autorelease];// raise for an unknown reason
-	NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeCompactEmptyElement error:&localError] autorelease];
+		NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeCompactEmptyElement error:&localError] autorelease];
 //iTM2_LOG(@"document:%@",document);
-	if(localError)
-	{
-		iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
-	}
-	else
-	{
-		[documentsByURLs setObject:document forKey:url];
-		NSMutableArray * URLsPromise = [[[self valueForKeyPath:@"value.URLsPromise"] retain] autorelease];// for the reentrant management
-		if(![URLsPromise containsObject:url])
+		if(localError)
 		{
-			return;
+			iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
 		}
-		[[url retain] autorelease];
-		[URLsPromise removeObject:url];
-		// now create the children
-		// also manage the mutability
-		NSXMLElement * rootElement = [document rootElement];
-		[self readXMLRootElement:rootElement mutable:mutable];
+		if(document)
+		{
+			[documentsByURLs setObject:document forKey:url];
+			NSMutableArray * URLsPromise = [[[self valueForKeyPath:@"value.URLsPromise"] retain] autorelease];// for the reentrant management
+			if(![URLsPromise containsObject:url])
+			{
+				return;
+			}
+			[[url retain] autorelease];
+			[URLsPromise removeObject:url];
+			// now create the children
+			// also manage the mutability
+			NSXMLElement * rootElement = [document rootElement];
+			[self readXMLRootElement:rootElement mutable:mutable];
+		}
 	}
 	return;
 }
@@ -264,6 +267,10 @@ NSString * const iTM2MacroPersonalComponent = @"Personal";
 		documentsByURLs = [self valueForKeyPath:@"value.documentsByURLs"];
 	}
 	[documentsByURLs setObject:document forKey:url];
+iTM2_LOG(@"documentsByURLs:%@",[self valueForKeyPath:@"value.documentsByURLs"]);
+iTM2_LOG(@"domain:%@",[self valueForKeyPath:@"parent.parent.value.domain"]);
+iTM2_LOG(@"category:%@",[self valueForKeyPath:@"parent.value.category"]);
+iTM2_LOG(@"context:%@",[self valueForKeyPath:@"value.context"]);
 	return; 
 }
 - (NSURL *)personalURL;
