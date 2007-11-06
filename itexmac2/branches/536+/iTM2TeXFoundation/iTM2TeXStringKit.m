@@ -198,10 +198,13 @@ expandToTheLeftAsLetters:
 				R.length -= R.location;
 				// then expand everything to the right, as command, accept only letters and @
 				loc = NSMaxRange(R);
-				r = [self rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:theAttributedString atIndex:loc];
-				if(r.length)
+				if(loc<[theAttributedString length])// this was missing
 				{
-					R = NSUnionRange(R,r);
+					r = [self rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:theAttributedString atIndex:loc];
+					if(r.length)
+					{
+						R = NSUnionRange(R,r);
+					}
 				}
 				return R;
 			}
