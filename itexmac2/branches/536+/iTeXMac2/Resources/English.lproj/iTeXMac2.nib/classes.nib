@@ -57,6 +57,10 @@
 				<string>id</string>
 				<key>completeLaTeXEnvironment</key>
 				<string>id</string>
+				<key>convertFrom7bitsAccents</key>
+				<string>id</string>
+				<key>convertTo7bitsAccents</key>
+				<string>id</string>
 				<key>crop</key>
 				<string>id</string>
 				<key>displayConsoleDebug</key>
@@ -286,6 +290,8 @@
 				<key>textTool</key>
 				<string>id</string>
 				<key>textUnderline</key>
+				<string>id</string>
+				<key>toggle7bitsAccents</key>
 				<string>id</string>
 				<key>toggleAutoIndentNewLine</key>
 				<string>id</string>
