@@ -394,6 +394,32 @@ To Do List:
 //iTM2_START;
     return;
 }
+#pragma mark =-=-=-=-=-   CONTAINER
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childDocumentForFileName:
+- (id)childDocumentForFileName:(NSString *)fileName;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childDocumentForURL:
+- (id)childDocumentForURL:(NSURL *)url;
+/*"Subclasses will most certainly override this method.
+Default implementation returns the NSUserDefaults shared instance.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.1.a6:03/26/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil;
+}
 #pragma mark =-=-=-=-=-   CONTEXT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
 - (id)currentContextManager;
@@ -946,32 +972,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSWindow * W = [self frontWindow];
-	NSWindowController * currentWC = [W windowController];
-	currentWC = [[currentWC retain] autorelease];
-	if(currentWC)
-	{
-		if([[[currentWC class] inspectorMode] isEqual:mode]
-				&& [[currentWC inspectorVariant] isEqual:variant])
-		{
-			if(iTM2DebugEnabled)
-			{
-				iTM2_LOG(@"The inspector mode and variant are already in place:%@, %@", mode, variant);
-			}
-			return;
-		}
-		if([currentWC isWindowLoaded])
-		{
-			[[currentWC window] orderOut:self];
-		}
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Removing the window controller:%@", currentWC);
-		}
-		[self removeWindowController:currentWC];
-	}
+	NSWindowController * currentWC = [[[[self frontWindow] windowController] retain] autorelease];
     Class C = Nil;
-	NSString * type = [isa inspectorType];
+	NSString * type = [[self class] inspectorType];
 	if([mode isEqual:iTM2ExternalInspectorMode])
 	{
 		if([iTM2ExternalInspectorServer objectForType:type key:variant])
@@ -983,24 +986,40 @@ To Do List:
 	{
 		C = [NSWindowController inspectorClassForType:type mode:mode variant:variant];
 	}
-	if(C)
+	if(C == [currentWC class])
 	{
-		// removing the external inspectors... if necessary
-		NSEnumerator * E = [[self windowControllers] objectEnumerator];
-		NSWindowController * WC = nil;
-		while(WC = [E nextObject])
-		{
-			if([WC isKindOfClass:[iTM2ExternalInspector class]])
-			{
-				[self removeWindowController:WC];
-			}
-		}
-		WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass(C)] autorelease];
+		// no change
+		return;
+	}
+	else if(C)
+	{
+		// first add a new window controller to prevent closeIfNeeded to close the project document
+#warning BUG, the closeIfNeeded does not seem to close all the windows of the project, more...
+// when I first removed the old WC, closeIfNeeded was called and the project document was closed
+// Then the window menu was updated and there was still a window for that closed document
+// of course, the document of that window was garbage, which caused an exception to be raised
+		NSWindowController * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass(C)] autorelease];
 		[WC setInspectorVariant:variant];
         [self addWindowController:WC];
+		NSWindow * W;
         if(W = [WC window])
         {
-            [W makeKeyAndOrderFront:self];
+            [W makeKeyAndOrderFront:self];// now there is a visible window, the closeIfNeeded (sent when removing a window controller) will not close the project document
+			// then remove the old WC
+			if(iTM2DebugEnabled)
+			{
+				iTM2_LOG(@"Removing the window controller:%@", currentWC);
+			}
+			[self removeWindowController:currentWC];
+			// remove the external inspectors... if necessary, WHY?
+			NSEnumerator * E = [[self windowControllers] objectEnumerator];
+			while(WC = [E nextObject])
+			{
+				if([WC isKindOfClass:[iTM2ExternalInspector class]])
+				{
+					[self removeWindowController:WC];
+				}
+			}
         }
         else
 		{
@@ -1011,12 +1030,6 @@ To Do List:
 	else
 	{
 		iTM2_LOG(@"No inspector class found for mode %@, and variant %@", mode, variant);
-	}
-	// just in case, things did not work properly
-	if(![[self windowControllers] count] && currentWC)
-	{
-		[self addWindowController:currentWC];
-		[[currentWC window] orderFront:self];
 	}
 //iTM2_END;
     return;
@@ -3602,13 +3615,13 @@ To Do List:
 	if(![sender image])
 	{
 		NSString * appName = [sender title];
-		NSString * name = [NSString stringWithFormat:@"%@ mini icon",appName];
+		NSString * name = [NSString stringWithFormat:@"%@(small)",appName];
 		NSImage * I = [NSImage imageNamed:name];
 		if(!I)
 		{
 			NSString * fullPath = [SWS fullPathForApplication:appName];
 			I = [SWS iconForFile:fullPath];
-			I = [I copy];
+			I = [[I copy] autorelease];
 			[I setName:name];
 			[I setScalesWhenResized:YES];
 			[I setSize:NSMakeSize(16,16)];

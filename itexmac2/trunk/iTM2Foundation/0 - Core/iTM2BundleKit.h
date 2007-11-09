@@ -442,7 +442,7 @@ extern NSString * const iTM2BundleContentsComponent;
 				The given object is asked to perform the given selector against each url.
 	@param		anObject
 	@param		aSelector, anObject MUST respond to aSelector
-	@param		Component can bu "Base Projects.localized", Completion.localized, Macros.localized...
+	@param		Component can be "Base Projects.localized", Completion.localized, Macros.localized...
 	@result		None
 */
 + (void)makeObject:(id)anObject performSelector:(SEL)aSelector withOrderedBundlePathsForComponent:(NSString *)component;

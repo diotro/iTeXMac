@@ -543,7 +543,7 @@ To Do List:
     NSEnumerator * E = [[self windowControllers] objectEnumerator];
     NSWindowController * WC;
     while(WC = [E nextObject])
-        flag = flag && [WC validateWindowContent];
+        flag = [WC validateWindowContent] && flag;
 //iTM2_END;
     return flag;
 }

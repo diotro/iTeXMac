@@ -1903,7 +1903,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [isa classBundle];
+    return [[self class] classBundle];
 }
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSBundle(iTeXMac2)

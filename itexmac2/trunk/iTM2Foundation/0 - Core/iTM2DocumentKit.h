@@ -254,6 +254,28 @@ extern NSString * const iTM2InspectorTable;
 */
 - (NSDictionary *)environmentForExternalHelper;
 
+/*!
+    @method		childDocumentForFileName:
+    @abstract	A child document for the given file name.
+    @discussion	This is useful for composite documents.
+				Composite documents are really file wrappers: they are composed with the contents of many different files.
+				This is different from the concept of subdocuments of the project design.
+				A project is just a manager of the set of its subdocuments.
+				The default implementation simply returns nil.
+    @param		None.
+    @result		None.
+*/
+- (id)childDocumentForFileName:(NSString *)fileName;
+
+/*!
+    @method		childDocumentForURL:
+    @abstract	A child document for the given URL.
+    @discussion	See <code>-childDocumentForFileName:</code>.
+    @param		None.
+    @result		None.
+*/
+- (id)childDocumentForURL:(NSURL *)url;
+
 @end
 
 /*!
