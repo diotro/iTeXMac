@@ -341,7 +341,7 @@ To Do List:
 	}
 	// all the sources?
 	iTM2ProjectDocument * PD = [SPC projectForSource:self];
-	NSEnumerator * E = [[PD allKeys] objectEnumerator];
+	NSEnumerator * E = [[PD allFileKeys] objectEnumerator];
 	NSString * key;
 	unsigned int matchLevel = UINT_MAX;
 	id matchDocument = nil;

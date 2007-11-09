@@ -25,12 +25,18 @@
 		DC0C1CCD08FFF95000C46507 /* ThumbnailViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */; };
 		DC0C1CCE08FFF95400C46507 /* TOCViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */; };
 		DC0C1D1A0900107000C46507 /* Generic.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1D190900106F00C46507 /* Generic.icns */; };
-		DC4AEAEF0ACC57CD000D27FC /* rotateLeftToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AEAE90ACC57CD000D27FC /* rotateLeftToolbarImage.tif */; };
-		DC4AEAF00ACC57CD000D27FC /* rotateRightToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AEAEA0ACC57CD000D27FC /* rotateRightToolbarImage.tif */; };
-		DC4AEAF10ACC57CD000D27FC /* zoomInToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC4AEAEB0ACC57CD000D27FC /* zoomInToolbarImage.tiff */; };
-		DC4AEAF20ACC57CD000D27FC /* zoomOutToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC4AEAEC0ACC57CD000D27FC /* zoomOutToolbarImage.tiff */; };
-		DC4AEAF30ACC57CD000D27FC /* zoomToFitToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC4AEAED0ACC57CD000D27FC /* zoomToFitToolbarImage.tiff */; };
-		DC4AEAF40ACC57CD000D27FC /* zoomToSelectionToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC4AEAEE0ACC57CD000D27FC /* zoomToSelectionToolbarImage.tiff */; };
+		DC4E1A520CCDD90200F5CE3E /* actualSize.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A440CCDD90200F5CE3E /* actualSize.png */; };
+		DC4E1A530CCDD90200F5CE3E /* Crop.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A450CCDD90200F5CE3E /* Crop.png */; };
+		DC4E1A540CCDD90200F5CE3E /* DrawerToggle.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A460CCDD90200F5CE3E /* DrawerToggle.png */; };
+		DC4E1A550CCDD90200F5CE3E /* goToNextPage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A470CCDD90200F5CE3E /* goToNextPage.png */; };
+		DC4E1A560CCDD90200F5CE3E /* goToPreviousPage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A480CCDD90200F5CE3E /* goToPreviousPage.png */; };
+		DC4E1A590CCDD90200F5CE3E /* rotateLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4B0CCDD90200F5CE3E /* rotateLeft.png */; };
+		DC4E1A5A0CCDD90200F5CE3E /* rotateRight.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4C0CCDD90200F5CE3E /* rotateRight.png */; };
+		DC4E1A5B0CCDD90200F5CE3E /* toggleDrawer.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4D0CCDD90200F5CE3E /* toggleDrawer.png */; };
+		DC4E1A5C0CCDD90200F5CE3E /* zoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4E0CCDD90200F5CE3E /* zoomIn.png */; };
+		DC4E1A5D0CCDD90200F5CE3E /* zoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4F0CCDD90200F5CE3E /* zoomOut.png */; };
+		DC4E1A5E0CCDD90200F5CE3E /* zoomToFit.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A500CCDD90200F5CE3E /* zoomToFit.png */; };
+		DC4E1A5F0CCDD90200F5CE3E /* zoomToSelection.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A510CCDD90200F5CE3E /* zoomToSelection.png */; };
 		DC70F3240BFC5CF7006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F31B0BFC5CF7006C6A76 /* Lua.framework */; };
 		DC70FBE60BFCAB86006C6A76 /* Macros.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC70FBE40BFCAB86006C6A76 /* Macros.resources.tgz */; };
 		DCAF9A5509D810EE00AFD95F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */; };
@@ -55,18 +61,12 @@
 		DCC3EE7808FE668E00A74157 /* C_ZoomIn.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */; };
 		DCC3EE7908FE668E00A74157 /* C_ZoomLimit.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */; };
 		DCC3EE7A08FE668E00A74157 /* C_ZoomOut.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */; };
-		DCC3EE7B08FE668E00A74157 /* CropToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67F0855D0B200128F14 /* CropToolbarImage.tiff */; };
-		DCC3EE7C08FE668E00A74157 /* DrawerToggleToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6800855D0B200128F14 /* DrawerToggleToolbarImage.tiff */; };
 		DCC3EE7D08FE668E00A74157 /* ForwardAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */; };
-		DCC3EE7E08FE668E00A74157 /* goToNextPageToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6820855D0B200128F14 /* goToNextPageToolbarImage.tif */; };
-		DCC3EE7F08FE668E00A74157 /* goToPreviousPageToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6830855D0B200128F14 /* goToPreviousPageToolbarImage.tif */; };
 		DCC3EE8008FE668E00A74157 /* MoveToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */; };
 		DCC3EE8308FE668E00A74157 /* SelectToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */; };
 		DCC3EE8408FE668E00A74157 /* TextToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */; };
 		DCC3EE9008FE668E00A74157 /* iTM2PDFKitPrefPane.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */; };
 		DCC3EE9108FE66A600A74157 /* iTM2PDFKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCDD0680090384C300C5B1E9 /* toggleDrawerToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */; };
-		DCDD06C309038EF900C5B1E9 /* actualSizeToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */; };
 		DCE52F660C0F3C9D00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
@@ -116,11 +116,7 @@
 		DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomIn.tiff; sourceTree = "<group>"; };
 		DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomLimit.tiff; sourceTree = "<group>"; };
 		DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomOut.tiff; sourceTree = "<group>"; };
-		DC2CA67F0855D0B200128F14 /* CropToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = CropToolbarImage.tiff; sourceTree = "<group>"; };
-		DC2CA6800855D0B200128F14 /* DrawerToggleToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DrawerToggleToolbarImage.tiff; sourceTree = "<group>"; };
 		DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ForwardAdorn.tif; sourceTree = "<group>"; };
-		DC2CA6820855D0B200128F14 /* goToNextPageToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = goToNextPageToolbarImage.tif; sourceTree = "<group>"; };
-		DC2CA6830855D0B200128F14 /* goToPreviousPageToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = goToPreviousPageToolbarImage.tif; sourceTree = "<group>"; };
 		DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = MoveToolAdorn.tif; sourceTree = "<group>"; };
 		DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SelectToolAdorn.tif; sourceTree = "<group>"; };
 		DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TextToolAdorn.tif; sourceTree = "<group>"; };
@@ -128,12 +124,18 @@
 		DC2CA71A0855D19F00128F14 /* iTM2PDFKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2PDFKit-Info.plist"; sourceTree = "<group>"; };
 		DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		DC4AEAE90ACC57CD000D27FC /* rotateLeftToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = rotateLeftToolbarImage.tif; sourceTree = "<group>"; };
-		DC4AEAEA0ACC57CD000D27FC /* rotateRightToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = rotateRightToolbarImage.tif; sourceTree = "<group>"; };
-		DC4AEAEB0ACC57CD000D27FC /* zoomInToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomInToolbarImage.tiff; sourceTree = "<group>"; };
-		DC4AEAEC0ACC57CD000D27FC /* zoomOutToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomOutToolbarImage.tiff; sourceTree = "<group>"; };
-		DC4AEAED0ACC57CD000D27FC /* zoomToFitToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomToFitToolbarImage.tiff; sourceTree = "<group>"; };
-		DC4AEAEE0ACC57CD000D27FC /* zoomToSelectionToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = zoomToSelectionToolbarImage.tiff; sourceTree = "<group>"; };
+		DC4E1A440CCDD90200F5CE3E /* actualSize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = actualSize.png; sourceTree = "<group>"; };
+		DC4E1A450CCDD90200F5CE3E /* Crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Crop.png; sourceTree = "<group>"; };
+		DC4E1A460CCDD90200F5CE3E /* DrawerToggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DrawerToggle.png; sourceTree = "<group>"; };
+		DC4E1A470CCDD90200F5CE3E /* goToNextPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goToNextPage.png; sourceTree = "<group>"; };
+		DC4E1A480CCDD90200F5CE3E /* goToPreviousPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goToPreviousPage.png; sourceTree = "<group>"; };
+		DC4E1A4B0CCDD90200F5CE3E /* rotateLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotateLeft.png; sourceTree = "<group>"; };
+		DC4E1A4C0CCDD90200F5CE3E /* rotateRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotateRight.png; sourceTree = "<group>"; };
+		DC4E1A4D0CCDD90200F5CE3E /* toggleDrawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toggleDrawer.png; sourceTree = "<group>"; };
+		DC4E1A4E0CCDD90200F5CE3E /* zoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomIn.png; sourceTree = "<group>"; };
+		DC4E1A4F0CCDD90200F5CE3E /* zoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomOut.png; sourceTree = "<group>"; };
+		DC4E1A500CCDD90200F5CE3E /* zoomToFit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomToFit.png; sourceTree = "<group>"; };
+		DC4E1A510CCDD90200F5CE3E /* zoomToSelection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomToSelection.png; sourceTree = "<group>"; };
 		DC5B696F0A4B6AD500F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
 		DC5B69700A4B6AD500F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69710A4B6AD500F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
@@ -163,8 +165,6 @@
 		DCAF9A6009D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2PDFKitPrefPane.strings; sourceTree = "<group>"; };
 		DCAF9A6209D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2PDFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawerToolbarImage.tif; sourceTree = "<group>"; };
-		DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = actualSizeToolbarImage.tiff; sourceTree = "<group>"; };
 		DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -278,12 +278,18 @@
 		DC2CA6720855D0B200128F14 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				DC4AEAE90ACC57CD000D27FC /* rotateLeftToolbarImage.tif */,
-				DC4AEAEA0ACC57CD000D27FC /* rotateRightToolbarImage.tif */,
-				DC4AEAEB0ACC57CD000D27FC /* zoomInToolbarImage.tiff */,
-				DC4AEAEC0ACC57CD000D27FC /* zoomOutToolbarImage.tiff */,
-				DC4AEAED0ACC57CD000D27FC /* zoomToFitToolbarImage.tiff */,
-				DC4AEAEE0ACC57CD000D27FC /* zoomToSelectionToolbarImage.tiff */,
+				DC4E1A440CCDD90200F5CE3E /* actualSize.png */,
+				DC4E1A450CCDD90200F5CE3E /* Crop.png */,
+				DC4E1A460CCDD90200F5CE3E /* DrawerToggle.png */,
+				DC4E1A470CCDD90200F5CE3E /* goToNextPage.png */,
+				DC4E1A480CCDD90200F5CE3E /* goToPreviousPage.png */,
+				DC4E1A4B0CCDD90200F5CE3E /* rotateLeft.png */,
+				DC4E1A4C0CCDD90200F5CE3E /* rotateRight.png */,
+				DC4E1A4D0CCDD90200F5CE3E /* toggleDrawer.png */,
+				DC4E1A4E0CCDD90200F5CE3E /* zoomIn.png */,
+				DC4E1A4F0CCDD90200F5CE3E /* zoomOut.png */,
+				DC4E1A500CCDD90200F5CE3E /* zoomToFit.png */,
+				DC4E1A510CCDD90200F5CE3E /* zoomToSelection.png */,
 				DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */,
 				DC2CA6730855D0B200128F14 /* A aliased.png */,
 				DC2CA6740855D0B200128F14 /* A unaliased.png */,
@@ -291,12 +297,6 @@
 				DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */,
 				DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */,
 				DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */,
-				DC2CA67F0855D0B200128F14 /* CropToolbarImage.tiff */,
-				DC2CA6800855D0B200128F14 /* DrawerToggleToolbarImage.tiff */,
-				DC2CA6820855D0B200128F14 /* goToNextPageToolbarImage.tif */,
-				DC2CA6830855D0B200128F14 /* goToPreviousPageToolbarImage.tif */,
-				DCDD06C009038EF900C5B1E9 /* actualSizeToolbarImage.tiff */,
-				DCDD067F090384C300C5B1E9 /* toggleDrawerToolbarImage.tif */,
 				DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */,
 				DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */,
 				DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */,
@@ -402,9 +402,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB83D09474616004B0A81 /* Build configuration list for PBXProject "iTM2PDFKit" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iTM2XtdPDFKit */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */,
 				DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */,
@@ -430,11 +432,7 @@
 				DCC3EE7808FE668E00A74157 /* C_ZoomIn.tiff in Resources */,
 				DCC3EE7908FE668E00A74157 /* C_ZoomLimit.tiff in Resources */,
 				DCC3EE7A08FE668E00A74157 /* C_ZoomOut.tiff in Resources */,
-				DCC3EE7B08FE668E00A74157 /* CropToolbarImage.tiff in Resources */,
-				DCC3EE7C08FE668E00A74157 /* DrawerToggleToolbarImage.tiff in Resources */,
 				DCC3EE7D08FE668E00A74157 /* ForwardAdorn.tif in Resources */,
-				DCC3EE7E08FE668E00A74157 /* goToNextPageToolbarImage.tif in Resources */,
-				DCC3EE7F08FE668E00A74157 /* goToPreviousPageToolbarImage.tif in Resources */,
 				DCC3EE8008FE668E00A74157 /* MoveToolAdorn.tif in Resources */,
 				DCC3EE8308FE668E00A74157 /* SelectToolAdorn.tif in Resources */,
 				DCC3EE8408FE668E00A74157 /* TextToolAdorn.tif in Resources */,
@@ -443,21 +441,25 @@
 				DC0C1CCD08FFF95000C46507 /* ThumbnailViewAdorn.tif in Resources */,
 				DC0C1CCE08FFF95400C46507 /* TOCViewAdorn.tif in Resources */,
 				DC0C1D1A0900107000C46507 /* Generic.icns in Resources */,
-				DCDD0680090384C300C5B1E9 /* toggleDrawerToolbarImage.tif in Resources */,
-				DCDD06C309038EF900C5B1E9 /* actualSizeToolbarImage.tiff in Resources */,
 				DCAF9A5509D810EE00AFD95F /* InfoPlist.strings in Resources */,
 				DCAF9A5609D810EE00AFD95F /* iTM2PDFKitDefaultsController.nib in Resources */,
 				DCAF9A5709D810EE00AFD95F /* iTM2PDFKitInspector.nib in Resources */,
 				DCAF9A5809D810EE00AFD95F /* iTM2PDFKitPrefPane.nib in Resources */,
 				DCAF9A5909D810EE00AFD95F /* iTM2PDFKitPrefPane.strings in Resources */,
 				DCAF9A5B09D810EE00AFD95F /* Toolbar.strings in Resources */,
-				DC4AEAEF0ACC57CD000D27FC /* rotateLeftToolbarImage.tif in Resources */,
-				DC4AEAF00ACC57CD000D27FC /* rotateRightToolbarImage.tif in Resources */,
-				DC4AEAF10ACC57CD000D27FC /* zoomInToolbarImage.tiff in Resources */,
-				DC4AEAF20ACC57CD000D27FC /* zoomOutToolbarImage.tiff in Resources */,
-				DC4AEAF30ACC57CD000D27FC /* zoomToFitToolbarImage.tiff in Resources */,
-				DC4AEAF40ACC57CD000D27FC /* zoomToSelectionToolbarImage.tiff in Resources */,
 				DC70FBE60BFCAB86006C6A76 /* Macros.resources.tgz in Resources */,
+				DC4E1A520CCDD90200F5CE3E /* actualSize.png in Resources */,
+				DC4E1A530CCDD90200F5CE3E /* Crop.png in Resources */,
+				DC4E1A540CCDD90200F5CE3E /* DrawerToggle.png in Resources */,
+				DC4E1A550CCDD90200F5CE3E /* goToNextPage.png in Resources */,
+				DC4E1A560CCDD90200F5CE3E /* goToPreviousPage.png in Resources */,
+				DC4E1A590CCDD90200F5CE3E /* rotateLeft.png in Resources */,
+				DC4E1A5A0CCDD90200F5CE3E /* rotateRight.png in Resources */,
+				DC4E1A5B0CCDD90200F5CE3E /* toggleDrawer.png in Resources */,
+				DC4E1A5C0CCDD90200F5CE3E /* zoomIn.png in Resources */,
+				DC4E1A5D0CCDD90200F5CE3E /* zoomOut.png in Resources */,
+				DC4E1A5E0CCDD90200F5CE3E /* zoomToFit.png in Resources */,
+				DC4E1A5F0CCDD90200F5CE3E /* zoomToSelection.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +733,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Development;
 		};
@@ -738,6 +741,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Deployment;
 		};
