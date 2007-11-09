@@ -711,9 +711,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB80109474616004B0A81 /* Build configuration list for PBXProject "iTM2LaTeXSymbolsKit" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iTM2PDFKit */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */,
 				8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */,
@@ -1056,6 +1058,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Development;
 		};
@@ -1063,6 +1066,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Deployment;
 		};
