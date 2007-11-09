@@ -27,6 +27,9 @@
 - (NSRange)originalDoubleClickAtIndex:(unsigned)index;
 @end
 
+@interface ICURegEx(TeXStringKit)
++ (ICURegEx *)the7bitsAccentsRegEx;
+@end
 @implementation ICURegEx(TeXStringKit)
 + (ICURegEx *)the7bitsAccentsRegEx;
 {
