@@ -92,7 +92,7 @@ To Do List:
 	}
 #if 1
 	// preparing the list of documents
-	E = [[self allKeys] objectEnumerator];
+	E = [[self allFileKeys] objectEnumerator];
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	NSString * S;
 	while(S = [E nextObject])

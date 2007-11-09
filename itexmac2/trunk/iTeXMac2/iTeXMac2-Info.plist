@@ -1615,7 +1615,7 @@
 			<key>CFBundleTypeName</key>
 			<string>MetaFont source</string>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
+			<string>Editor</string>
 			<key>LSIsAppleDefaultForType</key>
 			<false/>
 			<key>LSTypeIsPackage</key>
@@ -1648,20 +1648,40 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>XDV</string>
+				<string>DVI</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>XDV</string>
+			<string>DVI</string>
 			<key>CFBundleTypeName</key>
-			<string>XeTeX output</string>
+			<string>TeX DeVice Independent</string>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
+			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
 			<false/>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSDocumentClass</key>
-			<string>NSDocument</string>
+			<string>iTM2DVIDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>XDV</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>XDV</string>
+			<key>CFBundleTypeName</key>
+			<string>XeTeX DeVice independent</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSIsAppleDefaultForType</key>
+			<false/>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>iTM2DVIDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
@@ -1673,7 +1693,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>TUI</string>
 			<key>CFBundleTypeName</key>
-			<string>TeXUtil Document</string>
+			<string>TeXUtil Document I</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
@@ -1693,7 +1713,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>TUO</string>
 			<key>CFBundleTypeName</key>
-			<string>TeXUtil Document</string>
+			<string>TeXUtil Document O</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
@@ -1713,7 +1733,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>TUF</string>
 			<key>CFBundleTypeName</key>
-			<string>TeXUtil Document</string>
+			<string>TeXUtil Document F</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSIsAppleDefaultForType</key>
