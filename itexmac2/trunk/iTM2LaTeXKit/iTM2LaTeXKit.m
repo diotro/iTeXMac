@@ -2106,15 +2106,7 @@ To Do List:
 		}
 		macro = replacementString;
 	}
-	else if([macro isEqual:@"{}"])
-	{
-		macro = [NSString stringWithFormat:@"{@@@(%@)@@@}",selectedString];
-	}
-	else if([macro isEqual:@"[]"])
-	{
-		macro = [NSString stringWithFormat:@"[@@@(%@)@@@]",selectedString];
-	}
-	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString line:line];
+	macro = (id)[self concreteReplacementStringForTeXMacro:macro selection:selectedString line:line];
 //iTM2_END;
    return macro;
 }

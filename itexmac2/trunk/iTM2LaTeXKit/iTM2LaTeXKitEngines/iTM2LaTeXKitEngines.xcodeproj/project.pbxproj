@@ -390,9 +390,11 @@
 		DC9DC47A094840B10079E1B3 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC9DC47B094840B10079E1B3 /* Build configuration list for PBXProject "iTM2LaTeXKitEngines" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 0;
 			mainGroup = DC9DC478094840B10079E1B3;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D6D0E0949A97100EBA96C /* Prepare iTM2LaTeXKit */,
 				DC0EF842094856570018276F /* LaTeX Installer */,
