@@ -1,38 +1,80 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {CLASS = iTM2MinusButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = iTM2PlusButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = iTM2TextStyleTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
-        {
-            ACTIONS = {
-                defaultColor = id; 
-                modeEdited = id; 
-                popUpToggleAttributesMode = id; 
-                toggleCursorIsWhite = id; 
-            }; 
-            CLASS = iTM2TextStyleTextView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSTextView; 
-        }, 
-        {
-            ACTIONS = {
-                addSet = id; 
-                addSetCancel = id; 
-                addSetNameEdited = id; 
-                addSetOk = id; 
-                addSetTitleEdited = id; 
-                addSymbol = id; 
-                removeSet = id; 
-                revertToFactoryColor = id; 
-                setChosen = id; 
-                toggleBackgroundColor = id; 
-            }; 
-            CLASS = iTM2TextXtdSyntaxParserAttributesInspector; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {addSetPanel = NSPanel; tableView = NSTableView; }; 
-            SUPERCLASS = NSWindowController; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TextStyleTableView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTableView</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>addSet</key>
+				<string>id</string>
+				<key>addSetCancel</key>
+				<string>id</string>
+				<key>addSetNameEdited</key>
+				<string>id</string>
+				<key>addSetOk</key>
+				<string>id</string>
+				<key>addSetTitleEdited</key>
+				<string>id</string>
+				<key>addSymbol</key>
+				<string>id</string>
+				<key>manageSet</key>
+				<string>id</string>
+				<key>removeSet</key>
+				<string>id</string>
+				<key>revertToFactoryColor</key>
+				<string>id</string>
+				<key>setChosen</key>
+				<string>id</string>
+				<key>toggleBackgroundColor</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TextXtdSyntaxParserAttributesInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>addSetPanel</key>
+				<string>NSPanel</string>
+				<key>tableView</key>
+				<string>NSTableView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

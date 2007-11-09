@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Using \'{e} instead of é will break synchronization. Use it anyway?</key>
+	<string>Utiliser \'{e} à la place de é pourra empêcher la synchronisation. Continuer?</string>
+	<key>OK</key>
+	<string>Oui</string>
+	<key>Cancel</key>
+	<string>Annuler</string>
 	<key>BASE</key>
 	<string>Du mode base</string>
 	<key>BUILT IN</key>

@@ -1583,7 +1583,7 @@ next:
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
-				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[[performer class] localizedNameForName:name]
+				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[performer localizedNameForName:name]
 						action: action
 							keyEquivalent: @""] autorelease];
 				[mi setRepresentedObject:performer];

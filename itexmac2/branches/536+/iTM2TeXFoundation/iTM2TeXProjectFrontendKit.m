@@ -2895,7 +2895,6 @@ To Do List:
         [MD setObject:D forKey:key];
     }
 //iTM2_END;
-iTM2_LOG(@"TeXProjectsProperties:%@",MD);
 	return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_newProjectPanelControllerClass

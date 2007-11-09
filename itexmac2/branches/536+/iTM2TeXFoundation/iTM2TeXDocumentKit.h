@@ -24,6 +24,7 @@
 extern NSString * const iTM2TeXDocumentType;
 extern NSString * const iTM2TeXInspectorMode;
 extern NSString * const iTM2TeXSmartSelectionKey;
+extern NSString * const iTM2TeX7bitsAccentsKey;
 
 @interface iTM2TeXDocument: iTM2TextDocument
 @end

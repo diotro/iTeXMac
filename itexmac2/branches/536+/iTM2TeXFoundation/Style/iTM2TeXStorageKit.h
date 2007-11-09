@@ -104,6 +104,8 @@ typedef enum _iTM2TeXInputMode
     kiTM2TeXSuperscriptSyntaxMode,// to be defined precisely
 //	Cells
     kiTM2TeXCellSeparatorSyntaxMode,// '&' alone
+//	Accents
+    kiTM2TeXAccentSyntaxMode,
 //	Placeholders
     kiTM2TeXPlaceholderDelimiterMode,// "@@@(" or ")@@@"
 //  Everything else
@@ -189,13 +191,13 @@ typedef enum _iTM2TeXInputMode
 + (BOOL)writeSymbolsAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName;
 
 /*!
-    @method	attributesForSymbol:
+    @method	attributesForSymbol:mode:
     @abstract	Abstarct forthcoming.
     @discussion	Description forthcoming
     @param	symbol.
     @result	Attributes.
 */
-- (NSDictionary *)attributesForSymbol:(NSString *)symbol;
+- (NSDictionary *)attributesForSymbol:(NSString *)symbol mode:(NSString *)modeName;
 
 @end
 

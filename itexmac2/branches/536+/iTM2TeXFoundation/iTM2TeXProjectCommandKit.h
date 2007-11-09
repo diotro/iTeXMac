@@ -415,7 +415,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      None
     @result     A NSString
 */
-+ (NSString *)localizedNameForName:(NSString *)name;
+- (NSString *)localizedNameForName:(NSString *)name;
 
 /*!
     @method     menuItemTitleForProject:
@@ -435,7 +435,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      Name
     @result     A NSString
 */
-+ (NSString *)keyEquivalentForName:(NSString *)commandName;
+- (NSString *)keyEquivalentForName:(NSString *)commandName;
 
 /*!
     @method     keyEquivalentModifierMaskForName:
@@ -450,7 +450,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      Name
     @result     flags
 */
-+ (unsigned int)keyEquivalentModifierMaskForName:(NSString *)commandName;
+- (unsigned int)keyEquivalentModifierMaskForName:(NSString *)commandName;
 
 /*!
     @method     performCommand:

@@ -928,6 +928,18 @@ To Do List:
     return;
 }
 NSString * _iTM2PRIVATE_NewSetName = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  manageSet:
+- (IBAction)manageSet:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self performSelector:@selector(_addSet:) withObject:sender afterDelay:0];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSet:
 - (IBAction)addSet:(id)sender;
 /*"Description Forthcoming.

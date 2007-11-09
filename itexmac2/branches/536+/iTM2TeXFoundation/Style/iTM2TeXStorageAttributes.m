@@ -104,6 +104,7 @@ CAS0(kiTM2TeXSuperContinueSyntaxMode,			previousModeWithoutModifiers,	previousMo
 CAS0(kiTM2TeXSuperShortSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
 CAS0(kiTM2TeXSuperscriptSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
 CAS0(kiTM2TeXCellSeparatorSyntaxMode,			previousModeWithoutModifiers,	previousModifier);
+CAS0(kiTM2TeXAccentSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
 #endif
@@ -150,6 +151,7 @@ CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
 //CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXAccentSyntaxMode,					kiTM2TeXRegularSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
         }
@@ -202,6 +204,7 @@ CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
 //CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXAccentSyntaxMode,					kiTM2TeXRegularSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -245,6 +248,7 @@ CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
 //CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
 //CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCommandStartSyntaxMode);
 //CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCommandStartSyntaxMode);
+//CAS0(kiTM2TeXAccentSyntaxMode,					kiTM2TeXCommandStartSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			 }
@@ -287,6 +291,7 @@ CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
+//CAS(kiTM2TeXAccentSyntaxMode,			kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -327,6 +332,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXGroupCloseSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXGroupCloseSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -368,6 +374,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXParenOpenSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXParenOpenSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXParenOpenSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -408,6 +415,7 @@ CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
 //CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
 //CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
 //CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXParenCloseSyntaxMode);
+//CAS0(kiTM2TeXAccentSyntaxMode,				kiTM2TeXParenCloseSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -448,6 +456,7 @@ CAS0(kiTM2TeXSuperContinueSyntaxMode,			kiTM2TeXSuperShortSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXBracketOpenSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXBracketOpenSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXBracketOpenSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -488,6 +497,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXBracketCloseSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXBracketCloseSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXBracketCloseSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -529,6 +539,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXMathSwitchSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXMathSwitchSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -570,6 +581,7 @@ CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCommentStartSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXCommentStartSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -611,6 +623,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXCellSeparatorSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXCellSeparatorSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -652,6 +665,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXRegularSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -693,6 +707,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperContinueSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
 CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXErrorSyntaxMode);
 CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXSuperStartSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXSuperStartSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -734,6 +749,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXErrorSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
 CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXErrorSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXSubStartSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -794,6 +810,7 @@ CAS0(kiTM2TeXMarkContinueSyntaxMode,			previousModeWithoutModifiers);
 //CAS0(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS0(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS0(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS0(kiTM2TeXAccentSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -837,6 +854,7 @@ CAS0(kiTM2TeXSuperStartSyntaxMode,				kiTM2TeXSuperShortSyntaxMode);
 //CAS(kiTM2TeXSuperShortSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS(kiTM2TeXSuperscriptSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 //CAS(kiTM2TeXCellSeparatorSyntaxMode,			kiTM2TeXRegularSyntaxMode);
+//CAS(kiTM2TeXAccentSyntaxMode,					kiTM2TeXRegularSyntaxMode);
 CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModifier, kiTM2TeXWaitingSyntaxStatus);
 			}
@@ -879,8 +897,70 @@ To Do List:
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unichar theChar = [S characterAtIndex:location];
 	unsigned start, end;
+	static ICURegEx * RE = nil;
+	if(!RE)
+	{
+		RE = [[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"^\\{(?:.*?\\})?" options:0 error:nil];
+	}
 	if(kiTM2TeXCommandStartSyntaxMode == previousModeWithoutModifiers)
 	{
+		if((theChar == '`')||(theChar == '\'')||(theChar == '^')||(theChar == '"')||(theChar == '~')
+			||(theChar == '=')||(theChar == '.'))
+		{
+			r.location = location+1;
+			r.length = MIN(length-r.location,4);
+			[RE setInputString:S range:r];
+			if([RE nextMatch])
+			{
+				r = [RE rangeOfMatch];
+				end = location+r.length+1;
+				start = location;
+				if(lengthRef)
+				{
+					* lengthRef = end-start;
+				}
+			}
+			else
+			{
+				end = location+1;
+				start = location;
+				if(lengthRef)
+				{
+					* lengthRef = end-start;
+				}
+			}
+			* newModeRef = kiTM2TeXAccentSyntaxMode;
+			if(nextModeRef && (end<length))
+			{
+				theChar = [S characterAtIndex:end];
+				status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:*newModeRef];
+			}
+			return kiTM2TeXNoErrorSyntaxStatus;
+		}
+		if((theChar == 'u')||(theChar == 'v')||(theChar == 'H')
+				||(theChar == 't')||(theChar == 'c')||(theChar == 'd')||(theChar == 'b'))
+		{
+			r.location = location+1;
+			r.length = MIN(length-r.location,4);
+			[RE setInputString:S range:r];
+			if([RE nextMatch])
+			{
+				r = [RE rangeOfMatch];
+				end = location+r.length+1;
+				start = location;
+				if(lengthRef)
+				{
+					* lengthRef = end-start;
+				}
+				* newModeRef = kiTM2TeXAccentSyntaxMode;
+				if(nextModeRef && (end<length))
+				{
+					theChar = [S characterAtIndex:end];
+					status = [self getSyntaxMode:nextModeRef forCharacter:theChar previousMode:*newModeRef];
+				}
+				return kiTM2TeXNoErrorSyntaxStatus;
+			}
+		}
 		NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
 		if([set characterIsMember:theChar])
 		{
@@ -986,10 +1066,9 @@ placeholder:
 				--r.length;
 			}
 		}
-		
 		start = r.location;
 		substring = [S substringWithRange:r];
-		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:0 error:nil] autorelease];
+		RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:0 error:nil] autorelease];
 		[RE setInputString:substring];
 		while([RE nextMatch])
 		{
@@ -1025,7 +1104,7 @@ placeholder:
 	if(lengthRef) // && (previousMode != kiTM2TeXCommandStartSyntaxMode) || ![set characterIsMember:theChar]
 	{
 		* lengthRef = 1;
-		if(kiTM2TeXCommandStartSyntaxMode != *newModeRef)
+		if(kiTM2TeXCommandStartSyntaxMode != (*newModeRef & ~kiTM2TeXFlagsSyntaxMask))
 		{
 //NSLog(@"0: character: %@", [NSString stringWithCharacters: &C length:1]);
 //NSLog(@"1: nextMode: %u, previousMode: %u", nextMode, previousMode);
@@ -1245,7 +1324,7 @@ extendingToTheRight:
 									++otherRange.length;
 tryToConclude:
 									substring = [S substringWithRange:range];
-									if(attributes = [_AS attributesForSymbol:substring])
+									if(attributes = [_AS attributesForSymbol:substring mode:nil])
 									{
 										if(aRangePtr)
 										{
@@ -1549,7 +1628,9 @@ testBeforeGroupOpen:
 				outRangeStop = NSMaxRange(range);
 				outMode = kiTM2TeXSuperShortSyntaxMode;
 			}
-			else if((otherMode == kiTM2TeXCommandEscapedCharacterSyntaxMode) || (otherMode == kiTM2TeXCommandContinueSyntaxMode))
+			else if((otherMode == kiTM2TeXCommandEscapedCharacterSyntaxMode)
+				|| (otherMode == kiTM2TeXCommandContinueSyntaxMode)
+				|| (otherMode == kiTM2TeXAccentSyntaxMode))
 			{
 				outMode = otherMode;
 				outRangeStop = NSMaxRange(range);
@@ -1601,7 +1682,7 @@ fullCommand:
 					*aRangePtr = range;
 				}
 				substring = [S substringWithRange:range];
-				if(attributes = [_AS attributesForSymbol:substring])
+				if(attributes = [_AS attributesForSymbol:substring mode:nil])
 				{
 //iTM2_LOG(@"aLocation:%i, range:%@, substring:%@",aLocation,NSStringFromRange(range),substring);
 					return attributes;
@@ -1623,7 +1704,7 @@ fullCommand:
         case kiTM2TeXCommandContinueSyntaxMode:
 			iTM2_ATTRIBUTE_ASSERT(outRangeStart>[modeLine startOffset],@"missing \\ before command");
 			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:outRangeStart-1 longestRange:&range];
-			otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+			modeWithoutModifiers = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
 			iTM2_ATTRIBUTE_ASSERT(otherMode==kiTM2TeXCommandStartSyntaxMode,@"start \\ missing before short or continue");
 			iTM2_ATTRIBUTE_ASSERT(range.length==1,@"start command too long before short or continu");
 			outRangeStart = range.location;
@@ -1733,6 +1814,16 @@ fullCommand:
                 return [_AS attributesForMode:modeName];
 			}
 
+#pragma mark =-=-=-=-=- ACCENTS
+        case kiTM2TeXAccentSyntaxMode:
+			iTM2_ATTRIBUTE_ASSERT(outRangeStart>[modeLine startOffset],@"missing \\ before command");
+			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:outRangeStart-1 longestRange:&range];
+			modeWithoutModifiers = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+			iTM2_ATTRIBUTE_ASSERT(modeWithoutModifiers==kiTM2TeXCommandStartSyntaxMode,@"start \\ missing before accent");
+			iTM2_ATTRIBUTE_ASSERT(range.length==1,@"start command too long before accent");
+			outRangeStart = range.location;
+			goto returnOutAttributes;
+
         default:
             iTM2_LOG(@"Someone is asking for mode: %u = %#x (%u = %#x)", fullMode, fullMode, modeWithoutModifiers, modeWithoutModifiers);
 //status = [self getSyntaxMode:&mode atIndex:aLocation longestRange:&range];
@@ -1749,18 +1840,21 @@ returnOutAttributes:
 		}
 		*aRangePtr = range;
 	}
+	modeName = [_iTM2TeXModeForModeArray objectAtIndex:outMode];
 #ifdef iTM2_WITH_SYMBOLS
-	substring = [S substringWithRange:range];// out of range in the extended latex mode
-	if(attributes = [_AS attributesForSymbol:substring])
+	if(modeWithoutModifiers == kiTM2TeXCommandStartSyntaxMode)
 	{
-		if(iTM2DebugEnabled>9999)
+		substring = [S substringWithRange:range];// out of range in the extended latex mode
+		if(attributes = [_AS attributesForSymbol:substring mode:modeName])
 		{
-			iTM2_LOG(@"aLocation:%i, range:%@, substring:%@",aLocation,NSStringFromRange(range),substring);
+			if(iTM2DebugEnabled>9999)
+			{
+				iTM2_LOG(@"aLocation:%i, range:%@, substring:%@",aLocation,NSStringFromRange(range),substring);
+			}
+			return attributes;
 		}
-		return attributes;
 	}
 #endif
-	modeName = [_iTM2TeXModeForModeArray objectAtIndex:outMode];
 	if(iTM2DebugEnabled>9999)
 	{
 		iTM2_LOG(@"aLocation:%i, range:%@, modeName:%@",aLocation,NSStringFromRange(range),modeName);

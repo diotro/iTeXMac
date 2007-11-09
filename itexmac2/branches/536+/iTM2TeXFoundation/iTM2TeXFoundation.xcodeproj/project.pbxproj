@@ -46,6 +46,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		51B3E6340CDF8D360024D173 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B3E6330CDF8D360024D173 /* iTM2Gear.png */; };
+		51F1B9DD0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC05CBBA0919FAB00003E471 /* iTM2TeXDocumentToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC05CBBB0919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */; };
@@ -282,6 +284,8 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		51B3E6330CDF8D360024D173 /* iTM2Gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Gear.png; sourceTree = "<group>"; };
+		51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "7bitsAccents.iTM2-key-bindings"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Prepare iTM2Foundation-Info.plist"; sourceTree = "<group>"; };
 		DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXDocumentToolbar.h; sourceTree = "<group>"; };
@@ -665,6 +669,7 @@
 		DCC7F3F10854AC9200F3EB8A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */,
 				DCCD2FD809E17ED40003EEF9 /* Inspector.strings */,
 				DCAF99D609D8107600AFD95F /* BaseProjects.resources.tgz */,
 				DCAF99D809D8107600AFD95F /* Commands.strings */,
@@ -715,6 +720,7 @@
 				DC90CF7D09978A1200C79525 /* iTM2ScriptText.png */,
 				DC90CF7E09978A1200C79525 /* iTM2ScriptUser.png */,
 				DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */,
+				51B3E6330CDF8D360024D173 /* iTM2Gear.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -944,6 +950,8 @@
 				DCCD2FDA09E17ED40003EEF9 /* Inspector.strings in Resources */,
 				DCD3A6650A38FA0400B5EE0C /* EnvironmentVariables.plist in Resources */,
 				DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */,
+				51B3E6340CDF8D360024D173 /* iTM2Gear.png in Resources */,
+				51F1B9DD0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

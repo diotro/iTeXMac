@@ -1124,7 +1124,7 @@ To Do List:
 				NSString * name;
 				while(name = [e nextObject])
 				{
-					[sender addItemWithTitle:[iTM2TeXPCommandPerformer localizedNameForName:name]];
+					[sender addItemWithTitle:[[iTM2TeXPCommandPerformer performer] localizedNameForName:name]];
 					[[sender lastItem] setRepresentedObject:name];
 				}
 				[[sender menu] addItem:[NSMenuItem separatorItem]];
@@ -1529,7 +1529,7 @@ To Do List:
 			{
 				if(![name hasPrefix:@"."])
 				{
-					[sender addItemWithTitle:[iTM2TeXPCommandPerformer localizedNameForName:name]];
+					[sender addItemWithTitle:[[iTM2TeXPCommandPerformer performer] localizedNameForName:name]];
 					[[sender lastItem] setRepresentedObject:name];
 				}
 			}
@@ -2523,7 +2523,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"%@->%@",name,NSLocalizedStringFromTableInBundle(name, iTM2TeXPCommandTableName, myBUNDLE, ""));
     return NSLocalizedStringFromTableInBundle(name, iTM2TeXPCommandTableName, myBUNDLE, "");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuItemTitleForProject:

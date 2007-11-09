@@ -1521,16 +1521,16 @@ To Do List:
 NSString * const iTM2ContinuousCompile = @"iTM2_ContinuousCompile";
 
 @implementation iTM2TeXPContinuousPerformer
-+ (int)commandGroup;
+- (int)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
-+ (int)commandLevel;
+- (int)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 100;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommand:
-+ (IBAction)performCommand:(id)sender;
+- (IBAction)performCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1545,7 +1545,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePerformCommand:
-+ (BOOL)validatePerformCommand:(id)sender;
+- (BOOL)validatePerformCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
