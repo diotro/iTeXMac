@@ -23,11 +23,11 @@
 */
 enum{
     ICUREForceNormalizationOption = 128,
-    ICURECaseSensitiveOption = 2,
-    ICUREAllowWhiteSpaceAndCommentsOption = 4,
-    ICUREDotMatchesLineTerminatorsOption = 32,
-    ICUREMultilineOption = 8,
-    ICUREUnicodeWordBoundariesOption = 256
+    ICURECaseSensitiveOption = 2,//i
+    ICUREAllowWhiteSpaceAndCommentsOption = 4,//x
+    ICUREDotMatchesLineTerminatorsOption = 32,//s
+    ICUREMultilineOption = 8,//m
+    ICUREUnicodeWordBoundariesOption = 256//w
 };
 
 @interface NSString(ICURegEx)
@@ -75,6 +75,15 @@ enum{
     @result     a range
 */
 - (NSRange)rangeOfICUREPattern:(NSString *)aPattern options:(unsigned)mask range:(NSRange)searchRange error:(NSError **)errorRef;
+
+/*!
+    @method     stringByEscapingICUREControlCharacters
+    @abstract   An escaped string
+    @discussion Description forthcoming.
+	@param		None
+    @result     a string
+*/
+- (NSString *)stringByEscapingICUREControlCharacters;
 
 @end
 
@@ -156,60 +165,20 @@ enum{
     @method     setInputString:
     @abstract   Set the string to search in.
     @discussion The argument is retained by the receiver.
-				Further modifications of the input string are ignored by the receiver.
-    @param     a string
+				Contrary to the patterns, there should be no internal duplication of the given string.
+				In general, the input string is expected to be rather big and this would cost much memory.
+				As a consequence, once a match has been performed, it is not advisable to make another match.
+				Unfortunately, ICU expects an array of 16 bits characters whereas Mac OS X sometimes uses 8 bits characters (UTF8).
+				Then we must have to translate 8bits to 16bits, so there is no benefit here.
+				This would be the justification of some <code>setInputSubstringOf:range:</code> to come.
+				If the range is out of bounds, an error will be returned by the <code>error</code> method. 
+				If you want to change the search range, this is the only method available.
+    @param		a string
+    @param		a range
+	@result		yorn
 */
-- (void)setInputString:(NSString *)argument;
-
-/*!
-    @method     matchesAtIndex:extendToTheEnd:
-    @abstract   Returns YES if the string matches the receiver's pattern
-    @discussion If the match succeeds then more information can be obtained via the <code>rangeOfMatch</code>,
-				<code>numberOfgroups</code>, and <code>rangeOfGroupAtIndex:</code> methods.
-				<p/>
-				If the match fails, the <code>error</code> method will return the eventual error.
-				If there is no error, we can say that the input string does not match.
-    @param      index is the location where the search will start. If a match is found, its location is greater than or equal to index.
-    @param      yorn, pass YES if you want the match to extend to the end of the input string.
-    @result     yorn
-*/
-- (BOOL)matchesAtIndex:(int)index extendToTheEnd:(BOOL)yorn;
-
-/*!
-    @method     nextMatch
-    @abstract   Find the next pattern match in the input string
-    @discussion The find begins searching the input at the location following the end of
-				the previous match, or at the start of the string if there is no previous match.
-				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfGroupAtIndex:</code>
-				will provide more information regarding the match.
-    @param      aTree
-    @result     yorn
-*/
-- (BOOL)nextMatch;
-
-/*!
-    @method     nextMatchAfterIndex:
-    @abstract   Find the next pattern match in the input string
-    @discussion The find begins searching the input at the given location.
-				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfGroupAtIndex:</code>
-				will provide more information regarding the match.
-    @param      index, pass 0 to start from the beginning of the input string.
-    @result     yorn
-*/
-- (BOOL)nextMatchAfterIndex:(int)index;
-
-/*!
-    @method     rangeOfMatch
-    @abstract   The range of the last found match
-    @discussion When there is a match, the location of the range is an offset.
-				This is the position of the first character of the match,
-				relative to the position following the range of the last match found.
-				If the match was searched after a given index, the position is relative to this index.
-				If there is no last match found, this position is relative to the beginning of the input string.
-				This is useful when replacing in the input string.
-    @result     a range, {NSNotFound,O} if there is no match found
-*/
-- (NSRange)rangeOfMatch;
+- (BOOL)setInputString:(NSString *)argument;
+- (BOOL)setInputString:(NSString *)argument range:(NSRange)range;
 
 /*!
     @method     replacementPattern
@@ -237,8 +206,100 @@ enum{
 - (NSString *)replacementString;
 
 /*!
+    @method     matchesAtIndex:extendToTheEnd:
+    @abstract   Returns YES if the string matches the receiver's pattern
+    @discussion If the match succeeds then more information can be obtained via the <code>rangeOfMatch</code>,
+				<code>numberOfgroups</code>, and <code>rangeOfGroupAtIndex:</code> methods.
+				<p/>
+				If the match fails, the <code>error</code> method will return the eventual error.
+				If there is no error, we can say that the input string does not match.
+    @param      index is the location where the search will start. If a match is found, its location is greater than or equal to index.
+    @param      yorn, pass YES if you want the match to extend to the end of the input string.
+    @result     yorn
+*/
+- (BOOL)matchesAtIndex:(int)index extendToTheEnd:(BOOL)yorn;
+
+/*!
+    @method     nextMatch
+    @abstract   Find the next pattern match in the input string
+    @discussion The find begins searching the input at the location following the end of
+				the previous match, or at the start of the string if there is no previous match.
+				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfNextMatchAfterIndex:</code>
+				will provide more information regarding the match.
+    @param      aTree
+    @result     yorn
+*/
+- (BOOL)nextMatch;
+
+/*!
+    @method     nextMatchAfterIndex:
+    @abstract   Find the next pattern match in the input string
+    @discussion The find begins searching the input at the given location.
+				If a match is found, <code>rangeOfMatch</code>, <code>numberOfGroups</code> and <code>rangeOfNextMatchAfterIndex:</code>
+				will provide more information regarding the match.
+    @param      index, pass 0 to start from the beginning of the input string.
+    @result     yorn
+*/
+- (BOOL)nextMatchAfterIndex:(int)index;
+
+/*!
+    @method     rangeOfMatch
+    @abstract   The range of the last found match
+    @discussion When there is a match, the location of the range is an offset.
+				This is the position of the first character of the match,
+				relative to the position following the range of the last match found.
+				If the match was searched after a given index, the position is relative to this index.
+				If there is no last match found, this position is relative to the beginning of the input string.
+				This is useful when replacing in the input string.
+    @result     a range, {NSNotFound,O} if there is no match found
+*/
+- (NSRange)rangeOfMatch;
+
+/*!
+    @method     substringOfMatch
+    @abstract   The substring of the last found match
+    @discussion Description forthcoming.
+    @result     a string
+*/
+- (NSString *)substringOfMatch;
+
+/*!
+    @method     numberOfCaptureGroups
+    @abstract   the number of capture groups
+    @discussion the number of capturing groups in this matcher's pattern.
+    @result     integer
+*/
+- (int)numberOfCaptureGroups;
+
+/*!
+    @method     rangeOfCaptureGroupAtIndex:
+    @abstract   range of the capture group at the given index
+    @discussion Returns the range in the input string of the text matched by the
+				specified capture group during the previous match operation.  Return {NSNotFound,0} if
+				the capture group exists in the pattern, but was not part of the last match,
+				or if there were an error.
+				<p/>
+				Possible errors are  U_REGEX_INVALID_STATE if no match has been
+				attempted or the last match failed and U_INDEX_OUTOFBOUNDS_ERROR for a bad capture group number
+				At index 0 is the range of the whole match, the capture groups are from 1 to <code>numberOfGroups</code> (both included)
+				All the ranges are given relative to the origin of the given string, they are expectrd to lay in the search range.
+    @param      aTree
+    @result     None
+*/
+- (NSRange)rangeOfCaptureGroupAtIndex:(int)index;
+
+/*!
+    @method     substringOfCaptureGroupAtIndex:
+    @abstract   The substring of the capture group at the given index
+    @discussion Description forthcoming.
+    @param      index
+    @result     a string
+*/
+- (NSString *)substringOfCaptureGroupAtIndex:(int)index;
+
+/*!
     @method     componentsBySplitting
-    @abstract   Split a string into fields.  Somewhat like split() from Perl.
+    @abstract   Split the input string into fields.  Somewhat like split() from Perl.
     @discussion The pattern matches identify delimiters that separate the input into fields.
 				The input data between the matches becomes the fields themselves,
 				with the captured groups.
@@ -258,26 +319,19 @@ enum{
 - (NSError *)error;
 
 /*!
-    @method     numberOfGroups
-    @abstract   the number of capture groups
-    @discussion the number of capturing groups in this matcher's pattern.
-    @result     integer
+    @method     reset
+    @abstract   Reset the receiver.
+    @discussion The pattern matching restarts from 0.
+    @result     A flag indicating whether the operation is successful or not
 */
-- (int)numberOfGroups;
+- (BOOL)reset;
 
 /*!
-    @method     rangeOfGroupAtIndex:
-    @abstract   range of the capture group at the given index
-    @discussion Returns the range in the input string of the text matched by the
-				specified capture group during the previous match operation.  Return {NSNotFound,0} if
-				the capture group exists in the pattern, but was not part of the last match,
-				or if there were an error.
-				<p/>
-				Possible errors are  U_REGEX_INVALID_STATE if no match has been
-				attempted or the last match failed and U_INDEX_OUTOFBOUNDS_ERROR for a bad capture group number
-    @param      aTree
-    @result     None
+    @method     resetAtIndex:
+    @abstract   Reset the receiver.
+    @discussion The pattern matching restarts from the given index.
+    @result     A flag indicating whether the operation is successful or not
 */
-- (NSRange)rangeOfGroupAtIndex:(int)index;
+- (BOOL)resetAtIndex:(int)index;
 
 @end
