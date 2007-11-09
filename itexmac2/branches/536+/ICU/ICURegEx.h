@@ -154,6 +154,15 @@ enum{
 - (id)initWithSearchPattern:(NSString *)pattern options:(unsigned int)flags error:(NSError **)errorRef;
 
 /*!
+    @method     regExWithSearchPattern:
+    @abstract   The cached regular expression wrapper for the given pattern.
+    @discussion Discussion forthcoming.
+    @param      pattern is a regular expression pattern, according to <a href="http://icu.sourceforge.net/userguide/regexp.html">ICU rules</a>
+	@result     nil is returned when an error occurred
+*/
++ (id)regExWithSearchPattern:(NSString *)pattern;
+
+/*!
     @method     inputString
     @abstract   The string to search in.
     @discussion Description forthcoming.

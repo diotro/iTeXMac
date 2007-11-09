@@ -73,6 +73,37 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 @end
 
 @implementation ICURegEx
+static NSMutableDictionary * ICURegEx_cache = nil;
++ (void)initialize;
+{
+	iTM2_INIT_POOL;
+	[super initialize];
+	if(!ICURegEx_cache)
+	{
+		ICURegEx_cache = [[NSMutableDictionary dictionary] retain];
+	}
+	iTM2_RELEASE_POOL;
+	return;
+}
++ (id)regExWithSearchPattern:(NSString *)pattern;
+{
+	id result = [ICURegEx_cache objectForKey:pattern];
+	if(result)
+	{
+		return result;
+	}
+	NSError * localError = nil;
+	if(result = [[[self alloc] initWithSearchPattern:pattern options:0 error:&localError] autorelease])
+	{
+		[ICURegEx_cache setObject:result forKey:pattern];
+		return result;
+	}
+	if(localError)
+	{
+		iTM2_LOG(@"***  ERROR creating a regular expression wrapper for pattern:%@\,reason:%@",pattern,localError);
+	}
+	return nil;
+}
 + (BOOL)isValidPattern:(NSString *)pattern options:(unsigned int)flags error:(NSError **)errorRef;
 {
 	// create the pattern
