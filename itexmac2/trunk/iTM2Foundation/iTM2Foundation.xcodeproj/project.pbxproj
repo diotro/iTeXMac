@@ -86,12 +86,6 @@
 		DC165B4E08CDAE8F004B14C7 /* iTM2ButtonBack.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */; };
 		DC165B4F08CDAE8F004B14C7 /* iTM2ButtonForward.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */; };
 		DC165B5008CDAE8F004B14C7 /* iTM2ButtonHelp.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */; };
-		DC1B1F5009CA299600A55699 /* lockDocumentToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4A09CA299600A55699 /* lockDocumentToolbarImage.tiff */; };
-		DC1B1F5109CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4B09CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff */; };
-		DC1B1F5209CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4C09CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff */; };
-		DC1B1F5309CA299600A55699 /* subscriptToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */; };
-		DC1B1F5409CA299600A55699 /* superscriptToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */; };
-		DC1B1F5509CA299600A55699 /* unlockDocumentToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */; };
 		DC1CF8520C01BE7800D757D0 /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
 		DC1CF8F80C01CBA100D757D0 /* iTM2MacroKit_Prefs.h in Headers */ = {isa = PBXBuildFile; fileRef = DC1CF8F60C01CBA100D757D0 /* iTM2MacroKit_Prefs.h */; };
 		DC1CF8F90C01CBA100D757D0 /* iTM2MacroKit_Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1CF8F70C01CBA100D757D0 /* iTM2MacroKit_Prefs.m */; };
@@ -152,16 +146,27 @@
 		DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */; };
 		DC40694D0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */; };
 		DC4B41080BAC98F500288F8D /* iTM2HumanReadableActionNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */; };
+		DC4E1B1A0CCDE2AA00F5CE3E /* lockDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1B130CCDE2AA00F5CE3E /* lockDocument.png */; };
+		DC4E1B1B0CCDE2AA00F5CE3E /* orderFrontColorPanel.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1B140CCDE2AA00F5CE3E /* orderFrontColorPanel.png */; };
+		DC4E1B1C0CCDE2AA00F5CE3E /* orderFrontFontPanel.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1B150CCDE2AA00F5CE3E /* orderFrontFontPanel.png */; };
+		DC4E1B1D0CCDE2AA00F5CE3E /* subscript.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1B160CCDE2AA00F5CE3E /* subscript.png */; };
+		DC4E1B1E0CCDE2AA00F5CE3E /* superscript.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1B170CCDE2AA00F5CE3E /* superscript.png */; };
+		DC4E1B1F0CCDE2AA00F5CE3E /* toggleDrawer.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1B180CCDE2AA00F5CE3E /* toggleDrawer.png */; };
+		DC4E1B200CCDE2AA00F5CE3E /* unlockDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1B190CCDE2AA00F5CE3E /* unlockDocument.png */; };
 		DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */; };
 		DC5B9B9A0BFFA6B800CE4DB2 /* iTM2KeyBindingsKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61B6C0854654B003F5F79 /* iTM2KeyBindingsKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC5B9C430BFFAD4800CE4DB2 /* iTM2MacroKit_String.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5B9C410BFFAD4800CE4DB2 /* iTM2MacroKit_String.h */; };
+		DC5B9C430BFFAD4800CE4DB2 /* iTM2MacroKit_String.h in Headers */ = {isa = PBXBuildFile; fileRef = DC5B9C410BFFAD4800CE4DB2 /* iTM2MacroKit_String.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC5B9C440BFFAD4800CE4DB2 /* iTM2MacroKit_String.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5B9C420BFFAD4800CE4DB2 /* iTM2MacroKit_String.m */; };
 		DC5B9D040BFFB3D200CE4DB2 /* iTM2KeyBindingsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B6D0854654B003F5F79 /* iTM2KeyBindingsKit.m */; };
 		DC5F66F60CBABC3600F52867 /* iTM2StringEncodingRegEx.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C090854654B003F5F79 /* iTM2StringEncodingRegEx.strings */; };
 		DC691837088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */; };
 		DC691850088C6E9A00F00114 /* iTM2StartupKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC691851088C6E9A00F00114 /* iTM2StartupKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC69184F088C6E9A00F00114 /* iTM2StartupKit.m */; };
+		DC6938CC0CC26C09002A7AF6 /* iTM2ProjectControllerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC6938CA0CC26C09002A7AF6 /* iTM2ProjectControllerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC6938CD0CC26C09002A7AF6 /* iTM2ProjectControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6938CB0CC26C09002A7AF6 /* iTM2ProjectControllerKit.m */; };
+		DC6941BC0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC6941BA0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC6941BD0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6941BB0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.m */; };
 		DC6F02A9097A8E57009939A6 /* iTM2PerlKitServer.h in Headers */ = {isa = PBXBuildFile; fileRef = DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC6F02AA097A8E57009939A6 /* iTM2PerlKitServer.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */; };
 		DC6F8ABD0BA3FF6600A75787 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
@@ -240,7 +245,6 @@
 		DCD7D6DA0A4399DF0096B1A9 /* bbedit lite in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D68E0A4398DD0096B1A9 /* bbedit lite */; };
 		DCD7D6DB0A4399F30096B1A9 /* emacs in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D6910A4398DD0096B1A9 /* emacs */; };
 		DCDA12840908CDF9005E9B57 /* missing_image.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12830908CDF9005E9B57 /* missing_image.tiff */; };
-		DCDA12F30908E57E005E9B57 /* toggleDrawerToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */; };
 		DCDA12F60908E59B005E9B57 /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F40908E59B005E9B57 /* Toolbar.strings */; };
 		DCDC063F09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC062D09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib */; };
 		DCDC064009E690310038845F /* iTM2TextStyle.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDC062F09E690310038845F /* iTM2TextStyle.strings */; };
@@ -742,12 +746,6 @@
 		DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonBack.tiff; sourceTree = "<group>"; };
 		DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonForward.tiff; sourceTree = "<group>"; };
 		DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonHelp.tiff; sourceTree = "<group>"; };
-		DC1B1F4A09CA299600A55699 /* lockDocumentToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = lockDocumentToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4B09CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = orderFrontColorPanelToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4C09CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = orderFrontFontPanelToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = subscriptToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = superscriptToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = unlockDocumentToolbarImage.tiff; sourceTree = "<group>"; };
 		DC1CF8F60C01CBA100D757D0 /* iTM2MacroKit_Prefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Prefs.h; sourceTree = "<group>"; };
 		DC1CF8F70C01CBA100D757D0 /* iTM2MacroKit_Prefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Prefs.m; sourceTree = "<group>"; };
 		DC1E0F360C04E1680042609B /* Aqua2_Add_Child_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Child_Inactive.tif; sourceTree = "<group>"; };
@@ -784,6 +782,13 @@
 		DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2CancelCursor.tiff; sourceTree = "<group>"; };
 		DC4B41070BAC98F500288F8D /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
 		DC4B41090BAC990600288F8D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
+		DC4E1B130CCDE2AA00F5CE3E /* lockDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lockDocument.png; sourceTree = "<group>"; };
+		DC4E1B140CCDE2AA00F5CE3E /* orderFrontColorPanel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orderFrontColorPanel.png; sourceTree = "<group>"; };
+		DC4E1B150CCDE2AA00F5CE3E /* orderFrontFontPanel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orderFrontFontPanel.png; sourceTree = "<group>"; };
+		DC4E1B160CCDE2AA00F5CE3E /* subscript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subscript.png; sourceTree = "<group>"; };
+		DC4E1B170CCDE2AA00F5CE3E /* superscript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = superscript.png; sourceTree = "<group>"; };
+		DC4E1B180CCDE2AA00F5CE3E /* toggleDrawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toggleDrawer.png; sourceTree = "<group>"; };
+		DC4E1B190CCDE2AA00F5CE3E /* unlockDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlockDocument.png; sourceTree = "<group>"; };
 		DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DistributedObjectKit.h; sourceTree = "<group>"; };
 		DC4EEDE00A3DF9B400E264F0 /* iTM2DistributedObjectKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DistributedObjectKit.m; sourceTree = "<group>"; };
 		DC5B69B20A4B6CD100F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
@@ -801,6 +806,10 @@
 		DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2KeyStrokeSelectors.plist; sourceTree = "<group>"; };
 		DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupKit.h; sourceTree = "<group>"; };
 		DC69184F088C6E9A00F00114 /* iTM2StartupKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StartupKit.m; sourceTree = "<group>"; };
+		DC6938CA0CC26C09002A7AF6 /* iTM2ProjectControllerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ProjectControllerKit.h; sourceTree = "<group>"; };
+		DC6938CB0CC26C09002A7AF6 /* iTM2ProjectControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ProjectControllerKit.m; sourceTree = "<group>"; };
+		DC6941BA0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2InfoWrapperKit.h; sourceTree = "<group>"; };
+		DC6941BB0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2InfoWrapperKit.m; sourceTree = "<group>"; };
 		DC6A89E90B04894A0072FC1A /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2CompletionInspector.nib; sourceTree = "<group>"; };
 		DC6BC63D09490315008F8188 /* Prepare OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare OgreKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PerlKitServer.h; sourceTree = "<group>"; };
@@ -925,7 +934,6 @@
 		DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BBEdit Lite.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Emacs.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDA12830908CDF9005E9B57 /* missing_image.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = missing_image.tiff; sourceTree = "<group>"; };
-		DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawerToolbarImage.tif; sourceTree = "<group>"; };
 		DCDA12F50908E59B005E9B57 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		DCDC062E09E690310038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextNewSyntaxParserVariantController.nib; sourceTree = "<group>"; };
 		DCDC063009E690310038845F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2TextStyle.strings; sourceTree = "<group>"; };
@@ -1532,6 +1540,10 @@
 			children = (
 				DCF61BAB0854654B003F5F79 /* iTM2ProjectDocumentKit.h */,
 				DCF61BAC0854654B003F5F79 /* iTM2ProjectDocumentKit.m */,
+				DC6941BA0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.h */,
+				DC6941BB0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.m */,
+				DC6938CA0CC26C09002A7AF6 /* iTM2ProjectControllerKit.h */,
+				DC6938CB0CC26C09002A7AF6 /* iTM2ProjectControllerKit.m */,
 			);
 			path = "1 - C - Project";
 			sourceTree = "<group>";
@@ -1643,13 +1655,13 @@
 				DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */,
 				DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */,
 				DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */,
-				DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */,
-				DC1B1F4A09CA299600A55699 /* lockDocumentToolbarImage.tiff */,
-				DC1B1F4B09CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff */,
-				DC1B1F4C09CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff */,
-				DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */,
-				DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */,
-				DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */,
+				DC4E1B130CCDE2AA00F5CE3E /* lockDocument.png */,
+				DC4E1B140CCDE2AA00F5CE3E /* orderFrontColorPanel.png */,
+				DC4E1B150CCDE2AA00F5CE3E /* orderFrontFontPanel.png */,
+				DC4E1B160CCDE2AA00F5CE3E /* subscript.png */,
+				DC4E1B170CCDE2AA00F5CE3E /* superscript.png */,
+				DC4E1B180CCDE2AA00F5CE3E /* toggleDrawer.png */,
+				DC4E1B190CCDE2AA00F5CE3E /* unlockDocument.png */,
 				DC1E48B70B8BB77700B8F0A8 /* Folder-24x24.png */,
 				DC1E48B90B8BC0D100B8F0A8 /* iTM2EditDocument.png */,
 				DC7884710C45482500E30CB0 /* iTM2SmallToolbarBackground.png */,
@@ -1734,6 +1746,8 @@
 				DC1CF8F80C01CBA100D757D0 /* iTM2MacroKit_Prefs.h in Headers */,
 				DC8399430C02D9A900511679 /* iTM2MacroKit_Action.h in Headers */,
 				DCE52B3B0C0F2F2D00F2D5B9 /* ICURegEx.h in Headers */,
+				DC6938CC0CC26C09002A7AF6 /* iTM2ProjectControllerKit.h in Headers */,
+				DC6941BC0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2164,16 +2178,9 @@
 				DC165B4F08CDAE8F004B14C7 /* iTM2ButtonForward.tiff in Resources */,
 				DC165B5008CDAE8F004B14C7 /* iTM2ButtonHelp.tiff in Resources */,
 				DCDA12840908CDF9005E9B57 /* missing_image.tiff in Resources */,
-				DCDA12F30908E57E005E9B57 /* toggleDrawerToolbarImage.tif in Resources */,
 				DCDA12F60908E59B005E9B57 /* Toolbar.strings in Resources */,
 				DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */,
 				DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */,
-				DC1B1F5009CA299600A55699 /* lockDocumentToolbarImage.tiff in Resources */,
-				DC1B1F5109CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff in Resources */,
-				DC1B1F5209CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff in Resources */,
-				DC1B1F5309CA299600A55699 /* subscriptToolbarImage.tiff in Resources */,
-				DC1B1F5409CA299600A55699 /* superscriptToolbarImage.tiff in Resources */,
-				DC1B1F5509CA299600A55699 /* unlockDocumentToolbarImage.tiff in Resources */,
 				DCCD2E0C09E071760003EEF9 /* Project.strings in Resources */,
 				DCCD2E4109E13E970003EEF9 /* Inspector.strings in Resources */,
 				DCDC063F09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib in Resources */,
@@ -2217,6 +2224,13 @@
 				DC1E0F3A0C04E1680042609B /* Aqua2_Add_Child_Pressed.tif in Resources */,
 				DC1E0F3B0C04E1680042609B /* Aqua2_Add_Child.tif in Resources */,
 				DC7884720C45482500E30CB0 /* iTM2SmallToolbarBackground.png in Resources */,
+				DC4E1B1A0CCDE2AA00F5CE3E /* lockDocument.png in Resources */,
+				DC4E1B1B0CCDE2AA00F5CE3E /* orderFrontColorPanel.png in Resources */,
+				DC4E1B1C0CCDE2AA00F5CE3E /* orderFrontFontPanel.png in Resources */,
+				DC4E1B1D0CCDE2AA00F5CE3E /* subscript.png in Resources */,
+				DC4E1B1E0CCDE2AA00F5CE3E /* superscript.png in Resources */,
+				DC4E1B1F0CCDE2AA00F5CE3E /* toggleDrawer.png in Resources */,
+				DC4E1B200CCDE2AA00F5CE3E /* unlockDocument.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2572,6 +2586,8 @@
 				DC1CF8F90C01CBA100D757D0 /* iTM2MacroKit_Prefs.m in Sources */,
 				DC8399420C02D9A500511679 /* iTM2MacroKit_Action.m in Sources */,
 				DCE52B3C0C0F2F2D00F2D5B9 /* ICURegEx.mm in Sources */,
+				DC6938CD0CC26C09002A7AF6 /* iTM2ProjectControllerKit.m in Sources */,
+				DC6941BD0CC4AB57002A7AF6 /* iTM2InfoWrapperKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3493,6 +3509,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Development;
 		};
@@ -3500,6 +3517,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Deployment;
 		};
