@@ -38,7 +38,7 @@
 		DC55F5F2092AA24F00713576 /* iTM2_Engine_pdfcombine in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC55F5B0092AA17B00713576 /* iTM2_Engine_pdfcombine */; };
 		DC55F5F3092AA24F00713576 /* iTM2_Engine_pdfcopy in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC55F5B1092AA17B00713576 /* iTM2_Engine_pdfcopy */; };
 		DC55F5F4092AA24F00713576 /* iTM2_Engine_pdfselect in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC55F5B2092AA17B00713576 /* iTM2_Engine_pdfselect */; };
-		DC55F5F5092AA24F00713576 /* iTM2_Engine_texexec in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */; };
+		DC55F5F5092AA24F00713576 /* iTM2_Engine_texexec.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec.rb */; };
 		DC55F619092AA3F300713576 /* iTM2PDFToolsWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC55F614092AA3F300713576 /* iTM2PDFToolsWrapperKit.m */; };
 		DC55F61B092AA3F300713576 /* iTM2TeXExecWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC55F616092AA3F300713576 /* iTM2TeXExecWrapperKit.m */; };
 		DC619005093C7BD00044795A /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC618FED093C7BCF0044795A /* Engine.strings */; };
@@ -106,7 +106,7 @@
 				DC55F5F2092AA24F00713576 /* iTM2_Engine_pdfcombine in Copy Binaries */,
 				DC55F5F3092AA24F00713576 /* iTM2_Engine_pdfcopy in Copy Binaries */,
 				DC55F5F4092AA24F00713576 /* iTM2_Engine_pdfselect in Copy Binaries */,
-				DC55F5F5092AA24F00713576 /* iTM2_Engine_texexec in Copy Binaries */,
+				DC55F5F5092AA24F00713576 /* iTM2_Engine_texexec.rb in Copy Binaries */,
 			);
 			name = "Copy Binaries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,13 +118,14 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		DC11A0E00CB12C1E0017AA3E /* iTM2_Engine_texexec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_texexec; sourceTree = "<group>"; };
 		DC3B41E40A4ADF6900E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41E50A4ADF6900E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC55F5AF092AA17B00713576 /* iTM2_Engine_pdfarrange */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pdfarrange; sourceTree = "<group>"; };
 		DC55F5B0092AA17B00713576 /* iTM2_Engine_pdfcombine */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pdfcombine; sourceTree = "<group>"; };
 		DC55F5B1092AA17B00713576 /* iTM2_Engine_pdfcopy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pdfcopy; sourceTree = "<group>"; };
 		DC55F5B2092AA17B00713576 /* iTM2_Engine_pdfselect */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_pdfselect; sourceTree = "<group>"; };
-		DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_texexec; sourceTree = "<group>"; };
+		DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_texexec.rb; sourceTree = "<group>"; };
 		DC55F613092AA3F300713576 /* TeXExec wrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TeXExec wrapper-Prefix.pch"; sourceTree = "<group>"; };
 		DC55F614092AA3F300713576 /* iTM2PDFToolsWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PDFToolsWrapperKit.m; sourceTree = "<group>"; };
 		DC55F615092AA3F300713576 /* iTM2TeXExecWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXExecWrapperKit.h; sourceTree = "<group>"; };
@@ -269,7 +270,8 @@
 				DC55F5B0092AA17B00713576 /* iTM2_Engine_pdfcombine */,
 				DC55F5B1092AA17B00713576 /* iTM2_Engine_pdfcopy */,
 				DC55F5B2092AA17B00713576 /* iTM2_Engine_pdfselect */,
-				DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec */,
+				DC11A0E00CB12C1E0017AA3E /* iTM2_Engine_texexec */,
+				DC55F5B3092AA17B00713576 /* iTM2_Engine_texexec.rb */,
 			);
 			path = binaries;
 			sourceTree = "<group>";
@@ -363,10 +365,12 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB7A909474611004B0A81 /* Build configuration list for PBXProject "iTM2ConTeXtEngines" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* iTM2ConTeXtEngines */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D6CDD0949A48100EBA96C /* Prepare iTM2ConTeXtKit */,
 				DC9815C3092A2FBE0011D8DA /* TeXExec wrapper */,
@@ -693,6 +697,7 @@
 					"$(SRCROOT)/../../build",
 				);
 				PRODUCT_NAME = iTM2ConTeXtEngines;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SYMROOT = ../../build;
 				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};
@@ -707,6 +712,7 @@
 					"$(SRCROOT)/../../build",
 				);
 				PRODUCT_NAME = iTM2ConTeXtEngines;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SYMROOT = ../../build;
 				WRAPPER_EXTENSION = "$(iTM2_PLUGIN_EXTENSION)";
 			};

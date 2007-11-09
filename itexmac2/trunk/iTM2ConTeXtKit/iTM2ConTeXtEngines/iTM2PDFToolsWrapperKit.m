@@ -24,29 +24,29 @@
 */
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithBool: ![[self modelValueForKey:KEY] boolValue]] forKey:KEY];[self validateWindowContent];return;}\
-- (BOOL)VALIDATE:(id)sender;{[sender setState:([[self modelValueForKey:KEY] boolValue]? NSOnState:NSOffState)];return YES;}
+- (void)ACTION:(id)sender;{[self takeEditInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setState:([[self editInfoForKeyPaths:KEY,nil] boolValue]? NSOnState:NSOffState)];return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(id)sender;{[self takeModelValue:[NSNumber numberWithFloat:[sender floatValue]] forKey:KEY];[self validateWindowContent];return;}\
-- (BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self modelValueForKey:KEY] floatValue]];return YES;}
+- (void)ACTION:(id)sender;{[self takeEditInfo:[NSNumber numberWithFloat:[sender floatValue]] forKeyPaths:KEY,nil];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self editInfoForKeyPaths:KEY,nil] floatValue]];return YES;}
 #define SEDIT(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(id)sender;{[self takeModelValue:[sender stringValue] forKey:KEY];[self validateWindowContent];return;}\
-- (BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self modelValueForKey:KEY]];return YES;}
+- (void)ACTION:(id)sender;{[self takeEditInfo:[sender stringValue] forKeyPaths:KEY,nil];[self validateWindowContent];return;}\
+- (BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self editInfoForKeyPaths:KEY,nil]];return YES;}
 #define UNIT(ACTION, VALIDATE, KEY)\
 - (void)ACTION:(id)sender;\
 {\
 	switch([[sender selectedItem] tag])\
 	{\
-		case 0: [self takeModelValue:@"bp" forKey:KEY]; [self validateWindowContent]; return;\
-		case 1: [self takeModelValue:@"pt" forKey:KEY]; [self validateWindowContent]; return;\
-		case 2: [self takeModelValue:@"in" forKey:KEY]; [self validateWindowContent]; return;\
-		default: [self takeModelValue:@"cm" forKey:KEY]; [self validateWindowContent]; return;\
+		case 0: [self takeEditInfo:@"bp" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
+		case 1: [self takeEditInfo:@"pt" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
+		case 2: [self takeEditInfo:@"in" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
+		default: [self takeEditInfo:@"cm" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
 	}\
     return;\
 }\
 - (BOOL)VALIDATE:(id)sender;\
 {\
-	NSString * unit = [self modelValueForKey:KEY];\
+	NSString * unit = [self editInfoForKeyPaths:KEY,nil];\
 	if([unit isEqual:@"bp"])\
 		[sender selectItemWithTag:0];\
 	else if([unit isEqual:@"pt"])\
