@@ -3,7 +3,7 @@
 #undef U_DISABLE_RENAMING 1
 #define U_DISABLE_RENAMING 1
 
-#define __TEST_UNICODE_STRING__ 1
+#define __TEST_UNICODE_STRING__ 0
 
 #import "regex_public.h"
 #import <unicode/uchar.h>
