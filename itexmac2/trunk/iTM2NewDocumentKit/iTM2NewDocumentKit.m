@@ -818,7 +818,7 @@ To Do List:
 		NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 		NSString * filename;
 		while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
-			if([DFM fileOrLinkExistsAtPath:filename])
+			if([DFM fileOrSymbolicLinkExistsAtPath:filename])
 			{
 				result = NSDragOperationCopy;
 				break;
@@ -919,7 +919,7 @@ To Do List:
 		NSString * filename;
 		NSMutableArray * filenames = [NSMutableArray array];
 		while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
-			if([DFM fileOrLinkExistsAtPath:filename])
+			if([DFM fileOrSymbolicLinkExistsAtPath:filename])
 				[filenames addObject:filename];
 		if([filenames count])
 		{
@@ -999,12 +999,12 @@ To Do List:
 	NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 	NSString * filename;
 	while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
-		if([DFM fileOrLinkExistsAtPath:filename])
+		if([DFM fileOrSymbolicLinkExistsAtPath:filename])
 		{
 			NSString * target = [dirname stringByAppendingPathComponent:[filename lastPathComponent]];
 			if([target pathIsEqual:filename])
 				continue;
-			else if([DFM fileOrLinkExistsAtPath:target])
+			else if([DFM fileOrSymbolicLinkExistsAtPath:target])
 			{
 				NSSavePanel * SP = [NSSavePanel savePanel];
 				[SP pushNavLastRootDirectory];
@@ -1206,7 +1206,7 @@ To Do List:
 	if(returnCode == NSOKButton)
 	{
 		NSString * fileName = [panel filename];
-		if(![DFM fileOrLinkExistsAtPath:fileName]
+		if(![DFM fileOrSymbolicLinkExistsAtPath:fileName]
 			|| [SWS performFileOperation:NSWorkspaceRecycleOperation source:[fileName stringByDeletingLastPathComponent] destination:nil files:[NSArray arrayWithObject:[fileName lastPathComponent]] tag:nil])
 		{
 			[self createInMandatoryProjectNewDocumentWithName:fileName]
@@ -1383,7 +1383,7 @@ To Do List:
 		{
 			// remove any "Contents" directory;
 			NSString * deeper = [targetName stringByAppendingPathComponent:iTM2BundleContentsComponent];
-			if([DFM fileOrLinkExistsAtPath:deeper])
+			if([DFM fileOrSymbolicLinkExistsAtPath:deeper])
 			{
 				int tag;
 				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetName destination:nil
@@ -1426,7 +1426,7 @@ To Do List:
 			[PD setMasterFileKey:key];
 			
 			NSURL * url = [NSURL fileURLWithPath:standaloneFileName];
-			NSDictionary * context = [NSDocument contextDictionaryFromFile:standaloneFileName];
+			NSDictionary * context = [NSDocument contextDictionaryAtPath:standaloneFileName];
 			NSNumber * N = [context objectForKey:iTM2StringEncodingOpenKey];
 			unsigned int encoding = [N intValue];
 			NSString * S = nil;
@@ -1513,7 +1513,7 @@ To Do List:
 		{
 			// remove any "Contents" directory;
 			NSString * deeper = [targetName stringByAppendingPathComponent:iTM2BundleContentsComponent];
-			if([DFM fileOrLinkExistsAtPath:deeper])
+			if([DFM fileOrSymbolicLinkExistsAtPath:deeper])
 			{
 				int tag;
 				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetName destination:nil
@@ -1724,7 +1724,7 @@ To Do List:
 				// the original "file" might be either a project or a wrapper
 				// remove any "Contents" directory;
 				NSString * deeper = [targetName stringByAppendingPathComponent:iTM2BundleContentsComponent];
-				if([DFM fileOrLinkExistsAtPath:deeper])
+				if([DFM fileOrSymbolicLinkExistsAtPath:deeper])
 				{
 					int tag;
 					if([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetName destination:nil
@@ -1761,7 +1761,7 @@ To Do List:
 					NSURL * url = [NSURL fileURLWithPath:convertedPath];
 					iTM2ProjectDocument * PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 					// filter out the declared files
-					NSEnumerator * e = [[PD allKeys] objectEnumerator];
+					NSEnumerator * e = [[PD allFileKeys] objectEnumerator];
 					NSString * key = nil;
 					while(key = [e nextObject])
 					{
@@ -2132,7 +2132,7 @@ To Do List:
 				{
 //iTM2_LOG(@"(1) now is:%@",[NSDate date]);
 					NSURL * projectURL = [NSURL fileURLWithPath:sourceProjectFileName];
-					NSURL * url = [iTM2ProjectDocument projectInfoURLFromFileURL:projectURL create:NO error:nil];
+					NSURL * url = [SPC projectInfoURLFromFileURL:projectURL create:NO error:nil];
 					NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeOptionsNone error:nil] autorelease];
 					NSString * projectDirName = [sourceProjectFileName stringByDeletingLastPathComponent];
 					NSString * relativeFilename = [sourceName stringByAbbreviatingWithDotsRelativeToDirectory:projectDirName];
@@ -2187,7 +2187,7 @@ To Do List:
 						}
 					}
 					// base project name
-					url = [iTM2ProjectDocument projectFrontendInfoURLFromFileURL:projectURL create:NO error:nil];
+					url = [SPC projectFrontendInfoURLFromFileURL:projectURL create:NO error:nil];
 					doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeOptionsNone error:nil] autorelease];
 					xpath = [NSString stringWithFormat:@"/plist/dict/key[text()=\"%@\"]/following-sibling::*[1]/text()",iTM2TPFEBaseProjectNameKey];
 					nodes = [doc nodesForXPath:xpath error:nil];

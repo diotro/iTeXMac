@@ -272,8 +272,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>15</integer>
-									<integer>14</integer>
+									<integer>3</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -378,9 +378,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>DCE52F570C0F3C8700F2D5B9</string>
+				<string>DC3693C00CCBC1B200A25AFC</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>DCE52F580C0F3C8700F2D5B9</string>
+				<string>DC3693C10CCBC1B200A25AFC</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -514,9 +514,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>DCE52F5F0C0F3C8700F2D5B9</string>
+		<string>DC3693C80CCBC1B200A25AFC</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>/Volumes/HD2/iTeXMac2/svn/itexmac2/iTM2NewDocumentKit/iTM2NewDocumentKit.xcodeproj</string>
+		<string>/Volumes/HD2/iTeXMac2/svn/WORK/itexmac2/iTM2NewDocumentKit/iTM2NewDocumentKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>226 94 884 784 0 0 1440 878 </string>
@@ -642,8 +642,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {659, 395}}</string>
-											<string>{{659, 0}, {781, 395}}</string>
+											<string>{{0, 0}, {648, 421}}</string>
+											<string>{{648, 0}, {792, 421}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -658,8 +658,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {1440, 395}}</string>
-											<string>{{0, 395}, {1440, 406}}</string>
+											<string>{{0, 0}, {1440, 421}}</string>
+											<string>{{0, 421}, {1440, 380}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -706,14 +706,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>DCE52F590C0F3C8700F2D5B9</string>
+				<string>DC3693C20CCBC1B200A25AFC</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>DCE52F5A0C0F3C8700F2D5B9</string>
-				<string>DCE52F5B0C0F3C8700F2D5B9</string>
-				<string>DCE52F5C0C0F3C8700F2D5B9</string>
-				<string>DCE52F5D0C0F3C8700F2D5B9</string>
-				<string>DCE52F5E0C0F3C8700F2D5B9</string>
-				<string>DCE52F5F0C0F3C8700F2D5B9</string>
+				<string>DC3693C30CCBC1B200A25AFC</string>
+				<string>DC3693C40CCBC1B200A25AFC</string>
+				<string>DC3693C50CCBC1B200A25AFC</string>
+				<string>DC3693C60CCBC1B200A25AFC</string>
+				<string>DC3693C70CCBC1B200A25AFC</string>
+				<string>DC3693C80CCBC1B200A25AFC</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debug</string>
@@ -740,14 +740,12 @@
 							<key>Dock</key>
 							<array>
 								<dict>
-									<key>BecomeActive</key>
-									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2NewDocumentKit.m</string>
+										<string>iTM2FileManagerKit.m</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -768,6 +766,8 @@
 							<string>468pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -803,8 +803,8 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D57069F1CE1000CFCEE</string>
-				<string>DC18DDE00B680F9F009E3072</string>
-				<string>DC18DDE10B680F9F009E3072</string>
+				<string>DC5F75620CBE303F00F52867</string>
+				<string>DC5F75630CBE303F00F52867</string>
 				<string>1CDD528C0622207200134675</string>
 				<string>1CD0528E0623707200166675</string>
 			</array>
@@ -813,7 +813,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

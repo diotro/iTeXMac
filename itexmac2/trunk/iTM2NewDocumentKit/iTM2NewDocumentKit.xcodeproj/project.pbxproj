@@ -291,9 +291,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB82909474616004B0A81 /* Build configuration list for PBXProject "iTM2NewDocumentKit" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iTM2EDITORKit */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D70750949E27F00EBA96C /* Prepare iTM2TeXFoundation */,
 				DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */,
@@ -569,6 +571,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41890A4ADD2400E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Development;
 		};
@@ -576,6 +579,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Deployment;
 		};
