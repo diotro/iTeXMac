@@ -42,5 +42,13 @@
 	<string>Online Help</string>
 	<key>Could not open: %@.</key>
 	<string>Could not open: %@.</string>
+	<key>None</key>
+	<string>Sans</string>
+	<key>default</key>
+	<string>default</string>
+	<key>Remove mode</key>
+	<string>Remove mode</string>
+	<key>New mode...</key>
+	<string>New mode...</string>
 </dict>
 </plist>

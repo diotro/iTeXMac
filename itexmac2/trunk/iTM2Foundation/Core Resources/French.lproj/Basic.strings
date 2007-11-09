@@ -42,5 +42,13 @@
 	<string>Auxiliaires iTeXMac2</string>
 	<key>showHelp:</key>
 	<string>Aide en ligne</string>
+	<key>None</key>
+	<string>Sans</string>
+	<key>default</key>
+	<string>standard</string>
+	<key>Remove mode</key>
+	<string>Supprimer le mode</string>
+	<key>New mode...</key>
+	<string>Nouveau mode...</string>
 </dict>
 </plist>
