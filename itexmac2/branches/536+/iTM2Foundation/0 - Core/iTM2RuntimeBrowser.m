@@ -40,6 +40,9 @@ void _objc_flush_caches (Class cls);
 	return;
 }
 @end
+@interface NSObject(iTM2RuntimeBrowser)
++ (id)iTM2_instanceMethodSignatureForSelector:(SEL)aSelector;
+@end
 @implementation NSObject(iTM2RuntimeBrowser)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_noop
 + (void)iTM2_noop;
@@ -68,6 +71,17 @@ To Do List:
 		iTM2_LOG(@"Here I am");
 	}
 	return;
+}
++ (id)iTM2_instanceMethodSignatureForSelector:(SEL)aSelector;
+{
+	id result = nil;
+NS_DURING
+    result = [self instanceMethodSignatureForSelector:(SEL)aSelector];
+NS_HANDLER
+	result = nil;
+	iTM2_LOG(@"Exception catched");
+NS_ENDHANDLER
+	return result;
 }
 @end
 @implementation iTM2RuntimeBrowser
@@ -653,6 +667,7 @@ To Do List:
 	NSString * name;
     Class aClass = theClass;
 	Class originalClass = Nil;
+	NSMethodSignature * MS = nil;
 	if([suffix length])
 	{
 		if(signature)
@@ -668,13 +683,16 @@ To Do List:
 						if(ISSELECTOR(selector))
 						{
 							name = NSStringFromSelector(selector);
-							if([name hasSuffix:suffix]
-								&& [signature isEqual:[aClass instanceMethodSignatureForSelector:selector]])
+							if([name hasSuffix:suffix])
 							{
-								if([name hasPrefix:@"prepare"])
-									[prepareSELs addObject:name];
-								else
-									[SELs addObject:name];
+								MS = [aClass iTM2_instanceMethodSignatureForSelector:selector];
+								if([signature isEqual:MS])
+								{
+									if([name hasPrefix:@"prepare"])
+										[prepareSELs addObject:name];
+									else
+										[SELs addObject:name];
+								}
 							}
 						}
 						else
@@ -728,13 +746,21 @@ To Do List:
 					while(index)
 					{
 						selector = (methodListRef -> method_list[--index]).method_name;
-						name = NSStringFromSelector(selector);
-						if([signature isEqual:[aClass instanceMethodSignatureForSelector:selector]])
+						if(ISSELECTOR(selector))
 						{
-							if([name hasPrefix:@"prepare"])
-								[prepareSELs addObject:name];
-							else
-								[SELs addObject:name];
+							MS = [aClass iTM2_instanceMethodSignatureForSelector:selector];
+							if([signature isEqual:MS])
+							{
+								name = NSStringFromSelector(selector);
+								if([name hasPrefix:@"prepare"])
+									[prepareSELs addObject:name];
+								else
+									[SELs addObject:name];
+							}
+						}
+						else
+						{
+							iTM2_LOG(@"Unmapped selector...");
 						}
 					}
 				}
@@ -861,7 +887,7 @@ To Do List:
 						{
 							name = NSStringFromSelector(selector);
 							if([name hasSuffix:suffix]
-								&& [signature isEqual:[aClass->isa instanceMethodSignatureForSelector:selector]])
+								&& [signature isEqual:[aClass->isa iTM2_instanceMethodSignatureForSelector:selector]])
 							{
 								if([name hasPrefix:@"prepare"])
 									[prepareSELs addObject:name];
@@ -921,7 +947,7 @@ To Do List:
 					{
 						selector = (methodListRef -> method_list[--index]).method_name;
 						name = NSStringFromSelector(selector);
-						if([signature isEqual:[aClass->isa instanceMethodSignatureForSelector:selector]])
+						if([signature isEqual:[aClass->isa iTM2_instanceMethodSignatureForSelector:selector]])
 						{
 							if([name hasPrefix:@"prepare"])
 								[prepareSELs addObject:name];
@@ -1049,7 +1075,7 @@ To Do List:
 		return messages;
 	}
 	// get all the NSResponder subclasses
-	NSMethodSignature * MS = [self instanceMethodSignatureForSelector:@selector(forwardInvocation:)];
+	NSMethodSignature * MS = [self iTM2_instanceMethodSignatureForSelector:@selector(forwardInvocation:)];
 	NSArray * classes = [self subclassReferencesOfClass:[NSResponder class]];
 	messages = [NSMutableSet set];
 	NSEnumerator * E = [classes objectEnumerator];

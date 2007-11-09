@@ -253,8 +253,7 @@ next:
 - (void)addXMLElement:(NSXMLElement *)element;
 {
 	NSParameterAssert(element);
-	NSMutableArray * XMLElements = [self XMLElements];
-	[XMLElements addObject:element];
+	[[self XMLElements] addObject:element];
 	return;
 }
 - (void)addMutableXMLElement:(NSXMLElement *)element;
@@ -295,6 +294,22 @@ next:
 - (NSString *)argument;
 {
 	return nil;
+}
+- (NSArray *)IDs;
+{
+	NSMutableArray * result = [NSMutableArray array];
+	NSXMLElement * element;
+	NSEnumerator * E = [[self XMLElements] objectEnumerator];
+	while(element = [E nextObject])
+	{
+		[result addObject:[[element attributeForName:@"ID"] stringValue]];
+	}
+	E = [[self mutableXMLElements] objectEnumerator];
+	while(element = [E nextObject])
+	{
+		[result addObject:[[element attributeForName:@"ID"] stringValue]];
+	}
+	return result;
 }
 @end
 
@@ -1241,6 +1256,10 @@ To Do List:
 //iTM2_END;
     return;
 }
+- (NSString *)description;
+{
+    return [NSString stringWithFormat:@"<%@(%#x):%@>",NSStringFromClass([self class]),self,[self key]];
+}
 #pragma mark =-=-=-=-=-  LEAF
 - (NSString *)key;
 {
@@ -1827,16 +1846,6 @@ To Do List:
 	if([Cs length] && [CIMs length])
 	{
 		unichar c = [Cs characterAtIndex:0];
-		if(c<'!' || c>'~')
-		{
-			c = [CIMs characterAtIndex:0];
-		}
-		else
-		{
-			CIMs = Cs;
-			modifierFlags &= ~NSShiftKeyMask;
-			modifierFlags &= ~NSAlternateKeyMask;
-		}
 		NSString * name = [KCC nameForKeyCode:c];
 		if([name hasSuffix:@"FunctionKey"])
 		{
@@ -1849,6 +1858,17 @@ To Do List:
 iTM2_LOG(completeCodeName);
 			return [completeCodeName macroKeyStroke];
 		}
+		if(c<'!' || c>'~')
+		{
+			id result = [Cs macroKeyStroke];
+			if(result)
+			{
+				return result;
+			}
+		}
+		CIMs = Cs;
+		modifierFlags &= ~NSShiftKeyMask;
+		modifierFlags &= ~NSAlternateKeyMask;
 		if(modifierFlags&NSShiftKeyMask)
 		{
 			NSString * lowerCIMs = [CIMs lowercaseString];
@@ -1863,7 +1883,6 @@ iTM2_LOG(completeCodeName);
 			if(modifierFlags&NSFunctionKeyMask)		[completeCodeName appendString:@"&"];
 			if([completeCodeName length])			[completeCodeName appendString:@"+"];
 													[completeCodeName appendString:name];
-iTM2_LOG(completeCodeName);
 			return [completeCodeName macroKeyStroke];
 		}
 		if(modifierFlags&NSAlternateKeyMask)	[completeCodeName appendString:@"~"];

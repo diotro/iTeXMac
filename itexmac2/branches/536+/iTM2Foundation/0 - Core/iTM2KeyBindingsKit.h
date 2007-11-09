@@ -211,6 +211,16 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 - (BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
 
 /*!
+    @method		client:executeBindingForKey:
+    @abstract	Execute the macro for the given parameters.
+    @discussion	Subclassers will do their own job here to bypass the client:interpretKeyEvent: method.
+	@param		C is the client.
+    @param		key.
+    @result		yorn.
+*/
+- (BOOL)client:(id)C executeBindingForKey:(NSString *)key;
+
+/*!
     @method		toggleEscape:
     @abstract	Toggle the escape mode.
     @discussion	In escape mode, no key binding is active and the next keystroke will act as usual.

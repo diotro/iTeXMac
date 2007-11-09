@@ -790,6 +790,7 @@ To Do List:
 	return;
 }
 #pragma mark =-=-=-=-=-  MACROS
+#warning edt: and browse: message suppor is missing (the 2 square buttons to edit external scripts)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  apply
 - (IBAction)apply:(id)sender;
 /*"Desription Forthcoming.

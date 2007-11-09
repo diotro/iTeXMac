@@ -1359,35 +1359,6 @@ To Do List:
 //iTM2_START;
     return ![argument length] || [argument canBeConvertedToEncoding:[self stringEncoding]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nextUnconvertibleCharacterIndexOfString:startingAt:
-- (unsigned int)nextUnconvertibleCharacterIndexOfString:(NSString *)argument startingAt:(unsigned int)index;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(index<0)
-        return NSNotFound;
-    noumea:
-    if(index<[argument length])
-    {
-        unichar c = [argument characterAtIndex:index];
-        NSString * S = [[[NSString allocWithZone:[self zone]]
-                            initWithCharactersNoCopy: &c length: 1 freeWhenDone: NO] autorelease];
-        BOOL canBeConverted = [S canBeConvertedToEncoding:[self stringEncoding]];
-        if(canBeConverted)
-        {
-            ++index;
-            goto noumea;
-        }
-        else
-            return index;
-    }
-    else
-        return NSNotFound;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringWithData:
 - (NSString *)stringWithData:(NSData *)docData;
 /*"Description Forthcoming.

@@ -43,6 +43,7 @@
 @end
 
 @interface iTM2MacroAbstractModelNode(Properties)
+- (NSArray *)IDs;
 - (NSString *)ID;
 - (void)setID:(NSString *)newID;
 - (BOOL)validateID:(NSString **)newIDRef error:(NSError **)outErrorPtr;

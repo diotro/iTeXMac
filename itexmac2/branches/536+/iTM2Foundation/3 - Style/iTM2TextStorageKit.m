@@ -173,7 +173,7 @@ To Do List: Nothing
 //iTM2_START;
     if(self = [super init])
     {
-        _Model = [[NSMutableString allocWithZone:[self zone]] init];
+        _Model = (id)CFStringCreateMutableWithExternalCharactersNoCopy(kCFAllocatorDefault,nil,0,0,kCFAllocatorDefault);// force a 16 bits storage
         [self setSyntaxParserStyle:iTM2TextDefaultStyle variant:iTM2TextDefaultVariant];
     }
     return self;

@@ -500,7 +500,7 @@ To Do List:
 							}
 						}
 					}
-					iTM2_LOG(@"availableKeyCodes are: %@", keyCodesForNames);
+//					iTM2_LOG(@"availableKeyCodes are: %@", keyCodesForNames);
 				}
 			}
 		}

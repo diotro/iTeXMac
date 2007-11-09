@@ -267,10 +267,6 @@ NSString * const iTM2MacroPersonalComponent = @"Personal";
 		documentsByURLs = [self valueForKeyPath:@"value.documentsByURLs"];
 	}
 	[documentsByURLs setObject:document forKey:url];
-iTM2_LOG(@"documentsByURLs:%@",[self valueForKeyPath:@"value.documentsByURLs"]);
-iTM2_LOG(@"domain:%@",[self valueForKeyPath:@"parent.parent.value.domain"]);
-iTM2_LOG(@"category:%@",[self valueForKeyPath:@"parent.value.category"]);
-iTM2_LOG(@"context:%@",[self valueForKeyPath:@"value.context"]);
 	return; 
 }
 - (NSURL *)personalURL;

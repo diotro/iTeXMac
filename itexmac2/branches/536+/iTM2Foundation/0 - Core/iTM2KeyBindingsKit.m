@@ -68,8 +68,6 @@ static NSMutableDictionary * iTM2_KeyStroke_Events = nil;
 static NSMutableDictionary * iTM2_KeyStroke_Timers = nil;
 
 @interface iTM2KeyBindingsManager(PRIVATE)
-+ (id)getKeyBindingsForIdentifier:(NSString *)identifier;
-+ (void)setKeyBindings:(id)keyBindings forIdentifier:(NSString *)identifier;
 + (id)getSelectorMapForIdentifier:(NSString *)identifier;
 + (void)setSelectorMap:(id)selectorMap forIdentifier:(NSString *)identifier;
 @end
@@ -228,180 +226,6 @@ To Do List:
     iTM2_KeyStroke_Bases = [MD copy];
 //iTM2_END;
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  registerKeyBindingsForIdentifier:
-+ (void)registerKeyBindingsForIdentifier:(NSString *)identifier;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![identifier length])
-		return;
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"identifier: %@", identifier);
-	}
-	NSString * shorterIdentifier = [identifier stringByDeletingLastPathComponent];
-	NSMutableDictionary * keyBindings = [NSMutableDictionary dictionary];
-	NSMutableDictionary * selectorMap = [NSMutableDictionary dictionary];
-	if([shorterIdentifier length] < [identifier length])
-	{
-		[self registerKeyBindingsForIdentifier:shorterIdentifier];
-		[keyBindings addEntriesFromDictionary:[self keyBindingsForIdentifier:shorterIdentifier]];
-		[selectorMap addEntriesFromDictionary:[self selectorMapForIdentifier:shorterIdentifier]];
-	}
-	NSDictionary * D;
-	NSBundle * MB = [NSBundle mainBundle];
-	NSArray * RA = [MB allPathsForResource:identifier ofType:iTM2KeyBindingPathExtension inDirectory:iTM2MacroControllerComponent];
-	NSEnumerator * E = [RA reverseObjectEnumerator];
-	NSString * path;
-	while(path = [E nextObject])
-	{
-		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
-		{
-			[keyBindings addEntriesFromDictionary:D];
-		}
-		else if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"???  No key bindings at path: %@, please report incident", path);
-		}
-	}
-	RA = [MB allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2MacroControllerComponent];
-	E = [RA reverseObjectEnumerator];
-	while(path = [E nextObject])
-	{
-		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
-		{
-			[selectorMap addEntriesFromDictionary:D];
-		}
-		else if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"No selector map at path: %@", path);
-		}
-	}
-	if([keyBindings count])
-	{
-		[self setKeyBindings:[NSDictionary dictionaryWithDictionary:keyBindings] forIdentifier:identifier];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"key bindings: %@", keyBindings);
-		}
-	}
-	else if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"No key bindings found");
-	}
-	if([selectorMap count])
-	{
-		[self setSelectorMap:[NSDictionary dictionaryWithDictionary:selectorMap] forIdentifier:identifier];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"selector map: %@", selectorMap);
-		}
-	}
-	else if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"No selector map found");
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  keyBindingsForIdentifier:
-+ (id)keyBindingsForIdentifier:(NSString *)identifier;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(![identifier length])
-        return nil;
-    id result;
-    if(result = [self getKeyBindingsForIdentifier:identifier])
-        return result;
-    if([identifier hasPrefix:@"./"])
-    {
-        // these are absolute paths (or relative to absolute locations...)
-        #warning THE PROJECT HERE? foo.texp/Frontends/main bundle identifier/iTM2MacroControllerComponent/identifier
-        NSString * dirName = [[[SDC currentDocument] fileName] stringByDeletingLastPathComponent];
-        NSString * helperIdentifier = identifier;
-        NSString * key;
-shorter:
-        key = [[dirName stringByAppendingPathComponent:helperIdentifier] stringByStandardizingPath];
-        if(!(result = [NSDictionary dictionaryWithContentsOfFile:key]))
-        {
-            NSString * newIdentifier = [helperIdentifier stringByDeletingLastPathComponent];
-            if([newIdentifier length] < [helperIdentifier length])
-            {
-                if(result = [self getKeyBindingsForIdentifier:newIdentifier])
-                    return result;
-                helperIdentifier = newIdentifier;
-                goto shorter;
-            }
-            iTM2_LOG(@"Could not find a key binding dictionary at path %@.\nIdentifier %@ ignored (1).", key, identifier);
-            result = [NSDictionary dictionary];
-        }
-        [self setKeyBindings:result forIdentifier:identifier];
-        return result;
-    }
-    else if([identifier hasPrefix:@"~"] || [identifier hasPrefix:@"/"])
-    {
-        // these are absolute paths (or relative to absolute locations...)
-        NSString * key = [identifier stringByStandardizingPath];
-        NSString * helperKey = key;
-otherShorter:
-        if(result = [self getKeyBindingsForIdentifier:key])
-            return result;
-        if(!(result = [NSDictionary dictionaryWithContentsOfFile:key]))
-        {
-            NSString * newKey = [helperKey stringByDeletingPathExtension];
-            if([newKey length] < [helperKey length])
-            {
-                if(result = [self getKeyBindingsForIdentifier:newKey])
-                    return result;
-                helperKey = newKey;
-                goto otherShorter;
-            }
-            iTM2_LOG(@"Could not find a key binding dictionary at path %@.\nkey %@ ignored (2).", key, identifier);
-            result = [NSDictionary dictionary];
-        }
-        [self setKeyBindings:result forIdentifier:identifier];
-        return result;
-    }
-	if(result = [self getKeyBindingsForIdentifier:identifier])
-		return result;
-	[self setKeyBindings:result forIdentifier:identifier];
-	[result autorelease];
-//iTM2_END;
-    return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getKeyBindingsForIdentifier:
-+ (id)getKeyBindingsForIdentifier:(NSString *)identifier;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return [_iTM2_KeyBindings_Dictionary objectForKey:identifier];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getKeyBindings:forIdentifier:
-+ (void)setKeyBindings:(id)keyBindings forIdentifier:(NSString *)identifier;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(keyBindings)
-		[_iTM2_KeyBindings_Dictionary setObject:keyBindings forKey:identifier];
-	else
-		[_iTM2_KeyBindings_Dictionary removeObjectForKey:identifier];
-//iTM2_END;
-	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectorMapForIdentifier:
 + (id)selectorMapForIdentifier:(NSString *)identifier;
@@ -642,15 +466,6 @@ To Do List:
             }
 #endif
         }
-#if 0
-        {
-            NSString * toolTip = [[self currentKeyBindings] objectForKey:@"toolTip"];
-            [self postNotificationWithStatus:
-                    ([toolTip isKindOfClass:[NSString class]]? toolTip:[NSString string])];
-//                if([toolTip isKindOfClass:[NSString class]] && [toolTip length])
-//                    [self postNotificationWithStatus:toolTip];
-        }
-#endif
     }
     return;
 }
@@ -740,6 +555,19 @@ To Do List:
     }
     return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeBindingForKey:
+- (BOOL)client:(id)C executeBindingForKey:(NSString *)key;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for instruction.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_STOP;
+	return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:interpretKeyEvent:
 - (BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
 /*"Description forthcoming.
@@ -753,6 +581,7 @@ To Do List:
 	id macroKeyStroke = [theEvent macroKeyStroke];
 	if(!macroKeyStroke)
 	{
+		// this was a dead key
 		return NO;
 	}
 //iTM2_LOG(@"[self currentKeyBindings] are:%@", [self currentKeyBindings]);
@@ -763,6 +592,10 @@ To Do List:
 		{
 			id CKB = [self currentKeyBindings];
 			NSString * key = [macroKeyStroke string];
+			if([self client:C executeBindingForKey:key])
+			{
+				return YES;
+			}
 			id node = [CKB objectInAvailableKeyBindingsWithKey:key];
 			if([node countOfChildren]>0)
 			{
@@ -782,12 +615,20 @@ To Do List:
 				NSString * domain = [C macroDomain];
 				NSString * category = [C macroCategory];
 				NSString * context = @"";//[C macroContext];
-				if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain target:C])
+				iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
+				if(leafNode)
 				{
-					[self setCurrentKeyBindings:nil];
-					return YES;
+					// is there a dead key around?
+					if([C hasMarkedText])
+					{
+						[C deleteBackward:nil];// this is the only mean I found to properly manage the undo stack
+					}
+					if([leafNode executeMacroWithTarget:C selector:NULL substitutions:nil])
+					{
+						[self setCurrentKeyBindings:nil];
+						return YES;
+					}
 				}
-				return NO;
 			}
 			[self setCurrentKeyBindings:nil];
 		}
@@ -866,39 +707,6 @@ To Do List:
     }
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadKeyBindingsAtPath:
-- (IBAction)loadKeyBindingsAtPath:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    iTM2_LOG(@"loading: %@", sender);
-    if([sender isKindOfClass:[NSString class]])
-    {
-        id result = [isa keyBindingsForIdentifier:sender];
-        if([result count])
-        {
-            NSString * toolTip = [result objectForKey:@"toolTip"];
-            if(![toolTip isKindOfClass:[NSString class]])
-                toolTip = [NSString stringWithFormat:@"Loading %@",
-                    [[sender lastPathComponent] stringByDeletingPathExtension]];
-            [self postNotificationWithStatus:toolTip];
-            [self setCurrentKeyBindings:result];
-            return;
-        }
-        [self postNotificationWithStatus:[NSString stringWithFormat:@"Nothing at:%@", sender]];
-        iTM2_LOG(@"bad file at: %@ (relative path)", sender);
-        NSBeep();
-        return;
-    }
-    [self postNotificationWithStatus:@"Internal error, ignored"];
-    iTM2_LOG(@"bad argument: %@", sender);
-    NSBeep();
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  flushKeyBindings:
 - (void)flushKeyBindings:(id)irrelevant;
 /*"Description forthcoming.
@@ -962,9 +770,7 @@ To Do List:
     if(([self handlesKeyBindings] || [self handlesKeyStrokes])
         && ![self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask])
     {
-iTM2_LOG(@"KBM:%@",[self valueForKeyPath:@"implementation.metaValues.KeyBindingsManager"]);
 		id KBM = metaGETTER;
-iTM2_LOG(@"KBM:%@",KBM);
         if(!KBM)
         {
 			NSString * identifier = [self macroCategory];
@@ -1703,6 +1509,7 @@ To Do List: Nothing at first glance.
 //        if(![self hasMarkedText])
 //            [self cleanSelectionCache:self];
 //NSLog(@"%@, %@", NSStringFromSelector(_cmd), ([self hasMarkedText]? @"Y":@"N"));
+iTM2_LOG(@"event:%@",event);
         if(![KBM client:self interpretKeyEvent:event])
             [super interpretKeyEvents:[NSArray arrayWithObject:event]];
     }
