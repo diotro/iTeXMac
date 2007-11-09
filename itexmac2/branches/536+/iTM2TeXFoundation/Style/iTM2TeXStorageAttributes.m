@@ -898,10 +898,6 @@ To Do List:
 	unichar theChar = [S characterAtIndex:location];
 	unsigned start, end;
 	static ICURegEx * RE = nil;
-	if(!RE)
-	{
-		RE = [[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"^\\{(?:.*?\\})?" options:0 error:nil];
-	}
 	if(kiTM2TeXCommandStartSyntaxMode == previousModeWithoutModifiers)
 	{
 		if((theChar == '`')||(theChar == '\'')||(theChar == '^')||(theChar == '"')||(theChar == '~')
@@ -909,6 +905,7 @@ To Do List:
 		{
 			r.location = location+1;
 			r.length = MIN(length-r.location,4);
+			RE = [ICURegEx regExWithSearchPattern:@"^\\{(?:.*?\\})?"];
 			[RE setInputString:S range:r];
 			if([RE nextMatch])
 			{
@@ -1068,7 +1065,7 @@ placeholder:
 		}
 		start = r.location;
 		substring = [S substringWithRange:r];
-		RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:0 error:nil] autorelease];
+		RE = [ICURegEx regExWithSearchPattern:@"@@@\\(|\\)@@@"];
 		[RE setInputString:substring];
 		while([RE nextMatch])
 		{

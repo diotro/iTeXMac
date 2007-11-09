@@ -932,6 +932,7 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 - (void)didChangeKeyStroke;
 - (iTM2MacroKeyStroke *)keyStroke;
 - (BOOL)isFinal;
+- (NSString *)key;
 @end
 
 @implementation iTM2KeyBindingNode

@@ -120,7 +120,7 @@ To Do List:
 {
 	NSDictionary * userInfo = [exception userInfo];
 	NSArray * stackTrace = [userInfo objectForKey:NSStackTraceKey];
-	iTM2_LOG(@"stackTrace:%@",stackTrace);
+	iTM2_LOG(@"\nStack Trace:%@",stackTrace);
 #if 0
 // smorr AT indev DOT ca (Debugging an ignored exception on cocoa-dev)
 NSLog(@"Error: %@",exception);

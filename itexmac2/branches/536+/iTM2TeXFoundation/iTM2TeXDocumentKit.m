@@ -871,7 +871,7 @@ To Do List:
 #pragma mark =-=-=-=-=-  7 bits
 - (void)convertTo7bitsAccents:(id)sender;
 {
-	NSMutableArray * ranges = [NSMutableArray array];
+	id ranges = [NSMutableArray array];
 	NSMutableDictionary * map = [NSMutableDictionary dictionary];
 	NSEnumerator * E = [[iTM2TeXKeyBindingsManager the7bitsAccentsMapping] objectEnumerator];
 	NSString * before;

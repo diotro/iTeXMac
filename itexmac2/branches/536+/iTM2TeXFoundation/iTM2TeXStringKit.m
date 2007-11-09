@@ -27,40 +27,14 @@
 - (NSRange)originalDoubleClickAtIndex:(unsigned)index;
 @end
 
-@implementation iTM2TeXStringController
-static ICURegEx * iTM2TeXStringController_RE = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)initialize;
-/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
-Version history:jlaurens AT users.sourceforge.net
-- 2.0:02/15/2006
-To Do List:implement some kind of balance range for range
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	[super initialize];
-//iTM2_START;
-	if(!iTM2TeXStringController_RE)
-	{
-		NSError * localError = nil;
-//		iTM2TeXStringController_RE = [[ICURegEx alloc] initWithSearchPattern:@"(?!\\(?:\\{2})*)\\[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
-		iTM2TeXStringController_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
-		if(!iTM2TeXStringController_RE)
-		{
-			iTM2_LOG(@"RE unavailable");
-			if(localError)
-			{
-				iTM2_LOG(@"localError:%@",localError);
-			}
-			else
-			{
-				iTM2_LOG(@"localError unavailable");
-			}
-		}
-	}
-	iTM2_RELEASE_POOL;
-	return;
+@implementation ICURegEx(TeXStringKit)
++ (ICURegEx *)the7bitsAccentsRegEx;
+{
+	return [self regExWithSearchPattern:@"\\\\[`'\\^\"~=.uvHtcdb]\\{.\\}"];
 }
+@end
+
+@implementation iTM2TeXStringController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfCharactersInSet:inAttributedString:atIndex:
 + (NSRange)rangeOfCharactersInSet:(NSCharacterSet *)theSet inAttributedString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
 /*"All the letters around the index
@@ -137,6 +111,7 @@ To Do List:implement some kind of balance range for range
 	if([ANCS characterIsMember:theChar])
 	{
 		R = [theAttributedString originalDoubleClickAtIndex:index];
+		ICURegEx * RE = nil;
 expandToTheLeftAsLetters:
 		if(R.location)
 		{
@@ -161,8 +136,9 @@ expandToTheLeftAsLetters:
 				if(NSMaxRange(r)<=length)
 				{
 					s = [itsString substringWithRange:r];
-					[iTM2TeXStringController_RE setInputString:s];
-					if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+					RE = [ICURegEx the7bitsAccentsRegEx];
+					[RE setInputString:s];
+					if([RE matchesAtIndex:0 extendToTheEnd:YES])
 					{
 						R.location -= 5;
 						R.length += 5;
@@ -216,8 +192,9 @@ expandToTheLeftAsLetters:
 			if(NSMaxRange(r)<=length)
 			{
 				s = [itsString substringWithRange:r];
-				[iTM2TeXStringController_RE setInputString:s];
-				if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+				RE = [ICURegEx the7bitsAccentsRegEx];
+				[RE setInputString:s];
+				if([RE matchesAtIndex:0 extendToTheEnd:YES])
 				{
 					R = r;
 					return R;
@@ -235,8 +212,9 @@ expandToTheRightAsLetters:
 		{
 			r = NSMakeRange(loc,5);
 			s = [itsString substringWithRange:r];
-			[iTM2TeXStringController_RE setInputString:s];
-			if([iTM2TeXStringController_RE matchesAtIndex:0 extendToTheEnd:YES])
+			RE = [ICURegEx the7bitsAccentsRegEx];
+			[RE setInputString:s];
+			if([RE matchesAtIndex:0 extendToTheEnd:YES])
 			{
 				R.length += 5;
 				goto expandToTheRightAsLetters;

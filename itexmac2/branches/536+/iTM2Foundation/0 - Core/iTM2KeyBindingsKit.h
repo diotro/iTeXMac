@@ -112,25 +112,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 + (void)addKeyStrokeSelectorsFromDictionary:(NSDictionary *)D;
 
 /*!
-    @method		keyBindingsForIdentifier:
-    @abstract	The eventually cached key binding dictionary for the given identifier.
-    @discussion	Here are the rules for the identifier.
-                - if the identifier start with a "./":
-                we look for a file named dirName/identifier where dirName is
-                the name of the project folder containing key bindings, basically
-                foo.texp/Frontends/comp.text.tex.iTeXMac2/Key bindings
-                - if the identifier starts with "~"~or "/":
-                The identifier is meant to be a full path name where a key binding dictionary could be found.
-                - in any other situation, we look for the first existing file amongst
-                DOMAIN/Library/Application Support/APP_NAME/Key bindings/identifer
-                where DOMAIN loops into ~, /, /Network, iTM2Foundation bundle built in resources
-                APP_NAME is the name of the main app currently running.
-    @param		An NSString identifier.
-    @result		A dictionary.
-*/
-+ (id)keyBindingsForIdentifier:(NSString *)identifier;
-
-/*!
     @method		selectorMapForIdentifier:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
@@ -138,17 +119,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @result		A dictionary.
 */
 + (id)selectorMapForIdentifier:(NSString *)identifier;
-
-/*!
-    @method		registerKeyBindingsForIdentifier:
-    @abstract	Register the key bindings for identifier, starting from the given app bundle,
-				scanning all the frameworks, plugins and Library locations.
-				See the allPaths:... messages of the iTM2BundleKit to have the search path.
-    @discussion	Discussion forthcoming.
-    @param		identifier.
-    @result		None.
-*/
-+ (void)registerKeyBindingsForIdentifier:(NSString *)identifier;
 
 /*!
     @method		initWithIdentifier:handleKeyBindings:handleKeyStrokes:

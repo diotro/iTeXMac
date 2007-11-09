@@ -692,6 +692,7 @@ To Do List:
 	name = [self previousFileNameForKey:@"project"];
 	if(![name pathIsEqual:projectFileName])
 	{
+iTM2_LOG(@"The project has most certainly move:\nProject file name:%@\nOld  project name:%@",projectFileName,name);
 		// the project has most certainly moved
 		return [self _fixFarawayProjectConsistency];
 	}
@@ -886,7 +887,16 @@ changeName:
 		dest = [requiredCore stringByAppendingPathExtension:dest];
 		dest = [expectedDirName stringByAppendingPathComponent:dest];
 		dest = [[NSString farawayProjectsDirectory] stringByAppendingPathComponent:dest];
-		if([DFM movePath:src toPath:dest handler:NULL])
+		if([DFM fileExistsAtPath:dest] && ![DFM removeFileAtPath:dest handler:NULL])
+		{
+			iTM2_REPORTERROR(3,([NSString stringWithFormat:@"Problem: %@ could not be removed",dest]),nil);
+		}
+		NSString * dir = [dest stringByDeletingLastPathComponent];
+		if(![DFM fileExistsAtPath:dir] && ![DFM createDeepDirectoryAtPath:dir attributes:nil error:nil])
+		{
+			iTM2_REPORTERROR(4,([NSString stringWithFormat:@"Problem %@ could not created",dir]),nil);
+		}
+		else if([DFM movePath:src toPath:dest handler:NULL])
 		{
 			// also change the receiver's file name
 			name = [projectFileName stringByAbbreviatingWithDotsRelativeToDirectory:src];
@@ -918,7 +928,8 @@ changeName:
 		}
 		else
 		{
-			iTM2_REPORTERROR(3,([NSString stringWithFormat:@"Problem %@ could not be moved to %@",src,dest]),nil);
+iTM2_LOG(@"Problem moving file\nsrc:%@\ndest:%@",src,dest);
+			iTM2_REPORTERROR(5,([NSString stringWithFormat:@"Problem %@ could not be moved to %@",src,dest]),nil);
 		}
 		return YES;
 	}
@@ -2323,17 +2334,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([key isEqualToString:@"project"])
+	NSString * result = [self fileName];
+	result = [result stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
+	result = [result stringByAppendingPathComponent:@"project"];
+	result = [DFM pathContentOfSymbolicLinkAtPath:result];
+	if(![key isEqualToString:@"project"] && ![key isEqualToString:@"."])
 	{
-		key = @".";
+#warning ATTENTION: use the source directory here
+		result = [result stringByDeletingLastPathComponent];
+		result = [result stringByAppendingPathComponent:[self relativeFileNameForKey:key]];
 	}
-	NSString * base = [self fileName];
-	base = [base stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
-	base = [base stringByAppendingPathComponent:@"project"];
-	base = [DFM pathContentOfSymbolicLinkAtPath:base];
-	base = [base stringByDeletingLastPathComponent];
-	NSString * end = [self relativeFileNameForKey:key];
-	NSString * result = [base stringByAppendingPathComponent:end];
 	result = [result stringByStandardizingPath];
 //iTM2_END;
 	return result;// does it exist? I don't care,the client will decide
@@ -2380,7 +2390,12 @@ To Do List:
 	base = [base stringByDeletingLastPathComponent];
 	if([base belongsToFarawayProjectsDirectory])
 	{
-		base = [base enclosingWrapperFileName];
+		NSString * EWFN = [base enclosingWrapperFileName];
+		if(![EWFN length])
+		{
+			iTM2_LOG(@"WHAT THE HELL:%@",base);
+		}
+		base = EWFN;
 		NSAssert(([base length]>0),@"Inconsistency: faraway projects must be enclosed in wrappers.");
 		base = [base stringByDeletingLastPathComponent];// the *.texd last component is removed
 		base = [base stringByStrippingFarawayProjectsDirectory];
