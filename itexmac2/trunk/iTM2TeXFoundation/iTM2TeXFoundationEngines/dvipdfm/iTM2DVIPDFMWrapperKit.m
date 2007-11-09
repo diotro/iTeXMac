@@ -23,27 +23,27 @@
 
 #import "iTM2DVIPDFMWrapperKit.h"
 
-NSString * const iTM2Dvipdfm_use_offset = @"use_offset";// "0" (default) or "1"(bool)
+NSString * const iTM2Dvipdfm_USE_offset = @"USE_offset";// "0" (default) or "1"(bool)
 NSString * const iTM2Dvipdfm_x_offset = @"x_offset";//-x, "1" (default) as number
 NSString * const iTM2Dvipdfm_y_offset = @"y_offset";//-y, "1" (default) as number
 NSString * const iTM2Dvipdfm_x_offset_unit = @"x_offset_unit";// "in" (default) as string, "bp", "pt" or "cm"
 NSString * const iTM2Dvipdfm_y_offset_unit = @"y_offset_unit";// "in" (default) as string, "bp", "pt" or "cm"
-NSString * const iTM2Dvipdfm_use_paper = @"use_paper";// "0" (default) or "1"(bool)
+NSString * const iTM2Dvipdfm_USE_paper = @"USE_paper";// "0" (default) or "1"(bool)
 NSString * const iTM2Dvipdfm_paper = @"paper";//-p, "a4" (default), should be read from the config file...
 NSString * const iTM2Dvipdfm_landscape = @"landscape";//-l, "0" (default) or "1"
-NSString * const iTM2Dvipdfm_use_magnification = @"use_magnification";// "0" (default) or "1"
+NSString * const iTM2Dvipdfm_USE_magnification = @"USE_magnification";// "0" (default) or "1"
 NSString * const iTM2Dvipdfm_magnification = @"magnification";//-m, "1000" (default)
 
 NSString * const iTM2Dvipdfm_embed_all_fonts = @"embed_all_fonts";//-e, "0" (default) or "1"
-NSString * const iTM2Dvipdfm_use_map_file = @"use_map_file ";//-f, "0" (default) or "1"
+NSString * const iTM2Dvipdfm_USE_map_file = @"USE_map_file ";//-f, "0" (default) or "1"
 NSString * const iTM2Dvipdfm_map_file = @"map_file ";//-f, "" (default)
-NSString * const iTM2Dvipdfm_use_resolution = @"use_resolution";//r
+NSString * const iTM2Dvipdfm_USE_resolution = @"USE_resolution";//r
 NSString * const iTM2Dvipdfm_resolution = @"resolution";//r
 
 NSString * const iTM2Dvipdfm_ignore_color_specials = @"ignore_color_specials";//-c, "0" (default) or "1"
-NSString * const iTM2Dvipdfm_use_output_name = @"use_output_name";// "0" (default) or "1"(bool)
+NSString * const iTM2Dvipdfm_USE_output_name = @"USE_output_name";// "0" (default) or "1"(bool)
 NSString * const iTM2Dvipdfm_output_name = @"output_name";//-o, "" (default)
-NSString * const iTM2Dvipdfm_use_page_specifications = @"use_page_specifications";
+NSString * const iTM2Dvipdfm_USE_page_specifications = @"USE_page_specifications";
 NSString * const iTM2Dvipdfm_page_specifications = @"page_specifications";
 NSString * const iTM2Dvipdfm_verbosity_level = @"verbosity_level";//0, 1 for -v, 2 for -vv
 NSString * const iTM2Dvipdfm_compression_level = @"compression_level";//-z "0" to "9" (default)
@@ -86,43 +86,43 @@ To Do List:
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
 				[NSNumber numberWithBool:NO], iTM2Dvipdfm_landscape,
-				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_paper,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_USE_paper,
 				@"a4", iTM2Dvipdfm_paper,
-				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_offset,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_USE_offset,
 				[NSNumber numberWithFloat:1], iTM2Dvipdfm_x_offset,
 				[NSNumber numberWithFloat:1], iTM2Dvipdfm_y_offset,
 				@"in", iTM2Dvipdfm_x_offset_unit,
 				@"in", iTM2Dvipdfm_y_offset_unit,
-				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_magnification,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_USE_magnification,
 				[NSNumber numberWithFloat:1000], iTM2Dvipdfm_magnification,
 				[NSNumber numberWithBool:NO], iTM2Dvipdfm_embed_all_fonts,
-				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_map_file,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_USE_map_file,
 				@"", iTM2Dvipdfm_map_file,
-				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_resolution,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_USE_resolution,
 				[NSNumber numberWithFloat:600], iTM2Dvipdfm_resolution,
 				[NSNumber numberWithBool:NO], iTM2Dvipdfm_ignore_color_specials,
-				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_output_name,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_USE_output_name,
 				@"", iTM2Dvipdfm_output_name,
-				[NSNumber numberWithBool:NO], iTM2Dvipdfm_use_page_specifications,
+				[NSNumber numberWithBool:NO], iTM2Dvipdfm_USE_page_specifications,
 				@"-", iTM2Dvipdfm_page_specifications,
-				[NSNumber numberWithInt:0], iTM2Dvipdfm_verbosity_level,
+				@"", iTM2Dvipdfm_verbosity_level,
 				[NSNumber numberWithInt:9], iTM2Dvipdfm_compression_level,
 					nil];
 }
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
-- (BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
-- (void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
+- (BOOL)GETTER;{return [[self infoForKeyPaths:KEY,nil] boolValue];}\
+- (void)SETTER:(BOOL)yorn;{[self takeInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
 MODEL_BOOL(landscape, setLandscape, iTM2Dvipdfm_landscape);
-MODEL_BOOL(usePaper, setUsePaper, iTM2Dvipdfm_use_paper);
+MODEL_BOOL(usePaper, setUsePaper, iTM2Dvipdfm_USE_paper);
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
-- (id)GETTER;{return [self modelValueForKey:KEY];}\
-- (void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
+- (id)GETTER;{return [self infoForKeyPaths:KEY,nil];}\
+- (void)SETTER:(id)argument;{[self takeInfo:argument forKeyPaths:KEY,nil];return;}
 MODEL_OBJECT(paper, setPaper, iTM2Dvipdfm_paper);
-MODEL_BOOL(useOffset, setUseOffset, iTM2Dvipdfm_use_offset);
+MODEL_BOOL(useOffset, setUseOffset, iTM2Dvipdfm_USE_offset);
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
-- (float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
-- (void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
+- (float)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
+- (void)SETTER:(float)argument;{[self takeInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 MODEL_FLOAT(xOffset, setXOffset, iTM2Dvipdfm_x_offset);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvipdfm_y_offset);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  xOffsetUnit
@@ -134,7 +134,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * unit = [self modelValueForKey:iTM2Dvipdfm_x_offset_unit];
+	NSString * unit = [self infoForKeyPaths:iTM2Dvipdfm_x_offset_unit,nil];
 	if([unit isEqualToString:@"bp"])
 		return 0;
 	else if([unit isEqualToString:@"pt"])
@@ -156,10 +156,10 @@ To Do List:
 //iTM2_START;
 	switch(argument)
 	{
-		case 0: [self takeModelValue:@"bp" forKey:iTM2Dvipdfm_x_offset_unit]; return;
-		case 1: [self takeModelValue:@"pt" forKey:iTM2Dvipdfm_x_offset_unit]; return;
-		case 3: [self takeModelValue:@"cm" forKey:iTM2Dvipdfm_x_offset_unit]; return;
-		default: [self takeModelValue:@"in" forKey:iTM2Dvipdfm_x_offset_unit]; return;
+		case 0: [self takeInfo:@"bp" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 1: [self takeInfo:@"pt" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 3: [self takeInfo:@"cm" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		default: [self takeInfo:@"in" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
 	}
 //iTM2_END;
     return;
@@ -173,7 +173,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * unit = [self modelValueForKey:iTM2Dvipdfm_y_offset_unit];
+	NSString * unit = [self infoForKeyPaths:iTM2Dvipdfm_y_offset_unit,nil];
 	if([unit isEqualToString:@"bp"])
 		return 0;
 	else if([unit isEqualToString:@"pt"])
@@ -195,31 +195,31 @@ To Do List:
 //iTM2_START;
 	switch(argument)
 	{
-		case 0: [self takeModelValue:@"bp" forKey:iTM2Dvipdfm_y_offset_unit]; return;
-		case 1: [self takeModelValue:@"pt" forKey:iTM2Dvipdfm_y_offset_unit]; return;
-		case 3: [self takeModelValue:@"cm" forKey:iTM2Dvipdfm_y_offset_unit]; return;
-		default: [self takeModelValue:@"in" forKey:iTM2Dvipdfm_y_offset_unit]; return;
+		case 0: [self takeInfo:@"bp" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 1: [self takeInfo:@"pt" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 3: [self takeInfo:@"cm" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		default: [self takeInfo:@"in" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
 	}
 //iTM2_END;
     return;
 }
-MODEL_BOOL(useMagnification, setUseMagnification, iTM2Dvipdfm_use_magnification);
+MODEL_BOOL(useMagnification, setUseMagnification, iTM2Dvipdfm_USE_magnification);
 MODEL_FLOAT(magnification, setMagnification, iTM2Dvipdfm_magnification);
 #pragma mark =-=-=-=-=-  FONTS
 MODEL_BOOL(partialFontEmbedding, setPartialFontEmbedding, iTM2Dvipdfm_embed_all_fonts);
-MODEL_BOOL(useMapFile, setUseMapFile, iTM2Dvipdfm_use_map_file);
+MODEL_BOOL(useMapFile, setUseMapFile, iTM2Dvipdfm_USE_map_file);
 MODEL_OBJECT(mapFile, setMapFile, iTM2Dvipdfm_map_file);
-MODEL_BOOL(useResolution, setUseResolution, iTM2Dvipdfm_use_resolution);
+MODEL_BOOL(useResolution, setUseResolution, iTM2Dvipdfm_USE_resolution);
 MODEL_FLOAT(resolution, setResolution, iTM2Dvipdfm_resolution);
 #pragma mark =-=-=-=-=-  MORE
 MODEL_BOOL(ignoreColorSpecials, setIgnoreColorSpecials, iTM2Dvipdfm_ignore_color_specials);
-MODEL_BOOL(usePageSpecifications, setUsePageSpecifications, iTM2Dvipdfm_use_page_specifications);
+MODEL_BOOL(usePageSpecifications, setUsePageSpecifications, iTM2Dvipdfm_USE_page_specifications);
 MODEL_OBJECT(pageSpecifications, setPageSpecifications, iTM2Dvipdfm_page_specifications);
-MODEL_BOOL(useOutputName, setUseOutputName, iTM2Dvipdfm_use_output_name);
+MODEL_BOOL(useOutputName, setUseOutputName, iTM2Dvipdfm_USE_output_name);
 MODEL_OBJECT(outputName, setOutputName, iTM2Dvipdfm_output_name);
 #define MODEL_INT(GETTER, SETTER, KEY)\
-- (int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
-- (void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
+- (int)GETTER;{return [[self infoForKeyPaths:KEY,nil] intValue];}\
+- (void)SETTER:(int)argument;{[self takeInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
 MODEL_INT(compressionLevel, setCompressionLevel, iTM2Dvipdfm_compression_level);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verbosityLevel
 - (int)verbosityLevel;
@@ -230,7 +230,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * level = [self modelValueForKey:iTM2Dvipdfm_verbosity_level];
+	NSString * level = [self infoForKeyPaths:iTM2Dvipdfm_verbosity_level,nil];
 	if([level isEqualToString:@"v"])
 		return 1;
 	else if([level isEqualToString:@"vv"])
@@ -249,9 +249,9 @@ To Do List:
 //iTM2_END;
 	switch(argument)
 	{
-		case 0: [self takeModelValue:@"" forKey:iTM2Dvipdfm_verbosity_level]; return;
-		case 1: [self takeModelValue:@"v" forKey:iTM2Dvipdfm_verbosity_level]; return;
-		default: [self takeModelValue:@"vv" forKey:iTM2Dvipdfm_verbosity_level]; return;
+		case 0: [self takeInfo:@"" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		case 1: [self takeInfo:@"v" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		default: [self takeInfo:@"vv" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
 	}
     return;
 }

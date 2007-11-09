@@ -58,8 +58,25 @@ extern NSString * const TWSShellEnvironmentMasterKey;
 extern NSString * const TWSShellEnvironmentFrontKey;
 extern NSString * const TWSShellEnvironmentProjectKey;
 
+#warning ! THESE should live somewhere else
+extern NSString * const iTM2TPFEEnvironmentModeKey;
+extern NSString * const iTM2TPFEScriptModeKey;
+
+extern NSString * const iTM2TPFECommandsKey;
+extern NSString * const iTM2TPFECommandEnvironmentsKey;
+extern NSString * const iTM2TPFECommandScriptsKey;
+
+extern NSString * const iTM2TPFEEnginesKey;// model
+extern NSString * const iTM2TPFEEngineEnvironmentsKey;
+extern NSString * const iTM2TPFEEngineScriptsKey;
+
+@interface NSArray(iTM2TeXProjectCommandKit)
+- (NSArray *)filteredArrayUsingPredicateValue:(NSString *)value forKey:(NSString *)key;
+@end
+
 @interface iTM2TeXPCommandsInspector: iTM2Inspector
 @end
+
 @interface iTM2TeXPXtdCommandsInspector: iTM2TeXPCommandsInspector
 @end
 
@@ -99,147 +116,6 @@ extern NSString * const TWSShellEnvironmentProjectKey;
     @result     A command name
 */
 + (NSString *)commandName;
-
-@end
-
-/*! 
-    @class      iTM2CommandWrapper
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-*/
-@interface iTM2CommandWrapper: iTM2Object
-
-/*!
-    @method     name
-    @abstract   The name of the receiver
-    @discussion Description forthcoming
-	@param      None
-    @result     A name
-*/
-- (NSString *)name;
-
-/*!
-    @method     setName
-    @abstract   Set the name of the receiver
-    @discussion Description forthcoming
-    @param      The new name
-    @result     None
-*/
-- (void)setName:(NSString *)name;
-
-/*! 
-    @method     project
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (id)project;
-
-/*! 
-    @method     setProject:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (void)setProject:(id)project;
-
-/*! 
-    @method     model
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (id)model;
-
-/*! 
-    @method     setModel:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (void)setModel:(NSDictionary *)model;
-
-/*! 
-    @method     modelDidChange
-    @abstract   The model of the receiver did change.
-    @discussion The default implementation does nothing.
-				Subclassers will take appropriate measures to ensure consistency.
-    @param      None
-    @result     None
-*/
-- (void)modelDidChange;
-
-/*! 
-    @method     scriptMode
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (id)scriptMode;
-
-/*! 
-    @method     setScriptMode:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (void)setScriptMode:(NSString *)mode;
-
-/*! 
-    @method     environmentMode
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (id)environmentMode;
-
-/*! 
-    @method     setEnvironmentMode:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (void)setEnvironmentMode:(NSString *)mode;
-
-/*! 
-    @method     defaultEnvironment
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      Unknown
-    @result     Unknown
-*/
-- (id)defaultEnvironment;
-
-/*! 
-    @method     takeDefaultEnvironmentValue:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      value
-    @param      key
-    @result     None
-*/
-- (void)takeDefaultEnvironmentValue:(id)value forKey:(NSString *)key;
-
-@end
-
-@interface iTM2TeXPCommandWrapper: iTM2CommandWrapper
-
-/*! 
-    @method     modelDidChange
-    @abstract   The model of the receiver did change.
-    @discussion Warning: the environment might change.
-    @param      None
-    @result     None
-*/
-- (void)modelDidChange;
 
 @end
 
@@ -444,6 +320,15 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 + (unsigned int)keyEquivalentModifierMaskForName:(NSString *)commandName;
 
 /*!
+    @method     launchAction:withEngine:forMaster:ofProject:
+    @abstract   Abstract forthcoming
+    @discussion Public API not yet implemented
+    @param      Irrelevant sender
+    @result     None
+*/
++ (void)launchAction:(NSString *)action withEngine:(NSString *)engine forMaster:(NSString *)master ofProject:(NSString *)project;
+
+/*!
     @method     performCommand:
     @abstract   Abstract forthcoming
     @discussion Private API
@@ -498,55 +383,9 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 + (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
 
 /*!
-    @method     environmentScriptsForBaseProject:
-    @abstract   The environement dictionary for the given base project
-    @discussion See the -concreteEnvironmentDictionaryForProject: for details.
-				The environment commands for given the base project.
-    @param      project is a TeX base project
-    @result     An NSDictionary instance.
-*/
-+ (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
-
-/*!
-    @method     environmentScriptsForProject:
-    @discussion See the -concreteEnvironmentDictionaryForProject: for details.
-				The environment commands for given the project.
-    @param      project is a TeX project
-    @result     An NSDictionary instance.
-*/
-+ (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
-
-/*!
-    @method     environmentWithDictionary:forBaseProject:
-    @abstract   The environement dictionary for the given base project
-    @discussion See the -concreteEnvironmentDictionaryForProject: for details.
-				The default implementation just prepares the customized command shell scripts
-				and the environment variables.
-				All these shell scripts might be used by any of the commands.
-				We don't know exactly what custom script will be used because we don't know what will be forthcoming command design.
-				The given project is expected to be a base project but no test is made.
-    @param      project is a TeX base project
-    @result     An NSDictionary instance.
-*/
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
-
-/*!
-    @method     environmentWithDictionary:forProject:
-    @discussion See the -concreteEnvironmentDictionaryForProject: for details.
-				The default implementation just prepares the customized command shell scripts.
-				All these shell scripts might be used by any of the commands.
-				We don't know exactly what custom script will be used because we don't know what will be forthcoming command design.
-				The given project is expected to be a base project but no test is made.
-    @param      project is a TeX project
-    @result     An NSDictionary instance.
-*/
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
-
-/*!
     @method     concreteEnvironmentDictionaryForProject:
     @abstract   Abstract forthcoming
-    @discussion The default implementation just takes the base environment dictionary of the base project,
-				then appends the entries from the environment dictionary of the project, then appends the global entries:
+    @discussion The default implementation just defines the global entries:
 				TWSShellEnvironmentWrapperKey,
 				TWSShellEnvironmentMasterKey,
 				TWSShellEnvironmentFrontKey,

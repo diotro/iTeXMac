@@ -220,6 +220,42 @@ To Do List: Nothing at first glance.
     [self insertText:[self tabAnchor]];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  concreteReplacementStringForTeXMacro:selection:line:
+- (NSString *)concreteReplacementStringForTeXMacro:(NSString *)macro selection:(NSString *)selectedString line:(NSString *)line;
+/*"Description forthcoming. Will be completely overriden by subclassers.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// what is the policy of the replacement?
+	// first split the whole string into tokens
+	NSArray * components = [macro componentsSeparatedByString:@"{}"];
+	NSString * s;
+	BOOL escaped;
+	if([components count] == 2)
+	{
+		s = [components objectAtIndex:0];
+		if(![s length] || ![s isControlAtIndex:[s length]-1 escaped:&escaped] || escaped)
+		{
+			s = [NSString stringWithFormat:@"{@@@(%@)@@@}",selectedString];
+			macro = [components componentsJoinedByString:s];
+		}
+	}
+	else
+	{
+		components = [macro componentsSeparatedByString:@"[]"];
+		if(([components count] == 2) && (![s length] || ![s isControlAtIndex:[s length]-1 escaped:&escaped] || escaped))
+		{
+			s = [NSString stringWithFormat:@"[@@@(%@)@@@]",selectedString];
+			macro = [components componentsJoinedByString:s];
+		}
+	}
+	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString line:line];
+//iTM2_END;
+   return macro;
+}
 @end
 
 @implementation iTM2TeXEditor

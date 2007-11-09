@@ -40,6 +40,90 @@ class String
 		length > 0
 	end
 	
+	def properties
+		if self =~ /(?:\((.*?)\))?([^\+-]*)(?:\+([^-]*))?(?:-(.*))?/
+			return {'E'=>$1,'M'=>$2,'V'=>$4,'O'=>$3}
+		end
+		{}
+	end
+	
+	def compare_properties(rhs)
+		ps = self.properties
+		lhs_mode = (ps['M'])?(ps['M']):('')
+		lhs_output = (ps['O'])?(ps['O']):('')
+		lhs_variant = (ps['V'])?(ps['V']):('')
+		lhs_extension = (ps['E'])?(ps['E']):('')
+		ps = rhs.properties
+		rhs_mode = (ps['M'])?(ps['M']):('')
+		rhs_output = (ps['O'])?(ps['O']):('')
+		rhs_variant = (ps['V'])?(ps['V']):('')
+		rhs_extension = (ps['E'])?(ps['E']):('')
+		if(lhs_mode == "Default")
+			if(rhs_mode == "Default")
+				if(lhs_extension == rhs_extension || lhs_extension == "*" || rhs_extension == "*")
+					if(lhs_variant == rhs_variant || lhs_variant == "*" || rhs_variant == "*")
+						if(lhs_output == "*" || rhs_output == "*")
+							return 0
+						end
+						return lhs_output <=> rhs_output
+					end
+					return lhs_variant <=> rhs_variant
+				end
+				return lhs_extension <=> rhs_extension
+			end
+			return -1
+		elsif(rhs_mode == "Default")
+			return +1
+		elsif(lhs_mode == "Plain" || lhs_mode == "TeX")
+			if(rhs_mode == "Plain" || rhs_mode == "TeX")
+				if(lhs_extension == rhs_extension || lhs_extension == "*" || rhs_extension == "*")
+					if(lhs_variant == rhs_variant || lhs_variant == "*" || rhs_variant == "*")
+						if(lhs_output == "*" || rhs_output == "*")
+							return 0
+						end
+						return lhs_output <=> rhs_output
+					end
+					return lhs_variant <=> rhs_variant
+				end
+				return lhs_extension <=> rhs_extension
+			end
+			return -1
+		elsif(rhs_mode == "Plain" || rhs_mode == "TeX")
+			return +1
+		elsif(lhs_mode == rhs_mode || lhs_mode == "*" || rhs_mode == "*")
+			if(lhs_extension == rhs_extension || lhs_extension == "*" || rhs_extension == "*")
+				if(lhs_variant == rhs_variant || lhs_variant == "*" || rhs_variant == "*")
+					if(lhs_output == "*" || rhs_output == "*")
+						return 0
+					end
+					return lhs_output <=> rhs_output
+				end
+				return lhs_variant <=> rhs_variant
+			end
+			return lhs_extension <=> rhs_extension
+		end
+		return lhs_mode <=> rhs_mode
+	end
+
+end
+
+class Hash
+
+	def base_name
+		result = ''
+		if self['E'].length?
+			result = "(#{self['E']})"
+		end
+		result += self['M']
+		if self['O'].length?
+			result += "+#{self['O']}"
+		end
+		if self['V'].length?
+			result += "-#{self['V']}"
+		end
+		return result
+	end
+	
 end
 
 class Pathname
@@ -124,6 +208,10 @@ class Named_document
 	def ==(rhs)
 		return false if !rhs.is_a?(Named_document)
 		name == rhs.name
+	end
+
+	def to_s
+		"<#{super.to_s}\nname:#{name.to_s}\nmodel:#{(model)?(model.to_s):('None')}>"
 	end
 
 end
@@ -253,6 +341,10 @@ class CommandInfo < Named_document
 		nil
 	end
 
+	def to_s
+		"<#{super.to_s}\nname:#{name.to_s}>"
+	end
+
 end
 
 class Project < Named_document
@@ -277,20 +369,20 @@ class Project < Named_document
 		@helper
 	end
 
-	def base
-		return @base if @base_is_set
-		@base_is_set = 1
-		if name.base?
-			p = Pathname.new(name.to_s.sub(/\+[^\/]*\.texp$/,'.texp'))
-			return nil if name == p
-			return @base = Project.create(p)
-		end
+	def base_name
 		n = command_info.model.elements['key[text()="BaseProjectName"]/following-sibling::string[1]/text()']
-		p = Pathname.new(ENV['iTM2_Base_Projects_Directory'])
-		p = p + ((n)?(n.to_s):("LaTeX"))
-		p = p.pathname_by_appending_extension("texp")
-		bail("Unknown base project named: #{n}\n you should change your project settings in\n#{p}.") if !p.exist?
-		@base = Project.create(p)
+		n = 'LaTeX' if ! n
+		bail("Unknown base project named: #{n}\n you should change your project settings in\n#{p}.") if ! $launcher.base_project_names.include?(n.to_s)
+		n.to_s
+	end
+
+	def all_base_names
+		return @all_base_names if @all_base_names
+		@all_base_names = $launcher.base_project_names_of base_name
+	end
+
+	def base
+		bail("Deprecated")
 	end
 
 	def main_info
@@ -309,7 +401,7 @@ class Project < Named_document
 		# the first object is the most recent or the writable one
 		# the last object MUST come from the base project
 		return @main_infos if @main_infos
-		@main_infos = Array.new;
+		@main_infos = Array.new
 		@main_infos.push(main_info)
 		if helper and helper.main_info
 			@main_infos.push(helper.main_info)
@@ -321,12 +413,45 @@ class Project < Named_document
 		@main_infos
 	end
 
+	def all_commands
+		return @all_commands if @all_commands
+		@all_commands = Array.new
+		command_infos.each{|infos|
+			if dict = infos.model.elements["key[text()='Commands']/following-sibling::dict"]
+				key = dict.elements["key"]
+				while key
+					@all_commands.push key.elements["text()"].to_s
+					key = key.elements["following-sibling::key"]
+				end
+			end
+		}
+		@all_commands.uniq!
+		@all_commands
+	end
+
+	def all_engines
+		return @all_engines if @all_engines
+		@all_engines = Array.new
+		command_infos.each{|infos|
+			if dict = infos.model.elements["key[text()='Engines']/following-sibling::dict"]
+				key = dict.elements["key"]
+				while key
+					@all_engines.push key.elements["text()"].to_s
+					key = key.elements["following-sibling::key"]
+				end
+			end
+		}
+		@all_engines.uniq!
+		@all_engines
+	end
+
 	def command_infos
 		# the array of all available commands Infos.plist
-		# It is sorted according to file modification date
+		# For the 2 first, it is sorted according to file modification date
 		# the first object is the most recent
+		# the other ones come from the base projects
 		return @command_infos if @command_infos
-		@command_infos = Array.new;
+		@command_infos = Array.new
 		@command_infos.push(command_info)
 		if helper.ok? and helper.command_info.ok?
 			@command_infos.push(helper.command_info)
@@ -334,10 +459,13 @@ class Project < Named_document
 				@command_infos.sort!{|x,y| y.modification_time <=> x.modification_time }
 			end
 		end
-		if base.ok?
-			@command_infos.concat(base.command_infos)
-			@command_infos.uniq!
-		end
+		# now list all the other stuff
+		all_base_names.each{|name|
+			$launcher.base_project_entries[name].each{|base|
+				p = Pathname.new(ENV['iTM2_Base_Projects_Directory'])+base
+				@command_infos.push(CommandInfo.create(p))
+			}
+		}
 		@command_infos
 	end
 
@@ -356,7 +484,7 @@ class Project < Named_document
 				return result.to_s
 			end
 		}
-		return nil;
+		return nil
 	end
 
 	def build_folder
@@ -497,7 +625,7 @@ class Project < Named_document
 			|info|
 			if x=info.engine_script_for_mode(mode)
 				# Found an engine script mode that is not "Base"
-				return x;
+				return x
 			end
 		}
 		nil
@@ -509,7 +637,7 @@ class Project < Named_document
 			|info|
 			if x = info.engine_mode_for_name(master_name)
 				# An engine script mode that is not "Base"?
-				return x if  x != "Base";
+				return x if  x != "Base"
 				base = x unless base
 			end
 		}
@@ -729,7 +857,80 @@ class Launcher
 			end
 		end
 	end
+	
+	def base_project_entries
+		return @base_project_entries if @base_project_entries
+		@base_project_entries = Hash.new
+		Dir.chdir(ENV['iTM2_Base_Projects_Directory'])
+		Dir["*.texps"].each {|x|
+			Dir.entries(x).each {|y|
+				if /(^.*)\.texp$/ =~ y
+					if ! @base_project_entries.key?($1)
+						@base_project_entries[$1]=Array.new
+					end
+					@base_project_entries[$1].unshift(x+'/'+$1+'.texp')
+				end
+			}
+		}
+		return @base_project_entries
+	end
+
+	def base_project_names
+		self.base_project_entries.keys
+	end
+
+	def base_project_names_of(name)
+		result = Array.new
+		result.push(name) if base_project_names.include?(name)
+		ps = name.properties
+		if(ps['M']=='Default')
+		elsif(ps['M']=='TeX')
+			ps['M']='Default'
+			result.concat(base_project_names_of(ps.base_name))
+		elsif(ps['M']=='Plain')
+			ps['M']='TeX'
+			result.concat(base_project_names_of(ps.base_name))
+		else
+			ps['M']='Plain'
+			result.concat(base_project_names_of(ps.base_name))
+		end
+		ps = name.properties
+		ps['E']=nil
+		n = ps.base_name
+		result.concat(base_project_names_of(n)) if n.length<name.length
+		ps = name.properties
+		ps['V']=nil
+		n = ps.base_name
+		result.concat(base_project_names_of(n)) if n.length<name.length
+		ps = name.properties
+		ps['O']=nil
+		n = ps.base_name
+		result.concat(base_project_names_of(n)) if n.length<name.length
+		result.uniq!
+		result.sort!{|x,y|
+			y.compare_properties x
+		}
+		return result
+	end
 
 end
+print "! What are the commands?
+"
+$launcher.project.all_commands.each{|cmd|
+print "cmd:#{cmd}
+"
+}
+print "! What are the engines?
+"
+$launcher.project.all_engines.each{|cmd|
+print "ngs:#{cmd}
+"
+}
+print "! What are the infos?
+"
+print $launcher.project.command_infos
+print "
+"
+exit -1
 $launcher.execute_concrete
 

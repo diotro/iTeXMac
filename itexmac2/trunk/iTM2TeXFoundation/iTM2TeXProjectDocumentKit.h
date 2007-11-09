@@ -32,7 +32,6 @@ extern NSString * const iTM2TeXProjectInfoComponent;
 extern NSString * const iTM2TeXProjectDocumentType;
 extern NSString * const iTM2TeXProjectPathExtension;
 extern NSString * const iTM2TeXProjectInspectorType;
-extern NSString * const iTM2TeXProjectInfoType;
 
 extern NSString * const iTM2TeXWrapperDocumentType;
 extern NSString * const iTM2TeXWrapperPathExtension;
@@ -40,8 +39,6 @@ extern NSString * const iTM2TeXWrapperPathExtension;
 extern NSString * const iTM2TeXPInfoKey;
 
 extern NSString * const iTM2TeXProjectTable;
-
-extern NSString * const TWSMasterFileKey;
 
 extern NSString * iTM2ProjectLocalizedMasterName;
 
@@ -62,46 +59,67 @@ extern NSString * const iTM2TeXProjectPathExtension;
 
 @interface iTM2TeXProjectDocument: iTM2ProjectDocument
 
-/*! 
-    @method     masterFileKey
-    @abstract   The main key is the one for the main file.
-    @discussion If this key is not present, one should be asked for.
-				Do not assume that the key stored in the info property list is still valid.
-				By default, this key should be ...iTM2FrontDocument, and will be dynamically
-				replaced by the key of the project front most document.
-    @param      None
-    @result     a NSString
-*/
-- (NSString *)masterFileKey;
-- (NSString *)realMasterFileKey;
-
-/*! 
-    @method     setMasterFileKey:
-    @abstract   Set the main key.
-    @discussion Description forthcoming.
-    @param      key is the new key
-    @result     None
-*/
-- (void)setMasterFileKey:(NSString *)key;
-
 /*!
-    @method     wasNotModified
-    @abstract   (brief description)
-    @discussion (comprehensive description)
-    @result     (description)
-*/
-- (BOOL)wasNotModified;
-
-/*!
-    @method     setWasNotModified:
+    @method     helperProject
     @abstract   (brief description)
     @discussion Set it to no if the project has been edited in such a way that commands' behaviours are affected.
     @param      yorn (description)
     @result     None.
 */
-- (void)setWasNotModified:(BOOL)yorn;
+- (id)helperProject;
+
+/*!
+    @method     setHelperProject:
+    @abstract   (brief description)
+    @discussion Set it to no if the project has been edited in such a way that commands' behaviours are affected.
+    @param      yorn (description)
+    @result     None.
+*/
+- (void)setHelperProject:(id)baseProject;
 
 @end
+
+#define iVarMode valueForKey: iTM2TPDKModeKey
+#define iVarExtension valueForKey: iTM2TPDKExtensionKey
+#define iVarPrettyExtension valueForKey: iTM2TPDKPrettyExtensionKey
+#define iVarVariant valueForKey: iTM2TPDKVariantKey
+#define iVarName valueForKey: iTM2TPDKNameKey
+#define iVarOutput valueForKey: iTM2TPDKOutputKey
+
+extern NSString * const iTM2TPDKModeKey;
+extern NSString * const iTM2TPDKExtensionKey;
+extern NSString * const iTM2TPDKPrettyExtensionKey;
+extern NSString * const iTM2TPDKVariantKey;
+extern NSString * const iTM2TPDKOutputKey;
+extern NSString * const iTM2TPDKNameKey;
+
+@interface NSString(iTM2TeXProjectDocumentKit)
+
+/*! 
+    @method     TeXProjectProperties
+    @abstract   The receiver translated as TeX projects properties.
+    @discussion Used by the inspectors in the mode/extension/output/variant choice.
+				The name of the project is parsed to match (extension)mode+output-variant.
+    @param      None
+    @result     A dictionary
+*/
+- (NSDictionary *)TeXProjectProperties;
+
+@end
+
+@interface NSDictionary(TeXProjectProperties)
+
+/*! 
+    @method     TeXBaseProjectName
+    @abstract   The receiver as TeX projects properties translated into a project name.
+    @discussion Given the extension, core, variant and output, returns the name.
+    @param      None
+    @result     A NSString
+*/
+- (NSString *)TeXBaseProjectName;
+
+@end
+
 
 @interface iTM2TeXPFilesWindow: NSWindow
 @end

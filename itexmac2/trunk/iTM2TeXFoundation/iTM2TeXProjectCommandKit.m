@@ -22,6 +22,7 @@
 */
 
 #import "iTM2TeXProjectCommandKit.h"
+#import "iTM2TeXInfoWrapperKit.h"
 #import "iTM2TeXProjectFrontendKit.h"
 #import "iTM2TeXProjectTaskKit.h"
 #import <Carbon/Carbon.h>
@@ -37,8 +38,29 @@ NSString * const iTM2TeXProjectHelpPage = @"pgs/004.htm";
 - (void)setEditedCommand:(id)argument;
 @end
 
+@implementation NSArray(iTM2TeXProjectCommandKit)
+- (NSArray *)filteredArrayUsingPredicateValue:(NSString *)value forKey:(NSString *)key;
+{
+	if([value length])
+		return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K LIKE %@",key,value]];
+	else
+		return [self filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K MATCHES %@",key,@"^$"]];
+}
+@end
+
 @implementation iTM2TeXPCommandsWindow
 @end
+
+NSString * const iTM2TPFEEnvironmentModeKey = @"EnvironmentMode";
+NSString * const iTM2TPFEScriptModeKey = @"ScriptMode";
+
+NSString * const iTM2TPFECommandsKey = @"Commands";
+NSString * const iTM2TPFECommandEnvironmentsKey = @"CommandEnvironments";
+NSString * const iTM2TPFECommandScriptsKey = @"CommandScripts";
+
+NSString * const iTM2TPFEEnginesKey = @"Engines";// model
+NSString * const iTM2TPFEEngineEnvironmentsKey = @"EngineEnvironments";
+NSString * const iTM2TPFEEngineScriptsKey = @"EngineScripts";
 
 @implementation iTM2TeXPCommandsInspector
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
@@ -50,16 +72,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings(small)"];
-	if(I)
-	{
-		return I;
-	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectSettings"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectSettings(small)"];
-    return I;
+    return [NSImage findImageNamed:@"showCurrentProjectSettings(small)"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
@@ -182,8 +195,8 @@ To Do List:
     [[self window] orderOut:self];
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
-- (BOOL)validateWindowContent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  close
+- (void)close;
 /*"Before calling the inherited method, update the list of available projects.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -191,9 +204,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [IMPLEMENTATION takeMetaValue:[SPC TeXProjectsProperties] forKey:@"_TPPs"];// TeX Projects Properties
-//iTM2_LOG(@"MD: %@", MD);
-    return [super validateWindowContent];
+	[super close];
+//iTM2_END;
+    return;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
@@ -219,22 +232,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[(id)[self document] setWasNotModified:NO];
-	[[self document] saveDocument:self];
-    [[self window] orderOut:self];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancel:
-- (IBAction)cancel:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self restoreModel];
-	[self setDocumentEdited:NO];
+	id project = [self document];
+	if([project isDocumentEdited])
+	{
+		[project removeBuildDirectory];
+		[project saveDocument:self];
+	}
+#warning REMOVE THE BIN DIRECTORy instead?
     [[self window] orderOut:self];
     return;
 }
@@ -274,92 +278,7 @@ To Do List:
 	}
     return;
 }
-#pragma mark =-=-=-=-=-=-=-=-=-=-  Backup/Cancel
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doCommandCompleteBackupModel
-- (void)doCommandCompleteBackupModel;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    id TPD = (iTM2TeXProjectDocument *)[self document];
-	if(TPD)
-	{
-//iTM2_LOG(@"TPD is: %@", TPD);
-//iTM2_LOG(@"[TPD baseProjectName] is: %@", [TPD baseProjectName]);
-//iTM2_LOG(@"[TPD commandScripts] is: %@", [TPD commandScripts]);
-//iTM2_LOG(@"[TPD commandEnvironments] is: %@", [TPD commandEnvironments]);
-		[self takeModelBackup:[TPD baseProjectName] forKey:@"base project name"];
-		[self takeModelBackup:[[[TPD commandScripts] copy] autorelease] forKey:iTM2TPFECommandScriptsKey];
-		[self takeModelBackup:[[[TPD commandEnvironments] copy] autorelease] forKey:iTM2TPFECommandEnvironmentsKey];
-	}
-	else
-	{
-		iTM2_LOG(@"NO PROJECT TO BACKUP???");
-	}
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doCommandCompleteRestoreModel
-- (void)doCommandCompleteRestoreModel;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id newBPN = [self modelBackupForKey:@"base project name"];
-    id TPD = (iTM2TeXProjectDocument *)[self document];
-    if(![[TPD baseProjectName] isEqualToString:newBPN])
-        [TPD setBaseProjectName:newBPN];
-	[TPD setCommandWrappers:nil];// the command wrappers will be recreated from the correct model
-	NSDictionary * newD = [self modelBackupForKey:iTM2TPFECommandEnvironmentsKey];
-	if(newD)
-	{
-		NSDictionary * D = [TPD commandEnvironments];
-		NSEnumerator * E = [D keyEnumerator];
-		NSString * commandName = nil;
-		while(commandName = [E nextObject])
-		{
-			[TPD takeEnvironment:nil forCommandMode:commandName];
-		}
-		E = [newD keyEnumerator];
-		while(commandName = [E nextObject])
-		{
-			[TPD takeEnvironment:[newD objectForKey:commandName] forCommandMode:commandName];
-		}
-	}
-	else
-	{
-		iTM2_LOG(@"NOTHING TO RESTORE, VERY BAD!!!");
-	}
-	newD = [self modelBackupForKey:iTM2TPFECommandScriptsKey];
-	if(newD)
-	{
-		NSDictionary * D = [TPD commandEnvironments];
-		NSEnumerator * E = [D keyEnumerator];
-		NSString * commandName;
-		while(commandName = [E nextObject])
-		{
-			[TPD takeScriptDescriptor:nil forCommandMode:commandName];
-		}
-		E = [newD keyEnumerator];
-		while(commandName = [E nextObject])
-		{
-			[TPD takeScriptDescriptor:[newD objectForKey:commandName] forCommandMode:commandName];
-		}
-	}
-	else
-	{
-		iTM2_LOG(@"NOTHING TO RESTORE, VERY BAD!!!");
-	}
-	newD = [self modelBackupForKey:iTM2TPFECommandScriptsKey];
-    return;
-}
 #pragma mark =-=-=-=-=-  BASE PROJECT
-#if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseBaseMode:
 - (IBAction)chooseBaseMode:(id)sender;
 /*"Description forthcoming.
@@ -370,49 +289,54 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
-    NSString * mode = [(id)[sender selectedItem] representedString];
-    if([mode isEqualToString:[[[[TPD baseProjectName] TeXProjectProperties] iVarMode] lowercaseString]])
-        return;
-    NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];// TeX Projects Properties...
-    NSEnumerator * E = [TPPs keyEnumerator];
-    NSDictionary * keyD;
-    NSString * newBPN = @"";
-    NSString * shortestName = @"";
-    NSString * pdf = [iTM2TPFEPDFOutput lowercaseString];
-    while(keyD = [E nextObject])
-        if([[keyD iVarMode] isEqualToString:mode])
-        {
-            if([[keyD iVarVariant] isEqualToString:@""]
-                && [[keyD iVarOutput] isEqualToString:pdf])
-            {
-                newBPN = [[TPPs objectForKey:keyD] iVarName];
-                goto tahaa;
-            }
-            shortestName = [[TPPs objectForKey:keyD] iVarName];
-            break;
-        }
-    while(keyD = [E nextObject])
-        if([[keyD iVarMode] isEqualToString:mode])
-        {
-            if([[keyD iVarVariant] isEqualToString:@""]
-                && [[keyD iVarOutput] isEqualToString:pdf])
-            {
-                newBPN = [[TPPs objectForKey:keyD] iVarName];
-                goto tahaa;
-            }
-            NSString * varName = [[TPPs objectForKey:keyD] iVarName];
-            if([varName length] < [shortestName length])
-                shortestName = varName;
-        }
-    newBPN = shortestName;
-    tahaa:
-    if(![[TPD baseProjectName] pathIsEqual:newBPN])
-    {
-        [TPD setBaseProjectName:newBPN];
-        [TPD updateChangeCount:NSChangeDone];
-    }
-    [self validateWindowContent];
-    return;
+	if([SPC isBaseProject:TPD])
+	{
+		return;
+	}
+	NSString * oldBPN = [TPD baseProjectName];
+	NSDictionary * oldTPPs = [oldBPN TeXProjectProperties];
+	NSString * newMode = [(id)[sender selectedItem] title];
+	// get all the base project names with that new mode
+	NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"];
+	// filter out with newMode, case sensitive
+	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newMode forKey:iTM2TPDKModeKey];
+	NSAssert([RA count]>0,@"Internal inconsistency, the new mode should exist!");
+	// try to keep the extension
+	NSArray * nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKExtensionKey] forKey:iTM2TPDKExtensionKey];
+	if([nextRA count])
+	{
+		RA = nextRA;
+	}
+	else
+	{
+		NSString * newBPN;
+the_end:
+		newBPN = [[RA objectAtIndex:0] TeXBaseProjectName];
+		if(![[TPD baseProjectName] pathIsEqual:newBPN])
+		{
+			[TPD setBaseProjectName:newBPN];
+			[TPD updateChangeCount:NSChangeDone];
+		}
+		[self validateWindowContent];
+		return;
+	}
+	// try to keep the variant
+	nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKVariantKey] forKey:iTM2TPDKVariantKey];
+	if([nextRA count])
+	{
+		RA = nextRA;
+	}
+	else
+	{
+		goto the_end;
+	}
+	// try to keep the ouput
+	nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKOutputKey] forKey:iTM2TPDKOutputKey];
+	if([nextRA count])
+	{
+		RA = nextRA;
+	}
+	goto the_end;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseBaseMode:
 - (BOOL)validateChooseBaseMode:(id)sender;
@@ -423,40 +347,40 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"sender is: %@", sender);
     id TPD = (iTM2TeXProjectDocument *)[self document];
+	if([SPC isBaseProject:TPD])
+	{
+		return NO;
+	}
+//iTM2_LOG(@"sender is: %@", sender);
     if([sender isKindOfClass:[NSPopUpButton class]])
     {
-		static NSString * noModeTitle = nil;
-		if(!noModeTitle)
-			noModeTitle = [[[sender lastItem] title] copy];
+		static NSString * voidTitle = nil;
+		if(!voidTitle)
+			voidTitle = [[[sender lastItem] title] copy];
         [sender removeAllItems];
-		if(![[TPD baseProjectName] length])
-		{
-			[sender addItemWithTitle:noModeTitle];
-			return NO;
-		}
-        NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-        NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-        NSEnumerator * E = [TPPs keyEnumerator];
-        NSDictionary * D;
-        while(D = [E nextObject])
+		// get the available modes of the array of the tex project properties of all the base project names
+		NSArray * modes = [[[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"] valueForKey:iTM2TPDKModeKey];
+		// get only one copy per mode
+		modes = [[NSSet setWithArray:modes] allObjects];
+		// sort the modes
+		modes = [modes sortedArrayUsingSelector:@selector(compare:)];
+		// feed the sender
+		NSEnumerator * E = [modes objectEnumerator];
+        NSString * mode;
+        while(mode = [E nextObject])
         {
-            [MD takeValue:[[[TPPs objectForKey:D] valueForKey:iTM2TeXPCommandPropertiesKey] iVarMode]
-                forKey: [D iVarMode]];
+			if(![mode isEqual:iTM2ProjectDefaultName])// the default mode is not added
+			{
+				[sender addItemWithTitle:mode];
+				[[sender lastItem] setRepresentedObject:mode];
+			}
         }
-            // the key is lowercase!!! the value need not
-        E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-        NSString * k;
-        while(k = [E nextObject])
-        {
-            [sender addItemWithTitle:[MD valueForKey:k]];
-            [[sender lastItem] setRepresentedObject:k];// the lowercase string
-        }
-        NSDictionary * Ps = [[TPD baseProjectName] TeXProjectProperties];
-//iTM2_LOG(@"Ps are: %@ (from %@)", Ps, TPD);
-        NSString * mode = [Ps iVarMode];
-        int idx = [sender indexOfItemWithRepresentedObject:[mode lowercaseString]];
+		// select the proper item
+		NSString * BPN = [TPD baseProjectName];
+        NSDictionary * Ps = [BPN TeXProjectProperties];
+        mode = [Ps iVarMode];
+        int idx = [sender indexOfItemWithRepresentedObject:mode];
         if(idx == -1)
         {
             if([sender numberOfItems])
@@ -464,20 +388,145 @@ To Do List:
             [sender addItemWithTitle:[NSString stringWithFormat:@"%@(Unknown)", mode]];
             [sender selectItem:[sender lastItem]];        
             [[sender lastItem] setRepresentedObject:nil];// BEWARE!!!
+			[[sender lastItem] setEnabled: NO];
         }
         else
         {
             [sender selectItemAtIndex:idx];
         }
-#if 0
-		idx = [sender numberOfItems];
-		while(idx--)
-		{
-			iTM2_LOG(@"SELECTOR IS: %@", NSStringFromSelector([[sender itemAtIndex:idx] action]));
-		}
-#endif
 		if([sender numberOfItems] < 2)
+		{
+			[sender setEnabled: NO];
 			return NO;
+		}
+	}
+	else if([sender isKindOfClass:[NSMenuItem class]])
+	{
+		return [sender representedObject] != nil;
+	}
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseExtension:
+- (IBAction)chooseExtension:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Mar 26 08:41:36 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    id TPD = (iTM2TeXProjectDocument *)[self document];
+	if([SPC isBaseProject:TPD])
+	{
+		return;
+	}
+	NSString * oldBPN = [TPD baseProjectName];
+	NSDictionary * oldTPPs = [oldBPN TeXProjectProperties];
+	// get all the base project names with that actual mode
+	NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"];
+	TPPs = [TPPs filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKModeKey] forKey:iTM2TPDKModeKey];
+	// filter out with newExtension, case sensitive
+	NSString * newExtension = [(id)[sender selectedItem] representedObject];
+	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newExtension forKey:iTM2TPDKExtensionKey];
+	NSAssert([RA count]>0,@"Internal inconsistency, the new mode should exist!");
+	// try to keep the variant
+	NSArray * nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKVariantKey] forKey:iTM2TPDKVariantKey];
+	if([nextRA count])
+	{
+		RA = nextRA;
+	}
+	else
+	{
+		NSString * newBPN;
+the_end:
+		newBPN = [[RA objectAtIndex:0] TeXBaseProjectName];
+		if(![[TPD baseProjectName] pathIsEqual:newBPN])
+		{
+			[TPD setBaseProjectName:newBPN];
+			[TPD updateChangeCount:NSChangeDone];
+		}
+		[self validateWindowContent];
+		return;
+	}
+	// try to keep the ouput
+	nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKOutputKey] forKey:iTM2TPDKOutputKey];
+	if([nextRA count])
+	{
+		RA = nextRA;
+	}
+	goto the_end;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseExtension:
+- (BOOL)validateChooseExtension:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Mar 26 08:41:36 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    id TPD = (iTM2TeXProjectDocument *)[self document];
+	if([SPC isBaseProject:TPD])
+	{
+		return NO;
+	}
+//iTM2_LOG(@"sender is: %@", sender);
+    if([sender isKindOfClass:[NSPopUpButton class]])
+    {
+		static NSString * voidTitle = nil;
+		if(!voidTitle)
+			voidTitle = [[[sender lastItem] title] copy];
+        [sender removeAllItems];
+        NSDictionary * Ps = [[TPD baseProjectName] TeXProjectProperties];
+		// get all the base project names properties
+		NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"];
+		// filter out those with the proper mode
+		TPPs = [TPPs filteredArrayUsingPredicateValue:[Ps iVarMode] forKey:iTM2TPDKModeKey];
+		// get the extensions
+		NSArray * extensions = [TPPs valueForKey:iTM2TPDKExtensionKey];
+		// get only one copy per extension
+		extensions = [[NSSet setWithArray:extensions] allObjects];
+		// sort the extensions
+		extensions = [extensions sortedArrayUsingSelector:@selector(compare:)];
+		// feed the sender
+		NSEnumerator * E = [extensions objectEnumerator];
+        NSString * extension;
+        while(extension = [E nextObject])
+        {
+			if([extension length])
+			{
+				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle([extension lowercaseString],iTM2TeXProjectFrontendTable,[NSBundle bundleForClass:[iTM2TeXProjectDocument class]],"")];
+			}
+			else
+			{
+				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Standard",iTM2TeXProjectFrontendTable,[NSBundle bundleForClass:[iTM2TeXProjectDocument class]],"")];
+			}
+			[[sender lastItem] setRepresentedObject:extension];
+        }
+        extension = [Ps iVarExtension];
+        int idx = [sender indexOfItemWithRepresentedObject:extension];
+        if(idx == -1)
+        {
+            if([sender numberOfItems])
+				[[sender menu] addItem:[NSMenuItem separatorItem]];
+            [sender addItemWithTitle:[NSString stringWithFormat:@"%@(Unknown)", extension]];
+            [sender selectItem:[sender lastItem]];        
+            [[sender lastItem] setRepresentedObject:nil];// BEWARE!!!
+			[[sender lastItem] setEnabled: NO];
+        }
+        else
+        {
+            [sender selectItemAtIndex:idx];
+        }
+		if([sender numberOfItems] < 2)
+		{
+			[sender setEnabled: NO];
+			return NO;
+		}
+	}
+	else if([sender isKindOfClass:[NSMenuItem class]])
+	{
+		return [sender representedObject] != nil;
 	}
     return YES;
 }
@@ -491,57 +540,34 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
-    NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
-//iTM2_LOG(@"variant chosen is: %@", variant);
-    if([variant isEqualToString:iTM2ProjectDefaultsKey])
-        variant = @"";
-    NSDictionary * oldTPPs = [[TPD baseProjectName] TeXProjectProperties];
-    if([variant isEqualToString:[[oldTPPs iVarVariant] lowercaseString]])
-        return;
-    NSString * mode = [[oldTPPs iVarMode] lowercaseString];
-    NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-    NSEnumerator * E = [TPPs keyEnumerator];
-    NSDictionary * keyD;
-    NSString * newBPN = @"";
-    NSString * shortestName = @"";
-    NSString * pdf = [iTM2TPFEPDFOutput lowercaseString];
-    while(keyD = [E nextObject])
-    {
-//iTM2_LOG(@"keyD is: %@", keyD]);
-        if([[keyD iVarMode] isEqualToString:mode]
-            && [[keyD iVarVariant] isEqualToString:variant])
-        {
-            newBPN = [[TPPs objectForKey:keyD] iVarName];
-            if([[keyD iVarOutput] isEqualToString:pdf])
-                goto tahaa;
-            shortestName = newBPN;
-            break;
-        }
-//iTM2_LOG(@"shortestName is: %@ (%@) ----1", shortestName, [[TPPs objectForKey:keyD] iVarName]);
-    }
-    while(keyD = [E nextObject])
-    {
-//iTM2_LOG(@"keyD is: %@", keyD]);
-        if([[keyD iVarMode] isEqualToString:mode]
-            && [[keyD iVarVariant] isEqualToString:variant])
-        {
-            newBPN = [[TPPs objectForKey:keyD] iVarName];
-            if([[keyD iVarOutput] isEqualToString:pdf])
-                goto tahaa;
-            else if([newBPN length] < [shortestName length])
-                shortestName = newBPN;
-        }
-//iTM2_LOG(@"shortestName is: %@ (%@)", shortestName, [[TPPs objectForKey:keyD] iVarName]);
-    }
-    newBPN = shortestName;
-    tahaa:
-    if(![[TPD baseProjectName] isEqualToString:newBPN])
-    {
-        [TPD setBaseProjectName:newBPN];
-        [TPD updateChangeCount:NSChangeDone];
-    }
-    [self validateWindowContent];
-    return;
+	if([SPC isBaseProject:TPD])
+	{
+		return;
+	}
+	NSString * oldBPN = [TPD baseProjectName];
+	NSDictionary * oldTPPs = [oldBPN TeXProjectProperties];
+	// get all the base project names with that actual mode and extension
+	NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"];
+	TPPs = [TPPs filteredArrayUsingPredicateValue:[oldTPPs iVarMode] forKey:iTM2TPDKModeKey];
+	TPPs = [TPPs filteredArrayUsingPredicateValue:[oldTPPs iVarExtension] forKey:iTM2TPDKExtensionKey];
+	// filter out with newVariant, case sensitive
+	NSString * newVariant = [(id)[sender selectedItem] representedObject];
+	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newVariant forKey:iTM2TPDKVariantKey];
+	NSAssert([RA count]>0,@"Internal inconsistency, the new mode should exist!");
+	// try to keep the output
+	NSArray * nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKOutputKey] forKey:iTM2TPDKOutputKey];
+	if([nextRA count])
+	{
+		RA = nextRA;
+	}
+	NSString * newBPN = [[RA objectAtIndex:0] TeXBaseProjectName];
+	if(![[TPD baseProjectName] pathIsEqual:newBPN])
+	{
+		[TPD setBaseProjectName:newBPN];
+		[TPD updateChangeCount:NSChangeDone];
+	}
+	[self validateWindowContent];
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
 - (BOOL)validateChooseVariant:(id)sender;
@@ -553,412 +579,69 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id TPD = (iTM2TeXProjectDocument *)[self document];
+	if([SPC isBaseProject:TPD])
+	{
+		return NO;
+	}
+//iTM2_LOG(@"sender is: %@", sender);
     if([sender isKindOfClass:[NSPopUpButton class]])
     {
-		static NSString * noModeTitle = nil;
-		if(!noModeTitle)
-			noModeTitle = [[[sender lastItem] title] copy];
+		static NSString * voidTitle = nil;
+		if(!voidTitle)
+			voidTitle = [[[sender lastItem] title] copy];
         [sender removeAllItems];
-		if(![[TPD baseProjectName] length])
-		{
-			[sender addItemWithTitle:noModeTitle];
-			return NO;
-		}
-        // the sender is populated with all the variants of the projects with the same mode
-        [sender removeAllItems];
-//iTM2_LOG(@"baseProjectName is: %@", [TPD baseProjectName]);
         NSDictionary * Ps = [[TPD baseProjectName] TeXProjectProperties];
-        NSString * baseMode = [[Ps iVarMode] lowercaseString];
-//iTM2_LOG(@"baseMode is: %@", baseMode);
-        NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-        NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-        NSEnumerator * E = [TPPs keyEnumerator];
-        NSDictionary * keyD;
-        while(keyD = [E nextObject])
-            if([[[keyD iVarMode] lowercaseString] isEqualToString:baseMode])
-            {
-//iTM2_LOG(@"GOOD keyD is: %@", keyD);
-                NSString * variant = [keyD iVarVariant];
-                if([variant length])
-                    [MD takeValue:[[[TPPs objectForKey:keyD] valueForKey:iTM2TeXPCommandPropertiesKey] iVarVariant]
-                        forKey: variant];
-                else
-#warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:iTM2ProjectDefaultsKey];
-            }
-            else
-            {
-//iTM2_LOG(@"BAD  keyD is: %@", keyD);
-            }
-        E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-        NSString * k;
-        while(k = [E nextObject])
+		// get all the base project names properties
+		NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"];
+		// filter out those with the proper mode, extension
+		TPPs = [TPPs filteredArrayUsingPredicateValue:[Ps iVarMode] forKey:iTM2TPDKModeKey];
+		TPPs = [TPPs filteredArrayUsingPredicateValue:[Ps iVarExtension] forKey:iTM2TPDKExtensionKey];
+		// get the variants
+		NSArray * variants = [TPPs valueForKey:iTM2TPDKVariantKey];
+		// get only one copy per extension
+		variants = [[NSSet setWithArray:variants] allObjects];
+		// sort the extensions
+		variants = [variants sortedArrayUsingSelector:@selector(compare:)];
+		// feed the sender
+		NSEnumerator * E = [variants objectEnumerator];
+        NSString * variant;
+        while(variant = [E nextObject])
         {
-            [sender addItemWithTitle:[MD valueForKey:k]];
-            [[sender lastItem] setRepresentedObject:k];// the lowercase string
-        }
-        NSString * variant = [Ps iVarVariant];
-//iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2ProjectDefaultsKey)];
-        if(idx == -1)
-        {
-			if([sender numberOfItems])
-				[[sender menu] addItem:[NSMenuItem separatorItem]];
-			[sender addItemWithTitle: ([variant length]? [NSString stringWithFormat:@"%@(Unknown)", variant]:noModeTitle)];
-			[sender selectItem:[sender lastItem]];        
-			[[sender lastItem] setRepresentedObject:nil];// BEWARE!!!
-        }
-        else
-        {
-            [sender selectItemAtIndex:idx];
-        }
-		if([sender numberOfItems] < 2)
-			return NO;
-    }
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOutput:
-- (IBAction)chooseOutput:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    id TPD = (iTM2TeXProjectDocument *)[self document];
-    NSString * output = [(id)[sender selectedItem] representedString];
-    NSDictionary * Ps = [[TPD baseProjectName] TeXProjectProperties];
-    NSString * mode = [[Ps iVarMode] lowercaseString];
-    NSString * variant = [[Ps iVarVariant] lowercaseString];
-    NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-    NSEnumerator * E = [TPPs keyEnumerator];
-    NSDictionary * keyD;
-    while(keyD = [E nextObject])
-    {
-        if([[keyD iVarMode] isEqualToString:mode]
-            && [[[keyD iVarVariant] lowercaseString] isEqualToString:variant]
-                && [[[keyD iVarOutput] lowercaseString] isEqualToString:output])
-        {
-            NSString * newBPN = [[TPPs objectForKey:keyD] iVarName];
-			if(![[TPD baseProjectName] isEqualToString:newBPN])
+			if([variant length])
 			{
-				[TPD setBaseProjectName:newBPN];
-				[TPD updateChangeCount:NSChangeDone];
+				[sender addItemWithTitle:variant];
 			}
-            break;
+			else
+			{
+				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Standard",iTM2TeXProjectFrontendTable,[NSBundle bundleForClass:[iTM2TeXProjectDocument class]],"")];
+			}
+			[[sender lastItem] setRepresentedObject:variant];
         }
-    }
-    [self validateWindowContent];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
-- (BOOL)validateChooseOutput:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    id TPD = (iTM2TeXProjectDocument *)[self document];
-    if([sender isKindOfClass:[NSPopUpButton class]])
-    {
-		static NSString * noModeTitle = nil;
-		if(!noModeTitle)
-			noModeTitle = [[[sender lastItem] title] copy];
-        [sender removeAllItems];
-		if(![[TPD baseProjectName] length])
-		{
-			[sender addItemWithTitle:noModeTitle];
-			return NO;
-		}
-        [sender removeAllItems];
-
-//iTM2_LOG(@"baseProjectName is: %@", [TPD baseProjectName]);
-        NSDictionary * Ps = [[TPD baseProjectName] TeXProjectProperties];
-//iTM2_LOG(@"Ps is: %@", Ps);
-        NSString * mode = [[Ps iVarMode] lowercaseString];
-        NSString * variant = [[Ps iVarVariant] lowercaseString];
-        NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-        NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-        NSEnumerator * E = [TPPs keyEnumerator];
-        NSDictionary * D;
-        while(D = [E nextObject])
-            if([[D iVarMode] isEqualToString:mode] && [[D iVarVariant] isEqualToString:variant])
-            {
-                NSString * output = [D iVarOutput];
-                if([output length])
-                    [MD takeValue:[[[TPPs objectForKey:D] valueForKey:iTM2TeXPCommandPropertiesKey] iVarOutput]
-                        forKey: output];
-            }
-		[sender addItemWithTitle:iTM2TPFEPDFOutput];
-		[[sender lastItem] setRepresentedObject:[iTM2TPFEPDFOutput lowercaseString]];// the lowercase string
-        E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-        NSString * k;
-        while(k = [E nextObject])
-        {
-            [sender addItemWithTitle:[MD valueForKey:k]];
-            [[sender lastItem] setRepresentedObject:k];// the lowercase string
-        }
-        NSString * output = [Ps iVarOutput];
-        int idx = [sender indexOfItemWithRepresentedObject:[([output length]? output:iTM2TPFEPDFOutput) lowercaseString]];
+        variant = [Ps iVarVariant];
+        int idx = [sender indexOfItemWithRepresentedObject:variant];
         if(idx == -1)
         {
-            NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", output];
-            [[sender menu] addItem:[NSMenuItem separatorItem]];
-            [sender addItemWithTitle:lastTitle];
+            if([sender numberOfItems])
+				[[sender menu] addItem:[NSMenuItem separatorItem]];
+            [sender addItemWithTitle:[NSString stringWithFormat:@"%@(Unknown)", variant]];
             [sender selectItem:[sender lastItem]];        
             [[sender lastItem] setRepresentedObject:nil];// BEWARE!!!
+			[[sender lastItem] setEnabled: NO];
         }
         else
         {
             [sender selectItemAtIndex:idx];
         }
 		if([sender numberOfItems] < 2)
+		{
+			[sender setEnabled: NO];
 			return NO;
-    }
-    return YES;
-}
-#else
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseBaseMode:
-- (IBAction)chooseBaseMode:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSString * mode = [(id)[sender selectedItem] representedString];
-    id TPD = (iTM2TeXProjectDocument *)[self document];
-    NSString * oldBPN = [TPD baseProjectName];
-    if([mode isEqualToString:[[[oldBPN TeXProjectProperties] iVarMode] lowercaseString]])
-        return;
-    NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];// TeX Projects Properties...
-    NSEnumerator * E = [TPPs keyEnumerator];
-    NSDictionary * keyD;
-    NSString * newBPN = @"";
-    NSString * shortestName = @"";
-    NSString * pdf = [iTM2TPFEPDFOutput lowercaseString];
-    while(keyD = [E nextObject])
-        if([[keyD iVarMode] isEqualToString:mode])
-        {
-            if([[keyD iVarVariant] isEqualToString:@""]
-                && [[keyD iVarOutput] isEqualToString:pdf])
-            {
-                newBPN = [[TPPs objectForKey:keyD] iVarName];
-                goto tahaa;
-            }
-            shortestName = [[TPPs objectForKey:keyD] iVarName];
-            break;
-        }
-    while(keyD = [E nextObject])
-        if([[keyD iVarMode] isEqualToString:mode])
-        {
-            if([[keyD iVarVariant] isEqualToString:@""]
-                && [[keyD iVarOutput] isEqualToString:pdf])
-            {
-                newBPN = [[TPPs objectForKey:keyD] iVarName];
-                goto tahaa;
-            }
-            NSString * N = [[TPPs objectForKey:keyD] iVarName];
-            if([N length] < [shortestName length])
-                shortestName = N;
-        }
-    newBPN = shortestName;
-    tahaa:
-    if(![[TPD baseProjectName] isEqualToString:newBPN])
-    {
-        [TPD setBaseProjectName:newBPN];
-        [TPD updateChangeCount:NSChangeDone];
-    }
-    [self validateWindowContent];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseBaseMode:
-- (BOOL)validateChooseBaseMode:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"sender is: %@", sender);
-    if([sender isKindOfClass:[NSPopUpButton class]])
-    {
-        [sender removeAllItems];
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		if([SPC isBaseProject:TPD])
-			return NO;
-        NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-        NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-        NSEnumerator * E = [TPPs keyEnumerator];
-        NSDictionary * D;
-        while(D = [E nextObject])
-        {
-            [MD takeValue:[[[TPPs objectForKey:D] valueForKey:iTM2TeXPCommandPropertiesKey] iVarMode]
-                forKey: [D iVarMode]];
-        }
-            // the key is lowercase!!! the value need not
-        E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-        NSString * k;
-        while(k = [E nextObject])
-        {
-            [sender addItemWithTitle:[MD valueForKey:k]];
-            [[sender lastItem] setRepresentedObject:k];// the lowercase string
-        }
-        NSString * BPN = [TPD baseProjectName];
-        NSDictionary * Ps = [BPN TeXProjectProperties];
-        NSString * mode = [Ps iVarMode];
-        int idx = [sender indexOfItemWithRepresentedObject:[mode lowercaseString]];
-        if(idx == -1)
-        {
-            NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", mode];
-            [[sender menu] addItem:[NSMenuItem separatorItem]];
-            [sender addItemWithTitle:lastTitle];
-            [sender selectItem:[sender lastItem]];        
-            [[sender lastItem] setRepresentedObject:nil];// BEWARE!!!
-        }
-        else
-        {
-            [sender selectItemAtIndex:idx];
-        }
-        [sender setEnabled:[sender numberOfItems]>1];           
-    }
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseVariant:
-- (IBAction)chooseVariant:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSString * variant = [[(id)[sender selectedItem] representedString] lowercaseString];
-//iTM2_LOG(@"variant chosen is: %@", variant);
-    if([variant isEqualToString:iTM2ProjectDefaultsKey])
-        variant = @"";
-    id TPD = (iTM2TeXProjectDocument *)[self document];
-    NSString * oldBPN = [TPD baseProjectName];
-    NSDictionary * oldTPPs = [oldBPN TeXProjectProperties];
-    if([variant isEqualToString:[[oldTPPs iVarVariant] lowercaseString]])
-        return;
-    NSString * mode = [[oldTPPs iVarMode] lowercaseString];
-    NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-    NSEnumerator * E = [TPPs keyEnumerator];
-    NSDictionary * keyD;
-    NSString * newBPN = @"";
-    NSString * shortestName = @"";
-    NSString * pdf = [iTM2TPFEPDFOutput lowercaseString];
-    while(keyD = [E nextObject])
-    {
-//iTM2_LOG(@"keyD is: %@", keyD]);
-        if([[keyD iVarMode] isEqualToString:mode]
-            && [[keyD iVarVariant] isEqualToString:variant])
-        {
-            newBPN = [[TPPs objectForKey:keyD] iVarName];
-            if([[keyD iVarOutput] isEqualToString:pdf])
-                goto tahaa;
-            shortestName = newBPN;
-            break;
-        }
-//iTM2_LOG(@"shortestName is: %@ (%@) ----1", shortestName, [[TPPs objectForKey:keyD] iVarName]);
-    }
-    while(keyD = [E nextObject])
-    {
-//iTM2_LOG(@"keyD is: %@", keyD]);
-        if([[keyD iVarMode] isEqualToString:mode]
-            && [[keyD iVarVariant] isEqualToString:variant])
-        {
-            newBPN = [[TPPs objectForKey:keyD] iVarName];
-            if([[keyD iVarOutput] isEqualToString:pdf])
-                goto tahaa;
-            else if([newBPN length] < [shortestName length])
-                shortestName = newBPN;
-        }
-//iTM2_LOG(@"shortestName is: %@ (%@)", shortestName, [[TPPs objectForKey:keyD] iVarName]);
-    }
-    newBPN = shortestName;
-    tahaa:
-    if(![oldBPN isEqualToString:newBPN])
-    {
-        [TPD setBaseProjectName:newBPN];
-        [TPD updateChangeCount:NSChangeDone];
-    }
-    [self validateWindowContent];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
-- (BOOL)validateChooseVariant:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"sender is: %@", sender);
-    if([sender isKindOfClass:[NSPopUpButton class]])
-    {
-        // the sender is populated with all the variants of the projects with the same mode
-        [sender removeAllItems];
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		if([SPC isBaseProject:TPD])
-			return NO;
-        NSString * BPN = [TPD baseProjectName];
-//iTM2_LOG(@"baseProjectName is: %@", BPN);
-        NSDictionary * Ps = [BPN TeXProjectProperties];
-        NSString * baseMode = [[Ps iVarMode] lowercaseString];
-//iTM2_LOG(@"baseMode is: %@", baseMode);
-        NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-        NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-//iTM2_LOG(@"TPPs are is: %@", TPPs);
-        NSEnumerator * E = [TPPs keyEnumerator];
-        NSDictionary * keyD;
-        while(keyD = [E nextObject])
-            if([[keyD iVarMode] isEqualToString:baseMode])
-            {
-//iTM2_LOG(@"GOOD keyD is: %@", keyD);
-                NSString * variant = [keyD iVarVariant];
-                if([variant length])
-                    [MD takeValue:[[[TPPs objectForKey:keyD] valueForKey:iTM2TeXPCommandPropertiesKey] iVarVariant]
-                        forKey: variant];
-                else
-#warning DEBUGGGGG LOCALIZATION???
-                    [MD takeValue:@"None" forKey:iTM2ProjectDefaultsKey];
-            }
-            else
-            {
-//iTM2_LOG(@"BAD  keyD is: %@", keyD);
-            }
-        E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-        NSString * k;
-        while(k = [E nextObject])
-        {
-            [sender addItemWithTitle:[MD valueForKey:k]];
-            [[sender lastItem] setRepresentedObject:k];// the lowercase string
-        }
-        NSString * variant = [Ps iVarVariant];
-//iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject: ([variant length]? [variant lowercaseString]:iTM2ProjectDefaultsKey)];
-        if(idx == -1)
-        {
-            NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", variant];
-            [[sender menu] addItem:[NSMenuItem separatorItem]];
-            [sender addItemWithTitle:lastTitle];
-            [sender selectItem:[sender lastItem]];        
-            [[sender lastItem] setRepresentedObject:nil];// BEWARE!!!
-        }
-        else
-        {
-            [sender selectItemAtIndex:idx];
-        }
-        [sender setEnabled:[sender numberOfItems]>1];           
-    }
+		}
+	}
+	else if([sender isKindOfClass:[NSMenuItem class]])
+	{
+		return [sender representedObject] != nil;
+	}
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOutput:
@@ -970,32 +653,30 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * output = [(id)[sender selectedItem] representedString];
     id TPD = (iTM2TeXProjectDocument *)[self document];
-    NSString * oldBPN = [TPD baseProjectName];
-    NSDictionary * Ps = [oldBPN TeXProjectProperties];
-    NSString * mode = [[Ps iVarMode] lowercaseString];
-    NSString * variant = [[Ps iVarVariant] lowercaseString];
-    NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-    NSEnumerator * E = [TPPs keyEnumerator];
-    NSDictionary * keyD;
-    while(keyD = [E nextObject])
-    {
-        if([[keyD iVarMode] isEqualToString:mode]
-            && [[[keyD iVarVariant] lowercaseString] isEqualToString:variant]
-                && [[[keyD iVarOutput] lowercaseString] isEqualToString:output])
-        {
-            NSString * new = [[TPPs objectForKey:keyD] iVarName];
-            if(![oldBPN isEqualToString:new])
-            {
-                [TPD setBaseProjectName:new];
-                [TPD updateChangeCount:NSChangeDone];
-            }
-            break;
-        }
-    }
-    [self validateWindowContent];
-    return;
+	if([SPC isBaseProject:TPD])
+	{
+		return;
+	}
+	NSString * oldBPN = [TPD baseProjectName];
+	NSDictionary * oldTPPs = [oldBPN TeXProjectProperties];
+	// get all the base project names with that actual mode and extension, variant
+	NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"];
+	TPPs = [TPPs filteredArrayUsingPredicateValue:[oldTPPs iVarMode] forKey:iTM2TPDKModeKey];
+	TPPs = [TPPs filteredArrayUsingPredicateValue:[oldTPPs iVarExtension] forKey:iTM2TPDKExtensionKey];
+	TPPs = [TPPs filteredArrayUsingPredicateValue:[oldTPPs iVarVariant] forKey:iTM2TPDKVariantKey];
+	// filter out with newVariant, case sensitive
+	NSString * newOutput = [(id)[sender selectedItem] representedObject];
+	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newOutput forKey:iTM2TPDKOutputKey];
+	NSAssert([RA count]>0,@"Internal inconsistency, the new mode should exist!");
+	NSString * newBPN = [[RA objectAtIndex:0] TeXBaseProjectName];
+	if(![[TPD baseProjectName] pathIsEqual:newBPN])
+	{
+		[TPD setBaseProjectName:newBPN];
+		[TPD updateChangeCount:NSChangeDone];
+	}
+	[self validateWindowContent];
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
 - (BOOL)validateChooseOutput:(id)sender;
@@ -1006,57 +687,73 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+    id TPD = (iTM2TeXProjectDocument *)[self document];
+	if([SPC isBaseProject:TPD])
+	{
+		return NO;
+	}
 //iTM2_LOG(@"sender is: %@", sender);
     if([sender isKindOfClass:[NSPopUpButton class]])
     {
+		static NSString * voidTitle = nil;
+		if(!voidTitle)
+			voidTitle = [[[sender lastItem] title] copy];
         [sender removeAllItems];
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		if([SPC isBaseProject:TPD])
-			return NO;
-        NSString * BPN = [TPD baseProjectName];
-//iTM2_LOG(@"baseProjectName is: %@", BPN);
-        NSDictionary * Ps = [BPN TeXProjectProperties];
-//iTM2_LOG(@"Ps is: %@", Ps);
-        NSString * mode = [[Ps iVarMode] lowercaseString];
-        NSString * variant = [[Ps iVarVariant] lowercaseString];
-        NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-        NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
-        NSEnumerator * E = [TPPs keyEnumerator];
-        NSDictionary * D;
-        while(D = [E nextObject])
-            if([[D iVarMode] isEqualToString:mode] && [[D iVarVariant] isEqualToString:variant])
-            {
-                NSString * output = [D iVarOutput];
-                if([output length])
-                    [MD takeValue:[[[TPPs objectForKey:D] valueForKey:iTM2TeXPCommandPropertiesKey] iVarOutput]
-                        forKey: output];
-            }
-        E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-        NSString * k;
-        while(k = [E nextObject])
+        NSDictionary * Ps = [[TPD baseProjectName] TeXProjectProperties];
+		// get all the base project names properties
+		NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties"];
+		// filter out those with the proper mode, extension
+		TPPs = [TPPs filteredArrayUsingPredicateValue:[Ps iVarMode] forKey:iTM2TPDKModeKey];
+		TPPs = [TPPs filteredArrayUsingPredicateValue:[Ps iVarExtension] forKey:iTM2TPDKExtensionKey];
+		TPPs = [TPPs filteredArrayUsingPredicateValue:[Ps iVarVariant] forKey:iTM2TPDKVariantKey];
+		// get the outputs
+		NSArray * outputs = [TPPs valueForKey:iTM2TPDKOutputKey];
+		// get only one copy per extension
+		outputs = [[NSSet setWithArray:outputs] allObjects];
+		// sort the extensions
+		outputs = [outputs sortedArrayUsingSelector:@selector(compare:)];
+		// feed the sender
+		NSEnumerator * E = [outputs objectEnumerator];
+        NSString * output;
+        while(output = [E nextObject])
         {
-            [sender addItemWithTitle:[MD valueForKey:k]];
-            [[sender lastItem] setRepresentedObject:k];// the lowercase string
+			if([output length])
+			{
+				[sender addItemWithTitle:output];
+			}
+			else
+			{
+				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"PDF",iTM2TeXProjectFrontendTable,[NSBundle bundleForClass:[iTM2TeXProjectDocument class]],"")];
+			}
+			[[sender lastItem] setRepresentedObject:output];
         }
-        NSString * output = [Ps iVarOutput];
-        int idx = [sender indexOfItemWithRepresentedObject:[([output length]? output:iTM2TPFEPDFOutput) lowercaseString]];
+        output = [Ps iVarOutput];
+        int idx = [sender indexOfItemWithRepresentedObject:output];
         if(idx == -1)
         {
-            NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", output];
-            [[sender menu] addItem:[NSMenuItem separatorItem]];
-            [sender addItemWithTitle:lastTitle];
+            if([sender numberOfItems])
+				[[sender menu] addItem:[NSMenuItem separatorItem]];
+            [sender addItemWithTitle:[NSString stringWithFormat:@"%@(Unknown)", output]];
             [sender selectItem:[sender lastItem]];        
             [[sender lastItem] setRepresentedObject:nil];// BEWARE!!!
+			[[sender lastItem] setEnabled: NO];
         }
         else
         {
             [sender selectItemAtIndex:idx];
         }
-        [sender setEnabled:[sender numberOfItems]>1];           
-    }
+		if([sender numberOfItems] < 2)
+		{
+			[sender setEnabled: NO];
+			return NO;
+		}
+	}
+	else if([sender isKindOfClass:[NSMenuItem class]])
+	{
+		return [sender representedObject] != nil;
+	}
     return YES;
 }
-#endif
 #pragma mark =-=-=-=-=-=-=-=-=-=-  ADVANCED TYPESETTING MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editedCommand
 - (id)editedCommand;
@@ -1078,7 +775,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[self willChangeValueForKey:@"editedCommand"];
 	[self takeContextValue:argument forKey:@"Commands Inspector:Edited Command" domain:iTM2ContextAllDomainsMask];
+	[self didChangeValueForKey:@"editedCommand"];
 //iTM2_END;
     return;
 }
@@ -1137,51 +836,39 @@ To Do List:
     }
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultCommand:
-- (IBAction)defaultCommand:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-    NSString * commandName = [self editedCommand];
-	iTM2CommandWrapper * CW = [TPD commandWrapperForName:commandName];
-	id old = [CW environmentMode];
-	if(![old isEqualToString:iTM2TPFEBaseMode])
-	{
-		[CW setEnvironmentMode:iTM2TPFEBaseMode];
-		[TPD updateChangeCount:NSChangeDone];
-	}
-	old = [CW scriptMode];
-	if(![old isEqualToString:iTM2TPFEBaseMode])
-	{
-		[CW setScriptMode:iTM2TPFEBaseMode];
-		[TPD updateChangeCount:NSChangeDone];
-	}
-    [self validateWindowContent];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDefaultCommand:
-- (BOOL)validateDefaultCommand:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Mar 26 08:41:36 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
-    NSString * environmentMode = [CW environmentMode];
-    NSString * scriptMode = [CW scriptMode];
-    [sender setEnabled: ([environmentMode length] && ![environmentMode isEqualToString:iTM2TPFEBaseMode])
-		|| [[[TPD commandScripts] allKeys] containsObject:scriptMode]];
-    return YES;
-}
 #pragma mark =-=-=-=-=-=-=-=-=-=-  ACTION SCRIPTS MANAGEMENT
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableScriptCommands
+- (NSDictionary *)availableScriptCommands;
+{
+	NSBundle * mainBundle = [NSBundle mainBundle];
+	NSEnumerator * E = [[mainBundle allPathsForSupportExecutables] objectEnumerator];
+	NSString * commandName = nil;
+	id bins = [NSMutableDictionary dictionary];
+	while(commandName = [E nextObject])
+	{
+		NSString * key = [[commandName lastPathComponent] stringByDeletingPathExtension];
+		if([key hasPrefix:@"iTM2_Command_"])
+		{
+			[bins setObject:commandName forKey:[key substringWithRange:NSMakeRange(13,[key length]-13)]];
+		}
+	}
+	return bins;
+}
+- (NSString *)editedScriptMode;
+{
+	NSString * editedCommand = [self editedCommand];
+	NSString * mode = [self infoForKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEScriptModeKey,nil];
+	if([mode isEqual:iTM2TPFEBaseMode])
+	{
+		[self takeInfo:nil forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEScriptModeKey,nil];
+		mode = [self infoForKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEScriptModeKey,nil];
+		if([mode isEqual:iTM2TPFEBaseMode])
+		{
+			mode = nil;
+		}
+	}
+	return mode;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseScript:
 - (IBAction)chooseScript:(id)sender;
 /*"Description forthcoming.
@@ -1191,17 +878,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
-	NSString * oldMode = [CW scriptMode];
+	NSString * editedCommand = [self editedCommand];
 	NSString * newMode = [(id)[sender selectedItem] representedString];
-	if(![newMode isEqualToString:oldMode])
+	if([newMode isEqual:iTM2TPFEBaseMode])
 	{
-		[CW setEnvironmentMode:newMode];
-		[CW setScriptMode:newMode];
-		[TPD updateChangeCount:NSChangeDone];
+		newMode = nil;
+	}
+	if([self takeInfo:newMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEScriptModeKey,nil])
+	{
+		[self takeInfo:newMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil];
+		[[self document] updateChangeCount:NSChangeDone];
 		[self validateWindowContent];
 	}
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseScript:
@@ -1225,83 +914,89 @@ To Do List:
         [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Base", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
         [[sender lastItem] setRepresentedObject:iTM2TPFEBaseMode];
 		// adding the built in scripts
-		NSBundle * mainBundle = [NSBundle mainBundle];
-		id bins = [mainBundle allPathsForSupportExecutables];
-		NSEnumerator * E = [bins objectEnumerator];
-        NSString * commandName = nil;
-		NSString * title = nil;
-		bins = [NSMutableSet set];
-		while(commandName = [E nextObject])
-        {
-			commandName = [commandName lastPathComponent];
-			[bins addObject:commandName];
+		NSDictionary * commands = [self availableScriptCommands];
+		NSString * commandName = nil;
+		NSEnumerator * E = nil;
+		NSString * title;
+		[[sender menu] addItem:[NSMenuItem separatorItem]];
+		if([commands count])
+		{
+			title = NSLocalizedStringFromTableInBundle(@"Support Scripts", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming");
+			[sender addItemWithTitle:title];
+			[[sender lastItem] setRepresentedObject:@"Disabled"];
+			E = [[[commands allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
+			while(commandName = [E nextObject])
+			{
+				[sender addItemWithTitle:commandName];
+				[[sender lastItem] setRepresentedObject:[commands objectForKey:commandName]];
+				[[sender lastItem] setIndentationLevel:1];
+			}
+	//iTM2_LOG(@"THE editedCommand IS: %@", [self editedCommand]);
+			// This is a consistency test that should also be made before...
+			[[sender menu] addItem:[NSMenuItem separatorItem]];
 		}
-		bins = [bins allObjects];
-		bins = [bins sortedArrayUsingSelector:@selector(compare:)];
-        E = [bins objectEnumerator];
-        while(commandName = [E nextObject])
-        {
-            title = [commandName stringByDeletingPathExtension];
-            [sender addItemWithTitle:title];
-            [[sender lastItem] setRepresentedObject:commandName];
-        }
-//iTM2_LOG(@"THE editedCommand IS: %@", [self editedCommand]);
-		// This is a consistency test that should also be made before...
-        [[sender menu] addItem:[NSMenuItem separatorItem]];
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-//iTM2_LOG(@"[TPD commandScripts] is: %@", [TPD commandScripts]);
-        E = [[TPD commandScripts] keyEnumerator];
-        while(commandName = [E nextObject])
-        {
-            NSString * label = [[TPD scriptDescriptorForCommandMode:commandName] iVarLabel];
-			title = [label length]? label:
-                [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Custom script %@", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming"), commandName];
-            [sender addItemWithTitle:title];
-            [[sender lastItem] setRepresentedObject:commandName];
-            NSMenuItem * MI = [removeScriptMenu addItemWithTitle:title action:@selector(removeShellScript:) keyEquivalent:@""];
-            [MI setRepresentedObject:commandName];
-            [MI setTarget:self];// MI belongs to the receivers window
-        }
-        if([removeScriptMenu numberOfItems])
-            [[sender menu] addItem:[NSMenuItem separatorItem]];
-        [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"New shell script", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
-        [[sender lastItem] setAction:@selector(newShellScript:)];
+		title = NSLocalizedStringFromTableInBundle(@"Project Scripts", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming");
+		[sender addItemWithTitle:title];
+		[[sender lastItem] setRepresentedObject:@"Disabled"];
+		commands = [self infoForKeyPaths:iTM2TPFECommandScriptsKey,nil];
+		if([commands count])
+		{
+			E = [[[commands allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
+			while(commandName = [E nextObject])
+			{
+				NSString * label = [self infoForKeyPaths:iTM2TPFECommandScriptsKey,commandName,iTM2TPFELabelKey,nil];
+				title = [label length]? label:
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Script %@", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming"), commandName];
+				[sender addItemWithTitle:title];
+				[[sender lastItem] setRepresentedObject:commandName];
+				[[sender lastItem] setIndentationLevel:1];
+				NSMenuItem * MI = [removeScriptMenu addItemWithTitle:title action:@selector(removeScript:) keyEquivalent:@""];
+				[MI setRepresentedObject:commandName];
+				[MI setTarget:self];// MI belongs to the receivers window
+			}
+		}
+        [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"New", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
+        [[sender lastItem] setAction:@selector(newScript:)];
         [[sender lastItem] setTarget:self];// sender belongs to the receivers window
         if([removeScriptMenu numberOfItems])
         {
-            [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Remove shell script", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
+            [sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Remove", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
             [[sender lastItem] setSubmenu:removeScriptMenu];
         }
 //iTM2_LOG(@"CW is: %@", [CW description]);
-		NSString * editedCommand = [self editedCommand];
-		iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
-		commandName = [CW scriptMode];
+		NSString * scriptMode = [self editedScriptMode];
         unsigned idx = -1;
-		if([commandName length])
+		if(![scriptMode length])
 		{
-			idx = [sender indexOfItemWithRepresentedObject:commandName];
-			if(idx != -1)
-			{
-				[sender selectItemAtIndex:idx];
-			}
-			else
-			{
-				if([removeScriptMenu numberOfItems])
-					[[sender menu] addItem:[NSMenuItem separatorItem]];
-				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Unsupported", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
-				title = [commandName stringByDeletingPathExtension];
-				[sender addItemWithTitle:title];
-				[[sender lastItem] setRepresentedObject:commandName];
-				[[sender lastItem] setAction:@selector(noop:)];
-				[[sender lastItem] setTarget:self];// sender belongs to the receivers window
-			}
+			scriptMode = iTM2TPFEBaseMode;
+		}
+		idx = [sender indexOfItemWithRepresentedObject:scriptMode];
+		if(idx != -1)
+		{
+			[sender selectItemAtIndex:idx];
+		}
+		else
+		{
+			if([removeScriptMenu numberOfItems])
+				[[sender menu] addItem:[NSMenuItem separatorItem]];
+			[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Unsupported", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming")];
+			title = [scriptMode stringByDeletingPathExtension];
+			[sender addItemWithTitle:title];
+			[[sender lastItem] setRepresentedObject:scriptMode];
+			[[sender lastItem] setAction:@selector(noop:)];
+			[[sender lastItem] setTarget:self];// sender belongs to the receivers window
 		}
 		[[sender menu] cleanSeparators];
+		return YES;
     }
-    return YES;
+	else if([sender isKindOfClass:[NSMenuItem class]])
+	{
+		return ![[sender representedObject] isEqual:@"Disabled"];
+	}
+	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newShellScript:
-- (IBAction)newShellScript:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newScript:
+- (IBAction)newScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1309,24 +1004,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-    NSArray * allActionModes = [[TPD commandScripts] allKeys];
+    NSArray * allActionModes = [[self infoForKeyPaths:iTM2TPFECommandScriptsKey,nil] allKeys];
     int idx = 0;
     NSString * scriptMode;
     while((scriptMode = [NSString stringWithFormat:@"%i", idx++]), [allActionModes containsObject:scriptMode]);
-//iTM2_LOG(@"[TPD scriptDescriptorForCommandMode:scriptMode] is: %@", [TPD scriptDescriptorForCommandMode:scriptMode]);
-    [TPD takeScriptDescriptor:[NSDictionary dictionary] forCommandMode:scriptMode];
-//iTM2_LOG(@"[TPD scriptDescriptorForCommandMode:scriptMode] is: %@", [TPD scriptDescriptorForCommandMode:scriptMode]);
-//iTM2_LOG(@"[[TPD commandWrapperForName:[self editedCommand]] scriptMode] is: %@", [[TPD commandWrapperForName:[self editedCommand]] scriptMode]);
-	[[TPD commandWrapperForName:[self editedCommand]] setScriptMode:scriptMode];
-//iTM2_LOG(@"[[TPD commandWrapperForName:[self editedCommand]] scriptMode] is: %@", [[TPD commandWrapperForName:[self editedCommand]] scriptMode]);
-    [TPD updateChangeCount:NSChangeDone];
-    [self validateWindowContent];
-//iTM2_LOG(@"[NSApp targetForAction:@selector(saveDocument:)] is: %@", [NSApp targetForAction:@selector(saveDocument:)]);
+	[self takeInfo:scriptMode forKeyPaths:iTM2TPFECommandsKey,[self editedCommand],iTM2TPFEScriptModeKey,nil];
+	[self takeInfo:@"" forKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,iTM2TPFELabelKey,nil];
+	[[self document] updateChangeCount:NSChangeDone];
+	[self validateWindowContent];
+//iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeShellScript:
-- (IBAction)removeShellScript:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeScript:
+- (IBAction)removeScript:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Mar 26 08:41:36 GMT 2004
@@ -1334,14 +1024,22 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 	NSString * scriptMode = [(id)sender representedString];
-    [TPD takeScriptDescriptor:nil forCommandMode:scriptMode];
-	iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
-	if([[CW scriptMode] isEqualToString:scriptMode])
-		[CW setScriptMode:iTM2TPFEBaseMode];
-    [TPD updateChangeCount:NSChangeDone];
-    [self validateWindowContent];
+	if([self takeInfo:nil forKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,nil])
+	{
+// remove the script reference for all the commands that used it
+		NSEnumerator * E = [[self infoForKeyPaths:iTM2TPFECommandsKey, nil] keyEnumerator];
+		NSString * name;
+		while(name = [E nextObject])
+		{
+			if([scriptMode isEqual:[self infoForKeyPaths:iTM2TPFECommandsKey,name,iTM2TPFEScriptModeKey,nil]])
+			{
+				[self takeInfo:nil forKeyPaths:iTM2TPFECommandsKey,name,iTM2TPFEScriptModeKey,nil];
+			}
+		}
+		[[self document] updateChangeCount:NSChangeDone];
+		[self validateWindowContent];
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editScript:
@@ -1353,44 +1051,25 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	NSString * scriptMode = [[TPD commandWrapperForName:[self editedCommand]] scriptMode];
-	if(![SPC isBaseProject:TPD] && [scriptMode isEqualToString:iTM2TPFEBaseMode])
-	{
-		unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
-		BOOL option = (modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask);
-		if(!option)
-			return;
-		TPD = (iTM2TeXProjectDocument *)[TPD baseProject];
-		scriptMode = [[TPD commandWrapperForName:[self editedCommand]] scriptMode];
-		if([[[TPD commandScripts] allKeys] containsObject:scriptMode]
-			&& ![scriptMode isEqualToString:iTM2TPFEBaseMode]
-				&& ![scriptMode isEqualToString:iTM2TPFEVoidMode])
-		{
-			[TPD makeWindowControllers];// will create a ghost window and add an entry in the windows menu
-			id inspector = [TPD inspectorAddedWithMode:[[self class] inspectorMode]];
-			[TPD showWindows];
-			[[inspector window] makeKeyAndOrderFront:self];
-			[inspector editScript:self];
-		}
-		return;
-	}
     if(![[self window] attachedSheet])
     {
 #warning DEBUG: Problem when cancelled, the edited status might remain despite it should not.
+		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
+		NSString * scriptMode = [self editedScriptMode];
         iTM2TeXPShellScriptInspector * WC = [[[iTM2TeXPShellScriptInspector allocWithZone:[self zone]]
 			initWithWindowNibName: @"iTM2TeXPShellScriptInspector"] autorelease];
+		iTM2InfosController * ic = [[[iTM2InfosController alloc] initWithProject:TPD atomic:NO prefixWithKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,nil] autorelease];
+		[WC setInfosController:ic];
 		NSWindow * W = [WC window];
 		if(W)
 		{
-			[WC setScriptDescriptor:[TPD scriptDescriptorForCommandMode:scriptMode]];
 			[TPD addWindowController:WC];
 			[WC validateWindowContent];
 			[NSApp beginSheet: W
 					modalForWindow: [self window]
 					modalDelegate: self
-					didEndSelector: @selector(editScriptSheetDidEnd:returnCode:scriptMode:)
-					contextInfo: scriptMode];
+					didEndSelector: @selector(editScriptSheetDidEnd:returnCode:irrelevant:)
+					contextInfo: nil];
 		}
 		else
 		{
@@ -1410,26 +1089,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	iTM2CommandWrapper * CW = [TPD commandWrapperForName:[self editedCommand]];
-    NSString * scriptMode = [CW scriptMode];
-	if(![SPC isBaseProject:TPD] && [scriptMode isEqualToString:iTM2TPFEBaseMode])
-	{
-		unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
-		BOOL option = (modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask);
-		if(!option)
-			return NO;
-		TPD = (iTM2TeXProjectDocument *)[TPD baseProject];
-		CW = [TPD commandWrapperForName:[self editedCommand]];
-		scriptMode = [CW scriptMode];
-		return [[[TPD commandScripts] allKeys] containsObject:scriptMode]
-			&& ![scriptMode isEqualToString:iTM2TPFEBaseMode]
-				&& ![scriptMode isEqualToString:iTM2TPFEVoidMode];
-	}
-    return [[[TPD commandScripts] allKeys] containsObject:scriptMode];
+	if([SPC isBaseProject:[self document]])
+		return NO;
+    return [[[self infoForKeyPaths:iTM2TPFECommandScriptsKey,nil] allKeys] containsObject:[self editedScriptMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editScriptSheetDidEnd:returnCode:scriptMode:
-- (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode scriptMode:(NSString *)scriptMode;
+- (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode irrelevant:(void *)unused;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1439,22 +1104,34 @@ To Do List:
 //iTM2_START;
     [sheet orderOut:self];
     id WC = [sheet windowController];
-    if(returnCode==NSAlertDefaultReturn)
-    {
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-        id old = [TPD scriptDescriptorForCommandMode:scriptMode];
-        id new = [WC scriptDescriptor];
-        if(![old isEqual:new])
-        {
-            [TPD takeScriptDescriptor:new forCommandMode:scriptMode];
-            [TPD updateChangeCount:NSChangeDone];
-        }
-    }
     [[WC document] removeWindowController:WC];
     [self validateWindowContent];
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  OPTIONS MANAGEMENT
+- (NSString *)editedEnvironmentMode;
+{
+	NSString * editedCommand = [self editedCommand];
+	NSString * mode = [self infoForKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil];
+	if([mode isEqual:iTM2TPFEBaseMode])
+	{
+		[self takeInfo:nil forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil];
+		mode = [self infoForKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil];
+		if([mode isEqual:iTM2TPFEBaseMode])
+		{
+			mode = nil;
+		}
+	}
+	if(!mode)
+	{
+		mode = editedCommand;
+	}
+	return mode;
+}
+- (BOOL)isCustomEnvironmentMode;
+{
+	return [self localInfoForKeyPaths:iTM2TPFECommandEnvironmentsKey,[self editedEnvironmentMode],nil]!=nil;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOptions:
 - (IBAction)chooseOptions:(id)sender;
 /*"Description forthcoming.
@@ -1464,27 +1141,42 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	NSString * commandName = [self editedCommand];
-	iTM2CommandWrapper * CW = [TPD commandWrapperForName:commandName];
-	NSString * oldEnvironmentMode = [CW environmentMode];
-	NSString * newEnvironmentMode = [(id)[sender selectedItem] representedString];
-	if(![newEnvironmentMode isEqualToString:oldEnvironmentMode]
-		&& (newEnvironmentMode != oldEnvironmentMode)
-			&& [TPD isValidEnvironmentMode: newEnvironmentMode
-				forScriptMode: [CW scriptMode]
-					commandName: commandName])
+	NSString * editedCommand = [self editedCommand];
+	NSString * environmentMode = [(id)[sender selectedItem] representedString];
+	if([environmentMode isEqual:iTM2TPFECustomMode])
 	{
-		[CW setEnvironmentMode:newEnvironmentMode];
-		[TPD updateChangeCount:NSChangeDone];
+		[self takeInfo:nil forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil];
+		environmentMode = [self editedEnvironmentMode];
+		// if there were something already customized, retrieve it
+		if([self takeInfo:environmentMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil])
+		{
+			if([self restoreCustomForKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil]
+				|| [self takeInfo:[NSMutableDictionary dictionary] forKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil])
+			{
+				NSAssert([self isCustomEnvironmentMode],@"Custom environment mode expected");
+				[[self document] updateChangeCount:NSChangeDone];
+				[self validateWindowContent];
+			}
+		}
+	}
+	else if([environmentMode isEqual:iTM2TPFEBaseMode])
+	{
+		environmentMode = nil;
+		if([self takeInfo:environmentMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil])
+		{
+			environmentMode = [self editedEnvironmentMode];
+			[self backupCustomForKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil];
+			[self takeInfo:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil];
+			[[self document] updateChangeCount:NSChangeDone];
+			[self validateWindowContent];
+		}
+	}
+	else if([self takeInfo:environmentMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil])
+	{
+		[[self document] updateChangeCount:NSChangeDone];
 		[self validateWindowContent];
 	}
-	else if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"No option change: old: %@, new: %@, command: %@", oldEnvironmentMode, newEnvironmentMode, commandName);
-	}
 //iTM2_LOG(@"CW is NOW: %@", CW);
-//iTM2_LOG(@"[TPD commands] are: %@", [TPD commands]);
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOptions:
@@ -1496,114 +1188,56 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSString * scriptMode = [self editedScriptMode];
     if([sender isKindOfClass:[NSMenuItem class]])
 	{
-		NSString * editedCommand = [self editedCommand];
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
-		id RO = [sender representedObject];
-		return [TPD isValidEnvironmentMode:RO forScriptMode:[CW scriptMode] commandName:editedCommand];
+		if([scriptMode isEqual:iTM2TPFEVoidMode]
+			|| [[[self infoForKeyPaths:iTM2TPFECommandScriptsKey,nil] allKeys] containsObject:scriptMode])
+		{
+			return NO;
+		}
+		return YES;
 	}
     else if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		[sender removeAllItems];
-		// populates with a "base" menu item
-		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"No options", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
-		[[sender lastItem] setRepresentedObject:iTM2TPFEVoidMode];
-		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Base options", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
-		[[sender lastItem] setRepresentedObject:iTM2TPFEBaseMode];
-		[[sender menu] addItem:[NSMenuItem separatorItem]];
-		NSEnumerator * E = [[iTM2TeXPCommandManager orderedBuiltInCommandNames] objectEnumerator];
-		NSEnumerator * e;
-		while(e = [[E nextObject] objectEnumerator])
-		{
-			NSString * name;
-			while(name = [e nextObject])
-			{
-				if(![name hasPrefix:@"."])
-				{
-					[sender addItemWithTitle:[iTM2TeXPCommandPerformer localizedNameForName:name]];
-					[[sender lastItem] setRepresentedObject:name];
-				}
-			}
-			[[sender menu] addItem:[NSMenuItem separatorItem]];
-		}
-		if([[sender lastItem] isSeparatorItem])
-		{
-			[[sender menu] removeItem:[sender lastItem]];
-		}
-		// validating and selecting the proper item
 		NSString * editedCommand = [self editedCommand];
+		NSString * environmentMode = [self editedEnvironmentMode];
 //iTM2_LOG(@"editedCommand is: %@", editedCommand);
-		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
-		if([[[CW name] lowercaseString] isEqualToString:@"special"])
+		if([[editedCommand lowercaseString] isEqualToString:@"special"]
+			|| [scriptMode isEqualToString:iTM2TPFEVoidMode]
+				|| [[[self infoForKeyPaths:iTM2TPFECommandScriptsKey,nil] allKeys] containsObject:scriptMode])
 		{
-			NSString * scriptMode = [CW scriptMode];
-			// special action: inherited base script means inherited base options
-			// in all other cases, no options
-			[CW setEnvironmentMode:
-				([scriptMode isEqualToString:iTM2TPFEBaseMode]? iTM2TPFEBaseMode:iTM2TPFEVoidMode)];
-			NSString * environmentMode = [CW environmentMode];
-			unsigned idx = [sender indexOfItemWithRepresentedObject: ([environmentMode length]? environmentMode:iTM2TPFEBaseMode)];
-			[sender selectItemAtIndex:idx];
-			// the special action does not authorize options editors
+			// No options for the special command
+			[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"No options", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
+			[[sender lastItem] setRepresentedObject:iTM2TPFEVoidMode];
+			[sender selectItem:[sender lastItem]];
 			return NO;
+		}
+		// for the others, only Void, Base and Custom (=editedCommand)
+		// populates with a "base" menu item
+		if([self localInfoForKeyPaths:iTM2TPFECommandsKey,[self editedCommand],nil])
+		{
+			[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"No options", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
+			[[sender lastItem] setRepresentedObject:iTM2TPFEVoidMode];
+		}
+		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Base", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
+		[[sender lastItem] setRepresentedObject:iTM2TPFEBaseMode];
+		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Custom", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
+		[[sender lastItem] setRepresentedObject:iTM2TPFECustomMode];
+		if([environmentMode isEqual:iTM2TPFEVoidMode])
+		{
+			[sender selectItemAtIndex:0];
+		}
+		else if([self isCustomEnvironmentMode])
+		{
+			[sender selectItemAtIndex:[sender indexOfItemWithRepresentedObject:iTM2TPFECustomMode]];// index is 0 or 1
 		}
 		else
 		{
-			NSString * scriptMode = [CW scriptMode];
-			NSString * environmentMode = [CW environmentMode];
-			// see the consistency check in the prepareFrontendFixImplementation method
-			// here is a second one for security
-			if([scriptMode isEqualToString:iTM2TPFEVoidMode])
-			{
-				environmentMode = iTM2TPFEVoidMode;
-				unsigned idx = [sender indexOfItemWithRepresentedObject:environmentMode];
-				[sender selectItemAtIndex:idx];
-				return NO;
-			}
-			else if([scriptMode isEqualToString:iTM2TPFEBaseMode])
-			{
-				// the script is inherited: the option must be either inherited or same as base
-//iTM2_LOG(@"The script is inherited: environement mode is: %@", environmentMode);
-				if([environmentMode isEqualToString:iTM2TPFEVoidMode])
-					[CW setEnvironmentMode:iTM2TPFEBaseMode];
-				else if(![environmentMode isEqualToString:iTM2TPFEBaseMode])
-				{
-					iTM2CommandWrapper * baseCW = [[TPD baseProject] commandWrapperForName:editedCommand];
-					if(baseCW)
-					{
-						// authorized environment modes are limited: base ot from base project
-//iTM2_LOG(@"environmentMode is: %@", environmentMode);
-//iTM2_LOG(@"[baseCW environmentMode] is: %@", [baseCW environmentMode]);
-//iTM2_LOG(@"editedCommand is: %@", editedCommand);
-						if(![environmentMode isEqualToString:[baseCW environmentMode]]
-							&& ![environmentMode isEqualToString:editedCommand])
-						{
-							[CW setEnvironmentMode:[baseCW environmentMode]];
-						}
-					}
-				}
-				environmentMode = [CW environmentMode];
-//iTM2_LOG(@"The script is inherited: environement mode is now: %@", environmentMode);
-				unsigned idx = [sender indexOfItemWithRepresentedObject:environmentMode];
-				[sender selectItemAtIndex:idx];
-				return YES;
-			}
-			else
-			{
-				unsigned idx = [sender indexOfItemWithRepresentedObject: ([environmentMode length]? environmentMode:iTM2TPFEVoidMode)];
-				if(idx == -1)
-				{
-					[CW setEnvironmentMode:iTM2TPFEVoidMode];
-					environmentMode = [CW environmentMode];
-					idx = [sender indexOfItemWithRepresentedObject: ([environmentMode length]? environmentMode:iTM2TPFEVoidMode)];
-				}
-				[sender selectItemAtIndex:idx];
-				return YES;
-			}
+			[sender selectItemAtIndex:[sender indexOfItemWithRepresentedObject:iTM2TPFEBaseMode]];// index is 1 or 2
 		}
+		return YES;
 	}
     return YES;
 }
@@ -1618,33 +1252,11 @@ To Do List:
 //iTM2_START;
     if(![[self window] attachedSheet])
     {
-		NSString * editedCommand = [self editedCommand];
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
-		NSString * environmentMode = [CW environmentMode];
-		if([environmentMode isEqualToString:iTM2TPFEBaseMode] && ![SPC isBaseProject:TPD])
-		{
-			unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
-			if((modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask))
-			{
-				TPD = (iTM2TeXProjectDocument *)[TPD baseProject];
-				CW = [TPD commandWrapperForName:editedCommand];
-				environmentMode = [CW environmentMode];
-				if(![environmentMode isEqualToString:iTM2TPFEBaseMode] && ![environmentMode isEqualToString:iTM2TPFEVoidMode])
-				{
-					[TPD makeWindowControllers];// will create a ghost window and add an entry in the windows menu
-					id inspector = [TPD inspectorAddedWithMode:[[self class] inspectorMode]];
-					[TPD showWindows];
-					[[inspector window] makeKeyAndOrderFront:self];
-					[inspector editOptions:self];
-				}
-			}
-			 return;
-		}
+		NSString * environmentMode = [self editedEnvironmentMode];
 		Class C = [iTM2TeXPCommandInspector classForMode:environmentMode];
         iTM2TeXPCommandInspector * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 		[TPD addWindowController:WC];// now [WC document] == TPD, and WC is retained, the WC document is the project
-		[WC takeModel:[TPD environmentForCommandMode:environmentMode]];
 		NSWindow * W = [WC window];// may validate the window content as side effect
         if(W)
         {
@@ -1659,8 +1271,8 @@ To Do List:
             [NSApp beginSheet: W
                     modalForWindow: [self window]
                     modalDelegate: self
-                    didEndSelector: @selector(editOptionsSheetDidEnd:returnCode:environmentMode:)
-                    contextInfo: environmentMode];
+                    didEndSelector: @selector(editOptionsSheetDidEnd:returnCode:irrelevant:)
+                    contextInfo: nil];
         }
         else
         {
@@ -1672,8 +1284,8 @@ To Do List:
         iTM2Beep();
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOptionsSheetDidEnd:returnCode:environmentMode:
-- (void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode environmentMode:(NSString *)environmentMode;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOptionsSheetDidEnd:returnCode:irrelevant:
+- (void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode irrelevant:(void *)unused;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1684,20 +1296,6 @@ To Do List:
     [sheet orderOut:self];
     id WC = [sheet windowController];
 //iTM2_LOG(@"return code: %i", returnCode);
-    if(returnCode==NSAlertDefaultReturn)
-    {
-        iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		NSDictionary * new = [WC shellEnvironment];
-		NSDictionary * old = [TPD environmentForCommandMode:environmentMode];
-//iTM2_LOG(@"old is: %@", old);
-//iTM2_LOG(@"new is: %@", new);
-		if([old count]>0? ![old isEqual:new]:[new count])
-		{
-			// There might be a problemm when upgrading if we add some keys to the dictionary
-			[TPD takeEnvironment:new forCommandMode:environmentMode];
-			[TPD updateChangeCount:NSChangeDone];
-		}
-    }
     [[WC document] removeWindowController:WC];
     return;
 }
@@ -1710,35 +1308,42 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	// the sender is disabled when
-	// - the environment mode is void or void
-	// - the environment mode is inherited from the base project and the option key is not pressed or the receiver is a base project itself
-	// - the environment mode is not from the base project but it does not correspond to the kind of script
-	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	NSString * editedCommand = [self editedCommand];
-	iTM2CommandWrapper * CW = [TPD commandWrapperForName:editedCommand];
-	NSString * environmentMode = [CW environmentMode];
-	if(![environmentMode length] || [environmentMode isEqualToString:iTM2TPFEVoidMode])
+	if([SPC isBaseProject:[self document]]
+		|| [[[self editedCommand] lowercaseString] isEqualToString:@"special"])
 		return NO;
-	else if([SPC isBaseProject:TPD])
-		return ![environmentMode isEqualToString:iTM2TPFEBaseMode];
-	else if([environmentMode isEqualToString:iTM2TPFEBaseMode])
+	return [self isCustomEnvironmentMode];
+}
+#pragma mark =-=-=-=-=-  DEFAULT
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultCommand:
+- (IBAction)defaultCommand:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Mar 26 08:41:36 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL yorn = [self takeInfo:nil forKeyPaths:iTM2TPFECommandsKey,[self editedCommand],nil];
+	if([self takeInfo:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,[self editedCommand],nil] || yorn)
 	{
-		unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
-		return (modifierFlags & NSAlternateKeyMask) && !(modifierFlags & NSCommandKeyMask);
+		[[self document] updateChangeCount:NSChangeDone];
 	}
-	else
-	{
-		NSString * scriptMode = [CW scriptMode];
-		if([[[CW name] lowercaseString] isEqualToString:@"special"])
-			return NO;
-		else if([scriptMode isEqualToString:iTM2TPFEBaseMode])
-			return [environmentMode isEqualToString:[[[TPD baseProject] commandWrapperForName:editedCommand] environmentMode]]
-				|| [environmentMode isEqualToString:editedCommand];
-		else
-			return ![scriptMode isEqualToString:iTM2TPFEBaseMode];
-	}
-	return YES;
+    [self validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDefaultCommand:
+- (BOOL)validateDefaultCommand:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Mar 26 08:41:36 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// turn to default if either the script mode is not base
+	// or the environment mode is customized
+    return ([self localInfoForKeyPaths:iTM2TPFECommandsKey,[self editedCommand],nil] != nil)
+		|| [self isCustomEnvironmentMode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showHelp:
 - (IBAction)showHelp:(id)sender;
@@ -1790,257 +1395,8 @@ To Do List:
 @end
 
 NSString * const iTM2TPFEDefaultEnvironmentKey = @"DefaultEnvironment";
-NSString * const iTM2TPFEEnvironmentModeKey = @"EnvironmentMode";
-NSString * const iTM2TPFEScriptModeKey = @"ScriptMode";
-
 //#import <iTM2Foundation/iTM2RuntimeBrowser.h>
 //#import <iTM2Foundation/iTM2BundleKit.h>
-
-@implementation iTM2CommandWrapper
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  description
-- (NSString *)description;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [NSString stringWithFormat: @"<%@: name: %@, script mode: %@, environment mode: %@>",
-		[super description], [self name], [self scriptMode], [self environmentMode]];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaFixImplementation
-- (void)metaFixImplementation;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setModel:[[self project] modelForCommandName:[self name]]];
-	[self modelDidChange];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelDidChange
-- (void)modelDidChange;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  name
-- (NSString *)name;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setName:
-- (void)setName:(NSString *)name;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(name);
-	[self fixImplementation];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project
-- (id)project;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [metaGETTER nonretainedObjectValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:
-- (void)setProject:(id)project;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER([NSValue valueWithNonretainedObject:project]);
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  model
-- (id)model;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [IMPLEMENTATION modelOfType:iTM2MainType];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setModel:
-- (void)setModel:(NSDictionary *)model;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [IMPLEMENTATION takeModel: (model? [NSMutableDictionary dictionaryWithDictionary:model]:[NSMutableDictionary dictionary]) ofType:iTM2MainType];
-	[self modelDidChange];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scriptMode
-- (id)scriptMode;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * result = [[self implementation] modelValueForKey:iTM2TPFEScriptModeKey ofType:iTM2MainType];
-	if(![result length])
-	{
-		[[self implementation] takeModelValue:iTM2TPFEBaseMode forKey:iTM2TPFEScriptModeKey ofType:iTM2MainType];
-		[[self implementation] takeModelValue:iTM2TPFEBaseMode forKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
-		result = [[self implementation] modelValueForKey:iTM2TPFEScriptModeKey ofType:iTM2MainType];
-	}
-    return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScriptMode:
-- (void)setScriptMode:(NSString *)mode;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[[self implementation] takeModelValue:mode forKey:iTM2TPFEScriptModeKey ofType:iTM2MainType];
-	[self modelDidChange];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultEnvironment
-- (id)defaultEnvironment;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSDictionary * result = [[self implementation] modelValueForKey:iTM2TPFEDefaultEnvironmentKey ofType:iTM2MainType];
-    return [result isKindOfClass:[NSDictionary class]]?result:[NSDictionary dictionary];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDefaultEnvironmentValue:forKey:
-- (void)takeDefaultEnvironmentValue:(id)value forKey:(NSString *)key;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:[self defaultEnvironment]];
-	[MD takeValue:value forKey:key];
-	[[self implementation] takeModelValue:MD forKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentMode
-- (id)environmentMode;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * result = [[self implementation] modelValueForKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
-	if(![result length])
-	{
-		[[self implementation] takeModelValue: ([[[self name] lowercaseString] isEqualToString:@"special"]? iTM2TPFEVoidMode: iTM2TPFEBaseMode)
-			forKey: iTM2TPFEEnvironmentModeKey ofType: iTM2MainType];
-		result = [[self implementation] modelValueForKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
-	}
-    return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEnvironmentMode:
-- (void)setEnvironmentMode:(NSString *)mode;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[[self implementation] takeModelValue:mode forKey:iTM2TPFEEnvironmentModeKey ofType:iTM2MainType];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqual:
-- (BOOL)isEqual:(id)rhs;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	return [rhs isKindOfClass:[self class]]?
-		[[self name] isEqualToString:[rhs name]] && [[self project] isEqual:[rhs project]] && [[self model] isEqual:[rhs model]]:
-		[super isEqual:rhs];
-}
-@end
-
-@implementation iTM2TeXPCommandWrapper
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelDidChange
-- (void)modelDidChange;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([[[self name] lowercaseString] isEqualToString:@"special"])
-	{
-		// special action: inherited base script means inherited base options
-		// in all other cases, no options
-		if([[self scriptMode] isEqualToString:iTM2TPFEBaseMode])
-			[self setEnvironmentMode:iTM2TPFEBaseMode];
-		else
-			[self setEnvironmentMode:iTM2TPFEVoidMode];
-	}
-	else
-	{
-		// not a special action
-		if([[self scriptMode] isEqualToString:iTM2TPFEBaseMode])
-		{
-			// the script is inherited: the option must be either inherited or eponym
-			NSString * environmentMode = [self environmentMode];
-			if([environmentMode isEqualToString:iTM2TPFEVoidMode])
-				[self setEnvironmentMode:iTM2TPFEBaseMode];
-			else if(![environmentMode isEqualToString:iTM2TPFEBaseMode])
-				[self setEnvironmentMode:[self name]];
-		}
-	}
-    return;
-}
-@end
 
 static NSMutableDictionary * _iTM2TeXPCommandInspectors = nil;
 
@@ -2100,19 +1456,34 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	const char * _classname = [NSStringFromClass(self) lossyCString];
-	if(!strncmp(_classname, "iTM2TeXP", strlen("iTM2TeXP")))
+	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"iTM2TeXP(.*)Inspector" options:0 error:nil] autorelease];
+	[RE setInputString:NSStringFromClass(self)];
+	if([RE nextMatch])
 	{
-		int n = strlen(_classname);
-		if(n>strlen("iTM2TeXPInspector"))
-		{
-			if(!strncmp(_classname + n - strlen("Inspector"), "Inspector", strlen("Inspector")))
-			{
-				return [NSString stringWithCString:_classname+strlen("iTM2TeXP") length:n - strlen("iTM2TeXPInspector")];
-			}
-		}
+		return [RE substringOfCaptureGroupAtIndex:1];
 	}
     return @"";
+}
+- (NSString *) infosKeyPathPrefix;
+{
+	return [iTM2TPFECommandsKey stringByAppendingPathExtension:[[self class] commandName]];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  OK:
+- (IBAction)OK:(id)sender;
+/*"This action is send to validate editing of the compile command.
+Editing the compile command consists in choosing engines and engines environments for path extensions.
+It also consists in managing the engine scripts except their contents.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// saving the Compile environment
+	[self saveChangesForKeyPaths:iTM2TPFECommandsKey,[[self class] commandName],nil];
+    [super OK:sender];
+//iTM2_END;
+    return;
 }
 @end
 
@@ -2194,7 +1565,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if __iTM2_DEVELOPMENT__
-#warning *** BUG TRACKING: CTHER TeX menu management
+#warning *** BUG TRACKING: OTHER TeX menu management
 #pragma mark BUG TRACKING
 	id MI = (NSMenuItem *)[[NSApp mainMenu] deepItemWithAction:@selector(projectCurrent:)];
 	if(!MI)
@@ -2515,22 +1886,6 @@ To Do List:
 //iTM2_START;
     return [self localizedNameForName:[self commandName]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compare:
-+ (NSComparisonResult)compare:(id)rhs;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([rhs isKindOfClass:[iTM2CommandWrapper class]])
-	{
-		return [self commandLevel] < [rhs commandLevel]? NSOrderedAscending:
-			  ([self commandLevel] > [rhs commandLevel]? NSOrderedDescending: NSOrderedSame);
-	}
-    return NSOrderedAscending;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandLevel
 + (int)commandLevel;
 /*"Description forthcoming.
@@ -2616,6 +1971,19 @@ To Do List:
 		result = NSCommandKeyMask;
     return result;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  launchAction:withEngine:forMaster:ofProject:
++ (void)launchAction:(NSString *)action withEngine:(NSString *)engine forMaster:(NSString *)master ofProject:(NSString *)project;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2_LOG(@"FAILED: MISSING IMPLEMENTATION");
+    return;
+//iTM2_END;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommand:
 + (IBAction)performCommand:(id)sender;
 /*"Description forthcoming.
@@ -2652,7 +2020,6 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"I HAVE RECEIVED THE ORDER TO START");
 #if 1
-	[project setElementary:NO];
 	if([self mustSaveProjectDocumentsBefore])
 	{
 		[project saveDocument:nil];
@@ -2699,7 +2066,7 @@ To Do List: to be improved...
 	static NSString * iTM2_Launch = nil;
 	if(!iTM2_Launch)
 	{
-		iTM2_Launch = [@"bin" stringByAppendingPathComponent:@"iTM2_Launch"];
+		iTM2_Launch = [@"bin" stringByAppendingPathComponent:@"iTM2_Launch.rb"];
 		iTM2_Launch = [[[iTM2TeXPCommandPerformer classBundle] pathForAuxiliaryExecutable:iTM2_Launch] copy];// statically retained!
 		if(![DFM isExecutableFileAtPath:iTM2_Launch])
 		{
@@ -2716,7 +2083,7 @@ To Do List: to be improved...
 		[project showTerminalInBackGroundIfNeeded:self];
 		if(iTM2DebugEnabled>100)
 		{
-			iTM2_LOG(@"/\\/\\/\\/\\  performing action name: %@ for project: %@", [self commandName], [project fileName]);
+			iTM2_LOG(@"/\\/\\/\\/\\  performing action name: %@ for project: %@", commandName, [project fileName]);
 		}
 		NSString * localizedCommand = [self localizedNameForName:commandName];
 
@@ -2733,6 +2100,31 @@ To Do List: to be improved...
 //iTM2_LOG(@"/\\/\\/\\/\\  1");
         iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
 //iTM2_LOG(@"/\\/\\/\\/\\  2");
+		NSString * MFK = [project masterFileKey];
+		NSDocument * CD = [SDC currentDocument];
+		if([MFK isEqualToString:@"...iTM2FrontDocument"])
+		{
+			MFK = [CD fileName];
+			MFK = [project keyForFileName:MFK];
+		}
+		else if(![MFK length])
+		{
+			// the project has not yet a master file key
+			NSArray * Ks = [project allFileKeys];
+#warning ERROR: IT IS NOT CLEAR
+			if([Ks count] == 1)
+			{
+				MFK = [Ks lastObject];
+				[project setMasterFileKey:MFK];
+			}
+			else
+			{
+				MFK = [CD fileName];
+				MFK = [project keyForFileName:MFK];
+				[project setMasterFileKey:@"...iTM2FrontDocument"];
+			}
+		}
+		NSString * master = [project relativeFileNameForKey:MFK];
 		[TW setLaunchPath:iTM2_Launch];
 //iTM2_LOG(@"/\\/\\/\\/\\  3");
 		NSDictionary * D = [SUD dictionaryForKey:iTM2EnvironmentVariablesKey];
@@ -2743,19 +2135,9 @@ To Do List: to be improved...
 //iTM2_LOG(@"[project commandEnvironmentDictionary] is: %@", [project commandEnvironmentDictionary]);
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
-		D = [[project baseProjectName] TeXProjectProperties];
-		[TW mergeEnvironment:D];
 		NSString * currentDirectory = [[TW environment] objectForKey:TWSShellEnvironmentProjectKey];
 		currentDirectory = [currentDirectory stringByDeletingLastPathComponent];
         [TW setCurrentDirectoryPath:(currentDirectory?:@"")];
-		if([project wasNotModified])
-		{
-			[TW setEnvironmentString:@"1" forKey:@"iTM2_XLR8"];// iTM2_Launch can use whatever he has cached, NYI
-		}
-		else
-		{
-			[project setWasNotModified:YES];// iTM2_Launch will be able to use whatever he has cached only next time
-		}
 		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Gobble"] forKey:@"iTM2_CMD_Gobble"];
 		if([TC isMute])
 		{
@@ -2766,7 +2148,12 @@ To Do List: to be improved...
 			[TW setEnvironmentString:iTeXMac2 forKey:@"iTM2_CMD_Notify"];
 		}
 //		[TW setEnvironmentString:[[iTM2_Launch stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTM2_Notify"] forKey:@"iTM2_CMD_Notify"];
+        [TW addArgument:@"-a"];
         [TW addArgument:commandName];
+        [TW addArgument:@"-p"];
+        [TW addArgument:[project fileName]];
+        [TW addArgument:@"-m"];
+        [TW addArgument:master];
 		[TW setEnvironmentString:[NSString farawayProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
 		[TW setEnvironmentString:[NSBundle temporaryBaseProjectsDirectory] forKey:@"iTM2_Base_Projects_Directory"];
 		[TW setEnvironmentString:[project getTeXMFProgramsPath] forKey:@"iTM2_PATH_TeX_Programs"];
@@ -2834,165 +2221,27 @@ To Do List:
 	{
 		NSString * path = [[NSBundle bundleForClass:self] pathForImageResource:@"iTeXMac2Mini"];
 		I = [[NSImage alloc] initWithContentsOfFile:path];
-		[I setName:@"iTeXMac2Mini"];
+		[I setName:@"iTeXMac2Mini"];// Who is the owner?
 	}
 	[sender setMixedStateImage:I];// this does not work yet, may be in leopard...
 //iTM2_LOG(@"I: %@, MSI: %@", I, [sender mixedStateImage]);
-	NSString * scriptMode = [[TPD commandWrapperForName:commandName] scriptMode];
-//iTM2_LOG(@"commandName is: %@, scriptMode is: %@", commandName, scriptMode);
+	NSString * scriptMode = [TPD infoForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
 	if([scriptMode isEqualToString:iTM2TPFEVoidMode])
 		return NO;
-	else if([scriptMode isEqualToString:iTM2TPFEBaseMode])
+	if([scriptMode isEqual:iTM2TPFEBaseMode])
 	{
-		TPD = [TPD baseProject];
-		iTM2CommandWrapper * commandWrapper = [TPD commandWrapperForName:commandName];
-		scriptMode = [commandWrapper scriptMode];
-		if([scriptMode isEqualToString:iTM2TPFEVoidMode])
-			return NO;
-		else if([scriptMode isEqualToString:iTM2TPFEBaseMode])
+		[TPD takeInfo:nil forKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
+		scriptMode = [TPD infoForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
+		if([scriptMode isEqual:iTM2TPFEBaseMode])
 		{
-			return YES;
+			scriptMode = nil;
 		}
-		else if(scriptMode)
-			return [TPD scriptDescriptorForCommandMode:scriptMode] != nil;
-		else
-			return NO;
 	}
-	else if(scriptMode)
-		return [TPD scriptDescriptorForCommandMode:scriptMode] != nil;
+//iTM2_LOG(@"commandName is: %@, scriptMode is: %@", commandName, scriptMode);
+	else if([scriptMode length])
+		return [TPD infoForKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,nil] != nil;
 	else
-		return TPD != nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForBaseProject:
-+ (NSDictionary *)environmentScriptsForBaseProject:(iTM2TeXProjectDocument *)project;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- Thu Oct 28 14:05:13 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableDictionary * ED = [NSMutableDictionary dictionary];
-	// all the scripts...
-	NSEnumerator * E = [[project commandScripts] keyEnumerator];
-	NSString * mode;
-	while(mode = [E nextObject])
-	{
-		NSDictionary * scriptDescriptor = [project scriptDescriptorForCommandMode:mode];
-		if([scriptDescriptor count])
-		{
-			NSString * shellScript = [scriptDescriptor valueForKey:iTM2TPFEContentKey];
-			if(shellScript)
-				[ED setObject:shellScript forKey:[NSString stringWithFormat:@"iTM2_ShellScript_BaseCommand_%@", mode]];
-		}
-	}
-//iTM2_END;
-    return ED;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentScriptsForProject:
-+ (NSDictionary *)environmentScriptsForProject:(iTM2TeXProjectDocument *)project;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- Thu Oct 28 14:05:13 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableDictionary * ED = [NSMutableDictionary dictionary];
-	// all the scripts...
-	NSEnumerator * E = [[project commandScripts] keyEnumerator];
-	NSString * mode;
-	while(mode = [E nextObject])
-	{
-		NSDictionary * scriptDescriptor = [project scriptDescriptorForCommandMode:mode];
-		if([scriptDescriptor count])
-		{
-			NSString * shellScript = [scriptDescriptor valueForKey:iTM2TPFEContentKey];
-			if(shellScript)
-				[ED setObject:shellScript forKey:[NSString stringWithFormat:@"iTM2_ShellScript_Command_%@", mode]];
-		}
-	}
-//iTM2_END;
-    return ED;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forBaseProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forBaseProject:(iTM2TeXProjectDocument *)project;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- Thu Oct 28 14:05:13 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableDictionary * ED = [[environment mutableCopy] autorelease];
-	NSString * command = [self commandName];
-	// This is the default engine for any command
-	NSString * key = [NSString stringWithFormat:@"iTM2_%@", command];//iTM2_Compile, iTM2_Index...
-	iTM2CommandWrapper * CW = [project commandWrapperForName:command];
-	NSString * mode = [CW scriptMode];
-	if([mode isEqualToString:iTM2TPFEVoidMode])
-	{
-		[ED takeValue:@"iTM2_Command_DoNothing" forKey:key];
-		return ED;
-	}
-	else if([mode isEqualToString:iTM2TPFEBaseMode])
-	{
-		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", command] forKey:key];
-	}
-	else
-	{
-		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", mode] forKey:key];
-	}
-	mode = [CW environmentMode];
-	if(![mode isEqualToString:iTM2TPFEVoidMode] && ![mode isEqualToString:iTM2TPFEBaseMode])
-	{
-		[ED addEntriesFromDictionary:[project environmentForCommandMode:mode]];
-	}
-//iTM2_END;
-    return ED;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentWithDictionary:forProject:
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- Thu Oct 28 14:05:13 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableDictionary * ED = [[environment mutableCopy] autorelease];
-	NSString * command = [self commandName];
-	// This is the default engine for any command
-	NSString * key = [NSString stringWithFormat:@"iTM2_%@", command];//iTM2_Compile, iTM2_Index...
-//iTM2_LOG(@"the key is: %@", key);
-	iTM2CommandWrapper * CW = [project commandWrapperForName:command];
-	NSString * mode = [CW scriptMode];
-//iTM2_LOG(@"the mode is: %@", mode);
-	if([mode isEqualToString:iTM2TPFEVoidMode])
-	{
-		[ED takeValue:@"iTM2_Command_DoNothing" forKey:key];
-		return ED;
-	}
-	else if([mode isEqualToString:iTM2TPFEBaseMode])
-	{
-		if(![ED valueForKey:key])
-		{
-			[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", command] forKey:key];
-		}
-	}
-	else
-	{
-		[ED takeValue:[NSString stringWithFormat:@"iTM2_Command_%@", mode] forKey:key];
-	}
-	mode = [CW environmentMode];
-//iTM2_LOG(@"31-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
-	if(![mode isEqualToString:iTM2TPFEVoidMode] && ![mode isEqualToString:iTM2TPFEBaseMode])
-	{
-		[ED addEntriesFromDictionary:[project environmentForCommandMode:mode]];
-	}
-//iTM2_LOG(@"32-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
-//iTM2_END;
-    return ED;
+		return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= concreteEnvironmentDictionaryForProject:
 + (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
@@ -3004,51 +2253,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableDictionary * result = [NSMutableDictionary dictionary];
-//iTM2_LOG(@"1-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
-	// base project related stuff
-	NSMutableArray * BPs = [NSMutableArray array];
-	id baseProject = [project baseProject];
-	while(baseProject && ![BPs containsObject:baseProject])
-	{
-		[BPs addObject:baseProject];
-		baseProject = [baseProject baseProject];
-	}
-	// BPs contains the stack of all the base projects ancestors of project
-	NSEnumerator * E = [BPs reverseObjectEnumerator];
-	NSDictionary * D;
-	NSArray * RA;
-	while(baseProject = [E nextObject])
-	{
-		D = [self environmentScriptsForBaseProject:baseProject];
-		[result addEntriesFromDictionary:D];
-		RA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
-		NSEnumerator * e = [RA objectEnumerator];
-		Class C;
-		while(C = (Class)[[e nextObject] nonretainedObjectValue])
-		{
-			D = [C environmentWithDictionary:result forBaseProject:baseProject];
-			[result addEntriesFromDictionary:D];
-		}
-	}
-//iTM2_LOG(@"2-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
-	// project related stuff
-	D = [self environmentScriptsForProject:project];
-	[result addEntriesFromDictionary:D];
-	RA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
-	E = [RA objectEnumerator];
-	Class C = Nil;
-	while(C = (Class)[[E nextObject] nonretainedObjectValue])
-	{
-		D = [C environmentWithDictionary:result forProject:project];
-		[result addEntriesFromDictionary:D];
-	}
 //iTM2_LOG(@"4-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
 	// more general stuff
     [result takeValue:[project wrapperName] forKey:TWSShellEnvironmentWrapperKey];
 	NSDocument * CD = [SDC currentDocument];
 	if(CD == project)
 	{
-		RA = [NSApp orderedWindows];
+		NSArray * RA = [NSApp orderedWindows];
 		NSEnumerator * E = [RA objectEnumerator];
 		NSWindow * W;
 blablabla:
@@ -3080,7 +2291,7 @@ blablabla:
 	else if(![MFK length])
 	{
 		// the project has not yet a master file key
-		NSArray * Ks = [project allKeys];
+		NSArray * Ks = [project allFileKeys];
 #warning ERROR: IT IS NOT CLEAR
 		if([Ks count] == 1)
 		{
@@ -3093,6 +2304,7 @@ blablabla:
 			[project setMasterFileKey:@"...iTM2FrontDocument"];
 		}
 	}
+#warning THIS SHOULD CHANGE TO THE RELATIVE FILENAME
 	NSString * master = [project absoluteFileNameForKey:MFK];
     [result takeValue:master forKey:TWSShellEnvironmentMasterKey];
     [result takeValue:[project fileName] forKey:TWSShellEnvironmentProjectKey];

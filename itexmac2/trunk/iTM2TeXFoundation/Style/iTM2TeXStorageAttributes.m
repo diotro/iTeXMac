@@ -877,6 +877,20 @@ To Do List:
 //	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
 //	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
+#if 0
+CFStringRef str;
+CFStringInlineBuffer inlineBuffer;CFIndex length;CFIndex cnt;
+ 
+str = CFStringCreateWithCString(NULL, "Hello World",
+    kCFStringEncodingMacRoman);
+length = CFStringGetLength(str)
+CFStringInitInlineBuffer(str, &inlineBuffer, CFRangeMake(0, length));
+ 
+for (cnt = 0; cnt < length; cnt++) {
+     UniChar ch = CFStringGetCharacterFromInlineBuffer(&inlineBuffer, cnt);
+     // Process character...
+}
+#endif
 	unichar theChar = [S characterAtIndex:location];
 	unsigned start, end;
 	if(kiTM2TeXCommandStartSyntaxMode == previousModeWithoutModifiers)
@@ -989,7 +1003,7 @@ placeholder:
 		
 		start = r.location;
 		substring = [S substringWithRange:r];
-		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:NULL error:nil] autorelease];
+		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"@@@\\(|\\)@@@" options:0 error:nil] autorelease];
 		[RE setInputString:substring];
 		while([RE nextMatch])
 		{

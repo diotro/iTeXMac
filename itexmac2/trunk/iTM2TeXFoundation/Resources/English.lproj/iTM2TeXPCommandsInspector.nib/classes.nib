@@ -21,6 +21,7 @@
                 editOptions = id; 
                 editOutputDirectory = id; 
                 editScript = id; 
+                myAction = id; 
                 noop = id; 
                 switchToAdvancedSettings = id; 
                 takePATHPrefixFromSender = id; 

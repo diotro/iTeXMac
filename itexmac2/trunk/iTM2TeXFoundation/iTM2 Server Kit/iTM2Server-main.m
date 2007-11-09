@@ -73,7 +73,8 @@ int main(int argc, const char *argv[])
 	}
 	else if(![connectionID length] && LaunchiTeXMac2IfNeeded(argc, argv))
 	{
-		[[NSDistributedNotificationCenter defaultCenter]
+//NSLog(@"Distributed notification is: %@", iTM2ServerPerformProjectActionWithContextNotification);
+				[[NSDistributedNotificationCenter defaultCenter]
 			postNotificationName: iTM2ServerPerformProjectActionWithContextNotification
 				object: nil
 					userInfo: context

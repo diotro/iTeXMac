@@ -38,6 +38,7 @@ extern NSString * const iTM2TPFEFilePropertiesKey;
 extern NSString * const iTM2TPFEBaseProjectNameKey;
 
 extern NSString * const iTM2TPFEVoidMode;
+extern NSString * const iTM2TPFECustomMode;
 extern NSString * const iTM2TPFEBaseMode;
 
 extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
@@ -109,8 +110,6 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 					and the actual shell script for key @"script".
 					This dictionary only contains customized scripts such that in general, it is void.
 					Only the base projects and customized ones should have a non void dictionary here.
-					Given a script mode, we access the command script by sending -scriptDescriptorForCommandMode: message
-					and its setter counterpart -setScriptDescriptor:forCommandMode: to a project document.
 				-   a "Command Environments" dictionary which keys are used by the "Commands" dictionary above.
 					They contain a dictionary which contents will be appended the the shell environment just before the action is performed.
 					The contents of these value dictionaries is free.
@@ -140,8 +139,6 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 				-   an "Engine Environments" dictionary which keys are used by the action dictionary above.
 					They contain a dictionary which content will be appended the the shell ENVIRONMENT just before the action is performed.
 					The contents of these value dictionaries is free.
-					Given an environment mode, we access the command environment by sending -environmentForEngineMode: message
-					and its setter counterpart -takeEnvironment:forEngineMode: to a project document.
 
                 Now come the important notes on the TeX document architecture.
                 Documents are one of:
@@ -173,89 +170,6 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 	@result		None
 */
 - (void)setOutputFileExtension:(NSString *)extension;
-
-/*! 
-    @method     modelForCommandName:
-    @abstract   The model for the command given with the given name.
-    @discussion The given command is one of the built in command names defined by iTeXMac2 to process a document.
-				Each command calls a shell script that expects some kind of environment.
-				As this environment is definite, we have dedicated inspectors.
-				Each command hat its own eponym environment.
-				Each predefined command should not work with another environment,
-				Only customized scripts are allowed to work with environments.
-				You can write your own shell script that overrides the built in Compile command but
-				still uses the Compile environemnt mode such that you keep the benefit of
-				the dedicated Compile environment inspector.
-				See the iTM2CommandWrapper implementation to see how this model is used.
-				And also the frontendFixImplementation
-    @param      command is one of the predefined command names
-    @result     None
-*/
-- (id)modelForCommandName:(NSString *)commandName;
-
-/*! 
-    @method     takeModel:forCommandName:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      None
-    @param      None
-    @result     None
-*/
-- (void)takeModel:(id)argument forCommandName:(NSString *)commandName;
-
-/*! 
-    @method     environmentForCommandMode:
-    @abstract   The full environment for the given command mode.
-    @discussion To each command corresponds a command mode that defines the set of recognised environment variables.
-				This is the concrete dictionary for this command mode.
-    @param      command
-    @result     a property list
-*/
-- (NSDictionary *)environmentForCommandMode:(NSString *)command;
-
-/*! 
-    @method     takeEnvironment:forCommandMode:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming
-    @param      environment
-    @param      scriptMode
-    @result     None
-*/
-- (void)takeEnvironment:(id)environment forCommandMode:(NSString *)mode;
-
-/*! 
-    @method     scriptDescriptorForCommandMode:
-    @abstract   Abstract forthcoming.
-    @discussion An action script is a shell script that performs one of the typesetting actions (including clean!)
-				Actions are Compile, Bibliography, Index, Typeset, Clean, Special, Glossary
-                A descriptor for this action is just a dictionary with key value pairs:
-                key: "label",  value: a label for iTeXMac2 private use
-                key: "content",  value: the real contents of the script
-    @param      commandName
-    @result     a string
-*/
-- (NSDictionary *)scriptDescriptorForCommandMode:(NSString *)scriptMode;
-
-/*! 
-    @method     takeScriptDescriptor:forCommandMode:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming
-    @param      dictionary
-    @param      commandName
-    @result     None
-*/
-- (void)takeScriptDescriptor:(id)script forCommandMode:(NSString *)scriptMode;
-
-/*! 
-    @method     commands
-    @abstract   Abstract forthcoming.
-    @discussion These are dangerous accessors.
-    @param      None
-    @result     an NSDictionary
-*/
-- (NSDictionary *)commands;
-- (NSDictionary *)commandEnvironments;
-- (NSDictionary *)commandScripts;
 
 /*! 
     @method     editCommands:
@@ -296,42 +210,6 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 */
 - (void)showTerminalInBackGroundIfNeeded:(id)sender;
 
-/*! 
-    @method     commandWrapperForName
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      A name
-    @result     A command wrapper
-*/
-- (id)commandWrapperForName:(NSString *)name;
-
-/*! 
-    @method     commandWrappers
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      None
-    @result     Ana array of command wrappers
-*/
-- (id)commandWrappers;
-
-/*! 
-    @method     lazyCommandWrappers
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      None
-    @result     Ana array of command wrappers
-*/
-- (id)lazyCommandWrappers;
-
-/*! 
-    @method     setCommandWrappers:
-    @abstract   The properties of the available TeX projects.
-    @discussion Used by the inspectors in the basename/variant/output choice.
-    @param      An array of command wrappers
-    @result     None
-*/
-- (void)setCommandWrappers:(NSArray *)argument;
-
 - (BOOL)isValidEnvironmentMode:(NSString *)environmentMode forScriptMode:(NSString *)scriptMode commandName:(NSString *)commandName;
 
 @end
@@ -339,22 +217,22 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 @interface iTM2TeXPShellScriptInspector: iTM2Inspector
 
 /*! 
-    @method     setScriptDescriptor:
+    @method     infosController
     @abstract   Abstract forthcoming.
-    @discussion A script descriptor is a dictionary
-    @param      sd
-    @result     None
+    @discussion Discussion forthcoming.
+    @param      None
+    @result     an infos controller
 */
-- (void)setScriptDescriptor:(id)sd;
+- (id)infosController;
 
 /*! 
-    @method     scriptDescriptor
+    @method     setInfosController:
     @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming
-    @param      None
-    @result     a script descriptor
+    @discussion Discussion forthcoming.
+    @param      An infos controller
+    @result     None
 */
-- (id)scriptDescriptor;
+- (void)setInfosController:(id)infosController;
 
 /*! 
     @method     textView
@@ -367,33 +245,10 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 
 @end
 
-#define iVarMode valueForKey: iTM2TPFEModeKey
-#define iVarVariant valueForKey: iTM2TPFEVariantKey
-#define iVarName valueForKey: iTM2TPFENameKey
-#define iVarOutput valueForKey: iTM2TPFEOutputKey
-
 extern NSString * const iTM2TPFEContentKey;
 extern NSString * const iTM2TPFEShellKey;
-extern NSString * const iTM2TPFEModeKey;
-extern NSString * const iTM2TPFEVariantKey;
-extern NSString * const iTM2TPFENameKey;
-extern NSString * const iTM2TPFEOutputKey;
 
 extern NSString * const iTM2TPFEPDFOutput;
-
-@interface NSString(TeXPFrontend)
-
-/*! 
-    @method     TeXProjectProperties
-    @abstract   The receiver translated as TeX projects properties.
-    @discussion Used by the inspectors in the mode/output/variant choice.
-				The name of the project is parsed to match mode+output-variant.
-    @param      None
-    @result     A dictionary
-*/
-- (NSDictionary *)TeXProjectProperties;
-
-@end
 
 /*! 
     @class      iTM2TeXProjectInspector
@@ -416,58 +271,8 @@ extern NSString * const iTM2TPFEPDFOutput;
 */
 + (NSString *)windowNibName;
 
-/*!
-    @method     
-    @abstract   The model of the receiver
-    @discussion If you want to change the model without marking the receiver's document as edited,
-                use this dictionary directly, don't use the takeModelValue:forKey: method.
-    @param      None
-    @result     A dictionary
-*/
-- (id)model;
-- (void)takeModel:(NSDictionary *)model;
-- (id)modelValueForKey:(NSString *)key;
-- (void)takeModelValue:(id)value forKey:(NSString *)key;
-- (BOOL)modelFlagForKey:(NSString *)key;
-- (void)toggleModelFlagForKey:(NSString *)key;
 - (IBAction)cancel:(id)sender;
 - (IBAction)OK:(id)sender;
-
-/*!
-    @method     defaultShellEnvironment
-    @abstract   (description)
-    @discussion Subclassers will define their proper stuff here
-    @param      None
-    @result     an array of all environment variables
-*/
-+ (NSDictionary *)defaultShellEnvironment;
-
-/*!
-    @method     allShellEnvironmentVariables
-    @abstract   (description)
-    @discussion Simply returns the keys of the defaultShellEnvironment dictionary
-    @param      None
-    @result     an array of all environment variables
-*/
-+ (NSArray *)allShellEnvironmentVariables;
-
-/*!
-    @method     shellEnvironment
-    @abstract   (description)
-    @discussion (description)
-    @param      None
-    @result     an environment dictionary
-*/
-- (NSDictionary *)shellEnvironment;
-
-/*!
-    @method     takeShellEnvironment:
-    @abstract   (description)
-    @discussion (description)
-    @param      environment
-    @result     None
-*/
-- (void)takeShellEnvironment:(NSDictionary *)environment;
 
 @end
 
@@ -490,15 +295,6 @@ extern NSString * const iTM2TPFEPDFOutput;
     @result     None
 */
 - (void)setBaseProjectName:(NSString *)baseProjectName;
-
-/*! 
-    @method     baseProject
-    @abstract   The base project of the receiver.
-    @discussion Description forthcoming.
-    @param      None
-    @result     The base project
-*/
-- (id)baseProject;
 
 @end
 
@@ -534,7 +330,7 @@ extern NSString * const iTM2TPFEPDFOutput;
 */
 - (id)currentTeXProject;
 
-- (NSDictionary *)TeXProjectsProperties;
+- (NSDictionary *)TeXBaseProjectsProperties;
 
 @end
 
@@ -544,11 +340,8 @@ extern NSString * const iTM2TPFELabelKey;
 #define iVarLabel valueForKey: iTM2TPFELabelKey
 
 extern NSString * const iTM2TPFECommandsKey;
-#define iVarCommands modelValueForKey: iTM2TPFECommandsKey ofType: iTM2ProjectFrontendType
 extern NSString * const iTM2TPFECommandEnvironmentsKey;
-#define iVarCommandEnvironments modelValueForKey: iTM2TPFECommandEnvironmentsKey ofType: iTM2ProjectFrontendType
 extern NSString * const iTM2TPFECommandScriptsKey;
-#define iVarCommandScripts modelValueForKey: iTM2TPFECommandScriptsKey ofType: iTM2ProjectFrontendType
 extern NSString * const iTM2TeXPCommandPropertiesKey;
 
 extern NSString * const iTM2ToolbarProjectSettingsItemIdentifier;

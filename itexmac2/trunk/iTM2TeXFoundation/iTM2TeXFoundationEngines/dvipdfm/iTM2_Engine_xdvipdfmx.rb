@@ -11,14 +11,14 @@ class XDVIPDFmxWrapper<DVIPDFmxWrapper
 		'iTM2_Xdvipdfmx_'
 	end
 	
-	def engine
+	def verb
 		#subclassers will override this
 		'xdvipdfmx'
 	end
 	
-	def command_arguments
-		arguments = super.command_arguments
-		arguments << "-E " if ignore_font_license.yes?
+	def options
+		opts = super.options
+		opts << "-E " if _ignore_font_license.yes?
 	end
 	
 	def extension

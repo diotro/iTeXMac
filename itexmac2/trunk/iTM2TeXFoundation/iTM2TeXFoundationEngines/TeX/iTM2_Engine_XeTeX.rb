@@ -3,31 +3,24 @@
 # This is a pdfeTeX 3.141592-1.20a-2.2 (Web2C 7.5.3) wrapper
 # the purpose of this script is to create a shell script for iTM2_Command_Compile.rb
 
-class PDFTeXWrapper<EngineWrapper
+require 'iTM2_Engine_PDFTeX'
+
+$engine = "xetex"
+
+class XeTeXWrapper<PDFTeXWrapper
 	
 	def key_prefix
-		'iTM2_PDFTeX_'
+		'iTM2_XeTeX_'
 	end
-	
+
 	def options
+		opts=" "
 		if _ini.yes?
-			opts = "-ini "
+			opts << "-ini "
 			opts << "-enc " if _enc.yes?
 			opts << "-mltex " if _mltex.yes?
-			opts << "-output-format="
-			opts << ((_output_format == "dvi")?("dvi "):("pdf "))
-		else
-			opts = "-output-format="
-			if _output_format == "dvi"
-				@output_extension = "dvi"
-				opts << "dvi "
-				opts << "-out-comment=\"#{_out_comment}\" " if _USE_out_comment.yes? and _out_comment.length?
-			else
-				@output_extension = "pdf"
-				opts << "pdf "
-				notify("error","PDFSYNC no yet supported") if _PDFSYNC.yes?
-			end
 		end
+		opts << "-jobname=\"#{_jobname}\" " if _USE_jobname.yes? and _jobname.length?
 		if _USE_output_directory.yes? and _output_directory.length?
 			opts << "-output-directory=\"#{_output_directory}\" "
 		elsif _iTM2_USE_output_directory.yes? and _iTM2_output_directory.length?
@@ -44,32 +37,29 @@ class PDFTeXWrapper<EngineWrapper
 		else
 			if _USE_progname.yes? and _progname.length?
 				opts << "-progname=#{_progname} "
-				if @format == "plain"
-					opts << "-fmt=pdftex "
+				if @format.length?
+					if "@format" == "plain"
+						@format="xetex"
+					elsif @format !~ /xe/
+						@format="xe#{@format}"
+					end
 				else
-					if ! ( /^pdf/ =~ @format )
-						pdffmt="pdf"+@format
-						if `kpsewhich #{@format}.fmt`.length?
-							@format=pdffmt
-						end
-					end
-					opts << "-fmt=#{@format} "
+					@format="xetex"
 				end
-			elsif @format == "plain"
-				opts << "-progname=pdftex "
-			else
-				if ! ( /^pdf/ =~ @format )
-					pdffmt="pdf"+@format
-					if `kpsewhich #{pdffmt}.fmt`.length?
-						@format=pdffmt
-					end
+				opts << "-fmt=#{@format} "
+			elsif "@format" == "plain"
+				opts << "-progname=xetex "
+			elsif @format.length?
+				if @format !~ /xe/
+					@format="xe#{@format}"
 				end
 				opts << "-progname=#{@format} "
 			end
 			opts << "-translate-file=\"#{_translate_file}\" " if _USE_translate_file.yes? and _translate_file.length?
 		end
-		opts << "-recorder " if _recorder.yes?
+		opts << "-etex " if _enable_etex.yes?
 		opts << "-8bit " if _eigh_bit.yes?
+		opts << "-recorder " if _recorder.yes?
 		opts << "-file-line-error " if _file_line_error.yes?
 		opts << "-halt-on-error " if _halt_on_error.yes? or _iTM2_ContinuousCompile.yes?
 		notify("error","-kpathsea-debug no yet supported.") if _kpathsea_debug.yes?
@@ -80,9 +70,18 @@ class PDFTeXWrapper<EngineWrapper
 			@job = jobname
 			opts << "-jobname=\"#{@job}\" "
 		end
+		case _output_driver
+			when "XeTeX"
+			when "iTeXMac2"
+				opts << "-no-pdf "
+			when "custom"
+				opts << "-output-driver=\"#{_custom_output_driver}\" " if _custom_output_driver.length?
+		end
+		if _output_driver.yes?
+		end
 		opts
 	end
-	
+
 	def engine_shortcut
 								# this part belongs to the method
 								if /^fr/ =~ @format
@@ -92,65 +91,36 @@ class PDFTeXWrapper<EngineWrapper
 										bail("FrenchPro is not available, install FrenchPro or change the format in #{project.name.basename.to_s} settings.")
 									end
 								end
-								if ! FileTest.executable?(`which pdftex`.chomp)
-									bail("pdftex is not available, either install a more complete TeX distribution or change the format in #{project.name.basename.to_s} settings.")
+								if ! FileTest.executable?(`which xetex`.chomp)
+									bail("xetex is not available, either install a more complete TeX distribution or change the format in #{project.name.basename.to_s} settings.")
 								end
-								opts = options # here for the side effect, before what is after...
+								opts = options # here for the side effects
 								@job = project.job_name.to_s if @job.nil?
-								product = @job+'.'+@output_extension
-								pdfout = @job+'.pdf'
+								if opts =~ /-no-pdf/ # create the xdv and let iTM2 translate to pdf
+								# unless in draft mode from the command line
+								# nothing more to do than create the xdv file
 								# feeding the script file:
 # the parts below belong to the script
-								if opts =~ /-draftmode/
-									# just launch the engine, nothing special afterwards
 									engine_shortcut = <<EOF
 $job = "#{@job}"
-$product = "#{product}"
-$pdfsync = "#{@job+'.pdfsync'}"
-File.delete($pdfsync) if FileTest.exist?($pdfsync)
+$xdvout = "#{@job+'.xdv'}"
 $sync = "#{@job+'.sync'}"
 File.delete($sync) if FileTest.exist?($sync)
-$verb = "#{((frenchpro.yes?)?('/bin/sh -c #{frenchpro} pdftex '):('pdftex '))}"
-$options = "#{opts}"
+$pdfsync = "#{@job+'.pdfsync'}"
+File.delete($pdfsync) if FileTest.exist?($pdfsync)
+$verb = "#{((frenchpro.yes?)?('/bin/sh -c frenchpro xetex '):('xetex '))}"
+$options = "#{options}"
 $command = $verb+$options+'"'+$master+'"'
-$command.gsub!(/"/,'\"')
-notify("comment","Performing \#{$command} (draft)")
+$pretty_command = $command.gsub(/"/,'\"')
+notify("comment","Performing \#{$pretty_command}")
 if ! system($command)
 	notify("error","#{$me} FAILED(#{$?}).")
 	exit $?
 end
-EOF
-								elsif @output_extension == 'dvi' # we do have to turn this into a pdf...
-									engine_shortcut = <<EOF # NOEOF
-$job = "#{@job}"
-$dviout = "#{@job+'.dvi'}"
-FileUtils.rm_f($dviout) if FileTest.symlink?($dviout)
-$pdfsync = "#{@job+'.pdfsync'}"
-File.delete($pdfsync) if FileTest.exist?($pdfsync)
-$sync = "#{@job+'.sync'}"
-File.delete($sync) if FileTest.exist?($sync)
-$verb = "#{((frenchpro.yes?)?('/bin/sh -c #{frenchpro} pdftex '):('pdftex '))}"
-$options = "#{opts}"
-if ENV.key?('TWS_draft_mode') and ENV['TWS_draft_mode'] != '0'
-	$options.gsub!(/ -output-format=.../,'')
-	$command = $verb+$options+'-draftmode "'+$master+'"'
-	$command.gsub!(/"/,'\"')
-	notify("comment","Performing \#{$command} (draft)")
-	if ! system($command)
-		notify("error","#{$me} FAILED(#{$?}).")
-		exit $?
-	end
-else
-	$command = $verb+$options+'"'+$master+'"'
-	$command.gsub!(/"/,'\"')
-	notify("comment","Performing \#{$command}")
-	if ! system($command)
-		notify("error","#{$me} FAILED(#{$?}).")
-		exit $?
-	end
-	$pdfout = "#{pdfout}"
-	if Kernel.test(?s,$dviout)
-		if !system("#{$0}",'-p',$project,'-a','Compile','-m',$dviout)
+if ! ENV.key?('TWS_draft_mode') or ENV['TWS_draft_mode'] == '0'
+	$pdfout = "#{@job+'.pdf'}"
+	if Kernel.test(?s,$xdvout)
+		if ! system("#{$0}",'-p',$project,'-a','Compile','-m',$xdvout) or ! Kernel.test(?s,$pdfout)
 			system("iTeXMac2","markerror","-file",$pdfout,"-project",$project)
 		end
 	else
@@ -160,36 +130,34 @@ else
 	end
 end
 EOF
-								else # pdf output
-									engine_shortcut = <<EOF # NOEOF
+								else
+									# we've been given a driver, the output is pdf
+									engine_shortcut = <<EOF
 $job = "#{@job}"
-$pdfout = "#{pdfout}"
+$pdfout = "#{@job+'.pdf'}"
 FileUtils.rm_f($pdfout) if FileTest.symlink?($pdfout)
 $pdfsync = "#{@job+'.pdfsync'}"
 File.delete($pdfsync) if FileTest.exist?($pdfsync)
 $sync = "#{@job+'.sync'}"
 File.delete($sync) if FileTest.exist?($sync)
-$pdfout = "#{pdfout}"
-$verb = "#{((frenchpro.yes?)?('/bin/sh -c #{frenchpro} pdftex '):('pdftex '))}"
-$options = "#{opts}"
+$verb = "#{((frenchpro.yes?)?('/bin/sh -c frenchpro xetex '):('xetex '))}"
+$options = "#{options}"
 if ENV.key?('TWS_draft_mode') and ENV['TWS_draft_mode'] != '0'
-	$options.gsub!(/ -output-format=.../,'')
-	$command = $verb+$options+'-draftmode "'+$master+'"'
-	$command.gsub!(/"/,'\"')
-	notify("comment","Performing \#{$command}")
+	$command = $verb+$options+'-no-pdf "'+$master+'"'
+	$pretty_command = $command.gsub(/"/,'\"')
+	notify("comment","Performing \#{$pretty_command}")
 	if ! system($command)
 		notify("error","#{$me} FAILED(#{$?}).")
 		exit $?
 	end
 else
 	$command = $verb+$options+'"'+$master+'"'
-	$command.gsub!(/"/,'\"')
-	notify("comment","Performing \#{$command}")
+	$pretty_command = $command.gsub(/"/,'\"')
+	notify("comment","Performing \#{$pretty_command}")
 	if ! system($command)
 		notify("error","#{$me} FAILED(#{$?}).")
 		exit $?
-	end
-	if Kernel.test(?s,$pdfout)
+	elsif Kernel.test(?s,$pdfout)
 EOF
 									if project.source_folder.writable? and project.source_folder != Pathname.pwd
 										engine_shortcut << <<EOF
@@ -231,8 +199,7 @@ end
 EOF
 								end # NOEOF
 								engine_shortcut
-							end
-
+	end
+						
 end
-puts "! I got here"
-$launcher.engine_wrapper = PDFTeXWrapper.new
+$launcher.engine_wrapper = XeTeXWrapper.new

@@ -22,6 +22,7 @@
 */
 
 #import "iTM2DVIKit.h"
+#import "iTM2TeXInfoWrapperKit.h"
 #import "iTM2TeXProjectDocumentKit.h"
 #import "iTM2TeXProjectCommandKit.h"
 

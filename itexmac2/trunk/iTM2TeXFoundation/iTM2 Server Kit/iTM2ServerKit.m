@@ -33,6 +33,9 @@ NSString * const iTM2ServerColumnKey = @"-column";
 NSString * const iTM2ServerLineKey = @"-line";
 NSString * const iTM2ServerSourceKey = @"-source";
 NSString * const iTM2ServerProjectKey = @"-project";
+NSString * const iTM2ServerActionKey = @"-action";
+NSString * const iTM2ServerMasterKey = @"-master";
+NSString * const iTM2ServerEngineKey = @"-engine";
 NSString * const iTM2ServerDontOrderFrontKey = @"-dont-order-front";
 NSString * const iTM2ServerReasonKey = @"-reason";
 NSString * const iTM2ServerIdlingKey = @"-idling";
@@ -471,6 +474,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerSourceKey])
 		{
 			argument = [E nextObject];
+#warning FAILED: unstable, I must implement/use a TEX_WS_SourceFolder environment key in the ruby launcher
 			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
 //iTM2_END;
 			return argument;
@@ -603,6 +607,78 @@ To Do List: see the warning below
 	}
 //iTM2_END;
     return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getMasterNameFromContext:
++ (NSString *)getMasterNameFromContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		argument = [argument lowercaseString];
+		if([argument isEqual:iTM2ServerMasterKey])
+		{
+//iTM2_END;
+			return [E nextObject];
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getActionFromContext:
++ (NSString *)getActionFromContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		argument = [argument lowercaseString];
+		if([argument isEqual:iTM2ServerActionKey])
+		{
+//iTM2_END;
+			return [E nextObject];
+		}
+	}
+//iTM2_END;
+    return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getEngineFromContext:
++ (NSString *)getEngineFromContext:(NSDictionary *)context;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSEnumerator * E = [arguments objectEnumerator];
+    NSString * argument = [E nextObject];// ignore $0
+	while(argument = [E nextObject])
+	{
+		argument = [argument lowercaseString];
+		if([argument isEqual:iTM2ServerEngineKey])
+		{
+//iTM2_END;
+			return [E nextObject];
+		}
+	}
+//iTM2_END;
+    return nil;
 }
 #pragma mark =-=-=-=-=-  typesetting responders
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= compilePerformedWithContext:
@@ -916,7 +992,7 @@ To Do List: see the warning below
 			return;
 		}
 	}
-	[doc displayLine:line column:column length:-1 withHint:nil orderFront:!dontOrderFront];
+	[doc displayLine:(line?--line:line) column:(column?--column:column) length:-1 withHint:nil orderFront:!dontOrderFront];
 	if(dontOrderFront)
 	{
 		[doc showWindowsBelowFront:self];
@@ -1203,6 +1279,97 @@ To Do List: see the warning below
 			//document = [SDC documentForURL:url];
 		}
 	}
+#warning NYI: -all not supported
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= touchPerformedWithContext:
++ (void)touchPerformedWithContext:(NSDictionary *)context;
+/*"This is like updatePerformedWithContext above, except that it does not add the file to the project.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"arguments: %@", arguments);
+#else
+    NSString * projectName = [self getProjectNameFromContext:context];
+    NSArray * fileNames = [self getFileNamesFromContext:context];
+	NSError * localError = nil;
+	NSString * fileName = nil;
+	NSURL * url = nil;
+	NSDocument * document = nil;
+	iTM2ProjectDocument * PD = nil;
+	NSEnumerator * E = [fileNames objectEnumerator];
+	if([self getDontOrderFrontFromContext:context])
+	{
+		// just register the document for the project,
+		// update the contents if the document is on screen
+		while(fileName = [E nextObject])
+		{
+			url = [NSURL fileURLWithPath:fileName];
+			if(document = [SDC documentForURL:url])
+			{
+				[document updateIfNeeded];
+			}
+		}
+//iTM2_END;
+		return;
+	}
+	while(fileName = [E nextObject])
+	{
+		url = [NSURL fileURLWithPath:fileName];
+		if(document = [SDC documentForURL:url])
+		{
+			[document updateIfNeeded];
+			[document showWindowsBelowFront:self];
+		}
+		else
+		{
+			if(!(PD = [SPC projectForFileName:fileName]))
+			{
+				if(!(PD = [SPC projectForFileName:projectName]))
+				{
+					NSURL * url = [NSURL fileURLWithPath:projectName];
+					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					if(localError)
+					{
+						[SDC presentError:localError];
+//iTM2_END;
+						return;
+					}
+				}
+			}
+			document = [PD subdocumentForFileName:fileName];
+			[document updateIfNeeded];
+		}
+	}
+#warning NYI: -all not supported
+#endif
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= buildPerformedWithContext:
++ (void)buildPerformedWithContext:(NSDictionary *)context;
+/*"This is like updatePerformedWithContext above, except that it does not add the file to the project.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: see the warning below
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#if __iTM2_Server_Test__
+    iTM2_LOG(@"arguments: %@", arguments);
+#else
+    NSString * projectName = [self getProjectNameFromContext:context];
+	NSString * masterName = [self getMasterNameFromContext:context];
+	NSString * engine = [self getEngineFromContext:context];
+	NSString * action = [self getActionFromContext:context];
+#warning FAILED UNSTABLE manage the missing arguments here.
+	[iTM2TeXPCommandPerformer launchAction:action withEngine:engine forMaster:masterName ofProject:projectName];
 #warning NYI: -all not supported
 #endif
 //iTM2_END;

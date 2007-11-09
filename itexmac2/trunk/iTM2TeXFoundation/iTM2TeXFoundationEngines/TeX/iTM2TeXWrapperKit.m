@@ -24,47 +24,47 @@
 #import "iTM2TeXWrapperKit.h"
 
 // ini
-NSString * const iTM2TeX_ini = @"iTM2_TeX_ini";
-NSString * const iTM2TeX_mltex = @"iTM2_TeX_mltex";
-NSString * const iTM2TeX_enc = @"iTM2_TeX_enc";
+NSString * const iTM2TeX_ini = @"ini";
+NSString * const iTM2TeX_mltex = @"mltex";
+NSString * const iTM2TeX_enc = @"enc";
 
-NSString * const iTM2TeXMoreArgumentKey = @"iTM2_TeX_MoreArgument";
+NSString * const iTM2TeXMoreArgumentKey = @"MoreArgument";
 
-NSString * const iTM2TeX_mktex = @"iTM2_TeX_mktex";
+NSString * const iTM2TeX_mktex = @"mktex";
 
-NSString * const iTM2TeX_USE_output_directory = @"iTM2_TeX_USE_output_directory";
-NSString * const iTM2TeX_output_directory = @"iTM2_TeX_output_directory";
+NSString * const iTM2TeX_USE_output_directory = @"USE_output_directory";
+NSString * const iTM2TeX_output_directory = @"output_directory";
 
 // format switcher
-NSString * const iTM2TeX_fmt = @"iTM2_TeX_fmt";
-NSString * const iTM2TeX_parse_first_line = @"iTM2_TeX_parse_first_line";
-NSString * const iTM2TeX_USE_progname = @"iTM2_TeX_USE_progname";
-NSString * const iTM2TeX_progname = @"iTM2_TeX_progname";
-NSString * const iTM2TeX_USE_jobname = @"iTM2_TeX_USE_jobname";
-NSString * const iTM2TeX_jobname = @"iTM2_TeX_jobname";
-NSString * const iTM2TeX_USE_French_Pro = @"iTM2_TeX_USE_French_Pro";
+NSString * const iTM2TeX_fmt = @"fmt";
+NSString * const iTM2TeX_PARSE_first_line = @"PARSE_first_line";
+NSString * const iTM2TeX_USE_progname = @"USE_progname";
+NSString * const iTM2TeX_progname = @"progname";
+NSString * const iTM2TeX_USE_jobname = @"USE_jobname";
+NSString * const iTM2TeX_jobname = @"jobname";
+NSString * const iTM2TeX_USE_French_Pro = @"USE_French_Pro";
 NSString * const iTM2TeX_shell_escape = @"iTM2_AllTeX_shell_escape";
-NSString * const iTM2TeX_src_specials = @"iTM2_TeX_src_specials";
-NSString * const iTM2TeX_src_specials_where_no_cr = @"iTM2_TeX_src_specials_where_no_cr";
-NSString * const iTM2TeX_src_specials_where_no_display = @"iTM2_TeX_src_specials_where_no_display";
-NSString * const iTM2TeX_src_specials_where_no_hbox = @"iTM2_TeX_src_specials_where_no_hbox";
-NSString * const iTM2TeX_src_specials_where_no_parent = @"iTM2_TeX_src_specials_where_no_parent";
-NSString * const iTM2TeX_src_specials_where_no_par = @"iTM2_TeX_src_specials_where_no_par";
-NSString * const iTM2TeX_src_specials_where_no_math = @"iTM2_TeX_src_specials_where_no_math";
-NSString * const iTM2TeX_src_specials_where_no_vbox = @"iTM2_TeX_src_specials_where_no_vbox";
-NSString * const iTM2TeX_USE_output_comment = @"iTM2_TeX_USE_output_comment";
-NSString * const iTM2TeX_output_comment = @"iTM2_TeX_output_comment";
+NSString * const iTM2TeX_src_specials = @"src_specials";
+NSString * const iTM2TeX_src_specials_where_no_cr = @"src_specials_where_no_cr";
+NSString * const iTM2TeX_src_specials_where_no_display = @"src_specials_where_no_display";
+NSString * const iTM2TeX_src_specials_where_no_hbox = @"src_specials_where_no_hbox";
+NSString * const iTM2TeX_src_specials_where_no_parent = @"src_specials_where_no_parent";
+NSString * const iTM2TeX_src_specials_where_no_par = @"src_specials_where_no_par";
+NSString * const iTM2TeX_src_specials_where_no_math = @"src_specials_where_no_math";
+NSString * const iTM2TeX_src_specials_where_no_vbox = @"src_specials_where_no_vbox";
+NSString * const iTM2TeX_USE_output_comment = @"USE_output_comment";
+NSString * const iTM2TeX_output_comment = @"output_comment";
 
-NSString * const iTM2TeX_USE_translate_file = @"iTM2_TeX_USE_translate_file";
-NSString * const iTM2TeX_translate_file = @"iTM2_TeX_translate_file";
-NSString * const iTM2TeX_PARSE_translate_file = @"iTM2_TeX_PARSE_translate_file";
+NSString * const iTM2TeX_USE_translate_file = @"USE_translate_file";
+NSString * const iTM2TeX_translate_file = @"translate_file";
+NSString * const iTM2TeX_PARSE_translate_file = @"PARSE_translate_file";
 // debugger
-NSString * const iTM2TeX_recorder = @"iTM2_TeX_recorder";
-NSString * const iTM2TeX_file_line_error = @"iTM2_TeX_file_line_error";
-NSString * const iTM2TeX_halt_on_error = @"iTM2_TeX_halt_on_error";
-NSString * const iTM2TeX_interaction = @"iTM2_TeX_interaction";
+NSString * const iTM2TeX_recorder = @"recorder";
+NSString * const iTM2TeX_file_line_error = @"file_line_error";
+NSString * const iTM2TeX_halt_on_error = @"halt_on_error";
+NSString * const iTM2TeX_interaction = @"interaction";
 
-NSString * const iTM2TeX_kpathsea_debug = @"iTM2_TeX_kpathsea_debug";
+NSString * const iTM2TeX_kpathsea_debug = @"kpathsea_debug";
 
 
 @implementation iTM2EngineTeX
@@ -100,7 +100,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-                [NSNumber numberWithBool:NO], iTM2TeX_parse_first_line,
+                [NSNumber numberWithBool:NO], iTM2TeX_PARSE_first_line,
                 [NSNumber numberWithBool:NO], iTM2TeX_USE_translate_file,
                 [NSNumber numberWithBool:NO], iTM2TeX_PARSE_translate_file,
                 @"", iTM2TeX_translate_file,
@@ -136,7 +136,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_fmt];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -148,8 +148,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2TeX_fmt]?:@"")];
-    return ![self modelFlagForKey:iTM2TeX_parse_first_line];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2TeX_fmt,nil]?:@"")];
+    return ![[self infoForKeyPaths:iTM2TeX_PARSE_first_line,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseFormat:
 - (IBAction)chooseFormat:(id)sender;
@@ -160,7 +160,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2TeX_fmt];
+    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -233,7 +233,7 @@ To Do List:
 				}
 			}
 		}
-		return ![self modelFlagForKey:iTM2TeX_parse_first_line];
+		return ![[self infoForKeyPaths:iTM2TeX_PARSE_first_line,nil] boolValue];
 	}
     else
         return NO;
@@ -247,7 +247,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKey:iTM2TeX_parse_first_line];
+    [self takeInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2TeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -259,7 +259,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender selectCellWithTag: ([self modelFlagForKey:iTM2TeX_parse_first_line]? 1:0)];
+    [sender selectCellWithTag: ([[self infoForKeyPaths:iTM2TeX_PARSE_first_line,nil] boolValue]? 1:0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleProgName:
@@ -271,7 +271,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_USE_progname];
+    [self toggleInfoForKeyPaths:iTM2TeX_USE_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleProgName:
@@ -283,7 +283,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_USE_progname]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_USE_progname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editProgName:
@@ -295,7 +295,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_progname];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -307,20 +307,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([self modelFlagForKey:iTM2TeX_USE_progname])
+    if([[self infoForKeyPaths:iTM2TeX_USE_progname,nil] boolValue])
     {
-        NSString * v = [self modelValueForKey:iTM2TeX_progname];
+        NSString * v = [self infoForKeyPaths:iTM2TeX_progname,nil];
         if(![v length])
         {
-            v = [self modelValueForKey:iTM2TeX_fmt];
-            [[self model] takeValue:v forKey:iTM2TeX_progname];
+            v = [self infoForKeyPaths:iTM2TeX_fmt,nil];
+            [self takeInfo:v forKeyPaths:iTM2TeX_progname,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
     }
     else
     {
-        [sender setStringValue: ([self modelValueForKey:iTM2TeX_fmt]?:@"")];
+        [sender setStringValue: ([self infoForKeyPaths:iTM2TeX_fmt,nil]?:@"")];
         return NO;
     }
 }
@@ -333,7 +333,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2TeX_progname];
+    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -379,7 +379,7 @@ To Do List:
 				}
 			}
 		}
-		return [self modelFlagForKey:iTM2TeX_USE_progname];
+		return [[self infoForKeyPaths:iTM2TeX_USE_progname,nil] boolValue];
 	}
     else
         return NO;
@@ -393,7 +393,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2TeX_USE_French_Pro];
+	[self toggleInfoForKeyPaths:iTM2TeX_USE_French_Pro,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFrenchPro:
@@ -405,7 +405,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_USE_French_Pro]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_USE_French_Pro,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  Translate
@@ -418,7 +418,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_translate_file];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -430,8 +430,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2TeX_translate_file]?:@"")];
-    return [self modelFlagForKey:iTM2TeX_USE_translate_file];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2TeX_translate_file,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2TeX_USE_translate_file,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTable:
 - (IBAction)toggleTable:(id)sender;
@@ -442,7 +442,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2TeX_USE_translate_file];
+	[self toggleInfoForKeyPaths:iTM2TeX_USE_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTable:
@@ -454,7 +454,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_USE_translate_file]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_USE_translate_file,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleParseTable:
@@ -466,7 +466,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2TeX_PARSE_translate_file];
+	[self toggleInfoForKeyPaths:iTM2TeX_PARSE_translate_file,nil];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleParseTable:
@@ -478,8 +478,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_PARSE_translate_file]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2TeX_parse_first_line];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_PARSE_translate_file,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2TeX_PARSE_first_line,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Output
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecials:
@@ -491,7 +491,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_src_specials];
+    [self toggleInfoForKeyPaths:iTM2TeX_src_specials,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vaidateToggleSrcSpecials:
@@ -503,8 +503,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_src_specials]? NSOnState:NSOffState)];
-    return ![self modelFlagForKey:iTM2TeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_src_specials,nil] boolValue]? NSOnState:NSOffState)];
+    return ![[self infoForKeyPaths:iTM2TeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecialsWhere:
 - (IBAction)toggleSrcSpecialsWhere:(id)sender;
@@ -518,13 +518,13 @@ To Do List:
 	
 	switch([[sender selectedCell] tag])
 	{
-		case 0:  [self toggleModelFlagForKey:iTM2TeX_src_specials_where_no_cr]; break;
-		case 1:  [self toggleModelFlagForKey:iTM2TeX_src_specials_where_no_display]; break;
-		case 2:  [self toggleModelFlagForKey:iTM2TeX_src_specials_where_no_hbox]; break;
-		case 3:  [self toggleModelFlagForKey:iTM2TeX_src_specials_where_no_parent]; break;
-		case 4:  [self toggleModelFlagForKey:iTM2TeX_src_specials_where_no_par]; break;
-		case 5:  [self toggleModelFlagForKey:iTM2TeX_src_specials_where_no_math]; break;
-		default: [self toggleModelFlagForKey:iTM2TeX_src_specials_where_no_vbox]; break;
+		case 0:  [self toggleInfoForKeyPaths:iTM2TeX_src_specials_where_no_cr,nil]; break;
+		case 1:  [self toggleInfoForKeyPaths:iTM2TeX_src_specials_where_no_display,nil]; break;
+		case 2:  [self toggleInfoForKeyPaths:iTM2TeX_src_specials_where_no_hbox,nil]; break;
+		case 3:  [self toggleInfoForKeyPaths:iTM2TeX_src_specials_where_no_parent,nil]; break;
+		case 4:  [self toggleInfoForKeyPaths:iTM2TeX_src_specials_where_no_par,nil]; break;
+		case 5:  [self toggleInfoForKeyPaths:iTM2TeX_src_specials_where_no_math,nil]; break;
+		default: [self toggleInfoForKeyPaths:iTM2TeX_src_specials_where_no_vbox,nil]; break;
 	}
     return;
 }
@@ -537,14 +537,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[sender cellWithTag:0] setState: ([self modelFlagForKey:iTM2TeX_src_specials_where_no_cr]? NSOnState:NSOffState)];
-	[[sender cellWithTag:1] setState: ([self modelFlagForKey:iTM2TeX_src_specials_where_no_display]? NSOnState:NSOffState)];
-	[[sender cellWithTag:2] setState: ([self modelFlagForKey:iTM2TeX_src_specials_where_no_hbox]? NSOnState:NSOffState)];
-	[[sender cellWithTag:3] setState: ([self modelFlagForKey:iTM2TeX_src_specials_where_no_parent]? NSOnState:NSOffState)];
-	[[sender cellWithTag:4] setState: ([self modelFlagForKey:iTM2TeX_src_specials_where_no_par]? NSOnState:NSOffState)];
-	[[sender cellWithTag:5] setState: ([self modelFlagForKey:iTM2TeX_src_specials_where_no_math]? NSOnState:NSOffState)];
-	[[sender cellWithTag:6] setState: ([self modelFlagForKey:iTM2TeX_src_specials_where_no_vbox]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2TeX_src_specials] && ![self modelFlagForKey:iTM2TeX_ini];
+	[[sender cellWithTag:0] setState: ([[self infoForKeyPaths:iTM2TeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:1] setState: ([[self infoForKeyPaths:iTM2TeX_src_specials_where_no_display,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:2] setState: ([[self infoForKeyPaths:iTM2TeX_src_specials_where_no_hbox,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:3] setState: ([[self infoForKeyPaths:iTM2TeX_src_specials_where_no_parent,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:4] setState: ([[self infoForKeyPaths:iTM2TeX_src_specials_where_no_par,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:5] setState: ([[self infoForKeyPaths:iTM2TeX_src_specials_where_no_math,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:6] setState: ([[self infoForKeyPaths:iTM2TeX_src_specials_where_no_vbox,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2TeX_src_specials,nil] boolValue] && ![[self infoForKeyPaths:iTM2TeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputComment:
 - (IBAction)toggleOutputComment:(id)sender;
@@ -555,7 +555,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_USE_output_comment];
+    [self toggleInfoForKeyPaths:iTM2TeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputComment:
@@ -567,8 +567,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_USE_output_comment]? NSOnState:NSOffState)];
-    return ![self modelFlagForKey:iTM2TeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_USE_output_comment,nil] boolValue]? NSOnState:NSOffState)];
+    return ![[self infoForKeyPaths:iTM2TeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputComment:
 - (IBAction)editOutputComment:(id)sender;
@@ -579,7 +579,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_USE_output_comment];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -591,8 +591,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2TeX_output_comment]?:@"")];
-    return [self modelFlagForKey:iTM2TeX_USE_output_comment] && ![self modelFlagForKey:iTM2TeX_ini];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2TeX_output_comment,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2TeX_USE_output_comment,nil] boolValue] && ![[self infoForKeyPaths:iTM2TeX_ini,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  INI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:
@@ -604,7 +604,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_ini];
+    [self toggleInfoForKeyPaths:iTM2TeX_ini,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleIni:
@@ -616,7 +616,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_ini]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_ini,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnc:
@@ -628,7 +628,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_enc];
+    [self toggleInfoForKeyPaths:iTM2TeX_enc,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnc:
@@ -640,8 +640,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_enc]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2TeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_enc,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2TeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleMLTeX:
 - (IBAction)toggleMLTeX:(id)sender;
@@ -652,7 +652,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_mltex];
+    [self toggleInfoForKeyPaths:iTM2TeX_mltex,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleMLTeX:
@@ -664,8 +664,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_mltex]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2TeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_mltex,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2TeX_ini,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Advanced
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
@@ -677,7 +677,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_jobname];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -689,8 +689,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2TeX_jobname]?:@"")];
-    return [self modelFlagForKey:iTM2TeX_USE_jobname];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2TeX_jobname,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2TeX_USE_jobname,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleJobName:
 - (IBAction)toggleJobName:(id)sender;
@@ -701,7 +701,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_USE_jobname];
+    [self toggleInfoForKeyPaths:iTM2TeX_USE_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleJobName:
@@ -713,7 +713,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_USE_jobname]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_USE_jobname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOuputDirectory:
@@ -725,7 +725,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_output_directory];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOuputDirectory:
@@ -737,8 +737,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2TeX_output_directory]?:@"")];
-    return [self modelFlagForKey:iTM2TeX_USE_output_directory];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2TeX_output_directory,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2TeX_USE_output_directory,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputDirectory:
 - (IBAction)toggleOutputDirectory:(id)sender;
@@ -749,7 +749,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_USE_output_directory];
+    [self toggleInfoForKeyPaths:iTM2TeX_USE_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputDirectory:
@@ -761,7 +761,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_USE_output_directory]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_USE_output_directory,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  Interaction
@@ -783,7 +783,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self takeModelValue:v forKey:iTM2TeX_interaction];
+    [self takeInfo:v forKeyPaths:iTM2TeX_interaction,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -797,7 +797,7 @@ To Do List:
 //iTM2_START;
     static NSArray * modes = nil;
     if(!modes) modes = [[NSArray arrayWithObjects:@"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode", nil] retain];
-    [sender selectCellWithTag:[modes indexOfObject:[self modelValueForKey:iTM2TeX_interaction]]];
+    [sender selectCellWithTag:[modes indexOfObject:[self infoForKeyPaths:iTM2TeX_interaction,nil]]];
     return YES;
 }
 #pragma mark =-=-=-=-=-  DEBUG
@@ -810,7 +810,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_file_line_error];
+    [self toggleInfoForKeyPaths:iTM2TeX_file_line_error,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFileLineError:
@@ -822,7 +822,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_file_line_error]? NSOffState:NSOnState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_file_line_error,nil] boolValue]? NSOffState:NSOnState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleRecorder:
@@ -834,7 +834,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_recorder];
+    [self toggleInfoForKeyPaths:iTM2TeX_recorder,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleRecorder:
@@ -846,7 +846,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_recorder]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_recorder,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleHaltOnError:
@@ -858,7 +858,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2TeX_halt_on_error];
+    [self toggleInfoForKeyPaths:iTM2TeX_halt_on_error,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleHaltOnError:
@@ -870,56 +870,57 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2TeX_halt_on_error]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2TeX_halt_on_error,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 @end
 
 // ini
-NSString * const iTM2PDFTeX_ini = @"iTM2_PDFTeX_ini";
-NSString * const iTM2PDFTeX_mltex = @"iTM2_PDFTeX_mltex";
-NSString * const iTM2PDFTeX_enc = @"iTM2_PDFTeX_enc";
+NSString * const iTM2PDFTeX_ini = @"ini";
+NSString * const iTM2PDFTeX_mltex = @"mltex";
+NSString * const iTM2PDFTeX_enc = @"enc";
 
-NSString * const iTM2PDFTeXMoreArgumentKey = @"iTM2_PDFTeX_MoreArgument";
+NSString * const iTM2PDFTeXMoreArgumentKey = @"MoreArgument";
 
-NSString * const iTM2PDFTeX_mktex = @"iTM2_PDFTeX_mktex";
+NSString * const iTM2PDFTeX_mktex = @"mktex";
 
-NSString * const iTM2PDFTeX_USE_output_directory = @"iTM2_PDFTeX_USE_output_directory";
-NSString * const iTM2PDFTeX_output_directory = @"iTM2_PDFTeX_output_directory";
+NSString * const iTM2PDFTeX_USE_output_directory = @"USE_output_directory";
+NSString * const iTM2PDFTeX_output_directory = @"output_directory";
 
 // switcher dvi/pdf
-NSString * const iTM2PDFTeX_output_format = @"iTM2_PDFTeX_output_format";
+NSString * const iTM2PDFTeX_output_format = @"output_format";
 // format switcher
-NSString * const iTM2PDFTeX_fmt = @"iTM2_PDFTeX_fmt";
-NSString * const iTM2PDFTeX_parse_first_line = @"iTM2_PDFTeX_parse_first_line";
-NSString * const iTM2PDFTeX_USE_progname = @"iTM2_PDFTeX_USE_progname";
-NSString * const iTM2PDFTeX_progname = @"iTM2_PDFTeX_progname";
-NSString * const iTM2PDFTeX_USE_jobname = @"iTM2_PDFTeX_USE_jobname";
-NSString * const iTM2PDFTeX_jobname = @"iTM2_PDFTeX_jobname";
-NSString * const iTM2PDFTeX_USE_French_Pro = @"iTM2_PDFTeX_USE_French_Pro";
-//NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
-NSString * const iTM2PDFTeX_pdfsync = @"iTM2_PDFTeX_PDFSYNC";
-NSString * const iTM2PDFTeX_src_specials = @"iTM2_PDFTeX_src_specials";
-NSString * const iTM2PDFTeX_src_specials_where_no_cr = @"iTM2_PDFTeX_src_specials_where_no_cr";
-NSString * const iTM2PDFTeX_src_specials_where_no_display = @"iTM2_PDFTeX_src_specials_where_no_display";
-NSString * const iTM2PDFTeX_src_specials_where_no_hbox = @"iTM2_PDFTeX_src_specials_where_no_hbox";
-NSString * const iTM2PDFTeX_src_specials_where_no_parent = @"iTM2_PDFTeX_src_specials_where_no_parent";
-NSString * const iTM2PDFTeX_src_specials_where_no_par = @"iTM2_PDFTeX_src_specials_where_no_par";
-NSString * const iTM2PDFTeX_src_specials_where_no_math = @"iTM2_PDFTeX_src_specials_where_no_math";
-NSString * const iTM2PDFTeX_src_specials_where_no_vbox = @"iTM2_PDFTeX_src_specials_where_no_vbox";
-NSString * const iTM2PDFTeX_USE_output_comment = @"iTM2_PDFTeX_USE_output_comment";
-NSString * const iTM2PDFTeX_output_comment = @"iTM2_PDFTeX_output_comment";
+NSString * const iTM2PDFTeX_fmt = @"fmt";
+NSString * const iTM2PDFTeX_PARSE_first_line = @"PARSE_first_line";
+NSString * const iTM2PDFTeX_USE_progname = @"USE_progname";
+NSString * const iTM2PDFTeX_progname = @"progname";
+NSString * const iTM2PDFTeX_USE_jobname = @"USE_jobname";
+NSString * const iTM2PDFTeX_jobname = @"jobname";
+NSString * const iTM2PDFTeX_USE_French_Pro = @"USE_French_Pro";
+//NSString * const iTM2TeX_shell_escape = @"shell_escape";
+NSString * const iTM2PDFTeX_pdfsync = @"PDFSYNC";
+NSString * const iTM2PDFTeX_src_specials = @"src_specials";
+NSString * const iTM2PDFTeX_src_specials_where_no_cr = @"src_specials_where_no_cr";
+NSString * const iTM2PDFTeX_src_specials_where_no_display = @"src_specials_where_no_display";
+NSString * const iTM2PDFTeX_src_specials_where_no_hbox = @"src_specials_where_no_hbox";
+NSString * const iTM2PDFTeX_src_specials_where_no_parent = @"src_specials_where_no_parent";
+NSString * const iTM2PDFTeX_src_specials_where_no_par = @"src_specials_where_no_par";
+NSString * const iTM2PDFTeX_src_specials_where_no_math = @"src_specials_where_no_math";
+NSString * const iTM2PDFTeX_src_specials_where_no_vbox = @"src_specials_where_no_vbox";
+NSString * const iTM2PDFTeX_USE_output_comment = @"USE_output_comment";
+NSString * const iTM2PDFTeX_output_comment = @"output_comment";
 
-NSString * const iTM2PDFTeX_USE_translate_file = @"iTM2_PDFTeX_USE_translate_file";
-NSString * const iTM2PDFTeX_translate_file = @"iTM2_PDFTeX_translate_file";
-NSString * const iTM2PDFTeX_PARSE_translate_file = @"iTM2_PDFTeX_PARSE_translate_file";
+NSString * const iTM2PDFTeX_USE_translate_file = @"USE_translate_file";
+NSString * const iTM2PDFTeX_translate_file = @"translate_file";
+NSString * const iTM2PDFTeX_PARSE_translate_file = @"PARSE_translate_file";
 // debugger
-NSString * const iTM2PDFTeX_recorder = @"iTM2_PDFTeX_recorder";
-NSString * const iTM2PDFTeX_file_line_error = @"iTM2_PDFTeX_file_line_error";
-NSString * const iTM2PDFTeX_halt_on_error = @"iTM2_PDFTeX_halt_on_error";
-NSString * const iTM2PDFTeX_interaction = @"iTM2_PDFTeX_interaction";
+NSString * const iTM2PDFTeX_recorder = @"recorder";
+NSString * const iTM2PDFTeX_file_line_error = @"file_line_error";
+NSString * const iTM2PDFTeX_halt_on_error = @"halt_on_error";
+NSString * const iTM2PDFTeX_interaction = @"interaction";
 
-NSString * const iTM2PDFTeX_kpathsea_debug = @"iTM2_PDFTeX_kpathsea_debug";
+NSString * const iTM2PDFTeX_kpathsea_debug = @"kpathsea_debug";
+NSString * const iTM2PDFTeX_eight_bit = @"eight_bit";
 
 
 @implementation iTM2EnginePDFTeX
@@ -956,7 +957,7 @@ To Do List:
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
                 @"pdf", iTM2PDFTeX_output_format,
-                [NSNumber numberWithBool:NO], iTM2PDFTeX_parse_first_line,
+                [NSNumber numberWithBool:NO], iTM2PDFTeX_PARSE_first_line,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_USE_translate_file,
                 @"", iTM2PDFTeX_translate_file,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_PARSE_translate_file,
@@ -978,8 +979,8 @@ To Do List:
 // NO PLEASE                [NSNumber numberWithBool:NO], iTM2TeX_shell_escape,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_USE_French_Pro,
                 [NSNumber numberWithBool:NO], iTM2PDFTeX_halt_on_error,
-                [NSNumber numberWithBool:YES], iTM2PDFTeX_src_specials,
-				@"", iTM2PDFTeXMoreArgumentKey,
+                [NSNumber numberWithBool:NO], iTM2PDFTeX_src_specials,
+				[NSNumber numberWithBool:YES], iTM2PDFTeX_eight_bit,
 					nil];
 }
 #pragma mark =-=-=-=-=- FORMAT
@@ -992,7 +993,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_fmt];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -1004,8 +1005,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2PDFTeX_fmt]?:@"")];
-    return ![self modelFlagForKey:iTM2PDFTeX_parse_first_line];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2PDFTeX_fmt,nil]?:@"")];
+    return ![[self infoForKeyPaths:iTM2PDFTeX_PARSE_first_line,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseFormat:
 - (IBAction)chooseFormat:(id)sender;
@@ -1016,7 +1017,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2TeX_fmt];
+    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -1098,7 +1099,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKey:iTM2PDFTeX_parse_first_line];
+    [self takeInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2PDFTeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -1110,7 +1111,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender selectCellWithTag: ([self modelFlagForKey:iTM2PDFTeX_parse_first_line]? 1:0)];
+    [sender selectCellWithTag: ([[self infoForKeyPaths:iTM2PDFTeX_PARSE_first_line,nil] boolValue]? 1:0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleProgName:
@@ -1122,7 +1123,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_USE_progname];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_USE_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleProgName:
@@ -1134,7 +1135,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_progname]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_USE_progname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editProgName:
@@ -1146,7 +1147,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_progname];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -1158,20 +1159,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([self modelFlagForKey:iTM2PDFTeX_USE_progname])
+    if([[self infoForKeyPaths:iTM2PDFTeX_USE_progname,nil] boolValue])
     {
-        NSString * v = [self modelValueForKey:iTM2PDFTeX_progname];
+        NSString * v = [self infoForKeyPaths:iTM2PDFTeX_progname,nil];
         if(![v length])
         {
-            v = [self modelValueForKey:iTM2PDFTeX_fmt];
-            [[self model] takeValue:v forKey:iTM2PDFTeX_progname];
+            v = [self infoForKeyPaths:iTM2PDFTeX_fmt,nil];
+            [self takeInfo:v forKeyPaths:iTM2PDFTeX_progname,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
     }
     else
     {
-        [sender setStringValue: ([self modelValueForKey:iTM2PDFTeX_fmt]?:@"")];
+        [sender setStringValue: ([self infoForKeyPaths:iTM2PDFTeX_fmt,nil]?:@"")];
         return NO;
     }
 }
@@ -1184,7 +1185,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2PDFTeX_progname];
+    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2PDFTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -1230,7 +1231,7 @@ To Do List:
 				}
 			}
 		}
-		return [self modelFlagForKey:iTM2PDFTeX_USE_progname];
+		return [[self infoForKeyPaths:iTM2PDFTeX_USE_progname,nil] boolValue];
 	}
     else
         return NO;
@@ -1244,7 +1245,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2PDFTeX_USE_French_Pro];
+	[self toggleInfoForKeyPaths:iTM2PDFTeX_USE_French_Pro,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFrenchPro:
@@ -1256,7 +1257,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_French_Pro]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_USE_French_Pro,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  Translate
@@ -1269,7 +1270,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_translate_file];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -1281,8 +1282,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2PDFTeX_translate_file]?:@"")];
-    return [self modelFlagForKey:iTM2PDFTeX_USE_translate_file];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2PDFTeX_translate_file,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2PDFTeX_USE_translate_file,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTable:
 - (IBAction)toggleTable:(id)sender;
@@ -1293,7 +1294,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2PDFTeX_USE_translate_file];
+	[self toggleInfoForKeyPaths:iTM2PDFTeX_USE_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTable:
@@ -1305,7 +1306,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_translate_file]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_USE_translate_file,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleParseTable:
@@ -1317,7 +1318,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2PDFTeX_PARSE_translate_file];
+	[self toggleInfoForKeyPaths:iTM2PDFTeX_PARSE_translate_file,nil];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleParseTable:
@@ -1329,8 +1330,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_parse_first_line]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2PDFTeX_parse_first_line];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_PARSE_first_line,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2PDFTeX_PARSE_first_line,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Output
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputFormat:
@@ -1342,7 +1343,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue: ([[sender selectedCell] tag]? @"dvi":@"pdf") forKey:iTM2PDFTeX_output_format];
+    [self takeInfo: ([[sender selectedCell] tag]? @"dvi":@"pdf") forKeyPaths:iTM2PDFTeX_output_format,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputFormat:
@@ -1354,7 +1355,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[sender selectCellWithTag: ([[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"pdf"]? 0:1)];
+	[sender selectCellWithTag: ([[self infoForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"pdf"]? 0:1)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecials:
@@ -1366,7 +1367,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_src_specials];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vaidateToggleSrcSpecials:
@@ -1378,9 +1379,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
-			&& ![self modelFlagForKey:iTM2PDFTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"dvi"]
+			&& ![[self infoForKeyPaths:iTM2PDFTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecialsWhere:
 - (IBAction)toggleSrcSpecialsWhere:(id)sender;
@@ -1394,13 +1395,13 @@ To Do List:
 	
 	switch([[sender selectedCell] tag])
 	{
-		case 0:  [self toggleModelFlagForKey:iTM2PDFTeX_src_specials_where_no_cr]; break;
-		case 1:  [self toggleModelFlagForKey:iTM2PDFTeX_src_specials_where_no_display]; break;
-		case 2:  [self toggleModelFlagForKey:iTM2PDFTeX_src_specials_where_no_hbox]; break;
-		case 3:  [self toggleModelFlagForKey:iTM2PDFTeX_src_specials_where_no_parent]; break;
-		case 4:  [self toggleModelFlagForKey:iTM2PDFTeX_src_specials_where_no_par]; break;
-		case 5:  [self toggleModelFlagForKey:iTM2PDFTeX_src_specials_where_no_math]; break;
-		default: [self toggleModelFlagForKey:iTM2PDFTeX_src_specials_where_no_vbox]; break;
+		case 0:  [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials_where_no_cr,nil]; break;
+		case 1:  [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials_where_no_display,nil]; break;
+		case 2:  [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials_where_no_hbox,nil]; break;
+		case 3:  [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials_where_no_parent,nil]; break;
+		case 4:  [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials_where_no_par,nil]; break;
+		case 5:  [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials_where_no_math,nil]; break;
+		default: [self toggleInfoForKeyPaths:iTM2PDFTeX_src_specials_where_no_vbox,nil]; break;
 	}
     return;
 }
@@ -1413,15 +1414,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[sender cellWithTag:0] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_cr]? NSOnState:NSOffState)];
-	[[sender cellWithTag:1] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_display]? NSOnState:NSOffState)];
-	[[sender cellWithTag:2] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_hbox]? NSOnState:NSOffState)];
-	[[sender cellWithTag:3] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_parent]? NSOnState:NSOffState)];
-	[[sender cellWithTag:4] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_par]? NSOnState:NSOffState)];
-	[[sender cellWithTag:5] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_math]? NSOnState:NSOffState)];
-	[[sender cellWithTag:6] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_vbox]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
-		&& [self modelFlagForKey:iTM2PDFTeX_src_specials] && ![self modelFlagForKey:iTM2PDFTeX_ini];
+	[[sender cellWithTag:0] setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:1] setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials_where_no_display,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:2] setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials_where_no_hbox,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:3] setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials_where_no_parent,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:4] setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials_where_no_par,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:5] setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials_where_no_math,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:6] setState: ([[self infoForKeyPaths:iTM2PDFTeX_src_specials_where_no_vbox,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"dvi"]
+		&& [[self infoForKeyPaths:iTM2PDFTeX_src_specials,nil] boolValue] && ![[self infoForKeyPaths:iTM2PDFTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputComment:
 - (IBAction)toggleOutputComment:(id)sender;
@@ -1432,7 +1433,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_USE_output_comment];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputComment:
@@ -1444,9 +1445,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_output_comment]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
-			&& ![self modelFlagForKey:iTM2PDFTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_USE_output_comment,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"dvi"]
+			&& ![[self infoForKeyPaths:iTM2PDFTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputComment:
 - (IBAction)editOutputComment:(id)sender;
@@ -1457,7 +1458,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_USE_output_comment];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -1469,12 +1470,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2PDFTeX_output_comment]?:@"")];
-//iTM2_LOG(@"[self modelValueForKey:iTM2PDFTeX_USE_output_comment]: %@", [self modelValueForKey:iTM2PDFTeX_USE_output_comment]);
-//iTM2_LOG(@"clas: %@", [[self modelValueForKey:iTM2PDFTeX_USE_output_comment] class]);
-    return [self modelFlagForKey:iTM2PDFTeX_USE_output_comment]
-		&& [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
-			&& ![self modelFlagForKey:iTM2PDFTeX_ini];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2PDFTeX_output_comment,nil]?:@"")];
+//iTM2_LOG(@"[self infoForKeyPaths:iTM2PDFTeX_USE_output_comment,nil]: %@", [self infoForKeyPaths:iTM2PDFTeX_USE_output_comment,nil]);
+//iTM2_LOG(@"clas: %@", [[self infoForKeyPaths:iTM2PDFTeX_USE_output_comment,nil] class]);
+    return [[self infoForKeyPaths:iTM2PDFTeX_USE_output_comment,nil] boolValue]
+		&& [[self infoForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"dvi"]
+			&& ![[self infoForKeyPaths:iTM2PDFTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  togglePdfSync:
 - (IBAction)togglePdfSync:(id)sender;
@@ -1485,7 +1486,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_pdfsync];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_pdfsync,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePdfSync:
@@ -1497,8 +1498,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_pdfsync]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"pdf"];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_pdfsync,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"pdf"];
 }
 #pragma mark =-=-=-=-=-  INI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:
@@ -1510,7 +1511,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_ini];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_ini,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleIni:
@@ -1522,7 +1523,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_ini]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_ini,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnc:
@@ -1534,7 +1535,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_enc];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_enc,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnc:
@@ -1546,8 +1547,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_enc]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2PDFTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_enc,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2PDFTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleMLTeX:
 - (IBAction)toggleMLTeX:(id)sender;
@@ -1558,7 +1559,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_mltex];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_mltex,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleMLTeX:
@@ -1570,8 +1571,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_mltex]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2PDFTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_mltex,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2PDFTeX_ini,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Advanced
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
@@ -1583,7 +1584,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_jobname];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -1595,8 +1596,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2PDFTeX_jobname]?:@"")];
-    return [self modelFlagForKey:iTM2PDFTeX_USE_jobname];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2PDFTeX_jobname,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2PDFTeX_USE_jobname,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleJobName:
 - (IBAction)toggleJobName:(id)sender;
@@ -1607,7 +1608,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_USE_jobname];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_USE_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleJobName:
@@ -1619,7 +1620,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_jobname]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_USE_jobname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputDirectory:
@@ -1631,7 +1632,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_output_directory];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputDirectory:
@@ -1643,8 +1644,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2PDFTeX_output_directory]?:@"")];
-    return [self modelFlagForKey:iTM2PDFTeX_USE_output_directory];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2PDFTeX_output_directory,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2PDFTeX_USE_output_directory,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputDirectory:
 - (IBAction)toggleOutputDirectory:(id)sender;
@@ -1655,7 +1656,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_USE_output_directory];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_USE_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputDirectory:
@@ -1667,7 +1668,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_USE_output_directory]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_USE_output_directory,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  Interaction
@@ -1689,7 +1690,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self takeModelValue:v forKey:iTM2PDFTeX_interaction];
+    [self takeInfo:v forKeyPaths:iTM2PDFTeX_interaction,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -1703,7 +1704,7 @@ To Do List:
 //iTM2_START;
     static NSArray * modes = nil;
     if(!modes) modes = [[NSArray arrayWithObjects:@"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode", nil] retain];
-    [sender selectCellWithTag:[modes indexOfObject:[self modelValueForKey:iTM2PDFTeX_interaction]]];
+    [sender selectCellWithTag:[modes indexOfObject:[self infoForKeyPaths:iTM2PDFTeX_interaction,nil]]];
     return YES;
 }
 #pragma mark =-=-=-=-=-  DEBUG
@@ -1716,7 +1717,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_file_line_error];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_file_line_error,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFileLineError:
@@ -1728,7 +1729,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_file_line_error]? NSOffState:NSOnState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_file_line_error,nil] boolValue]? NSOffState:NSOnState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleRecorder:
@@ -1740,7 +1741,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_recorder];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_recorder,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleRecorder:
@@ -1752,7 +1753,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_recorder]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_recorder,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleHaltOnError:
@@ -1764,7 +1765,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2PDFTeX_halt_on_error];
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_halt_on_error,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleHaltOnError:
@@ -1776,53 +1777,85 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2PDFTeX_halt_on_error]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_halt_on_error,nil] boolValue]? NSOnState:NSOffState)];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEightBit:
+- (IBAction)toggleEightBit:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self toggleInfoForKeyPaths:iTM2PDFTeX_eight_bit,nil];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEightBit:
+- (BOOL)validateToggleEightBit:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([[self infoForKeyPaths:iTM2PDFTeX_eight_bit,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 @end
 
 // ini
-NSString * const iTM2XeTeX_ini = @"iTM2_XeTeX_ini";
-NSString * const iTM2XeTeX_mltex = @"iTM2_XeTeX_mltex";
-NSString * const iTM2XeTeX_enc = @"iTM2_XeTeX_enc";
+NSString * const iTM2XeTeX_ini = @"ini";
+NSString * const iTM2XeTeX_mltex = @"mltex";
+NSString * const iTM2XeTeX_enc = @"enc";
 
-NSString * const iTM2XeTeXMoreArgumentKey = @"iTM2_XeTeX_MoreArgument";
+NSString * const iTM2XeTeXMoreArgumentKey = @"MoreArgument";
 
-NSString * const iTM2XeTeX_mktex = @"iTM2_XeTeX_mktex";
+NSString * const iTM2XeTeX_mktex = @"mktex";
 
-NSString * const iTM2XeTeX_USE_output_directory = @"iTM2_XeTeX_USE_output_directory";
-NSString * const iTM2XeTeX_output_directory = @"iTM2_XeTeX_output_directory";
+NSString * const iTM2XeTeX_USE_output_directory = @"USE_output_directory";
+NSString * const iTM2XeTeX_output_directory = @"output_directory";
 
 // format switcher
-NSString * const iTM2XeTeX_fmt = @"iTM2_XeTeX_fmt";
-NSString * const iTM2XeTeX_parse_first_line = @"iTM2_XeTeX_parse_first_line";
-NSString * const iTM2XeTeX_USE_progname = @"iTM2_XeTeX_USE_progname";
-NSString * const iTM2XeTeX_progname = @"iTM2_XeTeX_progname";
-NSString * const iTM2XeTeX_USE_jobname = @"iTM2_XeTeX_USE_jobname";
-NSString * const iTM2XeTeX_jobname = @"iTM2_XeTeX_jobname";
-NSString * const iTM2XeTeX_USE_French_Pro = @"iTM2_XeTeX_USE_French_Pro";
-//NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
-NSString * const iTM2XeTeX_src_specials = @"iTM2_XeTeX_src_specials";
-NSString * const iTM2XeTeX_src_specials_where_no_cr = @"iTM2_XeTeX_src_specials_where_no_cr";
-NSString * const iTM2XeTeX_src_specials_where_no_display = @"iTM2_XeTeX_src_specials_where_no_display";
-NSString * const iTM2XeTeX_src_specials_where_no_hbox = @"iTM2_XeTeX_src_specials_where_no_hbox";
-NSString * const iTM2XeTeX_src_specials_where_no_parent = @"iTM2_XeTeX_src_specials_where_no_parent";
-NSString * const iTM2XeTeX_src_specials_where_no_par = @"iTM2_XeTeX_src_specials_where_no_par";
-NSString * const iTM2XeTeX_src_specials_where_no_math = @"iTM2_XeTeX_src_specials_where_no_math";
-NSString * const iTM2XeTeX_src_specials_where_no_vbox = @"iTM2_XeTeX_src_specials_where_no_vbox";
-NSString * const iTM2XeTeX_USE_output_comment = @"iTM2_XeTeX_USE_output_comment";
-NSString * const iTM2XeTeX_output_comment = @"iTM2_XeTeX_output_comment";
+NSString * const iTM2XeTeX_fmt = @"fmt";
+NSString * const iTM2XeTeX_PARSE_first_line = @"PARSE_first_line";
+NSString * const iTM2XeTeX_USE_progname = @"USE_progname";
+NSString * const iTM2XeTeX_progname = @"progname";
+NSString * const iTM2XeTeX_USE_jobname = @"USE_jobname";
+NSString * const iTM2XeTeX_jobname = @"jobname";
+NSString * const iTM2XeTeX_USE_French_Pro = @"USE_French_Pro";
+//NSString * const iTM2TeX_shell_escape = @"shell_escape";
+NSString * const iTM2XeTeX_src_specials = @"src_specials";
+NSString * const iTM2XeTeX_src_specials_where_no_cr = @"src_specials_where_no_cr";
+NSString * const iTM2XeTeX_src_specials_where_no_display = @"src_specials_where_no_display";
+NSString * const iTM2XeTeX_src_specials_where_no_hbox = @"src_specials_where_no_hbox";
+NSString * const iTM2XeTeX_src_specials_where_no_parent = @"src_specials_where_no_parent";
+NSString * const iTM2XeTeX_src_specials_where_no_par = @"src_specials_where_no_par";
+NSString * const iTM2XeTeX_src_specials_where_no_math = @"src_specials_where_no_math";
+NSString * const iTM2XeTeX_src_specials_where_no_vbox = @"src_specials_where_no_vbox";
+NSString * const iTM2XeTeX_USE_output_comment = @"USE_output_comment";
+NSString * const iTM2XeTeX_output_comment = @"output_comment";
 
-NSString * const iTM2XeTeX_USE_translate_file = @"iTM2_XeTeX_USE_translate_file";
-NSString * const iTM2XeTeX_translate_file = @"iTM2_XeTeX_translate_file";
-NSString * const iTM2XeTeX_PARSE_translate_file = @"iTM2_XeTeX_PARSE_translate_file";
+NSString * const iTM2XeTeX_USE_translate_file = @"USE_translate_file";
+NSString * const iTM2XeTeX_translate_file = @"translate_file";
+NSString * const iTM2XeTeX_PARSE_translate_file = @"PARSE_translate_file";
 // debugger
-NSString * const iTM2XeTeX_recorder = @"iTM2_XeTeX_recorder";
-NSString * const iTM2XeTeX_file_line_error = @"iTM2_XeTeX_file_line_error";
-NSString * const iTM2XeTeX_halt_on_error = @"iTM2_XeTeX_halt_on_error";
-NSString * const iTM2XeTeX_interaction = @"iTM2_XeTeX_interaction";
+NSString * const iTM2XeTeX_recorder = @"recorder";
+NSString * const iTM2XeTeX_file_line_error = @"file_line_error";
+NSString * const iTM2XeTeX_halt_on_error = @"halt_on_error";
+NSString * const iTM2XeTeX_interaction = @"interaction";
 
-NSString * const iTM2XeTeX_kpathsea_debug = @"iTM2_XeTeX_kpathsea_debug";
+NSString * const iTM2XeTeX_kpathsea_debug = @"kpathsea_debug";
+
+NSString * const iTM2XeTeX_eight_bit = @"eight_bit";
+NSString * const iTM2XeTeX_enable_etex = @"enable_etex";
+
+NSString * const iTM2XeTeX_no_pdf = @"no_pdf";
+NSString * const iTM2XeTeX_output_format = @"output_format";
+NSString * const iTM2XeTeX_output_driver = @"output_driver";
+NSString * const iTM2XeTeX_custom_output_driver = @"custom_output_driver";
 
 
 @implementation iTM2EngineXeTeX
@@ -1858,7 +1891,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-                [NSNumber numberWithBool:NO], iTM2XeTeX_parse_first_line,
+                [NSNumber numberWithBool:NO], iTM2XeTeX_PARSE_first_line,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_USE_translate_file,
                 [NSNumber numberWithBool:NO], iTM2XeTeX_PARSE_translate_file,
                 @"", iTM2XeTeX_translate_file,
@@ -1882,6 +1915,11 @@ To Do List:
                 [NSNumber numberWithBool:NO], iTM2XeTeX_halt_on_error,
                 [NSNumber numberWithBool:YES], iTM2XeTeX_src_specials,
 				@"", iTM2XeTeXMoreArgumentKey,
+				[NSNumber numberWithBool:YES], iTM2XeTeX_eight_bit,
+				[NSNumber numberWithBool:YES], iTM2XeTeX_enable_etex,
+				@"iTeXMac2", iTM2XeTeX_output_driver,
+				@"", iTM2XeTeX_custom_output_driver,
+				[NSNumber numberWithBool:NO], iTM2XeTeX_no_pdf,
 					nil];
 }
 #pragma mark =-=-=-=-=- FORMAT
@@ -1894,7 +1932,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_fmt];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -1906,8 +1944,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_fmt]?:@"")];
-    return ![self modelFlagForKey:iTM2XeTeX_parse_first_line];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2XeTeX_fmt,nil]?:@"")];
+    return ![[self infoForKeyPaths:iTM2XeTeX_PARSE_first_line,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseFormat:
 - (IBAction)chooseFormat:(id)sender;
@@ -1918,7 +1956,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2XeTeX_fmt];
+    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2XeTeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -1991,7 +2029,7 @@ To Do List:
 				}
 			}
 		}
-		return ![self modelFlagForKey:iTM2XeTeX_parse_first_line];
+		return ![[self infoForKeyPaths:iTM2XeTeX_PARSE_first_line,nil] boolValue];
 	}
     else
         return NO;
@@ -2005,7 +2043,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKey:iTM2XeTeX_parse_first_line];
+    [self takeInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2XeTeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -2017,7 +2055,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender selectCellWithTag: ([self modelFlagForKey:iTM2XeTeX_parse_first_line]? 1:0)];
+    [sender selectCellWithTag: ([[self infoForKeyPaths:iTM2XeTeX_PARSE_first_line,nil] boolValue]? 1:0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleProgName:
@@ -2029,7 +2067,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_USE_progname];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_USE_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleProgName:
@@ -2041,7 +2079,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_progname]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_USE_progname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editProgName:
@@ -2053,7 +2091,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_progname];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -2065,20 +2103,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([self modelFlagForKey:iTM2XeTeX_USE_progname])
+    if([[self infoForKeyPaths:iTM2XeTeX_USE_progname,nil] boolValue])
     {
-        NSString * v = [self modelValueForKey:iTM2XeTeX_progname];
+        NSString * v = [self infoForKeyPaths:iTM2XeTeX_progname,nil];
         if(![v length])
         {
-            v = [self modelValueForKey:iTM2XeTeX_fmt];
-            [[self model] takeValue:v forKey:iTM2XeTeX_progname];
+            v = [self infoForKeyPaths:iTM2XeTeX_fmt,nil];
+            [self takeInfo:v forKeyPaths:iTM2XeTeX_progname,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
     }
     else
     {
-        [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_fmt]?:@"")];
+        [sender setStringValue: ([self infoForKeyPaths:iTM2XeTeX_fmt,nil]?:@"")];
         return NO;
     }
 }
@@ -2091,7 +2129,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2XeTeX_progname];
+    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2XeTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -2137,7 +2175,7 @@ To Do List:
 				}
 			}
 		}
-		return [self modelFlagForKey:iTM2XeTeX_USE_progname];
+		return [[self infoForKeyPaths:iTM2XeTeX_USE_progname,nil] boolValue];
 	}
     else
         return NO;
@@ -2151,7 +2189,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2XeTeX_USE_French_Pro];
+	[self toggleInfoForKeyPaths:iTM2XeTeX_USE_French_Pro,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFrenchPro:
@@ -2163,7 +2201,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_French_Pro]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_USE_French_Pro,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  Translate
@@ -2176,7 +2214,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_translate_file];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -2188,8 +2226,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_translate_file]?:@"")];
-    return [self modelFlagForKey:iTM2XeTeX_USE_translate_file];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2XeTeX_translate_file,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2XeTeX_USE_translate_file,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTable:
 - (IBAction)toggleTable:(id)sender;
@@ -2200,7 +2238,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2XeTeX_USE_translate_file];
+	[self toggleInfoForKeyPaths:iTM2XeTeX_USE_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTable:
@@ -2212,7 +2250,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_translate_file]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_USE_translate_file,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleParseTable:
@@ -2224,7 +2262,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self toggleModelFlagForKey:iTM2XeTeX_PARSE_translate_file];
+	[self toggleInfoForKeyPaths:iTM2XeTeX_PARSE_translate_file,nil];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleParseTable:
@@ -2236,8 +2274,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_PARSE_translate_file]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2XeTeX_parse_first_line];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_PARSE_translate_file,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2XeTeX_PARSE_first_line,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Output
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecials:
@@ -2249,7 +2287,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_src_specials];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  vaidateToggleSrcSpecials:
@@ -2261,8 +2299,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_src_specials]? NSOnState:NSOffState)];
-    return ![self modelFlagForKey:iTM2XeTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials,nil] boolValue]? NSOnState:NSOffState)];
+    return ![[self infoForKeyPaths:iTM2XeTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecialsWhere:
 - (IBAction)toggleSrcSpecialsWhere:(id)sender;
@@ -2276,13 +2314,13 @@ To Do List:
 	
 	switch([[sender selectedCell] tag])
 	{
-		case 0:  [self toggleModelFlagForKey:iTM2XeTeX_src_specials_where_no_cr]; break;
-		case 1:  [self toggleModelFlagForKey:iTM2XeTeX_src_specials_where_no_display]; break;
-		case 2:  [self toggleModelFlagForKey:iTM2XeTeX_src_specials_where_no_hbox]; break;
-		case 3:  [self toggleModelFlagForKey:iTM2XeTeX_src_specials_where_no_parent]; break;
-		case 4:  [self toggleModelFlagForKey:iTM2XeTeX_src_specials_where_no_par]; break;
-		case 5:  [self toggleModelFlagForKey:iTM2XeTeX_src_specials_where_no_math]; break;
-		default: [self toggleModelFlagForKey:iTM2XeTeX_src_specials_where_no_vbox]; break;
+		case 0:  [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials_where_no_cr,nil]; break;
+		case 1:  [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials_where_no_display,nil]; break;
+		case 2:  [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials_where_no_hbox,nil]; break;
+		case 3:  [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials_where_no_parent,nil]; break;
+		case 4:  [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials_where_no_par,nil]; break;
+		case 5:  [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials_where_no_math,nil]; break;
+		default: [self toggleInfoForKeyPaths:iTM2XeTeX_src_specials_where_no_vbox,nil]; break;
 	}
     return;
 }
@@ -2295,14 +2333,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[sender cellWithTag:0] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_cr]? NSOnState:NSOffState)];
-	[[sender cellWithTag:1] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_display]? NSOnState:NSOffState)];
-	[[sender cellWithTag:2] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_hbox]? NSOnState:NSOffState)];
-	[[sender cellWithTag:3] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_parent]? NSOnState:NSOffState)];
-	[[sender cellWithTag:4] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_par]? NSOnState:NSOffState)];
-	[[sender cellWithTag:5] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_math]? NSOnState:NSOffState)];
-	[[sender cellWithTag:6] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_vbox]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2XeTeX_src_specials] && ![self modelFlagForKey:iTM2XeTeX_ini];
+	[[sender cellWithTag:0] setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:1] setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials_where_no_display,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:2] setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials_where_no_hbox,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:3] setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials_where_no_parent,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:4] setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials_where_no_par,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:5] setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials_where_no_math,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:6] setState: ([[self infoForKeyPaths:iTM2XeTeX_src_specials_where_no_vbox,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2XeTeX_src_specials,nil] boolValue] && ![[self infoForKeyPaths:iTM2XeTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputComment:
 - (IBAction)toggleOutputComment:(id)sender;
@@ -2313,7 +2351,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_USE_output_comment];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputComment:
@@ -2325,8 +2363,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_output_comment]? NSOnState:NSOffState)];
-    return ![self modelFlagForKey:iTM2XeTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_USE_output_comment,nil] boolValue]? NSOnState:NSOffState)];
+    return ![[self infoForKeyPaths:iTM2XeTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputComment:
 - (IBAction)editOutputComment:(id)sender;
@@ -2337,7 +2375,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_USE_output_comment];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -2349,8 +2387,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_output_comment]?:@"")];
-    return [self modelFlagForKey:iTM2XeTeX_USE_output_comment] && ![self modelFlagForKey:iTM2XeTeX_ini];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2XeTeX_output_comment,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2XeTeX_USE_output_comment,nil] boolValue] && ![[self infoForKeyPaths:iTM2XeTeX_ini,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  INI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:
@@ -2362,7 +2400,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_ini];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_ini,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleIni:
@@ -2374,7 +2412,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_ini]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_ini,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnc:
@@ -2386,7 +2424,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_enc];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_enc,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnc:
@@ -2398,8 +2436,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_enc]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2XeTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_enc,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2XeTeX_ini,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleMLTeX:
 - (IBAction)toggleMLTeX:(id)sender;
@@ -2410,7 +2448,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_mltex];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_mltex,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleMLTeX:
@@ -2422,8 +2460,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_mltex]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2XeTeX_ini];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_mltex,nil] boolValue]? NSOnState:NSOffState)];
+    return [[self infoForKeyPaths:iTM2XeTeX_ini,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Advanced
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
@@ -2435,7 +2473,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_jobname];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -2447,8 +2485,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_jobname]?:@"")];
-    return [self modelFlagForKey:iTM2XeTeX_USE_jobname];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2XeTeX_jobname,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2XeTeX_USE_jobname,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleJobName:
 - (IBAction)toggleJobName:(id)sender;
@@ -2459,7 +2497,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_USE_jobname];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_USE_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleJobName:
@@ -2471,7 +2509,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_jobname]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_USE_jobname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOuputDirectory:
@@ -2483,7 +2521,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_output_directory];
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOuputDirectory:
@@ -2495,8 +2533,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_output_directory]?:@"")];
-    return [self modelFlagForKey:iTM2XeTeX_USE_output_directory];
+    [sender setStringValue: ([self infoForKeyPaths:iTM2XeTeX_output_directory,nil]?:@"")];
+    return [[self infoForKeyPaths:iTM2XeTeX_USE_output_directory,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputDirectory:
 - (IBAction)toggleOutputDirectory:(id)sender;
@@ -2507,7 +2545,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_USE_output_directory];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_USE_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputDirectory:
@@ -2519,7 +2557,31 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_output_directory]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_USE_output_directory,nil] boolValue]? NSOnState:NSOffState)];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnableETeX:
+- (IBAction)toggleEnableETeX:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self toggleInfoForKeyPaths:iTM2XeTeX_enable_etex,nil];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnableETeX:
+- (BOOL)validateToggleEnableETeX:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_enable_etex,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  Interaction
@@ -2541,7 +2603,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self takeModelValue:v forKey:iTM2XeTeX_interaction];
+    [self takeInfo:v forKeyPaths:iTM2XeTeX_interaction,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -2555,7 +2617,120 @@ To Do List:
 //iTM2_START;
     static NSArray * modes = nil;
     if(!modes) modes = [[NSArray arrayWithObjects:@"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode", nil] retain];
-    [sender selectCellWithTag:[modes indexOfObject:[self modelValueForKey:iTM2XeTeX_interaction]]];
+    [sender selectCellWithTag:[modes indexOfObject:[self infoForKeyPaths:iTM2XeTeX_interaction,nil]]];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchOutputFormat:
+- (IBAction)switchOutputFormat:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSString * v;
+    switch([[sender selectedCell] tag])
+    {
+        case 0: v = @"pdf"; break;
+        default: v = @"xdv"; break;
+    }
+    [self takeInfo:v forKeyPaths:iTM2XeTeX_output_format,nil];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchOutputFormat:
+- (BOOL)validateSwitchOutputFormat:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSArray * modes = nil;
+    if(!modes) modes = [[NSArray arrayWithObjects:@"pdf", @"xdv", nil] retain];
+    [sender selectCellWithTag:[modes indexOfObject:[self infoForKeyPaths:iTM2XeTeX_output_format,nil]]];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchOutputDriver:
+- (IBAction)switchOutputDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSString * v;
+    switch([[sender selectedCell] tag])
+    {
+        case 0: v = @"XeTeX"; break;
+        case 1: v = @"iTeXMac2"; break;
+        default: v = @"custom"; break;
+    }
+    [self takeInfo:v forKeyPaths:iTM2XeTeX_output_driver,nil];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchOutputDriver:
+- (BOOL)validateSwitchOutputDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    static NSArray * modes = nil;
+    if(!modes) modes = [[NSArray arrayWithObjects:@"XeTeX", @"iTeXMac2", @"custom", nil] retain];
+    [sender selectCellWithTag:[modes indexOfObject:[self infoForKeyPaths:iTM2XeTeX_output_driver,nil]]];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputDriver:
+- (IBAction)editOutputDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_custom_output_driver,nil];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputDriver:
+- (BOOL)validateEditOutputDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setStringValue:[self infoForKeyPaths:iTM2XeTeX_custom_output_driver,nil]];
+    return [[self infoForKeyPaths:iTM2XeTeX_output_driver,nil] isEqual:@"custom"];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEightBit:
+- (IBAction)toggleEightBit:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self toggleInfoForKeyPaths:iTM2XeTeX_eight_bit,nil];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEightBit:
+- (BOOL)validateToggleEightBit:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Nov 18 07:53:25 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_eight_bit,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  DEBUG
@@ -2568,7 +2743,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_file_line_error];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_file_line_error,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFileLineError:
@@ -2580,7 +2755,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_file_line_error]? NSOffState:NSOnState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_file_line_error,nil] boolValue]? NSOffState:NSOnState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleRecorder:
@@ -2592,7 +2767,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_recorder];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_recorder,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleRecorder:
@@ -2604,7 +2779,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_recorder]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_recorder,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleHaltOnError:
@@ -2616,7 +2791,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2XeTeX_halt_on_error];
+    [self toggleInfoForKeyPaths:iTM2XeTeX_halt_on_error,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleHaltOnError:
@@ -2628,7 +2803,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2XeTeX_halt_on_error]? NSOnState:NSOffState)];
+    [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_halt_on_error,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 @end
@@ -2643,7 +2818,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [iTM2EngineTeX installBinary];
+//    [iTM2EngineTeX installBinary];
     [iTM2EnginePDFTeX installBinary];
     [iTM2EngineXeTeX installBinary];
 //iTM2_END;
@@ -2663,19 +2838,11 @@ To Do List:
 //iTM2_START
 	if(NSAlertDefaultReturn != returnCode)
 	{
-		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-		NSMutableDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
-		if(!D)
-		{
-			D = [NSMutableDictionary dictionary];
-		}
-		id value = [D objectForKey:iTM2TeX_shell_escape];
-		BOOL old = [value boolValue];// unsafe
-		[D setObject:[NSNumber numberWithBool:!old] forKey:iTM2TeX_shell_escape];
-		[TPD takeEnvironment:D forEngineMode:iTM2ProjectDefaultsKey];
-		[TPD updateChangeCount:NSChangeUndone];
+		// the user has not confirmed the use of write 18
+		// return to the original state
+		[self toggleInfoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil];
+		[[self document] updateChangeCount:NSChangeUndone];
 		[self validateWindowContent];
-		return;
 	}
 //iTM2_END;
     return;
@@ -2689,29 +2856,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START
-	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	NSMutableDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
-	if(!D)
+	[self toggleInfoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil];
+	[[self document] updateChangeCount:NSChangeDone];
+	if(![[self infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil] boolValue])
 	{
-		D = [NSMutableDictionary dictionary];
+		[self validateWindowContent];
+		return;
 	}
-	NSNumber * N = [D objectForKey:iTM2TeX_shell_escape];
-	BOOL old = [N boolValue];// unsafe
-	N = [NSNumber numberWithBool:!old];
-	[D setObject:N forKey:iTM2TeX_shell_escape];
-	[TPD takeEnvironment:D forEngineMode:iTM2ProjectDefaultsKey];
-	[TPD updateChangeCount:NSChangeUndone];
-	[self validateWindowContent];
-	if(!old)
-	{
-		NSBeginAlertSheet(
-			NSLocalizedStringFromTableInBundle(@"Shell Escape", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""),
-			nil,
-			NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,[NSBundle bundleForClass:[iTM2ProjectDocument class]],""),
-			nil,
-			[self window], self, @selector(shellEscapeSheetDidEnd:returnCode:contextInfo:), NULL, nil,
-			NSLocalizedStringFromTableInBundle(@"Really authorize TeX to launch shell processes with \\write18{}?", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""));
-	}
+	NSBeginAlertSheet(
+		NSLocalizedStringFromTableInBundle(@"Shell Escape", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""),
+		nil,
+		NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,[NSBundle bundleForClass:[iTM2ProjectDocument class]],""),
+		nil,
+		[self window], self, @selector(shellEscapeSheetDidEnd:returnCode:contextInfo:), NULL, nil,
+		NSLocalizedStringFromTableInBundle(@"Really authorize TeX to launch shell processes with \\write18{}?", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""));
 //iTM2_END;
     return;
 }
@@ -2724,16 +2882,32 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
- 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	NSDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
-	id value = [D objectForKey:iTM2TeX_shell_escape];
-	BOOL old = [value boolValue];// unsafe
-	[sender setState: (old? NSOnState:NSOffState)];
+	[sender setState: ([[self infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 @end
 
 @implementation iTM2TeXPEngineInspector(TeXWrapper)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shellEscapeSheetDidEnd:returnCode:contextInfo:
+- (void)shellEscapeSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Mon Mar 29 08:07:47 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START
+	if(NSAlertDefaultReturn != returnCode)
+	{
+		// the user has not confirmed the use of write 18
+		// return to the original state
+		[self toggleInfoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil];
+		[[self document] updateChangeCount:NSChangeUndone];
+		[self validateWindowContent];
+	}
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShellEscape:
 - (IBAction)toggleShellEscape:(id)sender;
 /*"Description forthcoming.
@@ -2742,18 +2916,23 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
-	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	NSMutableDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
-	if(!D)
+//iTM2_START
+#warning ! FAILED does the shell escape flag work for general purpose
+	[self toggleInfoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil];
+	[[self document] updateChangeCount:NSChangeDone];
+	if(![[self infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil] boolValue])
 	{
-		D = [NSMutableDictionary dictionary];
+		[self validateWindowContent];
+		return;
 	}
-	id value = [D objectForKey:iTM2TeX_shell_escape];
-	BOOL old = [value boolValue];// unsafe
-	[D setObject:[NSNumber numberWithBool:!old] forKey:iTM2TeX_shell_escape];
-	[TPD takeEnvironment:D forEngineMode:iTM2ProjectDefaultsKey];
-	[self validateWindowContent];
+	NSBeginAlertSheet(
+		NSLocalizedStringFromTableInBundle(@"Shell Escape", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""),
+		nil,
+		NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,[NSBundle bundleForClass:[iTM2ProjectDocument class]],""),
+		nil,
+		[self window], self, @selector(shellEscapeSheetDidEnd:returnCode:contextInfo:), NULL, nil,
+		NSLocalizedStringFromTableInBundle(@"Really authorize TeX to launch shell processes with \\write18{}?", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:[iTM2EngineTeX class]], ""));
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShellEscape:
@@ -2765,11 +2944,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
- 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
-	NSDictionary * D = [[[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] mutableCopy] autorelease];
-	id value = [D objectForKey:iTM2TeX_shell_escape];
-	BOOL old = [value boolValue];// unsafe
-	[sender setState: (old? NSOnState:NSOffState)];
+	[sender setState: ([[self infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 @end

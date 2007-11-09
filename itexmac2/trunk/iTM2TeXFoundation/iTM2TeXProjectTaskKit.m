@@ -21,6 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
+#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
@@ -69,6 +70,7 @@ To Do List:
     if(!TC)
     {
         TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
+        metaSETTER(TC);
         NSEnumerator * E = [[self windowControllers] objectEnumerator];
         iTM2TeXPTaskInspector * TI;
         while(TI = [E nextObject])
@@ -83,7 +85,6 @@ To Do List:
             [TC addInspector:TI];
         }
 #endif
-        metaSETTER(TC);
     }
     return TC;
 }
@@ -175,16 +176,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectTerminal(small)"];
-	if(I)
-	{
-		return I;
-	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectTerminal"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectTerminal(small)"];
-    return I;
+    return [NSImage findImageNamed:@"showCurrentProjectTerminal(small)"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
@@ -284,6 +276,7 @@ To Do List:
     [SV setDelegate:self];
     // definitely forgetting the split view
     [super windowDidLoad];
+iTM2_LOG(@"self is:%@",self);// if I remove this line EXC_BAD_ACCESS 07/03/2007
     [self validateWindowContent];
     [[self window] setDelegate:self];
     return;
@@ -592,15 +585,15 @@ To Do List:
 	{
 		path = [[TS attribute:iTM2LogFilesStackAttributeName atIndex:charIndex effectiveRange:nil] lastObject];
 	}
-	if(![path hasPrefix:@"/"])
+	if(![path hasPrefix:iTM2PathComponentsSeparator])
 	{
 		iTM2TeXProjectDocument * TPD = (id)[self document];
-		NSString * dirname = [TPD directoryName];
-		NSString * otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
+		NSString * dirname = [TPD buildDirectoryName];
+		NSString * otherName = [dirname stringByAppendingPathComponent:path];
+		otherName = [otherName stringByStandardizingPath];
 		if(![DFM fileExistsAtPath:otherName])
 		{
-			dirname = [TPD directoryName];
-			dirname = [dirname stringByStrippingFarawayProjectsDirectory];
+			otherName = [TPD buildDirectoryName];
 			otherName = [dirname stringByAppendingPathComponent:path];
 			otherName = [otherName stringByStandardizingPath];
 			if(![DFM fileExistsAtPath:otherName])
@@ -612,7 +605,7 @@ To Do List:
 				if(![DFM fileExistsAtPath:otherName])
 				{
 					// list all the subdocuments of the project and open the one with the same last path component
-					NSArray * allKeys = [TPD allKeys];
+					NSArray * allKeys = [TPD allFileKeys];
 					NSEnumerator * E = [allKeys objectEnumerator];
 					NSString * key = nil;
 					while(key = [E nextObject])
@@ -1181,7 +1174,7 @@ To Do List:
 	id TC = [super taskController];
 	if(!TC)
 	{
-		[[self document] taskController];// expected to ceonnect the receiver as side effect
+		[[self document] taskController];// expected to connect the receiver as side effect
 		TC = [super taskController];
 	}
     return TC;

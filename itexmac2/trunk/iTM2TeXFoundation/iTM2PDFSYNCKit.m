@@ -440,6 +440,10 @@ To Do List:
     {
         if([S scanInt:&recordIndex] && [S scanInt:&lineRecord.line])
         {
+			if(lineRecord.line)
+			{
+				--lineRecord.line;
+			}
             [[lines lastObject]
                 setObject:[NSValue value:&lineRecord withObjCType:@encode(iTM2SynchronizationLineRecord)]
                     forKey:[NSNumber numberWithUnsignedInt:recordIndex]];
@@ -1488,9 +1492,10 @@ To Do List:
 	NSString * FN = [self fileName];
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-	pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
+	pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 	if([DFM fileExistsAtPath:pdfsyncPath])
 	{
+update:;
 		NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
 		if(pdfDate && ![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
 		{
@@ -1500,24 +1505,16 @@ To Do List:
 	else
 	{
 		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
-		NSString * dirName = [PD fileName];
-		if([dirName belongsToFarawayProjectsDirectory])
+		NSString * K = [PD keyForFileName:FN];
+		NSString * relativeName = [PD relativeFileNameForKey:K];
+		pdfsyncPath = [relativeName stringByDeletingPathExtension];
+		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
+		NSString * dirName = [PD buildDirectoryName];
+		pdfsyncPath = [dirName stringByAppendingPathComponent:pdfsyncPath];
+		pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
+		if([DFM fileExistsAtPath:pdfsyncPath])
 		{
-			dirName = [dirName enclosingWrapperFileName];
-			NSString * K = [PD keyForFileName:FN];
-			NSString * relativeName = [PD relativeFileNameForKey:K];
-			pdfsyncPath = [relativeName stringByDeletingPathExtension];
-			pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-			pdfsyncPath = [dirName stringByAppendingPathComponent:pdfsyncPath];
-			pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
-			if([DFM fileExistsAtPath:pdfsyncPath])
-			{
-				NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
-				if(pdfDate && ![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
-				{
-					iTM2_LOG(@"ERROR:Unexpected problem:could not change the file modification date...");
-				}
-			}
+			goto update;
 		}
 	}
 //iTM2_END;
@@ -1553,34 +1550,27 @@ To Do List:
 //iTM2_LOG(@"NO WINDOW TO SYNCHRONIZE");
 	[self replaceSynchronizer:nil];
 	return;
-    laSuite:;
+laSuite:;
 	NSString * FN = [self fileName];
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-	pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
+	pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 	id S = nil;
-	if(![DFM fileOrLinkExistsAtPath:pdfsyncPath])
+	if(![DFM fileOrSymbolicLinkExistsAtPath:pdfsyncPath])
 	{
 		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
 		NSString * dirName = [PD fileName];
-		if([dirName belongsToFarawayProjectsDirectory])
+		NSString * K = [PD keyForFileName:FN];
+		NSString * relativeName = [PD relativeFileNameForKey:K];
+		pdfsyncPath = [relativeName stringByDeletingPathExtension];
+		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
+		dirName = [PD buildDirectoryName];
+		pdfsyncPath = [dirName stringByAppendingPathComponent:pdfsyncPath];
+		pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
+		if(![DFM fileExistsAtPath:pdfsyncPath])
 		{
-			dirName = [dirName stringByDeletingLastPathComponent];
-			NSString * K = [PD keyForFileName:FN];
-			NSString * relativeName = [PD relativeFileNameForKey:K];
-			pdfsyncPath = [relativeName stringByDeletingPathExtension];
-			pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-			pdfsyncPath = [dirName stringByAppendingPathComponent:pdfsyncPath];
-			pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
-			if(![DFM fileExistsAtPath:pdfsyncPath])
-			{
-				S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
-				[self replaceSynchronizer:S];
-				return;
-			}
-		}
-		else
-		{
+			S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+			[self replaceSynchronizer:S];
 			return;
 		}
 	}
@@ -1669,9 +1659,11 @@ To Do List:
 	[self makeWindowControllers];
 	[self showWindows];
 laSuite:
-	if([SRCE hasPrefix:@"/"])
+	if([SRCE hasPrefix:iTM2PathComponentsSeparator])
 	{
-		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory:[[self fileName] stringByDeletingLastPathComponent]];
+		NSString * dirName = [self fileName];
+		dirName = [dirName stringByDeletingLastPathComponent];
+		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
 	}
 	BOOL result = NO;
 //NSLog(@"line:%u column:%u source:%@", l, c, SRCE);
@@ -2359,7 +2351,7 @@ To Do List:
 	unsigned int glyphIndex = [LM glyphIndexForPoint:hitPoint inTextContainer:TC];
 	unsigned charIndex = [LM characterIndexForGlyphAtIndex:glyphIndex];
 	unsigned start, contentsEnd;
-	[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 1)];
+	[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 1)];// got out of range error once, don't know the cause
 	unsigned line = [TS lineIndexForLocation:charIndex];
 	unsigned column = charIndex - start;
 	NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:

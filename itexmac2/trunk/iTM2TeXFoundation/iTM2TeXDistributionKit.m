@@ -22,6 +22,7 @@
 */
 
 #import <iTM2TeXFoundation/iTM2TeXDistributionKit.h>
+#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
 
@@ -93,7 +94,7 @@ To do list:
 #else
 	id _iTM2PathsDictionary = [NSMutableDictionary dictionary];
 	NSEnumerator * E = [[[NSBundle mainBundle]
-		allPathsForResource: iTM2DistributionsComponent ofType: @"plist" inDirectory: nil] reverseObjectEnumerator];
+		allPathsForResource: iTM2DistributionsComponent ofType:@"plist" inDirectory: nil] reverseObjectEnumerator];
     NSString * path;
     while(path = [E nextObject])
     {
@@ -251,8 +252,7 @@ conclusion:
 }
 @end
 
-NSString * const iTM2DistributionEnvironmentKey = @"TeXDistribution";
-#define iVarDistributionEnvironment modelValueForKey: iTM2DistributionEnvironmentKey ofType: iTM2ProjectFrontendType
+NSString * const iTM2DistributionKey = @"TeXDistribution";
 
 NSString * const iTM2DistributionUseOutputDirectoryKey = @"iTM2DistributionUseTEXMFOUTPUT";
 NSString * const iTM2DistributionOutputDirectoryKey = @"iTM2DistributionTEXMFOUTPUT";
@@ -263,43 +263,6 @@ NSString * const iTM2DistributionUsePATHSuffixKey = @"iTM2DistributionUsePATHSuf
 NSString * const iTM2DistributionPATHSuffixKey = @"iTM2DistributionPATHSuffix";
 
 @implementation iTM2TeXProjectDocument(TeXDistributionKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXDistributionFixImplementation
-- (void)TeXDistributionFixImplementation;
-/*"Description forthcoming. Automatically called.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"IMPLEMENTATION is: %@", IMPLEMENTATION);
-	id O;
-	#define CREATE(KEY)\
-	O = [IMPLEMENTATION modelValueForKey:KEY ofType:iTM2ProjectFrontendType];\
-	if([O isKindOfClass:[NSDictionary class]])\
-		[IMPLEMENTATION takeModelValue:[NSMutableDictionary dictionaryWithDictionary:O] forKey:KEY ofType:iTM2ProjectFrontendType];\
-	else\
-		[IMPLEMENTATION takeModelValue:[NSMutableDictionary dictionary] forKey:KEY ofType:iTM2ProjectFrontendType];
-	CREATE(iTM2DistributionEnvironmentKey);
-	#undef CREATE
-//iTM2_LOG(@"[self implementation] is: %@", [self implementation]);
-//iTM2_LOG(@"[[self implementation] iVarDistributionEnvironment] is: %@", [[self implementation] iVarDistributionEnvironment]);
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXDistributionCompleteDidReadFromFile:ofType:
-- (void)TeXDistributionCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self TeXDistributionFixImplementation];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commonCommandOutputDirectory
 - (NSString *)commonCommandOutputDirectory;
 /*"Description forthcoming.
@@ -309,23 +272,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[IMPLEMENTATION iVarDistributionEnvironment] objectForKey:iTM2DistributionUseOutputDirectoryKey]? 
-	([[IMPLEMENTATION iVarDistributionEnvironment] objectForKey:iTM2DistributionOutputDirectoryKey]?: @""):
-		([[self fileName] stringByAppendingPathComponent:[[self relativeFileNameForKey:[self masterFileKey]] stringByDeletingLastPathComponent]]?: @"");
+	return [[[self metaInfos] infoForKeyPaths:iTM2DistributionKey,iTM2DistributionUseOutputDirectoryKey,nil] boolValue]?
+	([[self metaInfos] infoForKeyPaths:iTM2DistributionKey,iTM2DistributionOutputDirectoryKey,nil]?:@"")
+	:([[self fileName] stringByAppendingPathComponent:[[self relativeFileNameForKey:[self masterFileKey]] stringByDeletingLastPathComponent]]?: @"");
 }
 #pragma mark =-=-=-=-=-=-  DISTRIBUTIONS
 #define DISTRIBUTION(getter, setter)\
 - (NSString *)getter;\
 {\
-	NSString * result = [[[self implementation] iVarDistributionEnvironment] objectForKey:iTM2KeyFromSelector(_cmd)];\
+	NSString * result = [[self metaInfos] infoForKeyPaths:iTM2DistributionKey,iTM2KeyFromSelector(_cmd),nil];\
 	return [result length]? result: iTM2DistributionDefault;\
 }\
 - (void)setter:(NSString *)argument;\
 {\
-	if(argument)\
-		[[[self implementation] iVarDistributionEnvironment] setObject:argument forKey:iTM2KeyFromSelector(_cmd)];\
-	else\
-		[[[self implementation] iVarDistributionEnvironment] removeObjectForKey:iTM2KeyFromSelector(_cmd)];\
+	[[self metaInfos] takeInfo:argument forKeyPaths:iTM2DistributionKey,iTM2KeyFromSelector(_cmd),nil];\
 	return;\
 }
 DISTRIBUTION(TeXMFDistribution, setTeXMFDistribution)
@@ -564,8 +524,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id environment = [[self implementation] iVarDistributionEnvironment];
-	NSNumber * N = [environment objectForKey:iTM2DistributionUsePATHLoginShellKey];
+	NSNumber * N = [[self metaInfos] infoForKeyPaths:iTM2DistributionKey,iTM2DistributionUsePATHLoginShellKey,nil];
 	return N? [N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHLoginShellKey];
 //iTM2_END;
 }
@@ -578,10 +537,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
 //iTM2_END;
-    return [[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue];
+    return [[[self metaInfos] infoForKeyPaths:iTM2DistributionKey,iTM2DistributionUsePATHPrefixKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesPATHPrefix:
 - (void)setUsesPATHPrefix:(BOOL)new;
@@ -592,15 +549,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-//	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHPrefixKey] boolValue];
+    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUsePATHPrefixKey,nil] boolValue];
 	if(old != new)
 	{
 		[self willChangeValueForKey:@"usesPATHPrefix"];
-		[environment setObject:[NSNumber numberWithBool: new] forKey:iTM2DistributionUsePATHPrefixKey];
-		[self updateChangeCount:NSChangeDone];
+		if([self takeMetaInfo:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUsePATHPrefixKey,nil])
+		{
+			[self updateChangeCount:NSChangeDone];
+		}
 		[self didChangeValueForKey:@"usesPATHPrefix"];
 	}
 //iTM2_END;
@@ -615,10 +571,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id environment = [[self implementation] iVarDistributionEnvironment];
-	NSString * result = [environment objectForKey:iTM2DistributionPATHPrefixKey];
-	return result;
 //iTM2_END;
+	return [self metaInfoForKeyPaths:iTM2DistributionPATHPrefixKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPATHPrefix:
 - (void)setPATHPrefix:(NSString *)new;
@@ -629,13 +583,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id environment = [[self implementation] iVarDistributionEnvironment];
-	NSString * old = [environment objectForKey:iTM2DistributionPATHPrefixKey];
+	NSString * old = [self metaInfoForKeyPaths:iTM2DistributionPATHPrefixKey,nil];
 	if(![old pathIsEqual:new])
 	{
 		[self willChangeValueForKey:@"PATHPrefix"];
-		[environment setObject:new forKey:iTM2DistributionPATHPrefixKey];
-		[self updateChangeCount:NSChangeDone];
+		if([self takeMetaInfo:new forKeyPaths:iTM2DistributionPATHPrefixKey,nil])
+		{
+			[self updateChangeCount:NSChangeDone];
+		}
 		[self didChangeValueForKey:@"PATHPrefix"];
 		[self validateWindowsContents];
 	}
@@ -686,10 +641,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
 //iTM2_END;
-    return [[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue];
+    return [[self metaInfoForKeyPaths:iTM2DistributionUsePATHSuffixKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesPATHSuffix:
 - (void)setUsesPATHSuffix:(BOOL)new;
@@ -700,15 +653,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-//	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHSuffixKey] boolValue];
+    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUsePATHSuffixKey,nil] boolValue];
 	if(old != new)
 	{
 		[self willChangeValueForKey:@"usesPATHSuffix"];
-		[environment setObject:[NSNumber numberWithBool: new] forKey:iTM2DistributionUsePATHSuffixKey];
-		[self updateChangeCount:NSChangeDone];
+		if([self takeMetaInfo:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUsePATHSuffixKey,nil])
+		{
+			[self updateChangeCount:NSChangeDone];
+		}
 		[self didChangeValueForKey:@"usesPATHSuffix"];
 	}
 //iTM2_END;
@@ -723,10 +675,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-	NSString * result = [environment objectForKey:iTM2DistributionPATHSuffixKey];
-	return result;
+	return [self metaInfoForKeyPaths:iTM2DistributionPATHSuffixKey,nil];
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPATHSuffix:
@@ -738,14 +687,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-	NSString * old = [environment objectForKey:iTM2DistributionPATHSuffixKey];
+	NSString * old = [self metaInfoForKeyPaths:iTM2DistributionPATHSuffixKey,nil];
 	if(![old pathIsEqual:new])
 	{
 		[self willChangeValueForKey:@"PATHSuffix"];
-		[environment setObject:new forKey:iTM2DistributionPATHSuffixKey];
-		[self updateChangeCount:NSChangeDone];
+		if([self takeMetaInfo:new forKeyPaths:iTM2DistributionPATHSuffixKey,nil])
+		{
+			[self updateChangeCount:NSChangeDone];
+		}
 		[self didChangeValueForKey:@"PATHSuffix"];
 		[self validateWindowsContents];
 	}
@@ -797,11 +746,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-	NSNumber * N = [environment objectForKey:iTM2DistributionUseOutputDirectoryKey];
 //iTM2_END;
-    return [N boolValue];
+    return [[self metaInfoForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesTEXMFOUTPUT:
 - (void)setUsesTEXMFOUTPUT:(BOOL)new;
@@ -812,16 +758,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-	NSNumber * N = [environment objectForKey:iTM2DistributionUseOutputDirectoryKey];
-    BOOL old = [N boolValue];
+    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue];
 	if(old != new)
 	{
 		[self willChangeValueForKey:@"usesTEXMFOUTPUT"];
-		N = [NSNumber numberWithBool: new];
-		[environment setObject:N forKey:iTM2DistributionUseOutputDirectoryKey];
-		[self updateChangeCount:NSChangeDone];
+		if([self takeMetaInfo:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil])
+		{
+			[self updateChangeCount:NSChangeDone];
+		}
 		[self didChangeValueForKey:@"usesTEXMFOUTPUT"];
 	}
 //iTM2_END;
@@ -836,11 +780,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-	NSString * old = [environment objectForKey:iTM2DistributionOutputDirectoryKey];
 //iTM2_END;
-    return old;
+    return [self metaInfoForKeyPaths:iTM2DistributionOutputDirectoryKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTEXMFOUTPUT:
 - (void)setTEXMFOUTPUT:(id)new;
@@ -851,14 +792,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id implementation = [self implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-	NSString * old = [environment objectForKey:iTM2DistributionOutputDirectoryKey];
+	NSString * old = [self metaInfoForKeyPaths:iTM2DistributionOutputDirectoryKey,nil];
 	if(![old pathIsEqual:new])
 	{
 		[self willChangeValueForKey:@"TEXMFOUTPUT"];
-		[environment setObject:new forKey:iTM2DistributionOutputDirectoryKey];
-		[self updateChangeCount:NSChangeDone];
+		if([self takeMetaInfo:new forKeyPaths:iTM2DistributionOutputDirectoryKey,nil])
+		{
+			[self updateChangeCount:NSChangeDone];
+		}
 		[self didChangeValueForKey:@"TEXMFOUTPUT"];
 	}
 //iTM2_END;
@@ -873,9 +814,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id environment = [[self implementation] iVarDistributionEnvironment];
-	if([[environment objectForKey:iTM2DistributionUseOutputDirectoryKey] boolValue])
-		return [environment objectForKey:iTM2DistributionOutputDirectoryKey]?: @"";
+	if([[self metaInfoForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue])
+		return [self metaInfoForKeyPaths:iTM2DistributionOutputDirectoryKey,nil]?: @"";
 	if([SUD boolForKey:iTM2DistributionUseOutputDirectoryKey])
 		return [SUD objectForKey:iTM2DistributionOutputDirectoryKey]?: @"";
 	return @"";
@@ -1224,12 +1164,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id document = [self document];
-	id implementation = [document implementation];
-	id environment = [implementation iVarDistributionEnvironment];
-//	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    BOOL old = [[environment objectForKey:iTM2DistributionUsePATHLoginShellKey] boolValue];
-    [environment setObject:[NSNumber numberWithBool:!old] forKey:iTM2DistributionUsePATHLoginShellKey];
+    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil] boolValue];
+    [self takeMetaInfo:[NSNumber numberWithBool:!old] forKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil];
 	[[self document] updateChangeCount:NSChangeDone];
     [sender validateWindowContent];
 //iTM2_END;
@@ -1244,8 +1180,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id environment = [[(iTM2TeXProjectDocument *)[self document] implementation] iVarDistributionEnvironment];
-    [sender setState: ([[environment objectForKey:iTM2DistributionUsePATHLoginShellKey] boolValue]? NSOnState:NSOffState)];
+    [sender setState: ([[self metaInfoForKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil] boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }

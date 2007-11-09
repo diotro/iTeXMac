@@ -23,10 +23,10 @@
 
 #import "iTM2PStoPDFWrapperKit.h"
 
-NSString * const iTM2PStoPDF_use_output = @"iTM2_pstopdf_use_output";// "0" (default) or "1"(bool)
-NSString * const iTM2PStoPDF_output = @"iTM2_pstopdf_output";//-o ""
-NSString * const iTM2PStoPDF_write_to_log = @"iTM2_pstopdf_write_to_log";//-l
-NSString * const iTM2PStoPDF_progress_message = @"iTM2_pstopdf_progress_message";// -p
+NSString * const iTM2PStoPDF_USE_output = @"USE_output";// "0" (default) or "1"(bool)
+NSString * const iTM2PStoPDF_output = @"output";//-o ""
+NSString * const iTM2PStoPDF_write_to_log = @"write_to_log";//-l
+NSString * const iTM2PStoPDF_progress_message = @"progress_message";// -p
 
 @implementation iTM2EnginePStoPDF
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
@@ -61,7 +61,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithBool:NO], iTM2PStoPDF_use_output,
+				[NSNumber numberWithBool:NO], iTM2PStoPDF_USE_output,
 				@"", iTM2PStoPDF_output,
 				[NSNumber numberWithBool:NO], iTM2PStoPDF_write_to_log,
 				[NSNumber numberWithBool:NO], iTM2PStoPDF_progress_message,
@@ -69,18 +69,18 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
-- (BOOL)GETTER;{return [[self modelValueForKey:KEY] boolValue];}\
-- (void)SETTER:(BOOL)yorn;{[self takeModelValue:[NSNumber numberWithBool:yorn] forKey:KEY];return;}
+- (BOOL)GETTER;{return [[self infoForKeyPaths:KEY,nil] boolValue];}\
+- (void)SETTER:(BOOL)yorn;{[self takeInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
-- (id)GETTER;{return [self modelValueForKey:KEY];}\
-- (void)SETTER:(id)argument;{[self takeModelValue:argument forKey:KEY];return;}
+- (id)GETTER;{return [self infoForKeyPaths:KEY,nil];}\
+- (void)SETTER:(id)argument;{[self takeInfo:argument forKeyPaths:KEY,nil];return;}
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
-- (float)GETTER;{return [[self modelValueForKey:KEY] floatValue];}\
-- (void)SETTER:(float)argument;{[self takeModelValue:[NSNumber numberWithFloat:argument] forKey:KEY];return;}
+- (float)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
+- (void)SETTER:(float)argument;{[self takeInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 #define MODEL_INT(GETTER, SETTER, KEY)\
-- (int)GETTER;{return [[self modelValueForKey:KEY] intValue];}\
-- (void)SETTER:(int)argument;{[self takeModelValue:[NSNumber numberWithInt:argument] forKey:KEY];return;}
-MODEL_BOOL(useOutput, setUseOutput, iTM2PStoPDF_use_output);
+- (int)GETTER;{return [[self infoForKeyPaths:KEY,nil] intValue];}\
+- (void)SETTER:(int)argument;{[self takeInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
+MODEL_BOOL(useOutput, setUseOutput, iTM2PStoPDF_USE_output);
 MODEL_OBJECT(output, setOutput, iTM2PStoPDF_output);
 MODEL_BOOL(writeToLog, setWriteToLog, iTM2PStoPDF_write_to_log);
 MODEL_BOOL(progressMessage, setProgressMessage, iTM2PStoPDF_progress_message);

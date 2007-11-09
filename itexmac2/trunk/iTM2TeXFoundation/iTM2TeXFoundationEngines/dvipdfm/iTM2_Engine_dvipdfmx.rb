@@ -2,7 +2,7 @@
 # © 2005-2007 jlaurens AT users DOT sourceforge DOT net
 # This is a "dvipdfm, version 0.13.2c, Copyright (C) 1998, 1999 by Mark A. Wicks" wrapper
 # the purpose of this script is to create a shell script for iTM2_Command_Compile.rb
-
+# unstable
 require 'iTM2_Engine_dvipdfm'
 
 class DVIPDFmxWrapper<DVIPDFmWrapper
@@ -12,21 +12,20 @@ class DVIPDFmxWrapper<DVIPDFmWrapper
 		'iTM2_Dvipdfmx_'
 	end
 	
-	def engine
-		#subclassers will override this
+	def verb
 		'dvipdfmx'
 	end
-	
-	def command_arguments
-		args = super.command_arguments
-		args << "-d #{decimal_digits} " if decimal_digits.length?
-		args << "-C #{option_flags} " if permission_flags.length?
-		args << "-P #{permission_flags} " if permission_flags.length?
-		args << "-O #{open_bookmark_depth} " if open_bookmark_depth.length?
-		args << "-S " if enable_encryption.yes?
-		args << "-T " if include_thumbnails.yes?
-		args << "-V #{minor_version} " if minor_version.yes?
-		args << "-M " if mps_to_pdf.yes?
+
+	def options
+		opts = super.options
+		opts << "-d #{_decimal_digits} " if _decimal_digits.to_i > 0
+		opts << "-C #{_option_flags} " if _permission_flags.to_i > 0
+		opts << "-P #{_permission_flags} " if _permission_flags.to_i > 0
+		opts << "-O #{_open_bookmark_depth} " if _open_bookmark_depth.length?
+		opts << "-S " if _enable_encryption.yes?
+		opts << "-T " if _include_thumbnails.yes?
+		opts << "-V #{_minor_version} " if _minor_version.yes?
+		opts << "-M " if _mps_to_pdf.yes?
 	end
 	
 end

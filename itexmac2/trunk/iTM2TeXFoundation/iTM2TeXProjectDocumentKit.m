@@ -22,10 +22,10 @@
 */
 
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
+#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
+#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 //#import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
-
-NSString * const iTM2TeXProjectInfoType = @"info";// = iTM2ProjectInfoType
 
 NSString * const iTM2TeXProjectInfoComponent = @"Info";// = iTM2ProjectInfoComponent, unused
 
@@ -35,12 +35,17 @@ NSString * const iTM2TeXProjectInspectorType = @"TeX Project Type";
 
 NSString * const iTM2TeXPCachedKeysKey = @"info_cachedKeys";
 
-NSString * const TWSMasterFileKey = @"main";
-
 NSString * const iTM2TeXWrapperDocumentType = @"TeX Project Wrapper";
 NSString * const iTM2TeXProjectDocumentType = @"TeX Project Document";
 NSString * const iTM2TeXWrapperPathExtension = @"texd";
 NSString * const iTM2TeXProjectPathExtension = @"texp";
+
+NSString * const iTM2TPDKModeKey = @"mode";
+NSString * const iTM2TPDKExtensionKey = @"extension";
+NSString * const iTM2TPDKPrettyExtensionKey = @"pretty_extension";
+NSString * const iTM2TPDKVariantKey = @"variant";
+NSString * const iTM2TPDKOutputKey = @"output";
+NSString * const iTM2TPDKNameKey = @"name";
 
 @interface NSDocumentController_iTM2TeXProject:iTM2DocumentController
 @end
@@ -114,26 +119,6 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectDocumentKit
 /*"Description forthcoming."*/
 @implementation iTM2TeXProjectDocument
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
-+ (NSImage *)smallImageLogo;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings(small)"];
-	if(I)
-	{
-		return I;
-	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectSettings"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectSettings(small)"];
-    return I;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
@@ -247,102 +232,30 @@ To Do List:
 //iTM2_END;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wasNotModified
-- (BOOL)wasNotModified;
-/*"Description forthcoming.
+#pragma mark =-=-=-=-=-  PROJECT HELPERS
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  helperProject
+- (id)helperProject;
+/*Decription forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [metaGETTER boolValue];
+    return metaGETTER;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setWasNotModified:
-- (void)setWasNotModified:(BOOL)yorn;
-/*"Description forthcoming.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setHelperProject:
+- (void)setHelperProject:(id)helperProject;
+/*"Decription forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	metaSETTER([NSNumber numberWithBool:yorn]);
+	metaSETTER(helperProject);
 //iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  realMasterFileKey
-- (NSString *)realMasterFileKey;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [IMPLEMENTATION modelValueForKey:TWSMasterFileKey ofType:iTM2TeXProjectInfoType];
-}
-#pragma mark =-=-=-=-=-  TWS Support
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  masterFileKey
-- (NSString *)masterFileKey;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * key = [IMPLEMENTATION modelValueForKey:TWSMasterFileKey ofType:iTM2TeXProjectInfoType];
-	if([key isEqualToString:@"...iTM2FrontDocument"])
-	{
-		// get the front most document of the project
-		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
-		NSWindow * W;
-		while(W = [E nextObject])
-		{
-			NSDocument * D = [[W windowController] document];
-			if([D isEqual:self])
-			{
-				return @"";
-			}
-			if([[SPC projectForSource:D] isEqual:self])
-			{
-				return [self keyForFileName:[D fileName]];
-			}
-		}
-		return @"";
-	}
-	if([key length])
-		return key;
-	NSMutableArray * Ks = [NSMutableArray arrayWithArray:[self allKeys]];
-	[Ks removeObject:[self keyForFileName:[self fileName]]];
-	if([Ks count] == 1)
-	{
-		NSString * fileKey = [Ks lastObject];
-		[IMPLEMENTATION takeModelValue:fileKey forKey:TWSMasterFileKey ofType:iTM2TeXProjectInfoType];
-		return fileKey;
-	}
-    return @"";
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMasterFileKey:
-- (void)setMasterFileKey:(NSString *) key;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([key isEqualToString:@"...iTM2FrontDocument"] || [self relativeFileNameForKey:key])
-	{
-		[IMPLEMENTATION takeModelValue:key forKey:TWSMasterFileKey ofType:iTM2TeXProjectInfoType];
-	}
-	else
-	{
-		iTM2_LOG(@"Only file name keys are authorized here, got %@ not in %@", key, [self allKeys]);
-	}
     return;
 }
 #pragma mark =-=-=-=-=-  SAVE
@@ -357,32 +270,136 @@ To Do List:
 //iTM2_START;
 	if([absoluteURL isFileURL])
 	{
-		NSString * path = [absoluteURL path];
-		NSBundle * MB = [NSBundle mainBundle];
-		NSString * dir = [MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSUserDomainMask create:YES];
-		if([path belongsToDirectory:dir])
+		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]]
+			initWithSearchPattern:[NSString stringWithFormat:@"/Library/.*/%@(?:$|/)",[iTM2ProjectBaseComponent stringByEscapingICUREControlCharacters]]
+				options:0 error:nil] autorelease];
+		[RE setInputString:[absoluteURL path]];
+		if([RE nextMatch])
 		{
 			[SPC updateTeXBaseProjectsNotified:nil];
-		}
-		else
-		{
-			dir = [MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSLocalDomainMask create:NO];
-			if([path belongsToDirectory:dir])
-			{
-				[SPC updateTeXBaseProjectsNotified:nil];
-			}
-			else
-			{
-				dir = [MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSNetworkDomainMask create:NO];
-				if([path belongsToDirectory:dir])
-				{
-					[SPC updateTeXBaseProjectsNotified:nil];
-				}
-			}
 		}
 	}
 //iTM2_END;
     return YES;
+}
+@end
+
+@implementation NSString(PRIVATE)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXProjectProperties
+- (NSDictionary *)TeXProjectProperties;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSString * mode = @"";
+    NSString * output = @"";
+    NSString * variant = @"";
+    NSString * extension = @"";
+	ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"(?:\\((.*?)\\))?([^\\+-]*)(?:\\+([^-]*))?(?:-(.*))?" options:nil error:nil] autorelease];
+    NSString * name = [[self lastPathComponent] stringByDeletingPathExtension];
+	[RE setInputString:name];
+	if([RE nextMatch] && ([RE numberOfCaptureGroups]>3))
+	{
+		extension = [RE substringOfCaptureGroupAtIndex:1];
+		mode = [RE substringOfCaptureGroupAtIndex:2];
+		output = [RE substringOfCaptureGroupAtIndex:3];
+		variant = [RE substringOfCaptureGroupAtIndex:4];
+	}
+	NSString * prettyExtension = NSLocalizedStringFromTableInBundle([extension lowercaseString],iTM2TeXProjectFrontendTable,[NSBundle bundleForClass:[iTM2TeXProjectDocument class]],"");
+    return [NSDictionary dictionaryWithObjectsAndKeys:mode, iTM2TPDKModeKey, extension, iTM2TPDKExtensionKey, prettyExtension, iTM2TPDKPrettyExtensionKey, output, iTM2TPDKOutputKey, variant, iTM2TPDKVariantKey, name, iTM2TPDKNameKey, nil];
+}
+@end
+
+@implementation NSDictionary(TeXProjectProperties)
+- (NSComparisonResult)compareTeXProjectProperties:(id)rhs;
+{
+	if(![rhs isKindOfClass:[NSDictionary class]])
+	{
+		return NSOrderedDescending;
+	}
+    NSString * lhs_mode = [self objectForKey:iTM2TPDKModeKey];
+    NSString * lhs_output = [self objectForKey:iTM2TPDKOutputKey];
+    NSString * lhs_variant = [self objectForKey:iTM2TPDKVariantKey];
+    NSString * lhs_extension = [self objectForKey:iTM2TPDKExtensionKey];
+    NSString * rhs_mode = [rhs objectForKey:iTM2TPDKModeKey];
+    NSString * rhs_output = [rhs objectForKey:iTM2TPDKOutputKey];
+    NSString * rhs_variant = [rhs objectForKey:iTM2TPDKVariantKey];
+    NSString * rhs_extension = [rhs objectForKey:iTM2TPDKExtensionKey];
+	
+	if([lhs_mode isEqual:iTM2ProjectDefaultName])
+	{
+		if([rhs_mode isEqual:iTM2ProjectDefaultName])
+		{
+			// both modes are the same,
+test_extension:
+			if([lhs_extension isEqual:rhs_extension] || [lhs_extension isEqual:@"*"] || [rhs_extension isEqual:@"*"])
+			{
+				if([lhs_variant isEqual:rhs_variant] || [lhs_variant isEqual:@"*"] || [rhs_variant isEqual:@"*"])
+				{
+					if([lhs_output isEqual:@"*"] || [rhs_output isEqual:@"*"])
+					{
+						return NSOrderedSame;
+					}
+					return [lhs_output compare:rhs_output];
+				}
+				return [lhs_variant compare:rhs_variant];
+			}
+			return [lhs_extension compare:rhs_extension];
+		}
+		return NSOrderedAscending;
+	}
+	else if([rhs_mode isEqual:iTM2ProjectDefaultName])
+	{
+		return NSOrderedDescending;
+	}
+	else if([lhs_mode isEqual:@"Plain"] || [lhs_mode isEqual:@"TeX"])
+	{
+		if([rhs_mode isEqual:@"Plain"] || [rhs_mode isEqual:@"TeX"])
+		{
+			// both modes are the same,
+			goto test_extension;
+		}
+		return NSOrderedAscending;
+	}
+	else if([rhs_mode isEqual:@"Plain"] || [rhs_mode isEqual:@"TeX"])
+	{
+		return NSOrderedDescending;
+	}
+	else if([lhs_mode isEqual:rhs_mode] || [lhs_mode isEqual:@"*"] || [rhs_mode isEqual:@"*"])
+	{
+		// both modes are the same,
+		goto test_extension;
+	}
+	return [lhs_mode compare:rhs_mode];
+}
+- (NSString *)TeXBaseProjectName;
+{
+    NSString * mode = [self objectForKey:iTM2TPDKModeKey];
+    NSString * output = [self objectForKey:iTM2TPDKOutputKey];
+    NSString * variant = [self objectForKey:iTM2TPDKVariantKey];
+    NSString * extension = [self objectForKey:iTM2TPDKExtensionKey];
+	NSMutableString * result = [NSMutableString string];
+	if([extension length])
+	{
+		[result appendFormat:@"(%@)",extension];
+	}
+	if([mode length])
+	{
+		[result appendFormat:@"%@",mode];
+	}
+	if([output length])
+	{
+		[result appendFormat:@"+%@",output];
+	}
+	if([variant length])
+	{
+		[result appendFormat:@"-%@",variant];
+	}
+iTM2_LOG(@"result:%@",result);
+	return result;
 }
 @end
 
@@ -406,16 +423,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectFiles(small)"];
-	if(I)
-	{
-		return I;
-	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectFiles"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectFiles(small)"];
-    return I;
+    return [NSImage findImageNamed:@"showCurrentProjectFiles(small)"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
@@ -499,7 +507,7 @@ To Do List:
 	if([fileName belongsToFarawayProjectsDirectory])
 	{
 		fileName = [fileName stringByStrippingFarawayProjectsDirectory];
-		fileName = [fileName stringByDeletingLastPathComponent];
+		fileName = [fileName enclosingWrapperFileName];
 		fileName = [fileName stringByDeletingLastPathComponent];
 		fileName = [@"..." stringByAppendingPathComponent:fileName];
 	}
@@ -1818,6 +1826,10 @@ To Do List:
 }
 @end
 
+@interface iTM2TeXProjectController(PRIVATE)
+- (void)updateBaseProjectsNotified:(NSNotification *) irrelevant;
+@end
+
 @implementation iTM2TeXProjectController
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateTeXBaseProjectsNotified:
 - (void)updateTeXBaseProjectsNotified:(NSNotification *) irrelevant;
@@ -1828,35 +1840,179 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSBundle * MB = [NSBundle mainBundle];
-	[MB pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSUserDomainMask create:YES];
-	NSArray * paths = [MB allPathsForResource:iTM2ProjectBaseComponent ofType:@""];
-	NSEnumerator * E = [paths reverseObjectEnumerator];
+#warning updateTeXBaseProjectsNotified THIS SHOULD BE REMOVED
+	[self updateBaseProjectsNotified:(NSNotification *) irrelevant];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedBaseProjectNames
+- (NSArray *)orderedBaseProjectNames;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * baseProjectsRepository = [NSBundle temporaryBaseProjectsDirectory];
+	NSEnumerator * E = [[DFM directoryContentsAtPath:baseProjectsRepository] objectEnumerator];
 	NSString * path = nil;
+	NSMutableSet * MS = [NSMutableSet set];
 	while(path = [E nextObject])
 	{
-		paths = [DFM directoryContentsAtPath:path];
-		NSEnumerator * e = [paths objectEnumerator];
-		NSString * component = nil;
+		path = [baseProjectsRepository stringByAppendingPathComponent:path];
+		NSEnumerator * e = [[DFM directoryContentsAtPath:path] objectEnumerator];
 		NSString * requiredExtension = [SDC projectPathExtension];
+		NSString * component = nil;
 		while(component = [e nextObject])
 		{
-			if([component hasPrefix:@"."])
-			{
-				// do nothing, this can't be a base project
-			}
-			else if([[component pathExtension] pathIsEqual:requiredExtension])
+			if(![component hasPrefix:@"."] && [[component pathExtension] pathIsEqual:requiredExtension])
 			{
 				NSString * core = [component stringByDeletingPathExtension];
 				if(![core hasSuffix:@"~"])// this is not a backup
 				{
-					NSString * name = [path stringByAppendingPathComponent:component];
-					[self registerBaseProjectFileName:name];
+					[MS addObject:core];
 				}
 			}
 		}
 	}
-	return;
+	[IMPLEMENTATION takeMetaValue:nil forKey:@"cached project name -> base name mapping"];
+	if(![MS count])
+	{
+		iTM2_LOG(@"ERROR: no base projects are available, please reinstall");
+		return nil;
+	}
+	// get in MRA an ordered list of the project names, from the shortest to the longest
+	NSArray * RA = [NSArray arrayWithArray:[[MS allObjects] valueForKey:@"TeXProjectProperties"]];
+	RA = [RA sortedArrayUsingSelector:@selector(compareTeXProjectProperties:)];
+iTM2_LOG(@"4-%@",[RA valueForKey:iTM2TPDKNameKey]);// beware, no message sent to a collection of dictionaries
+//iTM2_END;
+	return [RA valueForKey:iTM2TPDKNameKey];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyBaseNamesOfAncestorsForBaseProjectName:
+- (NSArray *)lazyBaseNamesOfAncestorsForBaseProjectName:(NSString *)name;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	name = [[name lastPathComponent] stringByDeletingPathExtension];// useless?
+	// the result
+	id result = [NSMutableSet set];
+	if([[self baseProjectNames] containsObject:name])
+	{
+		[result addObject:name];
+	}
+	NSDictionary * TPPs = [name TeXProjectProperties];
+	id O = [[TPPs mutableCopy] autorelease];
+	NSString * mode = [TPPs objectForKey:iTM2TPDKModeKey];
+	if([mode isEqual:iTM2ProjectDefaultName])
+	{
+		// do nothing
+	}
+	else if([mode isEqual:@"TeX"])
+	{
+		mode = nil;
+		[O setObject:iTM2ProjectDefaultName forKey:iTM2TPDKModeKey];
+		O = [O TeXBaseProjectName];
+		O = [self lazyBaseNamesOfAncestorsForBaseProjectName:O];
+		[result addObjectsFromArray:O];
+	}
+	else if([mode isEqual:@"Plain"])
+	{
+		mode = nil;
+		[O setObject:@"TeX" forKey:iTM2TPDKModeKey];
+		O = [O TeXBaseProjectName];
+		if(![name isEqual:O])
+		{
+			O = [self lazyBaseNamesOfAncestorsForBaseProjectName:O];
+			[result addObjectsFromArray:O];
+		}
+	}
+	else if(mode)
+	{
+		mode = nil;
+		[O setObject:@"Plain" forKey:iTM2TPDKModeKey];
+		O = [O TeXBaseProjectName];
+		if(![name isEqual:O])
+		{
+			O = [self lazyBaseNamesOfAncestorsForBaseProjectName:O];
+			[result addObjectsFromArray:O];
+		}
+	}
+	else
+	{
+		return [NSArray array];
+	}
+	O = [[TPPs mutableCopy] autorelease];
+	[O removeObjectForKey:iTM2TPDKExtensionKey];
+	O = [O TeXBaseProjectName];
+	if([O length] < [name length])
+	{
+		O = [self lazyBaseNamesOfAncestorsForBaseProjectName:O];
+		[result addObjectsFromArray:O];
+	}
+	O = [[TPPs mutableCopy] autorelease];
+	[O removeObjectForKey:iTM2TPDKVariantKey];
+	O = [O TeXBaseProjectName];
+	if([O length] < [name length])
+	{
+		O = [self lazyBaseNamesOfAncestorsForBaseProjectName:O];
+		[result addObjectsFromArray:O];
+	}
+	NSMutableArray * MRA = [[[[self orderedBaseProjectNames] valueForKey:@"TeXProjectProperties"] mutableCopy] autorelease];
+iTM2_LOG(@"1-%@",[MRA valueForKey:iTM2TPDKNameKey]);
+	O = [TPPs objectForKey:iTM2TPDKModeKey];
+	if([O length])
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%K like %@",iTM2TPDKModeKey,O]];
+	}
+	else
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%K matches %@",iTM2TPDKModeKey,@"^$"]];
+	}
+iTM2_LOG(@"2-%@",[MRA valueForKey:iTM2TPDKNameKey]);
+	O = [TPPs objectForKey:iTM2TPDKVariantKey];
+	if([O length])
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%K like %@",iTM2TPDKVariantKey,O]];
+	}
+	else
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%K matches %@",iTM2TPDKVariantKey,@"^$"]];
+	}
+iTM2_LOG(@"3-%@",[MRA valueForKey:iTM2TPDKNameKey]);
+	O = [TPPs objectForKey:iTM2TPDKExtensionKey];
+	if([O length])
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%K like %@",iTM2TPDKExtensionKey,O]];
+	}
+	else
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%K matches %@",iTM2TPDKExtensionKey,@"^$"]];
+	}
+iTM2_LOG(@"4-%@",[MRA valueForKey:iTM2TPDKNameKey]);
+	O = [TPPs objectForKey:iTM2TPDKOutputKey];
+	if([O length])
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%@ contains %K",O,iTM2TPDKOutputKey]];
+	}
+	else
+	{
+		[MRA filterUsingPredicate:[NSPredicate predicateWithFormat:@"%K matches %@",iTM2TPDKOutputKey,@"^$"]];
+	}
+iTM2_LOG(@"5-%@",[MRA valueForKey:iTM2TPDKNameKey]);
+	MRA = [[[MRA valueForKey:iTM2TPDKNameKey] mutableCopy] autorelease];
+	[MRA removeObject:name];
+	[result addObjectsFromArray:MRA];
+	result = [result valueForKey:@"TeXProjectProperties"];
+	result = [NSMutableArray arrayWithArray:[result allObjects]];
+	[result sortUsingSelector:@selector(compareTeXProjectProperties:)];
+	result = [result valueForKey:iTM2TPDKNameKey];
+//iTM2_END;
+iTM2_LOG(@"%@,\n%@",name,[[result reverseObjectEnumerator] allObjects]);
+	return [[result reverseObjectEnumerator] allObjects];
 }
 @end
 

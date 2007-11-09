@@ -71,3 +71,7 @@ extern NSString * const iTM2TeXSmartSelectionKey;
 @interface iTM2TextStorage(DoubleClick)
 - (NSRange)smartDoubleClickAtIndex:(unsigned)index;
 @end
+
+@interface NSTextView(TeXMacro)
+- (NSString *)concreteReplacementStringForTeXMacro:(NSString *)macro selection:(NSString *)selectedString line:(NSString *)line;
+@end
