@@ -8,7 +8,6 @@
 			8D5B49AC048680CD000E48DA /* iTM2BibTeXSupportKit */,
 		);
 		breakpoints = (
-			DCD3D356088EA709009ED7E0 /* -[NSException raise] */,
 		);
 		breakpointsGroup = DCFEA5E00AC883FE0014A771 /* XCBreakpointsBucket */;
 		codeSenseManager = DC52042B088B1FD200DE6E7F /* Code sense */;
@@ -100,8 +99,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 202652801;
-			PBXWorkspaceStateSaveDate = 202652801;
+			PBXPerProjectTemplateStateSaveDate = 214679967;
+			PBXWorkspaceStateSaveDate = 214679967;
 		};
 		sourceControlManager = DC52042A088B1FD200DE6E7F /* Source Control */;
 		userBuildSettings = {
@@ -122,7 +121,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1187, 1460}}";
 			sepNavSelRange = "{1937, 0}";
-			sepNavVisRect = "{{0, 378}, {1187, 682}}";
+			sepNavVisRect = "{{0, 0}, {1187, 714}}";
 			sepNavWindowFrame = "{{19, 40}, {1226, 787}}";
 		};
 	};
@@ -200,23 +199,10 @@
 			sepNavWindowFrame = "{{15, 105}, {1184, 768}}";
 		};
 	};
-	DCD3D356088EA709009ED7E0 /* -[NSException raise] */ = {
-		isa = PBXSymbolicBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		delayBeforeContinue = 0;
-		hitCount = 1;
-		modificationTime = 200207468.302482;
-		state = 2;
-		symbolName = "-[NSException raise]";
-	};
 	DCFEA5E00AC883FE0014A771 /* XCBreakpointsBucket */ = {
 		isa = XCBreakpointsBucket;
 		name = iTM2BibTeXSupportKit;
 		objects = (
-			DCD3D356088EA709009ED7E0 /* -[NSException raise] */,
 		);
 	};
 }
