@@ -27,7 +27,7 @@
 		DC70F2B80BFC5CB7006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F2AF0BFC5CB7006C6A76 /* Lua.framework */; };
 		DC892FCE08FC1D2E007A4673 /* iTM2MetaPostWrapperKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC892FCA08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC892FCF08FC1D2F007A4673 /* iTM2MetaPostWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC892FCB08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.m */; };
-		DC892FD008FC1D97007A4673 /* iTM2_Engine_mptopdf in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf */; };
+		DC892FD008FC1D97007A4673 /* iTM2_Engine_mptopdf.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf.rb */; };
 		DC892FDB08FC1E90007A4673 /* iTM2MetaPostDocumentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC892FD908FC1E90007A4673 /* iTM2MetaPostDocumentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC892FDC08FC1E90007A4673 /* iTM2MetaPostDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC892FDA08FC1E90007A4673 /* iTM2MetaPostDocumentKit.m */; };
 		DC89304B08FC29E5007A4673 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */; };
@@ -44,7 +44,7 @@
 		DCC7F4C40854ACBA00F3EB8A /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */; };
 		DCC7F4C80854ACD700F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C70854ACD700F3EB8A /* Carbon.framework */; };
 		DCCD2E9B09E142500003EEF9 /* Inspector.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2E9909E142500003EEF9 /* Inspector.strings */; };
-		DCCDE0CB0907D423006565C3 /* iTM2_Engine_mpost in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCCDE0C80907D408006565C3 /* iTM2_Engine_mpost */; };
+		DCCDE0CB0907D423006565C3 /* iTM2_Engine_mpost.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCCDE0C80907D408006565C3 /* iTM2_Engine_mpost.rb */; };
 		DCD3A67E0A38FB1D00B5EE0C /* EnvironmentVariables.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCD3A67D0A38FB1D00B5EE0C /* EnvironmentVariables.plist */; };
 		DCD8A892090FD8F1000831D9 /* iTM2HiFit.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCD8A7DE090FD8F1000831D9 /* iTM2HiFit.tif */; };
 		DCD8A893090FD8F1000831D9 /* iTM2HiLarger.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCD8A7DF090FD8F1000831D9 /* iTM2HiLarger.tif */; };
@@ -54,7 +54,7 @@
 		DCD8A897090FD8F1000831D9 /* iTM2LowSmaller.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCD8A7E3090FD8F1000831D9 /* iTM2LowSmaller.tif */; };
 		DCDD0BAC0905AE4F00C5B1E9 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDD0BAB0905AE4F00C5B1E9 /* Quartz.framework */; };
 		DCE52F4E0C0F3C6E00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F4D0C0F3C6E00F2D5B9 /* libicucore.dylib */; };
-		DCFE70EC090E77A400A36206 /* iTM2_Engine_mps2pdf in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf */; };
+		DCFE70EC090E77A400A36206 /* iTM2_Engine_mps2pdf.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf.rb */; };
 		DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,9 +89,9 @@
 			dstPath = bin;
 			dstSubfolderSpec = 1;
 			files = (
-				DCCDE0CB0907D423006565C3 /* iTM2_Engine_mpost in Copy Binaries */,
-				DC892FD008FC1D97007A4673 /* iTM2_Engine_mptopdf in Copy Binaries */,
-				DCFE70EC090E77A400A36206 /* iTM2_Engine_mps2pdf in Copy Binaries */,
+				DCCDE0CB0907D423006565C3 /* iTM2_Engine_mpost.rb in Copy Binaries */,
+				DC892FD008FC1D97007A4673 /* iTM2_Engine_mptopdf.rb in Copy Binaries */,
+				DCFE70EC090E77A400A36206 /* iTM2_Engine_mps2pdf.rb in Copy Binaries */,
 				DC8A42B209110CA500F47F63 /* iTM2_Compile_mp in Copy Binaries */,
 			);
 			name = "Copy Binaries";
@@ -119,7 +119,7 @@
 		DC892FBF08FC1CD6007A4673 /* iTM2MetaPostKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2MetaPostKit-Info.plist"; sourceTree = "<group>"; };
 		DC892FC008FC1CD6007A4673 /* iTM2MetaPostKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2MetaPostKit-Prefix.pch"; sourceTree = "<group>"; };
 		DC892FC108FC1CD6007A4673 /* iTM2MetaPostKit.hdoc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iTM2MetaPostKit.hdoc; sourceTree = "<group>"; };
-		DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_mptopdf; sourceTree = "<group>"; };
+		DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_mptopdf.rb; sourceTree = "<group>"; };
 		DC892FCA08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MetaPostWrapperKit.h; sourceTree = "<group>"; };
 		DC892FCB08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MetaPostWrapperKit.m; sourceTree = "<group>"; };
 		DC892FCD08FC1D05007A4673 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		DCCC3C4F08794A5E0060EC0F /* iTM2MetaPostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2MetaPostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD2E9A09E142500003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCD2E9C09E1425A0003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
-		DCCDE0C80907D408006565C3 /* iTM2_Engine_mpost */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_mpost; sourceTree = "<group>"; };
+		DCCDE0C80907D408006565C3 /* iTM2_Engine_mpost.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_mpost.rb; sourceTree = "<group>"; };
 		DCD3A67D0A38FB1D00B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
 		DCD8A7DE090FD8F1000831D9 /* iTM2HiFit.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2HiFit.tif; sourceTree = "<group>"; };
 		DCD8A7DF090FD8F1000831D9 /* iTM2HiLarger.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2HiLarger.tif; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		DCD8A7E3090FD8F1000831D9 /* iTM2LowSmaller.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LowSmaller.tif; sourceTree = "<group>"; };
 		DCDD0BAB0905AE4F00C5B1E9 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		DCE52F4D0C0F3C6E00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
-		DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_mps2pdf; sourceTree = "<group>"; };
+		DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_mps2pdf.rb; sourceTree = "<group>"; };
 		DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -264,10 +264,10 @@
 		DC892FC208FC1CD6007A4673 /* MetaPost */ = {
 			isa = PBXGroup;
 			children = (
-				DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf */,
+				DCFE70E8090E779400A36206 /* iTM2_Engine_mps2pdf.rb */,
 				DC8A42B109110C9700F47F63 /* iTM2_Compile_mp */,
-				DCCDE0C80907D408006565C3 /* iTM2_Engine_mpost */,
-				DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf */,
+				DCCDE0C80907D408006565C3 /* iTM2_Engine_mpost.rb */,
+				DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf.rb */,
 				DC892FCA08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.h */,
 				DC892FCB08FC1CD6007A4673 /* iTM2MetaPostWrapperKit.m */,
 				DC892FD908FC1E90007A4673 /* iTM2MetaPostDocumentKit.h */,
@@ -381,10 +381,12 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB81509474616004B0A81 /* Build configuration list for PBXProject "iTM2MetaPostKit" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DCBD7E3709491B4500E2ACC7 /* Prepare iTM2PDFKit */,
 				8DC2EF4F0486A6940098B216 /* iTM2MetaPostKit */,

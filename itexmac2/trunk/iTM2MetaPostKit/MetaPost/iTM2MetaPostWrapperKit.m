@@ -25,27 +25,27 @@
 
 #import "iTM2MetaPostWrapperKit.h"
 
-NSString * const iTM2MetaPostParseFirstLineKey = @"iTM2_MP_parse_first_line";
-NSString * const iTM2MetaPostPARSETranslationKey = @"iTM2_MP_PARSE_translate";
-NSString * const iTM2MetaPostUSETranslationKey = @"iTM2_MP_USE_translate";
-NSString * const iTM2MetaPostTranslationKey = @"iTM2_MP_translate_file";
-NSString * const iTM2MetaPostInteractionName = @"iTM2_MP_interaction";
-NSString * const iTM2MetaPostFormatKey = @"iTM2_MP_mem";
-NSString * const iTM2MetaPostUSEProgNameKey = @"iTM2_MP_USE_progname";
-NSString * const iTM2MetaPostProgNameKey = @"iTM2_MP_progname";
-NSString * const iTM2MetaPostUSEJobNameKey = @"iTM2_MP_USE_jobname";
-NSString * const iTM2MetaPostJobNameKey = @"iTM2_MP_jobname";
-NSString * const iTM2MetaPostFileLineErrorStyleKey = @"iTM2_MP_file_line_error";
-NSString * const iTM2MetaPostRecorderKey = @"iTM2_MP_recorder";
-NSString * const iTM2MetaPostIniKey = @"iTM2_MP_ini";
-NSString * const iTM2MetaPostTroffKey = @"iTM2_MP_troff";
-NSString * const iTM2MetaPostHaltOnErrorKey = @"iTM2_MP_halt_on_error";
-NSString * const iTM2MetaPostOutputDirectoryKey = @"iTM2_MP_output_directory";
-NSString * const iTM2MetaPostUSEOutputDirectoryKey = @"iTM2_MP_USE_output_directory";
-NSString * const iTM2MetaPostTeXParseFirstLineKey = @"iTM2_MP_TeX_parse_first_line";
-NSString * const iTM2MetaPostTeXFormatKey = @"iTM2_MP_TeX_format";
-NSString * const iTM2MetaPostConvertToPDFKey = @"iTM2_MP_convert_to_pdf";
-NSString * const iTM2MetaPostPDFConverterKey = @"iTM2_MP_pdf_converter";
+NSString * const iTM2MetaPostParseFirstLineKey = @"parse_first_line";
+NSString * const iTM2MetaPostPARSETranslationKey = @"PARSE_translate";
+NSString * const iTM2MetaPostUSETranslationKey = @"USE_translate";
+NSString * const iTM2MetaPostTranslationKey = @"translate_file";
+NSString * const iTM2MetaPostInteractionName = @"interaction";
+NSString * const iTM2MetaPostFormatKey = @"mem";
+NSString * const iTM2MetaPostUSEProgNameKey = @"USE_progname";
+NSString * const iTM2MetaPostProgNameKey = @"progname";
+NSString * const iTM2MetaPostUSEJobNameKey = @"USE_jobname";
+NSString * const iTM2MetaPostJobNameKey = @"jobname";
+NSString * const iTM2MetaPostFileLineErrorStyleKey = @"file_line_error";
+NSString * const iTM2MetaPostRecorderKey = @"recorder";
+NSString * const iTM2MetaPostIniKey = @"ini";
+NSString * const iTM2MetaPostTroffKey = @"troff";
+NSString * const iTM2MetaPostHaltOnErrorKey = @"halt_on_error";
+NSString * const iTM2MetaPostOutputDirectoryKey = @"output_directory";
+NSString * const iTM2MetaPostUSEOutputDirectoryKey = @"USE_output_directory";
+NSString * const iTM2MetaPostTeXParseFirstLineKey = @"TeX_parse_first_line";
+NSString * const iTM2MetaPostTeXFormatKey = @"TeX_format";
+NSString * const iTM2MetaPostConvertToPDFKey = @"convert_to_pdf";
+NSString * const iTM2MetaPostPDFConverterKey = @"pdf_converter";
 
 @implementation iTM2EngineMetaPost
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
@@ -113,7 +113,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MetaPostFormatKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MetaPostFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -125,8 +125,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2MetaPostFormatKey]?:@"")];
-    return ![self modelFlagForKey:iTM2MetaPostParseFirstLineKey];
+    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostFormatKey,nil]?:@"")];
+    return ![[self editInfoForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseFormat:
 - (IBAction)chooseFormat:(id)sender;
@@ -137,7 +137,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2MetaPostFormatKey];
+    [self takeEditInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -186,7 +186,7 @@ To Do List:
 				}
 			}
 		}
-		return ![self modelFlagForKey:iTM2MetaPostParseFirstLineKey];
+		return ![[self editInfoForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
 	}
     else
         return NO;
@@ -200,7 +200,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKey:iTM2MetaPostParseFirstLineKey];
+    [self takeEditInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostParseFirstLineKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -212,11 +212,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL flag = [self modelFlagForKey:iTM2MetaPostParseFirstLineKey];
+	BOOL flag = [[self editInfoForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
     [sender selectCellWithTag: (flag? 1:0)];
-	if([self modelFlagForKey:iTM2MetaPostPARSETranslationKey] != flag)
+	if([[self editInfoForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue] != flag)
 	{
-		[self takeModelValue:[NSNumber numberWithBool:flag] forKey:iTM2MetaPostPARSETranslationKey];
+		[self takeEditInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MetaPostPARSETranslationKey,nil];
 	}
     return YES;
 }
@@ -229,7 +229,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MetaPostUSEProgNameKey];
+    [self toggleEditInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleProgName:
@@ -241,7 +241,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostUSEProgNameKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editProgName:
@@ -253,7 +253,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MetaPostProgNameKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MetaPostProgNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -265,20 +265,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([self modelFlagForKey:iTM2MetaPostUSEProgNameKey])
+    if([[self editInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue])
     {
-        NSString * v = [self modelValueForKey:iTM2MetaPostProgNameKey];
+        NSString * v = [self editInfoForKeyPaths:iTM2MetaPostProgNameKey,nil];
         if(![v length])
         {
-            v = [self modelValueForKey:iTM2MetaPostFormatKey];
-            [[self model] takeValue:v forKey:iTM2MetaPostProgNameKey];
+            v = [self editInfoForKeyPaths:iTM2MetaPostFormatKey,nil];
+            [self takeEditInfo:v forKeyPaths:iTM2MetaPostProgNameKey,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
     }
     else
     {
-        [sender setStringValue: ([self modelValueForKey:iTM2MetaPostFormatKey]?:@"")];
+        [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostFormatKey,nil]?:@"")];
         return NO;
     }
 }
@@ -291,7 +291,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2MetaPostProgNameKey];
+    [self takeEditInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostProgNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -325,7 +325,7 @@ To Do List:
 				}
 			}
 		}
-		return [self modelFlagForKey:iTM2MetaPostUSEProgNameKey];
+		return [[self editInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue];
 	}
     else
         return NO;
@@ -339,7 +339,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MetaPostTeXFormatKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MetaPostTeXFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -351,8 +351,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2MetaPostTeXFormatKey]?:@"")];
-    return ![self modelFlagForKey:iTM2MetaPostTeXParseFirstLineKey];
+    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostTeXFormatKey,nil]?:@"")];
+    return ![[self editInfoForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXFormat:
 - (IBAction)chooseTeXFormat:(id)sender;
@@ -363,7 +363,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[[sender selectedItem] representedObject] forKey:iTM2MetaPostTeXFormatKey];
+    [self takeEditInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostTeXFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXFormat:
@@ -412,7 +412,7 @@ To Do List:
 				}
 			}
 		}
-		return ![self modelFlagForKey:iTM2MetaPostTeXParseFirstLineKey];
+		return ![[self editInfoForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue];
 	}
     else
         return NO;
@@ -426,7 +426,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKey:iTM2MetaPostTeXParseFirstLineKey];
+    [self takeEditInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchTeXFormat:
@@ -438,7 +438,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender selectCellWithTag: ([self modelFlagForKey:iTM2MetaPostTeXParseFirstLineKey]? 1:0)];
+    [sender selectCellWithTag: ([[self editInfoForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue]? 1:0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleConvertToPDF:
@@ -450,7 +450,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[NSNumber numberWithBool: ![self modelFlagForKey:iTM2MetaPostConvertToPDFKey]] forKey:iTM2MetaPostConvertToPDFKey];
+    [self takeEditInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue]] forKeyPaths:iTM2MetaPostConvertToPDFKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleConvertToPDF:
@@ -462,7 +462,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostConvertToPDFKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchPDFConverter:
@@ -474,7 +474,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[NSNumber numberWithInt:[[sender selectedCell] tag]] forKey:iTM2MetaPostPDFConverterKey];
+    [self takeEditInfo:[NSNumber numberWithInt:[[sender selectedCell] tag]] forKeyPaths:iTM2MetaPostPDFConverterKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchPDFConverter:
@@ -486,7 +486,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [sender selectCellWithTag:[[self modelValueForKey:iTM2MetaPostPDFConverterKey] intValue]] && [self modelFlagForKey:iTM2MetaPostConvertToPDFKey];
+    return [sender selectCellWithTag:[[self editInfoForKeyPaths:iTM2MetaPostPDFConverterKey,nil] intValue]] && [[self editInfoForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Translate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTable:
@@ -498,7 +498,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MetaPostTranslationKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MetaPostTranslationKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -510,8 +510,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2MetaPostTranslationKey]?:@"")];
-    return ![self modelFlagForKey:iTM2MetaPostPARSETranslationKey];
+    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostTranslationKey,nil]?:@"")];
+    return ![[self editInfoForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchTable:
 - (IBAction)switchTable:(id)sender;
@@ -534,7 +534,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender selectCellWithTag: ([self modelFlagForKey:iTM2MetaPostPARSETranslationKey]? 1:0)];
+    [sender selectCellWithTag: ([[self editInfoForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue]? 1:0)];
     return NO;
 }
 #pragma mark =-=-=-=-=-  Advanced
@@ -547,7 +547,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MetaPostTroffKey];
+    [self toggleEditInfoForKeyPaths:iTM2MetaPostTroffKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTROFF:
@@ -559,7 +559,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostTroffKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostTroffKey,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:
@@ -571,7 +571,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MetaPostIniKey];
+    [self toggleEditInfoForKeyPaths:iTM2MetaPostIniKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleIni:
@@ -583,7 +583,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostIniKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostIniKey,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
@@ -595,7 +595,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MetaPostJobNameKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MetaPostJobNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -607,8 +607,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2MetaPostJobNameKey]?:@"")];
-    return [self modelFlagForKey:iTM2MetaPostUSEJobNameKey];
+    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostJobNameKey,nil]?:@"")];
+    return [[self editInfoForKeyPaths:iTM2MetaPostUSEJobNameKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleJobName:
 - (IBAction)toggleJobName:(id)sender;
@@ -619,7 +619,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MetaPostUSEJobNameKey];
+    [self toggleEditInfoForKeyPaths:iTM2MetaPostUSEJobNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleJobName:
@@ -631,7 +631,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostUSEJobNameKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostUSEJobNameKey,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 #pragma mark =-=-=-=-=-  Output directory
@@ -644,7 +644,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MetaPostUSEOutputDirectoryKey];
+    [self toggleEditInfoForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil];
 //iTM2_END;
     return;
 }
@@ -657,7 +657,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostUSEOutputDirectoryKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil] boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -670,7 +670,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MetaPostOutputDirectoryKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MetaPostOutputDirectoryKey,nil];
 //iTM2_END;
     return;
 }
@@ -683,8 +683,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL enabled = [self modelFlagForKey:iTM2MetaPostUSEOutputDirectoryKey];
-    [sender setStringValue: (enabled? ([self modelValueForKey:iTM2MetaPostOutputDirectoryKey]?:@""):
+	BOOL enabled = [[self editInfoForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil] boolValue];
+    [sender setStringValue: (enabled? ([self editInfoForKeyPaths:iTM2MetaPostOutputDirectoryKey,nil]?:@""):
 		[(iTM2TeXProjectDocument*)[self document] commonCommandOutputDirectory])];
 //iTM2_END;
     return enabled;
@@ -708,7 +708,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self takeModelValue:v forKey:iTM2MetaPostInteractionName];
+    [self takeEditInfo:v forKeyPaths:iTM2MetaPostInteractionName,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -722,7 +722,7 @@ To Do List:
 //iTM2_START;
     static NSArray * modes = nil;
     if(!modes) modes = [[NSArray arrayWithObjects:@"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode", nil] retain];
-    [sender selectCellWithTag:[modes indexOfObject:[self modelValueForKey:iTM2MetaPostInteractionName]]];
+    [sender selectCellWithTag:[modes indexOfObject:[self editInfoForKeyPaths:iTM2MetaPostInteractionName,nil]]];
     return YES;
 }
 #pragma mark =-=-=-=-=-  DEBUG
@@ -735,7 +735,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MetaPostFileLineErrorStyleKey];
+    [self toggleEditInfoForKeyPaths:iTM2MetaPostFileLineErrorStyleKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFileLineErrorStyle:
@@ -747,7 +747,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostFileLineErrorStyleKey]? NSOffState:NSOnState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostFileLineErrorStyleKey,nil] boolValue]? NSOffState:NSOnState)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleRecorder:
@@ -759,7 +759,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MetaPostRecorderKey];
+    [self toggleEditInfoForKeyPaths:iTM2MetaPostRecorderKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleRecorder:
@@ -771,7 +771,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MetaPostRecorderKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MetaPostRecorderKey,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
 @end
@@ -795,10 +795,10 @@ To Do List:
 }
 @end
 
-NSString * const iTM2MPtoPDFIsLaTeXKey = @"iTM2_MPtoPDF_is_latex";
-NSString * const iTM2MPtoPDFIsRawMPKey = @"iTM2_MPtoPDF_is_raw_mp";
-NSString * const iTM2MPtoPDFUSEPassOnKey = @"iTM2_MPtoPDF_USE_pass_on";
-NSString * const iTM2MPtoPDFPassOnKey = @"iTM2_MPtoPDF_pass_on";
+NSString * const iTM2MPtoPDFIsLaTeXKey = @"is_latex";
+NSString * const iTM2MPtoPDFIsRawMPKey = @"is_raw_mp";
+NSString * const iTM2MPtoPDFUSEPassOnKey = @"USE_pass_on";
+NSString * const iTM2MPtoPDFPassOnKey = @"pass_on";
 
 @implementation iTM2EngineMPtoPDF
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
@@ -848,7 +848,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self modelValueForKey:iTM2MPtoPDFIsLaTeXKey] boolValue];
+    return [[self editInfoForKeyPaths:iTM2MPtoPDFIsLaTeXKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setIsLaTeX:
 - (void)setIsLaTeX:(BOOL)flag;
@@ -859,7 +859,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeModelValue:[NSNumber numberWithBool:flag] forKey:iTM2MPtoPDFIsLaTeXKey];
+	[self takeEditInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFIsLaTeXKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isRawMP
@@ -871,7 +871,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self modelValueForKey:iTM2MPtoPDFIsRawMPKey] boolValue];
+    return [[self editInfoForKeyPaths:iTM2MPtoPDFIsRawMPKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setIsRawMP:
 - (void)setIsRawMP:(BOOL)flag;
@@ -882,7 +882,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeModelValue:[NSNumber numberWithBool:flag] forKey:iTM2MPtoPDFIsRawMPKey];
+	[self takeEditInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFIsRawMPKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  usePassOn
@@ -894,7 +894,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self modelValueForKey:iTM2MPtoPDFUSEPassOnKey] boolValue];
+    return [[self editInfoForKeyPaths:iTM2MPtoPDFUSEPassOnKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsePassOn:
 - (void)setUsePassOn:(BOOL)flag;
@@ -905,7 +905,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeModelValue:[NSNumber numberWithBool:flag] forKey:iTM2MPtoPDFUSEPassOnKey];
+	[self takeEditInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFUSEPassOnKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  passOn
@@ -917,7 +917,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self modelValueForKey:iTM2MPtoPDFPassOnKey];
+    return [self editInfoForKeyPaths:iTM2MPtoPDFPassOnKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPassOn:
 - (void)setPassOn:(NSString *)argument;
@@ -928,15 +928,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeModelValue:argument forKey:iTM2MPtoPDFPassOnKey];
+	[self takeEditInfo:argument forKeyPaths:iTM2MPtoPDFPassOnKey,nil];
     return;
 }
 @end
 
-NSString * const iTM2MPS2PDFUseTeXOptionsKey = @"iTM2_MPS2PDF_USE_tex_options";
-NSString * const iTM2MPS2PDFTeXOptionsKey = @"iTM2_MPS2PDF_tex_options";
-NSString * const iTM2MPS2PDFUseDviPSOptionsKey = @"iTM2_MPS2PDF_USE_dvips_options";
-NSString * const iTM2MPS2PDFDviPSOptionsKey = @"iTM2_MPS2PDF_dvips_options";
+NSString * const iTM2MPS2PDFUseTeXOptionsKey = @"USE_tex_options";
+NSString * const iTM2MPS2PDFTeXOptionsKey = @"tex_options";
+NSString * const iTM2MPS2PDFUseDviPSOptionsKey = @"USE_dvips_options";
+NSString * const iTM2MPS2PDFDviPSOptionsKey = @"dvips_options";
 
 @implementation iTM2EngineMPS2PDF
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
@@ -986,7 +986,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MPS2PDFDviPSOptionsKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MPS2PDFDviPSOptionsKey,nil];
 //iTM2_END;
     return;
 }
@@ -999,7 +999,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2MPS2PDFDviPSOptionsKey]?:@"")];
+    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MPS2PDFDviPSOptionsKey,nil]?:@"")];
 //iTM2_END;
     return YES;
 }
@@ -1012,7 +1012,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2MPS2PDFTeXOptionsKey];
+    [self takeEditInfo:[sender stringValue] forKeyPaths:iTM2MPS2PDFTeXOptionsKey,nil];
 //iTM2_END;
     return;
 }
@@ -1025,7 +1025,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setStringValue: ([self modelValueForKey:iTM2MPS2PDFTeXOptionsKey]?:@"")];
+    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MPS2PDFTeXOptionsKey,nil]?:@"")];
 //iTM2_END;
     return YES;
 }
@@ -1038,7 +1038,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MPS2PDFUseDviPSOptionsKey];
+    [self toggleEditInfoForKeyPaths:iTM2MPS2PDFUseDviPSOptionsKey,nil];
 //iTM2_END;
     return;
 }
@@ -1051,7 +1051,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MPS2PDFUseDviPSOptionsKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MPS2PDFUseDviPSOptionsKey,nil] boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
@@ -1064,7 +1064,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self toggleModelFlagForKey:iTM2MPS2PDFUseTeXOptionsKey];
+    [self toggleEditInfoForKeyPaths:iTM2MPS2PDFUseTeXOptionsKey,nil];
 //iTM2_END;
     return;
 }
@@ -1077,7 +1077,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [sender setState: ([self modelFlagForKey:iTM2MPS2PDFUseTeXOptionsKey]? NSOnState:NSOffState)];
+    [sender setState: ([[self editInfoForKeyPaths:iTM2MPS2PDFUseTeXOptionsKey,nil] boolValue]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
 }
