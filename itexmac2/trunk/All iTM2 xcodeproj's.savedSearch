@@ -10,7 +10,7 @@
 	<dict>
 		<key>CurrentFolderPath</key>
 		<array>
-			<string>/Volumes/HD2/iTeXMac2/svn/itexmac2-TC</string>
+			<string>/Volumes/HD2/iTeXMac2/svn/WORK/itexmac2</string>
 		</array>
 		<key>FXCriteriaSlices</key>
 		<array>
@@ -27,7 +27,7 @@
 		<integer>1396925286</integer>
 		<key>FXScopeArrayOfPaths</key>
 		<array>
-			<string>/Volumes/HD2/iTeXMac2/svn/itexmac2-TC</string>
+			<string>/Volumes/HD2/iTeXMac2/svn/WORK/itexmac2</string>
 		</array>
 	</dict>
 	<key>Version</key>
