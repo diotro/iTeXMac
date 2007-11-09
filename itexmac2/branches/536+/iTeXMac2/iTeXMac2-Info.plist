@@ -70,7 +70,7 @@
 			<true/>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.tug.tex</string>
+				<string>comp.text.tex.iTeXMac2.tex</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -1842,6 +1842,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.text</string>
+				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX Document</string>
@@ -1852,10 +1853,14 @@
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>com.apple.ostype</key>
-				<string>****</string>
+				<string>TEXT</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>tex</string>
+					<string>latex</string>
+					<string>ltx</string>
+					<string>texi</string>
+					<string>ctx</string>
 				</array>
 				<key>public.mime-type</key>
 				<string>application/x-tex</string>
