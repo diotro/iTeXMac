@@ -21,7 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#define SPC [iTM2ProjectController sharedProjectController]
+#import <iTM2Foundation/iTM2ProjectControllerKit.h>
+
 #define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
 extern NSString * const iTM2ProjectContextDidChangeNotification;
@@ -29,12 +30,6 @@ extern NSString * const iTM2ProjectCurrentDidChangeNotification;
 
 extern NSString * const iTM2ProjectBuildComponent;
 extern NSString * const iTM2ProjectContentsComponent;
-extern NSString * const iTM2ProjectInfoComponent;
-extern NSString * const iTM2ProjectMetaInfoComponent;
-
-extern NSString * const iTM2ProjectMetaType;
-#define metaModelGETTER [[self implementation] modelValueForSelector:_cmd ofType:iTM2ProjectMetaType]
-#define metaModelSETTER(argument) [[self implementation] takeModelValue:argument forSelector:_cmd ofType:iTM2ProjectMetaType]
 
 extern NSString * const iTM2ProjectDocumentType;
 extern NSString * const iTM2ProjectInspectorType;
@@ -44,12 +39,10 @@ extern NSString * const iTM2SubdocumentsInspectorMode;
 
 extern NSString * const iTM2ProjectPlistPathExtension;
 
+extern NSString * const iTM2ProjectDefaultName;
+
 extern NSString * const iTM2ProjectTable;
 
-extern NSString * const iTM2ProjectFrontendType;
-
-extern NSString * const TWSKeyedFilesKey;
-extern NSString * const TWSKeyedPropertiesKey;
 extern NSString * const TWSFrontendComponent;
 
 extern NSString * const iTM2ProjectDefaultsKey;
@@ -58,6 +51,8 @@ extern NSString * const iTM2NewDocumentEnclosedInWrapperKey;
 extern NSString * const iTM2NewProjectCreationModeKey;
 
 extern NSString * const iTM2PROJECT_PATHComponent;
+
+extern NSString * const iTM2ProjectFileKeyKey;
 
 /*!
     @const      iTM2ProjectPathExtension
@@ -109,39 +104,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 @interface iTM2ProjectDocument: iTM2Document
 
 /*! 
-    @method     projectInfoURLFromFileURL:create:error:
-    @abstract   The URL of the project info dictionary at  the given URL.
-    @discussion This iis just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
-    @param      url is the project url
-    @param      if yorn, the return value (if any) can safely be used to write
-    @param      outErrorPtr will point to an NSError if there was a problem
-    @result     nil if the given url is not a file url.
-*/
-+ (NSURL *)projectInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-
-/*! 
-    @method     projectFrontendInfoURLFromFileURL:create:error:
-    @abstract   The URL of the project frontend info dictionary strating at the given URL.
-    @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
-    @param      url is the project url
-    @param      if yorn, the return value (if any) can safely be used to write
-    @param      outErrorPtr will point to an NSError if there was a problem
-    @result     nil if the given url is not a file url.
-*/
-+ (NSURL *)projectFrontendInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-
-/*! 
-    @method     projectMetaInfoURLFromFileURL:create:error:
-    @abstract   The URL of the project meta info dictionary strating at the given URL.
-    @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
-    @param      url is the project url
-    @param      if yorn, the return value (if any) can safely be used to write
-    @param      outErrorPtr will point to an NSError if there was a problem
-    @result     nil if the given url is not a file url.
-*/
-+ (NSURL *)projectMetaInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-
-/*! 
     @method     contentsDirectoryName
     @abstract   The contents directory name.
     @discussion All the sources are expected to be collected inside one folder.
@@ -175,25 +137,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (BOOL)removeBuildDirectory;
 
 /*! 
-    @method     setElementary:
-    @abstract   Marks the receiver as elementary.
-    @discussion An elementary project is not meant to be typeset. It will only contain one file and no more.
-				No subdocuments window.
-    @param      yorn is a flag
-    @result     None
-*/
-- (void)setElementary:(BOOL)yorn;
-
-/*! 
-    @method     isElementary
-    @abstract   Whether the reciever is an elementary project.
-    @discussion See setElementary: for details.
-    @param      None
-    @result     a flag
-*/
-- (BOOL)isElementary;
-
-/*! 
     @method     projectName
     @abstract   The project name of the receiver.
     @discussion If the receiver has a consistent wrapper file name,
@@ -203,6 +146,8 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     The name
 */
 - (NSString *)projectName;
+- (NSString *)baseProjectName;
+- (void)setBaseProjectName:(NSString *)baseProjectName;
 
 /*! 
     @method     wrapperName
@@ -232,6 +177,15 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     The wrapper document
 */
 - (id)wrapper;
+
+/*! 
+    @method     setWrapper:
+    @abstract   Set the wrapper of the receiver.
+    @discussion Discussion forthcoming.
+    @param      The new wrapper document
+    @result     None
+*/
+- (void)setWrapper:(id)argument;
 
 /*! 
     @method     setWrapper:
@@ -449,24 +403,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)keysDidChange;
 
 /*! 
-    @method     nextAvailableKey
-    @abstract   The next available key.
-    @discussion A key is given only once. If it is removed, it won't be attributed another time.
-				To ensure this, we store the next key to be used with a @".." file name.
-				The .. refers to a directory outside the Wrapper and is likely not to be used.
-				Controllers will look at this key to see if the attributes they store does refer to anything still in the project.
-				If the key is not one of the keys of the project, the corresponding attributes should be removed.
-				No Undo management planned.
-				The keys are quite anything, however, the dotted keys are reserved for private use,
-				and should not be assigned to any file.
-				iTeXMac2 uses the @".extension" key to store default values on an extension based scheme.
-				See the -takeContextValue:forKey:fileKey: discussion.
-    @param      fileName is a full path name
-    @result     a unique key identifier
-*/
-- (NSString *)nextAvailableKey;
-
-/*! 
     @method     removeKey:
     @abstract   Definitely forgets the key.
     @discussion The key is removed and all the attributes, properties for that key should be removed too.
@@ -477,15 +413,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     a unique key identifier
 */
 - (void)removeKey:(NSString *)key;
-
-/*! 
-    @method     allKeys
-    @abstract   All the keys actually in use.
-    @discussion Description forthcoming.
-    @param      None
-    @result     an NSArray
-*/
-- (NSArray *)allKeys;
 
 /*! 
     @method     relativeFileNameForKey:
@@ -614,6 +541,15 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
 
 /*! 
+    @method     keyForRecordedFileName:
+    @abstract   Only use the links or finder aliases.
+    @discussion Discussion forthcoming.
+    @param      fileName is a file name
+    @result     a key.
+*/
+- (NSString *)keyForRecordedFileName:(NSString *)fileName;// only use the links or finder aliases
+
+/*! 
     @method     takePropertyValue:forKey:fileKey:contextDomain:
     @abstract   Set the given property for the given key and file key.
     @discussion Also sets default properties in the project context and in the user defaults data base.
@@ -624,39 +560,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     a value.
 */
 - (void)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
-
-/*! 
-    @method     keyedFileNames
-    @abstract   The files dictionary.
-    @discussion Discussion forthcoming.
-                This is preferrably for private use.
-                Direct setters/getters are given.
-                A default void dictionary is given.
-    @param      None
-    @result     A dictionary
-*/
-- (id)keyedFileNames;
-
-/*! 
-    @method     keyedProperties
-    @abstract   The properties dictionary.
-    @discussion Discussion forthcoming.
-                This is preferrably for private use.
-                Direct setters/getters are given.
-                A default void dictionary is given.
-    @param      None
-    @result     A dictionary
-*/
-- (id)keyedProperties;
-
-/*! 
-    @method     propertiesForFileKey:
-    @abstract   The properties dictionary for the given key.
-    @discussion Discussion forthcoming.
-    @param      The key
-    @result     A dictionary
-*/
-- (id)propertiesForFileKey:(NSString *)key;
 
 /*! 
     @method     propertiesForFileName:
@@ -676,94 +579,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @result     None
 */
 - (void)addGhostWindowController;
-
-/*! 
-    @method     projectCompleteWriteToURL:ofType:error:
-    @abstract   Where the data model is stored.
-    @discussion The data model of the receiver of type iTM2ProjectFrontendType.
-				Be sure the data model is consistent with your modifications in a prepare...WriteToFile:ofType: method
-    @param      fileURL is a file URL
-    @param      type is a type
-    @param      outErrorPtr points to an NSError instance if non void.
-    @result     yorn
-*/
-- (BOOL)projectCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
-
-/*! 
-    @method     projectCompleteReadFromURL:ofType:error:
-    @abstract   Reads the stored data model.
-    @discussion The data model of the receiver of type iTM2ProjectFrontendType.
-				Be sure the data model is consistent with your modifications in a prepare...WriteToFile:ofType: method
-    @param      fileName is a file name
-    @param      type is a type
-    @param      outErrorPtr points to an error instance
-    @result     yorn
-*/
-- (BOOL)projectCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
-
-/*! 
-    @method     saveContext:
-    @abstract   Abstract forthcoming.
-    @discussion Overriding the inherited message.
-				First all, the documents of the receiver are sent a -saveContext: message.
-				Then the inherited method is performed.
-				Finally, the receiver sends itself all the messages -...MetaWriteToFile:ofType:
-				with the receiver's file name and file type as arguments.
-				This gives third parties an opportunity to automatically save their own context stuff at appropriate time.
-    @param      irrelevant sender
-    @result     None
-*/
-- (void)saveContext:(id)irrelevant;
-
-/*! 
-    @method     contextValueForKey:fileKey:domain:
-    @abstract   Abstract forthcoming.
-    @discussion The project is expected to manage the contexts of the files it owns.
-				The standard user defaults database is used in the end of the chain.
-    @param      \p aKey is the context key
-    @param      \p fileKey is the file key
-	@param		\p mask is a context domain mask
-    @result     An object.
-*/
-- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
-
-/*! 
-    @method     getContextValueForKey:fileKey:domain:
-    @abstract   Abstract forthcoming.
-    @discussion The project is expected to manage the contexts of the files it owns.
-				The standard user defaults database is used in the end of the chain.
-				This is used only by subclassers when overriding.
-    @param      \p aKey is the context key
-    @param      \p fileKey is the file key
-	@param		\p mask is a context domain mask
-    @result     An object.
-*/
-- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
-
-/*! 
-    @method     takeContextValue:forKey:fileKey:domain:
-    @abstract   Abstract forthcoming.
-    @discussion See the \p -contextValueForKey:fileKey: comment.
-    @param      the value, possibly nil.
-    @param      \p aKey is the context key
-    @param      \p fileKey is the file key
-	@param		\p mask is a context domain mask
-    @result     yorn whether something has changed.
-*/
-- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
-
-/*! 
-    @method     setContextValue:forKey:fileKey:domain:
-    @abstract   Abstract forthcoming.
-    @discussion See the \p -contextValueForKey:fileKey: comment.
-				This should only be used by subclassers.
-    @param      the value, possibly nil.
-    @param      \p aKey is the context key
-    @param      \p fileKey is the file key
-	@param		\p mask is a context domain mask
-    @result     yorn whether something has changed.
-*/
-- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 
 /*! 
     @method     addFileName:
@@ -814,6 +629,18 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 */
 - (void)setShouldCloseWhenLastSubdocumentClosed:(BOOL)yorn;
 
+/*! 
+    @method     fixProjectConsistency
+    @abstract   Fix the consistency of the receiver.
+    @discussion Just in case someone has moved files around.
+    @param      None
+    @result     yorn
+*/
+- (BOOL)fixProjectConsistency;
+
+- (BOOL)isElementary;
+- (void)dissimulateWindows;
+- (void)exposeWindows;
 
 @end
 
@@ -861,418 +688,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (IBAction)removeDocument:(id)sender;
 - (IBAction)help:(id)sender;
 - (IBAction)projectPathEdited:(id)sender;
-
-@end
-
-#import <iTM2Foundation/iTM2Implementation.h>
-
-/*!
-    @class    	iTM2ProjectController
-    @abstract   The project controller class.
-    @discussion The project controller maintains a list of all project documents to map documents to their projects.
-				Some project documents belong to the standard cocoa document architecture 
-				and are owned by the document controller. The shared project controller can own a list of projects,
-				different from the ones owned by the document controller. Those are known as base projects.
-				The project controller and the document controller are not meant to own both the same documents.
-				Some important remark on the object to project mapping.
-				Each document has a project (possibly nil) returned by the -project message.
-				The default implementation just asks the shared project controller for such an object.
-				For project documents, there is no need to ask the shared project controller: they are their own projects.
-				Moreover, the project for document is not the designated entry point to retrieve the project of a document.
-*/
-
-@interface iTM2ProjectController: iTM2Object
-
-/*!
-    @method     sharedProjectController
-    @abstract   The shared project controller.
-    @discussion Discussion forthcoming.
-    @param      None.
-    @result     An \p iTM2ProjectController instance.
-*/
-+ (id)sharedProjectController;
-
-/*!
-    @method     setSharedProjectController
-    @abstract   Set the shared project controller.
-    @discussion No project management if the shared project controller does not exist.
-				If you nee project control, you should create such a controller very early,
-				more precisely before project documents are created.
-    @param      None.
-    @result     An \p iTM2ProjectController instance.
-*/
-+ (void)setSharedProjectController:(id)argument;
-
-/*!
-    @method     flushCaches
-    @abstract   Abstract forthcoming.
-    @discussion See below.
-    @param      None.
-    @result     None.
-*/
-- (void)flushCaches;
-
-/*! 
-    @method     projectForFileName:
-    @abstract   The project for the given file name.
-    @discussion It just returns a project associate to the given file.
-				At startup, this method allways returns nil and set the yornRef target to NO if relevant.
-				While the program runs, projects are associate to file names (mainly by the -setProject:forFileName: method).
-				Once a project has been bound to a file name, the subsequent calls to the present method will return that project.
-				It is possible that a file name is explicitly bound to no project.
-				Send the flushCaches message in order to reset all the file name <-> project bindings, but beware not to send this message too often.
-				This method is a MAJOR entry point.
-    @param      fileName is a full path name
-    @result     A project document
-*/
-- (id)projectForFileName:(NSString *)fileName;
-
-/*! 
-    @method     setProject:forFileName:
-    @abstract   Set the project for the given file name.
-    @discussion Discussion forthcoming.
-    @param      PD is any project document...
-    @param		File name
-	@result		None
-*/
-- (void)setProject:(id)PD forFileName:(NSString *)fileName;
-
-/*! 
-    @method     projectForDocument:
-    @abstract   The project for the given document.
-    @discussion It asks for a project for the given document's file name.
-				If there is one it is returned, and if it is the first time such a project is asked for,
-				a new project is asked for through the -newProjectForFileNameRef: method.
-				
-				If no project is found, this document is marked as a "No project" document
-				and the yornRef is set to point to NO if possible. This is the only situation where the value returned through yornRef is relevant.
-				
-				A primarily no project document has a chance to be associated to a project if its file name changes.
-				<code>[SPC projectForDocument:document]</code>
-				and <code>[SPC projectForFileName:[document fileName]]</code>
-				are not equivalent in the sense that the last one will never try to create a new project.
-				This method is used by the default implementation of the document's -project method.
-				You should not need to use this method except at initialization time or in your own implementation
-				of the project method.
-				
-				How does it work: first the cached project is returned if any.
-				Then all the open projects are asked for their owning of the given document.
-				When the document opens, is is expected that the correct project in the neighborhood is open too.
-				If the document has a YES context bool for key: "_iTM2: Document With No Project",
-				the nil project is returned.
-				Finally, an open panel is presented for that purpose.
-    @param      document is any document...
-    @result     A project document
-*/
-- (id)projectForDocument:(NSDocument *)document;
-
-/*! 
-    @method     setProject:forDocument:
-    @abstract   Set the project for the given document.
-    @discussion This is the central method where the link from a document to its associate project is made.
-				You must call this method to ensure that projectForDocument will return the expected answer.
-				However, the project must already own the given document because this method does not take care of owning.
-				If you pass nil as document, or an unnamed document, nothing happens.
-				If you pass nil as project, the document is no longer associated to any project, despite it can still be owned by a project.
-				You are expected to use this method once you have set up the correct owning links
-				between the document and any project involved.
-    @param      document is any document...
-    @param		A project document in general owning the given document
-	@result		None
-*/
-- (void)setProject:(id)PD forDocument:(NSDocument *)document;
-
-/*! 
-    @method     projectForSource:
-    @abstract   The project for the given source.
-    @discussion Any file MUST have a project, either useful or for convenience.
-				For example, if iTM2 opens a text file or a dvi file just to see the contents
-				for information purpose (suppose it's just a man or doc),
-				there is no need of a real project, and a shared ghost project might be used.
-				Standalone short files won't need any hard project,
-				typically .tex files downloaded from the web will use convenient one shot projects stored in a temporary directory.
-				If the directory containing the file is not writable, all the information of the project except the file
-				itself will not be stored at the same level, whether in the file through embedded resources
-				or in the file system as faraway resource. In that case, projects are stored either in the temporary directory if this makes sense,
-				or in a dedicated location of a Caches subfolder. If the resource is not stored with the file, we must have a strong mapping
-				binding the file and the associate resource. There can be problems if the file name changes.
-				Given a file, we can use either the file name or an alias to the file to retrieve the project information.
-				Both means should be used. If both lead to the same project, we have found that project.
-				If both do not agree for the target project, the alias target should be used preferrably.
-				We need two mappings: file name -> project, alias -> project.
-				All the projects are referred to indirectly. We have different means to do that.
-				If we take into account the user interface, the path components con be used for such a purpose.
-				As such projects are collected in only one location, their path prefix is common.
-				The next components will be used as key to uniquely identify the project.
-				The key can be based on the file name of the original source file and a unique key identifier.
-				What is the entropy put in this key? For the moment, nothing relevant.
-				Here is the common location
-				<code>~/Library/Application\ Support/Projects.put_aside/...</code>
-				to which we append the full path to the source base name with the correct path extension.
-				This common location is referred to <code>+farawayProjectsDirectory</code>, because the projects are not stored near the file they are bound to.
-
-				This is the mapping file name -> project.
-				
-				Question, what happens if a project is not writable?
-				
-				The file name is significantly longer than the one of the source.
-				But this should not be a problem due to the actual size limit (4096 AFAIK).
-				
-				However, there might be a problem if different clients want to use this strategy. If they are concurrently creating a unique key,
-				it is difficult to avoid collisions when each client does not know about the other one's intentions.
-				
-				The final components are the ones used by the user interface to display information to the user.
-				Unlimited directory level should be used.
-				
-				Faraway projects are used for standalone documents.
-    @param      The source is either a file name or a document.
-    @result     A project document
-*/
-- (id)projectForSource:(id)source;
-
-/*! 
-    @method		projects
-    @abstract   The projects.
-    @discussion The base projects plus the ones in the various application support folders.
-				Base projects are not listed here.
-    @param		None
-    @result		An array
-*/
-- (NSArray *)projects;
-
-/*! 
-    @method     currentProject
-    @abstract   The current project.
-    @discussion If the last current project owns (or is) the current document, it remains the current project.
-				If the current document is not owned or is not the last current project,
-				the project of the current document becomes the current project.
-    @param      None
-    @result     A project
-*/
-- (id)currentProject;
-
-/*! 
-    @method     registerProject:
-    @abstract   register the given project.
-    @discussion The project controller does not own the project. It only keeps a reference to the project.
-				In general, the document controller will be the owner of the project.
-				Subclassers will implement their own management for projects not owned by the document controller.
-				The projectForFileName: method returns one of the added projects.
-				Each time a project document is created, it is added as reference to the list of projects.
-				Each time a project document is dealloced, its reference is removed from the list of project.
-    @param      A project
-    @result     None
-*/
-- (void)registerProject:(id)project;
-
-/*! 
-    @method     forgetProject:
-    @abstract   forget the given project.
-    @discussion project are cached, so we must clean the cache when a project is closed or removed.
-    @param      A project
-    @result     None
-*/
-- (void)forgetProject:(id)project;
-
-/*! 
-    @method     finderAliasesSubdirectory
-    @abstract   The subdirectory where finder aliases are stored.
-    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Finder Aliases". Subclasser should NOT override this.
-    @param      None
-    @result     a relative path
-*/
-- (NSString*)finderAliasesSubdirectory;
-
-/*! 
-    @method     absoluteSoftLinksSubdirectory
-    @abstract   The subdirectory where soft links are stored.
-    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Soft Links". Subclasser should NOT override this.
-    @param      None
-    @result     a relative path
-*/
-- (NSString*)absoluteSoftLinksSubdirectory;
-
-/*! 
-    @method     relativeSoftLinksSubdirectory
-    @abstract   The subdirectory where relative soft links are stored.
-    @discussion The default implementation returns "frontends/comp.text.tex.iTeXMac2/Relative Soft Links". Subclasser NOT should override this.
-				The path stored is relative to the directory containing the *.texp folder.
-    @param      None
-    @result     a relative path
-*/
-- (NSString*)relativeSoftLinksSubdirectory;
-
-/*! 
-    @method     newProjectForFileNameRef:display:error:
-    @abstract   Create a new project.
-    @discussion This method is split into different parts.
-				This method is used by various other methods to ensure that some objects are really bound to a project.
-				An internal project is a directory wrapper found in the same directory or in a directory above.
-				If the directory is not writable, or if the user does not want a project near the source file,
-				the project is stored in an application support subfolder. In that case, it is called an faraway project.
-				Let us explain this design in more details.
-				Given the file name, the faraway project is always inside a wrapper.
-				More precisely, if the file name is /my/dir/name/foo, then the associate wrapper is located in the folder
-				Application\ Support/iTeXMac2/Projects/my/dir/name/
-				or above. Which allows faraway projects to be shared by a file subhierarchy.
-				In order to bind the wrapper and the source file, the wrapper will keep track of the source files.
-				The included tex project will contain a list of finder aliases to the files they should be bound to.
-				And soft links too.
-				Managing recursivity. If a document is open, we are looking for an attached project.
-				If the project is already open, we just have to verify that it knows about the document.
-				If we try to open the project, we must be very careful in order to avoid recursive call.
-				This method is expected to be reentrant. For that purpose, if the result is not already computed,
-				it sends a willGetNewProjectForFileNameRef: message, make all the computations,
-				then sends a final didGetNewProjectForFileNameRef: before it returns.
-				The only purpose of these methods is just to break recursivity.
-    @param      fileNameRef is a pointer to a file name
-    @param      display
-    @param      outErrorPtr
-    @result     A project.
-*/
-- (id)newProjectForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
-- (void)willGetNewProjectForFileNameRef:(NSString **)fileNameRef;
-- (void)didGetNewProjectForFileNameRef:(NSString **)fileNameRef;
-- (BOOL)canGetNewProjectForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
-- (id)newFarawayProjectForFileName:(NSString *)fileName display:(BOOL)display error:(NSError **)outErrorPtr;
-
-/*! 
-    @method     getProjectFromPanelForFileNameRef:display:error:
-    @abstract   Create or open a new project document.
-    @discussion The file name can change if the original document is moved around,
-				in particular when making a TeX document wrapper.
-				Problems of wrappers is not closed, in particular, the file name should change and the wrapper is replaced by its included project.
-				It is expected that no project already exist for that file name,
-				so use this method only when projectForFileName: returns nil.
-				This is a reentrant management: if there is already a panel waiting for the user input, NO is returned.
-				There are only a few situations managed by this method.
-				This is the user interface controller, to either create a new project or choose an already existing one.
-				If no project is returned, it is what is wanted for the given file name,
-				except when there is an error.
-    @param      fileNameRef is a pointer to a file name
-    @param      display is a flag to indicate if the UI is required
-    @param      outErrorPtr is a pointer to an NSError instance
-    @result     project document.
-*/
-- (id)getProjectFromPanelForFileNameRef:(NSString **)fileNameRef display:(BOOL)display error:(NSError **)outErrorPtr;
-
-/*! 
-    @method		getProjectFileNameInWrapperForFileNameRef:error:
-    @abstract   Abstract Forthcoming.
-    @discussion Discussion Forthcoming.
-    @param		fileName
-    @param		outErrorPtr
-    @result		An array of project file names
-*/
-- (NSString *)getProjectFileNameInWrapperForFileNameRef:(NSString **)fileNameRef error:(NSError **)outErrorPtr;
-
-/*! 
-    @method		getProjectFileNamesInHierarchyForFileName:error:
-    @abstract   Abstract Forthcoming.
-    @discussion Discussion Forthcoming.
-    @param		fileName
-    @param		outErrorPtr
-    @result		An array of project file names
-*/
-- (NSArray *)getProjectFileNamesInHierarchyForFileName:(NSString *)fileName error:(NSError **)outErrorPtr;
-
-/*! 
-    @method		baseProjectNames
-    @abstract   The base projects names known by the project controller.
-    @discussion The keys are the file names, the values are the projects.
-    @param		None
-    @result		A dictionary
-*/
-- (NSArray *)baseProjectNames;
-
-/*! 
-    @method     countOfBaseProjects
-    @abstract   The number of base projects.
-    @discussion Discussion forthcoming.
-    @param      None
-    @result     A number
-*/
-- (unsigned int)countOfBaseProjects;
-
-/*! 
-    @method     baseProjectWithName:
-    @abstract   A project given its name.
-    @discussion Discussion forthcoming.
-    @param      projectName
-    @result     A project
-*/
-- (id)baseProjectWithName:(NSString *)projectName;
-
-/*! 
-    @method     addBaseProject:
-    @abstract   add the given project.
-    @discussion DEPRECATED. The project controller owns the project not the document controller.
-				The given project is not registered and is not meant a priori to contain editable documents.
-    @param      A project
-    @result     None
-*/
-- (void)addBaseProject:(id)project;
-
-/*! 
-    @method     registerBaseProjectFileName:
-    @abstract   register the given project file name.
-    @discussion The project controller will own the project not the document controller.
-				The given project file name is recorded, the receiver will load this project once it is requested to.
-				The foundation does not register any base project, it is a convenient method for the TeX foundation.
-				As the user interface layer knows exactly where the projects are stored (it does not know what is stored inside)
-				it is responsible to make it available wordwilde.
-				The policy is to create a repository of soft links in the temporary area of the aplication.
-    @param      A project file name
-    @result     None
-*/
-- (void)registerBaseProjectFileName:(NSString *)projectFileName;
-
-/*! 
-    @method     removeBaseProject:
-    @abstract   remove the given base project.
-    @discussion Description forthcoming.
-    @param      A project
-    @result     None
-*/
-- (void)removeBaseProject:(id)project;
-
-/*! 
-    @method     isElementaryProject:
-    @abstract   Whether the receiver is an elementary project.
-    @discussion An elementary project responds YES to the isElementary message...
-    @param      argument is the object to be tested
-    @result     yorn.
-*/
-- (BOOL)isElementaryProject:(id)argument;
-
-/*! 
-    @method     isBaseProject:
-    @abstract   Whether the receiver is a base project.
-    @discussion A project is not a base project.
-    @param      argument is the object to be tested
-    @result     yorn.
-*/
-- (BOOL)isBaseProject:(id)argument;
-
-/*! 
-    @method     isProject:
-    @abstract   Whether the receiver is a valid project.
-    @discussion A valid project is either a base project or project owned by the shared document controller.
-				Base projects are not considered as standard projects, such that isProject: ands -isBaseProject:
-				are not expected to return YES at the same time.
-    @param      argument is the object to be tested
-    @result     yorn.
-*/
-- (BOOL)isProject:(id)argument;
-
-/*! 
-    @method     availableProjectsForPath:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      path...
-    @result     an array of projects
-*/
-- (id)availableProjectsForPath:(NSString *)dirName;
 
 @end
 
@@ -1429,6 +844,29 @@ extern NSString * const iTM2ProjectAliasKey;
 
 @end
 
+extern NSString * const iTM2WrapperInspectorType;
+
+/*!
+    @class		iTM2WrapperDocument
+    @abstract	Wrapper document class
+    @discussion	In this design there is only one project per project wrapper.
+				In the future there could be many different projects for one wrapper,
+				we will have then to manage a current project.
+				The wrapper is owned by the project it represents.
+*/
+@interface iTM2WrapperDocument: iTM2Document
+
+/*!
+    @method		project
+    @abstract	The represented project is the one wrapped by the receiver
+    @discussion	The wrapper document is expected to be a folder with a project document inside.
+				The project document is expected to live sometimes with possibly no wrapper,
+				such that there is the need of an independant wrapper document.
+*/
+- (id)project;
+
+@end
+
 @interface iTM2ProjectGhostWindow: NSWindow
 @end
 
@@ -1502,31 +940,6 @@ extern NSString * const iTM2ProjectAliasKey;
     @result		A wrapper path extension.
 */
 - (NSString *)wrapperPathExtension;
-
-@end
-
-enum {iTM2ToggleOldProjectMode = 0, iTM2ToggleNewProjectMode, iTM2ToggleStandaloneMode, iTM2ToggleNoProjectMode, iTM2ToggleUnknownProjectMode, iTM2ToggleForbiddenProjectMode=-1};
-
-extern NSString * const iTM2WrapperInspectorType;
-
-/*!
-    @class		iTM2WrapperDocument
-    @abstract	Wrapper document class
-    @discussion	In this design there is only one project per project wrapper.
-				In the future there could be many different projects for one wrapper,
-				we will have then to manage a current project.
-				The wrapper is owned by the project it represents.
-*/
-@interface iTM2WrapperDocument: iTM2Document
-
-/*!
-    @method		project
-    @abstract	The represented project is the one wrapped by the receiver
-    @discussion	The wrapper document is expected to be a folder with a project document inside.
-				The project document is expected to live sometimes with possibly no wrapper,
-				such that there is the need of an independant wrapper document.
-*/
-- (id)project;
 
 @end
 
@@ -1633,34 +1046,9 @@ extern NSString * const iTM2WrapperInspectorType;
 */
 - (id)availableProjectFileNames;
 
-@end
-
-@interface iTM2NoProjectSheetController: NSWindowController
-
-/*!
-    @method		alertForWindow:
-    @abstract	Abstract forthcoming
-    @discussion	Return one of the iTM2Toggle...ProjectMode's.
-    @param		window is the sheet receiver.
-    @result		YES if the user really wants no project.
-*/
-+ (BOOL)alertForWindow:(id)window;
+- (NSString *)stringByAppendingBuildComponent;
+- (NSString *)stringByAppendingContentsComponent;
 
 @end
 
-extern NSString * const iTM2ProjectBaseComponent;
-
-@interface NSBundle(iTM2Project)
-
-/*!
-    @method		temporaryBaseProjectsDirectory
-    @abstract	The base projects directory
-    @discussion	This is the unique location where all the base projects are gathered by iTeXMac2.
-				In fact it only contains symlinks to real base projects that are stored somewhere else.
-    @param		None.
-    @result		The path.
-*/
-+ (NSString *)temporaryBaseProjectsDirectory;
-
-@end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ProjectDocument

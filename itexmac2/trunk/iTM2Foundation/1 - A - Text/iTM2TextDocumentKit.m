@@ -1027,10 +1027,24 @@ To do list: ASK!!!
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSStringEncoding old = [[self stringFormatter] stringEncoding];
     [[self stringFormatter] setStringEncoding:encoding];
 	NSURL * absoluteURL = [self fileURL];
 	NSString * typeName = [self fileType];
-    return [self revertToContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr];
+	if([self revertToContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr])
+	{
+		NSStringEncoding new = [[self stringFormatter] stringEncoding];
+		if(new != encoding)
+		{
+			[[self stringFormatter] setStringEncoding:old];
+			[self revertToContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr];
+			iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Encoding %@ does not fit.",
+				[iTM2StringFormatController nameOfCoreFoundationStringEncoding:CFStringConvertNSStringEncodingToEncoding(encoding)],
+				[iTM2StringFormatController nameOfCoreFoundationStringEncoding:CFStringConvertNSStringEncodingToEncoding(new)]]),nil);
+		}
+		return YES;
+	}
+    return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:error:
 - (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
@@ -1742,7 +1756,7 @@ To Do List:
 		NSError * outError = nil;
 		id doc = [self document];
 		[doc writeContextToURL:[doc fileURL] ofType:[doc fileType] error:nil];// any change to the context will be preserved
-		if(![[self document] revertDocumentToSavedWithStringEncoding:encoding error:&outError] && outError)
+		if(![doc revertDocumentToSavedWithStringEncoding:encoding error:&outError] && outError)
 		{
 			[NSApp presentError:outError];
 		}
@@ -1983,10 +1997,10 @@ To Do List:
 		if([TV isDescendantOf:[[self window] contentView]])
 		{
 			NSLayoutManager * LM = [TV layoutManager];
-			NSTextStorage * TS = [self textStorage];
-//			[TS removeLayoutManager:LM];
 			[LM replaceTextStorage:[[[NSTextStorage alloc] init] autorelease]];
-			[TV performSelector:@selector(class) withObject:nil afterDelay:1];
+//			[TV performSelector:@selector(class) withObject:nil afterDelay:1];
+#warning CAUTION: does this cause a crash????
+			[[TV retain] autorelease];
 			[[self textEditors] removeObject:TV];
 		}
 	}
