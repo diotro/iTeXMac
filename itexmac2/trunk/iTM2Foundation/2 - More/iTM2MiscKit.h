@@ -39,6 +39,12 @@ extern NSString * const iTM2PrintInfoDidChangeNotification;
 
 @end
 
+@interface NSImage(iTM2MiscKit)
+
++ (NSImage *)findImageNamed:(NSString *)name;
+
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ResponderKit
 
 extern NSString * const iTM2ToolbarToggleDrawerItemIdentifier;

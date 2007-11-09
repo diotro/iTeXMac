@@ -29,6 +29,7 @@
 #if 1
 #import <iTM2Foundation/iTM2SpellKit.h>
 #import <iTM2Foundation/iTM2ProjectDocumentKit.h>
+#import <iTM2Foundation/iTM2InfoWrapperKit.h>
 
 @implementation iTM2SpellContextController(Project)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectNameForText:
@@ -95,7 +96,7 @@ To Do List:
 		[self setSpellContextController:[[[iTM2SpellContextController allocWithZone:[self zone]] init] autorelease]];
 	}
 //iTM2_LOG(@"[self spellContextController]:%@", [self spellContextController]);
-	id O = [[self implementation] modelValueForKey:@"SpellContextModes" ofType:iTM2ProjectMetaType];
+	id O = [self metaInfoForKeyPaths:@"SpellContextModes",nil];
 //iTM2_LOG(@"SPELL KIT MODEL TO BE LOADED:%@", O);
 	if([O isKindOfClass:[NSDictionary class]])
 		[[self spellContextController] loadPropertyListRepresentation:O];
@@ -115,7 +116,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id O = [[self implementation] modelValueForKey:@"SpellContextModes" ofType:iTM2ProjectMetaType];
+	id O = [self metaInfoForKeyPaths:@"SpellContextModes",nil];
 //iTM2_LOG(@"SPELL KIT MODEL TO BE LOADED:%@", O);
 	if([O isKindOfClass:[NSDictionary class]])
 	{
@@ -142,8 +143,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"SPELL KIT MODEL TO BE SAVED:%@", [[self spellContextController] propertyListRepresentation]);
-	[[self implementation] takeModelValue:[[self spellContextController] propertyListRepresentation]
-		forKey:@"SpellContextModes" ofType:iTM2ProjectMetaType];
+	[self takeMetaInfo:[[self spellContextController] propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
     return YES;
 }
 #endif

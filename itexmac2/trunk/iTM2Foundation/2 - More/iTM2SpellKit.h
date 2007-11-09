@@ -91,7 +91,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 - (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
 
 /*!
-    @method		writeFromURL:error:
+    @method		writeToURL:error:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		The fileURL.
@@ -167,7 +167,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 
 /*!
     @method		tag
-    @abstract	This tag is mean for the cocoa spell checker.
+    @abstract	This tag is meant for the cocoa spell checker.
     @discussion	Discussion forthcoming.
     @param		None.
     @result		An integer.

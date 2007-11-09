@@ -456,6 +456,39 @@ DEFINE_IMAGE(imageOrderFrontFontPanel, @"imageOrderFrontFontPanel");
 DEFINE_IMAGE(imageSubscript, @"imageSubscript");
 DEFINE_IMAGE(imageSuperscript, @"imageSuperscript");
 DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
++ (NSImage *)findImageNamed:(NSString *)name;
+{
+	NSString * imageName = [name hasPrefix:@"iTM2:"]?name:[NSString stringWithFormat:@"iTM2:%@",name];
+	NSImage * I;
+	if(I = [self imageNamed:imageName])
+	{
+		return I;
+	}
+	NSString * imagePath = [[[NSBundle mainBundle] allPathsForImageResource:name] lastObject];
+	if(I = [[[self allocWithZone:[self zone]] initWithContentsOfFile:imagePath] autorelease])
+	{
+		[I setName:imageName];
+		return I;
+	}
+	if([name hasSuffix:@"(small)"])
+	{
+		imageName = [name substringWithRange:NSMakeRange(0,[name length]-7)];
+		if(I = [self findImageNamed:imageName])
+		{
+			I = [[I copy] autorelease];
+			imageName = [name hasPrefix:@"iTM2:"]?name:[NSString stringWithFormat:@"iTM2:%@",name];
+			[I setName:imageName];
+			[I setScalesWhenResized:YES];
+			[I setSize:NSMakeSize(16,16)];
+			return I;
+		}
+	}
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"! ERROR: [NSImage findImageNamed:%@] is not found!", name);
+	}
+	return nil;
+}
 @end
 
 @implementation NSToolbarItem(iTM2MiscKit)
@@ -583,34 +616,14 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert([anIdentifier length]);
 	NSParameterAssert(bundle);
-	NSString * imageName = [NSString stringWithFormat:@"iTM2:%@",anIdentifier];
-	NSImage * I = [NSImage imageNamed:imageName];
-	if(!I)
-	{
-		NSString * component = [anIdentifier stringByAppendingString:@"ToolbarImage"];
-		NSString * imagePath = [bundle pathForImageResource:component];
-		if([imagePath length])
-		{
-			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath];// No autorelease, this is a wanted leak!
-		}
-		if(!I)
-		{
-			I = [[NSImage imageMissingImage] copy];
-		}
-		[I setName:imageName];
-	}
 	NSToolbarItem * toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
-	[toolbarItem setImage:I];
+	[toolbarItem setImage:[NSImage findImageNamed:anIdentifier]];
 	[toolbarItem setLabel:
 		NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
 	[toolbarItem setPaletteLabel:
 		NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"PaletteLabel"], @"Toolbar", bundle, "")];
 	[toolbarItem setToolTip:
 		NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", imageName, [NSImage imageNamed:imageName]);
-	}
 //iTM2_END;
     return toolbarItem;
 }
@@ -654,9 +667,7 @@ To Do List:
 	NSImage * I = [NSImage imageNamed:imageName];
 	if(!I)
 	{
-		NSString * component = [anIdentifier stringByAppendingString:@"ToolbarImage"];
-		NSArray * paths = [[NSBundle mainBundle] allPathsForImageResource:component];
-		NSString * imagePath = [paths lastObject];
+		NSString * imagePath = [[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] lastObject];
 		if(I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath])
 		{
 			[I setName:imageName];
