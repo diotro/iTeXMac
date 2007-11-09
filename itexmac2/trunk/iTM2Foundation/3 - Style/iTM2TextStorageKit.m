@@ -173,7 +173,7 @@ To Do List: Nothing
 //iTM2_START;
     if(self = [super init])
     {
-        _Model = [[NSMutableString allocWithZone:[self zone]] init];
+        _Model = (id)CFStringCreateMutableWithExternalCharactersNoCopy(kCFAllocatorDefault,nil,0,0,kCFAllocatorDefault);// force a 16 bits storage
         [self setSyntaxParserStyle:iTM2TextDefaultStyle variant:iTM2TextDefaultVariant];
     }
     return self;
@@ -2388,7 +2388,7 @@ fixGlobalLocationMode:
 	_iTM2InternalAssert(![self diagnostic], @"***  END2 :BIG PROBLEM IN VALIDATING THE MODE");
 //iTM2_END;
 //    [originalModeLine describe];
-	[self didUpdateModeLine:_OriginalModeLine forPreviousMode:previousMode];
+	[self didUpdateModeLine:originalModeLine forPreviousMode:previousMode];
 	return _OriginalModeLine->_EOLMode = (_OriginalModeLine->_EOLMode | kiTM2TextEndOfLineSyntaxMask);
     #undef workingML
 }
@@ -4989,7 +4989,7 @@ To Do List:
     NSString * stylePath = [[[NSBundle mainBundle] pathsForSupportResource:variant ofType:iTM2TextVariantExtension
 	inDirectory: [[iTM2TextStyleComponent stringByAppendingPathComponent:style] stringByAppendingPathExtension:iTM2TextStyleExtension]
 		domains: NSUserDomainMask] lastObject];
-    if(![DFM removeFileAtPath:stylePath handler:nil])
+    if(![DFM removeFileAtPath:stylePath handler:DFM])
     {
         iTM2_LOG(@"Could not remove file at path: %@\nPlease, do it for me... TIA", stylePath);
     }

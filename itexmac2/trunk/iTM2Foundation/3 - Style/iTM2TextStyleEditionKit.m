@@ -30,6 +30,7 @@
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 #import <iTM2Foundation/iTM2MenuKit.h>
+#import <iTM2Foundation/iTM2MiscKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
@@ -3155,19 +3156,7 @@ To Do List:
 	[sender setAction:@selector(submenuAction:)];
 	if(![sender image])
 	{
-		NSString * identifier = @"iTM2FontsAndColors";
-		NSString * name = [NSString stringWithFormat:@"iTM2:%@", identifier];
-		NSImage * I = [NSImage imageNamed:name];
-		if(!I)
-		{
-			NSString * path = [[iTM2Implementation classBundle] pathForImageResource:identifier];
-			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path];
-			I = [I copy];
-			[I setName:name];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
-		}
-		[sender setImage:I];//size
+		[sender setImage:[NSImage findImageNamed:@"iTM2FontsAndColors(small)"]];//size
 	}
 	return YES;// message catcher
 }
