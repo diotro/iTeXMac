@@ -1,61 +1,308 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {"" = id; }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            CLASS = NSPreferencePane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_firstKeyView" = NSView; 
-                "_initialKeyView" = NSView; 
-                "_lastKeyView" = NSView; 
-                "_window" = NSWindow; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
-        {
-            CLASS = iTM2KeyBindingOutlineView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSOutlineView; 
-        }, 
-        {CLASS = iTM2KeyCodesController; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {
-            CLASS = iTM2MacroArrayController; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSArrayController; 
-        }, 
-        {
-            ACTIONS = {apply = id; browse = id; cancel = id; edit = id; }; 
-            CLASS = iTM2MacroController; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {keysTreeController = id; macrosArrayController = iTM2MacroArrayController; }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = iTM2MacroEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
-        {CLASS = iTM2MacroPopUpButton; LANGUAGE = ObjC; SUPERCLASS = NSPopUpButton; }, 
-        {
-            ACTIONS = {apply = id; browse = id; cancel = id; edit = id; }; 
-            CLASS = iTM2MacroPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                keysTreeController = NSTreeController; 
-                macroTestView = NSTextView; 
-                macrosArrayController = NSArrayController; 
-            }; 
-            SUPERCLASS = NSPreferencePane; 
-        }, 
-        {CLASS = iTM2MacroTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
-        {
-            ACTIONS = {executeMacro = id; }; 
-            CLASS = iTM2MacroTestView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSTextView; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>openSelectionQuickly</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSText</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2KeyBindingOutlineView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSOutlineView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSMenu</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSControl</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>loadContext</key>
+				<string>id</string>
+				<key>noop</key>
+				<string>id</string>
+				<key>saveContext</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSObject</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2MacroEditor</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTextView</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>orderBelowFront</key>
+				<string>id</string>
+				<key>showAREFindPanel</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2MacroPopUpButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSPopUpButton</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2MacroTableView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTableView</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>executeMacro</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2MacroTestView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTextView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2MacroArrayController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSArrayController</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSSegmentedControl</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>scrollCharacterLeft</key>
+				<string>id</string>
+				<key>scrollCharacterRight</key>
+				<string>id</string>
+				<key>scrollLineDown</key>
+				<string>id</string>
+				<key>scrollLineUp</key>
+				<string>id</string>
+				<key>scrollPageDown</key>
+				<string>id</string>
+				<key>scrollPageLeft</key>
+				<string>id</string>
+				<key>scrollPageRight</key>
+				<string>id</string>
+				<key>scrollPageUp</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSMenuItem</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>doZoomIn</key>
+				<string>id</string>
+				<key>doZoomOut</key>
+				<string>id</string>
+				<key>insertMacro</key>
+				<string>id</string>
+				<key>selectFirstPlaceholder</key>
+				<string>id</string>
+				<key>selectNextPlaceholder</key>
+				<string>id</string>
+				<key>selectPreviousPlaceholder</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSTextView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSText</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSFormatter</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key></key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSPreferencePane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_firstKeyView</key>
+				<string>NSView</string>
+				<key>_initialKeyView</key>
+				<string>NSView</string>
+				<key>_lastKeyView</key>
+				<string>NSView</string>
+				<key>_window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSCell</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>apply</key>
+				<string>id</string>
+				<key>browse</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+				<key>edit</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2MacroPrefPane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>keysTreeController</key>
+				<string>NSTreeController</string>
+				<key>macroTestView</key>
+				<string>NSTextView</string>
+				<key>macrosArrayController</key>
+				<string>NSArrayController</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSPreferencePane</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>flushKeyBindings</key>
+				<string>id</string>
+				<key>flushKeyStrokeEvents</key>
+				<string>id</string>
+				<key>flushLastKeyStrokeEvent</key>
+				<string>id</string>
+				<key>scrollCharacterLeft</key>
+				<string>id</string>
+				<key>scrollCharacterRight</key>
+				<string>id</string>
+				<key>scrollPageLeft</key>
+				<string>id</string>
+				<key>scrollPageRight</key>
+				<string>id</string>
+				<key>toggleSmartUndo</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

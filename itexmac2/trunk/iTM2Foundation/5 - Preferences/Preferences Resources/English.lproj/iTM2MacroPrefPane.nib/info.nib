@@ -1,43 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>IBDocumentLocation</key>
-	<string>65 50 749 517 0 0 1440 878 </string>
 	<key>IBFramework Version</key>
-	<string>446.1</string>
-	<key>IBLockedObjects</key>
-	<array>
-		<integer>5</integer>
-	</array>
-	<key>IBLockedTabItems</key>
-	<array>
-		<integer>334</integer>
-	</array>
+	<string>629</string>
+	<key>IBLastKnownRelativeProjectPath</key>
+	<string>../../../../iTM2Foundation.xcodeproj</string>
+	<key>IBOldestOS</key>
+	<integer>4</integer>
 	<key>IBOpenObjects</key>
 	<array>
-		<integer>5</integer>
+		<integer>877</integer>
 	</array>
 	<key>IBSystem Version</key>
-	<string>8P2137</string>
-	<key>IBUserGuides</key>
-	<dict>
-		<key>5</key>
-		<dict>
-			<key>guideLocations</key>
-			<array>
-				<string>Horizontal:421.000000</string>
-				<string>Vertical:791.000000</string>
-				<string>Vertical:428.000000</string>
-				<string>Horizontal:450.000000</string>
-				<string>Horizontal:22.000000</string>
-				<string>Horizontal:390.000000</string>
-			</array>
-			<key>guidesLocked</key>
-			<false/>
-		</dict>
-	</dict>
-	<key>IBUsesTextArchiving</key>
-	<true/>
+	<string>9A581</string>
+	<key>targetFramework</key>
+	<string>IBCocoaFramework</string>
 </dict>
 </plist>
