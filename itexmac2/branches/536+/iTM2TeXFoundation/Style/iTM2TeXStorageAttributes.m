@@ -1701,7 +1701,7 @@ fullCommand:
         case kiTM2TeXCommandContinueSyntaxMode:
 			iTM2_ATTRIBUTE_ASSERT(outRangeStart>[modeLine startOffset],@"missing \\ before command");
 			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:outRangeStart-1 longestRange:&range];
-			modeWithoutModifiers = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+			otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
 			iTM2_ATTRIBUTE_ASSERT(otherMode==kiTM2TeXCommandStartSyntaxMode,@"start \\ missing before short or continue");
 			iTM2_ATTRIBUTE_ASSERT(range.length==1,@"start command too long before short or continu");
 			outRangeStart = range.location;
@@ -1815,8 +1815,8 @@ fullCommand:
         case kiTM2TeXAccentSyntaxMode:
 			iTM2_ATTRIBUTE_ASSERT(outRangeStart>[modeLine startOffset],@"missing \\ before command");
 			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:outRangeStart-1 longestRange:&range];
-			modeWithoutModifiers = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-			iTM2_ATTRIBUTE_ASSERT(modeWithoutModifiers==kiTM2TeXCommandStartSyntaxMode,@"start \\ missing before accent");
+			otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+			iTM2_ATTRIBUTE_ASSERT(otherMode==kiTM2TeXCommandStartSyntaxMode,@"start \\ missing before accent");
 			iTM2_ATTRIBUTE_ASSERT(range.length==1,@"start command too long before accent");
 			outRangeStart = range.location;
 			goto returnOutAttributes;
