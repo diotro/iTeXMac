@@ -826,7 +826,7 @@ To Do List:
 		// - All the selected items do not have the same setting.
         if([[sender menu] numberOfItems] < 2)
 		{
-			[sender setMenu:[iTM2StringFormatController stringEncodingMenuWithAction:@selector(takeStringEncodingFromTag:) target:self]];
+			[sender setMenu:[iTM2StringFormatController stringEncodingMenuWithAction:@selector(takeStringEncodingFromTag:) target:self]];// the menu belongs to self (the target)
 		}		
 		// removing all the items with a iTM2_noop:action: this is mainly the "Multiple Selection" item
 		NSMenu * M = [sender menu];
@@ -1380,7 +1380,7 @@ To Do List:
 		// - All the selected items do not have the same setting.
         if([[sender menu] numberOfItems] < 2)
 		{
-			[sender setMenu:[iTM2StringFormatController EOLMenuWithAction:@selector(takeEOLFromTag:) target:self]];
+			[sender setMenu:[iTM2StringFormatController EOLMenuWithAction:@selector(takeEOLFromTag:) target:self]];// the menu belongs to self
 		}		
 		// removing all the items with a iTM2_noop:action: this is mainly the "Multiple Selection" item
 		NSMenu * M = [sender menu];

@@ -74,8 +74,8 @@ extern NSString * const TWSEOLFileKey;
 /*"Setters and Getters"*/
 //+ (BOOL) validateMenuItem: (id <NSMenuItem>) sender;
 + (iTM2EOL)EOLForName:(NSString *)name;
-+ (NSMenu *)EOLMenuWithAction:(SEL)anAction target:(id)aTarget;
-+ (NSMenu *)stringEncodingMenuWithAction:(SEL)anAction target:(id)aTarget;
++ (NSMenu *)EOLMenuWithAction:(SEL)anAction target:(id)aTarget;// target must be alive
++ (NSMenu *)stringEncodingMenuWithAction:(SEL)anAction target:(id)aTarget;// target must be alive
 + (NSArray *)supportedStringEncodings;
 + (NSString *)terminationStringForEOL:(iTM2EOL)EOL;
 + (CFStringEncoding)coreFoundationStringEncodingWithName:(NSString *)argument;

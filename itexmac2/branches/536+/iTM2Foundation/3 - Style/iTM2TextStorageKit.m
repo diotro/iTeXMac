@@ -27,6 +27,7 @@
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/ICURegEx.h>
 
 #warning DEBUGGGGG
 #undef __iTM2DebugEnabled__
@@ -161,6 +162,12 @@ To Do List:
 }
 @end
 
+@interface NSTextStorage(PRIVATE)
+// never ever call this method by yourself
+// this is buggy in leopard and is called by NSTextFinder
+- (unsigned)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range;
+@end
+
 @implementation iTM2TextStorage
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
 - (id)init;
@@ -239,6 +246,13 @@ To Do List:
 //iTM2_END;
     return;
 }
+- (void)edited:(unsigned)editedMask range:(NSRange)range changeInLength:(int)delta;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super edited:(unsigned)editedMask range:(NSRange)range changeInLength:(int)delta];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isEqualToAttributedString:
 - (BOOL)isEqualToAttributedString:(NSAttributedString *)other;
 /*"Description forthcoming.
@@ -249,6 +263,18 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [_TextModel isEqualToString:[other string]];
+}
+- (void)beginEditing;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super beginEditing];
+    return;
+}
+- (void)endEditing;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super endEditing];
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  processEditing
 - (void)processEditing;
@@ -504,6 +530,98 @@ To Do List:
 	[self replaceCharactersInRange:range withString:string];
 //iTM2_END;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= replaceString:withString:ranges:options:inView:replacementRange:
+- (unsigned)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range;
+/*"Attribute changes are catched.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([SUD boolForKey:@"iTM2DontPatchNSTextStorageReplaceString"])
+	{
+		return [super replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range];
+	}
+	iTM2_INIT_POOL;
+	NSMutableDictionary * map = [NSMutableDictionary dictionary];
+	unsigned flags = ICUREMultilineOption;
+	if(options & 1)
+	{
+		flags |= ICURECaseSensitiveOption;
+	}
+	NSMutableString * pattern = [NSMutableString string];
+	if(options & 1<<16 || options & 1<<17)
+	{
+		[pattern appendString:@"\\b"];
+	}
+	unsigned end, contentsEnd;
+	NSRange R = NSMakeRange(0,0);
+	if(R.location<[old length])
+	{
+		[old getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+		R.length = contentsEnd-R.location;
+		[pattern appendString:[[old substringWithRange:R] stringByEscapingICUREControlCharacters]];
+		R.location = end;
+		while(R.location<[old length])
+		{
+			R.length = 0;
+			[old getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+			R.length = contentsEnd-R.location;
+			[pattern appendString:@"$.^"];
+			[pattern appendString:[[old substringWithRange:R] stringByEscapingICUREControlCharacters]];
+			R.location = end;
+		}
+	}
+	if(options & 1<<17)
+	{
+		[pattern appendString:@"\\b"];
+	}
+	NSString * myString = [self string];
+	NSRange myRange = NSMakeRange(0,[myString length]);
+	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:pattern options:flags error:nil] autorelease];
+	NSMutableString * replacementPattern = [NSMutableString stringWithString:new];
+	[replacementPattern replaceOccurrencesOfString:@"$" withString:@"\\$" options:0 range:NSMakeRange(0,[new length])];
+	[RE setReplacementPattern:replacementPattern];
+	NSEnumerator * E = [ranges objectEnumerator];
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		R = [V rangeValue];// V is free now
+		R = NSIntersectionRange(R,myRange);
+		if(R.length)
+		{
+			[RE setInputString:myString range:R];
+			while([RE nextMatch])
+			{
+				[map setObject:[RE replacementString] forKey:[NSValue valueWithRange:[RE rangeOfMatch]]];
+			}
+		}
+	}
+	NSArray * affectedRanges = [[map allKeys] sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
+	E = [affectedRanges objectEnumerator];
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	while(V = [E nextObject])
+	{
+		[replacementStrings addObject:[map objectForKey:V]];
+	}
+	unsigned result = 0;
+	if([affectedRanges count] && [view shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		[self beginEditing];
+		E = [affectedRanges reverseObjectEnumerator];
+		NSEnumerator * EE = [replacementStrings reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			[self replaceCharactersInRange:[V rangeValue] withString:[EE nextObject]];
+		}
+		[self endEditing];
+		result = [affectedRanges count];
+	}
+	iTM2_RELEASE_POOL;
+//iTM2_END;
+    return result;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  GETTING ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:effectiveRange:
@@ -3099,7 +3217,7 @@ BesameMucho:
 			++last;
 		else
 		{
-			iTM2_LOG(@"!!!   ERROR: THIS IS AN UNEXPECTED SITUATION... please report bug or investigated further");
+			iTM2_LOG(@"!!!   ERROR: THIS IS AN UNEXPECTED SITUATION\nindex:%i, old count:%i, new count:%i\nplease report bug or investigated further",location,oldCount,newCount);
 		}
 	}
 	if(_ML->_EOLLength)

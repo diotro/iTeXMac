@@ -791,3 +791,15 @@ To Do List:
     return;
 }
 @end
+
+@implementation NSValue(iTM2Range)
+- (NSComparisonResult)iTM2_compareRangeLocation:(id)rhs;
+{
+	unsigned l = [self rangeValue].location;
+	unsigned r = [rhs rangeValue].location;
+	if(l<r) return NSOrderedAscending;
+	if(l>r) return NSOrderedDescending;
+	return NSOrderedSame;
+}
+@end
+

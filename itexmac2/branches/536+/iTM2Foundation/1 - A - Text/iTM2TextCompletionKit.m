@@ -502,7 +502,7 @@ grosbois:
 	// establish connections with the table view
 	[_TableView setDataSource:self];
 	[_TableView setDelegate:self];
-	[_TableView setTarget:self];
+	[_TableView setTarget:self];// self is expected to last forever
 	[_TableView setDoubleAction:@selector(_concludeCompletion:)];
 	[_TableView setAllowsMultipleSelection:NO];
 	[_TableView reloadData];
@@ -899,7 +899,7 @@ grosbois:
 		// where should I put this window
 		[_TableView setDataSource:self];
 		[_TableView setDelegate:self];
-		[_TableView setTarget:self];
+		[_TableView setTarget:self];// self is expecetd to last forever
 		[_TableView setDoubleAction:@selector(_concludeCompletion:)];
 		[_TableView setAllowsMultipleSelection:NO];
 		[_TableView reloadData];

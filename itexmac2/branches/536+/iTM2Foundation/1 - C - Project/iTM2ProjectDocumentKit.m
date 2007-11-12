@@ -2479,7 +2479,11 @@ To Do List:
 	dirName = [dirName stringByDeletingLastPathComponent];
 	dirName = [dirName stringByResolvingSymlinksAndFinderAliasesInPath];// no more soft link
 	NSString * new = makeRelativeFlag? [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName] :fileName;
-	NSAssert2([new length],(@"AIE AIE INCONSITENT STATE %@ (key:%@)"),__iTM2_PRETTY_FUNCTION__,key);
+	if(![new length])
+	{
+		iTM2_LOG(@"AIE AIE INCONSITENT STATE %@ (key:%@, new:%@)",__iTM2_PRETTY_FUNCTION__,key,new);
+	}
+	NSAssert([new length],([NSString stringWithFormat:@"AIE AIE INCONSITENT STATE %@ (filename:%@, dirname:%@,relaive:%@,key:%@, new:%@)",__iTM2_PRETTY_FUNCTION__,fileName,dirName,(makeRelativeFlag?@"Y":@"N"),key,new]));
 //iTM2_LOG(@"old: %@",old);
 //iTM2_LOG(@"new: %@",new);
 	if(![old pathIsEqual:new])
@@ -2791,8 +2795,7 @@ To Do List:
 	NSString * target = nil;
 	while(K = [DE nextObject])
 	{
-		key = [K isEqualToString:@"project"]?@".":K;
-		source = [subdirectory stringByAppendingPathComponent:key];
+		source = [subdirectory stringByAppendingPathComponent:K];
 		NSURL * url = [NSURL fileURLWithPath:source];
 		NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
 		target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
@@ -2801,6 +2804,7 @@ To Do List:
 			// OK,this alias points to the given named file.
 			// the file was just moved around
 			// is it this key available
+			key = [K isEqualToString:@"project"]?@".":K;
 			target = [self absoluteFileNameForKey:key];
 			if([target pathIsEqual:fileName])
 			{
@@ -2840,13 +2844,13 @@ To Do List:
 	// subdirectory variable is free now
 	while(K = [DE nextObject])
 	{
-		key = [K isEqualToString:@"project"]?@".":K;
-		source = [subdirectory stringByAppendingPathComponent:key];
+		source = [subdirectory stringByAppendingPathComponent:K];
 		target = [DFM pathContentOfSymbolicLinkAtPath:source];
 		if([target pathIsEqual:fileName])
 		{
 			// OK,this soft link points to the given named file.
 			// is it this key available
+			key = [K isEqualToString:@"project"]?@".":K;
 			target = [self absoluteFileNameForKey:key];
 			if([target pathIsEqual:fileName])
 			{
@@ -3672,14 +3676,14 @@ absoluteFileNameIsChosen:
 			goto absoluteFileNameIsChosen;
 		}
 	}
-	else if([DFM fileExistsAtPath:farawayFileName])
-	{
-		// I also choose the absolute file name.
-		fileURL = [NSURL fileURLWithPath:farawayFileName];
-		return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
-	}
 	else if([absoluteFileName length])
 	{
+		if([DFM fileExistsAtPath:farawayFileName])
+		{
+			// I also choose the absolute file name.
+			fileURL = [NSURL fileURLWithPath:farawayFileName];
+			return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
+		}
 		NSString * recorded = [self fileNameForRecordedKey:key];
 		if([DFM fileExistsAtPath:recorded])
 		{
@@ -10109,45 +10113,6 @@ To Do List:
 		if(!I)
 		{
 			I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings"];// this is defined in the TeX Foundation, fixed in the new scheme, beware when merging
-			I = [[I copy] autorelease];
-			[I setName:name];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
-		}
-		[sender setImage:I];//size
-	}
-//iTM2_END;
-    return [SPC currentProject] != nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectShowTerminal:
-- (IBAction)projectShowTerminal:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [[SPC projectForSource:sender] showTerminal:sender];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateProjectShowTerminal:
-- (BOOL)validateProjectShowTerminal:(id)sender;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![sender image])
-	{
-		NSString * name = @"iTM2:projectShowTerminal(small)";
-		NSImage * I = [NSImage imageNamed:name];
-		if(!I)
-		{
-			I = [NSImage imageNamed:@"iTM2:showCurrentProjectTerminal"];// this is defined in the TeX Foundation
 			I = [[I copy] autorelease];
 			[I setName:name];
 			[I setScalesWhenResized:YES];

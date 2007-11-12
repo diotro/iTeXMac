@@ -1107,17 +1107,6 @@ To Do List:
 }
 @end
 
-@implementation NSValue(iTM2Range)
-- (NSComparisonResult)iTM2_compareRangeLocation:(id)rhs;
-{
-	unsigned l = [self rangeValue].location;
-	unsigned r = [rhs rangeValue].location;
-	if(l<r) return NSOrderedAscending;
-	if(l>r) return NSOrderedDescending;
-	return NSOrderedSame;
-}
-@end
-
 @implementation NSResponder(the7bitsAccents)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggle7bitsAccents:
 - (IBAction)toggle7bitsAccents:(id)sender;
