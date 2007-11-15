@@ -2427,7 +2427,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedRanges:affinity:stillSelecting:
 - (void)setSelectedRanges:(NSArray *)ranges affinity:(NSSelectionAffinity)affinity stillSelecting:(BOOL)stillSelectingFlag;
 /*"Description forthcoming.
@@ -2437,12 +2436,111 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2_LOG(@"range:%@",NSStringFromRange([[ranges lastObject] rangeValue]));
-	[super setSelectedRanges:ranges affinity:affinity stillSelecting:stillSelectingFlag];
-	iTM2_LOG(@"selectedRange:%@",NSStringFromRange([[[self selectedRanges] lastObject] rangeValue]));
+#warning Not yet fully implemented, when still selecting and other minor problems
+	if(stillSelectingFlag)
+	{
+		[super setSelectedRanges:ranges affinity:affinity stillSelecting:stillSelectingFlag];
+		return;
+	}
+	NSTextStorage * TS = [self textStorage];
+	NSRange R;
+	NSDictionary * attrs = nil;
+	NSRange attrsRange;
+	if([ranges count] == 1)
+	{
+		R = [[ranges lastObject] rangeValue];
+		if(R.length == 0)
+		{
+			NSEvent * E = [[self window] currentEvent];
+			unsigned type = [E type];
+			if(type == NSLeftMouseUp)
+			{
+				// select the edge closest to the hit point
+				attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+				if([attrs objectForKey:NSGlyphInfoAttributeName])
+				{
+					R.location=R.location<=attrsRange.location + attrsRange.length/2?
+						attrsRange.location:NSMaxRange(attrsRange);
+					[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
+					return;
+				}
+			}
+			else if(type == NSKeyDown)
+			{
+				NSString * K = [E charactersIgnoringModifiers];
+				if([K length])
+				{
+					switch([K characterAtIndex:0])
+					{
+						case NSUpArrowFunctionKey:
+						case NSDownArrowFunctionKey:
+						case NSLeftArrowFunctionKey:
+						case NSRightArrowFunctionKey:
+						{
+							NSRange oldR = [[[self selectedRanges] lastObject] rangeValue];
+							if(R.location < oldR.location)
+							{
+								// we assume we are selecting up stream
+								if(R.location<[TS length])
+								{
+									attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+									if([attrs objectForKey:NSGlyphInfoAttributeName])
+									{
+										R.location = attrsRange.location;
+										[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
+										return;
+									}
+								}
+							}
+							else
+							{
+								// we assume we are selecting down stream
+								if(R.location)
+								{
+									if(R.location<=[TS length])
+									{
+										attrs = [TS attributesAtIndex:R.location-1 longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+										if([attrs objectForKey:NSGlyphInfoAttributeName])
+										{
+											R.location = NSMaxRange(attrsRange);
+											[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
+											return;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	NSEnumerator * E = [ranges objectEnumerator];
+	NSMutableArray * modifiedRanges = [NSMutableArray array];
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		NSRange R = [V rangeValue];
+		if(R.length)
+		{
+			attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				R = NSUnionRange(R,attrsRange);
+			}
+			attrs = [TS attributesAtIndex:NSMaxRange(R)-1 longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				R = NSUnionRange(R,attrsRange);
+			}
+		}
+		[modifiedRanges addObject:V];
+	}
+	[super setSelectedRanges:modifiedRanges affinity:affinity stillSelecting:stillSelectingFlag];
 //iTM2_END;
     return;
 }
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectionRangeForProposedRange:granularity:
 - (NSRange)selectionRangeForProposedRange:(NSRange)proposedSelRange granularity:(NSSelectionGranularity)granularity;
 /*"Description forthcoming.
