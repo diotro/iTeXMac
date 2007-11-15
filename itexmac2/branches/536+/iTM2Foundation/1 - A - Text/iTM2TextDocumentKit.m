@@ -2246,6 +2246,65 @@ To Do List:
 	[super insertText:aString];
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deleteForward:
+- (void)deleteForward:(id)sender;
+/*"We do not paste attributes. There is a problem concerning attributes here.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	NSRange R = [self selectedRange];
+	if(R.length == 0)
+	{
+		NSTextStorage * TS = [self textStorage];
+		NSString * S = [TS string];
+		if(R.location<[S length])
+		{
+			NSRange attrRange;
+			NSDictionary * attrs = [TS attributesAtIndex:R.location effectiveRange:&attrRange];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				[self setSelectedRange:attrRange];
+			}
+		}
+	}
+	[super deleteForward:sender];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deleteBackward:
+- (void)deleteBackward:(id)sender;
+/*"We do not paste attributes. There is a problem concerning attributes here.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	NSRange R = [self selectedRange];
+	if(R.length == 0)
+	{
+		NSTextStorage * TS = [self textStorage];
+		if(R.location>0)
+		{
+			NSRange attrRange;
+			NSDictionary * attrs = [TS attributesAtIndex:R.location-1 effectiveRange:&attrRange];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				[self setSelectedRange:attrRange];
+			}
+		}
+	}
+	[super deleteBackward:sender];
+	return;
+}
+#if 0
+- (void)deleteWordForward:(id)sender;
+- (void)deleteWordBackward:(id)sender;
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paste:
 - (IBAction)paste:(id)sender;
 /*"We do not paste attributes. There is a problem concerning attributes here.
