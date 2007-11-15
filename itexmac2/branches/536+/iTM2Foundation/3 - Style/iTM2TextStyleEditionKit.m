@@ -2762,7 +2762,7 @@ To Do List:
 		return YES;
 	}
 	NSString * fileName = [absoluteURL path];
-    NSString * stylePath = [fileName stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+    NSString * stylePath = [[fileName stringByAppendingPathComponent:iTM2TextAttributesModesComponent] stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 	iTM2TextSyntaxParserAttributesServer * AS = [self attributesServer];
 	NSDictionary * modesAttributes = [AS modesAttributes];
 	NSString * sampleString = [[self textView] string];
