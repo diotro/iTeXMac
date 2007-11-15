@@ -2338,6 +2338,10 @@ To Do List:
 	result = [result stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	result = [result stringByAppendingPathComponent:@"project"];
 	result = [DFM pathContentOfSymbolicLinkAtPath:result];
+	if([DFM isPrivateFileAtPath:result])
+	{
+		return @"";
+	}
 	if(![key isEqualToString:@"project"] && ![key isEqualToString:@"."])
 	{
 #warning ATTENTION: use the source directory here
@@ -2931,6 +2935,10 @@ To Do List:
 	NSURL * url = [NSURL fileURLWithPath:source];
 	NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
 	NSString * target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
+	if([DFM isPrivateFileAtPath:target])
+	{
+		return @"";
+	}
 	if([DFM fileExistsAtPath:target])
 	{
 		return target;
@@ -2938,6 +2946,10 @@ To Do List:
 	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	source = [subdirectory stringByAppendingPathComponent:key];
 	target = [DFM pathContentOfSymbolicLinkAtPath:source];
+	if([DFM isPrivateFileAtPath:target])
+	{
+		return @"";
+	}
 	if([DFM fileExistsAtPath:target])
 	{
 		return target;
@@ -2949,6 +2961,10 @@ To Do List:
 	dirName = [dirName stringByDeletingLastPathComponent];
 	target = [dirName stringByAppendingPathComponent:target];
 	target = [target stringByStandardizingPath];
+	if([DFM isPrivateFileAtPath:target])
+	{
+		return @"";
+	}
 	if([DFM fileExistsAtPath:target])
 	{
 		return target;
@@ -5772,8 +5788,8 @@ To Do List:
 		NSBeginAlertSheet(
 			NSLocalizedStringFromTableInBundle(@"Suppressing project documents references",iTM2ProjectTable,myBUNDLE,""),
 			NSLocalizedStringFromTableInBundle(@"Keep",iTM2ProjectTable,myBUNDLE,""),
-			NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,myBUNDLE,""),
 			NSLocalizedStringFromTableInBundle(@"Recycle",iTM2ProjectTable,myBUNDLE,""),
+			NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,myBUNDLE,""),
 			[sender window],
 			self,
 			NULL,
@@ -5805,9 +5821,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[recyclable autorelease];// was retained above
-	if(returnCode == NSAlertAlternateReturn)// cancel!!
+	if(returnCode == NSAlertOtherReturn)// cancel!!
 		return;
-	BOOL recycle = (returnCode == NSAlertOtherReturn);
+	BOOL recycle = (returnCode == NSAlertAlternateReturn);
     iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
     NSEnumerator * E = [recyclable objectEnumerator];
 	NSString * fileKey;
@@ -8926,18 +8942,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[super setFileURL:newURL];
 	NSString * newFileName = [newURL path];
 	NSURL * oldURL = [self fileURL];
 	if(!oldURL || [oldURL isEqual:newURL])
 	{
-		[super setFileURL:newURL];
 		return;
 	}
 	// this is not the first time we are asked to set the file URL
 	iTM2ProjectDocument * oldPD = [self project];
 	if(!oldPD || (self == (id)oldPD))
 	{
-		[super setFileURL:newURL];
 		return;
 	}
 	iTM2WrapperDocument * WD = [self wrapper];
@@ -8970,19 +8985,6 @@ To Do List:
 			{
 				iTM2_LOG(@"*** THERE IS SOMETHING WRONG WITH THAT FILE NAME:%@",name);
 			}
-#if 0
-			NSBeginAlertSheet(
-				NSLocalizedStringFromTableInBundle(@"Suppressing project documents references",iTM2ProjectTable,myBUNDLE,""),
-				NSLocalizedStringFromTableInBundle(@"Keep",iTM2ProjectTable,myBUNDLE,""),
-				NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,myBUNDLE,""),
-				NSLocalizedStringFromTableInBundle(@"Recycle",iTM2ProjectTable,myBUNDLE,""),
-				[self frontWindow],
-				[self class],
-				NULL,
-				@selector(setFileNameSheetDidDismiss:returnCode:recycleName:),
-				[name retain],// will be released below
-				NSLocalizedStringFromTableInBundle(@"Also recycle the selected project documents?",iTM2ProjectTable,myBUNDLE,""));
-#endif
 		}
 	}
 	// removing all the previously existing document with the same file name
