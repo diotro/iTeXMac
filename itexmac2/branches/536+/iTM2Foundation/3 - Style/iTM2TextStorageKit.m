@@ -665,7 +665,7 @@ To Do List:
 	if(_SP)
 	{
 		id attributes = [_SP attributesAtIndex:aLocation longestEffectiveRange:aRangePtr inRange:aRangeLimit];
-		if(aRangePtr && aRangePtr->length==0)
+		if(aRangePtr && aRangePtr->length==0 && aLocation < length)
 		{
 			R = NSMakeRange(aLocation, length-aLocation);
 			*aRangePtr = R;
@@ -4968,7 +4968,9 @@ NSString * const iTM2TextStyleComponent = @"Styles.localized";
 
 NSString * const iTM2TextStyleExtension = @"iTM2-Style";
 NSString * const iTM2TextVariantExtension = @"iTM2-Variant";
-NSString * const iTM2TextAttributesModesComponent = @"modes.rtf";
+
+NSString * const iTM2TextAttributesPathExtension = @"rtf";
+NSString * const iTM2TextAttributesModesComponent = @"modes";
 
 NSString * const iTM2TextAttributesDidChangeNotification = @"iTM2TextAttributesDidChange";
 
@@ -5383,7 +5385,8 @@ iTM2_LOG(@"builtIn:%@",paths);
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
-			stylePath = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+			stylePath = [[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent]
+				stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 			[modesAttributes addEntriesFromDictionary:[[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr]];
 		}
 	}
@@ -5399,7 +5402,8 @@ iTM2_LOG(@"builtIn:%@",paths);
 			BOOL isDir = NO;
 			if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 			{
-				stylePath = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+				stylePath = [[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent]
+					stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 				NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr];
 				[modesAttributes addEntriesFromDictionary:D];
 			}
@@ -5415,7 +5419,8 @@ iTM2_LOG(@"support:%@",paths);
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
-			stylePath= [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+			stylePath= [[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent]
+				stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 			NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr];
 			[modesAttributes addEntriesFromDictionary:D];
 		}
