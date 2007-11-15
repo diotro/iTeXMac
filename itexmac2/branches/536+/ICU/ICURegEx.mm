@@ -1092,17 +1092,23 @@ static const UChar DOLLARSIGN = 0x24;
 
 - (NSString *)stringByEscapingICUREControlCharacters;
 {
+	// see http://www.icu-project.org/userguide/regexp.html
+	// "Characters that must be quoted to be treated as literals are * ? + [ ( ) { } ^ $ | \ . /"
 	NSMutableString * MS = [NSMutableString stringWithString:self];
 	[MS replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"|" withString:@"\\|" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"$" withString:@"\\$" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@"*" withString:@"\\*" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"+" withString:@"\\+" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@"?" withString:@"\\?" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"{" withString:@"\\{" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"}" withString:@"\\}" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"+" withString:@"\\+" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"[" withString:@"\\[" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@"(" withString:@"\\(" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@")" withString:@"\\)" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"{" withString:@"\\{" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"}" withString:@"\\}" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"^" withString:@"\\^" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"$" withString:@"\\$" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"|" withString:@"\\|" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"." withString:@"\\." options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"/" withString:@"\\/" options:NULL range:NSMakeRange(0,[MS length])];
 	return MS;
 }
 
