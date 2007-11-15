@@ -582,6 +582,7 @@ To Do List:
 	NSRange myRange = NSMakeRange(0,[myString length]);
 	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:pattern options:flags error:nil] autorelease];
 	NSMutableString * replacementPattern = [NSMutableString stringWithString:new];
+	[replacementPattern replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:0 range:NSMakeRange(0,[new length])];
 	[replacementPattern replaceOccurrencesOfString:@"$" withString:@"\\$" options:0 range:NSMakeRange(0,[new length])];
 	[RE setReplacementPattern:replacementPattern];
 	NSEnumerator * E = [ranges objectEnumerator];
