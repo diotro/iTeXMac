@@ -18,16 +18,21 @@
 
 @end
 
+typedef struct
+{
+@defs(ICURegEx)
+} ICURegExDef;
+
 @interface ICURegExIVars:NSObject
 {
 @public
-	NSString * pattern;
-	NSString * string;
-	NSString * replacement;
+	NSString * string;// the search string
+	NSString * replacement;// the replacement pattern
 	NSError * error;
-	unsigned stringOffset;
-	RegexPattern * regexPattern;
-	RegexMatcher * regexMatcher;
+	unsigned stringOffset;// when the search should take place only in a substring
+	unsigned stringLength;// when the search should take place only in a substring
+	RegexPattern * regexPattern;// ICU
+	RegexMatcher * regexMatcher;// ICU
 	UnicodeString * uString;
 	UnicodeString * uReplacement;
 	UErrorCode status;
@@ -43,8 +48,6 @@
 	replacement = nil;
 	[string autorelease];
 	string = nil;
-	[pattern autorelease];
-	pattern = nil;
 	delete regexPattern;
 	regexPattern = nil;
 	delete regexMatcher;
@@ -100,7 +103,7 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 	}
 	if(localError)
 	{
-		iTM2_LOG(@"***  ERROR creating a regular expression wrapper for pattern:%@\,reason:%@",pattern,localError);
+		iTM2_LOG(@"***  ERROR creating a regular expression wrapper for pattern:%@,reason:%@",pattern,localError);
 	}
 	return nil;
 }
@@ -168,8 +171,8 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 - (id)initWithSearchPattern:(NSString *)pattern options:(unsigned int)flags error:(NSError **)errorRef;
 {
 	// allocate iVars
-	_iVars = [[ICURegExIVars allocWithZone:[self zone]] init];
-	if(!_iVars)
+	ICURegExIVars * iVars = [[ICURegExIVars allocWithZone:[self zone]] init];
+	if(!iVars)
 	{
 		if(errorRef)
 		{
@@ -182,7 +185,7 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 		return nil;
 	}
 	// then create the pattern
-	_IVARS->status = U_ZERO_ERROR;
+	iVars->status = U_ZERO_ERROR;
 	UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)pattern);
 	if(!buffer)
 	{
@@ -198,13 +201,13 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 	int32_t buffLength = CFStringGetLength((CFStringRef)pattern);
 	UnicodeString patString = UnicodeString(FALSE, buffer, buffLength);
 	UParseError pe;
-	_IVARS->regexPattern = RegexPattern::compile(patString,flags,pe,_IVARS->status);
-	if(U_FAILURE(_IVARS->status))
+	iVars->regexPattern = RegexPattern::compile(patString,flags,pe,iVars->status);
+	if(U_FAILURE(iVars->status))
 	{
 		if(errorRef)
 		{
 			NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+				[[self class] errorDescriptionForStatus:iVars->status],NSLocalizedDescriptionKey,
 					nil];
 			NSNumber * N;
 			if(pe.line>0)
@@ -237,24 +240,46 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 		[self dealloc];
 		return nil;
 	}
-	if(!_IVARS->regexPattern)
+	if(!iVars->regexPattern)
 	{
 		if(errorRef)
 		{
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Can't create regex pattern.",NSLocalizedDescriptionKey,
 					nil];
-			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:_IVARS->status userInfo:dict];
+			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:iVars->status userInfo:dict];
 		}
 		[self dealloc];
 		return nil;
 	}
 	if(self = [super init])
 	{
-		[_IVARS->pattern autorelease];
-		_IVARS->pattern = [pattern retain];
+		_iVars = iVars;
+	}
+	else
+	{
+		[iVars release];
 	}
 	return self;
+}
+- (id)copyWithZone:(NSZone *)zone;
+{
+	id result = [[ICURegEx allocWithZone:zone] init];
+	if(result)
+	{
+		ICURegExIVars * iVars = [[ICURegExIVars allocWithZone:zone] init];
+		if(iVars)
+		{
+			if(_IVARS->replacement)
+			{
+				iVars->replacement = [_IVARS->replacement retain];
+				iVars->uReplacement = new UnicodeString(*_IVARS->uReplacement);
+			}
+			iVars->regexPattern = _IVARS->regexPattern->clone();
+		}
+		((ICURegExDef *)result)->_iVars = iVars;
+	}
+	return result;
 }
 - (void)dealloc;
 {
@@ -681,6 +706,10 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 	}
 	return YES;
 }
+- (NSString *)searchPattern;
+{
+	return [NSString stringWithUnicodeString:[self regexPattern]->pattern()];
+}
 - (NSString *)replacementPattern;
 {
 	return _IVARS->replacement;
@@ -716,7 +745,7 @@ static const UChar DOLLARSIGN = 0x24;
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return nil;
 	}
-	UnicodeString replacement = UnicodeString(*_IVARS->uReplacement);
+	UnicodeString replacement = UnicodeString(*_IVARS->uReplacement);// make a copy
 	UnicodeString dest = UnicodeString();
 	RegexPattern pattern = _IVARS->regexMatcher->pattern();
 	#define fPattern _IVARS->regexPattern
