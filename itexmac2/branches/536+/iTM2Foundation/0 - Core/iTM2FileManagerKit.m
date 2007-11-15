@@ -225,9 +225,20 @@ To Do List:
 	{
 		NSMutableDictionary * fileAttributes = [[[self fileAttributesAtPath:fileName traverseLink:NO] mutableCopy] autorelease];
 		unsigned int oldPosixPermissions = [fileAttributes filePosixPermissions];
+		struct stat myStat;
+		if(noErr == stat([fileName fileSystemRepresentation], &myStat))
+		{
+			oldPosixPermissions = myStat.st_mode;
+		}
 		unsigned int newPosixPermissions = oldPosixPermissions | S_IWUSR;
-		[fileAttributes setObject:[NSNumber numberWithUnsignedInt:newPosixPermissions] forKey:NSFilePosixPermissions];
-		[self changeFileAttributes:fileAttributes atPath:fileName];
+		if(oldPosixPermissions != newPosixPermissions)
+		{
+			if(chmod([fileName fileSystemRepresentation],newPosixPermissions) != noErr)
+			{
+				[fileAttributes setObject:[NSNumber numberWithUnsignedInt:newPosixPermissions] forKey:NSFilePosixPermissions];
+				[self changeFileAttributes:fileAttributes atPath:fileName];
+			}
+		}
 		if(recursive && [[fileAttributes objectForKey:NSFileType] isEqual:NSFileTypeDirectory])// beware, do not use isDirectory
 		{
 			NSEnumerator * E = [[self directoryContentsAtPath:fileName] objectEnumerator];
@@ -373,6 +384,37 @@ To Do List:
 //iTM2_LOG(@"path: %@", path);
 	path = [path lastPathComponent];
 	return ![path hasPrefix:@"."];
+}
+- (BOOL)isPrivateFileAtPath:(NSString *)path;
+{
+//iTM2_LOG(@"path: %@", path);
+    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
+    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
+    [I setTarget:self];
+    [I setArgument:&path atIndex:2];
+    BOOL result = NO;
+	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"IsPrivateFileAtPath:" signature:sig0 inherited:YES] objectEnumerator];
+	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
+    SEL selector;
+    while(selector = (SEL)[[E nextObject] pointerValue])
+    {
+        if(iTM2DebugEnabled>99)
+        {
+            iTM2_LOG(@"Performing:%@", NSStringFromSelector(selector));
+//iTM2_LOG(@"Base project model is:%@", [[self implementation] modelOfType:@"frontends"]);
+        }
+        [I setSelector:selector];
+        [I invoke];
+        BOOL R = NO;
+        [I getReturnValue:&R];
+        if(iTM2DebugEnabled>99)
+        {
+            iTM2_LOG(@"Performed:%@ with result:%@", NSStringFromSelector(selector), (R? @"YES":@"NO"));
+//iTM2_LOG(@"Base project model is:%@", [[self implementation] modelOfType:@"frontends"]);
+        }
+        result = result || R;
+    }
+	return result;
 }
 #if 0
 #warning *** DEBUGGING PURPOSE ONLY, to be removed
