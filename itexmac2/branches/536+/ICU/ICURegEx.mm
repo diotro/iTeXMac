@@ -721,6 +721,7 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 	if(_IVARS->uReplacement)
 	{
 		delete _IVARS->uReplacement;
+		_IVARS->uReplacement = nil;
 	}
 	if(_IVARS->replacement)
 	{
@@ -728,6 +729,13 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 	}
 	return;
 }
+- (void)forget;
+{
+	[self setReplacementPattern:nil];
+	[self setInputString:nil];
+	return;
+}
+
 static const UChar BACKSLASH  = 0x5c;
 static const UChar DOLLARSIGN = 0x24;
 - (NSString *)replacementString;
@@ -850,6 +858,24 @@ static const UChar DOLLARSIGN = 0x24;
 
     }
 	return [NSString stringWithUnicodeString:dest];
+}
+- (BOOL)matchString:(NSString *)string;
+{
+	[self setInputString:string];
+	BOOL result = [self nextMatch];
+	return result;
+}
+- (NSString *)stringByMatchingString:(NSString *)string replacementPattern:(NSString *)replacement;
+{
+	if([self matchString:string])
+	{
+		[self setReplacementPattern:replacement];
+		NSString * replacement = [self replacementString];
+		[self setInputString:nil];
+		return replacement;
+	}
+	[self forget];
+	return nil;
 }
 - (BOOL)matchesAtIndex:(int)index extendToTheEnd:(BOOL)yorn;
 {

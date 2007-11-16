@@ -270,9 +270,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB79109474610004B0A81 /* Build configuration list for PBXProject "iTM2BibTeXSupportKit" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iTM2EDITORKit */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D7420094A579800EBA96C /* Prepare iTM2TeXFoundation */,
 				8D5B49AC048680CD000E48DA /* iTM2BibTeXSupportKit */,

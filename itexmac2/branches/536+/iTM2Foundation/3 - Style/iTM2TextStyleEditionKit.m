@@ -39,6 +39,7 @@
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2textFieldKit.h>
 #import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
+#import <iTM2Foundation/iTM2ImageKit.h>
 
 #define TABLE @"TextStyle"
 #define BUNDLE [iTM2TextStyleDocument classBundle]
@@ -3155,18 +3156,8 @@ To Do List:
 	[sender setAction:@selector(submenuAction:)];
 	if(![sender image])
 	{
-		NSString * identifier = @"iTM2FontsAndColors";
-		NSString * name = [NSString stringWithFormat:@"iTM2:%@", identifier];
-		NSImage * I = [NSImage imageNamed:name];
-		if(!I)
-		{
-			NSString * path = [[iTM2Implementation classBundle] pathForImageResource:identifier];
-			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path];
-			I = [I copy];
-			[I setName:name];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
-		}
+		NSImage * I = [NSImage iTM2_cachedImageNamed:@"iTM2FontsAndColors"];
+		[I iTM2_setSizeSmallIcon];
 		[sender setImage:I];//size
 	}
 	return YES;// message catcher

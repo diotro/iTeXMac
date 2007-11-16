@@ -25,6 +25,7 @@
 #import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2ImageKit.h>
 
 NSString * const iTM2TeXProjectTaskTable = @"Task";
 
@@ -175,15 +176,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectTerminal(small)"];
-	if(I)
+	NSString * name = @"showCurrentProjectTerminal(small)";
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+	if([I iTM2_isNotNullImage])
 	{
 		return I;
 	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectTerminal"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectTerminal(small)"];
+	I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectTerminal"] copy];
+	[I iTM2_setSizeSmallIcon];
+	[I setName:name];
     return I;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType

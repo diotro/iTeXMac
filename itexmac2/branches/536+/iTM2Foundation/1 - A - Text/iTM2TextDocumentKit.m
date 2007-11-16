@@ -1270,7 +1270,7 @@ To Do List:
 					R.size.width = [NSScroller scrollerWidth];
 					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
 					NSButton * B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitClose]];
+					[B setImage:[NSImage iTM2_imageSplitClose]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1281,7 +1281,7 @@ To Do List:
 					[scrollerToolbar setFrame:R];
 					R.origin = NSZeroPoint;
 					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitHorizontal]];
+					[B setImage:[NSImage iTM2_imageSplitHorizontal]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1290,7 +1290,7 @@ To Do List:
 					[B setTag:0];
 					[FCV addSubview:B];
 					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitVertical]];
+					[B setImage:[NSImage iTM2_imageSplitVertical]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1337,7 +1337,7 @@ To Do List:
 					R.size.width = [NSScroller scrollerWidth];
 					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
 					NSButton * B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitHorizontal]];
+					[B setImage:[NSImage iTM2_imageSplitHorizontal]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1346,7 +1346,7 @@ To Do List:
 					[B setTag:0];
 					[FCV addSubview:B];
 					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitVertical]];
+					[B setImage:[NSImage iTM2_imageSplitVertical]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -2512,7 +2512,7 @@ To Do List:
 		{
 			NSEvent * E = [[self window] currentEvent];
 			unsigned type = [E type];
-			if(type == NSLeftMouseUp)
+			if(type == NSLeftMouseUp && R.location<[[self string] length])
 			{
 				// select the edge closest to the hit point
 				attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];

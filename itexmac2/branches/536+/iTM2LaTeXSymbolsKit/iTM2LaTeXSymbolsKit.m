@@ -452,6 +452,27 @@ To Do List:
 	[self takeContextBool:YES forKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask];
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOrderFrontLaTeXSymbolsPanel:
+- (BOOL)validateOrderFrontLaTeXSymbolsPanel:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![sender image])
+	{
+		NSString * name = @"symbolPalette";
+		NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+		if([I iTM2_isNotNullImage])
+		{
+			[sender setImage:I];
+		}
+	}
+//iTM2_END;
+    return YES;
+}
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SymbolMenu

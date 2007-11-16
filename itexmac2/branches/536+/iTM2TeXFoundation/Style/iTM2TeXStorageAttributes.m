@@ -20,13 +20,14 @@
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
 */
-
 #include <iTM2Foundation/ICURegEx.h>
 
 #if 0
 @implementation iTM2TeXParser
 #endif
 #pragma mark =-=-=-=-=-  iTM2TeXParser:
+#pragma mark -
+#pragma mark =-=-=-=-=-  NO SYMBOLS:
 #ifndef iTM2_WITH_SYMBOLS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forCharacter:previousMode:
 - (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
@@ -57,19 +58,6 @@ To Do List:
 	unsigned newModifier = previousModifier;
 	newModifier = previousModifier  & ~kiTM2TeXAtSyntaxMask;
 	newModifier = newModifier  & ~kiTM2TeXCommandSyntaxMask;
-	NSCharacterSet * set = [NSCharacterSet TeXFileNameLetterCharacterSet];
-	// managing the kiTM2TeXSimpleGroupSyntaxMask:
-	// if we already are in a simple group and the character belongs to the TeXFileNameCharacterSet, except an unescaped "{" or "}"
-	// then we should stay in the simple group
-	// If we follow a kiTM2TeXGroupOpenSyntaxMode, then we enter a kiTM2TeXSimpleGroupSyntaxMask, except for an unescaped "{" or "}"
-    if(![set characterIsMember:theChar])
-    {
-		newModifier &= ~kiTM2TeXSimpleGroupSyntaxMask;
-	}
-	else if((previousModeWithoutModifiers == kiTM2TeXGroupOpenSyntaxMode) && (theChar != '{') && (theChar != '}'))
-	{
-		newModifier |= kiTM2TeXSimpleGroupSyntaxMask;
-	}
 	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
 	NSString * modeString = @"";
 	unsigned newMode = previousModeWithoutModifiers;
@@ -109,13 +97,14 @@ CAS1(kiTM2TeXUnknownSyntaxMode,					previousModeWithoutModifiers,	previousModifi
 CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
 #endif
 #undef CAS0
+#pragma mark -
 #define CAS0(OLDMODE,NEWMODE)\
 case OLDMODE: newMode = NEWMODE; break
 #undef CAS1
 #define CAS1(OLDMODE,NEWMODE,NEWMODIFIER,STATUS)\
 case OLDMODE: newMode = NEWMODE; newModifier = NEWMODIFIER;	status = STATUS; break
 
-	set = [NSCharacterSet TeXLetterCharacterSet];
+	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
     if([set characterIsMember:theChar])
     {
 		newMode = kiTM2TeXRegularSyntaxMode;
@@ -123,7 +112,7 @@ case OLDMODE: newMode = NEWMODE; newModifier = NEWMODIFIER;	status = STATUS; bre
         {
 //CAS0(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 CAS1(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers,		previousModifier,	kiTM2TeXNoErrorSyntaxStatus);
-CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandContinueSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
+CAS1(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandContinueSyntaxMode,	newModifier|kiTM2TeXCommandSyntaxMask&~kiTM2TeXSimpleGroupSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
 //CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,kiTM2TeXRegularSyntaxMode);
 CAS1(kiTM2TeXCommandContinueSyntaxMode,			previousModeWithoutModifiers,	newModifier | kiTM2TeXCommandSyntaxMask, kiTM2TeXNoErrorSyntaxStatus);
 CAS0(kiTM2TeXCommandInputSyntaxMode,			previousModeWithoutModifiers);
@@ -166,7 +155,6 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModif
 		return kiTM2TeXNoErrorSyntaxStatus;
     }
 
-	newModifier = newModifier  & ~kiTM2TeXSimpleGroupSyntaxMask;
 	switch(theChar)
 	{
 #pragma mark =-=-=-=-=- " "
@@ -215,6 +203,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModif
 		case '\\':
 			newMode = kiTM2TeXCommandStartSyntaxMode;
 			newModifier |= kiTM2TeXCommandSyntaxMask;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			status = kiTM2TeXWaitingSyntaxStatus;
 			switch(previousModeWithoutModifiers)
 			{
@@ -259,6 +248,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModif
 		case '{':
 			newMode = kiTM2TeXGroupOpenSyntaxMode;
 			status = kiTM2TeXWaitingSyntaxStatus;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			switch(previousModeWithoutModifiers)
 			{
 //CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXGroupOpenSyntaxMode,			newModifier, kiTM2TeXWaitingSyntaxStatus);
@@ -300,6 +290,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,previousModifier,
 
 		case '}':
 			newMode = kiTM2TeXGroupCloseSyntaxMode;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			switch(previousModeWithoutModifiers)
 			{
 //CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXGroupCloseSyntaxMode);
@@ -507,6 +498,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifi
 #pragma mark =-=-=-=-=- $
 		case '$':
 			newMode = kiTM2TeXMathSwitchSyntaxMode;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			switch(previousModeWithoutModifiers)
 			{
 //CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXMathSwitchSyntaxMode);
@@ -549,6 +541,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifi
 #pragma mark =-=-=-=-=- %
 		case '%':
 			newMode = kiTM2TeXCommentStartSyntaxMode;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			switch(previousModeWithoutModifiers)
 			{
 //CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCommentStartSyntaxMode);
@@ -591,6 +584,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifi
 #pragma mark =-=-=-=-=- &
 		case '&':
 			newMode = kiTM2TeXCellSeparatorSyntaxMode;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			switch(previousModeWithoutModifiers)
 			{
 //CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXCellSeparatorSyntaxMode);
@@ -675,6 +669,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifie
 #pragma mark =-=-=-=-=- ^
 		case '^':
 			newMode = kiTM2TeXSuperStartSyntaxMode;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			switch(previousModeWithoutModifiers)
 			{
 //CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXSuperStartSyntaxMode);
@@ -717,6 +712,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,			previousModifi
 #pragma mark =-=-=-=-=- _
 		case '_':
 			newMode = kiTM2TeXSubStartSyntaxMode;
+			newModifier &=~kiTM2TeXSimpleGroupSyntaxMask;
 			switch(previousModeWithoutModifiers)
 			{
 //CAS(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXSubStartSyntaxMode);
@@ -1253,229 +1249,221 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	// we manage at the same time the attributes with or without symbols
+	// the symbol variant adds more tests
 	unsigned fullMode;
     unsigned lineIndex = [self lineIndexForLocation:aLocation];
     iTM2ModeLine * modeLine = [self modeLineAtIndex:lineIndex];
 	NSRange range;
-    //unsigned status = 
-	[modeLine getSyntaxMode:&fullMode atGlobalLocation:aLocation longestRange:&range];
+ 	[modeLine getSyntaxMode:&fullMode atGlobalLocation:aLocation longestRange:&range];
     if(aRangePtr)
 	{
 		*aRangePtr = range;
 	}
 	unsigned int modeWithoutModifiers = fullMode & ~kiTM2TeXFlagsSyntaxMask;
+	
+	NSString * S = [_TextStorage string];
+
+	// when the attributes are properly set, go to returnOutAttributes
+	// it will take care of the return for you
 	unsigned outRangeStart = range.location;
 	unsigned outRangeStop = NSMaxRange(range);
 	unsigned outMode = modeWithoutModifiers;
+	NSString * outModeName;
 
-	NSString * S = [_TextStorage string];
-#ifdef iTM2_WITH_SYMBOLS
-	NSString * substring;
-	NSRange otherRange;
-#endif
+	// auxiliary
 	unsigned otherMode;
 	unsigned otherFullMode;
-	NSString * modeName;
-	NSDictionary * attributes;
-	unsigned index;
 	
+	NSDictionary * attributes;
+	
+	// this is used in the iTM2_ATTRIBUTE_ASSERT macro
 	NSString * ERROR = @"UNKNOWN ERROR";
 	
 #ifdef iTM2_WITH_SYMBOLS
+	NSString * symbolName;// the real string corresponding to the symbol
+	unsigned symbolRangeStart = outRangeStart;// not yet complete
+	unsigned symbolRangeStop = outRangeStop;// not yet complete
+	unsigned symbolMode = modeWithoutModifiers;
+
 	// if I am in a simple group or near a simple group things might be more difficult
+	// simple groups are delimited by { and }
 	// this is the case for \command{}, ^{} and _{}
 	// Am I IN a simple group?
 	if(fullMode&kiTM2TeXSimpleGroupSyntaxMask)
 	{
-		otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
-		index = [modeLine startOffset];
-		if(otherRange.location>index+1)
+		range = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
+		// other range might be bigger than the original range.
+		// this is the starting point for attributed text
+		// now extend the group to the left and to the right
+		symbolRangeStart = range.location;// not yet complete
+		symbolRangeStop = NSMaxRange(range);// not yet complete
+		// range is free now
+testStartSimpleGroup:
+		if(symbolRangeStart>[modeLine startOffset]+1)
 		{
-			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location-1 longestRange:&range];
+			// there are 2 characters before, enough for '^{' for example
+			// testing for '{'
+			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:--symbolRangeStart longestRange:&range];
 			otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-			if(otherMode == kiTM2TeXGroupOpenSyntaxMode)
+			iTM2_ATTRIBUTE_ASSERT(otherMode == kiTM2TeXGroupOpenSyntaxMode,@"Missing '{' before simple group");
+			if(range.length==1)// otherwise we have more han one '{', this is not a useable simple group and we skip it
 			{
-				[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location-1 longestRange:&range];
-				otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-				if((otherMode == kiTM2TeXCommandEscapedCharacterSyntaxMode)
+beforeSimpleGroup:
+				[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:--symbolRangeStart longestRange:&range];
+				symbolMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+				// keep symbolMode around because it will be used later to switch
+				if((symbolMode == kiTM2TeXCommandEscapedCharacterSyntaxMode)
+					|| (otherMode == kiTM2TeXAccentSyntaxMode)
 					|| (otherMode == kiTM2TeXCommandContinueSyntaxMode)
 					|| (otherMode == kiTM2TeXCommandInputSyntaxMode))
 				{
-					if(range.location>index)
-					{
-						[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location-1 longestRange:&range];
-						otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-						if(otherMode == kiTM2TeXCommandStartSyntaxMode)
-						{
-							index = NSMaxRange(otherRange);
-							otherRange.location = range.location;
-							otherRange.length = index - otherRange.location;
-extendingToTheRight:
-							range.location = NSMaxRange(otherRange);
-							if(range.location<[modeLine contentsEndOffset])
-							{
-								[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location longestRange:&range];
-								otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-								if(otherMode == kiTM2TeXGroupCloseSyntaxMode)
-								{
-									++otherRange.length;
-tryToConclude:
-									substring = [S substringWithRange:range];
-									if(attributes = [_AS attributesForSymbol:substring mode:nil])
-									{
-										if(aRangePtr)
-										{
-											*aRangePtr=otherRange;
-										}
-										if(iTM2DebugEnabled>9999)
-										{
-											iTM2_LOG(@"aLocation:%i, range:%@, substring:%@",aLocation,NSStringFromRange(range),substring);
-										}
-										return attributes;
-									}
-								}
-							}
-						}
-					}
-				}
-				else if((otherMode == kiTM2TeXSubStartSyntaxMode)||(otherMode == kiTM2TeXSuperStartSyntaxMode))
-				{
-					otherRange.length = NSMaxRange(otherRange);
-					otherRange.location = range.location;
-					otherRange.length -= otherRange.location;
-					goto extendingToTheRight;
-				}
-			}
-		}
-	}
-	else if(fullMode == kiTM2TeXGroupOpenSyntaxMode)
-	{
-		index = [modeLine contentsEndOffset];
-		if(aLocation<index)
-		{
-			otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
-			if(otherRange.length)
-			{
-				range.location = NSMaxRange(otherRange);
-				if(range.location<index)
-				{
-					[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location longestRange:&range];
+					symbolRangeStart = range.location;// not yet complete
+					iTM2_ATTRIBUTE_ASSERT(symbolRangeStart>[modeLine startOffset],@"No room for a \\ before a command name (no char given)");
+					[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:--symbolRangeStart longestRange:&range];
 					otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-					if(otherMode == kiTM2TeXGroupCloseSyntaxMode)
+					iTM2_ATTRIBUTE_ASSERT(otherMode == kiTM2TeXCommandStartSyntaxMode,@"Missing \\ before a command name(missing char)");
+					// symbolRangeStart is now complete
+closingSimpleGroup:
+					// may be the input string is not complete and the closing '}' was not yet entered
+					if(symbolRangeStop<[modeLine contentsEndOffset])
 					{
-						++otherRange.length;
-						index = [modeLine startOffset];
-testBeforeGroupOpen:
-						range.location = otherRange.location;
-						if(range.location>index)
+						[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:symbolRangeStop longestRange:nil];// range not needed
+						otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+						if(otherMode == kiTM2TeXGroupCloseSyntaxMode)
 						{
-							[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location-1 longestRange:&range];
-							otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-							if((otherMode == kiTM2TeXSubStartSyntaxMode)||(otherMode == kiTM2TeXSuperStartSyntaxMode))
+							++symbolRangeStop;
+							// symbolRangeStop is now complete
+tryToConclude:
+							range.location = symbolRangeStart;
+							range.length = symbolRangeStop - range.location;
+							symbolName = [S substringWithRange:range];
+							outModeName = [_iTM2TeXModeForModeArray objectAtIndex:symbolMode];
+							if(attributes = [_AS attributesForSymbol:symbolName mode:outModeName])
 							{
-								++otherRange.length;
-								--otherRange.location;
-								goto tryToConclude;
-							}
-							else if((otherMode == kiTM2TeXCommandContinueSyntaxMode)||(otherMode == kiTM2TeXCommandEscapedCharacterSyntaxMode))
-							{
-								otherRange.length+=range.length;
-								otherRange.location=range.location;
-								if(range.location>index)
+								if(aRangePtr)
 								{
-									[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:range.location-1 longestRange:&range];
-									otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-									if(otherMode == kiTM2TeXCommandStartSyntaxMode)
-									{
-										++otherRange.length;
-										--otherRange.location;
-										goto tryToConclude;
-									}
+									*aRangePtr=range;
 								}
+								if(iTM2DebugEnabled>9999)
+								{
+									iTM2_LOG(@"aLocation:%i, range:%@, symbolName:%@",aLocation,NSStringFromRange(range),symbolName);
+								}
+								return attributes;
 							}
+							// we could not conclude here
+							// the standard attribute policy applies now, go below
 						}
 					}
+				}
+				else if((symbolMode == kiTM2TeXSubStartSyntaxMode)||(symbolMode == kiTM2TeXSuperStartSyntaxMode))
+				{
+					symbolRangeStart = range.location;// now symbolRangeStart is complete
+					goto closingSimpleGroup;
 				}
 			}
 		}
 	}
-	else if(fullMode == kiTM2TeXGroupCloseSyntaxMode)
+	else if(modeWithoutModifiers == kiTM2TeXGroupOpenSyntaxMode)
 	{
-		if(range.location == aLocation)
+		// opening a group
+		if(symbolRangeStop<[modeLine contentsEndOffset])
 		{
-			index = [modeLine startOffset];
-			if(aLocation>index)
+			range = [modeLine longestRangeAtGlobalLocation:symbolRangeStop mask:kiTM2TeXSimpleGroupSyntaxMask];
+			if(range.length)
 			{
-				otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
-				if(otherRange.length)
+				symbolRangeStop = NSMaxRange(range);
+				if(symbolRangeStart>[modeLine startOffset])
 				{
-					++otherRange.length;
-					--otherRange.location;
-					if(otherRange.location>index+1)
-					{
-						[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location longestRange:&range];
-						otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-						if(otherMode == kiTM2TeXGroupOpenSyntaxMode)
-						{
-							++otherRange.length;
-							--otherRange.location;
-							goto testBeforeGroupOpen;
-						}
-					}
+					goto beforeSimpleGroup;
+				}
+			}
+		}
+	}
+	else if(modeWithoutModifiers == kiTM2TeXGroupCloseSyntaxMode)
+	{
+		// this is a '}', just extend upstream
+		if(symbolRangeStart == aLocation)// we only consider the first '}' of a series
+		{
+			outRangeStop = outRangeStart + 1;// only the first '}' of a sequence
+			symbolRangeStop = symbolRangeStart + 1;// only the first '}' of a sequence
+			if(symbolRangeStart>[modeLine startOffset]+1)
+			{
+				range = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
+				if(range.length)
+				{
+					symbolRangeStart = range.location;
+					goto testStartSimpleGroup;
 				}
 			}
 		}
 		else
 		{
-			++outRangeStart;
+			++outRangeStart;// exclude the first, it was already managed above
 			goto returnOutAttributes;
 		}
 	}
-	else if((fullMode == kiTM2TeXSubStartSyntaxMode)||(otherMode == kiTM2TeXSuperStartSyntaxMode))
+	else if((modeWithoutModifiers == kiTM2TeXSubStartSyntaxMode)||(modeWithoutModifiers == kiTM2TeXSuperStartSyntaxMode))
 	{
-		index = [modeLine contentsEndOffset];
-		if(aLocation+2<index)
+		if(symbolRangeStop+2<[modeLine contentsEndOffset])//room for 3 chars: '{.}'
 		{
-			otherRange = [modeLine longestRangeAtGlobalLocation:aLocation mask:kiTM2TeXSimpleGroupSyntaxMask];
-			if(otherRange.length)
+			range = [modeLine longestRangeAtGlobalLocation:symbolRangeStop+1 mask:kiTM2TeXSimpleGroupSyntaxMask];
+			if(range.length)
 			{
-				otherRange.length = NSMaxRange(otherRange);
-				otherRange.location = aLocation;
-				otherRange.length-=otherRange.location;
-				goto extendingToTheRight;
+				symbolRangeStop = NSMaxRange(range);
+				goto closingSimpleGroup;
 			}
 		}
 	}
-	else if((fullMode == kiTM2TeXCommandEscapedCharacterSyntaxMode)
-				|| (fullMode == kiTM2TeXCommandContinueSyntaxMode)
-					|| (fullMode == kiTM2TeXCommandInputSyntaxMode))
+	else if(modeWithoutModifiers == kiTM2TeXAccentSyntaxMode)
 	{
-		index = NSMaxRange(range);
-		if(index+2<[modeLine contentsEndOffset])
+		iTM2_ATTRIBUTE_ASSERT(symbolRangeStart>[modeLine startOffset],@"No room for a '\\' when expected...");
+		--symbolRangeStart;
+		symbolMode = kiTM2TeXAccentSyntaxMode;
+		goto tryToConclude;
+	}
+	else if((modeWithoutModifiers == kiTM2TeXCommandEscapedCharacterSyntaxMode)
+				|| (modeWithoutModifiers == kiTM2TeXCommandContinueSyntaxMode)
+				|| (modeWithoutModifiers == kiTM2TeXCommandInputSyntaxMode) )
+	{
+		iTM2_ATTRIBUTE_ASSERT(symbolRangeStart>[modeLine startOffset],@"No room for a '\\' when expected...");
+		--symbolRangeStart;
+		if(symbolRangeStop+2<[modeLine contentsEndOffset])//room for 3 chars '{.}'
 		{
-			otherRange = [modeLine longestRangeAtGlobalLocation:index+2 mask:kiTM2TeXSimpleGroupSyntaxMask];
-			if(otherRange.length)
+			range = [modeLine longestRangeAtGlobalLocation:symbolRangeStop+1 mask:kiTM2TeXSimpleGroupSyntaxMask];
+			if(range.length)
 			{
-				otherRange.length = NSMaxRange(otherRange);
-				otherRange.location = aLocation;
-				otherRange.length-=otherRange.location;
-				otherRange = NSUnionRange(range,otherRange);
-				[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:index+1 longestRange:nil];
-				otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-				if(otherMode == kiTM2TeXGroupOpenSyntaxMode)
+				symbolRangeStop = NSMaxRange(range);
+				goto closingSimpleGroup;
+			}
+		}
+	}
+	else if(modeWithoutModifiers == kiTM2TeXCommandStartSyntaxMode)
+	{
+		iTM2_ATTRIBUTE_ASSERT(symbolRangeStart>[modeLine startOffset],@"No room for a '\\' when expected...");
+		if(symbolRangeStop+3<[modeLine contentsEndOffset])//room for 4 chars '.{.}'
+		{
+			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:symbolRangeStop longestRange:&range];
+			symbolMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+			if((symbolMode == kiTM2TeXCommandEscapedCharacterSyntaxMode)
+				|| (symbolMode == kiTM2TeXCommandContinueSyntaxMode)
+				|| (symbolMode == kiTM2TeXCommandInputSyntaxMode) )
+			{
+				symbolRangeStop = NSMaxRange(range);
+				if(symbolRangeStop+2<[modeLine contentsEndOffset])//room for 3 chars '{.}'
 				{
-					if(otherRange.location>[modeLine contentsEndOffset])
+					range = [modeLine longestRangeAtGlobalLocation:symbolRangeStop+1 mask:kiTM2TeXSimpleGroupSyntaxMask];
+					if(range.length)
 					{
-						[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:otherRange.location-1 longestRange:nil];
-						otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-						if(otherMode == kiTM2TeXCommandStartSyntaxMode)
-						{
-							--otherRange.location;
-							++otherRange.length;
-							goto extendingToTheRight;
-						}
+						symbolRangeStop = NSMaxRange(range);
+						goto closingSimpleGroup;
 					}
 				}
+			}
+			else if(symbolMode == kiTM2TeXAccentSyntaxMode)
+			{
+				symbolRangeStop = NSMaxRange(range);
+				goto tryToConclude;
 			}
 		}
 	}
@@ -1633,6 +1621,7 @@ testBeforeGroupOpen:
 				outRangeStop = NSMaxRange(range);
 #ifdef iTM2_WITH_SYMBOLS
 fullCommand:
+				// something like '\foo{blah}'
 				if(outRangeStop+2>=[modeLine contentsEndOffset])
 				{
 					goto returnOutAttributes;
@@ -1678,10 +1667,10 @@ fullCommand:
 					}
 					*aRangePtr = range;
 				}
-				substring = [S substringWithRange:range];
-				if(attributes = [_AS attributesForSymbol:substring mode:nil])
+				symbolName = [S substringWithRange:range];
+				if(attributes = [_AS attributesForSymbol:symbolName mode:nil])
 				{
-//iTM2_LOG(@"aLocation:%i, range:%@, substring:%@",aLocation,NSStringFromRange(range),substring);
+//iTM2_LOG(@"aLocation:%i, range:%@, symbolName:%@",aLocation,NSStringFromRange(range),symbolName);
 					return attributes;
 				}
 #endif
@@ -1797,26 +1786,24 @@ fullCommand:
 
 #pragma mark =-=-=-=-=- COMMENTS
         case kiTM2TeXCommentStartSyntaxMode:
-            index = [modeLine endOffset];
             if(aRangePtr)
-                * aRangePtr = NSMakeRange(aLocation, index-aLocation);
-            index = [modeLine contentsEndOffset];
-            if(++aLocation < index)
+                * aRangePtr = NSMakeRange(aLocation, [modeLine endOffset]-aLocation);
+            if(++aLocation < [modeLine contentsEndOffset])
 			{
                 return [self attributesAtIndex:aLocation effectiveRange:nil];// this is where the mark attributes are catched
 			}
             else
 			{
-				modeName = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentContinueSyntaxMode];
-                return [_AS attributesForMode:modeName];
+				outModeName = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXCommentContinueSyntaxMode];
+                return [_AS attributesForMode:outModeName];
 			}
 
 #pragma mark =-=-=-=-=- ACCENTS
         case kiTM2TeXAccentSyntaxMode:
 			iTM2_ATTRIBUTE_ASSERT(outRangeStart>[modeLine startOffset],@"missing \\ before command");
 			[modeLine getSyntaxMode:&otherFullMode atGlobalLocation:outRangeStart-1 longestRange:&range];
-			otherMode = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
-			iTM2_ATTRIBUTE_ASSERT(otherMode==kiTM2TeXCommandStartSyntaxMode,@"start \\ missing before accent");
+			modeWithoutModifiers = otherFullMode & ~kiTM2TeXFlagsSyntaxMask;
+			iTM2_ATTRIBUTE_ASSERT(modeWithoutModifiers==kiTM2TeXCommandStartSyntaxMode,@"start \\ missing before accent");
 			iTM2_ATTRIBUTE_ASSERT(range.length==1,@"start command too long before accent");
 			outRangeStart = range.location;
 			goto returnOutAttributes;
@@ -1837,16 +1824,19 @@ returnOutAttributes:
 		}
 		*aRangePtr = range;
 	}
-	modeName = [_iTM2TeXModeForModeArray objectAtIndex:outMode];
+	outModeName = [_iTM2TeXModeForModeArray objectAtIndex:outMode];
 #ifdef iTM2_WITH_SYMBOLS
-	if(modeWithoutModifiers == kiTM2TeXCommandStartSyntaxMode)
+	if(outMode == kiTM2TeXCommandEscapedCharacterSyntaxMode
+		|| outMode == kiTM2TeXCommandContinueSyntaxMode
+		|| outMode == kiTM2TeXSubShortSyntaxMode
+		|| outMode == kiTM2TeXSuperShortSyntaxMode)
 	{
-		substring = [S substringWithRange:range];// out of range in the extended latex mode
-		if(attributes = [_AS attributesForSymbol:substring mode:modeName])
+		symbolName = [S substringWithRange:range];// out of range in the extended latex mode
+		if(attributes = [_AS attributesForSymbol:symbolName mode:outModeName])
 		{
 			if(iTM2DebugEnabled>9999)
 			{
-				iTM2_LOG(@"aLocation:%i, range:%@, substring:%@",aLocation,NSStringFromRange(range),substring);
+				iTM2_LOG(@"aLocation:%i, range:%@, symbolName:%@",aLocation,NSStringFromRange(range),symbolName);
 			}
 			return attributes;
 		}
@@ -1854,9 +1844,9 @@ returnOutAttributes:
 #endif
 	if(iTM2DebugEnabled>9999)
 	{
-		iTM2_LOG(@"aLocation:%i, range:%@, modeName:%@",aLocation,NSStringFromRange(range),modeName);
+		iTM2_LOG(@"aLocation:%i, range:%@, outModeName:%@",aLocation,NSStringFromRange(range),outModeName);
 	}
-	return [_AS attributesForMode:modeName];
+	return [_AS attributesForMode:outModeName];
 	
 returnERROR:
 	// problem
@@ -1874,8 +1864,8 @@ returnERROR:
 		}
 		*aRangePtr = range;
 	}
-	modeName = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
-	return [_AS attributesForMode:modeName];
+	outModeName = [_iTM2TeXModeForModeArray objectAtIndex:kiTM2TeXErrorSyntaxMode];
+	return [_AS attributesForMode:outModeName];
 }
 #if 0
 @end

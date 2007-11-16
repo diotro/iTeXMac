@@ -124,8 +124,7 @@ To Do List:
 			[MI setRepresentedObject:S];
 			NSString * path = [self absoluteFileNameForKey:S];
 			NSImage * I = [SWS iconForFile:path];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
+			[I iTM2_setSizeSmallIcon];
 			[MI setImage:I];
 		}
 	}
@@ -387,8 +386,7 @@ To Do List:
 					{
 						NSString * FN = [document fileName];
 						I = [SWS iconForFile:FN];
-						[I setScalesWhenResized:YES];
-						[I setSize:NSMakeSize(16,16)];
+						[I iTM2_setSizeSmallIcon];
 					}
 					[MI setImage:I];
 				}

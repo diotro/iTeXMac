@@ -65,6 +65,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		518E0C650CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */; };
+		51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
@@ -757,6 +759,8 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SmallToolbarBackground.png; sourceTree = "<group>"; };
+		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		51F1B9500CE277B300A47D89 /* untitled */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = untitled; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -1514,8 +1518,6 @@
 				DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */,
 				DCF61B790854654B003F5F79 /* iTM2RuntimeBrowser.h */,
 				DCF61B7A0854654B003F5F79 /* iTM2RuntimeBrowser.m */,
-				DCF61B660854654B003F5F79 /* iTM2ImageKit.h */,
-				DCF61B670854654B003F5F79 /* iTM2ImageKit.m */,
 				DCF61B640854654B003F5F79 /* iTM2FileManagerKit.h */,
 				DCF61B650854654B003F5F79 /* iTM2FileManagerKit.m */,
 				DCF61B750854654B003F5F79 /* iTM2PathUtilities.h */,
@@ -1526,6 +1528,8 @@
 				DCF61B710854654B003F5F79 /* iTM2NotificationKit.m */,
 				DCF61B560854654B003F5F79 /* iTM2BundleKit.h */,
 				DCF61B570854654B003F5F79 /* iTM2BundleKit.m */,
+				DCF61B660854654B003F5F79 /* iTM2ImageKit.h */,
+				DCF61B670854654B003F5F79 /* iTM2ImageKit.m */,
 				DCF61B6A0854654B003F5F79 /* iTM2InstallationKit.h */,
 				DCF61B6B0854654B003F5F79 /* iTM2InstallationKit.m */,
 				DCF61B5A0854654B003F5F79 /* iTM2CompatibilityChecker.h */,
@@ -1802,8 +1806,10 @@
 				DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */,
 				DC1E48B70B8BB77700B8F0A8 /* Folder-24x24.png */,
 				DC1E48B90B8BC0D100B8F0A8 /* iTM2EditDocument.png */,
+				518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */,
 				DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */,
 				DCF61C2A0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap */,
+				51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */,
 			);
 			path = "Core Resources";
 			sourceTree = "<group>";
@@ -2391,6 +2397,8 @@
 				DC1E0F390C04E1680042609B /* Aqua2_Add_Child_Inactive.tif in Resources */,
 				DC1E0F3A0C04E1680042609B /* Aqua2_Add_Child_Pressed.tif in Resources */,
 				DC1E0F3B0C04E1680042609B /* Aqua2_Add_Child.tif in Resources */,
+				518E0C650CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png in Resources */,
+				51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

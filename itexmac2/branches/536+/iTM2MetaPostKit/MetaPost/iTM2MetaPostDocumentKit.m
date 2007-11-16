@@ -747,7 +747,7 @@ To Do List:
 	{
 		unsigned index = [[self outputFigureNumbers] count];
 		while(index--)
-			[[self PDFThumbnails] addObject:[NSImage imageGenericImageDocument]];
+			[[self PDFThumbnails] addObject:[NSImage iTM2_imageGenericImageDocument]];
 	}
 	[_thumbnailTable reloadData];
 //iTM2_END;
@@ -778,7 +778,7 @@ To Do List:
 	if ([[theColumn identifier] isEqualToString:@"thumbnail"])
 	{
 		NSImage * I = [[self PDFThumbnails] objectAtIndex:rowIndex];
-		if([I isEqual:[NSImage imageGenericImageDocument]])
+		if([I isEqual:[NSImage iTM2_imageGenericImageDocument]])
 		{
 			[self renderInBackroundThumbnailAtIndex:rowIndex];
 		}
@@ -1503,19 +1503,12 @@ To Do List:
 #define DEFINE_IMAGE(SELECTOR, NAME)\
 + (NSImage *)SELECTOR;\
 {\
-	static NSImage * I = nil;\
-	if(!I)\
-	{\
-		I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:\
-            [[iTM2MetaPostEditor classBundle] pathForImageResource:NAME]];\
-		[I setName:[NSString stringWithFormat:@"iTM2:%@", NAME]];\
-	}\
-    return I;\
+    return [NSImage iTM2_cachedImageNamed:NAME];\
 }
 
 @implementation NSImage(iTM2MetaPost)
-DEFINE_IMAGE(imageLarger, @"iTM2Larger");
-DEFINE_IMAGE(imageSmaller, @"iTM2Smaller");
+DEFINE_IMAGE(iTM2_imageLarger, @"iTM2Larger");
+DEFINE_IMAGE(iTM2_imageSmaller, @"iTM2Smaller");
 @end
 
 #define TABLE @"iTM2MetaPost"

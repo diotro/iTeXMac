@@ -1400,12 +1400,12 @@ To Do List:
 	[macroSet minusSet:keySet];
 	[keySet minusSet:temp];
 	NSString * mode;
-	NSEnumerator * E = [keySet objectEnumerator];
+	NSEnumerator * E = [[keySet allObjects] objectEnumerator];
 	while(mode = [E nextObject])
 	{
 		[[[iTM2MacroDomainNode alloc] initWithParent:macroTree domain:mode] autorelease];
 	}
-	E = [macroSet objectEnumerator];
+	E = [[macroSet allObjects] objectEnumerator];
 	while(mode = [E nextObject])
 	{
 		[[[iTM2MacroDomainNode alloc] initWithParent:keyBindingTree domain:mode] autorelease];
@@ -1492,12 +1492,12 @@ To Do List:
 	[macroSet minusSet:keySet];
 	[keySet minusSet:temp];
 	NSString * category;
-	NSEnumerator * E = [keySet objectEnumerator];
+	NSEnumerator * E = [[keySet allObjects] objectEnumerator];
 	while(category = [E nextObject])
 	{
 		[[[iTM2MacroCategoryNode alloc] initWithParent:macroNode category:category] autorelease];
 	}
-	E = [macroSet objectEnumerator];
+	E = [[macroSet allObjects] objectEnumerator];
 	while(category = [E nextObject])
 	{
 		[[[iTM2MacroCategoryNode alloc] initWithParent:keyNode category:category] autorelease];

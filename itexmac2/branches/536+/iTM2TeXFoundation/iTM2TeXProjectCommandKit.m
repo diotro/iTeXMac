@@ -50,15 +50,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings(small)"];
-	if(I)
+	NSString * name = @"showCurrentProjectSettings(small)";
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+	if(![I iTM2_isNotNullImage])
 	{
-		return I;
+		I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectSettings"] copy];
+		[I iTM2_setSizeSmallIcon];
+		[I setName:name];
 	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectSettings"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectSettings(small)"];
     return I;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
@@ -2852,14 +2851,7 @@ To Do List:
 	if([lastCommandName isEqualToString:commandName])
 	{
 		[sender setState:NSMixedState];
-		NSImage * I = [NSImage imageNamed:@"iTM2:Gear"];
-		if(!I)
-		{
-			NSString * path = [[NSBundle bundleForClass:[iTM2TeXPCommandPerformer class]] pathForImageResource:@"iTM2Gear"];
-			I = [[NSImage alloc] initWithContentsOfFile:path];
-			[I setName:@"iTM2:Gear"];
-			[I setSize:NSMakeSize(16,16)];
-		}
+		NSImage * I = [NSImage iTM2_cachedImageNamed:@"iTM2Gear"];
 		[sender setMixedStateImage:I];
 	}
 	else

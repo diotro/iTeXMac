@@ -79,8 +79,7 @@ To Do List:
 	{
 		NSString * path = [SWS fullPathForApplication:@"Console"];
 		NSImage * I = [SWS iconForFile:path];
-		[I setScalesWhenResized:YES];
-		[I setSize:NSMakeSize(16,16)];
+		[I iTM2_setSizeSmallIcon];
 		[sender setImage:I];//size
 	}
 //iTM2_END;
@@ -434,30 +433,6 @@ NSString * const iTM2ToolbarSubscriptItemIdentifier = @"subscript";
 NSString * const iTM2ToolbarSuperscriptItemIdentifier = @"superscript";
 NSString * const iTM2ToolbarUnlockDocumentItemIdentifier = @"unlockDocument";
 
-#define DEFINE_IMAGE(SELECTOR, IDENTIFIER)\
-+ (NSImage *)SELECTOR;\
-{\
-	static NSImage * I = nil;\
-	if(!I)\
-	{\
-		NSString * component = [IDENTIFIER stringByAppendingString:@"ToolbarImage"];\
-		NSString * path = [[NSPrintInfo_iTeXMac2 classBundle] pathForImageResource:component];\
-		I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path];\
-		component = [NSString stringWithFormat:@"iTM2:%@", IDENTIFIER];\
-		[I setName:component];\
-	}\
-    return I;\
-}
-@implementation NSImage(iTM2MiscKit)
-DEFINE_IMAGE(imageToggleDrawer, @"toggleDrawer");
-DEFINE_IMAGE(imageLockDocument, @"imageLockDocument");
-DEFINE_IMAGE(imageOrderFrontColorPanel, @"imageOrderFrontColorPanel");
-DEFINE_IMAGE(imageOrderFrontFontPanel, @"imageOrderFrontFontPanel");
-DEFINE_IMAGE(imageSubscript, @"imageSubscript");
-DEFINE_IMAGE(imageSuperscript, @"imageSuperscript");
-DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
-@end
-
 @implementation NSToolbarItem(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDrawerToolbarItem:
 + (NSToolbarItem *)toggleDrawerToolbarItem;
@@ -583,21 +558,11 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert([anIdentifier length]);
 	NSParameterAssert(bundle);
-	NSString * imageName = [NSString stringWithFormat:@"iTM2:%@",anIdentifier];
-	NSImage * I = [NSImage imageNamed:imageName];
-	if(!I)
+	NSImage * I = [NSImage iTM2_cachedImageNamed:anIdentifier];
+	if(![I iTM2_isNotNullImage])
 	{
 		NSString * component = [anIdentifier stringByAppendingString:@"ToolbarImage"];
-		NSString * imagePath = [bundle pathForImageResource:component];
-		if([imagePath length])
-		{
-			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath];// No autorelease, this is a wanted leak!
-		}
-		if(!I)
-		{
-			I = [[NSImage imageMissingImage] copy];
-		}
-		[I setName:imageName];
+		I = [NSImage iTM2_cachedImageNamed:component];
 	}
 	NSToolbarItem * toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
 	[toolbarItem setImage:I];
@@ -609,7 +574,7 @@ To Do List:
 		NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
 	if(iTM2DebugEnabled)
 	{
-		iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", imageName, [NSImage imageNamed:imageName]);
+		iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", anIdentifier, [NSImage imageNamed:anIdentifier]);
 	}
 //iTM2_END;
     return toolbarItem;
@@ -650,31 +615,27 @@ To Do List:
 	}
 	
 	toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
-	
-	NSString * imageName = [NSString stringWithFormat:@"iTM2:%@",anIdentifier];
-	NSImage * I = [NSImage imageNamed:imageName];
-	if(!I)
+	NSString * imagePath = [[[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] objectEnumerator] nextObject];
+	NSImage * I = nil;
+	if([imagePath length])
 	{
-		NSString * component = [anIdentifier stringByAppendingString:@"ToolbarImage"];
-		NSArray * paths = [[NSBundle mainBundle] allPathsForImageResource:component];
-		NSString * imagePath = [paths lastObject];
-		if(I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath])
-		{
-			[I setName:imageName];
-			if(iTM2DebugEnabled)
-			{
-				iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", imageName, [NSImage imageNamed:imageName]);
-			}
-			[toolbarItem setImage:I];
-			NSBundle * bundle = [NSBundle bundleForResourceAtPath:imagePath];
-			[toolbarItem setLabel:
-				NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
-			[toolbarItem setPaletteLabel:
-				NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"PaletteLabel"], @"Toolbar", bundle, "")];
-			[toolbarItem setToolTip:
-				NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
-		}
+		I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath] autorelease];
+		NSBundle * bundle = [NSBundle bundleForResourceAtPath:imagePath];
+		[toolbarItem setLabel:
+			NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
+		[toolbarItem setPaletteLabel:
+			NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"PaletteLabel"], @"Toolbar", bundle, "")];
+		[toolbarItem setToolTip:
+			NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
 	}
+	else
+	{
+		iTM2_LOG(@"*** iTM2 Packaging ERROR: missing image named: %@",anIdentifier);
+		I = [[[NSImage iTM2_imageMissingImage] copy] autorelease];
+		[I iTM2_setSizeIcon];
+	}
+	[I setName:anIdentifier];
+	[toolbarItem setImage:I];
 	[toolbarItems setObject:toolbarItem forKey:anIdentifier];
 	return [[toolbarItem copy] autorelease];
 }

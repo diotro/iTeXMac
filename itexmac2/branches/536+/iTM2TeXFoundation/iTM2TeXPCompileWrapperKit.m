@@ -1992,14 +1992,12 @@ To Do List:
 //iTM2_START;
 	if(![sender image])
 	{
-		NSImage * I = [NSImage imageNamed:@"iTM2:compilePerformer"];
-		if(!I)
+		NSImage * I = [NSImage iTM2_cachedImageNamed:@"compilePerformer"];
+		if(![I iTM2_isNotNullImage])
 		{
-			I = [NSImage imageNamed:@"iTM2:typesetCurrentProject"];
-			I = [I copy];
-			[I setName:@"iTM2:compilePerformer"];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
+			I = [[NSImage iTM2_cachedImageNamed:@"typesetCurrentProject"] copy];
+			[I setName:@"compilePerformer"];
+			[I iTM2_setSizeSmallIcon];
 		}
 		[sender setImage:I];//size
 	}

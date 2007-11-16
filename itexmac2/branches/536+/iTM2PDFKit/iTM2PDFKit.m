@@ -1041,7 +1041,7 @@ To Do List:
 	{
 		unsigned index = [[[self pdfView] document] pageCount];
 		while(index--)
-			[[self PDFThumbnails] addObject:[NSImage imageGenericImageDocument]];
+			[[self PDFThumbnails] addObject:[NSImage iTM2_imageGenericImageDocument]];
 	}
 	[_thumbnailTable reloadData];
 //iTM2_END;
@@ -1438,7 +1438,7 @@ To Do List:
 	else if ([[theColumn identifier] isEqualToString:@"thumbnail"])
 	{
 		NSImage * I = [[self PDFThumbnails] objectAtIndex:rowIndex];
-		if([I isEqual:[NSImage imageGenericImageDocument]])
+		if([I isEqual:[NSImage iTM2_imageGenericImageDocument]])
 		{
 			[self renderInBackroundThumbnailAtIndex:rowIndex];
 		}
@@ -2258,13 +2258,13 @@ To Do List:
 	segmentedCell = [_toolbarToolModeView cell];
 	[segmentedCell setTrackingMode:NSSegmentSwitchTrackingSelectOne];
 	[segmentedCell setSegmentCount:4];
-	[segmentedCell setImage:[NSImage imageMoveToolAdorn] forSegment:kiTM2ScrollToolMode];
+	[segmentedCell setImage:[NSImage iTM2_imageMoveToolAdorn] forSegment:kiTM2ScrollToolMode];
 	[segmentedCell setTag:kiTM2ScrollToolMode forSegment:kiTM2ScrollToolMode];
-	[segmentedCell setImage:[NSImage imageTextToolAdorn] forSegment:kiTM2TextToolMode];
+	[segmentedCell setImage:[NSImage iTM2_imageTextToolAdorn] forSegment:kiTM2TextToolMode];
 	[segmentedCell setTag:kiTM2TextToolMode forSegment:kiTM2TextToolMode];
-	[segmentedCell setImage:[NSImage imageSelectToolAdorn] forSegment:kiTM2SelectToolMode];
+	[segmentedCell setImage:[NSImage iTM2_imageSelectToolAdorn] forSegment:kiTM2SelectToolMode];
 	[segmentedCell setTag:kiTM2SelectToolMode forSegment:kiTM2SelectToolMode];
-	[segmentedCell setImage:[NSImage imageAnnotateTool1AdornDisclosure] forSegment:kiTM2AnnotateToolMode];
+	[segmentedCell setImage:[NSImage iTM2_imageAnnotateTool1AdornDisclosure] forSegment:kiTM2AnnotateToolMode];
 	[segmentedCell setTag:kiTM2AnnotateToolMode forSegment:kiTM2AnnotateToolMode];
 	[segmentedCell setAction:NULL];
 	[segmentedCell setTarget:nil];
@@ -2495,7 +2495,7 @@ To Do List:
 		
 		// Set up a reasonable tooltip, and image   Note, these aren't localized, but you will likely want to localize many of the item's properties 
 		[toolbarItem setToolTip:@"Save Your Document"];
-		[toolbarItem setImage:[NSImage imageNamed:@"SaveDocumentItemImage"]];
+		[toolbarItem setImage:[NSImage iTM2_cachedImageNamed:@"SaveDocumentItemImage"]];
 		
 		// Tell the item what message to send when it is clicked 
 		[toolbarItem setTarget:self];
@@ -3193,9 +3193,9 @@ To Do List:
 			[D updatePdfsync:self];
 			return;
 		}
-		NSImage * starDimple = [NSImage imageGreenDimple];
-		NSImage * builtInDimple = [NSImage imageBlueDimple];
-		NSImage * plusDimple = [NSImage imageGreyDimple];
+		NSImage * starDimple = [NSImage iTM2_imageGreenDimple];
+		NSImage * builtInDimple = [NSImage iTM2_imageBlueDimple];
+		NSImage * plusDimple = [NSImage iTM2_imageGreyDimple];
 		unsigned int pageIndex = [[page document] indexForPage:page];
         if([SUD boolForKey:iTM2PDFSyncShowRecordNumberKey])
 		{
@@ -3287,8 +3287,8 @@ To Do List:
 			}
             if((displayBulletsMode & kiTM2PDFSYNCDisplayBuiltInBullets) && [[_SyncDestination page] isEqual:page])
             {
-				NSImage * syncDimple = [NSImage imageRedDimple];
-				NSImage * matchDimple = [NSImage imageOrangeDimple];
+				NSImage * syncDimple = [NSImage iTM2_imageRedDimple];
+				NSImage * matchDimple = [NSImage iTM2_imageOrangeDimple];
 //				[starDimple setScalesWhenResized:YES];
 				NSRect fromRect = NSZeroRect;
 				fromRect.size = [syncDimple size];
@@ -3396,7 +3396,7 @@ To Do List:
 		}
 		NSShadow * theShadow = [[[NSShadow alloc] init] autorelease]; 
 		NSRect fromRect = NSZeroRect;
-		NSImage * syncDimple = [NSImage imageRedDimple];
+		NSImage * syncDimple = [NSImage iTM2_imageRedDimple];
 		fromRect.size = [syncDimple size];
 //				fromRect = [self convertRect:fromRect fromView:nil];
 		NSRect inRect = [self convertRect:fromRect toPage:page];
@@ -9692,41 +9692,34 @@ imageCorrection:
 #define DEFINE_IMAGE(SELECTOR, NAME)\
 + (NSImage *)SELECTOR;\
 {\
-	static NSImage * I = nil;\
-	if(!I)\
-	{\
-		I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:\
-            [[iTM2PDFKitDocument classBundle] pathForImageResource:NAME]];\
-		[I setName:[NSString stringWithFormat:@"iTM2:%@", NAME]];\
-	}\
-    return I;\
+    return [NSImage iTM2_cachedImageNamed:NAME];\
 }
 @implementation NSImage(iTM2PDFKit)
-DEFINE_IMAGE(imageCaution, @"caution");
-DEFINE_IMAGE(imageDebugScrollToolbarImage, @"DebugScrollToolbarImage");
-DEFINE_IMAGE(imageGrabber, @"Grabber");
-DEFINE_IMAGE(imageLandscape, @"Landscape");
-DEFINE_IMAGE(imagePortrait, @"Portrait");
-DEFINE_IMAGE(imageReverseLandscape, @"ReverseLandscape");
-DEFINE_IMAGE(imageTBRotateLeft, @"TBRotateLeft");
-DEFINE_IMAGE(imageTBRotateRight, @"TBRotateRight");
-DEFINE_IMAGE(imageTBSizeToFit, @"TBSizeToFit");
-DEFINE_IMAGE(imageTBSnowflake, @"TBSnowflake");
-DEFINE_IMAGE(imageTBZoomActualSize, @"TBZoomActualSize");
-DEFINE_IMAGE(imageTBZoomIn, @"TBZoomIn");
-DEFINE_IMAGE(imageTBZoomOut, @"TBZoomOut");
-DEFINE_IMAGE(imageThumbnailViewAdorn, @"ThumbnailViewAdorn");
-DEFINE_IMAGE(imageTOCViewAdorn, @"TOCViewAdorn");
-DEFINE_IMAGE(imageBackAdorn, @"BackAdorn");
-DEFINE_IMAGE(imageForwardAdorn, @"ForwardAdorn");
-DEFINE_IMAGE(imageGenericImageDocument, @"Generic");
-DEFINE_IMAGE(imageMoveToolAdorn, @"MoveToolAdorn");
-DEFINE_IMAGE(imageTextToolAdorn, @"TextToolAdorn");
-DEFINE_IMAGE(imageSelectToolAdorn, @"SelectToolAdorn");
-DEFINE_IMAGE(imageAnnotateTool1Adorn, @"AnnotateTool1Adorn");
-DEFINE_IMAGE(imageAnnotateTool1AdornDisclosure, @"AnnotateTool1AdornDisclosure");
-DEFINE_IMAGE(imageAnnotateTool2Adorn, @"AnnotateTool2Adorn");
-DEFINE_IMAGE(imageAnnotateTool2AdornDisclosure, @"AnnotateTool2AdornDisclosure");
+DEFINE_IMAGE(iTM2_imageCaution, @"caution");
+DEFINE_IMAGE(iTM2_imageDebugScrollToolbarImage, @"DebugScrollToolbarImage");
+DEFINE_IMAGE(iTM2_imageGrabber, @"Grabber");
+DEFINE_IMAGE(iTM2_imageLandscape, @"Landscape");
+DEFINE_IMAGE(iTM2_imagePortrait, @"Portrait");
+DEFINE_IMAGE(iTM2_imageReverseLandscape, @"ReverseLandscape");
+DEFINE_IMAGE(iTM2_imageTBRotateLeft, @"TBRotateLeft");
+DEFINE_IMAGE(iTM2_imageTBRotateRight, @"TBRotateRight");
+DEFINE_IMAGE(iTM2_imageTBSizeToFit, @"TBSizeToFit");
+DEFINE_IMAGE(iTM2_imageTBSnowflake, @"TBSnowflake");
+DEFINE_IMAGE(iTM2_imageTBZoomActualSize, @"TBZoomActualSize");
+DEFINE_IMAGE(iTM2_imageTBZoomIn, @"TBZoomIn");
+DEFINE_IMAGE(iTM2_imageTBZoomOut, @"TBZoomOut");
+DEFINE_IMAGE(iTM2_imageThumbnailViewAdorn, @"ThumbnailViewAdorn");
+DEFINE_IMAGE(iTM2_imageTOCViewAdorn, @"TOCViewAdorn");
+DEFINE_IMAGE(iTM2_imageBackAdorn, @"BackAdorn");
+DEFINE_IMAGE(iTM2_imageForwardAdorn, @"ForwardAdorn");
+DEFINE_IMAGE(iTM2_imageGenericImageDocument, @"Generic");
+DEFINE_IMAGE(iTM2_imageMoveToolAdorn, @"MoveToolAdorn");
+DEFINE_IMAGE(iTM2_imageTextToolAdorn, @"TextToolAdorn");
+DEFINE_IMAGE(iTM2_imageSelectToolAdorn, @"SelectToolAdorn");
+DEFINE_IMAGE(iTM2_imageAnnotateTool1Adorn, @"AnnotateTool1Adorn");
+DEFINE_IMAGE(iTM2_imageAnnotateTool1AdornDisclosure, @"AnnotateTool1AdornDisclosure");
+DEFINE_IMAGE(iTM2_imageAnnotateTool2Adorn, @"AnnotateTool2Adorn");
+DEFINE_IMAGE(iTM2_imageAnnotateTool2AdornDisclosure, @"AnnotateTool2AdornDisclosure");
 @end
 
 @implementation iTM2ShadowedImageCell

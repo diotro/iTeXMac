@@ -30,11 +30,11 @@
 
 #import <iTM2Foundation/iTM2TextStorageKit.h>
 
-extern NSString * const iTM2TextAttributesSymbolsExtension;
 extern NSString * const iTM2TextAttributesDraftSymbolsExtension;
 extern NSString * const iTM2Text2ndSymbolColorAttributeName;
 extern NSString * const iTM2TextAttributesCharacterAttributeName;
 extern NSString * const iTM2TeXCommandSyntaxModeName;
+extern NSString * const iTM2TextAttributesRegExComponent;
 
 enum
 {
@@ -130,6 +130,7 @@ typedef enum _iTM2TeXInputMode
 {
 @protected
     id _SymbolsAttributes;
+    id _RegExAttributes;
     id _CachedSymbolsAttributes;
 }
 
@@ -161,15 +162,6 @@ typedef enum _iTM2TeXInputMode
     @result	None.
 */
 - (void)loadSymbolsAttributesAtPath:(NSString *)stylePath;
-
-/*!
-    @method	loadDraftSymbolsAttributesAtPath:
-    @abstract	Load the draft symbols attributes at the given path.
-    @discussion	Reads all the files named path/file.draftSymbols
-    @param	the path is a style path which path extension is iTM2-Style.
-    @result	None.
-*/
-- (void)loadDraftSymbolsAttributesAtPath:(NSString *)stylePath;
 
 /*!
     @method	symbolsAttributesWithContentsOfFile:

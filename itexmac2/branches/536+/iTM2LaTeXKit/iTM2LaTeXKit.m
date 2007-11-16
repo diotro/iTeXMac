@@ -2106,13 +2106,27 @@ To Do List:
 		}
 		macro = replacementString;
 	}
-	else if([macro isEqual:@"{}"])
+	else
 	{
-		macro = [NSString stringWithFormat:@"{@@@(%@)@@@}",selectedString];
-	}
-	else if([macro isEqual:@"[]"])
-	{
-		macro = [NSString stringWithFormat:@"[@@@(%@)@@@]",selectedString];
+		ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^([^\\{\\}]*)\\{\\}([^\\{\\}]*)$"];
+		if([RE matchString:macro])
+		{
+			macro = [NSString stringWithFormat:
+				([self contextBoolForKey:@"iTM2DontUseSmartMacros" domain:iTM2ContextAllDomainsMask]?@"%@{%@}%@":@"%@{@@@(%@)@@@}%@"),
+				[RE substringOfCaptureGroupAtIndex:1],selectedString,[RE substringOfCaptureGroupAtIndex:2]];
+			[RE forget];
+		}
+		else
+		{
+			RE = [ICURegEx regExWithSearchPattern:@"^([^\\[\\]]*)\\[\\]([^\\[\\]]*)$"];
+			if([RE matchString:macro])
+			{
+				macro = [NSString stringWithFormat:
+					([self contextBoolForKey:@"iTM2DontUseSmartMacros" domain:iTM2ContextAllDomainsMask]?@"%@[%@]%@":@"%@[@@@(%@)@@@]%@"),
+					[RE substringOfCaptureGroupAtIndex:1],selectedString,[RE substringOfCaptureGroupAtIndex:2]];
+				[RE forget];
+			}
+		}
 	}
 	macro = (id)[self concreteReplacementStringForMacro:macro selection:selectedString line:line];
 //iTM2_END;

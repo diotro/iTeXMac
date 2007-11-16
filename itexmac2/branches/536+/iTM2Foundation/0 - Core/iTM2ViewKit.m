@@ -25,6 +25,7 @@
 #import <iTM2Foundation/iTM2ResponderKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/iTM2ImageKit.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSView(iTeXMac2)
 /*"Description forthcoming.
@@ -1668,27 +1669,11 @@ To Do List:
 @implementation iTM2SmallToolbarBackgroundView
 - (void)drawRect:(NSRect) aRect;
 {
-	NSImage * image = [NSImage imageNamed:@"iTM2SmallToolbarBackground"];
-	if(!image)
-	{
-		NSBundle * bundle = [NSBundle bundleForClass:[iTM2SmallToolbarBackgroundView class]];
-		NSString * path = [bundle pathForImageResource:@"iTM2SmallToolbarBackground"];
-		if(path)
-		{
-			image = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
-			[image setName:@"iTM2SmallToolbarBackground"];
-		}
-		if(!image)
-		{
-			iTM2_LOG(@"Missing or corrupted image named iTM2SmallToolbarBackground in iTM2Foundation, this is an error");
-			return;
-		}
-	}
+	NSImage * image = [NSImage iTM2_cachedImageNamed:@"iTM2SmallToolbarBackground"];
 	// now draw the background
-	aRect = [self bounds];
 	NSRect fromRect = NSZeroRect;
 	fromRect.size = [image size];	
-	[image drawInRect:aRect fromRect:fromRect operation:NSCompositeCopy fraction:1];
+	[image drawInRect:[self bounds] fromRect:fromRect operation:NSCompositeCopy fraction:1];
 	[super drawRect:aRect];
 	return;
 }

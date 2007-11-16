@@ -123,15 +123,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings(small)"];
-	if(I)
+	NSString * name = @"showCurrentProjectSettings(small)";
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+	if([I iTM2_isNotNullImage])
 	{
 		return I;
 	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectSettings"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectSettings(small)"];
+	I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectSettings"] copy];
+	[I iTM2_setSizeSmallIcon];
+	[I setName:name];
     return I;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
@@ -406,15 +406,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSImage * I = [NSImage imageNamed:@"iTM2:showCurrentProjectFiles(small)"];
-	if(I)
+	NSString * name = @"showCurrentProjectFiles(small)";
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+	if([I iTM2_isNotNullImage])
 	{
 		return I;
 	}
-	I = [[NSImage imageNamed:@"iTM2:showCurrentProjectFiles"] copy];
-	[I setScalesWhenResized:YES];
-	[I setSize:NSMakeSize(16,16)];
-	[I setName:@"iTM2:showCurrentProjectFiles(small)"];
+	I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectFiles"] copy];
+	[I iTM2_setSizeSmallIcon];
+	[I setName:name];
     return I;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType

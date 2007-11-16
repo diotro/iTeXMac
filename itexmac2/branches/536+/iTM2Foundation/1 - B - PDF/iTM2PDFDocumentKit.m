@@ -2725,6 +2725,7 @@ To Do List:
 	else if(action)
 	{
 		toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdent] autorelease];
+#warning ARE OU SURE THAT BUNDLE POINTS TO THE CORRECT LOCATION?
 		[toolbarItem setLabel:
             NSLocalizedStringFromTableInBundle([itemIdent stringByAppendingString:@"Label"], @"Toolbar", myBUNDLE, "")];
 		[toolbarItem setPaletteLabel:
@@ -2732,14 +2733,8 @@ To Do List:
 		[toolbarItem setToolTip:
             NSLocalizedStringFromTableInBundle([itemIdent stringByAppendingString:@"ToolTip"], @"Toolbar", myBUNDLE, "")];
 		NSString * imageName = [itemIdent stringByAppendingString:@"ToolbarImage"];
-		NSString * imagePath = [myBUNDLE pathForImageResource:imageName];
-		NSString * name = [NSString stringWithFormat:@"iTM2:%@",itemIdent]
-		NSImage * I = [NSImage imageNamed:name];
-		if(!I)
-		{
-			I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:itemIdent];
-			[I setName:name];
-		}
+		NSString * imagePath = [myBUNDLE pathForImageResource:itemIdent];
+		NSImage * I = [NSImage iTM2_cachedImageNamed:itemIdent];
 		[toolbarItem setImage:I];
 		[toolbarItem setAction:action];
 		if([self respondsToSelector:action])
@@ -2760,7 +2755,7 @@ To Do List:
 		
 		// Set up a reasonable tooltip, and image   Note, these aren't localized, but you will likely want to localize many of the item's properties 
 		[toolbarItem setToolTip:@"Save Your Document"];
-		[toolbarItem setImage:[NSImage imageNamed:@"SaveDocumentItemImage"]];
+		[toolbarItem setImage:[NSImage iTM2_cachedImageNamed:@"SaveDocumentItemImage"]];
 		
 		// Tell the item what message to send when it is clicked 
 		[toolbarItem setTarget:self];

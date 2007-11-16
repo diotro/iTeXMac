@@ -3126,15 +3126,13 @@ To Do List:
 //iTM2_START;
 	if(![sender image])
 	{
-		NSString * name = @"iTM2:projectShowTerminal(small)";
-		NSImage * I = [NSImage imageNamed:name];
-		if(!I)
+		NSString * name = @"projectShowTerminal(small)";
+		NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+		if(![I iTM2_isNotNullImage])
 		{
-			I = [NSImage imageNamed:@"iTM2:showCurrentProjectTerminal"];// this is defined in the TeX Foundation
-			I = [[I copy] autorelease];
+			I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectTerminal"] copy];
 			[I setName:name];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
+			[I iTM2_setSizeSmallIcon];
 		}
 		[sender setImage:I];//size
 	}
@@ -3206,8 +3204,7 @@ To Do List:
 			NSString * key = [MD objectForKey:S];
 			NSString * path = [PD absoluteFileNameForKey:key];
 			NSImage * I = [SWS iconForFile:path];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
+			[I iTM2_setSizeSmallIcon];
 			[MI setImage:I];
 			[MI setRepresentedObject:
 				[NSDictionary dictionaryWithObjectsAndKeys:

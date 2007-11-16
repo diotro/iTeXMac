@@ -66,35 +66,35 @@
 		DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */; };
 		DC225F8A0AE53F8D00186582 /* OgreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
 		DC24D2B70952C5DB00647943 /* iTeXMac2 Server in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */; };
-		DC35E569091A17D700BF5635 /* bookmarkToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */; };
-		DC35E56A091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */; };
-		DC35E56B091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */; };
-		DC35E56C091A17D700BF5635 /* bookmarkToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */; };
-		DC35E56D091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */; };
-		DC35E56E091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */; };
+		DC35E569091A17D700BF5635 /* bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E566091A17D700BF5635 /* bookmark.png */; };
+		DC35E56A091A17D700BF5635 /* showCurrentProjectFiles.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E567091A17D700BF5635 /* showCurrentProjectFiles.png */; };
+		DC35E56B091A17D700BF5635 /* typesetCurrentProject.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E568091A17D700BF5635 /* typesetCurrentProject.png */; };
+		DC35E56C091A17D700BF5635 /* bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E566091A17D700BF5635 /* bookmark.png */; };
+		DC35E56D091A17D700BF5635 /* showCurrentProjectFiles.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E567091A17D700BF5635 /* showCurrentProjectFiles.png */; };
+		DC35E56E091A17D700BF5635 /* typesetCurrentProject.png in Resources */ = {isa = PBXBuildFile; fileRef = DC35E568091A17D700BF5635 /* typesetCurrentProject.png */; };
 		DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */; };
-		DC4AF2D209118F170057E325 /* showCurrentPLogToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */; };
-		DC4AF2D609118F170057E325 /* showCurrentPLogToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */; };
-		DC4AF31709119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF31609119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif */; };
-		DC4AF31809119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF31609119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif */; };
-		DC4AF396091225C20057E325 /* cautionTypesetToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF394091225C20057E325 /* cautionTypesetToolbarImage.tif */; };
-		DC4AF397091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF395091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif */; };
-		DC4AF398091225C20057E325 /* cautionTypesetToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF394091225C20057E325 /* cautionTypesetToolbarImage.tif */; };
-		DC4AF399091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF395091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif */; };
-		DC4AF3FC0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif */; };
-		DC4AF3FD0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif */; };
+		DC4AF2D209118F170057E325 /* showCurrentPLog.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF2CE09118F170057E325 /* showCurrentPLog.tif */; };
+		DC4AF2D609118F170057E325 /* showCurrentPLog.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF2CE09118F170057E325 /* showCurrentPLog.tif */; };
+		DC4AF31709119C290057E325 /* showCurrentProjectSettings.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF31609119C290057E325 /* showCurrentProjectSettings.tif */; };
+		DC4AF31809119C290057E325 /* showCurrentProjectSettings.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF31609119C290057E325 /* showCurrentProjectSettings.tif */; };
+		DC4AF396091225C20057E325 /* cautionTypeset.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF394091225C20057E325 /* cautionTypeset.tif */; };
+		DC4AF397091225C20057E325 /* stopTypesetCurrentProject.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF395091225C20057E325 /* stopTypesetCurrentProject.tif */; };
+		DC4AF398091225C20057E325 /* cautionTypeset.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF394091225C20057E325 /* cautionTypeset.tif */; };
+		DC4AF399091225C20057E325 /* stopTypesetCurrentProject.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF395091225C20057E325 /* stopTypesetCurrentProject.tif */; };
+		DC4AF3FC0912402B0057E325 /* showCurrentProjectTerminal.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminal.tif */; };
+		DC4AF3FD0912402B0057E325 /* showCurrentProjectTerminal.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminal.tif */; };
 		DC70EFB10BFC56BF006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70EFA80BFC56BF006C6A76 /* Lua.framework */; };
 		DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */; };
 		DC7E91B808903606007D0CB2 /* iTM2TeXStorageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7E91B908903606007D0CB2 /* iTM2TeXStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */; };
 		DC7E91BA08903606007D0CB2 /* iTM2TeXStyleEditionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7E91BB08903606007D0CB2 /* iTM2TeXStyleEditionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */; };
-		DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */; };
-		DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */; };
-		DC8B8E2208EAA58600B4C987 /* Aqua2_Add.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.tif */; };
-		DC8B8E2308EAA58600B4C987 /* Aqua2_Remove_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.tif */; };
-		DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.tif */; };
-		DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.tif */; };
+		DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.png */; };
+		DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.png */; };
+		DC8B8E2208EAA58600B4C987 /* Aqua2_Add.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.png */; };
+		DC8B8E2308EAA58600B4C987 /* Aqua2_Remove_Inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.png */; };
+		DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.png */; };
+		DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.png */; };
 		DC90CF7F09978A1200C79525 /* iTM2ScriptColor.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7909978A1200C79525 /* iTM2ScriptColor.png */; };
 		DC90CF8009978A1200C79525 /* iTM2ScriptDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7A09978A1200C79525 /* iTM2ScriptDocument.png */; };
 		DC90CF8109978A1200C79525 /* iTM2ScriptMath.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7B09978A1200C79525 /* iTM2ScriptMath.png */; };
@@ -301,17 +301,17 @@
 		DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test TeX Application-Prefix.pch"; sourceTree = "<group>"; };
 		DC225F860AE53F8D00186582 /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DC23F5C10B713A51006261D8 /* TEST.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TEST.tex; path = Style/TEST.tex; sourceTree = SOURCE_ROOT; };
-		DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmarkToolbarImage.png; sourceTree = "<group>"; };
-		DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = showCurrentProjectFilesToolbarImage.png; sourceTree = "<group>"; };
-		DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typesetCurrentProjectToolbarImage.png; sourceTree = "<group>"; };
+		DC35E566091A17D700BF5635 /* bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmark.png; sourceTree = "<group>"; };
+		DC35E567091A17D700BF5635 /* showCurrentProjectFiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = showCurrentProjectFiles.png; sourceTree = "<group>"; };
+		DC35E568091A17D700BF5635 /* typesetCurrentProject.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typesetCurrentProject.png; sourceTree = "<group>"; };
 		DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41760A4ADC7300E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTeXMac2Mini.png; sourceTree = "<group>"; };
-		DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentPLogToolbarImage.tif; sourceTree = "<group>"; };
-		DC4AF31609119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentProjectSettingsToolbarImage.tif; sourceTree = "<group>"; };
-		DC4AF394091225C20057E325 /* cautionTypesetToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = cautionTypesetToolbarImage.tif; sourceTree = "<group>"; };
-		DC4AF395091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = stopTypesetCurrentProjectToolbarImage.tif; sourceTree = "<group>"; };
-		DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentProjectTerminalToolbarImage.tif; sourceTree = "<group>"; };
+		DC4AF2CE09118F170057E325 /* showCurrentPLog.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentPLog.tif; sourceTree = "<group>"; };
+		DC4AF31609119C290057E325 /* showCurrentProjectSettings.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentProjectSettings.tif; sourceTree = "<group>"; };
+		DC4AF394091225C20057E325 /* cautionTypeset.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = cautionTypeset.tif; sourceTree = "<group>"; };
+		DC4AF395091225C20057E325 /* stopTypesetCurrentProject.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = stopTypesetCurrentProject.tif; sourceTree = "<group>"; };
+		DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminal.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = showCurrentProjectTerminal.tif; sourceTree = "<group>"; };
 		DC5B69410A4B699F00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
 		DC5B69420A4B699F00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69430A4B699F00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
@@ -327,12 +327,12 @@
 		DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStyleEditionKit.m; sourceTree = "<group>"; };
 		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
-		DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Inactive.tif; sourceTree = "<group>"; };
-		DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Pressed.tif; sourceTree = "<group>"; };
-		DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add.tif; sourceTree = "<group>"; };
-		DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Inactive.tif; sourceTree = "<group>"; };
-		DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Pressed.tif; sourceTree = "<group>"; };
-		DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove.tif; sourceTree = "<group>"; };
+		DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Add_Inactive.png; sourceTree = "<group>"; };
+		DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Add_Pressed.png; sourceTree = "<group>"; };
+		DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Add.png; sourceTree = "<group>"; };
+		DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Remove_Inactive.png; sourceTree = "<group>"; };
+		DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Remove_Pressed.png; sourceTree = "<group>"; };
+		DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Remove.png; sourceTree = "<group>"; };
 		DC90CF7909978A1200C79525 /* iTM2ScriptColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptColor.png; sourceTree = "<group>"; };
 		DC90CF7A09978A1200C79525 /* iTM2ScriptDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptDocument.png; sourceTree = "<group>"; };
 		DC90CF7B09978A1200C79525 /* iTM2ScriptMath.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptMath.png; sourceTree = "<group>"; };
@@ -698,20 +698,20 @@
 				DCC7F45F0854AC9200F3EB8A /* PATHs.plist */,
 				DCD3A6640A38FA0400B5EE0C /* EnvironmentVariables.plist */,
 				DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */,
-				DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */,
-				DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */,
-				DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.tif */,
-				DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.tif */,
-				DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.tif */,
-				DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.tif */,
-				DC4AF394091225C20057E325 /* cautionTypesetToolbarImage.tif */,
-				DC4AF395091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif */,
-				DC4AF31609119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif */,
-				DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif */,
-				DC4AF2CE09118F170057E325 /* showCurrentPLogToolbarImage.tif */,
-				DC35E566091A17D700BF5635 /* bookmarkToolbarImage.png */,
-				DC35E567091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png */,
-				DC35E568091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png */,
+				DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.png */,
+				DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.png */,
+				DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.png */,
+				DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.png */,
+				DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.png */,
+				DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.png */,
+				DC4AF394091225C20057E325 /* cautionTypeset.tif */,
+				DC4AF395091225C20057E325 /* stopTypesetCurrentProject.tif */,
+				DC4AF31609119C290057E325 /* showCurrentProjectSettings.tif */,
+				DC4AF3FB0912402B0057E325 /* showCurrentProjectTerminal.tif */,
+				DC4AF2CE09118F170057E325 /* showCurrentPLog.tif */,
+				DC35E566091A17D700BF5635 /* bookmark.png */,
+				DC35E567091A17D700BF5635 /* showCurrentProjectFiles.png */,
+				DC35E568091A17D700BF5635 /* typesetCurrentProject.png */,
 				DC90CF7909978A1200C79525 /* iTM2ScriptColor.png */,
 				DC90CF7A09978A1200C79525 /* iTM2ScriptDocument.png */,
 				DC90CF7B09978A1200C79525 /* iTM2ScriptMath.png */,
@@ -899,20 +899,20 @@
 				DCC7F4850854AC9200F3EB8A /* CompileFileExtensions.plist in Resources */,
 				DCC7F4BF0854AC9200F3EB8A /* PATHs.plist in Resources */,
 				DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */,
-				DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.tif in Resources */,
-				DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.tif in Resources */,
-				DC8B8E2208EAA58600B4C987 /* Aqua2_Add.tif in Resources */,
-				DC8B8E2308EAA58600B4C987 /* Aqua2_Remove_Inactive.tif in Resources */,
-				DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.tif in Resources */,
-				DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.tif in Resources */,
-				DC4AF2D609118F170057E325 /* showCurrentPLogToolbarImage.tif in Resources */,
-				DC4AF31809119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif in Resources */,
-				DC4AF398091225C20057E325 /* cautionTypesetToolbarImage.tif in Resources */,
-				DC4AF399091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif in Resources */,
-				DC4AF3FD0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif in Resources */,
-				DC35E56C091A17D700BF5635 /* bookmarkToolbarImage.png in Resources */,
-				DC35E56D091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png in Resources */,
-				DC35E56E091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png in Resources */,
+				DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.png in Resources */,
+				DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.png in Resources */,
+				DC8B8E2208EAA58600B4C987 /* Aqua2_Add.png in Resources */,
+				DC8B8E2308EAA58600B4C987 /* Aqua2_Remove_Inactive.png in Resources */,
+				DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.png in Resources */,
+				DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.png in Resources */,
+				DC4AF2D609118F170057E325 /* showCurrentPLog.tif in Resources */,
+				DC4AF31809119C290057E325 /* showCurrentProjectSettings.tif in Resources */,
+				DC4AF398091225C20057E325 /* cautionTypeset.tif in Resources */,
+				DC4AF399091225C20057E325 /* stopTypesetCurrentProject.tif in Resources */,
+				DC4AF3FD0912402B0057E325 /* showCurrentProjectTerminal.tif in Resources */,
+				DC35E56C091A17D700BF5635 /* bookmark.png in Resources */,
+				DC35E56D091A17D700BF5635 /* showCurrentProjectFiles.png in Resources */,
+				DC35E56E091A17D700BF5635 /* typesetCurrentProject.png in Resources */,
 				DC90CF8509978A1200C79525 /* iTM2ScriptColor.png in Resources */,
 				DC90CF8609978A1200C79525 /* iTM2ScriptDocument.png in Resources */,
 				DC90CF8709978A1200C79525 /* iTM2ScriptMath.png in Resources */,
@@ -959,14 +959,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC4AF2D209118F170057E325 /* showCurrentPLogToolbarImage.tif in Resources */,
-				DC4AF31709119C290057E325 /* showCurrentProjectSettingsToolbarImage.tif in Resources */,
-				DC4AF396091225C20057E325 /* cautionTypesetToolbarImage.tif in Resources */,
-				DC4AF397091225C20057E325 /* stopTypesetCurrentProjectToolbarImage.tif in Resources */,
-				DC4AF3FC0912402B0057E325 /* showCurrentProjectTerminalToolbarImage.tif in Resources */,
-				DC35E569091A17D700BF5635 /* bookmarkToolbarImage.png in Resources */,
-				DC35E56A091A17D700BF5635 /* showCurrentProjectFilesToolbarImage.png in Resources */,
-				DC35E56B091A17D700BF5635 /* typesetCurrentProjectToolbarImage.png in Resources */,
+				DC4AF2D209118F170057E325 /* showCurrentPLog.tif in Resources */,
+				DC4AF31709119C290057E325 /* showCurrentProjectSettings.tif in Resources */,
+				DC4AF396091225C20057E325 /* cautionTypeset.tif in Resources */,
+				DC4AF397091225C20057E325 /* stopTypesetCurrentProject.tif in Resources */,
+				DC4AF3FC0912402B0057E325 /* showCurrentProjectTerminal.tif in Resources */,
+				DC35E569091A17D700BF5635 /* bookmark.png in Resources */,
+				DC35E56A091A17D700BF5635 /* showCurrentProjectFiles.png in Resources */,
+				DC35E56B091A17D700BF5635 /* typesetCurrentProject.png in Resources */,
 				DC90CF7F09978A1200C79525 /* iTM2ScriptColor.png in Resources */,
 				DC90CF8009978A1200C79525 /* iTM2ScriptDocument.png in Resources */,
 				DC90CF8109978A1200C79525 /* iTM2ScriptMath.png in Resources */,

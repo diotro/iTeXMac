@@ -252,31 +252,31 @@ typedef struct
 @end
 
 @interface NSImage(iTM2PDFKit)
-+ (NSImage *)imageCaution;
-+ (NSImage *)imageDebugScrollToolbarImage;
-+ (NSImage *)imageGrabber;
-+ (NSImage *)imageLandscape;
-+ (NSImage *)imagePortrait;
-+ (NSImage *)imageReverseLandscape;
-+ (NSImage *)imageTBRotateLeft;
-+ (NSImage *)imageTBRotateRight;
-+ (NSImage *)imageTBSizeToFit;
-+ (NSImage *)imageTBSnowflake;
-+ (NSImage *)imageTBZoomActualSize;
-+ (NSImage *)imageTBZoomIn;
-+ (NSImage *)imageTBZoomOut;
-+ (NSImage *)imageThumbnailViewAdorn;
-+ (NSImage *)imageTOCViewAdorn;
-+ (NSImage *)imageBackAdorn;
-+ (NSImage *)imageForwardAdorn;
-+ (NSImage *)imageGenericImageDocument;
-+ (NSImage *)imageMoveToolAdorn;
-+ (NSImage *)imageTextToolAdorn;
-+ (NSImage *)imageSelectToolAdorn;
-+ (NSImage *)imageAnnotateTool1Adorn;
-+ (NSImage *)imageAnnotateTool1AdornDisclosure;
-+ (NSImage *)imageAnnotateTool2Adorn;
-+ (NSImage *)imageAnnotateTool2AdornDisclosure;
++ (NSImage *)iTM2_imageCaution;
++ (NSImage *)iTM2_imageDebugScrollToolbarImage;
++ (NSImage *)iTM2_imageGrabber;
++ (NSImage *)iTM2_imageLandscape;
++ (NSImage *)iTM2_imagePortrait;
++ (NSImage *)iTM2_imageReverseLandscape;
++ (NSImage *)iTM2_imageTBRotateLeft;
++ (NSImage *)iTM2_imageTBRotateRight;
++ (NSImage *)iTM2_imageTBSizeToFit;
++ (NSImage *)iTM2_imageTBSnowflake;
++ (NSImage *)iTM2_imageTBZoomActualSize;
++ (NSImage *)iTM2_imageTBZoomIn;
++ (NSImage *)iTM2_imageTBZoomOut;
++ (NSImage *)iTM2_imageThumbnailViewAdorn;
++ (NSImage *)iTM2_imageTOCViewAdorn;
++ (NSImage *)iTM2_imageBackAdorn;
++ (NSImage *)iTM2_imageForwardAdorn;
++ (NSImage *)iTM2_imageGenericImageDocument;
++ (NSImage *)iTM2_imageMoveToolAdorn;
++ (NSImage *)iTM2_imageTextToolAdorn;
++ (NSImage *)iTM2_imageSelectToolAdorn;
++ (NSImage *)iTM2_imageAnnotateTool1Adorn;
++ (NSImage *)iTM2_imageAnnotateTool1AdornDisclosure;
++ (NSImage *)iTM2_imageAnnotateTool2Adorn;
++ (NSImage *)iTM2_imageAnnotateTool2AdornDisclosure;
 @end
 
 @interface NSToolbarItem(iTM2PDFKit)

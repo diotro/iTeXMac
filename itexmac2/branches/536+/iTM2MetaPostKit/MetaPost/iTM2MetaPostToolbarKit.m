@@ -269,7 +269,7 @@ To Do List:
 		
 		// Set up a reasonable tooltip, and image   Note, these aren't localized, but you will likely want to localize many of the item's properties 
 		[toolbarItem setToolTip:@"Save Your Document"];
-		[toolbarItem setImage:[NSImage imageNamed:@"SaveDocumentItemImage"]];
+		[toolbarItem setImage:[NSImage iTM2_cachedImageNamed:@"SaveDocumentItemImage"]];
 		
 		// Tell the item what message to send when it is clicked 
 		[toolbarItem setTarget:self];

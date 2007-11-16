@@ -619,7 +619,7 @@ To Do List:
 				if(leafNode)
 				{
 					// is there a dead key around?
-					if([C hasMarkedText])
+					if([C respondsToSelector:@selector(hasMarkedText)]  && [C hasMarkedText])
 					{
 						[C deleteBackward:nil];// this is the only mean I found to properly manage the undo stack
 					}

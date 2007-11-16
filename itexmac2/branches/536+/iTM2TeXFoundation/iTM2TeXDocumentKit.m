@@ -300,7 +300,7 @@ To Do List: include the tetex path...
     else
     {
         NSString * P = [path stringByAppendingPathExtension:@"tex"];
-        if([[NSFileManager defaultManager] isReadableFileAtPath:P])
+        if([DFM isReadableFileAtPath:P])
             [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:P] display:YES error:nil];
         else
         {

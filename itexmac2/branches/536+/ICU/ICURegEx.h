@@ -223,8 +223,37 @@ enum{
 - (NSString *)replacementString;
 
 /*!
+    @method     matchString:
+    @abstract   One shot matcher
+    @discussion This is a convenient method, for one shot match. It sets the input string, test.
+				When you have termionated to work with the receiver, send the receiver a forget message.
+    @param      The input string.
+    @result     yorn
+*/
+- (BOOL)matchString:(NSString *)string;
+
+/*!
+    @method     stringByMatchingString:replacementPattern:
+    @abstract   Returns the replacement string when match
+    @discussion This is a convenient method, for one shot match/replacement. It sets the input string, test, then forget the input string.
+				If there is no match, nil is returned.
+    @param      The input string.
+    @result     yorn
+*/
+- (NSString *)stringByMatchingString:(NSString *)string replacementPattern:(NSString *)replacement;
+
+/*!
+    @method     forget
+    @abstract   Let the reciever forget its input string and repalcement pattern
+    @discussion When your work with a one shot RE is complete, send this message in order to clean its internals.
+    @param      None.
+    @result     None
+*/
+- (void)forget;
+
+/*!
     @method     matchesAtIndex:extendToTheEnd:
-    @abstract   Returns YES if the string matches the receiver's pattern
+    @abstract   Returns YES if the input string matches the receiver's pattern
     @discussion If the match succeeds then more information can be obtained via the <code>rangeOfMatch</code>,
 				<code>numberOfgroups</code>, and <code>rangeOfGroupAtIndex:</code> methods.
 				<p/>

@@ -36,6 +36,7 @@
 #import <iTM2Foundation/iTM2EventKit.h>
 #import <iTM2Foundation/iTM2ViewKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
+#import <iTM2Foundation/iTM2ImageKit.h>
 
 NSString * const iTM2WrapperDocumentType = @"Wrapper Document";
 NSString * const iTM2ProjectDocumentType = @"Project Document";
@@ -940,7 +941,7 @@ iTM2_LOG(@"Problem moving file\nsrc:%@\ndest:%@",src,dest);
 	{
 		// can I catch a file name for that?
 		// I assume that only the files not in the faraway wrapper need to be retrieved
-		E = [oldMissingFileNames objectEnumerator];
+		E = [[oldMissingFileNames allObjects] objectEnumerator];
 		while(key = [E nextObject])
 		{
 			name = [self relativeFileNameForKey:key];
@@ -10110,17 +10111,15 @@ To Do List:
 //iTM2_START;
 	if(![sender image])
 	{
-		NSString * name = @"iTM2:projectShowSettings(small)";
-		NSImage * I = [NSImage imageNamed:name];
-		if(!I)
+		NSString * name = @"projectShowSettings(small)";
+		NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+		if(![I iTM2_isNotNullImage])
 		{
-			I = [NSImage imageNamed:@"iTM2:showCurrentProjectSettings"];// this is defined in the TeX Foundation, fixed in the new scheme, beware when merging
-			I = [[I copy] autorelease];
+			I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectSettings"] copy];// cached!
 			[I setName:name];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
+			[I iTM2_setSizeSmallIcon];
 		}
-		[sender setImage:I];//size
+		[sender setImage:I];
 	}
 //iTM2_END;
     return [SPC currentProject] != nil;

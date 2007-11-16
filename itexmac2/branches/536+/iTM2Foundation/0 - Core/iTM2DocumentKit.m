@@ -3600,16 +3600,13 @@ To Do List:
 	if(![sender image])
 	{
 		NSString * appName = [sender title];
-		NSString * name = [NSString stringWithFormat:@"%@ mini icon",appName];
-		NSImage * I = [NSImage imageNamed:name];
-		if(!I)
+		NSString * name = [NSString stringWithFormat:@"%@(small)",appName];
+		NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+		if(![I iTM2_isNotNullImage])
 		{
-			NSString * fullPath = [SWS fullPathForApplication:appName];
-			I = [SWS iconForFile:fullPath];
-			I = [I copy];
+			I = [[SWS iconForFile:[SWS fullPathForApplication:appName]] copy];// copy!!!
 			[I setName:name];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
+			[I iTM2_setSizeSmallIcon];
 		}
 		[sender setImage:I];
 	}

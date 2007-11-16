@@ -415,9 +415,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = DC6BB7C509474611004B0A81 /* Build configuration list for PBXProject "iTM2ConTeXtKit" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iTM2LaTeXKit */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC5D6C0D09498CF300EBA96C /* Prepare iTM2TeXFoundation */,
 				DCBF515D0951541A0081F8D9 /* ConTeXt Garden */,
