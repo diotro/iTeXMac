@@ -88,12 +88,12 @@
 		DC165B4E08CDAE8F004B14C7 /* iTM2ButtonBack.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */; };
 		DC165B4F08CDAE8F004B14C7 /* iTM2ButtonForward.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */; };
 		DC165B5008CDAE8F004B14C7 /* iTM2ButtonHelp.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */; };
-		DC1B1F5009CA299600A55699 /* lockDocumentToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4A09CA299600A55699 /* lockDocumentToolbarImage.tiff */; };
-		DC1B1F5109CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4B09CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff */; };
-		DC1B1F5209CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4C09CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff */; };
-		DC1B1F5309CA299600A55699 /* subscriptToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */; };
-		DC1B1F5409CA299600A55699 /* superscriptToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */; };
-		DC1B1F5509CA299600A55699 /* unlockDocumentToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */; };
+		DC1B1F5009CA299600A55699 /* lockDocument.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4A09CA299600A55699 /* lockDocument.tiff */; };
+		DC1B1F5109CA299600A55699 /* orderFrontColorPanel.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4B09CA299600A55699 /* orderFrontColorPanel.tiff */; };
+		DC1B1F5209CA299600A55699 /* orderFrontFontPanel.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4C09CA299600A55699 /* orderFrontFontPanel.tiff */; };
+		DC1B1F5309CA299600A55699 /* subscript.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4D09CA299600A55699 /* subscript.tiff */; };
+		DC1B1F5409CA299600A55699 /* superscript.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4E09CA299600A55699 /* superscript.tiff */; };
+		DC1B1F5509CA299600A55699 /* unlockDocument.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC1B1F4F09CA299600A55699 /* unlockDocument.tiff */; };
 		DC1CF8520C01BE7800D757D0 /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
 		DC1CF8F80C01CBA100D757D0 /* iTM2MacroKit_Prefs.h in Headers */ = {isa = PBXBuildFile; fileRef = DC1CF8F60C01CBA100D757D0 /* iTM2MacroKit_Prefs.h */; };
 		DC1CF8F90C01CBA100D757D0 /* iTM2MacroKit_Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1CF8F70C01CBA100D757D0 /* iTM2MacroKit_Prefs.m */; };
@@ -247,7 +247,7 @@
 		DCD7D6DA0A4399DF0096B1A9 /* bbedit lite in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D68E0A4398DD0096B1A9 /* bbedit lite */; };
 		DCD7D6DB0A4399F30096B1A9 /* emacs in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D6910A4398DD0096B1A9 /* emacs */; };
 		DCDA12840908CDF9005E9B57 /* missing_image.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12830908CDF9005E9B57 /* missing_image.tiff */; };
-		DCDA12F30908E57E005E9B57 /* toggleDrawerToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */; };
+		DCDA12F30908E57E005E9B57 /* toggleDrawer.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F20908E57E005E9B57 /* toggleDrawer.tif */; };
 		DCDA12F60908E59B005E9B57 /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F40908E59B005E9B57 /* Toolbar.strings */; };
 		DCDC063F09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC062D09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib */; };
 		DCDC064009E690310038845F /* iTM2TextStyle.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDC062F09E690310038845F /* iTM2TextStyle.strings */; };
@@ -784,12 +784,12 @@
 		DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonBack.tiff; sourceTree = "<group>"; };
 		DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonForward.tiff; sourceTree = "<group>"; };
 		DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonHelp.tiff; sourceTree = "<group>"; };
-		DC1B1F4A09CA299600A55699 /* lockDocumentToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = lockDocumentToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4B09CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = orderFrontColorPanelToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4C09CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = orderFrontFontPanelToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = subscriptToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = superscriptToolbarImage.tiff; sourceTree = "<group>"; };
-		DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = unlockDocumentToolbarImage.tiff; sourceTree = "<group>"; };
+		DC1B1F4A09CA299600A55699 /* lockDocument.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = lockDocument.tiff; sourceTree = "<group>"; };
+		DC1B1F4B09CA299600A55699 /* orderFrontColorPanel.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = orderFrontColorPanel.tiff; sourceTree = "<group>"; };
+		DC1B1F4C09CA299600A55699 /* orderFrontFontPanel.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = orderFrontFontPanel.tiff; sourceTree = "<group>"; };
+		DC1B1F4D09CA299600A55699 /* subscript.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = subscript.tiff; sourceTree = "<group>"; };
+		DC1B1F4E09CA299600A55699 /* superscript.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = superscript.tiff; sourceTree = "<group>"; };
+		DC1B1F4F09CA299600A55699 /* unlockDocument.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = unlockDocument.tiff; sourceTree = "<group>"; };
 		DC1CF8F60C01CBA100D757D0 /* iTM2MacroKit_Prefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Prefs.h; sourceTree = "<group>"; };
 		DC1CF8F70C01CBA100D757D0 /* iTM2MacroKit_Prefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Prefs.m; sourceTree = "<group>"; };
 		DC1E0F360C04E1680042609B /* Aqua2_Add_Child_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Child_Inactive.tif; sourceTree = "<group>"; };
@@ -983,7 +983,7 @@
 		DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BBEdit Lite.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Emacs.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDA12830908CDF9005E9B57 /* missing_image.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = missing_image.tiff; sourceTree = "<group>"; };
-		DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawerToolbarImage.tif; sourceTree = "<group>"; };
+		DCDA12F20908E57E005E9B57 /* toggleDrawer.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawer.tif; sourceTree = "<group>"; };
 		DCDA12F50908E59B005E9B57 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		DCDC062E09E690310038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextNewSyntaxParserVariantController.nib; sourceTree = "<group>"; };
 		DCDC063009E690310038845F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2TextStyle.strings; sourceTree = "<group>"; };
@@ -1797,13 +1797,13 @@
 				DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */,
 				DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */,
 				DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */,
-				DCDA12F20908E57E005E9B57 /* toggleDrawerToolbarImage.tif */,
-				DC1B1F4A09CA299600A55699 /* lockDocumentToolbarImage.tiff */,
-				DC1B1F4B09CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff */,
-				DC1B1F4C09CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff */,
-				DC1B1F4D09CA299600A55699 /* subscriptToolbarImage.tiff */,
-				DC1B1F4E09CA299600A55699 /* superscriptToolbarImage.tiff */,
-				DC1B1F4F09CA299600A55699 /* unlockDocumentToolbarImage.tiff */,
+				DCDA12F20908E57E005E9B57 /* toggleDrawer.tif */,
+				DC1B1F4A09CA299600A55699 /* lockDocument.tiff */,
+				DC1B1F4B09CA299600A55699 /* orderFrontColorPanel.tiff */,
+				DC1B1F4C09CA299600A55699 /* orderFrontFontPanel.tiff */,
+				DC1B1F4D09CA299600A55699 /* subscript.tiff */,
+				DC1B1F4E09CA299600A55699 /* superscript.tiff */,
+				DC1B1F4F09CA299600A55699 /* unlockDocument.tiff */,
 				DC1E48B70B8BB77700B8F0A8 /* Folder-24x24.png */,
 				DC1E48B90B8BC0D100B8F0A8 /* iTM2EditDocument.png */,
 				518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */,
@@ -2344,16 +2344,16 @@
 				DC165B4F08CDAE8F004B14C7 /* iTM2ButtonForward.tiff in Resources */,
 				DC165B5008CDAE8F004B14C7 /* iTM2ButtonHelp.tiff in Resources */,
 				DCDA12840908CDF9005E9B57 /* missing_image.tiff in Resources */,
-				DCDA12F30908E57E005E9B57 /* toggleDrawerToolbarImage.tif in Resources */,
+				DCDA12F30908E57E005E9B57 /* toggleDrawer.tif in Resources */,
 				DCDA12F60908E59B005E9B57 /* Toolbar.strings in Resources */,
 				DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */,
 				DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */,
-				DC1B1F5009CA299600A55699 /* lockDocumentToolbarImage.tiff in Resources */,
-				DC1B1F5109CA299600A55699 /* orderFrontColorPanelToolbarImage.tiff in Resources */,
-				DC1B1F5209CA299600A55699 /* orderFrontFontPanelToolbarImage.tiff in Resources */,
-				DC1B1F5309CA299600A55699 /* subscriptToolbarImage.tiff in Resources */,
-				DC1B1F5409CA299600A55699 /* superscriptToolbarImage.tiff in Resources */,
-				DC1B1F5509CA299600A55699 /* unlockDocumentToolbarImage.tiff in Resources */,
+				DC1B1F5009CA299600A55699 /* lockDocument.tiff in Resources */,
+				DC1B1F5109CA299600A55699 /* orderFrontColorPanel.tiff in Resources */,
+				DC1B1F5209CA299600A55699 /* orderFrontFontPanel.tiff in Resources */,
+				DC1B1F5309CA299600A55699 /* subscript.tiff in Resources */,
+				DC1B1F5409CA299600A55699 /* superscript.tiff in Resources */,
+				DC1B1F5509CA299600A55699 /* unlockDocument.tiff in Resources */,
 				DCCD2E0C09E071760003EEF9 /* Project.strings in Resources */,
 				DCCD2E4109E13E970003EEF9 /* Inspector.strings in Resources */,
 				DCDC063F09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib in Resources */,
