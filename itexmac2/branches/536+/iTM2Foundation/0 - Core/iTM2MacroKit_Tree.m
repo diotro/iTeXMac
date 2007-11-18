@@ -23,6 +23,26 @@
 
 #import "iTM2MacroKit_Tree.h"
 
+@interface iTM2MacroDocument: NSXMLDocument
+@end
+
+@interface iTM2MacroElement: NSXMLElement
+@end
+
+@implementation iTM2MacroDocument
++ (Class)replacementClassForClass:(Class)class;
+{
+	if([class isEqual:[NSXMLElement class]])
+	{
+		return [iTM2MacroElement class];
+	}
+	return [super replacementClassForClass:class];
+}
+@end
+
+@implementation iTM2MacroElement
+@end
+
 @implementation iTM2MacroTreeNode
 - (void)honorURLPromises;
 {
@@ -154,7 +174,7 @@ NSString * const iTM2MacroControllerComponent = @"Macros.localized";
 
 NSString * const iTM2MacroPersonalComponent = @"Personal";
 
-#pragma mark =-=-=-=-=-  CONCRETE CONTEXT NODES
+#pragma mark =-=-=-=-=-  ABSTRACT CONTEXT NODES
 @implementation iTM2MacroAbstractContextNode
 - (id)initWithParent:(iTM2MacroTreeNode *)parent context:(NSString *)context;
 {
@@ -199,7 +219,7 @@ NSString * const iTM2MacroPersonalComponent = @"Personal";
 	{
 		NSError * localError =  nil;
 //			NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodePreserveAll error:&localError] autorelease];// raise for an unknown reason
-		NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeCompactEmptyElement error:&localError] autorelease];
+		NSXMLDocument * document = [[[iTM2MacroDocument alloc] initWithContentsOfURL:url options:NSXMLNodeCompactEmptyElement error:&localError] autorelease];
 //iTM2_LOG(@"document:%@",document);
 		if(localError)
 		{

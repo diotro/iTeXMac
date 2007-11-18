@@ -1497,6 +1497,10 @@ To Do List:
 	iTM2MacroKeyStroke * macroKeyStroke = [self keyStroke];
 	return macroKeyStroke?macroKeyStroke->codeName:nil;
 }
+- (NSString *)smartCodeName;
+{
+	return [self codeName];
+}
 - (BOOL)isShift;
 {
 	NSString * codeName = [self codeName];
@@ -1527,6 +1531,15 @@ To Do List:
 	iTM2MacroKeyStroke * macroKeyStroke = [self keyStroke];
 	return macroKeyStroke?macroKeyStroke->isAlternate:NO;
 }
+- (NSString *)modifiersAndCodeName;
+{
+	NSString * codeName = [self codeName];
+	if(![codeName length])
+	{
+		return nil;
+	}
+	return [NSString stringWithFormat:@"",([self isShift]?"\xE2\x87\xA7":""),([self isAlternate]?"\xE2\x8C\xA5":""),codeName];
+}
 - (void)setCodeName:(NSString *)newCodeName;
 {
 	iTM2MacroKeyStroke * macroKeyStroke = [self keyStroke];
@@ -1542,6 +1555,11 @@ To Do List:
 		[self setValue:macroKeyStroke forKeyPath:@"value.keyStroke"];
 	}
 	[self didChangeKeyStroke];
+}
+- (void)setSmartCodeName:(NSString *)newCodeName;
+{
+	[self setCodeName:newCodeName];
+	return;
 }
 - (void)setIsShift:(BOOL)yorn;
 {
@@ -1745,16 +1763,7 @@ To Do List:
 		{
 			[result appendString:@" "];
 		}
-		NSString * CN;
-		if(([codeName length]==1) && ([codeName characterAtIndex:0]>='a') && ([codeName characterAtIndex:0]<='z'))
-		{
-			CN = [codeName uppercaseString];
-		}
-		else
-		{
-			CN = codeName;
-		}
-		NSString * localized = [KCC localizedNameForCodeName:CN];
+		NSString * localized = [KCC localizedNameForCodeName:codeName];
 		[result appendString:localized];
 		[result replaceOccurrencesOfString:@"  " withString:@" " options:0 range:NSMakeRange(0,[result length])];
 		_description = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -1777,7 +1786,7 @@ To Do List:
 	}
 	NSString * key = nil;
 	NSString * modifier = nil;
-	NSRange R = [self rangeOfString:@"+"];// the first occurrence of the '+' is the separator between modifier and key, unless it is also yhe last character
+	NSRange R = [self rangeOfString:@"+"];// the first occurrence of the '+' is the separator between modifier and key, unless it is also the last character
 	if(R.length)
 	{
 		key = [self substringFromIndex:NSMaxRange(R)];
@@ -1846,6 +1855,7 @@ To Do List:
 	NSString * CIMs = [self charactersIgnoringModifiers];
 	if([Cs length] && [CIMs length])
 	{
+		// for dead keys, Cs et CIMs have 0 length
 		unichar c = [Cs characterAtIndex:0];
 		NSString * name = [KCC nameForKeyCode:c];
 		if([name hasSuffix:@"FunctionKey"])
@@ -1856,43 +1866,19 @@ To Do List:
 			if(modifierFlags&NSCommandKeyMask)		[completeCodeName appendString:@"@"];
 			if([completeCodeName length])			[completeCodeName appendString:@"+"];
 													[completeCodeName appendString:name];
-iTM2_LOG(completeCodeName);
 			return [completeCodeName macroKeyStroke];
 		}
-		if(c<'!' || c>'~')
+		if(c<'!')
 		{
-			id result = [Cs macroKeyStroke];
-			if(result)
-			{
-				return result;
-			}
+			c = [CIMs characterAtIndex:0];
+			name = [KCC nameForKeyCode:c];
 		}
-		CIMs = Cs;
-		modifierFlags &= ~NSShiftKeyMask;
-		modifierFlags &= ~NSAlternateKeyMask;
-		if(modifierFlags&NSShiftKeyMask)
-		{
-			NSString * lowerCIMs = [CIMs lowercaseString];
-			if(![lowerCIMs isEqual:CIMs] || (c>='!' && c<='~'))
-			{
-				modifierFlags &= ~NSShiftKeyMask;
-			}
-			if(modifierFlags&NSShiftKeyMask)		[completeCodeName appendString:@"$"];
-			if(modifierFlags&NSAlternateKeyMask)	[completeCodeName appendString:@"~"];
-			if(modifierFlags&NSControlKeyMask)		[completeCodeName appendString:@"^"];
-			if(modifierFlags&NSCommandKeyMask)		[completeCodeName appendString:@"@"];
-			if(modifierFlags&NSFunctionKeyMask)		[completeCodeName appendString:@"&"];
-			if([completeCodeName length])			[completeCodeName appendString:@"+"];
-													[completeCodeName appendString:name];
-			return [completeCodeName macroKeyStroke];
-		}
-		if(modifierFlags&NSAlternateKeyMask)	[completeCodeName appendString:@"~"];
 		if(modifierFlags&NSControlKeyMask)		[completeCodeName appendString:@"^"];
 		if(modifierFlags&NSCommandKeyMask)		[completeCodeName appendString:@"@"];
+		if(modifierFlags&NSFunctionKeyMask)		[completeCodeName appendString:@"&"];
 		if([completeCodeName length])			[completeCodeName appendString:@"+"];
 												[completeCodeName appendString:name];
 	}
-iTM2_LOG(completeCodeName);
 	return [completeCodeName macroKeyStroke];
 }
 @end

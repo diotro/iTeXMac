@@ -60,6 +60,19 @@ To Do List:
 //iTM2_END;
     return @"3.Macro";
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willSelect
+- (void)willSelect;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[iTM2KeyCodesController sharedController];// needed to have a value transformer registered
+	[super willSelect];
+    return;
+}
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willUnselect
 - (void)willUnselect;

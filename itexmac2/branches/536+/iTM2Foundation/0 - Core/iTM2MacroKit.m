@@ -598,10 +598,6 @@ To Do List:
 		}
 		return result;
 	}
-	if(([value length]==1) && ([value characterAtIndex:0]>='a') && ([value characterAtIndex:0]<='z'))
-	{
-		value = [value uppercaseString];
-	}
 	return [KCC localizedNameForCodeName:value];
 }
 - (id)reverseTransformedValue:(id)value;

@@ -1291,7 +1291,7 @@ To Do List:
 		id keyNode = [[[self class] the7bitsAccentsList] objectInAvailableKeyBindingsWithKey:key];
 		if(keyNode)
 		{
-			if([C hasMarkedText])
+			if([C respondsToSelector:@selector(hasMarkedText)] && [C hasMarkedText])
 			{
 				[C deleteBackward:nil];// this is the only mean I found to properly manage the undo stack for dead keys
 			}

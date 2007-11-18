@@ -592,7 +592,7 @@ To Do List:
 		{
 			id CKB = [self currentKeyBindings];
 			NSString * key = [macroKeyStroke string];
-			if([self client:C executeBindingForKey:key])
+			if([self client:C executeBindingForKey:key])// early entry point for 7bits accents
 			{
 				return YES;
 			}
